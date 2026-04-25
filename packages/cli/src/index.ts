@@ -1,134 +1,164 @@
 #!/usr/bin/env node
 
-import { mkdir, copyFile, access } from "node:fs/promises"
-import { constants } from "node:fs"
-import { dirname, join } from "node:path"
-import { fileURLToPath } from "node:url"
-import { execSync } from "node:child_process"
-import { readFile } from "node:fs/promises"
-import { registryItems } from "@neurex-ui/registry"
+import { mkdir, copyFile, access } from "node:fs/promises";
+import { constants } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
+import { readFile } from "node:fs/promises";
+import { registryItems } from "@neurex-ui/registry";
 
-const [, , command, ...args] = process.argv
+const [, , command, ...args] = process.argv;
 
-const cliFilePath = fileURLToPath(import.meta.url)
-const cliDistDir = dirname(cliFilePath)
-const repoRoot = join(cliDistDir, "..", "..", "..")
-const registryTemplatesRoot = join(repoRoot, "packages", "registry", "templates")
+const cliFilePath = fileURLToPath(import.meta.url);
+const cliDistDir = dirname(cliFilePath);
+const repoRoot = join(cliDistDir, "..", "..", "..");
+const registryTemplatesRoot = join(
+  repoRoot,
+  "packages",
+  "registry",
+  "templates",
+);
 
 const fileExists = async (path: string): Promise<boolean> => {
   try {
-    await access(path, constants.F_OK)
-    return true
+    await access(path, constants.F_OK);
+    return true;
   } catch {
-    return false
+    return false;
   }
-}
+};
 
 const findItem = (name: string) => {
-  const normalizedName = name.toLowerCase()
+  const normalizedName = name.toLowerCase();
 
   return registryItems.find(
     (item) =>
       item.name.toLowerCase() === normalizedName ||
       item.canonicalName.toLowerCase() === normalizedName ||
-      item.aliases.some((alias) => alias.toLowerCase() === normalizedName)
-  )
-}
+      item.aliases.some((alias) => alias.toLowerCase() === normalizedName),
+  );
+};
 
 const installDependencies = async (deps: string[]) => {
-  if (!deps.length) return
+  if (!deps.length) return;
 
-  let packageJson: any = {}
+  let packageJson: any = {};
 
   try {
-    const content = await readFile("package.json", "utf-8")
-    packageJson = JSON.parse(content)
+    const content = await readFile("package.json", "utf-8");
+    packageJson = JSON.parse(content);
   } catch {
-    console.log("No package.json found, skipping dependency install.")
-    return
+    console.log("No package.json found, skipping dependency install.");
+    return;
   }
 
   const existingDeps = {
     ...packageJson.dependencies,
     ...packageJson.devDependencies,
-  }
+  };
 
-  const missing = deps.filter((dep) => !existingDeps?.[dep])
+  const missing = deps.filter((dep) => !existingDeps?.[dep]);
 
   if (!missing.length) {
-    console.log("All dependencies already installed.\n")
-    return
+    console.log("All dependencies already installed.\n");
+    return;
   }
 
-  console.log("Installing dependencies:")
-  missing.forEach((d) => console.log(`- ${d}`))
-  console.log("")
+  console.log("Installing dependencies:");
+  missing.forEach((d) => console.log(`- ${d}`));
+  console.log("");
 
   execSync(`pnpm add ${missing.join(" ")}`, {
     stdio: "inherit",
-  })
-}
+  });
+};
 
-const installItemFiles = async (itemName: string): Promise<void> => {
-  const item = findItem(itemName)
+const sharedTemplatesRoot = join(registryTemplatesRoot, "shared");
 
-  if (!item) {
-    console.log(`Component "${itemName}" not found.`)
-    process.exit(1)
-  }
-
-  console.log(`Installing ${item.canonicalName}...\n`)
-
-  await installDependencies(item.dependencies)
-
-  for (const file of item.files) {
-    const sourcePath = join(registryTemplatesRoot, file)
-    const fileName = file.split("/").at(-1)
-
-    if (!fileName) {
-      console.log(`Invalid registry file path: ${file}`)
-      process.exit(1)
+const installUtilities = async (utilities: string[]): Promise<void> => {
+  for (const utility of utilities) {
+    if (utility !== "cn") {
+      console.log(`Unknown utility "${utility}", skipping.`);
+      continue;
     }
 
-    const targetPath = join(process.cwd(), item.target, fileName)
+    const sourcePath = join(sharedTemplatesRoot, "utils", "cn.ts");
+    const targetPath = join(process.cwd(), "lib", "neurex", "cn.ts");
 
-    await mkdir(dirname(targetPath), { recursive: true })
+    await mkdir(dirname(targetPath), { recursive: true });
 
     if (await fileExists(targetPath)) {
-      console.log(`Skipped existing file: ${targetPath}`)
-      continue
+      console.log(`Skipped existing utility: ${targetPath}`);
+      continue;
     }
 
-    await copyFile(sourcePath, targetPath)
-    console.log(`Created: ${targetPath}`)
+    await copyFile(sourcePath, targetPath);
+    console.log(`Created utility: ${targetPath}`);
+  }
+};
+
+const installItemFiles = async (itemName: string): Promise<void> => {
+  const item = findItem(itemName);
+
+  if (!item) {
+    console.log(`Component "${itemName}" not found.`);
+    process.exit(1);
   }
 
-  console.log("\nDone.")
-}
+  console.log(`Installing ${item.canonicalName}...\n`);
+
+  await installDependencies(item.dependencies);
+  await installUtilities(item.utilities)
+
+  for (const file of item.files) {
+    const sourcePath = join(registryTemplatesRoot, file);
+    const fileName = file.split("/").at(-1);
+
+    if (!fileName) {
+      console.log(`Invalid registry file path: ${file}`);
+      process.exit(1);
+    }
+
+    const targetPath = join(process.cwd(), item.target, fileName);
+
+    await mkdir(dirname(targetPath), { recursive: true });
+
+    if (await fileExists(targetPath)) {
+      console.log(`Skipped existing file: ${targetPath}`);
+      continue;
+    }
+
+    await copyFile(sourcePath, targetPath);
+    console.log(`Created: ${targetPath}`);
+  }
+
+  console.log("\nDone.");
+};
 
 if (command === "list") {
-  console.log("Available Neurex UI components:\n")
+  console.log("Available Neurex UI components:\n");
 
   for (const item of registryItems) {
-    console.log(`- ${item.canonicalName} (${item.category})`)
+    console.log(`- ${item.canonicalName} (${item.category})`);
   }
 
-  process.exit(0)
+  process.exit(0);
 }
 
 if (command === "add") {
-  const name = args[0]
+  const name = args[0];
 
   if (!name) {
-    console.log("Please specify a component name.")
-    process.exit(1)
+    console.log("Please specify a component name.");
+    process.exit(1);
   }
 
-  await installItemFiles(name)
-  process.exit(0)
+  await installItemFiles(name);
+  process.exit(0);
 }
 
-console.log("Neurex UI CLI\n")
-console.log("Available commands:")
-console.log("- list")
-console.log("- add <component>")
+console.log("Neurex UI CLI\n");
+console.log("Available commands:");
+console.log("- list");
+console.log("- add <component>");
