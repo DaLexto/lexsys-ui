@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
-import { mkdir, copyFile, access } from "node:fs/promises";
+import { mkdir, copyFile, access, readFile, writeFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
-import { readFile } from "node:fs/promises";
 import { registryItems } from "@neurex-ui/registry";
 
 const [, , command, ...args] = process.argv;
@@ -189,12 +188,49 @@ const runDoctor = async (): Promise<void> => {
   }
 };
 
+const writeFileIfMissing = async (
+  path: string,
+  content: string,
+): Promise<void> => {
+  if (await fileExists(path)) {
+    console.log(`Skipped existing file: ${path}`);
+    return;
+  }
+
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, content, "utf-8");
+  console.log(`Created: ${path}`);
+};
+
 const printAvailableItems = (): void => {
   console.log("Available Neurex UI components:\n");
 
   for (const item of registryItems) {
     console.log(`- ${item.canonicalName} (${item.category})`);
   }
+};
+
+const runInit = async (): Promise<void> => {
+  console.log("Initializing Neurex UI...\n");
+
+  await mkdir(join(process.cwd(), "components", "ui"), { recursive: true });
+  await mkdir(join(process.cwd(), "lib", "neurex"), { recursive: true });
+  await mkdir(join(process.cwd(), "styles", "neurex"), { recursive: true });
+
+  await writeFileIfMissing(
+    join(process.cwd(), "neurex.config.json"),
+    JSON.stringify(
+      {
+        componentsPath: "components/ui",
+        utilitiesPath: "lib/neurex",
+        stylesPath: "styles/neurex",
+      },
+      null,
+      2,
+    ) + "\n",
+  );
+
+  console.log("\nDone.");
 };
 
 if (command === "list") {
@@ -204,6 +240,11 @@ if (command === "list") {
 
 if (command === "doctor") {
   await runDoctor();
+  process.exit(0);
+}
+
+if (command === "init") {
+  await runInit();
   process.exit(0);
 }
 
@@ -227,3 +268,4 @@ console.log("Available commands:");
 console.log("- list");
 console.log("- add <component>");
 console.log("- doctor");
+console.log("- init");
