@@ -172,14 +172,16 @@ if (command === "list") {
 }
 
 if (command === "add") {
-  const name = args[0];
-
-  if (!name) {
-    console.log("Please specify a component name.");
+  if (!args.length) {
+    console.log("Please specify at least one component name.");
     process.exit(1);
   }
 
-  await installItemFiles(name);
+  for (const name of args) {
+    await installItemFiles(name);
+    console.log("");
+  }
+
   process.exit(0);
 }
 
