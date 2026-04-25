@@ -28,7 +28,8 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@neurex-ui/tokens": "workspace:*"
+    "@neurex-ui/tokens": "workspace:*",
+    "class-variance-authority": "^0.7.1"
   },
   "devDependencies": {
     "@types/react": "latest",

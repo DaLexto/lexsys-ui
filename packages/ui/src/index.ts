@@ -5,4 +5,4 @@
  * for Neurex UI components.
  */
 
-export {}
+export * from "./components/Button/Button"

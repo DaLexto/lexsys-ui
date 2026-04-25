@@ -30,6 +30,9 @@ importers:
       '@neurex-ui/tokens':
         specifier: workspace:*
         version: link:../tokens
+      class-variance-authority:
+        specifier: ^0.7.1
+        version: 0.7.1
       react:
         specifier: '>=18'
         version: 19.2.5
@@ -84,6 +87,13 @@ packages:
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
 
+  class-variance-authority@0.7.1:
+    resolution: {integrity: sha512-Ka+9Trutv7G8M6WT6SeiRWz792K5qEqIGEGzXKhAE6xOWAY6pPH8U+9IY3oCMv6kqTmLsv7Xh/2w2RigkePMsg==}
+
+  clsx@2.1.1:
+    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
+    engines: {node: '>=6'}
+
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
@@ -135,6 +145,12 @@ snapshots:
   '@types/react@19.2.14':
     dependencies:
       csstype: 3.2.3
+
+  class-variance-authority@0.7.1:
+    dependencies:
+      clsx: 2.1.1
+
+  clsx@2.1.1: {}
 
   csstype@3.2.3: {}
 
