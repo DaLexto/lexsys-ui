@@ -5,7 +5,7 @@ import { constants } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
-import { registryItems } from "@neurex-ui/registry";
+import { registryItems, RegistryItem } from "@neurex-ui/registry";
 import prompts from "prompts";
 
 interface NeurexConfig {
@@ -137,16 +137,41 @@ const ensureProjectStructure = async (config: NeurexConfig): Promise<void> => {
   await mkdir(join(process.cwd(), config.stylesPath), { recursive: true });
 };
 
-const installItemFiles = async (itemName: string): Promise<void> => {
-  const item = findItem(itemName);
+const resolveRegistryItems = (names: string[]): RegistryItem[] => {
+  const resolved = new Map<string, RegistryItem>();
 
-  if (!item) {
-    console.log(`Component "${itemName}" not found.`);
-    process.exit(1);
+  const visit = (name: string): void => {
+    const item = findItem(name);
+
+    if (!item) {
+      console.log(`Component "${name}" not found.`);
+      process.exit(1);
+    }
+
+    const key = item.canonicalName.toLowerCase();
+
+    if (resolved.has(key)) {
+      return;
+    }
+
+    resolved.set(key, item);
+
+    for (const dependency of item.registryDependencies) {
+      visit(dependency);
+    }
+  };
+
+  for (const name of names) {
+    visit(name);
   }
-  const config = await loadConfig();
 
+  return Array.from(resolved.values());
+};
+
+const installItemFiles = async (item: RegistryItem): Promise<void> => {
   console.log(`Installing ${item.canonicalName}...\n`);
+
+  const config = await loadConfig();
 
   await ensureProjectStructure(config);
   await installDependencies(item.dependencies);
@@ -319,8 +344,10 @@ if (command === "add") {
     }
   }
 
-  for (const name of items) {
-    await installItemFiles(name);
+  const resolvedItems = resolveRegistryItems(items);
+
+  for (const item of resolvedItems) {
+    await installItemFiles(item);
     console.log("");
   }
 
