@@ -1,0 +1,110 @@
+# Neurex UI Style Rules
+
+## Purpose
+
+This file defines coding style rules for the `neurex-ui` repository.
+
+Use this together with:
+
+- `docs/ARCHITECTURE.md`
+- `docs/STYLEGUIDE.md`
+
+If there is a conflict, architecture wins over style convenience.
+
+---
+
+## Core Principles
+
+- Prefer small, reviewable diffs.
+- Preserve package boundaries.
+- Write code that supports registry-first distribution.
+- Prefer explicit behavior over hidden magic.
+- Favor idempotent workflows over shortcut logic.
+
+---
+
+## TypeScript
+
+- Use ESM imports/exports only.
+- Prefer `type` imports for type-only symbols.
+- Avoid `any`.
+- Narrow unknown data before using it.
+- Let errors propagate unless there is explicit recovery logic.
+- Prefer small helpers over deeply nested inline logic.
+
+---
+
+## React Components
+
+- Keep reference components in `packages/ui/src/components`.
+- Use the standard component file split:
+
+```txt
+ComponentName.tsx
+ComponentName.types.ts
+ComponentName.variants.ts
+```
+
+- Support variants and `className` overrides.
+- Keep component APIs simple by default.
+- Preserve accessibility behavior when adding interactivity.
+- Treat Base UI as an internal implementation detail.
+
+---
+
+## Registry and CLI
+
+- Registry metadata is the source of truth for install behavior.
+- Do not hardcode component-specific install branches in the CLI.
+- CLI output must be safe and idempotent.
+- Never overwrite user files silently.
+- Report clear created/skipped/conflict states.
+- Shared resources belong in the shared layer, not inside each component.
+
+---
+
+## Naming
+
+- Use PascalCase for component folders and component files.
+- Use `camelCase` for variables and function names.
+- Use clear, domain-specific names over abbreviations.
+- Keep canonical component naming aligned across `ui`, `registry`, and templates.
+
+---
+
+## Comments
+
+- Add comments only when they explain intent or constraints.
+- Do not narrate obvious code.
+- Prefer comments for architecture rules, install safety, or non-obvious behavior.
+
+---
+
+## Imports and Exports
+
+- Keep public APIs explicit through package `exports`.
+- Do not rely on deep imports into another package's `src` or `dist`.
+- Keep entrypoints small and intentional.
+
+---
+
+## Styling
+
+- Tailwind is the user-facing styling layer.
+- Use variants for consistent visual choices.
+- Use shared utilities for class composition.
+- Do not duplicate shared styling helpers across components.
+- Token-driven styling should remain compatible with generated CSS variables.
+
+---
+
+## Testing and Verification
+
+After meaningful changes, run what exists when possible:
+
+- `pnpm build`
+- `pnpm typecheck`
+- `pnpm lint`
+- `pnpm test`
+
+If a script is only a placeholder, say so explicitly in review notes or handoff.

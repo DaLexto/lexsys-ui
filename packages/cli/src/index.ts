@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import { mkdir, copyFile, access, readFile, writeFile } from "node:fs/promises";
+import { access, copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { constants } from "node:fs";
+import { execSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { execSync } from "node:child_process";
-import { registryItems, RegistryItem } from "@neurex-ui/registry";
+import { registryItems } from "@neurex-ui/registry";
+import type { RegistryItem } from "@neurex-ui/registry";
 import prompts from "prompts";
 
 interface NeurexConfig {
@@ -25,12 +26,15 @@ const [, , command, ...args] = process.argv;
 const cliFilePath = fileURLToPath(import.meta.url);
 const cliDistDir = dirname(cliFilePath);
 const repoRoot = join(cliDistDir, "..", "..", "..");
+
 const registryTemplatesRoot = join(
   repoRoot,
   "packages",
   "registry",
   "templates",
 );
+
+const sharedTemplatesRoot = join(registryTemplatesRoot, "shared");
 
 const fileExists = async (path: string): Promise<boolean> => {
   try {
@@ -51,7 +55,23 @@ const filesAreEqual = async (
   return sourceContent === targetContent;
 };
 
-const findItem = (name: string) => {
+const loadConfig = async (): Promise<NeurexConfig> => {
+  const configPath = join(process.cwd(), "neurex.config.json");
+
+  if (!(await fileExists(configPath))) {
+    return defaultConfig;
+  }
+
+  const content = await readFile(configPath, "utf-8");
+  const parsed = JSON.parse(content) as Partial<NeurexConfig>;
+
+  return {
+    ...defaultConfig,
+    ...parsed,
+  };
+};
+
+const findItem = (name: string): RegistryItem | undefined => {
   const normalizedName = name.toLowerCase();
 
   return registryItems.find(
@@ -62,25 +82,37 @@ const findItem = (name: string) => {
   );
 };
 
-const installDependencies = async (deps: string[]) => {
+const installDependencies = async (deps: string[]): Promise<void> => {
   if (!deps.length) return;
 
-  let packageJson: any = {};
+  let packageJson: Record<string, unknown> = {};
 
   try {
     const content = await readFile("package.json", "utf-8");
-    packageJson = JSON.parse(content);
+    packageJson = JSON.parse(content) as Record<string, unknown>;
   } catch {
     console.log("No package.json found, skipping dependency install.");
     return;
   }
 
+  const dependencies =
+    typeof packageJson.dependencies === "object" &&
+    packageJson.dependencies !== null
+      ? (packageJson.dependencies as Record<string, string>)
+      : {};
+
+  const devDependencies =
+    typeof packageJson.devDependencies === "object" &&
+    packageJson.devDependencies !== null
+      ? (packageJson.devDependencies as Record<string, string>)
+      : {};
+
   const existingDeps = {
-    ...packageJson.dependencies,
-    ...packageJson.devDependencies,
+    ...dependencies,
+    ...devDependencies,
   };
 
-  const missing = deps.filter((dep) => !existingDeps?.[dep]);
+  const missing = deps.filter((dep) => !existingDeps[dep]);
 
   if (!missing.length) {
     console.log("All dependencies already installed.\n");
@@ -88,15 +120,13 @@ const installDependencies = async (deps: string[]) => {
   }
 
   console.log("Installing dependencies:");
-  missing.forEach((d) => console.log(`- ${d}`));
+  missing.forEach((dependency) => console.log(`- ${dependency}`));
   console.log("");
 
   execSync(`pnpm add ${missing.join(" ")}`, {
     stdio: "inherit",
   });
 };
-
-const sharedTemplatesRoot = join(registryTemplatesRoot, "shared");
 
 const installUtilities = async (
   utilities: string[],
@@ -126,6 +156,7 @@ const installUtilities = async (
       );
       continue;
     }
+
     await copyFile(sourcePath, targetPath);
     console.log(`Created utility: ${targetPath}`);
   }
@@ -172,13 +203,15 @@ const collectDependencies = (items: RegistryItem[]): string[] => {
   return Array.from(new Set(items.flatMap((item) => item.dependencies)));
 };
 
-const installItemFiles = async (item: RegistryItem): Promise<void> => {
+const collectUtilities = (items: RegistryItem[]): string[] => {
+  return Array.from(new Set(items.flatMap((item) => item.utilities)));
+};
+
+const installItemFiles = async (
+  item: RegistryItem,
+  config: NeurexConfig,
+): Promise<void> => {
   console.log(`Installing ${item.canonicalName}...\n`);
-
-  const config = await loadConfig();
-
-  await ensureProjectStructure(config);
-  await installUtilities(item.utilities, config);
 
   for (const file of item.files) {
     const sourcePath = join(registryTemplatesRoot, file);
@@ -290,22 +323,6 @@ const runInit = async (): Promise<void> => {
   console.log("\nDone.");
 };
 
-const loadConfig = async (): Promise<NeurexConfig> => {
-  const configPath = join(process.cwd(), "neurex.config.json");
-
-  if (!(await fileExists(configPath))) {
-    return defaultConfig;
-  }
-
-  const content = await readFile(configPath, "utf-8");
-  const parsed = JSON.parse(content) as Partial<NeurexConfig>;
-
-  return {
-    ...defaultConfig,
-    ...parsed,
-  };
-};
-
 const promptSelectItems = async (): Promise<string[]> => {
   const response = await prompts({
     type: "multiselect",
@@ -349,11 +366,15 @@ if (command === "add") {
 
   const resolvedItems = resolveRegistryItems(items);
   const dependencies = collectDependencies(resolvedItems);
-  
+  const utilities = collectUtilities(resolvedItems);
+  const config = await loadConfig();
+
+  await ensureProjectStructure(config);
   await installDependencies(dependencies);
+  await installUtilities(utilities, config);
 
   for (const item of resolvedItems) {
-    await installItemFiles(item);
+    await installItemFiles(item, config);
     console.log("");
   }
 
