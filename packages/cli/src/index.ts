@@ -7,6 +7,18 @@ import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
 import { registryItems } from "@neurex-ui/registry";
 
+interface NeurexConfig {
+  componentsPath: string;
+  utilitiesPath: string;
+  stylesPath: string;
+}
+
+const defaultConfig: NeurexConfig = {
+  componentsPath: "components/ui",
+  utilitiesPath: "lib/neurex",
+  stylesPath: "styles/neurex",
+};
+
 const [, , command, ...args] = process.argv;
 
 const cliFilePath = fileURLToPath(import.meta.url);
@@ -85,7 +97,7 @@ const installDependencies = async (deps: string[]) => {
 
 const sharedTemplatesRoot = join(registryTemplatesRoot, "shared");
 
-const installUtilities = async (utilities: string[]): Promise<void> => {
+const installUtilities = async (utilities: string[], config: NeurexConfig,): Promise<void> => {
   for (const utility of utilities) {
     if (utility !== "cn") {
       console.log(`Unknown utility "${utility}", skipping.`);
@@ -93,7 +105,7 @@ const installUtilities = async (utilities: string[]): Promise<void> => {
     }
 
     const sourcePath = join(sharedTemplatesRoot, "utils", "cn.ts");
-    const targetPath = join(process.cwd(), "lib", "neurex", "cn.ts");
+    const targetPath = join(process.cwd(), config.utilitiesPath, "cn.ts");
 
     await mkdir(dirname(targetPath), { recursive: true });
 
@@ -115,10 +127,10 @@ const installUtilities = async (utilities: string[]): Promise<void> => {
   }
 };
 
-const ensureProjectStructure = async (): Promise<void> => {
-  await mkdir(join(process.cwd(), "components", "ui"), { recursive: true });
-  await mkdir(join(process.cwd(), "lib", "neurex"), { recursive: true });
-  await mkdir(join(process.cwd(), "styles", "neurex"), { recursive: true });
+const ensureProjectStructure = async (config: NeurexConfig): Promise<void> => {
+  await mkdir(join(process.cwd(), config.componentsPath), { recursive: true });
+  await mkdir(join(process.cwd(), config.utilitiesPath), { recursive: true });
+  await mkdir(join(process.cwd(), config.stylesPath), { recursive: true });
 };
 
 const installItemFiles = async (itemName: string): Promise<void> => {
@@ -128,12 +140,13 @@ const installItemFiles = async (itemName: string): Promise<void> => {
     console.log(`Component "${itemName}" not found.`);
     process.exit(1);
   }
+  const config = await loadConfig();
 
   console.log(`Installing ${item.canonicalName}...\n`);
 
-  await ensureProjectStructure();
+  await ensureProjectStructure(config);
   await installDependencies(item.dependencies);
-  await installUtilities(item.utilities);
+  await installUtilities(item.utilities, config);
 
   for (const file of item.files) {
     const sourcePath = join(registryTemplatesRoot, file);
@@ -144,7 +157,7 @@ const installItemFiles = async (itemName: string): Promise<void> => {
       process.exit(1);
     }
 
-    const targetPath = join(process.cwd(), item.target, fileName);
+    const targetPath = join(process.cwd(), config.componentsPath, item.canonicalName, fileName);
 
     await mkdir(dirname(targetPath), { recursive: true });
 
@@ -240,6 +253,22 @@ const runInit = async (): Promise<void> => {
   console.log("\nDone.");
 };
 
+const loadConfig = async (): Promise<NeurexConfig> => {
+  const configPath = join(process.cwd(), "neurex.config.json");
+
+  if (!(await fileExists(configPath))) {
+    return defaultConfig;
+  }
+
+  const content = await readFile(configPath, "utf-8");
+  const parsed = JSON.parse(content) as Partial<NeurexConfig>;
+
+  return {
+    ...defaultConfig,
+    ...parsed,
+  };
+};
+
 if (command === "list") {
   printAvailableItems();
   process.exit(0);
@@ -257,10 +286,10 @@ if (command === "init") {
 
 if (command === "add") {
   if (!args.length) {
-  console.log("No component specified.\n");
-  printAvailableItems();
-  process.exit(0);
-}
+    console.log("No component specified.\n");
+    printAvailableItems();
+    process.exit(0);
+  }
 
   for (const name of args) {
     await installItemFiles(name);
