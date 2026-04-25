@@ -168,13 +168,16 @@ const resolveRegistryItems = (names: string[]): RegistryItem[] => {
   return Array.from(resolved.values());
 };
 
+const collectDependencies = (items: RegistryItem[]): string[] => {
+  return Array.from(new Set(items.flatMap((item) => item.dependencies)));
+};
+
 const installItemFiles = async (item: RegistryItem): Promise<void> => {
   console.log(`Installing ${item.canonicalName}...\n`);
 
   const config = await loadConfig();
 
   await ensureProjectStructure(config);
-  await installDependencies(item.dependencies);
   await installUtilities(item.utilities, config);
 
   for (const file of item.files) {
@@ -345,6 +348,9 @@ if (command === "add") {
   }
 
   const resolvedItems = resolveRegistryItems(items);
+  const dependencies = collectDependencies(resolvedItems);
+  
+  await installDependencies(dependencies);
 
   for (const item of resolvedItems) {
     await installItemFiles(item);
