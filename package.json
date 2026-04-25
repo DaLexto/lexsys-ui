@@ -1,6 +1,6 @@
 {
   "name": "neurex-ui",
-  "private":"true",
+  "private": "true",
   "version": "0.0.0",
   "description": "A registry-first React UI framework that generates copyable components directly into your project, powered by Base UI, Tailwind CSS, and a full design token system.",
   "type": "module",
@@ -12,6 +12,7 @@
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
+    "@types/node": "^25.6.0",
     "turbo": "latest",
     "typescript": "latest"
   },

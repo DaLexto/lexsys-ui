@@ -11,3 +11,7 @@ export type {
 } from "./registry.types"
 
 export { buttonRegistryItem } from "./items/button"
+
+import { buttonRegistryItem } from "./items/button"
+
+export const registryItems = [buttonRegistryItem]
