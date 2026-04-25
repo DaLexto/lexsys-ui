@@ -6,6 +6,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
 import { registryItems } from "@neurex-ui/registry";
+import prompts from "prompts";
 
 interface NeurexConfig {
   componentsPath: string;
@@ -97,7 +98,10 @@ const installDependencies = async (deps: string[]) => {
 
 const sharedTemplatesRoot = join(registryTemplatesRoot, "shared");
 
-const installUtilities = async (utilities: string[], config: NeurexConfig,): Promise<void> => {
+const installUtilities = async (
+  utilities: string[],
+  config: NeurexConfig,
+): Promise<void> => {
   for (const utility of utilities) {
     if (utility !== "cn") {
       console.log(`Unknown utility "${utility}", skipping.`);
@@ -157,7 +161,12 @@ const installItemFiles = async (itemName: string): Promise<void> => {
       process.exit(1);
     }
 
-    const targetPath = join(process.cwd(), config.componentsPath, item.canonicalName, fileName);
+    const targetPath = join(
+      process.cwd(),
+      config.componentsPath,
+      item.canonicalName,
+      fileName,
+    );
 
     await mkdir(dirname(targetPath), { recursive: true });
 
@@ -269,6 +278,20 @@ const loadConfig = async (): Promise<NeurexConfig> => {
   };
 };
 
+const promptSelectItems = async (): Promise<string[]> => {
+  const response = await prompts({
+    type: "multiselect",
+    name: "items",
+    message: "Select components to add",
+    choices: registryItems.map((item) => ({
+      title: `${item.canonicalName} (${item.category})`,
+      value: item.name,
+    })),
+  });
+
+  return response.items || [];
+};
+
 if (command === "list") {
   printAvailableItems();
   process.exit(0);
@@ -285,13 +308,18 @@ if (command === "init") {
 }
 
 if (command === "add") {
-  if (!args.length) {
-    console.log("No component specified.\n");
-    printAvailableItems();
-    process.exit(0);
+  let items = args;
+
+  if (!items.length) {
+    items = await promptSelectItems();
+
+    if (!items.length) {
+      console.log("No components selected.");
+      process.exit(0);
+    }
   }
 
-  for (const name of args) {
+  for (const name of items) {
     await installItemFiles(name);
     console.log("");
   }
