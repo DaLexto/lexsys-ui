@@ -115,6 +115,12 @@ const installUtilities = async (utilities: string[]): Promise<void> => {
   }
 };
 
+const ensureProjectStructure = async (): Promise<void> => {
+  await mkdir(join(process.cwd(), "components", "ui"), { recursive: true });
+  await mkdir(join(process.cwd(), "lib", "neurex"), { recursive: true });
+  await mkdir(join(process.cwd(), "styles", "neurex"), { recursive: true });
+};
+
 const installItemFiles = async (itemName: string): Promise<void> => {
   const item = findItem(itemName);
 
@@ -125,6 +131,7 @@ const installItemFiles = async (itemName: string): Promise<void> => {
 
   console.log(`Installing ${item.canonicalName}...\n`);
 
+  await ensureProjectStructure();
   await installDependencies(item.dependencies);
   await installUtilities(item.utilities);
 
