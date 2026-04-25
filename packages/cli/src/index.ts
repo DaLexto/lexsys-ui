@@ -15,6 +15,8 @@ interface NeurexConfig {
   stylesPath: string;
 }
 
+type PackageManager = "npm" | "pnpm" | "yarn";
+
 const defaultConfig: NeurexConfig = {
   componentsPath: "components/ui",
   utilitiesPath: "lib/neurex",
@@ -71,6 +73,45 @@ const loadConfig = async (): Promise<NeurexConfig> => {
   };
 };
 
+const detectPackageManager = async (
+  packageJson: Record<string, unknown>,
+): Promise<PackageManager> => {
+  const declaredPackageManager =
+    typeof packageJson.packageManager === "string"
+      ? packageJson.packageManager
+      : undefined;
+
+  if (declaredPackageManager?.startsWith("pnpm@")) {
+    return "pnpm";
+  }
+
+  if (declaredPackageManager?.startsWith("yarn@")) {
+    return "yarn";
+  }
+
+  if (declaredPackageManager?.startsWith("npm@")) {
+    return "npm";
+  }
+
+  const hasPackageLock = await fileExists(join(process.cwd(), "package-lock.json"));
+  const hasPnpmLock = await fileExists(join(process.cwd(), "pnpm-lock.yaml"));
+  const hasYarnLock = await fileExists(join(process.cwd(), "yarn.lock"));
+
+  if (hasPackageLock) {
+    return "npm";
+  }
+
+  if (hasPnpmLock) {
+    return "pnpm";
+  }
+
+  if (hasYarnLock) {
+    return "yarn";
+  }
+
+  return "npm";
+};
+
 const findItem = (name: string): RegistryItem | undefined => {
   const normalizedName = name.toLowerCase();
 
@@ -112,6 +153,8 @@ const installDependencies = async (deps: string[]): Promise<void> => {
     ...devDependencies,
   };
 
+  const packageManager = await detectPackageManager(packageJson);
+
   const missing = deps.filter((dep) => !existingDeps[dep]);
 
   if (!missing.length) {
@@ -121,9 +164,17 @@ const installDependencies = async (deps: string[]): Promise<void> => {
 
   console.log("Installing dependencies:");
   missing.forEach((dependency) => console.log(`- ${dependency}`));
+  console.log(`Using package manager: ${packageManager}`);
   console.log("");
 
-  execSync(`pnpm add ${missing.join(" ")}`, {
+  const installCommand =
+    packageManager === "pnpm"
+      ? `pnpm add ${missing.join(" ")}`
+      : packageManager === "yarn"
+        ? `yarn add ${missing.join(" ")}`
+        : `npm install ${missing.join(" ")}`;
+
+  execSync(installCommand, {
     stdio: "inherit",
   });
 };

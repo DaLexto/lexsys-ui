@@ -24,13 +24,16 @@ declare module "react" {
 
   export interface HTMLAttributes<T> extends DOMAttributes<T> {
     className?: string
+    [key: string]: unknown
   }
 
   export interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
     disabled?: boolean
+    type?: "button" | "submit" | "reset" | undefined
+    "aria-busy"?: boolean | undefined
   }
 
-  export type ReactElement = unknown
+  export type ReactElement = JSX.Element
 
   export interface ForwardRefExoticComponent<P> {
     (props: P): ReactElement | null
@@ -59,6 +62,17 @@ declare module "clsx" {
 
 declare module "tailwind-merge" {
   export function twMerge(...classLists: string[]): string
+}
+
+declare module "@base-ui/react/button" {
+  import type { ButtonHTMLAttributes, ReactElement, RefAttributes } from "react"
+
+  export function Button(
+    props: ButtonHTMLAttributes<HTMLButtonElement> &
+      RefAttributes<HTMLButtonElement> & {
+        focusableWhenDisabled?: boolean
+      },
+  ): ReactElement | null
 }
 
 declare module "*lib/neurex/cn" {

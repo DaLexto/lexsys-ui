@@ -17,7 +17,12 @@ export const buttonRegistryItem: RegistryItem = {
     "components/Button/Button.types.ts",
     "components/Button/Button.variants.ts",
   ],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  dependencies: [
+    "@base-ui/react",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+  ],
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
