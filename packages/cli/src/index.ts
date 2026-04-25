@@ -161,6 +161,34 @@ const installItemFiles = async (itemName: string): Promise<void> => {
   console.log("\nDone.");
 };
 
+const runDoctor = async (): Promise<void> => {
+  console.log("Neurex UI doctor\n");
+
+  const checks = [
+    {
+      label: "package.json",
+      path: join(process.cwd(), "package.json"),
+    },
+    {
+      label: "components/ui",
+      path: join(process.cwd(), "components", "ui"),
+    },
+    {
+      label: "lib/neurex",
+      path: join(process.cwd(), "lib", "neurex"),
+    },
+    {
+      label: "styles/neurex",
+      path: join(process.cwd(), "styles", "neurex"),
+    },
+  ];
+
+  for (const check of checks) {
+    const exists = await fileExists(check.path);
+    console.log(`${exists ? "✓" : "×"} ${check.label}`);
+  }
+};
+
 const printAvailableItems = (): void => {
   console.log("Available Neurex UI components:\n");
 
@@ -171,6 +199,11 @@ const printAvailableItems = (): void => {
 
 if (command === "list") {
   printAvailableItems();
+  process.exit(0);
+}
+
+if (command === "doctor") {
+  await runDoctor();
   process.exit(0);
 }
 
@@ -193,3 +226,4 @@ console.log("Neurex UI CLI\n");
 console.log("Available commands:");
 console.log("- list");
 console.log("- add <component>");
+console.log("- doctor");
