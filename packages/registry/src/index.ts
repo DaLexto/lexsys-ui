@@ -4,4 +4,10 @@
  * This package contains registry metadata used by the Neurex CLI.
  */
 
-export {}
+export type {
+  RegistryItem,
+  RegistryItemCategory,
+  RegistryItemType,
+} from "./registry.types"
+
+export { buttonRegistryItem } from "./items/button"
