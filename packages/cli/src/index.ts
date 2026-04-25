@@ -4,6 +4,8 @@ import { mkdir, copyFile, access } from "node:fs/promises"
 import { constants } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
+import { execSync } from "node:child_process"
+import { readFile } from "node:fs/promises"
 import { registryItems } from "@neurex-ui/registry"
 
 const [, , command, ...args] = process.argv
@@ -33,6 +35,40 @@ const findItem = (name: string) => {
   )
 }
 
+const installDependencies = async (deps: string[]) => {
+  if (!deps.length) return
+
+  let packageJson: any = {}
+
+  try {
+    const content = await readFile("package.json", "utf-8")
+    packageJson = JSON.parse(content)
+  } catch {
+    console.log("No package.json found, skipping dependency install.")
+    return
+  }
+
+  const existingDeps = {
+    ...packageJson.dependencies,
+    ...packageJson.devDependencies,
+  }
+
+  const missing = deps.filter((dep) => !existingDeps?.[dep])
+
+  if (!missing.length) {
+    console.log("All dependencies already installed.\n")
+    return
+  }
+
+  console.log("Installing dependencies:")
+  missing.forEach((d) => console.log(`- ${d}`))
+  console.log("")
+
+  execSync(`pnpm add ${missing.join(" ")}`, {
+    stdio: "inherit",
+  })
+}
+
 const installItemFiles = async (itemName: string): Promise<void> => {
   const item = findItem(itemName)
 
@@ -42,6 +78,8 @@ const installItemFiles = async (itemName: string): Promise<void> => {
   }
 
   console.log(`Installing ${item.canonicalName}...\n`)
+
+  await installDependencies(item.dependencies)
 
   for (const file of item.files) {
     const sourcePath = join(registryTemplatesRoot, file)
