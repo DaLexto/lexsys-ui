@@ -161,21 +161,25 @@ const installItemFiles = async (itemName: string): Promise<void> => {
   console.log("\nDone.");
 };
 
-if (command === "list") {
+const printAvailableItems = (): void => {
   console.log("Available Neurex UI components:\n");
 
   for (const item of registryItems) {
     console.log(`- ${item.canonicalName} (${item.category})`);
   }
+};
 
+if (command === "list") {
+  printAvailableItems();
   process.exit(0);
 }
 
 if (command === "add") {
   if (!args.length) {
-    console.log("Please specify at least one component name.");
-    process.exit(1);
-  }
+  console.log("No component specified.\n");
+  printAvailableItems();
+  process.exit(0);
+}
 
   for (const name of args) {
     await installItemFiles(name);
