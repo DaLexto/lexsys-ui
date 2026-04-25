@@ -4,7 +4,7 @@
  * Registry metadata for the Button component.
  */
 
-import type { RegistryItem } from "../registry.types"
+import type { RegistryItem } from "../registry.types.js"
 
 export const buttonRegistryItem: RegistryItem = {
   name: "button",

@@ -6,6 +6,8 @@
     "declaration": true,
     "emitDeclarationOnly": false,
     "noEmit": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "types": ["node"]
   },
   "include": ["src"]

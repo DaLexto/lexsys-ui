@@ -8,10 +8,10 @@ export type {
   RegistryItem,
   RegistryItemCategory,
   RegistryItemType,
-} from "./registry.types"
+} from "./registry.types.js"
 
-export { buttonRegistryItem } from "./items/button"
+export { buttonRegistryItem } from "./items/button.js"
 
-import { buttonRegistryItem } from "./items/button"
+import { buttonRegistryItem } from "./items/button.js"
 
 export const registryItems = [buttonRegistryItem]
