@@ -1,0 +1,27 @@
+{
+  "name": "neurex-ui",
+  "version": "0.0.0",
+  "description": "A registry-first React UI framework that generates copyable components directly into your project, powered by Base UI, Tailwind CSS, and a full design token system.",
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "typescript": "latest"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "typescript",
+    "tailwindcss"
+  ],
+  "author": "DaLexto",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0"
+}
