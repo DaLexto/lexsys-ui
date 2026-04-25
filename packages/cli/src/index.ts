@@ -29,6 +29,16 @@ const fileExists = async (path: string): Promise<boolean> => {
   }
 };
 
+const filesAreEqual = async (
+  sourcePath: string,
+  targetPath: string,
+): Promise<boolean> => {
+  const sourceContent = await readFile(sourcePath, "utf-8");
+  const targetContent = await readFile(targetPath, "utf-8");
+
+  return sourceContent === targetContent;
+};
+
 const findItem = (name: string) => {
   const normalizedName = name.toLowerCase();
 
@@ -89,10 +99,18 @@ const installUtilities = async (utilities: string[]): Promise<void> => {
     await mkdir(dirname(targetPath), { recursive: true });
 
     if (await fileExists(targetPath)) {
-      console.log(`Skipped existing utility: ${targetPath}`);
+      const isSameFile = await filesAreEqual(sourcePath, targetPath);
+
+      if (isSameFile) {
+        console.log(`Skipped identical utility: ${targetPath}`);
+        continue;
+      }
+
+      console.log(
+        `Conflict: utility already exists and differs: ${targetPath}`,
+      );
       continue;
     }
-
     await copyFile(sourcePath, targetPath);
     console.log(`Created utility: ${targetPath}`);
   }
@@ -109,7 +127,7 @@ const installItemFiles = async (itemName: string): Promise<void> => {
   console.log(`Installing ${item.canonicalName}...\n`);
 
   await installDependencies(item.dependencies);
-  await installUtilities(item.utilities)
+  await installUtilities(item.utilities);
 
   for (const file of item.files) {
     const sourcePath = join(registryTemplatesRoot, file);
@@ -125,7 +143,14 @@ const installItemFiles = async (itemName: string): Promise<void> => {
     await mkdir(dirname(targetPath), { recursive: true });
 
     if (await fileExists(targetPath)) {
-      console.log(`Skipped existing file: ${targetPath}`);
+      const isSameFile = await filesAreEqual(sourcePath, targetPath);
+
+      if (isSameFile) {
+        console.log(`Skipped identical file: ${targetPath}`);
+        continue;
+      }
+
+      console.log(`Conflict: file already exists and differs: ${targetPath}`);
       continue;
     }
 
