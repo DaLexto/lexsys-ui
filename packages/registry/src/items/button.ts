@@ -4,7 +4,7 @@
  * Registry metadata for the Button component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const buttonRegistryItem: RegistryItem = {
   name: "button",
@@ -19,16 +19,16 @@ export const buttonRegistryItem: RegistryItem = {
     "components/Button/Button.variants.ts",
   ],
   remoteFiles: [
-  {
-    path: "components/Button/Button.tsx",
-  },
-  {
-    path: "components/Button/Button.types.ts",
-  },
-  {
-    path: "components/Button/Button.variants.ts",
-  },
-],
+    {
+      path: "components/Button/Button.tsx",
+    },
+    {
+      path: "components/Button/Button.types.ts",
+    },
+    {
+      path: "components/Button/Button.variants.ts",
+    },
+  ],
   dependencies: [
     "@base-ui/react",
     "class-variance-authority",
@@ -39,4 +39,4 @@ export const buttonRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "components/ui/Button",
-}
+};
