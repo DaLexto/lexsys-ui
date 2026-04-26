@@ -10,6 +10,7 @@ Commands:
   add <component...>                        Install one or more components
   add --no-fallback                         Disable local registry fallback during add
   update <component...>                     Check/update installed components
+  update --no-fallback                      Disable local registry fallback during update
   --all                                     Update all installed components
   --dry-run                                 Preview update without writing files
   --force                                   Reserved for future conflict overwrite flow

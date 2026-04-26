@@ -1,7 +1,12 @@
 import { loadConfig, saveConfig } from "../core/config.js";
 import { findItem } from "../core/registry-resolver.js";
 import { checkItemUpdate } from "../core/update-engine.js";
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js";
+import {
+  hasFlag,
+  removeFlags,
+  removeFlagsWithValues,
+} from "../core/flags.js";
+import { getRegistryProviderResult } from "../core/registry-provider.js";
 
 const resolveInstalledKey = async (
   name: string,
@@ -26,14 +31,29 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run");
   const force = hasFlag(args, "--force");
   const yes = hasFlag(args, "--yes");
+  const noFallback = hasFlag(args, "--no-fallback");
+
   const targetArgs = removeFlags(removeFlagsWithValues(args, ["--cwd"]), [
     "--dry-run",
     "--force",
     "--yes",
+    "--no-fallback",
   ]);
 
   const config = await loadConfig();
   const installed = config.installed ?? {};
+
+  // 🔥 registry strict check (no-fallback support)
+  try {
+    await getRegistryProviderResult({
+      fallback: !noFallback,
+    });
+  } catch (error) {
+    console.log("Failed to resolve registry.");
+    console.log(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+    return;
+  }
 
   if (force) {
     console.log(
@@ -85,7 +105,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   }
 
   for (const name of targetArgs) {
-    const installedKey =  await resolveInstalledKey(name, installed);
+    const installedKey = await resolveInstalledKey(name, installed);
 
     if (!installedKey) {
       console.log(`Component "${name}" is not tracked as installed.`);
