@@ -1,8 +1,11 @@
 import { join } from "node:path";
+import { loadConfig } from "../core/config.js";
 import { fileExists } from "../core/fs.js";
 
 export const runDoctor = async (): Promise<void> => {
   console.log("Neurex UI doctor\n");
+
+  const config = await loadConfig();
 
   const checks = [
     {
@@ -10,16 +13,16 @@ export const runDoctor = async (): Promise<void> => {
       path: join(process.cwd(), "package.json"),
     },
     {
-      label: "components/ui",
-      path: join(process.cwd(), "components", "ui"),
+      label: config.componentsPath,
+      path: join(process.cwd(), config.componentsPath),
     },
     {
-      label: "lib/neurex",
-      path: join(process.cwd(), "lib", "neurex"),
+      label: config.utilitiesPath,
+      path: join(process.cwd(), config.utilitiesPath),
     },
     {
-      label: "styles/neurex",
-      path: join(process.cwd(), "styles", "neurex"),
+      label: config.stylesPath,
+      path: join(process.cwd(), config.stylesPath),
     },
   ];
 
