@@ -159,6 +159,12 @@ Interactive mode:
 neurex-ui add
 ```
 
+
+## 📚 Documentation
+
+- [Architecture](./docs/ARCHITECTURE.md)
+- [CLI](./docs/CLI.md)
+
 ---
 
 ## 🔄 Updates
