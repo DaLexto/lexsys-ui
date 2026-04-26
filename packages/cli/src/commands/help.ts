@@ -10,6 +10,7 @@ Commands:
   add <component...>   Install one or more components
   update <component>   Check/update installed components
   update --all         Check/update all installed components
+  update --dry-run     Preview update without writing files
   list                 List available registry items
   list --json          List registry items as JSON
   status               Show installed component status
@@ -24,13 +25,14 @@ Commands:
 
 Options:
   --dry-run            Show what would happen without making changes
-  --help, -h           Show help
   --force              Reserved for future conflict overwrite flow
+  --help, -h           Show help
 
 Examples:
   neurex-ui init
   neurex-ui add button
   neurex-ui add button dialog --dry-run
+  neurex-ui update button --dry-run
   neurex-ui update --all
   neurex-ui list --json
   neurex-ui config --path
