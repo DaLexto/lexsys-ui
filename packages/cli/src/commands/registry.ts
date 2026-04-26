@@ -1,5 +1,6 @@
 import { registryItems } from "@neurex-ui/registry";
 import { getRegistrySource } from "../core/registry-source.js";
+import { fetchRemoteRegistry } from "../core/remote-registry.js";
 
 interface RunRegistryOptions {
   summary?: boolean;
@@ -8,15 +9,7 @@ interface RunRegistryOptions {
   remote?: boolean;
 }
 
-const fetchJson = async (url: string): Promise<unknown> => {
-  const response = await fetch(url);
 
-  if (!response.ok) {
-    throw new Error(`Remote registry responded with HTTP ${response.status}`);
-  }
-
-  return response.json();
-};
 
 export const runRegistry = async (
   options: RunRegistryOptions = {},
@@ -35,7 +28,7 @@ export const runRegistry = async (
     }
 
     try {
-      const data = await fetchJson(registrySource);
+      const data = await fetchRemoteRegistry(registrySource);
 
       console.log(JSON.stringify(data, null, 2));
     } catch (error) {
