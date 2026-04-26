@@ -6,6 +6,11 @@
 
 export type RegistryItemType = "component" | "utility" | "style"
 
+export interface RegistryFile {
+  path: string
+  remoteUrl?: string
+}
+
 export type RegistryItemCategory =
   | "actions"
   | "forms"
@@ -24,6 +29,7 @@ export interface RegistryItem {
   category: RegistryItemCategory
   aliases: string[]
   files: string[]
+  remoteFiles?: RegistryFile[]
   dependencies: string[]
   registryDependencies: string[]
   utilities: string[]
