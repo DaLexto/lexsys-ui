@@ -6,9 +6,16 @@ interface RunListOptions {
 
 export const runList = (options: RunListOptions = {}): void => {
   if (options.json) {
-    console.log(JSON.stringify(registryItems, null, 2));
-    return;
-  }
+  const simplified = registryItems.map((item) => ({
+    name: item.name,
+    canonicalName: item.canonicalName,
+    version: item.version,
+    category: item.category,
+  }));
+
+  console.log(JSON.stringify(simplified, null, 2));
+  return;
+}
 
   console.log("Available Neurex UI components:\n");
 
