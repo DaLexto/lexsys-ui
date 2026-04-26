@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 
-import { mkdir } from "node:fs/promises";
-import { join } from "node:path";
 import { registryItems } from "@neurex-ui/registry";
 import prompts from "prompts";
 
 import { loadConfig } from "./core/config.js";
-import { fileExists, writeFileIfMissing } from "./core/fs.js";
 import { installDependencies } from "./core/package-manager.js";
 import {
   collectDependencies,
@@ -20,31 +17,9 @@ import {
 } from "./core/installer.js";
 import { runDoctor } from "./commands/doctor.js";
 import { runList } from "./commands/list.js";
+import { runInit } from "./commands/init.js";
 
 const [, , command, ...args] = process.argv;
-
-const runInit = async (): Promise<void> => {
-  console.log("Initializing Neurex UI...\n");
-
-  await mkdir(join(process.cwd(), "components", "ui"), { recursive: true });
-  await mkdir(join(process.cwd(), "lib", "neurex"), { recursive: true });
-  await mkdir(join(process.cwd(), "styles", "neurex"), { recursive: true });
-
-  await writeFileIfMissing(
-    join(process.cwd(), "neurex.config.json"),
-    JSON.stringify(
-      {
-        componentsPath: "components/ui",
-        utilitiesPath: "lib/neurex",
-        stylesPath: "styles/neurex",
-      },
-      null,
-      2,
-    ) + "\n",
-  );
-
-  console.log("\nDone.");
-};
 
 const promptSelectItems = async (): Promise<string[]> => {
   const response = await prompts({
