@@ -1,10 +1,11 @@
-import { copyFile, mkdir } from "node:fs/promises";
+import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { RegistryItem } from "@neurex-ui/registry";
 import type { NeurexConfig } from "./config.js";
 import { fileExists, filesAreEqual } from "./fs.js";
 import { getCwd } from "./context.js";
+import { fetchRemoteFile } from "./remote-files.js";
 
 const cliFilePath = fileURLToPath(import.meta.url);
 const cliDistDir = dirname(cliFilePath);
@@ -72,6 +73,10 @@ export const installItemFiles = async (
   console.log(`Installing ${item.canonicalName}...\n`);
 
   for (const file of item.files) {
+    const remoteFile = item.remoteFiles?.find(
+      (registryFile) => registryFile.path === file && registryFile.remoteUrl,
+    );
+
     const sourcePath = join(registryTemplatesRoot, file);
     const fileName = file.split("/").at(-1);
 
@@ -88,6 +93,28 @@ export const installItemFiles = async (
     );
 
     await mkdir(dirname(targetPath), { recursive: true });
+
+    if (remoteFile?.remoteUrl) {
+      console.log(`Fetching remote file: ${remoteFile.remoteUrl}`);
+
+      const remoteContent = await fetchRemoteFile(remoteFile.remoteUrl);
+
+      if (await fileExists(targetPath)) {
+        const targetContent = await readFile(targetPath, "utf-8");
+
+        if (remoteContent === targetContent) {
+          console.log(`Skipped identical file: ${targetPath}`);
+          continue;
+        }
+
+        console.log(`Conflict: file already exists and differs: ${targetPath}`);
+        continue;
+      }
+
+      await writeFile(targetPath, remoteContent, "utf-8");
+      console.log(`Created: ${targetPath}`);
+      continue;
+    }
 
     if (await fileExists(targetPath)) {
       const isSameFile = await filesAreEqual(sourcePath, targetPath);
