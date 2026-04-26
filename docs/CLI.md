@@ -293,6 +293,17 @@ The local registry is always available.
 
 Remote registry support is additive and must not break local registry usage.
 
+### Source Resolution
+
+The CLI resolves registry metadata using this order:
+
+```txt
+configured remote registry
+  → if valid, use remote registry
+  → if unavailable or invalid, fall back to local registry
+local registry
+```
+
 ---
 
 ## Safety Rules
@@ -305,6 +316,7 @@ When existing files differ from registry templates, the CLI must:
 - skip conflicted files,
 - avoid bumping the installed version when conflicts exist,
 - require explicit user action before overwrite behavior is introduced.
+- Remote registry failures must not break local registry usage.
 
 ---
 
