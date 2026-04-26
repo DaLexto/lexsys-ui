@@ -16,6 +16,7 @@ export const runInit = async (): Promise<void> => {
         componentsPath: "components/ui",
         utilitiesPath: "lib/neurex",
         stylesPath: "styles/neurex",
+        installed: {},
       },
       null,
       2,

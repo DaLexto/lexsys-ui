@@ -1,7 +1,7 @@
 import prompts from "prompts";
 import { registryItems } from "@neurex-ui/registry";
 
-import { loadConfig } from "../core/config.js";
+import { loadConfig, saveConfig } from "../core/config.js";
 import {
   ensureProjectStructure,
   installItemFiles,
@@ -53,4 +53,17 @@ export const runAdd = async (args: string[]): Promise<void> => {
     await installItemFiles(item, config);
     console.log("");
   }
+
+  const installed = {
+    ...(config.installed ?? {}),
+  };
+
+  for (const item of resolvedItems) {
+    installed[item.name] = item.version;
+  }
+
+  await saveConfig({
+    ...config,
+    installed,
+  });
 };
