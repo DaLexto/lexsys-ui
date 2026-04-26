@@ -1,8 +1,9 @@
-import { loadConfig } from "../core/config.js";
-import { findItem } from "../core/registry-resolver.js";
-import { join } from "node:path";
-import { getRegistryTemplatesRoot } from "../core/installer.js";
+import { copyFile, mkdir } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { loadConfig, saveConfig } from "../core/config.js";
 import { fileExists, filesAreEqual } from "../core/fs.js";
+import { getRegistryTemplatesRoot } from "../core/installer.js";
+import { findItem } from "../core/registry-resolver.js";
 
 const isDryRun = (args: string[]): boolean => {
   return args.includes("--dry-run");
@@ -76,10 +77,8 @@ const checkItemFiles = async (
   }
 };
 
-const checkItemUpdate = async (
+const applySafeItemUpdate = async (
   name: string,
-  installedVersion: string,
-  dryRun: boolean,
   componentsPath: string,
 ): Promise<void> => {
   const item = findItem(name);
@@ -89,9 +88,62 @@ const checkItemUpdate = async (
     return;
   }
 
+  const registryTemplatesRoot = getRegistryTemplatesRoot();
+
+  console.log(`Applying safe update for ${item.canonicalName}:`);
+
+  for (const file of item.files) {
+    const sourcePath = join(registryTemplatesRoot, file);
+    const fileName = file.split("/").at(-1);
+
+    if (!fileName) {
+      console.log(`- invalid registry file path: ${file}`);
+      continue;
+    }
+
+    const targetPath = join(
+      process.cwd(),
+      componentsPath,
+      item.canonicalName,
+      fileName,
+    );
+
+    await mkdir(dirname(targetPath), { recursive: true });
+
+    if (!(await fileExists(targetPath))) {
+      await copyFile(sourcePath, targetPath);
+      console.log(`- restored missing file: ${targetPath}`);
+      continue;
+    }
+
+    const isSameFile = await filesAreEqual(sourcePath, targetPath);
+
+    if (!isSameFile) {
+      console.log(`- skipped conflict: ${targetPath}`);
+      continue;
+    }
+
+    await copyFile(sourcePath, targetPath);
+    console.log(`- updated file: ${targetPath}`);
+  }
+};
+
+const checkItemUpdate = async (
+  name: string,
+  installedVersion: string,
+  dryRun: boolean,
+  componentsPath: string,
+): Promise<boolean> => {
+  const item = findItem(name);
+
+  if (!item) {
+    console.log(`Component "${name}" no longer exists in the registry.`);
+    return false;
+  }
+
   if (item.version === installedVersion) {
     console.log(`${item.canonicalName} is up to date (v${installedVersion}).`);
-    return;
+    return false;
   }
 
   console.log(
@@ -109,10 +161,19 @@ const checkItemUpdate = async (
   console.log("- Never overwrite user-modified files silently");
 
   await checkItemFiles(name, componentsPath);
-  
+
+  if (dryRun) {
+    return false;
+  }
+
+  await applySafeItemUpdate(name, componentsPath);
+
+  return true;
 };
 
 export const runUpdate = async (args: string[]): Promise<void> => {
+  let changed = false;
+
   const dryRun = isDryRun(args);
   const targetArgs = removeFlags(args);
 
@@ -128,7 +189,26 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     console.log("Checking installed Neurex UI components:\n");
 
     for (const [name, version] of Object.entries(installed)) {
-      await checkItemUpdate(name, version, dryRun, config.componentsPath);
+      const didUpdate = await checkItemUpdate(
+        name,
+        version,
+        dryRun,
+        config.componentsPath,
+      );
+
+      const item = findItem(name);
+
+      if (didUpdate && item) {
+        installed[name] = item.version;
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      await saveConfig({
+        ...config,
+        installed,
+      });
     }
 
     return;
@@ -147,6 +227,25 @@ export const runUpdate = async (args: string[]): Promise<void> => {
       continue;
     }
 
-    await checkItemUpdate(installedKey, installed[installedKey], dryRun, config.componentsPath);
+    const didUpdate = await checkItemUpdate(
+      installedKey,
+      installed[installedKey],
+      dryRun,
+      config.componentsPath,
+    );
+
+    const item = findItem(installedKey);
+
+    if (didUpdate && item) {
+      installed[installedKey] = item.version;
+      changed = true;
+    }
+  }
+
+  if (changed) {
+    await saveConfig({
+      ...config,
+      installed,
+    });
   }
 };
