@@ -1,6 +1,23 @@
 import { loadConfig } from "../core/config.js";
 import { findItem } from "../core/registry-resolver.js";
 
+const resolveInstalledKey = (
+  name: string,
+  installed: Record<string, string>,
+): string | undefined => {
+  if (installed[name]) {
+    return name;
+  }
+
+  const item = findItem(name);
+
+  if (!item) {
+    return undefined;
+  }
+
+  return installed[item.name] ? item.name : undefined;
+};
+
 const checkItemUpdate = (name: string, installedVersion: string): void => {
   const item = findItem(name);
 
@@ -44,13 +61,13 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   }
 
   for (const name of args) {
-    const installedVersion = installed[name];
+    const installedKey = resolveInstalledKey(name, installed);
 
-    if (!installedVersion) {
+    if (!installedKey) {
       console.log(`Component "${name}" is not tracked as installed.`);
       continue;
     }
 
-    checkItemUpdate(name, installedVersion);
+    checkItemUpdate(installedKey, installed[installedKey]);
   }
 };
