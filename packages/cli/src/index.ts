@@ -23,7 +23,9 @@ if (command === "version" || command === "--version" || command === "-v") {
 }
 
 if (command === "list") {
-  runList();
+  runList({
+    json: args.includes("--json"),
+  });
   process.exit(0);
 }
 
