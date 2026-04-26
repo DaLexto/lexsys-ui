@@ -4,6 +4,6 @@ export const runList = (): void => {
   console.log("Available Neurex UI components:\n");
 
   for (const item of registryItems) {
-    console.log(`- ${item.canonicalName} (${item.category})`);
+    console.log(`- ${item.canonicalName} v${item.version} (${item.category})`)
   }
 };
