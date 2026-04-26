@@ -43,5 +43,6 @@ Examples:
   neurex-ui list --json
   neurex-ui config --path
   neurex-ui uninstall button
+  neurex-ui uninstall button --dry-run
 `);
 };
