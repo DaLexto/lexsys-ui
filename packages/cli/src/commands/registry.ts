@@ -9,8 +9,6 @@ interface RunRegistryOptions {
   remote?: boolean;
 }
 
-
-
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
@@ -48,8 +46,10 @@ export const runRegistry = async (
     console.log(`Items: ${registryItems.length}`);
 
     for (const item of registryItems) {
+      const remoteFileCount = item.remoteFiles?.length ?? 0;
+
       console.log(
-        `- ${item.canonicalName} v${item.version} (${item.type}/${item.category})`,
+        `- ${item.canonicalName} v${item.version} (${item.type}/${item.category}, remote files: ${remoteFileCount})`,
       );
     }
 
