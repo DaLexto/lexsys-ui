@@ -11,15 +11,17 @@ interface RunRegistryOptions {
   source?: boolean;
   local?: boolean;
   remote?: boolean;
+  noFallback?: boolean;
 }
 
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
   const registrySource = options.local ? "local" : await getRegistrySource();
+  const fallback = !options.noFallback;
 
   if (options.source) {
-    const result = await getRegistryProviderResult();
+    const result = await getRegistryProviderResult({fallback});
 
     if (result.fallbackUsed) {
       console.log(`${result.source} (fallback: local)`);
@@ -52,7 +54,7 @@ export const runRegistry = async (
   }
 
   if (options.summary) {
-    const result = await getRegistryProviderResult();
+    const result = await getRegistryProviderResult({fallback});
 
     console.log("Neurex UI registry summary\n");
     console.log(`Registry source: ${result.source}`);
@@ -70,7 +72,7 @@ export const runRegistry = async (
     return;
   }
 
-  const items = options.local ? registryItems : await getRegistryItems();
+  const items = options.local ? registryItems : await getRegistryItems({fallback});
 
   console.log(JSON.stringify(items, null, 2));
 };

@@ -2,6 +2,7 @@ import { registryItems as localRegistry } from "@neurex-ui/registry";
 import { getRegistrySource } from "./registry-source.js";
 import { fetchRemoteRegistry } from "./remote-registry.js";
 import type { RegistryItem } from "@neurex-ui/registry";
+import { error } from "node:console";
 
 let cachedRegistry: RegistryItem[] | null = null;
 let cachedSource: string | null = null;
@@ -13,7 +14,14 @@ export interface RegistryProviderResult {
   fallbackUsed: boolean;
 }
 
-export const getRegistryItems = async (): Promise<RegistryItem[]> => {
+interface RegistryProviderOptions {
+  fallback?: boolean;
+}
+
+export const getRegistryItems = async (
+  options: RegistryProviderOptions = {},
+): Promise<RegistryItem[]> => {
+  const fallback = options.fallback ?? true;
   const source = await getRegistrySource();
 
   if (cachedRegistry && cachedSource === source) {
@@ -34,6 +42,10 @@ export const getRegistryItems = async (): Promise<RegistryItem[]> => {
 
     return remote;
   } catch {
+    if(!fallback){
+      throw error;
+    }
+
     if (!fallbackWarningShown) {
       console.log("Remote registry failed. Falling back to local registry.");
       fallbackWarningShown = true;
@@ -47,10 +59,12 @@ export const getRegistryItems = async (): Promise<RegistryItem[]> => {
 };
 
 export const getRegistryProviderResult =
-  async (): Promise<RegistryProviderResult> => {
+  async (
+    options:RegistryProviderOptions = {}
+  ): Promise<RegistryProviderResult> => {
     const source = await getRegistrySource();
 
-    const items = await getRegistryItems();
+    const items = await getRegistryItems(options);
 
     return {
       items,

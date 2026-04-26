@@ -75,6 +75,7 @@ if (command === "registry") {
     source: args.includes("--source"),
     local: args.includes("--local"),
     remote: args.includes("--remote"),
+    noFallback: args.includes("--no-fallback"),
   });
   process.exit(0);
 }
