@@ -34,6 +34,12 @@ const checkItemUpdate = (name: string, installedVersion: string): void => {
   console.log(
     `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
   );
+
+  console.log("Update plan:");
+  console.log(`- Check installed files for ${item.canonicalName}`);
+  console.log("- Compare existing files with registry templates");
+  console.log("- Report conflicts before writing changes");
+  console.log("- Never overwrite user-modified files silently");
 };
 
 export const runUpdate = async (args: string[]): Promise<void> => {
