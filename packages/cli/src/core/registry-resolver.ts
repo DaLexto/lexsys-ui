@@ -1,5 +1,6 @@
 import { registryItems } from "@neurex-ui/registry";
 import type { RegistryItem } from "@neurex-ui/registry";
+import { findClosestValue } from "./suggestions.js";
 
 export const findItem = (name: string): RegistryItem | undefined => {
   const normalizedName = name.toLowerCase();
@@ -19,7 +20,20 @@ export const resolveRegistryItems = (names: string[]): RegistryItem[] => {
     const item = findItem(name);
 
     if (!item) {
+      const availableNames = registryItems.flatMap((registryItem) => [
+        registryItem.name,
+        registryItem.canonicalName,
+        ...registryItem.aliases,
+      ]);
+
+      const suggestion = findClosestValue(name, availableNames);
+
       console.log(`Component "${name}" not found.`);
+
+      if (suggestion) {
+        console.log(`Did you mean "${suggestion}"?`);
+      }
+
       process.exit(1);
     }
 
