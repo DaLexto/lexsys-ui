@@ -6,11 +6,17 @@ import { runInit } from "./commands/init.js";
 import { runAdd } from "./commands/add.js";
 import { runUpdate } from "./commands/update.js";
 import { runHelp } from "./commands/help.js";
+import { runVersion } from "./commands/version.js";
 
 const [, , command, ...args] = process.argv;
 
 if (!command || command === "help" || command === "--help" || command === "-h") {
   runHelp();
+  process.exit(0);
+}
+
+if (command === "version" || command === "--version" || command === "-v") {
+  runVersion();
   process.exit(0);
 }
 
