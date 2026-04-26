@@ -12,6 +12,11 @@ import type { NeurexConfig } from "./core/config.js";
 import { defaultConfig, loadConfig } from "./core/config.js";
 import { fileExists, filesAreEqual, writeFileIfMissing } from "./core/fs.js";
 import { installDependencies } from "./core/package-manager.js";
+import {
+  collectDependencies,
+  collectUtilities,
+  resolveRegistryItems
+} from "./core/registry-resolver.js"
 
 const [, , command, ...args] = process.argv;
 
@@ -27,17 +32,6 @@ const registryTemplatesRoot = join(
 );
 
 const sharedTemplatesRoot = join(registryTemplatesRoot, "shared");
-
-const findItem = (name: string): RegistryItem | undefined => {
-  const normalizedName = name.toLowerCase();
-
-  return registryItems.find(
-    (item) =>
-      item.name.toLowerCase() === normalizedName ||
-      item.canonicalName.toLowerCase() === normalizedName ||
-      item.aliases.some((alias) => alias.toLowerCase() === normalizedName),
-  );
-};
 
 const installUtilities = async (
   utilities: string[],
@@ -77,45 +71,6 @@ const ensureProjectStructure = async (config: NeurexConfig): Promise<void> => {
   await mkdir(join(process.cwd(), config.componentsPath), { recursive: true });
   await mkdir(join(process.cwd(), config.utilitiesPath), { recursive: true });
   await mkdir(join(process.cwd(), config.stylesPath), { recursive: true });
-};
-
-const resolveRegistryItems = (names: string[]): RegistryItem[] => {
-  const resolved = new Map<string, RegistryItem>();
-
-  const visit = (name: string): void => {
-    const item = findItem(name);
-
-    if (!item) {
-      console.log(`Component "${name}" not found.`);
-      process.exit(1);
-    }
-
-    const key = item.canonicalName.toLowerCase();
-
-    if (resolved.has(key)) {
-      return;
-    }
-
-    resolved.set(key, item);
-
-    for (const dependency of item.registryDependencies) {
-      visit(dependency);
-    }
-  };
-
-  for (const name of names) {
-    visit(name);
-  }
-
-  return Array.from(resolved.values());
-};
-
-const collectDependencies = (items: RegistryItem[]): string[] => {
-  return Array.from(new Set(items.flatMap((item) => item.dependencies)));
-};
-
-const collectUtilities = (items: RegistryItem[]): string[] => {
-  return Array.from(new Set(items.flatMap((item) => item.utilities)));
 };
 
 const installItemFiles = async (
