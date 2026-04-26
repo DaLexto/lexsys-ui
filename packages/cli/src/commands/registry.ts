@@ -4,11 +4,17 @@ import { getRegistrySource } from "../core/registry-source.js";
 interface RunRegistryOptions {
   summary?: boolean;
   source?: boolean;
+  local?: boolean;
 }
 
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
+  if (options.local) {
+    console.log(JSON.stringify(registryItems, null, 2));
+    return;
+  }
+  
   const registrySource = await getRegistrySource();
 
   if (options.source) {
