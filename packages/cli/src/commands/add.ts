@@ -13,14 +13,7 @@ import {
   collectUtilities,
   resolveRegistryItems,
 } from "../core/registry-resolver.js";
-
-const isDryRun = (args: string[]): boolean => {
-  return args.includes("--dry-run");
-};
-
-const removeFlags = (args: string[]): string[] => {
-  return args.filter((arg) => arg !== "--dry-run");
-};
+import { hasFlag, removeFlags } from "../core/flags.js";
 
 const promptSelectItems = async (): Promise<string[]> => {
   const response = await prompts({
@@ -37,8 +30,8 @@ const promptSelectItems = async (): Promise<string[]> => {
 };
 
 export const runAdd = async (args: string[]): Promise<void> => {
-  const dryRun = isDryRun(args);
-  let items = removeFlags(args);
+  const dryRun = hasFlag(args, "--dry-run");
+  let items = removeFlags(args, ["--dry-run"]);
 
   if (!items.length) {
     items = await promptSelectItems();
@@ -55,30 +48,30 @@ export const runAdd = async (args: string[]): Promise<void> => {
   const config = await loadConfig();
 
   if (dryRun) {
-  console.log("Dry run: no files or dependencies will be changed.\n");
+    console.log("Dry run: no files or dependencies will be changed.\n");
 
-  console.log("Components:");
-  for (const item of resolvedItems) {
-    console.log(`- ${item.canonicalName} v${item.version}`);
+    console.log("Components:");
+    for (const item of resolvedItems) {
+      console.log(`- ${item.canonicalName} v${item.version}`);
+    }
+
+    console.log("\nDependencies:");
+    for (const dependency of dependencies) {
+      console.log(`- ${dependency}`);
+    }
+
+    console.log("\nUtilities:");
+    for (const utility of utilities) {
+      console.log(`- ${utility}`);
+    }
+
+    console.log("\nInstall paths:");
+    console.log(`- components: ${config.componentsPath}`);
+    console.log(`- utilities: ${config.utilitiesPath}`);
+    console.log(`- styles: ${config.stylesPath}`);
+
+    return;
   }
-
-  console.log("\nDependencies:");
-  for (const dependency of dependencies) {
-    console.log(`- ${dependency}`);
-  }
-
-  console.log("\nUtilities:");
-  for (const utility of utilities) {
-    console.log(`- ${utility}`);
-  }
-
-  console.log("\nInstall paths:");
-  console.log(`- components: ${config.componentsPath}`);
-  console.log(`- utilities: ${config.utilitiesPath}`);
-  console.log(`- styles: ${config.stylesPath}`);
-
-  return;
-}
 
   await ensureProjectStructure(config);
   await installDependencies(dependencies);

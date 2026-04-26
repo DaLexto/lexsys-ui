@@ -1,18 +1,7 @@
 import { loadConfig, saveConfig } from "../core/config.js";
 import { findItem } from "../core/registry-resolver.js";
 import { checkItemUpdate } from "../core/update-engine.js";
-
-const isDryRun = (args: string[]): boolean => {
-  return args.includes("--dry-run");
-};
-
-const isForce = (args: string[]): boolean => {
-  return args.includes("--force");
-};
-
-const removeFlags = (args: string[]): string[] => {
-  return args.filter((arg) => arg !== "--dry-run" && arg !== "--force");
-};
+import { hasFlag, removeFlags } from "../core/flags.js";
 
 const resolveInstalledKey = (
   name: string,
@@ -34,9 +23,9 @@ const resolveInstalledKey = (
 export const runUpdate = async (args: string[]): Promise<void> => {
   let changed = false;
 
-  const dryRun = isDryRun(args);
-  const force = isForce(args);
-  const targetArgs = removeFlags(args);
+  const dryRun = hasFlag(args, "--dry-run");
+  const force = hasFlag(args, "--force");
+  const targetArgs = removeFlags(args, ["--dry-run", "--force"]);
 
   const config = await loadConfig();
   const installed = config.installed ?? {};
