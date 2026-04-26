@@ -27,12 +27,15 @@ Commands:
 Options:
   --dry-run                   Show what would happen without making changes
   --help, -h                  Show help
+  --yes                       Auto-confirm safe prompts where supported
 
 Examples:
   neurex-ui init
   neurex-ui add button
+  neurex-ui add button --yes
   neurex-ui add button dialog --dry-run
   neurex-ui update button --dry-run
+  neurex-ui update button --yes
   neurex-ui update --all --dry-run
   neurex-ui list --json
   neurex-ui config --path

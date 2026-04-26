@@ -31,7 +31,8 @@ const promptSelectItems = async (): Promise<string[]> => {
 
 export const runAdd = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run");
-  let items = removeFlags(args, ["--dry-run"]);
+  const yes = hasFlag(args, "--yes");
+  let items = removeFlags(args, ["--dry-run", "--yes"]);
 
   if (!items.length) {
     items = await promptSelectItems();
@@ -41,6 +42,9 @@ export const runAdd = async (args: string[]): Promise<void> => {
       return;
     }
   }
+
+  //TODO: --yes flag placeholder for now implement later
+  void yes;
 
   const resolvedItems = resolveRegistryItems(items);
   const dependencies = collectDependencies(resolvedItems);

@@ -25,7 +25,8 @@ export const runUpdate = async (args: string[]): Promise<void> => {
 
   const dryRun = hasFlag(args, "--dry-run");
   const force = hasFlag(args, "--force");
-  const targetArgs = removeFlags(args, ["--dry-run", "--force"]);
+  const yes = hasFlag(args, "--yes");
+  const targetArgs = removeFlags(args, ["--dry-run", "--force", "--yes"]);
 
   const config = await loadConfig();
   const installed = config.installed ?? {};
@@ -34,6 +35,10 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     console.log(
       "Force update is not implemented yet. Conflicted files will still be protected.",
     );
+  }
+
+  if (yes) {
+    console.log("Auto-confirm mode is enabled.");
   }
 
   if (!Object.keys(installed).length) {
