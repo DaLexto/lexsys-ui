@@ -40,6 +40,7 @@ if (command === "version" || command === "--version" || command === "-v") {
 if (command === "list") {
   await runList({
     json: args.includes("--json"),
+    noFallback: args.includes("--no-fallback"),
   });
   process.exit(0);
 }
