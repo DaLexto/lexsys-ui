@@ -18,6 +18,17 @@ export const buttonRegistryItem: RegistryItem = {
     "components/Button/Button.types.ts",
     "components/Button/Button.variants.ts",
   ],
+  remoteFiles: [
+  {
+    path: "components/Button/Button.tsx",
+  },
+  {
+    path: "components/Button/Button.types.ts",
+  },
+  {
+    path: "components/Button/Button.variants.ts",
+  },
+],
   dependencies: [
     "@base-ui/react",
     "class-variance-authority",
