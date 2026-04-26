@@ -9,6 +9,7 @@ import { runHelp } from "./commands/help.js";
 import { runVersion } from "./commands/version.js";
 import { runStatus } from "./commands/status.js";
 import { runRegistry } from "./commands/registry.js";
+import { runConfig } from "./commands/config.js";
 
 const [, , command, ...args] = process.argv;
 
@@ -58,6 +59,11 @@ if (command === "registry") {
   runRegistry({
     summary: args.includes("--summary"),
   });
+  process.exit(0);
+}
+
+if (command === "config") {
+  await runConfig();
   process.exit(0);
 }
 
