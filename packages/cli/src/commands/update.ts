@@ -80,15 +80,16 @@ const checkItemFiles = async (
 const applySafeItemUpdate = async (
   name: string,
   componentsPath: string,
-): Promise<void> => {
+): Promise<boolean> => {
   const item = findItem(name);
 
   if (!item) {
     console.log(`Component "${name}" no longer exists in the registry.`);
-    return;
+    return false;
   }
 
   const registryTemplatesRoot = getRegistryTemplatesRoot();
+  let hasConflict = false;
 
   console.log(`Applying safe update for ${item.canonicalName}:`);
 
@@ -98,6 +99,7 @@ const applySafeItemUpdate = async (
 
     if (!fileName) {
       console.log(`- invalid registry file path: ${file}`);
+      hasConflict = true;
       continue;
     }
 
@@ -119,6 +121,7 @@ const applySafeItemUpdate = async (
     const isSameFile = await filesAreEqual(sourcePath, targetPath);
 
     if (!isSameFile) {
+      hasConflict = true;
       console.log(`- skipped conflict: ${targetPath}`);
       continue;
     }
@@ -126,6 +129,15 @@ const applySafeItemUpdate = async (
     await copyFile(sourcePath, targetPath);
     console.log(`- updated file: ${targetPath}`);
   }
+
+  if (hasConflict) {
+    console.log(
+      "Update finished with conflicts. Installed version was not changed.",
+    );
+    return false;
+  }
+
+  return true;
 };
 
 const checkItemUpdate = async (
@@ -166,9 +178,7 @@ const checkItemUpdate = async (
     return false;
   }
 
-  await applySafeItemUpdate(name, componentsPath);
-
-  return true;
+  return await applySafeItemUpdate(name, componentsPath);
 };
 
 export const runUpdate = async (args: string[]): Promise<void> => {
