@@ -1,5 +1,5 @@
 import { registryItems } from "@neurex-ui/registry";
-import { loadConfig } from "../core/config.js";
+import { getRegistrySource } from "../core/registry-source.js";
 
 interface RunRegistryOptions {
   summary?: boolean;
@@ -9,8 +9,7 @@ interface RunRegistryOptions {
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
-  const config = await loadConfig();
-  const registrySource = config.registryUrl ?? "local";
+  const registrySource = await getRegistrySource();
 
   if (options.source) {
     console.log(registrySource);
