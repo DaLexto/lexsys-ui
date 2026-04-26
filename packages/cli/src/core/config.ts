@@ -8,6 +8,7 @@ export interface NeurexConfig {
   utilitiesPath: string;
   stylesPath: string;
   installed?: Record<string, string>;
+  registryUrl?: string | null;
 }
 
 export const defaultConfig: NeurexConfig = {
@@ -15,6 +16,7 @@ export const defaultConfig: NeurexConfig = {
   utilitiesPath: "lib/neurex",
   stylesPath: "styles/neurex",
   installed: {},
+  registryUrl: null,
 };
 
 export const getConfigPath = (): string => {

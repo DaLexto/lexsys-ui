@@ -182,7 +182,8 @@ Default config shape:
   "componentsPath": "components/ui",
   "utilitiesPath": "lib/neurex",
   "stylesPath": "styles/neurex",
-  "installed": {}
+  "installed": {},
+  "registryUrl": null
 }
 ```
 

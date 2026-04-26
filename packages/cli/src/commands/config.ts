@@ -1,9 +1,10 @@
-import { getConfigPath, loadConfig } from "../core/config.js";
+import { getConfigPath, loadConfig, saveConfig } from "../core/config.js";
 import { fileExists } from "../core/fs.js";
 
 interface RunConfigOptions {
   path?: boolean;
   exists?: boolean;
+  setRegistryUrl?: string;
 }
 
 export const runConfig = async (
@@ -19,6 +20,23 @@ export const runConfig = async (
   if (options.exists) {
     const exists = await fileExists(configPath);
     console.log(exists ? "Config exists." : "Config does not exist.");
+    return;
+  }
+
+  if (options.setRegistryUrl !== undefined) {
+    const config = await loadConfig();
+
+    await saveConfig({
+      ...config,
+      registryUrl: options.setRegistryUrl || null,
+    });
+
+    console.log(
+      options.setRegistryUrl
+        ? `Registry URL set to: ${options.setRegistryUrl}`
+        : "Registry URL cleared.",
+    );
+
     return;
   }
 

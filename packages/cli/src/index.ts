@@ -75,6 +75,7 @@ if (command === "config") {
   await runConfig({
     path: args.includes("--path") || args.includes("-p"),
     exists: args.includes("--exists") || args.includes("-e"),
+    setRegistryUrl: getFlagValue(args, "--set-registry-url"),
   });
   process.exit(0);
 }
