@@ -245,6 +245,7 @@ neurex-ui -h
 | `--yes` | Reserved for future confirmation flows. |
 | `--force` | Reserved for future conflict overwrite flow. |
 | `--help`, `-h` | Show help. |
+| `--no-fallback` | Disable local registry fallback where supported. |
 
 ---
 
@@ -314,6 +315,24 @@ Remote registries should expose a manifest object:
 }
 ```
 For backward compatibility, the CLI can also parse a raw array of registry items, but the manifest object is preferred.
+
+### Strict Registry Mode
+
+Some commands support strict registry resolution through:
+
+```bash
+--no-fallback
+```
+When enabled, the CLI fails if the configured remote registry cannot be resolved.
+
+Supported commands:
+
+- add
+- update
+- list
+- status
+- doctor
+- registry
 
 ### Fallback Behavior
 
