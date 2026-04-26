@@ -18,6 +18,10 @@ const registryTemplatesRoot = join(
 
 const sharedTemplatesRoot = join(registryTemplatesRoot, "shared");
 
+export const getRegistryTemplatesRoot = (): string => {
+  return registryTemplatesRoot;
+};
+
 export const ensureProjectStructure = async (
   config: NeurexConfig,
 ): Promise<void> => {

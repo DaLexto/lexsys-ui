@@ -1,5 +1,8 @@
 import { loadConfig } from "../core/config.js";
 import { findItem } from "../core/registry-resolver.js";
+import { join } from "node:path";
+import { getRegistryTemplatesRoot } from "../core/installer.js";
+import { fileExists, filesAreEqual } from "../core/fs.js";
 
 const isDryRun = (args: string[]): boolean => {
   return args.includes("--dry-run");
@@ -26,11 +29,59 @@ const resolveInstalledKey = (
   return installed[item.name] ? item.name : undefined;
 };
 
-const checkItemUpdate = (
+const checkItemFiles = async (
+  name: string,
+  componentsPath: string,
+): Promise<void> => {
+  const item = findItem(name);
+
+  if (!item) {
+    console.log(`Component "${name}" no longer exists in the registry.`);
+    return;
+  }
+
+  const registryTemplatesRoot = getRegistryTemplatesRoot();
+
+  console.log(`File check for ${item.canonicalName}:`);
+
+  for (const file of item.files) {
+    const sourcePath = join(registryTemplatesRoot, file);
+    const fileName = file.split("/").at(-1);
+
+    if (!fileName) {
+      console.log(`- invalid registry file path: ${file}`);
+      continue;
+    }
+
+    const targetPath = join(
+      process.cwd(),
+      componentsPath,
+      item.canonicalName,
+      fileName,
+    );
+
+    if (!(await fileExists(targetPath))) {
+      console.log(`- missing: ${targetPath}`);
+      continue;
+    }
+
+    const isSameFile = await filesAreEqual(sourcePath, targetPath);
+
+    if (isSameFile) {
+      console.log(`- identical: ${targetPath}`);
+      continue;
+    }
+
+    console.log(`- conflict: ${targetPath}`);
+  }
+};
+
+const checkItemUpdate = async (
   name: string,
   installedVersion: string,
   dryRun: boolean,
-): void => {
+  componentsPath: string,
+): Promise<void> => {
   const item = findItem(name);
 
   if (!item) {
@@ -56,6 +107,9 @@ const checkItemUpdate = (
   console.log("- Compare existing files with registry templates");
   console.log("- Report conflicts before writing changes");
   console.log("- Never overwrite user-modified files silently");
+
+  await checkItemFiles(name, componentsPath);
+  
 };
 
 export const runUpdate = async (args: string[]): Promise<void> => {
@@ -74,7 +128,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     console.log("Checking installed Neurex UI components:\n");
 
     for (const [name, version] of Object.entries(installed)) {
-      checkItemUpdate(name, version, dryRun);
+      await checkItemUpdate(name, version, dryRun, config.componentsPath);
     }
 
     return;
@@ -93,6 +147,6 @@ export const runUpdate = async (args: string[]): Promise<void> => {
       continue;
     }
 
-    checkItemUpdate(installedKey, installed[installedKey], dryRun);
+    await checkItemUpdate(installedKey, installed[installedKey], dryRun, config.componentsPath);
   }
 };
