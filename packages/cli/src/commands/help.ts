@@ -21,6 +21,7 @@ Commands:
   config --exists             Check if config exists
   registry                    Print raw registry metadata (debug)
   registry --summary          Print registry summary (debug)
+  uninstall <component>       Remove tracked components
   version                     Show CLI version
   help                        Show this help message
 
@@ -41,5 +42,6 @@ Examples:
   neurex-ui update --all --dry-run
   neurex-ui list --json
   neurex-ui config --path
+  neurex-ui uninstall button
 `);
 };

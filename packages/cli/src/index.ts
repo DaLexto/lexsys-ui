@@ -10,6 +10,7 @@ import { runVersion } from "./commands/version.js";
 import { runStatus } from "./commands/status.js";
 import { runRegistry } from "./commands/registry.js";
 import { runConfig } from "./commands/config.js";
+import { runUninstall } from "./commands/uninstall.js";
 
 const [, , command, ...args] = process.argv;
 
@@ -67,6 +68,11 @@ if (command === "config") {
     path: args.includes("--path") || args.includes("-p"),
     exists: args.includes("--exists") || args.includes("-e"),
   });
+  process.exit(0);
+}
+
+if (command === "uninstall") {
+  await runUninstall(args);
   process.exit(0);
 }
 
