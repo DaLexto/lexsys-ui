@@ -12,6 +12,7 @@ export const runHelp = (): void => {
   console.log("  update <component>   Check/update installed components");
   console.log("  update --all         Check/update all installed components");
   console.log("  list                 List available registry items");
+  console.log("  status               Show installed component status");
   console.log("  doctor               Check local Neurex UI setup");
   console.log("  version              Show CLI version");
   console.log("  help                 Show this help message\n");

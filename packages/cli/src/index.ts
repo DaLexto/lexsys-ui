@@ -7,6 +7,7 @@ import { runAdd } from "./commands/add.js";
 import { runUpdate } from "./commands/update.js";
 import { runHelp } from "./commands/help.js";
 import { runVersion } from "./commands/version.js";
+import { runStatus } from "./commands/status.js";
 
 const [, , command, ...args] = process.argv;
 
@@ -42,6 +43,11 @@ if (command === "add"){
 
 if (command === "update") {
   await runUpdate(args);
+  process.exit(0);
+}
+
+if (command === "status") {
+  await runStatus();
   process.exit(0);
 }
 
