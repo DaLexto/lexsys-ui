@@ -21,7 +21,7 @@ export const runRegistry = async (
   const fallback = !options.noFallback;
 
   if (options.source) {
-    const result = await getRegistryProviderResult({fallback});
+    const result = await getRegistryProviderResult({ fallback });
 
     if (result.fallbackUsed) {
       console.log(`${result.source} (fallback: local)`);
@@ -54,25 +54,40 @@ export const runRegistry = async (
   }
 
   if (options.summary) {
-    const result = await getRegistryProviderResult({fallback});
+    try {
+      const result = await getRegistryProviderResult({ fallback });
 
-    console.log("Neurex UI registry summary\n");
-    console.log(`Registry source: ${result.source}`);
-    console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`);
-    console.log(`Items: ${result.items.length}`);
+      console.log("Neurex UI registry summary\n");
+      console.log(`Registry source: ${result.source}`);
+      console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`);
+      console.log(`Items: ${result.items.length}`);
 
-    for (const item of result.items) {
-      const remoteFileCount = item.remoteFiles?.length ?? 0;
+      for (const item of result.items) {
+        const remoteFileCount = item.remoteFiles?.length ?? 0;
 
-      console.log(
-        `- ${item.canonicalName} v${item.version} (${item.type}/${item.category}, remote files: ${remoteFileCount})`,
-      );
+        console.log(
+          `- ${item.canonicalName} v${item.version} (${item.type}/${item.category}, remote files: ${remoteFileCount})`,
+        );
+      }
+
+      return;
+    } catch (error) {
+      console.log("Failed to resolve registry.");
+      console.log(error instanceof Error ? error.message : String(error));
+      process.exitCode = 1;
+      return;
     }
-
-    return;
   }
 
-  const items = options.local ? registryItems : await getRegistryItems({fallback});
+  try {
+    const items = options.local
+      ? registryItems
+      : await getRegistryItems({ fallback });
 
-  console.log(JSON.stringify(items, null, 2));
+    console.log(JSON.stringify(items, null, 2));
+  } catch (error) {
+    console.log("Failed to resolve registry.");
+    console.log(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  }
 };
