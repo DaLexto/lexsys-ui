@@ -5,6 +5,7 @@
  */
 
 export type {
+  RegistryFile,
   RegistryItem,
   RegistryItemCategory,
   RegistryItemType,
@@ -14,4 +15,11 @@ export { buttonRegistryItem } from "./items/button.js"
 
 import { buttonRegistryItem } from "./items/button.js"
 
+export const registryVersion = "0.0.1"
+
 export const registryItems = [buttonRegistryItem]
+
+export const registryManifest = {
+  version: registryVersion,
+  items: registryItems,
+}
