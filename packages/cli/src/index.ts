@@ -67,7 +67,9 @@ if (command === "update") {
 }
 
 if (command === "status") {
-  await runStatus();
+  await runStatus({
+    noFallback: args.includes("--no-fallback"),
+  });
   process.exit(0);
 }
 

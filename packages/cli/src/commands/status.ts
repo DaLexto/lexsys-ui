@@ -1,12 +1,30 @@
 import { loadConfig } from "../core/config.js";
 import { findItem } from "../core/registry-resolver.js";
+import { getRegistryProviderResult } from "../core/registry-provider.js";
 
-export const runStatus = async (): Promise<void> => {
+interface RunStatusOptions {
+  noFallback?: boolean;
+}
+
+export const runStatus = async (
+  options: RunStatusOptions = {},
+): Promise<void> => {
   const config = await loadConfig();
   const installed = config.installed ?? {};
 
   if (!Object.keys(installed).length) {
     console.log("No Neurex UI components are currently tracked.");
+    return;
+  }
+
+  try {
+    await getRegistryProviderResult({
+      fallback: !options.noFallback,
+    });
+  } catch (error) {
+    console.log("Failed to resolve registry.");
+    console.log(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
     return;
   }
 
