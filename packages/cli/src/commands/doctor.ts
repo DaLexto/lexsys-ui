@@ -1,9 +1,9 @@
 import { join } from "node:path";
+import { getCwd } from "../core/context.js";
 import { loadConfig } from "../core/config.js";
 import { fileExists } from "../core/fs.js";
 import { getRegistryProviderResult } from "../core/registry-provider.js";
 import { findItem } from "../core/registry-resolver.js";
-import { getCwd } from "../core/context.js";
 
 interface RunDoctorOptions {
   noFallback?: boolean;
@@ -15,6 +15,7 @@ export const runDoctor = async (
   console.log("Neurex UI doctor\n");
 
   const config = await loadConfig();
+  let registryFailed = false;
 
   const checks = [
     {
@@ -50,10 +51,16 @@ export const runDoctor = async (
     console.log(`✓ fallback: ${registryResult.fallbackUsed ? "yes" : "no"}`);
     console.log(`✓ items: ${registryResult.items.length}`);
   } catch (error) {
+    registryFailed = true;
+
     console.log("\nRegistry:");
     console.log("× failed to resolve registry");
     console.log(error instanceof Error ? error.message : String(error));
     process.exitCode = 1;
+  }
+
+  if (registryFailed && options.noFallback) {
+    return;
   }
 
   const installed = config.installed ?? {};
