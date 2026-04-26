@@ -25,6 +25,7 @@ Commands:
 Options:
   --dry-run            Show what would happen without making changes
   --help, -h           Show help
+  --force              Reserved for future conflict overwrite flow
 
 Examples:
   neurex-ui init

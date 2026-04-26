@@ -10,7 +10,11 @@ const isDryRun = (args: string[]): boolean => {
 };
 
 const removeFlags = (args: string[]): string[] => {
-  return args.filter((arg) => arg !== "--dry-run");
+  return args.filter((arg) => arg !== "--dry-run" && arg !== "--force");
+};
+
+const isForce = (args: string[]): boolean => {
+  return args.includes("--force");
 };
 
 const resolveInstalledKey = (
@@ -184,11 +188,18 @@ const checkItemUpdate = async (
 export const runUpdate = async (args: string[]): Promise<void> => {
   let changed = false;
 
+  const force = isForce(args);
   const dryRun = isDryRun(args);
   const targetArgs = removeFlags(args);
 
   const config = await loadConfig();
   const installed = config.installed ?? {};
+
+  if (force) {
+    console.log(
+      "Force update is not implemented yet. Conflicted files will still be protected.",
+    );
+  }
 
   if (!Object.keys(installed).length) {
     console.log("No Neurex UI components are currently tracked.");
