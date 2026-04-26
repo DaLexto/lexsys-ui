@@ -22,7 +22,12 @@ if (cwd) {
   setCwd(cwd);
 }
 
-if (!command || command === "help" || command === "--help" || command === "-h") {
+if (
+  !command ||
+  command === "help" ||
+  command === "--help" ||
+  command === "-h"
+) {
   runHelp();
   process.exit(0);
 }
@@ -65,7 +70,7 @@ if (command === "status") {
 }
 
 if (command === "registry") {
-  runRegistry({
+  await runRegistry({
     summary: args.includes("--summary"),
   });
   process.exit(0);
