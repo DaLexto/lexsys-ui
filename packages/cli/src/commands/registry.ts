@@ -10,12 +10,7 @@ interface RunRegistryOptions {
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
-  if (options.local) {
-    console.log(JSON.stringify(registryItems, null, 2));
-    return;
-  }
-  
-  const registrySource = await getRegistrySource();
+  const registrySource = options.local ? "local" : await getRegistrySource();
 
   if (options.source) {
     console.log(registrySource);
@@ -36,5 +31,6 @@ export const runRegistry = async (
     return;
   }
 
+  // default output
   console.log(JSON.stringify(registryItems, null, 2));
 };
