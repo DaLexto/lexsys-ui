@@ -303,7 +303,17 @@ configured remote registry
   → if unavailable or invalid, fall back to local registry
 local registry
 ```
+### Registry Manifest Shape
 
+Remote registries should expose a manifest object:
+
+```json
+{
+  "version": "0.0.1",
+  "items": []
+}
+```
+For backward compatibility, the CLI can also parse a raw array of registry items, but the manifest object is preferred.
 ---
 
 ## Safety Rules
