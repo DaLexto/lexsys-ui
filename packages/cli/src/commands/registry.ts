@@ -75,7 +75,7 @@ export const runRegistry = async (
     console.log(
       JSON.stringify(
         {
-          version: "remote-or-provider",
+          version: result.manifestVersion,
           items: result.items,
         },
         null,

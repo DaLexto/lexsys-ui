@@ -1,4 +1,4 @@
-import { registryItems as localRegistry } from "@neurex-ui/registry";
+import { registryItems as localRegistry, registryVersion } from "@neurex-ui/registry";
 import { getRegistrySource } from "./registry-source.js";
 import { fetchRemoteRegistry } from "./remote-registry.js";
 import type { RegistryItem } from "@neurex-ui/registry";
@@ -12,6 +12,7 @@ export interface RegistryProviderResult {
   items: RegistryItem[];
   source: string;
   fallbackUsed: boolean;
+  manifestVersion: string;
 }
 
 interface RegistryProviderOptions {
@@ -70,5 +71,6 @@ export const getRegistryProviderResult =
       items,
       source,
       fallbackUsed: source !== "local" && items === localRegistry,
+      manifestVersion: registryVersion,
     };
   };
