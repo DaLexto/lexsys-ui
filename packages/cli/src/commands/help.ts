@@ -33,7 +33,7 @@ Examples:
   neurex-ui add button
   neurex-ui add button dialog --dry-run
   neurex-ui update button --dry-run
-  neurex-ui update --all
+  neurex-ui update --all --dry-run
   neurex-ui list --json
   neurex-ui config --path
 `);
