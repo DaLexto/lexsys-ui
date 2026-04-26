@@ -8,6 +8,16 @@ interface RunRegistryOptions {
   remote?: boolean;
 }
 
+const fetchJson = async (url: string): Promise<unknown> => {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch registry: ${response.status}`);
+  }
+
+  return response.json();
+};
+
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
@@ -24,8 +34,15 @@ export const runRegistry = async (
       return;
     }
 
-    console.log(`Remote registry fetch is not implemented yet.`);
-    console.log(`Configured registry URL: ${registrySource}`);
+    try {
+      const data = await fetchJson(registrySource);
+
+      console.log(JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.log("Failed to fetch remote registry.");
+      console.log(String(error));
+    }
+
     return;
   }
 
