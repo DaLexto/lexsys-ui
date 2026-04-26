@@ -5,6 +5,7 @@ interface RunConfigOptions {
   path?: boolean;
   exists?: boolean;
   setRegistryUrl?: string;
+  clearRegistryUrl?: boolean;
 }
 
 export const runConfig = async (
@@ -20,6 +21,18 @@ export const runConfig = async (
   if (options.exists) {
     const exists = await fileExists(configPath);
     console.log(exists ? "Config exists." : "Config does not exist.");
+    return;
+  }
+
+  if (options.clearRegistryUrl) {
+    const config = await loadConfig();
+
+    await saveConfig({
+      ...config,
+      registryUrl: null,
+    });
+
+    console.log("Registry URL cleared.");
     return;
   }
 

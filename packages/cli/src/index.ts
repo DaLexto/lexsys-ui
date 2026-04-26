@@ -76,6 +76,7 @@ if (command === "config") {
     path: args.includes("--path") || args.includes("-p"),
     exists: args.includes("--exists") || args.includes("-e"),
     setRegistryUrl: getFlagValue(args, "--set-registry-url"),
+    clearRegistryUrl: args.includes("--clear-registry-url"),
   });
   process.exit(0);
 }
