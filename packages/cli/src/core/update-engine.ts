@@ -4,6 +4,7 @@ import { fileExists, filesAreEqual } from "./fs.js";
 import { getRegistryTemplatesRoot } from "./installer.js";
 import { findItem } from "./registry-resolver.js";
 import { getCwd } from "./context.js";
+import { isUpdateAvailable } from "./version.js";
 
 export const checkItemFiles = async (
   name: string,
@@ -128,10 +129,12 @@ export const checkItemUpdate = async (
     return false;
   }
 
-  if (item.version === installedVersion) {
-    console.log(`${item.canonicalName} is up to date (v${installedVersion}).`);
-    return false;
-  }
+if (!isUpdateAvailable(installedVersion, item.version)) {
+  console.log(
+    `${item.canonicalName} is up to date (v${installedVersion}).`,
+  );
+  return false;
+}
 
   console.log(
     `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
