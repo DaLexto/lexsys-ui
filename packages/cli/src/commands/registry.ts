@@ -1,4 +1,4 @@
-import { registryItems } from "@neurex-ui/registry";
+import { registryItems, registryManifest } from "@neurex-ui/registry";
 import { getRegistrySource } from "../core/registry-source.js";
 import {
   getRegistryItems,
@@ -67,9 +67,21 @@ export const runRegistry = async (
       return;
     }
 
-    const items = options.local ? registryItems : result.items;
+    if (options.local) {
+      console.log(JSON.stringify(registryManifest, null, 2));
+      return;
+    }
 
-    console.log(JSON.stringify(items, null, 2));
+    console.log(
+      JSON.stringify(
+        {
+          version: "remote-or-provider",
+          items: result.items,
+        },
+        null,
+        2,
+      ),
+    );
   } catch (error) {
     console.log("Failed to resolve registry.");
     console.log(error instanceof Error ? error.message : String(error));
