@@ -1,6 +1,5 @@
 import { registryItems } from "@neurex-ui/registry";
 import { getRegistrySource } from "../core/registry-source.js";
-import { fetchRemoteRegistry } from "../core/remote-registry.js";
 import {
   getRegistryItems,
   getRegistryProviderResult,
@@ -17,50 +16,47 @@ interface RunRegistryOptions {
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
-  const registrySource = options.local ? "local" : await getRegistrySource();
   const fallback = !options.noFallback;
 
-  if (options.source) {
+  try {
     const result = await getRegistryProviderResult({ fallback });
+    const effectiveSource = options.local ? "local" : result.source;
 
-    if (result.fallbackUsed) {
-      console.log(`${result.source} (fallback: local)`);
+    if (options.source) {
+      if (result.fallbackUsed && !options.local) {
+        console.log(`${result.source} (fallback: local)`);
+        return;
+      }
+
+      console.log(effectiveSource);
       return;
     }
 
-    console.log(result.source);
-    return;
-  }
+    if (options.remote) {
+      if (effectiveSource === "local") {
+        console.log("No remote registry URL configured.");
+        return;
+      }
 
-  if (options.remote) {
-    if (registrySource === "local") {
-      console.log("No remote registry URL configured.");
-      return;
-    }
-
-    try {
       const items = await getRegistryItems({ fallback });
 
       console.log(JSON.stringify(items, null, 2));
       return;
-    } catch (error) {
-      console.log("Failed to fetch remote registry.");
-      console.log(error instanceof Error ? error.message : String(error));
-      process.exitCode = 1;
-      return;
     }
-  }
 
-  if (options.summary) {
-    try {
-      const result = await getRegistryProviderResult({ fallback });
-
+    if (options.summary) {
       console.log("Neurex UI registry summary\n");
-      console.log(`Registry source: ${result.source}`);
-      console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`);
-      console.log(`Items: ${result.items.length}`);
+      console.log(`Registry source: ${effectiveSource}`);
+      console.log(
+        `Fallback used: ${result.fallbackUsed && !options.local ? "yes" : "no"}`,
+      );
+      console.log(
+        `Items: ${options.local ? registryItems.length : result.items.length}`,
+      );
 
-      for (const item of result.items) {
+      const items = options.local ? registryItems : result.items;
+
+      for (const item of items) {
         const remoteFileCount = item.remoteFiles?.length ?? 0;
 
         console.log(
@@ -69,18 +65,9 @@ export const runRegistry = async (
       }
 
       return;
-    } catch (error) {
-      console.log("Failed to resolve registry.");
-      console.log(error instanceof Error ? error.message : String(error));
-      process.exitCode = 1;
-      return;
     }
-  }
 
-  try {
-    const items = options.local
-      ? registryItems
-      : await getRegistryItems({ fallback });
+    const items = options.local ? registryItems : result.items;
 
     console.log(JSON.stringify(items, null, 2));
   } catch (error) {
