@@ -47,7 +47,7 @@ export const runAdd = async (args: string[]): Promise<void> => {
     }
   }
 
-  const resolvedItems = resolveRegistryItems(items);
+  const resolvedItems = await resolveRegistryItems(items);
   const dependencies = collectDependencies(resolvedItems);
   const utilities = collectUtilities(resolvedItems);
   const config = await loadConfig();

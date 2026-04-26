@@ -39,7 +39,7 @@ export const runDoctor = async (): Promise<void> => {
     console.log("\nTracked components:");
 
     for (const [name, version] of Object.entries(installed)) {
-      const item = findItem(name);
+      const item = await findItem(name);
 
       if (!item) {
         console.log(`× ${name} v${version} (missing from registry)`);

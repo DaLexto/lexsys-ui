@@ -3,15 +3,15 @@ import { findItem } from "../core/registry-resolver.js";
 import { checkItemUpdate } from "../core/update-engine.js";
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js";
 
-const resolveInstalledKey = (
+const resolveInstalledKey = async (
   name: string,
   installed: Record<string, string>,
-): string | undefined => {
+): Promise<string | undefined> => {
   if (installed[name]) {
     return name;
   }
 
-  const item = findItem(name);
+  const item = await findItem(name);
 
   if (!item) {
     return undefined;
@@ -61,7 +61,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
         config.componentsPath,
       );
 
-      const item = findItem(name);
+      const item = await findItem(name);
 
       if (didUpdate && item) {
         installed[name] = item.version;
@@ -85,7 +85,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   }
 
   for (const name of targetArgs) {
-    const installedKey = resolveInstalledKey(name, installed);
+    const installedKey =  await resolveInstalledKey(name, installed);
 
     if (!installedKey) {
       console.log(`Component "${name}" is not tracked as installed.`);
@@ -99,7 +99,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
       config.componentsPath,
     );
 
-    const item = findItem(installedKey);
+    const item = await findItem(installedKey);
 
     if (didUpdate && item) {
       installed[installedKey] = item.version;

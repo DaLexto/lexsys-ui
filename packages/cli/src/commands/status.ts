@@ -13,7 +13,7 @@ export const runStatus = async (): Promise<void> => {
   console.log("Installed Neurex UI components:\n");
 
   for (const [name, installedVersion] of Object.entries(installed)) {
-    const item = findItem(name);
+    const item = await findItem(name);
 
     if (!item) {
       console.log(`- ${name} v${installedVersion} (missing from registry)`);

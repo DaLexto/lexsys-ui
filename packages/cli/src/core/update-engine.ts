@@ -9,7 +9,7 @@ export const checkItemFiles = async (
   name: string,
   componentsPath: string,
 ): Promise<void> => {
-  const item = findItem(name);
+  const item = await findItem(name);
 
   if (!item) {
     console.log(`Component "${name}" no longer exists in the registry.`);
@@ -56,7 +56,7 @@ const applySafeItemUpdate = async (
   name: string,
   componentsPath: string,
 ): Promise<boolean> => {
-  const item = findItem(name);
+  const item = await findItem(name);
 
   if (!item) {
     console.log(`Component "${name}" no longer exists in the registry.`);
@@ -121,7 +121,7 @@ export const checkItemUpdate = async (
   dryRun: boolean,
   componentsPath: string,
 ): Promise<boolean> => {
-  const item = findItem(name);
+  const item = await findItem(name);
 
   if (!item) {
     console.log(`Component "${name}" no longer exists in the registry.`);

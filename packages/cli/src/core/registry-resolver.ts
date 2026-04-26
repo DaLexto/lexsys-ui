@@ -1,26 +1,47 @@
-import { registryItems } from "@neurex-ui/registry";
 import type { RegistryItem } from "@neurex-ui/registry";
+import { getRegistryItems } from "./registry-provider.js";
 import { findClosestValue } from "./suggestions.js";
 
-export const findItem = (name: string): RegistryItem | undefined => {
-  const normalizedName = name.toLowerCase();
+const normalizeName = (name: string): string => {
+  return name.toLowerCase();
+};
 
-  return registryItems.find(
+export const findItem = async (
+  name: string,
+): Promise<RegistryItem | undefined> => {
+  const items = await getRegistryItems();
+  const normalizedName = normalizeName(name);
+
+  return items.find(
     (item) =>
-      item.name.toLowerCase() === normalizedName ||
-      item.canonicalName.toLowerCase() === normalizedName ||
-      item.aliases.some((alias) => alias.toLowerCase() === normalizedName),
+      normalizeName(item.name) === normalizedName ||
+      normalizeName(item.canonicalName) === normalizedName ||
+      item.aliases.some((alias) => normalizeName(alias) === normalizedName),
   );
 };
 
-export const resolveRegistryItems = (names: string[]): RegistryItem[] => {
+export const resolveRegistryItems = async (
+  names: string[],
+): Promise<RegistryItem[]> => {
+  const items = await getRegistryItems();
   const resolved = new Map<string, RegistryItem>();
 
+  const findLocalItem = (name: string): RegistryItem | undefined => {
+    const normalizedName = normalizeName(name);
+
+    return items.find(
+      (item) =>
+        normalizeName(item.name) === normalizedName ||
+        normalizeName(item.canonicalName) === normalizedName ||
+        item.aliases.some((alias) => normalizeName(alias) === normalizedName),
+    );
+  };
+
   const visit = (name: string): void => {
-    const item = findItem(name);
+    const item = findLocalItem(name);
 
     if (!item) {
-      const availableNames = registryItems.flatMap((registryItem) => [
+      const availableNames = items.flatMap((registryItem) => [
         registryItem.name,
         registryItem.canonicalName,
         ...registryItem.aliases,
@@ -37,7 +58,7 @@ export const resolveRegistryItems = (names: string[]): RegistryItem[] => {
       process.exit(1);
     }
 
-    const key = item.canonicalName.toLowerCase();
+    const key = normalizeName(item.canonicalName);
 
     if (resolved.has(key)) {
       return;

@@ -19,7 +19,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   }
 
   for (const name of targetArgs) {
-    const item = findItem(name);
+    const item = await findItem(name);
     const key = item?.name ?? name;
 
     if (!installed[key]) {
