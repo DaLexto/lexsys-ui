@@ -15,6 +15,7 @@ export const runHelp = (): void => {
   console.log("  list --json          List available registry items as JSON");
   console.log("  doctor               Check local Neurex UI setup");
   console.log("  config               Print active Neurex UI config");
+  console.log("  config --path        Print active config file path");
   console.log("  status               Show installed component status");
   console.log("  registry             Print raw registry metadata for debugging");  
   console.log("  registry --summary   Print debug summary");

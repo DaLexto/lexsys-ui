@@ -16,8 +16,12 @@ export const defaultConfig: NeurexConfig = {
   installed: {},
 };
 
+export const getConfigPath = (): string => {
+  return join(process.cwd(), "neurex.config.json");
+};
+
 export const loadConfig = async (): Promise<NeurexConfig> => {
-  const configPath = join(process.cwd(), "neurex.config.json");
+  const configPath = getConfigPath();
 
   if (!(await fileExists(configPath))) {
     return defaultConfig;
@@ -33,7 +37,7 @@ export const loadConfig = async (): Promise<NeurexConfig> => {
 };
 
 export const saveConfig = async (config: NeurexConfig): Promise<void> => {
-  const configPath = join(process.cwd(), "neurex.config.json");
+  const configPath = getConfigPath();
 
   await writeFile(configPath, JSON.stringify(config, null, 2) + "\n", "utf-8");
 };
