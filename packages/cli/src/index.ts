@@ -65,6 +65,7 @@ if (command === "registry") {
 if (command === "config") {
   await runConfig({
     path: args.includes("--path"),
+    exists: args.includes("--exists"),
   });
   process.exit(0);
 }
