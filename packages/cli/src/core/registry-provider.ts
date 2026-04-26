@@ -5,6 +5,7 @@ import type { RegistryItem } from "@neurex-ui/registry";
 
 let cachedRegistry: RegistryItem[] | null = null;
 let cachedSource: string | null = null;
+let fallbackWarningShown = false;
 
 export interface RegistryProviderResult {
   items: RegistryItem[];
@@ -33,7 +34,10 @@ export const getRegistryItems = async (): Promise<RegistryItem[]> => {
 
     return remote;
   } catch {
-    console.log("Remote registry failed. Falling back to local registry.");
+    if (!fallbackWarningShown) {
+      console.log("Remote registry failed. Falling back to local registry.");
+      fallbackWarningShown = true;
+    }
 
     cachedRegistry = localRegistry;
     cachedSource = source;
