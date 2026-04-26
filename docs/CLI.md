@@ -314,6 +314,21 @@ Remote registries should expose a manifest object:
 }
 ```
 For backward compatibility, the CLI can also parse a raw array of registry items, but the manifest object is preferred.
+
+### Fallback Behavior
+
+When `registryUrl` is configured, commands that resolve registry items use the remote registry first.
+
+If the remote registry is unavailable or invalid, the CLI falls back to the bundled local registry unless fallback is explicitly disabled.
+
+Commands using registry resolution include:
+
+- `add`
+- `update`
+- `status`
+- `uninstall`
+- `list`
+- `registry`
 ---
 
 ## Safety Rules
