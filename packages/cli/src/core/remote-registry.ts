@@ -1,5 +1,10 @@
 import type { RegistryItem } from "@neurex-ui/registry";
 
+export interface RemoteRegistryManifest {
+  version: string;
+  items: RegistryItem[];
+}
+
 const isStringArray = (value: unknown): value is string[] => {
   return Array.isArray(value) && value.every((item) => typeof item === "string");
 };
@@ -27,21 +32,41 @@ const isRegistryItem = (value: unknown): value is RegistryItem => {
   );
 };
 
-const parseRemoteRegistry = (value: unknown): RegistryItem[] => {
-  if (!Array.isArray(value)) {
-    throw new Error("Remote registry must be a JSON array.");
+const parseRemoteRegistry = (value: unknown): RemoteRegistryManifest => {
+  if (Array.isArray(value)) {
+    if (!value.every(isRegistryItem)) {
+      throw new Error("Remote registry contains invalid registry items.");
+    }
+
+    return {
+      version: "unknown",
+      items: value,
+    };
   }
 
-  if (!value.every(isRegistryItem)) {
+  if (typeof value !== "object" || value === null) {
+    throw new Error("Remote registry must be a JSON array or manifest object.");
+  }
+
+  const manifest = value as Partial<RemoteRegistryManifest>;
+
+  if (typeof manifest.version !== "string" || !Array.isArray(manifest.items)) {
+    throw new Error("Remote registry manifest must contain version and items.");
+  }
+
+  if (!manifest.items.every(isRegistryItem)) {
     throw new Error("Remote registry contains invalid registry items.");
   }
 
-  return value;
+  return {
+    version: manifest.version,
+    items: manifest.items,
+  };
 };
 
 export const fetchRemoteRegistry = async (
   url: string,
-): Promise<RegistryItem[]> => {
+): Promise<RemoteRegistryManifest> => {
   const response = await fetch(url);
 
   if (!response.ok) {

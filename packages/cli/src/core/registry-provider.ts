@@ -1,12 +1,10 @@
-import { registryItems as localRegistry, registryVersion } from "@neurex-ui/registry";
-import { getRegistrySource } from "./registry-source.js";
-import { fetchRemoteRegistry } from "./remote-registry.js";
+import {
+  registryItems as localRegistry,
+  registryVersion,
+} from "@neurex-ui/registry";
 import type { RegistryItem } from "@neurex-ui/registry";
-import { error } from "node:console";
-
-let cachedRegistry: RegistryItem[] | null = null;
-let cachedSource: string | null = null;
-let fallbackWarningShown = false;
+import { fetchRemoteRegistry } from "./remote-registry.js";
+import { getRegistrySource } from "./registry-source.js";
 
 export interface RegistryProviderResult {
   items: RegistryItem[];
@@ -18,6 +16,11 @@ export interface RegistryProviderResult {
 interface RegistryProviderOptions {
   fallback?: boolean;
 }
+
+let cachedRegistry: RegistryItem[] | null = null;
+let cachedSource: string | null = null;
+let cachedManifestVersion: string | null = null;
+let fallbackWarningShown = false;
 
 export const getRegistryItems = async (
   options: RegistryProviderOptions = {},
@@ -32,18 +35,21 @@ export const getRegistryItems = async (
   if (source === "local") {
     cachedRegistry = localRegistry;
     cachedSource = source;
+    cachedManifestVersion = registryVersion;
+
     return localRegistry;
   }
 
   try {
     const remote = await fetchRemoteRegistry(source);
 
-    cachedRegistry = remote;
+    cachedRegistry = remote.items;
     cachedSource = source;
+    cachedManifestVersion = remote.version;
 
-    return remote;
-  } catch {
-    if(!fallback){
+    return remote.items;
+  } catch (error) {
+    if (!fallback) {
       throw error;
     }
 
@@ -54,23 +60,22 @@ export const getRegistryItems = async (
 
     cachedRegistry = localRegistry;
     cachedSource = source;
+    cachedManifestVersion = registryVersion;
 
     return localRegistry;
   }
 };
 
-export const getRegistryProviderResult =
-  async (
-    options:RegistryProviderOptions = {}
-  ): Promise<RegistryProviderResult> => {
-    const source = await getRegistrySource();
+export const getRegistryProviderResult = async (
+  options: RegistryProviderOptions = {},
+): Promise<RegistryProviderResult> => {
+  const source = await getRegistrySource();
+  const items = await getRegistryItems(options);
 
-    const items = await getRegistryItems(options);
-
-    return {
-      items,
-      source,
-      fallbackUsed: source !== "local" && items === localRegistry,
-      manifestVersion: registryVersion,
-    };
+  return {
+    items,
+    source,
+    fallbackUsed: source !== "local" && items === localRegistry,
+    manifestVersion: cachedManifestVersion ?? registryVersion,
   };
+};
