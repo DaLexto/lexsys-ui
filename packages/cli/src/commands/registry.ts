@@ -19,7 +19,14 @@ export const runRegistry = async (
   const registrySource = options.local ? "local" : await getRegistrySource();
 
   if (options.source) {
-    console.log(registrySource);
+    const result = await getRegistryProviderResult();
+
+    if (result.fallbackUsed) {
+      console.log(`${result.source} (fallback: local)`);
+      return;
+    }
+
+    console.log(result.source);
     return;
   }
 
