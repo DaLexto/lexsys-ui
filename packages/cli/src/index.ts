@@ -16,7 +16,7 @@ if (!command || command === "help" || command === "--help" || command === "-h") 
 }
 
 if (command === "version" || command === "--version" || command === "-v") {
-  runVersion();
+  await runVersion();
   process.exit(0);
 }
 
