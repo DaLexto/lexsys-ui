@@ -55,7 +55,9 @@ if (command === "status") {
 }
 
 if (command === "registry") {
-  runRegistry();
+  runRegistry({
+    summary: args.includes("--summary"),
+  });
   process.exit(0);
 }
 
