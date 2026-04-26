@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { access, copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { execSync } from "node:child_process";
 import { dirname, join } from "node:path";
@@ -9,19 +9,12 @@ import { registryItems } from "@neurex-ui/registry";
 import type { RegistryItem } from "@neurex-ui/registry";
 import prompts from "prompts";
 
-interface NeurexConfig {
-  componentsPath: string;
-  utilitiesPath: string;
-  stylesPath: string;
-}
+import type { NeurexConfig } from "./core/config.js";
+import { defaultConfig, loadConfig } from "./core/config.js";
+import { fileExists, filesAreEqual, writeFileIfMissing } from "./core/fs.js";
+
 
 type PackageManager = "npm" | "pnpm" | "yarn";
-
-const defaultConfig: NeurexConfig = {
-  componentsPath: "components/ui",
-  utilitiesPath: "lib/neurex",
-  stylesPath: "styles/neurex",
-};
 
 const [, , command, ...args] = process.argv;
 
@@ -37,41 +30,6 @@ const registryTemplatesRoot = join(
 );
 
 const sharedTemplatesRoot = join(registryTemplatesRoot, "shared");
-
-const fileExists = async (path: string): Promise<boolean> => {
-  try {
-    await access(path, constants.F_OK);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-const filesAreEqual = async (
-  sourcePath: string,
-  targetPath: string,
-): Promise<boolean> => {
-  const sourceContent = await readFile(sourcePath, "utf-8");
-  const targetContent = await readFile(targetPath, "utf-8");
-
-  return sourceContent === targetContent;
-};
-
-const loadConfig = async (): Promise<NeurexConfig> => {
-  const configPath = join(process.cwd(), "neurex.config.json");
-
-  if (!(await fileExists(configPath))) {
-    return defaultConfig;
-  }
-
-  const content = await readFile(configPath, "utf-8");
-  const parsed = JSON.parse(content) as Partial<NeurexConfig>;
-
-  return {
-    ...defaultConfig,
-    ...parsed,
-  };
-};
 
 const detectPackageManager = async (
   packageJson: Record<string, unknown>,
@@ -327,20 +285,6 @@ const runDoctor = async (): Promise<void> => {
     const exists = await fileExists(check.path);
     console.log(`${exists ? "✓" : "×"} ${check.label}`);
   }
-};
-
-const writeFileIfMissing = async (
-  path: string,
-  content: string,
-): Promise<void> => {
-  if (await fileExists(path)) {
-    console.log(`Skipped existing file: ${path}`);
-    return;
-  }
-
-  await mkdir(dirname(path), { recursive: true });
-  await writeFile(path, content, "utf-8");
-  console.log(`Created: ${path}`);
 };
 
 const printAvailableItems = (): void => {
