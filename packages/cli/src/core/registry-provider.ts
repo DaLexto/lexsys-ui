@@ -36,7 +36,7 @@ export const getRegistryItems = async (): Promise<RegistryItem[]> => {
     console.log("Remote registry failed. Falling back to local registry.");
 
     cachedRegistry = localRegistry;
-    cachedSource = "local";
+    cachedSource = source;
 
     return localRegistry;
   }
