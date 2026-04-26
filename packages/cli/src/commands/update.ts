@@ -1,4 +1,23 @@
 import { loadConfig } from "../core/config.js";
+import { findItem } from "../core/registry-resolver.js";
+
+const checkItemUpdate = (name: string, installedVersion: string): void => {
+  const item = findItem(name);
+
+  if (!item) {
+    console.log(`Component "${name}" no longer exists in the registry.`);
+    return;
+  }
+
+  if (item.version === installedVersion) {
+    console.log(`${item.canonicalName} is up to date (v${installedVersion}).`);
+    return;
+  }
+
+  console.log(
+    `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
+  );
+};
 
 export const runUpdate = async (args: string[]): Promise<void> => {
   const config = await loadConfig();
@@ -10,10 +29,10 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   }
 
   if (args.includes("--all")) {
-    console.log("Installed Neurex UI components:\n");
+    console.log("Checking installed Neurex UI components:\n");
 
     for (const [name, version] of Object.entries(installed)) {
-      console.log(`- ${name} v${version}`);
+      checkItemUpdate(name, version);
     }
 
     return;
@@ -25,13 +44,13 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   }
 
   for (const name of args) {
-    const version = installed[name];
+    const installedVersion = installed[name];
 
-    if (!version) {
+    if (!installedVersion) {
       console.log(`Component "${name}" is not tracked as installed.`);
       continue;
     }
 
-    console.log(`${name} is currently installed at v${version}`);
+    checkItemUpdate(name, installedVersion);
   }
 };
