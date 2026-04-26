@@ -12,7 +12,7 @@ const fetchJson = async (url: string): Promise<unknown> => {
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch registry: ${response.status}`);
+    throw new Error(`Remote registry responded with HTTP ${response.status}`);
   }
 
   return response.json();
@@ -40,7 +40,10 @@ export const runRegistry = async (
       console.log(JSON.stringify(data, null, 2));
     } catch (error) {
       console.log("Failed to fetch remote registry.");
-      console.log(String(error));
+      console.log(error instanceof Error ? error.message : String(error));
+      console.log(
+        "Local registry is still available via: neurex-ui registry --local",
+      );
     }
 
     return;
