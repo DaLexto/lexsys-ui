@@ -1,6 +1,7 @@
 import { join } from "node:path";
 import { loadConfig } from "../core/config.js";
 import { fileExists } from "../core/fs.js";
+import { getRegistryProviderResult } from "../core/registry-provider.js";
 import { findItem } from "../core/registry-resolver.js";
 import { getCwd } from "../core/context.js";
 
@@ -32,6 +33,13 @@ export const runDoctor = async (): Promise<void> => {
     const exists = await fileExists(check.path);
     console.log(`${exists ? "✓" : "×"} ${check.label}`);
   }
+
+  const registryResult = await getRegistryProviderResult();
+
+  console.log("\nRegistry:");
+  console.log(`✓ source: ${registryResult.source}`);
+  console.log(`✓ fallback: ${registryResult.fallbackUsed ? "yes" : "no"}`);
+  console.log(`✓ items: ${registryResult.items.length}`);
 
   const installed = config.installed ?? {};
 
