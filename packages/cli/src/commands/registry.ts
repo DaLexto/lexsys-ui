@@ -5,6 +5,7 @@ interface RunRegistryOptions {
   summary?: boolean;
   source?: boolean;
   local?: boolean;
+  remote?: boolean;
 }
 
 export const runRegistry = async (
@@ -14,6 +15,17 @@ export const runRegistry = async (
 
   if (options.source) {
     console.log(registrySource);
+    return;
+  }
+
+  if (options.remote) {
+    if (registrySource === "local") {
+      console.log("No remote registry URL configured.");
+      return;
+    }
+
+    console.log(`Remote registry fetch is not implemented yet.`);
+    console.log(`Configured registry URL: ${registrySource}`);
     return;
   }
 

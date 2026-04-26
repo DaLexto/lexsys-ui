@@ -74,6 +74,7 @@ if (command === "registry") {
     summary: args.includes("--summary"),
     source: args.includes("--source"),
     local: args.includes("--local"),
+    remote: args.includes("--remote"),
   });
   process.exit(0);
 }

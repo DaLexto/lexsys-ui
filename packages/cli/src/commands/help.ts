@@ -25,6 +25,7 @@ Commands:
   registry --summary                        Print registry summary (debug)
   registry --source                         Print active registry source
   registry --local                          Print bundled local registry metadata
+  registry --remote                         Reserved for future remote registry fetch
   uninstall <component>                     Remove tracked components
   version                                   Show CLI version
   help                                      Show this help message
