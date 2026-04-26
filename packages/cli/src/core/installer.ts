@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { RegistryItem } from "@neurex-ui/registry";
 import type { NeurexConfig } from "./config.js";
 import { fileExists, filesAreEqual } from "./fs.js";
+import { getCwd } from "./context.js";
 
 const cliFilePath = fileURLToPath(import.meta.url);
 const cliDistDir = dirname(cliFilePath);
@@ -25,9 +26,9 @@ export const getRegistryTemplatesRoot = (): string => {
 export const ensureProjectStructure = async (
   config: NeurexConfig,
 ): Promise<void> => {
-  await mkdir(join(process.cwd(), config.componentsPath), { recursive: true });
-  await mkdir(join(process.cwd(), config.utilitiesPath), { recursive: true });
-  await mkdir(join(process.cwd(), config.stylesPath), { recursive: true });
+  await mkdir(join(getCwd(), config.componentsPath), { recursive: true });
+  await mkdir(join(getCwd(), config.utilitiesPath), { recursive: true });
+  await mkdir(join(getCwd(), config.stylesPath), { recursive: true });
 };
 
 export const installUtilities = async (
@@ -41,7 +42,7 @@ export const installUtilities = async (
     }
 
     const sourcePath = join(sharedTemplatesRoot, "utils", "cn.ts");
-    const targetPath = join(process.cwd(), config.utilitiesPath, "cn.ts");
+    const targetPath = join(getCwd(), config.utilitiesPath, "cn.ts");
 
     await mkdir(dirname(targetPath), { recursive: true });
 
@@ -80,7 +81,7 @@ export const installItemFiles = async (
     }
 
     const targetPath = join(
-      process.cwd(),
+      getCwd(),
       config.componentsPath,
       item.canonicalName,
       fileName,

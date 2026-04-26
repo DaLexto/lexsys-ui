@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { fileExists, filesAreEqual } from "./fs.js";
 import { getRegistryTemplatesRoot } from "./installer.js";
 import { findItem } from "./registry-resolver.js";
+import { getCwd } from "./context.js";
 
 export const checkItemFiles = async (
   name: string,
@@ -29,7 +30,7 @@ export const checkItemFiles = async (
     }
 
     const targetPath = join(
-      process.cwd(),
+      getCwd(),
       componentsPath,
       item.canonicalName,
       fileName,
@@ -78,7 +79,7 @@ const applySafeItemUpdate = async (
     }
 
     const targetPath = join(
-      process.cwd(),
+      getCwd(),
       componentsPath,
       item.canonicalName,
       fileName,

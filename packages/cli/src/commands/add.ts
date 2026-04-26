@@ -13,7 +13,7 @@ import {
   collectUtilities,
   resolveRegistryItems,
 } from "../core/registry-resolver.js";
-import { hasFlag, removeFlags } from "../core/flags.js";
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js";
 
 const promptSelectItems = async (): Promise<string[]> => {
   const response = await prompts({
@@ -33,7 +33,8 @@ export const runAdd = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run");
   const yes = hasFlag(args, "--yes");
 
-  let items = removeFlags(args, ["--dry-run", "--yes"]);
+  let items = removeFlagsWithValues(args, ["--cwd"]);
+  items = removeFlags(items, ["--dry-run", "--yes"]);
 
   void yes;
 

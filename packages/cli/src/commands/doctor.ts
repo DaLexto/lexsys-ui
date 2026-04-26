@@ -2,6 +2,7 @@ import { join } from "node:path";
 import { loadConfig } from "../core/config.js";
 import { fileExists } from "../core/fs.js";
 import { findItem } from "../core/registry-resolver.js";
+import { getCwd } from "../core/context.js";
 
 export const runDoctor = async (): Promise<void> => {
   console.log("Neurex UI doctor\n");
@@ -11,19 +12,19 @@ export const runDoctor = async (): Promise<void> => {
   const checks = [
     {
       label: "package.json",
-      path: join(process.cwd(), "package.json"),
+      path: join(getCwd(), "package.json"),
     },
     {
       label: config.componentsPath,
-      path: join(process.cwd(), config.componentsPath),
+      path: join(getCwd(), config.componentsPath),
     },
     {
       label: config.utilitiesPath,
-      path: join(process.cwd(), config.utilitiesPath),
+      path: join(getCwd(), config.utilitiesPath),
     },
     {
       label: config.stylesPath,
-      path: join(process.cwd(), config.stylesPath),
+      path: join(getCwd(), config.stylesPath),
     },
   ];
 
@@ -46,7 +47,7 @@ export const runDoctor = async (): Promise<void> => {
       }
 
       const componentPath = join(
-        process.cwd(),
+        getCwd(),
         config.componentsPath,
         item.canonicalName,
       );

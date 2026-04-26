@@ -2,6 +2,8 @@ import { execSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileExists } from "./fs.js";
+import { getCwd } from "./context.js";
+
 
 type PackageManager = "npm" | "pnpm" | "yarn";
 
@@ -17,9 +19,9 @@ export const detectPackageManager = async (
   if (declaredPackageManager?.startsWith("yarn@")) return "yarn";
   if (declaredPackageManager?.startsWith("npm@")) return "npm";
 
-  const hasPackageLock = await fileExists(join(process.cwd(), "package-lock.json"));
-  const hasPnpmLock = await fileExists(join(process.cwd(), "pnpm-lock.yaml"));
-  const hasYarnLock = await fileExists(join(process.cwd(), "yarn.lock"));
+  const hasPackageLock = await fileExists(join(getCwd(), "package-lock.json"));
+  const hasPnpmLock = await fileExists(join(getCwd(), "pnpm-lock.yaml"));
+  const hasYarnLock = await fileExists(join(getCwd(), "yarn.lock"));
 
   if (hasPackageLock) return "npm";
   if (hasPnpmLock) return "pnpm";

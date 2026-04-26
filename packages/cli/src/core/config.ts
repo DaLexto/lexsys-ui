@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileExists } from "./fs.js";
+import { getCwd } from "./context.js";
 
 export interface NeurexConfig {
   componentsPath: string;
@@ -17,7 +18,7 @@ export const defaultConfig: NeurexConfig = {
 };
 
 export const getConfigPath = (): string => {
-  return join(process.cwd(), "neurex.config.json");
+  return join(getCwd(), "neurex.config.json");
 };
 
 export const loadConfig = async (): Promise<NeurexConfig> => {

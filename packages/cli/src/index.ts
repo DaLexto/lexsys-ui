@@ -1,18 +1,26 @@
 #!/usr/bin/env node
 
-import { runDoctor } from "./commands/doctor.js";
-import { runList } from "./commands/list.js";
-import { runInit } from "./commands/init.js";
 import { runAdd } from "./commands/add.js";
-import { runUpdate } from "./commands/update.js";
-import { runHelp } from "./commands/help.js";
-import { runVersion } from "./commands/version.js";
-import { runStatus } from "./commands/status.js";
-import { runRegistry } from "./commands/registry.js";
 import { runConfig } from "./commands/config.js";
+import { runDoctor } from "./commands/doctor.js";
+import { runHelp } from "./commands/help.js";
+import { runInit } from "./commands/init.js";
+import { runList } from "./commands/list.js";
+import { runRegistry } from "./commands/registry.js";
+import { runStatus } from "./commands/status.js";
 import { runUninstall } from "./commands/uninstall.js";
+import { runUpdate } from "./commands/update.js";
+import { runVersion } from "./commands/version.js";
+import { setCwd } from "./core/context.js";
+import { getFlagValue } from "./core/flags.js";
 
 const [, , command, ...args] = process.argv;
+
+const cwd = getFlagValue(args, "--cwd");
+
+if (cwd) {
+  setCwd(cwd);
+}
 
 if (!command || command === "help" || command === "--help" || command === "-h") {
   runHelp();
@@ -41,9 +49,9 @@ if (command === "init") {
   process.exit(0);
 }
 
-if (command === "add"){
-  await runAdd(args)
-  process.exit(0)
+if (command === "add") {
+  await runAdd(args);
+  process.exit(0);
 }
 
 if (command === "update") {
