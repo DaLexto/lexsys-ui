@@ -1,7 +1,10 @@
 import { registryItems } from "@neurex-ui/registry";
 import { getRegistrySource } from "../core/registry-source.js";
 import { fetchRemoteRegistry } from "../core/remote-registry.js";
-import { getRegistryProviderResult } from "../core/registry-provider.js";
+import {
+  getRegistryItems,
+  getRegistryProviderResult,
+} from "../core/registry-provider.js";
 
 interface RunRegistryOptions {
   summary?: boolean;
@@ -42,24 +45,25 @@ export const runRegistry = async (
   }
 
   if (options.summary) {
-  const result = await getRegistryProviderResult();
+    const result = await getRegistryProviderResult();
 
-  console.log("Neurex UI registry summary\n");
-  console.log(`Registry source: ${result.source}`);
-  console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`);
-  console.log(`Items: ${result.items.length}`);
+    console.log("Neurex UI registry summary\n");
+    console.log(`Registry source: ${result.source}`);
+    console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`);
+    console.log(`Items: ${result.items.length}`);
 
-  for (const item of result.items) {
-    const remoteFileCount = item.remoteFiles?.length ?? 0;
+    for (const item of result.items) {
+      const remoteFileCount = item.remoteFiles?.length ?? 0;
 
-    console.log(
-      `- ${item.canonicalName} v${item.version} (${item.type}/${item.category}, remote files: ${remoteFileCount})`,
-    );
+      console.log(
+        `- ${item.canonicalName} v${item.version} (${item.type}/${item.category}, remote files: ${remoteFileCount})`,
+      );
+    }
+
+    return;
   }
 
-  return;
-}
+  const items = options.local ? registryItems : await getRegistryItems();
 
-  // default output
-  console.log(JSON.stringify(registryItems, null, 2));
+  console.log(JSON.stringify(items, null, 2));
 };
