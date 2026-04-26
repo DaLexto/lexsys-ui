@@ -16,6 +16,7 @@ Commands:
   list --json                               List registry items as JSON
   status                                    Show installed component status
   doctor                                    Check local Neurex UI setup
+  doctor --no-fallback                      Disable local registry fallback during doctor check
   config                                    Print active config
   config --path                             Print config file path
   config --exists                           Check if config exists

@@ -5,7 +5,13 @@ import { getRegistryProviderResult } from "../core/registry-provider.js";
 import { findItem } from "../core/registry-resolver.js";
 import { getCwd } from "../core/context.js";
 
-export const runDoctor = async (): Promise<void> => {
+interface RunDoctorOptions {
+  noFallback?: boolean;
+}
+
+export const runDoctor = async (
+  options: RunDoctorOptions = {},
+): Promise<void> => {
   console.log("Neurex UI doctor\n");
 
   const config = await loadConfig();
@@ -34,12 +40,21 @@ export const runDoctor = async (): Promise<void> => {
     console.log(`${exists ? "✓" : "×"} ${check.label}`);
   }
 
-  const registryResult = await getRegistryProviderResult();
+  try {
+    const registryResult = await getRegistryProviderResult({
+      fallback: !options.noFallback,
+    });
 
-  console.log("\nRegistry:");
-  console.log(`✓ source: ${registryResult.source}`);
-  console.log(`✓ fallback: ${registryResult.fallbackUsed ? "yes" : "no"}`);
-  console.log(`✓ items: ${registryResult.items.length}`);
+    console.log("\nRegistry:");
+    console.log(`✓ source: ${registryResult.source}`);
+    console.log(`✓ fallback: ${registryResult.fallbackUsed ? "yes" : "no"}`);
+    console.log(`✓ items: ${registryResult.items.length}`);
+  } catch (error) {
+    console.log("\nRegistry:");
+    console.log("× failed to resolve registry");
+    console.log(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  }
 
   const installed = config.installed ?? {};
 

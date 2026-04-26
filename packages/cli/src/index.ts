@@ -45,7 +45,9 @@ if (command === "list") {
 }
 
 if (command === "doctor") {
-  await runDoctor();
+  await runDoctor({
+    noFallback: args.includes("--no-fallback"),
+  });
   process.exit(0);
 }
 
