@@ -1,21 +1,25 @@
-import { registryItems } from "@neurex-ui/registry";
+import { getRegistryItems } from "../core/registry-provider.js";
 
 interface RunListOptions {
   json?: boolean;
 }
 
-export const runList = (options: RunListOptions = {}): void => {
-  if (options.json) {
-  const simplified = registryItems.map((item) => ({
-    name: item.name,
-    canonicalName: item.canonicalName,
-    version: item.version,
-    category: item.category,
-  }));
+export const runList = async (
+  options: RunListOptions = {},
+): Promise<void> => {
+  const registryItems = await getRegistryItems();
 
-  console.log(JSON.stringify(simplified, null, 2));
-  return;
-}
+  if (options.json) {
+    const simplified = registryItems.map((item) => ({
+      name: item.name,
+      canonicalName: item.canonicalName,
+      version: item.version,
+      category: item.category,
+    }));
+
+    console.log(JSON.stringify(simplified, null, 2));
+    return;
+  }
 
   console.log("Available Neurex UI components:\n");
 

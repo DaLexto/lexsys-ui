@@ -38,7 +38,7 @@ if (command === "version" || command === "--version" || command === "-v") {
 }
 
 if (command === "list") {
-  runList({
+  await runList({
     json: args.includes("--json"),
   });
   process.exit(0);
