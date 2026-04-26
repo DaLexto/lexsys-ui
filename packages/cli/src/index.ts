@@ -1,39 +1,11 @@
 #!/usr/bin/env node
 
-import { registryItems } from "@neurex-ui/registry";
-import prompts from "prompts";
-
-import { loadConfig } from "./core/config.js";
-import { installDependencies } from "./core/package-manager.js";
-import {
-  collectDependencies,
-  collectUtilities,
-  resolveRegistryItems,
-} from "./core/registry-resolver.js";
-import {
-  ensureProjectStructure,
-  installItemFiles,
-  installUtilities,
-} from "./core/installer.js";
 import { runDoctor } from "./commands/doctor.js";
 import { runList } from "./commands/list.js";
 import { runInit } from "./commands/init.js";
+import { runAdd } from "./commands/add.js";
 
 const [, , command, ...args] = process.argv;
-
-const promptSelectItems = async (): Promise<string[]> => {
-  const response = await prompts({
-    type: "multiselect",
-    name: "items",
-    message: "Select components to add",
-    choices: registryItems.map((item) => ({
-      title: `${item.canonicalName} (${item.category})`,
-      value: item.name,
-    })),
-  });
-
-  return response.items || [];
-};
 
 if (command === "list") {
   runList();
@@ -50,33 +22,9 @@ if (command === "init") {
   process.exit(0);
 }
 
-if (command === "add") {
-  let items = args;
-
-  if (!items.length) {
-    items = await promptSelectItems();
-
-    if (!items.length) {
-      console.log("No components selected.");
-      process.exit(0);
-    }
-  }
-
-  const resolvedItems = resolveRegistryItems(items);
-  const dependencies = collectDependencies(resolvedItems);
-  const utilities = collectUtilities(resolvedItems);
-  const config = await loadConfig();
-
-  await ensureProjectStructure(config);
-  await installDependencies(dependencies);
-  await installUtilities(utilities, config);
-
-  for (const item of resolvedItems) {
-    await installItemFiles(item, config);
-    console.log("");
-  }
-
-  process.exit(0);
+if (command === "add"){
+  await runAdd(args)
+  process.exit(0)
 }
 
 console.log("Neurex UI CLI\n");

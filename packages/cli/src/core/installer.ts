@@ -7,7 +7,7 @@ import { fileExists, filesAreEqual } from "./fs.js";
 
 const cliFilePath = fileURLToPath(import.meta.url);
 const cliDistDir = dirname(cliFilePath);
-const repoRoot = join(cliDistDir, "..", "..", "..");
+const repoRoot = join(cliDistDir, "..", "..", "..", "..");
 
 const registryTemplatesRoot = join(
   repoRoot,
