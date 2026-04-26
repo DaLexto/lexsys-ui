@@ -1,6 +1,14 @@
 import { loadConfig } from "../core/config.js";
 import { findItem } from "../core/registry-resolver.js";
 
+const isDryRun = (args: string[]): boolean => {
+  return args.includes("--dry-run");
+};
+
+const removeFlags = (args: string[]): string[] => {
+  return args.filter((arg) => arg !== "--dry-run");
+};
+
 const resolveInstalledKey = (
   name: string,
   installed: Record<string, string>,
@@ -18,7 +26,11 @@ const resolveInstalledKey = (
   return installed[item.name] ? item.name : undefined;
 };
 
-const checkItemUpdate = (name: string, installedVersion: string): void => {
+const checkItemUpdate = (
+  name: string,
+  installedVersion: string,
+  dryRun: boolean,
+): void => {
   const item = findItem(name);
 
   if (!item) {
@@ -35,6 +47,10 @@ const checkItemUpdate = (name: string, installedVersion: string): void => {
     `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
   );
 
+  if (dryRun) {
+    console.log("Dry run: no files will be changed.");
+  }
+
   console.log("Update plan:");
   console.log(`- Check installed files for ${item.canonicalName}`);
   console.log("- Compare existing files with registry templates");
@@ -43,6 +59,9 @@ const checkItemUpdate = (name: string, installedVersion: string): void => {
 };
 
 export const runUpdate = async (args: string[]): Promise<void> => {
+  const dryRun = isDryRun(args);
+  const targetArgs = removeFlags(args);
+
   const config = await loadConfig();
   const installed = config.installed ?? {};
 
@@ -55,18 +74,18 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     console.log("Checking installed Neurex UI components:\n");
 
     for (const [name, version] of Object.entries(installed)) {
-      checkItemUpdate(name, version);
+      checkItemUpdate(name, version, dryRun);
     }
 
     return;
   }
 
-  if (!args.length) {
+  if (!targetArgs.length) {
     console.log("Please specify components to update or use --all.");
     return;
   }
 
-  for (const name of args) {
+  for (const name of targetArgs) {
     const installedKey = resolveInstalledKey(name, installed);
 
     if (!installedKey) {
@@ -74,6 +93,6 @@ export const runUpdate = async (args: string[]): Promise<void> => {
       continue;
     }
 
-    checkItemUpdate(installedKey, installed[installedKey]);
+    checkItemUpdate(installedKey, installed[installedKey], dryRun);
   }
 };
