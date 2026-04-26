@@ -18,44 +18,10 @@ import {
   installItemFiles,
   installUtilities,
 } from "./core/installer.js";
+import { runDoctor } from "./commands/doctor.js";
+import { runList } from "./commands/list.js";
 
 const [, , command, ...args] = process.argv;
-
-const runDoctor = async (): Promise<void> => {
-  console.log("Neurex UI doctor\n");
-
-  const checks = [
-    {
-      label: "package.json",
-      path: join(process.cwd(), "package.json"),
-    },
-    {
-      label: "components/ui",
-      path: join(process.cwd(), "components", "ui"),
-    },
-    {
-      label: "lib/neurex",
-      path: join(process.cwd(), "lib", "neurex"),
-    },
-    {
-      label: "styles/neurex",
-      path: join(process.cwd(), "styles", "neurex"),
-    },
-  ];
-
-  for (const check of checks) {
-    const exists = await fileExists(check.path);
-    console.log(`${exists ? "✓" : "×"} ${check.label}`);
-  }
-};
-
-const printAvailableItems = (): void => {
-  console.log("Available Neurex UI components:\n");
-
-  for (const item of registryItems) {
-    console.log(`- ${item.canonicalName} (${item.category})`);
-  }
-};
 
 const runInit = async (): Promise<void> => {
   console.log("Initializing Neurex UI...\n");
@@ -95,7 +61,7 @@ const promptSelectItems = async (): Promise<string[]> => {
 };
 
 if (command === "list") {
-  printAvailableItems();
+  runList();
   process.exit(0);
 }
 
