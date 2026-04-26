@@ -3,17 +3,23 @@ import { loadConfig } from "../core/config.js";
 
 interface RunRegistryOptions {
   summary?: boolean;
+  source?: boolean;
 }
 
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
-  if (options.summary) {
-    const config = await loadConfig();
-    const source = config.registryUrl ?? "local";
+  const config = await loadConfig();
+  const registrySource = config.registryUrl ?? "local";
 
+  if (options.source) {
+    console.log(registrySource);
+    return;
+  }
+
+  if (options.summary) {
     console.log("Neurex UI registry summary\n");
-    console.log(`Registry source: ${source}`);
+    console.log(`Registry source: ${registrySource}`);
     console.log(`Items: ${registryItems.length}`);
 
     for (const item of registryItems) {

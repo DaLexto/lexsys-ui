@@ -72,6 +72,7 @@ if (command === "status") {
 if (command === "registry") {
   await runRegistry({
     summary: args.includes("--summary"),
+    source: args.includes("--source"),
   });
   process.exit(0);
 }

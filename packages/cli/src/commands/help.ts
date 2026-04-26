@@ -23,10 +23,11 @@ Commands:
   config --clear-registry-url               Clear registry URL
   registry                                  Print raw registry metadata (debug)
   registry --summary                        Print registry summary (debug)
+  registry --source                         Print active registry source
   uninstall <component>                     Remove tracked components
   version                                   Show CLI version
   help                                      Show this help message
-        
+
 Options:              
   --dry-run                                 Show what would happen without making changes
   --cwd <path>                              Run CLI in a different working directory
