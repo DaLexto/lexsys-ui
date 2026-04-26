@@ -37,6 +37,9 @@ export const runRegistry = async (
       console.log(
         "Local registry is still available via: neurex-ui registry --local",
       );
+
+      process.exitCode = 1;
+  return;
     }
 
     return;
