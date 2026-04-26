@@ -2,14 +2,19 @@ import type { RegistryItem } from "@neurex-ui/registry";
 import { getRegistryItems } from "./registry-provider.js";
 import { findClosestValue } from "./suggestions.js";
 
+interface RegistryResolverOptions {
+  fallback?: boolean;
+}
+
 const normalizeName = (name: string): string => {
   return name.toLowerCase();
 };
 
 export const findItem = async (
   name: string,
+  options: RegistryResolverOptions = {},
 ): Promise<RegistryItem | undefined> => {
-  const items = await getRegistryItems();
+  const items = await getRegistryItems(options);
   const normalizedName = normalizeName(name);
 
   return items.find(
@@ -22,8 +27,9 @@ export const findItem = async (
 
 export const resolveRegistryItems = async (
   names: string[],
+  options: RegistryResolverOptions = {},
 ): Promise<RegistryItem[]> => {
-  const items = await getRegistryItems();
+  const items = await getRegistryItems(options);
   const resolved = new Map<string, RegistryItem>();
 
   const findLocalItem = (name: string): RegistryItem | undefined => {

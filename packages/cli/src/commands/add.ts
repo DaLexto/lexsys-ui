@@ -32,9 +32,10 @@ const promptSelectItems = async (): Promise<string[]> => {
 export const runAdd = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run");
   const yes = hasFlag(args, "--yes");
+  const noFallback = hasFlag(args, "--no-fallback");
 
   let items = removeFlagsWithValues(args, ["--cwd"]);
-  items = removeFlags(items, ["--dry-run", "--yes"]);
+  items = removeFlags(items, ["--dry-run", "--yes", "--no-fallback"]);
 
   void yes;
 
@@ -47,7 +48,18 @@ export const runAdd = async (args: string[]): Promise<void> => {
     }
   }
 
-  const resolvedItems = await resolveRegistryItems(items);
+  let resolvedItems;
+
+  try {
+    resolvedItems = await resolveRegistryItems(items, {
+      fallback: !noFallback,
+    });
+  } catch (error) {
+    console.log("Failed to resolve registry.");
+    console.log(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+    return;
+  }
   const dependencies = collectDependencies(resolvedItems);
   const utilities = collectUtilities(resolvedItems);
   const config = await loadConfig();
