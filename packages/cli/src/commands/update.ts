@@ -1,4 +1,3 @@
-
 import { loadConfig, saveConfig } from "../core/config.js";
 import { findItem } from "../core/registry-resolver.js";
 import { checkItemUpdate } from "../core/update-engine.js";
@@ -7,12 +6,12 @@ const isDryRun = (args: string[]): boolean => {
   return args.includes("--dry-run");
 };
 
-const removeFlags = (args: string[]): string[] => {
-  return args.filter((arg) => arg !== "--dry-run" && arg !== "--force");
-};
-
 const isForce = (args: string[]): boolean => {
   return args.includes("--force");
+};
+
+const removeFlags = (args: string[]): string[] => {
+  return args.filter((arg) => arg !== "--dry-run" && arg !== "--force");
 };
 
 const resolveInstalledKey = (
@@ -35,8 +34,8 @@ const resolveInstalledKey = (
 export const runUpdate = async (args: string[]): Promise<void> => {
   let changed = false;
 
-  const force = isForce(args);
   const dryRun = isDryRun(args);
+  const force = isForce(args);
   const targetArgs = removeFlags(args);
 
   const config = await loadConfig();
