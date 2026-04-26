@@ -39,18 +39,16 @@ export const runRegistry = async (
     }
 
     try {
-      const data = await fetchRemoteRegistry(registrySource);
+      const items = await getRegistryItems({ fallback });
 
-      console.log(JSON.stringify(data, null, 2));
+      console.log(JSON.stringify(items, null, 2));
+      return;
     } catch (error) {
       console.log("Failed to fetch remote registry.");
       console.log(error instanceof Error ? error.message : String(error));
-      console.log(
-        "Local registry is still available via: neurex-ui registry --local",
-      );
+      process.exitCode = 1;
+      return;
     }
-
-    return;
   }
 
   if (options.summary) {
