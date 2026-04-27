@@ -9,7 +9,7 @@ import type { RegistryItem } from "../registry.types.js";
 export const buttonRegistryItem: RegistryItem = {
   name: "button",
   canonicalName: "Button",
-  version: "0.0.1",
+  version: "0.0.3",
   type: "component",
   category: "actions",
   aliases: ["button", "btn"],

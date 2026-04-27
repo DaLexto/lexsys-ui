@@ -103,16 +103,19 @@ const applySafeItemUpdate = async (
       continue;
     }
 
-    hasConflict = true;
-
     if (force) {
       const backupPath = await createBackupFile(targetPath);
 
       if (backupPath) {
         console.log(`- backup created: ${backupPath}`);
       }
+
+      await copyFile(sourcePath, targetPath);
+      console.log(`- force updated file: ${targetPath}`);
+      continue;
     }
 
+    hasConflict = true;
     console.log(`- conflict (user modified): ${targetPath}`);
     continue;
   }
