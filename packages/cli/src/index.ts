@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { CliError, handleCliError } from "./core/cli-error.js";
 import { runAdd } from "./commands/add.js";
 import { runConfig } from "./commands/config.js";
 import { runDoctor } from "./commands/doctor.js";
@@ -21,85 +22,88 @@ const cwd = getFlagValue(args, "--cwd");
 if (cwd) {
   setCwd(cwd);
 }
+try {
+  if (
+    !command ||
+    command === "help" ||
+    command === "--help" ||
+    command === "-h"
+  ) {
+    runHelp();
+    process.exit(0);
+  }
 
-if (
-  !command ||
-  command === "help" ||
-  command === "--help" ||
-  command === "-h"
-) {
-  runHelp();
-  process.exit(0);
+  if (command === "version" || command === "--version" || command === "-v") {
+    await runVersion();
+    process.exit(0);
+  }
+
+  if (command === "list") {
+    await runList({
+      json: args.includes("--json"),
+      noFallback: args.includes("--no-fallback"),
+    });
+    process.exit(0);
+  }
+
+  if (command === "doctor") {
+    await runDoctor({
+      noFallback: args.includes("--no-fallback"),
+    });
+    process.exit(0);
+  }
+
+  if (command === "init") {
+    await runInit();
+    process.exit(0);
+  }
+
+  if (command === "add") {
+    await runAdd(args);
+    process.exit(0);
+  }
+
+  if (command === "update") {
+    await runUpdate(args);
+    process.exit(0);
+  }
+
+  if (command === "status") {
+    await runStatus({
+      noFallback: args.includes("--no-fallback"),
+    });
+    process.exit(0);
+  }
+
+  if (command === "registry") {
+    await runRegistry({
+      summary: args.includes("--summary"),
+      source: args.includes("--source"),
+      local: args.includes("--local"),
+      remote: args.includes("--remote"),
+      noFallback: args.includes("--no-fallback"),
+    });
+    process.exit(0);
+  }
+
+  if (command === "config") {
+    await runConfig({
+      path: args.includes("--path") || args.includes("-p"),
+      exists: args.includes("--exists") || args.includes("-e"),
+      setRegistryUrl: getFlagValue(args, "--set-registry-url"),
+      clearRegistryUrl: args.includes("--clear-registry-url"),
+    });
+    process.exit(0);
+  }
+
+  if (command === "uninstall") {
+    await runUninstall(args);
+    process.exit(0);
+  }
+
+  throw new CliError(`Unknown command: ${command}`);
+} catch (error) {
+  handleCliError(error);
 }
-
-if (command === "version" || command === "--version" || command === "-v") {
-  await runVersion();
-  process.exit(0);
-}
-
-if (command === "list") {
-  await runList({
-    json: args.includes("--json"),
-    noFallback: args.includes("--no-fallback"),
-  });
-  process.exit(0);
-}
-
-if (command === "doctor") {
-  await runDoctor({
-    noFallback: args.includes("--no-fallback"),
-  });
-  process.exit(0);
-}
-
-if (command === "init") {
-  await runInit();
-  process.exit(0);
-}
-
-if (command === "add") {
-  await runAdd(args);
-  process.exit(0);
-}
-
-if (command === "update") {
-  await runUpdate(args);
-  process.exit(0);
-}
-
-if (command === "status") {
-  await runStatus({
-    noFallback: args.includes("--no-fallback"),
-  });
-  process.exit(0);
-}
-
-if (command === "registry") {
-  await runRegistry({
-    summary: args.includes("--summary"),
-    source: args.includes("--source"),
-    local: args.includes("--local"),
-    remote: args.includes("--remote"),
-    noFallback: args.includes("--no-fallback"),
-  });
-  process.exit(0);
-}
-
-if (command === "config") {
-  await runConfig({
-    path: args.includes("--path") || args.includes("-p"),
-    exists: args.includes("--exists") || args.includes("-e"),
-    setRegistryUrl: getFlagValue(args, "--set-registry-url"),
-    clearRegistryUrl: args.includes("--clear-registry-url"),
-  });
-  process.exit(0);
-}
-
-if (command === "uninstall") {
-  await runUninstall(args);
-  process.exit(0);
-}
-
-console.log(`Unknown command: ${command}\n`);
 runHelp();
 process.exit(1);
