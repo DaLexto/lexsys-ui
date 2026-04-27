@@ -11,7 +11,8 @@
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
 
-    "registry:check": "pnpm --filter @neurex-ui/registry check"
+    "registry:check": "pnpm --filter @neurex-ui/registry check",
+    "cli:check": "pnpm --filter neurex-ui check"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
