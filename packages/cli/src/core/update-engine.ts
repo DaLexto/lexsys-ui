@@ -57,6 +57,7 @@ export const checkItemFiles = async (
 const applySafeItemUpdate = async (
   name: string,
   componentsPath: string,
+  force: boolean,
 ): Promise<boolean> => {
   const item = await findItem(name);
 
@@ -104,10 +105,12 @@ const applySafeItemUpdate = async (
 
     hasConflict = true;
 
-    const backupPath = await createBackupFile(targetPath);
+    if (force) {
+      const backupPath = await createBackupFile(targetPath);
 
-    if (backupPath) {
-      console.log(`- backup created: ${backupPath}`);
+      if (backupPath) {
+        console.log(`- backup created: ${backupPath}`);
+      }
     }
 
     console.log(`- conflict (user modified): ${targetPath}`);
@@ -178,5 +181,5 @@ export const checkItemUpdate = async (
     return false;
   }
 
-  return await applySafeItemUpdate(name, componentsPath);
+  return await applySafeItemUpdate(name, componentsPath, force);
 };
