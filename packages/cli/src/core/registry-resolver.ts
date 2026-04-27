@@ -1,4 +1,5 @@
 import type { RegistryItem } from "@neurex-ui/registry";
+import { validateRegistryItem } from "@neurex-ui/registry";
 import { getRegistryItems } from "./registry-provider.js";
 import { findClosestValue } from "./suggestions.js";
 
@@ -17,12 +18,20 @@ export const findItem = async (
   const items = await getRegistryItems(options);
   const normalizedName = normalizeName(name);
 
-  return items.find(
-    (item) =>
-      normalizeName(item.name) === normalizedName ||
-      normalizeName(item.canonicalName) === normalizedName ||
-      item.aliases.some((alias) => normalizeName(alias) === normalizedName),
+  const item = items.find(
+    (registryItem) =>
+      normalizeName(registryItem.name) === normalizedName ||
+      normalizeName(registryItem.canonicalName) === normalizedName ||
+      registryItem.aliases.some(
+        (alias) => normalizeName(alias) === normalizedName,
+      ),
   );
+
+  if (item) {
+    validateRegistryItem(item);
+  }
+
+  return item;
 };
 
 export const resolveRegistryItems = async (
@@ -63,6 +72,8 @@ export const resolveRegistryItems = async (
 
       process.exit(1);
     }
+
+    validateRegistryItem(item);
 
     const key = normalizeName(item.canonicalName);
 
