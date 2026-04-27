@@ -7,6 +7,7 @@ import { fileExists, filesAreEqual } from "./fs.js";
 import { getCwd } from "./context.js";
 import { fetchRemoteFile } from "./remote-files.js";
 import { hashesAreEqual } from "./hash.js";
+import { validateTemplateFiles } from "./template-validator.js";
 
 const cliFilePath = fileURLToPath(import.meta.url);
 const cliDistDir = dirname(cliFilePath);
@@ -72,6 +73,8 @@ export const installItemFiles = async (
   config: NeurexConfig,
 ): Promise<void> => {
   console.log(`Installing ${item.canonicalName}...\n`);
+
+  await validateTemplateFiles(item);
 
   for (const file of item.files) {
     const remoteFile = item.remoteFiles?.find(
