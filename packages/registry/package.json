@@ -19,6 +19,7 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "templates:typecheck": "tsc -p templates/tsconfig.json",
+    "check": "pnpm run typecheck && pnpm run templates:typecheck",
     "lint": "echo \"No lint configured yet\"",
     "test": "echo \"No tests yet\""
   }
