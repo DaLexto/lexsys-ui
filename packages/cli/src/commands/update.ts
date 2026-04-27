@@ -55,12 +55,6 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     return;
   }
 
-  if (force) {
-    console.log(
-      "Force update is not implemented yet. Conflicted files will still be protected.",
-    );
-  }
-
   if (yes) {
     console.log("Auto-confirm mode is enabled.");
   }
