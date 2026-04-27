@@ -6,9 +6,7 @@ export const validateRegistryItem = (item: RegistryItem): void => {
   }
 
   if (!item.canonicalName) {
-    throw new Error(
-      `Registry item "${item.name}" is missing 'canonicalName'`,
-    );
+    throw new Error(`Registry item "${item.name}" is missing 'canonicalName'`);
   }
 
   if (!item.version) {
@@ -23,18 +21,14 @@ export const validateRegistryItem = (item: RegistryItem): void => {
 
   for (const file of item.files) {
     if (typeof file !== "string" || !file.length) {
-      throw new Error(
-        `Registry item "${item.name}" has invalid file entry`,
-      );
+      throw new Error(`Registry item "${item.name}" has invalid file entry`);
     }
   }
 
   if (item.dependencies) {
     for (const dep of item.dependencies) {
       if (typeof dep !== "string") {
-        throw new Error(
-          `Registry item "${item.name}" has invalid dependency`,
-        );
+        throw new Error(`Registry item "${item.name}" has invalid dependency`);
       }
     }
   }
@@ -42,10 +36,16 @@ export const validateRegistryItem = (item: RegistryItem): void => {
   if (item.utilities) {
     for (const util of item.utilities) {
       if (typeof util !== "string") {
-        throw new Error(
-          `Registry item "${item.name}" has invalid utility`,
-        );
+        throw new Error(`Registry item "${item.name}" has invalid utility`);
       }
+    }
+  }
+
+  for (const file of item.files) {
+    if (!file.includes(item.canonicalName)) {
+      throw new Error(
+        `Registry item "${item.name}" has file path that does not match canonicalName: ${file}`,
+      );
     }
   }
 };
