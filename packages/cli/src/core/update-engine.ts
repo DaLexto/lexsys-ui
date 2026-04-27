@@ -126,6 +126,9 @@ const applySafeItemUpdate = async (
     return false;
   }
 
+  console.log(
+    `✔ ${item.canonicalName} updated successfully to v${item.version}`,
+  );
   return true;
 };
 
@@ -166,7 +169,9 @@ export const checkItemUpdate = async (
       console.log(
         "- Force mode requested: conflicted files require backup before overwrite",
       );
-      console.log("- Dry run: backups would be created before forced overwrites");
+      console.log(
+        "- Dry run: backups would be created before forced overwrites",
+      );
     }
 
     console.log(`- Check installed files for ${item.canonicalName}`);
