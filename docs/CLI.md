@@ -85,11 +85,16 @@ neurex-ui update button --dry-run
 neurex-ui update --all --dry-run
 ```
 
+Force update:
+
+```bash
+neurex-ui update button --force
+```
+
 Reserved future flags:
 
 ```bash
 neurex-ui update button --yes
-neurex-ui update button --force
 ```
 
 #### Update Rules
@@ -243,7 +248,7 @@ neurex-ui -h
 | `--cwd <path>` | Run the CLI against a different working directory. |
 | `--dry-run` | Preview changes without writing files. |
 | `--yes` | Reserved for future confirmation flows. |
-| `--force` | Reserved for future conflict overwrite flow. |
+| `--force` | Force update conflicted files after creating backups. |
 | `--help`, `-h` | Show help. |
 | `--no-fallback` | Disable local registry fallback where supported. |
 
