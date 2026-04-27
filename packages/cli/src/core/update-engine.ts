@@ -105,8 +105,6 @@ const applySafeItemUpdate = async (
     console.log(`- conflict (user modified): ${targetPath}`);
     continue;
 
-    await copyFile(sourcePath, targetPath);
-    console.log(`- updated file: ${targetPath}`);
   }
 
   if (hasConflict) {
@@ -157,6 +155,10 @@ export const checkItemUpdate = async (
     console.log(
       "- Force mode requested: conflicted files require backup before overwrite",
     );
+  }
+
+  if (force && dryRun) {
+    console.log("- Dry run: backups would be created before forced overwrites");
   }
   console.log(`- Check installed files for ${item.canonicalName}`);
   console.log("- Compare existing files with registry templates");
