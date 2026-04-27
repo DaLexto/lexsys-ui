@@ -23,3 +23,5 @@ export const registryManifest = {
   version: registryVersion,
   items: registryItems,
 }
+
+export { validateRegistryItem } from "./validate-registry-item.js"
