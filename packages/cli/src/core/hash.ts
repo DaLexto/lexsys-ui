@@ -10,3 +10,10 @@ export const hashFile = async (path: string): Promise<string> => {
 
   return hashContent(content);
 };
+
+export const hashesAreEqual = (
+  firstContent: string,
+  secondContent: string,
+): boolean => {
+  return hashContent(firstContent) === hashContent(secondContent);
+};

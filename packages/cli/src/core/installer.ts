@@ -6,6 +6,7 @@ import type { NeurexConfig } from "./config.js";
 import { fileExists, filesAreEqual } from "./fs.js";
 import { getCwd } from "./context.js";
 import { fetchRemoteFile } from "./remote-files.js";
+import { hashesAreEqual } from "./hash.js";
 
 const cliFilePath = fileURLToPath(import.meta.url);
 const cliDistDir = dirname(cliFilePath);
@@ -102,7 +103,7 @@ export const installItemFiles = async (
       if (await fileExists(targetPath)) {
         const targetContent = await readFile(targetPath, "utf-8");
 
-        if (remoteContent === targetContent) {
+        if (hashesAreEqual(remoteContent, targetContent)) {
           console.log(`Skipped identical file: ${targetPath}`);
           continue;
         }
