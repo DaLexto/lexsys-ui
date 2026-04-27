@@ -362,6 +362,26 @@ When existing files differ from registry templates, the CLI must:
 - require explicit user action before overwrite behavior is introduced.
 - Remote registry failures must not break local registry usage.
 
+
+---
+
+## Testing (Deferred)
+
+CLI unit tests are intentionally deferred until the test runner is configured properly.
+
+### Reason
+
+- `tsc` currently compiles all `.ts` files under `src`
+- adding `*.test.ts` files currently breaks production build
+- Vitest should be introduced with proper test scripts and TS config separation
+
+### Planned direction
+
+- add Vitest as CLI dev dependency
+- add `test` script for `packages/cli`
+- exclude `*.test.ts` from production `tsconfig.json`
+- keep tests beside source files once build/test separation is configured
+
 ---
 
 ## Examples

@@ -129,16 +129,20 @@ export const checkItemUpdate = async (
     return false;
   }
 
-if (!isUpdateAvailable(installedVersion, item.version)) {
-  console.log(
-    `${item.canonicalName} is up to date (v${installedVersion}).`,
-  );
-  return false;
-}
+  if (!isUpdateAvailable(installedVersion, item.version)) {
+    console.log(`${item.canonicalName} is up to date (v${installedVersion}).`);
+    return false;
+  }
 
   console.log(
     `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
   );
+
+  console.log("\nChanged file candidates:");
+
+  for (const file of item.files) {
+    console.log(`~ ${file}`);
+  }
 
   if (dryRun) {
     console.log("Dry run: no files will be changed.");
