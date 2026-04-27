@@ -1,3 +1,4 @@
+import { CliError } from "./cli-error.js";
 import type { RegistryItem } from "@neurex-ui/registry";
 import { validateRegistryItem } from "@neurex-ui/registry";
 import { getRegistryItems } from "./registry-provider.js";
@@ -64,13 +65,11 @@ export const resolveRegistryItems = async (
 
       const suggestion = findClosestValue(name, availableNames);
 
-      console.log(`Component "${name}" not found.`);
-
-      if (suggestion) {
-        console.log(`Did you mean "${suggestion}"?`);
-      }
-
-      process.exit(1);
+      throw new CliError(
+        suggestion
+          ? `Component "${name}" not found. Did you mean "${suggestion}"?`
+          : `Component "${name}" not found.`,
+      );
     }
 
     validateRegistryItem(item);
