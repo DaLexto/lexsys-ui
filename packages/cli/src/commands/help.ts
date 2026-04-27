@@ -6,55 +6,70 @@ Usage:
   neurex-ui <command> [options]
 
 Commands:
-  init                                      Initialize Neurex UI in the current project
-  add <component...>                        Install one or more components
-  add --no-fallback                         Disable local registry fallback during add
-  update <component...>                     Check/update installed components
-  update --no-fallback                      Disable local registry fallback during update
-  --all                                     Update all installed components
-  --dry-run                                 Preview update without writing files
-  --force                                   Reserved for future conflict overwrite flow
-  list                                      List available registry items
-  list --json                               List registry items as JSON
-  list --no-fallback                        Disable local registry fallback during list
-  status                                    Show installed component status
-  status --no-fallback                      Disable local registry fallback during status check
-  doctor                                    Check local Neurex UI setup
-  doctor --no-fallback                      Disable local registry fallback during doctor check
-  config                                    Print active config
-  config --path                             Print config file path
-  config --exists                           Check if config exists
-  config --set-registry-url <url>           Set registry URL
-  config --clear-registry-url               Clear registry URL
-  registry                                  Print raw registry metadata (debug)
-  registry --summary                        Print registry summary (debug)
-  registry --source                         Print active registry source
-  registry --local                          Print bundled local registry metadata
-  registry --remote                         Reserved for future remote registry fetch
-  registry --no-fallback                    Disable local fallback for remote registry
-  uninstall <component>                     Remove tracked components
-  version                                   Show CLI version
-  help                                      Show this help message
+  init
+    Initialize Neurex UI in the current project
 
-Options:              
-  --dry-run                                 Show what would happen without making changes
-  --cwd <path>                              Run CLI in a different working directory
-  --yes                                     Auto-confirm safe prompts where supported
-  --force                                   Reserved for future conflict overwrite flow
-  --help, -h                                Show help
+  add <component...>
+    Install one or more components
+
+  update <component...>
+    Check or update installed components
+    --all         Update all installed components
+    --dry-run     Preview update without writing files
+    --force       Force update conflicted files after creating backups
+
+  list
+    List available registry items
+    --json        Output as JSON
+
+  status
+    Show installed component status
+
+  doctor
+    Check local Neurex UI setup
+
+  config
+    Print active config
+    --path                 Print config file path
+    --exists               Check if config exists
+    --set-registry-url     Set registry URL
+    --clear-registry-url   Clear registry URL
+
+  registry
+    Debug registry
+    --summary      Print registry summary
+    --source       Print active registry source
+    --local        Use bundled registry
+    --remote       Force remote registry
+    --no-fallback  Disable fallback to local registry
+
+  uninstall <component>
+    Remove tracked components
+
+  version
+    Show CLI version
+
+  help
+    Show this help message
+
+Global Options:
+  --dry-run       Show what would happen without making changes
+  --cwd <path>    Run CLI in a different working directory
+  --yes           Auto-confirm safe prompts
+  --no-fallback   Disable local registry fallback where supported
+  --help, -h      Show help
 
 Examples:
   neurex-ui init
   neurex-ui add button
-  neurex-ui add button --yes
-  neurex-ui add button dialog --dry-run
+  neurex-ui add button --dry-run
   neurex-ui update button --dry-run
-  neurex-ui update button --yes
   neurex-ui update button --force
-  neurex-ui update --all --dry-run
+  neurex-ui update --all
   neurex-ui list --json
-  neurex-ui config --path
+  neurex-ui status
+  neurex-ui doctor
+  neurex-ui registry --summary
   neurex-ui uninstall button
-  neurex-ui uninstall button --dry-run
 `);
 };
