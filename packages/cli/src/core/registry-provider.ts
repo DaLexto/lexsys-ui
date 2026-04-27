@@ -3,6 +3,7 @@ import {
   registryVersion,
 } from "@neurex-ui/registry";
 import type { RegistryItem } from "@neurex-ui/registry";
+import { validateRegistry } from "@neurex-ui/registry";
 import { fetchRemoteRegistry } from "./remote-registry.js";
 import { getRegistrySource } from "./registry-source.js";
 
@@ -71,6 +72,7 @@ export const getRegistryProviderResult = async (
 ): Promise<RegistryProviderResult> => {
   const source = await getRegistrySource();
   const items = await getRegistryItems(options);
+  validateRegistry(items);
 
   return {
     items,
