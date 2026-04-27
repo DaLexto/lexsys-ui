@@ -9,7 +9,9 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+
+    "registry:check": "pnpm --filter @neurex-ui/registry check"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
