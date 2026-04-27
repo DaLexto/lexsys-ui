@@ -96,11 +96,14 @@ const applySafeItemUpdate = async (
 
     const isSameFile = await filesAreEqual(sourcePath, targetPath);
 
-    if (!isSameFile) {
-      hasConflict = true;
-      console.log(`- skipped conflict: ${targetPath}`);
+    if (isSameFile) {
+      console.log(`- identical: ${targetPath}`);
       continue;
     }
+
+    hasConflict = true;
+    console.log(`- conflict (user modified): ${targetPath}`);
+    continue;
 
     await copyFile(sourcePath, targetPath);
     console.log(`- updated file: ${targetPath}`);
