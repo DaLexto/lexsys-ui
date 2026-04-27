@@ -79,6 +79,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
         version,
         dryRun,
         config.componentsPath,
+        force,
       );
 
       const item = await findItem(name);
@@ -117,6 +118,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
       installed[installedKey],
       dryRun,
       config.componentsPath,
+      force,
     );
 
     const item = await findItem(installedKey);

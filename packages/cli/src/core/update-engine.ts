@@ -124,6 +124,7 @@ export const checkItemUpdate = async (
   installedVersion: string,
   dryRun: boolean,
   componentsPath: string,
+  force: boolean,
 ): Promise<boolean> => {
   const item = await findItem(name);
 
@@ -152,6 +153,11 @@ export const checkItemUpdate = async (
   }
 
   console.log("Update plan:");
+  if (force) {
+    console.log(
+      "- Force mode requested: conflicted files require backup before overwrite",
+    );
+  }
   console.log(`- Check installed files for ${item.canonicalName}`);
   console.log("- Compare existing files with registry templates");
   console.log("- Report conflicts before writing changes");
