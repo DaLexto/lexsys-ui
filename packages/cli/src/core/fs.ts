@@ -1,3 +1,4 @@
+import { hashFile } from "./hash.js";
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { dirname } from "node:path";
@@ -15,10 +16,10 @@ export const filesAreEqual = async (
   sourcePath: string,
   targetPath: string,
 ): Promise<boolean> => {
-  const sourceContent = await readFile(sourcePath, "utf-8");
-  const targetContent = await readFile(targetPath, "utf-8");
+  const sourceHash = await hashFile(sourcePath);
+  const targetHash = await hashFile(targetPath);
 
-  return sourceContent === targetContent;
+  return sourceHash === targetHash;
 };
 
 export const writeFileIfMissing = async (
