@@ -1,11 +1,11 @@
 import { copyFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
+import { createBackupFile } from "./backup.js";
+import { getCwd } from "./context.js";
 import { fileExists, filesAreEqual } from "./fs.js";
 import { getRegistryTemplatesRoot } from "./installer.js";
 import { findItem } from "./registry-resolver.js";
-import { getCwd } from "./context.js";
 import { isUpdateAvailable } from "./version.js";
-import { createBackupFile } from "./backup.js";
 
 export const checkItemFiles = async (
   name: string,
@@ -69,7 +69,7 @@ const applySafeItemUpdate = async (
   const registryTemplatesRoot = getRegistryTemplatesRoot();
   let hasConflict = false;
 
-  console.log(`Applying safe update for ${item.canonicalName}:`);
+  console.log(`Applying update for ${item.canonicalName}:`);
 
   for (const file of item.files) {
     const sourcePath = join(registryTemplatesRoot, file);
@@ -117,7 +117,6 @@ const applySafeItemUpdate = async (
 
     hasConflict = true;
     console.log(`- conflict (user modified): ${targetPath}`);
-    continue;
   }
 
   if (hasConflict) {
@@ -153,34 +152,30 @@ export const checkItemUpdate = async (
     `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
   );
 
-  console.log("\nChanged file candidates:");
-
-  for (const file of item.files) {
-    console.log(`~ ${file}`);
-  }
-
   if (dryRun) {
-    console.log("Dry run: no files will be changed.");
-  }
+    console.log("\nChanged file candidates:");
 
-  console.log("Update plan:");
-  if (force) {
-    console.log(
-      "- Force mode requested: conflicted files require backup before overwrite",
-    );
-  }
+    for (const file of item.files) {
+      console.log(`~ ${file}`);
+    }
 
-  if (force && dryRun) {
-    console.log("- Dry run: backups would be created before forced overwrites");
-  }
-  console.log(`- Check installed files for ${item.canonicalName}`);
-  console.log("- Compare existing files with registry templates");
-  console.log("- Report conflicts before writing changes");
-  console.log("- Never overwrite user-modified files silently");
+    console.log("\nDry run: no files will be changed.");
+    console.log("Update plan:");
 
-  await checkItemFiles(name, componentsPath);
+    if (force) {
+      console.log(
+        "- Force mode requested: conflicted files require backup before overwrite",
+      );
+      console.log("- Dry run: backups would be created before forced overwrites");
+    }
 
-  if (dryRun) {
+    console.log(`- Check installed files for ${item.canonicalName}`);
+    console.log("- Compare existing files with registry templates");
+    console.log("- Report conflicts before writing changes");
+    console.log("- Never overwrite user-modified files silently");
+
+    await checkItemFiles(name, componentsPath);
+
     return false;
   }
 
