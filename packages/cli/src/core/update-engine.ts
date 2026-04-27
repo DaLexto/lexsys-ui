@@ -5,6 +5,7 @@ import { getRegistryTemplatesRoot } from "./installer.js";
 import { findItem } from "./registry-resolver.js";
 import { getCwd } from "./context.js";
 import { isUpdateAvailable } from "./version.js";
+import { createBackupFile } from "./backup.js";
 
 export const checkItemFiles = async (
   name: string,
@@ -102,9 +103,15 @@ const applySafeItemUpdate = async (
     }
 
     hasConflict = true;
+
+    const backupPath = await createBackupFile(targetPath);
+
+    if (backupPath) {
+      console.log(`- backup created: ${backupPath}`);
+    }
+
     console.log(`- conflict (user modified): ${targetPath}`);
     continue;
-
   }
 
   if (hasConflict) {
