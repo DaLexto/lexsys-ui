@@ -1,0 +1,54 @@
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
+import { join } from "node:path"
+import { afterEach, beforeEach, describe, expect, test } from "vitest"
+import { buttonRegistryItem } from "@neurex-ui/registry"
+import type { NeurexConfig } from "./config.js"
+import { setCwd } from "./context.js"
+import { getRegistryTemplatePath, installItemFiles } from "./installer.js"
+
+const config: NeurexConfig = {
+  componentsPath: "components/ui",
+  installed: {},
+  registryUrl: null,
+  stylesPath: "styles/neurex",
+  utilitiesPath: "lib/neurex",
+}
+
+describe("installItemFiles", () => {
+  let tempDir: string
+
+  beforeEach(async () => {
+    const testRoot = join(process.cwd(), ".tmp")
+    await mkdir(testRoot, { recursive: true })
+    tempDir = await mkdtemp(join(testRoot, "neurex-cli-installer-"))
+    setCwd(tempDir)
+  })
+
+  afterEach(async () => {
+    if (tempDir) {
+      await rm(tempDir, { force: true, recursive: true })
+    }
+  })
+
+  test("reports conflicts without overwriting user-modified files", async () => {
+    const targetDir = join(tempDir, "components/ui/Button")
+    const targetPath = join(targetDir, "Button.tsx")
+
+    await mkdir(targetDir, { recursive: true })
+    await writeFile(targetPath, "user modified", "utf-8")
+
+    const result = await installItemFiles(buttonRegistryItem, config)
+
+    await expect(readFile(targetPath, "utf-8")).resolves.toBe("user modified")
+    expect(result.conflicted).toContain(targetPath)
+    expect(result.created).toHaveLength(2)
+  })
+
+  test("resolves registry templates through package exports", async () => {
+    const templatePath = getRegistryTemplatePath("components/Button/Button.tsx")
+
+    await expect(readFile(templatePath, "utf-8")).resolves.toContain(
+      "export const Button",
+    )
+  })
+})

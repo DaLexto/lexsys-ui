@@ -9,21 +9,30 @@ import { fetchRemoteFile } from "./remote-files.js"
 import { hashesAreEqual } from "./hash.js"
 import { validateTemplateFiles } from "./template-validator.js"
 
-const cliFilePath = fileURLToPath(import.meta.url)
-const cliDistDir = dirname(cliFilePath)
-const repoRoot = join(cliDistDir, "..", "..", "..", "..")
+export const getRegistryTemplatePath = (templatePath: string): string => {
+  const templateUrl = import.meta.resolve(
+    `@neurex-ui/registry/templates/${templatePath}`,
+  )
 
-const registryTemplatesRoot = join(
-  repoRoot,
-  "packages",
-  "registry",
-  "templates",
-)
+  return fileURLToPath(templateUrl)
+}
 
-const sharedTemplatesRoot = join(registryTemplatesRoot, "shared")
+export interface InstallResourceResult {
+  created: string[]
+  skipped: string[]
+  conflicted: string[]
+}
 
-export const getRegistryTemplatesRoot = (): string => {
-  return registryTemplatesRoot
+export const createInstallResourceResult = (): InstallResourceResult => {
+  return {
+    created: [],
+    skipped: [],
+    conflicted: [],
+  }
+}
+
+export const hasInstallConflicts = (result: InstallResourceResult): boolean => {
+  return result.conflicted.length > 0
 }
 
 export const ensureProjectStructure = async (
@@ -37,14 +46,17 @@ export const ensureProjectStructure = async (
 export const installUtilities = async (
   utilities: string[],
   config: NeurexConfig,
-): Promise<void> => {
+): Promise<InstallResourceResult> => {
+  const result = createInstallResourceResult()
+
   for (const utility of utilities) {
     if (utility !== "cn") {
       console.log(`Unknown utility "${utility}", skipping.`)
+      result.skipped.push(utility)
       continue
     }
 
-    const sourcePath = join(sharedTemplatesRoot, "utils", "cn.ts")
+    const sourcePath = getRegistryTemplatePath("shared/utils/cn.ts")
     const targetPath = join(getCwd(), config.utilitiesPath, "cn.ts")
 
     await mkdir(dirname(targetPath), { recursive: true })
@@ -54,22 +66,29 @@ export const installUtilities = async (
 
       if (isSameFile) {
         console.log(`Skipped identical utility: ${targetPath}`)
+        result.skipped.push(targetPath)
         continue
       }
 
       console.log(`Conflict: utility already exists and differs: ${targetPath}`)
+      result.conflicted.push(targetPath)
       continue
     }
 
     await copyFile(sourcePath, targetPath)
     console.log(`Created utility: ${targetPath}`)
+    result.created.push(targetPath)
   }
+
+  return result
 }
 
 export const installItemFiles = async (
   item: RegistryItem,
   config: NeurexConfig,
-): Promise<void> => {
+): Promise<InstallResourceResult> => {
+  const result = createInstallResourceResult()
+
   console.log(`Installing ${item.canonicalName}...\n`)
 
   await validateTemplateFiles(item)
@@ -79,12 +98,11 @@ export const installItemFiles = async (
       (registryFile) => registryFile.path === file && registryFile.remoteUrl,
     )
 
-    const sourcePath = join(registryTemplatesRoot, file)
+    const sourcePath = getRegistryTemplatePath(file)
     const fileName = file.split("/").at(-1)
 
     if (!fileName) {
-      console.log(`Invalid registry file path: ${file}`)
-      process.exit(1)
+      throw new Error(`Invalid registry file path: ${file}`)
     }
 
     const targetPath = join(
@@ -106,15 +124,18 @@ export const installItemFiles = async (
 
         if (hashesAreEqual(remoteContent, targetContent)) {
           console.log(`Skipped identical file: ${targetPath}`)
+          result.skipped.push(targetPath)
           continue
         }
 
         console.log(`Conflict: file already exists and differs: ${targetPath}`)
+        result.conflicted.push(targetPath)
         continue
       }
 
       await writeFile(targetPath, remoteContent, "utf-8")
       console.log(`Created: ${targetPath}`)
+      result.created.push(targetPath)
       continue
     }
 
@@ -123,16 +144,21 @@ export const installItemFiles = async (
 
       if (isSameFile) {
         console.log(`Skipped identical file: ${targetPath}`)
+        result.skipped.push(targetPath)
         continue
       }
 
       console.log(`Conflict: file already exists and differs: ${targetPath}`)
+      result.conflicted.push(targetPath)
       continue
     }
 
     await copyFile(sourcePath, targetPath)
     console.log(`Created: ${targetPath}`)
+    result.created.push(targetPath)
   }
 
   console.log("\nDone.")
+
+  return result
 }

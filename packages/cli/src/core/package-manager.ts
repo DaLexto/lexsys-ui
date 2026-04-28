@@ -1,4 +1,4 @@
-import { execSync } from "node:child_process"
+import { execFileSync } from "node:child_process"
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileExists } from "./fs.js"
@@ -35,9 +35,18 @@ export const installDependencies = async (deps: string[]): Promise<void> => {
   let packageJson: Record<string, unknown>
 
   try {
-    const content = await readFile("package.json", "utf-8")
+    const content = await readFile(join(getCwd(), "package.json"), "utf-8")
     packageJson = JSON.parse(content) as Record<string, unknown>
-  } catch {
+  } catch (error) {
+    if (
+      typeof error !== "object" ||
+      error === null ||
+      !("code" in error) ||
+      error.code !== "ENOENT"
+    ) {
+      throw error
+    }
+
     console.log("No package.json found, skipping dependency install.")
     return
   }
@@ -72,14 +81,17 @@ export const installDependencies = async (deps: string[]): Promise<void> => {
   console.log(`Using package manager: ${packageManager}`)
   console.log("")
 
-  const installCommand =
+  const installCommand: [string, string[]] =
     packageManager === "pnpm"
-      ? `pnpm add ${missing.join(" ")}`
+      ? ["pnpm", ["add", ...missing]]
       : packageManager === "yarn"
-        ? `yarn add ${missing.join(" ")}`
-        : `npm install ${missing.join(" ")}`
+        ? ["yarn", ["add", ...missing]]
+        : ["npm", ["install", ...missing]]
 
-  execSync(installCommand, {
+  const [command, commandArgs] = installCommand
+
+  execFileSync(command, commandArgs, {
+    cwd: getCwd(),
     stdio: "inherit",
   })
 }

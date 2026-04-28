@@ -1,0 +1,52 @@
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
+import { join } from "node:path"
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
+import { setCwd } from "../core/context.js"
+import { runAdd } from "./add.js"
+
+const writeJson = async (path: string, value: unknown): Promise<void> => {
+  await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
+}
+
+describe("runAdd", () => {
+  let tempDir: string
+
+  beforeEach(async () => {
+    const testRoot = join(process.cwd(), ".tmp")
+    await mkdir(testRoot, { recursive: true })
+    tempDir = await mkdtemp(join(testRoot, "neurex-cli-add-"))
+    setCwd(tempDir)
+    vi.spyOn(console, "log").mockImplementation(() => undefined)
+  })
+
+  afterEach(async () => {
+    vi.restoreAllMocks()
+    if (tempDir) {
+      await rm(tempDir, { force: true, recursive: true })
+    }
+  })
+
+  test("does not track an item as installed when component files conflict", async () => {
+    await writeJson(join(tempDir, "package.json"), {
+      dependencies: {
+        "@base-ui/react": "^1.0.0-beta.3",
+        "class-variance-authority": "^0.7.1",
+        clsx: "^2.1.1",
+        "tailwind-merge": "^3.5.0",
+      },
+      packageManager: "pnpm@10.33.0",
+    })
+
+    const buttonDir = join(tempDir, "components/ui/Button")
+    await mkdir(buttonDir, { recursive: true })
+    await writeFile(join(buttonDir, "Button.tsx"), "user modified", "utf-8")
+
+    await runAdd(["button"])
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toEqual({})
+  })
+})

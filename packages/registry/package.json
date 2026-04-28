@@ -13,7 +13,8 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./templates/*": "./templates/*"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

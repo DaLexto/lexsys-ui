@@ -4,6 +4,7 @@ import { registryItems } from "@neurex-ui/registry"
 import { loadConfig, saveConfig } from "../core/config.js"
 import {
   ensureProjectStructure,
+  hasInstallConflicts,
   installItemFiles,
   installUtilities,
 } from "../core/installer.js"
@@ -102,10 +103,23 @@ export const runAdd = async (args: string[]): Promise<void> => {
 
   await ensureProjectStructure(config)
   await installDependencies(dependencies)
-  await installUtilities(utilities, config)
+  const utilitiesResult = await installUtilities(utilities, config)
 
+  const successfullyInstalled = []
   for (const item of resolvedItems) {
-    await installItemFiles(item, config)
+    const itemResult = await installItemFiles(item, config)
+
+    if (
+      hasInstallConflicts(utilitiesResult) ||
+      hasInstallConflicts(itemResult)
+    ) {
+      console.log(
+        `${item.canonicalName} was not marked as installed because conflicts were found.`,
+      )
+    } else {
+      successfullyInstalled.push(item)
+    }
+
     console.log("")
   }
 
@@ -113,7 +127,7 @@ export const runAdd = async (args: string[]): Promise<void> => {
     ...(config.installed ?? {}),
   }
 
-  for (const item of resolvedItems) {
+  for (const item of successfullyInstalled) {
     installed[item.name] = item.version
   }
 

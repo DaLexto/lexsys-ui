@@ -3,7 +3,7 @@ import { dirname, join } from "node:path"
 import { createBackupFile } from "./backup.js"
 import { getCwd } from "./context.js"
 import { fileExists, filesAreEqual } from "./fs.js"
-import { getRegistryTemplatesRoot } from "./installer.js"
+import { getRegistryTemplatePath } from "./installer.js"
 import { findItem } from "./registry-resolver.js"
 import { isUpdateAvailable } from "./version.js"
 
@@ -18,12 +18,10 @@ export const checkItemFiles = async (
     return
   }
 
-  const registryTemplatesRoot = getRegistryTemplatesRoot()
-
   console.log(`File check for ${item.canonicalName}:`)
 
   for (const file of item.files) {
-    const sourcePath = join(registryTemplatesRoot, file)
+    const sourcePath = getRegistryTemplatePath(file)
     const fileName = file.split("/").at(-1)
 
     if (!fileName) {
@@ -66,13 +64,12 @@ const applySafeItemUpdate = async (
     return false
   }
 
-  const registryTemplatesRoot = getRegistryTemplatesRoot()
   let hasConflict = false
 
   console.log(`Applying update for ${item.canonicalName}:`)
 
   for (const file of item.files) {
-    const sourcePath = join(registryTemplatesRoot, file)
+    const sourcePath = getRegistryTemplatePath(file)
     const fileName = file.split("/").at(-1)
 
     if (!fileName) {

@@ -3,12 +3,25 @@ import { access, mkdir, writeFile } from "node:fs/promises"
 import { constants } from "node:fs"
 import { dirname } from "node:path"
 
+const isNotFoundError = (error: unknown): boolean => {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    error.code === "ENOENT"
+  )
+}
+
 export const fileExists = async (path: string): Promise<boolean> => {
   try {
     await access(path, constants.F_OK)
     return true
-  } catch {
-    return false
+  } catch (error) {
+    if (isNotFoundError(error)) {
+      return false
+    }
+
+    throw error
   }
 }
 
