@@ -6,8 +6,10 @@
 
 import type { ButtonHTMLAttributes } from "react"
 
-export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className"> {
+export interface ButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "className"
+> {
   variant?: "primary" | "secondary"
   size?: "sm" | "md" | "lg"
   isLoading?: boolean

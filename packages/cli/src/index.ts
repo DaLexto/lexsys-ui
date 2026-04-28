@@ -1,26 +1,26 @@
 #!/usr/bin/env node
 
-import { CliError, handleCliError } from "./core/cli-error.js";
-import { runAdd } from "./commands/add.js";
-import { runConfig } from "./commands/config.js";
-import { runDoctor } from "./commands/doctor.js";
-import { runHelp } from "./commands/help.js";
-import { runInit } from "./commands/init.js";
-import { runList } from "./commands/list.js";
-import { runRegistry } from "./commands/registry.js";
-import { runStatus } from "./commands/status.js";
-import { runUninstall } from "./commands/uninstall.js";
-import { runUpdate } from "./commands/update.js";
-import { runVersion } from "./commands/version.js";
-import { setCwd } from "./core/context.js";
-import { getFlagValue } from "./core/flags.js";
+import { CliError, handleCliError } from "./core/cli-error.js"
+import { runAdd } from "./commands/add.js"
+import { runConfig } from "./commands/config.js"
+import { runDoctor } from "./commands/doctor.js"
+import { runHelp } from "./commands/help.js"
+import { runInit } from "./commands/init.js"
+import { runList } from "./commands/list.js"
+import { runRegistry } from "./commands/registry.js"
+import { runStatus } from "./commands/status.js"
+import { runUninstall } from "./commands/uninstall.js"
+import { runUpdate } from "./commands/update.js"
+import { runVersion } from "./commands/version.js"
+import { setCwd } from "./core/context.js"
+import { getFlagValue } from "./core/flags.js"
 
-const [, , command, ...args] = process.argv;
+const [, , command, ...args] = process.argv
 
-const cwd = getFlagValue(args, "--cwd");
+const cwd = getFlagValue(args, "--cwd")
 
 if (cwd) {
-  setCwd(cwd);
+  setCwd(cwd)
 }
 try {
   if (
@@ -29,50 +29,50 @@ try {
     command === "--help" ||
     command === "-h"
   ) {
-    runHelp();
-    process.exit(0);
+    runHelp()
+    process.exit(0)
   }
 
   if (command === "version" || command === "--version" || command === "-v") {
-    await runVersion();
-    process.exit(0);
+    await runVersion()
+    process.exit(0)
   }
 
   if (command === "list") {
     await runList({
       json: args.includes("--json"),
       noFallback: args.includes("--no-fallback"),
-    });
-    process.exit(0);
+    })
+    process.exit(0)
   }
 
   if (command === "doctor") {
     await runDoctor({
       noFallback: args.includes("--no-fallback"),
-    });
-    process.exit(0);
+    })
+    process.exit(0)
   }
 
   if (command === "init") {
-    await runInit();
-    process.exit(0);
+    await runInit()
+    process.exit(0)
   }
 
   if (command === "add") {
-    await runAdd(args);
-    process.exit(0);
+    await runAdd(args)
+    process.exit(0)
   }
 
   if (command === "update") {
-    await runUpdate(args);
-    process.exit(0);
+    await runUpdate(args)
+    process.exit(0)
   }
 
   if (command === "status") {
     await runStatus({
       noFallback: args.includes("--no-fallback"),
-    });
-    process.exit(0);
+    })
+    process.exit(0)
   }
 
   if (command === "registry") {
@@ -82,8 +82,8 @@ try {
       local: args.includes("--local"),
       remote: args.includes("--remote"),
       noFallback: args.includes("--no-fallback"),
-    });
-    process.exit(0);
+    })
+    process.exit(0)
   }
 
   if (command === "config") {
@@ -92,18 +92,18 @@ try {
       exists: args.includes("--exists") || args.includes("-e"),
       setRegistryUrl: getFlagValue(args, "--set-registry-url"),
       clearRegistryUrl: args.includes("--clear-registry-url"),
-    });
-    process.exit(0);
+    })
+    process.exit(0)
   }
 
   if (command === "uninstall") {
-    await runUninstall(args);
-    process.exit(0);
+    await runUninstall(args)
+    process.exit(0)
   }
 
-  throw new CliError(`Unknown command: ${command}`);
+  throw new CliError(`Unknown command: ${command}`)
 } catch (error) {
-  handleCliError(error);
+  handleCliError(error)
 }
-runHelp();
-process.exit(1);
+runHelp()
+process.exit(1)

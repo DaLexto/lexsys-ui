@@ -1,21 +1,21 @@
-import { join } from "node:path";
-import { getCwd } from "../core/context.js";
-import { loadConfig } from "../core/config.js";
-import { fileExists } from "../core/fs.js";
-import { getRegistryProviderResult } from "../core/registry-provider.js";
-import { findItem } from "../core/registry-resolver.js";
+import { join } from "node:path"
+import { getCwd } from "../core/context.js"
+import { loadConfig } from "../core/config.js"
+import { fileExists } from "../core/fs.js"
+import { getRegistryProviderResult } from "../core/registry-provider.js"
+import { findItem } from "../core/registry-resolver.js"
 
 interface RunDoctorOptions {
-  noFallback?: boolean;
+  noFallback?: boolean
 }
 
 export const runDoctor = async (
   options: RunDoctorOptions = {},
 ): Promise<void> => {
-  console.log("Neurex UI doctor\n");
+  console.log("Neurex UI doctor\n")
 
-  const config = await loadConfig();
-  let registryFailed = false;
+  const config = await loadConfig()
+  let registryFailed = false
 
   const checks = [
     {
@@ -34,57 +34,57 @@ export const runDoctor = async (
       label: config.stylesPath,
       path: join(getCwd(), config.stylesPath),
     },
-  ];
+  ]
 
   for (const check of checks) {
-    const exists = await fileExists(check.path);
-    console.log(`${exists ? "✓" : "×"} ${check.label}`);
+    const exists = await fileExists(check.path)
+    console.log(`${exists ? "✓" : "×"} ${check.label}`)
   }
 
   try {
     const registryResult = await getRegistryProviderResult({
       fallback: !options.noFallback,
-    });
+    })
 
-    console.log("\nRegistry:");
-    console.log(`✓ source: ${registryResult.source}`);
-    console.log(`✓ fallback: ${registryResult.fallbackUsed ? "yes" : "no"}`);
-    console.log(`✓ items: ${registryResult.items.length}`);
+    console.log("\nRegistry:")
+    console.log(`✓ source: ${registryResult.source}`)
+    console.log(`✓ fallback: ${registryResult.fallbackUsed ? "yes" : "no"}`)
+    console.log(`✓ items: ${registryResult.items.length}`)
   } catch (error) {
-    registryFailed = true;
+    registryFailed = true
 
-    console.log("\nRegistry:");
-    console.log("× failed to resolve registry");
-    console.log(error instanceof Error ? error.message : String(error));
-    process.exitCode = 1;
+    console.log("\nRegistry:")
+    console.log("× failed to resolve registry")
+    console.log(error instanceof Error ? error.message : String(error))
+    process.exitCode = 1
   }
 
   if (registryFailed && options.noFallback) {
-    return;
+    return
   }
 
-  const installed = config.installed ?? {};
+  const installed = config.installed ?? {}
 
   if (Object.keys(installed).length) {
-    console.log("\nTracked components:");
+    console.log("\nTracked components:")
 
     for (const [name, version] of Object.entries(installed)) {
-      const item = await findItem(name);
+      const item = await findItem(name)
 
       if (!item) {
-        console.log(`× ${name} v${version} (missing from registry)`);
-        continue;
+        console.log(`× ${name} v${version} (missing from registry)`)
+        continue
       }
 
       const componentPath = join(
         getCwd(),
         config.componentsPath,
         item.canonicalName,
-      );
+      )
 
-      const exists = await fileExists(componentPath);
+      const exists = await fileExists(componentPath)
 
-      console.log(`${exists ? "✓" : "×"} ${item.canonicalName} v${version}`);
+      console.log(`${exists ? "✓" : "×"} ${item.canonicalName} v${version}`)
     }
   }
-};
+}

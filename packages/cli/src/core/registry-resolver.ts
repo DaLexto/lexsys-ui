@@ -1,23 +1,23 @@
-import { CliError } from "./cli-error.js";
-import type { RegistryItem } from "@neurex-ui/registry";
-import { validateRegistryItem } from "@neurex-ui/registry";
-import { getRegistryItems } from "./registry-provider.js";
-import { findClosestValue } from "./suggestions.js";
+import { CliError } from "./cli-error.js"
+import type { RegistryItem } from "@neurex-ui/registry"
+import { validateRegistryItem } from "@neurex-ui/registry"
+import { getRegistryItems } from "./registry-provider.js"
+import { findClosestValue } from "./suggestions.js"
 
 interface RegistryResolverOptions {
-  fallback?: boolean;
+  fallback?: boolean
 }
 
 const normalizeName = (name: string): string => {
-  return name.toLowerCase();
-};
+  return name.toLowerCase()
+}
 
 export const findItem = async (
   name: string,
   options: RegistryResolverOptions = {},
 ): Promise<RegistryItem | undefined> => {
-  const items = await getRegistryItems(options);
-  const normalizedName = normalizeName(name);
+  const items = await getRegistryItems(options)
+  const normalizedName = normalizeName(name)
 
   const item = items.find(
     (registryItem) =>
@@ -26,78 +26,78 @@ export const findItem = async (
       registryItem.aliases.some(
         (alias) => normalizeName(alias) === normalizedName,
       ),
-  );
+  )
 
   if (item) {
-    validateRegistryItem(item);
+    validateRegistryItem(item)
   }
 
-  return item;
-};
+  return item
+}
 
 export const resolveRegistryItems = async (
   names: string[],
   options: RegistryResolverOptions = {},
 ): Promise<RegistryItem[]> => {
-  const items = await getRegistryItems(options);
-  const resolved = new Map<string, RegistryItem>();
+  const items = await getRegistryItems(options)
+  const resolved = new Map<string, RegistryItem>()
 
   const findLocalItem = (name: string): RegistryItem | undefined => {
-    const normalizedName = normalizeName(name);
+    const normalizedName = normalizeName(name)
 
     return items.find(
       (item) =>
         normalizeName(item.name) === normalizedName ||
         normalizeName(item.canonicalName) === normalizedName ||
         item.aliases.some((alias) => normalizeName(alias) === normalizedName),
-    );
-  };
+    )
+  }
 
   const visit = (name: string): void => {
-    const item = findLocalItem(name);
+    const item = findLocalItem(name)
 
     if (!item) {
       const availableNames = items.flatMap((registryItem) => [
         registryItem.name,
         registryItem.canonicalName,
         ...registryItem.aliases,
-      ]);
+      ])
 
-      const suggestion = findClosestValue(name, availableNames);
+      const suggestion = findClosestValue(name, availableNames)
 
       throw new CliError(
         suggestion
           ? `Component "${name}" not found. Did you mean "${suggestion}"?`
           : `Component "${name}" not found.`,
-      );
+      )
     }
 
-    validateRegistryItem(item);
+    validateRegistryItem(item)
 
-    const key = normalizeName(item.canonicalName);
+    const key = normalizeName(item.canonicalName)
 
     if (resolved.has(key)) {
-      return;
+      return
     }
 
-    resolved.set(key, item);
+    resolved.set(key, item)
 
     for (const dependency of item.registryDependencies) {
-      visit(dependency);
+      visit(dependency)
     }
-  };
-
-  for (const name of names) {
-    visit(name);
   }
 
-  return Array.from(resolved.values());
-};
+  for (const name of names) {
+    visit(name)
+  }
+
+  return Array.from(resolved.values())
+}
 
 export const collectDependencies = (items: RegistryItem[]): string[] => {
-  return Array.from(new Set(items.flatMap((item) => item.dependencies)));
-};
+  return Array.from(new Set(items.flatMap((item) => item.dependencies)))
+}
 
 export const collectUtilities = (items: RegistryItem[]): string[] => {
-  return Array.from(new Set(items.flatMap((item) => item.utilities)));
-};
+  return Array.from(new Set(items.flatMap((item) => item.utilities)))
+}

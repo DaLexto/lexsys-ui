@@ -1,14 +1,14 @@
-import { readFile, writeFile } from "node:fs/promises";
-import { join } from "node:path";
-import { fileExists } from "./fs.js";
-import { getCwd } from "./context.js";
+import { readFile, writeFile } from "node:fs/promises"
+import { join } from "node:path"
+import { fileExists } from "./fs.js"
+import { getCwd } from "./context.js"
 
 export interface NeurexConfig {
-  componentsPath: string;
-  utilitiesPath: string;
-  stylesPath: string;
-  installed?: Record<string, string>;
-  registryUrl?: string | null;
+  componentsPath: string
+  utilitiesPath: string
+  stylesPath: string
+  installed?: Record<string, string>
+  registryUrl?: string | null
 }
 
 export const defaultConfig: NeurexConfig = {
@@ -17,30 +17,30 @@ export const defaultConfig: NeurexConfig = {
   stylesPath: "styles/neurex",
   installed: {},
   registryUrl: null,
-};
+}
 
 export const getConfigPath = (): string => {
-  return join(getCwd(), "neurex.config.json");
-};
+  return join(getCwd(), "neurex.config.json")
+}
 
 export const loadConfig = async (): Promise<NeurexConfig> => {
-  const configPath = getConfigPath();
+  const configPath = getConfigPath()
 
   if (!(await fileExists(configPath))) {
-    return defaultConfig;
+    return defaultConfig
   }
 
-  const content = await readFile(configPath, "utf-8");
-  const parsed = JSON.parse(content) as Partial<NeurexConfig>;
+  const content = await readFile(configPath, "utf-8")
+  const parsed = JSON.parse(content) as Partial<NeurexConfig>
 
   return {
     ...defaultConfig,
     ...parsed,
-  };
-};
+  }
+}
 
 export const saveConfig = async (config: NeurexConfig): Promise<void> => {
-  const configPath = getConfigPath();
+  const configPath = getConfigPath()
 
-  await writeFile(configPath, JSON.stringify(config, null, 2) + "\n", "utf-8");
-};
+  await writeFile(configPath, JSON.stringify(config, null, 2) + "\n", "utf-8")
+}

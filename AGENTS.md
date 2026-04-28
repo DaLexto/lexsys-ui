@@ -110,9 +110,9 @@ Rules:
 - components must follow the defined structure:
 
 ComponentName/
-  ComponentName.tsx
-  ComponentName.types.ts
-  ComponentName.variants.ts
+ComponentName.tsx
+ComponentName.types.ts
+ComponentName.variants.ts
 
 - components must support:
   - variants

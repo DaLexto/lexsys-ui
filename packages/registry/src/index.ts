@@ -25,4 +25,4 @@ export const registryManifest = {
 }
 
 export { validateRegistryItem } from "./validate-registry-item.js"
-export { validateRegistry } from "./validate-registry.js";
+export { validateRegistry } from "./validate-registry.js"

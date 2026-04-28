@@ -165,12 +165,12 @@ neurex-ui registry --remote
 
 #### Registry Flags
 
-| Flag | Description |
-| --- | --- |
-| `--summary` | Prints a compact registry summary. |
-| `--source` | Prints the active registry source. |
-| `--local` | Uses the bundled local registry metadata. |
-| `--remote` | Fetches the configured remote registry URL. |
+| Flag        | Description                                 |
+| ----------- | ------------------------------------------- |
+| `--summary` | Prints a compact registry summary.          |
+| `--source`  | Prints the active registry source.          |
+| `--local`   | Uses the bundled local registry metadata.   |
+| `--remote`  | Fetches the configured remote registry URL. |
 
 If `--remote` fails, the CLI reports the error and keeps the local registry available through:
 
@@ -243,14 +243,14 @@ neurex-ui -h
 
 ## Global Options
 
-| Option | Description |
-| --- | --- |
-| `--cwd <path>` | Run the CLI against a different working directory. |
-| `--dry-run` | Preview changes without writing files. |
-| `--yes` | Reserved for future confirmation flows. |
-| `--force` | Force update conflicted files after creating backups. |
-| `--help`, `-h` | Show help. |
-| `--no-fallback` | Disable local registry fallback where supported. |
+| Option          | Description                                           |
+| --------------- | ----------------------------------------------------- |
+| `--cwd <path>`  | Run the CLI against a different working directory.    |
+| `--dry-run`     | Preview changes without writing files.                |
+| `--yes`         | Reserved for future confirmation flows.               |
+| `--force`       | Force update conflicted files after creating backups. |
+| `--help`, `-h`  | Show help.                                            |
+| `--no-fallback` | Disable local registry fallback where supported.      |
 
 ---
 
@@ -276,13 +276,13 @@ Default config shape:
 
 ### Config Fields
 
-| Field | Description |
-| --- | --- |
-| `componentsPath` | Target directory for installed components. |
-| `utilitiesPath` | Target directory for shared utilities. |
-| `stylesPath` | Target directory for shared styles and token output. |
-| `installed` | Installed registry item versions tracked by the CLI. |
-| `registryUrl` | Optional remote registry URL. Uses local registry when `null`. |
+| Field            | Description                                                    |
+| ---------------- | -------------------------------------------------------------- |
+| `componentsPath` | Target directory for installed components.                     |
+| `utilitiesPath`  | Target directory for shared utilities.                         |
+| `stylesPath`     | Target directory for shared styles and token output.           |
+| `installed`      | Installed registry item versions tracked by the CLI.           |
+| `registryUrl`    | Optional remote registry URL. Uses local registry when `null`. |
 
 ---
 
@@ -290,10 +290,10 @@ Default config shape:
 
 Neurex UI currently supports two registry source concepts:
 
-| Source | Description |
-| --- | --- |
-| Local registry | Bundled registry metadata from the installed CLI/package. |
-| Remote registry | Optional configured remote JSON registry source. |
+| Source          | Description                                               |
+| --------------- | --------------------------------------------------------- |
+| Local registry  | Bundled registry metadata from the installed CLI/package. |
+| Remote registry | Optional configured remote JSON registry source.          |
 
 The local registry is always available.
 
@@ -309,6 +309,7 @@ configured remote registry
   → if unavailable or invalid, fall back to local registry
 local registry
 ```
+
 ### Registry Manifest Shape
 
 Remote registries should expose a manifest object:
@@ -319,6 +320,7 @@ Remote registries should expose a manifest object:
   "items": []
 }
 ```
+
 For backward compatibility, the CLI can also parse a raw array of registry items, but the manifest object is preferred.
 
 ### Strict Registry Mode
@@ -328,6 +330,7 @@ Some commands support strict registry resolution through:
 ```bash
 --no-fallback
 ```
+
 When enabled, the CLI fails if the configured remote registry cannot be resolved.
 
 Supported commands:
@@ -353,6 +356,7 @@ Commands using registry resolution include:
 - `uninstall`
 - `list`
 - `registry`
+
 ---
 
 ## Safety Rules
@@ -366,7 +370,6 @@ When existing files differ from registry templates, the CLI must:
 - avoid bumping the installed version when conflicts exist,
 - require explicit user action before overwrite behavior is introduced.
 - Remote registry failures must not break local registry usage.
-
 
 ---
 

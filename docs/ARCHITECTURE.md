@@ -317,11 +317,7 @@ Each registry item must define:
     "Button/Button.types.ts",
     "Button/Button.variants.ts"
   ],
-  "dependencies": [
-    "class-variance-authority",
-    "clsx",
-    "tailwind-merge"
-  ],
+  "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
   "registryDependencies": [],
   "utilities": ["cn"],
   "styles": ["theme"],

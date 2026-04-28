@@ -1,83 +1,83 @@
 import {
   registryItems as localRegistry,
   registryVersion,
-} from "@neurex-ui/registry";
-import type { RegistryItem } from "@neurex-ui/registry";
-import { validateRegistry } from "@neurex-ui/registry";
-import { fetchRemoteRegistry } from "./remote-registry.js";
-import { getRegistrySource } from "./registry-source.js";
+} from "@neurex-ui/registry"
+import type { RegistryItem } from "@neurex-ui/registry"
+import { validateRegistry } from "@neurex-ui/registry"
+import { fetchRemoteRegistry } from "./remote-registry.js"
+import { getRegistrySource } from "./registry-source.js"
 
 export interface RegistryProviderResult {
-  items: RegistryItem[];
-  source: string;
-  fallbackUsed: boolean;
-  manifestVersion: string;
+  items: RegistryItem[]
+  source: string
+  fallbackUsed: boolean
+  manifestVersion: string
 }
 
 interface RegistryProviderOptions {
-  fallback?: boolean;
+  fallback?: boolean
 }
 
-let cachedRegistry: RegistryItem[] | null = null;
-let cachedSource: string | null = null;
-let cachedManifestVersion: string | null = null;
-let fallbackWarningShown = false;
+let cachedRegistry: RegistryItem[] | null = null
+let cachedSource: string | null = null
+let cachedManifestVersion: string | null = null
+let fallbackWarningShown = false
 
 export const getRegistryItems = async (
   options: RegistryProviderOptions = {},
 ): Promise<RegistryItem[]> => {
-  const fallback = options.fallback ?? true;
-  const source = await getRegistrySource();
+  const fallback = options.fallback ?? true
+  const source = await getRegistrySource()
 
   if (cachedRegistry && cachedSource === source) {
-    return cachedRegistry;
+    return cachedRegistry
   }
 
   if (source === "local") {
-    cachedRegistry = localRegistry;
-    cachedSource = source;
-    cachedManifestVersion = registryVersion;
+    cachedRegistry = localRegistry
+    cachedSource = source
+    cachedManifestVersion = registryVersion
 
-    return localRegistry;
+    return localRegistry
   }
 
   try {
-    const remote = await fetchRemoteRegistry(source);
+    const remote = await fetchRemoteRegistry(source)
 
-    cachedRegistry = remote.items;
-    cachedSource = source;
-    cachedManifestVersion = remote.version;
+    cachedRegistry = remote.items
+    cachedSource = source
+    cachedManifestVersion = remote.version
 
-    return remote.items;
+    return remote.items
   } catch (error) {
     if (!fallback) {
-      throw error;
+      throw error
     }
 
     if (!fallbackWarningShown) {
-      console.log("Remote registry failed. Falling back to local registry.");
-      fallbackWarningShown = true;
+      console.log("Remote registry failed. Falling back to local registry.")
+      fallbackWarningShown = true
     }
 
-    cachedRegistry = localRegistry;
-    cachedSource = source;
-    cachedManifestVersion = registryVersion;
+    cachedRegistry = localRegistry
+    cachedSource = source
+    cachedManifestVersion = registryVersion
 
-    return localRegistry;
+    return localRegistry
   }
-};
+}
 
 export const getRegistryProviderResult = async (
   options: RegistryProviderOptions = {},
 ): Promise<RegistryProviderResult> => {
-  const source = await getRegistrySource();
-  const items = await getRegistryItems(options);
-  validateRegistry(items);
+  const source = await getRegistrySource()
+  const items = await getRegistryItems(options)
+  validateRegistry(items)
 
   return {
     items,
     source,
     fallbackUsed: source !== "local" && items === localRegistry,
     manifestVersion: cachedManifestVersion ?? registryVersion,
-  };
-};
+  }
+}

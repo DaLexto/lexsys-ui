@@ -8,8 +8,17 @@
     "dev": {
       "cache": false
     },
-    "lint": {},
-    "test": {},
-    "typecheck": {}
+    "lint": {
+      "outputs": []
+    },
+    "lint:fix": {
+      "cache": false
+    },
+    "test": {
+      "outputs": []
+    },
+    "typecheck": {
+      "outputs": []
+    }
   }
 }

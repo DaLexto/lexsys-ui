@@ -20,6 +20,7 @@ declare module "react" {
 
   export interface DOMAttributes<T> {
     children?: ReactNode
+    currentTarget?: T
   }
 
   export interface HTMLAttributes<T> extends DOMAttributes<T> {
@@ -40,7 +41,7 @@ declare module "react" {
     displayName?: string
   }
 
-  export function forwardRef<T, P = {}>(
+  export function forwardRef<T, P extends object = object>(
     render: (props: P, ref: ForwardedRef<T>) => ReactElement | null,
   ): ForwardRefExoticComponent<P & RefAttributes<T>>
 }
@@ -52,7 +53,10 @@ declare module "react/jsx-runtime" {
 }
 
 declare module "class-variance-authority" {
-  export function cva(base?: string, config?: unknown): (options?: unknown) => string
+  export function cva(
+    base?: string,
+    config?: unknown,
+  ): (options?: unknown) => string
 }
 
 declare module "clsx" {
@@ -80,7 +84,9 @@ declare module "*lib/neurex/cn" {
 }
 
 declare namespace JSX {
-  interface Element {}
+  interface Element {
+    readonly __jsxElementBrand?: never
+  }
 
   interface IntrinsicElements {
     button: {

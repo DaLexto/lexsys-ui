@@ -1,59 +1,59 @@
-import { getConfigPath, loadConfig, saveConfig } from "../core/config.js";
-import { fileExists } from "../core/fs.js";
+import { getConfigPath, loadConfig, saveConfig } from "../core/config.js"
+import { fileExists } from "../core/fs.js"
 
 interface RunConfigOptions {
-  path?: boolean;
-  exists?: boolean;
-  setRegistryUrl?: string;
-  clearRegistryUrl?: boolean;
+  path?: boolean
+  exists?: boolean
+  setRegistryUrl?: string
+  clearRegistryUrl?: boolean
 }
 
 export const runConfig = async (
   options: RunConfigOptions = {},
 ): Promise<void> => {
-  const configPath = getConfigPath();
+  const configPath = getConfigPath()
 
   if (options.path) {
-    console.log(configPath);
-    return;
+    console.log(configPath)
+    return
   }
 
   if (options.exists) {
-    const exists = await fileExists(configPath);
-    console.log(exists ? "Config exists." : "Config does not exist.");
-    return;
+    const exists = await fileExists(configPath)
+    console.log(exists ? "Config exists." : "Config does not exist.")
+    return
   }
 
   if (options.clearRegistryUrl) {
-    const config = await loadConfig();
+    const config = await loadConfig()
 
     await saveConfig({
       ...config,
       registryUrl: null,
-    });
+    })
 
-    console.log("Registry URL cleared.");
-    return;
+    console.log("Registry URL cleared.")
+    return
   }
 
   if (options.setRegistryUrl !== undefined) {
-    const config = await loadConfig();
+    const config = await loadConfig()
 
     await saveConfig({
       ...config,
       registryUrl: options.setRegistryUrl || null,
-    });
+    })
 
     console.log(
       options.setRegistryUrl
         ? `Registry URL set to: ${options.setRegistryUrl}`
         : "Registry URL cleared.",
-    );
+    )
 
-    return;
+    return
   }
 
-  const config = await loadConfig();
+  const config = await loadConfig()
 
-  console.log(JSON.stringify(config, null, 2));
-};
+  console.log(JSON.stringify(config, null, 2))
+}

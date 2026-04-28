@@ -12,17 +12,17 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-blue-600 text-white",
-        secondary: "bg-gray-200 text-black"
+        secondary: "bg-gray-200 text-black",
       },
       size: {
         sm: "h-8 px-3",
         md: "h-10 px-4",
-        lg: "h-12 px-6"
-      }
+        lg: "h-12 px-6",
+      },
     },
     defaultVariants: {
       variant: "primary",
-      size: "md"
-    }
-  }
+      size: "md",
+    },
+  },
 )

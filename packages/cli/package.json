@@ -11,10 +11,11 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "check": "pnpm run typecheck",
-    "lint": "echo \"No lint configured yet\"",
-    "test": "echo \"No tests yet\""
+    "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
+    "lint": "eslint src --max-warnings=0",
+    "lint:fix": "eslint src --fix",
+    "test": "vitest run --passWithNoTests --pool threads --exclude \"dist/**\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@neurex-ui/registry": "workspace:*",

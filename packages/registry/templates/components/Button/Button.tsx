@@ -40,7 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading ? "Loading..." : children}
       </BaseButton>
     )
-  }
+  },
 )
 
 Button.displayName = "Button"

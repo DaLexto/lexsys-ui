@@ -71,5 +71,5 @@ Examples:
   neurex-ui doctor
   neurex-ui registry --summary
   neurex-ui uninstall button
-`);
-};
+`)
+}

@@ -159,7 +159,6 @@ Interactive mode:
 neurex-ui add
 ```
 
-
 ## 📚 Documentation
 
 - [Architecture](./docs/ARCHITECTURE.md)
@@ -183,11 +182,7 @@ Neurex respects your code.
 import { Button } from "@/components/ui/Button"
 
 export function App() {
-  return (
-    <Button variant="primary">
-      Click me
-    </Button>
-  )
+  return <Button variant="primary">Click me</Button>
 }
 ```
 
