@@ -34,6 +34,10 @@ export const runDoctor = async (
       label: config.stylesPath,
       path: join(getCwd(), config.stylesPath),
     },
+    {
+      label: config.tailwind.css,
+      path: join(getCwd(), config.tailwind.css),
+    },
   ]
 
   for (const check of checks) {

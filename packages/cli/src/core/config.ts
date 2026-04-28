@@ -7,14 +7,26 @@ export interface NeurexConfig {
   componentsPath: string
   utilitiesPath: string
   stylesPath: string
+  tailwind: NeurexTailwindConfig
   installed?: Record<string, string>
   registryUrl?: string | null
+}
+
+export interface NeurexTailwindConfig {
+  version: "v4"
+  css: string
+}
+
+const defaultTailwindConfig: NeurexTailwindConfig = {
+  version: "v4",
+  css: "src/style.css",
 }
 
 export const defaultConfig: NeurexConfig = {
   componentsPath: "components/ui",
   utilitiesPath: "lib/neurex",
   stylesPath: "styles/neurex",
+  tailwind: defaultTailwindConfig,
   installed: {},
   registryUrl: null,
 }
@@ -36,6 +48,10 @@ export const loadConfig = async (): Promise<NeurexConfig> => {
   return {
     ...defaultConfig,
     ...parsed,
+    tailwind: {
+      ...defaultTailwindConfig,
+      ...parsed.tailwind,
+    },
   }
 }
 

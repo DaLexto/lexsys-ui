@@ -15,6 +15,10 @@ const config: NeurexConfig = {
   installed: {},
   registryUrl: null,
   stylesPath: "styles/neurex",
+  tailwind: {
+    version: "v4",
+    css: "src/style.css",
+  },
   utilitiesPath: "lib/neurex",
 }
 
@@ -69,5 +73,23 @@ describe("installItemFiles", () => {
     expect(result.created).toHaveLength(1)
     expect(result.created[0]).toContain("tokens.css")
     expect(result.conflicted).toEqual([targetPath])
+  })
+
+  test("wires installed styles into the configured Tailwind CSS entrypoint", async () => {
+    const cssPath = join(tempDir, "src/style.css")
+
+    await mkdir(join(tempDir, "src"), { recursive: true })
+    await writeFile(cssPath, ":root {\n  color: black;\n}\n", "utf-8")
+
+    await installStyles([themeRegistryStyle], config)
+    await installStyles([themeRegistryStyle], config)
+
+    await expect(readFile(cssPath, "utf-8")).resolves.toBe(
+      '@import "../styles/neurex/tokens.css";\n' +
+        '@import "../styles/neurex/theme.css";\n' +
+        ":root {\n" +
+        "  color: black;\n" +
+        "}\n",
+    )
   })
 })

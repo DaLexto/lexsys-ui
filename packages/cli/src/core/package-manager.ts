@@ -6,6 +6,46 @@ import { getCwd } from "./context.js"
 
 type PackageManager = "npm" | "pnpm" | "yarn"
 
+interface InstallDependenciesOptions {
+  dev?: boolean
+}
+
+export interface PackageManagerInvocation {
+  command: string
+  args: string[]
+}
+
+const isSafeDependencyName = (dependency: string): boolean => {
+  return /^(?:@[a-z0-9][a-z0-9._-]*\/)?[a-z0-9][a-z0-9._-]*$/iu.test(dependency)
+}
+
+const assertSafeDependencyNames = (deps: string[]): void => {
+  const unsafeDependency = deps.find(
+    (dependency) => !isSafeDependencyName(dependency),
+  )
+
+  if (unsafeDependency) {
+    throw new Error(`Invalid dependency name: ${unsafeDependency}`)
+  }
+}
+
+export const getPackageManagerInvocation = (
+  packageManager: PackageManager,
+  args: string[],
+): PackageManagerInvocation => {
+  if (process.platform === "win32") {
+    return {
+      command: "cmd.exe",
+      args: ["/d", "/s", "/c", packageManager, ...args],
+    }
+  }
+
+  return {
+    command: packageManager,
+    args,
+  }
+}
+
 export const detectPackageManager = async (
   packageJson: Record<string, unknown>,
 ): Promise<PackageManager> => {
@@ -29,7 +69,10 @@ export const detectPackageManager = async (
   return "npm"
 }
 
-export const installDependencies = async (deps: string[]): Promise<void> => {
+export const installDependencies = async (
+  deps: string[],
+  options: InstallDependenciesOptions = {},
+): Promise<void> => {
   if (!deps.length) return
 
   let packageJson: Record<string, unknown>
@@ -71,6 +114,8 @@ export const installDependencies = async (deps: string[]): Promise<void> => {
   const packageManager = await detectPackageManager(packageJson)
   const missing = deps.filter((dep) => !existingDeps[dep])
 
+  assertSafeDependencyNames(missing)
+
   if (!missing.length) {
     console.log("All dependencies already installed.\n")
     return
@@ -81,16 +126,20 @@ export const installDependencies = async (deps: string[]): Promise<void> => {
   console.log(`Using package manager: ${packageManager}`)
   console.log("")
 
-  const installCommand: [string, string[]] =
+  const installCommand: [PackageManager, string[]] =
     packageManager === "pnpm"
-      ? ["pnpm", ["add", ...missing]]
+      ? ["pnpm", ["add", ...(options.dev ? ["-D"] : []), ...missing]]
       : packageManager === "yarn"
-        ? ["yarn", ["add", ...missing]]
-        : ["npm", ["install", ...missing]]
+        ? ["yarn", ["add", ...(options.dev ? ["--dev"] : []), ...missing]]
+        : [
+            "npm",
+            ["install", ...(options.dev ? ["--save-dev"] : []), ...missing],
+          ]
 
   const [command, commandArgs] = installCommand
+  const invocation = getPackageManagerInvocation(command, commandArgs)
 
-  execFileSync(command, commandArgs, {
+  execFileSync(invocation.command, invocation.args, {
     cwd: getCwd(),
     stdio: "inherit",
   })

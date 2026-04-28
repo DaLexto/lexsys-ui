@@ -60,6 +60,8 @@ describe("runAdd", () => {
       },
       packageManager: "pnpm@10.33.0",
     })
+    await mkdir(join(tempDir, "src"), { recursive: true })
+    await writeFile(join(tempDir, "src/style.css"), ":root {}\n", "utf-8")
 
     await runAdd(["button"])
 
@@ -69,11 +71,19 @@ describe("runAdd", () => {
     await expect(
       readFile(join(tempDir, "styles/neurex/theme.css"), "utf-8"),
     ).resolves.toContain("@theme inline")
+    await expect(
+      readFile(join(tempDir, "src/style.css"), "utf-8"),
+    ).resolves.toBe(
+      '@import "../styles/neurex/tokens.css";\n' +
+        '@import "../styles/neurex/theme.css";\n' +
+        ":root {}\n",
+    )
 
     const config = JSON.parse(
       await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: Record<string, string>; tailwind?: { css?: string } }
 
     expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(config.tailwind?.css).toBe("src/style.css")
   })
 })

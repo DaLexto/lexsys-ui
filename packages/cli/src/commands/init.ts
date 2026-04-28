@@ -1,20 +1,23 @@
-import { mkdir } from "node:fs/promises"
-import { join } from "node:path"
-import { defaultConfig, getConfigPath } from "../core/config.js"
-import { writeFileIfMissing } from "../core/fs.js"
-import { getCwd } from "../core/context.js"
+import { loadConfig, saveConfig } from "../core/config.js"
+import { ensureProjectStructure } from "../core/installer.js"
+import { installDependencies } from "../core/package-manager.js"
+import {
+  ensureTailwindCssImport,
+  ensureViteTailwindPlugin,
+} from "../core/tailwind-setup.js"
+
+const tailwindViteDependencies = ["tailwindcss", "@tailwindcss/vite"]
 
 export const runInit = async (): Promise<void> => {
   console.log("Initializing Neurex UI...\n")
 
-  await mkdir(join(getCwd(), "components", "ui"), { recursive: true })
-  await mkdir(join(getCwd(), "lib", "neurex"), { recursive: true })
-  await mkdir(join(getCwd(), "styles", "neurex"), { recursive: true })
+  const config = await loadConfig()
 
-  await writeFileIfMissing(
-    getConfigPath(),
-    JSON.stringify(defaultConfig, null, 2) + "\n",
-  )
+  await ensureProjectStructure(config)
+  await installDependencies(tailwindViteDependencies, { dev: true })
+  await ensureTailwindCssImport(config)
+  await ensureViteTailwindPlugin()
+  await saveConfig(config)
 
   console.log("\nDone.")
 }

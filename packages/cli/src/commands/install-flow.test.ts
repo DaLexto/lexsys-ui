@@ -1,0 +1,98 @@
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
+import { join } from "node:path"
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
+import { setCwd } from "../core/context.js"
+import { runAdd } from "./add.js"
+import { runInit } from "./init.js"
+
+const writeJson = async (path: string, value: unknown): Promise<void> => {
+  await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
+}
+
+const countOccurrences = (content: string, pattern: string): number => {
+  return content.split(pattern).length - 1
+}
+
+describe("install flow smoke", () => {
+  let tempDir: string
+
+  beforeEach(async () => {
+    const testRoot = join(process.cwd(), ".tmp")
+    await mkdir(testRoot, { recursive: true })
+    tempDir = await mkdtemp(join(testRoot, "neurex-cli-flow-"))
+    setCwd(tempDir)
+    vi.spyOn(console, "log").mockImplementation(() => undefined)
+  })
+
+  afterEach(async () => {
+    vi.restoreAllMocks()
+    if (tempDir) {
+      await rm(tempDir, { force: true, recursive: true })
+    }
+  })
+
+  test("initializes a Vite consumer and installs Button idempotently", async () => {
+    await writeJson(join(tempDir, "package.json"), {
+      dependencies: {
+        "@base-ui/react": "^1.4.1",
+        "class-variance-authority": "^0.7.1",
+        clsx: "^2.1.1",
+        "tailwind-merge": "^3.5.0",
+      },
+      devDependencies: {
+        "@tailwindcss/vite": "^4.2.4",
+        tailwindcss: "^4.2.4",
+      },
+      packageManager: "npm@11.0.0",
+    })
+    await mkdir(join(tempDir, "src"), { recursive: true })
+    await writeFile(join(tempDir, "src/style.css"), ":root {}\n", "utf-8")
+    await writeFile(
+      join(tempDir, "vite.config.ts"),
+      'import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\n\nexport default defineConfig({\n  plugins: [react()],\n});\n',
+      "utf-8",
+    )
+
+    await runInit()
+    await runAdd(["button"])
+    await runInit()
+    await runAdd(["button"])
+
+    const css = await readFile(join(tempDir, "src/style.css"), "utf-8")
+    expect(css).toBe(
+      '@import "tailwindcss";\n' +
+        '@import "../styles/neurex/tokens.css";\n' +
+        '@import "../styles/neurex/theme.css";\n' +
+        ":root {}\n",
+    )
+    expect(countOccurrences(css, '@import "tailwindcss";')).toBe(1)
+    expect(countOccurrences(css, "../styles/neurex/tokens.css")).toBe(1)
+    expect(countOccurrences(css, "../styles/neurex/theme.css")).toBe(1)
+
+    await expect(
+      readFile(join(tempDir, "vite.config.ts"), "utf-8"),
+    ).resolves.toContain("plugins: [tailwindcss(), react()]")
+    await expect(
+      readFile(join(tempDir, "styles/neurex/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-button-radius")
+    await expect(
+      readFile(join(tempDir, "styles/neurex/theme.css"), "utf-8"),
+    ).resolves.toContain("--color-nx-primary")
+    await expect(
+      readFile(join(tempDir, "lib/neurex/cn.ts"), "utf-8"),
+    ).resolves.toContain("twMerge")
+    await expect(
+      readFile(
+        join(tempDir, "components/ui/Button/Button.variants.ts"),
+        "utf-8",
+      ),
+    ).resolves.toContain("bg-nx-primary")
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string>; tailwind?: { css?: string } }
+
+    expect(config.tailwind?.css).toBe("src/style.css")
+    expect(config.installed).toEqual({ button: "0.0.1" })
+  })
+})

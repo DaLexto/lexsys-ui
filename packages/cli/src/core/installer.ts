@@ -1,5 +1,5 @@
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises"
-import { dirname, join } from "node:path"
+import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import type { RegistryItem, RegistryStyle } from "@neurex-ui/registry"
 import type { NeurexConfig } from "./config.js"
@@ -88,6 +88,7 @@ export const installStyles = async (
   config: NeurexConfig,
 ): Promise<InstallResourceResult> => {
   const result = createInstallResourceResult()
+  const installedStyleTargets: string[] = []
 
   for (const style of styles) {
     console.log(`Installing style ${style.name}...`)
@@ -104,6 +105,7 @@ export const installStyles = async (
         if (isSameFile) {
           console.log(`Skipped identical style: ${targetPath}`)
           result.skipped.push(targetPath)
+          installedStyleTargets.push(file.target)
           continue
         }
 
@@ -115,10 +117,78 @@ export const installStyles = async (
       await copyFile(sourcePath, targetPath)
       console.log(`Created style: ${targetPath}`)
       result.created.push(targetPath)
+      installedStyleTargets.push(file.target)
     }
   }
 
+  if (!hasInstallConflicts(result) && installedStyleTargets.length) {
+    await installStyleEntrypointImports(installedStyleTargets, config)
+  }
+
   return result
+}
+
+const toCssImportPath = (
+  cssPath: string,
+  styleTarget: string,
+  config: NeurexConfig,
+): string => {
+  const importPath = relative(
+    dirname(cssPath),
+    join(config.stylesPath, styleTarget),
+  ).replaceAll("\\", "/")
+
+  return importPath.startsWith(".") ? importPath : `./${importPath}`
+}
+
+const getStyleImportInsertionIndex = (content: string): number => {
+  const importHeaderMatch = content.match(
+    /^(?:\s*@charset\s+["'][^"']+["'];\s*)?(?:\s*@import\s+[^;]+;\s*)*/u,
+  )
+
+  return importHeaderMatch?.[0].length ?? 0
+}
+
+const installStyleEntrypointImports = async (
+  styleTargets: string[],
+  config: NeurexConfig,
+): Promise<void> => {
+  const cssPath = join(getCwd(), config.tailwind.css)
+
+  if (!(await fileExists(cssPath))) {
+    console.log(
+      `Skipped style wiring: Tailwind CSS entrypoint not found at ${cssPath}`,
+    )
+    return
+  }
+
+  const content = await readFile(cssPath, "utf-8")
+  const missingImports = styleTargets
+    .map((styleTarget) =>
+      toCssImportPath(config.tailwind.css, styleTarget, config),
+    )
+    .filter(
+      (importPath) =>
+        !content.includes(`"${importPath}"`) &&
+        !content.includes(`'${importPath}'`),
+    )
+    .map((importPath) => `@import "${importPath}";`)
+
+  if (!missingImports.length) {
+    console.log(
+      `Skipped style wiring: ${cssPath} already imports Neurex styles`,
+    )
+    return
+  }
+
+  const insertionIndex = getStyleImportInsertionIndex(content)
+  const before = content.slice(0, insertionIndex)
+  const after = content.slice(insertionIndex)
+  const separator = before.endsWith("\n") || before.length === 0 ? "" : "\n"
+  const updatedContent = `${before}${separator}${missingImports.join("\n")}\n${after}`
+
+  await writeFile(cssPath, updatedContent, "utf-8")
+  console.log(`Updated style entrypoint: ${cssPath}`)
 }
 
 export const installItemFiles = async (

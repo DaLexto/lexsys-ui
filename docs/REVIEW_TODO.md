@@ -47,6 +47,19 @@ Completed so far on `feature/cli-install-hardening`:
 - Button styling aligned with the token strategy: reference and registry
   variants now consume `nx` semantic Tailwind classes and component CSS
   variables instead of hardcoded Tailwind colors/sizes.
+- Earlier sandbox smoke exposed an install-contract gap: generated style files
+  were copied into the consumer project, but the CLI did not yet wire
+  `styles/neurex/tokens.css` and `styles/neurex/theme.css` into the consumer CSS
+  entrypoint or otherwise verify Tailwind output.
+- Style entrypoint wiring added: `neurex.config.json` now carries
+  `tailwind.version` and `tailwind.css`, and installed style outputs are imported
+  into the configured consumer CSS file idempotently.
+- Tailwind v4/Vite foundation added to `init`: CLI installs missing Tailwind
+  dev dependencies, adds `@import "tailwindcss";`, wires
+  `@tailwindcss/vite`, and keeps all steps idempotent.
+- Repeatable install-flow smoke added: a temp Vite consumer now runs `init` and
+  `add button` twice to guard idempotent deps, Vite plugin wiring, CSS imports,
+  style files, utility install, component install, and config tracking.
 
 ---
 
@@ -146,6 +159,67 @@ Status:
 - CLI collects `styles` from registry items and installs them through the same
   created/skipped/conflicted result model used by utilities and components.
 - Covered by token output, style installer, and `runAdd(button)` tests.
+
+### DONE: Wire installed style outputs into the consumer app
+
+Problem:
+
+- `add button` installs `styles/neurex/tokens.css` and
+  `styles/neurex/theme.css`.
+- A fresh Vite sandbox still builds without those files being imported.
+- The generated Button uses `nx` Tailwind/theme classes, but the built CSS does
+  not include the `nx` output unless the consumer wires the styles manually.
+
+Direction:
+
+- Decide the first supported CSS entrypoint contract for CLI installs.
+- Detect or configure the consumer stylesheet path during `init`.
+- Add the Neurex style imports idempotently, or print an explicit actionable
+  manual step when safe automatic wiring is not possible.
+- Validate this with a sandbox/e2e smoke that checks generated CSS contains the
+  installed `nx` theme output.
+
+Status:
+
+- Done for CSS entrypoint wiring.
+- `neurex.config.json` now includes `tailwind.version` and `tailwind.css`.
+- `add button` installs `styles/neurex/tokens.css` and
+  `styles/neurex/theme.css`, then imports them into the configured CSS
+  entrypoint without duplicating imports.
+- Verified against `neurex-ui-sandbox`: `src/style.css` now imports the Neurex
+  style outputs and `npm run typecheck` / `npm run build` pass.
+
+### DONE: Configure Tailwind processing in consumer projects
+
+Problem:
+
+- Neurex components consume Tailwind utility classes and Tailwind v4 `@theme`
+  output.
+- The sandbox now receives the Neurex style imports, but Vite reports
+  `Unknown at rule: @theme` because the app does not yet have the Tailwind v4
+  Vite pipeline installed/configured.
+
+Direction:
+
+- Decide whether `neurex init` owns Tailwind setup or only validates an existing
+  Tailwind setup.
+- For Vite, install `tailwindcss` and `@tailwindcss/vite`, add the Vite plugin,
+  and ensure `@import "tailwindcss";` is present before Neurex style imports.
+- Keep this framework-aware and idempotent, similar to shadcn's init behavior.
+
+Status:
+
+- Done for the first Vite/Tailwind v4 foundation pass.
+- `neurex init` installs missing `tailwindcss` and `@tailwindcss/vite` as dev
+  dependencies.
+- `neurex init` adds `@import "tailwindcss";` to the configured CSS entrypoint
+  without duplicating it.
+- `neurex init` adds the Tailwind Vite plugin without duplicating it.
+- Dependency installation validates package names and uses a Windows-safe
+  package-manager invocation.
+- Verified directly in `neurex-ui-sandbox`: idempotent `init`,
+  `npm run typecheck`, and `npm run build` pass without the earlier `@theme`
+  warning.
 
 ### DONE: Align Button styling with token strategy
 
@@ -262,7 +336,7 @@ Status:
 
 ## P2 - Product and DX Improvements
 
-### PARTIAL: Add real tests before expanding components
+### DONE: Add real tests before expanding components
 
 Problem:
 
@@ -281,7 +355,9 @@ Status:
 - Vitest is installed and wired through package and Turbo scripts.
 - Initial CLI unit tests cover the highest-risk install and registry behavior.
 - Token output generation and style installation now have focused tests.
-- Sandbox/e2e install smoke test is still open.
+- Repeatable install-flow smoke now covers a temp Vite consumer running
+  `init` and `add button` twice, including idempotent CSS/Tailwind/style
+  wiring and installed component tracking.
 
 ### TODO: Add a playground or example consumer
 
@@ -319,8 +395,7 @@ Direction:
 4. Add minimal CLI tests for the three items above.
 5. Implement style/token templates and installer support.
 6. Upgrade Button to token-aware, state-aware styling.
-7. Add playground/e2e install smoke test.
-8. Expand registry with the next component only after install/update safety is solid.
+7. Expand registry with the next component only after install/update safety is solid.
 
 ---
 
@@ -333,3 +408,6 @@ Latest successful checks from the implementation passes:
 - `pnpm --filter ./packages/cli lint`
 - `pnpm check`
 - `pnpm build`
+- `npm run typecheck` in `D:\LIBRARIES\JS_TS\neurex-ui-sandbox`
+- `npm run build` in `D:\LIBRARIES\JS_TS\neurex-ui-sandbox`
+- CLI install-flow smoke: 6 CLI test files / 16 CLI tests passing

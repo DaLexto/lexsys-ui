@@ -9,7 +9,19 @@ vi.mock("node:child_process", () => ({
   execFileSync: execFileSyncMock,
 }))
 
-const { installDependencies } = await import("./package-manager.js")
+const { getPackageManagerInvocation, installDependencies } =
+  await import("./package-manager.js")
+
+const packageManagerCommand = (packageManager: "npm" | "pnpm" | "yarn") => {
+  return getPackageManagerInvocation(packageManager, []).command
+}
+
+const packageManagerArgs = (
+  packageManager: "npm" | "pnpm" | "yarn",
+  args: string[],
+) => {
+  return getPackageManagerInvocation(packageManager, args).args
+}
 
 describe("installDependencies", () => {
   let tempDir: string
@@ -47,12 +59,55 @@ describe("installDependencies", () => {
     await installDependencies(["clsx", "tailwind-merge"])
 
     expect(execFileSyncMock).toHaveBeenCalledWith(
-      "pnpm",
-      ["add", "tailwind-merge"],
+      packageManagerCommand("pnpm"),
+      packageManagerArgs("pnpm", ["add", "tailwind-merge"]),
       {
         cwd: tempDir,
         stdio: "inherit",
       },
     )
+  })
+
+  test("installs missing dev dependencies with the detected package manager", async () => {
+    await writeFile(
+      join(tempDir, "package.json"),
+      JSON.stringify(
+        {
+          devDependencies: {
+            tailwindcss: "^4.2.4",
+          },
+          packageManager: "npm@11.0.0",
+        },
+        null,
+        2,
+      ),
+      "utf-8",
+    )
+
+    await installDependencies(["tailwindcss", "@tailwindcss/vite"], {
+      dev: true,
+    })
+
+    expect(execFileSyncMock).toHaveBeenCalledWith(
+      packageManagerCommand("npm"),
+      packageManagerArgs("npm", ["install", "--save-dev", "@tailwindcss/vite"]),
+      {
+        cwd: tempDir,
+        stdio: "inherit",
+      },
+    )
+  })
+
+  test("rejects unsafe dependency names before invoking the package manager", async () => {
+    await writeFile(
+      join(tempDir, "package.json"),
+      JSON.stringify({ packageManager: "npm@11.0.0" }, null, 2),
+      "utf-8",
+    )
+
+    await expect(installDependencies(["clsx && bad"])).rejects.toThrow(
+      "Invalid dependency name",
+    )
+    expect(execFileSyncMock).not.toHaveBeenCalled()
   })
 })
