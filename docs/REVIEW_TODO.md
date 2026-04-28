@@ -23,11 +23,27 @@ The main gap is that documentation describes a framework contract that the
 current implementation only partially satisfies. The next work should focus on
 making the CLI and registry behavior real before adding many new components.
 
+## Progress Snapshot - 2026-04-28
+
+Completed so far on `feature/cli-install-hardening`:
+
+- Tooling foundation added: ESLint, Prettier, Tailwind CSS package setup,
+  Vitest, Turbo scripts, pnpm workspace cleanup, and repo-level check/build
+  scripts.
+- P0 install safety pass completed: packed registry template resolution,
+  `--cwd`-scoped dependency installs, safer package manager execution, and
+  conflict-aware install tracking.
+- CLI safety pass partially completed: file existence errors now only treat
+  `ENOENT` as missing, package manager commands use argument arrays, and
+  `registry --local` / `registry --remote` are deterministic.
+- CLI unit coverage started for package manager detection/install cwd,
+  installer conflicts, add tracking, and registry source behavior.
+
 ---
 
 ## P0 - Publish and Install Blockers
 
-### TODO: Make registry template resolution publish-safe
+### DONE: Make registry template resolution publish-safe
 
 Problem:
 
@@ -43,7 +59,13 @@ Direction:
 - Avoid repo-root assumptions in runtime CLI code.
 - Add a smoke check for packed/published-style usage.
 
-### TODO: Fix `--cwd` for dependency installation
+Status:
+
+- Done in code by resolving templates from `@neurex-ui/registry/templates/*`.
+- Registry package exports and publishes `templates`.
+- Verified with `pnpm --filter @neurex-ui/registry pack --dry-run`.
+
+### DONE: Fix `--cwd` for dependency installation
 
 Problem:
 
@@ -57,7 +79,13 @@ Direction:
 - Run dependency install commands with `cwd: getCwd()`.
 - Keep lockfile/package-manager detection scoped to `getCwd()`.
 
-### TODO: Do not mark conflicted installs as installed
+Status:
+
+- Done in `packages/cli/src/core/package-manager.ts`.
+- Covered by CLI unit test for reading `package.json` and installing from the
+  configured cwd.
+
+### DONE: Do not mark conflicted installs as installed
 
 Problem:
 
@@ -71,6 +99,13 @@ Direction:
 - Track created/skipped/conflicted files.
 - Only update `neurex.config.json.installed` when the item install is complete.
 - Print a final summary with conflicts.
+
+Status:
+
+- Done for utility and component installers with structured created/skipped/
+  conflicted results.
+- `runAdd` now avoids updating installed state when conflicts are present.
+- Covered by installer and add command tests.
 
 ---
 
@@ -125,7 +160,7 @@ Direction:
 
 ## P1 - CLI Safety and Correctness
 
-### TODO: Replace generic file-exists catch behavior
+### DONE: Replace generic file-exists catch behavior
 
 Problem:
 
@@ -139,7 +174,12 @@ Direction:
 - Let unexpected access/read errors propagate.
 - Remove duplicated local `fileExists` in `template-validator`.
 
-### TODO: Improve package manager command safety
+Status:
+
+- Done in `packages/cli/src/core/fs.ts`.
+- `template-validator` now uses the shared `fileExists` helper.
+
+### DONE: Improve package manager command safety
 
 Problem:
 
@@ -152,7 +192,14 @@ Direction:
 - Validate dependency names or constrain remote registry trust model.
 - Keep stdio inherited for good DX.
 
-### TODO: Make remote/local registry flags deterministic
+Status:
+
+- Done for command execution safety: dependency installs use `execFileSync`
+  with argument arrays and explicit `cwd`.
+- Dependency name validation / remote trust policy remains part of future
+  registry metadata enforcement.
+
+### DONE: Make remote/local registry flags deterministic
 
 Problem:
 
@@ -166,11 +213,19 @@ Direction:
 - Make `--remote` mean remote-only, or document fallback explicitly.
 - Include effective source and fallback in JSON/summary output.
 
+Status:
+
+- Done in `packages/cli/src/commands/registry.ts`.
+- `--local` bypasses remote/provider resolution.
+- `--remote` fetches remote-only and does not fall back to local.
+- JSON and summary output include source/fallback metadata.
+- Covered by registry command tests.
+
 ---
 
 ## P2 - Product and DX Improvements
 
-### TODO: Add real tests before expanding components
+### PARTIAL: Add real tests before expanding components
 
 Problem:
 
@@ -183,6 +238,12 @@ Direction:
 - Test `--cwd`, conflict handling, package-manager detection, registry resolution,
   and update tracking.
 - Add a sandbox/e2e install smoke test.
+
+Status:
+
+- Vitest is installed and wired through package and Turbo scripts.
+- Initial CLI unit tests cover the highest-risk install and registry behavior.
+- Sandbox/e2e install smoke test is still open.
 
 ### TODO: Add a playground or example consumer
 
@@ -227,14 +288,10 @@ Direction:
 
 ## Verification Notes
 
-Attempted checks from the review session:
+Latest successful checks from the implementation passes:
 
-- `pnpm typecheck`
-- `pnpm lint`
-- `pnpm test`
-
-Result:
-
-- Could not run in the review environment because `node`, `npm`, and `pnpm`
-  were not available on PATH.
-- Existing package `lint` and `test` scripts are placeholders in the current repo.
+- `pnpm format`
+- `pnpm --filter ./packages/cli test`
+- `pnpm --filter ./packages/cli lint`
+- `pnpm check`
+- `pnpm build`
