@@ -1,7 +1,17 @@
-import type { RegistryItem } from "./registry.types.js"
+import type { RegistryItem, RegistryStyle } from "./registry.types.js"
 
-export const validateRegistry = (items: RegistryItem[]): void => {
+interface ValidateRegistryOptions {
+  styles?: RegistryStyle[]
+}
+
+export const validateRegistry = (
+  items: RegistryItem[],
+  options: ValidateRegistryOptions = {},
+): void => {
   const availableNames = new Set(items.map((item) => item.name))
+  const availableStyles = new Set(
+    (options.styles ?? []).map((style) => style.name),
+  )
   const usedLookupKeys = new Map<string, string>()
 
   for (const item of items) {
@@ -25,6 +35,16 @@ export const validateRegistry = (items: RegistryItem[]): void => {
         throw new Error(
           `Registry item "${item.name}" references missing registry dependency: ${dependency}`,
         )
+      }
+    }
+
+    if (availableStyles.size > 0) {
+      for (const style of item.styles) {
+        if (!availableStyles.has(style)) {
+          throw new Error(
+            `Registry item "${item.name}" references missing style: ${style}`,
+          )
+        }
       }
     }
   }

@@ -38,6 +38,15 @@ Completed so far on `feature/cli-install-hardening`:
   `registry --local` / `registry --remote` are deterministic.
 - CLI unit coverage started for package manager detection/install cwd,
   installer conflicts, add tracking, and registry source behavior.
+- Design-system model locked in `docs/DESIGN_SYSTEM.md`: tokens and themes are
+  source of truth, CSS/Tailwind outputs are generated artifacts, and delivery is
+  CLI now with Creator-compatible structure later.
+- Style/token installation added: token/theme source now generates CSS outputs,
+  registry exposes style metadata, and CLI installs required styles
+  idempotently from registry item metadata.
+- Button styling aligned with the token strategy: reference and registry
+  variants now consume `nx` semantic Tailwind classes and component CSS
+  variables instead of hardcoded Tailwind colors/sizes.
 
 ---
 
@@ -111,7 +120,7 @@ Status:
 
 ## P1 - Architecture Contract Gaps
 
-### TODO: Implement style and token installation
+### DONE: Implement style and token installation
 
 Problem:
 
@@ -128,7 +137,17 @@ Direction:
 - Teach CLI to install styles idempotently.
 - Ensure installed components can reference token-backed Tailwind/CSS variables.
 
-### TODO: Align Button styling with token strategy
+Status:
+
+- Done as a first foundation pass.
+- `packages/tokens` now owns primitive, component, and theme token source.
+- Token build output generates `tokens.css` and `theme.css`.
+- Registry exposes `theme` style metadata with generated style templates.
+- CLI collects `styles` from registry items and installs them through the same
+  created/skipped/conflicted result model used by utilities and components.
+- Covered by token output, style installer, and `runAdd(button)` tests.
+
+### DONE: Align Button styling with token strategy
 
 Problem:
 
@@ -143,7 +162,17 @@ Direction:
 - Add disabled and loading classes.
 - Keep `variant`, `size`, and `className` as the public API.
 
-### TODO: Make registry metadata more complete and enforced
+Status:
+
+- Done for the first Button foundation pass.
+- Reference and registry template variants now use token-backed classes such as
+  `bg-nx-primary`, `text-nx-primary-foreground`, `border-nx-border`, and
+  component variables such as `--nx-button-radius` and
+  `--nx-button-height-md`.
+- Added focus-visible ring styling plus disabled and loading state classes.
+- Public API remains `variant`, `size`, `className`, and existing Button props.
+
+### PARTIAL: Make registry metadata more complete and enforced
 
 Problem:
 
@@ -155,6 +184,14 @@ Direction:
 - Validate `target`, `styles`, `utilities`, `aliases`, and `remoteFiles`.
 - Ensure each declared style/utility maps to a real installable template.
 - Keep CLI install behavior metadata-driven.
+
+Status:
+
+- Partially improved: registry item validation now checks `styles` entries and
+  `target`, and registry validation can verify item style references against
+  known registry styles.
+- Remaining work: enforce aliases, utilities, remote files, and template/style
+  file existence more completely across local and remote registries.
 
 ---
 
@@ -243,6 +280,7 @@ Status:
 
 - Vitest is installed and wired through package and Turbo scripts.
 - Initial CLI unit tests cover the highest-risk install and registry behavior.
+- Token output generation and style installation now have focused tests.
 - Sandbox/e2e install smoke test is still open.
 
 ### TODO: Add a playground or example consumer

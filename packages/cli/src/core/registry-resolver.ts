@@ -1,6 +1,6 @@
 import { CliError } from "./cli-error.js"
-import type { RegistryItem } from "@neurex-ui/registry"
-import { validateRegistryItem } from "@neurex-ui/registry"
+import type { RegistryItem, RegistryStyle } from "@neurex-ui/registry"
+import { registryStyles, validateRegistryItem } from "@neurex-ui/registry"
 import { getRegistryItems } from "./registry-provider.js"
 import { findClosestValue } from "./suggestions.js"
 
@@ -100,4 +100,22 @@ export const collectDependencies = (items: RegistryItem[]): string[] => {
 
 export const collectUtilities = (items: RegistryItem[]): string[] => {
   return Array.from(new Set(items.flatMap((item) => item.utilities)))
+}
+
+export const collectStyles = (items: RegistryItem[]): string[] => {
+  return Array.from(new Set(items.flatMap((item) => item.styles)))
+}
+
+export const resolveRegistryStyles = (names: string[]): RegistryStyle[] => {
+  return names.map((name) => {
+    const style = registryStyles.find((registryStyle) => {
+      return normalizeName(registryStyle.name) === normalizeName(name)
+    })
+
+    if (!style) {
+      throw new CliError(`Style "${name}" not found in registry.`)
+    }
+
+    return style
+  })
 }

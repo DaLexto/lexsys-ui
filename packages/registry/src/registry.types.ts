@@ -11,6 +11,17 @@ export interface RegistryFile {
   remoteUrl?: string
 }
 
+export interface RegistryStyleFile {
+  path: string
+  target: string
+}
+
+export interface RegistryStyle {
+  name: string
+  version: string
+  files: RegistryStyleFile[]
+}
+
 export type RegistryItemCategory =
   | "actions"
   | "forms"

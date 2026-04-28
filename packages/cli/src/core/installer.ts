@@ -1,7 +1,7 @@
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
-import type { RegistryItem } from "@neurex-ui/registry"
+import type { RegistryItem, RegistryStyle } from "@neurex-ui/registry"
 import type { NeurexConfig } from "./config.js"
 import { fileExists, filesAreEqual } from "./fs.js"
 import { getCwd } from "./context.js"
@@ -78,6 +78,44 @@ export const installUtilities = async (
     await copyFile(sourcePath, targetPath)
     console.log(`Created utility: ${targetPath}`)
     result.created.push(targetPath)
+  }
+
+  return result
+}
+
+export const installStyles = async (
+  styles: RegistryStyle[],
+  config: NeurexConfig,
+): Promise<InstallResourceResult> => {
+  const result = createInstallResourceResult()
+
+  for (const style of styles) {
+    console.log(`Installing style ${style.name}...`)
+
+    for (const file of style.files) {
+      const sourcePath = getRegistryTemplatePath(file.path)
+      const targetPath = join(getCwd(), config.stylesPath, file.target)
+
+      await mkdir(dirname(targetPath), { recursive: true })
+
+      if (await fileExists(targetPath)) {
+        const isSameFile = await filesAreEqual(sourcePath, targetPath)
+
+        if (isSameFile) {
+          console.log(`Skipped identical style: ${targetPath}`)
+          result.skipped.push(targetPath)
+          continue
+        }
+
+        console.log(`Conflict: style already exists and differs: ${targetPath}`)
+        result.conflicted.push(targetPath)
+        continue
+      }
+
+      await copyFile(sourcePath, targetPath)
+      console.log(`Created style: ${targetPath}`)
+      result.created.push(targetPath)
+    }
   }
 
   return result

@@ -6,12 +6,15 @@ import {
   ensureProjectStructure,
   hasInstallConflicts,
   installItemFiles,
+  installStyles,
   installUtilities,
 } from "../core/installer.js"
 import { installDependencies } from "../core/package-manager.js"
 import {
   collectDependencies,
+  collectStyles,
   collectUtilities,
+  resolveRegistryStyles,
   resolveRegistryItems,
 } from "../core/registry-resolver.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
@@ -73,6 +76,17 @@ export const runAdd = async (args: string[]): Promise<void> => {
   }
   const dependencies = collectDependencies(resolvedItems)
   const utilities = collectUtilities(resolvedItems)
+  let styles: ReturnType<typeof resolveRegistryStyles>
+
+  try {
+    styles = resolveRegistryStyles(collectStyles(resolvedItems))
+  } catch (error) {
+    console.log("Failed to resolve registry styles.")
+    console.log(error instanceof Error ? error.message : String(error))
+    process.exitCode = 1
+    return
+  }
+
   const config = await loadConfig()
 
   if (dryRun) {
@@ -93,6 +107,11 @@ export const runAdd = async (args: string[]): Promise<void> => {
       console.log(`- ${utility}`)
     }
 
+    console.log("\nStyles:")
+    for (const style of styles) {
+      console.log(`- ${style.name}`)
+    }
+
     console.log("\nInstall paths:")
     console.log(`- components: ${config.componentsPath}`)
     console.log(`- utilities: ${config.utilitiesPath}`)
@@ -104,6 +123,7 @@ export const runAdd = async (args: string[]): Promise<void> => {
   await ensureProjectStructure(config)
   await installDependencies(dependencies)
   const utilitiesResult = await installUtilities(utilities, config)
+  const stylesResult = await installStyles(styles, config)
 
   const successfullyInstalled = []
   for (const item of resolvedItems) {
@@ -111,6 +131,7 @@ export const runAdd = async (args: string[]): Promise<void> => {
 
     if (
       hasInstallConflicts(utilitiesResult) ||
+      hasInstallConflicts(stylesResult) ||
       hasInstallConflicts(itemResult)
     ) {
       console.log(

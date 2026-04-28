@@ -1,5 +1,6 @@
 import {
   registryItems as localRegistry,
+  registryStyles,
   registryVersion,
 } from "@neurex-ui/registry"
 import type { RegistryItem } from "@neurex-ui/registry"
@@ -72,7 +73,14 @@ export const getRegistryProviderResult = async (
 ): Promise<RegistryProviderResult> => {
   const source = await getRegistrySource()
   const items = await getRegistryItems(options)
-  validateRegistry(items)
+  validateRegistry(
+    items,
+    items === localRegistry
+      ? {
+          styles: registryStyles,
+        }
+      : {},
+  )
 
   return {
     items,

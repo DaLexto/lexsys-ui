@@ -49,4 +49,31 @@ describe("runAdd", () => {
 
     expect(config.installed).toEqual({})
   })
+
+  test("installs styles required by registry metadata", async () => {
+    await writeJson(join(tempDir, "package.json"), {
+      dependencies: {
+        "@base-ui/react": "^1.0.0-beta.3",
+        "class-variance-authority": "^0.7.1",
+        clsx: "^2.1.1",
+        "tailwind-merge": "^3.5.0",
+      },
+      packageManager: "pnpm@10.33.0",
+    })
+
+    await runAdd(["button"])
+
+    await expect(
+      readFile(join(tempDir, "styles/neurex/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-button-radius")
+    await expect(
+      readFile(join(tempDir, "styles/neurex/theme.css"), "utf-8"),
+    ).resolves.toContain("@theme inline")
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toEqual({ button: "0.0.1" })
+  })
 })

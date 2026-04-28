@@ -9,19 +9,25 @@ export type {
   RegistryItem,
   RegistryItemCategory,
   RegistryItemType,
+  RegistryStyle,
+  RegistryStyleFile,
 } from "./registry.types.js"
 
 export { buttonRegistryItem } from "./items/button.js"
+export { themeRegistryStyle } from "./styles/theme.js"
 
 import { buttonRegistryItem } from "./items/button.js"
+import { themeRegistryStyle } from "./styles/theme.js"
 
 export const registryVersion = "0.0.1"
 
 export const registryItems = [buttonRegistryItem]
+export const registryStyles = [themeRegistryStyle]
 
 export const registryManifest = {
   version: registryVersion,
   items: registryItems,
+  styles: registryStyles,
 }
 
 export { validateRegistryItem } from "./validate-registry-item.js"

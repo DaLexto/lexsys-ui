@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "sideEffects": [
-    "./dist/styles.css"
+    "./dist/tokens.css",
+    "./dist/theme.css"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,11 +17,13 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./theme.css": "./dist/theme.css",
+    "./tokens.css": "./dist/tokens.css"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && node dist/generate-style-outputs.js --package",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
+    "generate:styles": "tsc -p tsconfig.json && node dist/generate-style-outputs.js --package --registry",
     "lint": "eslint src --max-warnings=0",
     "lint:fix": "eslint src --fix",
     "test": "vitest run --passWithNoTests --pool threads --exclude \"dist/**\"",

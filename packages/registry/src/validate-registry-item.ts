@@ -45,6 +45,18 @@ export const validateRegistryItem = (item: RegistryItem): void => {
     }
   }
 
+  if (item.styles) {
+    for (const style of item.styles) {
+      if (isEmpty(style)) {
+        throw new Error(`Registry item "${item.name}" has invalid style`)
+      }
+    }
+  }
+
+  if (isEmpty(item.target)) {
+    throw new Error(`Registry item "${item.name}" has invalid target`)
+  }
+
   for (const file of item.files) {
     if (!file.includes(item.canonicalName)) {
       throw new Error(
