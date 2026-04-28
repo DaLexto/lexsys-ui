@@ -2,74 +2,72 @@ export const runHelp = (): void => {
   console.log(`
 Neurex UI CLI
 
-Usage:
+Usage
   neurex-ui <command> [options]
+  neurex-ui add <component...>
 
-Commands:
-  init
-    Initialize Neurex UI in the current project
+Commands
+  init                         Create neurex.config.json and default folders
+  add <component...>           Install components, utilities, styles, and deps
+  update <component...>        Check or update tracked components
+  list                         List available registry items
+  status                       Show installed component status
+  doctor                       Check local project setup
+  config                       Print or update Neurex config
+  registry                     Inspect registry source and manifest output
+  uninstall <component...>     Show uninstall status for tracked components
+  version                      Print CLI version
+  help                         Show this help message
 
-  add <component...>
-    Install one or more components
+Global Options
+  --cwd <path>                 Run from a different project directory
+  --yes                        Auto-confirm safe prompts where supported
+  --no-fallback                Disable local registry fallback where supported
+  --help, -h                   Show help
+  --version, -v                Show CLI version
 
-  update <component...>
-    Check or update installed components
-    --all         Update all installed components
-    --dry-run     Preview update without writing files
-    --force       Force update conflicted files after creating backups
+Command Options
+  add
+    --dry-run                  Preview files, dependencies, and install paths
+    --no-fallback              Fail instead of falling back to local registry
+
+  update
+    --all                      Update all tracked components
+    --dry-run                  Preview update without writing files
+    --force                    Write conflicted updates after creating backups
+    --yes                      Auto-confirm safe prompts
+    --no-fallback              Fail instead of falling back to local registry
 
   list
-    List available registry items
-    --json        Output as JSON
-
-  status
-    Show installed component status
-
-  doctor
-    Check local Neurex UI setup
+    --json                     Print registry items as JSON
+    --no-fallback              Fail instead of falling back to local registry
 
   config
-    Print active config
-    --path                 Print config file path
-    --exists               Check if config exists
-    --set-registry-url     Set registry URL
-    --clear-registry-url   Clear registry URL
+    --path, -p                 Print config file path
+    --exists, -e               Check whether config exists
+    --set-registry-url <url>   Set remote registry URL
+    --clear-registry-url       Clear remote registry URL
 
   registry
-    Debug registry
-    --summary      Print registry summary
-    --source       Print active registry source
-    --local        Use bundled registry
-    --remote       Force remote registry
-    --no-fallback  Disable fallback to local registry
+    --summary                  Print a human-readable registry summary
+    --source                   Print effective registry source
+    --local                    Read only the bundled local registry
+    --remote                   Read only the configured remote registry
+    --no-fallback              Disable local fallback for default resolution
 
-  uninstall <component>
-    Remove tracked components
+  uninstall
+    --dry-run                  Preview uninstall without removing files
 
-  version
-    Show CLI version
-
-  help
-    Show this help message
-
-Global Options:
-  --dry-run       Show what would happen without making changes
-  --cwd <path>    Run CLI in a different working directory
-  --yes           Auto-confirm safe prompts
-  --no-fallback   Disable local registry fallback where supported
-  --help, -h      Show help
-
-Examples:
+Examples
   neurex-ui init
   neurex-ui add button
   neurex-ui add button --dry-run
+  neurex-ui add button --cwd ./apps/web
   neurex-ui update button --dry-run
-  neurex-ui update button --force
   neurex-ui update --all
   neurex-ui list --json
-  neurex-ui status
-  neurex-ui doctor
+  neurex-ui config --set-registry-url https://example.com/registry.json
   neurex-ui registry --summary
-  neurex-ui uninstall button
+  neurex-ui registry --remote --source
 `)
 }
