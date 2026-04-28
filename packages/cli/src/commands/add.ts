@@ -129,12 +129,17 @@ export const runAdd = async (args: string[]): Promise<void> => {
   const successfullyInstalled = []
   for (const item of resolvedItems) {
     const itemResult = await installItemFiles(item, config)
-
-    if (
+    
+    // TODO: Too harsh to block installation of an item if there are conflicts in utilities or styles, 
+    // since the item files themselves may not have conflicts. 
+    // For now, only block installation if there are conflicts in the item files, 
+    // but this may need to be revisited in the future.
+    /* if (
       hasInstallConflicts(utilitiesResult) ||
       hasInstallConflicts(stylesResult) ||
       hasInstallConflicts(itemResult)
-    ) {
+    ) { */
+   if(hasInstallConflicts(itemResult)) {
       console.log(
         `${item.canonicalName} was not marked as installed because conflicts were found.`,
       )
