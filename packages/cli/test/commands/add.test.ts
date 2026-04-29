@@ -8,6 +8,10 @@ const writeJson = async (path: string, value: unknown): Promise<void> => {
   await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
 }
 
+const consoleOutput = (): string => {
+  return vi.mocked(console.log).mock.calls.flat().join("\n")
+}
+
 describe("runAdd", () => {
   let tempDir: string
 
@@ -48,6 +52,8 @@ describe("runAdd", () => {
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({})
+    expect(consoleOutput()).toContain("- tracked components: 0/1")
+    expect(consoleOutput()).toContain("- components: 2 created, 1 conflicted")
   })
 
   test("installs styles required by registry metadata", async () => {
@@ -84,6 +90,7 @@ describe("runAdd", () => {
     ) as { installed?: Record<string, string>; tailwind?: { css?: string } }
 
     expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(consoleOutput()).toContain("- tracked components: 1/1")
     expect(config.tailwind?.css).toBe("src/style.css")
   })
 
@@ -107,6 +114,11 @@ describe("runAdd", () => {
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(consoleOutput()).toContain("- tracked components: 1/1")
+    expect(consoleOutput()).toContain("- shared resources:")
+    expect(consoleOutput()).toContain(
+      "Shared resource conflicts were left untouched.",
+    )
     await expect(
       readFile(join(tempDir, "lib/neurex/cn.ts"), "utf-8"),
     ).resolves.toBe("user cn")

@@ -60,6 +60,10 @@ Completed so far on `feature/cli-install-hardening`:
 - Repeatable install-flow smoke added: a temp Vite consumer now runs `init` and
   `add button` twice to guard idempotent deps, Vite plugin wiring, CSS imports,
   style files, utility install, component install, and config tracking.
+- CLI install summary polish added: `add` now reports grouped
+  created/updated/skipped/conflicted totals for component files and shared
+  resources, tracks component success counts, and warns when shared resources
+  conflicted but were left untouched.
 
 ---
 
@@ -125,8 +129,10 @@ Direction:
 Status:
 
 - Done for utility and component installers with structured created/skipped/
-  conflicted results.
+  updated/skipped/conflicted results.
 - `runAdd` now avoids updating installed state when conflicts are present.
+- `runAdd` now prints a final grouped install summary and separates component
+  conflicts from shared utility/style conflicts in the user-facing output.
 - Covered by installer and add command tests.
 
 ---

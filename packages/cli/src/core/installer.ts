@@ -20,6 +20,7 @@ export const getRegistryTemplatePath = (templatePath: string): string => {
 
 export interface InstallResourceResult {
   created: string[]
+  updated: string[]
   skipped: string[]
   conflicted: string[]
 }
@@ -27,9 +28,24 @@ export interface InstallResourceResult {
 export const createInstallResourceResult = (): InstallResourceResult => {
   return {
     created: [],
+    updated: [],
     skipped: [],
     conflicted: [],
   }
+}
+
+export const mergeInstallResults = (
+  results: InstallResourceResult[],
+): InstallResourceResult => {
+  return results.reduce<InstallResourceResult>(
+    (merged, result) => ({
+      created: [...merged.created, ...result.created],
+      updated: [...merged.updated, ...result.updated],
+      skipped: [...merged.skipped, ...result.skipped],
+      conflicted: [...merged.conflicted, ...result.conflicted],
+    }),
+    createInstallResourceResult(),
+  )
 }
 
 export const hasInstallConflicts = (result: InstallResourceResult): boolean => {
@@ -123,7 +139,13 @@ export const installStyles = async (
   }
 
   if (!hasInstallConflicts(result) && installedStyleTargets.length) {
-    await installStyleEntrypointImports(installedStyleTargets, config)
+    const entrypointResult = await installStyleEntrypointImports(
+      installedStyleTargets,
+      config,
+    )
+
+    result.updated.push(...entrypointResult.updated)
+    result.skipped.push(...entrypointResult.skipped)
   }
 
   return result
@@ -153,14 +175,17 @@ const getStyleImportInsertionIndex = (content: string): number => {
 const installStyleEntrypointImports = async (
   styleTargets: string[],
   config: NeurexConfig,
-): Promise<void> => {
+): Promise<Pick<InstallResourceResult, "updated" | "skipped">> => {
   const cssPath = join(getCwd(), config.tailwind.css)
 
   if (!(await fileExists(cssPath))) {
     console.log(
       `Skipped style wiring: Tailwind CSS entrypoint not found at ${cssPath}`,
     )
-    return
+    return {
+      skipped: [cssPath],
+      updated: [],
+    }
   }
 
   const content = await readFile(cssPath, "utf-8")
@@ -179,7 +204,10 @@ const installStyleEntrypointImports = async (
     console.log(
       `Skipped style wiring: ${cssPath} already imports Neurex styles`,
     )
-    return
+    return {
+      skipped: [cssPath],
+      updated: [],
+    }
   }
 
   const insertionIndex = getStyleImportInsertionIndex(content)
@@ -190,6 +218,11 @@ const installStyleEntrypointImports = async (
 
   await writeFile(cssPath, updatedContent, "utf-8")
   console.log(`Updated style entrypoint: ${cssPath}`)
+
+  return {
+    skipped: [],
+    updated: [cssPath],
+  }
 }
 
 export const installItemFiles = async (

@@ -737,7 +737,7 @@ CLI:
   7. Installs shared utilities if missing
   8. Installs token/theme CSS if missing
   9. Copies component files
-  10. Reports created/skipped/conflicted resources
+  10. Reports created/updated/skipped/conflicted resources
 ```
 
 ---

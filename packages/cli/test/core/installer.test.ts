@@ -81,8 +81,8 @@ describe("installItemFiles", () => {
     await mkdir(join(tempDir, "src"), { recursive: true })
     await writeFile(cssPath, ":root {\n  color: black;\n}\n", "utf-8")
 
-    await installStyles([themeRegistryStyle], config)
-    await installStyles([themeRegistryStyle], config)
+    const firstResult = await installStyles([themeRegistryStyle], config)
+    const secondResult = await installStyles([themeRegistryStyle], config)
 
     await expect(readFile(cssPath, "utf-8")).resolves.toBe(
       '@import "../styles/neurex/tokens.css";\n' +
@@ -91,5 +91,7 @@ describe("installItemFiles", () => {
         "  color: black;\n" +
         "}\n",
     )
+    expect(firstResult.updated).toEqual([cssPath])
+    expect(secondResult.skipped).toContain(cssPath)
   })
 })

@@ -8,7 +8,9 @@ import {
   installItemFiles,
   installStyles,
   installUtilities,
+  mergeInstallResults,
 } from "../core/installer.js"
+import type { InstallResourceResult } from "../core/installer.js"
 import { installDependencies } from "../core/package-manager.js"
 import {
   collectDependencies,
@@ -42,6 +44,33 @@ const promptSelectItems = async (): Promise<string[]> => {
   }
 
   return items.filter((item): item is string => typeof item === "string")
+}
+
+const printResourceSummary = (
+  label: string,
+  result: InstallResourceResult,
+): void => {
+  const total =
+    result.created.length +
+    result.updated.length +
+    result.skipped.length +
+    result.conflicted.length
+
+  if (!total) {
+    console.log(`- ${label}: no changes`)
+    return
+  }
+
+  const parts = [
+    result.created.length ? `${result.created.length} created` : undefined,
+    result.updated.length ? `${result.updated.length} updated` : undefined,
+    result.skipped.length ? `${result.skipped.length} skipped` : undefined,
+    result.conflicted.length
+      ? `${result.conflicted.length} conflicted`
+      : undefined,
+  ].filter((part): part is string => typeof part === "string")
+
+  console.log(`- ${label}: ${parts.join(", ")}`)
 }
 
 export const runAdd = async (args: string[]): Promise<void> => {
@@ -125,12 +154,15 @@ export const runAdd = async (args: string[]): Promise<void> => {
 
   await ensureProjectStructure(config)
   await installDependencies(dependencies)
-  await installUtilities(utilities, config)
-  await installStyles(styles, config)
+  const utilitiesResult = await installUtilities(utilities, config)
+  const stylesResult = await installStyles(styles, config)
 
   const successfullyInstalled = []
+  const itemResults: InstallResourceResult[] = []
+
   for (const item of resolvedItems) {
     const itemResult = await installItemFiles(item, config)
+    itemResults.push(itemResult)
 
     if (hasInstallConflicts(itemResult)) {
       console.log(
@@ -155,4 +187,20 @@ export const runAdd = async (args: string[]): Promise<void> => {
     ...config,
     installed,
   })
+
+  const itemSummary = mergeInstallResults(itemResults)
+  const sharedSummary = mergeInstallResults([utilitiesResult, stylesResult])
+
+  console.log("Install summary:")
+  printResourceSummary("components", itemSummary)
+  printResourceSummary("shared resources", sharedSummary)
+  console.log(
+    `- tracked components: ${successfullyInstalled.length}/${resolvedItems.length}`,
+  )
+
+  if (hasInstallConflicts(sharedSummary)) {
+    console.log(
+      "Shared resource conflicts were left untouched. Review them before relying on the installed components.",
+    )
+  }
 }

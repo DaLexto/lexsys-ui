@@ -67,6 +67,21 @@ Run the command against a different working directory:
 neurex add button --cwd ./apps/web
 ```
 
+#### Add Output
+
+After writing files, `add` prints an install summary grouped by component files
+and shared resources:
+
+```txt
+Install summary:
+- components: 3 created
+- shared resources: 3 created, 1 updated
+- tracked components: 1/1
+```
+
+Shared utility/style conflicts are reported and left untouched. Component file
+conflicts prevent that component from being tracked as installed.
+
 ---
 
 ### `update`
@@ -367,28 +382,31 @@ When existing files differ from registry templates, the CLI must:
 
 - report conflicts,
 - skip conflicted files,
-- avoid bumping the installed version when conflicts exist,
+- avoid tracking a component when its own component files conflict,
+- keep shared utility/style conflicts visible without silently overwriting them,
 - require explicit user action before overwrite behavior is introduced.
 - Remote registry failures must not break local registry usage.
 
 ---
 
-## Testing (Deferred)
+## Testing
 
-CLI unit tests are intentionally deferred until the test runner is configured properly.
+CLI tests live outside source trees so `src` remains production/source-only.
 
-### Reason
+Current layout:
 
-- `tsc` currently compiles all `.ts` files under `src`
-- adding `*.test.ts` files currently breaks production build
-- Vitest should be introduced with proper test scripts and TS config separation
+```txt
+packages/cli/test/
+packages/registry/test/
+packages/tokens/test/
+packages/ui/test/
+```
 
-### Planned direction
+Each package owns its own tests. Add package-local `fixtures/` or `utils/`
+folders only when tests need shared setup.
 
-- add Vitest as CLI dev dependency
-- add `test` script for `packages/cli`
-- exclude `*.test.ts` from production `tsconfig.json`
-- keep tests beside source files once build/test separation is configured
+CLI tests cover install safety, package-manager detection, registry resolution,
+Tailwind/Vite setup, and a repeatable Vite install-flow smoke.
 
 ---
 
