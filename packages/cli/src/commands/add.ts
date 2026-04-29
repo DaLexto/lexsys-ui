@@ -17,6 +17,7 @@ import {
   resolveRegistryStyles,
   resolveRegistryItems,
 } from "../core/registry-resolver.js"
+import type { ResolvedRegistryStyle } from "../core/registry-types.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
 
 const promptSelectItems = async (): Promise<string[]> => {
@@ -76,10 +77,11 @@ export const runAdd = async (args: string[]): Promise<void> => {
   }
   const dependencies = collectDependencies(resolvedItems)
   const utilities = collectUtilities(resolvedItems)
-  let styles: ReturnType<typeof resolveRegistryStyles>
+  const styleNames = collectStyles(resolvedItems)
+  let styles: ResolvedRegistryStyle[]
 
   try {
-    styles = resolveRegistryStyles(collectStyles(resolvedItems))
+    styles = resolveRegistryStyles(styleNames)
   } catch (error) {
     console.log("Failed to resolve registry styles.")
     console.log(error instanceof Error ? error.message : String(error))
@@ -108,8 +110,8 @@ export const runAdd = async (args: string[]): Promise<void> => {
     }
 
     console.log("\nStyles:")
-    for (const style of styles) {
-      console.log(`- ${style.name}`)
+    for (const styleName of styleNames) {
+      console.log(`- ${styleName}`)
     }
 
     console.log("\nInstall paths:")
@@ -123,23 +125,14 @@ export const runAdd = async (args: string[]): Promise<void> => {
 
   await ensureProjectStructure(config)
   await installDependencies(dependencies)
-  const utilitiesResult = await installUtilities(utilities, config)
-  const stylesResult = await installStyles(styles, config)
+  await installUtilities(utilities, config)
+  await installStyles(styles, config)
 
   const successfullyInstalled = []
   for (const item of resolvedItems) {
     const itemResult = await installItemFiles(item, config)
-    
-    // TODO: Too harsh to block installation of an item if there are conflicts in utilities or styles, 
-    // since the item files themselves may not have conflicts. 
-    // For now, only block installation if there are conflicts in the item files, 
-    // but this may need to be revisited in the future.
-    /* if (
-      hasInstallConflicts(utilitiesResult) ||
-      hasInstallConflicts(stylesResult) ||
-      hasInstallConflicts(itemResult)
-    ) { */
-   if(hasInstallConflicts(itemResult)) {
+
+    if (hasInstallConflicts(itemResult)) {
       console.log(
         `${item.canonicalName} was not marked as installed because conflicts were found.`,
       )

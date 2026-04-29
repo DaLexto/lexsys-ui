@@ -12,6 +12,7 @@ export type {
   RegistryStyle,
   RegistryStyleFile,
 } from "./registry.types.js"
+import type { RegistryItem, RegistryStyle } from "./registry.types.js"
 
 export { buttonRegistryItem } from "./items/button.js"
 export { themeRegistryStyle } from "./styles/theme.js"
@@ -21,10 +22,16 @@ import { themeRegistryStyle } from "./styles/theme.js"
 
 export const registryVersion = "0.0.1"
 
-export const registryItems = [buttonRegistryItem]
-export const registryStyles = [themeRegistryStyle]
+export interface RegistryManifest {
+  version: string
+  items: RegistryItem[]
+  styles: RegistryStyle[]
+}
 
-export const registryManifest = {
+export const registryItems: RegistryItem[] = [buttonRegistryItem]
+export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
+
+export const registryManifest: RegistryManifest = {
   version: registryVersion,
   items: registryItems,
   styles: registryStyles,

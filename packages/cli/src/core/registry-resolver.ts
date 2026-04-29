@@ -1,8 +1,15 @@
 import { CliError } from "./cli-error.js"
-import type { RegistryItem, RegistryStyle } from "@neurex-ui/registry"
-import { registryStyles, validateRegistryItem } from "@neurex-ui/registry"
+import type { RegistryItem } from "@neurex-ui/registry"
+import {
+  registryStyles as registryStyleDefinitions,
+  validateRegistryItem,
+} from "@neurex-ui/registry"
 import { getRegistryItems } from "./registry-provider.js"
+import type { ResolvedRegistryStyle } from "./registry-types.js"
 import { findClosestValue } from "./suggestions.js"
+
+const registryStyles =
+  registryStyleDefinitions as unknown as readonly ResolvedRegistryStyle[]
 
 interface RegistryResolverOptions {
   fallback?: boolean
@@ -106,7 +113,9 @@ export const collectStyles = (items: RegistryItem[]): string[] => {
   return Array.from(new Set(items.flatMap((item) => item.styles)))
 }
 
-export const resolveRegistryStyles = (names: string[]): RegistryStyle[] => {
+export const resolveRegistryStyles = (
+  names: string[],
+): ResolvedRegistryStyle[] => {
   return names.map((name) => {
     const style = registryStyles.find((registryStyle) => {
       return normalizeName(registryStyle.name) === normalizeName(name)

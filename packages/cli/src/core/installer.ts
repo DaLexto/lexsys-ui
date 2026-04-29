@@ -1,12 +1,13 @@
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
-import type { RegistryItem, RegistryStyle } from "@neurex-ui/registry"
+import type { RegistryItem } from "@neurex-ui/registry"
 import type { NeurexConfig } from "./config.js"
 import { fileExists, filesAreEqual } from "./fs.js"
 import { getCwd } from "./context.js"
 import { fetchRemoteFile } from "./remote-files.js"
 import { hashesAreEqual } from "./hash.js"
+import type { ResolvedRegistryStyle } from "./registry-types.js"
 import { validateTemplateFiles } from "./template-validator.js"
 
 export const getRegistryTemplatePath = (templatePath: string): string => {
@@ -84,7 +85,7 @@ export const installUtilities = async (
 }
 
 export const installStyles = async (
-  styles: RegistryStyle[],
+  styles: ResolvedRegistryStyle[],
   config: NeurexConfig,
 ): Promise<InstallResourceResult> => {
   const result = createInstallResourceResult()

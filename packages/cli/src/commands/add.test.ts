@@ -86,4 +86,29 @@ describe("runAdd", () => {
     expect(config.installed).toEqual({ button: "0.0.1" })
     expect(config.tailwind?.css).toBe("src/style.css")
   })
+
+  test("tracks an item as installed when only shared utilities conflict", async () => {
+    await writeJson(join(tempDir, "package.json"), {
+      dependencies: {
+        "@base-ui/react": "^1.0.0-beta.3",
+        "class-variance-authority": "^0.7.1",
+        clsx: "^2.1.1",
+        "tailwind-merge": "^3.5.0",
+      },
+      packageManager: "pnpm@10.33.0",
+    })
+    await mkdir(join(tempDir, "lib/neurex"), { recursive: true })
+    await writeFile(join(tempDir, "lib/neurex/cn.ts"), "user cn", "utf-8")
+
+    await runAdd(["button"])
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toEqual({ button: "0.0.1" })
+    await expect(
+      readFile(join(tempDir, "lib/neurex/cn.ts"), "utf-8"),
+    ).resolves.toBe("user cn")
+  })
 })
