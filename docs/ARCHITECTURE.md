@@ -138,7 +138,7 @@ It must not hardcode component-specific install behavior.
 Each installed component follows a structured multi-file format.
 
 ```txt
-components/ui/ComponentName/
+src/components/ui/ComponentName/
 ├── ComponentName.tsx
 ├── ComponentName.types.ts
 └── ComponentName.variants.ts
@@ -321,7 +321,7 @@ Each registry item must define:
   "registryDependencies": [],
   "utilities": ["cn"],
   "styles": ["theme"],
-  "target": "components/ui/Button"
+  "target": "src/components/ui/Button"
 }
 ```
 
@@ -410,7 +410,7 @@ project/
 
 ### Rules
 
-- Components install to `components/ui/ComponentName/`
+- Components install to `src/components/ui/ComponentName/`
 - Utilities install to `lib/neurex/`
 - Styles and tokens install to `styles/neurex/`
 - Project configuration lives in `neurex.config.json`

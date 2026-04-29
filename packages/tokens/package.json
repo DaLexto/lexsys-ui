@@ -24,9 +24,9 @@
     "build": "tsc -p tsconfig.json && node dist/generate-style-outputs.js --package",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
     "generate:styles": "tsc -p tsconfig.json && node dist/generate-style-outputs.js --package --registry",
-    "lint": "eslint src --max-warnings=0",
-    "lint:fix": "eslint src --fix",
-    "test": "vitest run --passWithNoTests --pool threads --exclude \"dist/**\"",
+    "lint": "eslint src test --max-warnings=0",
+    "lint:fix": "eslint src test --fix",
+    "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   }
 }

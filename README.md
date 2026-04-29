@@ -62,7 +62,7 @@ Your Components (fully owned)
 Components are installed into your project:
 
 ```txt
-components/ui/Button/
+src/components/ui/Button/
 ├── Button.tsx
 ├── Button.types.ts
 └── Button.variants.ts
@@ -179,7 +179,7 @@ Neurex respects your code.
 ## 🧩 Example
 
 ```tsx
-import { Button } from "@/components/ui/Button"
+import { Button } from "./components/ui/Button/Button"
 
 export function App() {
   return <Button variant="primary">Click me</Button>

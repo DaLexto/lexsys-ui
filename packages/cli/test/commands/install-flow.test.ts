@@ -1,9 +1,9 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
-import { setCwd } from "../core/context.js"
-import { runAdd } from "./add.js"
-import { runInit } from "./init.js"
+import { setCwd } from "../../src/core/context.js"
+import { runAdd } from "../../src/commands/add.js"
+import { runInit } from "../../src/commands/init.js"
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
   await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
@@ -83,7 +83,7 @@ describe("install flow smoke", () => {
     ).resolves.toContain("twMerge")
     await expect(
       readFile(
-        join(tempDir, "components/ui/Button/Button.variants.ts"),
+        join(tempDir, "src/components/ui/Button/Button.variants.ts"),
         "utf-8",
       ),
     ).resolves.toContain("bg-nx-primary")

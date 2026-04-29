@@ -1,7 +1,7 @@
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
-import { setCwd } from "./context.js"
+import { setCwd } from "../../src/core/context.js"
 
 const execFileSyncMock = vi.hoisted(() => vi.fn())
 
@@ -10,7 +10,7 @@ vi.mock("node:child_process", () => ({
 }))
 
 const { getPackageManagerInvocation, installDependencies } =
-  await import("./package-manager.js")
+  await import("../../src/core/package-manager.js")
 
 const packageManagerCommand = (packageManager: "npm" | "pnpm" | "yarn") => {
   return getPackageManagerInvocation(packageManager, []).command

@@ -1,15 +1,15 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test } from "vitest"
-import type { NeurexConfig } from "./config.js"
-import { setCwd } from "./context.js"
+import type { NeurexConfig } from "../../src/core/config.js"
+import { setCwd } from "../../src/core/context.js"
 import {
   ensureTailwindCssImport,
   ensureViteTailwindPlugin,
-} from "./tailwind-setup.js"
+} from "../../src/core/tailwind-setup.js"
 
 const config: NeurexConfig = {
-  componentsPath: "components/ui",
+  componentsPath: "src/components/ui",
   installed: {},
   registryUrl: null,
   stylesPath: "styles/neurex",

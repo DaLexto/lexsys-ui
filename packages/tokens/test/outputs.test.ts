@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { createStyleOutputs } from "./outputs.js"
+import { createStyleOutputs } from "../src/outputs.js"
 
 describe("createStyleOutputs", () => {
   test("generates token and theme css from token source", () => {

@@ -7,6 +7,12 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
+    "paths": {
+      "@neurex/registry": ["./packages/registry/dist/index.d.ts"],
+      "@neurex/registry/templates/*": ["./packages/registry/templates/*"],
+      "@neurex/tokens": ["./packages/tokens/dist/index.d.ts"],
+      "@neurex/ui": ["./packages/ui/dist/index.d.ts"]
+    },
     "resolveJsonModule": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest"
-import type { RegistryItem, RegistryStyle } from "./registry.types.js"
-import { validateRegistry } from "./validate-registry.js"
+import type { RegistryItem, RegistryStyle } from "../src/registry.types.js"
+import { validateRegistry } from "../src/validate-registry.js"
 
 const item: RegistryItem = {
   name: "button",
@@ -19,7 +19,7 @@ const item: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "components/ui/Button",
+  target: "src/components/ui/Button",
 }
 
 const style: RegistryStyle = {

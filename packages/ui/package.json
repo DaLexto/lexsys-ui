@@ -20,9 +20,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
-    "lint": "eslint src --max-warnings=0",
-    "lint:fix": "eslint src --fix",
-    "test": "vitest run --passWithNoTests --pool threads --exclude \"dist/**\"",
+    "lint": "eslint src test --max-warnings=0",
+    "lint:fix": "eslint src test --fix",
+    "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "peerDependencies": {

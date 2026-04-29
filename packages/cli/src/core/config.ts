@@ -23,7 +23,7 @@ const defaultTailwindConfig: NeurexTailwindConfig = {
 }
 
 export const defaultConfig: NeurexConfig = {
-  componentsPath: "components/ui",
+  componentsPath: "src/components/ui",
   utilitiesPath: "lib/neurex",
   stylesPath: "styles/neurex",
   tailwind: defaultTailwindConfig,

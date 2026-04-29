@@ -38,7 +38,7 @@ neurex init
 Creates the default Neurex project structure:
 
 ```txt
-components/ui/
+src/components/ui/
 lib/neurex/
 styles/neurex/
 neurex.config.json
@@ -266,7 +266,7 @@ Default config shape:
 
 ```json
 {
-  "componentsPath": "components/ui",
+  "componentsPath": "src/components/ui",
   "utilitiesPath": "lib/neurex",
   "stylesPath": "styles/neurex",
   "installed": {},

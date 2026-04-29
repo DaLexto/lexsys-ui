@@ -9,19 +9,19 @@ const mocks = vi.hoisted(() => {
   }
 })
 
-vi.mock("../core/registry-provider.js", () => {
+vi.mock("../../src/core/registry-provider.js", () => {
   return {
     getRegistryProviderResult: mocks.getRegistryProviderResult,
   }
 })
 
-vi.mock("../core/registry-source.js", () => {
+vi.mock("../../src/core/registry-source.js", () => {
   return {
     getRegistrySource: mocks.getRegistrySource,
   }
 })
 
-vi.mock("../core/remote-registry.js", () => {
+vi.mock("../../src/core/remote-registry.js", () => {
   return {
     fetchRemoteRegistry: mocks.fetchRemoteRegistry,
   }
@@ -39,7 +39,7 @@ const item: RegistryItem = {
   registryDependencies: [],
   utilities: [],
   styles: [],
-  target: "components/ui/Button",
+  target: "src/components/ui/Button",
 }
 
 describe("runRegistry", () => {
@@ -49,7 +49,7 @@ describe("runRegistry", () => {
   })
 
   test("bypasses provider and remote resolution for local source output", async () => {
-    const { runRegistry } = await import("./registry.js")
+    const { runRegistry } = await import("../../src/commands/registry.js")
 
     await runRegistry({ local: true, source: true })
 
@@ -61,7 +61,7 @@ describe("runRegistry", () => {
 
   test("reports missing remote config without provider fallback", async () => {
     mocks.getRegistrySource.mockResolvedValue("local")
-    const { runRegistry } = await import("./registry.js")
+    const { runRegistry } = await import("../../src/commands/registry.js")
 
     await runRegistry({ remote: true })
 
@@ -80,7 +80,7 @@ describe("runRegistry", () => {
       version: "2.0.0",
       items: [item],
     })
-    const { runRegistry } = await import("./registry.js")
+    const { runRegistry } = await import("../../src/commands/registry.js")
 
     await runRegistry({ remote: true, summary: true })
 
@@ -101,7 +101,7 @@ describe("runRegistry", () => {
       fallbackUsed: true,
       manifestVersion: "0.0.1",
     })
-    const { runRegistry } = await import("./registry.js")
+    const { runRegistry } = await import("../../src/commands/registry.js")
 
     await runRegistry()
 

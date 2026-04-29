@@ -1,8 +1,8 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
-import { setCwd } from "../core/context.js"
-import { runAdd } from "./add.js"
+import { setCwd } from "../../src/core/context.js"
+import { runAdd } from "../../src/commands/add.js"
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
   await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
@@ -37,7 +37,7 @@ describe("runAdd", () => {
       packageManager: "pnpm@10.33.0",
     })
 
-    const buttonDir = join(tempDir, "components/ui/Button")
+    const buttonDir = join(tempDir, "src/components/ui/Button")
     await mkdir(buttonDir, { recursive: true })
     await writeFile(join(buttonDir, "Button.tsx"), "user modified", "utf-8")
 
