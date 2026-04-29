@@ -1,5 +1,5 @@
 /**
- * Public entry point for @neurex-ui/registry.
+ * Public entry point for @neurex/registry.
  *
  * This package contains registry metadata used by the Neurex CLI.
  */

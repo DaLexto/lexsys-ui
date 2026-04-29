@@ -1,8 +1,8 @@
-# Neurex UI CLI
+# Neurex CLI
 
 ## Overview
 
-The Neurex UI CLI installs and manages **registry-first UI components** inside consumer projects.
+The Neurex CLI installs and manages **registry-first UI components** inside consumer projects.
 
 Installed components become **user-owned source code**, not black-box runtime imports.
 
@@ -20,7 +20,7 @@ The CLI is responsible for:
 ## Usage
 
 ```bash
-neurex-ui <command> [options]
+neurex <command> [options]
 ```
 
 ---
@@ -29,13 +29,13 @@ neurex-ui <command> [options]
 
 ### `init`
 
-Initializes Neurex UI in the current project.
+Initializes Neurex in the current project.
 
 ```bash
-neurex-ui init
+neurex init
 ```
 
-Creates the default Neurex UI project structure:
+Creates the default Neurex project structure:
 
 ```txt
 components/ui/
@@ -51,20 +51,20 @@ neurex.config.json
 Installs one or more registry items.
 
 ```bash
-neurex-ui add button
-neurex-ui add button dialog
+neurex add button
+neurex add button dialog
 ```
 
 Preview changes without writing files or installing dependencies:
 
 ```bash
-neurex-ui add button --dry-run
+neurex add button --dry-run
 ```
 
 Run the command against a different working directory:
 
 ```bash
-neurex-ui add button --cwd ./apps/web
+neurex add button --cwd ./apps/web
 ```
 
 ---
@@ -74,27 +74,27 @@ neurex-ui add button --cwd ./apps/web
 Checks or safely updates installed components.
 
 ```bash
-neurex-ui update button
-neurex-ui update --all
+neurex update button
+neurex update --all
 ```
 
 Preview update changes without writing files:
 
 ```bash
-neurex-ui update button --dry-run
-neurex-ui update --all --dry-run
+neurex update button --dry-run
+neurex update --all --dry-run
 ```
 
 Force update:
 
 ```bash
-neurex-ui update button --force
+neurex update button --force
 ```
 
 Reserved future flags:
 
 ```bash
-neurex-ui update button --yes
+neurex update button --yes
 ```
 
 #### Update Rules
@@ -112,17 +112,17 @@ neurex-ui update button --yes
 Shows tracked installed components and whether updates are available.
 
 ```bash
-neurex-ui status
+neurex status
 ```
 
 ---
 
 ### `doctor`
 
-Checks the local Neurex UI setup.
+Checks the local Neurex setup.
 
 ```bash
-neurex-ui doctor
+neurex doctor
 ```
 
 The doctor command checks:
@@ -140,13 +140,13 @@ The doctor command checks:
 Lists available registry items.
 
 ```bash
-neurex-ui list
+neurex list
 ```
 
 Print a public-friendly JSON list:
 
 ```bash
-neurex-ui list --json
+neurex list --json
 ```
 
 ---
@@ -156,11 +156,11 @@ neurex-ui list --json
 Prints registry metadata and registry diagnostics.
 
 ```bash
-neurex-ui registry
-neurex-ui registry --summary
-neurex-ui registry --source
-neurex-ui registry --local
-neurex-ui registry --remote
+neurex registry
+neurex registry --summary
+neurex registry --source
+neurex registry --local
+neurex registry --remote
 ```
 
 #### Registry Flags
@@ -175,31 +175,31 @@ neurex-ui registry --remote
 If `--remote` fails, the CLI reports the error and keeps the local registry available through:
 
 ```bash
-neurex-ui registry --local
+neurex registry --local
 ```
 
 ---
 
 ### `config`
 
-Prints and manages the active Neurex UI config.
+Prints and manages the active Neurex config.
 
 ```bash
-neurex-ui config
-neurex-ui config --path
-neurex-ui config --exists
+neurex config
+neurex config --path
+neurex config --exists
 ```
 
 Configure a remote registry URL:
 
 ```bash
-neurex-ui config --set-registry-url https://registry.neurex.dev
+neurex config --set-registry-url https://registry.neurex.dev
 ```
 
 Clear the remote registry URL:
 
 ```bash
-neurex-ui config --clear-registry-url
+neurex config --clear-registry-url
 ```
 
 ---
@@ -209,8 +209,8 @@ neurex-ui config --clear-registry-url
 Placeholder command for the future uninstall flow.
 
 ```bash
-neurex-ui uninstall button
-neurex-ui uninstall button --dry-run
+neurex uninstall button
+neurex uninstall button --dry-run
 ```
 
 The command currently checks whether the component is tracked. It does not remove files yet.
@@ -222,9 +222,9 @@ The command currently checks whether the component is tracked. It does not remov
 Shows the CLI version.
 
 ```bash
-neurex-ui version
-neurex-ui --version
-neurex-ui -v
+neurex version
+neurex --version
+neurex -v
 ```
 
 ---
@@ -234,9 +234,9 @@ neurex-ui -v
 Shows CLI help.
 
 ```bash
-neurex-ui help
-neurex-ui --help
-neurex-ui -h
+neurex help
+neurex --help
+neurex -h
 ```
 
 ---
@@ -288,7 +288,7 @@ Default config shape:
 
 ## Registry Sources
 
-Neurex UI currently supports two registry source concepts:
+Neurex currently supports two registry source concepts:
 
 | Source          | Description                                               |
 | --------------- | --------------------------------------------------------- |
@@ -394,44 +394,44 @@ CLI unit tests are intentionally deferred until the test runner is configured pr
 
 ## Examples
 
-Initialize Neurex UI:
+Initialize Neurex:
 
 ```bash
-neurex-ui init
+neurex init
 ```
 
 Install a component:
 
 ```bash
-neurex-ui add button
+neurex add button
 ```
 
 Preview component installation:
 
 ```bash
-neurex-ui add button --dry-run
+neurex add button --dry-run
 ```
 
 Check update status:
 
 ```bash
-neurex-ui status
+neurex status
 ```
 
 Preview updates:
 
 ```bash
-neurex-ui update --all --dry-run
+neurex update --all --dry-run
 ```
 
 Inspect registry source:
 
 ```bash
-neurex-ui registry --source
+neurex registry --source
 ```
 
 Use a custom working directory:
 
 ```bash
-neurex-ui add button --cwd ./apps/web
+neurex add button --cwd ./apps/web
 ```

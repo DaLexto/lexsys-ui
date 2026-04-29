@@ -1,12 +1,12 @@
-# Neurex UI — Architecture v2 (LOCKED)
+# Neurex — Architecture v2 (LOCKED)
 
 ## Status
 
 **LOCKED ARCHITECTURE DECISION**
 
-This document defines the long-term architecture for Neurex UI.
+This document defines the long-term architecture for Neurex.
 
-Neurex UI is not a traditional npm-only component library.  
+Neurex is not a traditional npm-only component library.  
 It is a registry-first UI framework inspired by the shadcn model, built with:
 
 - Base UI as the internal headless behavior engine
@@ -18,12 +18,12 @@ It is a registry-first UI framework inspired by the shadcn model, built with:
 
 ## 1. Product Direction
 
-Neurex UI is a **registry-first UI framework**.
+Neurex is a **registry-first UI framework**.
 
 The primary product experience is:
 
 ```bash
-npx neurex-ui add button
+npx neurex add button
 ```
 
 The CLI installs component source code directly into the consumer project.
@@ -33,7 +33,7 @@ This means installed components become user-owned code, not black-box runtime im
 ### Core Principle
 
 ```txt
-Neurex UI provides the system.
+Neurex provides the system.
 The user owns the installed code.
 ```
 
@@ -68,7 +68,7 @@ The architecture must not depend on npm-only component usage.
 ## 3. High-Level Architecture
 
 ```txt
-neurex-ui/
+neurex/
 ├── apps/
 │   ├── docs/
 │   └── playground/
@@ -175,7 +175,7 @@ The CLI is responsible for installing all required dependencies.
 After running:
 
 ```bash
-npx neurex-ui add button
+npx neurex add button
 ```
 
 the installed Button must be usable without manual wiring.
@@ -184,7 +184,7 @@ the installed Button must be usable without manual wiring.
 
 ## 7. Design System Strategy
 
-Neurex UI uses a full design-token system as the styling source of truth.
+Neurex uses a full design-token system as the styling source of truth.
 
 ### Token Layers
 
@@ -224,7 +224,7 @@ Neurex keeps enterprise-grade design-system control internally without forcing u
 
 ## 8. Base UI Role
 
-Base UI is the default headless foundation for interactive Neurex UI components.
+Base UI is the default headless foundation for interactive Neurex components.
 
 Base UI provides:
 
@@ -233,7 +233,7 @@ Base UI provides:
 - state primitives
 - interaction logic
 
-Neurex UI provides:
+Neurex provides:
 
 - public component API
 - styling
@@ -245,7 +245,7 @@ Neurex UI provides:
 
 Base UI is an internal implementation detail.
 
-It must not define the public identity of Neurex UI.
+It must not define the public identity of Neurex.
 
 ```txt
 User sees:
@@ -268,7 +268,7 @@ The Neurex CLI must provide full automation.
 When a user runs:
 
 ```bash
-npx neurex-ui add button
+npx neurex add button
 ```
 
 the CLI should:
@@ -511,8 +511,8 @@ Shared dependency/config update
 The CLI must support updating multiple components in one command.
 
 ```bash
-neurex-ui update button textfield dialog
-neurex-ui update --all
+neurex update button textfield dialog
+neurex update --all
 ```
 
 Batch updates must follow the same safety rules.
@@ -552,12 +552,12 @@ Neurex CLI uses a full DX command surface.
 Required commands:
 
 ```bash
-neurex-ui init
-neurex-ui add <component...>
-neurex-ui update <component...>
-neurex-ui update --all
-neurex-ui list
-neurex-ui doctor
+neurex init
+neurex add <component...>
+neurex update <component...>
+neurex update --all
+neurex list
+neurex doctor
 ```
 
 ### Interactive Add
@@ -565,7 +565,7 @@ neurex-ui doctor
 If the user runs:
 
 ```bash
-neurex-ui add
+neurex add
 ```
 
 without component names, the CLI must show an interactive/selectable list of available components.
@@ -682,8 +682,8 @@ If detection fails, the CLI must:
 Manual override may be supported:
 
 ```bash
-neurex-ui init --framework next
-neurex-ui init --framework vite
+neurex init --framework next
+neurex init --framework vite
 ```
 
 ---
@@ -725,7 +725,7 @@ Strong theming support without forcing runtime complexity.
 
 ```txt
 User runs:
-  npx neurex-ui add button
+  npx neurex add button
 
 CLI:
   1. Loads neurex.config.json if present
@@ -789,7 +789,7 @@ Avoid:
 
 ## 27. Final Statement
 
-Neurex UI is a registry-first design-system framework.
+Neurex is a registry-first design-system framework.
 
 It combines:
 

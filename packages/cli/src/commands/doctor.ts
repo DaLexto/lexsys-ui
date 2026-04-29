@@ -12,7 +12,7 @@ interface RunDoctorOptions {
 export const runDoctor = async (
   options: RunDoctorOptions = {},
 ): Promise<void> => {
-  console.log("Neurex UI doctor\n")
+  console.log("Neurex doctor\n")
 
   const config = await loadConfig()
   let registryFailed = false

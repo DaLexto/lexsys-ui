@@ -2,8 +2,8 @@ import {
   registryItems,
   registryManifest,
   validateRegistry,
-} from "@neurex-ui/registry"
-import type { RegistryItem } from "@neurex-ui/registry"
+} from "@neurex/registry"
+import type { RegistryItem } from "@neurex/registry"
 import { getRegistryProviderResult } from "../core/registry-provider.js"
 import { fetchRemoteRegistry } from "../core/remote-registry.js"
 import { getRegistrySource } from "../core/registry-source.js"
@@ -31,7 +31,7 @@ const localRegistryResult: RegistryCommandResult = {
 }
 
 const printRegistrySummary = (result: RegistryCommandResult): void => {
-  console.log("Neurex UI registry summary\n")
+  console.log("Neurex registry summary\n")
   console.log(`Registry source: ${result.source}`)
   console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`)
   console.log(`Items: ${result.items.length}`)

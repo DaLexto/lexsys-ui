@@ -56,12 +56,12 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   }
 
   if (!Object.keys(installed).length) {
-    console.log("No Neurex UI components are currently tracked.")
+    console.log("No Neurex components are currently tracked.")
     return
   }
 
   if (args.includes("--all")) {
-    console.log("Checking installed Neurex UI components:\n")
+    console.log("Checking installed Neurex components:\n")
 
     for (const [name, version] of Object.entries(installed)) {
       const didUpdate = await checkItemUpdate(

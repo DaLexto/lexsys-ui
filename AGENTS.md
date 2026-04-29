@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file defines repository-specific guidance for `neurex-ui`.
+This file defines repository-specific guidance for `neurex`.
 
 Use global rules as the default contract.  
 This file adds only rules specific to this repository.
@@ -11,7 +11,7 @@ This file adds only rules specific to this repository.
 
 ## Project Context
 
-Neurex UI is a **registry-first React UI framework**.
+Neurex is a **registry-first React UI framework**.
 
 Core architecture is defined in:
 

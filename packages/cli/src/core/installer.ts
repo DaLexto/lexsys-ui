@@ -1,7 +1,7 @@
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
-import type { RegistryItem } from "@neurex-ui/registry"
+import type { RegistryItem } from "@neurex/registry"
 import type { NeurexConfig } from "./config.js"
 import { fileExists, filesAreEqual } from "./fs.js"
 import { getCwd } from "./context.js"
@@ -12,7 +12,7 @@ import { validateTemplateFiles } from "./template-validator.js"
 
 export const getRegistryTemplatePath = (templatePath: string): string => {
   const templateUrl = import.meta.resolve(
-    `@neurex-ui/registry/templates/${templatePath}`,
+    `@neurex/registry/templates/${templatePath}`,
   )
 
   return fileURLToPath(templateUrl)

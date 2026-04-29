@@ -1,5 +1,5 @@
 {
-  "name": "@neurex-ui/registry",
+  "name": "@neurex/registry",
   "private": true,
   "version": "0.0.0",
   "type": "module",

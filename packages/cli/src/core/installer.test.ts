@@ -1,7 +1,7 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test } from "vitest"
-import { buttonRegistryItem, themeRegistryStyle } from "@neurex-ui/registry"
+import { buttonRegistryItem, themeRegistryStyle } from "@neurex/registry"
 import type { NeurexConfig } from "./config.js"
 import { setCwd } from "./context.js"
 import {

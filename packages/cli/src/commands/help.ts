@@ -1,10 +1,10 @@
 export const runHelp = (): void => {
   console.log(`
-Neurex UI CLI
+Neurex CLI
 
 Usage
-  neurex-ui <command> [options]
-  neurex-ui add <component...>
+  neurex <command> [options]
+  neurex add <component...>
 
 Commands
   init                         Create neurex.config.json and default folders
@@ -59,15 +59,15 @@ Command Options
     --dry-run                  Preview uninstall without removing files
 
 Examples
-  neurex-ui init
-  neurex-ui add button
-  neurex-ui add button --dry-run
-  neurex-ui add button --cwd ./apps/web
-  neurex-ui update button --dry-run
-  neurex-ui update --all
-  neurex-ui list --json
-  neurex-ui config --set-registry-url https://example.com/registry.json
-  neurex-ui registry --summary
-  neurex-ui registry --remote --source
+  neurex init
+  neurex add button
+  neurex add button --dry-run
+  neurex add button --cwd ./apps/web
+  neurex update button --dry-run
+  neurex update --all
+  neurex list --json
+  neurex config --set-registry-url https://example.com/registry.json
+  neurex registry --summary
+  neurex registry --remote --source
 `)
 }

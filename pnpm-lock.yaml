@@ -54,7 +54,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@neurex-ui/registry':
+      '@neurex/registry':
         specifier: workspace:*
         version: link:../registry
       prompts:
@@ -77,7 +77,7 @@ importers:
       '@base-ui/react':
         specifier: ^1.0.0-beta.3
         version: 1.4.1(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@neurex-ui/tokens':
+      '@neurex/tokens':
         specifier: workspace:*
         version: link:../tokens
       class-variance-authority:

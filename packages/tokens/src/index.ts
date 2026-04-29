@@ -1,5 +1,5 @@
 /**
- * Public entry point for @neurex-ui/tokens.
+ * Public entry point for @neurex/tokens.
  *
  * The tokens package is the design-system source of truth.
  */

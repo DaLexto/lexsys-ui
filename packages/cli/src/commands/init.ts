@@ -9,7 +9,7 @@ import {
 const tailwindViteDependencies = ["tailwindcss", "@tailwindcss/vite"]
 
 export const runInit = async (): Promise<void> => {
-  console.log("Initializing Neurex UI...\n")
+  console.log("Initializing Neurex...\n")
 
   const config = await loadConfig()
 

@@ -1,8 +1,8 @@
-# Neurex UI Deploy Guide
+# Neurex Deploy Guide
 
 ## Purpose
 
-This document defines the current build and release expectations for the `neurex-ui` monorepo.
+This document defines the current build and release expectations for the `neurex` monorepo.
 
 The repository is still early-stage, so this guide focuses on build artifacts and publish-readiness rules more than on a finalized release pipeline.
 

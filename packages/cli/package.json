@@ -1,10 +1,10 @@
 {
-  "name": "neurex-ui",
+  "name": "neurex",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "bin": {
-    "neurex-ui": "./dist/index.js"
+    "neurex": "./dist/index.js"
   },
   "files": [
     "dist"
@@ -18,7 +18,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@neurex-ui/registry": "workspace:*",
+    "@neurex/registry": "workspace:*",
     "prompts": "^2.4.2"
   },
   "devDependencies": {

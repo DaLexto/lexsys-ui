@@ -1,5 +1,5 @@
 {
-  "name": "@neurex-ui/ui",
+  "name": "@neurex/ui",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0-beta.3",
-    "@neurex-ui/tokens": "workspace:*",
+    "@neurex/tokens": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.5.0"

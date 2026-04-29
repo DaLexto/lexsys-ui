@@ -1,9 +1,9 @@
 import { CliError } from "./cli-error.js"
-import type { RegistryItem } from "@neurex-ui/registry"
+import type { RegistryItem } from "@neurex/registry"
 import {
   registryStyles as registryStyleDefinitions,
   validateRegistryItem,
-} from "@neurex-ui/registry"
+} from "@neurex/registry"
 import { getRegistryItems } from "./registry-provider.js"
 import type { ResolvedRegistryStyle } from "./registry-types.js"
 import { findClosestValue } from "./suggestions.js"

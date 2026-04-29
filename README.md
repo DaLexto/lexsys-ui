@@ -1,4 +1,4 @@
-# Neurex UI
+# Neurex
 
 A modern, registry-first React UI framework built on top of Base UI, Tailwind CSS, and a full design-token system.
 
@@ -6,12 +6,12 @@ A modern, registry-first React UI framework built on top of Base UI, Tailwind CS
 
 ## ✨ Overview
 
-Neurex UI is not a traditional component library.
+Neurex is not a traditional component library.
 
 Instead of installing components as dependencies, Neurex uses a CLI to generate **copyable, editable components directly into your project**.
 
 ```bash
-npx neurex-ui add button
+npx neurex add button
 ```
 
 This gives you full control over your UI without vendor lock-in.
@@ -35,14 +35,14 @@ This gives you full control over your UI without vendor lock-in.
 ## 📦 Installation
 
 ```bash
-npx neurex-ui init
+npx neurex init
 ```
 
 Then add components:
 
 ```bash
-npx neurex-ui add button
-npx neurex-ui add dialog textfield
+npx neurex add button
+npx neurex add dialog textfield
 ```
 
 ---
@@ -145,18 +145,18 @@ No provider required.
 ## ⚡ CLI Commands
 
 ```bash
-neurex-ui init
-neurex-ui add <component...>
-neurex-ui update <component...>
-neurex-ui update --all
-neurex-ui list
-neurex-ui doctor
+neurex init
+neurex add <component...>
+neurex update <component...>
+neurex update --all
+neurex list
+neurex doctor
 ```
 
 Interactive mode:
 
 ```bash
-neurex-ui add
+neurex add
 ```
 
 ## 📚 Documentation

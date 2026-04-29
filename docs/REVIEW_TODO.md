@@ -1,4 +1,4 @@
-# Neurex UI Review TODO
+# Neurex Review TODO
 
 ## Purpose
 
@@ -11,7 +11,7 @@ them into a working TODO direction for the next implementation passes.
 
 ## Current Assessment
 
-Neurex UI has a strong architectural direction:
+Neurex has a strong architectural direction:
 
 - registry-first install model
 - user-owned generated code
@@ -76,16 +76,16 @@ Problem:
 
 Direction:
 
-- Resolve templates from the installed `@neurex-ui/registry` package.
-- Ensure `@neurex-ui/registry` publishes `templates`.
+- Resolve templates from the installed `@neurex/registry` package.
+- Ensure `@neurex/registry` publishes `templates`.
 - Avoid repo-root assumptions in runtime CLI code.
 - Add a smoke check for packed/published-style usage.
 
 Status:
 
-- Done in code by resolving templates from `@neurex-ui/registry/templates/*`.
+- Done in code by resolving templates from `@neurex/registry/templates/*`.
 - Registry package exports and publishes `templates`.
-- Verified with `pnpm --filter @neurex-ui/registry pack --dry-run`.
+- Verified with `pnpm --filter @neurex/registry pack --dry-run`.
 
 ### DONE: Fix `--cwd` for dependency installation
 
@@ -93,7 +93,7 @@ Problem:
 
 - `installDependencies` reads `package.json` from the process cwd, not `getCwd()`.
 - The package manager command runs without an explicit cwd.
-- `neurex-ui add --cwd ./apps/web` can install dependencies in the wrong project.
+- `neurex add --cwd ./apps/web` can install dependencies in the wrong project.
 
 Direction:
 
@@ -186,7 +186,7 @@ Status:
 - `add button` installs `styles/neurex/tokens.css` and
   `styles/neurex/theme.css`, then imports them into the configured CSS
   entrypoint without duplicating imports.
-- Verified against `neurex-ui-sandbox`: `src/style.css` now imports the Neurex
+- Verified against `neurex-sandbox`: `src/style.css` now imports the Neurex
   style outputs and `npm run typecheck` / `npm run build` pass.
 
 ### DONE: Configure Tailwind processing in consumer projects
@@ -217,7 +217,7 @@ Status:
 - `neurex init` adds the Tailwind Vite plugin without duplicating it.
 - Dependency installation validates package names and uses a Windows-safe
   package-manager invocation.
-- Verified directly in `neurex-ui-sandbox`: idempotent `init`,
+- Verified directly in `neurex-sandbox`: idempotent `init`,
   `npm run typecheck`, and `npm run build` pass without the earlier `@theme`
   warning.
 
@@ -408,6 +408,6 @@ Latest successful checks from the implementation passes:
 - `pnpm --filter ./packages/cli lint`
 - `pnpm check`
 - `pnpm build`
-- `npm run typecheck` in `D:\LIBRARIES\JS_TS\neurex-ui-sandbox`
-- `npm run build` in `D:\LIBRARIES\JS_TS\neurex-ui-sandbox`
+- `npm run typecheck` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
+- `npm run build` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
 - CLI install-flow smoke: 6 CLI test files / 16 CLI tests passing

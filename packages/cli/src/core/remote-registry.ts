@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@neurex-ui/registry"
+import type { RegistryItem } from "@neurex/registry"
 
 export interface RemoteRegistryManifest {
   version: string

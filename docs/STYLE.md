@@ -1,8 +1,8 @@
-# Neurex UI Style Rules
+# Neurex Style Rules
 
 ## Purpose
 
-This file defines coding style rules for the `neurex-ui` repository.
+This file defines coding style rules for the `neurex` repository.
 
 Use this together with:
 

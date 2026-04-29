@@ -1,5 +1,5 @@
 {
-  "name": "neurex-ui",
+  "name": "neurex",
   "private": true,
   "version": "0.0.0",
   "description": "A registry-first React UI framework that generates copyable components directly into your project, powered by Base UI, Tailwind CSS, and a full design token system.",

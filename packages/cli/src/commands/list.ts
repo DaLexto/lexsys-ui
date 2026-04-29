@@ -23,7 +23,7 @@ export const runList = async (options: RunListOptions = {}): Promise<void> => {
       return
     }
 
-    console.log("Available Neurex UI components:\n")
+    console.log("Available Neurex components:\n")
 
     for (const item of registryItems) {
       console.log(`- ${item.canonicalName} v${item.version} (${item.category})`)

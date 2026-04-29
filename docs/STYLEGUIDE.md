@@ -1,4 +1,4 @@
-# Neurex UI Style Guide
+# Neurex Style Guide
 
 ## Purpose
 
@@ -183,7 +183,7 @@ Do not duplicate these resources inside every installed component folder.
 
 Good:
 
-- `@neurex-ui/registry` exports metadata
+- `@neurex/registry` exports metadata
 - CLI reads that metadata
 - templates are copied into the user project
 

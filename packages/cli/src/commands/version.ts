@@ -11,5 +11,5 @@ export const runVersion = async (): Promise<void> => {
   const content = await readFile(packageJsonPath, "utf-8")
   const packageJson = JSON.parse(content) as { version?: string }
 
-  console.log(`neurex-ui ${packageJson.version ?? "unknown"}`)
+  console.log(`neurex ${packageJson.version ?? "unknown"}`)
 }
