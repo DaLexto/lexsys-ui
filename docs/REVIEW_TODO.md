@@ -252,7 +252,7 @@ Status:
 - Added focus-visible ring styling plus disabled and loading state classes.
 - Public API remains `variant`, `size`, `className`, and existing Button props.
 
-### PARTIAL: Make registry metadata more complete and enforced
+### DONE: Make registry metadata more complete and enforced
 
 Problem:
 
@@ -267,11 +267,18 @@ Direction:
 
 Status:
 
-- Partially improved: registry item validation now checks `styles` entries and
-  `target`, and registry validation can verify item style references against
-  known registry styles.
-- Remaining work: enforce aliases, utilities, remote files, and template/style
-  file existence more completely across local and remote registries.
+- Done for the bundled/local registry contract.
+- Registry now exposes utility metadata for `cn`, alongside item and style
+  metadata.
+- Validator checks aliases, package dependency names, registry dependencies,
+  style references, utility references, remote file declarations, HTTPS remote
+  file URLs, safe relative paths, duplicate style/utility targets, and local
+  template file existence when a template file list is supplied.
+- Registry tests validate the bundled registry against the real
+  `packages/registry/templates` tree.
+- Future remote registry manifest work can add remote-provided style/utility
+  manifests; current remote item validation remains structural plus item-level
+  safety checks.
 
 ---
 
@@ -313,8 +320,8 @@ Status:
 
 - Done for command execution safety: dependency installs use `execFileSync`
   with argument arrays and explicit `cwd`.
-- Dependency name validation / remote trust policy remains part of future
-  registry metadata enforcement.
+- Dependency name validation is now enforced in registry validation; broader
+  remote trust policy remains future product work.
 
 ### DONE: Make remote/local registry flags deterministic
 

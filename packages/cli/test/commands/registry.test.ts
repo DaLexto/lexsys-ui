@@ -33,7 +33,7 @@ const item: RegistryItem = {
   version: "0.0.1",
   type: "component",
   category: "actions",
-  aliases: ["button"],
+  aliases: ["btn"],
   files: ["components/ui/Button/Button.tsx"],
   dependencies: [],
   registryDependencies: [],

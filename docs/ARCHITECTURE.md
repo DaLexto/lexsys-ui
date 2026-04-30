@@ -311,11 +311,11 @@ Each registry item must define:
   "canonicalName": "Button",
   "type": "component",
   "category": "actions",
-  "aliases": ["button"],
+  "aliases": ["btn"],
   "files": [
-    "Button/Button.tsx",
-    "Button/Button.types.ts",
-    "Button/Button.variants.ts"
+    "components/Button/Button.tsx",
+    "components/Button/Button.types.ts",
+    "components/Button/Button.variants.ts"
   ],
   "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
   "registryDependencies": [],
@@ -324,6 +324,10 @@ Each registry item must define:
   "target": "src/components/ui/Button"
 }
 ```
+
+Registry-level utility and style manifests define the shared install contract.
+The validator must verify that item references point to known manifests and that
+every referenced local template file exists.
 
 ---
 

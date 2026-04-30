@@ -12,7 +12,7 @@ export const buttonRegistryItem: RegistryItem = {
   version: "0.0.1",
   type: "component",
   category: "actions",
-  aliases: ["button", "btn"],
+  aliases: ["btn"],
   files: [
     "components/Button/Button.tsx",
     "components/Button/Button.types.ts",

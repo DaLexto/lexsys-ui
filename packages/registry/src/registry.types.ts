@@ -22,6 +22,12 @@ export interface RegistryStyle {
   files: RegistryStyleFile[]
 }
 
+export interface RegistryUtility {
+  name: string
+  path: string
+  target: string
+}
+
 export type RegistryItemCategory =
   | "actions"
   | "forms"

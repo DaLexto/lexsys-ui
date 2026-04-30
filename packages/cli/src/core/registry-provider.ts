@@ -35,6 +35,10 @@ export const getRegistryItems = async (
   }
 
   if (source === "local") {
+    validateRegistry(localRegistry, {
+      styles: registryStyles,
+    })
+
     cachedRegistry = localRegistry
     cachedSource = source
     cachedManifestVersion = registryVersion
@@ -44,6 +48,7 @@ export const getRegistryItems = async (
 
   try {
     const remote = await fetchRemoteRegistry(source)
+    validateRegistry(remote.items)
 
     cachedRegistry = remote.items
     cachedSource = source
