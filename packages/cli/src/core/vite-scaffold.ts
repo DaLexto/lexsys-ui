@@ -10,6 +10,28 @@ export default defineConfig({
 });
 `
 
+const tsConfig = `{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src"]
+}
+`
+
 const indexHtml = `<!doctype html>
 <html lang="en">
   <head>
@@ -34,6 +56,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <App />
   </React.StrictMode>,
 );
+`
+
+const viteEnvDts = `/// <reference types="vite/client" />
 `
 
 const appTsx = `export const App = () => {
@@ -107,15 +132,98 @@ const getPackageJson = (targetDirectory: string): string => {
   return JSON.stringify(packageJson, null, 2) + "\n"
 }
 
+const getRecordValue = (value: unknown): Record<string, unknown> => {
+  return typeof value === "object" && value !== null
+    ? (value as Record<string, unknown>)
+    : {}
+}
+
+const mergePackageJson = (
+  targetDirectory: string,
+  existingPackageJson: Record<string, unknown>,
+): string => {
+  const packageManager = getPackageManagerFromUserAgent()
+  const existingScripts = getRecordValue(existingPackageJson.scripts)
+  const mergedPackageJson: Record<string, unknown> = {
+    ...existingPackageJson,
+    name:
+      typeof existingPackageJson.name === "string"
+        ? existingPackageJson.name
+        : sanitizePackageName(basename(targetDirectory)),
+    private:
+      typeof existingPackageJson.private === "boolean"
+        ? existingPackageJson.private
+        : true,
+    version:
+      typeof existingPackageJson.version === "string"
+        ? existingPackageJson.version
+        : "0.0.0",
+    type:
+      typeof existingPackageJson.type === "string"
+        ? existingPackageJson.type
+        : "module",
+    scripts: {
+      dev: "vite",
+      build: "tsc -b && vite build",
+      preview: "vite preview",
+      ...existingScripts,
+    },
+  }
+
+  if (packageManager && typeof mergedPackageJson.packageManager !== "string") {
+    mergedPackageJson.packageManager = packageManager
+  }
+
+  return JSON.stringify(mergedPackageJson, null, 2) + "\n"
+}
+
+const writePackageJson = async (targetDirectory: string): Promise<void> => {
+  const targetPath = join(targetDirectory, "package.json")
+
+  if (!(await fileExists(targetPath))) {
+    await writeFile(targetPath, getPackageJson(targetDirectory), "utf-8")
+    console.log(`Created scaffold file: ${targetPath}`)
+    return
+  }
+
+  let parsed: Record<string, unknown>
+
+  try {
+    parsed = JSON.parse(await readFile(targetPath, "utf-8")) as Record<
+      string,
+      unknown
+    >
+  } catch {
+    throw new Error(`Invalid existing package.json: ${targetPath}`)
+  }
+
+  const content = await readFile(targetPath, "utf-8")
+  const mergedContent = mergePackageJson(targetDirectory, parsed)
+
+  if (content === mergedContent) {
+    console.log(`Skipped package.json: ${targetPath} already configured`)
+    return
+  }
+
+  await writeFile(targetPath, mergedContent, "utf-8")
+  console.log(`Updated package.json: ${targetPath}`)
+}
+
 const writeScaffoldFile = async (
   targetPath: string,
   content: string,
+  options: { allowExisting?: boolean } = {},
 ): Promise<void> => {
   if (await fileExists(targetPath)) {
     const existingContent = await readFile(targetPath, "utf-8")
 
     if (existingContent === content) {
       console.log(`Skipped identical scaffold file: ${targetPath}`)
+      return
+    }
+
+    if (options.allowExisting) {
+      console.log(`Skipped existing scaffold file: ${targetPath}`)
       return
     }
 
@@ -134,13 +242,19 @@ export const scaffoldViteProject = async (
 ): Promise<void> => {
   await mkdir(targetDirectory, { recursive: true })
 
-  await writeScaffoldFile(
-    join(targetDirectory, "package.json"),
-    getPackageJson(targetDirectory),
-  )
+  await writePackageJson(targetDirectory)
   await writeScaffoldFile(join(targetDirectory, "index.html"), indexHtml)
-  await writeScaffoldFile(join(targetDirectory, "vite.config.ts"), viteConfig)
+  await writeScaffoldFile(join(targetDirectory, "tsconfig.json"), tsConfig)
+  await writeScaffoldFile(join(targetDirectory, "vite.config.ts"), viteConfig, {
+    allowExisting: true,
+  })
+  await writeScaffoldFile(
+    join(targetDirectory, "src", "vite-env.d.ts"),
+    viteEnvDts,
+  )
   await writeScaffoldFile(join(targetDirectory, "src", "main.tsx"), mainTsx)
   await writeScaffoldFile(join(targetDirectory, "src", "App.tsx"), appTsx)
-  await writeScaffoldFile(join(targetDirectory, "src", "style.css"), styleCss)
+  await writeScaffoldFile(join(targetDirectory, "src", "style.css"), styleCss, {
+    allowExisting: true,
+  })
 }

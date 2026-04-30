@@ -87,6 +87,9 @@ describe("install flow smoke", () => {
         "utf-8",
       ),
     ).resolves.toContain("bg-nx-primary")
+    await expect(
+      readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
+    ).resolves.toContain("../../../../lib/neurex/cn")
 
     const config = JSON.parse(
       await readFile(join(tempDir, "neurex.config.json"), "utf-8"),

@@ -74,6 +74,12 @@ describe("runInit", () => {
       readFile(join(appDir, "src", "main.tsx"), "utf-8"),
     ).resolves.toContain("ReactDOM.createRoot")
     await expect(
+      readFile(join(appDir, "src", "vite-env.d.ts"), "utf-8"),
+    ).resolves.toContain("vite/client")
+    await expect(
+      readFile(join(appDir, "tsconfig.json"), "utf-8"),
+    ).resolves.toContain('"jsx": "react-jsx"')
+    await expect(
       readFile(join(appDir, "vite.config.ts"), "utf-8"),
     ).resolves.toContain("plugins: [tailwindcss(), react()]")
     await expect(
@@ -174,7 +180,7 @@ describe("runInit", () => {
     const { runInit } = await import("../../src/commands/init.js")
 
     await expect(runInit(["vite"])).rejects.toThrow(
-      "Refusing to overwrite existing scaffold file",
+      "Invalid existing package.json",
     )
     expect(execFileSyncMock).not.toHaveBeenCalled()
   })
