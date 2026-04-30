@@ -113,6 +113,9 @@ describe("runInit", () => {
     ).resolves.toContain('@import "tailwindcss";')
     await expect(
       readFile(join(appDir, "neurex.config.json"), "utf-8"),
+    ).resolves.toContain('"style": "default"')
+    await expect(
+      readFile(join(appDir, "neurex.config.json"), "utf-8"),
     ).resolves.toContain('"componentsPath": "src/components/ui"')
     await expect(
       readFile(join(appDir, "neurex.config.json"), "utf-8"),

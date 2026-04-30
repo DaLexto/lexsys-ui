@@ -315,6 +315,7 @@ Default config shape:
 
 ```json
 {
+  "style": "default",
   "componentsPath": "src/components/ui",
   "utilitiesPath": "src/lib",
   "stylesPath": "styles",
@@ -338,6 +339,7 @@ Default config shape:
 
 | Field            | Description                                                    |
 | ---------------- | -------------------------------------------------------------- |
+| `style`          | Active Neurex style preset. Current value: `default`.          |
 | `componentsPath` | Target directory for installed components.                     |
 | `utilitiesPath`  | Target directory for shared utilities.                         |
 | `stylesPath`     | Target directory for shared styles and token output.           |

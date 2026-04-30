@@ -1,7 +1,24 @@
 import { describe, expect, test } from "vitest"
 import { createStyleOutputs } from "../src/outputs.js"
+import {
+  defaultStylePresetId,
+  neurexDefaultStylePreset,
+  stylePresets,
+} from "../src/styles/index.js"
 
 describe("createStyleOutputs", () => {
+  test("defines Neurex Default as the first style preset", () => {
+    expect(defaultStylePresetId).toBe("default")
+    expect(neurexDefaultStylePreset).toEqual({
+      id: "default",
+      name: "Neurex Default",
+      description:
+        "Baseline Neurex style preset for the initial token, theme, and component system.",
+      themeModes: ["light", "dark"],
+    })
+    expect(stylePresets).toEqual([neurexDefaultStylePreset])
+  })
+
   test("generates token and theme css from token source", () => {
     const outputs = createStyleOutputs()
 

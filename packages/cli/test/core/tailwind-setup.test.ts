@@ -11,6 +11,7 @@ import {
 } from "../../src/core/tailwind-setup.js"
 
 const config: NeurexConfig = {
+  style: "default",
   aliases: {
     components: "@/components",
     hooks: "@/hooks",

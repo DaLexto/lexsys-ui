@@ -92,8 +92,11 @@ variables:
 The locked design-system flow is:
 
 ```txt
-TOKENS -> THEMES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
+TOKENS -> STYLE PRESETS -> THEME MODES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
 ```
+
+The first style preset is `default` / `Neurex Default`. Style presets define
+the design personality; theme modes define mappings like light and dark.
 
 Runtime package responsibilities:
 

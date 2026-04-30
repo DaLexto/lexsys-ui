@@ -186,6 +186,17 @@ the installed Button must be usable without manual wiring.
 
 Neurex uses a full design-token system as the styling source of truth.
 
+### Style Preset vs Theme Mode
+
+Neurex separates style presets from theme modes.
+
+```txt
+style preset = design personality, density, radius, component feel
+theme mode   = light/dark/brand mapping inside that style
+```
+
+The first style preset is `default` / `Neurex Default`.
+
 ### Token Layers
 
 ```txt

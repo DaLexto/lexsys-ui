@@ -102,8 +102,13 @@ describe("install flow smoke", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string>; tailwind?: { css?: string } }
+    ) as {
+      installed?: Record<string, string>
+      style?: string
+      tailwind?: { css?: string }
+    }
 
+    expect(config.style).toBe("default")
     expect(config.tailwind?.css).toBe("src/style.css")
     expect(config.installed).toEqual({ button: "0.0.1", card: "0.0.1" })
   })

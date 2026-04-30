@@ -11,6 +11,7 @@ import {
 } from "../../src/core/installer.js"
 
 const config: NeurexConfig = {
+  style: "default",
   aliases: {
     components: "@/components",
     hooks: "@/hooks",

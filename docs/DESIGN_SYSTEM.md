@@ -19,7 +19,10 @@ system.
 TOKENS
   raw primitives + semantic meaning
 
-THEMES
+STYLE PRESETS
+  design personality / density / radius / component feel
+
+THEME MODES
   light / dark / brand mappings
 
 OUTPUTS
@@ -50,6 +53,40 @@ TOKENS -> THEMES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
 
 ## Responsibilities
 
+### Style Presets
+
+Style presets define the design personality of Neurex.
+
+They may control:
+
+- density
+- radius feel
+- spacing rhythm
+- component token defaults
+- color personality through theme-mode mappings
+
+The first official preset is:
+
+```txt
+id: default
+name: Neurex Default
+```
+
+Future examples may include `space-indigo`, `graphite`, or other named
+presets. Those names are not active contracts until implemented.
+
+Style presets are not theme modes.
+
+```txt
+Neurex Default
+  light
+  dark
+
+Neurex Space Indigo
+  light
+  dark
+```
+
 ### Tokens
 
 Tokens are the source of truth for design decisions.
@@ -62,17 +99,17 @@ They define:
 
 Tokens must not be treated as CSS files. CSS is an output, not the source.
 
-### Themes
+### Theme Modes
 
-Themes map semantic token roles to concrete values.
+Theme modes map semantic token roles to concrete values inside a style preset.
 
-Initial themes should support:
+Initial theme modes should support:
 
 - light
 - dark
 
-The model must allow future custom or brand themes without changing component
-APIs.
+The model must allow future custom or brand theme modes without changing
+component APIs.
 
 ### Outputs
 

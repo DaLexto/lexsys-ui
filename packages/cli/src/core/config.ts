@@ -4,6 +4,7 @@ import { fileExists } from "./fs.js"
 import { getCwd } from "./context.js"
 
 export interface NeurexConfig {
+  style: "default"
   componentsPath: string
   utilitiesPath: string
   stylesPath: string
@@ -40,6 +41,7 @@ const defaultTailwindConfig: NeurexTailwindConfig = {
 }
 
 export const defaultConfig: NeurexConfig = {
+  style: "default",
   componentsPath: "src/components/ui",
   utilitiesPath: "src/lib",
   stylesPath: "styles",
