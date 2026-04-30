@@ -17,20 +17,32 @@
   background: var(--nx-color-background);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  min-width: 320px;
+  color: var(--nx-color-foreground);
+  background: var(--nx-color-background);
 }
 
 .playground-shell {
   min-height: 100vh;
-  display: grid;
-  align-content: center;
-  gap: 32px;
+  width: min(100%, 1120px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 auto;
   padding: 48px;
 }
 
 .playground-header {
-  max-width: 720px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
 }
 
 .playground-label {
@@ -42,32 +54,56 @@ body {
 
 .playground-header h1 {
   margin: 0;
-  font-size: clamp(2.25rem, 5vw, 4.5rem);
-  line-height: 1;
+  font-size: 3rem;
+  line-height: 1.05;
 }
 
-.playground-header p:last-child {
-  max-width: 600px;
-  margin: 18px 0 0;
-  color: var(--nx-color-muted-foreground);
-  font-size: 1rem;
-  line-height: 1.7;
+.theme-control {
+  display: inline-flex;
+  gap: 8px;
+  padding: 4px;
+  border: 1px solid var(--nx-color-border);
+  border-radius: var(--nx-radius-control);
+  background: var(--nx-color-surface);
 }
 
 .component-grid {
-  width: min(100%, 760px);
   display: grid;
-  gap: 24px;
+  gap: 20px;
+}
+
+.component-panel {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--nx-color-border);
+  border-radius: var(--nx-radius-surface);
+  background: var(--nx-color-surface);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
 }
 
 .button-board {
   display: grid;
   border: 1px solid var(--nx-color-border);
+  border-radius: var(--nx-radius-surface);
+  overflow: hidden;
 }
 
 .button-row {
   display: flex;
-  min-height: 72px;
+  min-height: 68px;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
@@ -84,8 +120,10 @@ body {
   font-size: 0.875rem;
 }
 
-.card-preview {
-  max-width: 520px;
+.card-board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
 @media (max-width: 640px) {
@@ -96,5 +134,18 @@ body {
   .button-row {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .playground-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .playground-header h1 {
+    font-size: 2.25rem;
+  }
+
+  .card-board {
+    grid-template-columns: 1fr;
   }
 }

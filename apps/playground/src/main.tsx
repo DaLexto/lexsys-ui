@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
 import {
   Button,
@@ -11,22 +11,32 @@ import {
 } from "@neurex/ui"
 import "./styles.css"
 
-const buttonExamples = [
+const buttonExamples: Array<{
+  label: string
+  props: React.ComponentProps<typeof Button>
+}> = [
   {
-    label: "Primary / sm",
-    props: { children: "Create", size: "sm" as const },
+    label: "Primary sm",
+    props: { children: "Create", size: "sm" },
   },
   {
-    label: "Primary / md",
+    label: "Primary md",
     props: { children: "Install button" },
   },
   {
-    label: "Primary / lg loading",
-    props: { children: "Generating", isLoading: true, size: "lg" as const },
+    label: "Primary lg loading",
+    props: { children: "Generating", isLoading: true, size: "lg" },
   },
   {
     label: "Secondary",
-    props: { children: "Preview", variant: "secondary" as const },
+    props: { children: "Preview", variant: "secondary" },
+  },
+  {
+    label: "Custom class",
+    props: {
+      children: "Tailwind override",
+      className: "bg-green-600 text-white hover:bg-green-700",
+    },
   },
   {
     label: "Disabled",
@@ -39,46 +49,108 @@ const buttonExamples = [
 ]
 
 const App = () => {
+  const [themeMode, setThemeMode] = useState<"light" | "dark">("light")
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", themeMode === "dark")
+  }, [themeMode])
+
   return (
     <main className="playground-shell">
       <section className="playground-header">
-        <p className="playground-label">Reference playground</p>
-        <h1>Neurex Components</h1>
-        <p>
-          A committed Vite consumer for checking package exports, token CSS,
-          Tailwind classes, and component states while the registry grows.
-        </p>
+        <div>
+          <p className="playground-label">Neurex Default</p>
+          <h1>Component QA</h1>
+        </div>
+
+        <div className="theme-control" aria-label="Theme mode">
+          <Button
+            size="sm"
+            variant={themeMode === "light" ? "primary" : "secondary"}
+            onClick={() => {
+              setThemeMode("light")
+            }}
+          >
+            Light
+          </Button>
+          <Button
+            size="sm"
+            variant={themeMode === "dark" ? "primary" : "secondary"}
+            onClick={() => {
+              setThemeMode("dark")
+            }}
+          >
+            Dark
+          </Button>
+        </div>
       </section>
 
       <section className="component-grid" aria-label="Component examples">
-        <div className="button-board">
-          {buttonExamples.map((example) => (
-            <article className="button-row" key={example.label}>
-              <span>{example.label}</span>
-              <Button {...example.props} />
-            </article>
-          ))}
-        </div>
+        <section className="component-panel" aria-labelledby="button-title">
+          <div className="panel-header">
+            <div>
+              <p className="playground-label">Button</p>
+              <h2 id="button-title">Variants and states</h2>
+            </div>
+          </div>
 
-        <Card className="card-preview">
-          <CardHeader>
-            <CardTitle>Registry Card</CardTitle>
-            <CardDescription>
-              A passive layout component that validates slot exports, semantic
-              color tokens, spacing tokens, and user-owned template structure.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            Card is intentionally low-risk: it adds composition surface without
-            introducing popover, focus trap, or keyboard navigation behavior.
-          </CardContent>
-          <CardFooter>
-            <Button size="sm">Install card</Button>
-            <Button size="sm" variant="secondary">
-              Preview
-            </Button>
-          </CardFooter>
-        </Card>
+          <div className="button-board">
+            {buttonExamples.map((example) => (
+              <article className="button-row" key={example.label}>
+                <span>{example.label}</span>
+                <Button {...example.props} />
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="component-panel" aria-labelledby="card-title">
+          <div className="panel-header">
+            <div>
+              <p className="playground-label">Card</p>
+              <h2 id="card-title">Surface variants</h2>
+            </div>
+          </div>
+
+          <div className="card-board">
+            <Card>
+              <CardHeader>
+                <CardTitle>Surface Card</CardTitle>
+                <CardDescription>
+                  Token-driven background, border, radius, and spacing.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                This card uses the default surface mapping from the active
+                theme.
+              </CardContent>
+              <CardFooter>
+                <Button size="sm">Install card</Button>
+                <Button size="sm" variant="secondary">
+                  Preview
+                </Button>
+              </CardFooter>
+            </Card>
+
+            <Card variant="muted">
+              <CardHeader>
+                <CardTitle>Muted Card</CardTitle>
+                <CardDescription>
+                  The same structure with a quieter surface treatment.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                This checks that Card variants still compose with semantic
+                theme tokens.
+              </CardContent>
+              <CardFooter>
+                <Button size="sm" variant="secondary">
+                  Secondary
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </section>
       </section>
     </main>
   )
