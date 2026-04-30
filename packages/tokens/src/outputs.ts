@@ -1,5 +1,6 @@
 import { componentTokens } from "./component-tokens.js"
 import { primitiveTokens } from "./primitives.js"
+import { semanticTokens } from "./semantic-tokens.js"
 import { themes } from "./themes.js"
 import type { StyleOutputs, TokenEntry } from "./types.js"
 
@@ -15,9 +16,10 @@ const createRootBlock = (tokens: TokenEntry[]): string => {
 
 const createTokensCss = (): string => {
   const primitives = primitiveTokens.flatMap((group) => group.tokens)
+  const semantics = semanticTokens.flatMap((group) => group.tokens)
   const componentValues = componentTokens.flatMap((group) => group.tokens)
 
-  return `${header}\n\n${createRootBlock([...primitives, ...componentValues])}\n`
+  return `${header}\n\n${createRootBlock([...primitives, ...semantics, ...componentValues])}\n`
 }
 
 const createThemeBlock = (

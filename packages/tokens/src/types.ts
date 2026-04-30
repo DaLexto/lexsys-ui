@@ -13,6 +13,11 @@ export interface ComponentTokenGroup {
   tokens: TokenEntry[]
 }
 
+export interface SemanticTokenGroup {
+  name: string
+  tokens: TokenEntry[]
+}
+
 export type StylePresetId = "default"
 
 export type ThemeModeId = "light" | "dark"

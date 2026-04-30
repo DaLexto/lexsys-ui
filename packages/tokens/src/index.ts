@@ -7,6 +7,7 @@
 export { componentTokens } from "./component-tokens.js"
 export { createStyleOutputs } from "./outputs.js"
 export { primitiveTokens } from "./primitives.js"
+export { semanticTokens } from "./semantic-tokens.js"
 export {
   defaultStylePresetId,
   neurexDefaultStylePreset,
@@ -16,6 +17,7 @@ export { themes } from "./themes.js"
 export type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,
+  SemanticTokenGroup,
   StyleOutputs,
   StylePresetDefinition,
   StylePresetId,

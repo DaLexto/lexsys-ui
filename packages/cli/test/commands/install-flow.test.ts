@@ -95,7 +95,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Card/Card.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-nx-surface")
+    ).resolves.toContain("bg-[var(--nx-card-background)]")
     await expect(
       readFile(join(tempDir, "src/components/ui/Card/Card.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")

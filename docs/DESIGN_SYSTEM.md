@@ -99,6 +99,16 @@ They define:
 
 Tokens must not be treated as CSS files. CSS is an output, not the source.
 
+The preferred dependency flow is:
+
+```txt
+primitive token -> semantic token -> component token -> component class
+```
+
+For example, `Neurex Default` maps `--nx-radius-control` to the primitive
+radius scale, Button maps `--nx-button-radius` to `--nx-radius-control`, and
+the Button class consumes `--nx-button-radius`.
+
 ### Theme Modes
 
 Theme modes map semantic token roles to concrete values inside a style preset.
