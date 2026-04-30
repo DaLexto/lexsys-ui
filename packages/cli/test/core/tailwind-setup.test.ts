@@ -21,7 +21,7 @@ const config: NeurexConfig = {
   componentsPath: "src/components/ui",
   installed: {},
   registryUrl: null,
-  stylesPath: "styles/neurex",
+  stylesPath: "styles",
   tailwind: {
     version: "v4",
     css: "src/style.css",

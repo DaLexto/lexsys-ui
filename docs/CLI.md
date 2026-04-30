@@ -47,7 +47,7 @@ project structure and wires the supported styling setup:
 ```txt
 src/components/ui/
 src/lib/
-styles/neurex/
+styles/
 neurex.config.json
 ```
 
@@ -317,7 +317,7 @@ Default config shape:
 {
   "componentsPath": "src/components/ui",
   "utilitiesPath": "src/lib",
-  "stylesPath": "styles/neurex",
+  "stylesPath": "styles",
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils",

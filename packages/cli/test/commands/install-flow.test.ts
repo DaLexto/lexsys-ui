@@ -61,22 +61,22 @@ describe("install flow smoke", () => {
     const css = await readFile(join(tempDir, "src/style.css"), "utf-8")
     expect(css).toBe(
       '@import "tailwindcss";\n' +
-        '@import "../styles/neurex/tokens.css";\n' +
-        '@import "../styles/neurex/theme.css";\n' +
+        '@import "../styles/tokens.css";\n' +
+        '@import "../styles/theme.css";\n' +
         ":root {}\n",
     )
     expect(countOccurrences(css, '@import "tailwindcss";')).toBe(1)
-    expect(countOccurrences(css, "../styles/neurex/tokens.css")).toBe(1)
-    expect(countOccurrences(css, "../styles/neurex/theme.css")).toBe(1)
+    expect(countOccurrences(css, "../styles/tokens.css")).toBe(1)
+    expect(countOccurrences(css, "../styles/theme.css")).toBe(1)
 
     await expect(
       readFile(join(tempDir, "vite.config.ts"), "utf-8"),
     ).resolves.toContain("plugins: [tailwindcss(), react()]")
     await expect(
-      readFile(join(tempDir, "styles/neurex/tokens.css"), "utf-8"),
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-button-radius")
     await expect(
-      readFile(join(tempDir, "styles/neurex/theme.css"), "utf-8"),
+      readFile(join(tempDir, "styles/theme.css"), "utf-8"),
     ).resolves.toContain("--color-nx-primary")
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),

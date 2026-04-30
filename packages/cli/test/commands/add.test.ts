@@ -72,16 +72,16 @@ describe("runAdd", () => {
     await runAdd(["button"])
 
     await expect(
-      readFile(join(tempDir, "styles/neurex/tokens.css"), "utf-8"),
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-button-radius")
     await expect(
-      readFile(join(tempDir, "styles/neurex/theme.css"), "utf-8"),
+      readFile(join(tempDir, "styles/theme.css"), "utf-8"),
     ).resolves.toContain("@theme inline")
     await expect(
       readFile(join(tempDir, "src/style.css"), "utf-8"),
     ).resolves.toBe(
-      '@import "../styles/neurex/tokens.css";\n' +
-        '@import "../styles/neurex/theme.css";\n' +
+      '@import "../styles/tokens.css";\n' +
+        '@import "../styles/theme.css";\n' +
         ":root {}\n",
     )
 

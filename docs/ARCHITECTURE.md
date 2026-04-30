@@ -370,7 +370,7 @@ Default locations:
 
 ```txt
 src/lib/
-styles/neurex/
+styles/
 ```
 
 Shared resources include:
@@ -416,7 +416,7 @@ project/
 
 - Components install to `src/components/ui/ComponentName/`
 - Utilities install to `src/lib/`
-- Styles and tokens install to `styles/neurex/`
+- Styles and tokens install to `styles/`
 - Generated imports use the configured user-facing aliases, starting with
   `@/lib/utils`
 - Project configuration lives in `neurex.config.json`

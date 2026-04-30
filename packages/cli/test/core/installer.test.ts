@@ -21,7 +21,7 @@ const config: NeurexConfig = {
   componentsPath: "src/components/ui",
   installed: {},
   registryUrl: null,
-  stylesPath: "styles/neurex",
+  stylesPath: "styles",
   tailwind: {
     version: "v4",
     css: "src/style.css",
@@ -68,7 +68,7 @@ describe("installItemFiles", () => {
   })
 
   test("installs registry styles without overwriting conflicts", async () => {
-    const targetDir = join(tempDir, "styles/neurex")
+    const targetDir = join(tempDir, "styles")
     const targetPath = join(targetDir, "theme.css")
 
     await mkdir(targetDir, { recursive: true })
@@ -92,8 +92,8 @@ describe("installItemFiles", () => {
     const secondResult = await installStyles([themeRegistryStyle], config)
 
     await expect(readFile(cssPath, "utf-8")).resolves.toBe(
-      '@import "../styles/neurex/tokens.css";\n' +
-        '@import "../styles/neurex/theme.css";\n' +
+      '@import "../styles/tokens.css";\n' +
+        '@import "../styles/theme.css";\n' +
         ":root {\n" +
         "  color: black;\n" +
         "}\n",

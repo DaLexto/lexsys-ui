@@ -50,8 +50,8 @@ src/components/ui/Button/
 └── Button.variants.ts
 
 src/lib/utils.ts
-styles/neurex/tokens.css
-styles/neurex/theme.css
+styles/tokens.css
+styles/theme.css
 neurex.config.json
 ```
 

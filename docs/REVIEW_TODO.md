@@ -49,7 +49,7 @@ Completed so far on `feature/cli-install-hardening`:
   variables instead of hardcoded Tailwind colors/sizes.
 - Earlier sandbox smoke exposed an install-contract gap: generated style files
   were copied into the consumer project, but the CLI did not yet wire
-  `styles/neurex/tokens.css` and `styles/neurex/theme.css` into the consumer CSS
+  `styles/tokens.css` and `styles/theme.css` into the consumer CSS
   entrypoint or otherwise verify Tailwind output.
 - Style entrypoint wiring added: `neurex.config.json` now carries
   `tailwind.version` and `tailwind.css`, and installed style outputs are imported
@@ -145,7 +145,7 @@ Problem:
 
 - Registry metadata declares `styles: ["theme"]`.
 - Docs promise token/theme CSS installation.
-- CLI only creates `styles/neurex`; it does not install CSS.
+- CLI only creates `styles`; it does not install CSS.
 - `packages/tokens` is currently an empty public entrypoint.
 
 Direction:
@@ -170,8 +170,7 @@ Status:
 
 Problem:
 
-- `add button` installs `styles/neurex/tokens.css` and
-  `styles/neurex/theme.css`.
+- `add button` installs `styles/tokens.css` and `styles/theme.css`.
 - A fresh Vite sandbox still builds without those files being imported.
 - The generated Button uses `nx` Tailwind/theme classes, but the built CSS does
   not include the `nx` output unless the consumer wires the styles manually.
@@ -189,8 +188,7 @@ Status:
 
 - Done for CSS entrypoint wiring.
 - `neurex.config.json` now includes `tailwind.version` and `tailwind.css`.
-- `add button` installs `styles/neurex/tokens.css` and
-  `styles/neurex/theme.css`, then imports them into the configured CSS
+- `add button` installs `styles/tokens.css` and `styles/theme.css`, then imports them into the configured CSS
   entrypoint without duplicating imports.
 - Verified against `neurex-sandbox`: `src/style.css` now imports the Neurex
   style outputs and `npm run typecheck` / `npm run build` pass.

@@ -166,7 +166,7 @@ Default shared output in consumer projects is:
 
 ```txt
 src/lib/
-styles/neurex/
+styles/
 ```
 
 Use the shared layer for:
