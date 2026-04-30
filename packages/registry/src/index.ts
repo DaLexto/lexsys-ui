@@ -20,10 +20,12 @@ import type {
 } from "./registry.types.js"
 
 export { buttonRegistryItem } from "./items/button.js"
+export { cardRegistryItem } from "./items/card.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
 import { buttonRegistryItem } from "./items/button.js"
+import { cardRegistryItem } from "./items/card.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -36,7 +38,10 @@ export interface RegistryManifest {
   utilities: RegistryUtility[]
 }
 
-export const registryItems: RegistryItem[] = [buttonRegistryItem]
+export const registryItems: RegistryItem[] = [
+  buttonRegistryItem,
+  cardRegistryItem,
+]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]
 

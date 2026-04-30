@@ -54,8 +54,13 @@ body {
   line-height: 1.7;
 }
 
-.button-board {
+.component-grid {
   width: min(100%, 760px);
+  display: grid;
+  gap: 24px;
+}
+
+.button-board {
   display: grid;
   border: 1px solid var(--nx-color-border);
 }
@@ -77,6 +82,10 @@ body {
 .button-row span {
   color: var(--nx-color-muted-foreground);
   font-size: 0.875rem;
+}
+
+.card-preview {
+  max-width: 520px;
 }
 
 @media (max-width: 640px) {

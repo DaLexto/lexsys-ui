@@ -31,7 +31,7 @@ describe("install flow smoke", () => {
     }
   })
 
-  test("initializes a Vite consumer and installs Button idempotently", async () => {
+  test("initializes a Vite consumer and installs components idempotently", async () => {
     await writeJson(join(tempDir, "package.json"), {
       dependencies: {
         "@base-ui/react": "^1.4.1",
@@ -54,9 +54,9 @@ describe("install flow smoke", () => {
     )
 
     await runInit()
-    await runAdd(["button"])
+    await runAdd(["button", "card"])
     await runInit()
-    await runAdd(["button"])
+    await runAdd(["button", "card"])
 
     const css = await readFile(join(tempDir, "src/style.css"), "utf-8")
     expect(css).toBe(
@@ -90,12 +90,21 @@ describe("install flow smoke", () => {
     await expect(
       readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
+    await expect(
+      readFile(
+        join(tempDir, "src/components/ui/Card/Card.variants.ts"),
+        "utf-8",
+      ),
+    ).resolves.toContain("bg-nx-surface")
+    await expect(
+      readFile(join(tempDir, "src/components/ui/Card/Card.tsx"), "utf-8"),
+    ).resolves.toContain("@/lib/utils")
 
     const config = JSON.parse(
       await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
     ) as { installed?: Record<string, string>; tailwind?: { css?: string } }
 
     expect(config.tailwind?.css).toBe("src/style.css")
-    expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(config.installed).toEqual({ button: "0.0.1", card: "0.0.1" })
   })
 })

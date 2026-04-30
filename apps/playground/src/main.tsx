@@ -1,6 +1,14 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { Button } from "@neurex/ui"
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@neurex/ui"
 import "./styles.css"
 
 const buttonExamples = [
@@ -35,20 +43,42 @@ const App = () => {
     <main className="playground-shell">
       <section className="playground-header">
         <p className="playground-label">Reference playground</p>
-        <h1>Neurex Button</h1>
+        <h1>Neurex Components</h1>
         <p>
           A committed Vite consumer for checking package exports, token CSS,
           Tailwind classes, and component states while the registry grows.
         </p>
       </section>
 
-      <section className="button-board" aria-label="Button examples">
-        {buttonExamples.map((example) => (
-          <article className="button-row" key={example.label}>
-            <span>{example.label}</span>
-            <Button {...example.props} />
-          </article>
-        ))}
+      <section className="component-grid" aria-label="Component examples">
+        <div className="button-board">
+          {buttonExamples.map((example) => (
+            <article className="button-row" key={example.label}>
+              <span>{example.label}</span>
+              <Button {...example.props} />
+            </article>
+          ))}
+        </div>
+
+        <Card className="card-preview">
+          <CardHeader>
+            <CardTitle>Registry Card</CardTitle>
+            <CardDescription>
+              A passive layout component that validates slot exports, semantic
+              color tokens, spacing tokens, and user-owned template structure.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            Card is intentionally low-risk: it adds composition surface without
+            introducing popover, focus trap, or keyboard navigation behavior.
+          </CardContent>
+          <CardFooter>
+            <Button size="sm">Install card</Button>
+            <Button size="sm" variant="secondary">
+              Preview
+            </Button>
+          </CardFooter>
+        </Card>
       </section>
     </main>
   )

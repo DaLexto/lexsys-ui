@@ -14,7 +14,7 @@ The current implementation focuses on the first supported path:
 - Vite React setup through `neurex init vite`
 - Tailwind v4 wiring for Vite consumers
 - token and theme CSS installation
-- `Button` as the first registry component
+- `Button` and `Card` as the first registry components
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification
 
@@ -39,6 +39,7 @@ Then add the first component:
 
 ```bash
 neurex add button
+neurex add card
 ```
 
 Generated files use the current Vite defaults:
