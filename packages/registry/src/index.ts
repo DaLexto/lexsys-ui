@@ -21,9 +21,11 @@ import type {
 
 export { buttonRegistryItem } from "./items/button.js"
 export { cardRegistryItem } from "./items/card.js"
+export { badgeRegistryItem } from "./items/badge.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
+import { badgeRegistryItem } from "./items/badge.js"
 import { buttonRegistryItem } from "./items/button.js"
 import { cardRegistryItem } from "./items/card.js"
 import { themeRegistryStyle } from "./styles/theme.js"
@@ -39,6 +41,7 @@ export interface RegistryManifest {
 }
 
 export const registryItems: RegistryItem[] = [
+  badgeRegistryItem,
   buttonRegistryItem,
   cardRegistryItem,
 ]

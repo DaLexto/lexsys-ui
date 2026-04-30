@@ -54,9 +54,9 @@ describe("install flow smoke", () => {
     )
 
     await runInit()
-    await runAdd(["button", "card"])
+    await runAdd(["button", "card", "badge"])
     await runInit()
-    await runAdd(["button", "card"])
+    await runAdd(["button", "card", "badge"])
 
     const css = await readFile(join(tempDir, "src/style.css"), "utf-8")
     expect(css).toBe(
@@ -74,7 +74,7 @@ describe("install flow smoke", () => {
     ).resolves.toContain("plugins: [tailwindcss(), react()]")
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--nx-button-radius")
+    ).resolves.toContain("--nx-badge-radius")
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
     ).resolves.toContain("--color-nx-primary")
@@ -99,6 +99,15 @@ describe("install flow smoke", () => {
     await expect(
       readFile(join(tempDir, "src/components/ui/Card/Card.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
+    await expect(
+      readFile(
+        join(tempDir, "src/components/ui/Badge/Badge.variants.ts"),
+        "utf-8",
+      ),
+    ).resolves.toContain("bg-[var(--nx-badge-background)]")
+    await expect(
+      readFile(join(tempDir, "src/components/ui/Badge/Badge.tsx"), "utf-8"),
+    ).resolves.toContain("@/lib/utils")
 
     const config = JSON.parse(
       await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
@@ -110,6 +119,10 @@ describe("install flow smoke", () => {
 
     expect(config.style).toBe("default")
     expect(config.tailwind?.css).toBe("src/style.css")
-    expect(config.installed).toEqual({ button: "0.0.1", card: "0.0.1" })
+    expect(config.installed).toEqual({
+      badge: "0.0.1",
+      button: "0.0.1",
+      card: "0.0.1",
+    })
   })
 })

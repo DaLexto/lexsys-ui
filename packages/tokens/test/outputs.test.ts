@@ -37,6 +37,12 @@ describe("createStyleOutputs", () => {
       "--nx-button-radius: var(--nx-radius-control)",
     )
     expect(outputs.tokensCss).toContain(
+      "--nx-badge-radius: var(--nx-radius-control)",
+    )
+    expect(outputs.tokensCss).toContain(
+      "--nx-badge-primary-background: var(--nx-color-primary)",
+    )
+    expect(outputs.tokensCss).toContain(
       "--nx-card-background: var(--nx-color-surface)",
     )
     expect(outputs.tokensCss).toContain(

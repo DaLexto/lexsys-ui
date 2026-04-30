@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
 import {
+  Badge,
   Button,
   Card,
   CardContent,
@@ -140,8 +141,8 @@ const App = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                This checks that Card variants still compose with semantic
-                theme tokens.
+                This checks that Card variants still compose with semantic theme
+                tokens.
               </CardContent>
               <CardFooter>
                 <Button size="sm" variant="secondary">
@@ -149,6 +150,31 @@ const App = () => {
                 </Button>
               </CardFooter>
             </Card>
+          </div>
+        </section>
+
+        <section className="component-panel" aria-labelledby="badge-title">
+          <div className="panel-header">
+            <div>
+              <p className="playground-label">Badge</p>
+              <h2 id="badge-title">Tone and variant matrix</h2>
+            </div>
+          </div>
+
+          <div className="badge-board">
+            <Badge size="sm">Neutral sm</Badge>
+            <Badge tone="primary">Primary</Badge>
+            <Badge tone="destructive">Destructive</Badge>
+            <Badge variant="outline">Neutral outline</Badge>
+            <Badge tone="primary" variant="outline">
+              Primary outline
+            </Badge>
+            <Badge
+              tone="primary"
+              className="border-green-600 bg-green-600 text-white"
+            >
+              Tailwind override
+            </Badge>
           </div>
         </section>
       </section>

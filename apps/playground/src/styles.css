@@ -126,6 +126,12 @@ body {
   gap: 16px;
 }
 
+.badge-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 @media (max-width: 640px) {
   .playground-shell {
     padding: 28px;

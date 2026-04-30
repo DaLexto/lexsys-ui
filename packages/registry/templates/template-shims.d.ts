@@ -89,6 +89,30 @@ declare namespace JSX {
   }
 
   interface IntrinsicElements {
+    div: {
+      ref?: unknown
+      className?: string
+      children?: unknown
+      [key: string]: unknown
+    }
+    h3: {
+      ref?: unknown
+      className?: string
+      children?: unknown
+      [key: string]: unknown
+    }
+    p: {
+      ref?: unknown
+      className?: string
+      children?: unknown
+      [key: string]: unknown
+    }
+    span: {
+      ref?: unknown
+      className?: string
+      children?: unknown
+      [key: string]: unknown
+    }
     button: {
       ref?: unknown
       className?: string
