@@ -19,12 +19,14 @@ import type {
   RegistryUtility,
 } from "./registry.types.js"
 
+export { alertRegistryItem } from "./items/alert.js"
 export { buttonRegistryItem } from "./items/button.js"
 export { cardRegistryItem } from "./items/card.js"
 export { badgeRegistryItem } from "./items/badge.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
+import { alertRegistryItem } from "./items/alert.js"
 import { badgeRegistryItem } from "./items/badge.js"
 import { buttonRegistryItem } from "./items/button.js"
 import { cardRegistryItem } from "./items/card.js"
@@ -41,6 +43,7 @@ export interface RegistryManifest {
 }
 
 export const registryItems: RegistryItem[] = [
+  alertRegistryItem,
   badgeRegistryItem,
   buttonRegistryItem,
   cardRegistryItem,

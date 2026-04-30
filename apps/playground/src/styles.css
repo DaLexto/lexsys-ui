@@ -132,6 +132,11 @@ body {
   gap: 10px;
 }
 
+.alert-board {
+  display: grid;
+  gap: 12px;
+}
+
 @media (max-width: 640px) {
   .playground-shell {
     padding: 28px;

@@ -43,6 +43,12 @@ describe("createStyleOutputs", () => {
       "--nx-badge-primary-background: var(--nx-color-primary)",
     )
     expect(outputs.tokensCss).toContain(
+      "--nx-alert-radius: var(--nx-radius-surface)",
+    )
+    expect(outputs.tokensCss).toContain(
+      "--nx-alert-destructive-foreground: var(--nx-color-destructive)",
+    )
+    expect(outputs.tokensCss).toContain(
       "--nx-card-background: var(--nx-color-surface)",
     )
     expect(outputs.tokensCss).toContain(

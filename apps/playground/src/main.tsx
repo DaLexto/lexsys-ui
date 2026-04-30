@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
   Badge,
   Button,
   Card,
@@ -175,6 +178,36 @@ const App = () => {
             >
               Tailwind override
             </Badge>
+          </div>
+        </section>
+
+        <section className="component-panel" aria-labelledby="alert-title">
+          <div className="panel-header">
+            <div>
+              <p className="playground-label">Alert</p>
+              <h2 id="alert-title">Feedback tones</h2>
+            </div>
+          </div>
+
+          <div className="alert-board">
+            <Alert>
+              <AlertTitle>Neutral alert</AlertTitle>
+              <AlertDescription>
+                A calm system message using surface and border tokens.
+              </AlertDescription>
+            </Alert>
+            <Alert tone="primary">
+              <AlertTitle>Primary alert</AlertTitle>
+              <AlertDescription>
+                A highlighted message mapped through primary semantic tokens.
+              </AlertDescription>
+            </Alert>
+            <Alert tone="destructive">
+              <AlertTitle>Destructive alert</AlertTitle>
+              <AlertDescription>
+                A critical message using destructive semantic token mapping.
+              </AlertDescription>
+            </Alert>
           </div>
         </section>
       </section>
