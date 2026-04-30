@@ -29,13 +29,20 @@ neurex <command> [options]
 
 ### `init`
 
-Initializes Neurex in the current project.
+Initializes Neurex in the current project or starts a framework-specific setup.
 
 ```bash
 neurex init
+neurex init vite
+neurex init vite my-app
 ```
 
-Creates the default Neurex project structure:
+Plain `init` is for an existing app. If no supported app scaffold is detected,
+the CLI offers to create one with the available framework starters. For now,
+the only starter is Vite.
+
+When a supported app scaffold exists, plain `init` creates the default Neurex
+project structure and wires the supported styling setup:
 
 ```txt
 src/components/ui/
@@ -43,6 +50,29 @@ lib/neurex/
 styles/neurex/
 neurex.config.json
 ```
+
+Framework init is explicit:
+
+```bash
+neurex init vite [directory]
+```
+
+Rules:
+
+- `neurex init vite` targets the current working directory.
+- `neurex init vite my-app` targets `./my-app`.
+- `neurex init vite my-app --cwd ./playground` targets `./playground/my-app`.
+- If the target directory does not exist, the CLI may create it.
+- If the target directory exists and is not empty, the CLI must only continue
+  when the directory is safe for the selected framework setup.
+
+Supported framework init targets:
+
+| Framework | Status |
+| --------- | ------ |
+| `vite`    | MVP    |
+
+Future framework init targets may include `next`, `laravel`, and `custom`.
 
 ---
 

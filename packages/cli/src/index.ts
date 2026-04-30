@@ -54,7 +54,7 @@ try {
   }
 
   if (command === "init") {
-    await runInit()
+    await runInit(args)
     process.exit(0)
   }
 
