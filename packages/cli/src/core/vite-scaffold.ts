@@ -2,9 +2,9 @@ import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, join } from "node:path"
 import { fileExists } from "./fs.js"
 
-const viteConfig = `import { fileURLToPath, URL } from "node:url";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+const viteConfig = `import { fileURLToPath, URL } from "node:url"
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
 
 export default defineConfig({
   plugins: [react()],
@@ -13,7 +13,7 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-});
+})
 `
 
 const tsConfig = `{
@@ -87,6 +87,9 @@ const prettierIgnore = `node_modules
 dist
 dist-ssr
 coverage
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
 `
 
 const prettierConfig = `{
@@ -109,16 +112,16 @@ const indexHtml = `<!doctype html>
 </html>
 `
 
-const mainTsx = `import React from "react";
-import ReactDOM from "react-dom/client";
-import "./style.css";
-import { App } from "./App";
+const mainTsx = `import React from "react"
+import ReactDOM from "react-dom/client"
+import "./style.css"
+import { App } from "./App"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-);
+)
 `
 
 const viteEnvDts = `/// <reference types="vite/client" />
@@ -129,15 +132,20 @@ const appTsx = `export const App = () => {
     <main>
       <h1>Neurex + Vite</h1>
     </main>
-  );
-};
+  )
+}
 `
 
 const styleCss = `@import "tailwindcss";
 
 :root {
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
   color: #111827;
   background: #ffffff;

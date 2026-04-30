@@ -151,10 +151,10 @@ const ensureTailwindViteImport = (content: string): string => {
   const importMatch = content.match(/^(?:import[^\n]*\n)+/u)
 
   if (!importMatch) {
-    return `import tailwindcss from "@tailwindcss/vite";\n${content}`
+    return `import tailwindcss from "@tailwindcss/vite"\n${content}`
   }
 
-  return `${content.slice(0, importMatch[0].length)}import tailwindcss from "@tailwindcss/vite";\n${content.slice(importMatch[0].length)}`
+  return `${content.slice(0, importMatch[0].length)}import tailwindcss from "@tailwindcss/vite"\n${content.slice(importMatch[0].length)}`
 }
 
 const ensureTailwindVitePluginUsage = (content: string): string => {
@@ -181,7 +181,7 @@ const ensureNodeUrlImport = (content: string): string => {
     return content
   }
 
-  return `import { fileURLToPath, URL } from "node:url";\n${content}`
+  return `import { fileURLToPath, URL } from "node:url"\n${content}`
 }
 
 const ensureViteResolveAliasUsage = (content: string): string => {

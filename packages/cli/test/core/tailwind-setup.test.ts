@@ -64,7 +64,7 @@ describe("tailwind setup", () => {
 
     await writeFile(
       viteConfigPath,
-      'import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\n\nexport default defineConfig({\n  plugins: [react()],\n});\n',
+      'import { defineConfig } from "vite"\nimport react from "@vitejs/plugin-react"\n\nexport default defineConfig({\n  plugins: [react()],\n})\n',
       "utf-8",
     )
 
@@ -72,13 +72,13 @@ describe("tailwind setup", () => {
     await ensureViteTailwindPlugin()
 
     await expect(readFile(viteConfigPath, "utf-8")).resolves.toBe(
-      'import { defineConfig } from "vite";\n' +
-        'import react from "@vitejs/plugin-react";\n' +
-        'import tailwindcss from "@tailwindcss/vite";\n' +
+      'import { defineConfig } from "vite"\n' +
+        'import react from "@vitejs/plugin-react"\n' +
+        'import tailwindcss from "@tailwindcss/vite"\n' +
         "\n" +
         "export default defineConfig({\n" +
         "  plugins: [tailwindcss(), react()],\n" +
-        "});\n",
+        "})\n",
     )
   })
 
@@ -87,7 +87,7 @@ describe("tailwind setup", () => {
 
     await writeFile(
       viteConfigPath,
-      'import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\n\nexport default defineConfig({\n  plugins: [react()],\n});\n',
+      'import { defineConfig } from "vite"\nimport react from "@vitejs/plugin-react"\n\nexport default defineConfig({\n  plugins: [react()],\n})\n',
       "utf-8",
     )
 
@@ -95,9 +95,9 @@ describe("tailwind setup", () => {
     await ensureViteSrcAlias()
 
     await expect(readFile(viteConfigPath, "utf-8")).resolves.toBe(
-      'import { fileURLToPath, URL } from "node:url";\n' +
-        'import { defineConfig } from "vite";\n' +
-        'import react from "@vitejs/plugin-react";\n' +
+      'import { fileURLToPath, URL } from "node:url"\n' +
+        'import { defineConfig } from "vite"\n' +
+        'import react from "@vitejs/plugin-react"\n' +
         "\n" +
         "export default defineConfig({\n" +
         "  resolve: {\n" +
@@ -106,7 +106,7 @@ describe("tailwind setup", () => {
         "    },\n" +
         "  },\n" +
         "  plugins: [react()],\n" +
-        "});\n",
+        "})\n",
     )
   })
 
