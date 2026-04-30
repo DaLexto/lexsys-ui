@@ -44,6 +44,7 @@ const tsConfigApp = `{
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -122,9 +123,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <App />
   </React.StrictMode>,
 )
-`
-
-const viteEnvDts = `/// <reference types="vite/client" />
 `
 
 const appTsx = `export const App = () => {
@@ -350,10 +348,6 @@ export const scaffoldViteProject = async (
   await writeScaffoldFile(join(targetDirectory, "vite.config.ts"), viteConfig, {
     allowExisting: true,
   })
-  await writeScaffoldFile(
-    join(targetDirectory, "src", "vite-env.d.ts"),
-    viteEnvDts,
-  )
   await writeScaffoldFile(join(targetDirectory, "src", "main.tsx"), mainTsx)
   await writeScaffoldFile(join(targetDirectory, "src", "App.tsx"), appTsx)
   await writeScaffoldFile(join(targetDirectory, "src", "style.css"), styleCss, {

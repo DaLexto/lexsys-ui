@@ -372,7 +372,7 @@ Status:
   `init` and `add button` twice, including idempotent CSS/Tailwind/style
   wiring and installed component tracking.
 
-### TODO: Add a playground or example consumer
+### DONE: Add a playground or example consumer
 
 Problem:
 
@@ -385,7 +385,16 @@ Direction:
 - Render installed/reference Button.
 - Use it for screenshot/manual checks once styling evolves.
 
-### TODO: Clean docs encoding and status wording
+Status:
+
+- Done as a first committed Vite playground in `apps/playground`.
+- The playground consumes public package exports from `@neurex/ui` and
+  `@neurex/tokens`, renders Button states, and validates token CSS/Tailwind
+  behavior through workspace build/typecheck scripts.
+- `D:\PLAYGROUND\sandbox-neurex` remains the manual real-user install sandbox
+  for fresh `neurex init vite` / `neurex add ...` smoke tests.
+
+### DONE: Clean docs encoding and status wording
 
 Problem:
 
@@ -397,6 +406,13 @@ Direction:
 - Normalize docs to clean UTF-8 or plain ASCII.
 - Mark unimplemented promises clearly.
 - Keep README honest about current status.
+
+Status:
+
+- Done for the main public entrypoint.
+- README now uses plain ASCII formatting, describes the current Vite/Button MVP
+  accurately, and moves planned components/frameworks/Creator work out of the
+  "available now" path.
 
 ---
 

@@ -86,14 +86,14 @@ describe("runInit", () => {
       readFile(join(appDir, "src", "main.tsx"), "utf-8"),
     ).resolves.toContain("ReactDOM.createRoot")
     await expect(
-      readFile(join(appDir, "src", "vite-env.d.ts"), "utf-8"),
-    ).resolves.toContain("vite/client")
-    await expect(
       readFile(join(appDir, "tsconfig.json"), "utf-8"),
     ).resolves.toContain('"path": "./tsconfig.app.json"')
     await expect(
       readFile(join(appDir, "tsconfig.app.json"), "utf-8"),
     ).resolves.toContain('"@/*": ["./src/*"]')
+    await expect(
+      readFile(join(appDir, "tsconfig.app.json"), "utf-8"),
+    ).resolves.toContain('"types": ["vite/client"]')
     await expect(
       readFile(join(appDir, "tsconfig.app.json"), "utf-8"),
     ).resolves.not.toContain("baseUrl")

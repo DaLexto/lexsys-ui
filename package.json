@@ -21,7 +21,10 @@
     "cli:check": "pnpm --filter ./packages/cli check",
     "registry:build": "pnpm --filter ./packages/registry build",
     "registry:typecheck": "pnpm --filter ./packages/registry typecheck",
-    "registry:check": "pnpm --filter ./packages/registry check"
+    "registry:check": "pnpm --filter ./packages/registry check",
+    "playground:dev": "pnpm --filter @neurex/playground dev",
+    "playground:build": "pnpm --filter @neurex/playground build",
+    "playground:typecheck": "pnpm --filter @neurex/playground typecheck"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

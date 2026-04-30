@@ -1,210 +1,161 @@
 # Neurex
 
-A modern, registry-first React UI framework built on top of Base UI, Tailwind CSS, and a full design-token system.
+Neurex is an early-stage registry-first React UI framework built on Base UI,
+Tailwind CSS, and a design-token system.
 
----
+The goal is shadcn-style ownership with a stronger token/theme foundation:
+Neurex installs editable component source code into your project instead of
+forcing you to import black-box runtime components.
 
-## ✨ Overview
+## Current MVP
 
-Neurex is not a traditional component library.
+The current implementation focuses on the first supported path:
 
-Instead of installing components as dependencies, Neurex uses a CLI to generate **copyable, editable components directly into your project**.
+- Vite React setup through `neurex init vite`
+- Tailwind v4 wiring for Vite consumers
+- token and theme CSS installation
+- `Button` as the first registry component
+- conflict-aware installs with no silent overwrites
+- local playground for package/export/style verification
 
-```bash
-npx neurex add button
-```
+More components, framework starters, remote registry flows, richer update
+automation, and Creator-facing output are planned but not complete yet.
 
-This gives you full control over your UI without vendor lock-in.
+## Quick Start
 
----
-
-## 🚀 Key Features
-
-- 🧱 **Registry-first architecture** — components are copied, not imported
-- 🎨 **Tailwind-first DX** — familiar utility-based styling
-- 🧠 **Design tokens** — full design-system foundation under the hood
-- ♿ **Accessible by default** — powered by Base UI primitives
-- ⚡ **CLI automation** — zero manual setup
-- 🔄 **Safe updates** — no silent overwrites of user code
-- 🧩 **Flexible API** — variants + `className` overrides
-- 🧬 **Composable components** — simple + advanced usage patterns
-- 🌗 **Multi-theme support** — no runtime provider required
-
----
-
-## 📦 Installation
+Create or prepare a Vite consumer:
 
 ```bash
-npx neurex init
+neurex init vite my-app
 ```
 
-Then add components:
+Or initialize Neurex inside an existing supported Vite app:
 
 ```bash
-npx neurex add button
-npx neurex add dialog textfield
+neurex init
 ```
 
----
+Then add the first component:
 
-## 🧠 How It Works
-
-```txt
-Neurex Registry
-        ↓
-Neurex CLI
-        ↓
-Your Project
-        ↓
-Your Components (fully owned)
+```bash
+neurex add button
 ```
 
-Components are installed into your project:
+Generated files use the current Vite defaults:
 
 ```txt
 src/components/ui/Button/
 ├── Button.tsx
 ├── Button.types.ts
 └── Button.variants.ts
+
+src/lib/utils.ts
+styles/neurex/tokens.css
+styles/neurex/theme.css
+neurex.config.json
 ```
 
-You can modify them freely.
+## Styling Model
 
----
-
-## 🎯 Philosophy
-
-```txt
-You own the code.
-Neurex provides the system.
-```
-
-- No black-box components
-- No forced abstractions
-- No lock-in
-
----
-
-## 🏗️ Architecture
-
-Neurex is built around four core layers:
-
-```txt
-CLI + Registry
-    ↓
-Components (copyable)
-    ↓
-Tailwind Styling
-    ↓
-Design Tokens (source of truth)
-```
-
-Internally:
-
-- **Base UI** → behavior & accessibility
-- **Neurex** → API, styling, system design
-
----
-
-## 🎨 Styling & Tokens
-
-Neurex uses a full token system internally:
-
-```txt
-primitives → semantics → components → themes
-```
-
-But the developer experience stays simple:
+Neurex is Tailwind-native for day-to-day usage:
 
 ```tsx
-<Button variant="primary" className="w-full" />
-```
-
----
-
-## 🌗 Theming
-
-Neurex uses CSS variables for theming:
-
-```css
-:root { ... }
-.dark { ... }
-.theme-brand { ... }
-```
-
-You can control themes using:
-
-- class toggling
-- `next-themes`
-- your own logic
-
-No provider required.
-
----
-
-## ⚡ CLI Commands
-
-```bash
-neurex init
-neurex add <component...>
-neurex update <component...>
-neurex update --all
-neurex list
-neurex doctor
-```
-
-Interactive mode:
-
-```bash
-neurex add
-```
-
-## 📚 Documentation
-
-- [Architecture](./docs/ARCHITECTURE.md)
-- [CLI](./docs/CLI.md)
-
----
-
-## 🔄 Updates
-
-Neurex respects your code.
-
-- ✅ unchanged files → updated automatically
-- ⚠️ modified files → conflict shown
-- ❌ no silent overwrites
-
----
-
-## 🧩 Example
-
-```tsx
-import { Button } from "./components/ui/Button/Button"
+import { Button } from "@/components/ui/Button/Button"
 
 export function App() {
-  return <Button variant="primary">Click me</Button>
+  return (
+    <Button className="w-full bg-green-600 hover:bg-green-700">Save</Button>
+  )
 }
 ```
 
----
+The default component variants consume semantic Neurex tokens under the hood:
 
-## 📚 Status
+```tsx
+<Button variant="primary" size="md">
+  Create
+</Button>
+```
 
-🚧 Early development  
-Architecture is locked and implementation is in progress.
+Users can style locally with Tailwind classes or theme globally through CSS
+variables:
 
----
+```css
+:root {
+  --nx-color-primary: #16a34a;
+}
+```
 
-## 🧠 Inspiration
+## Architecture
+
+The locked design-system flow is:
+
+```txt
+TOKENS -> THEMES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
+```
+
+Runtime package responsibilities:
+
+- `packages/tokens` owns token source and generated CSS outputs.
+- `packages/ui` owns source/reference components.
+- `packages/registry` owns installable templates and metadata.
+- `packages/cli` installs registry items into user projects.
+- `apps/playground` verifies public package exports and rendered states.
+
+## CLI
+
+Common commands:
+
+```bash
+neurex init
+neurex init vite [directory]
+neurex add button
+neurex list
+neurex status
+neurex doctor
+neurex registry --summary
+```
+
+See [docs/CLI.md](./docs/CLI.md) for the command contract.
+
+## Development
+
+Install dependencies:
+
+```bash
+pnpm install
+```
+
+Run the main checks:
+
+```bash
+pnpm build
+pnpm test
+pnpm typecheck
+pnpm lint
+pnpm exec prettier --check .
+```
+
+Run the playground:
+
+```bash
+pnpm playground:dev
+```
+
+## Status
+
+Neurex is not production-ready yet. The architecture is locked, the first Vite
+install flow is working, and the project is now building the foundation before
+expanding the component catalog.
+
+## Inspiration
 
 - shadcn/ui
-- Radix UI
 - Base UI
+- Radix UI
 - Material UI
-- modern design system architectures
+- modern design-system architectures
 
----
-
-## 📄 License
+## License
 
 MIT
