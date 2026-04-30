@@ -46,10 +46,14 @@ project structure and wires the supported styling setup:
 
 ```txt
 src/components/ui/
-lib/neurex/
+src/lib/
 styles/neurex/
 neurex.config.json
 ```
+
+For Vite, init also wires the `@/* -> ./src/*` TypeScript path and the matching
+Vite runtime alias. Generated components can import shared utilities through
+`@/lib/utils`.
 
 Framework init is explicit:
 
@@ -312,8 +316,19 @@ Default config shape:
 ```json
 {
   "componentsPath": "src/components/ui",
-  "utilitiesPath": "lib/neurex",
+  "utilitiesPath": "src/lib",
   "stylesPath": "styles/neurex",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "tailwind": {
+    "version": "v4",
+    "css": "src/style.css"
+  },
   "installed": {},
   "registryUrl": null
 }
@@ -326,6 +341,8 @@ Default config shape:
 | `componentsPath` | Target directory for installed components.                     |
 | `utilitiesPath`  | Target directory for shared utilities.                         |
 | `stylesPath`     | Target directory for shared styles and token output.           |
+| `aliases`        | User-facing import aliases used by generated code and tooling. |
+| `tailwind`       | Supported Tailwind version and CSS entrypoint path.            |
 | `installed`      | Installed registry item versions tracked by the CLI.           |
 | `registryUrl`    | Optional remote registry URL. Uses local registry when `null`. |
 

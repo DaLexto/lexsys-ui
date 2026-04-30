@@ -5,10 +5,19 @@ import type { NeurexConfig } from "../../src/core/config.js"
 import { setCwd } from "../../src/core/context.js"
 import {
   ensureTailwindCssImport,
+  ensureTypeScriptSrcAlias,
+  ensureViteSrcAlias,
   ensureViteTailwindPlugin,
 } from "../../src/core/tailwind-setup.js"
 
 const config: NeurexConfig = {
+  aliases: {
+    components: "@/components",
+    hooks: "@/hooks",
+    lib: "@/lib",
+    ui: "@/components/ui",
+    utils: "@/lib/utils",
+  },
   componentsPath: "src/components/ui",
   installed: {},
   registryUrl: null,
@@ -17,7 +26,7 @@ const config: NeurexConfig = {
     version: "v4",
     css: "src/style.css",
   },
-  utilitiesPath: "lib/neurex",
+  utilitiesPath: "src/lib",
 }
 
 describe("tailwind setup", () => {
@@ -71,5 +80,51 @@ describe("tailwind setup", () => {
         "  plugins: [tailwindcss(), react()],\n" +
         "});\n",
     )
+  })
+
+  test("adds the Vite src alias to an existing Vite config once", async () => {
+    const viteConfigPath = join(tempDir, "vite.config.ts")
+
+    await writeFile(
+      viteConfigPath,
+      'import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\n\nexport default defineConfig({\n  plugins: [react()],\n});\n',
+      "utf-8",
+    )
+
+    await ensureViteSrcAlias()
+    await ensureViteSrcAlias()
+
+    await expect(readFile(viteConfigPath, "utf-8")).resolves.toBe(
+      'import { fileURLToPath, URL } from "node:url";\n' +
+        'import { defineConfig } from "vite";\n' +
+        'import react from "@vitejs/plugin-react";\n' +
+        "\n" +
+        "export default defineConfig({\n" +
+        "  resolve: {\n" +
+        "    alias: {\n" +
+        '      "@": fileURLToPath(new URL("./src", import.meta.url)),\n' +
+        "    },\n" +
+        "  },\n" +
+        "  plugins: [react()],\n" +
+        "});\n",
+    )
+  })
+
+  test("adds the TypeScript src alias without baseUrl", async () => {
+    const tsConfigPath = join(tempDir, "tsconfig.app.json")
+
+    await writeFile(
+      tsConfigPath,
+      '{\n  "compilerOptions": {\n    "strict": true\n  },\n  "include": ["src"]\n}\n',
+      "utf-8",
+    )
+
+    await ensureTypeScriptSrcAlias()
+    await ensureTypeScriptSrcAlias()
+
+    const content = await readFile(tsConfigPath, "utf-8")
+
+    expect(content).toContain('"@/*": ["./src/*"]')
+    expect(content).not.toContain("baseUrl")
   })
 })

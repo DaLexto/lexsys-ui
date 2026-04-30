@@ -1,15 +1,21 @@
 import { CliError } from "./cli-error.js"
 import type { RegistryItem } from "@neurex/registry"
 import {
+  registryUtilities as registryUtilityDefinitions,
   registryStyles as registryStyleDefinitions,
   validateRegistryItem,
 } from "@neurex/registry"
 import { getRegistryItems } from "./registry-provider.js"
-import type { ResolvedRegistryStyle } from "./registry-types.js"
+import type {
+  ResolvedRegistryStyle,
+  ResolvedRegistryUtility,
+} from "./registry-types.js"
 import { findClosestValue } from "./suggestions.js"
 
 const registryStyles =
   registryStyleDefinitions as unknown as readonly ResolvedRegistryStyle[]
+const registryUtilities =
+  registryUtilityDefinitions as unknown as readonly ResolvedRegistryUtility[]
 
 interface RegistryResolverOptions {
   fallback?: boolean
@@ -126,5 +132,21 @@ export const resolveRegistryStyles = (
     }
 
     return style
+  })
+}
+
+export const resolveRegistryUtilities = (
+  names: string[],
+): ResolvedRegistryUtility[] => {
+  return names.map((name) => {
+    const utility = registryUtilities.find((registryUtility) => {
+      return normalizeName(registryUtility.name) === normalizeName(name)
+    })
+
+    if (!utility) {
+      throw new CliError(`Utility "${name}" not found in registry.`)
+    }
+
+    return utility
   })
 }

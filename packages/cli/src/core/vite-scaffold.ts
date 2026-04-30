@@ -2,33 +2,96 @@ import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, join } from "node:path"
 import { fileExists } from "./fs.js"
 
-const viteConfig = `import { defineConfig } from "vite";
+const viteConfig = `import { fileURLToPath, URL } from "node:url";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
 });
 `
 
 const tsConfig = `{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
+`
+
+const tsConfigApp = `{
   "compilerOptions": {
-    "target": "ES2022",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "isolatedModules": true,
+    "moduleDetection": "force",
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"]
+}
+`
+
+const tsConfigNode = `{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["vite.config.ts"]
+}
+`
+
+const gitIgnore = `node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+!.env.example
+`
+
+const prettierIgnore = `node_modules
+dist
+dist-ssr
+coverage
+`
+
+const prettierConfig = `{
+  "semi": false,
+  "trailingComma": "all"
 }
 `
 
@@ -121,6 +184,9 @@ const getPackageJson = (targetDirectory: string): string => {
     scripts: {
       dev: "vite",
       build: "tsc -b && vite build",
+      typecheck: "tsc -b",
+      format: "prettier --write .",
+      "format:check": "prettier --check .",
       preview: "vite preview",
     },
   }
@@ -165,6 +231,9 @@ const mergePackageJson = (
     scripts: {
       dev: "vite",
       build: "tsc -b && vite build",
+      typecheck: "tsc -b",
+      format: "prettier --write .",
+      "format:check": "prettier --check .",
       preview: "vite preview",
       ...existingScripts,
     },
@@ -243,8 +312,33 @@ export const scaffoldViteProject = async (
   await mkdir(targetDirectory, { recursive: true })
 
   await writePackageJson(targetDirectory)
+  await writeScaffoldFile(join(targetDirectory, ".gitignore"), gitIgnore, {
+    allowExisting: true,
+  })
+  await writeScaffoldFile(
+    join(targetDirectory, ".prettierignore"),
+    prettierIgnore,
+    {
+      allowExisting: true,
+    },
+  )
+  await writeScaffoldFile(
+    join(targetDirectory, ".prettierrc"),
+    prettierConfig,
+    {
+      allowExisting: true,
+    },
+  )
   await writeScaffoldFile(join(targetDirectory, "index.html"), indexHtml)
   await writeScaffoldFile(join(targetDirectory, "tsconfig.json"), tsConfig)
+  await writeScaffoldFile(
+    join(targetDirectory, "tsconfig.app.json"),
+    tsConfigApp,
+  )
+  await writeScaffoldFile(
+    join(targetDirectory, "tsconfig.node.json"),
+    tsConfigNode,
+  )
   await writeScaffoldFile(join(targetDirectory, "vite.config.ts"), viteConfig, {
     allowExisting: true,
   })

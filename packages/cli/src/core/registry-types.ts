@@ -8,3 +8,9 @@ export interface ResolvedRegistryStyle {
   version: string
   files: ResolvedRegistryStyleFile[]
 }
+
+export interface ResolvedRegistryUtility {
+  name: string
+  path: string
+  target: string
+}

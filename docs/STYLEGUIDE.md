@@ -165,7 +165,7 @@ Generated CSS belongs to the token pipeline, not to handwritten component styles
 Default shared output in consumer projects is:
 
 ```txt
-lib/neurex/
+src/lib/
 styles/neurex/
 ```
 

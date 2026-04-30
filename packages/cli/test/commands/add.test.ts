@@ -104,8 +104,8 @@ describe("runAdd", () => {
       },
       packageManager: "pnpm@10.33.0",
     })
-    await mkdir(join(tempDir, "lib/neurex"), { recursive: true })
-    await writeFile(join(tempDir, "lib/neurex/cn.ts"), "user cn", "utf-8")
+    await mkdir(join(tempDir, "src/lib"), { recursive: true })
+    await writeFile(join(tempDir, "src/lib/utils.ts"), "user cn", "utf-8")
 
     await runAdd(["button"])
 
@@ -120,7 +120,7 @@ describe("runAdd", () => {
       "Shared resource conflicts were left untouched.",
     )
     await expect(
-      readFile(join(tempDir, "lib/neurex/cn.ts"), "utf-8"),
+      readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toBe("user cn")
   })
 })

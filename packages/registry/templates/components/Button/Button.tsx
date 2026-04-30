@@ -8,7 +8,7 @@ import { forwardRef } from "react"
 import { Button as BaseButton } from "@base-ui/react/button"
 import type { ButtonProps } from "./Button.types"
 import { buttonVariants } from "./Button.variants"
-import { cn } from "../../../../lib/neurex/cn"
+import { cn } from "@/lib/utils"
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (

@@ -79,7 +79,7 @@ declare module "@base-ui/react/button" {
   ): ReactElement | null
 }
 
-declare module "*lib/neurex/cn" {
+declare module "@/lib/utils" {
   export function cn(...inputs: unknown[]): string
 }
 

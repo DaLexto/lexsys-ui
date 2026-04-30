@@ -59,7 +59,7 @@ const style: RegistryStyle = {
 const utility: RegistryUtility = {
   name: "cn",
   path: "shared/utils/cn.ts",
-  target: "cn.ts",
+  target: "utils.ts",
 }
 
 describe("validateRegistry", () => {

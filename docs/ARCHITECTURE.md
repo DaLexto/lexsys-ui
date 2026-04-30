@@ -369,7 +369,7 @@ Neurex uses a global shared layer for reusable resources.
 Default locations:
 
 ```txt
-lib/neurex/
+src/lib/
 styles/neurex/
 ```
 
@@ -393,16 +393,16 @@ Default consumer project output:
 
 ```txt
 project/
-├── components/
-│   └── ui/
-│       └── Button/
-│           ├── Button.tsx
-│           ├── Button.types.ts
-│           └── Button.variants.ts
-│
-├── lib/
-│   └── neurex/
-│       └── cn.ts
+├── src/
+│   ├── components/
+│   │   └── ui/
+│   │       └── Button/
+│   │           ├── Button.tsx
+│   │           ├── Button.types.ts
+│   │           └── Button.variants.ts
+│   │
+│   └── lib/
+│       └── utils.ts
 │
 ├── styles/
 │   └── neurex/
@@ -415,8 +415,10 @@ project/
 ### Rules
 
 - Components install to `src/components/ui/ComponentName/`
-- Utilities install to `lib/neurex/`
+- Utilities install to `src/lib/`
 - Styles and tokens install to `styles/neurex/`
+- Generated imports use the configured user-facing aliases, starting with
+  `@/lib/utils`
 - Project configuration lives in `neurex.config.json`
 
 ---

@@ -65,8 +65,20 @@ describe("runInit", () => {
     expect(packageJson.scripts).toEqual({
       build: "tsc -b && vite build",
       dev: "vite",
+      format: "prettier --write .",
+      "format:check": "prettier --check .",
       preview: "vite preview",
+      typecheck: "tsc -b",
     })
+    await expect(
+      readFile(join(appDir, ".gitignore"), "utf-8"),
+    ).resolves.toContain("node_modules")
+    await expect(
+      readFile(join(appDir, ".prettierignore"), "utf-8"),
+    ).resolves.toContain("dist")
+    await expect(
+      readFile(join(appDir, ".prettierrc"), "utf-8"),
+    ).resolves.toContain('"semi": false')
     await expect(
       readFile(join(appDir, "index.html"), "utf-8"),
     ).resolves.toContain("/src/main.tsx")
@@ -78,16 +90,33 @@ describe("runInit", () => {
     ).resolves.toContain("vite/client")
     await expect(
       readFile(join(appDir, "tsconfig.json"), "utf-8"),
-    ).resolves.toContain('"jsx": "react-jsx"')
+    ).resolves.toContain('"path": "./tsconfig.app.json"')
+    await expect(
+      readFile(join(appDir, "tsconfig.app.json"), "utf-8"),
+    ).resolves.toContain('"@/*": ["./src/*"]')
+    await expect(
+      readFile(join(appDir, "tsconfig.app.json"), "utf-8"),
+    ).resolves.not.toContain("baseUrl")
+    await expect(
+      readFile(join(appDir, "tsconfig.node.json"), "utf-8"),
+    ).resolves.toContain('"include": ["vite.config.ts"]')
     await expect(
       readFile(join(appDir, "vite.config.ts"), "utf-8"),
     ).resolves.toContain("plugins: [tailwindcss(), react()]")
+    await expect(
+      readFile(join(appDir, "vite.config.ts"), "utf-8"),
+    ).resolves.toContain(
+      '"@": fileURLToPath(new URL("./src", import.meta.url))',
+    )
     await expect(
       readFile(join(appDir, "src", "style.css"), "utf-8"),
     ).resolves.toContain('@import "tailwindcss";')
     await expect(
       readFile(join(appDir, "neurex.config.json"), "utf-8"),
     ).resolves.toContain('"componentsPath": "src/components/ui"')
+    await expect(
+      readFile(join(appDir, "neurex.config.json"), "utf-8"),
+    ).resolves.toContain('"utils": "@/lib/utils"')
 
     expect(execFileSyncMock).toHaveBeenCalledWith(
       packageManagerCommand("pnpm"),
@@ -104,7 +133,9 @@ describe("runInit", () => {
         "-D",
         "@types/react",
         "@types/react-dom",
+        "@types/node",
         "@vitejs/plugin-react",
+        "prettier",
         "typescript",
         "vite",
       ]),

@@ -17,9 +17,13 @@ import {
   collectStyles,
   collectUtilities,
   resolveRegistryStyles,
+  resolveRegistryUtilities,
   resolveRegistryItems,
 } from "../core/registry-resolver.js"
-import type { ResolvedRegistryStyle } from "../core/registry-types.js"
+import type {
+  ResolvedRegistryStyle,
+  ResolvedRegistryUtility,
+} from "../core/registry-types.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
 
 const promptSelectItems = async (): Promise<string[]> => {
@@ -107,12 +111,14 @@ export const runAdd = async (args: string[]): Promise<void> => {
   const dependencies = collectDependencies(resolvedItems)
   const utilities = collectUtilities(resolvedItems)
   const styleNames = collectStyles(resolvedItems)
+  let resolvedUtilities: ResolvedRegistryUtility[]
   let styles: ResolvedRegistryStyle[]
 
   try {
+    resolvedUtilities = resolveRegistryUtilities(utilities)
     styles = resolveRegistryStyles(styleNames)
   } catch (error) {
-    console.log("Failed to resolve registry styles.")
+    console.log("Failed to resolve registry shared resources.")
     console.log(error instanceof Error ? error.message : String(error))
     process.exitCode = 1
     return
@@ -154,7 +160,7 @@ export const runAdd = async (args: string[]): Promise<void> => {
 
   await ensureProjectStructure(config)
   await installDependencies(dependencies)
-  const utilitiesResult = await installUtilities(utilities, config)
+  const utilitiesResult = await installUtilities(resolvedUtilities, config)
   const stylesResult = await installStyles(styles, config)
 
   const successfullyInstalled = []

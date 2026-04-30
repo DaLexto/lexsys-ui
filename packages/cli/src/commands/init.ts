@@ -10,6 +10,8 @@ import { ensureProjectStructure } from "../core/installer.js"
 import { installDependencies } from "../core/package-manager.js"
 import {
   ensureTailwindCssImport,
+  ensureTypeScriptSrcAlias,
+  ensureViteSrcAlias,
   ensureViteTailwindPlugin,
 } from "../core/tailwind-setup.js"
 import { scaffoldViteProject } from "../core/vite-scaffold.js"
@@ -21,7 +23,9 @@ const viteDependencies = ["react", "react-dom"]
 const viteDevDependencies = [
   "@types/react",
   "@types/react-dom",
+  "@types/node",
   "@vitejs/plugin-react",
+  "prettier",
   "typescript",
   "vite",
 ]
@@ -84,6 +88,8 @@ const runNeurexInit = async (): Promise<void> => {
   await installDependencies(tailwindViteDependencies, { dev: true })
   await ensureTailwindCssImport(config)
   await ensureViteTailwindPlugin()
+  await ensureViteSrcAlias()
+  await ensureTypeScriptSrcAlias()
   await saveConfig(config)
 
   console.log("\nDone.")

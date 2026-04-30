@@ -7,7 +7,10 @@ import { fileExists, filesAreEqual } from "./fs.js"
 import { getCwd } from "./context.js"
 import { fetchRemoteFile } from "./remote-files.js"
 import { hashesAreEqual } from "./hash.js"
-import type { ResolvedRegistryStyle } from "./registry-types.js"
+import type {
+  ResolvedRegistryStyle,
+  ResolvedRegistryUtility,
+} from "./registry-types.js"
 import { validateTemplateFiles } from "./template-validator.js"
 
 export const getRegistryTemplatePath = (templatePath: string): string => {
@@ -61,20 +64,14 @@ export const ensureProjectStructure = async (
 }
 
 export const installUtilities = async (
-  utilities: string[],
+  utilities: ResolvedRegistryUtility[],
   config: NeurexConfig,
 ): Promise<InstallResourceResult> => {
   const result = createInstallResourceResult()
 
   for (const utility of utilities) {
-    if (utility !== "cn") {
-      console.log(`Unknown utility "${utility}", skipping.`)
-      result.skipped.push(utility)
-      continue
-    }
-
-    const sourcePath = getRegistryTemplatePath("shared/utils/cn.ts")
-    const targetPath = join(getCwd(), config.utilitiesPath, "cn.ts")
+    const sourcePath = getRegistryTemplatePath(utility.path)
+    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
 
     await mkdir(dirname(targetPath), { recursive: true })
 

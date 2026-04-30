@@ -79,7 +79,7 @@ describe("install flow smoke", () => {
       readFile(join(tempDir, "styles/neurex/theme.css"), "utf-8"),
     ).resolves.toContain("--color-nx-primary")
     await expect(
-      readFile(join(tempDir, "lib/neurex/cn.ts"), "utf-8"),
+      readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("twMerge")
     await expect(
       readFile(
@@ -89,7 +89,7 @@ describe("install flow smoke", () => {
     ).resolves.toContain("bg-nx-primary")
     await expect(
       readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
-    ).resolves.toContain("../../../../lib/neurex/cn")
+    ).resolves.toContain("@/lib/utils")
 
     const config = JSON.parse(
       await readFile(join(tempDir, "neurex.config.json"), "utf-8"),

@@ -11,6 +11,13 @@ import {
 } from "../../src/core/installer.js"
 
 const config: NeurexConfig = {
+  aliases: {
+    components: "@/components",
+    hooks: "@/hooks",
+    lib: "@/lib",
+    ui: "@/components/ui",
+    utils: "@/lib/utils",
+  },
   componentsPath: "src/components/ui",
   installed: {},
   registryUrl: null,
@@ -19,7 +26,7 @@ const config: NeurexConfig = {
     version: "v4",
     css: "src/style.css",
   },
-  utilitiesPath: "lib/neurex",
+  utilitiesPath: "src/lib",
 }
 
 describe("installItemFiles", () => {
