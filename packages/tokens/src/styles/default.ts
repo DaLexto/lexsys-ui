@@ -1,4 +1,4 @@
-import type { StylePresetDefinition } from "../types.js"
+import type { StylePresetDefinition } from "../types/index.js"
 
 export const neurexDefaultStylePreset: StylePresetDefinition = {
   id: "default",

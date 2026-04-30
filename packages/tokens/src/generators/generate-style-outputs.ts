@@ -8,7 +8,7 @@ const writeOutput = async (path: string, content: string): Promise<void> => {
   await writeFile(path, content, "utf-8")
 }
 
-const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..")
+const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..")
 const repoRoot = resolve(packageRoot, "../..")
 const args = new Set(process.argv.slice(2))
 const outputs = createStyleOutputs()

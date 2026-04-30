@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { createStyleOutputs } from "../src/outputs.js"
+import { createStyleOutputs } from "../src/generators/outputs.js"
 import {
   defaultStylePresetId,
   neurexDefaultStylePreset,
