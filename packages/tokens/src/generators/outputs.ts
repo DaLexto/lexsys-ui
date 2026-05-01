@@ -16,6 +16,8 @@ import type {
 import { defaultStyleOutputConfig } from "./output-config.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
+const cssPrefix = styleOutputConfig.cssVarPrefix
+const twPrefix = styleOutputConfig.tailwindPrefix
 const tokenReferencePattern = /^\{([a-zA-Z0-9_.-]+)\}$/
 const tokenGroupMetadataKeys = new Set([
   "name",
@@ -31,7 +33,7 @@ const toKebabSegment = (segment: string): string => {
     .toLowerCase()
 }
 
-const normalizeTokenName = (name: string): string => {
+/* const normalizeTokenName = (name: string): string => {
   const overrides = styleOutputConfig.groupNameOverrides ?? {}
 
   const match = Object.keys(overrides)
@@ -43,6 +45,26 @@ const normalizeTokenName = (name: string): string => {
   }
 
   return name
+} */
+
+const normalizeTokenName = (name: string): string => {
+  const sortedOverrides = Object.entries(
+    styleOutputConfig.groupNameOverrides,
+  ).sort(([left], [right]) => right.length - left.length)
+
+  for (const [sourceName, outputName] of sortedOverrides) {
+    if (name === sourceName) {
+      return outputName
+    }
+
+    const sourceNamePrefix = `${sourceName}-`
+
+    if (name.startsWith(sourceNamePrefix)) {
+      return `${outputName}-${name.slice(sourceNamePrefix.length)}`
+    }
+  }
+
+  return name
 }
 
 const toTokenName = (path: string[]): string => {
@@ -50,7 +72,7 @@ const toTokenName = (path: string[]): string => {
 }
 
 const toCssVarName = (tokenName: string): string => {
-  return `--${styleOutputConfig.cssVarPrefix}-${tokenName}`
+  return `--${cssPrefix}-${tokenName}`
 }
 
 const resolveTokenValue = (value: string): string => {
@@ -139,13 +161,13 @@ const createTailwindThemeBlock = (): string => {
     (token) => token.name,
   )
   const colorLines = semanticNames.map((name) => {
-    const tailwindName = name.replace(/^color-/, "color-nx-")
+    const tailwindName = name.replace(/^color-/, `color-${twPrefix}-`)
 
     return `  --${tailwindName}: var(${toCssVarName(name)});`
   })
 
   const radiusLines = ["sm", "md", "lg", "xl", "full"].map((name) => {
-    return `  --radius-nx-${name}: var(${toCssVarName(`radius-${name}`)});`
+    return `  --radius-${twPrefix}-${name}: var(${toCssVarName(`radius-${name}`)});`
   })
 
   return ["@theme inline {", ...colorLines, ...radiusLines, "}"].join("\n")
