@@ -3,19 +3,29 @@ export interface TokenEntry {
   value: string
 }
 
+export interface TokenLeaf {
+  value: string
+}
+
+export type TokenGroupProperty = string | TokenLeaf | TokenTree
+
+export interface TokenTree {
+  [key: string]: TokenLeaf | TokenTree
+}
+
 export interface PrimitiveTokenGroup {
   name: string
-  tokens: TokenEntry[]
+  [key: string]: TokenGroupProperty
 }
 
 export interface ComponentTokenGroup {
   component: string
-  tokens: TokenEntry[]
+  [key: string]: TokenGroupProperty
 }
 
 export interface SemanticTokenGroup {
   name: string
-  tokens: TokenEntry[]
+  [key: string]: TokenGroupProperty
 }
 
 export type StylePresetId = "default"
@@ -29,14 +39,14 @@ export interface StylePresetDefinition {
   themeModes: ThemeModeId[]
 }
 
-export type ThemeTokenMap = Record<string, string>
-
 export interface ThemeDefinition {
   name: ThemeModeId
   selector: ":root" | ".dark"
   colorScheme: ThemeModeId
-  tokens: ThemeTokenMap
+  [key: string]: ThemeModeId | ":root" | ".dark" | TokenTree
 }
+
+export type ThemeTokenMap = TokenTree
 
 export interface StyleOutputs {
   tokensCss: string

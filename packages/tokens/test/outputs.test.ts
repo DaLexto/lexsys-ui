@@ -1,10 +1,14 @@
 import { describe, expect, test } from "vitest"
+import { componentTokens } from "../src/components/index.js"
 import { createStyleOutputs } from "../src/generators/outputs.js"
+import { primitiveTokens } from "../src/primitives/index.js"
+import { semanticTokens } from "../src/semantics/index.js"
 import {
   defaultStylePresetId,
   neurexDefaultStylePreset,
   stylePresets,
 } from "../src/styles/index.js"
+import { themes } from "../src/themes/index.js"
 
 describe("createStyleOutputs", () => {
   test("defines Neurex Default as the first style preset", () => {
@@ -59,5 +63,18 @@ describe("createStyleOutputs", () => {
     expect(outputs.themeCss).toContain(".dark")
     expect(outputs.themeCss).toContain("@theme inline")
     expect(outputs.themeCss).toContain("--color-nx-primary")
+  })
+
+  test("keeps authoring tokens prefix-free", () => {
+    const tokenSource = JSON.stringify({
+      componentTokens,
+      primitiveTokens,
+      semanticTokens,
+      themes,
+    })
+
+    expect(tokenSource).not.toContain("--nx")
+    expect(tokenSource).not.toContain("var(--")
+    expect(tokenSource).toContain("{motion.duration.fast}")
   })
 })

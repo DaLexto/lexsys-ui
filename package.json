@@ -23,8 +23,8 @@
     "registry:typecheck": "pnpm --filter ./packages/registry typecheck",
     "registry:check": "pnpm --filter ./packages/registry check",
     "playground:dev": "pnpm --filter @neurex/playground dev",
-    "playground:build": "pnpm --filter @neurex/playground build",
-    "playground:typecheck": "pnpm --filter @neurex/playground typecheck"
+    "playground:build": "pnpm --filter @neurex/tokens build && pnpm --filter @neurex/ui build && pnpm --filter @neurex/playground build",
+    "playground:typecheck": "pnpm --filter @neurex/tokens build && pnpm --filter @neurex/ui build && pnpm --filter @neurex/playground typecheck"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

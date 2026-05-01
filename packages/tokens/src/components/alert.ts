@@ -2,31 +2,25 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const alertComponentTokens: ComponentTokenGroup = {
   component: "alert",
-  tokens: [
-    { name: "alert-radius", value: "var(--nx-radius-surface)" },
-    { name: "alert-padding", value: "var(--nx-space-surface-sm)" },
-    { name: "alert-gap", value: "var(--nx-space-surface-gap-sm)" },
-    {
-      name: "alert-transition-duration",
-      value: "var(--nx-duration-surface)",
-    },
-    { name: "alert-neutral-background", value: "var(--nx-color-surface)" },
-    { name: "alert-neutral-foreground", value: "var(--nx-color-foreground)" },
-    { name: "alert-neutral-border-color", value: "var(--nx-color-border)" },
-    { name: "alert-primary-background", value: "var(--nx-color-muted)" },
-    { name: "alert-primary-foreground", value: "var(--nx-color-primary)" },
-    { name: "alert-primary-border-color", value: "var(--nx-color-primary)" },
-    {
-      name: "alert-destructive-background",
-      value: "var(--nx-color-muted)",
-    },
-    {
-      name: "alert-destructive-foreground",
-      value: "var(--nx-color-destructive)",
-    },
-    {
-      name: "alert-destructive-border-color",
-      value: "var(--nx-color-destructive)",
-    },
-  ],
+  radius: { value: "{radius.surface}" },
+  padding: { value: "{spacing.surface.sm}" },
+  gap: { value: "{spacing.surface.gap.sm}" },
+  transition: {
+    duration: { value: "{motion.duration.surface}" },
+  },
+  neutral: {
+    background: { value: "{color.surface}" },
+    foreground: { value: "{color.foreground}" },
+    borderColor: { value: "{color.border}" },
+  },
+  primary: {
+    background: { value: "{color.muted}" },
+    foreground: { value: "{color.primary}" },
+    borderColor: { value: "{color.primary}" },
+  },
+  destructive: {
+    background: { value: "{color.muted}" },
+    foreground: { value: "{color.destructive}" },
+    borderColor: { value: "{color.destructive}" },
+  },
 }

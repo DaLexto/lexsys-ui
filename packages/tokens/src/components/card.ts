@@ -2,18 +2,21 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const cardComponentTokens: ComponentTokenGroup = {
   component: "card",
-  tokens: [
-    { name: "card-background", value: "var(--nx-color-surface)" },
-    { name: "card-foreground", value: "var(--nx-color-surface-foreground)" },
-    { name: "card-border-color", value: "var(--nx-color-border)" },
-    { name: "card-radius", value: "var(--nx-radius-surface)" },
-    { name: "card-padding", value: "var(--nx-space-surface-md)" },
-    { name: "card-gap-sm", value: "var(--nx-space-surface-gap-sm)" },
-    { name: "card-gap-md", value: "var(--nx-space-surface-gap-md)" },
-    {
-      name: "card-header-padding-bottom",
-      value: "var(--nx-space-surface-sm)",
+  background: { value: "{color.surface}" },
+  foreground: { value: "{color.surface.foreground}" },
+  borderColor: { value: "{color.border}" },
+  radius: { value: "{radius.surface}" },
+  padding: { value: "{spacing.surface.md}" },
+  gap: {
+    sm: { value: "{spacing.surface.gap.sm}" },
+    md: { value: "{spacing.surface.gap.md}" },
+  },
+  header: {
+    padding: {
+      bottom: { value: "{spacing.surface.sm}" },
     },
-    { name: "card-transition-duration", value: "var(--nx-duration-surface)" },
-  ],
+  },
+  transition: {
+    duration: { value: "{motion.duration.surface}" },
+  },
 }

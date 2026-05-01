@@ -4,19 +4,27 @@ export const lightTheme: ThemeDefinition = {
   name: "light",
   selector: ":root",
   colorScheme: "light",
-  tokens: {
-    "color-background": "var(--nx-color-white)",
-    "color-foreground": "var(--nx-color-neutral-950)",
-    "color-muted": "var(--nx-color-neutral-100)",
-    "color-muted-foreground": "var(--nx-color-neutral-500)",
-    "color-surface": "var(--nx-color-white)",
-    "color-surface-foreground": "var(--nx-color-neutral-950)",
-    "color-border": "var(--nx-color-neutral-200)",
-    "color-ring": "var(--nx-color-blue-600)",
-    "color-primary": "var(--nx-color-blue-600)",
-    "color-primary-foreground": "var(--nx-color-white)",
-    "color-primary-hover": "var(--nx-color-blue-700)",
-    "color-destructive": "var(--nx-color-red-600)",
-    "color-destructive-foreground": "var(--nx-color-white)",
+  color: {
+    background: { value: "{color.white}" },
+    foreground: { value: "{color.neutral.950}" },
+    muted: {
+      DEFAULT: { value: "{color.neutral.100}" },
+      foreground: { value: "{color.neutral.500}" },
+    },
+    surface: {
+      DEFAULT: { value: "{color.white}" },
+      foreground: { value: "{color.neutral.950}" },
+    },
+    border: { value: "{color.neutral.200}" },
+    ring: { value: "{color.blue.600}" },
+    primary: {
+      DEFAULT: { value: "{color.blue.600}" },
+      foreground: { value: "{color.white}" },
+      hover: { value: "{color.blue.700}" },
+    },
+    destructive: {
+      DEFAULT: { value: "{color.red.600}" },
+      foreground: { value: "{color.white}" },
+    },
   },
 }

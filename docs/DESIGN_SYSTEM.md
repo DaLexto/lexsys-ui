@@ -99,6 +99,24 @@ They define:
 
 Tokens must not be treated as CSS files. CSS is an output, not the source.
 
+Token authoring uses object trees, not flat token arrays or generated CSS
+variable strings. Group metadata lives beside token branches, and every token
+leaf uses a `{ value }` object so future metadata can be added without changing
+the shape:
+
+```ts
+export const motionSemantics = {
+  name: "motion",
+  duration: {
+    control: { value: "{motion.duration.fast}" },
+    surface: { value: "{motion.duration.fast}" },
+  },
+}
+```
+
+References use string aliases such as `{motion.duration.fast}`. The `--nx`
+prefix belongs to output generation only, never to token authoring files.
+
 The preferred dependency flow is:
 
 ```txt

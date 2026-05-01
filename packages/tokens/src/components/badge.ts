@@ -2,40 +2,43 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const badgeComponentTokens: ComponentTokenGroup = {
   component: "badge",
-  tokens: [
-    { name: "badge-radius", value: "var(--nx-radius-control)" },
-    { name: "badge-height-sm", value: "1.5rem" },
-    { name: "badge-height-md", value: "1.75rem" },
-    { name: "badge-padding-x-sm", value: "var(--nx-space-control-x-xs)" },
-    { name: "badge-padding-x-md", value: "var(--nx-space-control-x-sm)" },
-    { name: "badge-font-size-sm", value: "0.75rem" },
-    { name: "badge-font-size-md", value: "0.8125rem" },
-    { name: "badge-font-weight", value: "500" },
-    {
-      name: "badge-transition-duration",
-      value: "var(--nx-duration-control)",
+  radius: { value: "{radius.control}" },
+  height: {
+    sm: { value: "1.5rem" },
+    md: { value: "1.75rem" },
+  },
+  padding: {
+    x: {
+      sm: { value: "{spacing.control.x.xs}" },
+      md: { value: "{spacing.control.x.sm}" },
     },
-    { name: "badge-outline-background", value: "transparent" },
-    { name: "badge-neutral-background", value: "var(--nx-color-muted)" },
-    { name: "badge-neutral-foreground", value: "var(--nx-color-foreground)" },
-    { name: "badge-neutral-border-color", value: "var(--nx-color-border)" },
-    { name: "badge-primary-background", value: "var(--nx-color-primary)" },
-    {
-      name: "badge-primary-foreground",
-      value: "var(--nx-color-primary-foreground)",
+  },
+  font: {
+    size: {
+      sm: { value: "0.75rem" },
+      md: { value: "0.8125rem" },
     },
-    { name: "badge-primary-border-color", value: "var(--nx-color-primary)" },
-    {
-      name: "badge-destructive-background",
-      value: "var(--nx-color-destructive)",
-    },
-    {
-      name: "badge-destructive-foreground",
-      value: "var(--nx-color-destructive-foreground)",
-    },
-    {
-      name: "badge-destructive-border-color",
-      value: "var(--nx-color-destructive)",
-    },
-  ],
+    weight: { value: "500" },
+  },
+  transition: {
+    duration: { value: "{motion.duration.control}" },
+  },
+  outline: {
+    background: { value: "transparent" },
+  },
+  neutral: {
+    background: { value: "{color.muted}" },
+    foreground: { value: "{color.foreground}" },
+    borderColor: { value: "{color.border}" },
+  },
+  primary: {
+    background: { value: "{color.primary}" },
+    foreground: { value: "{color.primary.foreground}" },
+    borderColor: { value: "{color.primary}" },
+  },
+  destructive: {
+    background: { value: "{color.destructive}" },
+    foreground: { value: "{color.destructive.foreground}" },
+    borderColor: { value: "{color.destructive}" },
+  },
 }
