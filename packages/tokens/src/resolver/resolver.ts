@@ -65,6 +65,20 @@ const cloneLeafWithValue = (
   }
 }
 
+const getDefaultLeafFromBranch = (node: TokenNode): TokenLeaf | undefined => {
+  if (!isTokenTree(node)) {
+    return undefined
+  }
+
+  const defaultNode = node.DEFAULT
+
+  if (!isTokenLeaf(defaultNode)) {
+    return undefined
+  }
+
+  return defaultNode
+}
+
 /* -------------------------------------------------------------------------------------------------
  * Reference resolver
  * ------------------------------------------------------------------------------------------------- */
@@ -164,26 +178,30 @@ export const resolveReference = (
     }
   }
 
-  if (!isTokenLeaf(targetNode)) {
-    errors.push(
-      createResolverError(
-        "REFERENCE_POINTS_TO_BRANCH",
-        `Token reference "${reference}" points to a branch, not a token leaf.`,
-        sourcePath,
-        reference,
-        chain,
-        targetPath,
-      ),
-    )
+  const targetLeaf = isTokenLeaf(targetNode)
+  ? targetNode
+  : getDefaultLeafFromBranch(targetNode)
 
-    return {
-      value: reference,
-      errors,
-      warnings,
-    }
+if (targetLeaf === undefined) {
+  errors.push(
+    createResolverError(
+      "REFERENCE_POINTS_TO_BRANCH",
+      `Token reference "${reference}" points to a branch without a DEFAULT token leaf.`,
+      sourcePath,
+      reference,
+      chain,
+      targetPath,
+    ),
+  )
+
+  return {
+    value: reference,
+    errors,
+    warnings,
   }
+}
 
-  const targetValue = targetNode.value
+const targetValue = targetLeaf.value
 
   if (!isReferenceString(targetValue)) {
     return {
