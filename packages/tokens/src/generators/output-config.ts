@@ -1,0 +1,22 @@
+/**
+ * output-config.ts
+ *
+ * @layer generators
+ * @description Shared configuration for generated style outputs.
+ *
+ * @responsibility
+ * - Define output-only CSS generation settings
+ * - Keep generated CSS naming separate from token authoring
+ *
+ * @notes
+ * - The CSS variable prefix belongs only to generated output.
+ * - Token source files must not include the generated CSS prefix.
+ */
+
+export interface StyleOutputConfig {
+  cssVarPrefix: string
+}
+
+export const DEFAULT_STYLE_OUTPUT_CONFIG: StyleOutputConfig = {
+  cssVarPrefix: "nx",
+}
