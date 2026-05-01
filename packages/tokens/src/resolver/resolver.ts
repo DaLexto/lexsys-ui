@@ -40,7 +40,7 @@ import type {
   TokenNode,
   TokenPrimitive,
   TokenTree,
-} from "../types/index.js"
+} from "../types"
 
 /* -------------------------------------------------------------------------------------------------
  * Internal helpers

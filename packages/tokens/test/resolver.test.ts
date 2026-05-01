@@ -6,7 +6,42 @@ import {
   resolveTokenTreeStrict,
 } from "../src/resolver"
 
-import type { TokenTree } from "../src/types"
+import type { TokenLeaf, TokenPrimitive, TokenTree } from "../src/types"
+
+const isRecord = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === "object" && value !== null && !Array.isArray(value)
+}
+
+const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
+  return (
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean" ||
+    value === null
+  )
+}
+
+const isTokenLeaf = (value: unknown): value is TokenLeaf => {
+  return isRecord(value) && "value" in value && isTokenPrimitive(value.value)
+}
+
+const getTokenLeaf = (tree: TokenTree, path: string[]): TokenLeaf => {
+  let current: unknown = tree
+
+  for (const segment of path) {
+    if (!isRecord(current)) {
+      throw new Error(`Expected token branch before "${segment}".`)
+    }
+
+    current = current[segment]
+  }
+
+  if (!isTokenLeaf(current)) {
+    throw new Error(`Expected token leaf at "${path.join(".")}".`)
+  }
+
+  return current
+}
 
 describe("resolveReference", () => {
   it("resolves a direct token reference to the final primitive value", () => {
@@ -44,6 +79,26 @@ describe("resolveReference", () => {
     expect(result.errors).toHaveLength(0)
     expect(result.warnings).toHaveLength(0)
   })
+
+  it("resolves branch references through DEFAULT token leaves", () => {
+    const tokens: TokenTree = {
+      color: {
+        primary: {
+          DEFAULT: { value: "{color.blue.600}" },
+          foreground: { value: "oklch(1 0 0)" },
+        },
+        blue: {
+          600: { value: "oklch(0.546 0.245 262.881)" },
+        },
+      },
+    }
+
+    const result = resolveReference(tokens, "{color.primary}")
+
+    expect(result.value).toBe("oklch(0.546 0.245 262.881)")
+    expect(result.errors).toHaveLength(0)
+    expect(result.warnings).toHaveLength(0)
+  })
 })
 
 describe("resolveTokenTreeStrict", () => {
@@ -68,11 +123,15 @@ describe("resolveTokenTreeStrict", () => {
 
     const resolved = resolveTokenTreeStrict(tokens)
 
-    expect(resolved.color.white.value).toBe("oklch(1 0 0)")
-    expect(resolved.color.primary.value).toBe("oklch(0.546 0.245 262.881)")
-    expect(resolved.radius.control.value).toBe("0.375rem")
-    expect(resolved.button.radius.value).toBe("0.375rem")
-    expect(resolved.button.background.value).toBe(
+    expect(getTokenLeaf(resolved, ["color", "white"]).value).toBe(
+      "oklch(1 0 0)",
+    )
+    expect(getTokenLeaf(resolved, ["color", "primary"]).value).toBe(
+      "oklch(0.546 0.245 262.881)",
+    )
+    expect(getTokenLeaf(resolved, ["radius", "control"]).value).toBe("0.375rem")
+    expect(getTokenLeaf(resolved, ["button", "radius"]).value).toBe("0.375rem")
+    expect(getTokenLeaf(resolved, ["button", "background"]).value).toBe(
       "oklch(0.546 0.245 262.881)",
     )
   })
@@ -122,10 +181,12 @@ describe("resolveTokenTreeSafe", () => {
     expect(result.errors).toHaveLength(0)
     expect(result.warnings).toHaveLength(1)
     expect(result.warnings[0]?.code).toBe("UNRESOLVED_REFERENCE_LEFT_AS_IS")
-    expect(result.tree.color.primary.value).toBe("{color.missing}")
+    expect(getTokenLeaf(result.tree, ["color", "primary"]).value).toBe(
+      "{color.missing}",
+    )
   })
 
-  it("reports when a reference points to a branch instead of a token leaf", () => {
+  it("reports when a reference points to a branch without a DEFAULT token leaf", () => {
     const result = resolveTokenTreeSafe({
       color: {
         blue: {
