@@ -32,10 +32,17 @@ const toKebabSegment = (segment: string): string => {
 }
 
 const normalizeTokenName = (name: string): string => {
+  const overrides = styleOutputConfig.groupNameOverrides ?? {}
+
+  const match = Object.keys(overrides)
+    .sort((a, b) => b.length - a.length)
+    .find((key) => name.startsWith(key))
+
+  if (match) {
+    return name.replace(match, overrides[match])
+  }
+
   return name
-    .replace(/^spacing-/, "space-")
-    .replace(/^motion-duration-/, "duration-")
-    .replace(/^motion-easing-/, "easing-")
 }
 
 const toTokenName = (path: string[]): string => {
