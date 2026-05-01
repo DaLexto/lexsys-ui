@@ -17,7 +17,7 @@
     "./templates/*": "./templates/*"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsup",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run templates:typecheck && pnpm run test",
     "lint": "eslint src test templates --max-warnings=0",
     "lint:fix": "eslint src test templates --fix",

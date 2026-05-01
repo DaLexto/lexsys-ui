@@ -4,16 +4,16 @@
  * The tokens package is the design-system source of truth.
  */
 
-export { componentTokens } from "./components/index.js"
-export { createStyleOutputs } from "./generators/outputs.js"
-export { primitiveTokens } from "./primitives/index.js"
-export { semanticTokens } from "./semantics/index.js"
+export { componentTokens } from "./components"
+export { createStyleOutputs } from "./generators/outputs"
+export { primitiveTokens } from "./primitives"
+export { semanticTokens } from "./semantics"
 export {
   defaultStylePresetId,
   neurexDefaultStylePreset,
   stylePresets,
-} from "./styles/index.js"
-export { themes } from "./themes/index.js"
+} from "./styles"
+export { themes } from "./themes"
 export type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,
@@ -28,4 +28,4 @@ export type {
   TokenGroupProperty,
   TokenLeaf,
   TokenTree,
-} from "./types/index.js"
+} from "./types"
