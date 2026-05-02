@@ -20,16 +20,24 @@ const buttonExamples: Array<{
   props: React.ComponentProps<typeof Button>
 }> = [
   {
+    label: "Primary xs",
+    props: { children: "Extra Small", size: "xs" },
+  },
+  {
     label: "Primary sm",
-    props: { children: "Create", size: "sm" },
+    props: { children: "Small", size: "sm" },
   },
   {
     label: "Primary md",
-    props: { children: "Install button" },
+    props: { children: "Medium", size: "md" },
   },
   {
     label: "Primary lg loading",
     props: { children: "Generating", isLoading: true, size: "lg" },
+  },
+  {
+    label: "Primary xl",
+    props: { children: "Create Extra Large", size: "xl" },
   },
   {
     label: "Secondary",
