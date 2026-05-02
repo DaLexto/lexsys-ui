@@ -19,12 +19,18 @@
     "cli:build": "pnpm --filter ./packages/cli build",
     "cli:typecheck": "pnpm --filter ./packages/cli typecheck",
     "cli:check": "pnpm --filter ./packages/cli check",
-    "registry:build": "pnpm --filter ./packages/registry build",
-    "registry:typecheck": "pnpm --filter ./packages/registry typecheck",
-    "registry:check": "pnpm --filter ./packages/registry check",
+    "registry:build": "pnpm --filter @neurex/registry build",
+    "registry:typecheck": "pnpm --filter @neurex/registry typecheck",
+    "registry:check": "pnpm --filter @neurex/registry check",
+    "tokens:build": "pnpm --filter @neurex/tokens build",
+    "tokens:typecheck": "pnpm --filter @neurex/tokens typecheck",
+    "tokens:check": "pnpm --filter @neurex/tokens check",
+    "ui:build": "pnpm --filter @neurex/ui build",
+    "ui:typecheck": "pnpm --filter @neurex/ui typecheck",
+    "ui:check": "pnpm --filter @neurex/ui check",
     "playground:dev": "pnpm --filter @neurex/playground dev",
-    "playground:build": "pnpm --filter @neurex/tokens build && pnpm --filter @neurex/ui build && pnpm --filter @neurex/playground build",
-    "playground:typecheck": "pnpm --filter @neurex/tokens build && pnpm --filter @neurex/ui build && pnpm --filter @neurex/playground typecheck"
+    "playground:build": "pnpm tokens:build && pnpm ui:build && pnpm --filter @neurex/playground build",
+    "playground:typecheck": "pnpm tokens:build && pnpm ui:build && pnpm --filter @neurex/playground typecheck"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
