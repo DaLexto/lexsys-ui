@@ -1,4 +1,4 @@
-import type { ComponentTokenGroup } from "../types/index.js"
+import type { ComponentTokenGroup } from "../types"
 
 export const buttonComponentTokens: ComponentTokenGroup = {
   component: "button",
@@ -12,9 +12,11 @@ export const buttonComponentTokens: ComponentTokenGroup = {
   },
   padding: {
     x: {
+      xs: { value: "{spacing.control.x.xs}" },
       sm: { value: "{spacing.control.x.sm}" },
       md: { value: "{spacing.control.x.md}" },
       lg: { value: "{spacing.control.x.lg}" },
+      xl: { value: "{spacing.control.x.xl}" },
     },
   },
   font: {

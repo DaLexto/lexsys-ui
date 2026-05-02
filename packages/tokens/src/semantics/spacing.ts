@@ -8,6 +8,7 @@ export const spacingSemantics: SemanticTokenGroup = {
       sm: { value: "{spacing.3}" },
       md: { value: "{spacing.4}" },
       lg: { value: "{spacing.6}" },
+      xl: { value: "{spacing.8}" },
     },
   },
   surface: {
