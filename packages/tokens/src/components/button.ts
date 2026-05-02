@@ -20,7 +20,16 @@ export const buttonComponentTokens: ComponentTokenGroup = {
     },
   },
   font: {
-    weight: { value: "500" },
+    size: {
+      xs: { value: "{typography.control.xs.fontSize}" },
+      sm: { value: "{typography.control.sm.fontSize}" },
+      md: { value: "{typography.control.md.fontSize}" },
+      lg: { value: "{typography.control.lg.fontSize}" },
+      xl: { value: "{typography.control.xl.fontSize}" },
+    },
+    weight: { value: "{typography.control.md.fontWeight}" },
+    lineHeight: { value: "{typography.control.md.lineHeight}" },
+    letterSpacing: { value: "{typography.control.md.letterSpacing}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

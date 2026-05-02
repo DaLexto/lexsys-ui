@@ -14,6 +14,10 @@ export const buttonVariants = cva(
     "outline-none focus-visible:ring-2 focus-visible:ring-nx-ring focus-visible:ring-offset-2 focus-visible:ring-offset-nx-background",
     "disabled:pointer-events-none disabled:opacity-50",
     "aria-busy:cursor-wait aria-busy:opacity-80",
+    "text-[length:var(--nx-button-font-size-md)]",
+    "font-[var(--nx-button-font-weight)]",
+    "leading-[var(--nx-button-line-height)]",
+    "tracking-[var(--nx-button-letter-spacing)]",
   ].join(" "),
   {
     variants: {
@@ -24,11 +28,31 @@ export const buttonVariants = cva(
           "border-nx-border bg-nx-muted text-nx-foreground hover:bg-nx-surface",
       },
       size: {
-        xs: "h-[var(--nx-button-height-xs)] px-[var(--nx-button-padding-x-xs)]",
-        sm: "h-[var(--nx-button-height-sm)] px-[var(--nx-button-padding-x-sm)]",
-        md: "h-[var(--nx-button-height-md)] px-[var(--nx-button-padding-x-md)]",
-        lg: "h-[var(--nx-button-height-lg)] px-[var(--nx-button-padding-x-lg)]",
-        xl: "h-[var(--nx-button-height-xl)] px-[var(--nx-button-padding-x-xl)]",
+        xs: [
+          "h-[var(--nx-button-height-xs)]",
+          "px-[var(--nx-button-padding-x-xs)]",
+          "text-[length:var(--nx-button-font-size-xs)]",
+        ],
+        sm: [
+          "h-[var(--nx-button-height-sm)]",
+          "px-[var(--nx-button-padding-x-sm)]",
+          "text-[length:var(--nx-button-font-size-sm)]",
+        ],
+        md: [
+          "h-[var(--nx-button-height-md)]",
+          "px-[var(--nx-button-padding-x-md)]",
+          "text-[length:var(--nx-button-font-size-md)]",
+        ],
+        lg: [
+          "h-[var(--nx-button-height-lg)]",
+          "px-[var(--nx-button-padding-x-lg)]",
+          "text-[length:var(--nx-button-font-size-lg)]",
+        ],
+        xl: [
+          "h-[var(--nx-button-height-xl)]",
+          "px-[var(--nx-button-padding-x-xl)]",
+          "text-[length:var(--nx-button-font-size-xl)]",
+        ],
       },
     },
     defaultVariants: {
