@@ -1,4 +1,4 @@
-import type { PrimitiveTokenGroup } from "../types/index.js"
+import type { PrimitiveTokenGroup } from "../types"
 
 export const colorPrimitives: PrimitiveTokenGroup = {
   name: "color",

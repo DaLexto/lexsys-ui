@@ -103,7 +103,9 @@ const validateTokenTreeReferences = (label: string, tree: TokenTree): void => {
     })
     .join("\n")
 
-  throw new Error(`Token reference validation failed for ${label}:\n${formattedErrors}`)
+  throw new Error(
+    `Token reference validation failed for ${label}:\n${formattedErrors}`,
+  )
 }
 
 const createBaseTokenTree = (): TokenTree => {
@@ -213,7 +215,10 @@ const createTailwindThemeBlock = (): string => {
   const semanticEntries =
     firstTheme === undefined
       ? []
-      : createCssVariableEntries(getTokenTree(firstTheme), cssVarsGeneratorOptions)
+      : createCssVariableEntries(
+          getTokenTree(firstTheme),
+          cssVarsGeneratorOptions,
+        )
 
   const colorLines = semanticEntries.map((entry) => {
     const tailwindName = entry.name.replace(/^color-/, `color-${twPrefix}-`)

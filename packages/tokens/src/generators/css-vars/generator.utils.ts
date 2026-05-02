@@ -77,7 +77,10 @@ export const toTokenName = (
   path: string[],
   groupNameOverrides: Readonly<Record<string, string>>,
 ): string => {
-  return normalizeTokenName(path.map(toKebabSegment).join("-"), groupNameOverrides)
+  return normalizeTokenName(
+    path.map(toKebabSegment).join("-"),
+    groupNameOverrides,
+  )
 }
 
 export const toCssVarName = (
@@ -158,7 +161,10 @@ export const toCssTokenValue = (
     return stringValue
   }
 
-  const tokenName = toTokenName(referencePath.split("."), options.groupNameOverrides)
+  const tokenName = toTokenName(
+    referencePath.split("."),
+    options.groupNameOverrides,
+  )
 
   return `var(${toCssVarName(tokenName, options)})`
 }

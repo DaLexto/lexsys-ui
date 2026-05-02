@@ -27,12 +27,7 @@ import type {
   ResolverWarning,
 } from "./resolver.types"
 
-import type {
-  TokenLeaf,
-  TokenNode,
-  TokenPrimitive,
-  TokenTree,
-} from "../types"
+import type { TokenLeaf, TokenNode, TokenPrimitive, TokenTree } from "../types"
 
 export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
   strict: true,
@@ -92,7 +87,9 @@ export const isTokenTree = (value: unknown): value is TokenTree => {
  * Returns true only for strict reference strings like "{color.gray.900}".
  */
 export const isReferenceString = (value: unknown): value is string => {
-  return typeof value === "string" && STRICT_REFERENCE_PATTERN.test(value.trim())
+  return (
+    typeof value === "string" && STRICT_REFERENCE_PATTERN.test(value.trim())
+  )
 }
 
 /**

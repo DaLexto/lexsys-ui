@@ -113,7 +113,9 @@ describe("css vars generator", () => {
       white: { value: "oklch(1 0 0)" },
     } as unknown as TokenTree
 
-    const entries = createCssVariableEntries(tokens, generatorOptions, ["color"])
+    const entries = createCssVariableEntries(tokens, generatorOptions, [
+      "color",
+    ])
 
     expect(entries).toEqual([
       {

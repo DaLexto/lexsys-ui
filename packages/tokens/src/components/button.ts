@@ -4,9 +4,11 @@ export const buttonComponentTokens: ComponentTokenGroup = {
   component: "button",
   radius: { value: "{radius.control}" },
   height: {
-    sm: { value: "2rem" },
-    md: { value: "2.5rem" },
-    lg: { value: "3rem" },
+    xs: { value: "{size.control.xs}" },
+    sm: { value: "{size.control.sm}" },
+    md: { value: "{size.control.md}" },
+    lg: { value: "{size.control.lg}" },
+    xl: { value: "{size.control.xl}" },
   },
   padding: {
     x: {

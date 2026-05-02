@@ -35,12 +35,7 @@ import {
   toPathString,
 } from "./resolver.utils"
 
-import type {
-  TokenLeaf,
-  TokenNode,
-  TokenPrimitive,
-  TokenTree,
-} from "../types"
+import type { TokenLeaf, TokenNode, TokenPrimitive, TokenTree } from "../types"
 
 /* -------------------------------------------------------------------------------------------------
  * Internal helpers
@@ -179,29 +174,29 @@ export const resolveReference = (
   }
 
   const targetLeaf = isTokenLeaf(targetNode)
-  ? targetNode
-  : getDefaultLeafFromBranch(targetNode)
+    ? targetNode
+    : getDefaultLeafFromBranch(targetNode)
 
-if (targetLeaf === undefined) {
-  errors.push(
-    createResolverError(
-      "REFERENCE_POINTS_TO_BRANCH",
-      `Token reference "${reference}" points to a branch without a DEFAULT token leaf.`,
-      sourcePath,
-      reference,
-      chain,
-      targetPath,
-    ),
-  )
+  if (targetLeaf === undefined) {
+    errors.push(
+      createResolverError(
+        "REFERENCE_POINTS_TO_BRANCH",
+        `Token reference "${reference}" points to a branch without a DEFAULT token leaf.`,
+        sourcePath,
+        reference,
+        chain,
+        targetPath,
+      ),
+    )
 
-  return {
-    value: reference,
-    errors,
-    warnings,
+    return {
+      value: reference,
+      errors,
+      warnings,
+    }
   }
-}
 
-const targetValue = targetLeaf.value
+  const targetValue = targetLeaf.value
 
   if (!isReferenceString(targetValue)) {
     return {
