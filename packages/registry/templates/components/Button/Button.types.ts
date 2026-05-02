@@ -11,7 +11,7 @@ export interface ButtonProps extends Omit<
   "className"
 > {
   variant?: "primary" | "secondary"
-  size?: "sm" | "md" | "lg"
+  size?: "xs" | "sm" | "md" | "lg" | "xl"
   isLoading?: boolean
   className?: string
   focusableWhenDisabled?: boolean

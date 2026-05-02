@@ -24,9 +24,11 @@ export const buttonVariants = cva(
           "border-nx-border bg-nx-muted text-nx-foreground hover:bg-nx-surface",
       },
       size: {
+        xs: "h-[var(--nx-button-height-xs)] px-[var(--nx-button-padding-x-xs)]",
         sm: "h-[var(--nx-button-height-sm)] px-[var(--nx-button-padding-x-sm)]",
         md: "h-[var(--nx-button-height-md)] px-[var(--nx-button-padding-x-md)]",
         lg: "h-[var(--nx-button-height-lg)] px-[var(--nx-button-padding-x-lg)]",
+        xl: "h-[var(--nx-button-height-xl)] px-[var(--nx-button-padding-x-xl)]",
       },
     },
     defaultVariants: {

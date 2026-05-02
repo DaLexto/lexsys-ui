@@ -1,7 +1,7 @@
 import type { SemanticTokenGroup } from "../types"
 import { motionSemantics } from "./motion"
 import { radiusSemantics } from "./radius"
-import  { sizeSemantics } from "./size"
+import { sizeSemantics } from "./size"
 import { spacingSemantics } from "./spacing"
 
 export { motionSemantics } from "./motion"
