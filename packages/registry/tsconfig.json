@@ -6,8 +6,10 @@
     "declaration": true,
     "emitDeclarationOnly": false,
     "noEmit": false,
+    "types": ["node"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["dist", "test"]
 }
