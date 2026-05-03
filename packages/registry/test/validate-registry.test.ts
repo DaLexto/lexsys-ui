@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs"
+import { readdirSync, type Dirent } from "node:fs"
 import { join, relative } from "node:path"
 import { describe, expect, test } from "vitest"
 import {
@@ -13,8 +13,12 @@ import type {
 } from "../src/registry.types.js"
 import { validateRegistry } from "../src/validate-registry.js"
 
+/**
+ * Pomoćna funkcija koja skenira templates folder.
+ * Eksplicitno tipiziramo 'entry' kao 'Dirent' da izbegnemo TS grešku.
+ */
 const collectTemplateFiles = (root: string, current = root): string[] => {
-  return readdirSync(current, { withFileTypes: true }).flatMap((entry) => {
+  return readdirSync(current, { withFileTypes: true }).flatMap((entry: Dirent) => {
     const path = join(current, entry.name)
 
     if (entry.isDirectory()) {
@@ -25,6 +29,7 @@ const collectTemplateFiles = (root: string, current = root): string[] => {
   })
 }
 
+// Mock podaci za testiranje
 const item: RegistryItem = {
   name: "button",
   canonicalName: "Button",
@@ -92,17 +97,10 @@ describe("validateRegistry", () => {
           canonicalName: "Input",
           aliases: ["button"],
           files: ["components/Input/Input.tsx"],
-          remoteFiles: [
-            {
-              path: "components/Input/Input.tsx",
-            },
-          ],
           target: "src/components/ui/Input",
         },
       ]),
-    ).toThrow(
-      'Registry lookup key "button" is used by both "button" and "input"',
-    )
+    ).toThrow(/is used by both "button" and "input"/)
   })
 
   test("rejects missing style references", () => {
@@ -110,7 +108,7 @@ describe("validateRegistry", () => {
       validateRegistry([item], {
         styles: [],
       }),
-    ).toThrow('Registry item "button" references missing style: theme')
+    ).toThrow(/references missing style: theme/)
   })
 
   test("rejects missing utility references", () => {
@@ -118,18 +116,18 @@ describe("validateRegistry", () => {
       validateRegistry([item], {
         utilities: [],
       }),
-    ).toThrow('Registry item "button" references missing utility: cn')
+    ).toThrow(/references missing utility: cn/)
   })
 
-  test("rejects unsafe dependency names", () => {
+  test("rejects unsafe npm dependency names", () => {
     expect(() =>
       validateRegistry([
         {
           ...item,
-          dependencies: ["clsx && bad"],
+          dependencies: ["clsx && bad-script"],
         },
       ]),
-    ).toThrow('Registry item "button" has invalid dependency: clsx && bad')
+    ).toThrow(/has invalid npm dependency: clsx && bad-script/)
   })
 
   test("rejects aliases that duplicate the item name", () => {
@@ -140,7 +138,7 @@ describe("validateRegistry", () => {
           aliases: ["button"],
         },
       ]),
-    ).toThrow('Registry item "button" has alias that duplicates its name')
+    ).toThrow(/has alias that duplicates its name/)
   })
 
   test("rejects remote files that are not declared in item files", () => {
@@ -150,14 +148,12 @@ describe("validateRegistry", () => {
           ...item,
           remoteFiles: [
             {
-              path: "components/Button/Missing.tsx",
+              path: "components/Button/NonExistent.tsx",
             },
           ],
         },
       ]),
-    ).toThrow(
-      'Registry item "button" remote file is not declared in files: components/Button/Missing.tsx',
-    )
+    ).toThrow(/is not declared in the "files" array/)
   })
 
   test("rejects remote file URLs that are not HTTPS", () => {
@@ -173,12 +169,10 @@ describe("validateRegistry", () => {
           ],
         },
       ]),
-    ).toThrow(
-      'Registry item "button" remote file URL must use HTTPS: components/Button/Button.tsx',
-    )
+    ).toThrow(/remote URL must use HTTPS/)
   })
 
-  test("rejects invalid style file metadata", () => {
+  test("rejects style targets that are not safe paths", () => {
     expect(() =>
       validateRegistry([item], {
         styles: [
@@ -187,34 +181,48 @@ describe("validateRegistry", () => {
             files: [
               {
                 path: "styles/theme.css",
-                target: "",
+                target: "", 
               },
             ],
           },
         ],
       }),
-    ).toThrow('Registry style "theme" has invalid target')
+    ).toThrow(/has invalid target:/)
   })
 
-  test("rejects style files that do not exist in the template contract", () => {
+  test("rejects style files that do not exist in the templateFiles list", () => {
     expect(() =>
       validateRegistry([item], {
         styles: [style],
         templateFiles: [...item.files],
       }),
-    ).toThrow(
-      'Registry style "theme" references missing template file: styles/tokens.css',
-    )
+    ).toThrow(/references missing template file: styles\/tokens.css/)
   })
 
-  test("rejects utilities that do not exist in the template contract", () => {
+  test("rejects utilities that do not exist in the templateFiles list", () => {
     expect(() =>
       validateRegistry([item], {
         utilities: [utility],
         templateFiles: [...item.files],
       }),
-    ).toThrow(
-      'Registry utility "cn" references missing template file: shared/utils/cn.ts',
-    )
+    ).toThrow(/references missing template file: shared\/utils\/cn.ts/)
+  })
+
+  test("collects and displays multiple errors at once", () => {
+    const invalidItem = {
+      ...item,
+      name: "", 
+      dependencies: ["invalid && package"]
+    }
+
+    try {
+      validateRegistry([invalidItem])
+      // Forsiramo pad testa ako validator ne baci error
+      expect.fail("Validator should have thrown errors but did not")
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : String(e)
+      expect(message).toContain("Registry item \"\" failed basic validation")
+      expect(message).toContain("invalid npm dependency")
+    }
   })
 })

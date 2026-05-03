@@ -24,5 +24,8 @@
     "templates:typecheck": "tsc -p templates/tsconfig.json",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0"
   }
 }
