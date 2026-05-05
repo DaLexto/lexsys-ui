@@ -23,6 +23,7 @@ export { alertRegistryItem } from "./items/alert.js"
 export { buttonRegistryItem } from "./items/button.js"
 export { cardRegistryItem } from "./items/card.js"
 export { badgeRegistryItem } from "./items/badge.js"
+export { inputRegistryItem } from "./items/input.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -30,6 +31,7 @@ import { alertRegistryItem } from "./items/alert.js"
 import { badgeRegistryItem } from "./items/badge.js"
 import { buttonRegistryItem } from "./items/button.js"
 import { cardRegistryItem } from "./items/card.js"
+import { inputRegistryItem } from "./items/input.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -47,6 +49,7 @@ export const registryItems: RegistryItem[] = [
   badgeRegistryItem,
   buttonRegistryItem,
   cardRegistryItem,
+  inputRegistryItem,
 ]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]
