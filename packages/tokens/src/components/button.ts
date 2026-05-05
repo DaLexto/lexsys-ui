@@ -20,6 +20,7 @@ export const buttonComponentTokens: ComponentTokenGroup = {
     },
   },
   font: {
+    family: { value: "{typography.control.md.fontFamily}" },
     size: {
       xs: { value: "{typography.control.xs.fontSize}" },
       sm: { value: "{typography.control.sm.fontSize}" },

@@ -10,7 +10,7 @@ export const inputVariants = cva(
   [
     "flex w-full min-w-0 border bg-[var(--nx-input-background)] text-[var(--nx-input-foreground)]",
     "rounded-[var(--nx-input-radius)] border-[var(--nx-input-border-color)]",
-    "font-[var(--nx-input-font-weight)] leading-[var(--nx-input-font-line-height)] tracking-[var(--nx-input-font-letter-spacing)]",
+    "[font-family:var(--nx-input-font-family)] font-[var(--nx-input-font-weight)] leading-[var(--nx-input-font-line-height)] tracking-[var(--nx-input-font-letter-spacing)]",
     "placeholder:text-[var(--nx-input-placeholder-color)]",
     "transition-colors duration-[var(--nx-input-transition-duration)] ease-[var(--nx-easing-standard)]",
     "outline-none focus-visible:border-[var(--nx-input-focus-border-color)] focus-visible:ring-2 focus-visible:ring-nx-ring focus-visible:ring-offset-2 focus-visible:ring-offset-nx-background",

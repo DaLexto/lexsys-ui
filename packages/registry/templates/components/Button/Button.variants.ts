@@ -9,13 +9,12 @@ import { cva } from "class-variance-authority"
 export const buttonVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap border border-transparent",
-    "rounded-[var(--nx-button-radius)] font-[var(--nx-button-font-weight)]",
+    "rounded-[var(--nx-button-radius)] [font-family:var(--nx-button-font-family)] font-[var(--nx-button-font-weight)]",
     "transition-colors duration-[var(--nx-button-transition-duration)] ease-[var(--nx-easing-standard)]",
     "outline-none focus-visible:ring-2 focus-visible:ring-nx-ring focus-visible:ring-offset-2 focus-visible:ring-offset-nx-background",
     "disabled:pointer-events-none disabled:opacity-50",
     "aria-busy:cursor-wait aria-busy:opacity-80",
     "text-[length:var(--nx-button-font-size-md)]",
-    "font-[var(--nx-button-font-weight)]",
     "leading-[var(--nx-button-font-line-height)]",
     "tracking-[var(--nx-button-font-letter-spacing)]",
   ].join(" "),

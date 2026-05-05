@@ -31,6 +31,7 @@ export const inputComponentTokens: ComponentTokenGroup = {
     },
   },
   font: {
+    family: { value: "{typography.control.md.fontFamily}" },
     size: {
       sm: { value: "{typography.control.sm.fontSize}" },
       md: { value: "{typography.control.md.fontSize}" },
