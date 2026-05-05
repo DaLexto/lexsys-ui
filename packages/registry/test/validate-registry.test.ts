@@ -19,15 +19,17 @@ import { validateRegistry } from "../src/validate-registry.js"
  * Eksplicitno tipiziramo 'entry' kao 'Dirent' da izbegnemo TS grešku.
  */
 const collectTemplateFiles = (root: string, current = root): string[] => {
-  return readdirSync(current, { withFileTypes: true }).flatMap((entry: Dirent) => {
-    const path = join(current, entry.name)
+  return readdirSync(current, { withFileTypes: true }).flatMap(
+    (entry: Dirent) => {
+      const path = join(current, entry.name)
 
-    if (entry.isDirectory()) {
-      return collectTemplateFiles(root, path)
-    }
+      if (entry.isDirectory()) {
+        return collectTemplateFiles(root, path)
+      }
 
-    return relative(root, path).replaceAll("\\", "/")
-  })
+      return relative(root, path).replaceAll("\\", "/")
+    },
+  )
 }
 
 // Mock podaci za testiranje
@@ -182,7 +184,7 @@ describe("validateRegistry", () => {
             files: [
               {
                 path: "styles/theme.css",
-                target: "", 
+                target: "",
               },
             ],
           },
@@ -212,8 +214,8 @@ describe("validateRegistry", () => {
   test("collects and displays multiple errors at once", () => {
     const invalidItem = {
       ...item,
-      name: "", 
-      dependencies: ["invalid && package"]
+      name: "",
+      dependencies: ["invalid && package"],
     }
 
     try {
@@ -222,7 +224,7 @@ describe("validateRegistry", () => {
       expect.fail("Validator should have thrown errors but did not")
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : String(e)
-      expect(message).toContain("Registry item \"\" failed basic validation")
+      expect(message).toContain('Registry item "" failed basic validation')
       expect(message).toContain("invalid npm dependency")
     }
   })

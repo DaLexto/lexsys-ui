@@ -16,5 +16,5 @@ export const semanticTokens: SemanticTokenGroup[] = [
   spacingSemantics,
   sizeSemantics,
   motionSemantics,
-  typographySemantics
+  typographySemantics,
 ]
