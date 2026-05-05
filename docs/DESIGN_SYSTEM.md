@@ -97,6 +97,10 @@ They define:
 - semantic roles
 - component-level token intent
 
+Current primitive families cover color palettes, radius, spacing, size,
+typography scales, and motion. Semantic tokens assign meaning to those
+primitives before component tokens consume them.
+
 Tokens must not be treated as CSS files. CSS is an output, not the source.
 
 Token authoring uses object trees, not flat token arrays or generated CSS
