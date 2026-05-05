@@ -10,6 +10,7 @@ import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group"
 import type { RadioGroupItemProps, RadioGroupProps } from "./RadioGroup.types"
 import {
   radioGroupItemVariants,
+  radioGroupIndicatorVariants,
   radioGroupLabelVariants,
   radioGroupVariants,
 } from "./RadioGroup.variants"
@@ -48,7 +49,10 @@ export const RadioGroupItem = forwardRef<HTMLElement, RadioGroupItemProps>(
       <label className={cn(radioGroupLabelVariants(), labelClassName)}>
         <Radio.Root ref={ref} className={radioClassName} {...props}>
           <Radio.Indicator
-            className={cn("size-2 rounded-full bg-current", indicatorClassName)}
+            className={cn(
+              radioGroupIndicatorVariants({ size }),
+              indicatorClassName,
+            )}
           />
         </Radio.Root>
         {children === undefined ? null : <span>{children}</span>}

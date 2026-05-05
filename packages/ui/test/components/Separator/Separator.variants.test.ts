@@ -3,7 +3,11 @@ import { separatorVariants } from "../../../src/components/Separator/Separator.v
 
 describe("separatorVariants", () => {
   it("supports both orientations", () => {
-    expect(separatorVariants({ orientation: "horizontal" })).toContain("h-px")
-    expect(separatorVariants({ orientation: "vertical" })).toContain("w-px")
+    expect(separatorVariants({ orientation: "horizontal" })).toContain(
+      "h-[var(--nx-separator-thickness)]",
+    )
+    expect(separatorVariants({ orientation: "vertical" })).toContain(
+      "w-[var(--nx-separator-thickness)]",
+    )
   })
 })

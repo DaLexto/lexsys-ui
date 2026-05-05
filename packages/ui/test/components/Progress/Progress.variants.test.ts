@@ -6,7 +6,9 @@ import {
 
 describe("progressVariants", () => {
   it("styles track sizes and indeterminate state", () => {
-    expect(progressTrackVariants({ size: "lg" })).toContain("h-3")
+    expect(progressTrackVariants({ size: "lg" })).toContain(
+      "h-[var(--nx-progress-track-height-lg)]",
+    )
     expect(progressIndicatorVariants()).toContain(
       "data-[indeterminate]:animate-pulse",
     )

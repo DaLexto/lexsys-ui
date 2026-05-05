@@ -185,6 +185,48 @@ body {
   gap: 12px;
 }
 
+.interaction-board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.interaction-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--nx-color-border);
+  border-radius: var(--nx-radius-surface);
+  background: var(--nx-color-background);
+}
+
+.interaction-card h3 {
+  margin: 0;
+  color: var(--nx-color-muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.control-stack {
+  display: grid;
+  align-items: start;
+  gap: 12px;
+}
+
+.separator-demo {
+  display: inline-grid;
+  grid-template-columns: auto 1px auto;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  height: 28px;
+  color: var(--nx-color-muted-foreground);
+  font-size: 0.875rem;
+}
+
 @media (max-width: 640px) {
   .playground-shell {
     padding: 28px;
@@ -213,6 +255,10 @@ body {
   }
 
   .card-board {
+    grid-template-columns: 1fr;
+  }
+
+  .interaction-board {
     grid-template-columns: 1fr;
   }
 }

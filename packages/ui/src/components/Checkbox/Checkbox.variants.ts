@@ -8,19 +8,20 @@ import { cva } from "class-variance-authority"
 
 export const checkboxVariants = cva(
   [
-    "inline-flex size-4 shrink-0 items-center justify-center rounded-[var(--nx-radius-sm)] border border-nx-border bg-nx-background text-nx-primary-foreground",
-    "transition-colors duration-[var(--nx-duration-control)] ease-[var(--nx-easing-standard)]",
-    "outline-none data-[checked]:border-nx-primary data-[checked]:bg-nx-primary",
-    "data-[indeterminate]:border-nx-primary data-[indeterminate]:bg-nx-primary",
-    "data-[focused]:ring-2 data-[focused]:ring-nx-ring data-[focused]:ring-offset-2 data-[focused]:ring-offset-nx-background",
+    "inline-flex shrink-0 items-center justify-center rounded-[var(--nx-checkbox-radius)] border",
+    "border-[var(--nx-checkbox-border-color)] bg-[var(--nx-checkbox-background)] text-[var(--nx-checkbox-foreground)]",
+    "transition-colors duration-[var(--nx-checkbox-transition-duration)] ease-[var(--nx-checkbox-transition-easing)]",
+    "outline-none data-[checked]:border-[var(--nx-checkbox-checked-border-color)] data-[checked]:bg-[var(--nx-checkbox-checked-background)] data-[checked]:text-[var(--nx-checkbox-checked-foreground)]",
+    "data-[indeterminate]:border-[var(--nx-checkbox-checked-border-color)] data-[indeterminate]:bg-[var(--nx-checkbox-checked-background)]",
+    "data-[focused]:ring-2 data-[focused]:ring-[var(--nx-checkbox-focus-ring-color)] data-[focused]:ring-offset-2 data-[focused]:ring-offset-[var(--nx-checkbox-focus-ring-offset-color)]",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "size-3.5 text-[10px]",
-        md: "size-4 text-[11px]",
-        lg: "size-5 text-xs",
+        sm: "size-[var(--nx-checkbox-size-sm)] text-[length:var(--nx-checkbox-indicator-font-size-sm)]",
+        md: "size-[var(--nx-checkbox-size-md)] text-[length:var(--nx-checkbox-indicator-font-size-md)]",
+        lg: "size-[var(--nx-checkbox-size-lg)] text-[length:var(--nx-checkbox-indicator-font-size-lg)]",
       },
     },
     defaultVariants: {
@@ -30,5 +31,5 @@ export const checkboxVariants = cva(
 )
 
 export const checkboxLabelVariants = cva(
-  "inline-flex items-center gap-2 text-[length:var(--nx-typography-label-sm-font-size)] font-[var(--nx-typography-label-sm-font-weight)] leading-[var(--nx-typography-label-sm-line-height)] text-nx-foreground",
+  "inline-flex items-center gap-[var(--nx-checkbox-label-gap)] text-[length:var(--nx-checkbox-label-font-size)] font-[var(--nx-checkbox-label-font-weight)] leading-[var(--nx-checkbox-label-font-line-height)] text-[var(--nx-checkbox-label-foreground)]",
 )

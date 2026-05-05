@@ -7,10 +7,10 @@ import {
 describe("switchVariants", () => {
   it("includes Neurex switch states", () => {
     expect(switchVariants({ size: "md" })).toContain(
-      "data-[checked]:bg-nx-primary",
+      "data-[checked]:bg-[var(--nx-switch-checked-background)]",
     )
     expect(switchThumbVariants({ size: "md" })).toContain(
-      "data-[checked]:translate-x-5",
+      "data-[checked]:translate-x-[var(--nx-switch-thumb-translate-md)]",
     )
   })
 })

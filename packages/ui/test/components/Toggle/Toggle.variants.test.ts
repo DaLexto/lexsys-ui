@@ -5,7 +5,9 @@ describe("toggleVariants", () => {
   it("includes pressed state styling", () => {
     const className = toggleVariants({ size: "md" })
 
-    expect(className).toContain("data-[pressed]:bg-nx-primary")
-    expect(className).toContain("h-[var(--nx-button-height-md)]")
+    expect(className).toContain(
+      "data-[pressed]:bg-[var(--nx-toggle-pressed-background)]",
+    )
+    expect(className).toContain("h-[var(--nx-toggle-height-md)]")
   })
 })

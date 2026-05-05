@@ -12,11 +12,11 @@ export const tooltipPositionerVariants = cva("z-50")
 
 export const tooltipPopupVariants = cva(
   [
-    "rounded-[var(--nx-radius-control)] border border-nx-border bg-nx-foreground px-2.5 py-1.5 text-nx-background shadow-md",
-    "text-[length:var(--nx-typography-label-xs-font-size)] font-[var(--nx-typography-label-xs-font-weight)] leading-[var(--nx-typography-label-xs-line-height)]",
+    "rounded-[var(--nx-tooltip-radius)] border border-[var(--nx-tooltip-border-color)] bg-[var(--nx-tooltip-background)] px-[var(--nx-tooltip-padding-x)] py-[var(--nx-tooltip-padding-y)] text-[var(--nx-tooltip-foreground)] shadow-md",
+    "text-[length:var(--nx-tooltip-font-size)] font-[var(--nx-tooltip-font-weight)] leading-[var(--nx-tooltip-font-line-height)]",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-    "transition-opacity duration-[var(--nx-duration-control)] ease-[var(--nx-easing-standard)]",
+    "transition-opacity duration-[var(--nx-tooltip-transition-duration)] ease-[var(--nx-tooltip-transition-easing)]",
   ].join(" "),
 )
 
-export const tooltipArrowVariants = cva("fill-nx-foreground")
+export const tooltipArrowVariants = cva("fill-[var(--nx-tooltip-background)]")

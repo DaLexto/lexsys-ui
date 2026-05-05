@@ -5,8 +5,12 @@ describe("checkboxVariants", () => {
   it("includes Neurex checkbox states", () => {
     const className = checkboxVariants({ size: "md" })
 
-    expect(className).toContain("data-[checked]:bg-nx-primary")
-    expect(className).toContain("data-[focused]:ring-nx-ring")
-    expect(className).toContain("size-4")
+    expect(className).toContain(
+      "data-[checked]:bg-[var(--nx-checkbox-checked-background)]",
+    )
+    expect(className).toContain(
+      "data-[focused]:ring-[var(--nx-checkbox-focus-ring-color)]",
+    )
+    expect(className).toContain("size-[var(--nx-checkbox-size-md)]")
   })
 })

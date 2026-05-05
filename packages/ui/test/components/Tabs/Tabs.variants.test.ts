@@ -6,7 +6,9 @@ import {
 
 describe("tabsVariants", () => {
   it("styles list and active tab state", () => {
-    expect(tabsListVariants()).toContain("bg-nx-muted")
-    expect(tabsTabVariants()).toContain("data-[active]:bg-nx-background")
+    expect(tabsListVariants()).toContain("bg-[var(--nx-tabs-list-background)]")
+    expect(tabsTabVariants()).toContain(
+      "data-[active]:bg-[var(--nx-tabs-tab-active-background)]",
+    )
   })
 })

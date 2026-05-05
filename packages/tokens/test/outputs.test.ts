@@ -58,6 +58,18 @@ describe("createStyleOutputs", () => {
     expect(outputs.tokensCss).toContain(
       "--nx-card-radius: var(--nx-radius-surface)",
     )
+    expect(outputs.tokensCss).toContain(
+      "--nx-checkbox-size-md: var(--nx-size-selection-control-md)",
+    )
+    expect(outputs.tokensCss).toContain(
+      "--nx-switch-thumb-translate-md: var(--nx-size-switch-thumb-translate-md)",
+    )
+    expect(outputs.tokensCss).toContain(
+      "--nx-tabs-tab-active-background: var(--nx-color-background)",
+    )
+    expect(outputs.tokensCss).toContain(
+      "--nx-tooltip-background: var(--nx-color-foreground)",
+    )
 
     expect(outputs.themeCss).toContain("--nx-color-background")
     expect(outputs.themeCss).toContain(".dark")

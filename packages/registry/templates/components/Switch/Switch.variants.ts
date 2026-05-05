@@ -8,18 +8,18 @@ import { cva } from "class-variance-authority"
 
 export const switchVariants = cva(
   [
-    "inline-flex shrink-0 cursor-pointer items-center rounded-full border border-transparent bg-nx-muted p-0.5",
-    "transition-colors duration-[var(--nx-duration-control)] ease-[var(--nx-easing-standard)]",
-    "outline-none data-[checked]:bg-nx-primary",
-    "data-[focused]:ring-2 data-[focused]:ring-nx-ring data-[focused]:ring-offset-2 data-[focused]:ring-offset-nx-background",
+    "inline-flex shrink-0 cursor-pointer items-center rounded-[var(--nx-switch-radius)] border border-transparent bg-[var(--nx-switch-background)] p-[var(--nx-switch-padding)]",
+    "transition-colors duration-[var(--nx-switch-transition-duration)] ease-[var(--nx-switch-transition-easing)]",
+    "outline-none data-[checked]:bg-[var(--nx-switch-checked-background)]",
+    "data-[focused]:ring-2 data-[focused]:ring-[var(--nx-switch-focus-ring-color)] data-[focused]:ring-offset-2 data-[focused]:ring-offset-[var(--nx-switch-focus-ring-offset-color)]",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "h-5 w-9",
-        md: "h-6 w-11",
-        lg: "h-7 w-13",
+        sm: "h-[var(--nx-switch-height-sm)] w-[var(--nx-switch-width-sm)]",
+        md: "h-[var(--nx-switch-height-md)] w-[var(--nx-switch-width-md)]",
+        lg: "h-[var(--nx-switch-height-lg)] w-[var(--nx-switch-width-lg)]",
       },
     },
     defaultVariants: {
@@ -30,15 +30,15 @@ export const switchVariants = cva(
 
 export const switchThumbVariants = cva(
   [
-    "block rounded-full bg-nx-background shadow-sm ring-0",
-    "transition-transform duration-[var(--nx-duration-control)] ease-[var(--nx-easing-standard)]",
+    "block rounded-[var(--nx-switch-thumb-radius)] bg-[var(--nx-switch-thumb-background)] shadow-sm ring-0",
+    "transition-transform duration-[var(--nx-switch-transition-duration)] ease-[var(--nx-switch-transition-easing)]",
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "size-4 data-[checked]:translate-x-4",
-        md: "size-5 data-[checked]:translate-x-5",
-        lg: "size-6 data-[checked]:translate-x-6",
+        sm: "size-[var(--nx-switch-thumb-size-sm)] data-[checked]:translate-x-[var(--nx-switch-thumb-translate-sm)]",
+        md: "size-[var(--nx-switch-thumb-size-md)] data-[checked]:translate-x-[var(--nx-switch-thumb-translate-md)]",
+        lg: "size-[var(--nx-switch-thumb-size-lg)] data-[checked]:translate-x-[var(--nx-switch-thumb-translate-lg)]",
       },
     },
     defaultVariants: {

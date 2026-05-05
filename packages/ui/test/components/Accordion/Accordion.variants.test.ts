@@ -6,7 +6,11 @@ import {
 
 describe("accordionVariants", () => {
   it("styles trigger and panel text", () => {
-    expect(accordionTriggerVariants()).toContain("hover:bg-nx-muted")
-    expect(accordionPanelVariants()).toContain("text-nx-muted-foreground")
+    expect(accordionTriggerVariants()).toContain(
+      "hover:bg-[var(--nx-accordion-trigger-background-hover)]",
+    )
+    expect(accordionPanelVariants()).toContain(
+      "text-[var(--nx-accordion-panel-foreground)]",
+    )
   })
 })
