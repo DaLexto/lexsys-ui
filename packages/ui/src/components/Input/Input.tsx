@@ -11,24 +11,20 @@ import { inputVariants } from "./Input.variants"
 import { cn } from "../../utils/cn"
 
 export const Input = forwardRef<HTMLElement, InputProps>(
-  (
-    {
-      variant,
-      size,
-      className,
-      isInvalid,
-      "aria-invalid": ariaInvalid,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ variant, size, className, isInvalid, ...props }, ref) => {
+    const baseInputProps: Omit<
+      InputProps,
+      "className" | "isInvalid" | "size" | "variant"
+    > = isInvalid ? { ...props, "aria-invalid": true } : props
+    const inputClassName: InputProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
+
+      return cn(inputVariants({ variant, size }), userClassName)
+    }
+
     return (
-      <BaseInput
-        ref={ref}
-        className={cn(inputVariants({ variant, size }), className)}
-        aria-invalid={isInvalid || ariaInvalid || undefined}
-        {...props}
-      />
+      <BaseInput ref={ref} className={inputClassName} {...baseInputProps} />
     )
   },
 )

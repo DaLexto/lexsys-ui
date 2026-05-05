@@ -92,15 +92,28 @@ declare module "@base-ui/react/input" {
   import type { InputHTMLAttributes, ReactElement, RefAttributes } from "react"
 
   export namespace Input {
+    export interface State {
+      disabled?: boolean
+      touched?: boolean
+      dirty?: boolean
+      valid?: boolean | null
+      filled?: boolean
+      focused?: boolean
+    }
+
     export interface ChangeEventDetails {
       reason?: string
     }
 
     export interface Props extends Omit<
       InputHTMLAttributes<HTMLInputElement>,
-      "onChange"
+      "className" | "onChange"
     > {
+      className?: string | ((state: State) => string | undefined)
       onValueChange?: (value: string, eventDetails: ChangeEventDetails) => void
+      render?:
+        | ReactElement
+        | ((props: Record<string, unknown>, state: State) => ReactElement)
     }
   }
 

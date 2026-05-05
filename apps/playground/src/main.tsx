@@ -116,6 +116,7 @@ const inputExamples: Array<{
 
 const App = () => {
   const [themeMode, setThemeMode] = useState<"light" | "dark">("light")
+  const [inputValue, setInputValue] = useState("Neurex Input")
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", themeMode === "dark")
@@ -167,6 +168,46 @@ const App = () => {
                 <Button {...example.props} />
               </article>
             ))}
+          </div>
+
+          <div className="input-example-grid">
+            <article className="input-example">
+              <label htmlFor="controlled-input">Controlled</label>
+              <Input
+                id="controlled-input"
+                value={inputValue}
+                onValueChange={setInputValue}
+                placeholder="Type a value"
+              />
+              <p>{inputValue || "Empty value"}</p>
+            </article>
+
+            <article className="input-example">
+              <label htmlFor="state-input">State className</label>
+              <Input
+                id="state-input"
+                defaultValue="Focus or edit me"
+                className={(state) =>
+                  state.focused
+                    ? "border-green-600 ring-green-600/20"
+                    : state.dirty
+                      ? "border-blue-600"
+                      : undefined
+                }
+              />
+              <p>Focus and dirty state flow through Base UI.</p>
+            </article>
+
+            <article className="input-example">
+              <label htmlFor="render-input">Render prop</label>
+              <Input
+                id="render-input"
+                defaultValue="Custom render element"
+                render={<input data-render-mode="custom" />}
+                className="font-mono"
+              />
+              <p>Neurex classes merge into Base UI render output.</p>
+            </article>
           </div>
         </section>
 

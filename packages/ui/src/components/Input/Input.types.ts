@@ -6,12 +6,16 @@
 
 import type { Input as BaseInput } from "@base-ui/react/input"
 
+type InputAriaInvalid = boolean | "true" | "false" | "grammar" | "spelling"
+type InputClassName = BaseInput.Props["className"]
+
 export interface InputProps extends Omit<
   BaseInput.Props,
-  "className" | "size"
+  "aria-invalid" | "className" | "size"
 > {
   variant?: "default" | "ghost"
   size?: "sm" | "md" | "lg"
   isInvalid?: boolean
-  className?: string
+  "aria-invalid"?: InputAriaInvalid
+  className?: InputClassName
 }
