@@ -29,7 +29,12 @@ export const inputRegistryItem: RegistryItem = {
       path: "components/Input/Input.variants.ts",
     },
   ],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  dependencies: [
+    "@base-ui/react",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+  ],
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],

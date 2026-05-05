@@ -12,6 +12,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Input,
 } from "@neurex/ui"
 import "./styles.css"
 
@@ -56,6 +57,59 @@ const buttonExamples: Array<{
       children: "Unavailable",
       disabled: true,
       variant: "secondary" as const,
+    },
+  },
+]
+
+const inputExamples: Array<{
+  label: string
+  props: React.ComponentProps<typeof Input>
+}> = [
+  {
+    label: "Default / sm",
+    props: {
+      "aria-label": "Small input",
+      defaultValue: "Small input",
+      size: "sm",
+    },
+  },
+  {
+    label: "Default / md",
+    props: {
+      "aria-label": "Project name",
+      placeholder: "Project name",
+    },
+  },
+  {
+    label: "Default / lg",
+    props: {
+      "aria-label": "Large input",
+      defaultValue: "Large input",
+      size: "lg",
+    },
+  },
+  {
+    label: "Ghost",
+    props: {
+      "aria-label": "Ghost input",
+      defaultValue: "Ghost surface",
+      variant: "ghost",
+    },
+  },
+  {
+    label: "Invalid",
+    props: {
+      "aria-label": "Invalid input",
+      defaultValue: "Invalid value",
+      isInvalid: true,
+    },
+  },
+  {
+    label: "Disabled",
+    props: {
+      "aria-label": "Disabled input",
+      defaultValue: "Unavailable",
+      disabled: true,
     },
   },
 ]
@@ -111,6 +165,24 @@ const App = () => {
               <article className="button-row" key={example.label}>
                 <span>{example.label}</span>
                 <Button {...example.props} />
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="component-panel" aria-labelledby="input-title">
+          <div className="panel-header">
+            <div>
+              <p className="playground-label">Input</p>
+              <h2 id="input-title">Sizes and states</h2>
+            </div>
+          </div>
+
+          <div className="input-board">
+            {inputExamples.map((example) => (
+              <article className="input-row" key={example.label}>
+                <span>{example.label}</span>
+                <Input {...example.props} />
               </article>
             ))}
           </div>

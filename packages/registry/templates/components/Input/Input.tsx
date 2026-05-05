@@ -5,11 +5,12 @@
  */
 
 import { forwardRef } from "react"
+import { Input as BaseInput } from "@base-ui/react/input"
 import type { InputProps } from "./Input.types"
 import { inputVariants } from "./Input.variants"
 import { cn } from "@/lib/utils"
-// user edit
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+
+export const Input = forwardRef<HTMLElement, InputProps>(
   (
     {
       variant,
@@ -22,7 +23,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     return (
-      <input
+      <BaseInput
         ref={ref}
         className={cn(inputVariants({ variant, size }), className)}
         aria-invalid={isInvalid || ariaInvalid || undefined}

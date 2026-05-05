@@ -88,6 +88,27 @@ declare module "@base-ui/react/button" {
   ): ReactElement | null
 }
 
+declare module "@base-ui/react/input" {
+  import type { InputHTMLAttributes, ReactElement, RefAttributes } from "react"
+
+  export namespace Input {
+    export interface ChangeEventDetails {
+      reason?: string
+    }
+
+    export interface Props extends Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      "onChange"
+    > {
+      onValueChange?: (value: string, eventDetails: ChangeEventDetails) => void
+    }
+  }
+
+  export function Input(
+    props: Input.Props & RefAttributes<HTMLElement>,
+  ): ReactElement | null
+}
+
 declare module "@/lib/utils" {
   export function cn(...inputs: unknown[]): string
 }

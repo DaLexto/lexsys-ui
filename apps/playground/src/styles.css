@@ -120,6 +120,23 @@ body {
   font-size: 0.875rem;
 }
 
+.input-board {
+  display: grid;
+  gap: 12px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+
+.input-row span {
+  color: var(--nx-color-muted-foreground);
+  font-size: 0.875rem;
+}
+
 .card-board {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -145,6 +162,10 @@ body {
   .button-row {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .input-row {
+    grid-template-columns: 1fr;
   }
 
   .playground-header {
