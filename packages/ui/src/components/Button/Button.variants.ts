@@ -16,8 +16,8 @@ export const buttonVariants = cva(
     "aria-busy:cursor-wait aria-busy:opacity-80",
     "text-[length:var(--nx-button-font-size-md)]",
     "font-[var(--nx-button-font-weight)]",
-    "leading-[var(--nx-button-line-height)]",
-    "tracking-[var(--nx-button-letter-spacing)]",
+    "leading-[var(--nx-button-font-line-height)]",
+    "tracking-[var(--nx-button-font-letter-spacing)]",
   ].join(" "),
   {
     variants: {

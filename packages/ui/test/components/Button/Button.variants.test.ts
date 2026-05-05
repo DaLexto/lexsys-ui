@@ -8,6 +8,7 @@ describe("buttonVariants", () => {
     expect(className).toContain("bg-nx-primary")
     expect(className).toContain("text-nx-primary-foreground")
     expect(className).toContain("rounded-[var(--nx-button-radius)]")
+    expect(className).toContain("leading-[var(--nx-button-font-line-height)]")
     expect(className).toContain("h-[var(--nx-button-height-md)]")
   })
 

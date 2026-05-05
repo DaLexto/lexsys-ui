@@ -34,6 +34,15 @@ declare module "react" {
     "aria-busy"?: boolean | undefined
   }
 
+  export interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
+    disabled?: boolean
+    placeholder?: string
+    type?: string
+    value?: string | number | readonly string[]
+    defaultValue?: string | number | readonly string[]
+    "aria-invalid"?: boolean | "true" | "false" | "grammar" | "spelling"
+  }
+
   export type ReactElement = JSX.Element
 
   export interface ForwardRefExoticComponent<P> {
@@ -118,6 +127,12 @@ declare namespace JSX {
       className?: string
       disabled?: boolean
       children?: unknown
+      [key: string]: unknown
+    }
+    input: {
+      ref?: unknown
+      className?: string
+      disabled?: boolean
       [key: string]: unknown
     }
   }
