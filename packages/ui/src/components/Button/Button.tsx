@@ -10,7 +10,7 @@ import type { ButtonProps } from "./Button.types"
 import { buttonVariants } from "./Button.variants"
 import { cn } from "../../utils/cn"
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLElement, ButtonProps>(
   (
     {
       variant,
@@ -26,15 +26,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const isDisabled = isLoading || disabled
+    const buttonClassName: ButtonProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
+
+      return cn(buttonVariants({ variant, size }), userClassName)
+    }
 
     return (
       <BaseButton
         ref={ref}
         type={type ?? "button"}
-        className={cn(buttonVariants({ variant, size }), className)}
+        className={buttonClassName}
         disabled={Boolean(isDisabled)}
-        focusableWhenDisabled={isLoading ? true : focusableWhenDisabled}
-        aria-busy={isLoading || undefined}
+        focusableWhenDisabled={
+          isLoading ? true : Boolean(focusableWhenDisabled)
+        }
+        aria-busy={isLoading ? true : undefined}
         {...props}
       >
         {isLoading ? "Loading..." : children}

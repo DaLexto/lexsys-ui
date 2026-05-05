@@ -8,6 +8,7 @@ const formComponentNames = new Set([
   "Field",
   "Input",
   "Radio",
+  "RadioGroup",
   "Select",
   "Slider",
   "Switch",

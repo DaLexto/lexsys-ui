@@ -24,6 +24,16 @@ export { buttonRegistryItem } from "./items/button.js"
 export { cardRegistryItem } from "./items/card.js"
 export { badgeRegistryItem } from "./items/badge.js"
 export { inputRegistryItem } from "./items/input.js"
+export { accordionRegistryItem } from "./items/accordion.js"
+export { checkboxRegistryItem } from "./items/checkbox.js"
+export { progressRegistryItem } from "./items/progress.js"
+export { radioGroupRegistryItem } from "./items/radio-group.js"
+export { separatorRegistryItem } from "./items/separator.js"
+export { sliderRegistryItem } from "./items/slider.js"
+export { switchRegistryItem } from "./items/switch.js"
+export { tabsRegistryItem } from "./items/tabs.js"
+export { toggleRegistryItem } from "./items/toggle.js"
+export { tooltipRegistryItem } from "./items/tooltip.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -32,6 +42,16 @@ import { badgeRegistryItem } from "./items/badge.js"
 import { buttonRegistryItem } from "./items/button.js"
 import { cardRegistryItem } from "./items/card.js"
 import { inputRegistryItem } from "./items/input.js"
+import { accordionRegistryItem } from "./items/accordion.js"
+import { checkboxRegistryItem } from "./items/checkbox.js"
+import { progressRegistryItem } from "./items/progress.js"
+import { radioGroupRegistryItem } from "./items/radio-group.js"
+import { separatorRegistryItem } from "./items/separator.js"
+import { sliderRegistryItem } from "./items/slider.js"
+import { switchRegistryItem } from "./items/switch.js"
+import { tabsRegistryItem } from "./items/tabs.js"
+import { toggleRegistryItem } from "./items/toggle.js"
+import { tooltipRegistryItem } from "./items/tooltip.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -50,6 +70,16 @@ export const registryItems: RegistryItem[] = [
   buttonRegistryItem,
   cardRegistryItem,
   inputRegistryItem,
+  accordionRegistryItem,
+  checkboxRegistryItem,
+  progressRegistryItem,
+  radioGroupRegistryItem,
+  separatorRegistryItem,
+  sliderRegistryItem,
+  switchRegistryItem,
+  tabsRegistryItem,
+  toggleRegistryItem,
+  tooltipRegistryItem,
 ]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]

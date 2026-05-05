@@ -11,9 +11,6 @@ const targetRoot = resolve(registryRoot, "templates/components")
 
 const componentSourceImport = 'import { cn } from "../../utils/cn"'
 const componentTemplateImport = 'import { cn } from "@/lib/utils"'
-const buttonSourceTypeFallback = 'type={type ?? "button"}'
-const buttonTemplateTypeFallback =
-  'type={(type as "button" | "submit" | "reset" | undefined) ?? "button"}'
 
 const syncableExtensions = new Set([".ts", ".tsx"])
 const checkOnly = process.argv.includes("--check")
@@ -49,9 +46,7 @@ const collectFiles = async (directory) => {
 }
 
 const toRegistryTemplate = (source) => {
-  return source
-    .replaceAll(componentSourceImport, componentTemplateImport)
-    .replaceAll(buttonSourceTypeFallback, buttonTemplateTypeFallback)
+  return source.replaceAll(componentSourceImport, componentTemplateImport)
 }
 
 const readExistingTemplate = async (path) => {
