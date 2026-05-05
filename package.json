@@ -22,6 +22,7 @@
     "registry:build": "pnpm --filter @neurex/registry build",
     "registry:typecheck": "pnpm --filter @neurex/registry typecheck",
     "registry:check": "pnpm --filter @neurex/registry check",
+    "registry:sync": "pnpm --filter @neurex/registry templates:sync",
     "tokens:build": "pnpm --filter @neurex/tokens build",
     "tokens:typecheck": "pnpm --filter @neurex/tokens typecheck",
     "tokens:check": "pnpm --filter @neurex/tokens check",

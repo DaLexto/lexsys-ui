@@ -107,6 +107,18 @@ Guidelines:
 - keep shared utilities under `templates/shared`
 - avoid hidden setup assumptions inside template files
 
+Component templates are synced from `packages/ui/src/components` with
+`pnpm registry:sync`. The sync transform should stay minimal: registry templates
+may adapt consumer import paths such as `cn`, while component API, variants, and
+structure should remain owned by `packages/ui`.
+
+Registry checks verify that templates stay synced with the UI source.
+Any template-only transform must exist in the sync script, not as a manual edit
+inside `packages/registry/templates/components`.
+
+Registry item metadata stays manually authored because it is the install
+contract for category, aliases, dependencies, styles, utilities, and targets.
+
 If a component depends on shared helpers, registry metadata should declare them explicitly.
 
 ---

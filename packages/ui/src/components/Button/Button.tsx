@@ -32,7 +32,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type ?? "button"}
         className={cn(buttonVariants({ variant, size }), className)}
-        disabled={isDisabled}
+        disabled={Boolean(isDisabled)}
         focusableWhenDisabled={isLoading ? true : focusableWhenDisabled}
         aria-busy={isLoading || undefined}
         {...props}
