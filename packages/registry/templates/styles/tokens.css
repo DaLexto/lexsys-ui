@@ -500,6 +500,62 @@
   --nx-checkbox-focus-ring-offset-color: var(--nx-color-background);
   --nx-checkbox-transition-duration: var(--nx-duration-control);
   --nx-checkbox-transition-easing: var(--nx-easing-control);
+  --nx-field-gap: var(--nx-space-control-gap-sm);
+  --nx-field-foreground: var(--nx-color-foreground);
+  --nx-field-label-foreground: var(--nx-color-foreground);
+  --nx-field-label-invalid-foreground: var(--nx-color-destructive);
+  --nx-field-label-font-size: var(--nx-typography-label-sm-font-size);
+  --nx-field-label-font-weight: var(--nx-typography-label-sm-font-weight);
+  --nx-field-label-font-line-height: var(--nx-typography-label-sm-line-height);
+  --nx-field-label-font-letter-spacing: var(
+    --nx-typography-label-sm-letter-spacing
+  );
+  --nx-field-description-foreground: var(--nx-color-muted-foreground);
+  --nx-field-description-font-size: var(--nx-typography-body-xs-font-size);
+  --nx-field-description-font-weight: var(--nx-typography-body-xs-font-weight);
+  --nx-field-description-font-line-height: var(
+    --nx-typography-body-xs-line-height
+  );
+  --nx-field-description-font-letter-spacing: var(
+    --nx-typography-body-xs-letter-spacing
+  );
+  --nx-field-error-foreground: var(--nx-color-destructive);
+  --nx-field-error-font-size: var(--nx-typography-body-xs-font-size);
+  --nx-field-error-font-weight: var(--nx-typography-body-xs-font-weight);
+  --nx-field-error-font-line-height: var(--nx-typography-body-xs-line-height);
+  --nx-field-error-font-letter-spacing: var(
+    --nx-typography-body-xs-letter-spacing
+  );
+  --nx-field-item-gap: var(--nx-space-control-gap-sm);
+  --nx-field-control-background: var(--nx-color-background);
+  --nx-field-control-foreground: var(--nx-color-foreground);
+  --nx-field-control-placeholder-color: var(--nx-color-muted-foreground);
+  --nx-field-control-border-color: var(--nx-color-border);
+  --nx-field-control-focus-border-color: var(--nx-color-ring);
+  --nx-field-control-focus-ring-color: var(--nx-color-ring);
+  --nx-field-control-focus-ring-offset-color: var(--nx-color-background);
+  --nx-field-control-invalid-border-color: var(--nx-color-destructive);
+  --nx-field-control-invalid-ring-color: var(--nx-color-destructive);
+  --nx-field-control-radius: var(--nx-radius-control);
+  --nx-field-control-height-sm: var(--nx-size-control-sm);
+  --nx-field-control-height-md: var(--nx-size-control-md);
+  --nx-field-control-height-lg: var(--nx-size-control-lg);
+  --nx-field-control-padding-x-sm: var(--nx-space-control-x-sm);
+  --nx-field-control-padding-x-md: var(--nx-space-control-x-md);
+  --nx-field-control-padding-x-lg: var(--nx-space-control-x-lg);
+  --nx-field-control-font-family: var(--nx-typography-control-md-font-family);
+  --nx-field-control-font-size-sm: var(--nx-typography-control-sm-font-size);
+  --nx-field-control-font-size-md: var(--nx-typography-control-md-font-size);
+  --nx-field-control-font-size-lg: var(--nx-typography-control-lg-font-size);
+  --nx-field-control-font-weight: var(--nx-typography-control-md-font-weight);
+  --nx-field-control-font-line-height: var(
+    --nx-typography-control-md-line-height
+  );
+  --nx-field-control-font-letter-spacing: var(
+    --nx-typography-control-md-letter-spacing
+  );
+  --nx-field-transition-duration: var(--nx-duration-control);
+  --nx-field-transition-easing: var(--nx-easing-control);
   --nx-input-background: var(--nx-color-background);
   --nx-input-foreground: var(--nx-color-foreground);
   --nx-input-placeholder-color: var(--nx-color-muted-foreground);

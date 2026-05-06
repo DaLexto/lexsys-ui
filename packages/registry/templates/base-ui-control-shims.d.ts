@@ -68,6 +68,128 @@ declare module "@base-ui/react/input" {
   ): TemplateElement
 }
 
+declare module "@base-ui/react/field" {
+  export namespace Field {
+    export namespace Root {
+      export interface State {
+        disabled: boolean
+        touched: boolean
+        dirty: boolean
+        valid: boolean | null
+        filled: boolean
+        focused: boolean
+      }
+      export interface Actions {
+        validate: () => void
+      }
+      export interface Props extends TemplatePartProps<State> {
+        actionsRef?: import("react").RefObject<Actions | null>
+        dirty?: boolean
+        disabled?: boolean
+        invalid?: boolean
+        name?: string
+        touched?: boolean
+        validate?: (
+          value: unknown,
+          formValues: Record<string, unknown>,
+        ) => string | string[] | Promise<string | string[] | null> | null
+        validationDebounceTime?: number
+        validationMode?: "onSubmit" | "onBlur" | "onChange"
+      }
+    }
+
+    export namespace Label {
+      export type State = Root.State
+      export interface Props extends TemplatePartProps<State> {
+        nativeLabel?: boolean
+      }
+    }
+
+    export namespace Control {
+      export type State = Root.State
+      export interface ChangeEventDetails {
+        reason?: string
+      }
+      export interface Props extends TemplatePartProps<State> {
+        "aria-invalid"?: boolean | "true" | "false" | "grammar" | "spelling"
+        defaultValue?: string | number | readonly string[]
+        disabled?: boolean
+        placeholder?: string
+        required?: boolean
+        type?: string
+        value?: string | number | readonly string[]
+        onValueChange?: (
+          value: string,
+          eventDetails: ChangeEventDetails,
+        ) => void
+      }
+    }
+
+    export namespace Description {
+      export type State = Root.State
+      export type Props = TemplatePartProps<State>
+    }
+
+    export namespace Item {
+      export type State = Root.State
+      export interface Props extends TemplatePartProps<State> {
+        disabled?: boolean
+      }
+    }
+
+    export namespace Error {
+      export interface State extends Root.State {
+        transitionStatus: string
+      }
+      export interface Props extends TemplatePartProps<State> {
+        match?: boolean | keyof ValidityState
+      }
+    }
+
+    export namespace Validity {
+      export interface State {
+        validity: {
+          badInput: boolean
+          customError: boolean
+          patternMismatch: boolean
+          rangeOverflow: boolean
+          rangeUnderflow: boolean
+          stepMismatch: boolean
+          tooLong: boolean
+          tooShort: boolean
+          typeMismatch: boolean
+          valueMissing: boolean
+          valid: boolean | null
+        }
+        transitionStatus: string
+        error: string
+        errors: string[]
+        value: unknown
+        initialValue: unknown
+      }
+      export interface Props {
+        children: (state: State) => TemplateNode
+      }
+    }
+  }
+
+  export const Field: {
+    Root(props: Field.Root.Props & TemplateRef<HTMLDivElement>): TemplateElement
+    Label(props: Field.Label.Props & TemplateRef<HTMLElement>): TemplateElement
+    Control(
+      props: Field.Control.Props & TemplateRef<HTMLElement>,
+    ): TemplateElement
+    Description(
+      props: Field.Description.Props & TemplateRef<HTMLParagraphElement>,
+    ): TemplateElement
+    Item(props: Field.Item.Props & TemplateRef<HTMLDivElement>): TemplateElement
+    Error(
+      props: Field.Error.Props & TemplateRef<HTMLDivElement>,
+    ): TemplateElement
+    Validity(props: Field.Validity.Props): TemplateElement
+  }
+}
+
 declare module "@base-ui/react/checkbox" {
   export namespace Checkbox {
     export namespace Root {

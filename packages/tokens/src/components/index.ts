@@ -5,6 +5,7 @@ import { badgeComponentTokens } from "./badge.js"
 import { buttonComponentTokens } from "./button.js"
 import { cardComponentTokens } from "./card.js"
 import { checkboxComponentTokens } from "./checkbox.js"
+import { fieldComponentTokens } from "./field.js"
 import { inputComponentTokens } from "./input.js"
 import { progressComponentTokens } from "./progress.js"
 import { radioGroupComponentTokens } from "./radio-group.js"
@@ -21,6 +22,7 @@ export { badgeComponentTokens } from "./badge.js"
 export { buttonComponentTokens } from "./button.js"
 export { cardComponentTokens } from "./card.js"
 export { checkboxComponentTokens } from "./checkbox.js"
+export { fieldComponentTokens } from "./field.js"
 export { inputComponentTokens } from "./input.js"
 export { progressComponentTokens } from "./progress.js"
 export { radioGroupComponentTokens } from "./radio-group.js"
@@ -38,6 +40,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   buttonComponentTokens,
   cardComponentTokens,
   checkboxComponentTokens,
+  fieldComponentTokens,
   inputComponentTokens,
   progressComponentTokens,
   radioGroupComponentTokens,

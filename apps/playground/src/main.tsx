@@ -18,6 +18,13 @@ import {
   CardHeader,
   CardTitle,
   Checkbox,
+  Field,
+  FieldControl,
+  FieldDescription,
+  FieldError,
+  FieldItem,
+  FieldLabel,
+  FieldValidity,
   Input,
   Progress,
   RadioGroup,
@@ -37,105 +44,8 @@ import {
   TooltipPositioner,
   TooltipTrigger,
 } from "@neurex/ui"
+import { buttonExamples, inputExamples } from "./examples"
 import "./styles.css"
-
-const buttonExamples: Array<{
-  label: string
-  props: React.ComponentProps<typeof Button>
-}> = [
-  {
-    label: "Primary xs",
-    props: { children: "Extra Small", size: "xs" },
-  },
-  {
-    label: "Primary sm",
-    props: { children: "Small", size: "sm" },
-  },
-  {
-    label: "Primary md",
-    props: { children: "Medium", size: "md" },
-  },
-  {
-    label: "Primary lg loading",
-    props: { children: "Generating", isLoading: true, size: "lg" },
-  },
-  {
-    label: "Primary xl",
-    props: { children: "Create Extra Large", size: "xl" },
-  },
-  {
-    label: "Secondary",
-    props: { children: "Preview", variant: "secondary" },
-  },
-  {
-    label: "Custom class",
-    props: {
-      children: "Tailwind override",
-      className: "bg-green-600 text-white hover:bg-green-700",
-    },
-  },
-  {
-    label: "Disabled",
-    props: {
-      children: "Unavailable",
-      disabled: true,
-      variant: "secondary" as const,
-    },
-  },
-]
-
-const inputExamples: Array<{
-  label: string
-  props: React.ComponentProps<typeof Input>
-}> = [
-  {
-    label: "Default / sm",
-    props: {
-      "aria-label": "Small input",
-      defaultValue: "Small input",
-      size: "sm",
-    },
-  },
-  {
-    label: "Default / md",
-    props: {
-      "aria-label": "Project name",
-      placeholder: "Project name",
-    },
-  },
-  {
-    label: "Default / lg",
-    props: {
-      "aria-label": "Large input",
-      defaultValue: "Large input",
-      size: "lg",
-    },
-  },
-  {
-    label: "Ghost",
-    props: {
-      "aria-label": "Ghost input",
-      defaultValue: "Ghost surface",
-      variant: "ghost",
-    },
-  },
-  {
-    label: "Invalid",
-    props: {
-      "aria-label": "Invalid input",
-      defaultValue: "Invalid value",
-      isInvalid: true,
-    },
-  },
-  {
-    label: "Disabled",
-    props: {
-      "aria-label": "Disabled input",
-      defaultValue: "Unavailable",
-      disabled: true,
-    },
-  },
-]
 
 const App = () => {
   const [themeMode, setThemeMode] = useState<"light" | "dark">("light")
@@ -192,6 +102,24 @@ const App = () => {
               </article>
             ))}
           </div>
+        </section>
+
+        <section className="component-panel" aria-labelledby="input-title">
+          <div className="panel-header">
+            <div>
+              <p className="playground-label">Input</p>
+              <h2 id="input-title">Sizes and states</h2>
+            </div>
+          </div>
+
+          <div className="input-board">
+            {inputExamples.map((example) => (
+              <article className="input-row" key={example.label}>
+                <span>{example.label}</span>
+                <Input {...example.props} />
+              </article>
+            ))}
+          </div>
 
           <div className="input-example-grid">
             <article className="input-example">
@@ -210,7 +138,7 @@ const App = () => {
               <Input
                 id="state-input"
                 defaultValue="Focus or edit me"
-                className={(state) =>
+                className={(state: { dirty?: boolean; focused?: boolean }) =>
                   state.focused
                     ? "border-green-600 ring-green-600/20"
                     : state.dirty
@@ -234,21 +162,61 @@ const App = () => {
           </div>
         </section>
 
-        <section className="component-panel" aria-labelledby="input-title">
+        <section className="component-panel" aria-labelledby="field-title">
           <div className="panel-header">
             <div>
-              <p className="playground-label">Input</p>
-              <h2 id="input-title">Sizes and states</h2>
+              <p className="playground-label">Field</p>
+              <h2 id="field-title">Labeling and validation</h2>
             </div>
           </div>
 
-          <div className="input-board">
-            {inputExamples.map((example) => (
-              <article className="input-row" key={example.label}>
-                <span>{example.label}</span>
-                <Input {...example.props} />
-              </article>
-            ))}
+          <div className="field-board">
+            <Field
+              name="workspace"
+              validationMode="onChange"
+              validate={(value) => {
+                return typeof value === "string" && value.trim().length >= 3
+                  ? null
+                  : "Use at least 3 characters."
+              }}
+            >
+              <FieldLabel>Workspace name</FieldLabel>
+              <FieldControl required defaultValue="Neurex" />
+              <FieldDescription>
+                Shown in generated project metadata.
+              </FieldDescription>
+              <FieldError match="valueMissing">
+                Workspace name is required.
+              </FieldError>
+              <FieldError match="customError">
+                Use at least 3 characters.
+              </FieldError>
+            </Field>
+
+            <Field name="email" invalid touched>
+              <FieldLabel>Email</FieldLabel>
+              <Input type="email" defaultValue="broken-email" />
+              <FieldDescription>
+                Use a reachable account address.
+              </FieldDescription>
+              <FieldError match>Enter a valid email address.</FieldError>
+              <FieldValidity>
+                {(state: { validity: { valid: boolean | null } }) => (
+                  <p className="field-validity-note">
+                    {state.validity.valid === false ? "Invalid" : "Ready"}
+                  </p>
+                )}
+              </FieldValidity>
+            </Field>
+
+            <Field name="updates">
+              <FieldItem>
+                <Checkbox defaultChecked>Product updates</Checkbox>
+                <FieldDescription>
+                  Receive release notes for new registry items.
+                </FieldDescription>
+              </FieldItem>
+            </Field>
           </div>
         </section>
 
@@ -359,12 +327,12 @@ const App = () => {
           <div className="panel-header">
             <div>
               <p className="playground-label">Base UI behavior</p>
-              <h2 id="base-ui-title">New interaction primitives</h2>
+              <h2 id="base-ui-title">Interaction primitives</h2>
             </div>
           </div>
 
           <div className="interaction-board">
-            <article className="interaction-card">
+            <article className="interaction-section">
               <h3>Form controls</h3>
               <div className="control-stack">
                 <Checkbox defaultChecked size="lg">
@@ -377,7 +345,7 @@ const App = () => {
               </div>
             </article>
 
-            <article className="interaction-card">
+            <article className="interaction-section">
               <h3>Radio group</h3>
               <RadioGroup defaultValue="tokens" aria-label="System layer">
                 <RadioGroupItem size="sm" value="tokens">
@@ -390,7 +358,7 @@ const App = () => {
               </RadioGroup>
             </article>
 
-            <article className="interaction-card">
+            <article className="interaction-section">
               <h3>Progress and slider</h3>
               <div className="control-stack">
                 <Progress size="lg" value={64} label="Build confidence" />
@@ -398,7 +366,7 @@ const App = () => {
               </div>
             </article>
 
-            <article className="interaction-card">
+            <article className="interaction-section">
               <h3>Tabs</h3>
               <Tabs defaultValue="api">
                 <TabsList>
@@ -414,7 +382,7 @@ const App = () => {
               </Tabs>
             </article>
 
-            <article className="interaction-card">
+            <article className="interaction-section">
               <h3>Accordion</h3>
               <Accordion defaultValue={["one"]} multiple>
                 <AccordionItem value="one">
@@ -436,14 +404,12 @@ const App = () => {
               </Accordion>
             </article>
 
-            <article className="interaction-card">
+            <article className="interaction-section">
               <h3>Tooltip and separator</h3>
               <div className="control-stack">
                 <Tooltip>
-                  <TooltipTrigger>
-                    <Button size="sm" variant="secondary">
-                      Hover or focus
-                    </Button>
+                  <TooltipTrigger className="tooltip-demo-trigger">
+                    Hover or focus
                   </TooltipTrigger>
                   <TooltipPortal>
                     <TooltipPositioner side="top">
