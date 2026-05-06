@@ -90,6 +90,44 @@ describe("validateRegistry", () => {
     ).not.toThrow()
   })
 
+  test("declares complete install metadata for the Base UI component batch", () => {
+    const baseUiComponentNames = [
+      "accordion",
+      "checkbox",
+      "progress",
+      "radio-group",
+      "separator",
+      "slider",
+      "switch",
+      "tabs",
+      "toggle",
+      "tooltip",
+    ]
+
+    for (const componentName of baseUiComponentNames) {
+      const item = registryItems.find((registryItem) => {
+        return registryItem.name === componentName
+      })
+
+      expect(item).toEqual(
+        expect.objectContaining({
+          dependencies: expect.arrayContaining([
+            "@base-ui/react",
+            "class-variance-authority",
+            "clsx",
+            "tailwind-merge",
+          ]),
+          styles: ["theme"],
+          target: expect.stringMatching(/^src\/components\/ui\//),
+          type: "component",
+          utilities: ["cn"],
+        }),
+      )
+      expect(item?.files).toHaveLength(3)
+      expect(item?.remoteFiles).toHaveLength(3)
+    }
+  })
+
   test("rejects duplicate lookup keys across names and aliases", () => {
     expect(() =>
       validateRegistry([

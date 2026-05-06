@@ -13,6 +13,29 @@ const countOccurrences = (content: string, pattern: string): number => {
   return content.split(pattern).length - 1
 }
 
+const writeViteConsumerFiles = async (root: string): Promise<void> => {
+  await writeJson(join(root, "package.json"), {
+    dependencies: {
+      "@base-ui/react": "^1.4.1",
+      "class-variance-authority": "^0.7.1",
+      clsx: "^2.1.1",
+      "tailwind-merge": "^3.5.0",
+    },
+    devDependencies: {
+      "@tailwindcss/vite": "^4.2.4",
+      tailwindcss: "^4.2.4",
+    },
+    packageManager: "npm@11.0.0",
+  })
+  await mkdir(join(root, "src"), { recursive: true })
+  await writeFile(join(root, "src/style.css"), ":root {}\n", "utf-8")
+  await writeFile(
+    join(root, "vite.config.ts"),
+    'import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\n\nexport default defineConfig({\n  plugins: [react()],\n});\n',
+    "utf-8",
+  )
+}
+
 describe("install flow smoke", () => {
   let tempDir: string
 
@@ -32,26 +55,7 @@ describe("install flow smoke", () => {
   })
 
   test("initializes a Vite consumer and installs components idempotently", async () => {
-    await writeJson(join(tempDir, "package.json"), {
-      dependencies: {
-        "@base-ui/react": "^1.4.1",
-        "class-variance-authority": "^0.7.1",
-        clsx: "^2.1.1",
-        "tailwind-merge": "^3.5.0",
-      },
-      devDependencies: {
-        "@tailwindcss/vite": "^4.2.4",
-        tailwindcss: "^4.2.4",
-      },
-      packageManager: "npm@11.0.0",
-    })
-    await mkdir(join(tempDir, "src"), { recursive: true })
-    await writeFile(join(tempDir, "src/style.css"), ":root {}\n", "utf-8")
-    await writeFile(
-      join(tempDir, "vite.config.ts"),
-      'import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\n\nexport default defineConfig({\n  plugins: [react()],\n});\n',
-      "utf-8",
-    )
+    await writeViteConsumerFiles(tempDir)
 
     await runInit()
     await runAdd(["button", "card", "badge", "alert"])
@@ -134,5 +138,89 @@ describe("install flow smoke", () => {
       button: "0.0.1",
       card: "0.0.1",
     })
+  })
+
+  test("installs the Base UI component batch idempotently", async () => {
+    const componentNames = [
+      "accordion",
+      "checkbox",
+      "progress",
+      "radio-group",
+      "separator",
+      "slider",
+      "switch",
+      "tabs",
+      "toggle",
+      "tooltip",
+    ]
+    const installedFolders = [
+      "Accordion",
+      "Checkbox",
+      "Progress",
+      "RadioGroup",
+      "Separator",
+      "Slider",
+      "Switch",
+      "Tabs",
+      "Toggle",
+      "Tooltip",
+    ]
+
+    await writeViteConsumerFiles(tempDir)
+
+    await runInit()
+    await runAdd(componentNames)
+    await runInit()
+    await runAdd(componentNames)
+
+    const css = await readFile(join(tempDir, "src/style.css"), "utf-8")
+    expect(countOccurrences(css, '@import "tailwindcss";')).toBe(1)
+    expect(countOccurrences(css, "../styles/tokens.css")).toBe(1)
+    expect(countOccurrences(css, "../styles/theme.css")).toBe(1)
+
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-switch-thumb-translate-md")
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-tabs-tab-active-background")
+    await expect(
+      readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
+    ).resolves.toContain("twMerge")
+
+    for (const folder of installedFolders) {
+      await expect(
+        readFile(
+          join(tempDir, `src/components/ui/${folder}/${folder}.tsx`),
+          "utf-8",
+        ),
+      ).resolves.toContain("@/lib/utils")
+      await expect(
+        readFile(
+          join(tempDir, `src/components/ui/${folder}/${folder}.variants.ts`),
+          "utf-8",
+        ),
+      ).resolves.toContain(
+        `--nx-${folder.toLowerCase().replace("group", "-group")}`,
+      )
+    }
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as {
+      installed?: Record<string, string>
+      style?: string
+      tailwind?: { css?: string }
+    }
+
+    expect(config.style).toBe("default")
+    expect(config.tailwind?.css).toBe("src/style.css")
+    expect(config.installed).toEqual(
+      Object.fromEntries(
+        componentNames.map((componentName) => {
+          return [componentName, "0.0.1"]
+        }),
+      ),
+    )
   })
 })
