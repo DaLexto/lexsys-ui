@@ -86,7 +86,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Button/Button.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-nx-primary")
+    ).resolves.toContain("bg-[var(--nx-button-primary-background)]")
     await expect(
       readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")

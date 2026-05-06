@@ -379,6 +379,15 @@
   --nx-alert-padding: var(--nx-space-surface-sm);
   --nx-alert-gap: var(--nx-space-surface-gap-sm);
   --nx-alert-transition-duration: var(--nx-duration-surface);
+  --nx-alert-transition-easing: var(--nx-easing-surface);
+  --nx-alert-title-font-size: var(--nx-typography-label-sm-font-size);
+  --nx-alert-title-font-weight: var(--nx-typography-label-sm-font-weight);
+  --nx-alert-title-font-line-height: var(--nx-typography-label-sm-line-height);
+  --nx-alert-description-foreground: var(--nx-color-muted-foreground);
+  --nx-alert-description-font-size: var(--nx-typography-body-sm-font-size);
+  --nx-alert-description-font-line-height: var(
+    --nx-typography-body-sm-line-height
+  );
   --nx-alert-neutral-background: var(--nx-color-surface);
   --nx-alert-neutral-foreground: var(--nx-color-foreground);
   --nx-alert-neutral-border-color: var(--nx-color-border);
@@ -393,10 +402,11 @@
   --nx-badge-height-md: 1.75rem;
   --nx-badge-padding-x-sm: var(--nx-space-control-x-xs);
   --nx-badge-padding-x-md: var(--nx-space-control-x-sm);
-  --nx-badge-font-size-sm: 0.75rem;
-  --nx-badge-font-size-md: 0.8125rem;
-  --nx-badge-font-weight: 500;
+  --nx-badge-font-size-sm: var(--nx-typography-label-xs-font-size);
+  --nx-badge-font-size-md: var(--nx-typography-label-sm-font-size);
+  --nx-badge-font-weight: var(--nx-typography-label-sm-font-weight);
   --nx-badge-transition-duration: var(--nx-duration-control);
+  --nx-badge-transition-easing: var(--nx-easing-control);
   --nx-badge-outline-background: transparent;
   --nx-badge-neutral-background: var(--nx-color-muted);
   --nx-badge-neutral-foreground: var(--nx-color-foreground);
@@ -408,6 +418,16 @@
   --nx-badge-destructive-foreground: var(--nx-color-destructive-foreground);
   --nx-badge-destructive-border-color: var(--nx-color-destructive);
   --nx-button-radius: var(--nx-radius-control);
+  --nx-button-focus-ring-color: var(--nx-color-ring);
+  --nx-button-focus-ring-offset-color: var(--nx-color-background);
+  --nx-button-primary-background: var(--nx-color-primary);
+  --nx-button-primary-foreground: var(--nx-color-primary-foreground);
+  --nx-button-primary-hover-background: var(--nx-color-primary-hover);
+  --nx-button-primary-border-color: transparent;
+  --nx-button-secondary-background: var(--nx-color-muted);
+  --nx-button-secondary-foreground: var(--nx-color-foreground);
+  --nx-button-secondary-hover-background: var(--nx-color-surface);
+  --nx-button-secondary-border-color: var(--nx-color-border);
   --nx-button-height-xs: var(--nx-size-control-xs);
   --nx-button-height-sm: var(--nx-size-control-sm);
   --nx-button-height-md: var(--nx-size-control-md);
@@ -430,15 +450,32 @@
     --nx-typography-control-md-letter-spacing
   );
   --nx-button-transition-duration: var(--nx-duration-control);
+  --nx-button-transition-easing: var(--nx-easing-control);
   --nx-card-background: var(--nx-color-surface);
   --nx-card-foreground: var(--nx-color-surface-foreground);
   --nx-card-border-color: var(--nx-color-border);
+  --nx-card-muted-background: var(--nx-color-muted);
   --nx-card-radius: var(--nx-radius-surface);
   --nx-card-padding: var(--nx-space-surface-md);
   --nx-card-gap-sm: var(--nx-space-surface-gap-sm);
   --nx-card-gap-md: var(--nx-space-surface-gap-md);
   --nx-card-header-padding-bottom: var(--nx-space-surface-sm);
+  --nx-card-title-foreground: var(--nx-color-foreground);
+  --nx-card-title-font-size: var(--nx-typography-heading-sm-font-size);
+  --nx-card-title-font-weight: var(--nx-typography-heading-sm-font-weight);
+  --nx-card-title-font-line-height: var(--nx-typography-heading-sm-line-height);
+  --nx-card-title-font-letter-spacing: var(
+    --nx-typography-heading-sm-letter-spacing
+  );
+  --nx-card-description-foreground: var(--nx-color-muted-foreground);
+  --nx-card-description-font-size: var(--nx-typography-body-sm-font-size);
+  --nx-card-description-font-line-height: var(
+    --nx-typography-body-sm-line-height
+  );
+  --nx-card-content-font-size: var(--nx-typography-body-sm-font-size);
+  --nx-card-content-font-line-height: var(--nx-typography-body-sm-line-height);
   --nx-card-transition-duration: var(--nx-duration-surface);
+  --nx-card-transition-easing: var(--nx-easing-surface);
   --nx-checkbox-background: var(--nx-color-background);
   --nx-checkbox-foreground: var(--nx-color-primary-foreground);
   --nx-checkbox-border-color: var(--nx-color-border);
@@ -468,6 +505,8 @@
   --nx-input-placeholder-color: var(--nx-color-muted-foreground);
   --nx-input-border-color: var(--nx-color-border);
   --nx-input-focus-border-color: var(--nx-color-ring);
+  --nx-input-focus-ring-color: var(--nx-color-ring);
+  --nx-input-focus-ring-offset-color: var(--nx-color-background);
   --nx-input-invalid-border-color: var(--nx-color-destructive);
   --nx-input-invalid-ring-color: var(--nx-color-destructive);
   --nx-input-radius: var(--nx-radius-control);
@@ -487,6 +526,7 @@
     --nx-typography-control-md-letter-spacing
   );
   --nx-input-transition-duration: var(--nx-duration-control);
+  --nx-input-transition-easing: var(--nx-easing-control);
   --nx-progress-gap: var(--nx-space-control-gap-sm);
   --nx-progress-label-foreground: var(--nx-color-muted-foreground);
   --nx-progress-label-font-size: var(--nx-typography-label-sm-font-size);

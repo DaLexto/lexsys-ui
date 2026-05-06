@@ -19,7 +19,7 @@ export const alertVariants = cva(
   [
     "grid gap-[var(--nx-alert-gap)] rounded-[var(--nx-alert-radius)] border p-[var(--nx-alert-padding)]",
     "border-[var(--nx-alert-border-color)] bg-[var(--nx-alert-background)] text-[var(--nx-alert-foreground)]",
-    "transition-colors duration-[var(--nx-alert-transition-duration)] ease-[var(--nx-easing-standard)]",
+    "transition-colors duration-[var(--nx-alert-transition-duration)] ease-[var(--nx-alert-transition-easing)]",
   ].join(" "),
   {
     variants: {
@@ -35,7 +35,8 @@ export const alertVariants = cva(
   },
 )
 
-export const alertTitleClassName = "text-sm font-semibold leading-none"
+export const alertTitleClassName =
+  "text-[length:var(--nx-alert-title-font-size)] font-[var(--nx-alert-title-font-weight)] leading-[var(--nx-alert-title-font-line-height)]"
 
 export const alertDescriptionClassName =
-  "text-sm leading-relaxed text-[var(--nx-alert-foreground)]/80"
+  "text-[length:var(--nx-alert-description-font-size)] leading-[var(--nx-alert-description-font-line-height)] text-[var(--nx-alert-description-foreground)]"

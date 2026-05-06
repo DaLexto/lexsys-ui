@@ -20,7 +20,7 @@ export const badgeVariants = cva(
     "inline-flex items-center justify-center whitespace-nowrap border",
     "rounded-[var(--nx-badge-radius)] font-[var(--nx-badge-font-weight)] leading-none",
     "border-[var(--nx-badge-border-color)] bg-[var(--nx-badge-background)] text-[var(--nx-badge-foreground)]",
-    "transition-colors duration-[var(--nx-badge-transition-duration)] ease-[var(--nx-easing-standard)]",
+    "transition-colors duration-[var(--nx-badge-transition-duration)] ease-[var(--nx-badge-transition-easing)]",
   ].join(" "),
   {
     variants: {

@@ -20,8 +20,12 @@ describe("cardVariants", () => {
 
   test("defines token-backed slot spacing and text roles", () => {
     expect(cardHeaderClassName).toContain("p-[var(--nx-card-padding)]")
-    expect(cardTitleClassName).toContain("text-nx-foreground")
-    expect(cardDescriptionClassName).toContain("text-nx-muted-foreground")
+    expect(cardTitleClassName).toContain(
+      "text-[var(--nx-card-title-foreground)]",
+    )
+    expect(cardDescriptionClassName).toContain(
+      "text-[var(--nx-card-description-foreground)]",
+    )
     expect(cardContentClassName).toContain("pt-0")
     expect(cardFooterClassName).toContain("gap-[var(--nx-card-gap-md)]")
   })

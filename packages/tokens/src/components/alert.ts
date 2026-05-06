@@ -7,6 +7,21 @@ export const alertComponentTokens: ComponentTokenGroup = {
   gap: { value: "{spacing.surface.gap.sm}" },
   transition: {
     duration: { value: "{motion.duration.surface}" },
+    easing: { value: "{motion.easing.surface}" },
+  },
+  title: {
+    font: {
+      size: { value: "{typography.label.sm.fontSize}" },
+      weight: { value: "{typography.label.sm.fontWeight}" },
+      lineHeight: { value: "{typography.label.sm.lineHeight}" },
+    },
+  },
+  description: {
+    foreground: { value: "{color.muted.foreground}" },
+    font: {
+      size: { value: "{typography.body.sm.fontSize}" },
+      lineHeight: { value: "{typography.body.sm.lineHeight}" },
+    },
   },
   neutral: {
     background: { value: "{color.surface}" },

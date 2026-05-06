@@ -12,6 +12,8 @@ export const inputComponentTokens: ComponentTokenGroup = {
   },
   focus: {
     borderColor: { value: "{color.ring}" },
+    ringColor: { value: "{color.ring}" },
+    ringOffsetColor: { value: "{color.background}" },
   },
   invalid: {
     borderColor: { value: "{color.destructive}" },
@@ -43,5 +45,6 @@ export const inputComponentTokens: ComponentTokenGroup = {
   },
   transition: {
     duration: { value: "{motion.duration.control}" },
+    easing: { value: "{motion.easing.control}" },
   },
 }

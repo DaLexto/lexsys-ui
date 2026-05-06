@@ -15,13 +15,14 @@ export const badgeComponentTokens: ComponentTokenGroup = {
   },
   font: {
     size: {
-      sm: { value: "0.75rem" },
-      md: { value: "0.8125rem" },
+      sm: { value: "{typography.label.xs.fontSize}" },
+      md: { value: "{typography.label.sm.fontSize}" },
     },
-    weight: { value: "500" },
+    weight: { value: "{typography.label.sm.fontWeight}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },
+    easing: { value: "{motion.easing.control}" },
   },
   outline: {
     background: { value: "transparent" },

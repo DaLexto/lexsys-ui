@@ -3,6 +3,22 @@ import type { ComponentTokenGroup } from "../types"
 export const buttonComponentTokens: ComponentTokenGroup = {
   component: "button",
   radius: { value: "{radius.control}" },
+  focus: {
+    ringColor: { value: "{color.ring}" },
+    ringOffsetColor: { value: "{color.background}" },
+  },
+  primary: {
+    background: { value: "{color.primary}" },
+    foreground: { value: "{color.primary.foreground}" },
+    hoverBackground: { value: "{color.primary.hover}" },
+    borderColor: { value: "transparent" },
+  },
+  secondary: {
+    background: { value: "{color.muted}" },
+    foreground: { value: "{color.foreground}" },
+    hoverBackground: { value: "{color.surface}" },
+    borderColor: { value: "{color.border}" },
+  },
   height: {
     xs: { value: "{size.control.xs}" },
     sm: { value: "{size.control.sm}" },
@@ -34,5 +50,6 @@ export const buttonComponentTokens: ComponentTokenGroup = {
   },
   transition: {
     duration: { value: "{motion.duration.control}" },
+    easing: { value: "{motion.easing.control}" },
   },
 }

@@ -10,8 +10,8 @@ export const buttonVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap border border-transparent",
     "rounded-[var(--nx-button-radius)] [font-family:var(--nx-button-font-family)] font-[var(--nx-button-font-weight)]",
-    "transition-colors duration-[var(--nx-button-transition-duration)] ease-[var(--nx-easing-standard)]",
-    "outline-none focus-visible:ring-2 focus-visible:ring-nx-ring focus-visible:ring-offset-2 focus-visible:ring-offset-nx-background",
+    "transition-colors duration-[var(--nx-button-transition-duration)] ease-[var(--nx-button-transition-easing)]",
+    "outline-none focus-visible:ring-2 focus-visible:ring-[var(--nx-button-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-button-focus-ring-offset-color)]",
     "disabled:pointer-events-none disabled:opacity-50",
     "aria-busy:cursor-wait aria-busy:opacity-80",
     "text-[length:var(--nx-button-font-size-md)]",
@@ -22,9 +22,9 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-nx-primary text-nx-primary-foreground hover:bg-nx-primary-hover",
+          "border-[var(--nx-button-primary-border-color)] bg-[var(--nx-button-primary-background)] text-[var(--nx-button-primary-foreground)] hover:bg-[var(--nx-button-primary-hover-background)]",
         secondary:
-          "border-nx-border bg-nx-muted text-nx-foreground hover:bg-nx-surface",
+          "border-[var(--nx-button-secondary-border-color)] bg-[var(--nx-button-secondary-background)] text-[var(--nx-button-secondary-foreground)] hover:bg-[var(--nx-button-secondary-hover-background)]",
       },
       size: {
         xs: [

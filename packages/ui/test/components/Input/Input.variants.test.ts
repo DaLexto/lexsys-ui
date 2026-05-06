@@ -15,7 +15,9 @@ describe("inputVariants", () => {
   test("includes focus, invalid, disabled, and size classes", () => {
     const className = inputVariants({ variant: "ghost", size: "lg" })
 
-    expect(className).toContain("focus-visible:ring-nx-ring")
+    expect(className).toContain(
+      "focus-visible:ring-[var(--nx-input-focus-ring-color)]",
+    )
     expect(className).toContain("aria-invalid:border-")
     expect(className).toContain("disabled:opacity-50")
     expect(className).toContain("h-[var(--nx-input-height-lg)]")

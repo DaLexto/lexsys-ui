@@ -24,9 +24,11 @@ describe("alertVariants", () => {
     expect(className).toContain(
       "[--nx-alert-foreground:var(--nx-alert-destructive-foreground)]",
     )
-    expect(alertTitleClassName).toContain("font-semibold")
+    expect(alertTitleClassName).toContain(
+      "font-[var(--nx-alert-title-font-weight)]",
+    )
     expect(alertDescriptionClassName).toContain(
-      "text-[var(--nx-alert-foreground)]/80",
+      "text-[var(--nx-alert-description-foreground)]",
     )
   })
 })
