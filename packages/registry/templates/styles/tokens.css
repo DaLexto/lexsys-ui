@@ -556,6 +556,8 @@
   );
   --nx-field-transition-duration: var(--nx-duration-control);
   --nx-field-transition-easing: var(--nx-easing-control);
+  --nx-form-gap: var(--nx-space-surface-gap-md);
+  --nx-form-foreground: var(--nx-color-foreground);
   --nx-input-background: var(--nx-color-background);
   --nx-input-foreground: var(--nx-color-foreground);
   --nx-input-placeholder-color: var(--nx-color-muted-foreground);

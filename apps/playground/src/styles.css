@@ -205,6 +205,24 @@ body {
   font-size: 0.8125rem;
 }
 
+.field-submit-row {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.field-submit-row pre {
+  min-height: 3.75rem;
+  margin: 0;
+  overflow: auto;
+  border: 1px solid var(--nx-color-border);
+  border-radius: var(--nx-radius-control);
+  padding: 10px;
+  color: var(--nx-color-muted-foreground);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
 .card-board {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -6,6 +6,7 @@ const syncableExtensions = new Set([".ts", ".tsx"])
 const formComponentNames = new Set([
   "Checkbox",
   "Field",
+  "Form",
   "Input",
   "Radio",
   "RadioGroup",

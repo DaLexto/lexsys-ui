@@ -145,6 +145,7 @@ describe("install flow smoke", () => {
       "accordion",
       "checkbox",
       "field",
+      "form",
       "progress",
       "radio-group",
       "separator",
@@ -158,6 +159,7 @@ describe("install flow smoke", () => {
       "Accordion",
       "Checkbox",
       "Field",
+      "Form",
       "Progress",
       "RadioGroup",
       "Separator",
@@ -189,6 +191,9 @@ describe("install flow smoke", () => {
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-field-control-background")
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-form-gap")
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("twMerge")

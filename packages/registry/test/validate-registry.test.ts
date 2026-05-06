@@ -95,6 +95,7 @@ describe("validateRegistry", () => {
       "accordion",
       "checkbox",
       "field",
+      "form",
       "progress",
       "radio-group",
       "separator",

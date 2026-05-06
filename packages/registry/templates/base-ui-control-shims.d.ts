@@ -190,6 +190,35 @@ declare module "@base-ui/react/field" {
   }
 }
 
+declare module "@base-ui/react/form" {
+  export namespace Form {
+    export type State = Record<string, never>
+    export interface Actions {
+      validate: (fieldName?: string) => void
+    }
+    export type ValidationMode = "onSubmit" | "onBlur" | "onChange"
+    export interface SubmitEventDetails {
+      reason: "none"
+      event: Event
+    }
+    export type Values = Record<string, unknown>
+    export type Errors = Record<string, string | string[] | null | undefined>
+    export interface Props extends TemplatePartProps<State> {
+      actionsRef?: import("react").RefObject<Actions | null>
+      errors?: Errors
+      validationMode?: ValidationMode
+      onFormSubmit?: (
+        formValues: Values,
+        eventDetails: SubmitEventDetails,
+      ) => void
+    }
+  }
+
+  export function Form(
+    props: Form.Props & TemplateRef<HTMLFormElement>,
+  ): TemplateElement
+}
+
 declare module "@base-ui/react/checkbox" {
   export namespace Checkbox {
     export namespace Root {

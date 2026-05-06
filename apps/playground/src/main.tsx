@@ -25,6 +25,7 @@ import {
   FieldItem,
   FieldLabel,
   FieldValidity,
+  Form,
   Input,
   Progress,
   RadioGroup,
@@ -50,6 +51,8 @@ import "./styles.css"
 const App = () => {
   const [themeMode, setThemeMode] = useState<"light" | "dark">("light")
   const [inputValue, setInputValue] = useState("Neurex Input")
+  const [submittedFormValues, setSubmittedFormValues] =
+    useState("Not submitted")
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", themeMode === "dark")
@@ -170,10 +173,15 @@ const App = () => {
             </div>
           </div>
 
-          <div className="field-board">
+          <Form
+            className="field-board"
+            validationMode="onChange"
+            onFormSubmit={(formValues) => {
+              setSubmittedFormValues(JSON.stringify(formValues, null, 2))
+            }}
+          >
             <Field
               name="workspace"
-              validationMode="onChange"
               validate={(value) => {
                 return typeof value === "string" && value.trim().length >= 3
                   ? null
@@ -217,7 +225,14 @@ const App = () => {
                 </FieldDescription>
               </FieldItem>
             </Field>
-          </div>
+
+            <div className="field-submit-row">
+              <Button size="sm" type="submit">
+                Submit fields
+              </Button>
+              <pre>{submittedFormValues}</pre>
+            </div>
+          </Form>
         </section>
 
         <section className="component-panel" aria-labelledby="card-title">
