@@ -455,7 +455,8 @@ Each package owns its own tests. Add package-local `fixtures/` or `utils/`
 folders only when tests need shared setup.
 
 CLI tests cover install safety, package-manager detection, registry resolution,
-Tailwind/Vite setup, and a repeatable Vite install-flow smoke.
+Tailwind/Vite setup, and repeatable Vite install-flow smoke tests, including
+the full bundled registry component set.
 
 ---
 

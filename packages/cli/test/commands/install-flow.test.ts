@@ -1,5 +1,6 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
+import { registryItems } from "@neurex/registry"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
 import { setCwd } from "../../src/core/context.js"
 import { runAdd } from "../../src/commands/add.js"
@@ -15,6 +16,20 @@ const countOccurrences = (content: string, pattern: string): number => {
 
 const toTokenPrefix = (folder: string): string => {
   return folder.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+}
+
+const componentRegistryItems = registryItems.filter((item) => {
+  return item.type === "component"
+})
+
+const getTemplateFileName = (file: string): string => {
+  const fileName = file.split("/").at(-1)
+
+  if (!fileName) {
+    throw new Error(`Invalid registry template file path: ${file}`)
+  }
+
+  return fileName
 }
 
 const writeViteConsumerFiles = async (root: string): Promise<void> => {
@@ -145,52 +160,31 @@ describe("install flow smoke", () => {
     })
   })
 
-  test("installs the Base UI component batch idempotently", async () => {
-    const componentNames = [
-      "accordion",
-      "checkbox",
-      "dialog",
-      "field",
-      "fieldset",
-      "form",
-      "number-field",
-      "popover",
-      "progress",
-      "radio-group",
-      "separator",
-      "select",
-      "slider",
-      "switch",
-      "tabs",
-      "textarea",
-      "toggle",
-      "tooltip",
-    ]
-    const installedFolders = [
-      "Accordion",
-      "Checkbox",
-      "Dialog",
-      "Field",
-      "Fieldset",
-      "Form",
-      "NumberField",
-      "Popover",
-      "Progress",
-      "RadioGroup",
-      "Separator",
-      "Select",
-      "Slider",
-      "Switch",
-      "Tabs",
-      "Textarea",
-      "Toggle",
-      "Tooltip",
-    ]
+  test("installs every bundled registry component idempotently", async () => {
+    const componentNames = componentRegistryItems.map((item) => item.name)
+    const installedFileSnapshots = new Map<string, string>()
 
     await writeViteConsumerFiles(tempDir)
 
     await runInit()
     await runAdd(componentNames)
+
+    for (const item of componentRegistryItems) {
+      for (const file of item.files) {
+        const targetPath = join(
+          tempDir,
+          "src/components/ui",
+          item.canonicalName,
+          getTemplateFileName(file),
+        )
+
+        installedFileSnapshots.set(
+          targetPath,
+          await readFile(targetPath, "utf-8"),
+        )
+      }
+    }
+
     await runInit()
     await runAdd(componentNames)
 
@@ -233,19 +227,38 @@ describe("install flow smoke", () => {
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("twMerge")
 
-    for (const folder of installedFolders) {
+    for (const item of componentRegistryItems) {
+      for (const file of item.files) {
+        const targetPath = join(
+          tempDir,
+          "src/components/ui",
+          item.canonicalName,
+          getTemplateFileName(file),
+        )
+
+        await expect(readFile(targetPath, "utf-8")).resolves.toBe(
+          installedFileSnapshots.get(targetPath),
+        )
+      }
+
       await expect(
         readFile(
-          join(tempDir, `src/components/ui/${folder}/${folder}.tsx`),
+          join(
+            tempDir,
+            `src/components/ui/${item.canonicalName}/${item.canonicalName}.tsx`,
+          ),
           "utf-8",
         ),
       ).resolves.toContain("@/lib/utils")
       await expect(
         readFile(
-          join(tempDir, `src/components/ui/${folder}/${folder}.variants.ts`),
+          join(
+            tempDir,
+            `src/components/ui/${item.canonicalName}/${item.canonicalName}.variants.ts`,
+          ),
           "utf-8",
         ),
-      ).resolves.toContain(`--nx-${toTokenPrefix(folder)}`)
+      ).resolves.toContain(`--nx-${toTokenPrefix(item.canonicalName)}`)
     }
 
     const config = JSON.parse(
@@ -260,8 +273,8 @@ describe("install flow smoke", () => {
     expect(config.tailwind?.css).toBe("src/style.css")
     expect(config.installed).toEqual(
       Object.fromEntries(
-        componentNames.map((componentName) => {
-          return [componentName, "0.0.1"]
+        componentRegistryItems.map((item) => {
+          return [item.name, item.version]
         }),
       ),
     )

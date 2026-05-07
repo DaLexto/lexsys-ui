@@ -62,6 +62,7 @@ Use it for:
 - source component implementations
 - internal utilities used by those implementations
 - public exports that define the reference API
+- root package exports for component symbols and their public prop types
 
 In `Component.tsx`, define component symbols locally and export them from a
 single block at the bottom of the file:
@@ -75,6 +76,14 @@ export { Button }
 ```
 
 This keeps implementation flow readable while making the public surface explicit.
+
+The package root should export every public component and its public prop types
+so consumers can write imports such as:
+
+```ts
+import { Button } from "@neurex/ui"
+import type { ButtonProps } from "@neurex/ui"
+```
 
 Avoid using it for:
 

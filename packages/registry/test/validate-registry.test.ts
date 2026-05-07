@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { readdirSync, type Dirent } from "node:fs"
+import { readFileSync, readdirSync, type Dirent } from "node:fs"
 import { join, relative } from "node:path"
 import { describe, expect, test } from "vitest"
 import {
@@ -30,6 +30,12 @@ const collectTemplateFiles = (root: string, current = root): string[] => {
       return relative(root, path).replaceAll("\\", "/")
     },
   )
+}
+
+const templateRoot = join(process.cwd(), "templates")
+
+const readTemplateFile = (templatePath: string): string => {
+  return readFileSync(join(templateRoot, templatePath), "utf-8")
 }
 
 // Mock podaci za testiranje
@@ -85,42 +91,22 @@ describe("validateRegistry", () => {
       validateRegistry(registryItems, {
         styles: registryStyles,
         utilities: registryUtilities,
-        templateFiles: collectTemplateFiles(join(process.cwd(), "templates")),
+        templateFiles: collectTemplateFiles(templateRoot),
       }),
     ).not.toThrow()
   })
 
-  test("declares complete install metadata for the Base UI component batch", () => {
-    const baseUiComponentNames = [
-      "accordion",
-      "checkbox",
-      "dialog",
-      "field",
-      "fieldset",
-      "form",
-      "number-field",
-      "popover",
-      "progress",
-      "radio-group",
-      "separator",
-      "select",
-      "slider",
-      "switch",
-      "tabs",
-      "textarea",
-      "toggle",
-      "tooltip",
-    ]
+  test("declares complete install metadata for every bundled component", () => {
+    const componentItems = registryItems.filter((registryItem) => {
+      return registryItem.type === "component"
+    })
 
-    for (const componentName of baseUiComponentNames) {
-      const item = registryItems.find((registryItem) => {
-        return registryItem.name === componentName
-      })
+    for (const item of componentItems) {
+      const templateContent = item.files.map(readTemplateFile).join("\n")
 
       expect(item).toEqual(
         expect.objectContaining({
           dependencies: expect.arrayContaining([
-            "@base-ui/react",
             "class-variance-authority",
             "clsx",
             "tailwind-merge",
@@ -133,6 +119,18 @@ describe("validateRegistry", () => {
       )
       expect(item?.files).toHaveLength(3)
       expect(item?.remoteFiles).toHaveLength(3)
+      expect(item?.target).toBe(`src/components/ui/${item.canonicalName}`)
+      expect(item?.remoteFiles?.map((file) => file.path).sort()).toEqual(
+        item.files.toSorted(),
+      )
+
+      if (templateContent.includes('"@base-ui/react"')) {
+        expect(item.dependencies).toContain("@base-ui/react")
+      }
+
+      if (templateContent.includes('"lucide-react"')) {
+        expect(item.dependencies).toContain("lucide-react")
+      }
     }
   })
 

@@ -396,9 +396,10 @@ Status:
 - Vitest is installed and wired through package and Turbo scripts.
 - Initial CLI unit tests cover the highest-risk install and registry behavior.
 - Token output generation and style installation now have focused tests.
-- Repeatable install-flow smoke now covers a temp Vite consumer running
-  `init` and `add button` twice, including idempotent CSS/Tailwind/style
-  wiring and installed component tracking.
+- Repeatable install-flow smoke now covers temp Vite consumers running `init`
+  and repeated component installs, including the full bundled registry
+  component set, idempotent CSS/Tailwind/style wiring, generated file stability,
+  and installed component tracking.
 
 ### DONE: Add a playground or example consumer
 
@@ -469,6 +470,7 @@ Latest successful checks from the implementation passes:
 - `pnpm build`
 - `npm run typecheck` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
 - `npm run build` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
-- CLI install-flow smoke: 7 CLI test files / 26 CLI tests passing
+- CLI install-flow smoke: 7 CLI test files / 26 CLI tests passing, with
+  registry-driven coverage for the full bundled component set
 - UI variant smoke: 23 UI test files / 35 UI tests passing
 - Registry validation smoke: 1 registry test file / 14 registry tests passing
