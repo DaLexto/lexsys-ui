@@ -8,7 +8,7 @@ import { forwardRef } from "react"
 import { X } from "lucide-react"
 import { Dialog as BaseDialog } from "@base-ui/react/dialog"
 import type {
-  DialogBackdropProps,
+  DialogOverlayProps,
   DialogCloseProps,
   DialogDescriptionProps,
   DialogPopupProps,
@@ -58,9 +58,9 @@ export const DialogPortal = (props: DialogPortalProps) => {
 
 DialogPortal.displayName = "DialogPortal"
 
-export const DialogBackdrop = forwardRef<HTMLDivElement, DialogBackdropProps>(
+export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(
   ({ className, ...props }, ref) => {
-    const backdropClassName: DialogBackdropProps["className"] = (state) => {
+    const backdropClassName: DialogOverlayProps["className"] = (state) => {
       const userClassName =
         typeof className === "function" ? className(state) : className
 
@@ -73,7 +73,7 @@ export const DialogBackdrop = forwardRef<HTMLDivElement, DialogBackdropProps>(
   },
 )
 
-DialogBackdrop.displayName = "DialogBackdrop"
+DialogOverlay.displayName = "DialogOverlay"
 
 export const DialogViewport = forwardRef<HTMLDivElement, DialogViewportProps>(
   ({ className, ...props }, ref) => {

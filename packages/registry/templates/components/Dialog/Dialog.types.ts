@@ -17,7 +17,7 @@ export interface DialogTriggerProps<Payload = unknown> extends Omit<
 
 export type DialogPortalProps = BaseDialog.Portal.Props
 
-export interface DialogBackdropProps extends Omit<
+export interface DialogOverlayProps extends Omit<
   BaseDialog.Backdrop.Props,
   "className"
 > {
