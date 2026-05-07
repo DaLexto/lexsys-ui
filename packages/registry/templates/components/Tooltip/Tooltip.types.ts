@@ -15,6 +15,8 @@ export interface TooltipTriggerProps extends Omit<
   className?: BaseTooltip.Trigger.Props["className"]
 }
 
+export type TooltipPortalProps = BaseTooltip.Portal.Props
+
 export interface TooltipPositionerProps extends Omit<
   BaseTooltip.Positioner.Props,
   "className"

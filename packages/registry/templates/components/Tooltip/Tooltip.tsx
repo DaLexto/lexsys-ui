@@ -10,6 +10,7 @@ import type {
   TooltipArrowProps,
   TooltipPopupProps,
   TooltipPositionerProps,
+  TooltipPortalProps,
   TooltipProps,
   TooltipTriggerProps,
 } from "./Tooltip.types"
@@ -44,7 +45,7 @@ const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>(
 
 TooltipTrigger.displayName = "TooltipTrigger"
 
-const TooltipPortal = (props: BaseTooltip.Portal.Props) => {
+const TooltipPortal = (props: TooltipPortalProps) => {
   return <BaseTooltip.Portal {...props} />
 }
 

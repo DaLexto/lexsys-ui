@@ -33,9 +33,16 @@ const collectTemplateFiles = (root: string, current = root): string[] => {
 }
 
 const templateRoot = join(process.cwd(), "templates")
+const uiSourceRoot = join(process.cwd(), "../ui/src")
+const componentSourceImport = 'import { cn } from "../../utils/cn"'
+const componentTemplateImport = 'import { cn } from "@/lib/utils"'
 
 const readTemplateFile = (templatePath: string): string => {
   return readFileSync(join(templateRoot, templatePath), "utf-8")
+}
+
+const toRegistryTemplate = (source: string): string => {
+  return source.replaceAll(componentSourceImport, componentTemplateImport)
 }
 
 // Mock podaci za testiranje
@@ -130,6 +137,20 @@ describe("validateRegistry", () => {
 
       if (templateContent.includes('"lucide-react"')) {
         expect(item.dependencies).toContain("lucide-react")
+      }
+    }
+  })
+
+  test("keeps component templates in sync with ui source files", () => {
+    const componentItems = registryItems.filter((registryItem) => {
+      return registryItem.type === "component"
+    })
+
+    for (const item of componentItems) {
+      for (const file of item.files) {
+        const source = readFileSync(join(uiSourceRoot, file), "utf-8")
+
+        expect(readTemplateFile(file)).toBe(toRegistryTemplate(source))
       }
     }
   })
