@@ -219,6 +219,29 @@ declare module "@base-ui/react/form" {
   ): TemplateElement
 }
 
+declare module "@base-ui/react/fieldset" {
+  export namespace Fieldset {
+    export namespace Root {
+      export type State = TemplateDisabledState
+      export interface Props extends TemplatePartProps<State> {
+        disabled?: boolean
+      }
+    }
+
+    export namespace Legend {
+      export type State = Root.State
+      export type Props = TemplatePartProps<State>
+    }
+  }
+
+  export const Fieldset: {
+    Root(props: Fieldset.Root.Props & TemplateRef<HTMLElement>): TemplateElement
+    Legend(
+      props: Fieldset.Legend.Props & TemplateRef<HTMLDivElement>,
+    ): TemplateElement
+  }
+}
+
 declare module "@base-ui/react/checkbox" {
   export namespace Checkbox {
     export namespace Root {

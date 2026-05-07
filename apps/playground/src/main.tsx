@@ -25,6 +25,8 @@ import {
   FieldItem,
   FieldLabel,
   FieldValidity,
+  Fieldset,
+  FieldsetLegend,
   Form,
   Input,
   Progress,
@@ -217,14 +219,17 @@ const App = () => {
               </FieldValidity>
             </Field>
 
-            <Field name="updates">
-              <FieldItem>
-                <Checkbox defaultChecked>Product updates</Checkbox>
-                <FieldDescription>
-                  Receive release notes for new registry items.
-                </FieldDescription>
-              </FieldItem>
-            </Field>
+            <Fieldset>
+              <FieldsetLegend>Preferences</FieldsetLegend>
+              <Field name="updates">
+                <FieldItem>
+                  <Checkbox defaultChecked>Product updates</Checkbox>
+                  <FieldDescription>
+                    Receive release notes for new registry items.
+                  </FieldDescription>
+                </FieldItem>
+              </Field>
+            </Fieldset>
 
             <div className="field-submit-row">
               <Button size="sm" type="submit">

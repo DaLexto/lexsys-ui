@@ -36,6 +36,7 @@ export { toggleRegistryItem } from "./items/toggle.js"
 export { tooltipRegistryItem } from "./items/tooltip.js"
 export { fieldRegistryItem } from "./items/field.js"
 export { formRegistryItem } from "./items/form.js"
+export { fieldsetRegistryItem } from "./items/fieldset.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -56,6 +57,7 @@ import { toggleRegistryItem } from "./items/toggle.js"
 import { tooltipRegistryItem } from "./items/tooltip.js"
 import { fieldRegistryItem } from "./items/field.js"
 import { formRegistryItem } from "./items/form.js"
+import { fieldsetRegistryItem } from "./items/fieldset.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -86,6 +88,7 @@ export const registryItems: RegistryItem[] = [
   tooltipRegistryItem,
   fieldRegistryItem,
   formRegistryItem,
+  fieldsetRegistryItem,
 ]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]

@@ -145,6 +145,7 @@ describe("install flow smoke", () => {
       "accordion",
       "checkbox",
       "field",
+      "fieldset",
       "form",
       "progress",
       "radio-group",
@@ -159,6 +160,7 @@ describe("install flow smoke", () => {
       "Accordion",
       "Checkbox",
       "Field",
+      "Fieldset",
       "Form",
       "Progress",
       "RadioGroup",
@@ -191,6 +193,9 @@ describe("install flow smoke", () => {
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-field-control-background")
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-fieldset-legend-foreground")
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-form-gap")

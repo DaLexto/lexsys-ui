@@ -556,6 +556,22 @@
   );
   --nx-field-transition-duration: var(--nx-duration-control);
   --nx-field-transition-easing: var(--nx-easing-control);
+  --nx-fieldset-background: var(--nx-color-surface);
+  --nx-fieldset-foreground: var(--nx-color-surface-foreground);
+  --nx-fieldset-border-color: var(--nx-color-border);
+  --nx-fieldset-radius: var(--nx-radius-surface);
+  --nx-fieldset-padding: var(--nx-space-surface-md);
+  --nx-fieldset-gap: var(--nx-space-surface-gap-md);
+  --nx-fieldset-legend-foreground: var(--nx-color-foreground);
+  --nx-fieldset-legend-margin-bottom: var(--nx-space-surface-gap-sm);
+  --nx-fieldset-legend-font-size: var(--nx-typography-label-md-font-size);
+  --nx-fieldset-legend-font-weight: var(--nx-typography-label-md-font-weight);
+  --nx-fieldset-legend-font-line-height: var(
+    --nx-typography-label-md-line-height
+  );
+  --nx-fieldset-legend-font-letter-spacing: var(
+    --nx-typography-label-md-letter-spacing
+  );
   --nx-form-gap: var(--nx-space-surface-gap-md);
   --nx-form-foreground: var(--nx-color-foreground);
   --nx-input-background: var(--nx-color-background);
