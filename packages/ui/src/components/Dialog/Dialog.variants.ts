@@ -4,6 +4,8 @@
  * Defines visual variants using class composition.
  */
 
+
+
 import { cva } from "class-variance-authority"
 
 export const dialogTriggerVariants = cva(
@@ -16,7 +18,8 @@ export const dialogTriggerVariants = cva(
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )
-
+// TODO: (tokens): Replace hardcoded z-index values with dialog overlay tokens
+// after elevation/stacking primitives are added.
 export const dialogBackdropVariants = cva(
   [
     "fixed inset-0 z-40 bg-[var(--nx-dialog-backdrop-background)] opacity-[var(--nx-dialog-backdrop-opacity)]",

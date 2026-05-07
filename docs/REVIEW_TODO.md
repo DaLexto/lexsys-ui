@@ -347,6 +347,36 @@ Status:
 
 ## P2 - Product and DX Improvements
 
+### TODO: Tokenize Dialog stacking and elevation values
+
+Problem:
+
+- `Dialog.variants.ts` currently uses hardcoded stacking and elevation classes
+  such as `z-40`, `z-50`, and `shadow-lg`.
+- These values are intentional temporary markers because the token system does
+  not yet include z-index or shadow/elevation token families.
+- Leaving them undocumented makes it easy to forget that they should eventually
+  move into the token pipeline.
+
+Direction:
+
+- Add z-index and shadow/elevation token families to `packages/tokens`.
+- Follow the existing token layering model
+- Replace hardcoded Dialog adn rest Overlay Components stacking values with component or semantic CSS
+  variables, for example:
+  - `--nx-dialog-backdrop-z-index`
+  - `--nx-dialog-viewport-z-index`
+  - `--nx-dialog-popup-shadow`
+- Keep Dialog variants token-driven and avoid introducing fake placeholder tokens
+  before the token family is properly modeled.
+
+Status:
+
+- Not started.
+- Hardcoded values are acceptable for the current Dialog implementation pass as
+  visible reminders.
+- Must be revisited before declaring Dialog styling/token integration complete.
+
 ### DONE: Add real tests before expanding components
 
 Problem:

@@ -1,7 +1,7 @@
 import {
   Button,
   Dialog,
-  DialogOverlay,
+  DialogBackdrop,
   DialogClose,
   DialogDescription,
   DialogPopup,
@@ -34,7 +34,7 @@ export const OverlaysPanel = () => {
         <Dialog>
           <DialogTrigger>Open dialog</DialogTrigger>
           <DialogPortal>
-            <DialogOverlay />
+            <DialogBackdrop />
             <DialogViewport>
               <DialogPopup>
                 <DialogClose aria-label="Close dialog" />
