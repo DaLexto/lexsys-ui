@@ -12,6 +12,9 @@ export const sizeSemantics: SemanticTokenGroup = {
   dialog: {
     maxWidth: { value: "{size.128}" },
   },
+  popover: {
+    maxWidth: { value: "{size.80}" },
+  },
   selectionControl: {
     sm: { value: "{size.3}" },
     md: { value: "{size.4}" },

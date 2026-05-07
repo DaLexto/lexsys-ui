@@ -154,6 +154,7 @@ describe("install flow smoke", () => {
       "fieldset",
       "form",
       "number-field",
+      "popover",
       "progress",
       "radio-group",
       "separator",
@@ -173,6 +174,7 @@ describe("install flow smoke", () => {
       "Fieldset",
       "Form",
       "NumberField",
+      "Popover",
       "Progress",
       "RadioGroup",
       "Separator",
@@ -221,6 +223,9 @@ describe("install flow smoke", () => {
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-number-field-stepper-width-md")
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-popover-popup-background")
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-select-popup-background")

@@ -11,6 +11,7 @@ import { fieldsetComponentTokens } from "./fieldset.js"
 import { formComponentTokens } from "./form.js"
 import { inputComponentTokens } from "./input.js"
 import { numberFieldComponentTokens } from "./number-field.js"
+import { popoverComponentTokens } from "./popover.js"
 import { progressComponentTokens } from "./progress.js"
 import { radioGroupComponentTokens } from "./radio-group.js"
 import { separatorComponentTokens } from "./separator.js"
@@ -34,6 +35,7 @@ export { fieldsetComponentTokens } from "./fieldset.js"
 export { formComponentTokens } from "./form.js"
 export { inputComponentTokens } from "./input.js"
 export { numberFieldComponentTokens } from "./number-field.js"
+export { popoverComponentTokens } from "./popover.js"
 export { progressComponentTokens } from "./progress.js"
 export { radioGroupComponentTokens } from "./radio-group.js"
 export { separatorComponentTokens } from "./separator.js"
@@ -58,6 +60,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   formComponentTokens,
   inputComponentTokens,
   numberFieldComponentTokens,
+  popoverComponentTokens,
   progressComponentTokens,
   radioGroupComponentTokens,
   separatorComponentTokens,

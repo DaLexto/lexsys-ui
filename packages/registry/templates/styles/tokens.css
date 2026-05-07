@@ -112,6 +112,7 @@
   --nx-size-14: 3.5rem;
   --nx-size-15: 3.75rem;
   --nx-size-16: 4rem;
+  --nx-size-80: 20rem;
   --nx-size-128: 32rem;
   --nx-font-family-sans:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -192,6 +193,7 @@
   --nx-size-control-lg: var(--nx-size-12);
   --nx-size-control-xl: var(--nx-size-14);
   --nx-size-dialog-max-width: var(--nx-size-128);
+  --nx-size-popover-max-width: var(--nx-size-80);
   --nx-size-selection-control-sm: var(--nx-size-3);
   --nx-size-selection-control-md: var(--nx-size-4);
   --nx-size-selection-control-lg: var(--nx-size-5);
@@ -714,6 +716,52 @@
   --nx-number-field-scrub-cursor-size: var(--nx-size-selection-indicator-md);
   --nx-number-field-transition-duration: var(--nx-duration-control);
   --nx-number-field-transition-easing: var(--nx-easing-control);
+  --nx-popover-backdrop-background: var(--nx-color-foreground);
+  --nx-popover-backdrop-opacity: 0.24;
+  --nx-popover-popup-background: var(--nx-color-background);
+  --nx-popover-popup-foreground: var(--nx-color-foreground);
+  --nx-popover-popup-border-color: var(--nx-color-border);
+  --nx-popover-popup-radius: var(--nx-radius-surface);
+  --nx-popover-popup-max-width: var(--nx-size-popover-max-width);
+  --nx-popover-popup-padding: var(--nx-space-surface-md);
+  --nx-popover-popup-gap: var(--nx-space-surface-gap-sm);
+  --nx-popover-arrow-size: var(--nx-size-3);
+  --nx-popover-title-foreground: var(--nx-color-foreground);
+  --nx-popover-title-padding-end: var(--nx-size-control-lg);
+  --nx-popover-title-font-size: var(--nx-typography-heading-xs-font-size);
+  --nx-popover-title-font-weight: var(--nx-typography-heading-xs-font-weight);
+  --nx-popover-title-font-line-height: var(
+    --nx-typography-heading-xs-line-height
+  );
+  --nx-popover-description-foreground: var(--nx-color-muted-foreground);
+  --nx-popover-description-font-size: var(--nx-typography-body-sm-font-size);
+  --nx-popover-description-font-weight: var(
+    --nx-typography-body-sm-font-weight
+  );
+  --nx-popover-description-font-line-height: var(
+    --nx-typography-body-sm-line-height
+  );
+  --nx-popover-trigger-background: var(--nx-color-background);
+  --nx-popover-trigger-foreground: var(--nx-color-foreground);
+  --nx-popover-trigger-border-color: var(--nx-color-border);
+  --nx-popover-trigger-hover-background: var(--nx-color-muted);
+  --nx-popover-trigger-height: var(--nx-size-control-md);
+  --nx-popover-trigger-radius: var(--nx-radius-control);
+  --nx-popover-trigger-padding-x: var(--nx-space-control-x-md);
+  --nx-popover-trigger-font-size: var(--nx-typography-control-md-font-size);
+  --nx-popover-trigger-font-weight: var(--nx-typography-control-md-font-weight);
+  --nx-popover-trigger-font-line-height: var(
+    --nx-typography-control-md-line-height
+  );
+  --nx-popover-close-foreground: var(--nx-color-muted-foreground);
+  --nx-popover-close-hover-background: var(--nx-color-muted);
+  --nx-popover-close-size: var(--nx-size-control-sm);
+  --nx-popover-close-inset: var(--nx-space-control-x-sm);
+  --nx-popover-close-radius: var(--nx-radius-control);
+  --nx-popover-focus-ring-color: var(--nx-color-ring);
+  --nx-popover-focus-ring-offset-color: var(--nx-color-background);
+  --nx-popover-transition-duration: var(--nx-duration-control);
+  --nx-popover-transition-easing: var(--nx-easing-control);
   --nx-progress-gap: var(--nx-space-control-gap-sm);
   --nx-progress-label-foreground: var(--nx-color-muted-foreground);
   --nx-progress-label-font-size: var(--nx-typography-label-sm-font-size);

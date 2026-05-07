@@ -9,6 +9,15 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogViewport,
+  Popover,
+  PopoverArrow,
+  PopoverClose,
+  PopoverDescription,
+  PopoverPopup,
+  PopoverPortal,
+  PopoverPositioner,
+  PopoverTitle,
+  PopoverTrigger,
 } from "@neurex/ui"
 
 export const OverlaysPanel = () => {
@@ -17,7 +26,7 @@ export const OverlaysPanel = () => {
       <div className="panel-header">
         <div>
           <p className="playground-label">Overlays</p>
-          <h2 id="overlays-title">Dialog foundation</h2>
+          <h2 id="overlays-title">Overlay foundations</h2>
         </div>
       </div>
 
@@ -46,6 +55,29 @@ export const OverlaysPanel = () => {
             </DialogViewport>
           </DialogPortal>
         </Dialog>
+
+        <Popover>
+          <PopoverTrigger>Open popover</PopoverTrigger>
+          <PopoverPortal>
+            <PopoverPositioner sideOffset={8}>
+              <PopoverPopup>
+                <PopoverArrow />
+                <PopoverClose aria-label="Close popover" />
+                <PopoverTitle>Theme intent</PopoverTitle>
+                <PopoverDescription>
+                  Popover keeps positioning, focus return, escape key, and
+                  outside press behavior in Base UI while Neurex owns styling.
+                </PopoverDescription>
+                <div className="field-submit-row">
+                  <Button size="sm" variant="secondary">
+                    Neutral
+                  </Button>
+                  <Button size="sm">Apply</Button>
+                </div>
+              </PopoverPopup>
+            </PopoverPositioner>
+          </PopoverPortal>
+        </Popover>
       </div>
     </section>
   )
