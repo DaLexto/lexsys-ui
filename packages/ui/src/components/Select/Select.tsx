@@ -22,7 +22,8 @@ import type {
   SelectPortalProps,
   SelectPositionerProps,
   SelectProps,
-  SelectScrollArrowProps,
+  SelectScrollDownArrowProps,
+  SelectScrollUpArrowProps,
   SelectTriggerProps,
   SelectValueProps,
 } from "./Select.types"
@@ -264,30 +265,31 @@ const SelectArrow = forwardRef<HTMLDivElement, SelectArrowProps>(
 
 SelectArrow.displayName = "SelectArrow"
 
-const SelectScrollUpArrow = forwardRef<HTMLDivElement, SelectScrollArrowProps>(
-  ({ className, children, ...props }, ref) => {
-    const arrowClassName: SelectScrollArrowProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
+const SelectScrollUpArrow = forwardRef<
+  HTMLDivElement,
+  SelectScrollUpArrowProps
+>(({ className, children, ...props }, ref) => {
+  const arrowClassName: SelectScrollUpArrowProps["className"] = (state) => {
+    const userClassName =
+      typeof className === "function" ? className(state) : className
 
-      return cn(selectScrollArrowVariants(), userClassName)
-    }
+    return cn(selectScrollArrowVariants(), userClassName)
+  }
 
-    return (
-      <BaseSelect.ScrollUpArrow ref={ref} className={arrowClassName} {...props}>
-        {children ?? <ChevronUp aria-hidden="true" size={16} />}
-      </BaseSelect.ScrollUpArrow>
-    )
-  },
-)
+  return (
+    <BaseSelect.ScrollUpArrow ref={ref} className={arrowClassName} {...props}>
+      {children ?? <ChevronUp aria-hidden="true" size={16} />}
+    </BaseSelect.ScrollUpArrow>
+  )
+})
 
 SelectScrollUpArrow.displayName = "SelectScrollUpArrow"
 
 const SelectScrollDownArrow = forwardRef<
   HTMLDivElement,
-  SelectScrollArrowProps
+  SelectScrollDownArrowProps
 >(({ className, children, ...props }, ref) => {
-  const arrowClassName: SelectScrollArrowProps["className"] = (state) => {
+  const arrowClassName: SelectScrollDownArrowProps["className"] = (state) => {
     const userClassName =
       typeof className === "function" ? className(state) : className
 

@@ -39,6 +39,9 @@ export interface NumberFieldButtonProps extends Omit<
   className?: BaseNumberField.Increment.Props["className"]
 }
 
+export type NumberFieldIncrementProps = NumberFieldButtonProps
+export type NumberFieldDecrementProps = NumberFieldButtonProps
+
 export interface NumberFieldScrubAreaProps extends Omit<
   BaseNumberField.ScrubArea.Props,
   "className"

@@ -6,6 +6,21 @@ import { describe, expect, test } from "vitest"
 const componentRoot = join(process.cwd(), "src/components")
 const publicEntry = readFileSync(join(process.cwd(), "src/index.ts"), "utf-8")
 
+const getComponentExports = (componentName: string): string[] => {
+  const componentEntry = readFileSync(
+    join(componentRoot, componentName, `${componentName}.tsx`),
+    "utf-8",
+  )
+  const exportBlock = componentEntry.match(/export\s*\{(?<exports>[^}]+)\}/)
+
+  return (
+    exportBlock?.groups?.exports
+      .split(",")
+      .map((exportName) => exportName.trim())
+      .filter(Boolean) ?? []
+  )
+}
+
 const componentNames = readdirSync(componentRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
@@ -39,6 +54,21 @@ describe("@neurex/ui public API", () => {
       expect(publicEntry).toContain(
         `export type * from "./components/${componentName}/${componentName}.types"`,
       )
+    }
+  })
+
+  test("keeps a named props type for every exported component", () => {
+    for (const componentName of componentNames) {
+      const typeEntry = readFileSync(
+        join(componentRoot, componentName, `${componentName}.types.ts`),
+        "utf-8",
+      )
+
+      for (const exportName of getComponentExports(componentName)) {
+        expect(typeEntry).toMatch(
+          new RegExp(`export (interface|type) ${exportName}Props\\b`),
+        )
+      }
     }
   })
 })

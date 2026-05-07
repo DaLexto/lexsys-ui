@@ -6,9 +6,11 @@
 
 import { forwardRef } from "react"
 import type {
+  CardContentProps,
   CardDescriptionProps,
+  CardFooterProps,
+  CardHeaderProps,
   CardProps,
-  CardSectionProps,
   CardTitleProps,
 } from "./Card.types"
 import {
@@ -35,7 +37,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = "Card"
 
-const CardHeader = forwardRef<HTMLDivElement, CardSectionProps>(
+const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -73,7 +75,7 @@ const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionProps>(
 
 CardDescription.displayName = "CardDescription"
 
-const CardContent = forwardRef<HTMLDivElement, CardSectionProps>(
+const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -87,7 +89,7 @@ const CardContent = forwardRef<HTMLDivElement, CardSectionProps>(
 
 CardContent.displayName = "CardContent"
 
-const CardFooter = forwardRef<HTMLDivElement, CardSectionProps>(
+const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   ({ className, ...props }, ref) => {
     return (
       <div

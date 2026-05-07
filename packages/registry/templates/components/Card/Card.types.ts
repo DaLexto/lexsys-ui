@@ -21,6 +21,8 @@ export interface CardSectionProps extends Omit<
   className?: string
 }
 
+export type CardHeaderProps = CardSectionProps
+
 export interface CardTitleProps extends Omit<
   HTMLAttributes<HTMLHeadingElement>,
   "className"
@@ -34,3 +36,6 @@ export interface CardDescriptionProps extends Omit<
 > {
   className?: string
 }
+
+export type CardContentProps = CardSectionProps
+export type CardFooterProps = CardSectionProps

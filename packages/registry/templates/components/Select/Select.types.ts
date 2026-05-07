@@ -107,6 +107,9 @@ export interface SelectScrollArrowProps extends Omit<
   className?: BaseSelect.ScrollDownArrow.Props["className"]
 }
 
+export type SelectScrollUpArrowProps = SelectScrollArrowProps
+export type SelectScrollDownArrowProps = SelectScrollArrowProps
+
 export interface SelectGroupProps extends Omit<
   BaseSelect.Group.Props,
   "className"

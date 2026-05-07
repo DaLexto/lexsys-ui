@@ -7,8 +7,9 @@
 import { forwardRef } from "react"
 import { NumberField as BaseNumberField } from "@base-ui/react/number-field"
 import type {
-  NumberFieldButtonProps,
+  NumberFieldDecrementProps,
   NumberFieldGroupProps,
+  NumberFieldIncrementProps,
   NumberFieldInputProps,
   NumberFieldProps,
   NumberFieldScrubAreaCursorProps,
@@ -85,9 +86,9 @@ NumberFieldInput.displayName = "NumberFieldInput"
 
 const NumberFieldIncrement = forwardRef<
   HTMLButtonElement,
-  NumberFieldButtonProps
+  NumberFieldIncrementProps
 >(({ size, className, children, ...props }, ref) => {
-  const buttonClassName: NumberFieldButtonProps["className"] = (state) => {
+  const buttonClassName: NumberFieldIncrementProps["className"] = (state) => {
     const userClassName =
       typeof className === "function" ? className(state) : className
 
@@ -108,9 +109,9 @@ NumberFieldIncrement.displayName = "NumberFieldIncrement"
 
 const NumberFieldDecrement = forwardRef<
   HTMLButtonElement,
-  NumberFieldButtonProps
+  NumberFieldDecrementProps
 >(({ size, className, children, ...props }, ref) => {
-  const buttonClassName: NumberFieldButtonProps["className"] = (state) => {
+  const buttonClassName: NumberFieldDecrementProps["className"] = (state) => {
     const userClassName =
       typeof className === "function" ? className(state) : className
 

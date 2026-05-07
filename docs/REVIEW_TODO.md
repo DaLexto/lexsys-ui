@@ -472,5 +472,5 @@ Latest successful checks from the implementation passes:
 - `npm run build` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
 - CLI install-flow smoke: 7 CLI test files / 26 CLI tests passing, with
   registry-driven coverage for the full bundled component set
-- UI variant/API smoke: 24 UI test files / 38 UI tests passing
+- UI variant/API smoke: 24 UI test files / 39 UI tests passing
 - Registry validation smoke: 1 registry test file / 15 registry tests passing
