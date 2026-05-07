@@ -14,12 +14,13 @@ The current implementation focuses on the first supported path:
 - Vite React setup through `neurex init vite`
 - Tailwind v4 wiring for Vite consumers
 - token and theme CSS installation
-- `Button` and `Card` as the first registry components
+- a growing Base UI-backed component catalog, including actions, forms,
+  overlays, feedback, and layout primitives
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification
 
-More components, framework starters, remote registry flows, richer update
-automation, and Creator-facing output are planned but not complete yet.
+Additional framework starters, remote registry flows, richer update automation,
+and Creator-facing output are planned but not complete yet.
 
 ## Quick Start
 
@@ -40,6 +41,8 @@ Then add the first component:
 ```bash
 neurex add button
 neurex add card
+neurex add dialog
+neurex add popover
 ```
 
 Generated files use the current Vite defaults:
@@ -149,8 +152,8 @@ pnpm playground:dev
 ## Status
 
 Neurex is not production-ready yet. The architecture is locked, the first Vite
-install flow is working, and the project is now building the foundation before
-expanding the component catalog.
+install flow is working, and the project is expanding the Base UI-backed
+component foundation.
 
 ## Inspiration
 

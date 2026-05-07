@@ -21,59 +21,59 @@ import {
 } from "./Tooltip.variants"
 import { cn } from "../../utils/cn"
 
-export const Tooltip = (props: TooltipProps) => {
+const Tooltip = (props: TooltipProps) => {
   return <BaseTooltip.Root {...props} />
 }
 
 Tooltip.displayName = "Tooltip"
 
-export const TooltipTrigger = forwardRef<
-  HTMLButtonElement,
-  TooltipTriggerProps
->(({ className, ...props }, ref) => {
-  const triggerClassName: TooltipTriggerProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipTriggerProps>(
+  ({ className, ...props }, ref) => {
+    const triggerClassName: TooltipTriggerProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(tooltipTriggerVariants(), userClassName)
-  }
+      return cn(tooltipTriggerVariants(), userClassName)
+    }
 
-  return (
-    <BaseTooltip.Trigger ref={ref} className={triggerClassName} {...props} />
-  )
-})
+    return (
+      <BaseTooltip.Trigger ref={ref} className={triggerClassName} {...props} />
+    )
+  },
+)
 
 TooltipTrigger.displayName = "TooltipTrigger"
 
-export const TooltipPortal = (props: BaseTooltip.Portal.Props) => {
+const TooltipPortal = (props: BaseTooltip.Portal.Props) => {
   return <BaseTooltip.Portal {...props} />
 }
 
 TooltipPortal.displayName = "TooltipPortal"
 
-export const TooltipPositioner = forwardRef<
-  HTMLDivElement,
-  TooltipPositionerProps
->(({ className, ...props }, ref) => {
-  const positionerClassName: TooltipPositionerProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const TooltipPositioner = forwardRef<HTMLDivElement, TooltipPositionerProps>(
+  ({ className, ...props }, ref) => {
+    const positionerClassName: TooltipPositionerProps["className"] = (
+      state,
+    ) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(tooltipPositionerVariants(), userClassName)
-  }
+      return cn(tooltipPositionerVariants(), userClassName)
+    }
 
-  return (
-    <BaseTooltip.Positioner
-      ref={ref}
-      className={positionerClassName}
-      {...props}
-    />
-  )
-})
+    return (
+      <BaseTooltip.Positioner
+        ref={ref}
+        className={positionerClassName}
+        {...props}
+      />
+    )
+  },
+)
 
 TooltipPositioner.displayName = "TooltipPositioner"
 
-export const TooltipPopup = forwardRef<HTMLDivElement, TooltipPopupProps>(
+const TooltipPopup = forwardRef<HTMLDivElement, TooltipPopupProps>(
   ({ className, ...props }, ref) => {
     const popupClassName: TooltipPopupProps["className"] = (state) => {
       const userClassName =
@@ -88,7 +88,7 @@ export const TooltipPopup = forwardRef<HTMLDivElement, TooltipPopupProps>(
 
 TooltipPopup.displayName = "TooltipPopup"
 
-export const TooltipArrow = forwardRef<HTMLDivElement, TooltipArrowProps>(
+const TooltipArrow = forwardRef<HTMLDivElement, TooltipArrowProps>(
   ({ className, ...props }, ref) => {
     const arrowClassName: TooltipArrowProps["className"] = (state) => {
       const userClassName =
@@ -102,3 +102,12 @@ export const TooltipArrow = forwardRef<HTMLDivElement, TooltipArrowProps>(
 )
 
 TooltipArrow.displayName = "TooltipArrow"
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipPortal,
+  TooltipPositioner,
+  TooltipPopup,
+  TooltipArrow,
+}

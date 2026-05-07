@@ -17,7 +17,7 @@ import {
 } from "./Alert.variants"
 import { cn } from "../../utils/cn"
 
-export const Alert = forwardRef<HTMLDivElement, AlertProps>(
+const Alert = forwardRef<HTMLDivElement, AlertProps>(
   ({ tone, className, role = "alert", ...props }, ref) => {
     return (
       <div
@@ -32,7 +32,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
 
 Alert.displayName = "Alert"
 
-export const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
+const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
   ({ className, ...props }, ref) => {
     return (
       <h3 ref={ref} className={cn(alertTitleClassName, className)} {...props} />
@@ -42,7 +42,7 @@ export const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 
 AlertTitle.displayName = "AlertTitle"
 
-export const AlertDescription = forwardRef<
+const AlertDescription = forwardRef<
   HTMLParagraphElement,
   AlertDescriptionProps
 >(({ className, ...props }, ref) => {
@@ -56,3 +56,5 @@ export const AlertDescription = forwardRef<
 })
 
 AlertDescription.displayName = "AlertDescription"
+
+export { Alert, AlertTitle, AlertDescription }

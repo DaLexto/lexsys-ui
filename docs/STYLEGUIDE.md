@@ -63,6 +63,19 @@ Use it for:
 - internal utilities used by those implementations
 - public exports that define the reference API
 
+In `Component.tsx`, define component symbols locally and export them from a
+single block at the bottom of the file:
+
+```tsx
+const Button = forwardRef<HTMLElement, ButtonProps>(...)
+
+Button.displayName = "Button"
+
+export { Button }
+```
+
+This keeps implementation flow readable while making the public surface explicit.
+
 Avoid using it for:
 
 - CLI install logic
@@ -110,7 +123,9 @@ Guidelines:
 Component templates are synced from `packages/ui/src/components` with
 `pnpm registry:sync`. The sync transform should stay minimal: registry templates
 may adapt consumer import paths such as `cn`, while component API, variants, and
-structure should remain owned by `packages/ui`.
+structure should remain owned by `packages/ui`. Component export style should
+therefore match the UI source and keep public component exports grouped at the
+bottom of each template file.
 
 Registry checks verify that templates stay synced with the UI source.
 Any template-only transform must exist in the sync script, not as a manual edit

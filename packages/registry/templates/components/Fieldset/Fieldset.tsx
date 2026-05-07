@@ -10,7 +10,7 @@ import type { FieldsetLegendProps, FieldsetProps } from "./Fieldset.types"
 import { fieldsetLegendVariants, fieldsetVariants } from "./Fieldset.variants"
 import { cn } from "@/lib/utils"
 
-export const Fieldset = forwardRef<HTMLElement, FieldsetProps>(
+const Fieldset = forwardRef<HTMLElement, FieldsetProps>(
   ({ variant, className, ...props }, ref) => {
     const fieldsetClassName: FieldsetProps["className"] = (state) => {
       const userClassName =
@@ -27,7 +27,7 @@ export const Fieldset = forwardRef<HTMLElement, FieldsetProps>(
 
 Fieldset.displayName = "Fieldset"
 
-export const FieldsetLegend = forwardRef<HTMLDivElement, FieldsetLegendProps>(
+const FieldsetLegend = forwardRef<HTMLDivElement, FieldsetLegendProps>(
   ({ className, ...props }, ref) => {
     const legendClassName: FieldsetLegendProps["className"] = (state) => {
       const userClassName =
@@ -43,3 +43,5 @@ export const FieldsetLegend = forwardRef<HTMLDivElement, FieldsetLegendProps>(
 )
 
 FieldsetLegend.displayName = "FieldsetLegend"
+
+export { Fieldset, FieldsetLegend }

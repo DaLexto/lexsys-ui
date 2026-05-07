@@ -10,7 +10,7 @@ import type { ButtonProps } from "./Button.types"
 import { buttonVariants } from "./Button.variants"
 import { cn } from "../../utils/cn"
 
-export const Button = forwardRef<HTMLElement, ButtonProps>(
+const Button = forwardRef<HTMLElement, ButtonProps>(
   (
     {
       variant,
@@ -52,3 +52,5 @@ export const Button = forwardRef<HTMLElement, ButtonProps>(
 )
 
 Button.displayName = "Button"
+
+export { Button }

@@ -24,7 +24,7 @@ import {
 } from "./NumberField.variants"
 import { cn } from "../../utils/cn"
 
-export const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
+const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
   ({ className, ...props }, ref) => {
     const rootClassName: NumberFieldProps["className"] = (state) => {
       const userClassName =
@@ -41,51 +41,49 @@ export const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
 
 NumberField.displayName = "NumberField"
 
-export const NumberFieldGroup = forwardRef<
-  HTMLDivElement,
-  NumberFieldGroupProps
->(({ size, className, ...props }, ref) => {
-  const groupClassName: NumberFieldGroupProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const NumberFieldGroup = forwardRef<HTMLDivElement, NumberFieldGroupProps>(
+  ({ size, className, ...props }, ref) => {
+    const groupClassName: NumberFieldGroupProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(numberFieldGroupVariants({ size }), userClassName)
-  }
+      return cn(numberFieldGroupVariants({ size }), userClassName)
+    }
 
-  return (
-    <BaseNumberField.Group ref={ref} className={groupClassName} {...props} />
-  )
-})
+    return (
+      <BaseNumberField.Group ref={ref} className={groupClassName} {...props} />
+    )
+  },
+)
 
 NumberFieldGroup.displayName = "NumberFieldGroup"
 
-export const NumberFieldInput = forwardRef<
-  HTMLInputElement,
-  NumberFieldInputProps
->(({ size, className, isInvalid, ...props }, ref) => {
-  const baseInputProps: Omit<
-    NumberFieldInputProps,
-    "className" | "isInvalid" | "size"
-  > = isInvalid ? { ...props, "aria-invalid": true } : props
-  const inputClassName: NumberFieldInputProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const NumberFieldInput = forwardRef<HTMLInputElement, NumberFieldInputProps>(
+  ({ size, className, isInvalid, ...props }, ref) => {
+    const baseInputProps: Omit<
+      NumberFieldInputProps,
+      "className" | "isInvalid" | "size"
+    > = isInvalid ? { ...props, "aria-invalid": true } : props
+    const inputClassName: NumberFieldInputProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(numberFieldInputVariants({ size }), userClassName)
-  }
+      return cn(numberFieldInputVariants({ size }), userClassName)
+    }
 
-  return (
-    <BaseNumberField.Input
-      ref={ref}
-      className={inputClassName}
-      {...baseInputProps}
-    />
-  )
-})
+    return (
+      <BaseNumberField.Input
+        ref={ref}
+        className={inputClassName}
+        {...baseInputProps}
+      />
+    )
+  },
+)
 
 NumberFieldInput.displayName = "NumberFieldInput"
 
-export const NumberFieldIncrement = forwardRef<
+const NumberFieldIncrement = forwardRef<
   HTMLButtonElement,
   NumberFieldButtonProps
 >(({ size, className, children, ...props }, ref) => {
@@ -108,7 +106,7 @@ export const NumberFieldIncrement = forwardRef<
 
 NumberFieldIncrement.displayName = "NumberFieldIncrement"
 
-export const NumberFieldDecrement = forwardRef<
+const NumberFieldDecrement = forwardRef<
   HTMLButtonElement,
   NumberFieldButtonProps
 >(({ size, className, children, ...props }, ref) => {
@@ -131,7 +129,7 @@ export const NumberFieldDecrement = forwardRef<
 
 NumberFieldDecrement.displayName = "NumberFieldDecrement"
 
-export const NumberFieldScrubArea = forwardRef<
+const NumberFieldScrubArea = forwardRef<
   HTMLSpanElement,
   NumberFieldScrubAreaProps
 >(({ className, ...props }, ref) => {
@@ -153,7 +151,7 @@ export const NumberFieldScrubArea = forwardRef<
 
 NumberFieldScrubArea.displayName = "NumberFieldScrubArea"
 
-export const NumberFieldScrubAreaCursor = forwardRef<
+const NumberFieldScrubAreaCursor = forwardRef<
   HTMLSpanElement,
   NumberFieldScrubAreaCursorProps
 >(({ className, ...props }, ref) => {
@@ -176,3 +174,13 @@ export const NumberFieldScrubAreaCursor = forwardRef<
 })
 
 NumberFieldScrubAreaCursor.displayName = "NumberFieldScrubAreaCursor"
+
+export {
+  NumberField,
+  NumberFieldGroup,
+  NumberFieldInput,
+  NumberFieldIncrement,
+  NumberFieldDecrement,
+  NumberFieldScrubArea,
+  NumberFieldScrubAreaCursor,
+}

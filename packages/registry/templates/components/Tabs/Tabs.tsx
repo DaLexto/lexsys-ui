@@ -20,7 +20,7 @@ import {
 } from "./Tabs.variants"
 import { cn } from "@/lib/utils"
 
-export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
+const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({ className, ...props }, ref) => {
     const rootClassName: TabsProps["className"] = (state) => {
       const userClassName =
@@ -35,7 +35,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
 
 Tabs.displayName = "Tabs"
 
-export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
+const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
   ({ className, ...props }, ref) => {
     const listClassName: TabsListProps["className"] = (state) => {
       const userClassName =
@@ -50,7 +50,7 @@ export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
 
 TabsList.displayName = "TabsList"
 
-export const TabsTab = forwardRef<HTMLElement, TabsTabProps>(
+const TabsTab = forwardRef<HTMLElement, TabsTabProps>(
   ({ className, ...props }, ref) => {
     const tabClassName: TabsTabProps["className"] = (state) => {
       const userClassName =
@@ -65,7 +65,7 @@ export const TabsTab = forwardRef<HTMLElement, TabsTabProps>(
 
 TabsTab.displayName = "TabsTab"
 
-export const TabsPanel = forwardRef<HTMLDivElement, TabsPanelProps>(
+const TabsPanel = forwardRef<HTMLDivElement, TabsPanelProps>(
   ({ className, ...props }, ref) => {
     const panelClassName: TabsPanelProps["className"] = (state) => {
       const userClassName =
@@ -79,3 +79,5 @@ export const TabsPanel = forwardRef<HTMLDivElement, TabsPanelProps>(
 )
 
 TabsPanel.displayName = "TabsPanel"
+
+export { Tabs, TabsList, TabsTab, TabsPanel }

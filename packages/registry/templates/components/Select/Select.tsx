@@ -45,10 +45,7 @@ import {
 } from "./Select.variants"
 import { cn } from "@/lib/utils"
 
-export const Select = <
-  Value = string,
-  Multiple extends boolean | undefined = false,
->(
+const Select = <Value = string, Multiple extends boolean | undefined = false>(
   props: SelectProps<Value, Multiple>,
 ) => {
   return <BaseSelect.Root {...props} />
@@ -56,7 +53,7 @@ export const Select = <
 
 Select.displayName = "Select"
 
-export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
+const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
   ({ className, ...props }, ref) => {
     const labelClassName: SelectLabelProps["className"] = (state) => {
       const userClassName =
@@ -71,7 +68,7 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
 
 SelectLabel.displayName = "SelectLabel"
 
-export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
+const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
   ({ size, className, ...props }, ref) => {
     const triggerClassName: SelectTriggerProps["className"] = (state) => {
       const userClassName =
@@ -88,7 +85,7 @@ export const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
 
 SelectTrigger.displayName = "SelectTrigger"
 
-export const SelectValue = forwardRef<HTMLSpanElement, SelectValueProps>(
+const SelectValue = forwardRef<HTMLSpanElement, SelectValueProps>(
   ({ className, ...props }, ref) => {
     const valueClassName: SelectValueProps["className"] = (state) => {
       const userClassName =
@@ -103,7 +100,7 @@ export const SelectValue = forwardRef<HTMLSpanElement, SelectValueProps>(
 
 SelectValue.displayName = "SelectValue"
 
-export const SelectIcon = forwardRef<HTMLSpanElement, SelectIconProps>(
+const SelectIcon = forwardRef<HTMLSpanElement, SelectIconProps>(
   ({ className, children, ...props }, ref) => {
     const iconClassName: SelectIconProps["className"] = (state) => {
       const userClassName =
@@ -122,13 +119,13 @@ export const SelectIcon = forwardRef<HTMLSpanElement, SelectIconProps>(
 
 SelectIcon.displayName = "SelectIcon"
 
-export const SelectPortal = (props: SelectPortalProps) => {
+const SelectPortal = (props: SelectPortalProps) => {
   return <BaseSelect.Portal {...props} />
 }
 
 SelectPortal.displayName = "SelectPortal"
 
-export const SelectBackdrop = forwardRef<HTMLDivElement, SelectBackdropProps>(
+const SelectBackdrop = forwardRef<HTMLDivElement, SelectBackdropProps>(
   ({ className, ...props }, ref) => {
     const backdropClassName: SelectBackdropProps["className"] = (state) => {
       const userClassName =
@@ -145,29 +142,28 @@ export const SelectBackdrop = forwardRef<HTMLDivElement, SelectBackdropProps>(
 
 SelectBackdrop.displayName = "SelectBackdrop"
 
-export const SelectPositioner = forwardRef<
-  HTMLDivElement,
-  SelectPositionerProps
->(({ className, ...props }, ref) => {
-  const positionerClassName: SelectPositionerProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const SelectPositioner = forwardRef<HTMLDivElement, SelectPositionerProps>(
+  ({ className, ...props }, ref) => {
+    const positionerClassName: SelectPositionerProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(selectPositionerVariants(), userClassName)
-  }
+      return cn(selectPositionerVariants(), userClassName)
+    }
 
-  return (
-    <BaseSelect.Positioner
-      ref={ref}
-      className={positionerClassName}
-      {...props}
-    />
-  )
-})
+    return (
+      <BaseSelect.Positioner
+        ref={ref}
+        className={positionerClassName}
+        {...props}
+      />
+    )
+  },
+)
 
 SelectPositioner.displayName = "SelectPositioner"
 
-export const SelectPopup = forwardRef<HTMLDivElement, SelectPopupProps>(
+const SelectPopup = forwardRef<HTMLDivElement, SelectPopupProps>(
   ({ className, ...props }, ref) => {
     const popupClassName: SelectPopupProps["className"] = (state) => {
       const userClassName =
@@ -182,7 +178,7 @@ export const SelectPopup = forwardRef<HTMLDivElement, SelectPopupProps>(
 
 SelectPopup.displayName = "SelectPopup"
 
-export const SelectList = forwardRef<HTMLDivElement, SelectListProps>(
+const SelectList = forwardRef<HTMLDivElement, SelectListProps>(
   ({ className, ...props }, ref) => {
     const listClassName: SelectListProps["className"] = (state) => {
       const userClassName =
@@ -197,7 +193,7 @@ export const SelectList = forwardRef<HTMLDivElement, SelectListProps>(
 
 SelectList.displayName = "SelectList"
 
-export const SelectItem = forwardRef<HTMLElement, SelectItemProps>(
+const SelectItem = forwardRef<HTMLElement, SelectItemProps>(
   ({ className, ...props }, ref) => {
     const itemClassName: SelectItemProps["className"] = (state) => {
       const userClassName =
@@ -212,7 +208,7 @@ export const SelectItem = forwardRef<HTMLElement, SelectItemProps>(
 
 SelectItem.displayName = "SelectItem"
 
-export const SelectItemIndicator = forwardRef<
+const SelectItemIndicator = forwardRef<
   HTMLSpanElement,
   SelectItemIndicatorProps
 >(({ className, children, ...props }, ref) => {
@@ -236,7 +232,7 @@ export const SelectItemIndicator = forwardRef<
 
 SelectItemIndicator.displayName = "SelectItemIndicator"
 
-export const SelectItemText = forwardRef<HTMLDivElement, SelectItemTextProps>(
+const SelectItemText = forwardRef<HTMLDivElement, SelectItemTextProps>(
   ({ className, ...props }, ref) => {
     const textClassName: SelectItemTextProps["className"] = (state) => {
       const userClassName =
@@ -253,7 +249,7 @@ export const SelectItemText = forwardRef<HTMLDivElement, SelectItemTextProps>(
 
 SelectItemText.displayName = "SelectItemText"
 
-export const SelectArrow = forwardRef<HTMLDivElement, SelectArrowProps>(
+const SelectArrow = forwardRef<HTMLDivElement, SelectArrowProps>(
   ({ className, ...props }, ref) => {
     const arrowClassName: SelectArrowProps["className"] = (state) => {
       const userClassName =
@@ -268,27 +264,26 @@ export const SelectArrow = forwardRef<HTMLDivElement, SelectArrowProps>(
 
 SelectArrow.displayName = "SelectArrow"
 
-export const SelectScrollUpArrow = forwardRef<
-  HTMLDivElement,
-  SelectScrollArrowProps
->(({ className, children, ...props }, ref) => {
-  const arrowClassName: SelectScrollArrowProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const SelectScrollUpArrow = forwardRef<HTMLDivElement, SelectScrollArrowProps>(
+  ({ className, children, ...props }, ref) => {
+    const arrowClassName: SelectScrollArrowProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(selectScrollArrowVariants(), userClassName)
-  }
+      return cn(selectScrollArrowVariants(), userClassName)
+    }
 
-  return (
-    <BaseSelect.ScrollUpArrow ref={ref} className={arrowClassName} {...props}>
-      {children ?? <ChevronUp aria-hidden="true" size={16} />}
-    </BaseSelect.ScrollUpArrow>
-  )
-})
+    return (
+      <BaseSelect.ScrollUpArrow ref={ref} className={arrowClassName} {...props}>
+        {children ?? <ChevronUp aria-hidden="true" size={16} />}
+      </BaseSelect.ScrollUpArrow>
+    )
+  },
+)
 
 SelectScrollUpArrow.displayName = "SelectScrollUpArrow"
 
-export const SelectScrollDownArrow = forwardRef<
+const SelectScrollDownArrow = forwardRef<
   HTMLDivElement,
   SelectScrollArrowProps
 >(({ className, children, ...props }, ref) => {
@@ -308,7 +303,7 @@ export const SelectScrollDownArrow = forwardRef<
 
 SelectScrollDownArrow.displayName = "SelectScrollDownArrow"
 
-export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
+const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
   ({ className, ...props }, ref) => {
     const groupClassName: SelectGroupProps["className"] = (state) => {
       const userClassName =
@@ -323,20 +318,40 @@ export const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
 
 SelectGroup.displayName = "SelectGroup"
 
-export const SelectGroupLabel = forwardRef<
-  HTMLDivElement,
-  SelectGroupLabelProps
->(({ className, ...props }, ref) => {
-  const labelClassName: SelectGroupLabelProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const SelectGroupLabel = forwardRef<HTMLDivElement, SelectGroupLabelProps>(
+  ({ className, ...props }, ref) => {
+    const labelClassName: SelectGroupLabelProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(selectGroupLabelVariants(), userClassName)
-  }
+      return cn(selectGroupLabelVariants(), userClassName)
+    }
 
-  return (
-    <BaseSelect.GroupLabel ref={ref} className={labelClassName} {...props} />
-  )
-})
+    return (
+      <BaseSelect.GroupLabel ref={ref} className={labelClassName} {...props} />
+    )
+  },
+)
 
 SelectGroupLabel.displayName = "SelectGroupLabel"
+
+export {
+  Select,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+  SelectIcon,
+  SelectPortal,
+  SelectBackdrop,
+  SelectPositioner,
+  SelectPopup,
+  SelectList,
+  SelectItem,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectArrow,
+  SelectScrollUpArrow,
+  SelectScrollDownArrow,
+  SelectGroup,
+  SelectGroupLabel,
+}

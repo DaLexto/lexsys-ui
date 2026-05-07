@@ -16,7 +16,7 @@ import {
 } from "./RadioGroup.variants"
 import { cn } from "@/lib/utils"
 
-export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
+const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
   ({ orientation = "vertical", className, ...props }, ref) => {
     const radioGroupClassName: RadioGroupProps["className"] = (state) => {
       const userClassName =
@@ -33,7 +33,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
 
 RadioGroup.displayName = "RadioGroup"
 
-export const RadioGroupItem = forwardRef<HTMLElement, RadioGroupItemProps>(
+const RadioGroupItem = forwardRef<HTMLElement, RadioGroupItemProps>(
   (
     { size, className, indicatorClassName, labelClassName, children, ...props },
     ref,
@@ -62,3 +62,5 @@ export const RadioGroupItem = forwardRef<HTMLElement, RadioGroupItemProps>(
 )
 
 RadioGroupItem.displayName = "RadioGroupItem"
+
+export { RadioGroup, RadioGroupItem }

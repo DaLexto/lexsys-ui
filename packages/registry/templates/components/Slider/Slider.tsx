@@ -16,7 +16,7 @@ import {
 } from "./Slider.variants"
 import { cn } from "@/lib/utils"
 
-export const Slider = forwardRef<HTMLDivElement, SliderProps>(
+const Slider = forwardRef<HTMLDivElement, SliderProps>(
   (
     {
       className,
@@ -85,3 +85,5 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>(
 )
 
 Slider.displayName = "Slider"
+
+export { Slider }

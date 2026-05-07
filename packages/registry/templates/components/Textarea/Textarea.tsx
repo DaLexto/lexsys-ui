@@ -10,7 +10,7 @@ import type { TextareaProps } from "./Textarea.types"
 import { textareaVariants } from "./Textarea.variants"
 import { cn } from "@/lib/utils"
 
-export const Textarea = forwardRef<HTMLElement, TextareaProps>(
+const Textarea = forwardRef<HTMLElement, TextareaProps>(
   ({ variant, size, resize, rows, className, isInvalid, ...props }, ref) => {
     const baseTextareaProps: Omit<
       TextareaProps,
@@ -35,3 +35,5 @@ export const Textarea = forwardRef<HTMLElement, TextareaProps>(
 )
 
 Textarea.displayName = "Textarea"
+
+export { Textarea }

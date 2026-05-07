@@ -10,7 +10,7 @@ import type { InputProps } from "./Input.types"
 import { inputVariants } from "./Input.variants"
 import { cn } from "../../utils/cn"
 
-export const Input = forwardRef<HTMLElement, InputProps>(
+const Input = forwardRef<HTMLElement, InputProps>(
   ({ variant, size, className, isInvalid, ...props }, ref) => {
     const baseInputProps: Omit<
       InputProps,
@@ -30,3 +30,5 @@ export const Input = forwardRef<HTMLElement, InputProps>(
 )
 
 Input.displayName = "Input"
+
+export { Input }

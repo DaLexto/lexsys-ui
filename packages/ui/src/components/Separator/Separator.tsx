@@ -10,7 +10,7 @@ import type { SeparatorProps } from "./Separator.types"
 import { separatorVariants } from "./Separator.variants"
 import { cn } from "../../utils/cn"
 
-export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
+const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
   ({ orientation = "horizontal", className, ...props }, ref) => {
     const separatorClassName: SeparatorProps["className"] = (state) => {
       const userClassName =
@@ -31,3 +31,5 @@ export const Separator = forwardRef<HTMLDivElement, SeparatorProps>(
 )
 
 Separator.displayName = "Separator"
+
+export { Separator }

@@ -33,31 +33,30 @@ import {
 } from "./Popover.variants"
 import { cn } from "@/lib/utils"
 
-export const Popover = <Payload = unknown,>(props: PopoverProps<Payload>) => {
+const Popover = <Payload = unknown,>(props: PopoverProps<Payload>) => {
   return <BasePopover.Root {...props} />
 }
 
 Popover.displayName = "Popover"
 
-export const PopoverTrigger = forwardRef<
-  HTMLButtonElement,
-  PopoverTriggerProps
->(({ className, ...props }, ref) => {
-  const triggerClassName: PopoverTriggerProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(
+  ({ className, ...props }, ref) => {
+    const triggerClassName: PopoverTriggerProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(popoverTriggerVariants(), userClassName)
-  }
+      return cn(popoverTriggerVariants(), userClassName)
+    }
 
-  return (
-    <BasePopover.Trigger ref={ref} className={triggerClassName} {...props} />
-  )
-})
+    return (
+      <BasePopover.Trigger ref={ref} className={triggerClassName} {...props} />
+    )
+  },
+)
 
 PopoverTrigger.displayName = "PopoverTrigger"
 
-export const PopoverPortal = forwardRef<HTMLDivElement, PopoverPortalProps>(
+const PopoverPortal = forwardRef<HTMLDivElement, PopoverPortalProps>(
   (props, ref) => {
     return <BasePopover.Portal ref={ref} {...props} />
   },
@@ -65,7 +64,7 @@ export const PopoverPortal = forwardRef<HTMLDivElement, PopoverPortalProps>(
 
 PopoverPortal.displayName = "PopoverPortal"
 
-export const PopoverBackdrop = forwardRef<HTMLDivElement, PopoverBackdropProps>(
+const PopoverBackdrop = forwardRef<HTMLDivElement, PopoverBackdropProps>(
   ({ className, ...props }, ref) => {
     const backdropClassName: PopoverBackdropProps["className"] = (state) => {
       const userClassName =
@@ -86,29 +85,30 @@ export const PopoverBackdrop = forwardRef<HTMLDivElement, PopoverBackdropProps>(
 
 PopoverBackdrop.displayName = "PopoverBackdrop"
 
-export const PopoverPositioner = forwardRef<
-  HTMLDivElement,
-  PopoverPositionerProps
->(({ className, ...props }, ref) => {
-  const positionerClassName: PopoverPositionerProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const PopoverPositioner = forwardRef<HTMLDivElement, PopoverPositionerProps>(
+  ({ className, ...props }, ref) => {
+    const positionerClassName: PopoverPositionerProps["className"] = (
+      state,
+    ) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(popoverPositionerVariants(), userClassName)
-  }
+      return cn(popoverPositionerVariants(), userClassName)
+    }
 
-  return (
-    <BasePopover.Positioner
-      ref={ref}
-      className={positionerClassName}
-      {...props}
-    />
-  )
-})
+    return (
+      <BasePopover.Positioner
+        ref={ref}
+        className={positionerClassName}
+        {...props}
+      />
+    )
+  },
+)
 
 PopoverPositioner.displayName = "PopoverPositioner"
 
-export const PopoverPopup = forwardRef<HTMLDivElement, PopoverPopupProps>(
+const PopoverPopup = forwardRef<HTMLDivElement, PopoverPopupProps>(
   ({ className, ...props }, ref) => {
     const popupClassName: PopoverPopupProps["className"] = (state) => {
       const userClassName =
@@ -123,7 +123,7 @@ export const PopoverPopup = forwardRef<HTMLDivElement, PopoverPopupProps>(
 
 PopoverPopup.displayName = "PopoverPopup"
 
-export const PopoverArrow = forwardRef<HTMLDivElement, PopoverArrowProps>(
+const PopoverArrow = forwardRef<HTMLDivElement, PopoverArrowProps>(
   ({ className, ...props }, ref) => {
     const arrowClassName: PopoverArrowProps["className"] = (state) => {
       const userClassName =
@@ -138,7 +138,7 @@ export const PopoverArrow = forwardRef<HTMLDivElement, PopoverArrowProps>(
 
 PopoverArrow.displayName = "PopoverArrow"
 
-export const PopoverTitle = forwardRef<HTMLHeadingElement, PopoverTitleProps>(
+const PopoverTitle = forwardRef<HTMLHeadingElement, PopoverTitleProps>(
   ({ className, ...props }, ref) => {
     const titleClassName: PopoverTitleProps["className"] = (state) => {
       const userClassName =
@@ -153,7 +153,7 @@ export const PopoverTitle = forwardRef<HTMLHeadingElement, PopoverTitleProps>(
 
 PopoverTitle.displayName = "PopoverTitle"
 
-export const PopoverDescription = forwardRef<
+const PopoverDescription = forwardRef<
   HTMLParagraphElement,
   PopoverDescriptionProps
 >(({ className, ...props }, ref) => {
@@ -177,7 +177,7 @@ export const PopoverDescription = forwardRef<
 
 PopoverDescription.displayName = "PopoverDescription"
 
-export const PopoverClose = forwardRef<HTMLButtonElement, PopoverCloseProps>(
+const PopoverClose = forwardRef<HTMLButtonElement, PopoverCloseProps>(
   ({ className, children, ...props }, ref) => {
     const closeClassName: PopoverCloseProps["className"] = (state) => {
       const userClassName =
@@ -196,7 +196,7 @@ export const PopoverClose = forwardRef<HTMLButtonElement, PopoverCloseProps>(
 
 PopoverClose.displayName = "PopoverClose"
 
-export const PopoverViewport = forwardRef<HTMLDivElement, PopoverViewportProps>(
+const PopoverViewport = forwardRef<HTMLDivElement, PopoverViewportProps>(
   ({ className, ...props }, ref) => {
     const viewportClassName: PopoverViewportProps["className"] = (state) => {
       const userClassName =
@@ -216,3 +216,17 @@ export const PopoverViewport = forwardRef<HTMLDivElement, PopoverViewportProps>(
 )
 
 PopoverViewport.displayName = "PopoverViewport"
+
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverPortal,
+  PopoverBackdrop,
+  PopoverPositioner,
+  PopoverPopup,
+  PopoverArrow,
+  PopoverTitle,
+  PopoverDescription,
+  PopoverClose,
+  PopoverViewport,
+}

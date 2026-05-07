@@ -362,7 +362,7 @@ Direction:
 
 - Add z-index and shadow/elevation token families to `packages/tokens`.
 - Follow the existing token layering model
-- Replace hardcoded Dialog adn rest Overlay Components stacking values with component or semantic CSS
+- Replace hardcoded Dialog and other overlay component stacking values with component or semantic CSS
   variables, for example:
   - `--nx-dialog-backdrop-z-index`
   - `--nx-dialog-viewport-z-index`
@@ -421,6 +421,8 @@ Status:
   behavior through workspace build/typecheck scripts.
 - `D:\PLAYGROUND\sandbox-neurex` remains the manual real-user install sandbox
   for fresh `neurex init vite` / `neurex add ...` smoke tests.
+- The committed playground now exercises the broader Base UI-backed component
+  foundation, including form controls, Select, Dialog, and Popover.
 
 ### DONE: Clean docs encoding and status wording
 
@@ -467,4 +469,6 @@ Latest successful checks from the implementation passes:
 - `pnpm build`
 - `npm run typecheck` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
 - `npm run build` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
-- CLI install-flow smoke: 6 CLI test files / 16 CLI tests passing
+- CLI install-flow smoke: 7 CLI test files / 26 CLI tests passing
+- UI variant smoke: 23 UI test files / 35 UI tests passing
+- Registry validation smoke: 1 registry test file / 14 registry tests passing

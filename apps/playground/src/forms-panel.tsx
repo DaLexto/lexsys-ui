@@ -29,6 +29,8 @@ import {
   SelectPopup,
   SelectPortal,
   SelectPositioner,
+  SelectScrollDownArrow,
+  SelectScrollUpArrow,
   SelectTrigger,
   SelectValue,
   Textarea,
@@ -98,40 +100,81 @@ export const FormsPanel = ({
           </FieldError>
         </Field>
 
-        <Field name="style">
-          <FieldLabel>Style preset</FieldLabel>
-          <Select name="style" defaultValue="default">
-            <SelectTrigger>
-              <SelectValue placeholder="Choose style" />
+        <Field name="theme-preset">
+          <FieldLabel>Theme preset</FieldLabel>
+
+          <Select name="theme-preset" defaultValue="default">
+            <SelectTrigger size="md" aria-label="Theme preset">
+              <SelectValue placeholder="Choose a theme preset" />
               <SelectIcon />
             </SelectTrigger>
+
             <SelectPortal>
-              <SelectPositioner sideOffset={6}>
+              <SelectPositioner sideOffset={8} alignItemWithTrigger={false}>
                 <SelectPopup>
                   <SelectArrow />
+
+                  <SelectScrollUpArrow />
+
                   <SelectList>
                     <SelectGroup>
-                      <SelectGroupLabel>Official</SelectGroupLabel>
+                      <SelectGroupLabel>Official presets</SelectGroupLabel>
+
                       <SelectItem value="default">
                         <SelectItemIndicator />
                         <SelectItemText>Neurex Default</SelectItemText>
                       </SelectItem>
+
                       <SelectItem value="graphite">
                         <SelectItemIndicator />
-                        <SelectItemText>Neurex Graphite</SelectItemText>
+                        <SelectItemText>Graphite</SelectItemText>
                       </SelectItem>
+
+                      <SelectItem value="midnight">
+                        <SelectItemIndicator />
+                        <SelectItemText>Midnight</SelectItemText>
+                      </SelectItem>
+
                       <SelectItem value="solar" disabled>
                         <SelectItemIndicator />
-                        <SelectItemText>Neurex Solar</SelectItemText>
+                        <SelectItemText>Solar — coming soon</SelectItemText>
+                      </SelectItem>
+                    </SelectGroup>
+
+                    <SelectGroup>
+                      <SelectGroupLabel>Experimental presets</SelectGroupLabel>
+
+                      <SelectItem value="ocean">
+                        <SelectItemIndicator />
+                        <SelectItemText>Oceanic</SelectItemText>
+                      </SelectItem>
+
+                      <SelectItem value="dawn">
+                        <SelectItemIndicator />
+                        <SelectItemText>Dawn</SelectItemText>
+                      </SelectItem>
+
+                      <SelectItem value="ember">
+                        <SelectItemIndicator />
+                        <SelectItemText>Ember</SelectItemText>
+                      </SelectItem>
+
+                      <SelectItem value="violet">
+                        <SelectItemIndicator />
+                        <SelectItemText>Violet</SelectItemText>
                       </SelectItem>
                     </SelectGroup>
                   </SelectList>
+
+                  <SelectScrollDownArrow />
                 </SelectPopup>
               </SelectPositioner>
             </SelectPortal>
           </Select>
+
           <FieldDescription>
-            Popup, selection, and keyboard behavior.
+            Tests grouped items, disabled states, popup positioning, keyboard
+            navigation, scroll arrows, and selected item indicators.
           </FieldDescription>
         </Field>
 

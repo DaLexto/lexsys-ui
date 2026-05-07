@@ -10,7 +10,7 @@ import type { FormProps } from "./Form.types"
 import { formVariants } from "./Form.variants"
 import { cn } from "../../utils/cn"
 
-export const Form = forwardRef<HTMLFormElement, FormProps>(
+const Form = forwardRef<HTMLFormElement, FormProps>(
   ({ className, ...props }, ref) => {
     const formClassName: FormProps["className"] = (state) => {
       const userClassName =
@@ -24,3 +24,5 @@ export const Form = forwardRef<HTMLFormElement, FormProps>(
 )
 
 Form.displayName = "Form"
+
+export { Form }

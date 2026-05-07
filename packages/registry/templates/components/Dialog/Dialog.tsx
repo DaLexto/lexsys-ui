@@ -8,7 +8,7 @@ import { forwardRef } from "react"
 import { X } from "lucide-react"
 import { Dialog as BaseDialog } from "@base-ui/react/dialog"
 import type {
-  DialogOverlayProps,
+  DialogBackdropProps,
   DialogCloseProps,
   DialogDescriptionProps,
   DialogPopupProps,
@@ -29,13 +29,13 @@ import {
 } from "./Dialog.variants"
 import { cn } from "@/lib/utils"
 
-export const Dialog = <Payload = unknown,>(props: DialogProps<Payload>) => {
+const Dialog = <Payload = unknown,>(props: DialogProps<Payload>) => {
   return <BaseDialog.Root {...props} />
 }
 
 Dialog.displayName = "Dialog"
 
-export const DialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerProps>(
+const DialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerProps>(
   ({ className, ...props }, ref) => {
     const triggerClassName: DialogTriggerProps["className"] = (state) => {
       const userClassName =
@@ -52,15 +52,15 @@ export const DialogTrigger = forwardRef<HTMLButtonElement, DialogTriggerProps>(
 
 DialogTrigger.displayName = "DialogTrigger"
 
-export const DialogPortal = (props: DialogPortalProps) => {
+const DialogPortal = (props: DialogPortalProps) => {
   return <BaseDialog.Portal {...props} />
 }
 
 DialogPortal.displayName = "DialogPortal"
 
-export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(
+const DialogBackdrop = forwardRef<HTMLDivElement, DialogBackdropProps>(
   ({ className, ...props }, ref) => {
-    const backdropClassName: DialogOverlayProps["className"] = (state) => {
+    const backdropClassName: DialogBackdropProps["className"] = (state) => {
       const userClassName =
         typeof className === "function" ? className(state) : className
 
@@ -73,9 +73,9 @@ export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(
   },
 )
 
-DialogOverlay.displayName = "DialogOverlay"
+DialogBackdrop.displayName = "DialogBackdrop"
 
-export const DialogViewport = forwardRef<HTMLDivElement, DialogViewportProps>(
+const DialogViewport = forwardRef<HTMLDivElement, DialogViewportProps>(
   ({ className, ...props }, ref) => {
     const viewportClassName: DialogViewportProps["className"] = (state) => {
       const userClassName =
@@ -92,7 +92,7 @@ export const DialogViewport = forwardRef<HTMLDivElement, DialogViewportProps>(
 
 DialogViewport.displayName = "DialogViewport"
 
-export const DialogPopup = forwardRef<HTMLDivElement, DialogPopupProps>(
+const DialogPopup = forwardRef<HTMLDivElement, DialogPopupProps>(
   ({ className, ...props }, ref) => {
     const popupClassName: DialogPopupProps["className"] = (state) => {
       const userClassName =
@@ -107,7 +107,7 @@ export const DialogPopup = forwardRef<HTMLDivElement, DialogPopupProps>(
 
 DialogPopup.displayName = "DialogPopup"
 
-export const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
+const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
   ({ className, ...props }, ref) => {
     const titleClassName: DialogTitleProps["className"] = (state) => {
       const userClassName =
@@ -122,7 +122,7 @@ export const DialogTitle = forwardRef<HTMLHeadingElement, DialogTitleProps>(
 
 DialogTitle.displayName = "DialogTitle"
 
-export const DialogDescription = forwardRef<
+const DialogDescription = forwardRef<
   HTMLParagraphElement,
   DialogDescriptionProps
 >(({ className, ...props }, ref) => {
@@ -144,7 +144,7 @@ export const DialogDescription = forwardRef<
 
 DialogDescription.displayName = "DialogDescription"
 
-export const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(
+const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(
   ({ className, children, ...props }, ref) => {
     const closeClassName: DialogCloseProps["className"] = (state) => {
       const userClassName =
@@ -162,3 +162,15 @@ export const DialogClose = forwardRef<HTMLButtonElement, DialogCloseProps>(
 )
 
 DialogClose.displayName = "DialogClose"
+
+export {
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogViewport,
+  DialogPopup,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+}

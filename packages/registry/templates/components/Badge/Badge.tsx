@@ -9,7 +9,7 @@ import type { BadgeProps } from "./Badge.types"
 import { badgeVariants } from "./Badge.variants"
 import { cn } from "@/lib/utils"
 
-export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
+const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   ({ variant, tone, size, className, ...props }, ref) => {
     return (
       <span
@@ -22,3 +22,5 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
 )
 
 Badge.displayName = "Badge"
+
+export { Badge }

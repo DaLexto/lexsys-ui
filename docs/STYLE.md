@@ -49,6 +49,8 @@ ComponentName.variants.ts
 - Keep component APIs simple by default.
 - Preserve accessibility behavior when adding interactivity.
 - Treat Base UI as an internal implementation detail.
+- In `ComponentName.tsx`, keep component declarations local and export the
+  public component symbols from a single export block at the bottom of the file.
 
 ---
 
@@ -83,6 +85,7 @@ ComponentName.variants.ts
 ## Imports and Exports
 
 - Keep public APIs explicit through package `exports`.
+- Keep component file exports explicit and grouped at the bottom of the file.
 - Do not rely on deep imports into another package's `src` or `dist`.
 - Keep entrypoints small and intentional.
 

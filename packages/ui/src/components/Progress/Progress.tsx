@@ -14,7 +14,7 @@ import {
 } from "./Progress.variants"
 import { cn } from "../../utils/cn"
 
-export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
+const Progress = forwardRef<HTMLDivElement, ProgressProps>(
   (
     { size, label, className, trackClassName, indicatorClassName, ...props },
     ref,
@@ -56,3 +56,5 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
 )
 
 Progress.displayName = "Progress"
+
+export { Progress }

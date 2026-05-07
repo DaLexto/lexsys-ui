@@ -4,8 +4,6 @@
  * Defines visual variants using class composition.
  */
 
-
-
 import { cva } from "class-variance-authority"
 
 export const dialogTriggerVariants = cva(

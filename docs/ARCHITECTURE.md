@@ -416,9 +416,8 @@ project/
 │       └── utils.ts
 │
 ├── styles/
-│   └── neurex/
-│       ├── tokens.css
-│       └── theme.css
+│   ├── tokens.css
+│   └── theme.css
 │
 └── neurex.config.json
 ```
@@ -474,7 +473,17 @@ They must support:
 
 ```tsx
 <Dialog open={open} onOpenChange={setOpen}>
-  <DialogContent>Hello</DialogContent>
+  <DialogPortal>
+    <DialogBackdrop />
+    <DialogViewport>
+      <DialogPopup>
+        <DialogTitle>Confirm action</DialogTitle>
+        <DialogDescription>
+          This uses Base UI behavior underneath.
+        </DialogDescription>
+      </DialogPopup>
+    </DialogViewport>
+  </DialogPortal>
 </Dialog>
 ```
 
@@ -482,15 +491,19 @@ They must support:
 
 ```tsx
 <Dialog>
-  <DialogTrigger asChild>
-    <Button>Open</Button>
-  </DialogTrigger>
-
-  <DialogContent>
-    <DialogHeader />
-    <DialogBody />
-    <DialogFooter />
-  </DialogContent>
+  <DialogTrigger render={<Button />}>Open</DialogTrigger>
+  <DialogPortal>
+    <DialogBackdrop />
+    <DialogViewport>
+      <DialogPopup>
+        <DialogClose aria-label="Close dialog" />
+        <DialogTitle>Publish registry item</DialogTitle>
+        <DialogDescription>
+          Compound parts preserve advanced control.
+        </DialogDescription>
+      </DialogPopup>
+    </DialogViewport>
+  </DialogPortal>
 </Dialog>
 ```
 
@@ -591,7 +604,7 @@ without component names, the CLI must show an interactive/selectable list of ava
 ? Select components to add:
   ◯ Button
   ◯ Dialog
-  ◯ TextField
+  ◯ Input
   ◯ Select
 ```
 
@@ -639,7 +652,7 @@ Requirements:
 button → Button
 Button → Button
 BUTTON → Button
-input → TextField
+input → Input
 modal → Dialog
 ```
 

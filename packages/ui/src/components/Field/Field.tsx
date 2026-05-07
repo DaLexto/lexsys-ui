@@ -25,7 +25,7 @@ import {
 } from "./Field.variants"
 import { cn } from "../../utils/cn"
 
-export const Field = forwardRef<HTMLDivElement, FieldProps>(
+const Field = forwardRef<HTMLDivElement, FieldProps>(
   ({ className, ...props }, ref) => {
     const fieldClassName: FieldProps["className"] = (state) => {
       const userClassName =
@@ -40,7 +40,7 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
 
 Field.displayName = "Field"
 
-export const FieldLabel = forwardRef<HTMLElement, FieldLabelProps>(
+const FieldLabel = forwardRef<HTMLElement, FieldLabelProps>(
   ({ className, ...props }, ref) => {
     const labelClassName: FieldLabelProps["className"] = (state) => {
       const userClassName =
@@ -55,7 +55,7 @@ export const FieldLabel = forwardRef<HTMLElement, FieldLabelProps>(
 
 FieldLabel.displayName = "FieldLabel"
 
-export const FieldControl = forwardRef<HTMLElement, FieldControlProps>(
+const FieldControl = forwardRef<HTMLElement, FieldControlProps>(
   ({ variant, size, className, isInvalid, ...props }, ref) => {
     const baseControlProps: Omit<
       FieldControlProps,
@@ -80,7 +80,7 @@ export const FieldControl = forwardRef<HTMLElement, FieldControlProps>(
 
 FieldControl.displayName = "FieldControl"
 
-export const FieldDescription = forwardRef<
+const FieldDescription = forwardRef<
   HTMLParagraphElement,
   FieldDescriptionProps
 >(({ className, ...props }, ref) => {
@@ -102,7 +102,7 @@ export const FieldDescription = forwardRef<
 
 FieldDescription.displayName = "FieldDescription"
 
-export const FieldItem = forwardRef<HTMLDivElement, FieldItemProps>(
+const FieldItem = forwardRef<HTMLDivElement, FieldItemProps>(
   ({ className, ...props }, ref) => {
     const itemClassName: FieldItemProps["className"] = (state) => {
       const userClassName =
@@ -117,7 +117,7 @@ export const FieldItem = forwardRef<HTMLDivElement, FieldItemProps>(
 
 FieldItem.displayName = "FieldItem"
 
-export const FieldError = forwardRef<HTMLDivElement, FieldErrorProps>(
+const FieldError = forwardRef<HTMLDivElement, FieldErrorProps>(
   ({ className, ...props }, ref) => {
     const errorClassName: FieldErrorProps["className"] = (state) => {
       const userClassName =
@@ -132,8 +132,18 @@ export const FieldError = forwardRef<HTMLDivElement, FieldErrorProps>(
 
 FieldError.displayName = "FieldError"
 
-export const FieldValidity = (props: FieldValidityProps) => {
+const FieldValidity = (props: FieldValidityProps) => {
   return <BaseField.Validity {...props} />
 }
 
 FieldValidity.displayName = "FieldValidity"
+
+export {
+  Field,
+  FieldLabel,
+  FieldControl,
+  FieldDescription,
+  FieldItem,
+  FieldError,
+  FieldValidity,
+}

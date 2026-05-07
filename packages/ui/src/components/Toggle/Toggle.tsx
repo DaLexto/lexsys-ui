@@ -10,7 +10,7 @@ import type { ToggleProps } from "./Toggle.types"
 import { toggleVariants } from "./Toggle.variants"
 import { cn } from "../../utils/cn"
 
-export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
+const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
   ({ size, className, ...props }, ref) => {
     const toggleClassName: ToggleProps["className"] = (state) => {
       const userClassName =
@@ -24,3 +24,5 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
 )
 
 Toggle.displayName = "Toggle"
+
+export { Toggle }

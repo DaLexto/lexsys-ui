@@ -22,7 +22,7 @@ import {
 } from "./Accordion.variants"
 import { cn } from "@/lib/utils"
 
-export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
+const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
   ({ className, ...props }, ref) => {
     const rootClassName: AccordionProps["className"] = (state) => {
       const userClassName =
@@ -37,7 +37,7 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
 
 Accordion.displayName = "Accordion"
 
-export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
+const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   ({ className, ...props }, ref) => {
     const itemClassName: AccordionItemProps["className"] = (state) => {
       const userClassName =
@@ -52,46 +52,44 @@ export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
 
 AccordionItem.displayName = "AccordionItem"
 
-export const AccordionHeader = forwardRef<
-  HTMLHeadingElement,
-  AccordionHeaderProps
->(({ className, ...props }, ref) => {
-  const headerClassName: AccordionHeaderProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const AccordionHeader = forwardRef<HTMLHeadingElement, AccordionHeaderProps>(
+  ({ className, ...props }, ref) => {
+    const headerClassName: AccordionHeaderProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(accordionHeaderVariants(), userClassName)
-  }
+      return cn(accordionHeaderVariants(), userClassName)
+    }
 
-  return (
-    <BaseAccordion.Header ref={ref} className={headerClassName} {...props} />
-  )
-})
+    return (
+      <BaseAccordion.Header ref={ref} className={headerClassName} {...props} />
+    )
+  },
+)
 
 AccordionHeader.displayName = "AccordionHeader"
 
-export const AccordionTrigger = forwardRef<
-  HTMLButtonElement,
-  AccordionTriggerProps
->(({ className, children, ...props }, ref) => {
-  const triggerClassName: AccordionTriggerProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
+const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
+  ({ className, children, ...props }, ref) => {
+    const triggerClassName: AccordionTriggerProps["className"] = (state) => {
+      const userClassName =
+        typeof className === "function" ? className(state) : className
 
-    return cn(accordionTriggerVariants(), userClassName)
-  }
+      return cn(accordionTriggerVariants(), userClassName)
+    }
 
-  return (
-    <BaseAccordion.Trigger ref={ref} className={triggerClassName} {...props}>
-      <span>{children}</span>
-      <span aria-hidden="true">+</span>
-    </BaseAccordion.Trigger>
-  )
-})
+    return (
+      <BaseAccordion.Trigger ref={ref} className={triggerClassName} {...props}>
+        <span>{children}</span>
+        <span aria-hidden="true">+</span>
+      </BaseAccordion.Trigger>
+    )
+  },
+)
 
 AccordionTrigger.displayName = "AccordionTrigger"
 
-export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
+const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
   ({ className, ...props }, ref) => {
     const panelClassName: AccordionPanelProps["className"] = (state) => {
       const userClassName =
@@ -107,3 +105,11 @@ export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
 )
 
 AccordionPanel.displayName = "AccordionPanel"
+
+export {
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionTrigger,
+  AccordionPanel,
+}

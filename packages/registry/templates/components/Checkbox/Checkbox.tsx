@@ -10,7 +10,7 @@ import type { CheckboxProps } from "./Checkbox.types"
 import { checkboxLabelVariants, checkboxVariants } from "./Checkbox.variants"
 import { cn } from "@/lib/utils"
 
-export const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
+const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
   (
     { size, className, indicatorClassName, labelClassName, children, ...props },
     ref,
@@ -38,3 +38,5 @@ export const Checkbox = forwardRef<HTMLElement, CheckboxProps>(
 )
 
 Checkbox.displayName = "Checkbox"
+
+export { Checkbox }

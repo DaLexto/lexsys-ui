@@ -10,7 +10,7 @@ import type { SwitchProps } from "./Switch.types"
 import { switchThumbVariants, switchVariants } from "./Switch.variants"
 import { cn } from "../../utils/cn"
 
-export const Switch = forwardRef<HTMLElement, SwitchProps>(
+const Switch = forwardRef<HTMLElement, SwitchProps>(
   ({ size, className, thumbClassName, ...props }, ref) => {
     const switchClassName: SwitchProps["className"] = (state) => {
       const userClassName =
@@ -37,3 +37,5 @@ export const Switch = forwardRef<HTMLElement, SwitchProps>(
 )
 
 Switch.displayName = "Switch"
+
+export { Switch }

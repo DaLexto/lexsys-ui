@@ -64,7 +64,7 @@ describe("installItemFiles", () => {
     const templatePath = getRegistryTemplatePath("components/Button/Button.tsx")
 
     await expect(readFile(templatePath, "utf-8")).resolves.toContain(
-      "export const Button",
+      "export { Button }",
     )
   })
 

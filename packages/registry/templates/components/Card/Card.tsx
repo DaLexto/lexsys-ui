@@ -21,7 +21,7 @@ import {
 } from "./Card.variants"
 import { cn } from "@/lib/utils"
 
-export const Card = forwardRef<HTMLDivElement, CardProps>(
+const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ variant, className, ...props }, ref) => {
     return (
       <div
@@ -35,7 +35,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = "Card"
 
-export const CardHeader = forwardRef<HTMLDivElement, CardSectionProps>(
+const CardHeader = forwardRef<HTMLDivElement, CardSectionProps>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -49,7 +49,7 @@ export const CardHeader = forwardRef<HTMLDivElement, CardSectionProps>(
 
 CardHeader.displayName = "CardHeader"
 
-export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
+const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ className, ...props }, ref) => {
     return (
       <h3 ref={ref} className={cn(cardTitleClassName, className)} {...props} />
@@ -59,22 +59,21 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
 
 CardTitle.displayName = "CardTitle"
 
-export const CardDescription = forwardRef<
-  HTMLParagraphElement,
-  CardDescriptionProps
->(({ className, ...props }, ref) => {
-  return (
-    <p
-      ref={ref}
-      className={cn(cardDescriptionClassName, className)}
-      {...props}
-    />
-  )
-})
+const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <p
+        ref={ref}
+        className={cn(cardDescriptionClassName, className)}
+        {...props}
+      />
+    )
+  },
+)
 
 CardDescription.displayName = "CardDescription"
 
-export const CardContent = forwardRef<HTMLDivElement, CardSectionProps>(
+const CardContent = forwardRef<HTMLDivElement, CardSectionProps>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -88,7 +87,7 @@ export const CardContent = forwardRef<HTMLDivElement, CardSectionProps>(
 
 CardContent.displayName = "CardContent"
 
-export const CardFooter = forwardRef<HTMLDivElement, CardSectionProps>(
+const CardFooter = forwardRef<HTMLDivElement, CardSectionProps>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -101,3 +100,5 @@ export const CardFooter = forwardRef<HTMLDivElement, CardSectionProps>(
 )
 
 CardFooter.displayName = "CardFooter"
+
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
