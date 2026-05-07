@@ -97,6 +97,7 @@ describe("validateRegistry", () => {
       "field",
       "fieldset",
       "form",
+      "number-field",
       "progress",
       "radio-group",
       "separator",

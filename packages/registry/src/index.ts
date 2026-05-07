@@ -38,6 +38,7 @@ export { fieldRegistryItem } from "./items/field.js"
 export { formRegistryItem } from "./items/form.js"
 export { fieldsetRegistryItem } from "./items/fieldset.js"
 export { textareaRegistryItem } from "./items/textarea.js"
+export { numberFieldRegistryItem } from "./items/number-field.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -60,6 +61,7 @@ import { fieldRegistryItem } from "./items/field.js"
 import { formRegistryItem } from "./items/form.js"
 import { fieldsetRegistryItem } from "./items/fieldset.js"
 import { textareaRegistryItem } from "./items/textarea.js"
+import { numberFieldRegistryItem } from "./items/number-field.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -92,6 +94,7 @@ export const registryItems: RegistryItem[] = [
   formRegistryItem,
   fieldsetRegistryItem,
   textareaRegistryItem,
+  numberFieldRegistryItem,
 ]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]

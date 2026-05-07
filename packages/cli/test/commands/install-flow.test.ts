@@ -13,6 +13,10 @@ const countOccurrences = (content: string, pattern: string): number => {
   return content.split(pattern).length - 1
 }
 
+const toTokenPrefix = (folder: string): string => {
+  return folder.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+}
+
 const writeViteConsumerFiles = async (root: string): Promise<void> => {
   await writeJson(join(root, "package.json"), {
     dependencies: {
@@ -147,6 +151,7 @@ describe("install flow smoke", () => {
       "field",
       "fieldset",
       "form",
+      "number-field",
       "progress",
       "radio-group",
       "separator",
@@ -163,6 +168,7 @@ describe("install flow smoke", () => {
       "Field",
       "Fieldset",
       "Form",
+      "NumberField",
       "Progress",
       "RadioGroup",
       "Separator",
@@ -205,6 +211,9 @@ describe("install flow smoke", () => {
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-textarea-min-height-md")
     await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-number-field-stepper-width-md")
+    await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("twMerge")
 
@@ -220,9 +229,7 @@ describe("install flow smoke", () => {
           join(tempDir, `src/components/ui/${folder}/${folder}.variants.ts`),
           "utf-8",
         ),
-      ).resolves.toContain(
-        `--nx-${folder.toLowerCase().replace("group", "-group")}`,
-      )
+      ).resolves.toContain(`--nx-${toTokenPrefix(folder)}`)
     }
 
     const config = JSON.parse(

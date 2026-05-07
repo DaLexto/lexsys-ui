@@ -29,6 +29,11 @@ import {
   FieldsetLegend,
   Form,
   Input,
+  NumberField,
+  NumberFieldDecrement,
+  NumberFieldGroup,
+  NumberFieldIncrement,
+  NumberFieldInput,
   Progress,
   RadioGroup,
   RadioGroupItem,
@@ -220,6 +225,18 @@ const App = () => {
               <FieldError match="customError">
                 Use at least 10 characters.
               </FieldError>
+            </Field>
+
+            <Field name="seats">
+              <FieldLabel>Seats</FieldLabel>
+              <NumberField defaultValue={12} min={1} max={99}>
+                <NumberFieldGroup>
+                  <NumberFieldDecrement aria-label="Decrease seats" />
+                  <NumberFieldInput aria-label="Seats" />
+                  <NumberFieldIncrement aria-label="Increase seats" />
+                </NumberFieldGroup>
+              </NumberField>
+              <FieldDescription>Compound stepper input.</FieldDescription>
             </Field>
 
             <Field name="email" invalid touched>

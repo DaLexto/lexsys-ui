@@ -604,6 +604,71 @@
   );
   --nx-input-transition-duration: var(--nx-duration-control);
   --nx-input-transition-easing: var(--nx-easing-control);
+  --nx-number-field-gap: var(--nx-space-control-gap-sm);
+  --nx-number-field-foreground: var(--nx-color-foreground);
+  --nx-number-field-background: var(--nx-color-background);
+  --nx-number-field-border-color: var(--nx-color-border);
+  --nx-number-field-radius: var(--nx-radius-control);
+  --nx-number-field-height-sm: var(--nx-size-control-sm);
+  --nx-number-field-height-md: var(--nx-size-control-md);
+  --nx-number-field-height-lg: var(--nx-size-control-lg);
+  --nx-number-field-input-foreground: var(--nx-color-foreground);
+  --nx-number-field-input-placeholder-color: var(--nx-color-muted-foreground);
+  --nx-number-field-input-padding-x-sm: var(--nx-space-control-x-sm);
+  --nx-number-field-input-padding-x-md: var(--nx-space-control-x-md);
+  --nx-number-field-input-padding-x-lg: var(--nx-space-control-x-lg);
+  --nx-number-field-input-font-family: var(
+    --nx-typography-control-md-font-family
+  );
+  --nx-number-field-input-font-size-sm: var(
+    --nx-typography-control-sm-font-size
+  );
+  --nx-number-field-input-font-size-md: var(
+    --nx-typography-control-md-font-size
+  );
+  --nx-number-field-input-font-size-lg: var(
+    --nx-typography-control-lg-font-size
+  );
+  --nx-number-field-input-font-weight: var(
+    --nx-typography-control-md-font-weight
+  );
+  --nx-number-field-input-font-line-height: var(
+    --nx-typography-control-md-line-height
+  );
+  --nx-number-field-input-font-letter-spacing: var(
+    --nx-typography-control-md-letter-spacing
+  );
+  --nx-number-field-stepper-background: var(--nx-color-muted);
+  --nx-number-field-stepper-foreground: var(--nx-color-foreground);
+  --nx-number-field-stepper-hover-background: var(--nx-color-muted);
+  --nx-number-field-stepper-border-color: var(--nx-color-border);
+  --nx-number-field-stepper-width-sm: var(--nx-size-control-sm);
+  --nx-number-field-stepper-width-md: var(--nx-size-control-md);
+  --nx-number-field-stepper-width-lg: var(--nx-size-control-lg);
+  --nx-number-field-stepper-font-size-sm: var(
+    --nx-typography-control-sm-font-size
+  );
+  --nx-number-field-stepper-font-size-md: var(
+    --nx-typography-control-md-font-size
+  );
+  --nx-number-field-stepper-font-size-lg: var(
+    --nx-typography-control-lg-font-size
+  );
+  --nx-number-field-stepper-font-weight: var(
+    --nx-typography-control-md-font-weight
+  );
+  --nx-number-field-focus-ring-color: var(--nx-color-ring);
+  --nx-number-field-invalid-ring-color: var(--nx-color-destructive);
+  --nx-number-field-scrub-foreground: var(--nx-color-muted-foreground);
+  --nx-number-field-scrub-font-size: var(--nx-typography-label-sm-font-size);
+  --nx-number-field-scrub-font-weight: var(
+    --nx-typography-label-sm-font-weight
+  );
+  --nx-number-field-scrub-cursor-background: var(--nx-color-primary);
+  --nx-number-field-scrub-cursor-radius: var(--nx-radius-pill);
+  --nx-number-field-scrub-cursor-size: var(--nx-size-selection-indicator-md);
+  --nx-number-field-transition-duration: var(--nx-duration-control);
+  --nx-number-field-transition-easing: var(--nx-easing-control);
   --nx-progress-gap: var(--nx-space-control-gap-sm);
   --nx-progress-label-foreground: var(--nx-color-muted-foreground);
   --nx-progress-label-font-size: var(--nx-typography-label-sm-font-size);
