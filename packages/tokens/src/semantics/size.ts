@@ -46,6 +46,13 @@ export const sizeSemantics: SemanticTokenGroup = {
     md: { value: "{size.2}" },
     lg: { value: "{size.3}" },
   },
+  textarea: {
+    minHeight: {
+      sm: { value: "{size.14}" },
+      md: { value: "{size.16}" },
+      lg: { value: "{size.16}" },
+    },
+  },
   thumb: {
     sm: { value: "{size.4}" },
     md: { value: "{size.5}" },

@@ -153,6 +153,7 @@ describe("install flow smoke", () => {
       "slider",
       "switch",
       "tabs",
+      "textarea",
       "toggle",
       "tooltip",
     ]
@@ -168,6 +169,7 @@ describe("install flow smoke", () => {
       "Slider",
       "Switch",
       "Tabs",
+      "Textarea",
       "Toggle",
       "Tooltip",
     ]
@@ -199,6 +201,9 @@ describe("install flow smoke", () => {
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-form-gap")
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-textarea-min-height-md")
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("twMerge")

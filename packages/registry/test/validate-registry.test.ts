@@ -103,6 +103,7 @@ describe("validateRegistry", () => {
       "slider",
       "switch",
       "tabs",
+      "textarea",
       "toggle",
       "tooltip",
     ]

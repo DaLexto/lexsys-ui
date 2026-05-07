@@ -93,6 +93,7 @@ declare namespace JSX {
     label: IntrinsicElement
     p: IntrinsicElement
     span: IntrinsicElement
+    textarea: IntrinsicElement
   }
 
   interface IntrinsicElement {

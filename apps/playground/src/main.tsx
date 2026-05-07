@@ -39,6 +39,7 @@ import {
   TabsList,
   TabsPanel,
   TabsTab,
+  Textarea,
   Toggle,
   Tooltip,
   TooltipArrow,
@@ -200,6 +201,24 @@ const App = () => {
               </FieldError>
               <FieldError match="customError">
                 Use at least 3 characters.
+              </FieldError>
+            </Field>
+
+            <Field
+              name="notes"
+              validate={(value) => {
+                return typeof value === "string" && value.trim().length >= 10
+                  ? null
+                  : "Use at least 10 characters."
+              }}
+            >
+              <FieldLabel>Project notes</FieldLabel>
+              <Textarea rows={4} placeholder="Describe the setup" />
+              <FieldDescription>
+                Multi-line field control rendered through Base UI Field.
+              </FieldDescription>
+              <FieldError match="customError">
+                Use at least 10 characters.
               </FieldError>
             </Field>
 

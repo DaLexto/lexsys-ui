@@ -15,6 +15,7 @@ import { separatorComponentTokens } from "./separator.js"
 import { sliderComponentTokens } from "./slider.js"
 import { switchComponentTokens } from "./switch.js"
 import { tabsComponentTokens } from "./tabs.js"
+import { textareaComponentTokens } from "./textarea.js"
 import { toggleComponentTokens } from "./toggle.js"
 import { tooltipComponentTokens } from "./tooltip.js"
 
@@ -34,6 +35,7 @@ export { separatorComponentTokens } from "./separator.js"
 export { sliderComponentTokens } from "./slider.js"
 export { switchComponentTokens } from "./switch.js"
 export { tabsComponentTokens } from "./tabs.js"
+export { textareaComponentTokens } from "./textarea.js"
 export { toggleComponentTokens } from "./toggle.js"
 export { tooltipComponentTokens } from "./tooltip.js"
 
@@ -54,6 +56,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   sliderComponentTokens,
   switchComponentTokens,
   tabsComponentTokens,
+  textareaComponentTokens,
   toggleComponentTokens,
   tooltipComponentTokens,
 ]

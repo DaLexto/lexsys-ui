@@ -122,6 +122,9 @@ declare module "@base-ui/react/field" {
           value: string,
           eventDetails: ChangeEventDetails,
         ) => void
+        render?:
+          | Exclude<TemplateElement, null>
+          | ((props: Record<string, unknown>, state: State) => TemplateElement)
       }
     }
 

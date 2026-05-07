@@ -211,6 +211,9 @@
   --nx-size-track-sm: var(--nx-size-1);
   --nx-size-track-md: var(--nx-size-2);
   --nx-size-track-lg: var(--nx-size-3);
+  --nx-size-textarea-min-height-sm: var(--nx-size-14);
+  --nx-size-textarea-min-height-md: var(--nx-size-16);
+  --nx-size-textarea-min-height-lg: var(--nx-size-16);
   --nx-size-thumb-sm: var(--nx-size-4);
   --nx-size-thumb-md: var(--nx-size-5);
   --nx-size-thumb-lg: var(--nx-size-6);
@@ -696,6 +699,36 @@
   --nx-tabs-focus-ring-color: var(--nx-color-ring);
   --nx-tabs-transition-duration: var(--nx-duration-control);
   --nx-tabs-transition-easing: var(--nx-easing-control);
+  --nx-textarea-background: var(--nx-color-background);
+  --nx-textarea-foreground: var(--nx-color-foreground);
+  --nx-textarea-placeholder-color: var(--nx-color-muted-foreground);
+  --nx-textarea-border-color: var(--nx-color-border);
+  --nx-textarea-focus-border-color: var(--nx-color-ring);
+  --nx-textarea-focus-ring-color: var(--nx-color-ring);
+  --nx-textarea-focus-ring-offset-color: var(--nx-color-background);
+  --nx-textarea-invalid-border-color: var(--nx-color-destructive);
+  --nx-textarea-invalid-ring-color: var(--nx-color-destructive);
+  --nx-textarea-radius: var(--nx-radius-control);
+  --nx-textarea-min-height-sm: var(--nx-size-textarea-min-height-sm);
+  --nx-textarea-min-height-md: var(--nx-size-textarea-min-height-md);
+  --nx-textarea-min-height-lg: var(--nx-size-textarea-min-height-lg);
+  --nx-textarea-padding-x-sm: var(--nx-space-control-x-sm);
+  --nx-textarea-padding-x-md: var(--nx-space-control-x-md);
+  --nx-textarea-padding-x-lg: var(--nx-space-control-x-lg);
+  --nx-textarea-padding-y-sm: var(--nx-space-control-y-sm);
+  --nx-textarea-padding-y-md: var(--nx-space-control-y-md);
+  --nx-textarea-padding-y-lg: var(--nx-space-control-y-lg);
+  --nx-textarea-font-family: var(--nx-typography-control-md-font-family);
+  --nx-textarea-font-size-sm: var(--nx-typography-control-sm-font-size);
+  --nx-textarea-font-size-md: var(--nx-typography-control-md-font-size);
+  --nx-textarea-font-size-lg: var(--nx-typography-control-lg-font-size);
+  --nx-textarea-font-weight: var(--nx-typography-control-md-font-weight);
+  --nx-textarea-font-line-height: var(--nx-typography-control-md-line-height);
+  --nx-textarea-font-letter-spacing: var(
+    --nx-typography-control-md-letter-spacing
+  );
+  --nx-textarea-transition-duration: var(--nx-duration-control);
+  --nx-textarea-transition-easing: var(--nx-easing-control);
   --nx-toggle-background: var(--nx-color-background);
   --nx-toggle-foreground: var(--nx-color-foreground);
   --nx-toggle-border-color: var(--nx-color-border);
