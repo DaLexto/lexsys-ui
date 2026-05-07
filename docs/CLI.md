@@ -8,9 +8,11 @@ Installed components become **user-owned source code**, not black-box runtime im
 
 The CLI is responsible for:
 
-- installing registry items,
-- installing required dependencies,
-- installing shared utilities,
+- creating or initializing supported Vite projects,
+- installing registry items as editable source files,
+- installing required dependencies when they are missing,
+- installing shared utilities and token/theme styles,
+- wiring Tailwind v4 CSS imports and Vite/TypeScript aliases,
 - tracking installed component versions,
 - checking project health,
 - safely updating generated files without silently overwriting user changes.
@@ -38,8 +40,8 @@ neurex init vite my-app
 ```
 
 Plain `init` is for an existing app. If no supported app scaffold is detected,
-the CLI offers to create one with the available framework starters. For now,
-the only starter is Vite.
+the CLI should offer a framework-specific starter instead of silently creating
+files for the wrong project type. For now, the only starter is Vite.
 
 When a supported app scaffold exists, plain `init` creates the default Neurex
 project structure and wires the supported styling setup:
@@ -54,6 +56,17 @@ neurex.config.json
 For Vite, init also wires the `@/* -> ./src/*` TypeScript path and the matching
 Vite runtime alias. Generated components can import shared utilities through
 `@/lib/utils`.
+
+The current Vite target assumes a React app with:
+
+```txt
+src/main.tsx
+src/style.css
+vite.config.ts
+tsconfig.json
+tsconfig.app.json
+tsconfig.node.json
+```
 
 Framework init is explicit:
 
@@ -87,6 +100,7 @@ Installs one or more registry items.
 ```bash
 neurex add button
 neurex add button dialog
+neurex add input select dialog popover
 ```
 
 Preview changes without writing files or installing dependencies:
@@ -115,6 +129,28 @@ Install summary:
 
 Shared utility/style conflicts are reported and left untouched. Component file
 conflicts prevent that component from being tracked as installed.
+
+#### Add Install Contract
+
+For each requested component, `add` resolves registry metadata and then:
+
+1. checks `package.json` and installs only missing package dependencies,
+2. installs required utilities such as `src/lib/utils.ts`,
+3. installs required style files such as `styles/tokens.css` and
+   `styles/theme.css`,
+4. wires Neurex style imports into the configured Tailwind CSS entrypoint,
+5. writes component files under the configured `componentsPath`,
+6. records the component in `neurex.config.json` only when its own component
+   files are not conflicted.
+
+Repeated installs must be idempotent:
+
+- existing identical files are skipped,
+- existing generated styles may be updated when still generated,
+- user-modified files are reported as conflicts,
+- duplicate CSS imports must not be added,
+- shared utility/style conflicts do not block tracking when the requested
+  component files installed safely.
 
 ---
 
@@ -348,6 +384,43 @@ Default config shape:
 | `installed`      | Installed registry item versions tracked by the CLI.           |
 | `registryUrl`    | Optional remote registry URL. Uses local registry when `null`. |
 
+The MVP defaults are intentionally Vite-oriented. Other framework presets
+should add explicit detection/setup logic before changing these defaults.
+
+---
+
+## Current Bundled Components
+
+The local registry currently includes:
+
+```txt
+accordion
+alert
+badge
+button
+card
+checkbox
+dialog
+field
+fieldset
+form
+input
+number-field
+popover
+progress
+radio-group
+select
+separator
+slider
+switch
+tabs
+textarea
+toggle
+tooltip
+```
+
+All bundled component installs are covered by the CLI install-flow smoke test.
+
 ---
 
 ## Registry Sources
@@ -435,6 +508,27 @@ When existing files differ from registry templates, the CLI must:
 - keep shared utility/style conflicts visible without silently overwriting them,
 - require explicit user action before overwrite behavior is introduced.
 - Remote registry failures must not break local registry usage.
+
+---
+
+## Stability Boundary
+
+Stable enough for current MVP work:
+
+- local registry item resolution,
+- Vite init and Tailwind v4 wiring,
+- default config paths and aliases,
+- `add` idempotency and conflict reporting,
+- component template sync from `packages/ui`,
+- user-owned installed source files.
+
+Internal/evolving:
+
+- registry item generation internals,
+- update/uninstall write behavior,
+- remote registry hosting and versioning policy,
+- additional style presets beyond `default`,
+- Creator-compatible output formats.
 
 ---
 

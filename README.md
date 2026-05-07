@@ -24,28 +24,33 @@ and Creator-facing output are planned but not complete yet.
 
 ## Quick Start
 
-Create or prepare a Vite consumer:
+Create a new Vite consumer:
 
 ```bash
 neurex init vite my-app
+cd my-app
 ```
 
-Or initialize Neurex inside an existing supported Vite app:
+Or initialize Neurex inside an existing supported Vite app from that app's
+root:
 
 ```bash
 neurex init
 ```
 
-Then add the first component:
+Then add components:
 
 ```bash
 neurex add button
+neurex add input
 neurex add card
+neurex add select
 neurex add dialog
-neurex add popover
 ```
 
-Generated files use the current Vite defaults:
+Generated files use the current Vite defaults. Component files are installed as
+editable source code, shared utilities go under `src/lib`, and token/theme CSS
+goes under `styles`:
 
 ```txt
 src/components/ui/Button/
@@ -57,6 +62,29 @@ src/lib/utils.ts
 styles/tokens.css
 styles/theme.css
 neurex.config.json
+```
+
+The generated config tracks paths, aliases, Tailwind v4 entrypoint, selected
+style preset, installed component versions, and an optional remote registry URL:
+
+```json
+{
+  "style": "default",
+  "componentsPath": "src/components/ui",
+  "utilitiesPath": "src/lib",
+  "stylesPath": "styles",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "tailwind": {
+    "version": "v4",
+    "css": "src/style.css"
+  }
+}
 ```
 
 ## Styling Model
@@ -99,7 +127,8 @@ TOKENS -> STYLE PRESETS -> THEME MODES -> OUTPUTS -> COMPONENTS -> REGISTRY -> D
 ```
 
 The first style preset is `default` / `Neurex Default`. Style presets define
-the design personality; theme modes define mappings like light and dark.
+the design personality; theme modes define mappings like light and dark. Today,
+`default` is the only implemented style preset.
 
 Runtime package responsibilities:
 
@@ -124,6 +153,34 @@ neurex registry --summary
 ```
 
 See [docs/CLI.md](./docs/CLI.md) for the command contract.
+
+## Stability
+
+Stable enough to build against in the MVP:
+
+- `neurex init vite [directory]`
+- `neurex init` inside supported Vite apps
+- `neurex add <component>` for bundled local registry items
+- default config paths and aliases
+- Tailwind v4 CSS entrypoint wiring
+- installed component ownership under `src/components/ui`
+- token/theme CSS install under `styles/tokens.css` and `styles/theme.css`
+
+Internal or still evolving:
+
+- token authoring internals in `packages/tokens`
+- registry item generation internals
+- update/uninstall automation
+- remote registry hosting and version policy
+- additional style presets beyond `default`
+- Creator output and visual builder flows
+
+Planned but not promised as current API:
+
+- Next.js, Laravel, and custom project starters
+- predefined theme/style preset marketplace
+- Creator-generated registry items
+- richer update and migration workflows
 
 ## Development
 

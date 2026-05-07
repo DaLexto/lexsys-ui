@@ -46,7 +46,7 @@ USER
 Short form:
 
 ```txt
-TOKENS -> THEMES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
+TOKENS -> STYLE PRESETS -> THEME MODES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
 ```
 
 ---
@@ -73,7 +73,8 @@ name: Neurex Default
 ```
 
 Future examples may include `space-indigo`, `graphite`, or other named
-presets. Those names are not active contracts until implemented.
+presets. Those names are not active contracts until implemented. Today,
+`default` is the only implemented style preset.
 
 Style presets are not theme modes.
 
@@ -152,6 +153,13 @@ Initial outputs should include:
 - CSS custom properties
 - Tailwind `@theme` mappings
 
+Current install output paths are:
+
+```txt
+styles/tokens.css
+styles/theme.css
+```
+
 Future outputs may include:
 
 - Creator JSON
@@ -169,6 +177,21 @@ recipes.
 Components should not depend directly on primitive values such as a specific
 blue, radius, or spacing scale value.
 
+Interactive components should wrap Base UI behavior primitives when Base UI
+provides the required state, keyboard, focus, aria, positioning, or form
+behavior. Plain structural components may use regular HTML when no behavior
+primitive exists. This keeps the public Neurex API consistent while letting
+Base UI own complex behavior.
+
+Public component API rules:
+
+- exported component symbols should have matching `XProps` public types
+- implementation exports stay at the bottom of component files
+- component source uses package-local imports
+- registry templates use consumer aliases such as `@/lib/utils`
+- variants consume semantic/component tokens, not primitive literals
+- `className` remains available for Tailwind-native user overrides
+
 ### Registry
 
 The registry is the source of truth for install and delivery contracts.
@@ -184,6 +207,11 @@ It defines:
 
 The registry must not become the source of truth for design values.
 
+Component template files are synced from `packages/ui/src/components` into
+`packages/registry/templates/components`. Registry item metadata remains
+manually authored or generator-assisted because it encodes install contracts,
+not component implementation details.
+
 ### Delivery
 
 Delivery surfaces install or generate user-owned code from registry contracts.
@@ -198,6 +226,14 @@ Future delivery:
 
 Creator should produce registry-compatible output and reuse the same install and
 update rules rather than becoming a parallel system.
+
+The current stable delivery target is Vite through:
+
+```txt
+neurex init vite [directory]
+neurex init
+neurex add <component>
+```
 
 ### User Project
 
@@ -223,3 +259,32 @@ shadcn-like delivery experience
 real token/theme engine underneath
 generated outputs as installable artifacts
 ```
+
+---
+
+## Stability Boundary
+
+Stable/current:
+
+- `default` / `Neurex Default` style preset
+- light and dark theme mode output
+- CSS custom property output under `styles/`
+- Tailwind v4 consumer styling model
+- Vite-oriented CLI delivery
+- user-owned component source installed under `src/components/ui`
+- registry metadata as the install contract
+
+Internal/evolving:
+
+- token authoring module boundaries
+- exact style preset authoring API
+- remote registry/versioning policy
+- update/uninstall migration behavior
+- generated Creator payload formats
+
+Planned but not active contract:
+
+- additional framework starters
+- style presets beyond `default`
+- visual Creator UI
+- marketplace or remote preset delivery
