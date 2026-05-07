@@ -149,6 +149,7 @@ describe("install flow smoke", () => {
     const componentNames = [
       "accordion",
       "checkbox",
+      "dialog",
       "field",
       "fieldset",
       "form",
@@ -167,6 +168,7 @@ describe("install flow smoke", () => {
     const installedFolders = [
       "Accordion",
       "Checkbox",
+      "Dialog",
       "Field",
       "Fieldset",
       "Form",
@@ -204,6 +206,9 @@ describe("install flow smoke", () => {
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-field-control-background")
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-dialog-popup-background")
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-fieldset-legend-foreground")

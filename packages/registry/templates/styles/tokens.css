@@ -112,6 +112,7 @@
   --nx-size-14: 3.5rem;
   --nx-size-15: 3.75rem;
   --nx-size-16: 4rem;
+  --nx-size-128: 32rem;
   --nx-font-family-sans:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
@@ -190,6 +191,7 @@
   --nx-size-control-md: var(--nx-size-10);
   --nx-size-control-lg: var(--nx-size-12);
   --nx-size-control-xl: var(--nx-size-14);
+  --nx-size-dialog-max-width: var(--nx-size-128);
   --nx-size-selection-control-sm: var(--nx-size-3);
   --nx-size-selection-control-md: var(--nx-size-4);
   --nx-size-selection-control-lg: var(--nx-size-5);
@@ -503,6 +505,49 @@
   --nx-checkbox-focus-ring-offset-color: var(--nx-color-background);
   --nx-checkbox-transition-duration: var(--nx-duration-control);
   --nx-checkbox-transition-easing: var(--nx-easing-control);
+  --nx-dialog-backdrop-background: var(--nx-color-foreground);
+  --nx-dialog-backdrop-opacity: 0.48;
+  --nx-dialog-viewport-padding: var(--nx-space-surface-md);
+  --nx-dialog-popup-background: var(--nx-color-background);
+  --nx-dialog-popup-foreground: var(--nx-color-foreground);
+  --nx-dialog-popup-border-color: var(--nx-color-border);
+  --nx-dialog-popup-radius: var(--nx-radius-surface);
+  --nx-dialog-popup-max-width: var(--nx-size-dialog-max-width);
+  --nx-dialog-popup-padding: var(--nx-space-surface-md);
+  --nx-dialog-popup-gap: var(--nx-space-surface-gap-md);
+  --nx-dialog-title-foreground: var(--nx-color-foreground);
+  --nx-dialog-title-padding-end: var(--nx-size-control-lg);
+  --nx-dialog-title-font-size: var(--nx-typography-heading-sm-font-size);
+  --nx-dialog-title-font-weight: var(--nx-typography-heading-sm-font-weight);
+  --nx-dialog-title-font-line-height: var(
+    --nx-typography-heading-sm-line-height
+  );
+  --nx-dialog-description-foreground: var(--nx-color-muted-foreground);
+  --nx-dialog-description-font-size: var(--nx-typography-body-sm-font-size);
+  --nx-dialog-description-font-weight: var(--nx-typography-body-sm-font-weight);
+  --nx-dialog-description-font-line-height: var(
+    --nx-typography-body-sm-line-height
+  );
+  --nx-dialog-trigger-background: var(--nx-color-primary);
+  --nx-dialog-trigger-foreground: var(--nx-color-primary-foreground);
+  --nx-dialog-trigger-hover-background: var(--nx-color-primary-hover);
+  --nx-dialog-trigger-height: var(--nx-size-control-md);
+  --nx-dialog-trigger-radius: var(--nx-radius-control);
+  --nx-dialog-trigger-padding-x: var(--nx-space-control-x-md);
+  --nx-dialog-trigger-font-size: var(--nx-typography-control-md-font-size);
+  --nx-dialog-trigger-font-weight: var(--nx-typography-control-md-font-weight);
+  --nx-dialog-trigger-font-line-height: var(
+    --nx-typography-control-md-line-height
+  );
+  --nx-dialog-close-foreground: var(--nx-color-muted-foreground);
+  --nx-dialog-close-hover-background: var(--nx-color-muted);
+  --nx-dialog-close-size: var(--nx-size-control-sm);
+  --nx-dialog-close-inset: var(--nx-space-control-x-sm);
+  --nx-dialog-close-radius: var(--nx-radius-control);
+  --nx-dialog-focus-ring-color: var(--nx-color-ring);
+  --nx-dialog-focus-ring-offset-color: var(--nx-color-background);
+  --nx-dialog-transition-duration: var(--nx-duration-control);
+  --nx-dialog-transition-easing: var(--nx-easing-control);
   --nx-field-gap: var(--nx-space-control-gap-sm);
   --nx-field-foreground: var(--nx-color-foreground);
   --nx-field-label-foreground: var(--nx-color-foreground);

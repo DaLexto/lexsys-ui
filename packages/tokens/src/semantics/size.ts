@@ -9,6 +9,9 @@ export const sizeSemantics: SemanticTokenGroup = {
     lg: { value: "{size.12}" },
     xl: { value: "{size.14}" },
   },
+  dialog: {
+    maxWidth: { value: "{size.128}" },
+  },
   selectionControl: {
     sm: { value: "{size.3}" },
     md: { value: "{size.4}" },

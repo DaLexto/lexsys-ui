@@ -18,6 +18,13 @@ const formComponentNames = new Set([
   "Textarea",
 ])
 
+const overlayComponentNames = new Set([
+  "Dialog",
+  "Drawer",
+  "Popover",
+  "Tooltip",
+])
+
 const getExtension = (path) => {
   const lastDot = path.lastIndexOf(".")
 
@@ -91,6 +98,10 @@ const toCamelCase = (value) => {
 const getCategory = (componentName) => {
   if (formComponentNames.has(componentName)) {
     return "forms"
+  }
+
+  if (overlayComponentNames.has(componentName)) {
+    return "overlays"
   }
 
   return "utilities"

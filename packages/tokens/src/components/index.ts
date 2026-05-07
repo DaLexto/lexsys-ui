@@ -5,6 +5,7 @@ import { badgeComponentTokens } from "./badge.js"
 import { buttonComponentTokens } from "./button.js"
 import { cardComponentTokens } from "./card.js"
 import { checkboxComponentTokens } from "./checkbox.js"
+import { dialogComponentTokens } from "./dialog.js"
 import { fieldComponentTokens } from "./field.js"
 import { fieldsetComponentTokens } from "./fieldset.js"
 import { formComponentTokens } from "./form.js"
@@ -27,6 +28,7 @@ export { badgeComponentTokens } from "./badge.js"
 export { buttonComponentTokens } from "./button.js"
 export { cardComponentTokens } from "./card.js"
 export { checkboxComponentTokens } from "./checkbox.js"
+export { dialogComponentTokens } from "./dialog.js"
 export { fieldComponentTokens } from "./field.js"
 export { fieldsetComponentTokens } from "./fieldset.js"
 export { formComponentTokens } from "./form.js"
@@ -50,6 +52,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   buttonComponentTokens,
   cardComponentTokens,
   checkboxComponentTokens,
+  dialogComponentTokens,
   fieldComponentTokens,
   fieldsetComponentTokens,
   formComponentTokens,

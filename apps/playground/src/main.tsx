@@ -39,6 +39,7 @@ import {
 } from "@neurex/ui"
 import { buttonExamples, inputExamples } from "./examples"
 import { FormsPanel } from "./forms-panel"
+import { OverlaysPanel } from "./overlays-panel"
 import "./styles.css"
 
 const App = () => {
@@ -162,6 +163,8 @@ const App = () => {
           submittedFormValues={submittedFormValues}
           onSubmittedFormValuesChange={setSubmittedFormValues}
         />
+
+        <OverlaysPanel />
 
         <section className="component-panel" aria-labelledby="card-title">
           <div className="panel-header">

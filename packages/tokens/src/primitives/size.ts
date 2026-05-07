@@ -18,4 +18,5 @@ export const sizePrimitives: PrimitiveTokenGroup = {
   14: { value: "3.5rem" },
   15: { value: "3.75rem" },
   16: { value: "4rem" },
+  128: { value: "32rem" },
 }

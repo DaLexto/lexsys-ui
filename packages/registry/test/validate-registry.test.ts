@@ -94,6 +94,7 @@ describe("validateRegistry", () => {
     const baseUiComponentNames = [
       "accordion",
       "checkbox",
+      "dialog",
       "field",
       "fieldset",
       "form",
