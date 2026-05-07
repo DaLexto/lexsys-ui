@@ -61,7 +61,15 @@ body {
   line-height: 1.05;
 }
 
-.theme-control {
+.playground-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.theme-control,
+.style-control {
   display: inline-flex;
   flex: 0 0 auto;
   gap: 8px;
@@ -333,6 +341,10 @@ body {
   .playground-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .playground-toolbar {
+    justify-content: flex-start;
   }
 
   .playground-header h1 {
