@@ -13,6 +13,7 @@ import { numberFieldComponentTokens } from "./number-field.js"
 import { progressComponentTokens } from "./progress.js"
 import { radioGroupComponentTokens } from "./radio-group.js"
 import { separatorComponentTokens } from "./separator.js"
+import { selectComponentTokens } from "./select.js"
 import { sliderComponentTokens } from "./slider.js"
 import { switchComponentTokens } from "./switch.js"
 import { tabsComponentTokens } from "./tabs.js"
@@ -34,6 +35,7 @@ export { numberFieldComponentTokens } from "./number-field.js"
 export { progressComponentTokens } from "./progress.js"
 export { radioGroupComponentTokens } from "./radio-group.js"
 export { separatorComponentTokens } from "./separator.js"
+export { selectComponentTokens } from "./select.js"
 export { sliderComponentTokens } from "./slider.js"
 export { switchComponentTokens } from "./switch.js"
 export { tabsComponentTokens } from "./tabs.js"
@@ -56,6 +58,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   progressComponentTokens,
   radioGroupComponentTokens,
   separatorComponentTokens,
+  selectComponentTokens,
   sliderComponentTokens,
   switchComponentTokens,
   tabsComponentTokens,

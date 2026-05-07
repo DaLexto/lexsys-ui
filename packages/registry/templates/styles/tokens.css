@@ -708,6 +708,74 @@
   --nx-radio-group-transition-easing: var(--nx-easing-control);
   --nx-separator-color: var(--nx-color-border);
   --nx-separator-thickness: 1px;
+  --nx-select-background: var(--nx-color-background);
+  --nx-select-foreground: var(--nx-color-foreground);
+  --nx-select-placeholder-color: var(--nx-color-muted-foreground);
+  --nx-select-border-color: var(--nx-color-border);
+  --nx-select-radius: var(--nx-radius-control);
+  --nx-select-height-sm: var(--nx-size-control-sm);
+  --nx-select-height-md: var(--nx-size-control-md);
+  --nx-select-height-lg: var(--nx-size-control-lg);
+  --nx-select-padding-x-sm: var(--nx-space-control-x-sm);
+  --nx-select-padding-x-md: var(--nx-space-control-x-md);
+  --nx-select-padding-x-lg: var(--nx-space-control-x-lg);
+  --nx-select-trigger-gap: var(--nx-space-control-gap-sm);
+  --nx-select-font-family: var(--nx-typography-control-md-font-family);
+  --nx-select-font-size-sm: var(--nx-typography-control-sm-font-size);
+  --nx-select-font-size-md: var(--nx-typography-control-md-font-size);
+  --nx-select-font-size-lg: var(--nx-typography-control-lg-font-size);
+  --nx-select-font-weight: var(--nx-typography-control-md-font-weight);
+  --nx-select-font-line-height: var(--nx-typography-control-md-line-height);
+  --nx-select-font-letter-spacing: var(
+    --nx-typography-control-md-letter-spacing
+  );
+  --nx-select-label-foreground: var(--nx-color-foreground);
+  --nx-select-label-font-size: var(--nx-typography-label-sm-font-size);
+  --nx-select-label-font-weight: var(--nx-typography-label-sm-font-weight);
+  --nx-select-label-font-line-height: var(--nx-typography-label-sm-line-height);
+  --nx-select-icon-foreground: var(--nx-color-muted-foreground);
+  --nx-select-icon-size: var(--nx-size-selection-control-md);
+  --nx-select-popup-background: var(--nx-color-background);
+  --nx-select-popup-foreground: var(--nx-color-foreground);
+  --nx-select-popup-border-color: var(--nx-color-border);
+  --nx-select-popup-max-height: var(--nx-size-16);
+  --nx-select-list-gap: var(--nx-space-control-gap-sm);
+  --nx-select-list-padding: var(--nx-space-control-y-xs);
+  --nx-select-item-foreground: var(--nx-color-foreground);
+  --nx-select-item-gap: var(--nx-space-control-gap-sm);
+  --nx-select-item-radius: var(--nx-radius-control);
+  --nx-select-item-padding-x: var(--nx-space-control-x-sm);
+  --nx-select-item-padding-y: var(--nx-space-control-y-xs);
+  --nx-select-item-font-size: var(--nx-typography-control-sm-font-size);
+  --nx-select-item-font-weight: var(--nx-typography-control-md-font-weight);
+  --nx-select-item-font-line-height: var(
+    --nx-typography-control-sm-line-height
+  );
+  --nx-select-item-highlight-background: var(--nx-color-muted);
+  --nx-select-item-highlight-foreground: var(--nx-color-foreground);
+  --nx-select-item-selected-background: var(--nx-color-primary);
+  --nx-select-item-selected-foreground: var(--nx-color-primary-foreground);
+  --nx-select-item-indicator-size: var(--nx-size-selection-control-sm);
+  --nx-select-group-gap: var(--nx-space-control-gap-sm);
+  --nx-select-group-label-foreground: var(--nx-color-muted-foreground);
+  --nx-select-group-label-padding-y: var(--nx-space-control-y-xs);
+  --nx-select-group-label-font-size: var(--nx-typography-label-xs-font-size);
+  --nx-select-group-label-font-weight: var(
+    --nx-typography-label-xs-font-weight
+  );
+  --nx-select-group-label-font-line-height: var(
+    --nx-typography-label-xs-line-height
+  );
+  --nx-select-arrow-size: var(--nx-size-selection-indicator-md);
+  --nx-select-scroll-arrow-height: var(--nx-size-control-xs);
+  --nx-select-backdrop-background: var(--nx-color-foreground);
+  --nx-select-focus-border-color: var(--nx-color-ring);
+  --nx-select-focus-ring-color: var(--nx-color-ring);
+  --nx-select-focus-ring-offset-color: var(--nx-color-background);
+  --nx-select-invalid-border-color: var(--nx-color-destructive);
+  --nx-select-invalid-ring-color: var(--nx-color-destructive);
+  --nx-select-transition-duration: var(--nx-duration-control);
+  --nx-select-transition-easing: var(--nx-easing-control);
   --nx-slider-gap: var(--nx-space-control-gap-md);
   --nx-slider-control-padding-y: var(--nx-space-control-y-sm);
   --nx-slider-track-background: var(--nx-color-muted);

@@ -101,6 +101,7 @@ describe("validateRegistry", () => {
       "progress",
       "radio-group",
       "separator",
+      "select",
       "slider",
       "switch",
       "tabs",

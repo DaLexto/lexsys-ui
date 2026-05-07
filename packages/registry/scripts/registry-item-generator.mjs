@@ -153,6 +153,10 @@ const getDependencies = (templateContent) => {
     dependencies.add("class-variance-authority")
   }
 
+  if (templateContent.includes("lucide-react")) {
+    dependencies.add("lucide-react")
+  }
+
   if (templateContent.includes("@/lib/utils")) {
     dependencies.add("clsx")
     dependencies.add("tailwind-merge")

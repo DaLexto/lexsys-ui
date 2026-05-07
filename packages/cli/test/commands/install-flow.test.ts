@@ -23,6 +23,7 @@ const writeViteConsumerFiles = async (root: string): Promise<void> => {
       "@base-ui/react": "^1.4.1",
       "class-variance-authority": "^0.7.1",
       clsx: "^2.1.1",
+      "lucide-react": "^1.14.0",
       "tailwind-merge": "^3.5.0",
     },
     devDependencies: {
@@ -155,6 +156,7 @@ describe("install flow smoke", () => {
       "progress",
       "radio-group",
       "separator",
+      "select",
       "slider",
       "switch",
       "tabs",
@@ -172,6 +174,7 @@ describe("install flow smoke", () => {
       "Progress",
       "RadioGroup",
       "Separator",
+      "Select",
       "Slider",
       "Switch",
       "Tabs",
@@ -213,6 +216,9 @@ describe("install flow smoke", () => {
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
     ).resolves.toContain("--nx-number-field-stepper-width-md")
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-select-popup-background")
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("twMerge")
