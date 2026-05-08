@@ -607,6 +607,7 @@ without component names, the CLI must show an interactive/selectable list of ava
   ◯ Button
   ◯ Collapsible
   ◯ Dialog
+  ◯ Drawer
   ◯ Input
   ◯ Menu
   ◯ Meter

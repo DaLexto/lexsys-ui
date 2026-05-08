@@ -9,6 +9,21 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogViewport,
+  Drawer,
+  DrawerBackdrop,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHandleIndicator,
+  DrawerIndent,
+  DrawerIndentBackground,
+  DrawerPopup,
+  DrawerPortal,
+  DrawerProvider,
+  DrawerSwipeArea,
+  DrawerTitle,
+  DrawerTrigger,
+  DrawerViewport,
   AlertDialog,
   AlertDialogBackdrop,
   AlertDialogClose,
@@ -137,6 +152,67 @@ export const OverlaysPanel = () => {
             </AlertDialogViewport>
           </AlertDialogPortal>
         </AlertDialog>
+
+        <Drawer snapPoints={["18rem", 1]} defaultSnapPoint="18rem">
+          <DrawerTrigger>Open action sheet</DrawerTrigger>
+          <DrawerSwipeArea side="bottom" swipeDirection="up" />
+          <DrawerPortal>
+            <DrawerBackdrop />
+            <DrawerViewport side="bottom">
+              <DrawerPopup side="bottom" size="md">
+                <DrawerHandleIndicator />
+                <DrawerClose aria-label="Close drawer" />
+                <DrawerContent>
+                  <DrawerTitle>Install component batch</DrawerTitle>
+                  <DrawerDescription>
+                    Review generated registry output before adding the next
+                    component family. Drag the sheet to expand or dismiss it.
+                  </DrawerDescription>
+                  <div className="field-submit-row">
+                    <DrawerClose
+                      render={<Button size="sm" variant="secondary" />}
+                    >
+                      Cancel
+                    </DrawerClose>
+                    <Button size="sm">Install selected</Button>
+                  </div>
+                </DrawerContent>
+              </DrawerPopup>
+            </DrawerViewport>
+          </DrawerPortal>
+        </Drawer>
+
+        <DrawerProvider>
+          <DrawerIndentBackground />
+          <DrawerIndent className="rounded-[var(--nx-card-radius)] border border-[var(--nx-card-border-color)] bg-[var(--nx-card-background)] p-[var(--nx-card-padding)]">
+            <Drawer swipeDirection="right">
+              <DrawerTrigger>Open inspector</DrawerTrigger>
+              <DrawerPortal>
+                <DrawerBackdrop forceRender />
+                <DrawerViewport side="right">
+                  <DrawerPopup side="right" size="md">
+                    <DrawerClose aria-label="Close drawer" />
+                    <DrawerContent>
+                      <DrawerTitle>Component inspector</DrawerTitle>
+                      <DrawerDescription>
+                        Side drawers are useful for editing metadata without
+                        leaving the current registry workflow.
+                      </DrawerDescription>
+                      <div className="control-stack">
+                        <Button size="sm">Save changes</Button>
+                        <DrawerClose
+                          render={<Button size="sm" variant="secondary" />}
+                        >
+                          Close
+                        </DrawerClose>
+                      </div>
+                    </DrawerContent>
+                  </DrawerPopup>
+                </DrawerViewport>
+              </DrawerPortal>
+            </Drawer>
+          </DrawerIndent>
+        </DrawerProvider>
 
         <Menu>
           <MenuTrigger>Open menu</MenuTrigger>

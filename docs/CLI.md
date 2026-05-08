@@ -404,6 +404,7 @@ card
 checkbox
 collapsible
 dialog
+drawer
 field
 fieldset
 form

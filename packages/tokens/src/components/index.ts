@@ -9,6 +9,7 @@ import { cardComponentTokens } from "./card.js"
 import { checkboxComponentTokens } from "./checkbox.js"
 import { collapsibleComponentTokens } from "./collapsible.js"
 import { dialogComponentTokens } from "./dialog.js"
+import { drawerComponentTokens } from "./drawer.js"
 import { fieldComponentTokens } from "./field.js"
 import { fieldsetComponentTokens } from "./fieldset.js"
 import { formComponentTokens } from "./form.js"
@@ -38,6 +39,7 @@ export { cardComponentTokens } from "./card.js"
 export { checkboxComponentTokens } from "./checkbox.js"
 export { collapsibleComponentTokens } from "./collapsible.js"
 export { dialogComponentTokens } from "./dialog.js"
+export { drawerComponentTokens } from "./drawer.js"
 export { fieldComponentTokens } from "./field.js"
 export { fieldsetComponentTokens } from "./fieldset.js"
 export { formComponentTokens } from "./form.js"
@@ -68,6 +70,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   checkboxComponentTokens,
   collapsibleComponentTokens,
   dialogComponentTokens,
+  drawerComponentTokens,
   fieldComponentTokens,
   fieldsetComponentTokens,
   formComponentTokens,
