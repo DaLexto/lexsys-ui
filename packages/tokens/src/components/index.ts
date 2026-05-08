@@ -2,10 +2,12 @@ import type { ComponentTokenGroup } from "../types/index.js"
 import { accordionComponentTokens } from "./accordion.js"
 import { alertDialogComponentTokens } from "./alert-dialog.js"
 import { alertComponentTokens } from "./alert.js"
+import { avatarComponentTokens } from "./avatar.js"
 import { badgeComponentTokens } from "./badge.js"
 import { buttonComponentTokens } from "./button.js"
 import { cardComponentTokens } from "./card.js"
 import { checkboxComponentTokens } from "./checkbox.js"
+import { collapsibleComponentTokens } from "./collapsible.js"
 import { dialogComponentTokens } from "./dialog.js"
 import { fieldComponentTokens } from "./field.js"
 import { fieldsetComponentTokens } from "./fieldset.js"
@@ -23,15 +25,18 @@ import { switchComponentTokens } from "./switch.js"
 import { tabsComponentTokens } from "./tabs.js"
 import { textareaComponentTokens } from "./textarea.js"
 import { toggleComponentTokens } from "./toggle.js"
+import { toggleGroupComponentTokens } from "./toggle-group.js"
 import { tooltipComponentTokens } from "./tooltip.js"
 
 export { accordionComponentTokens } from "./accordion.js"
 export { alertDialogComponentTokens } from "./alert-dialog.js"
 export { alertComponentTokens } from "./alert.js"
+export { avatarComponentTokens } from "./avatar.js"
 export { badgeComponentTokens } from "./badge.js"
 export { buttonComponentTokens } from "./button.js"
 export { cardComponentTokens } from "./card.js"
 export { checkboxComponentTokens } from "./checkbox.js"
+export { collapsibleComponentTokens } from "./collapsible.js"
 export { dialogComponentTokens } from "./dialog.js"
 export { fieldComponentTokens } from "./field.js"
 export { fieldsetComponentTokens } from "./fieldset.js"
@@ -49,16 +54,19 @@ export { switchComponentTokens } from "./switch.js"
 export { tabsComponentTokens } from "./tabs.js"
 export { textareaComponentTokens } from "./textarea.js"
 export { toggleComponentTokens } from "./toggle.js"
+export { toggleGroupComponentTokens } from "./toggle-group.js"
 export { tooltipComponentTokens } from "./tooltip.js"
 
 export const componentTokens: ComponentTokenGroup[] = [
   accordionComponentTokens,
   alertDialogComponentTokens,
   alertComponentTokens,
+  avatarComponentTokens,
   badgeComponentTokens,
   buttonComponentTokens,
   cardComponentTokens,
   checkboxComponentTokens,
+  collapsibleComponentTokens,
   dialogComponentTokens,
   fieldComponentTokens,
   fieldsetComponentTokens,
@@ -76,5 +84,6 @@ export const componentTokens: ComponentTokenGroup[] = [
   tabsComponentTokens,
   textareaComponentTokens,
   toggleComponentTokens,
+  toggleGroupComponentTokens,
   tooltipComponentTokens,
 ]

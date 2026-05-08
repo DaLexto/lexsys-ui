@@ -27,6 +27,12 @@ const overlayComponentNames = new Set([
   "Tooltip",
 ])
 
+const dataDisplayComponentNames = new Set(["Avatar", "Meter"])
+
+const layoutComponentNames = new Set(["Collapsible"])
+
+const actionComponentNames = new Set(["Button", "Toggle", "ToggleGroup"])
+
 const getExtension = (path) => {
   const lastDot = path.lastIndexOf(".")
 
@@ -98,12 +104,24 @@ const toCamelCase = (value) => {
 }
 
 const getCategory = (componentName) => {
+  if (actionComponentNames.has(componentName)) {
+    return "actions"
+  }
+
   if (formComponentNames.has(componentName)) {
     return "forms"
   }
 
   if (overlayComponentNames.has(componentName)) {
     return "overlays"
+  }
+
+  if (dataDisplayComponentNames.has(componentName)) {
+    return "data-display"
+  }
+
+  if (layoutComponentNames.has(componentName)) {
+    return "layout"
   }
 
   return "utilities"

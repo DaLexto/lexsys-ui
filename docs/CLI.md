@@ -397,16 +397,19 @@ The local registry currently includes:
 accordion
 alert
 alert-dialog
+avatar
 badge
 button
 card
 checkbox
+collapsible
 dialog
 field
 fieldset
 form
 input
 menu
+meter
 number-field
 popover
 progress
@@ -418,6 +421,7 @@ switch
 tabs
 textarea
 toggle
+toggle-group
 tooltip
 ```
 

@@ -2,6 +2,9 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   Badge,
   Button,
   Card,
@@ -84,6 +87,31 @@ export const SurfacesPanel = () => {
           >
             Tailwind override
           </Badge>
+        </div>
+      </section>
+
+      <section className="component-panel" aria-labelledby="avatar-title">
+        <div className="panel-header">
+          <div>
+            <p className="playground-label">Avatar</p>
+            <h2 id="avatar-title">Image and fallback states</h2>
+          </div>
+        </div>
+
+        <div className="badge-board">
+          <Avatar size="sm">
+            <AvatarImage
+              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=96&q=80"
+              alt="Neurex profile"
+            />
+            <AvatarFallback>NX</AvatarFallback>
+          </Avatar>
+          <Avatar>
+            <AvatarFallback>AB</AvatarFallback>
+          </Avatar>
+          <Avatar size="lg" shape="square">
+            <AvatarFallback>UI</AvatarFallback>
+          </Avatar>
         </div>
       </section>
 

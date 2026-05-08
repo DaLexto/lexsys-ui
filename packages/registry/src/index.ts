@@ -44,6 +44,10 @@ export { dialogRegistryItem } from "./items/dialog.js"
 export { popoverRegistryItem } from "./items/popover.js"
 export { menuRegistryItem } from "./items/menu.js"
 export { alertDialogRegistryItem } from "./items/alert-dialog.js"
+export { avatarRegistryItem } from "./items/avatar.js"
+export { collapsibleRegistryItem } from "./items/collapsible.js"
+export { meterRegistryItem } from "./items/meter.js"
+export { toggleGroupRegistryItem } from "./items/toggle-group.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -72,6 +76,10 @@ import { dialogRegistryItem } from "./items/dialog.js"
 import { popoverRegistryItem } from "./items/popover.js"
 import { menuRegistryItem } from "./items/menu.js"
 import { alertDialogRegistryItem } from "./items/alert-dialog.js"
+import { avatarRegistryItem } from "./items/avatar.js"
+import { collapsibleRegistryItem } from "./items/collapsible.js"
+import { meterRegistryItem } from "./items/meter.js"
+import { toggleGroupRegistryItem } from "./items/toggle-group.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -110,6 +118,10 @@ export const registryItems: RegistryItem[] = [
   popoverRegistryItem,
   menuRegistryItem,
   alertDialogRegistryItem,
+  avatarRegistryItem,
+  collapsibleRegistryItem,
+  meterRegistryItem,
+  toggleGroupRegistryItem,
 ]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]
