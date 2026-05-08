@@ -161,6 +161,7 @@ Checks or safely updates installed components.
 ```bash
 neurex update button
 neurex update --all
+neurex update --styles
 ```
 
 Preview update changes without writing files:
@@ -168,6 +169,7 @@ Preview update changes without writing files:
 ```bash
 neurex update button --dry-run
 neurex update --all --dry-run
+neurex update --styles --dry-run
 ```
 
 Force update:
@@ -189,6 +191,8 @@ neurex update button --yes
 - Conflicted files are skipped.
 - Installed component version is not bumped if conflicts exist.
 - User-modified files must never be overwritten silently.
+- `--styles` updates only generated `styles/tokens.css` and
+  `styles/theme.css`, then rewires the configured CSS entrypoint if needed.
 
 ---
 

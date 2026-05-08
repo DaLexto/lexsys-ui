@@ -38,6 +38,7 @@ Command Options
 
   update
     --all                      Update all tracked components
+    --styles                   Update only generated token/theme CSS files
     --dry-run                  Preview update without writing files
     --force                    Write conflicted updates after creating backups
     --yes                      Auto-confirm safe prompts
@@ -72,6 +73,7 @@ Examples
   neurex add button --cwd ./apps/web
   neurex update button --dry-run
   neurex update --all
+  neurex update --styles
   neurex list --json
   neurex config --set-registry-url https://example.com/registry.json
   neurex registry --summary

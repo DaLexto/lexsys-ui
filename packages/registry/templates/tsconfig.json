@@ -6,5 +6,5 @@
     "moduleResolution": "Bundler",
     "noEmit": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "template-shims.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }

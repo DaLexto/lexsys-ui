@@ -12,6 +12,11 @@ import type {
   ResolvedRegistryUtility,
 } from "./registry-types.js"
 import { validateTemplateFiles } from "./template-validator.js"
+import {
+  createInstallResourceResult,
+  hasInstallConflicts,
+} from "./install-results.js"
+import type { InstallResourceResult } from "./install-results.js"
 
 export const getRegistryTemplatePath = (templatePath: string): string => {
   const templateUrl = import.meta.resolve(
@@ -19,40 +24,6 @@ export const getRegistryTemplatePath = (templatePath: string): string => {
   )
 
   return fileURLToPath(templateUrl)
-}
-
-export interface InstallResourceResult {
-  created: string[]
-  updated: string[]
-  skipped: string[]
-  conflicted: string[]
-}
-
-export const createInstallResourceResult = (): InstallResourceResult => {
-  return {
-    created: [],
-    updated: [],
-    skipped: [],
-    conflicted: [],
-  }
-}
-
-export const mergeInstallResults = (
-  results: InstallResourceResult[],
-): InstallResourceResult => {
-  return results.reduce<InstallResourceResult>(
-    (merged, result) => ({
-      created: [...merged.created, ...result.created],
-      updated: [...merged.updated, ...result.updated],
-      skipped: [...merged.skipped, ...result.skipped],
-      conflicted: [...merged.conflicted, ...result.conflicted],
-    }),
-    createInstallResourceResult(),
-  )
-}
-
-export const hasInstallConflicts = (result: InstallResourceResult): boolean => {
-  return result.conflicted.length > 0
 }
 
 const generatedStyleHeader =

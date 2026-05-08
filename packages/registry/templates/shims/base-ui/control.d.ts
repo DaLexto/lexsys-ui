@@ -1,23 +1,3 @@
-/* eslint-disable @typescript-eslint/consistent-type-imports */
-
-type TemplateNode = import("react").ReactNode
-type TemplateElement = import("react").ReactElement | null
-type TemplateRef<T> = import("react").RefAttributes<T>
-type TemplateClassName<State> = string | ((state: State) => string | undefined)
-
-interface TemplateDisabledState {
-  disabled: boolean
-}
-
-interface TemplateCheckedState extends TemplateDisabledState {
-  checked: boolean
-}
-
-interface TemplatePartProps<State> {
-  children?: TemplateNode
-  className?: TemplateClassName<State>
-}
-
 declare module "@base-ui/react/button" {
   export namespace Button {
     export type State = TemplateDisabledState
@@ -83,7 +63,7 @@ declare module "@base-ui/react/field" {
         validate: () => void
       }
       export interface Props extends TemplatePartProps<State> {
-        actionsRef?: import("react").RefObject<Actions | null>
+        actionsRef?: TemplateActionRef<Actions>
         dirty?: boolean
         disabled?: boolean
         invalid?: boolean
@@ -207,7 +187,7 @@ declare module "@base-ui/react/form" {
     export type Values = Record<string, unknown>
     export type Errors = Record<string, string | string[] | null | undefined>
     export interface Props extends TemplatePartProps<State> {
-      actionsRef?: import("react").RefObject<Actions | null>
+      actionsRef?: TemplateActionRef<Actions>
       errors?: Errors
       validationMode?: ValidationMode
       onFormSubmit?: (

@@ -1,3 +1,24 @@
+/* eslint-disable @typescript-eslint/consistent-type-imports */
+
+type TemplateNode = import("react").ReactNode
+type TemplateElement = import("react").ReactElement | null
+type TemplateRef<T> = import("react").RefAttributes<T>
+type TemplateActionRef<T> = import("react").RefObject<T | null>
+type TemplateClassName<State> = string | ((state: State) => string | undefined)
+
+interface TemplateDisabledState {
+  disabled: boolean
+}
+
+interface TemplateCheckedState extends TemplateDisabledState {
+  checked: boolean
+}
+
+interface TemplatePartProps<State> {
+  children?: TemplateNode
+  className?: TemplateClassName<State>
+}
+
 declare module "react" {
   export type ReactNode = unknown
   export type RefCallback<T> = (instance: T | null) => void
