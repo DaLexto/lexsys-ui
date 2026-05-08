@@ -421,6 +421,7 @@ slider
 switch
 tabs
 textarea
+toast
 toggle
 toggle-group
 tooltip

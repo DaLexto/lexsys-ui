@@ -72,6 +72,9 @@ export const sizeSemantics: SemanticTokenGroup = {
       lg: { value: "{size.16}" },
     },
   },
+  toast: {
+    viewportWidth: { value: "{size.96}" },
+  },
   thumb: {
     sm: { value: "{size.4}" },
     md: { value: "{size.5}" },

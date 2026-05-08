@@ -49,6 +49,7 @@ export { collapsibleRegistryItem } from "./items/collapsible.js"
 export { meterRegistryItem } from "./items/meter.js"
 export { toggleGroupRegistryItem } from "./items/toggle-group.js"
 export { drawerRegistryItem } from "./items/drawer.js"
+export { toastRegistryItem } from "./items/toast.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -82,6 +83,7 @@ import { collapsibleRegistryItem } from "./items/collapsible.js"
 import { meterRegistryItem } from "./items/meter.js"
 import { toggleGroupRegistryItem } from "./items/toggle-group.js"
 import { drawerRegistryItem } from "./items/drawer.js"
+import { toastRegistryItem } from "./items/toast.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -125,6 +127,7 @@ export const registryItems: RegistryItem[] = [
   meterRegistryItem,
   toggleGroupRegistryItem,
   drawerRegistryItem,
+  toastRegistryItem,
 ]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]

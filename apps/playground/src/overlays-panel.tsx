@@ -61,7 +61,79 @@ import {
   PopoverPositioner,
   PopoverTitle,
   PopoverTrigger,
+  Toast,
+  ToastAction,
+  ToastClose,
+  ToastContent,
+  ToastDescription,
+  ToastPortal,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+  useToastManager,
 } from "@neurex/ui"
+
+const ToastDemo = () => {
+  const toastManager = useToastManager<{ source: "playground" }>()
+
+  const showSuccessToast = () => {
+    toastManager.add({
+      title: "Registry synced",
+      description:
+        "Toast uses Base UI timers, focus behavior, and swipe state.",
+      type: "success",
+      data: { source: "playground" },
+      actionProps: {
+        children: "Undo",
+        onClick: () => toastManager.close(),
+      },
+    })
+  }
+
+  const showDestructiveToast = () => {
+    toastManager.add({
+      title: "Build failed",
+      description:
+        "High-priority toasts announce urgently and keep styling tokenized.",
+      type: "destructive",
+      priority: "high",
+      data: { source: "playground" },
+      timeout: 0,
+      actionProps: {
+        children: "Dismiss",
+        onClick: () => toastManager.close(),
+      },
+    })
+  }
+
+  return (
+    <>
+      <div className="field-submit-row">
+        <Button size="sm" onClick={showSuccessToast}>
+          Send toast
+        </Button>
+        <Button size="sm" variant="secondary" onClick={showDestructiveToast}>
+          Sticky alert
+        </Button>
+      </div>
+
+      <ToastPortal>
+        <ToastViewport placement="bottom-right">
+          {toastManager.toasts.map((toast) => (
+            <Toast key={toast.id} toast={toast}>
+              <ToastContent>
+                <ToastTitle>{toast.title}</ToastTitle>
+                <ToastDescription>{toast.description}</ToastDescription>
+                <ToastAction />
+              </ToastContent>
+              <ToastClose aria-label="Close toast" />
+            </Toast>
+          ))}
+        </ToastViewport>
+      </ToastPortal>
+    </>
+  )
+}
 
 export const OverlaysPanel = () => {
   return (
@@ -121,6 +193,10 @@ export const OverlaysPanel = () => {
             </PopoverPositioner>
           </PopoverPortal>
         </Popover>
+
+        <ToastProvider limit={4} timeout={5000}>
+          <ToastDemo />
+        </ToastProvider>
 
         <AlertDialog>
           <AlertDialogTrigger>Delete item</AlertDialogTrigger>

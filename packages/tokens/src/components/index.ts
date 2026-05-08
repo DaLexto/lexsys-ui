@@ -25,6 +25,7 @@ import { sliderComponentTokens } from "./slider.js"
 import { switchComponentTokens } from "./switch.js"
 import { tabsComponentTokens } from "./tabs.js"
 import { textareaComponentTokens } from "./textarea.js"
+import { toastComponentTokens } from "./toast.js"
 import { toggleComponentTokens } from "./toggle.js"
 import { toggleGroupComponentTokens } from "./toggle-group.js"
 import { tooltipComponentTokens } from "./tooltip.js"
@@ -55,6 +56,7 @@ export { sliderComponentTokens } from "./slider.js"
 export { switchComponentTokens } from "./switch.js"
 export { tabsComponentTokens } from "./tabs.js"
 export { textareaComponentTokens } from "./textarea.js"
+export { toastComponentTokens } from "./toast.js"
 export { toggleComponentTokens } from "./toggle.js"
 export { toggleGroupComponentTokens } from "./toggle-group.js"
 export { tooltipComponentTokens } from "./tooltip.js"
@@ -86,6 +88,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   switchComponentTokens,
   tabsComponentTokens,
   textareaComponentTokens,
+  toastComponentTokens,
   toggleComponentTokens,
   toggleGroupComponentTokens,
   tooltipComponentTokens,

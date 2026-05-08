@@ -21,6 +21,10 @@ const getComponentExports = (componentName: string): string[] => {
   )
 }
 
+const isNonComponentExport = (exportName: string): boolean => {
+  return exportName.startsWith("use") || exportName.startsWith("create")
+}
+
 const componentNames = readdirSync(componentRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
@@ -65,6 +69,10 @@ describe("@neurex/ui public API", () => {
       )
 
       for (const exportName of getComponentExports(componentName)) {
+        if (isNonComponentExport(exportName)) {
+          continue
+        }
+
         expect(typeEntry).toMatch(
           new RegExp(`export (interface|type) ${exportName}Props\\b`),
         )
