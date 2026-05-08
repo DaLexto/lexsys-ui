@@ -9,7 +9,7 @@ import type { RegistryItem } from "../registry.types.js"
 export const inputRegistryItem: RegistryItem = {
   name: "input",
   canonicalName: "Input",
-  version: "0.0.2",
+  version: "0.0.1",
   type: "component",
   category: "forms",
   aliases: ["ipt"],
