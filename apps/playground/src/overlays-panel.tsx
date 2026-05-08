@@ -129,17 +129,19 @@ export const OverlaysPanel = () => {
 
                   <MenuSeparator />
 
-                  <MenuRadioGroup defaultValue="vite">
+                  <MenuGroup>
                     <MenuGroupLabel>Scaffold</MenuGroupLabel>
-                    <MenuRadioItem value="vite">
-                      <MenuRadioItemIndicator />
-                      Vite
-                    </MenuRadioItem>
-                    <MenuRadioItem value="next">
-                      <MenuRadioItemIndicator />
-                      Next.js
-                    </MenuRadioItem>
-                  </MenuRadioGroup>
+                    <MenuRadioGroup defaultValue="vite">
+                      <MenuRadioItem value="vite">
+                        <MenuRadioItemIndicator />
+                        Vite
+                      </MenuRadioItem>
+                      <MenuRadioItem value="next">
+                        <MenuRadioItemIndicator />
+                        Next.js
+                      </MenuRadioItem>
+                    </MenuRadioGroup>
+                  </MenuGroup>
 
                   <MenuSeparator />
 
