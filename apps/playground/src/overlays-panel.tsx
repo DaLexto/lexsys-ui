@@ -9,6 +9,15 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogViewport,
+  AlertDialog,
+  AlertDialogBackdrop,
+  AlertDialogClose,
+  AlertDialogDescription,
+  AlertDialogPopup,
+  AlertDialogPortal,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AlertDialogViewport,
   Menu,
   MenuArrow,
   MenuCheckboxItem,
@@ -97,6 +106,37 @@ export const OverlaysPanel = () => {
             </PopoverPositioner>
           </PopoverPortal>
         </Popover>
+
+        <AlertDialog>
+          <AlertDialogTrigger>Delete item</AlertDialogTrigger>
+          <AlertDialogPortal>
+            <AlertDialogBackdrop />
+            <AlertDialogViewport>
+              <AlertDialogPopup>
+                <AlertDialogClose aria-label="Close alert dialog" />
+                <AlertDialogTitle>Delete registry item?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  AlertDialog keeps the confirmation flow modal and prevents
+                  casual outside-click dismissal while Neurex owns the
+                  destructive visual intent.
+                </AlertDialogDescription>
+                <div className="field-submit-row">
+                  <AlertDialogClose
+                    render={<Button size="sm" variant="secondary" />}
+                  >
+                    Cancel
+                  </AlertDialogClose>
+                  <Button
+                    size="sm"
+                    className="bg-[var(--nx-alert-dialog-trigger-background)] text-[var(--nx-alert-dialog-trigger-foreground)] hover:bg-[var(--nx-alert-dialog-trigger-hover-background)]"
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </AlertDialogPopup>
+            </AlertDialogViewport>
+          </AlertDialogPortal>
+        </AlertDialog>
 
         <Menu>
           <MenuTrigger>Open menu</MenuTrigger>

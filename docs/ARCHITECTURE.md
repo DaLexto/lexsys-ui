@@ -602,6 +602,7 @@ without component names, the CLI must show an interactive/selectable list of ava
 
 ```txt
 ? Select components to add:
+  ◯ AlertDialog
   ◯ Button
   ◯ Dialog
   ◯ Input

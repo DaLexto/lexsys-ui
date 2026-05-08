@@ -19,6 +19,7 @@ const formComponentNames = new Set([
 ])
 
 const overlayComponentNames = new Set([
+  "AlertDialog",
   "Dialog",
   "Drawer",
   "Menu",

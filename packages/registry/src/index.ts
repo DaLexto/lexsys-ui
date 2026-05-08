@@ -43,6 +43,7 @@ export { selectRegistryItem } from "./items/select.js"
 export { dialogRegistryItem } from "./items/dialog.js"
 export { popoverRegistryItem } from "./items/popover.js"
 export { menuRegistryItem } from "./items/menu.js"
+export { alertDialogRegistryItem } from "./items/alert-dialog.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -70,6 +71,7 @@ import { selectRegistryItem } from "./items/select.js"
 import { dialogRegistryItem } from "./items/dialog.js"
 import { popoverRegistryItem } from "./items/popover.js"
 import { menuRegistryItem } from "./items/menu.js"
+import { alertDialogRegistryItem } from "./items/alert-dialog.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -107,6 +109,7 @@ export const registryItems: RegistryItem[] = [
   dialogRegistryItem,
   popoverRegistryItem,
   menuRegistryItem,
+  alertDialogRegistryItem,
 ]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]

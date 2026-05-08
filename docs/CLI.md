@@ -396,6 +396,7 @@ The local registry currently includes:
 ```txt
 accordion
 alert
+alert-dialog
 badge
 button
 card

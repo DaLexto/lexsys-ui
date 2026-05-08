@@ -1,5 +1,6 @@
 import type { ComponentTokenGroup } from "../types/index.js"
 import { accordionComponentTokens } from "./accordion.js"
+import { alertDialogComponentTokens } from "./alert-dialog.js"
 import { alertComponentTokens } from "./alert.js"
 import { badgeComponentTokens } from "./badge.js"
 import { buttonComponentTokens } from "./button.js"
@@ -25,6 +26,7 @@ import { toggleComponentTokens } from "./toggle.js"
 import { tooltipComponentTokens } from "./tooltip.js"
 
 export { accordionComponentTokens } from "./accordion.js"
+export { alertDialogComponentTokens } from "./alert-dialog.js"
 export { alertComponentTokens } from "./alert.js"
 export { badgeComponentTokens } from "./badge.js"
 export { buttonComponentTokens } from "./button.js"
@@ -51,6 +53,7 @@ export { tooltipComponentTokens } from "./tooltip.js"
 
 export const componentTokens: ComponentTokenGroup[] = [
   accordionComponentTokens,
+  alertDialogComponentTokens,
   alertComponentTokens,
   badgeComponentTokens,
   buttonComponentTokens,

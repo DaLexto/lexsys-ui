@@ -6,6 +6,7 @@
  */
 
 export * from "./components/Alert/Alert"
+export * from "./components/AlertDialog/AlertDialog"
 export * from "./components/Button/Button"
 export * from "./components/Card/Card"
 export * from "./components/Badge/Badge"
@@ -32,6 +33,7 @@ export * from "./components/Tooltip/Tooltip"
 
 export type * from "./components/Accordion/Accordion.types"
 export type * from "./components/Alert/Alert.types"
+export type * from "./components/AlertDialog/AlertDialog.types"
 export type * from "./components/Badge/Badge.types"
 export type * from "./components/Button/Button.types"
 export type * from "./components/Card/Card.types"
