@@ -405,6 +405,7 @@ field
 fieldset
 form
 input
+menu
 number-field
 popover
 progress

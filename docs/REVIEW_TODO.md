@@ -423,7 +423,7 @@ Status:
 - `D:\PLAYGROUND\sandbox-neurex` remains the manual real-user install sandbox
   for fresh `neurex init vite` / `neurex add ...` smoke tests.
 - The committed playground now exercises the broader Base UI-backed component
-  foundation, including form controls, Select, Dialog, and Popover.
+  foundation, including form controls, Select, Dialog, Popover, and Menu.
 
 ### DONE: Clean docs encoding and status wording
 
@@ -472,5 +472,5 @@ Latest successful checks from the implementation passes:
 - `npm run build` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
 - CLI install-flow smoke: 7 CLI test files / 26 CLI tests passing, with
   registry-driven coverage for the full bundled component set
-- UI variant/API smoke: 24 UI test files / 39 UI tests passing
+- UI variant/API smoke: 25 UI test files / 41 UI tests passing
 - Registry validation smoke: 1 registry test file / 15 registry tests passing

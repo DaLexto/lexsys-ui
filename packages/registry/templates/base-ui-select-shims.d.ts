@@ -7,6 +7,7 @@ declare module "lucide-react" {
 
   export function Check(props: LucideProps): TemplateElement
   export function ChevronDown(props: LucideProps): TemplateElement
+  export function ChevronRight(props: LucideProps): TemplateElement
   export function ChevronUp(props: LucideProps): TemplateElement
 }
 

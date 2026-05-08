@@ -605,6 +605,7 @@ without component names, the CLI must show an interactive/selectable list of ava
   ◯ Button
   ◯ Dialog
   ◯ Input
+  ◯ Menu
   ◯ Select
 ```
 

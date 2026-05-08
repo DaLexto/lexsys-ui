@@ -9,6 +9,25 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogViewport,
+  Menu,
+  MenuArrow,
+  MenuCheckboxItem,
+  MenuCheckboxItemIndicator,
+  MenuGroup,
+  MenuGroupLabel,
+  MenuItem,
+  MenuLinkItem,
+  MenuPopup,
+  MenuPortal,
+  MenuPositioner,
+  MenuRadioGroup,
+  MenuRadioItem,
+  MenuRadioItemIndicator,
+  MenuSeparator,
+  MenuSubmenuRoot,
+  MenuSubmenuTrigger,
+  MenuTrigger,
+  MenuViewport,
   Popover,
   PopoverArrow,
   PopoverClose,
@@ -78,6 +97,70 @@ export const OverlaysPanel = () => {
             </PopoverPositioner>
           </PopoverPortal>
         </Popover>
+
+        <Menu>
+          <MenuTrigger>Open menu</MenuTrigger>
+          <MenuPortal>
+            <MenuPositioner sideOffset={8}>
+              <MenuPopup>
+                <MenuArrow />
+                <MenuViewport>
+                  <MenuGroup>
+                    <MenuGroupLabel>Registry</MenuGroupLabel>
+                    <MenuItem>Add component</MenuItem>
+                    <MenuLinkItem href="#overlays-title">
+                      View overlay docs
+                    </MenuLinkItem>
+                  </MenuGroup>
+
+                  <MenuSeparator />
+
+                  <MenuGroup>
+                    <MenuGroupLabel>Preferences</MenuGroupLabel>
+                    <MenuCheckboxItem defaultChecked>
+                      <MenuCheckboxItemIndicator />
+                      Install styles
+                    </MenuCheckboxItem>
+                    <MenuCheckboxItem>
+                      <MenuCheckboxItemIndicator />
+                      Dry run
+                    </MenuCheckboxItem>
+                  </MenuGroup>
+
+                  <MenuSeparator />
+
+                  <MenuRadioGroup defaultValue="vite">
+                    <MenuGroupLabel>Scaffold</MenuGroupLabel>
+                    <MenuRadioItem value="vite">
+                      <MenuRadioItemIndicator />
+                      Vite
+                    </MenuRadioItem>
+                    <MenuRadioItem value="next">
+                      <MenuRadioItemIndicator />
+                      Next.js
+                    </MenuRadioItem>
+                  </MenuRadioGroup>
+
+                  <MenuSeparator />
+
+                  <MenuSubmenuRoot>
+                    <MenuSubmenuTrigger>More actions</MenuSubmenuTrigger>
+                    <MenuPortal>
+                      <MenuPositioner sideOffset={8}>
+                        <MenuPopup>
+                          <MenuViewport>
+                            <MenuItem>Validate registry</MenuItem>
+                            <MenuItem>Sync templates</MenuItem>
+                          </MenuViewport>
+                        </MenuPopup>
+                      </MenuPositioner>
+                    </MenuPortal>
+                  </MenuSubmenuRoot>
+                </MenuViewport>
+              </MenuPopup>
+            </MenuPositioner>
+          </MenuPortal>
+        </Menu>
       </div>
     </section>
   )

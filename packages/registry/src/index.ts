@@ -42,6 +42,7 @@ export { numberFieldRegistryItem } from "./items/number-field.js"
 export { selectRegistryItem } from "./items/select.js"
 export { dialogRegistryItem } from "./items/dialog.js"
 export { popoverRegistryItem } from "./items/popover.js"
+export { menuRegistryItem } from "./items/menu.js"
 export { themeRegistryStyle } from "./styles/theme.js"
 export { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -68,6 +69,7 @@ import { numberFieldRegistryItem } from "./items/number-field.js"
 import { selectRegistryItem } from "./items/select.js"
 import { dialogRegistryItem } from "./items/dialog.js"
 import { popoverRegistryItem } from "./items/popover.js"
+import { menuRegistryItem } from "./items/menu.js"
 import { themeRegistryStyle } from "./styles/theme.js"
 import { cnRegistryUtility } from "./utilities/cn.js"
 
@@ -104,6 +106,7 @@ export const registryItems: RegistryItem[] = [
   selectRegistryItem,
   dialogRegistryItem,
   popoverRegistryItem,
+  menuRegistryItem,
 ]
 export const registryStyles: RegistryStyle[] = [themeRegistryStyle]
 export const registryUtilities: RegistryUtility[] = [cnRegistryUtility]

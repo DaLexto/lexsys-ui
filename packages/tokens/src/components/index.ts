@@ -10,6 +10,7 @@ import { fieldComponentTokens } from "./field.js"
 import { fieldsetComponentTokens } from "./fieldset.js"
 import { formComponentTokens } from "./form.js"
 import { inputComponentTokens } from "./input.js"
+import { menuComponentTokens } from "./menu.js"
 import { numberFieldComponentTokens } from "./number-field.js"
 import { popoverComponentTokens } from "./popover.js"
 import { progressComponentTokens } from "./progress.js"
@@ -34,6 +35,7 @@ export { fieldComponentTokens } from "./field.js"
 export { fieldsetComponentTokens } from "./fieldset.js"
 export { formComponentTokens } from "./form.js"
 export { inputComponentTokens } from "./input.js"
+export { menuComponentTokens } from "./menu.js"
 export { numberFieldComponentTokens } from "./number-field.js"
 export { popoverComponentTokens } from "./popover.js"
 export { progressComponentTokens } from "./progress.js"
@@ -59,6 +61,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   fieldsetComponentTokens,
   formComponentTokens,
   inputComponentTokens,
+  menuComponentTokens,
   numberFieldComponentTokens,
   popoverComponentTokens,
   progressComponentTokens,
