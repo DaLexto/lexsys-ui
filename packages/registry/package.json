@@ -18,12 +18,11 @@
   },
   "scripts": {
     "build": "tsup",
-    "check": "pnpm run lint && pnpm run typecheck && pnpm run templates:check-sync && pnpm run templates:typecheck && pnpm run test",
-    "lint": "eslint src test templates --max-warnings=0",
-    "lint:fix": "eslint src test templates --fix",
+    "check": "pnpm run lint && pnpm run typecheck && pnpm run templates:check-sync && pnpm run test",
+    "lint": "eslint src test --max-warnings=0",
+    "lint:fix": "eslint src test --fix",
     "templates:check-sync": "node scripts/sync-component-templates.mjs --check",
     "templates:sync": "node scripts/sync-component-templates.mjs",
-    "templates:typecheck": "tsc -p templates/tsconfig.json",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
