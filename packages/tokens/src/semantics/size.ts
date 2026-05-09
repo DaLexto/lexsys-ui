@@ -33,6 +33,10 @@ export const sizeSemantics: SemanticTokenGroup = {
     md: { value: "{size.4}" },
     lg: { value: "{size.5}" },
   },
+  gesture: {
+    swipeAreaSize: { value: "{size.12}" },
+    tapAreaSize: { value: "{size.10}" },
+  },
   selectionIndicator: {
     sm: { value: "{size.1}" },
     md: { value: "{size.2}" },

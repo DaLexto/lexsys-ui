@@ -43,7 +43,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     radius: { value: "{radius.pill}" },
   },
   swipeArea: {
-    size: { value: "{size.control.lg}" },
+    size: { value: "{size.gesture.swipeAreaSize}" },
   },
   title: {
     foreground: { value: "{color.foreground}" },
