@@ -100,6 +100,10 @@ If `lint` or `test` are still placeholders, record that explicitly in the releas
 
 Because Neurex is registry-first, release quality is not just about compiled code.
 
+Registry templates are validated as synced install artifacts. They should remain
+in sync with `packages/ui` through the registry sync check, not through
+template-only ambient type shims.
+
 A valid release must keep these in sync:
 
 - registry metadata

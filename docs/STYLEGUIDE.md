@@ -140,12 +140,23 @@ Registry checks verify that templates stay synced with the UI source.
 Any template-only transform must exist in the sync script, not as a manual edit
 inside `packages/registry/templates/components`.
 
+Templates are synced install artifacts, not the canonical TypeScript source.
+
+Do not add template-only ambient type shims for registry templates. Component
+correctness should come from:
+
+- `packages/ui` lint/typecheck against real dependency types
+- `templates:check-sync` to prevent template drift
+- registry metadata validation
+- real install/build smoke checks in a consumer app
+
+If registry templates need import-path adaptation, keep that logic in the sync
+script instead of adding manual template-only declarations.
+
 Registry item metadata stays manually authored because it is the install
 contract for category, aliases, dependencies, styles, utilities, and targets.
 
 If a component depends on shared helpers, registry metadata should declare them explicitly.
-
----
 
 ## 6. CLI Conventions
 

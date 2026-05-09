@@ -280,6 +280,40 @@ Status:
 
 ---
 
+### DONE: Remove registry template shim typecheck layer
+
+Problem:
+
+- Registry templates were previously linted and typechecked as standalone source
+  files.
+- That required template-only ambient declarations under
+  `packages/registry/templates/shims`.
+- Those shims created a parallel fake Base UI type surface that could drift from
+  the real Base UI package API.
+
+Direction:
+
+- Treat registry templates as synced install artifacts instead of canonical
+  TypeScript source.
+- Keep `packages/ui` as the canonical typed reference implementation.
+- Use `templates:check-sync` to prevent registry template drift.
+- Rely on registry metadata validation and real consumer install/build smoke
+  checks for install correctness.
+- Do not maintain template-only Base UI ambient declarations.
+
+Status:
+
+- Done.
+- Removed template linting from the registry lint script.
+- Removed `templates:typecheck` from the registry check pipeline.
+- Removed `packages/registry/templates/shims`.
+- Verified with:
+  - `pnpm registry:check`
+  - `pnpm check`
+  - `pnpm build`
+
+---
+
 ## P1 - CLI Safety and Correctness
 
 ### DONE: Replace generic file-exists catch behavior
