@@ -36,7 +36,6 @@ describe("createStyleOutputs", () => {
     expect(outputs.tokensCss).toContain(
       "--nx-space-surface-md: var(--nx-space-6)",
     )
-    expect(outputs.tokensCss).toContain("--nx-button-radius")
     expect(outputs.tokensCss).toContain(
       "--nx-button-radius: var(--nx-radius-control)",
     )
@@ -44,16 +43,16 @@ describe("createStyleOutputs", () => {
       "--nx-badge-radius: var(--nx-radius-control)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-badge-primary-background: var(--nx-color-primary)",
+      "--nx-badge-primary-background: var(--nx-color-action-primary-base)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-alert-radius: var(--nx-radius-surface)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-alert-destructive-foreground: var(--nx-color-destructive)",
+      "--nx-alert-destructive-foreground: var(--nx-color-action-danger-base)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-card-background: var(--nx-color-surface)",
+      "--nx-card-background: var(--nx-color-background-surface)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-card-radius: var(--nx-radius-surface)",
@@ -65,16 +64,16 @@ describe("createStyleOutputs", () => {
       "--nx-switch-thumb-translate-md: var(--nx-size-switch-thumb-translate-md)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-tabs-tab-active-background: var(--nx-color-background)",
+      "--nx-tabs-tab-active-background: var(--nx-color-background-base)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-tooltip-background: var(--nx-color-foreground)",
+      "--nx-tooltip-background: var(--nx-color-text-primary)",
     )
 
-    expect(outputs.themeCss).toContain("--nx-color-background")
+    expect(outputs.themeCss).toContain("--nx-color-background-base")
     expect(outputs.themeCss).toContain(".dark")
     expect(outputs.themeCss).toContain("@theme inline")
-    expect(outputs.themeCss).toContain("--color-nx-primary")
+    expect(outputs.themeCss).toContain("--color-nx-action-primary-base")
   })
 
   test("keeps authoring tokens prefix-free", () => {

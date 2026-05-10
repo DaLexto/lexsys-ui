@@ -28,18 +28,18 @@ export const badgeComponentTokens: ComponentTokenGroup = {
     background: { value: "transparent" },
   },
   neutral: {
-    background: { value: "{color.muted}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.subtle}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
   },
   primary: {
-    background: { value: "{color.primary}" },
-    foreground: { value: "{color.primary.foreground}" },
-    borderColor: { value: "{color.primary}" },
+    background: { value: "{color.action.primary.base}" },
+    foreground: { value: "{color.text.inverse}" },
+    borderColor: { value: "{color.action.primary.base}" },
   },
   destructive: {
-    background: { value: "{color.destructive}" },
-    foreground: { value: "{color.destructive.foreground}" },
-    borderColor: { value: "{color.destructive}" },
+    background: { value: "{color.action.danger.base}" },
+    foreground: { value: "{color.text.inverse}" },
+    borderColor: { value: "{color.action.danger.base}" },
   },
 }

@@ -17,25 +17,25 @@ export const alertComponentTokens: ComponentTokenGroup = {
     },
   },
   description: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.body.sm.fontSize}" },
       lineHeight: { value: "{typography.body.sm.lineHeight}" },
     },
   },
   neutral: {
-    background: { value: "{color.surface}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.surface}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
   },
   primary: {
-    background: { value: "{color.muted}" },
-    foreground: { value: "{color.primary}" },
-    borderColor: { value: "{color.primary}" },
+    background: { value: "{color.background.subtle}" },
+    foreground: { value: "{color.action.primary.base}" },
+    borderColor: { value: "{color.action.primary.base}" },
   },
   destructive: {
-    background: { value: "{color.muted}" },
-    foreground: { value: "{color.destructive}" },
-    borderColor: { value: "{color.destructive}" },
+    background: { value: "{color.background.subtle}" },
+    foreground: { value: "{color.action.danger.base}" },
+    borderColor: { value: "{color.action.danger.base}" },
   },
 }

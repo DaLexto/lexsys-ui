@@ -2,13 +2,13 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const checkboxComponentTokens: ComponentTokenGroup = {
   component: "checkbox",
-  background: { value: "{color.background}" },
-  foreground: { value: "{color.primary.foreground}" },
-  borderColor: { value: "{color.border}" },
+  background: { value: "{color.background.base}" },
+  foreground: { value: "{color.text.inverse}" },
+  borderColor: { value: "{color.border.default}" },
   checked: {
-    background: { value: "{color.primary}" },
-    borderColor: { value: "{color.primary}" },
-    foreground: { value: "{color.primary.foreground}" },
+    background: { value: "{color.action.primary.base}" },
+    borderColor: { value: "{color.action.primary.base}" },
+    foreground: { value: "{color.text.inverse}" },
   },
   radius: { value: "{radius.selection}" },
   size: {
@@ -25,7 +25,7 @@ export const checkboxComponentTokens: ComponentTokenGroup = {
   },
   label: {
     gap: { value: "{spacing.control.gap.md}" },
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     font: {
       size: { value: "{typography.label.sm.fontSize}" },
       weight: { value: "{typography.label.sm.fontWeight}" },
@@ -33,8 +33,8 @@ export const checkboxComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

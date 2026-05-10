@@ -3,23 +3,23 @@ import type { ComponentTokenGroup } from "../types/index.js"
 export const dialogComponentTokens: ComponentTokenGroup = {
   component: "dialog",
   backdrop: {
-    background: { value: "{color.foreground}" },
+    background: { value: "{color.text.primary}" },
     opacity: { value: "0.48" },
   },
   viewport: {
     padding: { value: "{spacing.surface.md}" },
   },
   popup: {
-    background: { value: "{color.background}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.base}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
     radius: { value: "{radius.surface}" },
     maxWidth: { value: "{size.dialog.maxWidth}" },
     padding: { value: "{spacing.surface.md}" },
     gap: { value: "{spacing.surface.gap.md}" },
   },
   title: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     paddingEnd: { value: "{size.control.lg}" },
     font: {
       size: { value: "{typography.heading.sm.fontSize}" },
@@ -28,7 +28,7 @@ export const dialogComponentTokens: ComponentTokenGroup = {
     },
   },
   description: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.body.sm.fontSize}" },
       weight: { value: "{typography.body.sm.fontWeight}" },
@@ -36,10 +36,10 @@ export const dialogComponentTokens: ComponentTokenGroup = {
     },
   },
   trigger: {
-    background: { value: "{color.primary}" },
-    foreground: { value: "{color.primary.foreground}" },
+    background: { value: "{color.action.primary.base}" },
+    foreground: { value: "{color.text.inverse}" },
     hover: {
-      background: { value: "{color.primary.hover}" },
+      background: { value: "{color.action.primary.hover}" },
     },
     height: { value: "{size.control.md}" },
     radius: { value: "{radius.control}" },
@@ -53,17 +53,17 @@ export const dialogComponentTokens: ComponentTokenGroup = {
     },
   },
   close: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     hover: {
-      background: { value: "{color.muted}" },
+      background: { value: "{color.background.subtle}" },
     },
     size: { value: "{size.control.sm}" },
     inset: { value: "{spacing.control.x.sm}" },
     radius: { value: "{radius.control}" },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

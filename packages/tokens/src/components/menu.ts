@@ -4,12 +4,12 @@ export const menuComponentTokens: ComponentTokenGroup = {
   component: "menu",
   radius: { value: "{radius.surface}" },
   trigger: {
-    background: { value: "{color.surface}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.surface}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
     open: {
-      background: { value: "{color.muted}" },
-      borderColor: { value: "{color.ring}" },
+      background: { value: "{color.background.subtle}" },
+      borderColor: { value: "{color.border.focus}" },
     },
     gap: { value: "{spacing.control.gap.sm}" },
     radius: { value: "{radius.control}" },
@@ -24,9 +24,9 @@ export const menuComponentTokens: ComponentTokenGroup = {
     },
   },
   popup: {
-    background: { value: "{color.background}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.base}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
     minWidth: { value: "{size.12}" },
     maxWidth: { value: "{size.popover.maxWidth}" },
   },
@@ -38,7 +38,7 @@ export const menuComponentTokens: ComponentTokenGroup = {
     padding: { value: "{spacing.control.y.xs}" },
   },
   item: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     gap: { value: "{spacing.control.gap.sm}" },
     radius: { value: "{radius.control}" },
     padding: {
@@ -51,12 +51,12 @@ export const menuComponentTokens: ComponentTokenGroup = {
       lineHeight: { value: "{typography.control.sm.lineHeight}" },
     },
     highlight: {
-      background: { value: "{color.muted}" },
-      foreground: { value: "{color.foreground}" },
+      background: { value: "{color.background.subtle}" },
+      foreground: { value: "{color.text.primary}" },
     },
     checked: {
-      background: { value: "{color.primary}" },
-      foreground: { value: "{color.primary.foreground}" },
+      background: { value: "{color.action.primary.base}" },
+      foreground: { value: "{color.text.inverse}" },
     },
     indicator: {
       size: { value: "{size.selectionControl.sm}" },
@@ -70,7 +70,7 @@ export const menuComponentTokens: ComponentTokenGroup = {
   group: {
     gap: { value: "{spacing.control.gap.sm}" },
     label: {
-      foreground: { value: "{color.muted.foreground}" },
+      foreground: { value: "{color.text.secondary}" },
       padding: {
         y: { value: "{spacing.control.y.xs}" },
       },
@@ -82,7 +82,7 @@ export const menuComponentTokens: ComponentTokenGroup = {
     },
   },
   separator: {
-    background: { value: "{color.border}" },
+    background: { value: "{color.border.default}" },
     margin: {
       y: { value: "{spacing.control.y.xs}" },
     },
@@ -91,12 +91,12 @@ export const menuComponentTokens: ComponentTokenGroup = {
     size: { value: "{size.selectionIndicator.md}" },
   },
   backdrop: {
-    background: { value: "{color.foreground}" },
+    background: { value: "{color.text.primary}" },
   },
   focus: {
-    borderColor: { value: "{color.ring}" },
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    borderColor: { value: "{color.border.focus}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

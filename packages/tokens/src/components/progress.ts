@@ -4,14 +4,14 @@ export const progressComponentTokens: ComponentTokenGroup = {
   component: "progress",
   gap: { value: "{spacing.control.gap.sm}" },
   label: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.label.sm.fontSize}" },
       lineHeight: { value: "{typography.label.sm.lineHeight}" },
     },
   },
   track: {
-    background: { value: "{color.muted}" },
+    background: { value: "{color.background.subtle}" },
     radius: { value: "{radius.pill}" },
     height: {
       sm: { value: "{size.track.sm}" },
@@ -20,7 +20,7 @@ export const progressComponentTokens: ComponentTokenGroup = {
     },
   },
   indicator: {
-    background: { value: "{color.primary}" },
+    background: { value: "{color.action.primary.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.surface}" },

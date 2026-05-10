@@ -4,10 +4,10 @@ export const radioGroupComponentTokens: ComponentTokenGroup = {
   component: "radio-group",
   gap: { value: "{spacing.control.gap.md}" },
   item: {
-    background: { value: "{color.background}" },
-    foreground: { value: "{color.primary}" },
-    borderColor: { value: "{color.border}" },
-    checkedBorderColor: { value: "{color.primary}" },
+    background: { value: "{color.background.base}" },
+    foreground: { value: "{color.action.primary.base}" },
+    borderColor: { value: "{color.border.default}" },
+    checkedBorderColor: { value: "{color.action.primary.base}" },
     radius: { value: "{radius.pill}" },
     size: {
       sm: { value: "{size.selectionControl.sm}" },
@@ -24,7 +24,7 @@ export const radioGroupComponentTokens: ComponentTokenGroup = {
   },
   label: {
     gap: { value: "{spacing.control.gap.md}" },
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     font: {
       size: { value: "{typography.label.sm.fontSize}" },
       weight: { value: "{typography.label.sm.fontWeight}" },
@@ -32,8 +32,8 @@ export const radioGroupComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

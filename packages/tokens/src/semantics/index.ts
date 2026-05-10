@@ -4,7 +4,9 @@ import { motionSemantics } from "./motion"
 import { radiusSemantics } from "./radius"
 import { sizeSemantics } from "./size"
 import { spacingSemantics } from "./spacing"
+import { colorSemantics } from "./color"
 
+export { colorSemantics } from "./color"
 export { typographySemantics } from "./typography"
 export { motionSemantics } from "./motion"
 export { radiusSemantics } from "./radius"
@@ -17,4 +19,5 @@ export const semanticTokens: SemanticTokenGroup[] = [
   sizeSemantics,
   motionSemantics,
   typographySemantics,
+  colorSemantics,
 ]

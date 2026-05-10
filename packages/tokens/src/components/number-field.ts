@@ -3,9 +3,9 @@ import type { ComponentTokenGroup } from "../types/index.js"
 export const numberFieldComponentTokens: ComponentTokenGroup = {
   component: "number-field",
   gap: { value: "{spacing.control.gap.sm}" },
-  foreground: { value: "{color.foreground}" },
-  background: { value: "{color.background}" },
-  borderColor: { value: "{color.border}" },
+  foreground: { value: "{color.text.primary}" },
+  background: { value: "{color.background.base}" },
+  borderColor: { value: "{color.border.default}" },
   radius: { value: "{radius.control}" },
   height: {
     sm: { value: "{size.control.sm}" },
@@ -13,9 +13,9 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
     lg: { value: "{size.control.lg}" },
   },
   input: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     placeholder: {
-      color: { value: "{color.muted.foreground}" },
+      color: { value: "{color.text.secondary}" },
     },
     padding: {
       x: {
@@ -37,12 +37,12 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
     },
   },
   stepper: {
-    background: { value: "{color.muted}" },
-    foreground: { value: "{color.foreground}" },
+    background: { value: "{color.background.subtle}" },
+    foreground: { value: "{color.text.primary}" },
     hover: {
-      background: { value: "{color.muted}" },
+      background: { value: "{color.background.subtle}" },
     },
-    borderColor: { value: "{color.border}" },
+    borderColor: { value: "{color.border.default}" },
     width: {
       sm: { value: "{size.control.sm}" },
       md: { value: "{size.control.md}" },
@@ -58,19 +58,19 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
+    ringColor: { value: "{color.border.focus}" },
   },
   invalid: {
-    ringColor: { value: "{color.destructive}" },
+    ringColor: { value: "{color.action.danger.base}" },
   },
   scrub: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.label.sm.fontSize}" },
       weight: { value: "{typography.label.sm.fontWeight}" },
     },
     cursor: {
-      background: { value: "{color.primary}" },
+      background: { value: "{color.action.primary.base}" },
       radius: { value: "{radius.pill}" },
       size: { value: "{size.selectionIndicator.md}" },
     },

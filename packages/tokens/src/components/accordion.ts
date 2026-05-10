@@ -2,15 +2,15 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const accordionComponentTokens: ComponentTokenGroup = {
   component: "accordion",
-  background: { value: "{color.surface}" },
-  foreground: { value: "{color.foreground}" },
-  borderColor: { value: "{color.border}" },
+  background: { value: "{color.background.surface}" },
+  foreground: { value: "{color.text.primary}" },
+  borderColor: { value: "{color.border.default}" },
   radius: { value: "{radius.surface}" },
   item: {
-    borderColor: { value: "{color.border}" },
+    borderColor: { value: "{color.border.default}" },
   },
   trigger: {
-    backgroundHover: { value: "{color.muted}" },
+    backgroundHover: { value: "{color.background.subtle}" },
     padding: {
       x: { value: "{spacing.control.x.md}" },
       y: { value: "{spacing.control.y.md}" },
@@ -23,7 +23,7 @@ export const accordionComponentTokens: ComponentTokenGroup = {
     },
   },
   panel: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     padding: {
       x: { value: "{spacing.control.x.md}" },
       bottom: { value: "{spacing.surface.sm}" },
@@ -34,7 +34,7 @@ export const accordionComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
+    ringColor: { value: "{color.border.focus}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

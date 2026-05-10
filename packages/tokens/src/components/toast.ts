@@ -8,14 +8,14 @@ export const toastComponentTokens: ComponentTokenGroup = {
     gapExpanded: { value: "{spacing.surface.gap.md}" },
     padding: { value: "{spacing.surface.sm}" },
   },
-  background: { value: "{color.background}" },
-  foreground: { value: "{color.foreground}" },
-  borderColor: { value: "{color.border}" },
+  background: { value: "{color.background.base}" },
+  foreground: { value: "{color.text.primary}" },
+  borderColor: { value: "{color.border.default}" },
   success: {
-    borderColor: { value: "{color.primary}" },
+    borderColor: { value: "{color.action.primary.base}" },
   },
   destructive: {
-    borderColor: { value: "{color.destructive}" },
+    borderColor: { value: "{color.action.danger.base}" },
   },
   radius: { value: "{radius.surface}" },
   padding: { value: "{spacing.surface.md}" },
@@ -29,7 +29,7 @@ export const toastComponentTokens: ComponentTokenGroup = {
     size: { value: "{size.3}" },
   },
   title: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     font: {
       size: { value: "{typography.heading.xs.fontSize}" },
       weight: { value: "{typography.heading.xs.fontWeight}" },
@@ -37,7 +37,7 @@ export const toastComponentTokens: ComponentTokenGroup = {
     },
   },
   description: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.body.sm.fontSize}" },
       weight: { value: "{typography.body.sm.fontWeight}" },
@@ -45,10 +45,10 @@ export const toastComponentTokens: ComponentTokenGroup = {
     },
   },
   action: {
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
     hover: {
-      background: { value: "{color.muted}" },
+      background: { value: "{color.background.subtle}" },
     },
     height: { value: "{size.control.sm}" },
     radius: { value: "{radius.control}" },
@@ -62,16 +62,16 @@ export const toastComponentTokens: ComponentTokenGroup = {
     },
   },
   close: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     hover: {
-      background: { value: "{color.muted}" },
+      background: { value: "{color.background.subtle}" },
     },
     size: { value: "{size.control.sm}" },
     inset: { value: "{spacing.control.x.sm}" },
     radius: { value: "{radius.control}" },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
+    ringColor: { value: "{color.border.focus}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

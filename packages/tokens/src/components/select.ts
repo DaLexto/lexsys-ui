@@ -2,12 +2,12 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const selectComponentTokens: ComponentTokenGroup = {
   component: "select",
-  background: { value: "{color.background}" },
-  foreground: { value: "{color.foreground}" },
+  background: { value: "{color.background.base}" },
+  foreground: { value: "{color.text.primary}" },
   placeholder: {
-    color: { value: "{color.muted.foreground}" },
+    color: { value: "{color.text.secondary}" },
   },
-  borderColor: { value: "{color.border}" },
+  borderColor: { value: "{color.border.default}" },
   radius: { value: "{radius.control}" },
   height: {
     sm: { value: "{size.control.sm}" },
@@ -36,7 +36,7 @@ export const selectComponentTokens: ComponentTokenGroup = {
     letterSpacing: { value: "{typography.control.md.letterSpacing}" },
   },
   label: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     font: {
       size: { value: "{typography.label.sm.fontSize}" },
       weight: { value: "{typography.label.sm.fontWeight}" },
@@ -44,13 +44,13 @@ export const selectComponentTokens: ComponentTokenGroup = {
     },
   },
   icon: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     size: { value: "{size.selectionControl.md}" },
   },
   popup: {
-    background: { value: "{color.background}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.base}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
     maxHeight: { value: "{size.16}" },
   },
   list: {
@@ -58,7 +58,7 @@ export const selectComponentTokens: ComponentTokenGroup = {
     padding: { value: "{spacing.control.y.xs}" },
   },
   item: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     gap: { value: "{spacing.control.gap.sm}" },
     radius: { value: "{radius.control}" },
     padding: {
@@ -71,12 +71,12 @@ export const selectComponentTokens: ComponentTokenGroup = {
       lineHeight: { value: "{typography.control.sm.lineHeight}" },
     },
     highlight: {
-      background: { value: "{color.muted}" },
-      foreground: { value: "{color.foreground}" },
+      background: { value: "{color.background.subtle}" },
+      foreground: { value: "{color.text.primary}" },
     },
     selected: {
-      background: { value: "{color.primary}" },
-      foreground: { value: "{color.primary.foreground}" },
+      background: { value: "{color.action.primary.base}" },
+      foreground: { value: "{color.text.inverse}" },
     },
     indicator: {
       size: { value: "{size.selectionControl.sm}" },
@@ -85,7 +85,7 @@ export const selectComponentTokens: ComponentTokenGroup = {
   group: {
     gap: { value: "{spacing.control.gap.sm}" },
     label: {
-      foreground: { value: "{color.muted.foreground}" },
+      foreground: { value: "{color.text.secondary}" },
       padding: {
         y: { value: "{spacing.control.y.xs}" },
       },
@@ -103,16 +103,16 @@ export const selectComponentTokens: ComponentTokenGroup = {
     height: { value: "{size.control.xs}" },
   },
   backdrop: {
-    background: { value: "{color.foreground}" },
+    background: { value: "{color.text.primary}" },
   },
   focus: {
-    borderColor: { value: "{color.ring}" },
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    borderColor: { value: "{color.border.focus}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   invalid: {
-    borderColor: { value: "{color.destructive}" },
-    ringColor: { value: "{color.destructive}" },
+    borderColor: { value: "{color.action.danger.base}" },
+    ringColor: { value: "{color.action.danger.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

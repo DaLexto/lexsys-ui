@@ -2,16 +2,16 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const collapsibleComponentTokens: ComponentTokenGroup = {
   component: "collapsible",
-  background: { value: "{color.surface}" },
-  foreground: { value: "{color.foreground}" },
-  borderColor: { value: "{color.border}" },
+  background: { value: "{color.background.surface}" },
+  foreground: { value: "{color.text.primary}" },
+  borderColor: { value: "{color.border.default}" },
   radius: { value: "{radius.surface}" },
   focus: {
-    ringColor: { value: "{color.ring}" },
+    ringColor: { value: "{color.border.focus}" },
   },
   trigger: {
     background: {
-      hover: { value: "{color.muted}" },
+      hover: { value: "{color.background.subtle}" },
     },
     gap: { value: "{spacing.control.gap.sm}" },
     padding: {
@@ -28,7 +28,7 @@ export const collapsibleComponentTokens: ComponentTokenGroup = {
     },
   },
   panel: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     padding: {
       x: { value: "{spacing.surface.md}" },
       bottom: { value: "{spacing.surface.md}" },

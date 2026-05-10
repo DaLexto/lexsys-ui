@@ -2,9 +2,9 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const tooltipComponentTokens: ComponentTokenGroup = {
   component: "tooltip",
-  background: { value: "{color.foreground}" },
-  foreground: { value: "{color.background}" },
-  borderColor: { value: "{color.border}" },
+  background: { value: "{color.text.primary}" },
+  foreground: { value: "{color.background.base}" },
+  borderColor: { value: "{color.border.default}" },
   radius: { value: "{radius.control}" },
   padding: {
     x: { value: "{spacing.control.x.xs}" },

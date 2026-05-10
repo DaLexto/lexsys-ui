@@ -2,14 +2,14 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const toggleComponentTokens: ComponentTokenGroup = {
   component: "toggle",
-  background: { value: "{color.background}" },
-  foreground: { value: "{color.foreground}" },
-  borderColor: { value: "{color.border}" },
-  hoverBackground: { value: "{color.muted}" },
+  background: { value: "{color.background.base}" },
+  foreground: { value: "{color.text.primary}" },
+  borderColor: { value: "{color.border.default}" },
+  hoverBackground: { value: "{color.background.subtle}" },
   pressed: {
-    background: { value: "{color.primary}" },
-    foreground: { value: "{color.primary.foreground}" },
-    borderColor: { value: "{color.primary}" },
+    background: { value: "{color.action.primary.base}" },
+    foreground: { value: "{color.text.inverse}" },
+    borderColor: { value: "{color.action.primary.base}" },
   },
   radius: { value: "{radius.control}" },
   height: {
@@ -36,8 +36,8 @@ export const toggleComponentTokens: ComponentTokenGroup = {
     letterSpacing: { value: "{typography.control.md.letterSpacing}" },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

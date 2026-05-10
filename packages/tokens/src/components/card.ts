@@ -2,11 +2,11 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const cardComponentTokens: ComponentTokenGroup = {
   component: "card",
-  background: { value: "{color.surface}" },
-  foreground: { value: "{color.surface.foreground}" },
-  borderColor: { value: "{color.border}" },
+  background: { value: "{color.background.surface}" },
+  foreground: { value: "{color.text.primary}" },
+  borderColor: { value: "{color.border.default}" },
   muted: {
-    background: { value: "{color.muted}" },
+    background: { value: "{color.background.subtle}" },
   },
   radius: { value: "{radius.surface}" },
   padding: { value: "{spacing.surface.md}" },
@@ -20,7 +20,7 @@ export const cardComponentTokens: ComponentTokenGroup = {
     },
   },
   title: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     font: {
       size: { value: "{typography.heading.sm.fontSize}" },
       weight: { value: "{typography.heading.sm.fontWeight}" },
@@ -29,7 +29,7 @@ export const cardComponentTokens: ComponentTokenGroup = {
     },
   },
   description: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.body.sm.fontSize}" },
       lineHeight: { value: "{typography.body.sm.lineHeight}" },

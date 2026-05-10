@@ -2,9 +2,9 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const switchComponentTokens: ComponentTokenGroup = {
   component: "switch",
-  background: { value: "{color.muted}" },
+  background: { value: "{color.background.subtle}" },
   checked: {
-    background: { value: "{color.primary}" },
+    background: { value: "{color.action.primary.base}" },
   },
   radius: { value: "{radius.pill}" },
   padding: { value: "{spacing.1}" },
@@ -19,7 +19,7 @@ export const switchComponentTokens: ComponentTokenGroup = {
     lg: { value: "{size.switch.height.lg}" },
   },
   thumb: {
-    background: { value: "{color.background}" },
+    background: { value: "{color.background.base}" },
     radius: { value: "{radius.pill}" },
     size: {
       sm: { value: "{size.switch.thumb.sm}" },
@@ -33,8 +33,8 @@ export const switchComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

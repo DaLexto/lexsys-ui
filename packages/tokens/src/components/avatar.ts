@@ -2,12 +2,12 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const avatarComponentTokens: ComponentTokenGroup = {
   component: "avatar",
-  background: { value: "{color.muted}" },
-  foreground: { value: "{color.muted.foreground}" },
-  borderColor: { value: "{color.border}" },
+  background: { value: "{color.background.subtle}" },
+  foreground: { value: "{color.text.secondary}" },
+  borderColor: { value: "{color.border.default}" },
   fallback: {
-    background: { value: "{color.muted}" },
-    foreground: { value: "{color.muted.foreground}" },
+    background: { value: "{color.background.subtle}" },
+    foreground: { value: "{color.text.secondary}" },
   },
   radius: {
     circle: { value: "{radius.pill}" },

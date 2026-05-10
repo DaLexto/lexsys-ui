@@ -7,7 +7,7 @@ export const meterComponentTokens: ComponentTokenGroup = {
     gap: { value: "{spacing.control.gap.sm}" },
   },
   label: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.label.sm.fontSize}" },
       weight: { value: "{typography.label.sm.fontWeight}" },
@@ -15,13 +15,13 @@ export const meterComponentTokens: ComponentTokenGroup = {
     },
   },
   value: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     font: {
       weight: { value: "{typography.label.sm.fontWeight}" },
     },
   },
   track: {
-    background: { value: "{color.muted}" },
+    background: { value: "{color.background.subtle}" },
     radius: { value: "{radius.pill}" },
     height: {
       sm: { value: "{size.track.sm}" },
@@ -30,8 +30,8 @@ export const meterComponentTokens: ComponentTokenGroup = {
     },
   },
   indicator: {
-    background: { value: "{color.primary}" },
-    backgroundComplete: { value: "{color.primary}" },
+    background: { value: "{color.action.primary.base}" },
+    backgroundComplete: { value: "{color.action.primary.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.surface}" },

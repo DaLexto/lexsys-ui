@@ -3,13 +3,13 @@ import type { ComponentTokenGroup } from "../types/index.js"
 export const popoverComponentTokens: ComponentTokenGroup = {
   component: "popover",
   backdrop: {
-    background: { value: "{color.foreground}" },
+    background: { value: "{color.text.primary}" },
     opacity: { value: "0.24" },
   },
   popup: {
-    background: { value: "{color.background}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.base}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
     radius: { value: "{radius.surface}" },
     maxWidth: { value: "{size.popover.maxWidth}" },
     padding: { value: "{spacing.surface.md}" },
@@ -19,7 +19,7 @@ export const popoverComponentTokens: ComponentTokenGroup = {
     size: { value: "{size.3}" },
   },
   title: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     paddingEnd: { value: "{size.control.lg}" },
     font: {
       size: { value: "{typography.heading.xs.fontSize}" },
@@ -28,7 +28,7 @@ export const popoverComponentTokens: ComponentTokenGroup = {
     },
   },
   description: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.body.sm.fontSize}" },
       weight: { value: "{typography.body.sm.fontWeight}" },
@@ -36,11 +36,11 @@ export const popoverComponentTokens: ComponentTokenGroup = {
     },
   },
   trigger: {
-    background: { value: "{color.background}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.base}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
     hover: {
-      background: { value: "{color.muted}" },
+      background: { value: "{color.background.subtle}" },
     },
     height: { value: "{size.control.md}" },
     radius: { value: "{radius.control}" },
@@ -54,17 +54,17 @@ export const popoverComponentTokens: ComponentTokenGroup = {
     },
   },
   close: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     hover: {
-      background: { value: "{color.muted}" },
+      background: { value: "{color.background.subtle}" },
     },
     size: { value: "{size.control.sm}" },
     inset: { value: "{spacing.control.x.sm}" },
     radius: { value: "{radius.control}" },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

@@ -3,11 +3,11 @@ import type { ComponentTokenGroup } from "../types/index.js"
 export const drawerComponentTokens: ComponentTokenGroup = {
   component: "drawer",
   backdrop: {
-    background: { value: "{color.foreground}" },
+    background: { value: "{color.text.primary}" },
     opacity: { value: "0.48" },
   },
   indent: {
-    background: { value: "{color.muted}" },
+    background: { value: "{color.background.subtle}" },
     scale: { value: "0.96" },
     radius: { value: "{radius.surface}" },
   },
@@ -15,9 +15,9 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     padding: { value: "{spacing.surface.sm}" },
   },
   popup: {
-    background: { value: "{color.background}" },
-    foreground: { value: "{color.foreground}" },
-    borderColor: { value: "{color.border}" },
+    background: { value: "{color.background.base}" },
+    foreground: { value: "{color.text.primary}" },
+    borderColor: { value: "{color.border.default}" },
     radius: { value: "{radius.surface}" },
     maxWidth: { value: "{size.drawer.maxWidth}" },
     width: {
@@ -36,7 +36,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     gap: { value: "{spacing.surface.gap.md}" },
   },
   handle: {
-    background: { value: "{color.border}" },
+    background: { value: "{color.border.default}" },
     width: { value: "{size.control.lg}" },
     height: { value: "{size.track.md}" },
     marginTop: { value: "{spacing.control.y.sm}" },
@@ -46,7 +46,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     size: { value: "{size.area.swipe.sm}" },
   },
   title: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     paddingEnd: { value: "{size.control.lg}" },
     font: {
       size: { value: "{typography.heading.sm.fontSize}" },
@@ -55,7 +55,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     },
   },
   description: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     font: {
       size: { value: "{typography.body.sm.fontSize}" },
       weight: { value: "{typography.body.sm.fontWeight}" },
@@ -63,10 +63,10 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     },
   },
   trigger: {
-    background: { value: "{color.primary}" },
-    foreground: { value: "{color.primary.foreground}" },
+    background: { value: "{color.action.primary.base}" },
+    foreground: { value: "{color.text.inverse}" },
     hover: {
-      background: { value: "{color.primary.hover}" },
+      background: { value: "{color.action.primary.hover}" },
     },
     height: { value: "{size.control.md}" },
     radius: { value: "{radius.control}" },
@@ -80,17 +80,17 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     },
   },
   close: {
-    foreground: { value: "{color.muted.foreground}" },
+    foreground: { value: "{color.text.secondary}" },
     hover: {
-      background: { value: "{color.muted}" },
+      background: { value: "{color.background.subtle}" },
     },
     size: { value: "{size.control.sm}" },
     inset: { value: "{spacing.control.x.sm}" },
     radius: { value: "{radius.control}" },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   transition: {
     duration: { value: "{motion.duration.control}" },

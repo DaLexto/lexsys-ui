@@ -2,14 +2,14 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const fieldsetComponentTokens: ComponentTokenGroup = {
   component: "fieldset",
-  background: { value: "{color.surface}" },
-  foreground: { value: "{color.surface.foreground}" },
-  borderColor: { value: "{color.border}" },
+  background: { value: "{color.background.surface}" },
+  foreground: { value: "{color.text.primary}" },
+  borderColor: { value: "{color.border.default}" },
   radius: { value: "{radius.surface}" },
   padding: { value: "{spacing.surface.md}" },
   gap: { value: "{spacing.surface.gap.md}" },
   legend: {
-    foreground: { value: "{color.foreground}" },
+    foreground: { value: "{color.text.primary}" },
     margin: {
       bottom: { value: "{spacing.surface.gap.sm}" },
     },

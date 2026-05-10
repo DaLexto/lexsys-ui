@@ -2,22 +2,22 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const textareaComponentTokens: ComponentTokenGroup = {
   component: "textarea",
-  background: { value: "{color.background}" },
-  foreground: { value: "{color.foreground}" },
+  background: { value: "{color.background.base}" },
+  foreground: { value: "{color.text.primary}" },
   placeholder: {
-    color: { value: "{color.muted.foreground}" },
+    color: { value: "{color.text.secondary}" },
   },
   border: {
-    color: { value: "{color.border}" },
+    color: { value: "{color.border.default}" },
   },
   focus: {
-    borderColor: { value: "{color.ring}" },
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    borderColor: { value: "{color.border.focus}" },
+    ringColor: { value: "{color.border.focus}" },
+    ringOffsetColor: { value: "{color.background.base}" },
   },
   invalid: {
-    borderColor: { value: "{color.destructive}" },
-    ringColor: { value: "{color.destructive}" },
+    borderColor: { value: "{color.action.danger.base}" },
+    ringColor: { value: "{color.action.danger.base}" },
   },
   radius: { value: "{radius.control}" },
   minHeight: {
