@@ -109,28 +109,18 @@ variable strings. Group metadata lives beside token branches, and every token
 leaf uses a `{ value }` object so future metadata can be added without changing
 the shape:
 
-```ts
-export const motionSemantics = {
-  name: "motion",
-  duration: {
-    control: { value: "{motion.duration.fast}" },
-    surface: { value: "{motion.duration.fast}" },
-  },
-}
-```
+Semantic color tokens use a structured category hierarchy rather than flat
+single-level color roles.
 
-References use string aliases such as `{motion.duration.fast}`. The `--nx`
-prefix belongs to output generation only, never to token authoring files.
-
-The preferred dependency flow is:
+Current color semantic groups:
 
 ```txt
-primitive token -> semantic token -> component token -> component class
+  color.background.{base,surface,subtle,overlay}
+  color.text.{primary,secondary,disabled,inverse,link,accent}
+  color.border.{default,strong,focus,accent}
+  color.feedback.{info,success,warning,danger}.{bg,text,border}
+  color.action.{primary,secondary,danger}.{base,hover,active,disabled}
 ```
-
-For example, `Neurex Default` maps `--nx-radius-control` to the primitive
-radius scale, Button maps `--nx-button-radius` to `--nx-radius-control`, and
-the Button class consumes `--nx-button-radius`.
 
 ### Theme Modes
 

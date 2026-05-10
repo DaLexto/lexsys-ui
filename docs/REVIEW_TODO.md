@@ -139,6 +139,40 @@ Status:
 
 ## P1 - Architecture Contract Gaps
 
+```md
+### DONE: Migrate semantic color tokens to structured hierarchy
+
+Problem:
+
+- Semantic color tokens used flat single-level roles such as `color.background`,
+  `color.foreground`, `color.primary`, `color.muted`, and `color.destructive`.
+- Flat roles made the semantic layer less expressive as component coverage grew.
+- Action, text, background, border, and feedback decisions needed clearer
+  separation.
+
+Direction:
+
+- Replace flat semantic color roles with a structured hierarchy:
+  - `color.background.{base,surface,subtle,overlay}`
+  - `color.text.{primary,secondary,disabled,inverse,link,accent}`
+  - `color.border.{default,strong,focus,accent}`
+  - `color.feedback.{info,success,warning,danger}.{bg,text,border}`
+  - `color.action.{primary,secondary,danger}.{base,hover,active,disabled}`
+- Rewrite light and dark theme mappings to mirror the new semantic structure.
+- Update generated CSS and Tailwind output variable names.
+- Keep component tokens aligned to semantic roles rather than primitive color
+  values.
+
+Status:
+
+- Done.
+- Primitive color scales now use OKLCH throughout.
+- Light and dark themes now mirror the structured color semantic hierarchy.
+- Dark mode hover/active and disabled mappings were adjusted for correct
+  contrast direction on dark surfaces.
+- Generated CSS variable references and token output tests were updated.
+- Breaking change: legacy flat semantic color paths were removed.
+
 ### DONE: Implement style and token installation
 
 Problem:

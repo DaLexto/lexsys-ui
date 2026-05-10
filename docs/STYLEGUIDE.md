@@ -192,8 +192,11 @@ Avoid:
 
 `packages/tokens` should remain layered:
 
+Color semantics should use the structured semantic hierarchy:
+
 ```txt
-primitives -> semantics -> components -> themes
+background / text / border / feedback / action
+background / text / border / feedback / action
 ```
 
 Guidelines:

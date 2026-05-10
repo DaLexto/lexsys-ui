@@ -114,7 +114,9 @@ variables:
 
 ```css
 :root {
-  --nx-color-primary: #16a34a;
+  --nx-color-action-primary-base: #16a34a;
+  --nx-color-action-primary-hover: #15803d;
+  --nx-color-action-primary-active: #166534;
 }
 ```
 
