@@ -1,5 +1,5 @@
 // themes/light.ts
-import type { ThemeDefinition } from "../types/index.js"
+import type { ThemeDefinition } from "../../types/index.js"
 
 export const neurexLightTheme: ThemeDefinition = {
   name: "light",
