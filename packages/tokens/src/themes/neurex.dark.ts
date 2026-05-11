@@ -1,8 +1,9 @@
 // themes/dark.ts
 import type { ThemeDefinition } from "../types/index.js"
 
-export const darkTheme: ThemeDefinition = {
+export const neurexDarkTheme: ThemeDefinition = {
   name: "dark",
+  brand: "neurex",
   selector: ".dark",
   colorScheme: "dark",
   color: {

@@ -26,6 +26,7 @@ const twPrefix = styleOutputConfig.tailwindPrefix
 const tokenGroupMetadataKeys = new Set([
   "name",
   "component",
+  "brand",
   "selector",
   "colorScheme",
 ])

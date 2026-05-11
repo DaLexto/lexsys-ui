@@ -1,9 +1,10 @@
 // themes/light.ts
 import type { ThemeDefinition } from "../types/index.js"
 
-export const lightTheme: ThemeDefinition = {
+export const neurexLightTheme: ThemeDefinition = {
   name: "light",
   selector: ":root",
+  brand: "neurex",
   colorScheme: "light",
   color: {
     background: {

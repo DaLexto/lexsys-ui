@@ -1,8 +1,8 @@
 import type { ThemeDefinition } from "../types/index.js"
-import { darkTheme } from "./dark.js"
-import { lightTheme } from "./light.js"
+import { neurexDarkTheme } from "./neurex.dark.js"
+import { neurexLightTheme } from "./neurex.light.js"
 
-export { darkTheme } from "./dark.js"
-export { lightTheme } from "./light.js"
+export { neurexDarkTheme as darkTheme } from "./neurex.dark.js"
+export { neurexLightTheme as lightTheme } from "./neurex.light.js"
 
-export const themes: ThemeDefinition[] = [lightTheme, darkTheme]
+export const themes: ThemeDefinition[] = [neurexLightTheme, neurexDarkTheme]

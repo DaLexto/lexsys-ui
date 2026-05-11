@@ -128,20 +128,24 @@ export interface ComponentTokenGroup {
  * Style presets and themes
  * ------------------------------------------------------------------------------------------------- */
 
-export type StylePresetId = "default"
+export type PresetId = "neurex" | (string & {}) // "neurex" kao default, ostali su stringly-typed
+export type BrandId = "neurex" | (string & {}) // isto za brand
 
 export type ThemeModeId = "light" | "dark"
 
-export interface StylePresetDefinition {
-  id: StylePresetId
+export interface PresetDefinition {
+  id: PresetId
   name: string
   description: string
   themeModes: ThemeModeId[]
+  defaultTheme: ThemeModeId
+  brand?: BrandId // opcionalno za sada ukloni znak ? kada imas vise od jednog branda
 }
 
 export interface ThemeDefinition {
   name: ThemeModeId
-  selector: ":root" | ".dark"
+  brand?: BrandId // opcionalno za sada ukloni znak ? kada imas vise od jednog branda
+  selector: ":root" | `.${string}`
   colorScheme: ThemeModeId
   [key: string]: unknown
 }

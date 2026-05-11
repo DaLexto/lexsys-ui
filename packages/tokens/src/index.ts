@@ -8,19 +8,16 @@ export { componentTokens } from "./components"
 export { createStyleOutputs } from "./generators/outputs"
 export { primitiveTokens } from "./primitives"
 export { semanticTokens } from "./semantics"
-export {
-  defaultStylePresetId,
-  neurexDefaultStylePreset,
-  stylePresets,
-} from "./styles"
+export { neurexPreset, defaultPresetId, presets } from "./presets"
 export { themes } from "./themes"
 export type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,
   SemanticTokenGroup,
   StyleOutputs,
-  StylePresetDefinition,
-  StylePresetId,
+  PresetDefinition,
+  PresetId,
+  BrandId,
   ThemeDefinition,
   ThemeModeId,
   ThemeTokenMap,

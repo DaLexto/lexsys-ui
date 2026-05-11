@@ -3,24 +3,23 @@ import { componentTokens } from "../src/components/index.js"
 import { createStyleOutputs } from "../src/generators/outputs.js"
 import { primitiveTokens } from "../src/primitives/index.js"
 import { semanticTokens } from "../src/semantics/index.js"
-import {
-  defaultStylePresetId,
-  neurexDefaultStylePreset,
-  stylePresets,
-} from "../src/styles/index.js"
+import { neurexPreset, defaultPresetId, presets } from "../src/presets/index.js"
 import { themes } from "../src/themes/index.js"
 
 describe("createStyleOutputs", () => {
   test("defines Neurex Default as the first style preset", () => {
-    expect(defaultStylePresetId).toBe("default")
-    expect(neurexDefaultStylePreset).toEqual({
-      id: "default",
+    expect(defaultPresetId).toBe("neurex")
+
+    expect(neurexPreset).toEqual({
+      id: "neurex",
       name: "Neurex Default",
+      brand: "neurex",
       description:
         "Baseline Neurex style preset for the initial token, theme, and component system.",
       themeModes: ["light", "dark"],
+      defaultTheme: "light",
     })
-    expect(stylePresets).toEqual([neurexDefaultStylePreset])
+    expect(presets).toEqual([neurexPreset])
   })
 
   test("generates token and theme css from token source", () => {
