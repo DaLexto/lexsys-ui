@@ -128,13 +128,15 @@ The locked design-system flow is:
 TOKENS -> STYLE PRESETS -> THEME MODES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
 ```
 
-The first style preset is `default` / `Neurex Default`. Style presets define
-the design personality; theme modes define mappings like light and dark. Today,
-`default` is the only implemented style preset.
+The consumer-facing style key is currently `default`, and it represents
+`Neurex Default`. Inside `@neurex/tokens`, the same implemented preset is
+exposed as token preset id `neurex` with brand `neurex`. Until arbitrary preset
+selection is wired through the CLI, treat `default` as the install/config alias
+and `neurex` as the token package preset id.
 
 Runtime package responsibilities:
 
-- `packages/tokens` owns token source and generated CSS outputs.
+- `packages/tokens` owns token source and generated CSS plus JSON outputs.
 - `packages/ui` owns source/reference components.
 - `packages/registry` owns installable templates and metadata.
 - `packages/cli` installs registry items into user projects.
@@ -171,6 +173,7 @@ Stable enough to build against in the MVP:
 Internal or still evolving:
 
 - token authoring internals in `packages/tokens`
+- DTCG-compatible `tokens.json` generation and export policy
 - registry item generation internals
 - update/uninstall automation
 - remote registry hosting and version policy

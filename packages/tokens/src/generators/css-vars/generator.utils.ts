@@ -6,9 +6,8 @@
  *
  * @responsibility
  * - Convert token paths into CSS custom property names
- * - Flatten Neurex { value } token trees
  * - Convert token references into CSS variable references
- * - Ignore token group metadata during traversal
+ * - Keep CSS-specific output behavior separate from shared token traversal
  *
  * @notes
  * - This file is CSS-output-specific.
@@ -16,7 +15,13 @@
  * - It maps token references like {color.blue.600} to var(--nx-color-blue-600).
  */
 
-import type { TokenLeaf, TokenPrimitive, TokenTree } from "../../types/index.js"
+import type { TokenPrimitive, TokenTree } from "../../types/index.js"
+
+import {
+  DEFAULT_GENERATOR_METADATA_KEYS,
+  flattenTokenTree as flattenSharedTokenTree,
+  toTokenName,
+} from "../shared/index.js"
 
 import type {
   CssVarsGeneratorOptions,
@@ -26,61 +31,24 @@ import type {
 
 const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
 
-const DEFAULT_METADATA_KEYS = new Set([
-  "name",
-  "component",
-  "selector",
-  "colorScheme",
-])
-
 export const createDefaultCssVarsGeneratorOptions = (
   options: CssVarsGeneratorOptions,
 ): Required<CssVarsGeneratorOptions> => {
   return {
     cssVarPrefix: options.cssVarPrefix,
     groupNameOverrides: options.groupNameOverrides ?? {},
-    metadataKeys: options.metadataKeys ?? DEFAULT_METADATA_KEYS,
+    metadataKeys: options.metadataKeys ?? DEFAULT_GENERATOR_METADATA_KEYS,
   }
 }
 
-export const toKebabSegment = (segment: string): string => {
-  return segment
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .replace(/[\s_]+/g, "-")
-    .toLowerCase()
-}
-
-export const normalizeTokenName = (
-  name: string,
-  groupNameOverrides: Readonly<Record<string, string>>,
-): string => {
-  const sortedOverrides = Object.entries(groupNameOverrides).sort(
-    ([left], [right]) => right.length - left.length,
-  )
-
-  for (const [sourceName, outputName] of sortedOverrides) {
-    if (name === sourceName) {
-      return outputName
-    }
-
-    const sourceNamePrefix = `${sourceName}-`
-
-    if (name.startsWith(sourceNamePrefix)) {
-      return `${outputName}-${name.slice(sourceNamePrefix.length)}`
-    }
-  }
-
-  return name
-}
-
-export const toTokenName = (
-  path: string[],
-  groupNameOverrides: Readonly<Record<string, string>>,
-): string => {
-  return normalizeTokenName(
-    path.map(toKebabSegment).join("-"),
-    groupNameOverrides,
-  )
+/**
+ * Flattens a token tree using CSS generator options.
+ */
+export const flattenTokenTree = (
+  tree: TokenTree,
+  options: Required<CssVarsGeneratorOptions>,
+): FlattenedTokenEntry[] => {
+  return flattenSharedTokenTree(tree, options.metadataKeys)
 }
 
 export const toCssVarName = (
@@ -88,56 +56,6 @@ export const toCssVarName = (
   options: Required<CssVarsGeneratorOptions>,
 ): string => {
   return `--${options.cssVarPrefix}-${tokenName}`
-}
-
-const isRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
-
-export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
-  return (
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean" ||
-    value === null
-  )
-}
-
-export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  return isRecord(value) && "value" in value && isTokenPrimitive(value.value)
-}
-
-export const isTokenBranch = (value: unknown): value is TokenTree => {
-  return isRecord(value) && !isTokenLeaf(value)
-}
-
-export const flattenTokenTree = (
-  tree: TokenTree,
-  options: Required<CssVarsGeneratorOptions>,
-  path: string[] = [],
-): FlattenedTokenEntry[] => {
-  return Object.entries(tree).flatMap(([key, value]) => {
-    if (options.metadataKeys.has(key)) {
-      return []
-    }
-
-    const nextPath = key === "DEFAULT" ? path : [...path, key]
-
-    if (isTokenLeaf(value)) {
-      return [
-        {
-          path: nextPath,
-          value: value.value,
-        },
-      ]
-    }
-
-    if (isTokenBranch(value)) {
-      return flattenTokenTree(value, options, nextPath)
-    }
-
-    return []
-  })
 }
 
 export const toCssTokenValue = (

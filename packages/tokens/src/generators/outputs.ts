@@ -17,6 +17,7 @@ import {
   type CssVariableEntry,
   type CssVarsGeneratorOptions,
 } from "./css-vars"
+import { generateJsonTokens } from "./json"
 import { defaultStyleOutputConfig } from "./output-config.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
@@ -200,6 +201,12 @@ const createTokensCss = (): string => {
   )}\n`
 }
 
+const createTokensJson = (): string => {
+  const tokenTree = mergeTokenTrees(createBaseTokenTree(), createComponentTokenTree())
+
+  return generateJsonTokens(tokenTree).content
+}
+
 const createThemeBlock = (theme: ThemeDefinition): string => {
   const entries = createCssVariableEntries(
     getTokenTree(theme),
@@ -251,5 +258,6 @@ export const createStyleOutputs = (): StyleOutputs => {
   return {
     tokensCss: createTokensCss(),
     themeCss: createThemeCss(),
+    tokensJson: createTokensJson(),
   }
 }

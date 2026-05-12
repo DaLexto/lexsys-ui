@@ -28,7 +28,8 @@ THEME MODES
 OUTPUTS
   CSS vars
   Tailwind @theme
-  later Creator JSON/presets
+  DTCG JSON
+  later preset payloads
 
 COMPONENTS
   variants consume semantic tokens
@@ -68,13 +69,28 @@ They may control:
 The first official preset is:
 
 ```txt
-id: default
+consumer config key: default
+token preset id: neurex
 name: Neurex Default
+brand: neurex
 ```
 
 Future examples may include `space-indigo`, `graphite`, or other named
-presets. Those names are not active contracts until implemented. Today,
-`default` is the only implemented style preset.
+presets. Those names are not active contracts until implemented. Today, the
+only implemented style personality is Neurex Default.
+
+The CLI config still stores `style: "default"` as the consumer-facing install
+alias. The token package currently exposes the implemented preset as
+`defaultPresetId = "neurex"` and `neurexPreset`. Documentation and code should
+preserve that distinction until the CLI style key is formally wired to token
+preset ids.
+
+Current token preset files live under:
+
+```txt
+packages/tokens/src/presets/
+packages/tokens/src/brand/
+```
 
 Style presets are not theme modes.
 
@@ -142,6 +158,7 @@ Initial outputs should include:
 
 - CSS custom properties
 - Tailwind `@theme` mappings
+- DTCG-compatible `tokens.json` for token interop workflows
 
 Current install output paths are:
 
@@ -150,9 +167,21 @@ styles/tokens.css
 styles/theme.css
 ```
 
+Current package build output also includes:
+
+```txt
+dist/tokens.css
+dist/theme.css
+dist/tokens.json
+```
+
+`tokens.json` is generated from the same token source and is intended for token
+interop workflows such as design-tool or DTCG-compatible export pipelines. It is
+not installed into consumer projects by the registry style manifest today, and
+its public package export policy is still evolving.
+
 Future outputs may include:
 
-- Creator JSON
 - preset payloads
 - theme exchange formats
 
@@ -256,9 +285,11 @@ generated outputs as installable artifacts
 
 Stable/current:
 
-- `default` / `Neurex Default` style preset
+- `default` consumer config alias for Neurex Default
+- internal token preset id `neurex` for Neurex Default
 - light and dark theme mode output
 - CSS custom property output under `styles/`
+- DTCG-compatible `tokens.json` package output
 - Tailwind v4 consumer styling model
 - Vite-oriented CLI delivery
 - user-owned component source installed under `src/components/ui`
@@ -267,14 +298,14 @@ Stable/current:
 Internal/evolving:
 
 - token authoring module boundaries
-- exact style preset authoring API
+- exact style preset authoring API and CLI config mapping
 - remote registry/versioning policy
 - update/uninstall migration behavior
-- generated Creator payload formats
+- public export policy for generated JSON token payloads
 
 Planned but not active contract:
 
 - additional framework starters
-- style presets beyond `default`
+- style presets beyond Neurex Default
 - visual Creator UI
 - marketplace or remote preset delivery

@@ -205,8 +205,14 @@ Guidelines:
 - semantics give those values meaning
 - component tokens map semantics to component-level decisions
 - themes change values, not system structure
+- style presets live under `packages/tokens/src/presets`
+- brand metadata lives under `packages/tokens/src/brand`
+- theme mode implementations live under `packages/tokens/src/themes`
 
-Generated CSS belongs to the token pipeline, not to handwritten component styles.
+Generated CSS and JSON belong to the token pipeline, not to handwritten
+component styles. The current package build writes `tokens.css`, `theme.css`,
+and a DTCG-compatible `tokens.json`; the registry style manifest installs only
+the CSS outputs into consumer projects today.
 
 ---
 

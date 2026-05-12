@@ -67,6 +67,30 @@ Completed so far on `feature/cli-install-hardening`:
 
 ---
 
+## Progress Snapshot - 2026-05-12
+
+Current `refactor/tokens` work has moved the token package beyond the older
+CSS-only output model:
+
+- Neurex Default now has an internal token preset id of `neurex` and brand
+  `neurex`; the CLI config still stores the consumer-facing style alias as
+  `default`.
+- Token preset, brand, and theme mode files now live under
+  `packages/tokens/src/presets`, `packages/tokens/src/brand`, and
+  `packages/tokens/src/themes/neurex`.
+- The token generator now includes a DTCG-compatible JSON output path and writes
+  `dist/tokens.json` during package output generation.
+- Registry style installation still installs only `styles/tokens.css` and
+  `styles/theme.css`; JSON token output is currently package/internal output,
+  not a consumer install artifact.
+
+UNCONFIRMED: the in-progress generator split is not yet verified. On
+2026-05-12, `pnpm --filter @neurex/tokens typecheck` failed in
+`packages/tokens/src/generators/css-vars/generator.ts` because the shared
+flatten helper signature changed while callers still passed a path argument.
+
+---
+
 ## P0 - Publish and Install Blockers
 
 ### DONE: Make registry template resolution publish-safe
@@ -539,8 +563,10 @@ Latest successful checks from the implementation passes:
 - `pnpm build`
 - `npm run typecheck` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
 - `npm run build` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
-- CLI install-flow smoke: 7 CLI test files / 26 CLI tests passing, with
-  registry-driven coverage for the full bundled component set
+- CLI install-flow smoke: previously 7 CLI test files / 26 CLI tests passing;
+  current tree has 8 CLI test files before the in-progress token generator
+  refactor is reverified, with registry-driven coverage for the full bundled
+  component set
 - UI variant/API smoke: 32 UI test files / 49 UI tests passing
 - Registry validation smoke: 1 registry test file / 15 registry tests passing
 ```

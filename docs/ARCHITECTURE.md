@@ -195,7 +195,11 @@ style preset = design personality, density, radius, component feel
 theme mode   = light/dark/brand mapping inside that style
 ```
 
-The first style preset is `default` / `Neurex Default`.
+The first implemented style personality is `Neurex Default`. Consumer projects
+currently store it as `style: "default"` in `neurex.config.json`, while
+`@neurex/tokens` exposes the token preset as `id: "neurex"` with brand
+`neurex`. Treat `default` as the CLI/config alias and `neurex` as the current
+token package preset id until preset selection is formalized across packages.
 
 ### Token Layers
 
@@ -210,7 +214,7 @@ component tokens
   ↓ component-specific design decisions
 
 themes
-  ↓ generated CSS variables and theme output
+  ↓ generated CSS variables, Tailwind theme output, and token JSON output
 ```
 
 ### User-Facing Styling

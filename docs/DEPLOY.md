@@ -92,7 +92,9 @@ If `lint` or `test` are still placeholders, record that explicitly in the releas
 
 - compiled token entrypoints in `dist`
 - generated CSS artifacts in `dist`
-- explicit style export paths
+- generated DTCG-compatible `tokens.json` in `dist`
+- explicit style export paths for CSS outputs
+- intentional public export policy for non-CSS token outputs
 
 ---
 
@@ -150,7 +152,7 @@ This guide should be expanded when the repository adds:
 - a formal package publish flow
 - versioning and changelog policy
 - automated registry validation
-- generated token CSS outputs
 - update command support in the CLI
+- formal public export policy for generated token JSON outputs
 
 Until then, use this document as the minimum build-and-release contract.

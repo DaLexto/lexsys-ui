@@ -8,4 +8,5 @@
 export interface StyleOutputs {
   tokensCss: string
   themeCss: string
+  tokensJson: string
 }

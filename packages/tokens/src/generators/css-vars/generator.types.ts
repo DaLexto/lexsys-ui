@@ -15,7 +15,7 @@
  * - Token references are mapped to CSS variable references.
  */
 
-import type { TokenPrimitive } from "../../types"
+import type { FlattenedTokenEntry } from "../shared/index.js"
 
 /**
  * CSS variable entry created from a token leaf.
@@ -53,17 +53,11 @@ export interface CssVarsGeneratorOptions {
 }
 
 /**
- * Raw flattened token entry before CSS serialization.
- */
-export interface FlattenedTokenEntry {
-  path: string[]
-  value: TokenPrimitive
-}
-
-/**
  * Result returned by CSS variable generation.
  */
 export interface CssVarsGenerateResult {
   entries: CssVariableEntry[]
   css: string
 }
+
+export type { FlattenedTokenEntry }

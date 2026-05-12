@@ -16,6 +16,7 @@ const outputs = createStyleOutputs()
 if (args.has("--package")) {
   await writeOutput(resolve(packageRoot, "dist/tokens.css"), outputs.tokensCss)
   await writeOutput(resolve(packageRoot, "dist/theme.css"), outputs.themeCss)
+  await writeOutput(resolve(packageRoot, "dist/tokens.json"), outputs.tokensJson)
 }
 
 if (args.has("--registry")) {
