@@ -15,18 +15,17 @@
  * - It maps token references like {color.blue.600} to var(--nx-color-blue-600).
  */
 
-import type { TokenPrimitive, TokenTree } from "../../types/index.js"
+import type { TokenPrimitive } from "../../types/index.js"
 
 import {
   DEFAULT_GENERATOR_METADATA_KEYS,
-  flattenTokenTree as flattenSharedTokenTree,
   toTokenName,
+  type FlattenedTokenEntry,
 } from "../shared/index.js"
 
 import type {
   CssVarsGeneratorOptions,
   CssVariableEntry,
-  FlattenedTokenEntry,
 } from "./generator.types.js"
 
 const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
@@ -39,16 +38,6 @@ export const createDefaultCssVarsGeneratorOptions = (
     groupNameOverrides: options.groupNameOverrides ?? {},
     metadataKeys: options.metadataKeys ?? DEFAULT_GENERATOR_METADATA_KEYS,
   }
-}
-
-/**
- * Flattens a token tree using CSS generator options.
- */
-export const flattenTokenTree = (
-  tree: TokenTree,
-  options: Required<CssVarsGeneratorOptions>,
-): FlattenedTokenEntry[] => {
-  return flattenSharedTokenTree(tree, options.metadataKeys)
 }
 
 export const toCssVarName = (

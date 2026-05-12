@@ -107,5 +107,3 @@ export interface JsonGenerateResult {
   json: DtcgTokenTree
   content: string
 }
-
-export type { FlattenedTokenEntry }

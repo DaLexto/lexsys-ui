@@ -24,5 +24,4 @@ export type {
   CssVariableEntry,
   CssVarsGenerateResult,
   CssVarsGeneratorOptions,
-  FlattenedTokenEntry,
 } from "./generator.types"

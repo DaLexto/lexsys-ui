@@ -6,7 +6,7 @@
  *
  * @responsibility
  * - Define CSS variable generator options
- * - Define flattened CSS variable entries
+ * - Define CSS variable entries
  * - Keep CSS output types separate from token authoring types
  *
  * @notes
@@ -14,8 +14,6 @@
  * - It does not resolve token references to final primitive values.
  * - Token references are mapped to CSS variable references.
  */
-
-import type { FlattenedTokenEntry } from "../shared/index.js"
 
 /**
  * CSS variable entry created from a token leaf.
@@ -59,5 +57,3 @@ export interface CssVarsGenerateResult {
   entries: CssVariableEntry[]
   css: string
 }
-
-export type { FlattenedTokenEntry }

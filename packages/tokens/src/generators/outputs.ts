@@ -202,7 +202,10 @@ const createTokensCss = (): string => {
 }
 
 const createTokensJson = (): string => {
-  const tokenTree = mergeTokenTrees(createBaseTokenTree(), createComponentTokenTree())
+  const tokenTree = mergeTokenTrees(
+    createBaseTokenTree(),
+    createComponentTokenTree(),
+  )
 
   return generateJsonTokens(tokenTree).content
 }

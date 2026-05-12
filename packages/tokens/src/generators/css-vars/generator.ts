@@ -16,6 +16,7 @@
  */
 
 import type { TokenTree } from "../../types/index.js"
+import { flattenTokenTree as flattenSharedTokenTree } from "../shared/index.js"
 
 import type {
   CssVariableEntry,
@@ -25,7 +26,6 @@ import type {
 
 import {
   createDefaultCssVarsGeneratorOptions,
-  flattenTokenTree,
   toCssVariableEntry,
   toCssVarName,
 } from "./generator.utils.js"
@@ -66,7 +66,7 @@ export const createCssVariableEntries = (
 ): CssVariableEntry[] => {
   const resolvedOptions = createDefaultCssVarsGeneratorOptions(options)
 
-  return flattenTokenTree(tree, resolvedOptions, path)
+  return flattenSharedTokenTree(tree, resolvedOptions.metadataKeys, path)
     .map((entry) => toCssVariableEntry(entry, resolvedOptions))
     .filter((entry): entry is CssVariableEntry => entry !== null)
 }
@@ -82,7 +82,11 @@ export const generateCssVariables = (
   path: string[] = [],
 ): CssVarsGenerateResult => {
   const resolvedOptions = createDefaultCssVarsGeneratorOptions(options)
-  const entries = flattenTokenTree(tree, resolvedOptions, path)
+  const entries = flattenSharedTokenTree(
+    tree,
+    resolvedOptions.metadataKeys,
+    path,
+  )
     .map((entry) => toCssVariableEntry(entry, resolvedOptions))
     .filter((entry): entry is CssVariableEntry => entry !== null)
 

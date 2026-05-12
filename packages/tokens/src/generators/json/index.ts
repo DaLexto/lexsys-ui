@@ -19,7 +19,6 @@ export type {
   DtcgTokenTree,
   DtcgTokenType,
   DtcgTokenTypeResolver,
-  FlattenedTokenEntry,
   JsonGenerateResult,
   JsonGeneratorOptions,
 } from "./generator.types.js"

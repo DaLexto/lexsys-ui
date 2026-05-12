@@ -84,10 +84,10 @@ CSS-only output model:
   `styles/theme.css`; JSON token output is currently package/internal output,
   not a consumer install artifact.
 
-UNCONFIRMED: the in-progress generator split is not yet verified. On
-2026-05-12, `pnpm --filter @neurex/tokens typecheck` failed in
-`packages/tokens/src/generators/css-vars/generator.ts` because the shared
-flatten helper signature changed while callers still passed a path argument.
+Resolved on 2026-05-12: the CSS variables generator now preserves the optional
+path argument when delegating to the shared flatten helper. Verification passed
+with `pnpm --filter @neurex/tokens typecheck`, `pnpm --filter @neurex/tokens
+test`, and `pnpm --filter @neurex/tokens check`.
 
 ---
 

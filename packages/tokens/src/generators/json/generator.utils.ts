@@ -19,13 +19,13 @@
 import {
   DEFAULT_GENERATOR_METADATA_KEYS,
   toTokenName,
+  type FlattenedTokenEntry,
 } from "../shared/index.js"
 
 import type {
   DtcgTokenLeaf,
   DtcgTokenTree,
   DtcgTokenType,
-  FlattenedTokenEntry,
   JsonGeneratorOptions,
 } from "./generator.types.js"
 
