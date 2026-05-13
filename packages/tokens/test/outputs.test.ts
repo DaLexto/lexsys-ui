@@ -182,6 +182,22 @@ describe("createStyleOutputs", () => {
           $type?: unknown
         }
       }
+      typography?: {
+        family?: {
+          sans?: {
+            $value?: unknown
+            $type?: unknown
+          }
+        }
+        body?: {
+          md?: {
+            fontFamily?: {
+              $value?: unknown
+              $type?: unknown
+            }
+          }
+        }
+      }
     }
 
     expect(json.color?.blue?.["600"]).toEqual({
@@ -199,6 +215,14 @@ describe("createStyleOutputs", () => {
     expect(json.size?.["10"]).toEqual({
       $value: "2.5rem",
       $type: "dimension",
+    })
+    expect(json.typography?.family?.sans).toEqual({
+      $value: "{font-family.sans}",
+      $type: "fontFamily",
+    })
+    expect(json.typography?.body?.md?.fontFamily).toEqual({
+      $value: "{typography.family.sans}",
+      $type: "fontFamily",
     })
   })
 

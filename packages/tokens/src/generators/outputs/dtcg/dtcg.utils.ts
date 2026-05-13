@@ -49,6 +49,8 @@ const DEFAULT_TOKEN_TYPE_BY_GROUP: Readonly<Record<string, DtcgTokenType>> = {
 
   "motion-duration": "duration",
   "motion-easing": "cubicBezier",
+
+  "typography-family": "fontFamily",
 }
 
 const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
