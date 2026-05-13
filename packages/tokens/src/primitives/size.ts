@@ -1,7 +1,32 @@
+/**
+ * size.ts
+ *
+ * @layer primitives
+ * @description Defines the raw primitive size scale used by the token system.
+ *
+ * @responsibility
+ * - Provides reusable width, height, and fixed-size values
+ * - Keeps raw size decisions centralized in the primitive layer
+ * - Serves as the source for semantic and component size mappings
+ *
+ * @usage
+ * - Use these values only as primitive token sources
+ * - Semantic size tokens should map from this file
+ * - Components must not consume primitive sizes directly
+ *
+ * @notes
+ * - This file contains raw size values only
+ * - It does not define semantic usage such as control height, icon size, or container size
+ * - Size tokens use the DTCG `dimension` type
+ */
+
 import type { PrimitiveTokenGroup } from "../types"
 
 export const sizePrimitives: PrimitiveTokenGroup = {
   name: "size",
+  $description:
+    "Raw size scale used as the source for fixed width, height, and component sizing semantics.",
+
   1: { $value: "0.25rem", $type: "dimension" },
   2: { $value: "0.5rem", $type: "dimension" },
   3: { $value: "0.75rem", $type: "dimension" },

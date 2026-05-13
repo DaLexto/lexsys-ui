@@ -1,1 +1,43 @@
-// TODO: Needs to be implemented.
+/**
+ * opacity.ts
+ *
+ * @layer primitives
+ * @description Defines the raw primitive opacity scale used by the token system.
+ *
+ * @responsibility
+ * - Provides reusable alpha values for transparency decisions
+ * - Keeps raw opacity decisions centralized in the primitive layer
+ * - Serves as the source for semantic state, overlay, and disabled mappings
+ *
+ * @usage
+ * - Use these values only as primitive token sources
+ * - Semantic opacity tokens should map from this file
+ * - Components must not consume primitive opacity values directly
+ *
+ * @notes
+ * - This file contains raw opacity values only
+ * - It does not define semantic usage such as disabled, overlay, hover, or muted states
+ * - Opacity tokens use the DTCG `number` type
+ * - Values are unitless numbers from 0 to 1
+ */
+
+import type { PrimitiveTokenGroup } from "../types/index.js"
+
+export const opacityPrimitives: PrimitiveTokenGroup = {
+  name: "opacity",
+  $description:
+    "Raw opacity scale used as the source for transparency and state semantics.",
+
+  0: { $value: 0, $type: "number" },
+  5: { $value: 0.05, $type: "number" },
+  10: { $value: 0.1, $type: "number" },
+  20: { $value: 0.2, $type: "number" },
+  30: { $value: 0.3, $type: "number" },
+  40: { $value: 0.4, $type: "number" },
+  50: { $value: 0.5, $type: "number" },
+  60: { $value: 0.6, $type: "number" },
+  70: { $value: 0.7, $type: "number" },
+  80: { $value: 0.8, $type: "number" },
+  90: { $value: 0.9, $type: "number" },
+  100: { $value: 1, $type: "number" },
+}
