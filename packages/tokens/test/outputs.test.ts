@@ -350,6 +350,40 @@ describe("createStyleOutputs", () => {
     expect(css).not.toContain("--nx-$extensions")
   })
 
+  test("rejects theme css generation without semantic token path metadata", () => {
+    const outputs = createStyleOutputs()
+    const tokensJson = JSON.parse(outputs.tokensJson) as {
+      $extensions: {
+        "org.neurex": {
+          semanticTokenPaths?: unknown
+        }
+      }
+    }
+
+    delete tokensJson.$extensions["org.neurex"].semanticTokenPaths
+
+    expect(() => {
+      createThemeCssFromDtcgJson(JSON.stringify(tokensJson), outputs.themesJson)
+    }).toThrow('DTCG token document extension "org.neurex" is missing')
+  })
+
+  test("rejects theme css generation without theme metadata", () => {
+    const outputs = createStyleOutputs()
+    const themesJson = JSON.parse(outputs.themesJson) as {
+      $extensions: {
+        "org.neurex": {
+          themes?: unknown
+        }
+      }
+    }
+
+    delete themesJson.$extensions["org.neurex"].themes
+
+    expect(() => {
+      createThemeCssFromDtcgJson(outputs.tokensJson, JSON.stringify(themesJson))
+    }).toThrow('DTCG theme document extension "org.neurex" is missing')
+  })
+
   test("keeps authoring tokens prefix-free", () => {
     const tokenSource = JSON.stringify({
       componentTokens,

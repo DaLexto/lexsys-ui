@@ -296,6 +296,8 @@ Status:
 - `tokensJson` carries Neurex-owned `semanticTokenPaths` metadata so the DTCG
   round-trip can rebuild the same semantic Tailwind `@theme` source without
   treating primitive or component tokens as theme variables.
+- The JSON import boundary now has negative coverage for missing semantic path
+  and theme metadata so invalid round-trip inputs fail explicitly.
 - Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant
   in every composite value type yet.
 - Remaining work: tighten external JSON validation and define import adapters
