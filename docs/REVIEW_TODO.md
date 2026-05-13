@@ -329,7 +329,8 @@ Status:
   output target is selected, uses an explicit CLI failure boundary with
   `process.exit(1)`, and reads `registryStylesPath` from
   `style-output.config.ts`.
-- Not started: yellow primitive scale review.
+- Done: yellow primitive scale review confirmed the current lightness values
+  move predictably from 50 to 950; regression coverage now guards that order.
 - Done: `size.ts` now explicitly marks every token with
   `$type: "dimension"`.
 - Done: `line-height.ts` now keeps only unitless named tokens typed as

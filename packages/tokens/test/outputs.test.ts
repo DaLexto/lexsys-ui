@@ -2,10 +2,21 @@ import { describe, expect, test } from "vitest"
 import { componentTokens } from "../src/components/index.js"
 import { createStyleOutputs } from "../src/generators/create-style-outputs.js"
 import { createStyleTokenInput } from "../src/generators/input/index.js"
+import { colorPrimitives } from "../src/primitives/color.js"
 import { primitiveTokens } from "../src/primitives/index.js"
 import { semanticTokens } from "../src/semantics/index.js"
 import { neurexPreset, defaultPresetId, presets } from "../src/presets/index.js"
 import { themes } from "../src/themes/index.js"
+
+const getOklchLightness = (value: unknown): number => {
+  expect(typeof value).toBe("string")
+
+  const match = String(value).match(/^oklch\((\d+(?:\.\d+)?)\s/)
+
+  expect(match?.[1]).toBeDefined()
+
+  return Number(match?.[1])
+}
 
 describe("createStyleOutputs", () => {
   test("assembles a W3C/DTCG-shaped generator input contract", () => {
@@ -52,6 +63,33 @@ describe("createStyleOutputs", () => {
       defaultTheme: "light",
     })
     expect(presets).toEqual([neurexPreset])
+  })
+
+  test("keeps the yellow primitive scale ordered from light to dark", () => {
+    const yellow = colorPrimitives.yellow as Record<
+      string,
+      { $value?: unknown }
+    >
+    const shadeKeys = [
+      "50",
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900",
+      "950",
+    ]
+    const lightnessValues = shadeKeys.map((shade) => {
+      return getOklchLightness(yellow[shade]?.$value)
+    })
+
+    lightnessValues.slice(1).forEach((lightness, index) => {
+      expect(lightness).toBeLessThan(lightnessValues[index] ?? Number.NaN)
+    })
   })
 
   test("generates token and theme css from token source", () => {
