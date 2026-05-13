@@ -11,6 +11,7 @@ describe("createStyleOutputs", () => {
   test("assembles a W3C/DTCG-shaped generator input contract", () => {
     const input = createStyleTokenInput()
 
+    expect(input.preset).toBe(neurexPreset)
     expect(input.foundationTokens.color).toBeDefined()
     expect(input.foundationTokens.radius).toBeDefined()
     expect(input.componentTokens.button).toBeDefined()
@@ -19,8 +20,21 @@ describe("createStyleOutputs", () => {
       name: "light",
       selector: ":root",
       colorScheme: "light",
+      brand: "neurex",
     })
     expect(input.themeTokens[0]?.tokens.color).toBeDefined()
+  })
+
+  test("uses one active preset when assembling generator input", () => {
+    const input = createStyleTokenInput({
+      presetId: "neurex",
+    })
+
+    expect(input.preset.id).toBe("neurex")
+    expect(input.themeTokens.map((theme) => theme.name)).toEqual([
+      "light",
+      "dark",
+    ])
   })
 
   test("defines Neurex Default as the first style preset", () => {

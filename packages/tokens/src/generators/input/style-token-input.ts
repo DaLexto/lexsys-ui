@@ -1,17 +1,23 @@
 import { componentTokens as componentTokenGroups } from "../../components"
 import { primitiveTokens } from "../../primitives"
+import { defaultPresetId, presets } from "../../presets"
 import { resolveTokenTree } from "../../resolver"
 import { semanticTokens } from "../../semantics"
 import { themes } from "../../themes"
 import type {
   ComponentTokenGroup,
+  PresetDefinition,
+  PresetId,
   PrimitiveTokenGroup,
   SemanticTokenGroup,
   ThemeDefinition,
   ThemeModeId,
   TokenTree,
 } from "../../types"
-import { DEFAULT_GENERATOR_METADATA_KEYS } from "../shared/index.js"
+import {
+  DEFAULT_GENERATOR_METADATA_KEYS,
+  isTokenBranch,
+} from "../shared"
 
 type TokenSourceGroup =
   | PrimitiveTokenGroup
@@ -21,28 +27,22 @@ type TokenSourceGroup =
 
 export interface ThemeTokenInput {
   name: ThemeModeId
+  brand: ThemeDefinition["brand"]
   selector: ThemeDefinition["selector"]
   colorScheme: ThemeDefinition["colorScheme"]
   tokens: TokenTree
 }
 
+export interface StyleTokenInputOptions {
+  presetId?: PresetId
+}
+
 export interface StyleTokenInput {
+  preset: PresetDefinition
   foundationTokens: TokenTree
   componentTokens: TokenTree
   tokenTree: TokenTree
   themeTokens: ThemeTokenInput[]
-}
-
-const isRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
-
-const isTokenLeafLike = (value: unknown): boolean => {
-  return isRecord(value) && "$value" in value
-}
-
-const isTokenBranchLike = (value: unknown): value is TokenTree => {
-  return isRecord(value) && !isTokenLeafLike(value)
 }
 
 export const getTokenTree = (group: TokenSourceGroup): TokenTree => {
@@ -60,7 +60,7 @@ export const mergeTokenTrees = (...trees: TokenTree[]): TokenTree => {
     for (const [key, value] of Object.entries(tree)) {
       const existingValue = merged[key]
 
-      if (isTokenBranchLike(existingValue) && isTokenBranchLike(value)) {
+      if (isTokenBranch(existingValue) && isTokenBranch(value)) {
         merged[key] = mergeTokenTrees(existingValue, value)
         continue
       }
@@ -103,30 +103,83 @@ const createTokenTreeFromComponentGroups = (
 
 const createThemeTokenInputs = (
   themeDefinitions: ThemeDefinition[],
+  preset: PresetDefinition,
 ): ThemeTokenInput[] => {
-  return themeDefinitions.map((theme) => {
-    return {
-      name: theme.name,
-      selector: theme.selector,
-      colorScheme: theme.colorScheme,
-      tokens: getTokenTree(theme),
-    }
-  })
+  return themeDefinitions
+    .filter((theme) => {
+      const matchesThemeMode = preset.themeModes.includes(theme.name)
+      const matchesBrand =
+        preset.brand === undefined ||
+        theme.brand === undefined ||
+        theme.brand === preset.brand
+
+      return matchesThemeMode && matchesBrand
+    })
+    .map((theme) => {
+      return {
+        name: theme.name,
+        brand: theme.brand,
+        selector: theme.selector,
+        colorScheme: theme.colorScheme,
+        tokens: getTokenTree(theme),
+      }
+    })
 }
 
-export const createStyleTokenInput = (): StyleTokenInput => {
+const resolvePreset = (presetId: PresetId): PresetDefinition => {
+  const preset = presets.find((candidate) => {
+    return candidate.id === presetId
+  })
+
+  if (preset === undefined) {
+    throw new Error(`Unknown token preset "${presetId}".`)
+  }
+
+  return preset
+}
+
+const validatePresetThemeCoverage = (
+  preset: PresetDefinition,
+  themeInputs: ThemeTokenInput[],
+): void => {
+  const themeNames = new Set(
+    themeInputs.map((theme) => {
+      return theme.name
+    }),
+  )
+  const missingThemeModes = preset.themeModes.filter((themeMode) => {
+    return !themeNames.has(themeMode)
+  })
+
+  if (missingThemeModes.length === 0) {
+    return
+  }
+
+  throw new Error(
+    `Token preset "${preset.id}" is missing theme modes: ${missingThemeModes.join(", ")}.`,
+  )
+}
+
+export const createStyleTokenInput = (
+  options: StyleTokenInputOptions = {},
+): StyleTokenInput => {
+  const preset = resolvePreset(options.presetId ?? defaultPresetId)
   const foundationTokens = createTokenTreeFromNamedGroups([
     ...primitiveTokens,
     ...semanticTokens,
   ])
   const componentTokens =
     createTokenTreeFromComponentGroups(componentTokenGroups)
+  const themeTokens = createThemeTokenInputs(themes, preset)
+
+  validatePresetThemeCoverage(preset, themeTokens)
 
   return {
+    preset,
     foundationTokens,
     componentTokens,
     tokenTree: mergeTokenTrees(foundationTokens, componentTokens),
-    themeTokens: createThemeTokenInputs(themes),
+    themeTokens,
   }
 }
 

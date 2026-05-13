@@ -262,12 +262,79 @@ Status:
 - In progress.
 - The generator now has an internal `generators/input` boundary that converts
   TypeScript authoring groups into a W3C/DTCG-shaped `StyleTokenInput`.
+- `StyleTokenInput` now carries one active preset context via `presetId`, rather
+  than the full preset catalog; theme inputs are selected from that active
+  preset.
 - CSS and DTCG JSON outputs now consume that shared input contract instead of
   rebuilding token trees independently inside output orchestration.
 - Current output is W3C/DTCG-shaped, but not strict W3C/DTCG compliant in every
   value type yet.
 - Remaining work: define strict JSON validation/imports so external
   Figma/Tokens Studio JSON can produce the same `StyleTokenInput` shape.
+
+### TODO: Finish token generator and primitive hygiene backlog
+
+Problem:
+
+- The DTCG migration and generator split exposed a set of smaller correctness
+  and hygiene items across token input assembly, output generation, primitives,
+  semantics, types, and DTCG output inference.
+- Some of the notes are already completed by the current branch, but they need
+  to stay visible so the remaining work is not mixed with finished cleanup.
+
+Direction:
+
+- Keep generator input assembly layered: shared generator helpers can be reused
+  by generator code, while resolver internals should not become a dependency of
+  the input assembler.
+- Make Tailwind `@theme` generation explicit and complete:
+  - select the light theme by name instead of using `themeTokens[0]`
+  - map all semantic entries automatically instead of hardcoding color patterns
+  - remove duplicate `color-` prefixes before Tailwind variable mapping
+- Harden `write-style-outputs.ts`:
+  - add argument validation and clear warnings when neither `--package` nor
+    `--registry` is provided
+  - if a CLI-level catch is added, keep it as an explicit recovery boundary that
+    reports the failure and exits with `process.exit(1)`
+  - move registry output paths into `style-output.config.ts`
+- Tighten primitive token correctness:
+  - fix the yellow color scale so lightness moves predictably from 50 to 500
+  - keep font-size and size primitives explicitly typed as dimensions
+  - make line-height unitless-only and typed as `number`
+- Update typography semantics after line-height cleanup so all references use
+  named line-height tokens such as `{line-height.normal}`.
+- Tighten group/type contracts so token groups use `TokenNode | string` style
+  constraints where possible instead of broad `unknown`.
+- Align DTCG type inference with token meaning, especially `line-height` as
+  `number` and `font-family` as `fontFamily`.
+
+Status:
+
+- Done: local `isTokenLeafLike` / branch guard duplication was removed from
+  `generators/input/style-token-input.ts`; it now reuses `isTokenBranch` from
+  generator shared utilities instead of importing resolver internals.
+- Done: `.primitive` suffixes were removed from `packages/tokens/src/primitives`
+  files.
+- Done: `font-size.ts` now explicitly marks each token with
+  `$type: "dimension"`.
+- Done: `token.types.ts` excludes `boolean` and `null` from `TokenPrimitive`,
+  and the old `TokenGroupProperty` type is no longer present.
+- Done: `resolver.utils.ts` now treats only `string | number` as token
+  primitives and detects token leaves with `$value`.
+- Not started: `createTailwindThemeBlock` still selects `themeTokens[0]` and
+  needs explicit light-theme selection plus automatic semantic mapping.
+- Not started: `write-style-outputs.ts` still owns registry output path
+  construction; `style-output.config.ts` still needs `registryStylesPath`.
+- Not started: yellow primitive scale review.
+- Not started: `size.ts` still needs explicit `$type: "dimension"` on each
+  token.
+- Not started: `line-height.ts` still contains numeric rem values and needs to
+  become unitless-only.
+- Not started: `semantics/typography.ts` still references numeric line-height
+  tokens such as `{line-height.6}`.
+- Not started: `group.types.ts` still uses broad `[key: string]: unknown`.
+- Not started: DTCG type inference still maps `line-height` to `dimension`;
+  font-family behavior for typography sub-tokens still needs review.
 
 ### DONE: Migrate semantic color tokens to structured hierarchy
 

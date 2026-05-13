@@ -2,6 +2,8 @@ import type { StyleOutputs } from "../types"
 import {
   createStyleTokenInput,
   validateStyleTokenInput,
+  type StyleTokenInput,
+  type StyleTokenInputOptions,
   type ThemeTokenInput,
 } from "./input"
 import {
@@ -23,22 +25,17 @@ const cssVarsGeneratorOptions: Required<CssVarsGeneratorOptions> = {
   metadataKeys: DEFAULT_GENERATOR_METADATA_KEYS,
 }
 
-const styleTokenInput = createStyleTokenInput()
-
 const toCssVarReference = (tokenName: string): string => {
   return `var(--${cssPrefix}-${tokenName})`
 }
 
-const createTokensCss = (): string => {
+const createTokensCss = (input: StyleTokenInput): string => {
   const entries = [
     ...createCssVariableEntries(
-      styleTokenInput.foundationTokens,
+      input.foundationTokens,
       cssVarsGeneratorOptions,
     ),
-    ...createCssVariableEntries(
-      styleTokenInput.componentTokens,
-      cssVarsGeneratorOptions,
-    ),
+    ...createCssVariableEntries(input.componentTokens, cssVarsGeneratorOptions),
   ]
 
   return `${styleOutputConfig.styleHeader}\n\n${createCssBlock(
@@ -48,8 +45,8 @@ const createTokensCss = (): string => {
   )}\n`
 }
 
-const createTokensJson = (): string => {
-  return generateJsonTokens(styleTokenInput.tokenTree).content
+const createTokensJson = (input: StyleTokenInput): string => {
+  return generateJsonTokens(input.tokenTree).content
 }
 
 const createThemeBlock = (theme: ThemeTokenInput): string => {
@@ -63,8 +60,8 @@ const createThemeBlock = (theme: ThemeTokenInput): string => {
   ])
 }
 
-const createTailwindThemeBlock = (): string => {
-  const firstTheme = styleTokenInput.themeTokens[0]
+const createTailwindThemeBlock = (input: StyleTokenInput): string => {
+  const firstTheme = input.themeTokens[0]
   const semanticEntries =
     firstTheme === undefined
       ? []
@@ -83,23 +80,27 @@ const createTailwindThemeBlock = (): string => {
   return ["@theme inline {", ...colorLines, ...radiusLines, "}"].join("\n")
 }
 
-const createThemeCss = (): string => {
-  const themeBlocks = styleTokenInput.themeTokens.map((theme) => {
+const createThemeCss = (input: StyleTokenInput): string => {
+  const themeBlocks = input.themeTokens.map((theme) => {
     return createThemeBlock(theme)
   })
 
   return `${styleOutputConfig.styleHeader}\n\n${[
     ...themeBlocks,
-    createTailwindThemeBlock(),
+    createTailwindThemeBlock(input),
   ].join("\n\n")}\n`
 }
 
-export const createStyleOutputs = (): StyleOutputs => {
-  validateStyleTokenInput(styleTokenInput)
+export const createStyleOutputs = (
+  options: StyleTokenInputOptions = {},
+): StyleOutputs => {
+  const input = createStyleTokenInput(options)
+
+  validateStyleTokenInput(input)
 
   return {
-    tokensCss: createTokensCss(),
-    themeCss: createThemeCss(),
-    tokensJson: createTokensJson(),
+    tokensCss: createTokensCss(input),
+    themeCss: createThemeCss(input),
+    tokensJson: createTokensJson(input),
   }
 }

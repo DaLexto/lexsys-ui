@@ -71,6 +71,8 @@ ComponentName.variants.ts
 - Use `camelCase` for variables and function names.
 - Use clear, domain-specific names over abbreviations.
 - Keep canonical component naming aligned across `ui`, `registry`, and templates.
+- Let folder context carry repeated file meaning when every file in the folder is the same kind, for example `primitives/color.ts`, `semantics/color.ts`, and `themes/neurex/light.ts`.
+- Keep role suffixes in mixed folders where files have different jobs, for example `resolver.types.ts`, `resolver.utils.ts`, `generator.types.ts`, and component `.types.ts` / `.variants.ts` files.
 
 ---
 

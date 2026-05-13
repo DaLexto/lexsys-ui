@@ -134,6 +134,10 @@ may all produce that same JSON contract.
 Current implementation now creates an internal `StyleTokenInput` from the
 TypeScript authoring files before generating CSS or DTCG JSON. This is the first
 boundary toward letting future JSON imports feed the same output generators.
+`StyleTokenInput` represents one active preset build, not the full preset
+catalog. For example, `createStyleTokenInput({ presetId: "neurex" })` selects
+the active style preset, filters compatible theme modes for that preset, and
+then feeds CSS and DTCG JSON outputs from that selected context.
 
 They define:
 
