@@ -173,7 +173,11 @@ Stable enough to build against in the MVP:
 Internal or still evolving:
 
 - token authoring internals in `packages/tokens`
-- DTCG-compatible `tokens.json` generation and export policy
+- DTCG-compatible `tokens.json` package export policy; the file is generated
+  today, but an explicit `./tokens.json` package export is intentionally
+  deferred until the public contract is finalized
+- `@neurex/ui` CSS `sideEffects` policy; no UI CSS file is currently emitted,
+  so the package metadata should stay under review before publish
 - registry item generation internals
 - update/uninstall automation
 - remote registry hosting and version policy

@@ -51,6 +51,40 @@ const DEFAULT_TOKEN_TYPE_BY_GROUP: Readonly<Record<string, DtcgTokenType>> = {
   "motion-easing": "cubicBezier",
 }
 
+const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
+
+const resolveTokenNameType = (
+  tokenName: string,
+  tokenTypeByGroup: Readonly<Record<string, DtcgTokenType>>,
+): DtcgTokenType | undefined => {
+  const sortedTypeEntries = Object.entries(tokenTypeByGroup).sort(
+    ([left], [right]) => right.length - left.length,
+  )
+
+  for (const [groupName, tokenType] of sortedTypeEntries) {
+    if (tokenName === groupName || tokenName.startsWith(`${groupName}-`)) {
+      return tokenType
+    }
+  }
+
+  return undefined
+}
+
+const getReferenceTokenName = (value: unknown): string | undefined => {
+  if (typeof value !== "string") {
+    return undefined
+  }
+
+  const reference = value.match(STRICT_REFERENCE_PATTERN)
+  const referencePath = reference?.[1]
+
+  if (referencePath === undefined) {
+    return undefined
+  }
+
+  return toTokenName(referencePath.split("."), {})
+}
+
 /**
  * Creates required JSON generator options with default values applied.
  */
@@ -73,15 +107,20 @@ export const resolveDtcgTokenType = (
   options: Required<JsonGeneratorOptions>,
 ): DtcgTokenType => {
   const tokenName = toTokenName(entry.path, {})
+  const pathTokenType = resolveTokenNameType(tokenName, options.tokenTypeByGroup)
 
-  const sortedTypeEntries = Object.entries(options.tokenTypeByGroup).sort(
-    ([left], [right]) => right.length - left.length,
-  )
+  if (pathTokenType !== undefined) {
+    return pathTokenType
+  }
 
-  for (const [groupName, tokenType] of sortedTypeEntries) {
-    if (tokenName === groupName || tokenName.startsWith(`${groupName}-`)) {
-      return tokenType
-    }
+  const referenceTokenName = getReferenceTokenName(entry.value)
+  const referenceTokenType =
+    referenceTokenName === undefined
+      ? undefined
+      : resolveTokenNameType(referenceTokenName, options.tokenTypeByGroup)
+
+  if (referenceTokenType !== undefined) {
+    return referenceTokenType
   }
 
   if (typeof entry.value === "number") {

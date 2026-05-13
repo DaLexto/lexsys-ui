@@ -25,7 +25,7 @@ making the CLI and registry behavior real before adding many new components.
 
 ## Progress Snapshot - 2026-04-28
 
-Completed so far on `feature/cli-install-hardening`:
+Completed so far across the CLI/install hardening and token architecture passes:
 
 - Tooling foundation added: ESLint, Prettier, Tailwind CSS package setup,
   Vitest, Turbo scripts, pnpm workspace cleanup, and repo-level check/build
@@ -88,6 +88,18 @@ Resolved on 2026-05-12: the CSS variables generator now preserves the optional
 path argument when delegating to the shared flatten helper. Verification passed
 with `pnpm --filter @neurex/tokens typecheck`, `pnpm --filter @neurex/tokens
 test`, and `pnpm --filter @neurex/tokens check`.
+
+Current hygiene decision:
+
+- `tokens.json` remains generated package output, but an explicit
+  `./tokens.json` package export is intentionally deferred until the public JSON
+  contract is finalized.
+- `@neurex/ui` still declares a CSS side-effect path even though the current UI
+  build does not emit CSS; this is intentionally left as pre-publish metadata
+  review until the UI distribution contract is finalized.
+- JSON token output now has focused test coverage for DTCG `{ $value, $type }`
+  leaves, including component token references that preserve the reference value
+  while inferring type from the referenced token path.
 
 ---
 
@@ -163,7 +175,6 @@ Status:
 
 ## P1 - Architecture Contract Gaps
 
-```md
 ### DONE: Migrate semantic color tokens to structured hierarchy
 
 Problem:
@@ -569,4 +580,3 @@ Latest successful checks from the implementation passes:
   component set
 - UI variant/API smoke: 32 UI test files / 49 UI tests passing
 - Registry validation smoke: 1 registry test file / 15 registry tests passing
-```

@@ -196,7 +196,6 @@ Color semantics should use the structured semantic hierarchy:
 
 ```txt
 background / text / border / feedback / action
-background / text / border / feedback / action
 ```
 
 Guidelines:

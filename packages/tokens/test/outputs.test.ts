@@ -75,6 +75,35 @@ describe("createStyleOutputs", () => {
     expect(outputs.themeCss).toContain("--color-nx-action-primary-base")
   })
 
+  test("generates DTCG-compatible token json from token source", () => {
+    const outputs = createStyleOutputs()
+    const json = JSON.parse(outputs.tokensJson) as {
+      color?: {
+        blue?: {
+          "600"?: {
+            $value?: unknown
+            $type?: unknown
+          }
+        }
+      }
+      button?: {
+        radius?: {
+          $value?: unknown
+          $type?: unknown
+        }
+      }
+    }
+
+    expect(json.color?.blue?.["600"]).toEqual({
+      $value: "oklch(0.455 0.191 259.631)",
+      $type: "color",
+    })
+    expect(json.button?.radius).toEqual({
+      $value: "{radius.control}",
+      $type: "dimension",
+    })
+  })
+
   test("keeps authoring tokens prefix-free", () => {
     const tokenSource = JSON.stringify({
       componentTokens,

@@ -19,23 +19,16 @@ import {
 } from "./css-vars"
 import { generateJsonTokens } from "./json"
 import { defaultStyleOutputConfig } from "./output-config.js"
+import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared/index.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
 const cssPrefix = styleOutputConfig.cssVarPrefix
 const twPrefix = styleOutputConfig.tailwindPrefix
 
-const tokenGroupMetadataKeys = new Set([
-  "name",
-  "component",
-  "brand",
-  "selector",
-  "colorScheme",
-])
-
 const cssVarsGeneratorOptions: Required<CssVarsGeneratorOptions> = {
   cssVarPrefix: cssPrefix,
   groupNameOverrides: styleOutputConfig.groupNameOverrides,
-  metadataKeys: tokenGroupMetadataKeys,
+  metadataKeys: DEFAULT_GENERATOR_METADATA_KEYS,
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
@@ -58,7 +51,9 @@ const getTokenTree = (
     | ThemeDefinition,
 ): TokenTree => {
   return Object.fromEntries(
-    Object.entries(group).filter(([key]) => !tokenGroupMetadataKeys.has(key)),
+    Object.entries(group).filter(
+      ([key]) => !DEFAULT_GENERATOR_METADATA_KEYS.has(key),
+    ),
   ) as TokenTree
 }
 

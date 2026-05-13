@@ -178,7 +178,10 @@ dist/tokens.json
 `tokens.json` is generated from the same token source and is intended for token
 interop workflows such as design-tool or DTCG-compatible export pipelines. It is
 not installed into consumer projects by the registry style manifest today, and
-its public package export policy is still evolving.
+its explicit package export is intentionally deferred until the public JSON
+contract is finalized. JSON output preserves token reference strings such as
+`{radius.control}`, while DTCG `$type` values are inferred from either the token
+path or the referenced token path when available.
 
 Future outputs may include:
 
