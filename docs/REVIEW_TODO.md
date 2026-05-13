@@ -175,7 +175,7 @@ Status:
 
 ## P1 - Architecture Contract Gaps
 
-### TODO: Migrate token leaf authoring to DTCG keys
+### DONE: Migrate token leaf authoring to DTCG keys
 
 Problem:
 
@@ -210,7 +210,8 @@ Direction:
 
 Status:
 
-- Done.
+- Done: token leaf authoring now uses DTCG-style `$value`, `$type`, and
+  `$description` keys across token source files and resolver/generator tests.
 - `token.types.ts` now uses the DTCG-style leaf shape and English ASCII
   comments.
 - `resolver.utils.ts` has started reading `$value`.
