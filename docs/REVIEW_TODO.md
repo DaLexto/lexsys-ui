@@ -259,11 +259,15 @@ Figma / Tokens Studio -> W3C/DTCG Design Tokens JSON ┘
 
 Status:
 
-- Planned.
+- In progress.
+- The generator now has an internal `generators/input` boundary that converts
+  TypeScript authoring groups into a W3C/DTCG-shaped `StyleTokenInput`.
+- CSS and DTCG JSON outputs now consume that shared input contract instead of
+  rebuilding token trees independently inside output orchestration.
 - Current output is W3C/DTCG-shaped, but not strict W3C/DTCG compliant in every
   value type yet.
-- Next pass should define the boundary between TypeScript authoring helpers,
-  strict JSON validation, and CSS output generation.
+- Remaining work: define strict JSON validation/imports so external
+  Figma/Tokens Studio JSON can produce the same `StyleTokenInput` shape.
 
 ### DONE: Migrate semantic color tokens to structured hierarchy
 

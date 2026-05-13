@@ -1,12 +1,28 @@
 import { describe, expect, test } from "vitest"
 import { componentTokens } from "../src/components/index.js"
 import { createStyleOutputs } from "../src/generators/create-style-outputs.js"
+import { createStyleTokenInput } from "../src/generators/input/index.js"
 import { primitiveTokens } from "../src/primitives/index.js"
 import { semanticTokens } from "../src/semantics/index.js"
 import { neurexPreset, defaultPresetId, presets } from "../src/presets/index.js"
 import { themes } from "../src/themes/index.js"
 
 describe("createStyleOutputs", () => {
+  test("assembles a W3C/DTCG-shaped generator input contract", () => {
+    const input = createStyleTokenInput()
+
+    expect(input.foundationTokens.color).toBeDefined()
+    expect(input.foundationTokens.radius).toBeDefined()
+    expect(input.componentTokens.button).toBeDefined()
+    expect(input.tokenTree.button).toBe(input.componentTokens.button)
+    expect(input.themeTokens[0]).toMatchObject({
+      name: "light",
+      selector: ":root",
+      colorScheme: "light",
+    })
+    expect(input.themeTokens[0]?.tokens.color).toBeDefined()
+  })
+
   test("defines Neurex Default as the first style preset", () => {
     expect(defaultPresetId).toBe("neurex")
 

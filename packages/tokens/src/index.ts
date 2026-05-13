@@ -3,11 +3,10 @@
  *
  * The tokens package is the design-system source of truth.
  */
-
-export { componentTokens } from "./components"
 export { createStyleOutputs } from "./generators/create-style-outputs"
 export { primitiveTokens } from "./primitives"
 export { semanticTokens } from "./semantics"
+export { componentTokens } from "./components"
 export { neurexPreset, defaultPresetId, presets } from "./presets"
 export { themes } from "./themes"
 export type {

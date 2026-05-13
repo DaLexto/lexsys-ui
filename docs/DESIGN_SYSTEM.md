@@ -131,6 +131,10 @@ In the target model, the generator should consume the W3C/DTCG-shaped token
 tree. TypeScript authoring, Figma, Tokens Studio, and future Creator workflows
 may all produce that same JSON contract.
 
+Current implementation now creates an internal `StyleTokenInput` from the
+TypeScript authoring files before generating CSS or DTCG JSON. This is the first
+boundary toward letting future JSON imports feed the same output generators.
+
 They define:
 
 - primitive values
