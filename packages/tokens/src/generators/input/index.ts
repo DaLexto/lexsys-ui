@@ -1,7 +1,10 @@
 export {
+  createDtcgThemeTokenInput,
+  createDtcgThemeTokenInputFromJson,
   createDtcgTokenInput,
   createDtcgTokenInputFromJson,
   parseDtcgTokenDocument,
+  type DtcgThemeTokenInput,
   type DtcgTokenInput,
 } from "./dtcg-token-input"
 

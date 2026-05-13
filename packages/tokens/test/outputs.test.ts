@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest"
 import { componentTokens } from "../src/components/index.js"
 import {
   createStyleOutputs,
+  createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
 } from "../src/generators/create-style-outputs.js"
 import {
@@ -250,6 +251,49 @@ describe("createStyleOutputs", () => {
     })
   })
 
+  test("generates DTCG-compatible theme json from token source", () => {
+    const outputs = createStyleOutputs()
+    const json = JSON.parse(outputs.themesJson) as {
+      $extensions?: {
+        "org.neurex"?: {
+          tokenSetOrder?: unknown
+          themes?: unknown
+        }
+      }
+      light?: {
+        color?: {
+          background?: {
+            base?: {
+              $value?: unknown
+            }
+          }
+        }
+      }
+      dark?: Record<string, unknown>
+    }
+
+    expect(json.$extensions?.["org.neurex"]?.tokenSetOrder).toEqual(["themes"])
+    expect(json.$extensions?.["org.neurex"]?.themes).toEqual([
+      {
+        name: "light",
+        brand: "neurex",
+        selector: ":root",
+        colorScheme: "light",
+      },
+      {
+        name: "dark",
+        brand: "neurex",
+        selector: ".dark",
+        colorScheme: "dark",
+      },
+    ])
+    expect(json.light?.color?.background?.base?.$value).toBe("{color.white}")
+    expect(json.light).not.toHaveProperty("selector")
+    expect(json.light).not.toHaveProperty("colorScheme")
+    expect(json.dark).not.toHaveProperty("selector")
+    expect(json.dark).not.toHaveProperty("colorScheme")
+  })
+
   test("parses generated DTCG json back into a token tree", () => {
     const outputs = createStyleOutputs()
     const input = createDtcgTokenInputFromJson(outputs.tokensJson)
@@ -274,6 +318,22 @@ describe("createStyleOutputs", () => {
     expect(css).toContain("--nx-color-blue-600")
     expect(css).toContain("--nx-radius-control: var(--nx-radius-md)")
     expect(css).toContain("--nx-button-radius: var(--nx-radius-control)")
+    expect(css).not.toContain("--nx-$schema")
+    expect(css).not.toContain("--nx-$extensions")
+  })
+
+  test("generates theme css from DTCG json input", () => {
+    const outputs = createStyleOutputs()
+    const css = createThemeCssFromDtcgJson(
+      outputs.tokensJson,
+      outputs.themesJson,
+    )
+
+    expect(css).toContain(".dark")
+    expect(css).toContain("color-scheme: light;")
+    expect(css).toContain("color-scheme: dark;")
+    expect(css).toContain("@theme inline")
+    expect(css).toContain("--color-nx-background-base")
     expect(css).not.toContain("--nx-$schema")
     expect(css).not.toContain("--nx-$extensions")
   })

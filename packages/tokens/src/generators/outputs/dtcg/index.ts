@@ -19,6 +19,7 @@ export {
 export type {
   DtcgDocumentExtensions,
   DtcgNeurexMetadata,
+  DtcgThemeMetadata,
   DtcgTokenLeaf,
   DtcgTokenDocument,
   DtcgTokenTree,

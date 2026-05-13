@@ -5,6 +5,7 @@
  */
 export {
   createStyleOutputs,
+  createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
 } from "./generators/create-style-outputs"
 export { primitiveTokens } from "./primitives"

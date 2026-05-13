@@ -290,12 +290,13 @@ Status:
   required Neurex extension metadata.
 - `createTokensCssFromDtcgJson` now proves the current path can generate
   `tokens.css` directly from canonical W3C/DTCG JSON input.
+- `themesJson` now emits theme override tokens as a separate canonical DTCG
+  document, and `createThemeCssFromDtcgJson` can generate `theme.css` from
+  `tokensJson` plus `themesJson`.
 - Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant
   in every composite value type yet.
-- Remaining work: lift parsed DTCG token trees into a full theme-aware
-  `StyleTokenInput` for `theme.css` generation, and define strict
-  validation/imports so external Figma/Tokens Studio JSON can generate the same
-  CSS outputs.
+- Remaining work: tighten external JSON validation and define import adapters
+  so external Figma/Tokens Studio JSON can generate the same CSS outputs.
 
 ### TODO: Implement staged primitive token placeholder files
 

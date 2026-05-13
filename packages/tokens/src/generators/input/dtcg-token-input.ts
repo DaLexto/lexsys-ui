@@ -1,15 +1,27 @@
 import type { TokenTree } from "../../types"
+import type {
+  BrandId,
+  ThemeDefinition,
+  ThemeModeId,
+} from "../../types/index.js"
 import {
   DTCG_NEUREX_EXTENSION_KEY,
   type DtcgNeurexMetadata,
+  type DtcgThemeMetadata,
   type DtcgTokenDocument,
 } from "../outputs/dtcg"
+import type { ThemeTokenInput } from "./style-token-input"
 
 const DOCUMENT_METADATA_KEYS = new Set(["$schema", "$extensions"])
 
 export interface DtcgTokenInput {
   metadata: DtcgNeurexMetadata
   tokenTree: TokenTree
+}
+
+export interface DtcgThemeTokenInput {
+  metadata: DtcgNeurexMetadata
+  themes: ThemeTokenInput[]
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
@@ -22,6 +34,33 @@ const isStringArray = (value: unknown): value is string[] => {
     value.every((entry) => {
       return typeof entry === "string"
     })
+  )
+}
+
+const isThemeMetadataArray = (value: unknown): value is DtcgThemeMetadata[] => {
+  return (
+    Array.isArray(value) &&
+    value.every((entry) => {
+      return isRecord(entry) && typeof entry.name === "string"
+    })
+  )
+}
+
+const isThemeModeId = (value: unknown): value is ThemeModeId => {
+  return value === "light" || value === "dark"
+}
+
+const isBrandId = (value: unknown): value is BrandId => {
+  return typeof value === "string"
+}
+
+const isThemeSelector = (
+  value: unknown,
+): value is ThemeDefinition["selector"] => {
+  return (
+    value === ":root" ||
+    (typeof value === "string" &&
+      (value.startsWith(".") || (value.startsWith("[") && value.endsWith("]"))))
   )
 }
 
@@ -61,6 +100,7 @@ const readNeurexMetadata = (
     presetName:
       typeof metadata.presetName === "string" ? metadata.presetName : undefined,
     tokenSetOrder: metadata.tokenSetOrder,
+    themes: isThemeMetadataArray(metadata.themes) ? metadata.themes : undefined,
   }
 }
 
@@ -94,4 +134,62 @@ export const createDtcgTokenInputFromJson = (
   content: string,
 ): DtcgTokenInput => {
   return createDtcgTokenInput(parseDtcgTokenDocument(content))
+}
+
+export const createDtcgThemeTokenInput = (
+  document: DtcgTokenDocument,
+): DtcgThemeTokenInput => {
+  const metadata = readNeurexMetadata(document)
+  const themeMetadata = metadata.themes
+
+  if (themeMetadata === undefined) {
+    throw new Error(
+      `DTCG theme document extension "${DTCG_NEUREX_EXTENSION_KEY}" is missing "themes".`,
+    )
+  }
+
+  const themes: ThemeTokenInput[] = themeMetadata.map((theme) => {
+    if (!isThemeModeId(theme.name)) {
+      throw new Error(
+        `DTCG theme "${theme.name}" is not a supported theme mode.`,
+      )
+    }
+
+    if (!isThemeSelector(theme.selector)) {
+      throw new Error(`DTCG theme "${theme.name}" is missing "selector".`)
+    }
+
+    if (!isThemeModeId(theme.colorScheme)) {
+      throw new Error(`DTCG theme "${theme.name}" is missing "colorScheme".`)
+    }
+
+    if (theme.brand !== undefined && !isBrandId(theme.brand)) {
+      throw new Error(`DTCG theme "${theme.name}" has invalid "brand".`)
+    }
+
+    const tokens = document[theme.name]
+
+    if (!isRecord(tokens) || "$value" in tokens) {
+      throw new Error(`DTCG theme "${theme.name}" must be a token tree.`)
+    }
+
+    return {
+      name: theme.name,
+      brand: theme.brand,
+      selector: theme.selector,
+      colorScheme: theme.colorScheme,
+      tokens: tokens as TokenTree,
+    }
+  })
+
+  return {
+    metadata,
+    themes,
+  }
+}
+
+export const createDtcgThemeTokenInputFromJson = (
+  content: string,
+): DtcgThemeTokenInput => {
+  return createDtcgThemeTokenInput(parseDtcgTokenDocument(content))
 }

@@ -37,6 +37,17 @@ export interface DtcgTokenLeaf {
 }
 
 /**
+ * Theme metadata used by Neurex when a DTCG document contains theme override
+ * token sets.
+ */
+export interface DtcgThemeMetadata {
+  name: string
+  selector: string
+  colorScheme: string
+  brand?: string
+}
+
+/**
  * Neurex metadata attached to the root DTCG token document.
  *
  * This is stored under a vendor key in root `$extensions`, which is the DTCG
@@ -48,6 +59,7 @@ export interface DtcgNeurexMetadata {
   presetId?: string
   presetName?: string
   tokenSetOrder: string[]
+  themes?: DtcgThemeMetadata[]
 }
 
 /**

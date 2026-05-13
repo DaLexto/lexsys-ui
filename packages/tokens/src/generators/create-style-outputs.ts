@@ -1,5 +1,7 @@
 import type { StyleOutputs } from "../types"
+import type { TokenTree } from "../types/index.js"
 import {
+  createDtcgThemeTokenInputFromJson,
   createDtcgTokenInputFromJson,
   createStyleTokenInput,
   mergeTokenTrees,
@@ -108,6 +110,33 @@ const createTokensJson = (input: StyleTokenInput): string => {
   }).content
 }
 
+const createThemeDocumentTree = (input: StyleTokenInput): TokenTree => {
+  return Object.fromEntries(
+    input.themeTokens.map((theme) => {
+      return [theme.name, theme.tokens]
+    }),
+  )
+}
+
+const createThemesJson = (input: StyleTokenInput): string => {
+  return generateJsonTokens(createThemeDocumentTree(input), {
+    metadata: {
+      generatedBy: "@neurex/tokens",
+      presetId: input.preset.id,
+      presetName: input.preset.name,
+      tokenSetOrder: ["themes"],
+      themes: input.themeTokens.map((theme) => {
+        return {
+          name: theme.name,
+          ...(theme.brand === undefined ? {} : { brand: theme.brand }),
+          selector: theme.selector,
+          colorScheme: theme.colorScheme,
+        }
+      }),
+    },
+  }).content
+}
+
 const createThemeBlock = (theme: ThemeTokenInput): string => {
   const entries = createCssVariableEntries(
     theme.tokens,
@@ -159,6 +188,7 @@ export const createStyleOutputs = (
     tokensCss: createTokensCss(input),
     themeCss: createThemeCss(input),
     tokensJson: createTokensJson(input),
+    themesJson: createThemesJson(input),
   }
 }
 
@@ -166,4 +196,39 @@ export const createTokensCssFromDtcgJson = (content: string): string => {
   const input = createDtcgTokenInputFromJson(content)
 
   return createTokensCssFromTokenTree(input.tokenTree)
+}
+
+export const createThemeCssFromDtcgJson = (
+  tokensContent: string,
+  themesContent: string,
+): string => {
+  const tokenInput = createDtcgTokenInputFromJson(tokensContent)
+  const themeInput = createDtcgThemeTokenInputFromJson(themesContent)
+  const themeBlocks = themeInput.themes.map((theme) => {
+    return createThemeBlock(theme)
+  })
+  const lightTheme = themeInput.themes.find((theme) => {
+    return theme.name === "light"
+  })
+
+  if (lightTheme === undefined) {
+    throw new Error("Tailwind @theme generation requires a light theme.")
+  }
+
+  const tailwindThemeTokenTree = mergeTokenTrees(
+    tokenInput.tokenTree,
+    lightTheme.tokens,
+  )
+  const semanticEntries = createCssVariableEntries(
+    tailwindThemeTokenTree,
+    cssVarsGeneratorOptions,
+  )
+  const themeLines = semanticEntries.map((entry) => {
+    return `  ${createTailwindThemeVariableName(entry.name)}: ${toCssVarReference(entry.name)};`
+  })
+
+  return `${styleOutputConfig.styleHeader}\n\n${[
+    ...themeBlocks,
+    ["@theme inline {", ...themeLines, "}"].join("\n"),
+  ].join("\n\n")}\n`
 }
