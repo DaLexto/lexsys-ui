@@ -13,6 +13,7 @@
  * - This generator is JSON-specific.
  * - It does not resolve token references to final primitive values.
  * - Token leaves follow the DTCG-style { $value, $type } shape.
+ * - Token branches may carry DTCG-style metadata such as $description.
  * - JSON export preserves references for downstream token tooling.
  */
 
@@ -27,13 +28,38 @@ import type { FlattenedTokenEntry } from "../../shared"
 export type DtcgTokenType = TokenType | "string"
 
 /**
+ * Shared DTCG-style metadata allowed on token leaves and token branches.
+ *
+ * `$deprecated` follows the DTCG lifecycle convention:
+ * - `true` marks a token or branch as deprecated
+ * - `string` marks it as deprecated and explains why
+ */
+export interface DtcgTokenMetadata {
+  $description?: string
+  $deprecated?: boolean | string
+}
+
+/**
  * DTCG-compatible token leaf used in exported JSON.
  */
-export interface DtcgTokenLeaf {
+export interface DtcgTokenLeaf extends DtcgTokenMetadata {
   $value: TokenPrimitive
   $type: DtcgTokenType
-  $description?: string
   $extensions?: Record<string, unknown>
+}
+
+/**
+ * Recursive DTCG-compatible JSON token branch.
+ *
+ * Branch metadata must be preserved without being treated as a token leaf.
+ */
+export interface DtcgTokenTree extends DtcgTokenMetadata {
+  [key: string]:
+    | DtcgTokenLeaf
+    | DtcgTokenTree
+    | string
+    | boolean
+    | undefined
 }
 
 /**
@@ -71,19 +97,18 @@ export type DtcgDocumentExtensions = Record<string, unknown> & {
 }
 
 /**
- * Recursive DTCG-compatible JSON token tree.
- */
-export type DtcgTokenTree = {
-  [key: string]: DtcgTokenLeaf | DtcgTokenTree
-}
-
-/**
  * Root DTCG JSON document emitted by Neurex.
  */
 export interface DtcgTokenDocument {
   $schema: string
   $extensions: DtcgDocumentExtensions
-  [key: string]: DtcgTokenLeaf | DtcgTokenTree | DtcgDocumentExtensions | string
+  [key: string]:
+    | DtcgTokenLeaf
+    | DtcgTokenTree
+    | DtcgDocumentExtensions
+    | string
+    | boolean
+    | undefined
 }
 
 /**

@@ -7,14 +7,17 @@
  * @responsibility
  * - Create default JSON generator options
  * - Resolve DTCG token types from token paths
- * - Convert flattened token entries into DTCG token leaves
- * - Build nested DTCG token trees
+ * - Convert token leaves into DTCG token leaves
+ * - Serialize token trees while preserving branch metadata
  *
  * @notes
  * - This file is JSON-output-specific.
  * - It must not resolve token references to final primitive values.
  * - It preserves token references like {color.blue.600}.
+ * - It preserves DTCG-style branch metadata such as $description and $deprecated.
  */
+
+import type { TokenLeaf, TokenTree } from "../../../types"
 
 import {
   DEFAULT_GENERATOR_METADATA_KEYS,
@@ -23,11 +26,11 @@ import {
 } from "../../shared"
 
 import type {
+  DtcgGeneratorOptions,
   DtcgNeurexMetadata,
   DtcgTokenLeaf,
   DtcgTokenTree,
   DtcgTokenType,
-  DtcgGeneratorOptions,
 } from "./dtcg.types"
 
 export const DTCG_SCHEMA_URL =
@@ -46,11 +49,21 @@ const DEFAULT_TOKEN_TYPE_BY_GROUP: Readonly<Record<string, DtcgTokenType>> = {
   spacing: "dimension",
   radius: "dimension",
   size: "dimension",
+  border: "dimension",
+  outline: "dimension",
+  blur: "dimension",
+  breakpoint: "dimension",
+
+  opacity: "number",
+  "z-index": "number",
+  "aspect-ratio": "number",
+
+  shadow: "shadow",
 
   "font-family": "fontFamily",
-  "font-size": "dimension",
+  "font-size": "fontSize",
   "font-weight": "fontWeight",
-  "letter-spacing": "dimension",
+  "letter-spacing": "letterSpacing",
   "line-height": "number",
 
   "motion-duration": "duration",
@@ -63,9 +76,49 @@ const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
 
 const DEFAULT_DTCG_METADATA: DtcgNeurexMetadata = {
   generatedBy: "@neurex/tokens",
-  tokenSetOrder: ["primitives", "semantics", "components"],
+  tokenSetOrder: ["primitives", "brand", "semantics", "components"],
 }
 
+/**
+ * Checks whether an unknown value is a plain object record.
+ */
+const isRecord = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === "object" && value !== null && !Array.isArray(value)
+}
+
+/**
+ * Checks whether an unknown value is a DTCG-style token leaf.
+ */
+const isTokenLeafLike = (value: unknown): value is TokenLeaf => {
+  return isRecord(value) && "$value" in value
+}
+
+/**
+ * Checks whether a key is DTCG-style metadata.
+ */
+const isMetadataKey = (
+  key: string,
+  options: Required<DtcgGeneratorOptions>,
+): boolean => {
+  return key.startsWith("$") || options.metadataKeys.has(key)
+}
+
+/**
+ * Checks whether a value is valid DTCG metadata value.
+ */
+const isDtcgMetadataValue = (
+  value: unknown,
+): value is string | boolean | undefined => {
+  return (
+    typeof value === "string" ||
+    typeof value === "boolean" ||
+    value === undefined
+  )
+}
+
+/**
+ * Resolves a token type from a normalized token name.
+ */
 const resolveTokenNameType = (
   tokenName: string,
   tokenTypeByGroup: Readonly<Record<string, DtcgTokenType>>,
@@ -83,6 +136,9 @@ const resolveTokenNameType = (
   return undefined
 }
 
+/**
+ * Extracts a normalized token name from a strict token reference string.
+ */
 const getReferenceTokenName = (value: unknown): string | undefined => {
   if (typeof value !== "string") {
     return undefined
@@ -153,7 +209,48 @@ export const resolveDtcgTokenType = (
 }
 
 /**
+ * Resolves the DTCG token type for a token leaf at a tree path.
+ */
+const resolveDtcgTokenLeafType = (
+  leaf: TokenLeaf,
+  path: string[],
+  options: Required<DtcgGeneratorOptions>,
+): DtcgTokenType => {
+  if (leaf.$type !== undefined) {
+    return leaf.$type
+  }
+
+  const tokenName = toTokenName(path, {})
+  const pathTokenType = resolveTokenNameType(
+    tokenName,
+    options.tokenTypeByGroup,
+  )
+
+  if (pathTokenType !== undefined) {
+    return pathTokenType
+  }
+
+  const referenceTokenName = getReferenceTokenName(leaf.$value)
+  const referenceTokenType =
+    referenceTokenName === undefined
+      ? undefined
+      : resolveTokenNameType(referenceTokenName, options.tokenTypeByGroup)
+
+  if (referenceTokenType !== undefined) {
+    return referenceTokenType
+  }
+
+  if (typeof leaf.$value === "number") {
+    return "number"
+  }
+
+  return "string"
+}
+
+/**
  * Converts a flattened token entry into a DTCG-compatible token leaf.
+ *
+ * This remains available for legacy flattened-generation helpers and tests.
  */
 export const toDtcgTokenLeaf = (
   entry: FlattenedTokenEntry,
@@ -172,7 +269,71 @@ export const toDtcgTokenLeaf = (
 }
 
 /**
+ * Converts an authored token leaf into a DTCG-compatible token leaf.
+ */
+export const toDtcgTokenLeafFromTokenLeaf = (
+  leaf: TokenLeaf,
+  path: string[],
+  options: Required<DtcgGeneratorOptions>,
+): DtcgTokenLeaf => {
+  const dtcgLeaf: DtcgTokenLeaf = {
+    $value: leaf.$value,
+    $type: resolveDtcgTokenLeafType(leaf, path, options),
+  }
+
+  if (leaf.$description !== undefined) {
+    dtcgLeaf.$description = leaf.$description
+  }
+
+  const deprecated = leaf.$deprecated
+
+  if (typeof deprecated === "string" || typeof deprecated === "boolean") {
+    dtcgLeaf.$deprecated = deprecated
+  }
+
+  return dtcgLeaf
+}
+
+/**
+ * Serializes an authored token tree into a DTCG-compatible token tree.
+ *
+ * Unlike flattened generation, this preserves metadata on token branches.
+ */
+export const toDtcgTokenTree = (
+  tree: TokenTree,
+  options: Required<DtcgGeneratorOptions>,
+  path: string[] = [],
+): DtcgTokenTree => {
+  const dtcgTree: DtcgTokenTree = {}
+
+  for (const [key, value] of Object.entries(tree)) {
+    if (isMetadataKey(key, options)) {
+      if (isDtcgMetadataValue(value)) {
+        dtcgTree[key] = value
+      }
+
+      continue
+    }
+
+    const childPath = [...path, key]
+
+    if (isTokenLeafLike(value)) {
+      dtcgTree[key] = toDtcgTokenLeafFromTokenLeaf(value, childPath, options)
+      continue
+    }
+
+    if (isRecord(value)) {
+      dtcgTree[key] = toDtcgTokenTree(value, options, childPath)
+    }
+  }
+
+  return dtcgTree
+}
+
+/**
  * Writes a DTCG token leaf into a nested JSON token tree.
+ *
+ * This remains available for legacy flattened-generation helpers and tests.
  */
 export const setDtcgTokenTreeValue = (
   tree: DtcgTokenTree,

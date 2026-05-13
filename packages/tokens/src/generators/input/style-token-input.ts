@@ -14,7 +14,7 @@ import type {
   ThemeModeId,
   TokenTree,
 } from "../../types"
-import { DEFAULT_GENERATOR_METADATA_KEYS, isTokenBranch } from "../shared"
+import { isTokenBranch } from "../shared"
 
 type TokenSourceGroup =
   | PrimitiveTokenGroup
@@ -43,10 +43,18 @@ export interface StyleTokenInput {
   themeTokens: ThemeTokenInput[]
 }
 
+const TOKEN_SOURCE_CONTROL_KEYS = new Set([
+  "name",
+  "component",
+  "brand",
+  "selector",
+  "colorScheme",
+])
+
 export const getTokenTree = (group: TokenSourceGroup): TokenTree => {
   return Object.fromEntries(
     Object.entries(group).filter(
-      ([key]) => !DEFAULT_GENERATOR_METADATA_KEYS.has(key),
+      ([key]) => !TOKEN_SOURCE_CONTROL_KEYS.has(key),
     ),
   ) as TokenTree
 }

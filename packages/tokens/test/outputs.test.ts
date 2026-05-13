@@ -174,7 +174,9 @@ describe("createStyleOutputs", () => {
         }
       }
       color?: {
+        $description?: unknown
         blue?: {
+          $description?: unknown
           "600"?: {
             $value?: unknown
             $type?: unknown
@@ -183,6 +185,18 @@ describe("createStyleOutputs", () => {
       }
       button?: {
         radius?: {
+          $value?: unknown
+          $type?: unknown
+        }
+      }
+      "font-size"?: {
+        base?: {
+          $value?: unknown
+          $type?: unknown
+        }
+      }
+      "letter-spacing"?: {
+        normal?: {
           $value?: unknown
           $type?: unknown
         }
@@ -232,6 +246,12 @@ describe("createStyleOutputs", () => {
     expect(json.$extensions?.["org.neurex"]?.semanticTokenPaths).toContain(
       "typography.body.md.fontFamily",
     )
+    expect(json.color?.$description).toBe(
+      "Raw color palette. Never use directly in components.",
+    )
+    expect(json.color?.blue?.$description).toBe(
+      "Blue primitive palette for brand, primary action, and information mappings.",
+    )
     expect(json.color?.blue?.["600"]).toEqual({
       $value: "oklch(0.455 0.191 259.631)",
       $type: "color",
@@ -239,6 +259,14 @@ describe("createStyleOutputs", () => {
     expect(json.button?.radius).toEqual({
       $value: "{radius.control}",
       $type: "dimension",
+    })
+    expect(json["font-size"]?.base).toEqual({
+      $value: "1rem",
+      $type: "fontSize",
+    })
+    expect(json["letter-spacing"]?.normal).toEqual({
+      $value: "0",
+      $type: "letterSpacing",
     })
     expect(json["line-height"]?.normal).toEqual({
       $value: 1.5,

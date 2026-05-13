@@ -73,24 +73,27 @@ export type TokenType = ScalarTokenType | CompositeTokenType
 export type TokenPrimitive = string | number
 
 /**
+ * Shared metadata fields allowed on token leaves and token branches.
+ *
+ * `$description` documents the purpose or intended usage of a token or branch.
+ *
+ * `$deprecated` follows the DTCG lifecycle convention:
+ * - `true` marks a token or branch as deprecated
+ * - `string` marks it as deprecated and explains why or what to use instead
+ */
+export interface TokenMetadata {
+  $description?: string
+  $deprecated?: boolean | string
+}
+
+/**
  * Token leaf shape used by the authoring tree.
  *
  * The `$`-prefixed keys follow the Design Tokens Community Group format.
  */
-export interface TokenLeaf {
+export interface TokenLeaf extends TokenMetadata {
   $value: TokenPrimitive
   $type?: TokenType
-  $description?: string
-}
-
-/**
- * Metadata fields allowed on token branches.
- *
- * Branch metadata describes a token group without being treated as a token leaf.
- */
-export interface TokenMetadata {
-  $description?: string
-  $deprecated?: boolean
 }
 
 /**
@@ -101,6 +104,9 @@ export type TokenNode = TokenLeaf | TokenTree
 /**
  * Recursive token tree used across primitives, brand, semantics, themes, and
  * component token groups.
+ *
+ * Token branches may contain DTCG-style metadata without being treated as token
+ * leaves during traversal or reference resolution.
  */
 export interface TokenTree extends TokenMetadata {
   [key: string]: TokenNode | string | boolean | undefined
