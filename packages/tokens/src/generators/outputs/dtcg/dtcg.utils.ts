@@ -23,11 +23,17 @@ import {
 } from "../../shared"
 
 import type {
+  DtcgNeurexMetadata,
   DtcgTokenLeaf,
   DtcgTokenTree,
   DtcgTokenType,
   DtcgGeneratorOptions,
 } from "./dtcg.types"
+
+export const DTCG_SCHEMA_URL =
+  "https://www.designtokens.org/schemas/2025.10/format.json"
+
+export const DTCG_NEUREX_EXTENSION_KEY = "org.neurex"
 
 /**
  * Default DTCG type mapping by normalized token group/name.
@@ -54,6 +60,11 @@ const DEFAULT_TOKEN_TYPE_BY_GROUP: Readonly<Record<string, DtcgTokenType>> = {
 }
 
 const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
+
+const DEFAULT_DTCG_METADATA: DtcgNeurexMetadata = {
+  generatedBy: "@neurex/tokens",
+  tokenSetOrder: ["primitives", "semantics", "components"],
+}
 
 const resolveTokenNameType = (
   tokenName: string,
@@ -94,6 +105,8 @@ export const createDefaultDtcgGeneratorOptions = (
   options: DtcgGeneratorOptions = {},
 ): Required<DtcgGeneratorOptions> => {
   return {
+    schemaUrl: options.schemaUrl ?? DTCG_SCHEMA_URL,
+    metadata: options.metadata ?? DEFAULT_DTCG_METADATA,
     tokenTypeByGroup: options.tokenTypeByGroup ?? DEFAULT_TOKEN_TYPE_BY_GROUP,
     groupNameOverrides: options.groupNameOverrides ?? {},
     metadataKeys: options.metadataKeys ?? DEFAULT_GENERATOR_METADATA_KEYS,

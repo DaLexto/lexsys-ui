@@ -20,6 +20,7 @@ import type { TokenTree } from "../../../types"
 import { flattenTokenTree } from "../../shared"
 
 import type {
+  DtcgTokenDocument,
   DtcgTokenTree,
   DtcgGenerateResult,
   DtcgGeneratorOptions,
@@ -27,6 +28,7 @@ import type {
 
 import {
   createDefaultDtcgGeneratorOptions,
+  DTCG_NEUREX_EXTENSION_KEY,
   setDtcgTokenTreeValue,
   toDtcgTokenLeaf,
 } from "./dtcg.utils"
@@ -41,13 +43,21 @@ export const generateJsonTokens = (
   const generatorOptions = createDefaultDtcgGeneratorOptions(options)
   const entries = flattenTokenTree(tree, generatorOptions.metadataKeys)
 
-  const json: DtcgTokenTree = {}
+  const tokenTree: DtcgTokenTree = {}
 
   entries.forEach((entry) => {
     const leaf = toDtcgTokenLeaf(entry, generatorOptions)
 
-    setDtcgTokenTreeValue(json, entry.path, leaf)
+    setDtcgTokenTreeValue(tokenTree, entry.path, leaf)
   })
+
+  const json: DtcgTokenDocument = {
+    $schema: generatorOptions.schemaUrl,
+    $extensions: {
+      [DTCG_NEUREX_EXTENSION_KEY]: generatorOptions.metadata,
+    },
+    ...tokenTree,
+  }
 
   return {
     json,

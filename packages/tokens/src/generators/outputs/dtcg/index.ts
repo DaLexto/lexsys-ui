@@ -9,13 +9,18 @@ export { generateJsonTokens } from "./dtcg.generator"
 
 export {
   createDefaultDtcgGeneratorOptions,
+  DTCG_NEUREX_EXTENSION_KEY,
+  DTCG_SCHEMA_URL,
   resolveDtcgTokenType,
   setDtcgTokenTreeValue,
   toDtcgTokenLeaf,
 } from "./dtcg.utils"
 
 export type {
+  DtcgDocumentExtensions,
+  DtcgNeurexMetadata,
   DtcgTokenLeaf,
+  DtcgTokenDocument,
   DtcgTokenTree,
   DtcgTokenType,
   DtcgTokenTypeResolver,

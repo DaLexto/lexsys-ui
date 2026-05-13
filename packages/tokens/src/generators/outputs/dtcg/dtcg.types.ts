@@ -37,10 +37,40 @@ export interface DtcgTokenLeaf {
 }
 
 /**
+ * Neurex metadata attached to the root DTCG token document.
+ *
+ * This is stored under a vendor key in root `$extensions`, which is the DTCG
+ * mechanism for proprietary metadata. Keep tool-specific metadata in adapter
+ * outputs such as Tokens Studio.
+ */
+export interface DtcgNeurexMetadata {
+  generatedBy: string
+  presetId?: string
+  presetName?: string
+  tokenSetOrder: string[]
+}
+
+/**
+ * Root DTCG document extensions.
+ */
+export type DtcgDocumentExtensions = Record<string, unknown> & {
+  "org.neurex": DtcgNeurexMetadata
+}
+
+/**
  * Recursive DTCG-compatible JSON token tree.
  */
 export type DtcgTokenTree = {
   [key: string]: DtcgTokenLeaf | DtcgTokenTree
+}
+
+/**
+ * Root DTCG JSON document emitted by Neurex.
+ */
+export interface DtcgTokenDocument {
+  $schema: string
+  $extensions: DtcgDocumentExtensions
+  [key: string]: DtcgTokenLeaf | DtcgTokenTree | DtcgDocumentExtensions | string
 }
 
 /**
@@ -55,6 +85,16 @@ export type DtcgTokenTypeResolver = (
  * Options used when generating DTCG-compatible JSON tokens.
  */
 export interface DtcgGeneratorOptions {
+  /**
+   * JSON schema URL for the emitted token document.
+   */
+  schemaUrl?: string
+
+  /**
+   * Neurex root document metadata stored under `$extensions["org.neurex"]`.
+   */
+  metadata?: DtcgNeurexMetadata
+
   /**
    * Optional group/type mapping.
    *
@@ -95,6 +135,6 @@ export interface DtcgGeneratorOptions {
  * Result returned by JSON token generation.
  */
 export interface DtcgGenerateResult {
-  json: DtcgTokenTree
+  json: DtcgTokenDocument
   content: string
 }

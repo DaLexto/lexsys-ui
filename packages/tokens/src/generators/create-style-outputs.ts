@@ -85,7 +85,14 @@ const createTokensCss = (input: StyleTokenInput): string => {
 }
 
 const createTokensJson = (input: StyleTokenInput): string => {
-  return generateJsonTokens(input.tokenTree).content
+  return generateJsonTokens(input.tokenTree, {
+    metadata: {
+      generatedBy: "@neurex/tokens",
+      presetId: input.preset.id,
+      presetName: input.preset.name,
+      tokenSetOrder: ["primitives", "semantics", "components"],
+    },
+  }).content
 }
 
 const createThemeBlock = (theme: ThemeTokenInput): string => {

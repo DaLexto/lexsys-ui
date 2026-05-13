@@ -156,6 +156,15 @@ describe("createStyleOutputs", () => {
   test("generates DTCG-compatible token json from token source", () => {
     const outputs = createStyleOutputs()
     const json = JSON.parse(outputs.tokensJson) as {
+      $schema?: unknown
+      $extensions?: {
+        "org.neurex"?: {
+          generatedBy?: unknown
+          presetId?: unknown
+          presetName?: unknown
+          tokenSetOrder?: unknown
+        }
+      }
       color?: {
         blue?: {
           "600"?: {
@@ -200,6 +209,15 @@ describe("createStyleOutputs", () => {
       }
     }
 
+    expect(json.$schema).toBe(
+      "https://www.designtokens.org/schemas/2025.10/format.json",
+    )
+    expect(json.$extensions?.["org.neurex"]).toEqual({
+      generatedBy: "@neurex/tokens",
+      presetId: "neurex",
+      presetName: "Neurex Default",
+      tokenSetOrder: ["primitives", "semantics", "components"],
+    })
     expect(json.color?.blue?.["600"]).toEqual({
       $value: "oklch(0.455 0.191 259.631)",
       $type: "color",

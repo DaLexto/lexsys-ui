@@ -280,8 +280,13 @@ Status:
   preset.
 - CSS and DTCG JSON outputs now consume that shared input contract instead of
   rebuilding token trees independently inside output orchestration.
-- Current output is W3C/DTCG-shaped, but not strict W3C/DTCG compliant in every
-  value type yet.
+- DTCG JSON output now emits a canonical root document envelope with
+  `$schema: "https://www.designtokens.org/schemas/2025.10/format.json"`.
+- Neurex-owned document metadata is stored under `$extensions["org.neurex"]`
+  instead of a root `$metadata` key, keeping the canonical output aligned with
+  DTCG extension semantics.
+- Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant
+  in every composite value type yet.
 - Remaining work: define strict JSON validation/imports so external
   Figma/Tokens Studio JSON can produce the same `StyleTokenInput` shape.
 
