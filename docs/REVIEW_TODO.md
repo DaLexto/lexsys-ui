@@ -332,12 +332,12 @@ Status:
 - Not started: yellow primitive scale review.
 - Not started: `size.ts` still needs explicit `$type: "dimension"` on each
   token.
-- Not started: `line-height.ts` still contains numeric rem values and needs to
-  become unitless-only.
-- Not started: `semantics/typography.ts` still references numeric line-height
-  tokens such as `{line-height.6}`.
+- Done: `line-height.ts` now keeps only unitless named tokens typed as
+  `number`.
+- Done: `semantics/typography.ts` now references named line-height tokens
+  instead of numeric tokens such as `{line-height.6}`.
 - Not started: `group.types.ts` still uses broad `[key: string]: unknown`.
-- Not started: DTCG type inference still maps `line-height` to `dimension`;
+- Partially done: DTCG type inference now maps `line-height` to `number`;
   font-family behavior for typography sub-tokens still needs review.
 
 ### DONE: Migrate semantic color tokens to structured hierarchy

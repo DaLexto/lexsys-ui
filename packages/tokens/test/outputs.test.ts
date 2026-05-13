@@ -67,6 +67,8 @@ describe("createStyleOutputs", () => {
     expect(outputs.tokensCss).toContain(
       "--nx-space-surface-md: var(--nx-space-6)",
     )
+    expect(outputs.tokensCss).toContain("--nx-line-height-normal: 1.5")
+    expect(outputs.tokensCss).not.toContain("--nx-line-height-6")
     expect(outputs.tokensCss).toContain(
       "--nx-button-radius: var(--nx-radius-control)",
     )
@@ -130,6 +132,12 @@ describe("createStyleOutputs", () => {
           $type?: unknown
         }
       }
+      "line-height"?: {
+        normal?: {
+          $value?: unknown
+          $type?: unknown
+        }
+      }
     }
 
     expect(json.color?.blue?.["600"]).toEqual({
@@ -139,6 +147,10 @@ describe("createStyleOutputs", () => {
     expect(json.button?.radius).toEqual({
       $value: "{radius.control}",
       $type: "dimension",
+    })
+    expect(json["line-height"]?.normal).toEqual({
+      $value: 1.5,
+      $type: "number",
     })
   })
 
@@ -152,6 +164,7 @@ describe("createStyleOutputs", () => {
 
     expect(tokenSource).not.toContain("--nx")
     expect(tokenSource).not.toContain("var(--")
+    expect(tokenSource).not.toContain("{line-height.6}")
     expect(tokenSource).toContain("{motion.duration.fast}")
   })
 })

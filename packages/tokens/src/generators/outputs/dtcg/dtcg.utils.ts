@@ -45,7 +45,7 @@ const DEFAULT_TOKEN_TYPE_BY_GROUP: Readonly<Record<string, DtcgTokenType>> = {
   "font-size": "dimension",
   "font-weight": "fontWeight",
   "letter-spacing": "dimension",
-  "line-height": "dimension",
+  "line-height": "number",
 
   "motion-duration": "duration",
   "motion-easing": "cubicBezier",
