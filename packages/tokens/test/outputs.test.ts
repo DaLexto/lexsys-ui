@@ -1,7 +1,10 @@
 import { describe, expect, test } from "vitest"
 import { componentTokens } from "../src/components/index.js"
 import { createStyleOutputs } from "../src/generators/create-style-outputs.js"
-import { createStyleTokenInput } from "../src/generators/input/index.js"
+import {
+  createDtcgTokenInputFromJson,
+  createStyleTokenInput,
+} from "../src/generators/input/index.js"
 import { colorPrimitives } from "../src/primitives/color.js"
 import { primitiveTokens } from "../src/primitives/index.js"
 import { semanticTokens } from "../src/semantics/index.js"
@@ -242,6 +245,22 @@ describe("createStyleOutputs", () => {
       $value: "{typography.family.sans}",
       $type: "fontFamily",
     })
+  })
+
+  test("parses generated DTCG json back into a token tree", () => {
+    const outputs = createStyleOutputs()
+    const input = createDtcgTokenInputFromJson(outputs.tokensJson)
+
+    expect(input.metadata).toEqual({
+      generatedBy: "@neurex/tokens",
+      presetId: "neurex",
+      presetName: "Neurex Default",
+      tokenSetOrder: ["primitives", "semantics", "components"],
+    })
+    expect("$schema" in input.tokenTree).toBe(false)
+    expect("$extensions" in input.tokenTree).toBe(false)
+    expect(input.tokenTree.color).toBeDefined()
+    expect(input.tokenTree.button).toBeDefined()
   })
 
   test("keeps authoring tokens prefix-free", () => {

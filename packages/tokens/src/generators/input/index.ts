@@ -1,4 +1,11 @@
 export {
+  createDtcgTokenInput,
+  createDtcgTokenInputFromJson,
+  parseDtcgTokenDocument,
+  type DtcgTokenInput,
+} from "./dtcg-token-input"
+
+export {
   createStyleTokenInput,
   createThemedTokenTree,
   getTokenTree,

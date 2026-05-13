@@ -285,10 +285,14 @@ Status:
 - Neurex-owned document metadata is stored under `$extensions["org.neurex"]`
   instead of a root `$metadata` key, keeping the canonical output aligned with
   DTCG extension semantics.
+- The input layer can now parse generated W3C/DTCG JSON documents back into a
+  Neurex token tree by stripping the root document envelope and validating the
+  required Neurex extension metadata.
 - Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant
   in every composite value type yet.
-- Remaining work: define strict JSON validation/imports so external
-  Figma/Tokens Studio JSON can produce the same `StyleTokenInput` shape.
+- Remaining work: lift parsed DTCG token trees into a full theme-aware
+  `StyleTokenInput`, and define strict validation/imports so external
+  Figma/Tokens Studio JSON can generate the same CSS outputs.
 
 ### TODO: Implement staged primitive token placeholder files
 
