@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest"
 import { componentTokens } from "../src/components/index.js"
-import { createStyleOutputs } from "../src/generators/outputs.js"
+import { createStyleOutputs } from "../src/generators/generator.js"
 import { primitiveTokens } from "../src/primitives/index.js"
 import { semanticTokens } from "../src/semantics/index.js"
 import { neurexPreset, defaultPresetId, presets } from "../src/presets/index.js"

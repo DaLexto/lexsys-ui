@@ -5,7 +5,7 @@
  * @description Shared utility helpers for generated token outputs.
  *
  * @responsibility
- * - Flatten Neurex { value } token trees
+ * - Flatten DTCG-style { $value } token trees
  * - Normalize token path segments for generated output names
  * - Provide token tree guards shared by output generators
  * - Ignore token group metadata during traversal
@@ -17,7 +17,7 @@
 
 import type { TokenLeaf, TokenPrimitive, TokenTree } from "../../types/index.js"
 
-import type { FlattenedTokenEntry } from "./output.types.js"
+import type { FlattenedTokenEntry } from "./shared.types.js"
 
 /**
  * Default metadata keys ignored when traversing token groups.
@@ -94,19 +94,14 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
  * Returns true when the value can be stored as a token primitive.
  */
 export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
-  return (
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean" ||
-    value === null
-  )
+  return typeof value === "string" || typeof value === "number"
 }
 
 /**
- * Returns true when the value is a Neurex token leaf.
+ * Returns true when the value is a DTCG-style token leaf.
  */
 export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  return isRecord(value) && "value" in value && isTokenPrimitive(value.value)
+  return isRecord(value) && "$value" in value && isTokenPrimitive(value.$value)
 }
 
 /**
@@ -138,8 +133,9 @@ export const flattenTokenTree = (
       return [
         {
           path: nextPath,
-          value: value.value,
-          description: value.description,
+          value: value.$value,
+          description: value.$description,
+          type: value.$type,
         },
       ]
     }

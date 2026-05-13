@@ -14,16 +14,17 @@
  * - Format-specific generators may ignore fields they do not need.
  */
 
-import type { TokenPrimitive } from "../../types/index.js"
+import type { TokenPrimitive, TokenType } from "../../types/index.js"
 
 /**
  * Raw flattened token entry before format-specific serialization.
  *
  * CSS output uses path and value.
- * JSON/DTCG output may also use description.
+ * JSON/DTCG output may also use description and type.
  */
 export interface FlattenedTokenEntry {
   path: string[]
   value: TokenPrimitive
   description?: string
+  type?: TokenType
 }

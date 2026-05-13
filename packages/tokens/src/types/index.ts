@@ -7,10 +7,10 @@
 
 export type {
   TokenEntry,
-  TokenGroupProperty,
   TokenLeaf,
   TokenNode,
   TokenPrimitive,
+  TokenType,
   TokenTree,
 } from "./token.types.js"
 

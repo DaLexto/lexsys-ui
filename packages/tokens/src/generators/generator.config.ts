@@ -17,7 +17,6 @@ export interface StyleOutputConfig {
   cssVarPrefix: string
   tailwindPrefix: string
   styleHeader: string
-  //groupNameOverrides: Record<string, string>
   groupNameOverrides: Readonly<Record<string, string>>
 }
 

@@ -5,20 +5,20 @@
  * @description Public entry point for DTCG-compatible JSON token generation.
  */
 
-export { generateJsonTokens } from "./generator.js"
+export { generateJsonTokens } from "./dtcg.generator"
 
 export {
-  createDefaultJsonGeneratorOptions,
+  createDefaultDtcgGeneratorOptions,
   resolveDtcgTokenType,
   setDtcgTokenTreeValue,
   toDtcgTokenLeaf,
-} from "./generator.utils.js"
+} from "./dtcg.utils"
 
 export type {
   DtcgTokenLeaf,
   DtcgTokenTree,
   DtcgTokenType,
   DtcgTokenTypeResolver,
-  JsonGenerateResult,
-  JsonGeneratorOptions,
-} from "./generator.types.js"
+  DtcgGenerateResult,
+  DtcgGeneratorOptions,
+} from "./dtcg.types"

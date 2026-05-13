@@ -12,7 +12,7 @@
  * @notes
  * - The resolver is output-agnostic.
  * - It must not know about CSS variables, Tailwind, or generated file formats.
- * - Token leaves use the Neurex { value } authoring shape.
+ * - Token leaves use the DTCG-style { $value } authoring shape.
  */
 
 import type { TokenPrimitive, TokenTree } from "../types/index.js"

@@ -14,6 +14,6 @@ export {
   normalizeTokenName,
   toKebabSegment,
   toTokenName,
-} from "./output.utils.js"
+} from "./shared.utils.js"
 
-export type { FlattenedTokenEntry } from "./output.types.js"
+export type { FlattenedTokenEntry } from "./shared.types.js"

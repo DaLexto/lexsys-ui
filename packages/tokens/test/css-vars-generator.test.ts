@@ -21,9 +21,9 @@ describe("css vars generator", () => {
   it("creates CSS variable entries from token leaves", () => {
     const tokens: TokenTree = {
       color: {
-        white: { value: "oklch(1 0 0)" },
+        white: { $value: "oklch(1 0 0)" },
         blue: {
-          600: { value: "oklch(0.546 0.245 262.881)" },
+          600: { $value: "oklch(0.546 0.245 262.881)" },
         },
       },
     }
@@ -45,11 +45,11 @@ describe("css vars generator", () => {
   it("maps token references to CSS variable references", () => {
     const tokens: TokenTree = {
       radius: {
-        md: { value: "0.375rem" },
-        control: { value: "{radius.md}" },
+        md: { $value: "0.375rem" },
+        control: { $value: "{radius.md}" },
       },
       button: {
-        radius: { value: "{radius.control}" },
+        radius: { $value: "{radius.control}" },
       },
     }
 
@@ -69,15 +69,15 @@ describe("css vars generator", () => {
   it("applies group name overrides", () => {
     const tokens: TokenTree = {
       spacing: {
-        1: { value: "0.25rem" },
+        1: { $value: "0.25rem" },
       },
       motion: {
         duration: {
-          fast: { value: "150ms" },
-          control: { value: "{motion.duration.fast}" },
+          fast: { $value: "150ms" },
+          control: { $value: "{motion.duration.fast}" },
         },
         easing: {
-          standard: { value: "cubic-bezier(0.2, 0, 0, 1)" },
+          standard: { $value: "cubic-bezier(0.2, 0, 0, 1)" },
         },
       },
     }
@@ -110,7 +110,7 @@ describe("css vars generator", () => {
       name: "color",
       selector: ":root",
       colorScheme: "light",
-      white: { value: "oklch(1 0 0)" },
+      white: { $value: "oklch(1 0 0)" },
     } as unknown as TokenTree
 
     const entries = createCssVariableEntries(tokens, generatorOptions, [
@@ -128,8 +128,8 @@ describe("css vars generator", () => {
   it("collapses DEFAULT path segments", () => {
     const tokens: TokenTree = {
       radius: {
-        DEFAULT: { value: "0.375rem" },
-        sm: { value: "0.25rem" },
+        DEFAULT: { $value: "0.375rem" },
+        sm: { $value: "0.25rem" },
       },
     }
 
@@ -179,7 +179,7 @@ describe("css vars generator", () => {
   it("generates entries and CSS together", () => {
     const tokens: TokenTree = {
       color: {
-        white: { value: "oklch(1 0 0)" },
+        white: { $value: "oklch(1 0 0)" },
       },
     }
 

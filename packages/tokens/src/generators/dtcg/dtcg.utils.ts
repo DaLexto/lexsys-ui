@@ -1,5 +1,5 @@
 /**
- * generator.utils.ts
+ * dtcg.utils.ts
  *
  * @layer generators
  * @description Utility helpers for DTCG-compatible JSON token output.
@@ -20,14 +20,14 @@ import {
   DEFAULT_GENERATOR_METADATA_KEYS,
   toTokenName,
   type FlattenedTokenEntry,
-} from "../shared/index.js"
+} from "../shared"
 
 import type {
   DtcgTokenLeaf,
   DtcgTokenTree,
   DtcgTokenType,
-  JsonGeneratorOptions,
-} from "./generator.types.js"
+  DtcgGeneratorOptions,
+} from "./dtcg.types"
 
 /**
  * Default DTCG type mapping by normalized token group/name.
@@ -88,9 +88,9 @@ const getReferenceTokenName = (value: unknown): string | undefined => {
 /**
  * Creates required JSON generator options with default values applied.
  */
-export const createDefaultJsonGeneratorOptions = (
-  options: JsonGeneratorOptions = {},
-): Required<JsonGeneratorOptions> => {
+export const createDefaultDtcgGeneratorOptions = (
+  options: DtcgGeneratorOptions = {},
+): Required<DtcgGeneratorOptions> => {
   return {
     tokenTypeByGroup: options.tokenTypeByGroup ?? DEFAULT_TOKEN_TYPE_BY_GROUP,
     groupNameOverrides: options.groupNameOverrides ?? {},
@@ -104,10 +104,17 @@ export const createDefaultJsonGeneratorOptions = (
  */
 export const resolveDtcgTokenType = (
   entry: FlattenedTokenEntry,
-  options: Required<JsonGeneratorOptions>,
+  options: Required<DtcgGeneratorOptions>,
 ): DtcgTokenType => {
+  if (entry.type !== undefined) {
+    return entry.type
+  }
+
   const tokenName = toTokenName(entry.path, {})
-  const pathTokenType = resolveTokenNameType(tokenName, options.tokenTypeByGroup)
+  const pathTokenType = resolveTokenNameType(
+    tokenName,
+    options.tokenTypeByGroup,
+  )
 
   if (pathTokenType !== undefined) {
     return pathTokenType
@@ -127,10 +134,6 @@ export const resolveDtcgTokenType = (
     return "number"
   }
 
-  if (typeof entry.value === "boolean") {
-    return "boolean"
-  }
-
   return "string"
 }
 
@@ -139,7 +142,7 @@ export const resolveDtcgTokenType = (
  */
 export const toDtcgTokenLeaf = (
   entry: FlattenedTokenEntry,
-  options: Required<JsonGeneratorOptions>,
+  options: Required<DtcgGeneratorOptions>,
 ): DtcgTokenLeaf => {
   const leaf: DtcgTokenLeaf = {
     $value: entry.value,

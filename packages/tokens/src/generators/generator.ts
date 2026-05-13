@@ -17,8 +17,8 @@ import {
   type CssVariableEntry,
   type CssVarsGeneratorOptions,
 } from "./css-vars"
-import { generateJsonTokens } from "./json"
-import { defaultStyleOutputConfig } from "./output-config.js"
+import { generateJsonTokens } from "./dtcg"
+import { defaultStyleOutputConfig } from "./generator.config.js"
 import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared/index.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
@@ -36,7 +36,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
 }
 
 const isTokenLeafLike = (value: unknown): boolean => {
-  return isRecord(value) && "value" in value
+  return isRecord(value) && "$value" in value
 }
 
 const isTokenBranchLike = (value: unknown): value is TokenTree => {

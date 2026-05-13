@@ -1,5 +1,5 @@
 /**
- * css-vars-generator.utils.ts
+ * css-vars.utils.ts
  *
  * @layer generators
  * @description Utility helpers for CSS variable output generation.
@@ -26,7 +26,7 @@ import {
 import type {
   CssVarsGeneratorOptions,
   CssVariableEntry,
-} from "./generator.types.js"
+} from "./css-vars.types.js"
 
 const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
 
@@ -50,11 +50,7 @@ export const toCssVarName = (
 export const toCssTokenValue = (
   value: TokenPrimitive,
   options: Required<CssVarsGeneratorOptions>,
-): string | null => {
-  if (value === null) {
-    return null
-  }
-
+): string => {
   const stringValue = String(value)
   const reference = stringValue.match(STRICT_REFERENCE_PATTERN)
 
@@ -79,13 +75,9 @@ export const toCssTokenValue = (
 export const toCssVariableEntry = (
   entry: FlattenedTokenEntry,
   options: Required<CssVarsGeneratorOptions>,
-): CssVariableEntry | null => {
+): CssVariableEntry => {
   const tokenName = toTokenName(entry.path, options.groupNameOverrides)
   const cssValue = toCssTokenValue(entry.value, options)
-
-  if (cssValue === null) {
-    return null
-  }
 
   return {
     name: tokenName,

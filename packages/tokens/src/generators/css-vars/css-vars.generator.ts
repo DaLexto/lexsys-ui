@@ -1,5 +1,5 @@
 /**
- * css-vars-generator.ts
+ * css-vars.generator.ts
  *
  * @layer generators
  * @description CSS custom property generator for Neurex token trees.
@@ -22,13 +22,13 @@ import type {
   CssVariableEntry,
   CssVarsGenerateResult,
   CssVarsGeneratorOptions,
-} from "./generator.types.js"
+} from "./css-vars.types.js"
 
 import {
   createDefaultCssVarsGeneratorOptions,
   toCssVariableEntry,
   toCssVarName,
-} from "./generator.utils.js"
+} from "./css-vars.utils.js"
 
 /* -------------------------------------------------------------------------------------------------
  * CSS serialization
@@ -66,9 +66,9 @@ export const createCssVariableEntries = (
 ): CssVariableEntry[] => {
   const resolvedOptions = createDefaultCssVarsGeneratorOptions(options)
 
-  return flattenSharedTokenTree(tree, resolvedOptions.metadataKeys, path)
-    .map((entry) => toCssVariableEntry(entry, resolvedOptions))
-    .filter((entry): entry is CssVariableEntry => entry !== null)
+  return flattenSharedTokenTree(tree, resolvedOptions.metadataKeys, path).map(
+    (entry) => toCssVariableEntry(entry, resolvedOptions),
+  )
 }
 
 /* -------------------------------------------------------------------------------------------------
@@ -86,9 +86,7 @@ export const generateCssVariables = (
     tree,
     resolvedOptions.metadataKeys,
     path,
-  )
-    .map((entry) => toCssVariableEntry(entry, resolvedOptions))
-    .filter((entry): entry is CssVariableEntry => entry !== null)
+  ).map((entry) => toCssVariableEntry(entry, resolvedOptions))
 
   return {
     entries,

@@ -13,16 +13,11 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
 }
 
 const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
-  return (
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean" ||
-    value === null
-  )
+  return typeof value === "string" || typeof value === "number"
 }
 
 const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  return isRecord(value) && "value" in value && isTokenPrimitive(value.value)
+  return isRecord(value) && "$value" in value && isTokenPrimitive(value.$value)
 }
 
 const getTokenLeaf = (tree: TokenTree, path: string[]): TokenLeaf => {
@@ -48,7 +43,7 @@ describe("resolveReference", () => {
     const tokens: TokenTree = {
       color: {
         blue: {
-          600: { value: "oklch(0.546 0.245 262.881)" },
+          600: { $value: "oklch(0.546 0.245 262.881)" },
         },
       },
     }
@@ -64,12 +59,12 @@ describe("resolveReference", () => {
     const tokens: TokenTree = {
       color: {
         blue: {
-          600: { value: "oklch(0.546 0.245 262.881)" },
+          600: { $value: "oklch(0.546 0.245 262.881)" },
         },
-        primary: { value: "{color.blue.600}" },
+        primary: { $value: "{color.blue.600}" },
       },
       button: {
-        background: { value: "{color.primary}" },
+        background: { $value: "{color.primary}" },
       },
     }
 
@@ -84,11 +79,11 @@ describe("resolveReference", () => {
     const tokens: TokenTree = {
       color: {
         primary: {
-          DEFAULT: { value: "{color.blue.600}" },
-          foreground: { value: "oklch(1 0 0)" },
+          DEFAULT: { $value: "{color.blue.600}" },
+          foreground: { $value: "oklch(1 0 0)" },
         },
         blue: {
-          600: { value: "oklch(0.546 0.245 262.881)" },
+          600: { $value: "oklch(0.546 0.245 262.881)" },
         },
       },
     }
@@ -105,33 +100,35 @@ describe("resolveTokenTreeStrict", () => {
   it("resolves token leaf values while preserving the token tree shape", () => {
     const tokens: TokenTree = {
       color: {
-        white: { value: "oklch(1 0 0)" },
+        white: { $value: "oklch(1 0 0)" },
         blue: {
-          600: { value: "oklch(0.546 0.245 262.881)" },
+          600: { $value: "oklch(0.546 0.245 262.881)" },
         },
-        primary: { value: "{color.blue.600}" },
+        primary: { $value: "{color.blue.600}" },
       },
       radius: {
-        md: { value: "0.375rem" },
-        control: { value: "{radius.md}" },
+        md: { $value: "0.375rem" },
+        control: { $value: "{radius.md}" },
       },
       button: {
-        radius: { value: "{radius.control}" },
-        background: { value: "{color.primary}" },
+        radius: { $value: "{radius.control}" },
+        background: { $value: "{color.primary}" },
       },
     }
 
     const resolved = resolveTokenTreeStrict(tokens)
 
-    expect(getTokenLeaf(resolved, ["color", "white"]).value).toBe(
+    expect(getTokenLeaf(resolved, ["color", "white"]).$value).toBe(
       "oklch(1 0 0)",
     )
-    expect(getTokenLeaf(resolved, ["color", "primary"]).value).toBe(
+    expect(getTokenLeaf(resolved, ["color", "primary"]).$value).toBe(
       "oklch(0.546 0.245 262.881)",
     )
-    expect(getTokenLeaf(resolved, ["radius", "control"]).value).toBe("0.375rem")
-    expect(getTokenLeaf(resolved, ["button", "radius"]).value).toBe("0.375rem")
-    expect(getTokenLeaf(resolved, ["button", "background"]).value).toBe(
+    expect(getTokenLeaf(resolved, ["radius", "control"]).$value).toBe(
+      "0.375rem",
+    )
+    expect(getTokenLeaf(resolved, ["button", "radius"]).$value).toBe("0.375rem")
+    expect(getTokenLeaf(resolved, ["button", "background"]).$value).toBe(
       "oklch(0.546 0.245 262.881)",
     )
   })
@@ -139,7 +136,7 @@ describe("resolveTokenTreeStrict", () => {
   it("throws when a reference is missing", () => {
     const tokens: TokenTree = {
       color: {
-        primary: { value: "{color.missing}" },
+        primary: { $value: "{color.missing}" },
       },
     }
 
@@ -152,8 +149,8 @@ describe("resolveTokenTreeStrict", () => {
 describe("resolveTokenTreeSafe", () => {
   it("collects circular-reference errors in safe mode", () => {
     const result = resolveTokenTreeSafe({
-      a: { value: "{b}" },
-      b: { value: "{a}" },
+      a: { $value: "{b}" },
+      b: { $value: "{a}" },
     })
 
     expect(
@@ -163,7 +160,7 @@ describe("resolveTokenTreeSafe", () => {
 
   it("collects missing-reference warnings in safe mode", () => {
     const result = resolveTokenTreeSafe({
-      a: { value: "{missing.path}" },
+      a: { $value: "{missing.path}" },
     })
 
     expect(result.errors).toHaveLength(0)
@@ -174,14 +171,14 @@ describe("resolveTokenTreeSafe", () => {
   it("leaves unresolved references as-is in non-strict safe mode", () => {
     const result = resolveTokenTreeSafe({
       color: {
-        primary: { value: "{color.missing}" },
+        primary: { $value: "{color.missing}" },
       },
     })
 
     expect(result.errors).toHaveLength(0)
     expect(result.warnings).toHaveLength(1)
     expect(result.warnings[0]?.code).toBe("UNRESOLVED_REFERENCE_LEFT_AS_IS")
-    expect(getTokenLeaf(result.tree, ["color", "primary"]).value).toBe(
+    expect(getTokenLeaf(result.tree, ["color", "primary"]).$value).toBe(
       "{color.missing}",
     )
   })
@@ -190,9 +187,9 @@ describe("resolveTokenTreeSafe", () => {
     const result = resolveTokenTreeSafe({
       color: {
         blue: {
-          600: { value: "oklch(0.546 0.245 262.881)" },
+          600: { $value: "oklch(0.546 0.245 262.881)" },
         },
-        primary: { value: "{color.blue}" },
+        primary: { $value: "{color.blue}" },
       },
     })
 

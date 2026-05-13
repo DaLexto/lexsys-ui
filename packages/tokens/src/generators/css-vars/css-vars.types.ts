@@ -1,5 +1,5 @@
 /**
- * css-vars-generator.types.ts
+ * css-vars.types.ts
  *
  * @layer generators
  * @description Type contracts for the CSS variables generator.

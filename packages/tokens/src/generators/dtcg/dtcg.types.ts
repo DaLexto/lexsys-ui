@@ -1,5 +1,5 @@
 /**
- * generator.types.ts
+ * dtcg.types.ts
  *
  * @layer generators
  * @description Type contracts for the DTCG-compatible JSON generator.
@@ -12,28 +12,19 @@
  * @notes
  * - This generator is JSON-specific.
  * - It does not resolve token references to final primitive values.
- * - Internal Neurex token leaves use { value }.
- * - JSON export leaves use DTCG-style { $value, $type }.
+ * - Token leaves follow the DTCG-style { $value, $type } shape.
+ * - JSON export preserves references for downstream token tooling.
  */
 
-import type { TokenPrimitive } from "../../types/index.js"
-import type { FlattenedTokenEntry } from "../shared/index.js"
+import type { TokenPrimitive, TokenType } from "../../types"
+import type { FlattenedTokenEntry } from "../shared"
 
 /**
  * Supported DTCG-compatible token types for Neurex JSON export.
  *
  * Keep this list intentionally limited to token types Neurex currently needs.
  */
-export type DtcgTokenType =
-  | "color"
-  | "dimension"
-  | "fontFamily"
-  | "fontWeight"
-  | "duration"
-  | "cubicBezier"
-  | "number"
-  | "string"
-  | "boolean"
+export type DtcgTokenType = TokenType | "string"
 
 /**
  * DTCG-compatible token leaf used in exported JSON.
@@ -57,13 +48,13 @@ export type DtcgTokenTree = {
  */
 export type DtcgTokenTypeResolver = (
   entry: FlattenedTokenEntry,
-  options: Required<JsonGeneratorOptions>,
+  options: Required<DtcgGeneratorOptions>,
 ) => DtcgTokenType
 
 /**
  * Options used when generating DTCG-compatible JSON tokens.
  */
-export interface JsonGeneratorOptions {
+export interface DtcgGeneratorOptions {
   /**
    * Optional group/type mapping.
    *
@@ -103,7 +94,7 @@ export interface JsonGeneratorOptions {
 /**
  * Result returned by JSON token generation.
  */
-export interface JsonGenerateResult {
+export interface DtcgGenerateResult {
   json: DtcgTokenTree
   content: string
 }

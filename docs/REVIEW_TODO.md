@@ -175,6 +175,62 @@ Status:
 
 ## P1 - Architecture Contract Gaps
 
+### TODO: Migrate token leaf authoring to DTCG keys
+
+Problem:
+
+- Current token source files mostly use the internal `{ value }` leaf shape.
+- `token.types.ts` has started moving toward DTCG-style `$value`, `$type`, and
+  `$description`.
+- Resolver, generator, tests, and source files must not stay split between
+  `{ value }` and `{ $value }`.
+- CSS and Tailwind output names/values must remain stable while the authoring
+  leaf shape changes.
+
+Direction:
+
+- Update `token.types.ts` so `TokenLeaf` uses `$value`, `$type`, and
+  `$description`.
+- Update `resolver.utils.ts` so `isTokenLeaf` reads `$value`, and
+  `isTokenPrimitive` follows the new `TokenPrimitive` contract.
+- Update `resolver.ts` so reference resolution reads `targetLeaf.$value` and
+  `node.$value`, while `cloneLeafWithValue` writes `$value` and preserves
+  `$type` / `$description`.
+- Update `resolver.test.ts` so all test token fixtures use `$value` and all
+  leaf assertions read `.$value`.
+- Update `generators/shared/output.utils.ts` so `flattenTokenTree` reads
+  `$value`, maps `$description` to generator descriptions, and carries `$type`
+  when needed by downstream generators.
+- Update `css-vars-generator.test.ts` and `outputs.test.ts` so fixtures use
+  `$value` without changing the CSS/Tailwind output contract.
+- Review `generators/json/*` so DTCG-shaped input is not converted from
+  `value` to `$value` twice and `$type` inference remains intentional.
+- Migrate token source files from `value` to `$value` in this order:
+  primitives, brand, semantics, themes, then component token groups.
+
+Status:
+
+- Done.
+- `token.types.ts` now uses the DTCG-style leaf shape and English ASCII
+  comments.
+- `resolver.utils.ts` has started reading `$value`.
+- `resolver.ts` now reads and writes `$value` while preserving `$type` and
+  `$description`.
+- `resolver.test.ts` now uses `$value` fixtures and assertions; direct resolver
+  test verification passes.
+- Shared generator flattening now reads `$value`, maps `$description` to
+  generator descriptions, and carries `$type` for downstream generators.
+- `css-vars-generator.test.ts` now uses `$value` fixtures; direct CSS generator
+  test verification passes without changing the CSS output contract.
+- Generator naming references now point at `generator.ts` and
+  `generator.output.ts`.
+- DTCG JSON generation now preserves explicit `$type` before falling back to
+  path/reference inference.
+- Token source files under primitives, brand, semantics, themes, and component
+  token groups now use `$value`.
+- Package verification passes with `pnpm --filter @neurex/tokens check`,
+  `pnpm --filter @neurex/tokens build`, and targeted Prettier checks.
+
 ### DONE: Migrate semantic color tokens to structured hierarchy
 
 Problem:

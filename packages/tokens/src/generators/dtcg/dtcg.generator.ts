@@ -1,44 +1,44 @@
 /**
- * generator.ts
+ * dtcg.generator.ts
  *
  * @layer generators
  * @description Generates DTCG-compatible JSON token output.
  *
  * @responsibility
- * - Convert Neurex { value } token trees into DTCG JSON token trees
+ * - Generate DTCG JSON token trees from Neurex token trees
  * - Preserve token references instead of resolving them
  * - Serialize generated JSON deterministically
  *
  * @notes
  * - This generator does not resolve token references.
- * - It maps internal { value } leaves to { $value, $type } leaves.
+ * - It preserves DTCG-style { $value, $type } leaves for interop output.
  * - The output is intended for token interop workflows such as Tokens Studio/Figma.
  */
 
-import type { TokenTree } from "../../types/index.js"
+import type { TokenTree } from "../../types"
 
-import { flattenTokenTree } from "../shared/index.js"
+import { flattenTokenTree } from "../shared"
 
 import type {
   DtcgTokenTree,
-  JsonGenerateResult,
-  JsonGeneratorOptions,
-} from "./generator.types.js"
+  DtcgGenerateResult,
+  DtcgGeneratorOptions,
+} from "./dtcg.types"
 
 import {
-  createDefaultJsonGeneratorOptions,
+  createDefaultDtcgGeneratorOptions,
   setDtcgTokenTreeValue,
   toDtcgTokenLeaf,
-} from "./generator.utils.js"
+} from "./dtcg.utils"
 
 /**
  * Generates a DTCG-compatible JSON token tree and formatted JSON content.
  */
 export const generateJsonTokens = (
   tree: TokenTree,
-  options: JsonGeneratorOptions = {},
-): JsonGenerateResult => {
-  const generatorOptions = createDefaultJsonGeneratorOptions(options)
+  options: DtcgGeneratorOptions = {},
+): DtcgGenerateResult => {
+  const generatorOptions = createDefaultDtcgGeneratorOptions(options)
   const entries = flattenTokenTree(tree, generatorOptions.metadataKeys)
 
   const json: DtcgTokenTree = {}

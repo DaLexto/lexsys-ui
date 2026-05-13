@@ -2,44 +2,44 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const badgeComponentTokens: ComponentTokenGroup = {
   component: "badge",
-  radius: { value: "{radius.control}" },
+  radius: { $value: "{radius.control}" },
   height: {
-    sm: { value: "1.5rem" },
-    md: { value: "1.75rem" },
+    sm: { $value: "1.5rem" },
+    md: { $value: "1.75rem" },
   },
   padding: {
     x: {
-      sm: { value: "{spacing.control.x.xs}" },
-      md: { value: "{spacing.control.x.sm}" },
+      sm: { $value: "{spacing.control.x.xs}" },
+      md: { $value: "{spacing.control.x.sm}" },
     },
   },
   font: {
     size: {
-      sm: { value: "{typography.label.xs.fontSize}" },
-      md: { value: "{typography.label.sm.fontSize}" },
+      sm: { $value: "{typography.label.xs.fontSize}" },
+      md: { $value: "{typography.label.sm.fontSize}" },
     },
-    weight: { value: "{typography.label.sm.fontWeight}" },
+    weight: { $value: "{typography.label.sm.fontWeight}" },
   },
   transition: {
-    duration: { value: "{motion.duration.control}" },
-    easing: { value: "{motion.easing.control}" },
+    duration: { $value: "{motion.duration.control}" },
+    easing: { $value: "{motion.easing.control}" },
   },
   outline: {
-    background: { value: "transparent" },
+    background: { $value: "transparent" },
   },
   neutral: {
-    background: { value: "{color.background.subtle}" },
-    foreground: { value: "{color.text.primary}" },
-    borderColor: { value: "{color.border.default}" },
+    background: { $value: "{color.background.subtle}" },
+    foreground: { $value: "{color.text.primary}" },
+    borderColor: { $value: "{color.border.default}" },
   },
   primary: {
-    background: { value: "{color.action.primary.base}" },
-    foreground: { value: "{color.text.inverse}" },
-    borderColor: { value: "{color.action.primary.base}" },
+    background: { $value: "{color.action.primary.base}" },
+    foreground: { $value: "{color.text.inverse}" },
+    borderColor: { $value: "{color.action.primary.base}" },
   },
   destructive: {
-    background: { value: "{color.action.danger.base}" },
-    foreground: { value: "{color.text.inverse}" },
-    borderColor: { value: "{color.action.danger.base}" },
+    background: { $value: "{color.action.danger.base}" },
+    foreground: { $value: "{color.text.inverse}" },
+    borderColor: { $value: "{color.action.danger.base}" },
   },
 }

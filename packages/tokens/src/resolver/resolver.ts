@@ -6,7 +6,7 @@
  *
  * @responsibility
  * - Resolve strict full-string token references
- * - Preserve the Neurex { value } token leaf shape
+ * - Preserve the DTCG-style { $value } token leaf shape
  * - Report missing, invalid, circular, and branch references
  *
  * @notes
@@ -56,7 +56,7 @@ const cloneLeafWithValue = (
 ): TokenLeaf => {
   return {
     ...leaf,
-    value,
+    $value: value,
   }
 }
 
@@ -196,7 +196,7 @@ export const resolveReference = (
     }
   }
 
-  const targetValue = targetLeaf.value
+  const targetValue = targetLeaf.$value
 
   if (!isReferenceString(targetValue)) {
     return {
@@ -241,7 +241,7 @@ const resolveNode = (
   if (isTokenLeaf(node)) {
     const sourcePath = toPathString(path)
 
-    if (!isReferenceString(node.value)) {
+    if (!isReferenceString(node.$value)) {
       return {
         node,
         errors,
@@ -249,7 +249,7 @@ const resolveNode = (
       }
     }
 
-    const result = resolveReference(root, node.value, options, sourcePath)
+    const result = resolveReference(root, node.$value, options, sourcePath)
 
     return {
       node: cloneLeafWithValue(node, result.value),

@@ -2,22 +2,22 @@ import type { ComponentTokenGroup } from "../types/index.js"
 
 export const fieldsetComponentTokens: ComponentTokenGroup = {
   component: "fieldset",
-  background: { value: "{color.background.surface}" },
-  foreground: { value: "{color.text.primary}" },
-  borderColor: { value: "{color.border.default}" },
-  radius: { value: "{radius.surface}" },
-  padding: { value: "{spacing.surface.md}" },
-  gap: { value: "{spacing.surface.gap.md}" },
+  background: { $value: "{color.background.surface}" },
+  foreground: { $value: "{color.text.primary}" },
+  borderColor: { $value: "{color.border.default}" },
+  radius: { $value: "{radius.surface}" },
+  padding: { $value: "{spacing.surface.md}" },
+  gap: { $value: "{spacing.surface.gap.md}" },
   legend: {
-    foreground: { value: "{color.text.primary}" },
+    foreground: { $value: "{color.text.primary}" },
     margin: {
-      bottom: { value: "{spacing.surface.gap.sm}" },
+      bottom: { $value: "{spacing.surface.gap.sm}" },
     },
     font: {
-      size: { value: "{typography.label.md.fontSize}" },
-      weight: { value: "{typography.label.md.fontWeight}" },
-      lineHeight: { value: "{typography.label.md.lineHeight}" },
-      letterSpacing: { value: "{typography.label.md.letterSpacing}" },
+      size: { $value: "{typography.label.md.fontSize}" },
+      weight: { $value: "{typography.label.md.fontWeight}" },
+      lineHeight: { $value: "{typography.label.md.lineHeight}" },
+      letterSpacing: { $value: "{typography.label.md.letterSpacing}" },
     },
   },
 }

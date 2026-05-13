@@ -17,7 +17,7 @@
  * @notes
  * - This file must remain generic and free of token-category-specific logic.
  * - Only strict full-string references such as "{color.gray.900}" are supported.
- * - Token leaves use the Neurex { value } authoring shape.
+ * - Token leaves use the DTCG-style { $value } authoring shape.
  */
 
 import type {
@@ -47,12 +47,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
  * Returns true when the value can be stored as a token primitive.
  */
 export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
-  return (
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean" ||
-    value === null
-  )
+  return typeof value === "string" || typeof value === "number"
 }
 
 /**
@@ -60,15 +55,12 @@ export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
  *
  * A token leaf must use:
  * {
- *   value: string | number | boolean | null
+ *   $value: string | number
  * }
  */
 export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  if (!isRecord(value)) {
-    return false
-  }
-
-  return "value" in value && isTokenPrimitive(value.value)
+  if (!isRecord(value)) return false
+  return "$value" in value && isTokenPrimitive(value["$value"])
 }
 
 /**
