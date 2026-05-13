@@ -59,6 +59,7 @@ export interface DtcgNeurexMetadata {
   presetId?: string
   presetName?: string
   tokenSetOrder: string[]
+  semanticTokenPaths?: string[]
   themes?: DtcgThemeMetadata[]
 }
 

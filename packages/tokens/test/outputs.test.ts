@@ -170,6 +170,7 @@ describe("createStyleOutputs", () => {
           presetId?: unknown
           presetName?: unknown
           tokenSetOrder?: unknown
+          semanticTokenPaths?: unknown
         }
       }
       color?: {
@@ -219,12 +220,18 @@ describe("createStyleOutputs", () => {
     expect(json.$schema).toBe(
       "https://www.designtokens.org/schemas/2025.10/format.json",
     )
-    expect(json.$extensions?.["org.neurex"]).toEqual({
+    expect(json.$extensions?.["org.neurex"]).toMatchObject({
       generatedBy: "@neurex/tokens",
       presetId: "neurex",
       presetName: "Neurex Default",
       tokenSetOrder: ["primitives", "semantics", "components"],
     })
+    expect(json.$extensions?.["org.neurex"]?.semanticTokenPaths).toContain(
+      "color.background.base",
+    )
+    expect(json.$extensions?.["org.neurex"]?.semanticTokenPaths).toContain(
+      "typography.body.md.fontFamily",
+    )
     expect(json.color?.blue?.["600"]).toEqual({
       $value: "oklch(0.455 0.191 259.631)",
       $type: "color",
@@ -298,7 +305,7 @@ describe("createStyleOutputs", () => {
     const outputs = createStyleOutputs()
     const input = createDtcgTokenInputFromJson(outputs.tokensJson)
 
-    expect(input.metadata).toEqual({
+    expect(input.metadata).toMatchObject({
       generatedBy: "@neurex/tokens",
       presetId: "neurex",
       presetName: "Neurex Default",
@@ -308,6 +315,8 @@ describe("createStyleOutputs", () => {
     expect("$extensions" in input.tokenTree).toBe(false)
     expect(input.tokenTree.color).toBeDefined()
     expect(input.tokenTree.button).toBeDefined()
+    expect(input.semanticTokenTree?.color).toBeDefined()
+    expect(input.semanticTokenTree?.button).toBeUndefined()
   })
 
   test("generates tokens css from DTCG json input", () => {
@@ -329,11 +338,14 @@ describe("createStyleOutputs", () => {
       outputs.themesJson,
     )
 
+    expect(css).toBe(outputs.themeCss)
     expect(css).toContain(".dark")
     expect(css).toContain("color-scheme: light;")
     expect(css).toContain("color-scheme: dark;")
     expect(css).toContain("@theme inline")
     expect(css).toContain("--color-nx-background-base")
+    expect(css).not.toContain("--color-nx-blue-600")
+    expect(css).not.toContain("--color-nx-button")
     expect(css).not.toContain("--nx-$schema")
     expect(css).not.toContain("--nx-$extensions")
   })

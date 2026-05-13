@@ -13,10 +13,14 @@ import {
 import {
   createCssBlock,
   createCssVariableEntries,
+  DTCG_NEUREX_EXTENSION_KEY,
   type CssVarsGeneratorOptions,
   generateJsonTokens,
 } from "./outputs"
-import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared/index.js"
+import {
+  DEFAULT_GENERATOR_METADATA_KEYS,
+  flattenTokenTree,
+} from "./shared/index.js"
 import { defaultStyleOutputConfig } from "./style-output.config.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
@@ -99,6 +103,14 @@ const createTokensCssFromTokenTree = (
   )}\n`
 }
 
+const createTokenPaths = (tokenTree: TokenTree): string[] => {
+  return flattenTokenTree(tokenTree, DEFAULT_GENERATOR_METADATA_KEYS).map(
+    (entry) => {
+      return entry.path.join(".")
+    },
+  )
+}
+
 const createTokensJson = (input: StyleTokenInput): string => {
   return generateJsonTokens(input.tokenTree, {
     metadata: {
@@ -106,6 +118,7 @@ const createTokensJson = (input: StyleTokenInput): string => {
       presetId: input.preset.id,
       presetName: input.preset.name,
       tokenSetOrder: ["primitives", "semantics", "components"],
+      semanticTokenPaths: createTokenPaths(input.semanticTokens),
     },
   }).content
 }
@@ -215,8 +228,16 @@ export const createThemeCssFromDtcgJson = (
     throw new Error("Tailwind @theme generation requires a light theme.")
   }
 
+  const semanticTokenTree = tokenInput.semanticTokenTree
+
+  if (semanticTokenTree === undefined) {
+    throw new Error(
+      `DTCG token document extension "${DTCG_NEUREX_EXTENSION_KEY}" is missing "semanticTokenPaths".`,
+    )
+  }
+
   const tailwindThemeTokenTree = mergeTokenTrees(
-    tokenInput.tokenTree,
+    semanticTokenTree,
     lightTheme.tokens,
   )
   const semanticEntries = createCssVariableEntries(

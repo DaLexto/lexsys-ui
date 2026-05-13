@@ -293,6 +293,9 @@ Status:
 - `themesJson` now emits theme override tokens as a separate canonical DTCG
   document, and `createThemeCssFromDtcgJson` can generate `theme.css` from
   `tokensJson` plus `themesJson`.
+- `tokensJson` carries Neurex-owned `semanticTokenPaths` metadata so the DTCG
+  round-trip can rebuild the same semantic Tailwind `@theme` source without
+  treating primitive or component tokens as theme variables.
 - Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant
   in every composite value type yet.
 - Remaining work: tighten external JSON validation and define import adapters

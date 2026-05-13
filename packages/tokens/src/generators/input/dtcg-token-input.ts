@@ -1,4 +1,4 @@
-import type { TokenTree } from "../../types"
+import type { TokenNode, TokenTree } from "../../types"
 import type {
   BrandId,
   ThemeDefinition,
@@ -17,6 +17,7 @@ const DOCUMENT_METADATA_KEYS = new Set(["$schema", "$extensions"])
 export interface DtcgTokenInput {
   metadata: DtcgNeurexMetadata
   tokenTree: TokenTree
+  semanticTokenTree?: TokenTree
 }
 
 export interface DtcgThemeTokenInput {
@@ -100,8 +101,73 @@ const readNeurexMetadata = (
     presetName:
       typeof metadata.presetName === "string" ? metadata.presetName : undefined,
     tokenSetOrder: metadata.tokenSetOrder,
+    semanticTokenPaths: isStringArray(metadata.semanticTokenPaths)
+      ? metadata.semanticTokenPaths
+      : undefined,
     themes: isThemeMetadataArray(metadata.themes) ? metadata.themes : undefined,
   }
+}
+
+const getTokenNodeAtPath = (
+  tree: TokenTree,
+  path: string[],
+): TokenNode | undefined => {
+  let node: unknown = tree
+
+  for (const segment of path) {
+    if (!isRecord(node)) {
+      return undefined
+    }
+
+    node = node[segment]
+  }
+
+  return node as TokenNode | undefined
+}
+
+const setTokenNodeAtPath = (
+  tree: TokenTree,
+  path: string[],
+  value: TokenNode,
+): void => {
+  let currentTree = tree
+
+  path.forEach((segment, index) => {
+    const isLeafSegment = index === path.length - 1
+
+    if (isLeafSegment) {
+      currentTree[segment] = value
+      return
+    }
+
+    const existingValue = currentTree[segment]
+
+    if (!isRecord(existingValue) || "$value" in existingValue) {
+      currentTree[segment] = {}
+    }
+
+    currentTree = currentTree[segment] as TokenTree
+  })
+}
+
+const createTokenTreeFromPaths = (
+  tokenTree: TokenTree,
+  paths: string[],
+): TokenTree => {
+  const scopedTree: TokenTree = {}
+
+  paths.forEach((path) => {
+    const pathSegments = path.split(".")
+    const tokenNode = getTokenNodeAtPath(tokenTree, pathSegments)
+
+    if (tokenNode === undefined) {
+      throw new Error(`DTCG token document is missing token path "${path}".`)
+    }
+
+    setTokenNodeAtPath(scopedTree, pathSegments, tokenNode)
+  })
+
+  return scopedTree
 }
 
 export const createDtcgTokenInput = (
@@ -117,6 +183,10 @@ export const createDtcgTokenInput = (
   return {
     metadata,
     tokenTree,
+    semanticTokenTree:
+      metadata.semanticTokenPaths === undefined
+        ? undefined
+        : createTokenTreeFromPaths(tokenTree, metadata.semanticTokenPaths),
   }
 }
 
