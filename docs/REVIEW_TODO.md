@@ -330,8 +330,8 @@ Status:
   `process.exit(1)`, and reads `registryStylesPath` from
   `style-output.config.ts`.
 - Not started: yellow primitive scale review.
-- Not started: `size.ts` still needs explicit `$type: "dimension"` on each
-  token.
+- Done: `size.ts` now explicitly marks every token with
+  `$type: "dimension"`.
 - Done: `line-height.ts` now keeps only unitless named tokens typed as
   `number`.
 - Done: `semantics/typography.ts` now references named line-height tokens

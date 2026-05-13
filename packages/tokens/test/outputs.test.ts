@@ -138,6 +138,12 @@ describe("createStyleOutputs", () => {
           $type?: unknown
         }
       }
+      size?: {
+        "10"?: {
+          $value?: unknown
+          $type?: unknown
+        }
+      }
     }
 
     expect(json.color?.blue?.["600"]).toEqual({
@@ -151,6 +157,10 @@ describe("createStyleOutputs", () => {
     expect(json["line-height"]?.normal).toEqual({
       $value: 1.5,
       $type: "number",
+    })
+    expect(json.size?.["10"]).toEqual({
+      $value: "2.5rem",
+      $type: "dimension",
     })
   })
 
