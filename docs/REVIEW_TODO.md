@@ -229,8 +229,20 @@ Status:
   path/reference inference.
 - Token source files under primitives, brand, semantics, themes, and component
   token groups now use `$value`.
+- Token branch metadata support was added so token trees can carry DTCG-style
+    `$description` and `$deprecated` metadata on branches as well as leaves.
+- `TokenMetadata` now centralizes shared metadata fields for token leaves and
+  token trees.
+- Token group contracts now extend the shared `TokenTree` model instead of
+  maintaining a separate broad `TokenNode | string` group-property union.
+- Resolver traversal now skips DTCG metadata keys so branch metadata is
+  preserved without being treated as token child nodes.
+- `isTokenMetadataKey` was added to `resolver.utils.ts` to centralize
+  metadata-key detection during resolution.
+- Verification passed with `pnpm tokens:check`.
 - Package verification passes with `pnpm --filter @neurex/tokens check`,
-  `pnpm --filter @neurex/tokens build`, and targeted Prettier checks.
+  `pnpm --filter @neurex/tokens build`, targeted Prettier checks, and the
+  follow-up `pnpm tokens:check` branch-metadata verification.
 
 ### TODO: Make W3C/DTCG JSON the canonical token contract
 

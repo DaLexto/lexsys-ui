@@ -110,7 +110,7 @@ Tokens are the source of truth for design decisions.
 
 Long-term, the canonical token interchange contract is **W3C/DTCG Design
 Tokens JSON**. The current codebase still authors tokens in TypeScript files,
-but those files use the same DTCG-style leaf shape and act as a typed authoring
+but those files use the same DTCG-style shape and act as a typed authoring
 wrapper around the intended JSON contract.
 
 Current model:
@@ -139,7 +139,7 @@ catalog. For example, `createStyleTokenInput({ presetId: "neurex" })` selects
 the active style preset, filters compatible theme modes for that preset, and
 then feeds CSS and DTCG JSON outputs from that selected context.
 
-They define:
+Tokens define:
 
 - primitive values
 - semantic roles
@@ -152,9 +152,25 @@ primitives before component tokens consume them.
 Tokens must not be treated as CSS files. CSS is an output, not the source.
 
 Token authoring uses object trees, not flat token arrays or generated CSS
-variable strings. Group metadata lives beside token branches, and every token
-leaf uses a `{ $value, $type }` object so future metadata can be added without
-changing the shape:
+variable strings. Metadata follows the DTCG-style `$` key convention and may
+exist on both token branches and token leaves.
+
+Branch metadata describes a token group without being treated as a token leaf.
+Current supported branch metadata:
+
+- `$description`
+- `$deprecated`
+
+Every token leaf uses a `{ $value, $type }` object. Leaves may also carry
+metadata when the individual token needs documentation or lifecycle status.
+
+Authoring convention:
+
+- use `$description` on groups when it explains the purpose of a token family
+- use `$deprecated` on groups or leaves when a token path remains only for
+  migration compatibility
+- keep primitive scale leaves compact with `$value` and `$type` unless a leaf
+  needs unique documentation
 
 Semantic color tokens use a structured category hierarchy rather than flat
 single-level color roles.
@@ -168,7 +184,6 @@ Current color semantic groups:
   color.feedback.{info,success,warning,danger}.{bg,text,border}
   color.action.{primary,secondary,danger}.{base,hover,active,disabled}
 ```
-
 ### Theme Modes
 
 Theme modes map semantic token roles to concrete values inside a style preset.
