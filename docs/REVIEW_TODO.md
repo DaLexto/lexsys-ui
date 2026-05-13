@@ -325,8 +325,10 @@ Status:
   builds Tailwind `@theme` entries from semantic tokens plus light theme
   overrides, maps supported semantic namespaces automatically, and avoids
   duplicate names such as `--color-nx-color-*`.
-- Not started: `write-style-outputs.ts` still owns registry output path
-  construction; `style-output.config.ts` still needs `registryStylesPath`.
+- Done: `write-style-outputs.ts` now validates output flags, warns when no
+  output target is selected, uses an explicit CLI failure boundary with
+  `process.exit(1)`, and reads `registryStylesPath` from
+  `style-output.config.ts`.
 - Not started: yellow primitive scale review.
 - Not started: `size.ts` still needs explicit `$type: "dimension"` on each
   token.
