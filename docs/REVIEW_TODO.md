@@ -288,11 +288,14 @@ Status:
 - The input layer can now parse generated W3C/DTCG JSON documents back into a
   Neurex token tree by stripping the root document envelope and validating the
   required Neurex extension metadata.
+- `createTokensCssFromDtcgJson` now proves the current path can generate
+  `tokens.css` directly from canonical W3C/DTCG JSON input.
 - Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant
   in every composite value type yet.
 - Remaining work: lift parsed DTCG token trees into a full theme-aware
-  `StyleTokenInput`, and define strict validation/imports so external
-  Figma/Tokens Studio JSON can generate the same CSS outputs.
+  `StyleTokenInput` for `theme.css` generation, and define strict
+  validation/imports so external Figma/Tokens Studio JSON can generate the same
+  CSS outputs.
 
 ### TODO: Implement staged primitive token placeholder files
 

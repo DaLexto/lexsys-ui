@@ -3,7 +3,10 @@
  *
  * The tokens package is the design-system source of truth.
  */
-export { createStyleOutputs } from "./generators/create-style-outputs"
+export {
+  createStyleOutputs,
+  createTokensCssFromDtcgJson,
+} from "./generators/create-style-outputs"
 export { primitiveTokens } from "./primitives"
 export { semanticTokens } from "./semantics"
 export { componentTokens } from "./components"

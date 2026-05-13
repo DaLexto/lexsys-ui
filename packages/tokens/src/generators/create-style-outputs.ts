@@ -1,5 +1,6 @@
 import type { StyleOutputs } from "../types"
 import {
+  createDtcgTokenInputFromJson,
   createStyleTokenInput,
   mergeTokenTrees,
   validateStyleTokenInput,
@@ -84,6 +85,18 @@ const createTokensCss = (input: StyleTokenInput): string => {
   )}\n`
 }
 
+const createTokensCssFromTokenTree = (
+  tokenTree: StyleTokenInput["tokenTree"],
+) => {
+  const entries = createCssVariableEntries(tokenTree, cssVarsGeneratorOptions)
+
+  return `${styleOutputConfig.styleHeader}\n\n${createCssBlock(
+    ":root",
+    entries,
+    cssVarsGeneratorOptions,
+  )}\n`
+}
+
 const createTokensJson = (input: StyleTokenInput): string => {
   return generateJsonTokens(input.tokenTree, {
     metadata: {
@@ -147,4 +160,10 @@ export const createStyleOutputs = (
     themeCss: createThemeCss(input),
     tokensJson: createTokensJson(input),
   }
+}
+
+export const createTokensCssFromDtcgJson = (content: string): string => {
+  const input = createDtcgTokenInputFromJson(content)
+
+  return createTokensCssFromTokenTree(input.tokenTree)
 }
