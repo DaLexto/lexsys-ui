@@ -247,14 +247,26 @@ Direction:
 - Use the term **W3C/DTCG Design Tokens JSON** for the canonical token format.
 - Keep TypeScript as a typed authoring wrapper while the engine matures.
 - Make the generator consume a W3C/DTCG-shaped token tree as its stable input.
-- Later, add a parser/import path so Figma or Tokens Studio exports can produce
-  the same tree and generate the same CSS outputs.
+- Keep `generators/outputs/dtcg` as the canonical W3C/DTCG JSON output target.
+- Add tool-specific adapters separately, for example
+  `generators/outputs/tokens-studio`, instead of using a Tokens Studio schema
+  as the Neurex canonical schema.
+- Later, add parser/import paths so Figma or Tokens Studio exports can normalize
+  into the same W3C/DTCG tree and generate the same CSS outputs.
 
 Target model:
 
+Now:
+
+```txt
+TypeScript authoring -> W3C/DTCG Design Tokens JSON -> CSS
+```
+
+Later:
+
 ```txt
 TypeScript authoring -> W3C/DTCG Design Tokens JSON ─┐
-                                                     ├-> CSS
+                                                     ├-> CSS and tool outputs
 Figma / Tokens Studio -> W3C/DTCG Design Tokens JSON ┘
 ```
 
@@ -272,6 +284,37 @@ Status:
   value type yet.
 - Remaining work: define strict JSON validation/imports so external
   Figma/Tokens Studio JSON can produce the same `StyleTokenInput` shape.
+
+### TODO: Implement staged primitive token placeholder files
+
+Problem:
+
+- Several primitive token files exist as forward-looking placeholders but are
+  not ready to participate in `primitiveTokens` yet.
+- Importing empty or incomplete primitives would make generated CSS/JSON look
+  supported before the token values, DTCG types, semantics, and component usage
+  are actually designed.
+
+Direction:
+
+- Keep placeholders visible with an explicit implementation TODO comment.
+- Implement each primitive only when its authoring shape, DTCG type, semantic
+  mapping, and output behavior are clear.
+- Do not add placeholder primitives to `primitives/index.ts` until they contain
+  real token groups.
+- Keep typography text styles in `semantics/typography.ts`; do not add a
+  duplicate `primitives/typography.ts` wrapper around the existing atomic font
+  primitives.
+
+Status:
+
+- Not started.
+- Placeholder files currently tracked for future implementation:
+  `aspect-ratio.ts`, `asset.ts`, `blur.ts`, `border.ts`, `breakpoint.ts`,
+  `opacity.ts`, `outline.ts`, `shadow.ts`, and `z-index.ts`.
+- Decided: `primitives/typography.ts` was removed because it duplicated
+  `font-family.ts`, `font-size.ts`, `font-weight.ts`, `line-height.ts`, and
+  `letter-spacing.ts`; semantic type styles remain in `semantics/typography.ts`.
 
 ### DONE: Finish token generator and primitive hygiene backlog
 

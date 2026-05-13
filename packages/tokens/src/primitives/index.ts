@@ -1,15 +1,6 @@
 import type { PrimitiveTokenGroup } from "../types"
-import { colorPrimitives } from "./color"
-import { fontFamilyPrimitives } from "./font-family"
-import { fontSizePrimitives } from "./font-size"
-import { fontWeightPrimitives } from "./font-weight"
-import { letterSpacingPrimitives } from "./letter-spacing"
-import { lineHeightPrimitives } from "./line-height"
-import { motionPrimitives } from "./motion"
-import { radiusPrimitives } from "./radius"
-import { sizePrimitives } from "./size"
-import { spacingPrimitives } from "./spacing"
 
+// Combine import + export into single-line re-exports
 export { colorPrimitives } from "./color"
 export { fontFamilyPrimitives } from "./font-family"
 export { fontSizePrimitives } from "./font-size"
@@ -20,6 +11,18 @@ export { motionPrimitives } from "./motion"
 export { radiusPrimitives } from "./radius"
 export { sizePrimitives } from "./size"
 export { spacingPrimitives } from "./spacing"
+
+// Import them directly from their local paths for the array assembly
+import { colorPrimitives } from "./color"
+import { fontFamilyPrimitives } from "./font-family"
+import { fontSizePrimitives } from "./font-size"
+import { fontWeightPrimitives } from "./font-weight"
+import { letterSpacingPrimitives } from "./letter-spacing"
+import { lineHeightPrimitives } from "./line-height"
+import { motionPrimitives } from "./motion"
+import { radiusPrimitives } from "./radius"
+import { sizePrimitives } from "./size"
+import { spacingPrimitives } from "./spacing"
 
 export const primitiveTokens: PrimitiveTokenGroup[] = [
   colorPrimitives,
