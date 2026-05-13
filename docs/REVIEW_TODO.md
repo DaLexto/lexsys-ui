@@ -231,6 +231,40 @@ Status:
 - Package verification passes with `pnpm --filter @neurex/tokens check`,
   `pnpm --filter @neurex/tokens build`, and targeted Prettier checks.
 
+### TODO: Make W3C/DTCG JSON the canonical token contract
+
+Problem:
+
+- Current token authoring still starts in TypeScript files.
+- `dist/tokens.json` is generated output, not yet the input contract consumed
+  by the generator.
+- Future Figma, Tokens Studio, and Creator workflows need a shared token format
+  instead of separate source-of-truth paths.
+
+Direction:
+
+- Use the term **W3C/DTCG Design Tokens JSON** for the canonical token format.
+- Keep TypeScript as a typed authoring wrapper while the engine matures.
+- Make the generator consume a W3C/DTCG-shaped token tree as its stable input.
+- Later, add a parser/import path so Figma or Tokens Studio exports can produce
+  the same tree and generate the same CSS outputs.
+
+Target model:
+
+```txt
+TypeScript authoring -> W3C/DTCG Design Tokens JSON ─┐
+                                                     ├-> CSS
+Figma / Tokens Studio -> W3C/DTCG Design Tokens JSON ┘
+```
+
+Status:
+
+- Planned.
+- Current output is W3C/DTCG-shaped, but not strict W3C/DTCG compliant in every
+  value type yet.
+- Next pass should define the boundary between TypeScript authoring helpers,
+  strict JSON validation, and CSS output generation.
+
 ### DONE: Migrate semantic color tokens to structured hierarchy
 
 Problem:

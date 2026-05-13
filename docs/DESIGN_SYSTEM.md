@@ -108,6 +108,29 @@ Neurex Space Indigo
 
 Tokens are the source of truth for design decisions.
 
+Long-term, the canonical token interchange contract is **W3C/DTCG Design
+Tokens JSON**. The current codebase still authors tokens in TypeScript files,
+but those files use the same DTCG-style leaf shape and act as a typed authoring
+wrapper around the intended JSON contract.
+
+Current model:
+
+```txt
+TypeScript authoring -> W3C/DTCG Design Tokens JSON -> CSS
+```
+
+Target model:
+
+```txt
+TypeScript authoring -> W3C/DTCG Design Tokens JSON ─┐
+                                                     ├-> CSS
+Figma / Tokens Studio -> W3C/DTCG Design Tokens JSON ┘
+```
+
+In the target model, the generator should consume the W3C/DTCG-shaped token
+tree. TypeScript authoring, Figma, Tokens Studio, and future Creator workflows
+may all produce that same JSON contract.
+
 They define:
 
 - primitive values
@@ -122,8 +145,8 @@ Tokens must not be treated as CSS files. CSS is an output, not the source.
 
 Token authoring uses object trees, not flat token arrays or generated CSS
 variable strings. Group metadata lives beside token branches, and every token
-leaf uses a `{ value }` object so future metadata can be added without changing
-the shape:
+leaf uses a `{ $value, $type }` object so future metadata can be added without
+changing the shape:
 
 Semantic color tokens use a structured category hierarchy rather than flat
 single-level color roles.
@@ -158,7 +181,7 @@ Initial outputs should include:
 
 - CSS custom properties
 - Tailwind `@theme` mappings
-- DTCG-compatible `tokens.json` for token interop workflows
+- W3C/DTCG Design Tokens JSON for token interop workflows
 
 Current install output paths are:
 
@@ -175,13 +198,14 @@ dist/theme.css
 dist/tokens.json
 ```
 
-`tokens.json` is generated from the same token source and is intended for token
-interop workflows such as design-tool or DTCG-compatible export pipelines. It is
-not installed into consumer projects by the registry style manifest today, and
-its explicit package export is intentionally deferred until the public JSON
-contract is finalized. JSON output preserves token reference strings such as
-`{radius.control}`, while DTCG `$type` values are inferred from either the token
-path or the referenced token path when available.
+`tokens.json` is generated from the current TypeScript token authoring wrapper
+and is intended to become the canonical W3C/DTCG Design Tokens JSON contract for
+token interop workflows. It is not installed into consumer projects by the
+registry style manifest today, and its explicit package export is intentionally
+deferred until the public JSON contract is finalized. JSON output preserves
+token reference strings such as `{radius.control}`, while DTCG `$type` values
+are carried from authoring or inferred from either the token path or referenced
+token path when available.
 
 Future outputs may include:
 
