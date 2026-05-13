@@ -31,6 +31,7 @@ import {
   isReferenceString,
   isTokenLeaf,
   isTokenTree,
+  isTokenMetadataKey,
   parseReference,
   toPathString,
 } from "./resolver.utils"
@@ -262,6 +263,25 @@ const resolveNode = (
     const resolvedTree: TokenTree = {}
 
     for (const [key, value] of Object.entries(node)) {
+      if (isTokenMetadataKey(key)) {
+        resolvedTree[key] = value
+        continue
+      }
+
+      if (!isTokenLeaf(value) && !isTokenTree(value)) {
+        errors.push(
+          createResolverError(
+            "INVALID_TOKEN_LEAF",
+            `Invalid token node at "${toPathString([...path, key])}". Expected a token leaf or token branch.`,
+            toPathString([...path, key]),
+            String(value),
+            [],
+          ),
+        )
+
+        continue
+      }
+
       const childResult = resolveNode(root, value, [...path, key], options)
 
       resolvedTree[key] = childResult.node

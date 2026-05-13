@@ -186,3 +186,13 @@ export const createResolverWarning = (
     reference,
   }
 }
+
+/**
+ * Checks whether a token tree key is a DTCG metadata key.
+ *
+ * Metadata keys describe token leaves or branches and must not be traversed as
+ * token child nodes during reference resolution.
+ */
+export const isTokenMetadataKey = (key: string): boolean => {
+  return key.startsWith("$")
+}

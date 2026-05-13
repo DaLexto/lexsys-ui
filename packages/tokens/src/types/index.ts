@@ -7,6 +7,7 @@
 
 export type {
   TokenEntry,
+  TokenMetadata,
   TokenLeaf,
   TokenNode,
   TokenPrimitive,

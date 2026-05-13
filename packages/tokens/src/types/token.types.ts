@@ -84,6 +84,16 @@ export interface TokenLeaf {
 }
 
 /**
+ * Metadata fields allowed on token branches.
+ *
+ * Branch metadata describes a token group without being treated as a token leaf.
+ */
+export interface TokenMetadata {
+  $description?: string
+  $deprecated?: boolean
+}
+
+/**
  * Token nodes are either token leaves or nested token branches.
  */
 export type TokenNode = TokenLeaf | TokenTree
@@ -92,8 +102,8 @@ export type TokenNode = TokenLeaf | TokenTree
  * Recursive token tree used across primitives, brand, semantics, themes, and
  * component token groups.
  */
-export interface TokenTree {
-  [key: string]: TokenNode
+export interface TokenTree extends TokenMetadata {
+  [key: string]: TokenNode | string | boolean | undefined
 }
 
 /**
