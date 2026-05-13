@@ -8,22 +8,61 @@
  */
 
 /**
- * Token categories currently supported by Neurex authoring and output layers.
+ * Scalar token type names supported by the Neurex DTCG-shaped token model.
+ *
+ * Scalar tokens represent individual values that can usually be emitted as a
+ * single CSS custom property.
  */
-export type TokenType =
+export type ScalarTokenType =
+  /** Color values in any valid CSS-compatible format. */
   | "color"
+  /** Length, distance, or size values such as px, rem, em, or %. */
   | "dimension"
-  | "fontFamily"
-  | "fontWeight"
-  | "duration"
-  | "cubicBezier"
+  /** Unitless numerical values such as opacity, scale, or line-height. */
   | "number"
+  /** Time values for motion such as 150ms or 0.2s. */
+  | "duration"
+  /** Easing curve values, currently authored as CSS-compatible strings. */
+  | "cubicBezier"
+  /** Typeface names or CSS font stacks, currently authored as strings. */
+  | "fontFamily"
+  /** Font weight values such as 400, 500, 700, or supported keywords. */
+  | "fontWeight"
+  /** Font size values, typically emitted as dimensions. */
+  | "fontSize"
+  /** Vertical spacing between lines, usually unitless in Neurex. */
+  | "lineHeight"
+  /** Horizontal spacing between characters such as 0em or -0.01em. */
+  | "letterSpacing"
+  /** Stroke pattern styles such as solid, dashed, or dotted. */
   | "strokeStyle"
-  | "border"
-  | "transition"
-  | "shadow"
-  | "gradient"
+  /** External resource references such as icons, images, or font files. */
+  | "asset"
+
+/**
+ * Composite token type names reserved for structured object values.
+ *
+ * These types are part of the long-term DTCG-shaped model, but require
+ * generator-specific support before they can be used by the CSS pipeline.
+ */
+export type CompositeTokenType =
+  /** Composite text style containing font family, size, weight, line-height, etc. */
   | "typography"
+  /** Composite border style containing color, width, and stroke style. */
+  | "border"
+  /** Composite shadow style containing color, offsets, blur, and spread. */
+  | "shadow"
+  /** Composite transition style containing duration, delay, and easing. */
+  | "transition"
+  /** Composite blur/effect style. */
+  | "blur"
+  /** Composite gradient style containing type, stops, and direction. */
+  | "gradient"
+
+/**
+ * Design token type names supported by the Neurex token model.
+ */
+export type TokenType = ScalarTokenType | CompositeTokenType
 
 /**
  * Primitive values currently supported by the CSS-oriented token pipeline.
