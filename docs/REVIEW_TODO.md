@@ -272,15 +272,15 @@ Status:
 - Remaining work: define strict JSON validation/imports so external
   Figma/Tokens Studio JSON can produce the same `StyleTokenInput` shape.
 
-### TODO: Finish token generator and primitive hygiene backlog
+### DONE: Finish token generator and primitive hygiene backlog
 
 Problem:
 
 - The DTCG migration and generator split exposed a set of smaller correctness
   and hygiene items across token input assembly, output generation, primitives,
   semantics, types, and DTCG output inference.
-- Some of the notes are already completed by the current branch, but they need
-  to stay visible so the remaining work is not mixed with finished cleanup.
+- The backlog is now kept here as completed cleanup history so future token
+  work does not re-open already finished generator and primitive tasks.
 
 Direction:
 
@@ -310,6 +310,7 @@ Direction:
 
 Status:
 
+- Done: this generator and primitive hygiene backlog is complete.
 - Done: local `isTokenLeafLike` / branch guard duplication was removed from
   `generators/input/style-token-input.ts`; it now reuses `isTokenBranch` from
   generator shared utilities instead of importing resolver internals.
