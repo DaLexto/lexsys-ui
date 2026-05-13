@@ -1,6 +1,7 @@
 import type { StyleOutputs } from "../types"
 import {
   createStyleTokenInput,
+  mergeTokenTrees,
   validateStyleTokenInput,
   type StyleTokenInput,
   type StyleTokenInputOptions,
@@ -27,6 +28,44 @@ const cssVarsGeneratorOptions: Required<CssVarsGeneratorOptions> = {
 
 const toCssVarReference = (tokenName: string): string => {
   return `var(--${cssPrefix}-${tokenName})`
+}
+
+const tailwindNamespaceBySourcePrefix: Readonly<Record<string, string>> = {
+  color: "color",
+  duration: "duration",
+  easing: "ease",
+  radius: "radius",
+  size: "spacing",
+  space: "spacing",
+  typography: "text",
+}
+
+const createTailwindThemeVariableName = (tokenName: string): string => {
+  const [sourcePrefix, ...tailwindNameParts] = tokenName.split("-")
+
+  if (sourcePrefix === undefined || tailwindNameParts.length === 0) {
+    return `--${twPrefix}-${tokenName}`
+  }
+
+  const tailwindNamespace = tailwindNamespaceBySourcePrefix[sourcePrefix]
+
+  if (tailwindNamespace === undefined) {
+    return `--${twPrefix}-${tokenName}`
+  }
+
+  return `--${tailwindNamespace}-${twPrefix}-${tailwindNameParts.join("-")}`
+}
+
+const getTailwindBaseTheme = (input: StyleTokenInput): ThemeTokenInput => {
+  const lightTheme = input.themeTokens.find((theme) => {
+    return theme.name === "light"
+  })
+
+  if (lightTheme === undefined) {
+    throw new Error("Tailwind @theme generation requires a light theme.")
+  }
+
+  return lightTheme
 }
 
 const createTokensCss = (input: StyleTokenInput): string => {
@@ -61,23 +100,21 @@ const createThemeBlock = (theme: ThemeTokenInput): string => {
 }
 
 const createTailwindThemeBlock = (input: StyleTokenInput): string => {
-  const firstTheme = input.themeTokens[0]
-  const semanticEntries =
-    firstTheme === undefined
-      ? []
-      : createCssVariableEntries(firstTheme.tokens, cssVarsGeneratorOptions)
+  const lightTheme = getTailwindBaseTheme(input)
+  const tailwindThemeTokenTree = mergeTokenTrees(
+    input.semanticTokens,
+    lightTheme.tokens,
+  )
+  const semanticEntries = createCssVariableEntries(
+    tailwindThemeTokenTree,
+    cssVarsGeneratorOptions,
+  )
 
-  const colorLines = semanticEntries.map((entry) => {
-    const tailwindName = entry.name.replace(/^color-/, `color-${twPrefix}-`)
-
-    return `  --${tailwindName}: ${toCssVarReference(entry.name)};`
+  const themeLines = semanticEntries.map((entry) => {
+    return `  ${createTailwindThemeVariableName(entry.name)}: ${toCssVarReference(entry.name)};`
   })
 
-  const radiusLines = ["sm", "md", "lg", "xl", "full"].map((name) => {
-    return `  --radius-${twPrefix}-${name}: ${toCssVarReference(`radius-${name}`)};`
-  })
-
-  return ["@theme inline {", ...colorLines, ...radiusLines, "}"].join("\n")
+  return ["@theme inline {", ...themeLines, "}"].join("\n")
 }
 
 const createThemeCss = (input: StyleTokenInput): string => {

@@ -321,8 +321,10 @@ Status:
   and the old `TokenGroupProperty` type is no longer present.
 - Done: `resolver.utils.ts` now treats only `string | number` as token
   primitives and detects token leaves with `$value`.
-- Not started: `createTailwindThemeBlock` still selects `themeTokens[0]` and
-  needs explicit light-theme selection plus automatic semantic mapping.
+- Done: `createTailwindThemeBlock` now selects the light theme explicitly,
+  builds Tailwind `@theme` entries from semantic tokens plus light theme
+  overrides, maps supported semantic namespaces automatically, and avoids
+  duplicate names such as `--color-nx-color-*`.
 - Not started: `write-style-outputs.ts` still owns registry output path
   construction; `style-output.config.ts` still needs `registryStylesPath`.
 - Not started: yellow primitive scale review.

@@ -14,6 +14,8 @@ describe("createStyleOutputs", () => {
     expect(input.preset).toBe(neurexPreset)
     expect(input.foundationTokens.color).toBeDefined()
     expect(input.foundationTokens.radius).toBeDefined()
+    expect(input.semanticTokens.color).toBeDefined()
+    expect(input.semanticTokens.radius).toBeDefined()
     expect(input.componentTokens.button).toBeDefined()
     expect(input.tokenTree.button).toBe(input.componentTokens.button)
     expect(input.themeTokens[0]).toMatchObject({
@@ -103,6 +105,12 @@ describe("createStyleOutputs", () => {
     expect(outputs.themeCss).toContain(".dark")
     expect(outputs.themeCss).toContain("@theme inline")
     expect(outputs.themeCss).toContain("--color-nx-action-primary-base")
+    expect(outputs.themeCss).toContain("--color-nx-background-base")
+    expect(outputs.themeCss).toContain("--radius-nx-control")
+    expect(outputs.themeCss).toContain("--spacing-nx-surface-md")
+    expect(outputs.themeCss).toContain("--duration-nx-control")
+    expect(outputs.themeCss).toContain("--ease-nx-control")
+    expect(outputs.themeCss).not.toContain("--color-nx-color-")
   })
 
   test("generates DTCG-compatible token json from token source", () => {
