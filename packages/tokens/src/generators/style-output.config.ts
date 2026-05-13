@@ -1,5 +1,5 @@
 /**
- * output-config.ts
+ * style-output.config.ts
  *
  * @layer generators
  * @description Shared configuration for generated style outputs.

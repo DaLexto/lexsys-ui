@@ -15,8 +15,8 @@
  * - It does not resolve references to final primitive values.
  */
 
-import type { TokenTree } from "../../types/index.js"
-import { flattenTokenTree as flattenSharedTokenTree } from "../shared/index.js"
+import type { TokenTree } from "../../../types/index.js"
+import { flattenTokenTree as flattenSharedTokenTree } from "../../shared/index.js"
 
 import type {
   CssVariableEntry,

@@ -15,9 +15,9 @@
  * - The output is intended for token interop workflows such as Tokens Studio/Figma.
  */
 
-import type { TokenTree } from "../../types"
+import type { TokenTree } from "../../../types"
 
-import { flattenTokenTree } from "../shared"
+import { flattenTokenTree } from "../../shared"
 
 import type {
   DtcgTokenTree,

@@ -4,7 +4,7 @@ import {
   createCssBlock,
   createCssVariableEntries,
   generateCssVariables,
-} from "../src/generators/css-vars"
+} from "../src/generators/outputs"
 
 import type { TokenTree } from "../src/types"
 

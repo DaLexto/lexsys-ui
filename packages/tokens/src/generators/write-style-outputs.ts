@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import { createStyleOutputs } from "./generator.js"
+import { createStyleOutputs } from "./create-style-outputs.js"
 
 const writeOutput = async (path: string, content: string): Promise<void> => {
   await mkdir(dirname(path), { recursive: true })

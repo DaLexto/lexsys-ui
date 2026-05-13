@@ -5,7 +5,7 @@
  */
 
 export { componentTokens } from "./components"
-export { createStyleOutputs } from "./generators/generator"
+export { createStyleOutputs } from "./generators/create-style-outputs"
 export { primitiveTokens } from "./primitives"
 export { semanticTokens } from "./semantics"
 export { neurexPreset, defaultPresetId, presets } from "./presets"

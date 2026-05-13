@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup"
 
 export default defineConfig({
-  entry: ["src/index.ts", "src/generators/generator.output.ts"],
+  entry: ["src/index.ts", "src/generators/write-style-outputs.ts"],
 
   format: ["esm"],
   dts: true,

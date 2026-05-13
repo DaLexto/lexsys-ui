@@ -16,10 +16,10 @@ import {
   createCssVariableEntries,
   type CssVariableEntry,
   type CssVarsGeneratorOptions,
-} from "./css-vars"
-import { generateJsonTokens } from "./dtcg"
-import { defaultStyleOutputConfig } from "./generator.config.js"
+  generateJsonTokens,
+} from "./outputs"
 import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared/index.js"
+import { defaultStyleOutputConfig } from "./style-output.config.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
 const cssPrefix = styleOutputConfig.cssVarPrefix

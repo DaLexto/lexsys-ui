@@ -222,8 +222,8 @@ Status:
   generator descriptions, and carries `$type` for downstream generators.
 - `css-vars-generator.test.ts` now uses `$value` fixtures; direct CSS generator
   test verification passes without changing the CSS output contract.
-- Generator naming references now point at `generator.ts` and
-  `generator.output.ts`.
+- Generator naming references now point at `create-style-outputs.ts`,
+  `write-style-outputs.ts`, and `style-output.config.ts`.
 - DTCG JSON generation now preserves explicit `$type` before falling back to
   path/reference inference.
 - Token source files under primitives, brand, semantics, themes, and component

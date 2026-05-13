@@ -20,7 +20,7 @@ import {
   DEFAULT_GENERATOR_METADATA_KEYS,
   toTokenName,
   type FlattenedTokenEntry,
-} from "../shared"
+} from "../../shared"
 
 import type {
   DtcgTokenLeaf,

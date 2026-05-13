@@ -16,8 +16,8 @@
  * - JSON export preserves references for downstream token tooling.
  */
 
-import type { TokenPrimitive, TokenType } from "../../types"
-import type { FlattenedTokenEntry } from "../shared"
+import type { TokenPrimitive, TokenType } from "../../../types"
+import type { FlattenedTokenEntry } from "../../shared"
 
 /**
  * Supported DTCG-compatible token types for Neurex JSON export.
