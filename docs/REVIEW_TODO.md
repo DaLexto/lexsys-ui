@@ -316,6 +316,34 @@ Status:
   `font-family.ts`, `font-size.ts`, `font-weight.ts`, `line-height.ts`, and
   `letter-spacing.ts`; semantic type styles remain in `semantics/typography.ts`.
 
+### TODO: Implement staged semantic token placeholder files
+
+Problem:
+
+- The semantic token layer needs a fuller enterprise-oriented decision surface
+  before new primitive families are wired into component tokens.
+- Missing semantic groups should be visible without being imported into
+  `semanticTokens` before their actual token shapes are designed.
+
+Direction:
+
+- Keep existing semantic groups active: `color.ts`, `motion.ts`, `radius.ts`,
+  `size.ts`, `spacing.ts`, and `typography.ts`.
+- Stage missing semantic groups as explicit placeholders:
+  - `action.ts` for interaction intents and states
+  - `border.ts` for border width/style decisions
+  - `elevation.ts` for shadow plus z-index depth decisions
+  - `layout.ts` for breakpoint, aspect-ratio, spacing, and size layout roles
+  - `outline.ts` for focus outline/ring decisions
+- Do not add placeholder semantics to `semantics/index.ts` until they contain
+  real token groups.
+
+Status:
+
+- Not started.
+- Placeholder semantic files currently tracked for future implementation:
+  `action.ts`, `border.ts`, `elevation.ts`, `layout.ts`, and `outline.ts`.
+
 ### DONE: Finish token generator and primitive hygiene backlog
 
 Problem:
