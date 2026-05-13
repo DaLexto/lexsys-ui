@@ -337,7 +337,8 @@ Status:
   `number`.
 - Done: `semantics/typography.ts` now references named line-height tokens
   instead of numeric tokens such as `{line-height.6}`.
-- Not started: `group.types.ts` still uses broad `[key: string]: unknown`.
+- Done: `group.types.ts` now uses `TokenNode | string` for token group
+  properties instead of broad `unknown`.
 - Done: DTCG type inference maps `line-height` to `number`, and typography
   family/sub-token references resolve to `fontFamily`.
 
