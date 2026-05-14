@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types/index.js"
 
 export const borderPrimitives: PrimitiveTokenGroup = {
   name: "border",
+  $type: "dimension",
   $description:
     "Raw border width scale used as the source for border and outline semantics.",
-  $type: "dimension",
 
   none: { $value: "0" },
   hairline: { $value: "0.5px" },

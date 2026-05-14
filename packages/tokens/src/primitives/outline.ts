@@ -28,8 +28,8 @@ export const outlinePrimitives: PrimitiveTokenGroup = {
     "Raw outline width and offset values used as the source for focus and state outline semantics.",
 
   width: {
-    $description: "Raw outline width scale.",
     $type: "dimension",
+    $description: "Raw outline width scale.",
 
     none: { $value: "0" },
     hairline: { $value: "1px" },
@@ -39,8 +39,8 @@ export const outlinePrimitives: PrimitiveTokenGroup = {
   },
 
   offset: {
-    $description: "Raw outline offset scale.",
     $type: "dimension",
+    $description: "Raw outline offset scale.",
 
     none: { $value: "0" },
     xs: { $value: "1px" },

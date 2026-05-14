@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types"
 
 export const letterSpacingPrimitives: PrimitiveTokenGroup = {
   name: "letter-spacing",
+  $type: "letterSpacing",
   $description:
     "Raw letter spacing scale used as the source for typography semantics.",
-  $type: "letterSpacing",
 
   tighter: { $value: "-0.05em" },
   tight: { $value: "-0.025em" },

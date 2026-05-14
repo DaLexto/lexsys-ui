@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types"
 
 export const lineHeightPrimitives: PrimitiveTokenGroup = {
   name: "line-height",
+  $type: "number",
   $description:
     "Raw unitless line height scale used as the source for typography semantics.",
-  $type: "number",
 
   none: { $value: 1 },
   tight: { $value: 1.25 },

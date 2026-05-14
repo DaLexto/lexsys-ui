@@ -158,6 +158,7 @@ exist on both token branches and token leaves.
 Branch metadata describes a token group without being treated as a token leaf.
 Current supported branch metadata:
 
+- `$type`
 - `$description`
 - `$deprecated`
 
@@ -169,6 +170,8 @@ metadata when the individual token needs documentation or lifecycle status.
 
 Authoring convention:
 
+- prefer group-level `$type` by default, and leaf-level `$type` only when the
+  group is mixed or needs an explicit override
 - use `$description` on groups when it explains the purpose of a token family
 - use `$type` on groups when descendants share one DTCG type, and on leaves
   only when group inheritance cannot express the token type safely

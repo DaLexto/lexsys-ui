@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types"
 
 export const fontWeightPrimitives: PrimitiveTokenGroup = {
   name: "font-weight",
+  $type: "fontWeight",
   $description:
     "Raw font weight scale used as the source for typography semantics.",
-  $type: "fontWeight",
 
   thin: { $value: "100" },
   extralight: { $value: "200" },

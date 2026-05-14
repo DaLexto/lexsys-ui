@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types/index.js"
 
 export const radiusPrimitives: PrimitiveTokenGroup = {
   name: "radius",
+  $type: "dimension",
   $description:
     "Raw border radius scale used as the source for shape semantics.",
-  $type: "dimension",
 
   none: { $value: "0" },
   sm: { $value: "0.25rem" },

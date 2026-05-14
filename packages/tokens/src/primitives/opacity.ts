@@ -25,9 +25,9 @@ import type { PrimitiveTokenGroup } from "../types/index.js"
 
 export const opacityPrimitives: PrimitiveTokenGroup = {
   name: "opacity",
+  $type: "number",
   $description:
     "Raw opacity scale used as the source for transparency and state semantics.",
-  $type: "number",
 
   0: { $value: 0 },
   5: { $value: 0.05 },

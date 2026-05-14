@@ -24,37 +24,37 @@ import type { PrimitiveTokenGroup } from "../types/index.js"
 
 export const breakpointPrimitives: PrimitiveTokenGroup = {
   name: "breakpoint",
+  $type: "dimension",
   $description:
     "Raw responsive breakpoint scale used as the source for layout semantics.",
-  $type: "dimension",
 
   sm: {
-    $value: "40rem",
     $description:
       "Small viewport breakpoint, equivalent to 640px at a 16px root font size.",
+    $value: "40rem",
   },
 
   md: {
-    $value: "48rem",
     $description:
       "Medium viewport breakpoint, equivalent to 768px at a 16px root font size.",
+    $value: "48rem",
   },
 
   lg: {
-    $value: "64rem",
     $description:
       "Large viewport breakpoint, equivalent to 1024px at a 16px root font size.",
+    $value: "64rem",
   },
 
   xl: {
-    $value: "80rem",
     $description:
       "Extra-large viewport breakpoint, equivalent to 1280px at a 16px root font size.",
+    $value: "80rem",
   },
 
   "2xl": {
-    $value: "96rem",
     $description:
       "Double-extra-large viewport breakpoint, equivalent to 1536px at a 16px root font size.",
+    $value: "96rem",
   },
 }

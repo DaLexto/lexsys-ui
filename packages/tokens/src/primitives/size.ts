@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types"
 
 export const sizePrimitives: PrimitiveTokenGroup = {
   name: "size",
+  $type: "dimension",
   $description:
     "Raw size scale used as the source for fixed width, height, and component sizing semantics.",
-  $type: "dimension",
 
   1: { $value: "0.25rem" },
   2: { $value: "0.5rem" },

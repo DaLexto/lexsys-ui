@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types/index.js"
 
 export const spacingPrimitives: PrimitiveTokenGroup = {
   name: "spacing",
+  $type: "dimension",
   $description:
     "Raw spacing scale used as the source for layout rhythm semantics.",
-  $type: "dimension",
 
   1: { $value: "0.25rem" },
   2: { $value: "0.5rem" },

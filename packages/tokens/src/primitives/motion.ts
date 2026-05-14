@@ -29,8 +29,8 @@ export const motionPrimitives: PrimitiveTokenGroup = {
     "Raw motion duration and easing values used as the source for motion semantics.",
 
   duration: {
-    $description: "Raw duration scale for UI transitions and animations.",
     $type: "duration",
+    $description: "Raw duration scale for UI transitions and animations.",
 
     instant: { $value: "0ms" },
     fastest: { $value: "100ms" },
@@ -41,8 +41,8 @@ export const motionPrimitives: PrimitiveTokenGroup = {
   },
 
   easing: {
-    $description: "Raw easing curves for UI transitions and animations.",
     $type: "cubicBezier",
+    $description: "Raw easing curves for UI transitions and animations.",
 
     linear: { $value: "cubic-bezier(0, 0, 1, 1)" },
     standard: { $value: "cubic-bezier(0.2, 0, 0, 1)" },

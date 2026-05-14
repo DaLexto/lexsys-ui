@@ -25,9 +25,9 @@ import type { PrimitiveTokenGroup } from "../types/index.js"
 
 export const aspectRatioPrimitives: PrimitiveTokenGroup = {
   name: "aspect-ratio",
+  $type: "number",
   $description:
     "Raw aspect ratio values used as the source for layout and media semantics.",
-  $type: "number",
 
   "1-1": { $value: 1 },
   "4-3": { $value: 1.333333 },

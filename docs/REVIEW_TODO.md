@@ -329,7 +329,7 @@ Status:
 - Remaining work: tighten external JSON validation and define import adapters
   so external Figma/Tokens Studio JSON can generate the same CSS outputs.
 
-### TODO: Standardize token metadata key order
+### DONE: Standardize token metadata key order
 
 Problem:
 
@@ -354,9 +354,11 @@ Direction:
 
 Status:
 
-- Not started.
-- Current review found the main inconsistency in primitive token files; active
-  semantic and theme token files mostly follow `$type` before `$value`.
+- Done.
+- Token metadata ordering now follows `$type`, `$description`, `$deprecated`,
+  `$value` wherever those keys appear in the token authoring tree.
+- The main changes were in primitive token files; active semantic and theme
+  token files already mostly followed `$type` before `$value`.
 
 ### TODO: Implement staged primitive token placeholder files
 

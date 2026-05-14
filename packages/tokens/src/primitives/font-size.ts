@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types"
 
 export const fontSizePrimitives: PrimitiveTokenGroup = {
   name: "font-size",
+  $type: "fontSize",
   $description:
     "Raw font size scale used as the source for typography semantics.",
-  $type: "fontSize",
 
   xs: { $value: "0.75rem" },
   sm: { $value: "0.875rem" },

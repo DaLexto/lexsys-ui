@@ -33,8 +33,8 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   black: { $value: "oklch(0 0 0)" },
 
   neutral: {
-    $description: "Neutral gray scale for backgrounds, text, and borders.",
     $type: "color",
+    $description: "Neutral gray scale for backgrounds, text, and borders.",
     50: { $value: "oklch(0.925 0.000 0.000)" },
     100: { $value: "oklch(0.855 0.000 0.000)" },
     200: { $value: "oklch(0.786 0.000 0.000)" },
@@ -49,9 +49,9 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   red: {
+    $type: "color",
     $description:
       "Red primitive palette for destructive, danger, and critical mappings.",
-    $type: "color",
     50: { $value: "oklch(0.836 0.083 28.091)" },
     100: { $value: "oklch(0.800 0.101 28.526)" },
     200: { $value: "oklch(0.730 0.136 28.480)" },
@@ -66,9 +66,9 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   orange: {
+    $type: "color",
     $description:
       "Orange primitive palette for warm accent and warning mappings.",
-    $type: "color",
     50: { $value: "oklch(0.969 0.014 39.420)" },
     100: { $value: "oklch(0.934 0.035 39.988)" },
     200: { $value: "oklch(0.864 0.076 39.826)" },
@@ -83,9 +83,9 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   yellow: {
+    $type: "color",
     $description:
       "Yellow primitive palette for caution, highlight, and warning mappings.",
-    $type: "color",
     50: { $value: "oklch(0.987 0.026 92.000)" },
     100: { $value: "oklch(0.973 0.051 92.000)" },
     200: { $value: "oklch(0.946 0.089 92.000)" },
@@ -100,9 +100,9 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   green: {
+    $type: "color",
     $description:
       "Green primitive palette for success, positive, and confirmation mappings.",
-    $type: "color",
     50: { $value: "oklch(0.936 0.063 154.090)" },
     100: { $value: "oklch(0.913 0.083 153.563)" },
     200: { $value: "oklch(0.867 0.124 152.080)" },
@@ -117,9 +117,9 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   blue: {
+    $type: "color",
     $description:
       "Blue primitive palette for brand, primary action, and information mappings.",
-    $type: "color",
     50: { $value: "oklch(0.924 0.098 274.036)" },
     100: { $value: "oklch(0.876 0.130 271.991)" },
     200: { $value: "oklch(0.778 0.195 267.901)" },
@@ -134,9 +134,9 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   purple: {
+    $type: "color",
     $description:
       "Purple primitive palette for expressive accent and brand extension mappings.",
-    $type: "color",
     50: { $value: "oklch(0.977 0.014 308.299)" },
     100: { $value: "oklch(0.946 0.033 307.174)" },
     200: { $value: "oklch(0.902 0.063 306.703)" },

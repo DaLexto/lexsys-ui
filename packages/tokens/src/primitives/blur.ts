@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types/index.js"
 
 export const blurPrimitives: PrimitiveTokenGroup = {
   name: "blur",
+  $type: "dimension",
   $description:
     "Raw blur radius scale used as the source for effect and surface treatment semantics.",
-  $type: "dimension",
 
   none: { $value: "0" },
   xs: { $value: "2px" },

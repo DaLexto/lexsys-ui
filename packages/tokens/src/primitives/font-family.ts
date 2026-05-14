@@ -24,9 +24,9 @@ import type { PrimitiveTokenGroup } from "../types"
 
 export const fontFamilyPrimitives: PrimitiveTokenGroup = {
   name: "font-family",
+  $type: "fontFamily",
   $description:
     "Raw font family stacks used as the source for typography semantics.",
-  $type: "fontFamily",
 
   sans: {
     $value:

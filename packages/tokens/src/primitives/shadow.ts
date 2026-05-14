@@ -25,51 +25,51 @@ import type { PrimitiveTokenGroup } from "../types/index.js"
 
 export const shadowPrimitives: PrimitiveTokenGroup = {
   name: "shadow",
+  $type: "shadow",
   $description:
     "Raw shadow scale used as the source for elevation, depth, and surface layering semantics.",
-  $type: "shadow",
 
   0: {
-    $value: "none",
     $description: "No shadow. Used as the base elevation reset.",
+    $value: "none",
   },
 
   1: {
-    $value: "0 1px 2px rgb(0 0 0 / 0.06), 0 1px 1px rgb(0 0 0 / 0.04)",
     $description: "Subtle shadow for minimally raised surfaces.",
+    $value: "0 1px 2px rgb(0 0 0 / 0.06), 0 1px 1px rgb(0 0 0 / 0.04)",
   },
 
   2: {
-    $value: "0 2px 4px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.06)",
     $description: "Low shadow for small elevated surfaces and controls.",
+    $value: "0 2px 4px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.06)",
   },
 
   3: {
-    $value: "0 4px 8px rgb(0 0 0 / 0.10), 0 2px 4px rgb(0 0 0 / 0.08)",
     $description: "Medium shadow for cards and raised containers.",
+    $value: "0 4px 8px rgb(0 0 0 / 0.10), 0 2px 4px rgb(0 0 0 / 0.08)",
   },
 
   4: {
-    $value: "0 8px 16px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.08)",
     $description:
       "High shadow for floating surfaces such as popovers and menus.",
+    $value: "0 8px 16px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.08)",
   },
 
   5: {
-    $value: "0 16px 32px rgb(0 0 0 / 0.14), 0 8px 16px rgb(0 0 0 / 0.10)",
     $description:
       "Strong shadow for prominent overlays such as dialogs and drawers.",
+    $value: "0 16px 32px rgb(0 0 0 / 0.14), 0 8px 16px rgb(0 0 0 / 0.10)",
   },
 
   6: {
-    $value: "0 24px 48px rgb(0 0 0 / 0.16), 0 12px 24px rgb(0 0 0 / 0.12)",
     $description:
       "Maximum shadow for highest elevation surfaces and dramatic depth.",
+    $value: "0 24px 48px rgb(0 0 0 / 0.16), 0 12px 24px rgb(0 0 0 / 0.12)",
   },
 
   inner: {
-    $value: "inset 0 1px 2px rgb(0 0 0 / 0.08)",
     $description:
       "Inset shadow for pressed, recessed, or contained surface effects.",
+    $value: "inset 0 1px 2px rgb(0 0 0 / 0.08)",
   },
 }
