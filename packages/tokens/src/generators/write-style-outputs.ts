@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises"
+import { mkdir, rm, writeFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import { createStyleOutputs } from "./create-style-outputs.js"
@@ -52,6 +52,11 @@ const warnWhenNoOutputTarget = (args: WriteStyleOutputsArgs): boolean => {
 const writePackageOutputs = async (
   outputs: ReturnType<typeof createStyleOutputs>,
 ): Promise<void> => {
+  await rm(resolve(packageRoot, "dist/tokens"), {
+    force: true,
+    recursive: true,
+  })
+
   await writeOutput(resolve(packageRoot, "dist/tokens.css"), outputs.tokensCss)
   await writeOutput(resolve(packageRoot, "dist/theme.css"), outputs.themeCss)
 

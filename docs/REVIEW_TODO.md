@@ -249,7 +249,7 @@ Status:
 Problem:
 
 - Current token authoring still starts in TypeScript files.
-- `dist/tokens/dtcg/index.tokens.json` is generated output, not yet the input
+- `dist/tokens/dtcg/tokens.tokens.json` is generated output, not yet the input
   contract consumed by the generator.
 - Future Figma, Tokens Studio, and Creator workflows need a shared token format
   instead of separate source-of-truth paths.
@@ -311,14 +311,14 @@ Status:
 - DTCG package output now uses the recommended `.tokens.json` extension shape
   under `dist/tokens/dtcg`.
 - Package DTCG output now emits one merged convenience file at
-  `dist/tokens/dtcg/index.tokens.json`.
+  `dist/tokens/dtcg/tokens.tokens.json`.
 - Package DTCG output also emits per-group files:
   `dist/tokens/dtcg/primitives/<group>.tokens.json`,
   `dist/tokens/dtcg/semantics/<group>.tokens.json`,
   `dist/tokens/dtcg/components/<component>.tokens.json`, and per-theme files
   under `dist/tokens/dtcg/themes`.
 - Group files are standalone DTCG documents without an extra layer wrapper; the
-  merged `index.tokens.json` remains a convenience artifact with explicit
+  merged `tokens.tokens.json` remains a convenience artifact with explicit
   `primitives`, `brand`, `semantics`, `components`, `themes`, and `presets`
   sections.
 - DTCG output now applies `$type` at the narrowest shared token group where all

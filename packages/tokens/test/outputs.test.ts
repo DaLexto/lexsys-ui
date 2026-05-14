@@ -412,7 +412,7 @@ describe("createStyleOutputs", () => {
       light?: unknown
     }
 
-    expect(fileNames).toContain("tokens/dtcg/index.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/tokens.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/primitives/color.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/primitives/spacing.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/semantics/color.tokens.json")

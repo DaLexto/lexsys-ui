@@ -211,7 +211,7 @@ const createTokenJsonFiles = (
   input: StyleTokenInput,
 ): Record<string, string> => {
   const files: Record<string, string> = {
-    "tokens/dtcg/index.tokens.json": createTokensJson(input),
+    "tokens/dtcg/tokens.tokens.json": createTokensJson(input),
     ...createTokenDocumentsFromGroups(
       "tokens/dtcg/primitives",
       input.primitiveTokens,

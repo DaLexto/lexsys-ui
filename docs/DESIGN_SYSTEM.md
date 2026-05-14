@@ -227,7 +227,7 @@ Current package build output also includes:
 ```txt
 dist/tokens.css
 dist/theme.css
-dist/tokens/dtcg/index.tokens.json
+dist/tokens/dtcg/tokens.tokens.json
 dist/tokens/dtcg/primitives/<group>.tokens.json
 dist/tokens/dtcg/semantics/<group>.tokens.json
 dist/tokens/dtcg/components/<component>.tokens.json
@@ -235,7 +235,7 @@ dist/tokens/dtcg/themes/light.tokens.json
 dist/tokens/dtcg/themes/dark.tokens.json
 ```
 
-`tokens/dtcg/index.tokens.json` is generated from the current TypeScript token
+`tokens/dtcg/tokens.tokens.json` is generated from the current TypeScript token
 authoring wrapper as a merged convenience artifact for tools that want one file.
 The canonical interop shape is also emitted as per-group files under
 `dist/tokens/dtcg`, following the Style Dictionary-style source glob model.
