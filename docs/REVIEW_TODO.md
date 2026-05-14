@@ -329,6 +329,35 @@ Status:
 - Remaining work: tighten external JSON validation and define import adapters
   so external Figma/Tokens Studio JSON can generate the same CSS outputs.
 
+### TODO: Standardize token metadata key order
+
+Problem:
+
+- Token source files in the current `neurex` project use the DTCG `$value` /
+  `$type` authoring shape, but metadata key ordering is not fully consistent.
+- Primitive token groups often place `$description` before `$type`, while the
+  preferred authoring convention is `$type`, `$description`, `$deprecated`,
+  then `$value`.
+
+- only `D:\LIBRARIES\JS_TS\neurex` should be inspected and changed.
+
+Direction:
+
+- Standardize token authoring metadata order wherever those keys exist:
+  `$type`, `$description`, `$deprecated`, `$value`.
+- Apply this only to Neurex token source files under:
+  `packages/tokens/src/primitives`, `packages/tokens/src/semantics`,
+  `packages/tokens/src/themes`, and `packages/tokens/src/presets`.
+- Keep group-level `$type` as the default when descendants share one DTCG type.
+- Do not convert `PresetDefinition` metadata into DTCG tokens unless preset
+  token output is redesigned explicitly.
+
+Status:
+
+- Not started.
+- Current review found the main inconsistency in primitive token files; active
+  semantic and theme token files mostly follow `$type` before `$value`.
+
 ### TODO: Implement staged primitive token placeholder files
 
 Problem:

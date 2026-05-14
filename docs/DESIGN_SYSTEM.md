@@ -161,16 +161,21 @@ Current supported branch metadata:
 - `$description`
 - `$deprecated`
 
-Every token leaf uses a `{ $value, $type }` object. Leaves may also carry
+Every token leaf uses a `{ $value }` object. `$type` should live on the
+narrowest shared token group when all child tokens share the same DTCG type.
+Leaves may still carry `$type` when they sit inside a mixed group or need a
+more specific type than their parent can provide. Leaves may also carry
 metadata when the individual token needs documentation or lifecycle status.
 
 Authoring convention:
 
 - use `$description` on groups when it explains the purpose of a token family
+- use `$type` on groups when descendants share one DTCG type, and on leaves
+  only when group inheritance cannot express the token type safely
 - use `$deprecated` on groups or leaves when a token path remains only for
   migration compatibility
-- keep primitive scale leaves compact with `$value` and `$type` unless a leaf
-  needs unique documentation
+- keep primitive scale leaves compact with `$value` when group metadata can
+  carry the shared type
 
 Semantic color tokens use a structured category hierarchy rather than flat
 single-level color roles.
