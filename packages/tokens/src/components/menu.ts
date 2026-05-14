@@ -15,6 +15,7 @@ export const menuComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.control}" },
     height: { $value: "{size.control.md}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.md}" },
     },
     font: {
@@ -31,9 +32,11 @@ export const menuComponentTokens: ComponentTokenGroup = {
     maxWidth: { $value: "{size.popover.maxWidth}" },
   },
   viewport: {
+    $type: "dimension",
     maxHeight: { $value: "{size.16}" },
   },
   list: {
+    $type: "dimension",
     gap: { $value: "{spacing.control.gap.sm}" },
     padding: { $value: "{spacing.control.y.xs}" },
   },
@@ -42,6 +45,7 @@ export const menuComponentTokens: ComponentTokenGroup = {
     gap: { $value: "{spacing.control.gap.sm}" },
     radius: { $value: "{radius.control}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.sm}" },
       y: { $value: "{spacing.control.y.xs}" },
     },
@@ -51,19 +55,23 @@ export const menuComponentTokens: ComponentTokenGroup = {
       lineHeight: { $value: "{typography.control.sm.lineHeight}" },
     },
     highlight: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
       foreground: { $value: "{color.text.primary}" },
     },
     checked: {
+      $type: "color",
       background: { $value: "{color.action.primary.base}" },
       foreground: { $value: "{color.text.inverse}" },
     },
     indicator: {
+      $type: "dimension",
       size: { $value: "{size.selectionControl.sm}" },
     },
   },
   submenu: {
     icon: {
+      $type: "dimension",
       size: { $value: "{size.selectionControl.sm}" },
     },
   },
@@ -72,6 +80,7 @@ export const menuComponentTokens: ComponentTokenGroup = {
     label: {
       foreground: { $value: "{color.text.secondary}" },
       padding: {
+        $type: "dimension",
         y: { $value: "{spacing.control.y.xs}" },
       },
       font: {
@@ -84,13 +93,16 @@ export const menuComponentTokens: ComponentTokenGroup = {
   separator: {
     background: { $value: "{color.border.default}" },
     margin: {
+      $type: "dimension",
       y: { $value: "{spacing.control.y.xs}" },
     },
   },
   arrow: {
+    $type: "dimension",
     size: { $value: "{size.selectionIndicator.md}" },
   },
   backdrop: {
+    $type: "color",
     background: { $value: "{color.text.primary}" },
   },
   focus: {

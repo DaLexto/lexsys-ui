@@ -24,22 +24,21 @@ import type { PrimitiveTokenGroup } from "../types"
 
 export const fontFamilyPrimitives: PrimitiveTokenGroup = {
   name: "font-family",
-  $description: "Raw font family stacks used as the source for typography semantics.",
+  $description:
+    "Raw font family stacks used as the source for typography semantics.",
+  $type: "fontFamily",
 
   sans: {
     $value:
       'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-    $type: "fontFamily",
   },
 
   serif: {
     $value: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
-    $type: "fontFamily",
   },
 
   mono: {
     $value:
       '"JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace',
-    $type: "fontFamily",
   },
 }

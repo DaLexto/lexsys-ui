@@ -7,6 +7,7 @@ export const tooltipComponentTokens: ComponentTokenGroup = {
   borderColor: { $value: "{color.border.default}" },
   radius: { $value: "{radius.control}" },
   padding: {
+    $type: "dimension",
     x: { $value: "{spacing.control.x.xs}" },
     y: { $value: "{spacing.control.y.xs}" },
   },

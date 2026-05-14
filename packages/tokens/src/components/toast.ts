@@ -3,6 +3,7 @@ import type { ComponentTokenGroup } from "../types/index.js"
 export const toastComponentTokens: ComponentTokenGroup = {
   component: "toast",
   viewport: {
+    $type: "dimension",
     width: { $value: "{size.toast.viewportWidth}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     gapExpanded: { $value: "{spacing.surface.gap.md}" },
@@ -12,9 +13,11 @@ export const toastComponentTokens: ComponentTokenGroup = {
   foreground: { $value: "{color.text.primary}" },
   borderColor: { $value: "{color.border.default}" },
   success: {
+    $type: "color",
     borderColor: { $value: "{color.action.primary.base}" },
   },
   destructive: {
+    $type: "color",
     borderColor: { $value: "{color.action.danger.base}" },
   },
   radius: { $value: "{radius.surface}" },
@@ -26,6 +29,7 @@ export const toastComponentTokens: ComponentTokenGroup = {
     behindOpacity: { $value: "0.72" },
   },
   arrow: {
+    $type: "dimension",
     size: { $value: "{size.3}" },
   },
   title: {
@@ -48,11 +52,13 @@ export const toastComponentTokens: ComponentTokenGroup = {
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{color.border.default}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
     },
     height: { $value: "{size.control.sm}" },
     radius: { $value: "{radius.control}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.sm}" },
     },
     font: {
@@ -64,6 +70,7 @@ export const toastComponentTokens: ComponentTokenGroup = {
   close: {
     foreground: { $value: "{color.text.secondary}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
     },
     size: { $value: "{size.control.sm}" },
@@ -71,6 +78,7 @@ export const toastComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.control}" },
   },
   focus: {
+    $type: "dimension",
     ringColor: { $value: "{color.border.focus}" },
   },
   transition: {

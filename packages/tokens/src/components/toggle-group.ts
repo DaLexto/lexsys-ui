@@ -7,6 +7,7 @@ export const toggleGroupComponentTokens: ComponentTokenGroup = {
   radius: { $value: "{radius.control}" },
   padding: { $value: "{spacing.1}" },
   gap: {
+    $type: "dimension",
     sm: { $value: "{spacing.1}" },
     md: { $value: "{spacing.1}" },
     lg: { $value: "{spacing.2}" },

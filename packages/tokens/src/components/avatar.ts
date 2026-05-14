@@ -6,20 +6,24 @@ export const avatarComponentTokens: ComponentTokenGroup = {
   foreground: { $value: "{color.text.secondary}" },
   borderColor: { $value: "{color.border.default}" },
   fallback: {
+    $type: "color",
     background: { $value: "{color.background.subtle}" },
     foreground: { $value: "{color.text.secondary}" },
   },
   radius: {
+    $type: "dimension",
     circle: { $value: "{radius.pill}" },
     square: { $value: "{radius.control}" },
   },
   size: {
+    $type: "dimension",
     sm: { $value: "{size.control.sm}" },
     md: { $value: "{size.control.md}" },
     lg: { $value: "{size.control.lg}" },
   },
   font: {
     size: {
+      $type: "fontSize",
       sm: { $value: "{typography.label.xs.fontSize}" },
       md: { $value: "{typography.label.sm.fontSize}" },
       lg: { $value: "{typography.label.md.fontSize}" },

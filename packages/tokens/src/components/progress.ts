@@ -14,12 +14,14 @@ export const progressComponentTokens: ComponentTokenGroup = {
     background: { $value: "{color.background.subtle}" },
     radius: { $value: "{radius.pill}" },
     height: {
+      $type: "dimension",
       sm: { $value: "{size.track.sm}" },
       md: { $value: "{size.track.md}" },
       lg: { $value: "{size.track.lg}" },
     },
   },
   indicator: {
+    $type: "color",
     background: { $value: "{color.action.primary.base}" },
   },
   transition: {

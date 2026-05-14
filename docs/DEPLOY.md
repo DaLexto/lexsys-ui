@@ -92,9 +92,10 @@ If `lint` or `test` are still placeholders, record that explicitly in the releas
 
 - compiled token entrypoints in `dist`
 - generated CSS artifacts in `dist`
-- generated DTCG-compatible `tokens.json` in `dist`
+- generated DTCG-compatible `tokens.tokens.json` in `dist`
+- generated DTCG layer files under `dist/tokens/**/*.tokens.json`
 - explicit style export paths for CSS outputs
-- intentional public export policy for non-CSS token outputs; `tokens.json` is
+- intentional public export policy for non-CSS token outputs; `tokens.tokens.json` is
   generated but not yet exposed through an explicit package export
 - reviewed `sideEffects` metadata; `@neurex/ui` currently does not emit a CSS
   file, so its CSS side-effect declaration remains a pre-publish review item

@@ -26,11 +26,12 @@ export const lineHeightPrimitives: PrimitiveTokenGroup = {
   name: "line-height",
   $description:
     "Raw unitless line height scale used as the source for typography semantics.",
+  $type: "number",
 
-  none: { $value: 1, $type: "number" },
-  tight: { $value: 1.25, $type: "number" },
-  snug: { $value: 1.375, $type: "number" },
-  normal: { $value: 1.5, $type: "number" },
-  relaxed: { $value: 1.625, $type: "number" },
-  loose: { $value: 2, $type: "number" },
+  none: { $value: 1 },
+  tight: { $value: 1.25 },
+  snug: { $value: 1.375 },
+  normal: { $value: 1.5 },
+  relaxed: { $value: 1.625 },
+  loose: { $value: 2 },
 }

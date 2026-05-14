@@ -1,4 +1,4 @@
-import type { TokenNode, TokenTree } from "../../types"
+import type { TokenTree } from "../../types"
 import type {
   BrandId,
   ThemeDefinition,
@@ -101,92 +101,85 @@ const readNeurexMetadata = (
     presetName:
       typeof metadata.presetName === "string" ? metadata.presetName : undefined,
     tokenSetOrder: metadata.tokenSetOrder,
-    semanticTokenPaths: isStringArray(metadata.semanticTokenPaths)
-      ? metadata.semanticTokenPaths
-      : undefined,
     themes: isThemeMetadataArray(metadata.themes) ? metadata.themes : undefined,
   }
 }
 
-const getTokenNodeAtPath = (
-  tree: TokenTree,
-  path: string[],
-): TokenNode | undefined => {
-  let node: unknown = tree
+const mergeTokenTrees = (...trees: TokenTree[]): TokenTree => {
+  const merged: TokenTree = {}
 
-  for (const segment of path) {
-    if (!isRecord(node)) {
-      return undefined
-    }
+  trees.forEach((tree) => {
+    Object.entries(tree).forEach(([key, value]) => {
+      const existingValue = merged[key]
 
-    node = node[segment]
+      if (isRecord(existingValue) && isRecord(value)) {
+        merged[key] = mergeTokenTrees(existingValue, value)
+        return
+      }
+
+      merged[key] = value
+    })
+  })
+
+  return merged
+}
+
+const getDocumentTokenTree = (document: DtcgTokenDocument): TokenTree => {
+  return Object.fromEntries(
+    Object.entries(document).filter(([key]) => {
+      return !DOCUMENT_METADATA_KEYS.has(key)
+    }),
+  ) as TokenTree
+}
+
+const getLayerTree = (
+  tokenTree: TokenTree,
+  layer: string,
+): TokenTree | undefined => {
+  const candidate = tokenTree[layer]
+
+  if (!isRecord(candidate) || "$value" in candidate) {
+    return undefined
   }
 
-  return node as TokenNode | undefined
+  return candidate
 }
 
-const setTokenNodeAtPath = (
-  tree: TokenTree,
-  path: string[],
-  value: TokenNode,
-): void => {
-  let currentTree = tree
+const createRuntimeTokenTree = (documentTokenTree: TokenTree): TokenTree => {
+  const primitives = getLayerTree(documentTokenTree, "primitives")
+  const brand = getLayerTree(documentTokenTree, "brand")
+  const semantics = getLayerTree(documentTokenTree, "semantics")
+  const components = getLayerTree(documentTokenTree, "components")
 
-  path.forEach((segment, index) => {
-    const isLeafSegment = index === path.length - 1
+  if (
+    primitives === undefined &&
+    brand === undefined &&
+    semantics === undefined &&
+    components === undefined
+  ) {
+    return documentTokenTree
+  }
 
-    if (isLeafSegment) {
-      currentTree[segment] = value
-      return
-    }
-
-    const existingValue = currentTree[segment]
-
-    if (!isRecord(existingValue) || "$value" in existingValue) {
-      currentTree[segment] = {}
-    }
-
-    currentTree = currentTree[segment] as TokenTree
-  })
-}
-
-const createTokenTreeFromPaths = (
-  tokenTree: TokenTree,
-  paths: string[],
-): TokenTree => {
-  const scopedTree: TokenTree = {}
-
-  paths.forEach((path) => {
-    const pathSegments = path.split(".")
-    const tokenNode = getTokenNodeAtPath(tokenTree, pathSegments)
-
-    if (tokenNode === undefined) {
-      throw new Error(`DTCG token document is missing token path "${path}".`)
-    }
-
-    setTokenNodeAtPath(scopedTree, pathSegments, tokenNode)
-  })
-
-  return scopedTree
+  return mergeTokenTrees(
+    primitives ?? {},
+    brand ?? {},
+    semantics ?? {},
+    components ?? {},
+  )
 }
 
 export const createDtcgTokenInput = (
   document: DtcgTokenDocument,
 ): DtcgTokenInput => {
   const metadata = readNeurexMetadata(document)
-  const tokenTree = Object.fromEntries(
-    Object.entries(document).filter(([key]) => {
-      return !DOCUMENT_METADATA_KEYS.has(key)
-    }),
-  ) as TokenTree
+  const documentTokenTree = getDocumentTokenTree(document)
+  const tokenTree = createRuntimeTokenTree(documentTokenTree)
+  const semanticTokenTree = getLayerTree(documentTokenTree, "semantics")
 
   return {
     metadata,
     tokenTree,
-    semanticTokenTree:
-      metadata.semanticTokenPaths === undefined
-        ? undefined
-        : createTokenTreeFromPaths(tokenTree, metadata.semanticTokenPaths),
+    semanticTokenTree,
   }
 }
 

@@ -8,6 +8,7 @@ export const buttonComponentTokens: ComponentTokenGroup = {
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   primary: {
+    $type: "color",
     background: { $value: "{color.action.primary.base}" },
     foreground: { $value: "{color.text.inverse}" },
     hoverBackground: { $value: "{color.action.primary.hover}" },
@@ -20,6 +21,7 @@ export const buttonComponentTokens: ComponentTokenGroup = {
     borderColor: { $value: "{color.border.default}" },
   },
   height: {
+    $type: "dimension",
     xs: { $value: "{size.control.xs}" },
     sm: { $value: "{size.control.sm}" },
     md: { $value: "{size.control.md}" },
@@ -28,6 +30,7 @@ export const buttonComponentTokens: ComponentTokenGroup = {
   },
   padding: {
     x: {
+      $type: "dimension",
       xs: { $value: "{spacing.control.x.xs}" },
       sm: { $value: "{spacing.control.x.sm}" },
       md: { $value: "{spacing.control.x.md}" },
@@ -38,6 +41,7 @@ export const buttonComponentTokens: ComponentTokenGroup = {
   font: {
     family: { $value: "{typography.control.md.fontFamily}" },
     size: {
+      $type: "fontSize",
       xs: { $value: "{typography.control.xs.fontSize}" },
       sm: { $value: "{typography.control.sm.fontSize}" },
       md: { $value: "{typography.control.md.fontSize}" },

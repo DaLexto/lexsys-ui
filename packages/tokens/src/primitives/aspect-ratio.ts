@@ -27,11 +27,12 @@ export const aspectRatioPrimitives: PrimitiveTokenGroup = {
   name: "aspect-ratio",
   $description:
     "Raw aspect ratio values used as the source for layout and media semantics.",
+  $type: "number",
 
-  "1-1": { $value: 1, $type: "number" },
-  "4-3": { $value: 1.333333, $type: "number" },
-  "3-2": { $value: 1.5, $type: "number" },
-  "3-4": { $value: 0.75, $type: "number" },
-  "16-9": { $value: 1.777778, $type: "number" },
-  "21-9": { $value: 2.333333, $type: "number" },
+  "1-1": { $value: 1 },
+  "4-3": { $value: 1.333333 },
+  "3-2": { $value: 1.5 },
+  "3-4": { $value: 0.75 },
+  "16-9": { $value: 1.777778 },
+  "21-9": { $value: 2.333333 },
 }

@@ -79,7 +79,7 @@ CSS-only output model:
   `packages/tokens/src/presets`, `packages/tokens/src/brand`, and
   `packages/tokens/src/themes/neurex`.
 - The token generator now includes a DTCG-compatible JSON output path and writes
-  `dist/tokens.json` during package output generation.
+  `dist/tokens.tokens.json` during package output generation.
 - Registry style installation still installs only `styles/tokens.css` and
   `styles/theme.css`; JSON token output is currently package/internal output,
   not a consumer install artifact.
@@ -91,8 +91,8 @@ test`, and `pnpm --filter @neurex/tokens check`.
 
 Current hygiene decision:
 
-- `tokens.json` remains generated package output, but an explicit
-  `./tokens.json` package export is intentionally deferred until the public JSON
+- `tokens.tokens.json` remains generated package output, but an explicit
+  `./tokens.tokens.json` package export is intentionally deferred until the public JSON
   contract is finalized.
 - `@neurex/ui` still declares a CSS side-effect path even though the current UI
   build does not emit CSS; this is intentionally left as pre-publish metadata
@@ -230,7 +230,7 @@ Status:
 - Token source files under primitives, brand, semantics, themes, and component
   token groups now use `$value`.
 - Token branch metadata support was added so token trees can carry DTCG-style
-    `$description` and `$deprecated` metadata on branches as well as leaves.
+  `$description` and `$deprecated` metadata on branches as well as leaves.
 - `TokenMetadata` now centralizes shared metadata fields for token leaves and
   token trees.
 - Token group contracts now extend the shared `TokenTree` model instead of
@@ -249,7 +249,7 @@ Status:
 Problem:
 
 - Current token authoring still starts in TypeScript files.
-- `dist/tokens.json` is generated output, not yet the input contract consumed
+- `dist/tokens.tokens.json` is generated output, not yet the input contract consumed
   by the generator.
 - Future Figma, Tokens Studio, and Creator workflows need a shared token format
   instead of separate source-of-truth paths.
@@ -305,9 +305,23 @@ Status:
 - `themesJson` now emits theme override tokens as a separate canonical DTCG
   document, and `createThemeCssFromDtcgJson` can generate `theme.css` from
   `tokensJson` plus `themesJson`.
-- `tokensJson` carries Neurex-owned `semanticTokenPaths` metadata so the DTCG
-  round-trip can rebuild the same semantic Tailwind `@theme` source without
-  treating primitive or component tokens as theme variables.
+- `tokensJson` now uses the explicit merged `semantics` layer as the DTCG
+  round-trip source for semantic Tailwind `@theme` generation, without carrying
+  a separate semantic path metadata list.
+- DTCG package output now uses the recommended `.tokens.json` extension shape:
+  `dist/tokens.tokens.json`.
+- Package DTCG output now also emits separate layer files:
+  `dist/tokens/primitives.tokens.json`, `dist/tokens/brand.tokens.json`,
+  `dist/tokens/semantics.tokens.json`, `dist/tokens/components.tokens.json`,
+  `dist/tokens/presets.tokens.json`, and per-theme files under
+  `dist/tokens/themes`.
+- Layer files are standalone DTCG documents without an extra layer wrapper; the
+  merged `tokens.tokens.json` remains a convenience artifact with explicit
+  `primitives`, `brand`, `semantics`, `components`, `themes`, and `presets`
+  sections.
+- DTCG output now applies `$type` at the narrowest shared token group where all
+  descendant tokens share the same type, and omits duplicated leaf `$type`
+  properties when group inheritance can carry the type.
 - The JSON import boundary now has negative coverage for missing semantic path
   and theme metadata so invalid round-trip inputs fail explicitly.
 - Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant

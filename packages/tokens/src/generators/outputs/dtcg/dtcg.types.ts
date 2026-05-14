@@ -37,6 +37,7 @@ export type DtcgTokenType = TokenType | "string"
 export interface DtcgTokenMetadata {
   $description?: string
   $deprecated?: boolean | string
+  $type?: DtcgTokenType
 }
 
 /**
@@ -44,7 +45,6 @@ export interface DtcgTokenMetadata {
  */
 export interface DtcgTokenLeaf extends DtcgTokenMetadata {
   $value: TokenPrimitive
-  $type: DtcgTokenType
   $extensions?: Record<string, unknown>
 }
 
@@ -54,12 +54,7 @@ export interface DtcgTokenLeaf extends DtcgTokenMetadata {
  * Branch metadata must be preserved without being treated as a token leaf.
  */
 export interface DtcgTokenTree extends DtcgTokenMetadata {
-  [key: string]:
-    | DtcgTokenLeaf
-    | DtcgTokenTree
-    | string
-    | boolean
-    | undefined
+  [key: string]: DtcgTokenLeaf | DtcgTokenTree | string | boolean | undefined
 }
 
 /**
@@ -85,7 +80,6 @@ export interface DtcgNeurexMetadata {
   presetId?: string
   presetName?: string
   tokenSetOrder: string[]
-  semanticTokenPaths?: string[]
   themes?: DtcgThemeMetadata[]
 }
 

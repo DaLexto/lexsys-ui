@@ -26,13 +26,14 @@ export const blurPrimitives: PrimitiveTokenGroup = {
   name: "blur",
   $description:
     "Raw blur radius scale used as the source for effect and surface treatment semantics.",
+  $type: "dimension",
 
-  none: { $value: "0", $type: "dimension" },
-  xs: { $value: "2px", $type: "dimension" },
-  sm: { $value: "4px", $type: "dimension" },
-  md: { $value: "8px", $type: "dimension" },
-  lg: { $value: "12px", $type: "dimension" },
-  xl: { $value: "16px", $type: "dimension" },
-  "2xl": { $value: "24px", $type: "dimension" },
-  "3xl": { $value: "40px", $type: "dimension" },
+  none: { $value: "0" },
+  xs: { $value: "2px" },
+  sm: { $value: "4px" },
+  md: { $value: "8px" },
+  lg: { $value: "12px" },
+  xl: { $value: "16px" },
+  "2xl": { $value: "24px" },
+  "3xl": { $value: "40px" },
 }

@@ -9,5 +9,6 @@ export interface StyleOutputs {
   tokensCss: string
   themeCss: string
   tokensJson: string
+  tokenJsonFiles: Record<string, string>
   themesJson: string
 }

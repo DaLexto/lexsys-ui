@@ -16,6 +16,7 @@
  */
 
 import type { TokenLeaf, TokenPrimitive, TokenTree } from "../../types/index.js"
+import type { TokenType } from "../../types/index.js"
 
 import type { FlattenedTokenEntry } from "./shared.types.js"
 
@@ -121,6 +122,7 @@ export const flattenTokenTree = (
   tree: TokenTree,
   metadataKeys: ReadonlySet<string>,
   path: string[] = [],
+  inheritedType?: TokenType,
 ): FlattenedTokenEntry[] => {
   return Object.entries(tree).flatMap(([key, value]) => {
     if (metadataKeys.has(key)) {
@@ -135,13 +137,18 @@ export const flattenTokenTree = (
           path: nextPath,
           value: value.$value,
           description: value.$description,
-          type: value.$type,
+          type: value.$type ?? inheritedType,
         },
       ]
     }
 
     if (isTokenBranch(value)) {
-      return flattenTokenTree(value, metadataKeys, nextPath)
+      return flattenTokenTree(
+        value,
+        metadataKeys,
+        nextPath,
+        value.$type ?? inheritedType,
+      )
     }
 
     return []

@@ -30,22 +30,24 @@ export const motionPrimitives: PrimitiveTokenGroup = {
 
   duration: {
     $description: "Raw duration scale for UI transitions and animations.",
+    $type: "duration",
 
-    instant: { $value: "0ms", $type: "duration" },
-    fastest: { $value: "100ms", $type: "duration" },
-    fast: { $value: "150ms", $type: "duration" },
-    normal: { $value: "200ms", $type: "duration" },
-    slow: { $value: "300ms", $type: "duration" },
-    slower: { $value: "500ms", $type: "duration" },
+    instant: { $value: "0ms" },
+    fastest: { $value: "100ms" },
+    fast: { $value: "150ms" },
+    normal: { $value: "200ms" },
+    slow: { $value: "300ms" },
+    slower: { $value: "500ms" },
   },
 
   easing: {
     $description: "Raw easing curves for UI transitions and animations.",
+    $type: "cubicBezier",
 
-    linear: { $value: "cubic-bezier(0, 0, 1, 1)", $type: "cubicBezier" },
-    standard: { $value: "cubic-bezier(0.2, 0, 0, 1)", $type: "cubicBezier" },
-    enter: { $value: "cubic-bezier(0, 0, 0.2, 1)", $type: "cubicBezier" },
-    exit: { $value: "cubic-bezier(0.4, 0, 1, 1)", $type: "cubicBezier" },
-    emphasized: { $value: "cubic-bezier(0.2, 0, 0, 1)", $type: "cubicBezier" },
+    linear: { $value: "cubic-bezier(0, 0, 1, 1)" },
+    standard: { $value: "cubic-bezier(0.2, 0, 0, 1)" },
+    enter: { $value: "cubic-bezier(0, 0, 0.2, 1)" },
+    exit: { $value: "cubic-bezier(0.4, 0, 1, 1)" },
+    emphasized: { $value: "cubic-bezier(0.2, 0, 0, 1)" },
   },
 }

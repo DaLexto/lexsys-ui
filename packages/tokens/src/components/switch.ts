@@ -4,16 +4,19 @@ export const switchComponentTokens: ComponentTokenGroup = {
   component: "switch",
   background: { $value: "{color.background.subtle}" },
   checked: {
+    $type: "color",
     background: { $value: "{color.action.primary.base}" },
   },
   radius: { $value: "{radius.pill}" },
   padding: { $value: "{spacing.1}" },
   width: {
+    $type: "dimension",
     sm: { $value: "{size.switch.width.sm}" },
     md: { $value: "{size.switch.width.md}" },
     lg: { $value: "{size.switch.width.lg}" },
   },
   height: {
+    $type: "dimension",
     sm: { $value: "{size.switch.height.sm}" },
     md: { $value: "{size.switch.height.md}" },
     lg: { $value: "{size.switch.height.lg}" },
@@ -22,11 +25,13 @@ export const switchComponentTokens: ComponentTokenGroup = {
     background: { $value: "{color.background.base}" },
     radius: { $value: "{radius.pill}" },
     size: {
+      $type: "dimension",
       sm: { $value: "{size.switch.thumb.sm}" },
       md: { $value: "{size.switch.thumb.md}" },
       lg: { $value: "{size.switch.thumb.lg}" },
     },
     translate: {
+      $type: "dimension",
       sm: { $value: "{size.switch.thumbTranslate.sm}" },
       md: { $value: "{size.switch.thumbTranslate.md}" },
       lg: { $value: "{size.switch.thumbTranslate.lg}" },

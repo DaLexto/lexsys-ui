@@ -29,22 +29,24 @@ export const outlinePrimitives: PrimitiveTokenGroup = {
 
   width: {
     $description: "Raw outline width scale.",
+    $type: "dimension",
 
-    none: { $value: "0", $type: "dimension" },
-    hairline: { $value: "1px", $type: "dimension" },
-    thin: { $value: "2px", $type: "dimension" },
-    medium: { $value: "3px", $type: "dimension" },
-    thick: { $value: "4px", $type: "dimension" },
+    none: { $value: "0" },
+    hairline: { $value: "1px" },
+    thin: { $value: "2px" },
+    medium: { $value: "3px" },
+    thick: { $value: "4px" },
   },
 
   offset: {
     $description: "Raw outline offset scale.",
+    $type: "dimension",
 
-    none: { $value: "0", $type: "dimension" },
-    xs: { $value: "1px", $type: "dimension" },
-    sm: { $value: "2px", $type: "dimension" },
-    md: { $value: "4px", $type: "dimension" },
-    lg: { $value: "6px", $type: "dimension" },
-    xl: { $value: "8px", $type: "dimension" },
+    none: { $value: "0" },
+    xs: { $value: "1px" },
+    sm: { $value: "2px" },
+    md: { $value: "4px" },
+    lg: { $value: "6px" },
+    xl: { $value: "8px" },
   },
 }

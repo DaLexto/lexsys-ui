@@ -4,6 +4,7 @@ export const meterComponentTokens: ComponentTokenGroup = {
   component: "meter",
   gap: { $value: "{spacing.control.gap.sm}" },
   header: {
+    $type: "dimension",
     gap: { $value: "{spacing.control.gap.sm}" },
   },
   label: {
@@ -24,12 +25,14 @@ export const meterComponentTokens: ComponentTokenGroup = {
     background: { $value: "{color.background.subtle}" },
     radius: { $value: "{radius.pill}" },
     height: {
+      $type: "dimension",
       sm: { $value: "{size.track.sm}" },
       md: { $value: "{size.track.md}" },
       lg: { $value: "{size.track.lg}" },
     },
   },
   indicator: {
+    $type: "color",
     background: { $value: "{color.action.primary.base}" },
     backgroundComplete: { $value: "{color.action.primary.base}" },
   },

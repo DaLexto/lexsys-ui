@@ -55,8 +55,14 @@ const writePackageOutputs = async (
   await writeOutput(resolve(packageRoot, "dist/tokens.css"), outputs.tokensCss)
   await writeOutput(resolve(packageRoot, "dist/theme.css"), outputs.themeCss)
   await writeOutput(
-    resolve(packageRoot, "dist/tokens.json"),
+    resolve(packageRoot, "dist/tokens.tokens.json"),
     outputs.tokensJson,
+  )
+
+  await Promise.all(
+    Object.entries(outputs.tokenJsonFiles).map(([relativePath, content]) => {
+      return writeOutput(resolve(packageRoot, "dist", relativePath), content)
+    }),
   )
 }
 

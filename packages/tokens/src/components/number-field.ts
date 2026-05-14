@@ -8,6 +8,7 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
   borderColor: { $value: "{color.border.default}" },
   radius: { $value: "{radius.control}" },
   height: {
+    $type: "dimension",
     sm: { $value: "{size.control.sm}" },
     md: { $value: "{size.control.md}" },
     lg: { $value: "{size.control.lg}" },
@@ -15,10 +16,12 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
   input: {
     foreground: { $value: "{color.text.primary}" },
     placeholder: {
+      $type: "color",
       color: { $value: "{color.text.secondary}" },
     },
     padding: {
       x: {
+        $type: "dimension",
         sm: { $value: "{spacing.control.x.sm}" },
         md: { $value: "{spacing.control.x.md}" },
         lg: { $value: "{spacing.control.x.lg}" },
@@ -27,6 +30,7 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
     font: {
       family: { $value: "{typography.control.md.fontFamily}" },
       size: {
+        $type: "fontSize",
         sm: { $value: "{typography.control.sm.fontSize}" },
         md: { $value: "{typography.control.md.fontSize}" },
         lg: { $value: "{typography.control.lg.fontSize}" },
@@ -40,16 +44,19 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
     background: { $value: "{color.background.subtle}" },
     foreground: { $value: "{color.text.primary}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
     },
     borderColor: { $value: "{color.border.default}" },
     width: {
+      $type: "dimension",
       sm: { $value: "{size.control.sm}" },
       md: { $value: "{size.control.md}" },
       lg: { $value: "{size.control.lg}" },
     },
     font: {
       size: {
+        $type: "fontSize",
         sm: { $value: "{typography.control.sm.fontSize}" },
         md: { $value: "{typography.control.md.fontSize}" },
         lg: { $value: "{typography.control.lg.fontSize}" },
@@ -58,9 +65,11 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
+    $type: "dimension",
     ringColor: { $value: "{color.border.focus}" },
   },
   invalid: {
+    $type: "color",
     ringColor: { $value: "{color.action.danger.base}" },
   },
   scrub: {

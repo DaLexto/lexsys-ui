@@ -4,12 +4,14 @@ export const typographySemantics: SemanticTokenGroup = {
   name: "typography",
 
   family: {
+    $type: "fontFamily",
     sans: { $value: "{font-family.sans}" },
     serif: { $value: "{font-family.serif}" },
     mono: { $value: "{font-family.mono}" },
   },
 
   body: {
+    $type: "typography",
     xs: {
       fontFamily: { $value: "{typography.family.sans}" },
       fontSize: { $value: "{font-size.xs}" },
@@ -48,6 +50,7 @@ export const typographySemantics: SemanticTokenGroup = {
   },
 
   heading: {
+    $type: "typography",
     xs: {
       fontFamily: { $value: "{typography.family.sans}" },
       fontSize: { $value: "{font-size.base}" },

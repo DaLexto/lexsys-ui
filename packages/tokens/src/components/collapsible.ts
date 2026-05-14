@@ -7,18 +7,22 @@ export const collapsibleComponentTokens: ComponentTokenGroup = {
   borderColor: { $value: "{color.border.default}" },
   radius: { $value: "{radius.surface}" },
   focus: {
+    $type: "dimension",
     ringColor: { $value: "{color.border.focus}" },
   },
   trigger: {
     background: {
+      $type: "color",
       hover: { $value: "{color.background.subtle}" },
     },
     gap: { $value: "{spacing.control.gap.sm}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.surface.md}" },
       y: { $value: "{spacing.surface.sm}" },
     },
     icon: {
+      $type: "dimension",
       size: { $value: "{size.selectionControl.md}" },
     },
     font: {
@@ -30,6 +34,7 @@ export const collapsibleComponentTokens: ComponentTokenGroup = {
   panel: {
     foreground: { $value: "{color.text.secondary}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.surface.md}" },
       bottom: { $value: "{spacing.surface.md}" },
     },

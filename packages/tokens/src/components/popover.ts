@@ -16,6 +16,7 @@ export const popoverComponentTokens: ComponentTokenGroup = {
     gap: { $value: "{spacing.surface.gap.sm}" },
   },
   arrow: {
+    $type: "dimension",
     size: { $value: "{size.3}" },
   },
   title: {
@@ -40,11 +41,13 @@ export const popoverComponentTokens: ComponentTokenGroup = {
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{color.border.default}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
     },
     height: { $value: "{size.control.md}" },
     radius: { $value: "{radius.control}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.md}" },
     },
     font: {
@@ -56,6 +59,7 @@ export const popoverComponentTokens: ComponentTokenGroup = {
   close: {
     foreground: { $value: "{color.text.secondary}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
     },
     size: { $value: "{size.control.sm}" },

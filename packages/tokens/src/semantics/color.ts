@@ -4,12 +4,14 @@ export const colorSemantics: SemanticTokenGroup = {
   name: "color",
 
   background: {
+    $type: "color",
     base: { $value: "{color.white}" },
     surface: { $value: "{color.white}" },
     subtle: { $value: "{color.neutral.50}" },
     overlay: { $value: "{color.neutral.800}" },
   },
   text: {
+    $type: "color",
     primary: { $value: "{color.neutral.900}" },
     secondary: { $value: "{color.neutral.600}" },
     disabled: { $value: "{color.neutral.400}" },
@@ -18,6 +20,7 @@ export const colorSemantics: SemanticTokenGroup = {
     accent: { $value: "{color.purple.600}" },
   },
   border: {
+    $type: "color",
     default: { $value: "{color.neutral.200}" },
     strong: { $value: "{color.neutral.400}" },
     focus: { $value: "{color.neutral.500}" },
@@ -25,35 +28,42 @@ export const colorSemantics: SemanticTokenGroup = {
   },
   feedback: {
     info: {
+      $type: "color",
       bg: { $value: "{color.blue.50}" },
       text: { $value: "{color.blue.700}" },
     },
     success: {
+      $type: "color",
       bg: { $value: "{color.green.50}" },
       text: { $value: "{color.green.700}" },
     },
     warning: {
+      $type: "color",
       bg: { $value: "{color.yellow.50}" },
       text: { $value: "{color.yellow.700}" },
     },
     danger: {
+      $type: "color",
       bg: { $value: "{color.red.50}" },
       text: { $value: "{color.red.700}" },
     },
   },
   action: {
     primary: {
+      $type: "color",
       base: { $value: "{color.purple.600}" },
       hover: { $value: "{color.purple.700}" },
       active: { $value: "{color.purple.800}" },
       disabled: { $value: "{color.purple.300}" },
     },
     secondary: {
+      $type: "color",
       base: { $value: "{color.neutral.100}" },
       hover: { $value: "{color.neutral.200}" },
       active: { $value: "{color.neutral.300}" },
     },
     danger: {
+      $type: "color",
       base: { $value: "{color.red.600}" },
       hover: { $value: "{color.red.700}" },
       active: { $value: "{color.red.800}" },

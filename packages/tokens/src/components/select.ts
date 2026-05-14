@@ -5,28 +5,33 @@ export const selectComponentTokens: ComponentTokenGroup = {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
   placeholder: {
+    $type: "color",
     color: { $value: "{color.text.secondary}" },
   },
   borderColor: { $value: "{color.border.default}" },
   radius: { $value: "{radius.control}" },
   height: {
+    $type: "dimension",
     sm: { $value: "{size.control.sm}" },
     md: { $value: "{size.control.md}" },
     lg: { $value: "{size.control.lg}" },
   },
   padding: {
     x: {
+      $type: "dimension",
       sm: { $value: "{spacing.control.x.sm}" },
       md: { $value: "{spacing.control.x.md}" },
       lg: { $value: "{spacing.control.x.lg}" },
     },
   },
   trigger: {
+    $type: "dimension",
     gap: { $value: "{spacing.control.gap.sm}" },
   },
   font: {
     family: { $value: "{typography.control.md.fontFamily}" },
     size: {
+      $type: "fontSize",
       sm: { $value: "{typography.control.sm.fontSize}" },
       md: { $value: "{typography.control.md.fontSize}" },
       lg: { $value: "{typography.control.lg.fontSize}" },
@@ -54,6 +59,7 @@ export const selectComponentTokens: ComponentTokenGroup = {
     maxHeight: { $value: "{size.16}" },
   },
   list: {
+    $type: "dimension",
     gap: { $value: "{spacing.control.gap.sm}" },
     padding: { $value: "{spacing.control.y.xs}" },
   },
@@ -62,6 +68,7 @@ export const selectComponentTokens: ComponentTokenGroup = {
     gap: { $value: "{spacing.control.gap.sm}" },
     radius: { $value: "{radius.control}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.sm}" },
       y: { $value: "{spacing.control.y.xs}" },
     },
@@ -71,14 +78,17 @@ export const selectComponentTokens: ComponentTokenGroup = {
       lineHeight: { $value: "{typography.control.sm.lineHeight}" },
     },
     highlight: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
       foreground: { $value: "{color.text.primary}" },
     },
     selected: {
+      $type: "color",
       background: { $value: "{color.action.primary.base}" },
       foreground: { $value: "{color.text.inverse}" },
     },
     indicator: {
+      $type: "dimension",
       size: { $value: "{size.selectionControl.sm}" },
     },
   },
@@ -87,6 +97,7 @@ export const selectComponentTokens: ComponentTokenGroup = {
     label: {
       foreground: { $value: "{color.text.secondary}" },
       padding: {
+        $type: "dimension",
         y: { $value: "{spacing.control.y.xs}" },
       },
       font: {
@@ -97,12 +108,15 @@ export const selectComponentTokens: ComponentTokenGroup = {
     },
   },
   arrow: {
+    $type: "dimension",
     size: { $value: "{size.selectionIndicator.md}" },
   },
   scrollArrow: {
+    $type: "dimension",
     height: { $value: "{size.control.xs}" },
   },
   backdrop: {
+    $type: "color",
     background: { $value: "{color.text.primary}" },
   },
   focus: {
@@ -111,6 +125,7 @@ export const selectComponentTokens: ComponentTokenGroup = {
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   invalid: {
+    $type: "color",
     borderColor: { $value: "{color.action.danger.base}" },
     ringColor: { $value: "{color.action.danger.base}" },
   },

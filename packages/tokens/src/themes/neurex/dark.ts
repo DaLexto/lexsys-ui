@@ -8,12 +8,14 @@ export const neurexDarkTheme: ThemeDefinition = {
   colorScheme: "dark",
   color: {
     background: {
+      $type: "color",
       base: { $value: "{color.neutral.950}" },
       surface: { $value: "{color.neutral.900}" },
       subtle: { $value: "{color.neutral.800}" },
       overlay: { $value: "oklch(0 0 0 / 60%)" },
     },
     text: {
+      $type: "color",
       primary: { $value: "{color.neutral.50}" },
       secondary: { $value: "{color.neutral.400}" },
       disabled: { $value: "{color.neutral.600}" },
@@ -22,6 +24,7 @@ export const neurexDarkTheme: ThemeDefinition = {
       accent: { $value: "{color.purple.300}" },
     },
     border: {
+      $type: "color",
       default: { $value: "{color.neutral.700}" },
       strong: { $value: "{color.neutral.500}" },
       focus: { $value: "{color.blue.400}" },
@@ -29,35 +32,42 @@ export const neurexDarkTheme: ThemeDefinition = {
     },
     feedback: {
       info: {
+        $type: "color",
         bg: { $value: "{color.blue.950}" },
         text: { $value: "{color.blue.200}" },
       },
       success: {
+        $type: "color",
         bg: { $value: "{color.green.950}" },
         text: { $value: "{color.green.200}" },
       },
       warning: {
+        $type: "color",
         bg: { $value: "{color.yellow.950}" },
         text: { $value: "{color.yellow.200}" },
       },
       danger: {
+        $type: "color",
         bg: { $value: "{color.red.950}" },
         text: { $value: "{color.red.200}" },
       },
     },
     action: {
       primary: {
+        $type: "color",
         base: { $value: "{color.purple.400}" },
         hover: { $value: "{color.purple.300}" },
         active: { $value: "{color.purple.200}" },
         disabled: { $value: "{color.purple.700}" },
       },
       secondary: {
+        $type: "color",
         base: { $value: "{color.neutral.800}" },
         hover: { $value: "{color.neutral.700}" },
         active: { $value: "{color.neutral.600}" },
       },
       danger: {
+        $type: "color",
         base: { $value: "{color.red.400}" },
         hover: { $value: "{color.red.300}" },
         active: { $value: "{color.red.200}" },

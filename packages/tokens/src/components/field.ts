@@ -7,6 +7,7 @@ export const fieldComponentTokens: ComponentTokenGroup = {
   label: {
     foreground: { $value: "{color.text.primary}" },
     invalid: {
+      $type: "color",
       foreground: { $value: "{color.action.danger.base}" },
     },
     font: {
@@ -35,15 +36,18 @@ export const fieldComponentTokens: ComponentTokenGroup = {
     },
   },
   item: {
+    $type: "dimension",
     gap: { $value: "{spacing.control.gap.sm}" },
   },
   control: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
     placeholder: {
+      $type: "color",
       color: { $value: "{color.text.secondary}" },
     },
     border: {
+      $type: "dimension",
       color: { $value: "{color.border.default}" },
     },
     focus: {
@@ -52,17 +56,20 @@ export const fieldComponentTokens: ComponentTokenGroup = {
       ringOffsetColor: { $value: "{color.background.base}" },
     },
     invalid: {
+      $type: "color",
       borderColor: { $value: "{color.action.danger.base}" },
       ringColor: { $value: "{color.action.danger.base}" },
     },
     radius: { $value: "{radius.control}" },
     height: {
+      $type: "dimension",
       sm: { $value: "{size.control.sm}" },
       md: { $value: "{size.control.md}" },
       lg: { $value: "{size.control.lg}" },
     },
     padding: {
       x: {
+        $type: "dimension",
         sm: { $value: "{spacing.control.x.sm}" },
         md: { $value: "{spacing.control.x.md}" },
         lg: { $value: "{spacing.control.x.lg}" },
@@ -71,6 +78,7 @@ export const fieldComponentTokens: ComponentTokenGroup = {
     font: {
       family: { $value: "{typography.control.md.fontFamily}" },
       size: {
+        $type: "fontSize",
         sm: { $value: "{typography.control.sm.fontSize}" },
         md: { $value: "{typography.control.md.fontSize}" },
         lg: { $value: "{typography.control.lg.fontSize}" },

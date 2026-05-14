@@ -26,34 +26,34 @@ export const breakpointPrimitives: PrimitiveTokenGroup = {
   name: "breakpoint",
   $description:
     "Raw responsive breakpoint scale used as the source for layout semantics.",
+  $type: "dimension",
 
   sm: {
     $value: "40rem",
-    $type: "dimension",
-    $description: "Small viewport breakpoint, equivalent to 640px at a 16px root font size.",
+    $description:
+      "Small viewport breakpoint, equivalent to 640px at a 16px root font size.",
   },
 
   md: {
     $value: "48rem",
-    $type: "dimension",
-    $description: "Medium viewport breakpoint, equivalent to 768px at a 16px root font size.",
+    $description:
+      "Medium viewport breakpoint, equivalent to 768px at a 16px root font size.",
   },
 
   lg: {
     $value: "64rem",
-    $type: "dimension",
-    $description: "Large viewport breakpoint, equivalent to 1024px at a 16px root font size.",
+    $description:
+      "Large viewport breakpoint, equivalent to 1024px at a 16px root font size.",
   },
 
   xl: {
     $value: "80rem",
-    $type: "dimension",
-    $description: "Extra-large viewport breakpoint, equivalent to 1280px at a 16px root font size.",
+    $description:
+      "Extra-large viewport breakpoint, equivalent to 1280px at a 16px root font size.",
   },
 
   "2xl": {
     $value: "96rem",
-    $type: "dimension",
     $description:
       "Double-extra-large viewport breakpoint, equivalent to 1536px at a 16px root font size.",
   },

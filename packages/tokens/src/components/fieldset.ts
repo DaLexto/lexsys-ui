@@ -11,6 +11,7 @@ export const fieldsetComponentTokens: ComponentTokenGroup = {
   legend: {
     foreground: { $value: "{color.text.primary}" },
     margin: {
+      $type: "dimension",
       bottom: { $value: "{spacing.surface.gap.sm}" },
     },
     font: {

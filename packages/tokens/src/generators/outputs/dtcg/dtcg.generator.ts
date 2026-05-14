@@ -29,6 +29,7 @@ import type {
 import {
   createDefaultDtcgGeneratorOptions,
   DTCG_NEUREX_EXTENSION_KEY,
+  stringifyDtcgJson,
   toDtcgTokenTree,
 } from "./dtcg.utils"
 
@@ -52,6 +53,6 @@ export const generateJsonTokens = (
 
   return {
     json,
-    content: `${JSON.stringify(json, null, 2)}\n`,
+    content: stringifyDtcgJson(json),
   }
 }

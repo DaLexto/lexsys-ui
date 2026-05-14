@@ -1,6 +1,7 @@
 import type { SemanticTokenGroup } from "../types/index.js"
 
 export const radiusSemantics: SemanticTokenGroup = {
+  $type: "dimension",
   name: "radius",
   control: { $value: "{radius.md}" },
   selection: { $value: "{radius.sm}" },

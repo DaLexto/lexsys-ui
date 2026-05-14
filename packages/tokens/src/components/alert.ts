@@ -29,11 +29,13 @@ export const alertComponentTokens: ComponentTokenGroup = {
     borderColor: { $value: "{color.border.default}" },
   },
   primary: {
+    $type: "color",
     background: { $value: "{color.background.subtle}" },
     foreground: { $value: "{color.action.primary.base}" },
     borderColor: { $value: "{color.action.primary.base}" },
   },
   destructive: {
+    $type: "color",
     background: { $value: "{color.background.subtle}" },
     foreground: { $value: "{color.action.danger.base}" },
     borderColor: { $value: "{color.action.danger.base}" },

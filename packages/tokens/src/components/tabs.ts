@@ -15,6 +15,7 @@ export const tabsComponentTokens: ComponentTokenGroup = {
     activeForeground: { $value: "{color.text.primary}" },
     radius: { $value: "{radius.selection}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.sm}" },
       y: { $value: "{spacing.control.y.xs}" },
     },
@@ -32,6 +33,7 @@ export const tabsComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
+    $type: "dimension",
     ringColor: { $value: "{color.border.focus}" },
   },
   transition: {

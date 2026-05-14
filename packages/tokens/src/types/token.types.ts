@@ -38,6 +38,8 @@ export type ScalarTokenType =
   | "strokeStyle"
   /** External resource references such as icons, images, or font files. */
   | "asset"
+  /** Metadata, preset labels, and other scalar string token values. */
+  | "string"
 
 /**
  * Composite token type names reserved for structured object values.
@@ -84,6 +86,7 @@ export type TokenPrimitive = string | number
 export interface TokenMetadata {
   $description?: string
   $deprecated?: boolean | string
+  $type?: TokenType
 }
 
 /**
@@ -93,7 +96,6 @@ export interface TokenMetadata {
  */
 export interface TokenLeaf extends TokenMetadata {
   $value: TokenPrimitive
-  $type?: TokenType
 }
 
 /**

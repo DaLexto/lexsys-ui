@@ -13,14 +13,10 @@ import {
 import {
   createCssBlock,
   createCssVariableEntries,
-  DTCG_NEUREX_EXTENSION_KEY,
   type CssVarsGeneratorOptions,
   generateJsonTokens,
 } from "./outputs"
-import {
-  DEFAULT_GENERATOR_METADATA_KEYS,
-  flattenTokenTree,
-} from "./shared/index.js"
+import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared/index.js"
 import { defaultStyleOutputConfig } from "./style-output.config.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
@@ -103,24 +99,127 @@ const createTokensCssFromTokenTree = (
   )}\n`
 }
 
-const createTokenPaths = (tokenTree: TokenTree): string[] => {
-  return flattenTokenTree(tokenTree, DEFAULT_GENERATOR_METADATA_KEYS).map(
-    (entry) => {
-      return entry.path.join(".")
-    },
-  )
-}
-
-const createTokensJson = (input: StyleTokenInput): string => {
-  return generateJsonTokens(input.tokenTree, {
+const createTokenDocument = (
+  tokenTree: TokenTree,
+  input: StyleTokenInput,
+  tokenSetOrder: string[],
+): string => {
+  return generateJsonTokens(tokenTree, {
+    metadataKeys: new Set(),
     metadata: {
       generatedBy: "@neurex/tokens",
       presetId: input.preset.id,
       presetName: input.preset.name,
-      tokenSetOrder: ["primitives", "semantics", "components"],
-      semanticTokenPaths: createTokenPaths(input.semanticTokens),
+      tokenSetOrder,
     },
   }).content
+}
+
+const createPresetDocumentTree = (input: StyleTokenInput): TokenTree => {
+  return {
+    [input.preset.id]: {
+      id: { $value: input.preset.id, $type: "string" },
+      name: { $value: input.preset.name, $type: "string" },
+      ...(input.preset.brand === undefined
+        ? {}
+        : { brand: { $value: input.preset.brand, $type: "string" } }),
+      themeModes: Object.fromEntries(
+        input.preset.themeModes.map((themeMode) => {
+          return [themeMode, { $value: themeMode, $type: "string" }]
+        }),
+      ),
+    },
+  }
+}
+
+const createMergedTokenDocumentTree = (input: StyleTokenInput): TokenTree => {
+  return {
+    primitives: input.primitiveTokens,
+    brand: input.brandTokens,
+    semantics: input.semanticTokens,
+    components: input.componentTokens,
+    themes: {
+      [input.preset.brand ?? input.preset.id]: Object.fromEntries(
+        input.themeTokens.map((theme) => {
+          return [theme.name, theme.tokens]
+        }),
+      ),
+    },
+    presets: createPresetDocumentTree(input),
+  }
+}
+
+const createTokensJson = (input: StyleTokenInput): string => {
+  return createTokenDocument(createMergedTokenDocumentTree(input), input, [
+    "primitives",
+    "brand",
+    "semantics",
+    "components",
+    "themes",
+    "presets",
+  ])
+}
+
+const createThemeTokenDocument = (
+  input: StyleTokenInput,
+  theme: ThemeTokenInput,
+): string => {
+  return generateJsonTokens(theme.tokens, {
+    metadataKeys: new Set(),
+    metadata: {
+      generatedBy: "@neurex/tokens",
+      presetId: input.preset.id,
+      presetName: input.preset.name,
+      tokenSetOrder: ["themes"],
+      themes: [
+        {
+          name: theme.name,
+          ...(theme.brand === undefined ? {} : { brand: theme.brand }),
+          selector: theme.selector,
+          colorScheme: theme.colorScheme,
+        },
+      ],
+    },
+  }).content
+}
+
+const createTokenJsonFiles = (
+  input: StyleTokenInput,
+): Record<string, string> => {
+  const files: Record<string, string> = {
+    "tokens/primitives.tokens.json": createTokenDocument(
+      input.primitiveTokens,
+      input,
+      ["primitives"],
+    ),
+    "tokens/brand.tokens.json": createTokenDocument(input.brandTokens, input, [
+      "brand",
+    ]),
+    "tokens/semantics.tokens.json": createTokenDocument(
+      input.semanticTokens,
+      input,
+      ["semantics"],
+    ),
+    "tokens/components.tokens.json": createTokenDocument(
+      input.componentTokens,
+      input,
+      ["components"],
+    ),
+    "tokens/presets.tokens.json": createTokenDocument(
+      createPresetDocumentTree(input),
+      input,
+      ["presets"],
+    ),
+  }
+
+  input.themeTokens.forEach((theme) => {
+    const brand = theme.brand ?? input.preset.brand ?? input.preset.id
+
+    files[`tokens/themes/${brand}.${theme.name}.tokens.json`] =
+      createThemeTokenDocument(input, theme)
+  })
+
+  return files
 }
 
 const createThemeDocumentTree = (input: StyleTokenInput): TokenTree => {
@@ -133,6 +232,7 @@ const createThemeDocumentTree = (input: StyleTokenInput): TokenTree => {
 
 const createThemesJson = (input: StyleTokenInput): string => {
   return generateJsonTokens(createThemeDocumentTree(input), {
+    metadataKeys: new Set(),
     metadata: {
       generatedBy: "@neurex/tokens",
       presetId: input.preset.id,
@@ -201,6 +301,7 @@ export const createStyleOutputs = (
     tokensCss: createTokensCss(input),
     themeCss: createThemeCss(input),
     tokensJson: createTokensJson(input),
+    tokenJsonFiles: createTokenJsonFiles(input),
     themesJson: createThemesJson(input),
   }
 }
@@ -231,9 +332,7 @@ export const createThemeCssFromDtcgJson = (
   const semanticTokenTree = tokenInput.semanticTokenTree
 
   if (semanticTokenTree === undefined) {
-    throw new Error(
-      `DTCG token document extension "${DTCG_NEUREX_EXTENSION_KEY}" is missing "semanticTokenPaths".`,
-    )
+    throw new Error('DTCG token document is missing a "semantics" layer.')
   }
 
   const tailwindThemeTokenTree = mergeTokenTrees(

@@ -27,64 +27,60 @@ export const zIndexPrimitives: PrimitiveTokenGroup = {
   name: "z-index",
   $description:
     "Raw z-index scale used as the source for stacking and overlay semantics.",
+  $type: "number",
 
   base: {
     $value: 0,
-    $type: "number",
     $description: "Base stacking level for normal document flow.",
   },
 
   raised: {
     $value: 10,
-    $type: "number",
     $description: "Low stacking level for slightly raised local elements.",
   },
 
   sticky: {
     $value: 100,
-    $type: "number",
     $description: "Stacking level for sticky or pinned interface regions.",
   },
 
   dropdown: {
     $value: 1000,
-    $type: "number",
     $description: "Stacking level for dropdown-like floating surfaces.",
   },
 
   overlay: {
     $value: 2000,
-    $type: "number",
-    $description: "Stacking level for overlay backdrops and page-blocking layers.",
+    $description:
+      "Stacking level for overlay backdrops and page-blocking layers.",
   },
 
   modal: {
     $value: 3000,
-    $type: "number",
     $description: "Stacking level for modal dialogs and blocking overlays.",
   },
 
   popover: {
     $value: 4000,
-    $type: "number",
-    $description: "Stacking level for popovers, menus, and floating panels above modals when needed.",
+    $description:
+      "Stacking level for popovers, menus, and floating panels above modals when needed.",
   },
 
   toast: {
     $value: 5000,
-    $type: "number",
-    $description: "Stacking level for toast notifications and global transient feedback.",
+    $description:
+      "Stacking level for toast notifications and global transient feedback.",
   },
 
   tooltip: {
     $value: 6000,
-    $type: "number",
-    $description: "Stacking level for tooltips and highest-priority contextual hints.",
+    $description:
+      "Stacking level for tooltips and highest-priority contextual hints.",
   },
 
   max: {
     $value: 9999,
-    $type: "number",
-    $description: "Maximum reserved stacking level for exceptional escape-hatch cases.",
+    $description:
+      "Maximum reserved stacking level for exceptional escape-hatch cases.",
   },
 }

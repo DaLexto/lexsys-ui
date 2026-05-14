@@ -36,6 +36,8 @@ export interface StyleTokenInputOptions {
 
 export interface StyleTokenInput {
   preset: PresetDefinition
+  primitiveTokens: TokenTree
+  brandTokens: TokenTree
   semanticTokens: TokenTree
   foundationTokens: TokenTree
   componentTokens: TokenTree
@@ -171,8 +173,13 @@ export const createStyleTokenInput = (
 ): StyleTokenInput => {
   const preset = resolvePreset(options.presetId ?? defaultPresetId)
   const primitiveTokenTree = createTokenTreeFromNamedGroups(primitiveTokens)
+  const brandTokens: TokenTree = {}
   const semanticTokens = createTokenTreeFromNamedGroups(semanticTokenGroups)
-  const foundationTokens = mergeTokenTrees(primitiveTokenTree, semanticTokens)
+  const foundationTokens = mergeTokenTrees(
+    primitiveTokenTree,
+    brandTokens,
+    semanticTokens,
+  )
   const componentTokens =
     createTokenTreeFromComponentGroups(componentTokenGroups)
   const themeTokens = createThemeTokenInputs(themes, preset)
@@ -181,6 +188,8 @@ export const createStyleTokenInput = (
 
   return {
     preset,
+    primitiveTokens: primitiveTokenTree,
+    brandTokens,
     semanticTokens,
     foundationTokens,
     componentTokens,

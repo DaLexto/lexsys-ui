@@ -6,16 +6,19 @@ export const cardComponentTokens: ComponentTokenGroup = {
   foreground: { $value: "{color.text.primary}" },
   borderColor: { $value: "{color.border.default}" },
   muted: {
+    $type: "color",
     background: { $value: "{color.background.subtle}" },
   },
   radius: { $value: "{radius.surface}" },
   padding: { $value: "{spacing.surface.md}" },
   gap: {
+    $type: "dimension",
     sm: { $value: "{spacing.surface.gap.sm}" },
     md: { $value: "{spacing.surface.gap.md}" },
   },
   header: {
     padding: {
+      $type: "dimension",
       bottom: { $value: "{spacing.surface.sm}" },
     },
   },

@@ -8,6 +8,7 @@
 export { generateJsonTokens } from "./dtcg.generator"
 
 export {
+  applyTypesToGroups,
   createDefaultDtcgGeneratorOptions,
   DTCG_NEUREX_EXTENSION_KEY,
   DTCG_SCHEMA_URL,

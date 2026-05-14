@@ -12,6 +12,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.surface}" },
   },
   viewport: {
+    $type: "dimension",
     padding: { $value: "{spacing.surface.sm}" },
   },
   popup: {
@@ -21,21 +22,25 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.surface}" },
     maxWidth: { $value: "{size.drawer.maxWidth}" },
     width: {
+      $type: "dimension",
       sm: { $value: "{size.drawer.width.sm}" },
       md: { $value: "{size.drawer.width.md}" },
       lg: { $value: "{size.drawer.width.lg}" },
     },
     height: {
+      $type: "dimension",
       sm: { $value: "{size.drawer.height.sm}" },
       md: { $value: "{size.drawer.height.md}" },
       lg: { $value: "{size.drawer.height.lg}" },
     },
   },
   content: {
+    $type: "dimension",
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.md}" },
   },
   handle: {
+    $type: "dimension",
     background: { $value: "{color.border.default}" },
     width: { $value: "{size.control.lg}" },
     height: { $value: "{size.track.md}" },
@@ -43,6 +48,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.pill}" },
   },
   swipeArea: {
+    $type: "dimension",
     size: { $value: "{size.area.swipe.sm}" },
   },
   title: {
@@ -66,11 +72,13 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     background: { $value: "{color.action.primary.base}" },
     foreground: { $value: "{color.text.inverse}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.action.primary.hover}" },
     },
     height: { $value: "{size.control.md}" },
     radius: { $value: "{radius.control}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.md}" },
     },
     font: {
@@ -82,6 +90,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
   close: {
     foreground: { $value: "{color.text.secondary}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
     },
     size: { $value: "{size.control.sm}" },

@@ -210,8 +210,9 @@ Guidelines:
 
 Generated CSS and JSON belong to the token pipeline, not to handwritten
 component styles. The current package build writes `tokens.css`, `theme.css`,
-and a DTCG-compatible `tokens.json`; the registry style manifest installs only
-the CSS outputs into consumer projects today.
+and DTCG-compatible layer files under `dist/tokens/**/*.tokens.json`; the
+registry style manifest installs only the CSS outputs into consumer projects
+today.
 
 ---
 

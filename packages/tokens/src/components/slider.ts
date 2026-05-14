@@ -4,6 +4,7 @@ export const sliderComponentTokens: ComponentTokenGroup = {
   component: "slider",
   gap: { $value: "{spacing.control.gap.md}" },
   control: {
+    $type: "dimension",
     paddingY: { $value: "{spacing.control.y.sm}" },
   },
   track: {
@@ -12,6 +13,7 @@ export const sliderComponentTokens: ComponentTokenGroup = {
     height: { $value: "{size.track.md}" },
   },
   indicator: {
+    $type: "color",
     background: { $value: "{color.action.primary.base}" },
   },
   thumb: {

@@ -27,52 +27,49 @@ export const shadowPrimitives: PrimitiveTokenGroup = {
   name: "shadow",
   $description:
     "Raw shadow scale used as the source for elevation, depth, and surface layering semantics.",
+  $type: "shadow",
 
   0: {
     $value: "none",
-    $type: "shadow",
     $description: "No shadow. Used as the base elevation reset.",
   },
 
   1: {
     $value: "0 1px 2px rgb(0 0 0 / 0.06), 0 1px 1px rgb(0 0 0 / 0.04)",
-    $type: "shadow",
     $description: "Subtle shadow for minimally raised surfaces.",
   },
 
   2: {
     $value: "0 2px 4px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.06)",
-    $type: "shadow",
     $description: "Low shadow for small elevated surfaces and controls.",
   },
 
   3: {
     $value: "0 4px 8px rgb(0 0 0 / 0.10), 0 2px 4px rgb(0 0 0 / 0.08)",
-    $type: "shadow",
     $description: "Medium shadow for cards and raised containers.",
   },
 
   4: {
     $value: "0 8px 16px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.08)",
-    $type: "shadow",
-    $description: "High shadow for floating surfaces such as popovers and menus.",
+    $description:
+      "High shadow for floating surfaces such as popovers and menus.",
   },
 
   5: {
     $value: "0 16px 32px rgb(0 0 0 / 0.14), 0 8px 16px rgb(0 0 0 / 0.10)",
-    $type: "shadow",
-    $description: "Strong shadow for prominent overlays such as dialogs and drawers.",
+    $description:
+      "Strong shadow for prominent overlays such as dialogs and drawers.",
   },
 
   6: {
     $value: "0 24px 48px rgb(0 0 0 / 0.16), 0 12px 24px rgb(0 0 0 / 0.12)",
-    $type: "shadow",
-    $description: "Maximum shadow for highest elevation surfaces and dramatic depth.",
+    $description:
+      "Maximum shadow for highest elevation surfaces and dramatic depth.",
   },
 
   inner: {
     $value: "inset 0 1px 2px rgb(0 0 0 / 0.08)",
-    $type: "shadow",
-    $description: "Inset shadow for pressed, recessed, or contained surface effects.",
+    $description:
+      "Inset shadow for pressed, recessed, or contained surface effects.",
   },
 }

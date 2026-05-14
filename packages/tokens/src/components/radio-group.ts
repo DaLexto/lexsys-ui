@@ -10,6 +10,7 @@ export const radioGroupComponentTokens: ComponentTokenGroup = {
     checkedBorderColor: { $value: "{color.action.primary.base}" },
     radius: { $value: "{radius.pill}" },
     size: {
+      $type: "dimension",
       sm: { $value: "{size.selectionControl.sm}" },
       md: { $value: "{size.selectionControl.md}" },
       lg: { $value: "{size.selectionControl.lg}" },
@@ -17,6 +18,7 @@ export const radioGroupComponentTokens: ComponentTokenGroup = {
   },
   indicator: {
     size: {
+      $type: "dimension",
       sm: { $value: "{size.selectionIndicator.sm}" },
       md: { $value: "{size.selectionIndicator.md}" },
       lg: { $value: "{size.selectionIndicator.lg}" },

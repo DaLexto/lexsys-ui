@@ -4,17 +4,20 @@ export const badgeComponentTokens: ComponentTokenGroup = {
   component: "badge",
   radius: { $value: "{radius.control}" },
   height: {
+    $type: "string",
     sm: { $value: "1.5rem" },
     md: { $value: "1.75rem" },
   },
   padding: {
     x: {
+      $type: "dimension",
       sm: { $value: "{spacing.control.x.xs}" },
       md: { $value: "{spacing.control.x.sm}" },
     },
   },
   font: {
     size: {
+      $type: "fontSize",
       sm: { $value: "{typography.label.xs.fontSize}" },
       md: { $value: "{typography.label.sm.fontSize}" },
     },
@@ -25,6 +28,7 @@ export const badgeComponentTokens: ComponentTokenGroup = {
     easing: { $value: "{motion.easing.control}" },
   },
   outline: {
+    $type: "color",
     background: { $value: "transparent" },
   },
   neutral: {
@@ -33,11 +37,13 @@ export const badgeComponentTokens: ComponentTokenGroup = {
     borderColor: { $value: "{color.border.default}" },
   },
   primary: {
+    $type: "color",
     background: { $value: "{color.action.primary.base}" },
     foreground: { $value: "{color.text.inverse}" },
     borderColor: { $value: "{color.action.primary.base}" },
   },
   destructive: {
+    $type: "color",
     background: { $value: "{color.action.danger.base}" },
     foreground: { $value: "{color.text.inverse}" },
     borderColor: { $value: "{color.action.danger.base}" },

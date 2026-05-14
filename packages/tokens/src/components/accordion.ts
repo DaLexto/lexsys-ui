@@ -7,11 +7,13 @@ export const accordionComponentTokens: ComponentTokenGroup = {
   borderColor: { $value: "{color.border.default}" },
   radius: { $value: "{radius.surface}" },
   item: {
+    $type: "dimension",
     borderColor: { $value: "{color.border.default}" },
   },
   trigger: {
     backgroundHover: { $value: "{color.background.subtle}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.md}" },
       y: { $value: "{spacing.control.y.md}" },
     },
@@ -25,6 +27,7 @@ export const accordionComponentTokens: ComponentTokenGroup = {
   panel: {
     foreground: { $value: "{color.text.secondary}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.md}" },
       bottom: { $value: "{spacing.surface.sm}" },
     },
@@ -34,6 +37,7 @@ export const accordionComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
+    $type: "dimension",
     ringColor: { $value: "{color.border.focus}" },
   },
   transition: {

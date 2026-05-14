@@ -7,6 +7,7 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
     opacity: { $value: "0.56" },
   },
   viewport: {
+    $type: "dimension",
     padding: { $value: "{spacing.surface.md}" },
   },
   popup: {
@@ -39,11 +40,13 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
     background: { $value: "{color.action.danger.base}" },
     foreground: { $value: "{color.text.inverse}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.action.danger.base}" },
     },
     height: { $value: "{size.control.md}" },
     radius: { $value: "{radius.control}" },
     padding: {
+      $type: "dimension",
       x: { $value: "{spacing.control.x.md}" },
     },
     font: {
@@ -55,6 +58,7 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
   close: {
     foreground: { $value: "{color.text.secondary}" },
     hover: {
+      $type: "color",
       background: { $value: "{color.background.subtle}" },
     },
     size: { $value: "{size.control.sm}" },

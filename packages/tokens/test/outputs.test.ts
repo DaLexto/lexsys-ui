@@ -170,65 +170,81 @@ describe("createStyleOutputs", () => {
           presetId?: unknown
           presetName?: unknown
           tokenSetOrder?: unknown
-          semanticTokenPaths?: unknown
         }
       }
-      color?: {
-        $description?: unknown
-        blue?: {
+      primitives?: {
+        color?: {
           $description?: unknown
-          "600"?: {
-            $value?: unknown
+          $type?: unknown
+          blue?: {
+            $description?: unknown
             $type?: unknown
-          }
-        }
-      }
-      button?: {
-        radius?: {
-          $value?: unknown
-          $type?: unknown
-        }
-      }
-      "font-size"?: {
-        base?: {
-          $value?: unknown
-          $type?: unknown
-        }
-      }
-      "letter-spacing"?: {
-        normal?: {
-          $value?: unknown
-          $type?: unknown
-        }
-      }
-      "line-height"?: {
-        normal?: {
-          $value?: unknown
-          $type?: unknown
-        }
-      }
-      size?: {
-        "10"?: {
-          $value?: unknown
-          $type?: unknown
-        }
-      }
-      typography?: {
-        family?: {
-          sans?: {
-            $value?: unknown
-            $type?: unknown
-          }
-        }
-        body?: {
-          md?: {
-            fontFamily?: {
+            "600"?: {
               $value?: unknown
               $type?: unknown
             }
           }
         }
+        "font-size"?: {
+          $type?: unknown
+          base?: {
+            $value?: unknown
+            $type?: unknown
+          }
+        }
+        "letter-spacing"?: {
+          $type?: unknown
+          normal?: {
+            $value?: unknown
+            $type?: unknown
+          }
+        }
+        "line-height"?: {
+          $type?: unknown
+          normal?: {
+            $value?: unknown
+            $type?: unknown
+          }
+        }
+        size?: {
+          $type?: unknown
+          "10"?: {
+            $value?: unknown
+            $type?: unknown
+          }
+        }
       }
+      semantics?: {
+        typography?: {
+          family?: {
+            $type?: unknown
+            sans?: {
+              $value?: unknown
+              $type?: unknown
+            }
+          }
+          body?: {
+            md?: {
+              fontFamily?: {
+                $value?: unknown
+                $type?: unknown
+              }
+            }
+          }
+        }
+      }
+      components?: {
+        button?: {
+          $type?: unknown
+          radius?: {
+            $value?: unknown
+            $type?: unknown
+          }
+        }
+      }
+      brand?: Record<string, unknown>
+      themes?: Record<string, unknown>
+      presets?: Record<string, unknown>
     }
 
     expect(json.$schema).toBe(
@@ -238,52 +254,77 @@ describe("createStyleOutputs", () => {
       generatedBy: "@neurex/tokens",
       presetId: "neurex",
       presetName: "Neurex Default",
-      tokenSetOrder: ["primitives", "semantics", "components"],
+      tokenSetOrder: [
+        "primitives",
+        "brand",
+        "semantics",
+        "components",
+        "themes",
+        "presets",
+      ],
     })
-    expect(json.$extensions?.["org.neurex"]?.semanticTokenPaths).toContain(
-      "color.background.base",
+    expect(json.$extensions?.["org.neurex"]).not.toHaveProperty(
+      "semanticTokenPaths",
     )
-    expect(json.$extensions?.["org.neurex"]?.semanticTokenPaths).toContain(
-      "typography.body.md.fontFamily",
-    )
-    expect(json.color?.$description).toBe(
+    expect(json.primitives?.color?.$description).toBe(
       "Raw color palette. Never use directly in components.",
     )
-    expect(json.color?.blue?.$description).toBe(
+    expect(json.primitives?.color?.$type).toBeUndefined()
+    expect(json.primitives?.color?.blue?.$description).toBe(
       "Blue primitive palette for brand, primary action, and information mappings.",
     )
-    expect(json.color?.blue?.["600"]).toEqual({
+    expect(json.primitives?.color?.blue?.$type).toBe("color")
+    expect(json.primitives?.color?.blue?.["600"]).toEqual({
       $value: "oklch(0.455 0.191 259.631)",
-      $type: "color",
     })
-    expect(json.button?.radius).toEqual({
+    expect(json.components?.button?.radius).toEqual({
+      $type: "dimension",
       $value: "{radius.control}",
-      $type: "dimension",
     })
-    expect(json["font-size"]?.base).toEqual({
-      $value: "1rem",
-      $type: "fontSize",
+    expect(json.components?.button?.font?.family).toEqual({
+      $type: "fontFamily",
+      $value: "{typography.control.md.fontFamily}",
     })
-    expect(json["letter-spacing"]?.normal).toEqual({
-      $value: "0",
-      $type: "letterSpacing",
+    expect(json.components?.button?.font?.size?.$type).toBe("fontSize")
+    expect(json.components?.button?.font?.weight).toEqual({
+      $type: "fontWeight",
+      $value: "{typography.control.md.fontWeight}",
     })
-    expect(json["line-height"]?.normal).toEqual({
-      $value: 1.5,
+    expect(json.components?.button?.font?.lineHeight).toEqual({
       $type: "number",
+      $value: "{typography.control.md.lineHeight}",
     })
-    expect(json.size?.["10"]).toEqual({
+    expect(json.components?.button?.font?.letterSpacing).toEqual({
+      $type: "letterSpacing",
+      $value: "{typography.control.md.letterSpacing}",
+    })
+    expect(json.primitives?.["font-size"]?.$type).toBe("fontSize")
+    expect(json.primitives?.["font-size"]?.base).toEqual({
+      $value: "1rem",
+    })
+    expect(json.primitives?.["letter-spacing"]?.$type).toBe("letterSpacing")
+    expect(json.primitives?.["letter-spacing"]?.normal).toEqual({
+      $value: "0",
+    })
+    expect(json.primitives?.["line-height"]?.$type).toBe("number")
+    expect(json.primitives?.["line-height"]?.normal).toEqual({
+      $value: 1.5,
+    })
+    expect(json.primitives?.size?.$type).toBe("dimension")
+    expect(json.primitives?.size?.["10"]).toEqual({
       $value: "2.5rem",
-      $type: "dimension",
     })
-    expect(json.typography?.family?.sans).toEqual({
+    expect(json.semantics?.typography?.family?.$type).toBe("fontFamily")
+    expect(json.semantics?.typography?.family?.sans).toEqual({
       $value: "{font-family.sans}",
-      $type: "fontFamily",
     })
-    expect(json.typography?.body?.md?.fontFamily).toEqual({
+    expect(json.semantics?.typography?.body?.md?.fontFamily).toEqual({
+      $type: "fontFamily",
       $value: "{typography.family.sans}",
-      $type: "fontFamily",
     })
+    expect(json.brand).toEqual({})
+    expect(json.themes?.neurex).toBeDefined()
+    expect(json.presets?.neurex).toBeDefined()
   })
 
   test("generates DTCG-compatible theme json from token source", () => {
@@ -329,6 +370,70 @@ describe("createStyleOutputs", () => {
     expect(json.dark).not.toHaveProperty("colorScheme")
   })
 
+  test("generates layered DTCG token files", () => {
+    const outputs = createStyleOutputs()
+    const fileNames = Object.keys(outputs.tokenJsonFiles).sort()
+    const primitivesContent =
+      outputs.tokenJsonFiles["tokens/primitives.tokens.json"] ?? "{}"
+    const primitives = JSON.parse(primitivesContent) as {
+      color?: {
+        $type?: unknown
+        blue?: {
+          $type?: unknown
+          "600"?: {
+            $type?: unknown
+          }
+        }
+      }
+      semantics?: unknown
+    }
+    const semantics = JSON.parse(
+      outputs.tokenJsonFiles["tokens/semantics.tokens.json"] ?? "{}",
+    ) as {
+      color?: {
+        background?: {
+          base?: {
+            $value?: unknown
+          }
+        }
+      }
+      primitives?: unknown
+    }
+    const lightTheme = JSON.parse(
+      outputs.tokenJsonFiles["tokens/themes/neurex.light.tokens.json"] ?? "{}",
+    ) as {
+      color?: {
+        background?: {
+          base?: {
+            $value?: unknown
+          }
+        }
+      }
+      light?: unknown
+    }
+
+    expect(fileNames).toEqual([
+      "tokens/brand.tokens.json",
+      "tokens/components.tokens.json",
+      "tokens/presets.tokens.json",
+      "tokens/primitives.tokens.json",
+      "tokens/semantics.tokens.json",
+      "tokens/themes/neurex.dark.tokens.json",
+      "tokens/themes/neurex.light.tokens.json",
+    ])
+    expect(primitives.color?.$type).toBeUndefined()
+    expect(primitives.color?.blue?.$type).toBe("color")
+    expect(primitives.color?.blue?.["600"]?.$type).toBeUndefined()
+    expect(primitivesContent.indexOf('"$type": "color"')).toBeLessThan(
+      primitivesContent.indexOf('"50"'),
+    )
+    expect(primitives.semantics).toBeUndefined()
+    expect(semantics.color?.background?.base?.$value).toBe("{color.white}")
+    expect(semantics.primitives).toBeUndefined()
+    expect(lightTheme.color?.background?.base?.$value).toBe("{color.white}")
+    expect(lightTheme.light).toBeUndefined()
+  })
+
   test("parses generated DTCG json back into a token tree", () => {
     const outputs = createStyleOutputs()
     const input = createDtcgTokenInputFromJson(outputs.tokensJson)
@@ -337,7 +442,14 @@ describe("createStyleOutputs", () => {
       generatedBy: "@neurex/tokens",
       presetId: "neurex",
       presetName: "Neurex Default",
-      tokenSetOrder: ["primitives", "semantics", "components"],
+      tokenSetOrder: [
+        "primitives",
+        "brand",
+        "semantics",
+        "components",
+        "themes",
+        "presets",
+      ],
     })
     expect("$schema" in input.tokenTree).toBe(false)
     expect("$extensions" in input.tokenTree).toBe(false)
@@ -378,21 +490,17 @@ describe("createStyleOutputs", () => {
     expect(css).not.toContain("--nx-$extensions")
   })
 
-  test("rejects theme css generation without semantic token path metadata", () => {
+  test("rejects theme css generation without semantic token source", () => {
     const outputs = createStyleOutputs()
     const tokensJson = JSON.parse(outputs.tokensJson) as {
-      $extensions: {
-        "org.neurex": {
-          semanticTokenPaths?: unknown
-        }
-      }
+      semantics?: unknown
     }
 
-    delete tokensJson.$extensions["org.neurex"].semanticTokenPaths
+    delete tokensJson.semantics
 
     expect(() => {
       createThemeCssFromDtcgJson(JSON.stringify(tokensJson), outputs.themesJson)
-    }).toThrow('DTCG token document extension "org.neurex" is missing')
+    }).toThrow('DTCG token document is missing a "semantics" layer.')
   })
 
   test("rejects theme css generation without theme metadata", () => {
