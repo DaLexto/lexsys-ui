@@ -160,6 +160,30 @@ const createTokensJson = (input: StyleTokenInput): string => {
   ])
 }
 
+const isSerializableTokenNode = (value: unknown): boolean => {
+  return typeof value === "object" && value !== null && !Array.isArray(value)
+}
+
+const createTokenDocumentsFromGroups = (
+  basePath: string,
+  tokenTree: TokenTree,
+  input: StyleTokenInput,
+  tokenSetOrder: string[],
+): Record<string, string> => {
+  return Object.fromEntries(
+    Object.entries(tokenTree)
+      .filter(([key, value]) => {
+        return !key.startsWith("$") && isSerializableTokenNode(value)
+      })
+      .map(([key, value]) => {
+        return [
+          `${basePath}/${key}.tokens.json`,
+          createTokenDocument({ [key]: value }, input, tokenSetOrder),
+        ]
+      }),
+  )
+}
+
 const createThemeTokenDocument = (
   input: StyleTokenInput,
   theme: ThemeTokenInput,
@@ -187,35 +211,29 @@ const createTokenJsonFiles = (
   input: StyleTokenInput,
 ): Record<string, string> => {
   const files: Record<string, string> = {
-    "tokens/primitives.tokens.json": createTokenDocument(
+    "tokens/dtcg/index.tokens.json": createTokensJson(input),
+    ...createTokenDocumentsFromGroups(
+      "tokens/dtcg/primitives",
       input.primitiveTokens,
       input,
       ["primitives"],
     ),
-    "tokens/brand.tokens.json": createTokenDocument(input.brandTokens, input, [
-      "brand",
-    ]),
-    "tokens/semantics.tokens.json": createTokenDocument(
+    ...createTokenDocumentsFromGroups(
+      "tokens/dtcg/semantics",
       input.semanticTokens,
       input,
       ["semantics"],
     ),
-    "tokens/components.tokens.json": createTokenDocument(
+    ...createTokenDocumentsFromGroups(
+      "tokens/dtcg/components",
       input.componentTokens,
       input,
       ["components"],
     ),
-    "tokens/presets.tokens.json": createTokenDocument(
-      createPresetDocumentTree(input),
-      input,
-      ["presets"],
-    ),
   }
 
   input.themeTokens.forEach((theme) => {
-    const brand = theme.brand ?? input.preset.brand ?? input.preset.id
-
-    files[`tokens/themes/${brand}.${theme.name}.tokens.json`] =
+    files[`tokens/dtcg/themes/${theme.name}.tokens.json`] =
       createThemeTokenDocument(input, theme)
   })
 

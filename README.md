@@ -173,8 +173,8 @@ Stable enough to build against in the MVP:
 Internal or still evolving:
 
 - token authoring internals in `packages/tokens`
-- DTCG-compatible `tokens.tokens.json` and `tokens/**/*.tokens.json` package
-  export policy; the files are generated today, but explicit JSON package
+- DTCG-compatible `tokens/dtcg/**/*.tokens.json` package output policy; the
+  files are generated today, but explicit JSON package
   exports are intentionally deferred until the public contract is finalized
 - `@neurex/ui` CSS `sideEffects` policy; no UI CSS file is currently emitted,
   so the package metadata should stay under review before publish

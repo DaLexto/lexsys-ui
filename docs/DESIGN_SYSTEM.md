@@ -227,24 +227,23 @@ Current package build output also includes:
 ```txt
 dist/tokens.css
 dist/theme.css
-dist/tokens.tokens.json
-dist/tokens/primitives.tokens.json
-dist/tokens/brand.tokens.json
-dist/tokens/semantics.tokens.json
-dist/tokens/components.tokens.json
-dist/tokens/presets.tokens.json
-dist/tokens/themes/neurex.light.tokens.json
-dist/tokens/themes/neurex.dark.tokens.json
+dist/tokens/dtcg/index.tokens.json
+dist/tokens/dtcg/primitives/<group>.tokens.json
+dist/tokens/dtcg/semantics/<group>.tokens.json
+dist/tokens/dtcg/components/<component>.tokens.json
+dist/tokens/dtcg/themes/light.tokens.json
+dist/tokens/dtcg/themes/dark.tokens.json
 ```
 
-`tokens.tokens.json` is generated from the current TypeScript token authoring wrapper
-as a merged convenience artifact for tools that want one file. The canonical
-interop shape is also emitted as separate layer files under `dist/tokens`,
-following the Style Dictionary-style source glob model. Individual layer files
-do not wrap their payload in `"primitives"` or `"semantics"` keys; the folder
-and file names carry that context. JSON output preserves token reference strings
-such as `{radius.control}`, while DTCG `$type` values are carried from authoring
-or inferred from either the token path or referenced token path when available.
+`tokens/dtcg/index.tokens.json` is generated from the current TypeScript token
+authoring wrapper as a merged convenience artifact for tools that want one file.
+The canonical interop shape is also emitted as per-group files under
+`dist/tokens/dtcg`, following the Style Dictionary-style source glob model.
+Individual group files do not wrap their payload in `"primitives"` or
+`"semantics"` keys; the folder and file names carry that context. JSON output
+preserves token reference strings such as `{radius.control}`, while DTCG
+`$type` values are carried from authoring or inferred from either the token path
+or referenced token path when available.
 
 Future outputs may include:
 
@@ -355,7 +354,7 @@ Stable/current:
 - internal token preset id `neurex` for Neurex Default
 - light and dark theme mode output
 - CSS custom property output under `styles/`
-- DTCG-compatible `tokens.tokens.json` package output
+- DTCG-compatible `tokens/dtcg/**/*.tokens.json` package output
 - Tailwind v4 consumer styling model
 - Vite-oriented CLI delivery
 - user-owned component source installed under `src/components/ui`

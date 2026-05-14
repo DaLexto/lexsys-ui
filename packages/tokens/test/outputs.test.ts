@@ -370,11 +370,11 @@ describe("createStyleOutputs", () => {
     expect(json.dark).not.toHaveProperty("colorScheme")
   })
 
-  test("generates layered DTCG token files", () => {
+  test("generates enterprise DTCG token files by group", () => {
     const outputs = createStyleOutputs()
     const fileNames = Object.keys(outputs.tokenJsonFiles).sort()
     const primitivesContent =
-      outputs.tokenJsonFiles["tokens/primitives.tokens.json"] ?? "{}"
+      outputs.tokenJsonFiles["tokens/dtcg/primitives/color.tokens.json"] ?? "{}"
     const primitives = JSON.parse(primitivesContent) as {
       color?: {
         $type?: unknown
@@ -388,7 +388,7 @@ describe("createStyleOutputs", () => {
       semantics?: unknown
     }
     const semantics = JSON.parse(
-      outputs.tokenJsonFiles["tokens/semantics.tokens.json"] ?? "{}",
+      outputs.tokenJsonFiles["tokens/dtcg/semantics/color.tokens.json"] ?? "{}",
     ) as {
       color?: {
         background?: {
@@ -400,7 +400,7 @@ describe("createStyleOutputs", () => {
       primitives?: unknown
     }
     const lightTheme = JSON.parse(
-      outputs.tokenJsonFiles["tokens/themes/neurex.light.tokens.json"] ?? "{}",
+      outputs.tokenJsonFiles["tokens/dtcg/themes/light.tokens.json"] ?? "{}",
     ) as {
       color?: {
         background?: {
@@ -412,15 +412,16 @@ describe("createStyleOutputs", () => {
       light?: unknown
     }
 
-    expect(fileNames).toEqual([
-      "tokens/brand.tokens.json",
-      "tokens/components.tokens.json",
-      "tokens/presets.tokens.json",
-      "tokens/primitives.tokens.json",
-      "tokens/semantics.tokens.json",
-      "tokens/themes/neurex.dark.tokens.json",
-      "tokens/themes/neurex.light.tokens.json",
-    ])
+    expect(fileNames).toContain("tokens/dtcg/index.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/primitives/color.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/primitives/spacing.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/semantics/color.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/components/button.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/components/dialog.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/themes/light.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/themes/dark.tokens.json")
+    expect(fileNames).not.toContain("tokens/primitives.tokens.json")
+    expect(fileNames).not.toContain("tokens/themes/neurex.light.tokens.json")
     expect(primitives.color?.$type).toBeUndefined()
     expect(primitives.color?.blue?.$type).toBe("color")
     expect(primitives.color?.blue?.["600"]?.$type).toBeUndefined()

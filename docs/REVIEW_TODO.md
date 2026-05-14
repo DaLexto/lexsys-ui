@@ -79,7 +79,8 @@ CSS-only output model:
   `packages/tokens/src/presets`, `packages/tokens/src/brand`, and
   `packages/tokens/src/themes/neurex`.
 - The token generator now includes a DTCG-compatible JSON output path and writes
-  `dist/tokens.tokens.json` during package output generation.
+  grouped files under `dist/tokens/dtcg/**/*.tokens.json` during package output
+  generation.
 - Registry style installation still installs only `styles/tokens.css` and
   `styles/theme.css`; JSON token output is currently package/internal output,
   not a consumer install artifact.
@@ -91,9 +92,8 @@ test`, and `pnpm --filter @neurex/tokens check`.
 
 Current hygiene decision:
 
-- `tokens.tokens.json` remains generated package output, but an explicit
-  `./tokens.tokens.json` package export is intentionally deferred until the public JSON
-  contract is finalized.
+- DTCG JSON remains generated package output, but explicit JSON package exports
+  are intentionally deferred until the public JSON contract is finalized.
 - `@neurex/ui` still declares a CSS side-effect path even though the current UI
   build does not emit CSS; this is intentionally left as pre-publish metadata
   review until the UI distribution contract is finalized.
@@ -249,8 +249,8 @@ Status:
 Problem:
 
 - Current token authoring still starts in TypeScript files.
-- `dist/tokens.tokens.json` is generated output, not yet the input contract consumed
-  by the generator.
+- `dist/tokens/dtcg/index.tokens.json` is generated output, not yet the input
+  contract consumed by the generator.
 - Future Figma, Tokens Studio, and Creator workflows need a shared token format
   instead of separate source-of-truth paths.
 
@@ -308,15 +308,17 @@ Status:
 - `tokensJson` now uses the explicit merged `semantics` layer as the DTCG
   round-trip source for semantic Tailwind `@theme` generation, without carrying
   a separate semantic path metadata list.
-- DTCG package output now uses the recommended `.tokens.json` extension shape:
-  `dist/tokens.tokens.json`.
-- Package DTCG output now also emits separate layer files:
-  `dist/tokens/primitives.tokens.json`, `dist/tokens/brand.tokens.json`,
-  `dist/tokens/semantics.tokens.json`, `dist/tokens/components.tokens.json`,
-  `dist/tokens/presets.tokens.json`, and per-theme files under
-  `dist/tokens/themes`.
-- Layer files are standalone DTCG documents without an extra layer wrapper; the
-  merged `tokens.tokens.json` remains a convenience artifact with explicit
+- DTCG package output now uses the recommended `.tokens.json` extension shape
+  under `dist/tokens/dtcg`.
+- Package DTCG output now emits one merged convenience file at
+  `dist/tokens/dtcg/index.tokens.json`.
+- Package DTCG output also emits per-group files:
+  `dist/tokens/dtcg/primitives/<group>.tokens.json`,
+  `dist/tokens/dtcg/semantics/<group>.tokens.json`,
+  `dist/tokens/dtcg/components/<component>.tokens.json`, and per-theme files
+  under `dist/tokens/dtcg/themes`.
+- Group files are standalone DTCG documents without an extra layer wrapper; the
+  merged `index.tokens.json` remains a convenience artifact with explicit
   `primitives`, `brand`, `semantics`, `components`, `themes`, and `presets`
   sections.
 - DTCG output now applies `$type` at the narrowest shared token group where all
