@@ -17,16 +17,10 @@
  * - It preserves DTCG-style branch metadata such as $description and $deprecated.
  */
 
-import type {
-  TokenColorValue,
-  TokenLeaf,
-  TokenTree,
-  TokenUnitValue,
-} from "../../../types"
+import type { TokenLeaf, TokenTree } from "../../../types"
 
 import {
   DEFAULT_GENERATOR_METADATA_KEYS,
-  toTokenName,
   type FlattenedTokenEntry,
 } from "../../shared"
 
@@ -37,55 +31,16 @@ import type {
   DtcgTokenTree,
   DtcgTokenType,
 } from "./dtcg.types"
+import {
+  DEFAULT_TOKEN_TYPE_BY_GROUP,
+  resolveDtcgFlattenedTokenType,
+  resolveDtcgTokenLeafType,
+} from "./dtcg.type-resolution"
 
 export const DTCG_SCHEMA_URL =
   "https://www.designtokens.org/schemas/2025.10/format.json"
 
 export const DTCG_NEUREX_EXTENSION_KEY = "org.neurex"
-
-/**
- * Default DTCG type mapping by normalized token group/name.
- *
- * The keys are matched against normalized token names.
- * Longer keys win, so motion-duration is checked before motion.
- */
-const DEFAULT_TOKEN_TYPE_BY_GROUP: Readonly<Record<string, DtcgTokenType>> = {
-  color: "color",
-  spacing: "dimension",
-  radius: "dimension",
-  size: "dimension",
-  border: "dimension",
-  outline: "dimension",
-  blur: "dimension",
-  breakpoint: "dimension",
-
-  opacity: "number",
-  "z-index": "number",
-  "aspect-ratio": "number",
-
-  shadow: "shadow",
-
-  "font-family": "fontFamily",
-  "font-size": "fontSize",
-  "font-weight": "fontWeight",
-  "letter-spacing": "letterSpacing",
-  "line-height": "number",
-
-  "motion-duration": "duration",
-  "motion-easing": "cubicBezier",
-
-  "typography-family": "fontFamily",
-}
-
-const DEFAULT_TOKEN_TYPE_BY_SUFFIX: Readonly<Record<string, DtcgTokenType>> = {
-  "font-family": "fontFamily",
-  "font-size": "fontSize",
-  "font-weight": "fontWeight",
-  "letter-spacing": "letterSpacing",
-  "line-height": "number",
-}
-
-const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
 
 const DTCG_JSON_KEY_ORDER = [
   "$schema",
@@ -123,36 +78,6 @@ const isTokenLeafLike = (value: unknown): value is TokenLeaf => {
   return isRecord(value) && "$value" in value
 }
 
-const isDtcgUnitValue = (value: unknown): value is TokenUnitValue => {
-  return (
-    isRecord(value) &&
-    typeof value.value === "number" &&
-    typeof value.unit === "string"
-  )
-}
-
-const isDtcgColorValue = (value: unknown): value is TokenColorValue => {
-  return (
-    isRecord(value) &&
-    typeof value.colorSpace === "string" &&
-    Array.isArray(value.components)
-  )
-}
-
-const resolveDtcgObjectValueType = (
-  value: unknown,
-): DtcgTokenType | undefined => {
-  if (isDtcgColorValue(value)) {
-    return "color"
-  }
-
-  if (!isDtcgUnitValue(value)) {
-    return undefined
-  }
-
-  return value.unit === "ms" || value.unit === "s" ? "duration" : "dimension"
-}
-
 /**
  * Checks whether a key is DTCG-style metadata.
  */
@@ -174,54 +99,6 @@ const isDtcgMetadataValue = (
     typeof value === "boolean" ||
     value === undefined
   )
-}
-
-/**
- * Resolves a token type from a normalized token name.
- */
-const resolveTokenNameType = (
-  tokenName: string,
-  tokenTypeByGroup: Readonly<Record<string, DtcgTokenType>>,
-): DtcgTokenType | undefined => {
-  const sortedTypeEntries = Object.entries(tokenTypeByGroup).sort(
-    ([left], [right]) => right.length - left.length,
-  )
-
-  for (const [groupName, tokenType] of sortedTypeEntries) {
-    if (tokenName === groupName || tokenName.startsWith(`${groupName}-`)) {
-      return tokenType
-    }
-  }
-
-  const sortedSuffixEntries = Object.entries(DEFAULT_TOKEN_TYPE_BY_SUFFIX).sort(
-    ([left], [right]) => right.length - left.length,
-  )
-
-  for (const [suffix, tokenType] of sortedSuffixEntries) {
-    if (tokenName === suffix || tokenName.endsWith(`-${suffix}`)) {
-      return tokenType
-    }
-  }
-
-  return undefined
-}
-
-/**
- * Extracts a normalized token name from a strict token reference string.
- */
-const getReferenceTokenName = (value: unknown): string | undefined => {
-  if (typeof value !== "string") {
-    return undefined
-  }
-
-  const reference = value.match(STRICT_REFERENCE_PATTERN)
-  const referencePath = reference?.[1]
-
-  if (referencePath === undefined) {
-    return undefined
-  }
-
-  return toTokenName(referencePath.split("."), {})
 }
 
 /**
@@ -293,88 +170,7 @@ export const stringifyDtcgJson = (value: unknown): string => {
   return `${stringifyDtcgValue(value, 0)}\n`
 }
 
-/**
- * Resolves the DTCG token type for a flattened token entry.
- */
-export const resolveDtcgTokenType = (
-  entry: FlattenedTokenEntry,
-  options: Required<DtcgGeneratorOptions>,
-): DtcgTokenType => {
-  if (entry.type !== undefined) {
-    return entry.type
-  }
-
-  const tokenName = toTokenName(entry.path, {})
-  const pathTokenType = resolveTokenNameType(
-    tokenName,
-    options.tokenTypeByGroup,
-  )
-
-  if (pathTokenType !== undefined) {
-    return pathTokenType
-  }
-
-  const referenceTokenName = getReferenceTokenName(entry.value)
-  const referenceTokenType =
-    referenceTokenName === undefined
-      ? undefined
-      : resolveTokenNameType(referenceTokenName, options.tokenTypeByGroup)
-
-  if (referenceTokenType !== undefined) {
-    return referenceTokenType
-  }
-
-  if (typeof entry.value === "number") {
-    return "number"
-  }
-
-  return "string"
-}
-
-/**
- * Resolves the DTCG token type for a token leaf at a tree path.
- */
-const resolveDtcgTokenLeafType = (
-  leaf: TokenLeaf,
-  path: string[],
-  options: Required<DtcgGeneratorOptions>,
-): DtcgTokenType => {
-  if (leaf.$type !== undefined) {
-    return leaf.$type
-  }
-
-  const tokenName = toTokenName(path, {})
-  const pathTokenType = resolveTokenNameType(
-    tokenName,
-    options.tokenTypeByGroup,
-  )
-
-  if (pathTokenType !== undefined) {
-    return pathTokenType
-  }
-
-  const referenceTokenName = getReferenceTokenName(leaf.$value)
-  const referenceTokenType =
-    referenceTokenName === undefined
-      ? undefined
-      : resolveTokenNameType(referenceTokenName, options.tokenTypeByGroup)
-
-  if (referenceTokenType !== undefined) {
-    return referenceTokenType
-  }
-
-  const objectValueType = resolveDtcgObjectValueType(leaf.$value)
-
-  if (objectValueType !== undefined) {
-    return objectValueType
-  }
-
-  if (typeof leaf.$value === "number") {
-    return "number"
-  }
-
-  return "string"
-}
+export const resolveDtcgTokenType = resolveDtcgFlattenedTokenType
 
 /**
  * Converts a flattened token entry into a DTCG-compatible token leaf.
