@@ -26,7 +26,7 @@ export const toastComponentTokens: ComponentTokenGroup = {
   gap: { $value: "{spacing.surface.gap.sm}" },
   content: {
     gap: { $value: "{spacing.surface.gap.sm}" },
-    behindOpacity: { $value: "0.72" },
+    behindOpacity: { $value: 0.72 },
   },
   arrow: {
     $type: "dimension",

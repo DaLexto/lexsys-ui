@@ -4,11 +4,11 @@ export const drawerComponentTokens: ComponentTokenGroup = {
   component: "drawer",
   backdrop: {
     background: { $value: "{color.text.primary}" },
-    opacity: { $value: "0.48" },
+    opacity: { $value: 0.48 },
   },
   indent: {
     background: { $value: "{color.background.subtle}" },
-    scale: { $value: "0.96" },
+    scale: { $value: 0.96 },
     radius: { $value: "{radius.surface}" },
   },
   viewport: {

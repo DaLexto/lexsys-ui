@@ -4,9 +4,9 @@ export const badgeComponentTokens: ComponentTokenGroup = {
   component: "badge",
   radius: { $value: "{radius.control}" },
   height: {
-    $type: "string",
-    sm: { $value: "1.5rem" },
-    md: { $value: "1.75rem" },
+    $type: "dimension",
+    sm: { $value: "{size.control.xs}" },
+    md: { $value: "{size.7}" },
   },
   padding: {
     x: {

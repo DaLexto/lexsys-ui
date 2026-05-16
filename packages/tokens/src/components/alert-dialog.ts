@@ -4,7 +4,7 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
   component: "alert-dialog",
   backdrop: {
     background: { $value: "{color.text.primary}" },
-    opacity: { $value: "0.56" },
+    opacity: { $value: 0.56 },
   },
   viewport: {
     $type: "dimension",

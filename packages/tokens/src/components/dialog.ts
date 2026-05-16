@@ -4,7 +4,7 @@ export const dialogComponentTokens: ComponentTokenGroup = {
   component: "dialog",
   backdrop: {
     background: { $value: "{color.text.primary}" },
-    opacity: { $value: "0.48" },
+    opacity: { $value: 0.48 },
   },
   viewport: {
     $type: "dimension",

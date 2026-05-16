@@ -9,7 +9,7 @@ export const tabsComponentTokens: ComponentTokenGroup = {
     padding: { $value: "{spacing.1}" },
   },
   tab: {
-    background: { $value: "transparent" },
+    background: { $type: "color", $value: "transparent" },
     foreground: { $value: "{color.text.secondary}" },
     activeBackground: { $value: "{color.background.base}" },
     activeForeground: { $value: "{color.text.primary}" },

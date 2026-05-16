@@ -4,7 +4,7 @@ export const popoverComponentTokens: ComponentTokenGroup = {
   component: "popover",
   backdrop: {
     background: { $value: "{color.text.primary}" },
-    opacity: { $value: "0.24" },
+    opacity: { $value: 0.24 },
   },
   popup: {
     background: { $value: "{color.background.base}" },

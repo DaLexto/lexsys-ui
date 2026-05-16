@@ -17,7 +17,12 @@
  * - It preserves DTCG-style branch metadata such as $description and $deprecated.
  */
 
-import type { TokenLeaf, TokenTree } from "../../../types"
+import type {
+  TokenColorValue,
+  TokenLeaf,
+  TokenTree,
+  TokenUnitValue,
+} from "../../../types"
 
 import {
   DEFAULT_GENERATOR_METADATA_KEYS,
@@ -116,6 +121,36 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
  */
 const isTokenLeafLike = (value: unknown): value is TokenLeaf => {
   return isRecord(value) && "$value" in value
+}
+
+const isDtcgUnitValue = (value: unknown): value is TokenUnitValue => {
+  return (
+    isRecord(value) &&
+    typeof value.value === "number" &&
+    typeof value.unit === "string"
+  )
+}
+
+const isDtcgColorValue = (value: unknown): value is TokenColorValue => {
+  return (
+    isRecord(value) &&
+    typeof value.colorSpace === "string" &&
+    Array.isArray(value.components)
+  )
+}
+
+const resolveDtcgObjectValueType = (
+  value: unknown,
+): DtcgTokenType | undefined => {
+  if (isDtcgColorValue(value)) {
+    return "color"
+  }
+
+  if (!isDtcgUnitValue(value)) {
+    return undefined
+  }
+
+  return value.unit === "ms" || value.unit === "s" ? "duration" : "dimension"
 }
 
 /**
@@ -326,6 +361,12 @@ const resolveDtcgTokenLeafType = (
 
   if (referenceTokenType !== undefined) {
     return referenceTokenType
+  }
+
+  const objectValueType = resolveDtcgObjectValueType(leaf.$value)
+
+  if (objectValueType !== undefined) {
+    return objectValueType
   }
 
   if (typeof leaf.$value === "number") {
