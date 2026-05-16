@@ -12,7 +12,14 @@ export const neurexDarkTheme: ThemeDefinition = {
       base: { $value: "{color.neutral.950}" },
       surface: { $value: "{color.neutral.900}" },
       subtle: { $value: "{color.neutral.800}" },
-      overlay: { $value: "oklch(0 0 0 / 60%)" },
+      overlay: {
+        $value: {
+          colorSpace: "oklch",
+          components: [0, 0, 0],
+          alpha: 0.6,
+          hex: "#000000",
+        },
+      },
     },
     text: {
       $type: "color",

@@ -16,8 +16,29 @@ import { neurexPreset, defaultPresetId, presets } from "../src/presets/index.js"
 import { themes } from "../src/themes/index.js"
 
 const getOklchLightness = (value: unknown): number => {
-  expect(typeof value).toBe("string")
+  if (
+    typeof value === "object" &&
+    value !== null &&
+    !Array.isArray(value) &&
+    "colorSpace" in value &&
+    "components" in value
+  ) {
+    const colorValue = value as {
+      colorSpace?: unknown
+      components?: unknown
+    }
 
+    expect(colorValue.colorSpace).toBe("oklch")
+    expect(Array.isArray(colorValue.components)).toBe(true)
+
+    const [lightness] = colorValue.components as unknown[]
+
+    expect(typeof lightness).toBe("number")
+
+    return lightness as number
+  }
+
+  expect(typeof value).toBe("string")
   const match = String(value).match(/^oklch\((\d+(?:\.\d+)?)\s/)
 
   expect(match?.[1]).toBeDefined()
@@ -236,6 +257,28 @@ describe("createStyleOutputs", () => {
       components?: {
         button?: {
           $type?: unknown
+          font?: {
+            family?: {
+              $value?: unknown
+              $type?: unknown
+            }
+            size?: {
+              $value?: unknown
+              $type?: unknown
+            }
+            weight?: {
+              $value?: unknown
+              $type?: unknown
+            }
+            lineHeight?: {
+              $value?: unknown
+              $type?: unknown
+            }
+            letterSpacing?: {
+              $value?: unknown
+              $type?: unknown
+            }
+          }
           radius?: {
             $value?: unknown
             $type?: unknown
@@ -275,7 +318,10 @@ describe("createStyleOutputs", () => {
     )
     expect(json.primitives?.color?.blue?.$type).toBe("color")
     expect(json.primitives?.color?.blue?.["600"]).toEqual({
-      $value: "oklch(0.455 0.191 259.631)",
+      $value: {
+        colorSpace: "oklch",
+        components: [0.455, 0.191, 259.631],
+      },
     })
     expect(json.components?.button?.radius).toEqual({
       $type: "dimension",

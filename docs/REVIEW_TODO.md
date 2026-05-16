@@ -338,11 +338,13 @@ Status:
 - Token type contracts now allow platform-neutral DTCG object values for
   dimensions/durations and colors, and CSS output can serialize those values
   back into CSS strings.
-- Primitive dimension-like and duration-like token sources now use DTCG object
-  values where their type is `dimension`, `duration`, `fontSize`, or
-  `letterSpacing`.
-- Remaining value migration work should move to color object values once the
-  exact color-space authoring convention is locked.
+- Primitive dimension-like, duration-like, and color token sources now use DTCG
+  object values where their type is `dimension`, `duration`, `fontSize`,
+  `letterSpacing`, or `color`.
+- Color authoring currently uses OKLCH object values with `colorSpace`,
+  `components`, optional `alpha`, and optional `hex` fallback metadata.
+- Remaining value migration work should focus on stricter external JSON
+  validation, theme/token import adapters, and future composite types.
 - Remaining work: tighten external JSON validation and define import adapters
   so external Figma/Tokens Studio JSON can generate the same CSS outputs.
 
