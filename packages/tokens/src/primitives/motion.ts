@@ -32,12 +32,12 @@ export const motionPrimitives: PrimitiveTokenGroup = {
     $type: "duration",
     $description: "Raw duration scale for UI transitions and animations.",
 
-    instant: { $value: "0ms" },
-    fastest: { $value: "100ms" },
-    fast: { $value: "150ms" },
-    normal: { $value: "200ms" },
-    slow: { $value: "300ms" },
-    slower: { $value: "500ms" },
+    instant: { $value: { value: 0, unit: "ms" } },
+    fastest: { $value: { value: 100, unit: "ms" } },
+    fast: { $value: { value: 150, unit: "ms" } },
+    normal: { $value: { value: 200, unit: "ms" } },
+    slow: { $value: { value: 300, unit: "ms" } },
+    slower: { $value: { value: 500, unit: "ms" } },
   },
 
   easing: {

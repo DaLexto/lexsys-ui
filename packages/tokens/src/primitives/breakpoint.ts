@@ -31,30 +31,30 @@ export const breakpointPrimitives: PrimitiveTokenGroup = {
   sm: {
     $description:
       "Small viewport breakpoint, equivalent to 640px at a 16px root font size.",
-    $value: "40rem",
+    $value: { value: 40, unit: "rem" },
   },
 
   md: {
     $description:
       "Medium viewport breakpoint, equivalent to 768px at a 16px root font size.",
-    $value: "48rem",
+    $value: { value: 48, unit: "rem" },
   },
 
   lg: {
     $description:
       "Large viewport breakpoint, equivalent to 1024px at a 16px root font size.",
-    $value: "64rem",
+    $value: { value: 64, unit: "rem" },
   },
 
   xl: {
     $description:
       "Extra-large viewport breakpoint, equivalent to 1280px at a 16px root font size.",
-    $value: "80rem",
+    $value: { value: 80, unit: "rem" },
   },
 
   "2xl": {
     $description:
       "Double-extra-large viewport breakpoint, equivalent to 1536px at a 16px root font size.",
-    $value: "96rem",
+    $value: { value: 96, unit: "rem" },
   },
 }

@@ -28,9 +28,9 @@ export const borderPrimitives: PrimitiveTokenGroup = {
   $description:
     "Raw border width scale used as the source for border and outline semantics.",
 
-  none: { $value: "0" },
-  hairline: { $value: "0.5px" },
-  thin: { $value: "1px" },
-  medium: { $value: "2px" },
-  thick: { $value: "4px" },
+  none: { $value: { value: 0, unit: "px" } },
+  hairline: { $value: { value: 0.5, unit: "px" } },
+  thin: { $value: { value: 1, unit: "px" } },
+  medium: { $value: { value: 2, unit: "px" } },
+  thick: { $value: { value: 4, unit: "px" } },
 }

@@ -300,11 +300,11 @@ describe("createStyleOutputs", () => {
     })
     expect(json.primitives?.["font-size"]?.$type).toBe("fontSize")
     expect(json.primitives?.["font-size"]?.base).toEqual({
-      $value: "1rem",
+      $value: { value: 1, unit: "rem" },
     })
     expect(json.primitives?.["letter-spacing"]?.$type).toBe("letterSpacing")
     expect(json.primitives?.["letter-spacing"]?.normal).toEqual({
-      $value: "0",
+      $value: { value: 0, unit: "em" },
     })
     expect(json.primitives?.["line-height"]?.$type).toBe("number")
     expect(json.primitives?.["line-height"]?.normal).toEqual({
@@ -312,7 +312,7 @@ describe("createStyleOutputs", () => {
     })
     expect(json.primitives?.size?.$type).toBe("dimension")
     expect(json.primitives?.size?.["10"]).toEqual({
-      $value: "2.5rem",
+      $value: { value: 2.5, unit: "rem" },
     })
     expect(json.semantics?.typography?.family?.$type).toBe("fontFamily")
     expect(json.semantics?.typography?.family?.sans).toEqual({

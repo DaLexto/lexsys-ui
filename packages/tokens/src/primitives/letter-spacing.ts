@@ -28,10 +28,10 @@ export const letterSpacingPrimitives: PrimitiveTokenGroup = {
   $description:
     "Raw letter spacing scale used as the source for typography semantics.",
 
-  tighter: { $value: "-0.05em" },
-  tight: { $value: "-0.025em" },
-  normal: { $value: "0" },
-  wide: { $value: "0.025em" },
-  wider: { $value: "0.05em" },
-  widest: { $value: "0.1em" },
+  tighter: { $value: { value: -0.05, unit: "em" } },
+  tight: { $value: { value: -0.025, unit: "em" } },
+  normal: { $value: { value: 0, unit: "em" } },
+  wide: { $value: { value: 0.025, unit: "em" } },
+  wider: { $value: { value: 0.05, unit: "em" } },
+  widest: { $value: { value: 0.1, unit: "em" } },
 }

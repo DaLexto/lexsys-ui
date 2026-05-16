@@ -28,11 +28,11 @@ export const radiusPrimitives: PrimitiveTokenGroup = {
   $description:
     "Raw border radius scale used as the source for shape semantics.",
 
-  none: { $value: "0" },
-  sm: { $value: "0.25rem" },
-  md: { $value: "0.375rem" },
-  lg: { $value: "0.5rem" },
-  xl: { $value: "0.75rem" },
-  "2xl": { $value: "1rem" },
-  full: { $value: "9999px" },
+  none: { $value: { value: 0, unit: "px" } },
+  sm: { $value: { value: 0.25, unit: "rem" } },
+  md: { $value: { value: 0.375, unit: "rem" } },
+  lg: { $value: { value: 0.5, unit: "rem" } },
+  xl: { $value: { value: 0.75, unit: "rem" } },
+  "2xl": { $value: { value: 1, unit: "rem" } },
+  full: { $value: { value: 9999, unit: "px" } },
 }
