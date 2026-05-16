@@ -10,9 +10,12 @@ export type {
   TokenMetadata,
   TokenLeaf,
   TokenNode,
+  TokenColorValue,
   TokenPrimitive,
   TokenType,
   TokenTree,
+  TokenUnitValue,
+  TokenValue,
 } from "./token.types.js"
 
 export type {

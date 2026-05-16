@@ -66,6 +66,49 @@ describe("css vars generator", () => {
     })
   })
 
+  it("serializes platform-neutral DTCG value objects for CSS output", () => {
+    const tokens: TokenTree = {
+      spacing: {
+        $type: "dimension",
+        4: { $value: { value: 16, unit: "px" } },
+      },
+      motion: {
+        duration: {
+          $type: "duration",
+          fast: { $value: { value: 150, unit: "ms" } },
+        },
+      },
+      color: {
+        accent: {
+          $type: "color",
+          $value: {
+            colorSpace: "oklch",
+            components: [0.558, 0.288, 302.321],
+            alpha: 1,
+            hex: "#7c3aed",
+          },
+        },
+      },
+    }
+
+    const entries = createCssVariableEntries(tokens, generatorOptions)
+
+    expect(entries).toContainEqual({
+      name: "space-4",
+      value: "16px",
+    })
+
+    expect(entries).toContainEqual({
+      name: "duration-fast",
+      value: "150ms",
+    })
+
+    expect(entries).toContainEqual({
+      name: "color-accent",
+      value: "oklch(0.558 0.288 302.321)",
+    })
+  })
+
   it("applies group name overrides", () => {
     const tokens: TokenTree = {
       spacing: {

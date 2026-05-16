@@ -258,6 +258,13 @@ Direction:
 
 - Use the term **W3C/DTCG Design Tokens JSON** for the canonical token format.
 - Keep TypeScript as a typed authoring wrapper while the engine matures.
+- Treat Neurex token core as platform-neutral; web CSS is the first output,
+  not the architectural boundary.
+- Move token values toward strict W3C/DTCG object values where appropriate:
+  `dimension` / `duration` as `{ value, unit }` and `color` as
+  `{ colorSpace, components, alpha, hex }`.
+- Keep CSS serialization in the CSS output generator so platform-neutral token
+  values can still emit `16px`, `150ms`, `oklch(...)`, or other valid CSS.
 - Make the generator consume a W3C/DTCG-shaped token tree as its stable input.
 - Keep `generators/outputs/dtcg` as the canonical W3C/DTCG JSON output target.
 - Add tool-specific adapters separately, for example
@@ -328,6 +335,12 @@ Status:
   and theme metadata so invalid round-trip inputs fail explicitly.
 - Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant
   in every composite value type yet.
+- Token type contracts now allow platform-neutral DTCG object values for
+  dimensions/durations and colors, and CSS output can serialize those values
+  back into CSS strings.
+- Remaining value migration work should start with dimension and duration
+  token sources, then move to color object values once the exact color-space
+  authoring convention is locked.
 - Remaining work: tighten external JSON validation and define import adapters
   so external Figma/Tokens Studio JSON can generate the same CSS outputs.
 

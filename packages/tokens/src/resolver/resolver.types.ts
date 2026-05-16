@@ -15,7 +15,7 @@
  * - Token leaves use the DTCG-style { $value } authoring shape.
  */
 
-import type { TokenPrimitive, TokenTree } from "../types/index.js"
+import type { TokenTree, TokenValue } from "../types/index.js"
 
 /* -------------------------------------------------------------------------------------------------
  * Options
@@ -67,7 +67,7 @@ export interface ResolverWarning {
  * ------------------------------------------------------------------------------------------------- */
 
 export interface ResolveReferenceResult {
-  value: TokenPrimitive
+  value: TokenValue
   errors: ResolverError[]
   warnings: ResolverWarning[]
 }

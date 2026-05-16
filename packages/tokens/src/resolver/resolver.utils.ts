@@ -27,7 +27,13 @@ import type {
   ResolverWarning,
 } from "./resolver.types"
 
-import type { TokenLeaf, TokenNode, TokenPrimitive, TokenTree } from "../types"
+import type {
+  TokenLeaf,
+  TokenNode,
+  TokenPrimitive,
+  TokenTree,
+  TokenValue,
+} from "../types"
 
 export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
   strict: true,
@@ -44,10 +50,40 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
 }
 
 /**
- * Returns true when the value can be stored as a token primitive.
+ * Returns true when the value can be stored as a token scalar.
  */
 export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
   return typeof value === "string" || typeof value === "number"
+}
+
+const isTokenUnitValue = (value: unknown): boolean => {
+  return (
+    isRecord(value) &&
+    typeof value.value === "number" &&
+    typeof value.unit === "string"
+  )
+}
+
+const isTokenColorValue = (value: unknown): boolean => {
+  return (
+    isRecord(value) &&
+    typeof value.colorSpace === "string" &&
+    Array.isArray(value.components) &&
+    value.components.every((component) => typeof component === "number") &&
+    (value.alpha === undefined || typeof value.alpha === "number") &&
+    (value.hex === undefined || typeof value.hex === "string")
+  )
+}
+
+/**
+ * Returns true when the value can be stored as a DTCG token value.
+ */
+export const isTokenValue = (value: unknown): value is TokenValue => {
+  return (
+    isTokenPrimitive(value) ||
+    isTokenUnitValue(value) ||
+    isTokenColorValue(value)
+  )
 }
 
 /**
@@ -55,12 +91,12 @@ export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
  *
  * A token leaf must use:
  * {
- *   $value: string | number
+ *   $value: string | number | DTCG object value
  * }
  */
 export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
   if (!isRecord(value)) return false
-  return "$value" in value && isTokenPrimitive(value["$value"])
+  return "$value" in value && isTokenValue(value["$value"])
 }
 
 /**

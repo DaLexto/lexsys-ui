@@ -15,7 +15,12 @@
  * - Do not add CSS variable, Tailwind, DTCG, or Figma-specific logic here.
  */
 
-import type { TokenLeaf, TokenPrimitive, TokenTree } from "../../types/index.js"
+import type {
+  TokenLeaf,
+  TokenPrimitive,
+  TokenTree,
+  TokenValue,
+} from "../../types/index.js"
 import type { TokenType } from "../../types/index.js"
 
 import type { FlattenedTokenEntry } from "./shared.types.js"
@@ -92,17 +97,47 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
 }
 
 /**
- * Returns true when the value can be stored as a token primitive.
+ * Returns true when the value can be stored as a token scalar.
  */
 export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
   return typeof value === "string" || typeof value === "number"
+}
+
+const isTokenUnitValue = (value: unknown): boolean => {
+  return (
+    isRecord(value) &&
+    typeof value.value === "number" &&
+    typeof value.unit === "string"
+  )
+}
+
+const isTokenColorValue = (value: unknown): boolean => {
+  return (
+    isRecord(value) &&
+    typeof value.colorSpace === "string" &&
+    Array.isArray(value.components) &&
+    value.components.every((component) => typeof component === "number") &&
+    (value.alpha === undefined || typeof value.alpha === "number") &&
+    (value.hex === undefined || typeof value.hex === "string")
+  )
+}
+
+/**
+ * Returns true when the value can be stored as a DTCG token value.
+ */
+export const isTokenValue = (value: unknown): value is TokenValue => {
+  return (
+    isTokenPrimitive(value) ||
+    isTokenUnitValue(value) ||
+    isTokenColorValue(value)
+  )
 }
 
 /**
  * Returns true when the value is a DTCG-style token leaf.
  */
 export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  return isRecord(value) && "$value" in value && isTokenPrimitive(value.$value)
+  return isRecord(value) && "$value" in value && isTokenValue(value.$value)
 }
 
 /**

@@ -155,6 +155,33 @@ Token authoring uses object trees, not flat token arrays or generated CSS
 variable strings. Metadata follows the DTCG-style `$` key convention and may
 exist on both token branches and token leaves.
 
+Neurex token core should stay platform-neutral. Web CSS is the first generated
+output, but it is not the boundary of the system. Token values should move
+toward strict W3C/DTCG value objects where that improves cross-platform
+generation:
+
+```json
+{
+  "$type": "dimension",
+  "$value": { "value": 16, "unit": "px" }
+}
+```
+
+```json
+{
+  "$type": "color",
+  "$value": {
+    "colorSpace": "oklch",
+    "components": [0.558, 0.288, 302.321],
+    "alpha": 1,
+    "hex": "#7c3aed"
+  }
+}
+```
+
+CSS output is responsible for serializing those platform-neutral values back to
+valid CSS strings such as `16px`, `150ms`, or `oklch(...)`.
+
 Branch metadata describes a token group without being treated as a token leaf.
 Current supported branch metadata:
 

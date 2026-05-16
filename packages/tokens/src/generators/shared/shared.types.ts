@@ -14,7 +14,7 @@
  * - Format-specific generators may ignore fields they do not need.
  */
 
-import type { TokenPrimitive, TokenType } from "../../types/index.js"
+import type { TokenType, TokenValue } from "../../types/index.js"
 
 /**
  * Raw flattened token entry before format-specific serialization.
@@ -24,7 +24,7 @@ import type { TokenPrimitive, TokenType } from "../../types/index.js"
  */
 export interface FlattenedTokenEntry {
   path: string[]
-  value: TokenPrimitive
+  value: TokenValue
   description?: string
   type?: TokenType
 }

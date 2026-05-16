@@ -11,6 +11,7 @@ export {
   isTokenBranch,
   isTokenLeaf,
   isTokenPrimitive,
+  isTokenValue,
   normalizeTokenName,
   toKebabSegment,
   toTokenName,

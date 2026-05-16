@@ -17,7 +17,7 @@
  * - JSON export preserves references for downstream token tooling.
  */
 
-import type { TokenPrimitive, TokenType } from "../../../types"
+import type { TokenType, TokenValue } from "../../../types"
 import type { FlattenedTokenEntry } from "../../shared"
 
 /**
@@ -44,7 +44,7 @@ export interface DtcgTokenMetadata {
  * DTCG-compatible token leaf used in exported JSON.
  */
 export interface DtcgTokenLeaf extends DtcgTokenMetadata {
-  $value: TokenPrimitive
+  $value: TokenValue
   $extensions?: Record<string, unknown>
 }
 

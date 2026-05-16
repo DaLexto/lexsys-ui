@@ -36,7 +36,7 @@ import {
   toPathString,
 } from "./resolver.utils"
 
-import type { TokenLeaf, TokenNode, TokenPrimitive, TokenTree } from "../types"
+import type { TokenLeaf, TokenNode, TokenTree, TokenValue } from "../types"
 
 /* -------------------------------------------------------------------------------------------------
  * Internal helpers
@@ -51,10 +51,7 @@ const mergeOptions = (
   }
 }
 
-const cloneLeafWithValue = (
-  leaf: TokenLeaf,
-  value: TokenPrimitive,
-): TokenLeaf => {
+const cloneLeafWithValue = (leaf: TokenLeaf, value: TokenValue): TokenLeaf => {
   return {
     ...leaf,
     $value: value,

@@ -67,12 +67,42 @@ export type CompositeTokenType =
 export type TokenType = ScalarTokenType | CompositeTokenType
 
 /**
- * Primitive values currently supported by the CSS-oriented token pipeline.
+ * Scalar values that can be emitted directly or used as token references.
+ */
+export type TokenPrimitive = string | number
+
+/**
+ * Platform-neutral DTCG dimension or duration value.
+ *
+ * CSS output serializes this shape back to strings such as `16px` or `150ms`.
+ * Other platform outputs can map the numeric value and unit to their native
+ * representation without parsing CSS strings first.
+ */
+export interface TokenUnitValue {
+  value: number
+  unit: string
+}
+
+/**
+ * Platform-neutral DTCG color value.
+ *
+ * `hex` is an optional fallback for tools that cannot consume the chosen color
+ * space directly. The canonical value remains `colorSpace` plus components.
+ */
+export interface TokenColorValue {
+  colorSpace: string
+  components: readonly number[]
+  alpha?: number
+  hex?: string
+}
+
+/**
+ * Token values supported by the Neurex DTCG-shaped token model.
  *
  * Composite DTCG values such as shadow, border, transition, and typography can
  * be added when their generators are implemented.
  */
-export type TokenPrimitive = string | number
+export type TokenValue = TokenPrimitive | TokenUnitValue | TokenColorValue
 
 /**
  * Shared metadata fields allowed on token leaves and token branches.
@@ -95,7 +125,7 @@ export interface TokenMetadata {
  * The `$`-prefixed keys follow the Design Tokens Community Group format.
  */
 export interface TokenLeaf extends TokenMetadata {
-  $value: TokenPrimitive
+  $value: TokenValue
 }
 
 /**
