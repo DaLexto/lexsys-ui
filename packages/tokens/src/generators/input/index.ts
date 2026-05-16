@@ -6,7 +6,7 @@ export {
   parseDtcgTokenDocument,
   type DtcgThemeTokenInput,
   type DtcgTokenInput,
-} from "./dtcg-token-input"
+} from "./input.dtcg"
 
 export {
   createStyleTokenInput,
@@ -17,4 +17,4 @@ export {
   type StyleTokenInput,
   type StyleTokenInputOptions,
   type ThemeTokenInput,
-} from "./style-token-input"
+} from "./input.source"

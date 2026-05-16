@@ -7,7 +7,7 @@ export {
   createStyleOutputs,
   createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
-} from "./generators/create-style-outputs"
+} from "./generators/generator.create"
 export { primitiveTokens } from "./primitives"
 export { semanticTokens } from "./semantics"
 export { componentTokens } from "./components"

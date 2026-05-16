@@ -17,7 +17,7 @@ import {
   generateJsonTokens,
 } from "./outputs"
 import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared/index.js"
-import { defaultStyleOutputConfig } from "./style-output.config.js"
+import { defaultStyleOutputConfig } from "./generator.config.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
 const cssPrefix = styleOutputConfig.cssVarPrefix

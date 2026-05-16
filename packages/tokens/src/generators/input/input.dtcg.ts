@@ -11,7 +11,7 @@ import {
   type DtcgThemeMetadata,
   type DtcgTokenDocument,
 } from "../outputs/dtcg"
-import type { ThemeTokenInput } from "./style-token-input"
+import type { ThemeTokenInput } from "./input.source"
 
 const DOCUMENT_METADATA_KEYS = new Set(["$schema", "$extensions"])
 const TOKEN_METADATA_KEYS = new Set([
