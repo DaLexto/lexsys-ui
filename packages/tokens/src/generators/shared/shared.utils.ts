@@ -36,6 +36,8 @@ export const DEFAULT_GENERATOR_METADATA_KEYS = new Set([
   "colorScheme",
 ])
 
+const ROOT_TOKEN_KEYS = new Set(["DEFAULT", "$root"])
+
 /**
  * Converts a token path segment into kebab-case.
  */
@@ -164,7 +166,7 @@ export const flattenTokenTree = (
       return []
     }
 
-    const nextPath = key === "DEFAULT" ? path : [...path, key]
+    const nextPath = ROOT_TOKEN_KEYS.has(key) ? path : [...path, key]
 
     if (isTokenLeaf(value)) {
       return [

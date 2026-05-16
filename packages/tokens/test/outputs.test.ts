@@ -506,6 +506,48 @@ describe("createStyleOutputs", () => {
     expect(input.semanticTokenTree?.button).toBeUndefined()
   })
 
+  test("rejects DTCG json with an invalid token leaf value", () => {
+    const outputs = createStyleOutputs()
+    const tokensJson = JSON.parse(outputs.tokensJson) as {
+      primitives: {
+        color: {
+          blue: Record<string, unknown> & {
+            "600": {
+              $value?: unknown
+            }
+          }
+        }
+      }
+    }
+
+    tokensJson.primitives.color.blue["600"].$value = true
+
+    expect(() => {
+      createDtcgTokenInputFromJson(JSON.stringify(tokensJson))
+    }).toThrow(
+      'DTCG token leaf "primitives.color.blue.600" has an invalid "$value".',
+    )
+  })
+
+  test("rejects DTCG json with a scalar branch child", () => {
+    const outputs = createStyleOutputs()
+    const tokensJson = JSON.parse(outputs.tokensJson) as {
+      primitives: {
+        color: {
+          blue: Record<string, unknown>
+        }
+      }
+    }
+
+    tokensJson.primitives.color.blue.invalid = "not-a-token-leaf"
+
+    expect(() => {
+      createDtcgTokenInputFromJson(JSON.stringify(tokensJson))
+    }).toThrow(
+      'DTCG token node "primitives.color.blue.invalid" must be an object.',
+    )
+  })
+
   test("generates tokens css from DTCG json input", () => {
     const outputs = createStyleOutputs()
     const css = createTokensCssFromDtcgJson(outputs.tokensJson)

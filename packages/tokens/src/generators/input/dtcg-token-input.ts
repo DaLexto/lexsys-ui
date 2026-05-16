@@ -4,6 +4,7 @@ import type {
   ThemeDefinition,
   ThemeModeId,
 } from "../../types/index.js"
+import { isTokenValue } from "../shared/index.js"
 import {
   DTCG_NEUREX_EXTENSION_KEY,
   type DtcgNeurexMetadata,
@@ -13,6 +14,12 @@ import {
 import type { ThemeTokenInput } from "./style-token-input"
 
 const DOCUMENT_METADATA_KEYS = new Set(["$schema", "$extensions"])
+const TOKEN_METADATA_KEYS = new Set([
+  "$description",
+  "$deprecated",
+  "$extensions",
+  "$type",
+])
 
 export interface DtcgTokenInput {
   metadata: DtcgNeurexMetadata
@@ -63,6 +70,85 @@ const isThemeSelector = (
     (typeof value === "string" &&
       (value.startsWith(".") || (value.startsWith("[") && value.endsWith("]"))))
   )
+}
+
+const toDiagnosticPath = (path: string[]): string => {
+  return path.length === 0 ? "(root)" : path.join(".")
+}
+
+const validateDtcgMetadataValue = (
+  key: string,
+  value: unknown,
+  path: string[],
+): void => {
+  const diagnosticPath = toDiagnosticPath([...path, key])
+
+  if (key === "$description" && typeof value !== "string") {
+    throw new Error(`DTCG metadata "${diagnosticPath}" must be a string.`)
+  }
+
+  if (
+    key === "$deprecated" &&
+    typeof value !== "string" &&
+    typeof value !== "boolean"
+  ) {
+    throw new Error(
+      `DTCG metadata "${diagnosticPath}" must be a string or boolean.`,
+    )
+  }
+
+  if (key === "$extensions" && !isRecord(value)) {
+    throw new Error(`DTCG metadata "${diagnosticPath}" must be an object.`)
+  }
+
+  if (key === "$type" && typeof value !== "string") {
+    throw new Error(`DTCG metadata "${diagnosticPath}" must be a string.`)
+  }
+}
+
+const validateDtcgTokenNode = (node: unknown, path: string[]): void => {
+  if (!isRecord(node)) {
+    throw new Error(
+      `DTCG token node "${toDiagnosticPath(path)}" must be an object.`,
+    )
+  }
+
+  if ("$value" in node) {
+    if (!isTokenValue(node.$value)) {
+      throw new Error(
+        `DTCG token leaf "${toDiagnosticPath(path)}" has an invalid "$value".`,
+      )
+    }
+
+    Object.entries(node).forEach(([key, value]) => {
+      if (key === "$value") {
+        return
+      }
+
+      if (!TOKEN_METADATA_KEYS.has(key)) {
+        throw new Error(
+          `DTCG token leaf "${toDiagnosticPath(path)}" has invalid child "${key}".`,
+        )
+      }
+
+      validateDtcgMetadataValue(key, value, path)
+    })
+
+    return
+  }
+
+  Object.entries(node).forEach(([key, value]) => {
+    if (TOKEN_METADATA_KEYS.has(key)) {
+      validateDtcgMetadataValue(key, value, path)
+      return
+    }
+
+    validateDtcgTokenNode(value, [...path, key])
+  })
+}
+
+const validateDtcgTokenTree = (tree: TokenTree): void => {
+  validateDtcgTokenNode(tree, [])
 }
 
 const readNeurexMetadata = (
@@ -173,6 +259,7 @@ export const createDtcgTokenInput = (
 ): DtcgTokenInput => {
   const metadata = readNeurexMetadata(document)
   const documentTokenTree = getDocumentTokenTree(document)
+  validateDtcgTokenTree(documentTokenTree)
   const tokenTree = createRuntimeTokenTree(documentTokenTree)
   const semanticTokenTree = getLayerTree(documentTokenTree, "semantics")
 
@@ -235,6 +322,8 @@ export const createDtcgThemeTokenInput = (
     if (!isRecord(tokens) || "$value" in tokens) {
       throw new Error(`DTCG theme "${theme.name}" must be a token tree.`)
     }
+
+    validateDtcgTokenTree(tokens as TokenTree)
 
     return {
       name: theme.name,

@@ -343,6 +343,11 @@ Status:
   `letterSpacing`, or `color`.
 - Color authoring currently uses OKLCH object values with `colorSpace`,
   `components`, optional `alpha`, and optional `hex` fallback metadata.
+- DTCG JSON input parsing now validates token tree nodes before creating a
+  runtime token tree, rejecting invalid `$value` objects and scalar branch
+  children explicitly.
+- DTCG `$root` is treated as a token key, not metadata, so future root/default
+  token values can be represented without being skipped by traversal.
 - Remaining value migration work should focus on stricter external JSON
   validation, theme/token import adapters, and future composite types.
 - Remaining work: tighten external JSON validation and define import adapters

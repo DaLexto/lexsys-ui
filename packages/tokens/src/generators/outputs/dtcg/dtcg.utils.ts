@@ -91,6 +91,14 @@ const DTCG_JSON_KEY_ORDER = [
   "$value",
 ] as const
 
+const DTCG_METADATA_KEYS = new Set([
+  "$schema",
+  "$extensions",
+  "$type",
+  "$description",
+  "$deprecated",
+])
+
 const DEFAULT_DTCG_METADATA: DtcgNeurexMetadata = {
   generatedBy: "@neurex/tokens",
   tokenSetOrder: ["primitives", "brand", "semantics", "components"],
@@ -117,7 +125,7 @@ const isMetadataKey = (
   key: string,
   options: Required<DtcgGeneratorOptions>,
 ): boolean => {
-  return key.startsWith("$") || options.metadataKeys.has(key)
+  return DTCG_METADATA_KEYS.has(key) || options.metadataKeys.has(key)
 }
 
 /**
@@ -394,7 +402,11 @@ const getSharedTokenType = (
 
 const getDirectLeafTokenTypes = (tree: DtcgTokenTree): DtcgTokenType[] => {
   return Object.entries(tree).flatMap(([key, value]) => {
-    if (key.startsWith("$") || !isRecord(value) || !("$value" in value)) {
+    if (
+      DTCG_METADATA_KEYS.has(key) ||
+      !isRecord(value) ||
+      !("$value" in value)
+    ) {
       return []
     }
 
@@ -406,7 +418,7 @@ const getDirectLeafTokenTypes = (tree: DtcgTokenTree): DtcgTokenType[] => {
 
 const hasOnlyDirectLeafChildren = (tree: DtcgTokenTree): boolean => {
   const childEntries = Object.entries(tree).filter(([key]) => {
-    return !key.startsWith("$")
+    return !DTCG_METADATA_KEYS.has(key)
   })
 
   if (childEntries.length === 0) {
@@ -420,7 +432,11 @@ const hasOnlyDirectLeafChildren = (tree: DtcgTokenTree): boolean => {
 
 const removeDirectLeafTypes = (tree: DtcgTokenTree): void => {
   for (const [key, value] of Object.entries(tree)) {
-    if (key.startsWith("$") || !isRecord(value) || !("$value" in value)) {
+    if (
+      DTCG_METADATA_KEYS.has(key) ||
+      !isRecord(value) ||
+      !("$value" in value)
+    ) {
       continue
     }
 
@@ -444,7 +460,7 @@ const orderDtcgGroupMetadata = (tree: DtcgTokenTree): DtcgTokenTree => {
   }
 
   for (const [key, value] of Object.entries(tree)) {
-    if (key.startsWith("$")) {
+    if (DTCG_METADATA_KEYS.has(key)) {
       continue
     }
 
@@ -459,7 +475,7 @@ const orderDtcgGroupMetadata = (tree: DtcgTokenTree): DtcgTokenTree => {
  */
 export const applyTypesToGroups = (tree: DtcgTokenTree): DtcgTokenTree => {
   for (const [key, value] of Object.entries(tree)) {
-    if (key.startsWith("$") || !isRecord(value) || "$value" in value) {
+    if (DTCG_METADATA_KEYS.has(key) || !isRecord(value) || "$value" in value) {
       continue
     }
 

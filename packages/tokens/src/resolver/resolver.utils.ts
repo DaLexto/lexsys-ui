@@ -42,6 +42,13 @@ export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
 
 export const STRICT_REFERENCE_PATTERN = /^\{([^{}]+)\}$/
 
+const TOKEN_METADATA_KEYS = new Set([
+  "$description",
+  "$deprecated",
+  "$extensions",
+  "$type",
+])
+
 /**
  * Returns true when the value is a non-array object.
  */
@@ -230,5 +237,5 @@ export const createResolverWarning = (
  * token child nodes during reference resolution.
  */
 export const isTokenMetadataKey = (key: string): boolean => {
-  return key.startsWith("$")
+  return TOKEN_METADATA_KEYS.has(key)
 }

@@ -189,6 +189,28 @@ describe("css vars generator", () => {
     })
   })
 
+  it("collapses DTCG $root path segments", () => {
+    const tokens: TokenTree = {
+      spacing: {
+        $type: "dimension",
+        $root: { $value: { value: 16, unit: "px" } },
+        sm: { $value: { value: 8, unit: "px" } },
+      },
+    }
+
+    const entries = createCssVariableEntries(tokens, generatorOptions)
+
+    expect(entries).toContainEqual({
+      name: "space",
+      value: "16px",
+    })
+
+    expect(entries).toContainEqual({
+      name: "space-sm",
+      value: "8px",
+    })
+  })
+
   it("serializes entries into a CSS selector block", () => {
     const css = createCssBlock(
       ":root",
