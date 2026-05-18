@@ -8,7 +8,7 @@ import {
 import {
   createDtcgTokenInputFromJson,
   createStyleTokenInput,
-} from "../src/generators/input"
+} from "../src/generators/inputs/index.js"
 import { colorPrimitives } from "../src/primitives/color.js"
 import { primitiveTokens } from "../src/primitives"
 import { semanticTokens } from "../src/semantics"

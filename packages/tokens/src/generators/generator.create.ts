@@ -8,7 +8,7 @@ import {
   type StyleTokenInput,
   type StyleTokenInputOptions,
   type ThemeTokenInput,
-} from "./input"
+} from "./inputs"
 import {
   createCssBlock,
   createCssVariableEntries,
