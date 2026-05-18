@@ -18,10 +18,10 @@ export {
   createCssVariableEntries,
   generateCssVariables,
   toCustomProperty,
-} from "./css-vars.generator"
+} from "./css.generator"
 
 export type {
   CssVariableEntry,
   CssVarsGenerateResult,
   CssVarsGeneratorOptions,
-} from "./css-vars.types"
+} from "./css.types"

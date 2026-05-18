@@ -1,9 +1,5 @@
 import type { TokenTree } from "../../types"
-import type {
-  BrandId,
-  ThemeDefinition,
-  ThemeModeId,
-} from "../../types"
+import type { BrandId, ThemeDefinition, ThemeModeId } from "../../types"
 import { isTokenValue } from "../shared"
 import {
   DTCG_NEUREX_EXTENSION_KEY,

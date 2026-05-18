@@ -22,13 +22,13 @@ import type {
   CssVariableEntry,
   CssVarsGenerateResult,
   CssVarsGeneratorOptions,
-} from "./css-vars.types.js"
+} from "./css.types"
 
 import {
   createDefaultCssVarsGeneratorOptions,
   toCssVariableEntry,
   toCssVarName,
-} from "./css-vars.utils.js"
+} from "./css.utils"
 
 /* -------------------------------------------------------------------------------------------------
  * CSS serialization

@@ -586,7 +586,9 @@ describe("createStyleOutputs", () => {
     expect(css).toContain("--nx-color-blue-600")
     expect(css).toContain("--nx-radius-control: var(--nx-radius-md)")
     expect(css).toContain("--nx-button-radius: var(--nx-radius-control)")
-    expect(css).toContain("--nx-brand-color-primary-base: var(--nx-color-orange-500)")
+    expect(css).toContain(
+      "--nx-brand-color-primary-base: var(--nx-color-orange-500)",
+    )
     expect(css).not.toContain("--nx-$schema")
     expect(css).not.toContain("--nx-$extensions")
   })

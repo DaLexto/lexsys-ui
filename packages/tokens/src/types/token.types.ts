@@ -195,8 +195,9 @@ export interface TokenMetadata {
  *
  * The `$`-prefixed keys follow the Design Tokens Community Group format.
  */
-export interface TokenLeaf<TValue extends TokenValue = TokenValue>
-  extends TokenMetadata {
+export interface TokenLeaf<
+  TValue extends TokenValue = TokenValue,
+> extends TokenMetadata {
   $value: TValue
 }
 
@@ -214,10 +215,7 @@ export interface TokenLeaf<TValue extends TokenValue = TokenValue>
  * Runtime validators must reject invalid non-metadata scalar branches.
  */
 export interface TokenTree extends TokenMetadata {
-  [key: string]:
-    | TokenLeaf
-    | TokenTree
-    | TokenMetadata[keyof TokenMetadata]
+  [key: string]: TokenLeaf | TokenTree | TokenMetadata[keyof TokenMetadata]
 }
 
 /**

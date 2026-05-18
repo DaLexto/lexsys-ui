@@ -59,7 +59,9 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
 /**
  * Returns true when the value can be stored as a token scalar.
  */
-export const isTokenScalarValue = (value: unknown): value is TokenScalarValue => {
+export const isTokenScalarValue = (
+  value: unknown,
+): value is TokenScalarValue => {
   return typeof value === "string" || typeof value === "number"
 }
 

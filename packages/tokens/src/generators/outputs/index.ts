@@ -14,14 +14,14 @@ export {
   createCssVariableEntries,
   generateCssVariables,
   toCustomProperty,
-} from "./css-vars"
+} from "./css"
 export { DTCG_NEUREX_EXTENSION_KEY, generateJsonTokens } from "./dtcg"
 
 export type {
   CssVariableEntry,
   CssVarsGenerateResult,
   CssVarsGeneratorOptions,
-} from "./css-vars"
+} from "./css"
 export type {
   DtcgGenerateResult,
   DtcgGeneratorOptions,

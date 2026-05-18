@@ -8,7 +8,6 @@ import { colorSemantics } from "./color"
 import { actionSemantics } from "./action"
 import { borderSemantics } from "./border"
 
-
 export { colorSemantics } from "./color"
 export { actionSemantics } from "./action"
 export { typographySemantics } from "./typography"

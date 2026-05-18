@@ -1,6 +1,6 @@
 import { componentTokens as componentTokenGroups } from "../../components"
 import { primitiveTokens } from "../../primitives"
-import {brandTokens as brandTokenGroups } from "../../brand"
+import { brandTokens as brandTokenGroups } from "../../brand"
 import { defaultPresetId, presets } from "../../presets"
 import { resolveTokenTree } from "../../resolver"
 import { semanticTokens as semanticTokenGroups } from "../../semantics"

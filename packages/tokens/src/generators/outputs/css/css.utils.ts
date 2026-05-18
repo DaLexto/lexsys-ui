@@ -27,10 +27,7 @@ import {
   type FlattenedTokenEntry,
 } from "../../shared"
 
-import type {
-  CssVarsGeneratorOptions,
-  CssVariableEntry,
-} from "./css-vars.types.js"
+import type { CssVarsGeneratorOptions, CssVariableEntry } from "./css.types"
 
 const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
 

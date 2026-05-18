@@ -16,7 +16,7 @@ import {
   generateJsonTokens,
 } from "./outputs"
 import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared"
-import { defaultStyleOutputConfig } from "./generator.config.js"
+import { defaultStyleOutputConfig } from "./generator.config"
 
 const styleOutputConfig = defaultStyleOutputConfig
 const cssPrefix = styleOutputConfig.cssVarPrefix
@@ -71,7 +71,6 @@ const getTailwindBaseTheme = (input: StyleTokenInput): ThemeTokenInput => {
 }
 
 const createTokensCss = (input: StyleTokenInput): string => {
-
   const entries = [
     ...createCssVariableEntries(
       input.foundationTokens,

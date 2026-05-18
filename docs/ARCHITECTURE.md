@@ -257,6 +257,7 @@ Users should work with normal Tailwind classes and component variants, while Neu
 Neurex keeps enterprise-grade design-system control internally without forcing users to manually understand the entire token pipeline.
 
 ---
+
 ## 8. Base UI Role
 
 Base UI is the default headless foundation for interactive Neurex components.
