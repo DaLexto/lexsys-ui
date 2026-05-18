@@ -6,13 +6,13 @@ import {
   resolveTokenTreeStrict,
 } from "../src/resolver"
 
-import type { TokenLeaf, TokenPrimitive, TokenTree } from "../src/types"
+import type { TokenLeaf, TokenScalarValue, TokenTree } from "../src/types"
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
   return typeof value === "object" && value !== null && !Array.isArray(value)
 }
 
-const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
+const isTokenPrimitive = (value: unknown): value is TokenScalarValue => {
   return typeof value === "string" || typeof value === "number"
 }
 
