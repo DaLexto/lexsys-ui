@@ -71,7 +71,6 @@ const getTailwindBaseTheme = (input: StyleTokenInput): ThemeTokenInput => {
 }
 
 const createTokensCss = (input: StyleTokenInput): string => {
-  console.log("brand tree", input.foundationTokens.brand)
 
   const entries = [
     ...createCssVariableEntries(

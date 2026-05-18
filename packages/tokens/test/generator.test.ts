@@ -142,13 +142,13 @@ describe("createStyleOutputs", () => {
       "--nx-badge-radius: var(--nx-radius-control)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-badge-primary-background: var(--nx-color-action-primary-base)",
+      "--nx-badge-primary-background: var(--nx-action-primary-base)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-alert-radius: var(--nx-radius-surface)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-alert-destructive-foreground: var(--nx-color-action-danger-base)",
+      "--nx-alert-destructive-foreground: var(--nx-action-danger-base)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-card-background: var(--nx-color-background-surface)",
@@ -372,7 +372,7 @@ describe("createStyleOutputs", () => {
       brand: expect.objectContaining({
         color: expect.objectContaining({
           primary: expect.objectContaining({
-            base: { $value: "{color.orange.600}" },
+            base: { $value: "{color.orange.500}" },
           }),
           accent: expect.objectContaining({
             base: { $value: "{color.blue.500}" },
@@ -444,6 +444,21 @@ describe("createStyleOutputs", () => {
       }
       semantics?: unknown
     }
+    const brandContent =
+      outputs.tokenJsonFiles["tokens/dtcg/brand/brand.tokens.json"] ?? "{}"
+    const brand = JSON.parse(brandContent) as {
+      brand?: {
+        color?: {
+          primary?: {
+            base?: {
+              $value?: unknown
+            }
+          }
+        }
+      }
+      primitives?: unknown
+      semantics?: unknown
+    }
     const semantics = JSON.parse(
       outputs.tokenJsonFiles["tokens/dtcg/semantics/color.tokens.json"] ?? "{}",
     ) as {
@@ -472,6 +487,7 @@ describe("createStyleOutputs", () => {
     expect(fileNames).toContain("tokens/dtcg/tokens.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/primitives/color.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/primitives/spacing.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/brand/brand.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/semantics/color.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/components/button.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/components/dialog.tokens.json")
@@ -486,6 +502,9 @@ describe("createStyleOutputs", () => {
       primitivesContent.indexOf('"50"'),
     )
     expect(primitives.semantics).toBeUndefined()
+    expect(brand.brand?.color?.primary?.base?.$value).toBe("{color.orange.500}")
+    expect(brand.primitives).toBeUndefined()
+    expect(brand.semantics).toBeUndefined()
     expect(semantics.color?.background?.base?.$value).toBe("{color.white}")
     expect(semantics.primitives).toBeUndefined()
     expect(lightTheme.color?.background?.base?.$value).toBe("{color.white}")
@@ -567,6 +586,7 @@ describe("createStyleOutputs", () => {
     expect(css).toContain("--nx-color-blue-600")
     expect(css).toContain("--nx-radius-control: var(--nx-radius-md)")
     expect(css).toContain("--nx-button-radius: var(--nx-radius-control)")
+    expect(css).toContain("--nx-brand-color-primary-base: var(--nx-color-orange-500)")
     expect(css).not.toContain("--nx-$schema")
     expect(css).not.toContain("--nx-$extensions")
   })
