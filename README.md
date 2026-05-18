@@ -114,9 +114,7 @@ variables:
 
 ```css
 :root {
-  --nx-color-action-primary-base: #16a34a;
-  --nx-color-action-primary-hover: #15803d;
-  --nx-color-action-primary-active: #166534;
+  --nx-color-primary: #16a34a;
 }
 ```
 
@@ -128,15 +126,13 @@ The locked design-system flow is:
 TOKENS -> STYLE PRESETS -> THEME MODES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
 ```
 
-The consumer-facing style key is currently `default`, and it represents
-`Neurex Default`. Inside `@neurex/tokens`, the same implemented preset is
-exposed as token preset id `neurex` with brand `neurex`. Until arbitrary preset
-selection is wired through the CLI, treat `default` as the install/config alias
-and `neurex` as the token package preset id.
+The first style preset is `default` / `Neurex Default`. Style presets define
+the design personality; theme modes define mappings like light and dark. Today,
+`default` is the only implemented style preset.
 
 Runtime package responsibilities:
 
-- `packages/tokens` owns token source and generated CSS plus JSON outputs.
+- `packages/tokens` owns token source and generated CSS outputs.
 - `packages/ui` owns source/reference components.
 - `packages/registry` owns installable templates and metadata.
 - `packages/cli` installs registry items into user projects.
@@ -173,11 +169,6 @@ Stable enough to build against in the MVP:
 Internal or still evolving:
 
 - token authoring internals in `packages/tokens`
-- DTCG-compatible `tokens/dtcg/**/*.tokens.json` package output policy; the
-  files are generated today, but explicit JSON package
-  exports are intentionally deferred until the public contract is finalized
-- `@neurex/ui` CSS `sideEffects` policy; no UI CSS file is currently emitted,
-  so the package metadata should stay under review before publish
 - registry item generation internals
 - update/uninstall automation
 - remote registry hosting and version policy

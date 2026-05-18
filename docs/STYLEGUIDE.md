@@ -190,29 +190,36 @@ Avoid:
 
 ## 7. Tokens Conventions
 
-`packages/tokens` should remain layered:
+Detailed token rules are defined in `docs/TOKENS.md`.
 
-Color semantics should use the structured semantic hierarchy:
+`packages/tokens` follows this dependency model:
 
-```txt
-background / text / border / feedback / action
-```
+    primitives -> brand -> semantics -> components
 
 Guidelines:
 
 - primitives store raw values only
-- semantics give those values meaning
-- component tokens map semantics to component-level decisions
-- themes change values, not system structure
-- style presets live under `packages/tokens/src/presets`
-- brand metadata lives under `packages/tokens/src/brand`
-- theme mode implementations live under `packages/tokens/src/themes`
+- brand tokens hold brand-level palette decisions
+- semantic tokens assign reusable product meaning
+- component tokens map semantics to component-specific slot/property decisions
+- themes override semantic values per mode
+- themes are not a fifth token layer
+- presets are configuration, not token layers
+- components must never reference primitives directly
 
-Generated CSS and JSON belong to the token pipeline, not to handwritten
-component styles. The current package build writes `tokens.css`, `theme.css`,
-and DTCG-compatible group files under `dist/tokens/dtcg/**/*.tokens.json`; the
-registry style manifest installs only the CSS outputs into consumer projects
-today.
+Brand-specific semantic values should reference brand tokens. Non-brand semantic
+values, such as neutral, feedback, or foundation values, may reference primitive
+tokens directly.
+
+Generated CSS belongs to the token pipeline, not to handwritten component
+styles.
+
+The preferred dependency flow is:
+
+    component token
+      -> semantic token
+        -> brand token or primitive token
+          -> concrete value
 
 ---
 

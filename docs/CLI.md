@@ -379,7 +379,7 @@ Default config shape:
 
 | Field            | Description                                                    |
 | ---------------- | -------------------------------------------------------------- |
-| `style`          | Consumer-facing Neurex style key. Current value: `default`.    |
+| `style`          | Active Neurex style preset. Current value: `default`.          |
 | `componentsPath` | Target directory for installed components.                     |
 | `utilitiesPath`  | Target directory for shared utilities.                         |
 | `stylesPath`     | Target directory for shared styles and token output.           |
@@ -390,11 +390,6 @@ Default config shape:
 
 The MVP defaults are intentionally Vite-oriented. Other framework presets
 should add explicit detection/setup logic before changing these defaults.
-
-`style: "default"` is the current CLI/config alias for Neurex Default. The
-token package currently exposes that implemented preset internally as
-`neurexPreset` with `id: "neurex"` and `brand: "neurex"`. The CLI does not yet
-support arbitrary preset selection or direct token preset id selection.
 
 ---
 

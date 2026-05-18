@@ -92,12 +92,7 @@ If `lint` or `test` are still placeholders, record that explicitly in the releas
 
 - compiled token entrypoints in `dist`
 - generated CSS artifacts in `dist`
-- generated DTCG-compatible token files under `dist/tokens/dtcg/**/*.tokens.json`
-- explicit style export paths for CSS outputs
-- intentional public export policy for non-CSS token outputs; DTCG JSON files
-  are generated but not yet exposed through explicit package exports
-- reviewed `sideEffects` metadata; `@neurex/ui` currently does not emit a CSS
-  file, so its CSS side-effect declaration remains a pre-publish review item
+- explicit style export paths
 
 ---
 
@@ -130,8 +125,6 @@ Before declaring a package publish-ready, verify:
 - no package depends on another package's private `src` structure
 - the CLI does not assume repository-only file paths in published usage
 - versioning strategy is intentionally chosen for runtime dependencies
-- generated assets referenced by `sideEffects` or package `exports` exist in
-  the built package, or are explicitly documented as deferred contract work
 
 ---
 
@@ -157,8 +150,7 @@ This guide should be expanded when the repository adds:
 - a formal package publish flow
 - versioning and changelog policy
 - automated registry validation
+- generated token CSS outputs
 - update command support in the CLI
-- formal public export policy for generated token JSON outputs
-- final `@neurex/ui` CSS side-effects policy
 
 Until then, use this document as the minimum build-and-release contract.

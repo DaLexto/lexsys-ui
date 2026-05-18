@@ -25,7 +25,7 @@ making the CLI and registry behavior real before adding many new components.
 
 ## Progress Snapshot - 2026-04-28
 
-Completed so far across the CLI/install hardening and token architecture passes:
+Completed so far on `feature/cli-install-hardening`:
 
 - Tooling foundation added: ESLint, Prettier, Tailwind CSS package setup,
   Vitest, Turbo scripts, pnpm workspace cleanup, and repo-level check/build
@@ -64,42 +64,6 @@ Completed so far across the CLI/install hardening and token architecture passes:
   created/updated/skipped/conflicted totals for component files and shared
   resources, tracks component success counts, and warns when shared resources
   conflicted but were left untouched.
-
----
-
-## Progress Snapshot - 2026-05-12
-
-Current `refactor/tokens` work has moved the token package beyond the older
-CSS-only output model:
-
-- Neurex Default now has an internal token preset id of `neurex` and brand
-  `neurex`; the CLI config still stores the consumer-facing style alias as
-  `default`.
-- Token preset, brand, and theme mode files now live under
-  `packages/tokens/src/presets`, `packages/tokens/src/brand`, and
-  `packages/tokens/src/themes/neurex`.
-- The token generator now includes a DTCG-compatible JSON output path and writes
-  grouped files under `dist/tokens/dtcg/**/*.tokens.json` during package output
-  generation.
-- Registry style installation still installs only `styles/tokens.css` and
-  `styles/theme.css`; JSON token output is currently package/internal output,
-  not a consumer install artifact.
-
-Resolved on 2026-05-12: the CSS variables generator now preserves the optional
-path argument when delegating to the shared flatten helper. Verification passed
-with `pnpm --filter @neurex/tokens typecheck`, `pnpm --filter @neurex/tokens
-test`, and `pnpm --filter @neurex/tokens check`.
-
-Current hygiene decision:
-
-- DTCG JSON remains generated package output, but explicit JSON package exports
-  are intentionally deferred until the public JSON contract is finalized.
-- `@neurex/ui` still declares a CSS side-effect path even though the current UI
-  build does not emit CSS; this is intentionally left as pre-publish metadata
-  review until the UI distribution contract is finalized.
-- JSON token output now has focused test coverage for DTCG `{ $value, $type }`
-  leaves, including component token references that preserve the reference value
-  while inferring type from the referenced token path.
 
 ---
 
@@ -174,378 +138,6 @@ Status:
 ---
 
 ## P1 - Architecture Contract Gaps
-
-### DONE: Migrate token leaf authoring to DTCG keys
-
-Problem:
-
-- Current token source files mostly use the internal `{ value }` leaf shape.
-- `token.types.ts` has started moving toward DTCG-style `$value`, `$type`, and
-  `$description`.
-- Resolver, generator, tests, and source files must not stay split between
-  `{ value }` and `{ $value }`.
-- CSS and Tailwind output names/values must remain stable while the authoring
-  leaf shape changes.
-
-Direction:
-
-- Update `token.types.ts` so `TokenLeaf` uses `$value`, `$type`, and
-  `$description`.
-- Update `resolver.utils.ts` so `isTokenLeaf` reads `$value`, and
-  `isTokenPrimitive` follows the new `TokenPrimitive` contract.
-- Update `resolver.ts` so reference resolution reads `targetLeaf.$value` and
-  `node.$value`, while `cloneLeafWithValue` writes `$value` and preserves
-  `$type` / `$description`.
-- Update `resolver.test.ts` so all test token fixtures use `$value` and all
-  leaf assertions read `.$value`.
-- Update `generators/shared/output.utils.ts` so `flattenTokenTree` reads
-  `$value`, maps `$description` to generator descriptions, and carries `$type`
-  when needed by downstream generators.
-- Update `css-vars-generator.test.ts` and `outputs.test.ts` so fixtures use
-  `$value` without changing the CSS/Tailwind output contract.
-- Review `generators/json/*` so DTCG-shaped input is not converted from
-  `value` to `$value` twice and `$type` inference remains intentional.
-- Migrate token source files from `value` to `$value` in this order:
-  primitives, brand, semantics, themes, then component token groups.
-
-Status:
-
-- Done: token leaf authoring now uses DTCG-style `$value`, `$type`, and
-  `$description` keys across token source files and resolver/generator tests.
-- `token.types.ts` now uses the DTCG-style leaf shape and English ASCII
-  comments.
-- `resolver.utils.ts` has started reading `$value`.
-- `resolver.ts` now reads and writes `$value` while preserving `$type` and
-  `$description`.
-- `resolver.test.ts` now uses `$value` fixtures and assertions; direct resolver
-  test verification passes.
-- Shared generator flattening now reads `$value`, maps `$description` to
-  generator descriptions, and carries `$type` for downstream generators.
-- `css-vars-generator.test.ts` now uses `$value` fixtures; direct CSS generator
-  test verification passes without changing the CSS output contract.
-- Generator naming references now point at `create-style-outputs.ts`,
-  `write-style-outputs.ts`, and `style-output.config.ts`.
-- DTCG JSON generation now preserves explicit `$type` before falling back to
-  path/reference inference.
-- Token source files under primitives, brand, semantics, themes, and component
-  token groups now use `$value`.
-- Token branch metadata support was added so token trees can carry DTCG-style
-  `$description` and `$deprecated` metadata on branches as well as leaves.
-- `TokenMetadata` now centralizes shared metadata fields for token leaves and
-  token trees.
-- Token group contracts now extend the shared `TokenTree` model instead of
-  maintaining a separate broad `TokenNode | string` group-property union.
-- Resolver traversal now skips DTCG metadata keys so branch metadata is
-  preserved without being treated as token child nodes.
-- `isTokenMetadataKey` was added to `resolver.utils.ts` to centralize
-  metadata-key detection during resolution.
-- Verification passed with `pnpm tokens:check`.
-- Package verification passes with `pnpm --filter @neurex/tokens check`,
-  `pnpm --filter @neurex/tokens build`, targeted Prettier checks, and the
-  follow-up `pnpm tokens:check` branch-metadata verification.
-
-### TODO: Make W3C/DTCG JSON the canonical token contract
-
-Problem:
-
-- Current token authoring still starts in TypeScript files.
-- `dist/tokens/dtcg/tokens.tokens.json` is generated output, not yet the input
-  contract consumed by the generator.
-- Future Figma, Tokens Studio, and Creator workflows need a shared token format
-  instead of separate source-of-truth paths.
-
-Direction:
-
-- Use the term **W3C/DTCG Design Tokens JSON** for the canonical token format.
-- Keep TypeScript as a typed authoring wrapper while the engine matures.
-- Treat Neurex token core as platform-neutral; web CSS is the first output,
-  not the architectural boundary.
-- Move token values toward strict W3C/DTCG object values where appropriate:
-  `dimension` / `duration` as `{ value, unit }` and `color` as
-  `{ colorSpace, components, alpha, hex }`.
-- Keep CSS serialization in the CSS output generator so platform-neutral token
-  values can still emit `16px`, `150ms`, `oklch(...)`, or other valid CSS.
-- Make the generator consume a W3C/DTCG-shaped token tree as its stable input.
-- Keep `generators/outputs/dtcg` as the canonical W3C/DTCG JSON output target.
-- Add tool-specific adapters separately, for example
-  `generators/outputs/tokens-studio`, instead of using a Tokens Studio schema
-  as the Neurex canonical schema.
-- Later, add parser/import paths so Figma or Tokens Studio exports can normalize
-  into the same W3C/DTCG tree and generate the same CSS outputs.
-
-Target model:
-
-Now:
-
-```txt
-TypeScript authoring -> W3C/DTCG Design Tokens JSON -> CSS
-```
-
-Later:
-
-```txt
-TypeScript authoring -> W3C/DTCG Design Tokens JSON ─┐
-                                                     ├-> CSS and tool outputs
-Figma / Tokens Studio -> W3C/DTCG Design Tokens JSON ┘
-```
-
-Status:
-
-- In progress.
-- The generator now has an internal `generators/input` boundary that converts
-  TypeScript authoring groups into a W3C/DTCG-shaped `StyleTokenInput`.
-- `StyleTokenInput` now carries one active preset context via `presetId`, rather
-  than the full preset catalog; theme inputs are selected from that active
-  preset.
-- CSS and DTCG JSON outputs now consume that shared input contract instead of
-  rebuilding token trees independently inside output orchestration.
-- DTCG JSON output now emits a canonical root document envelope with
-  `$schema: "https://www.designtokens.org/schemas/2025.10/format.json"`.
-- Neurex-owned document metadata is stored under `$extensions["org.neurex"]`
-  instead of a root `$metadata` key, keeping the canonical output aligned with
-  DTCG extension semantics.
-- The input layer can now parse generated W3C/DTCG JSON documents back into a
-  Neurex token tree by stripping the root document envelope and validating the
-  required Neurex extension metadata.
-- `createTokensCssFromDtcgJson` now proves the current path can generate
-  `tokens.css` directly from canonical W3C/DTCG JSON input.
-- `themesJson` now emits theme override tokens as a separate canonical DTCG
-  document, and `createThemeCssFromDtcgJson` can generate `theme.css` from
-  `tokensJson` plus `themesJson`.
-- `tokensJson` now uses the explicit merged `semantics` layer as the DTCG
-  round-trip source for semantic Tailwind `@theme` generation, without carrying
-  a separate semantic path metadata list.
-- DTCG package output now uses the recommended `.tokens.json` extension shape
-  under `dist/tokens/dtcg`.
-- Package DTCG output now emits one merged convenience file at
-  `dist/tokens/dtcg/tokens.tokens.json`.
-- Package DTCG output also emits per-group files:
-  `dist/tokens/dtcg/primitives/<group>.tokens.json`,
-  `dist/tokens/dtcg/semantics/<group>.tokens.json`,
-  `dist/tokens/dtcg/components/<component>.tokens.json`, and per-theme files
-  under `dist/tokens/dtcg/themes`.
-- Group files are standalone DTCG documents without an extra layer wrapper; the
-  merged `tokens.tokens.json` remains a convenience artifact with explicit
-  `primitives`, `brand`, `semantics`, `components`, `themes`, and `presets`
-  sections.
-- DTCG output now applies `$type` at the narrowest shared token group where all
-  descendant tokens share the same type, and omits duplicated leaf `$type`
-  properties when group inheritance can carry the type.
-- The JSON import boundary now has negative coverage for missing semantic path
-  and theme metadata so invalid round-trip inputs fail explicitly.
-- Current token values are W3C/DTCG-shaped, but not strict W3C/DTCG compliant
-  in every composite value type yet.
-- Token type contracts now allow platform-neutral DTCG object values for
-  dimensions/durations and colors, and CSS output can serialize those values
-  back into CSS strings.
-- Primitive dimension-like, duration-like, and color token sources now use DTCG
-  object values where their type is `dimension`, `duration`, `fontSize`,
-  `letterSpacing`, or `color`.
-- Color authoring currently uses OKLCH object values with `colorSpace`,
-  `components`, optional `alpha`, and optional `hex` fallback metadata.
-- DTCG JSON input parsing now validates token tree nodes before creating a
-  runtime token tree, rejecting invalid `$value` objects and scalar branch
-  children explicitly.
-- DTCG `$root` is treated as a token key, not metadata, so future root/default
-  token values can be represented without being skipped by traversal.
-- Remaining value migration work should focus on stricter external JSON
-  validation, theme/token import adapters, and future composite types.
-- Remaining work: tighten external JSON validation and define import adapters
-  so external Figma/Tokens Studio JSON can generate the same CSS outputs.
-
-### DONE: Standardize token metadata key order
-
-Problem:
-
-- Token source files in the current `neurex` project use the DTCG `$value` /
-  `$type` authoring shape, but metadata key ordering is not fully consistent.
-- Primitive token groups often place `$description` before `$type`, while the
-  preferred authoring convention is `$type`, `$description`, `$deprecated`,
-  then `$value`.
-
-- only `D:\LIBRARIES\JS_TS\neurex` should be inspected and changed.
-
-Direction:
-
-- Standardize token authoring metadata order wherever those keys exist:
-  `$type`, `$description`, `$deprecated`, `$value`.
-- Apply this only to Neurex token source files under:
-  `packages/tokens/src/primitives`, `packages/tokens/src/semantics`,
-  `packages/tokens/src/themes`, and `packages/tokens/src/presets`.
-- Keep group-level `$type` as the default when descendants share one DTCG type.
-- Do not convert `PresetDefinition` metadata into DTCG tokens unless preset
-  token output is redesigned explicitly.
-
-Status:
-
-- Done.
-- Token metadata ordering now follows `$type`, `$description`, `$deprecated`,
-  `$value` wherever those keys appear in the token authoring tree.
-- The main changes were in primitive token files; active semantic and theme
-  token files already mostly followed `$type` before `$value`.
-
-### TODO: Implement staged primitive token placeholder files
-
-Problem:
-
-- Several primitive token files exist as forward-looking placeholders but are
-  not ready to participate in `primitiveTokens` yet.
-- Importing empty or incomplete primitives would make generated CSS/JSON look
-  supported before the token values, DTCG types, semantics, and component usage
-  are actually designed.
-
-Direction:
-
-- Keep placeholders visible with an explicit implementation TODO comment.
-- Implement each primitive only when its authoring shape, DTCG type, semantic
-  mapping, and output behavior are clear.
-- Do not add placeholder primitives to `primitives/index.ts` until they contain
-  real token groups.
-- Keep typography text styles in `semantics/typography.ts`; do not add a
-  duplicate `primitives/typography.ts` wrapper around the existing atomic font
-  primitives.
-
-Status:
-
-- Not started.
-- Placeholder files currently tracked for future implementation:
-  `aspect-ratio.ts`, `asset.ts`, `blur.ts`, `border.ts`, `breakpoint.ts`,
-  `opacity.ts`, `outline.ts`, `shadow.ts`, and `z-index.ts`.
-- Decided: `primitives/typography.ts` was removed because it duplicated
-  `font-family.ts`, `font-size.ts`, `font-weight.ts`, `line-height.ts`, and
-  `letter-spacing.ts`; semantic type styles remain in `semantics/typography.ts`.
-
-### TODO: Implement staged semantic token placeholder files
-
-Problem:
-
-- The semantic token layer needs a fuller enterprise-oriented decision surface
-  before new primitive families are wired into component tokens.
-- Missing semantic groups should be visible without being imported into
-  `semanticTokens` before their actual token shapes are designed.
-
-Direction:
-
-- Keep existing semantic groups active: `color.ts`, `motion.ts`, `radius.ts`,
-  `size.ts`, `spacing.ts`, and `typography.ts`.
-- Stage missing semantic groups as explicit placeholders:
-  - `action.ts` for interaction intents and states
-  - `border.ts` for border width/style decisions
-  - `elevation.ts` for shadow plus z-index depth decisions
-  - `layout.ts` for breakpoint, aspect-ratio, spacing, and size layout roles
-  - `outline.ts` for focus outline/ring decisions
-- Do not add placeholder semantics to `semantics/index.ts` until they contain
-  real token groups.
-
-Status:
-
-- Not started.
-- Placeholder semantic files currently tracked for future implementation:
-  `action.ts`, `border.ts`, `elevation.ts`, `layout.ts`, and `outline.ts`.
-
-### DONE: Finish token generator and primitive hygiene backlog
-
-Problem:
-
-- The DTCG migration and generator split exposed a set of smaller correctness
-  and hygiene items across token input assembly, output generation, primitives,
-  semantics, types, and DTCG output inference.
-- The backlog is now kept here as completed cleanup history so future token
-  work does not re-open already finished generator and primitive tasks.
-
-Direction:
-
-- Keep generator input assembly layered: shared generator helpers can be reused
-  by generator code, while resolver internals should not become a dependency of
-  the input assembler.
-- Make Tailwind `@theme` generation explicit and complete:
-  - select the light theme by name instead of using `themeTokens[0]`
-  - map all semantic entries automatically instead of hardcoding color patterns
-  - remove duplicate `color-` prefixes before Tailwind variable mapping
-- Harden `write-style-outputs.ts`:
-  - add argument validation and clear warnings when neither `--package` nor
-    `--registry` is provided
-  - if a CLI-level catch is added, keep it as an explicit recovery boundary that
-    reports the failure and exits with `process.exit(1)`
-  - move registry output paths into `style-output.config.ts`
-- Tighten primitive token correctness:
-  - fix the yellow color scale so lightness moves predictably from 50 to 500
-  - keep font-size and size primitives explicitly typed as dimensions
-  - make line-height unitless-only and typed as `number`
-- Update typography semantics after line-height cleanup so all references use
-  named line-height tokens such as `{line-height.normal}`.
-- Tighten group/type contracts so token groups use `TokenNode | string` style
-  constraints where possible instead of broad `unknown`.
-- Align DTCG type inference with token meaning, especially `line-height` as
-  `number` and `font-family` as `fontFamily`.
-
-Status:
-
-- Done: this generator and primitive hygiene backlog is complete.
-- Done: local `isTokenLeafLike` / branch guard duplication was removed from
-  `generators/input/style-token-input.ts`; it now reuses `isTokenBranch` from
-  generator shared utilities instead of importing resolver internals.
-- Done: `.primitive` suffixes were removed from `packages/tokens/src/primitives`
-  files.
-- Done: `font-size.ts` now explicitly marks each token with
-  `$type: "dimension"`.
-- Done: `token.types.ts` excludes `boolean` and `null` from `TokenPrimitive`,
-  and the old `TokenGroupProperty` type is no longer present.
-- Done: `resolver.utils.ts` now treats only `string | number` as token
-  primitives and detects token leaves with `$value`.
-- Done: `createTailwindThemeBlock` now selects the light theme explicitly,
-  builds Tailwind `@theme` entries from semantic tokens plus light theme
-  overrides, maps supported semantic namespaces automatically, and avoids
-  duplicate names such as `--color-nx-color-*`.
-- Done: `write-style-outputs.ts` now validates output flags, warns when no
-  output target is selected, uses an explicit CLI failure boundary with
-  `process.exit(1)`, and reads `registryStylesPath` from
-  `style-output.config.ts`.
-- Done: yellow primitive scale review confirmed the current lightness values
-  move predictably from 50 to 950; regression coverage now guards that order.
-- Done: `size.ts` now explicitly marks every token with
-  `$type: "dimension"`.
-- Done: `line-height.ts` now keeps only unitless named tokens typed as
-  `number`.
-- Done: `semantics/typography.ts` now references named line-height tokens
-  instead of numeric tokens such as `{line-height.6}`.
-- Done: `group.types.ts` now uses `TokenNode | string` for token group
-  properties instead of broad `unknown`.
-- Done: DTCG type inference maps `line-height` to `number`, and typography
-  family/sub-token references resolve to `fontFamily`.
-
-### DONE: Migrate semantic color tokens to structured hierarchy
-
-Problem:
-
-- Semantic color tokens used flat single-level roles such as `color.background`,
-  `color.foreground`, `color.primary`, `color.muted`, and `color.destructive`.
-- Flat roles made the semantic layer less expressive as component coverage grew.
-- Action, text, background, border, and feedback decisions needed clearer
-  separation.
-
-Direction:
-
-- Replace flat semantic color roles with a structured hierarchy:
-  - `color.background.{base,surface,subtle,overlay}`
-  - `color.text.{primary,secondary,disabled,inverse,link,accent}`
-  - `color.border.{default,strong,focus,accent}`
-  - `color.feedback.{info,success,warning,danger}.{bg,text,border}`
-  - `color.action.{primary,secondary,danger}.{base,hover,active,disabled}`
-- Rewrite light and dark theme mappings to mirror the new semantic structure.
-- Update generated CSS and Tailwind output variable names.
-- Keep component tokens aligned to semantic roles rather than primitive color
-  values.
-
-Status:
-
-- Done.
-- Primitive color scales now use OKLCH throughout.
-- Light and dark themes now mirror the structured color semantic hierarchy.
-- Dark mode hover/active and disabled mappings were adjusted for correct
-  contrast direction on dark surfaces.
-- Generated CSS variable references and token output tests were updated.
-- Breaking change: legacy flat semantic color paths were removed.
 
 ### DONE: Implement style and token installation
 
@@ -721,6 +313,43 @@ Status:
   - `pnpm build`
 
 ---
+
+## P1 - Token Architecture Migration
+
+### TODO: Migrate token package from legacy `{ value }` leaves to DTCG-shaped `$value` leaves
+
+Problem:
+
+- Root token architecture is now documented in `docs/TOKENS.md`.
+- `packages/tokens/src/types/index.ts` still contains the legacy token model with
+  `{ value }` leaves and `TokenPrimitive = string | number | boolean | null`.
+- Existing resolver, generator, and token source files still depend on the
+  legacy types.
+- A new DTCG-shaped V2 type model has been introduced in
+  `packages/tokens/src/types/token.types.ts`, but the implementation has not
+  migrated to it yet.
+
+Direction:
+
+- Keep the legacy model temporarily to avoid breaking resolver and generator
+  code during migration.
+- Use the new V2 types as the target model for future token authoring.
+- Migrate token source files from `{ value }` to `$value`.
+- Remove boolean and null token values from valid authoring.
+- Add runtime validation for DTCG-shaped token trees.
+- Update resolver reference handling for `$value`.
+- Update CSS and DTCG generators to consume the normalized token model.
+- Add tests for missing references, circular references, invalid layer skips,
+  and component-to-primitive references.
+- Remove legacy `{ value }` types only after resolver, generators, and source
+  tokens have fully migrated.
+
+Status:
+
+- Not started.
+- `token.types.ts` may define the target DTCG-shaped type model.
+- Legacy exports remain necessary until the resolver and generator pipeline are
+  migrated.
 
 ## P1 - CLI Safety and Correctness
 
@@ -913,9 +542,7 @@ Latest successful checks from the implementation passes:
 - `pnpm build`
 - `npm run typecheck` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
 - `npm run build` in `D:\LIBRARIES\JS_TS\neurex-sandbox`
-- CLI install-flow smoke: previously 7 CLI test files / 26 CLI tests passing;
-  current tree has 8 CLI test files before the in-progress token generator
-  refactor is reverified, with registry-driven coverage for the full bundled
-  component set
+- CLI install-flow smoke: 7 CLI test files / 26 CLI tests passing, with
+  registry-driven coverage for the full bundled component set
 - UI variant/API smoke: 32 UI test files / 49 UI tests passing
 - Registry validation smoke: 1 registry test file / 15 registry tests passing

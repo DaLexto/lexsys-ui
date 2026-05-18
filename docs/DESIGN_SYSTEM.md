@@ -28,8 +28,7 @@ THEME MODES
 OUTPUTS
   CSS vars
   Tailwind @theme
-  DTCG JSON
-  later preset payloads
+  later Creator JSON/presets
 
 COMPONENTS
   variants consume semantic tokens
@@ -69,28 +68,13 @@ They may control:
 The first official preset is:
 
 ```txt
-consumer config key: default
-token preset id: neurex
+id: default
 name: Neurex Default
-brand: neurex
 ```
 
 Future examples may include `space-indigo`, `graphite`, or other named
-presets. Those names are not active contracts until implemented. Today, the
-only implemented style personality is Neurex Default.
-
-The CLI config still stores `style: "default"` as the consumer-facing install
-alias. The token package currently exposes the implemented preset as
-`defaultPresetId = "neurex"` and `neurexPreset`. Documentation and code should
-preserve that distinction until the CLI style key is formally wired to token
-preset ids.
-
-Current token preset files live under:
-
-```txt
-packages/tokens/src/presets/
-packages/tokens/src/brand/
-```
+presets. Those names are not active contracts until implemented. Today,
+`default` is the only implemented style preset.
 
 Style presets are not theme modes.
 
@@ -108,117 +92,51 @@ Neurex Space Indigo
 
 Tokens are the source of truth for design decisions.
 
-Long-term, the canonical token interchange contract is **W3C/DTCG Design
-Tokens JSON**. The current codebase still authors tokens in TypeScript files,
-but those files use the same DTCG-style shape and act as a typed authoring
-wrapper around the intended JSON contract.
-
-Current model:
-
-```txt
-TypeScript authoring -> W3C/DTCG Design Tokens JSON -> CSS
-```
-
-Target model:
-
-```txt
-TypeScript authoring -> W3C/DTCG Design Tokens JSON ─┐
-                                                     ├-> CSS
-Figma / Tokens Studio -> W3C/DTCG Design Tokens JSON ┘
-```
-
-In the target model, the generator should consume the W3C/DTCG-shaped token
-tree. TypeScript authoring, Figma, Tokens Studio, and future Creator workflows
-may all produce that same JSON contract.
-
-Current implementation now creates an internal `StyleTokenInput` from the
-TypeScript authoring files before generating CSS or DTCG JSON. This is the first
-boundary toward letting future JSON imports feed the same output generators.
-`StyleTokenInput` represents one active preset build, not the full preset
-catalog. For example, `createStyleTokenInput({ presetId: "neurex" })` selects
-the active style preset, filters compatible theme modes for that preset, and
-then feeds CSS and DTCG JSON outputs from that selected context.
+Detailed token architecture rules are defined in `docs/TOKENS.md`.
 
 Tokens define:
 
 - primitive values
+- brand-level palette decisions
 - semantic roles
 - component-level token intent
 
-Current primitive families cover color palettes, radius, spacing, size,
-typography scales, and motion. Semantic tokens assign meaning to those
-primitives before component tokens consume them.
+The canonical token dependency model is:
 
-Tokens must not be treated as CSS files. CSS is an output, not the source.
+    primitives -> brand -> semantics -> components
+
+Themes override semantic values per mode. Themes are not a fifth token layer.
+
+    primitives -> brand -> semantics -> components
+                    ↑
+                  themes override semantics per mode
+
+Presets are configuration. They may select a brand, theme modes, density,
+radius feel, spacing rhythm, component defaults, and output combinations, but
+they never participate in the token resolution chain.
 
 Token authoring uses object trees, not flat token arrays or generated CSS
-variable strings. Metadata follows the DTCG-style `$` key convention and may
-exist on both token branches and token leaves.
+variable strings. Group metadata lives beside token branches, and token leaves
+use DTCG-compatible `$value` authoring.
 
-Neurex token core should stay platform-neutral. Web CSS is the first generated
-output, but it is not the boundary of the system. Token values should move
-toward strict W3C/DTCG value objects where that improves cross-platform
-generation:
+References use string aliases such as `{brand.color.accent}` or
+`{color.action.primary.base}`. The `--nx` prefix belongs to output generation
+only, never to token authoring files.
 
-```json
-{
-  "$type": "dimension",
-  "$value": { "value": 16, "unit": "px" }
-}
-```
+The preferred dependency flow is:
 
-```json
-{
-  "$type": "color",
-  "$value": {
-    "colorSpace": "oklch",
-    "components": [0.558, 0.288, 302.321],
-    "alpha": 1,
-    "hex": "#7c3aed"
-  }
-}
-```
+    component token
+      -> semantic token
+        -> brand token or primitive token
+          -> concrete value
 
-CSS output is responsible for serializing those platform-neutral values back to
-valid CSS strings such as `16px`, `150ms`, or `oklch(...)`.
+Brand-specific semantic values should reference brand tokens. Non-brand semantic
+values, such as neutral, feedback, or foundation values, may reference primitive
+tokens directly.
 
-Branch metadata describes a token group without being treated as a token leaf.
-Current supported branch metadata:
-
-- `$type`
-- `$description`
-- `$deprecated`
-
-Every token leaf uses a `{ $value }` object. `$type` should live on the
-narrowest shared token group when all child tokens share the same DTCG type.
-Leaves may still carry `$type` when they sit inside a mixed group or need a
-more specific type than their parent can provide. Leaves may also carry
-metadata when the individual token needs documentation or lifecycle status.
-
-Authoring convention:
-
-- prefer group-level `$type` by default, and leaf-level `$type` only when the
-  group is mixed or needs an explicit override
-- use `$description` on groups when it explains the purpose of a token family
-- use `$type` on groups when descendants share one DTCG type, and on leaves
-  only when group inheritance cannot express the token type safely
-- use `$deprecated` on groups or leaves when a token path remains only for
-  migration compatibility
-- keep primitive scale leaves compact with `$value` when group metadata can
-  carry the shared type
-
-Semantic color tokens use a structured category hierarchy rather than flat
-single-level color roles.
-
-Current color semantic groups:
-
-```txt
-  color.background.{base,surface,subtle,overlay}
-  color.text.{primary,secondary,disabled,inverse,link,accent}
-  color.border.{default,strong,focus,accent}
-  color.feedback.{info,success,warning,danger}.{bg,text,border}
-  color.action.{primary,secondary,danger}.{base,hover,active,disabled}
-```
+Components must consume semantic or component tokens. They must not depend
+directly on primitive values such as a specific color scale, radius step,
+spacing step, or raw motion duration.
 
 ### Theme Modes
 
@@ -240,7 +158,6 @@ Initial outputs should include:
 
 - CSS custom properties
 - Tailwind `@theme` mappings
-- W3C/DTCG Design Tokens JSON for token interop workflows
 
 Current install output paths are:
 
@@ -249,31 +166,9 @@ styles/tokens.css
 styles/theme.css
 ```
 
-Current package build output also includes:
-
-```txt
-dist/tokens.css
-dist/theme.css
-dist/tokens/dtcg/tokens.tokens.json
-dist/tokens/dtcg/primitives/<group>.tokens.json
-dist/tokens/dtcg/semantics/<group>.tokens.json
-dist/tokens/dtcg/components/<component>.tokens.json
-dist/tokens/dtcg/themes/light.tokens.json
-dist/tokens/dtcg/themes/dark.tokens.json
-```
-
-`tokens/dtcg/tokens.tokens.json` is generated from the current TypeScript token
-authoring wrapper as a merged convenience artifact for tools that want one file.
-The canonical interop shape is also emitted as per-group files under
-`dist/tokens/dtcg`, following the Style Dictionary-style source glob model.
-Individual group files do not wrap their payload in `"primitives"` or
-`"semantics"` keys; the folder and file names carry that context. JSON output
-preserves token reference strings such as `{radius.control}`, while DTCG
-`$type` values are carried from authoring or inferred from either the token path
-or referenced token path when available.
-
 Future outputs may include:
 
+- Creator JSON
 - preset payloads
 - theme exchange formats
 
@@ -377,11 +272,9 @@ generated outputs as installable artifacts
 
 Stable/current:
 
-- `default` consumer config alias for Neurex Default
-- internal token preset id `neurex` for Neurex Default
+- `default` / `Neurex Default` style preset
 - light and dark theme mode output
 - CSS custom property output under `styles/`
-- DTCG-compatible `tokens/dtcg/**/*.tokens.json` package output
 - Tailwind v4 consumer styling model
 - Vite-oriented CLI delivery
 - user-owned component source installed under `src/components/ui`
@@ -390,14 +283,14 @@ Stable/current:
 Internal/evolving:
 
 - token authoring module boundaries
-- exact style preset authoring API and CLI config mapping
+- exact style preset authoring API
 - remote registry/versioning policy
 - update/uninstall migration behavior
-- public export policy for generated JSON token payloads
+- generated Creator payload formats
 
 Planned but not active contract:
 
 - additional framework starters
-- style presets beyond Neurex Default
+- style presets beyond `default`
 - visual Creator UI
 - marketplace or remote preset delivery

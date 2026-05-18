@@ -190,32 +190,55 @@ Neurex uses a full design-token system as the styling source of truth.
 
 Neurex separates style presets from theme modes.
 
-```txt
-style preset = design personality, density, radius, component feel
-theme mode   = light/dark/brand mapping inside that style
-```
+    style preset = design personality, density, radius, component feel
+    theme mode   = light/dark/brand mapping inside that style
 
-The first implemented style personality is `Neurex Default`. Consumer projects
-currently store it as `style: "default"` in `neurex.config.json`, while
-`@neurex/tokens` exposes the token preset as `id: "neurex"` with brand
-`neurex`. Treat `default` as the CLI/config alias and `neurex` as the current
-token package preset id until preset selection is formalized across packages.
+The first style preset is `default` / `Neurex Default`.
 
 ### Token Layers
 
-```txt
-primitives
-  ↓ raw values
+Detailed token architecture rules are defined in `docs/TOKENS.md`.
 
-semantics
-  ↓ meaning and roles
+Neurex token dependencies follow this canonical model:
 
-component tokens
-  ↓ component-specific design decisions
+    primitives -> brand -> semantics -> components
 
-themes
-  ↓ generated CSS variables, Tailwind theme output, and token JSON output
-```
+Layer responsibilities:
+
+    primitives
+      ↓ raw values only
+
+    brand
+      ↓ brand-level palette decisions
+
+    semantics
+      ↓ reusable product meaning and roles
+
+    component tokens
+      ↓ component-specific slot/property decisions
+
+Themes override semantic values per mode. Themes are not a fifth token layer.
+
+    primitives -> brand -> semantics -> components
+                    ↑
+                  themes override semantics per mode
+
+Style presets are configuration, not token layers. A preset may configure which
+brand, theme modes, density, radius feel, spacing rhythm, component defaults,
+and output combinations are built, but it must not become a dependency layer
+between tokens and components.
+
+Reference rules:
+
+- primitive tokens contain raw values only
+- brand tokens reference primitive tokens
+- semantic tokens reference brand tokens for brand-specific values
+- semantic tokens may reference primitive tokens for non-brand values such as neutrals, feedback, and foundation scales
+- component tokens reference semantic tokens only
+- component tokens must never reference primitives, brand tokens, or theme tokens directly
+- themes override semantic values per mode
+- themes must never reference component tokens
+- presets never participate in token resolution
 
 ### User-Facing Styling
 
@@ -223,20 +246,17 @@ The user-facing DX remains Tailwind-first.
 
 Users should work with normal Tailwind classes and component variants, while Neurex controls the values through generated CSS variables and theme outputs.
 
-```txt
-Tailwind classes
-  ↓
-CSS variables
-  ↓
-Neurex tokens
-```
+    Tailwind classes
+      ↓
+    CSS variables
+      ↓
+    Neurex tokens
 
 ### Goal
 
 Neurex keeps enterprise-grade design-system control internally without forcing users to manually understand the entire token pipeline.
 
 ---
-
 ## 8. Base UI Role
 
 Base UI is the default headless foundation for interactive Neurex components.
