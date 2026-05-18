@@ -21,9 +21,9 @@
     "./tokens.css": "./dist/tokens.css"
   },
   "scripts": {
-    "build": "tsup && node dist/generators/write-style-outputs.js --package",
+    "build": "tsup && node dist/generators/generator.write.js --package",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
-    "generate:styles": "tsup && node dist/generators/write-style-outputs.js --package --registry",
+    "generate:styles": "tsup && node dist/generators/generator.write.js --package --registry",
     "lint": "eslint src test --max-warnings=0",
     "lint:fix": "eslint src test --fix",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",

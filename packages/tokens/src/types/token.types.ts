@@ -30,7 +30,7 @@
  * Examples:
  * - "{color.purple.600}"
  * - "{brand.color.accent}"
- * - "{color.action.primary.base}"
+ * - "{action.primary.base}"
  *
  * Notes:
  * - This type is useful for naming and helper/type-guard APIs.

@@ -9,9 +9,9 @@ export const buttonComponentTokens: ComponentTokenGroup = {
   },
   primary: {
     $type: "color",
-    background: { $value: "{color.action.primary.base}" },
+    background: { $value: "{action.primary.base}" },
     foreground: { $value: "{color.text.inverse}" },
-    hoverBackground: { $value: "{color.action.primary.hover}" },
+    hoverBackground: { $value: "{action.primary.hover}" },
     borderColor: { $value: "transparent" },
   },
   secondary: {

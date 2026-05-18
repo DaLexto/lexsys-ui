@@ -19,13 +19,6 @@ export const colorSemantics: SemanticTokenGroup = {
     link: { $value: "{color.blue.600}" },
     accent: { $value: "{color.purple.600}" },
   },
-  border: {
-    $type: "color",
-    default: { $value: "{color.neutral.200}" },
-    strong: { $value: "{color.neutral.400}" },
-    focus: { $value: "{color.neutral.500}" },
-    accent: { $value: "{color.purple.500}" },
-  },
   feedback: {
     info: {
       $type: "color",
@@ -46,28 +39,6 @@ export const colorSemantics: SemanticTokenGroup = {
       $type: "color",
       bg: { $value: "{color.red.50}" },
       text: { $value: "{color.red.700}" },
-    },
-  },
-  action: {
-    primary: {
-      $type: "color",
-      base: { $value: "{color.purple.600}" },
-      hover: { $value: "{color.purple.700}" },
-      active: { $value: "{color.purple.800}" },
-      disabled: { $value: "{color.purple.300}" },
-    },
-    secondary: {
-      $type: "color",
-      base: { $value: "{color.neutral.100}" },
-      hover: { $value: "{color.neutral.200}" },
-      active: { $value: "{color.neutral.300}" },
-    },
-    danger: {
-      $type: "color",
-      base: { $value: "{color.red.600}" },
-      hover: { $value: "{color.red.700}" },
-      active: { $value: "{color.red.800}" },
-      disabled: { $value: "{color.red.300}" },
     },
   },
 }

@@ -14,11 +14,11 @@ export const sliderComponentTokens: ComponentTokenGroup = {
   },
   indicator: {
     $type: "color",
-    background: { $value: "{color.action.primary.base}" },
+    background: { $value: "{action.primary.base}" },
   },
   thumb: {
     background: { $value: "{color.background.base}" },
-    borderColor: { $value: "{color.action.primary.base}" },
+    borderColor: { $value: "{action.primary.base}" },
     radius: { $value: "{radius.pill}" },
     size: { $value: "{size.thumb.md}" },
   },

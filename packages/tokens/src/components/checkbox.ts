@@ -7,8 +7,8 @@ export const checkboxComponentTokens: ComponentTokenGroup = {
   borderColor: { $value: "{color.border.default}" },
   checked: {
     $type: "color",
-    background: { $value: "{color.action.primary.base}" },
-    borderColor: { $value: "{color.action.primary.base}" },
+    background: { $value: "{action.primary.base}" },
+    borderColor: { $value: "{action.primary.base}" },
     foreground: { $value: "{color.text.inverse}" },
   },
   radius: { $value: "{radius.selection}" },

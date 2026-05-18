@@ -71,6 +71,8 @@ const getTailwindBaseTheme = (input: StyleTokenInput): ThemeTokenInput => {
 }
 
 const createTokensCss = (input: StyleTokenInput): string => {
+  console.log("brand tree", input.foundationTokens.brand)
+
   const entries = [
     ...createCssVariableEntries(
       input.foundationTokens,
@@ -216,6 +218,12 @@ const createTokenJsonFiles = (
       input.primitiveTokens,
       input,
       ["primitives"],
+    ),
+    ...createTokenDocumentsFromGroups(
+      "tokens/dtcg/brand",
+      input.brandTokens,
+      input,
+      ["brand"],
     ),
     ...createTokenDocumentsFromGroups(
       "tokens/dtcg/semantics",

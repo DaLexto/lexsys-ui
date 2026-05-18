@@ -5,7 +5,7 @@ export const switchComponentTokens: ComponentTokenGroup = {
   background: { $value: "{color.background.subtle}" },
   checked: {
     $type: "color",
-    background: { $value: "{color.action.primary.base}" },
+    background: { $value: "{action.primary.base}" },
   },
   radius: { $value: "{radius.pill}" },
   padding: { $value: "{spacing.1}" },

@@ -61,7 +61,7 @@ export const menuComponentTokens: ComponentTokenGroup = {
     },
     checked: {
       $type: "color",
-      background: { $value: "{color.action.primary.base}" },
+      background: { $value: "{action.primary.base}" },
       foreground: { $value: "{color.text.inverse}" },
     },
     indicator: {

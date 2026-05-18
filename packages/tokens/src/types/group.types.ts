@@ -2,7 +2,7 @@
  * group.types.ts
  *
  * @layer types
- * @description Token group contracts for primitive, semantic, and component tokens.
+ * @description Token group contracts for primitive, brand, semantic, and component tokens.
  */
 
 import type { TokenTree } from "./token.types.js"
@@ -33,4 +33,14 @@ export interface SemanticTokenGroup extends TokenTree {
  */
 export interface ComponentTokenGroup extends TokenTree {
   component: string
+}
+
+/**
+ * Brand token group.
+ *
+ * Brand groups map primitive values to brand-level palette decisions.
+ * They must not contain product usage or component-specific intent.
+ */
+export interface BrandTokenGroup extends TokenTree {
+  name: string
 }

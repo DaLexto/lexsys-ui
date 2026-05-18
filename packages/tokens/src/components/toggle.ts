@@ -8,9 +8,9 @@ export const toggleComponentTokens: ComponentTokenGroup = {
   hoverBackground: { $value: "{color.background.subtle}" },
   pressed: {
     $type: "color",
-    background: { $value: "{color.action.primary.base}" },
+    background: { $value: "{action.primary.base}" },
     foreground: { $value: "{color.text.inverse}" },
-    borderColor: { $value: "{color.action.primary.base}" },
+    borderColor: { $value: "{action.primary.base}" },
   },
   radius: { $value: "{radius.control}" },
   height: {

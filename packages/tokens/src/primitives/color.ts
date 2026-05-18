@@ -42,13 +42,13 @@ const oklch = (
 
 export const colorPrimitives: PrimitiveTokenGroup = {
   name: "color",
+  $type: "color",
   $description: "Raw color palette. Never use directly in components.",
 
   white: { $value: oklch(1, 0, 0, 1, "#ffffff") },
   black: { $value: oklch(0, 0, 0, 1, "#000000") },
 
   neutral: {
-    $type: "color",
     $description: "Neutral gray scale for backgrounds, text, and borders.",
     50: { $value: oklch(0.925, 0.0, 0.0) },
     100: { $value: oklch(0.855, 0.0, 0.0) },
@@ -64,7 +64,6 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   red: {
-    $type: "color",
     $description:
       "Red primitive palette for destructive, danger, and critical mappings.",
     50: { $value: oklch(0.836, 0.083, 28.091) },
@@ -81,7 +80,6 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   orange: {
-    $type: "color",
     $description:
       "Orange primitive palette for warm accent and warning mappings.",
     50: { $value: oklch(0.969, 0.014, 39.42) },
@@ -98,7 +96,6 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   yellow: {
-    $type: "color",
     $description:
       "Yellow primitive palette for caution, highlight, and warning mappings.",
     50: { $value: oklch(0.987, 0.026, 92) },
@@ -115,7 +112,6 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   green: {
-    $type: "color",
     $description:
       "Green primitive palette for success, positive, and confirmation mappings.",
     50: { $value: oklch(0.936, 0.063, 154.09) },
@@ -132,7 +128,6 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   blue: {
-    $type: "color",
     $description:
       "Blue primitive palette for brand, primary action, and information mappings.",
     50: { $value: oklch(0.924, 0.098, 274.036) },
@@ -149,7 +144,6 @@ export const colorPrimitives: PrimitiveTokenGroup = {
   },
 
   purple: {
-    $type: "color",
     $description:
       "Purple primitive palette for expressive accent and brand extension mappings.",
     50: { $value: oklch(0.977, 0.014, 308.299) },

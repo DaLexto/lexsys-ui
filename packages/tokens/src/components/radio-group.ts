@@ -5,9 +5,9 @@ export const radioGroupComponentTokens: ComponentTokenGroup = {
   gap: { $value: "{spacing.control.gap.md}" },
   item: {
     background: { $value: "{color.background.base}" },
-    foreground: { $value: "{color.action.primary.base}" },
+    foreground: { $value: "{action.primary.base}" },
     borderColor: { $value: "{color.border.default}" },
-    checkedBorderColor: { $value: "{color.action.primary.base}" },
+    checkedBorderColor: { $value: "{action.primary.base}" },
     radius: { $value: "{radius.pill}" },
     size: {
       $type: "dimension",

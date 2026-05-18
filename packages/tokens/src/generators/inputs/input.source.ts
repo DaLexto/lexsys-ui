@@ -1,5 +1,6 @@
 import { componentTokens as componentTokenGroups } from "../../components"
 import { primitiveTokens } from "../../primitives"
+import {brandTokens as brandTokenGroups } from "../../brand"
 import { defaultPresetId, presets } from "../../presets"
 import { resolveTokenTree } from "../../resolver"
 import { semanticTokens as semanticTokenGroups } from "../../semantics"
@@ -9,6 +10,7 @@ import type {
   PresetDefinition,
   PresetId,
   PrimitiveTokenGroup,
+  BrandTokenGroup,
   SemanticTokenGroup,
   ThemeDefinition,
   ThemeModeId,
@@ -18,6 +20,7 @@ import { isTokenBranch } from "../shared"
 
 type TokenSourceGroup =
   | PrimitiveTokenGroup
+  | BrandTokenGroup
   | SemanticTokenGroup
   | ComponentTokenGroup
   | ThemeDefinition
@@ -90,7 +93,7 @@ const createNamespacedTokenTree = (
 }
 
 const createTokenTreeFromNamedGroups = (
-  groups: Array<PrimitiveTokenGroup | SemanticTokenGroup>,
+  groups: Array<PrimitiveTokenGroup | BrandTokenGroup | SemanticTokenGroup>,
 ): TokenTree => {
   const trees = groups.map((group) => {
     return createNamespacedTokenTree(group.name, getTokenTree(group))
@@ -173,7 +176,7 @@ export const createStyleTokenInput = (
 ): StyleTokenInput => {
   const preset = resolvePreset(options.presetId ?? defaultPresetId)
   const primitiveTokenTree = createTokenTreeFromNamedGroups(primitiveTokens)
-  const brandTokens: TokenTree = {}
+  const brandTokens = createTokenTreeFromNamedGroups(brandTokenGroups)
   const semanticTokens = createTokenTreeFromNamedGroups(semanticTokenGroups)
   const foundationTokens = mergeTokenTrees(
     primitiveTokenTree,

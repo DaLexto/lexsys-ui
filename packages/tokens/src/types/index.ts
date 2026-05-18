@@ -21,6 +21,7 @@ export type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,
   SemanticTokenGroup,
+  BrandTokenGroup,
 } from "./group.types"
 
 export type {

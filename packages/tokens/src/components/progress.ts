@@ -22,7 +22,7 @@ export const progressComponentTokens: ComponentTokenGroup = {
   },
   indicator: {
     $type: "color",
-    background: { $value: "{color.action.primary.base}" },
+    background: { $value: "{action.primary.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.surface}" },

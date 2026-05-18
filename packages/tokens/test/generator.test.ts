@@ -312,7 +312,7 @@ describe("createStyleOutputs", () => {
     expect(json.primitives?.color?.$description).toBe(
       "Raw color palette. Never use directly in components.",
     )
-    expect(json.primitives?.color?.$type).toBeUndefined()
+    expect(json.primitives?.color?.$type).toBe("color")
     expect(json.primitives?.color?.blue?.$description).toBe(
       "Blue primitive palette for brand, primary action, and information mappings.",
     )
@@ -368,7 +368,18 @@ describe("createStyleOutputs", () => {
       $type: "fontFamily",
       $value: "{typography.family.sans}",
     })
-    expect(json.brand).toEqual({})
+    expect(json.brand).toEqual({
+      brand: expect.objectContaining({
+        color: expect.objectContaining({
+          primary: expect.objectContaining({
+            base: { $value: "{color.orange.600}" },
+          }),
+          accent: expect.objectContaining({
+            base: { $value: "{color.blue.500}" },
+          }),
+        }),
+      }),
+    })
     expect(json.themes?.neurex).toBeDefined()
     expect(json.presets?.neurex).toBeDefined()
   })
@@ -468,7 +479,7 @@ describe("createStyleOutputs", () => {
     expect(fileNames).toContain("tokens/dtcg/themes/dark.tokens.json")
     expect(fileNames).not.toContain("tokens/primitives.tokens.json")
     expect(fileNames).not.toContain("tokens/themes/neurex.light.tokens.json")
-    expect(primitives.color?.$type).toBeUndefined()
+    expect(primitives.color?.$type).toBe("color")
     expect(primitives.color?.blue?.$type).toBe("color")
     expect(primitives.color?.blue?.["600"]?.$type).toBeUndefined()
     expect(primitivesContent.indexOf('"$type": "color"')).toBeLessThan(

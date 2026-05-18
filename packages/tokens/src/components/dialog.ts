@@ -37,11 +37,11 @@ export const dialogComponentTokens: ComponentTokenGroup = {
     },
   },
   trigger: {
-    background: { $value: "{color.action.primary.base}" },
+    background: { $value: "{action.primary.base}" },
     foreground: { $value: "{color.text.inverse}" },
     hover: {
       $type: "color",
-      background: { $value: "{color.action.primary.hover}" },
+      background: { $value: "{action.primary.hover}" },
     },
     height: { $value: "{size.control.md}" },
     radius: { $value: "{radius.control}" },

@@ -31,7 +31,6 @@ import type { FlattenedTokenEntry } from "./shared.types"
 export const DEFAULT_GENERATOR_METADATA_KEYS = new Set([
   "name",
   "component",
-  "brand",
   "selector",
   "colorScheme",
 ])

@@ -19,8 +19,8 @@ export const textareaComponentTokens: ComponentTokenGroup = {
   },
   invalid: {
     $type: "color",
-    borderColor: { $value: "{color.action.danger.base}" },
-    ringColor: { $value: "{color.action.danger.base}" },
+    borderColor: { $value: "{action.danger.base}" },
+    ringColor: { $value: "{action.danger.base}" },
   },
   radius: { $value: "{radius.control}" },
   minHeight: {

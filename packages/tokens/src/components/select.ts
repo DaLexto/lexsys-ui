@@ -84,7 +84,7 @@ export const selectComponentTokens: ComponentTokenGroup = {
     },
     selected: {
       $type: "color",
-      background: { $value: "{color.action.primary.base}" },
+      background: { $value: "{action.primary.base}" },
       foreground: { $value: "{color.text.inverse}" },
     },
     indicator: {
@@ -126,8 +126,8 @@ export const selectComponentTokens: ComponentTokenGroup = {
   },
   invalid: {
     $type: "color",
-    borderColor: { $value: "{color.action.danger.base}" },
-    ringColor: { $value: "{color.action.danger.base}" },
+    borderColor: { $value: "{action.danger.base}" },
+    ringColor: { $value: "{action.danger.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },

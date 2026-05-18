@@ -70,7 +70,7 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
   },
   invalid: {
     $type: "color",
-    ringColor: { $value: "{color.action.danger.base}" },
+    ringColor: { $value: "{action.danger.base}" },
   },
   scrub: {
     foreground: { $value: "{color.text.secondary}" },
@@ -79,7 +79,7 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
       weight: { $value: "{typography.label.sm.fontWeight}" },
     },
     cursor: {
-      background: { $value: "{color.action.primary.base}" },
+      background: { $value: "{action.primary.base}" },
       radius: { $value: "{radius.pill}" },
       size: { $value: "{size.selectionIndicator.md}" },
     },

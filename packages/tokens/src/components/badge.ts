@@ -38,14 +38,14 @@ export const badgeComponentTokens: ComponentTokenGroup = {
   },
   primary: {
     $type: "color",
-    background: { $value: "{color.action.primary.base}" },
+    background: { $value: "{action.primary.base}" },
     foreground: { $value: "{color.text.inverse}" },
-    borderColor: { $value: "{color.action.primary.base}" },
+    borderColor: { $value: "{action.primary.base}" },
   },
   destructive: {
     $type: "color",
-    background: { $value: "{color.action.danger.base}" },
+    background: { $value: "{action.danger.base}" },
     foreground: { $value: "{color.text.inverse}" },
-    borderColor: { $value: "{color.action.danger.base}" },
+    borderColor: { $value: "{action.danger.base}" },
   },
 }

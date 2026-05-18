@@ -37,11 +37,11 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
     },
   },
   trigger: {
-    background: { $value: "{color.action.danger.base}" },
+    background: { $value: "{action.danger.base}" },
     foreground: { $value: "{color.text.inverse}" },
     hover: {
       $type: "color",
-      background: { $value: "{color.action.danger.base}" },
+      background: { $value: "{action.danger.base}" },
     },
     height: { $value: "{size.control.md}" },
     radius: { $value: "{radius.control}" },

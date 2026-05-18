@@ -14,11 +14,11 @@ export const toastComponentTokens: ComponentTokenGroup = {
   borderColor: { $value: "{color.border.default}" },
   success: {
     $type: "color",
-    borderColor: { $value: "{color.action.primary.base}" },
+    borderColor: { $value: "{action.primary.base}" },
   },
   destructive: {
     $type: "color",
-    borderColor: { $value: "{color.action.danger.base}" },
+    borderColor: { $value: "{action.danger.base}" },
   },
   radius: { $value: "{radius.surface}" },
   padding: { $value: "{spacing.surface.md}" },

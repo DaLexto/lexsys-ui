@@ -31,13 +31,13 @@ export const alertComponentTokens: ComponentTokenGroup = {
   primary: {
     $type: "color",
     background: { $value: "{color.background.subtle}" },
-    foreground: { $value: "{color.action.primary.base}" },
-    borderColor: { $value: "{color.action.primary.base}" },
+    foreground: { $value: "{action.primary.base}" },
+    borderColor: { $value: "{action.primary.base}" },
   },
   destructive: {
     $type: "color",
     background: { $value: "{color.background.subtle}" },
-    foreground: { $value: "{color.action.danger.base}" },
-    borderColor: { $value: "{color.action.danger.base}" },
+    foreground: { $value: "{action.danger.base}" },
+    borderColor: { $value: "{action.danger.base}" },
   },
 }

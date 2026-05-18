@@ -8,7 +8,7 @@ export const fieldComponentTokens: ComponentTokenGroup = {
     foreground: { $value: "{color.text.primary}" },
     invalid: {
       $type: "color",
-      foreground: { $value: "{color.action.danger.base}" },
+      foreground: { $value: "{action.danger.base}" },
     },
     font: {
       size: { $value: "{typography.label.sm.fontSize}" },
@@ -27,7 +27,7 @@ export const fieldComponentTokens: ComponentTokenGroup = {
     },
   },
   error: {
-    foreground: { $value: "{color.action.danger.base}" },
+    foreground: { $value: "{action.danger.base}" },
     font: {
       size: { $value: "{typography.body.xs.fontSize}" },
       weight: { $value: "{typography.body.xs.fontWeight}" },
@@ -57,8 +57,8 @@ export const fieldComponentTokens: ComponentTokenGroup = {
     },
     invalid: {
       $type: "color",
-      borderColor: { $value: "{color.action.danger.base}" },
-      ringColor: { $value: "{color.action.danger.base}" },
+      borderColor: { $value: "{action.danger.base}" },
+      ringColor: { $value: "{action.danger.base}" },
     },
     radius: { $value: "{radius.control}" },
     height: {
