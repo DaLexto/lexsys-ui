@@ -5,7 +5,7 @@
  * @description Brand, preset, theme, and theme token map contracts.
  */
 
-import type { TokenTree } from "./token.types.js"
+import type { TokenTree } from "./token.types"
 
 export type PresetId = "neurex" | (string & {})
 export type BrandId = "neurex" | (string & {})

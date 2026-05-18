@@ -1,8 +1,8 @@
 import { mkdir, rm, writeFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import { createStyleOutputs } from "./generator.create.js"
-import { defaultStyleOutputConfig } from "./generator.config.js"
+import { createStyleOutputs } from "./generator.create"
+import { defaultStyleOutputConfig } from "./generator.config"
 
 const allowedArgs = new Set(["--package", "--registry"])
 

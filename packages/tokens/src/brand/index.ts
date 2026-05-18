@@ -5,7 +5,7 @@
  * @description Brand token exports.
  */
 
-import { neurexBrand } from "./neurex.brand.js"
+import { neurexBrand } from "./neurex.brand"
 
 export { neurexBrand }
 

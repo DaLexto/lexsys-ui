@@ -5,7 +5,7 @@
  * @description Token group contracts for primitive, brand, semantic, and component tokens.
  */
 
-import type { TokenTree } from "./token.types.js"
+import type { TokenTree } from "./token.types"
 
 /**
  * Primitive token group.
