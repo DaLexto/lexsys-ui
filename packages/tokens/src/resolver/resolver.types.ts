@@ -15,7 +15,7 @@
  * - Token leaves use the DTCG-style { $value } authoring shape.
  */
 
-import type { TokenTree, TokenValue } from "../types/index.js"
+import type { TokenTree, TokenValue } from "../types"
 
 /* -------------------------------------------------------------------------------------------------
  * Options

@@ -1,19 +1,19 @@
 import { describe, expect, test } from "vitest"
-import { componentTokens } from "../src/components/index.js"
+import { componentTokens } from "../src/components"
 import {
   createStyleOutputs,
   createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
-} from "../src/generators/create-style-outputs.js"
+} from "../src/generators/generator.create.js"
 import {
   createDtcgTokenInputFromJson,
   createStyleTokenInput,
-} from "../src/generators/input/index.js"
+} from "../src/generators/input"
 import { colorPrimitives } from "../src/primitives/color.js"
-import { primitiveTokens } from "../src/primitives/index.js"
-import { semanticTokens } from "../src/semantics/index.js"
-import { neurexPreset, defaultPresetId, presets } from "../src/presets/index.js"
-import { themes } from "../src/themes/index.js"
+import { primitiveTokens } from "../src/primitives"
+import { semanticTokens } from "../src/semantics"
+import { neurexPreset, defaultPresetId, presets } from "../src/presets"
+import { themes } from "../src/themes"
 
 const getOklchLightness = (value: unknown): number => {
   if (

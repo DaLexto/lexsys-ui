@@ -1,4 +1,4 @@
-import type { SemanticTokenGroup } from "../types/index.js"
+import type { SemanticTokenGroup } from "../types"
 
 export const spacingSemantics: SemanticTokenGroup = {
   name: "spacing",

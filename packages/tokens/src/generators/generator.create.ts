@@ -1,5 +1,4 @@
-import type { StyleOutputs } from "../types"
-import type { TokenTree } from "../types/index.js"
+import type { TokenBuildArtifacts, TokenTree } from "../types"
 import {
   createDtcgThemeTokenInputFromJson,
   createDtcgTokenInputFromJson,
@@ -16,7 +15,7 @@ import {
   type CssVarsGeneratorOptions,
   generateJsonTokens,
 } from "./outputs"
-import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared/index.js"
+import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared"
 import { defaultStyleOutputConfig } from "./generator.config.js"
 
 const styleOutputConfig = defaultStyleOutputConfig
@@ -310,7 +309,7 @@ const createThemeCss = (input: StyleTokenInput): string => {
 
 export const createStyleOutputs = (
   options: StyleTokenInputOptions = {},
-): StyleOutputs => {
+): TokenBuildArtifacts => {
   const input = createStyleTokenInput(options)
 
   validateStyleTokenInput(input)

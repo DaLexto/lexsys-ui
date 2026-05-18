@@ -14,7 +14,7 @@
  * - Format-specific generators may ignore fields they do not need.
  */
 
-import type { TokenType, TokenValue } from "../../types/index.js"
+import type { TokenType, TokenValue } from "../../types"
 
 /**
  * Raw flattened token entry before format-specific serialization.

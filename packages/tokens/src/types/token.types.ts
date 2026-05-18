@@ -2,38 +2,69 @@
  * token.types.ts
  *
  * @layer types
- * @description Core token tree authoring contracts.
+ * @description Core DTCG-shaped token authoring contracts.
+ *
+ * @responsibility
+ * - Define the next token leaf shape based on $value metadata
+ * - Define scalar and structured token values
+ * - Define DTCG-style metadata shared by leaves and branches
+ * - Keep output-specific flattened generator types out of the core authoring model
+ *
  * @standard Design Tokens Community Group Format
- * @see https://design-tokens.github.io/community-group/format/
+ * @see https://www.designtokens.org/tr/2025.10/format/
+ *
+ * @notes
+ * - This file defines the next token authoring model.
+ * - Existing legacy { value } token types still live in index.ts during migration.
+ * - Do not add CSS-generator-specific flattened output types here.
+ * - Runtime validators must enforce stricter tree rules than TypeScript can express.
  */
 
+/* -------------------------------------------------------------------------------------------------
+ * Token references
+ * ------------------------------------------------------------------------------------------------- */
+
 /**
- * Scalar token type names supported by the Neurex DTCG-shaped token model.
+ * Token reference string using DTCG alias syntax.
+ *
+ * Examples:
+ * - "{color.purple.600}"
+ * - "{brand.color.accent}"
+ * - "{color.action.primary.base}"
+ *
+ * Notes:
+ * - This type is useful for naming and helper/type-guard APIs.
+ * - Because TokenScalarValue still includes string, TypeScript cannot fully
+ *   distinguish references from normal strings at authoring time.
+ * - Reference validity must be checked by resolver/validator logic.
+ */
+export type TokenReference = `{${string}}`
+
+/* -------------------------------------------------------------------------------------------------
+ * Token type names
+ * ------------------------------------------------------------------------------------------------- */
+
+/**
+ * Standard scalar token type names supported by the Neurex DTCG-shaped token model.
  *
  * Scalar tokens represent individual values that can usually be emitted as a
- * single CSS custom property.
+ * single CSS custom property after output-specific serialization.
  */
-export type ScalarTokenType =
-  /** Color values in any valid CSS-compatible format. */
+export type StandardScalarTokenType =
+  /** Color values serialized from structured color values or compatible strings. */
   | "color"
   /** Length, distance, or size values such as px, rem, em, or %. */
   | "dimension"
   /** Unitless numerical values such as opacity, scale, or line-height. */
   | "number"
-  /** Time values for motion such as 150ms or 0.2s. */
+  /** Time values for motion such as ms or s. */
   | "duration"
-  /** Easing curve values, currently authored as CSS-compatible strings. */
+  /** Easing curve values, usually authored as cubic bezier values. */
   | "cubicBezier"
-  /** Typeface names or CSS font stacks, currently authored as strings. */
+  /** Typeface names or CSS font stacks. */
   | "fontFamily"
-  /** Font weight values such as 400, 500, 700, or supported keywords. */
+  /** Font weight values such as 400, 500, or 700. */
   | "fontWeight"
-  /** Font size values, typically emitted as dimensions. */
-  | "fontSize"
-  /** Vertical spacing between lines, usually unitless in Neurex. */
-  | "lineHeight"
-  /** Horizontal spacing between characters such as 0em or -0.01em. */
-  | "letterSpacing"
   /** Stroke pattern styles such as solid, dashed, or dotted. */
   | "strokeStyle"
   /** External resource references such as icons, images, or font files. */
@@ -42,10 +73,30 @@ export type ScalarTokenType =
   | "string"
 
 /**
+ * Neurex authoring aliases for typography-related scalar values.
+ *
+ * These aliases are useful in source files and generators, but interchange
+ * outputs may serialize them as standard dimension or number values where
+ * required.
+ */
+export type NeurexScalarTokenType =
+  /** Font size values, typically emitted as dimensions. */
+  | "fontSize"
+  /** Vertical spacing between lines, usually unitless in Neurex. */
+  | "lineHeight"
+  /** Horizontal spacing between characters such as 0em or -0.01em. */
+  | "letterSpacing"
+
+/**
+ * Scalar token type names supported by Neurex.
+ */
+export type ScalarTokenType = StandardScalarTokenType | NeurexScalarTokenType
+
+/**
  * Composite token type names reserved for structured object values.
  *
- * These types are part of the long-term DTCG-shaped model, but require
- * generator-specific support before they can be used by the CSS pipeline.
+ * These types are part of the long-term token model, but require
+ * generator-specific support before they can be used by every output pipeline.
  */
 export type CompositeTokenType =
   /** Composite text style containing font family, size, weight, line-height, etc. */
@@ -66,17 +117,23 @@ export type CompositeTokenType =
  */
 export type TokenType = ScalarTokenType | CompositeTokenType
 
-/**
- * Scalar values that can be emitted directly or used as token references.
- */
-export type TokenPrimitive = string | number
+/* -------------------------------------------------------------------------------------------------
+ * Token values
+ * ------------------------------------------------------------------------------------------------- */
 
 /**
- * Platform-neutral DTCG dimension or duration value.
+ * Scalar values supported by Neurex token leaves.
  *
- * CSS output serializes this shape back to strings such as `16px` or `150ms`.
- * Other platform outputs can map the numeric value and unit to their native
- * representation without parsing CSS strings first.
+ * Neurex intentionally excludes boolean and null token values from the next
+ * token authoring model.
+ */
+export type TokenScalarValue = string | number
+
+/**
+ * Platform-neutral dimension, duration, or unit-based token value.
+ *
+ * CSS output can serialize this shape back to strings such as "16px", "1rem",
+ * "150ms", or "0.2s".
  */
 export interface TokenUnitValue {
   value: number
@@ -84,25 +141,35 @@ export interface TokenUnitValue {
 }
 
 /**
- * Platform-neutral DTCG color value.
+ * Platform-neutral color token value.
  *
- * `hex` is an optional fallback for tools that cannot consume the chosen color
- * space directly. The canonical value remains `colorSpace` plus components.
+ * `hex` is an optional fallback for tools that cannot consume the selected
+ * color space directly. The canonical value remains `colorSpace` plus
+ * `components`.
  */
 export interface TokenColorValue {
-  colorSpace: string
+  colorSpace: "oklch" | "srgb" | "display-p3"
   components: readonly number[]
   alpha?: number
   hex?: string
 }
 
 /**
- * Token values supported by the Neurex DTCG-shaped token model.
+ * Structured token values supported by the Neurex token model.
+ */
+export type TokenStructuredValue = TokenUnitValue | TokenColorValue
+
+/**
+ * Token values supported by the Neurex DTCG-shaped authoring model.
  *
  * Composite DTCG values such as shadow, border, transition, and typography can
- * be added when their generators are implemented.
+ * be added when their generators and validators are implemented.
  */
-export type TokenValue = TokenPrimitive | TokenUnitValue | TokenColorValue
+export type TokenValue = TokenScalarValue | TokenStructuredValue
+
+/* -------------------------------------------------------------------------------------------------
+ * Token metadata
+ * ------------------------------------------------------------------------------------------------- */
 
 /**
  * Shared metadata fields allowed on token leaves and token branches.
@@ -119,36 +186,41 @@ export interface TokenMetadata {
   $type?: TokenType
 }
 
+/* -------------------------------------------------------------------------------------------------
+ * Token tree
+ * ------------------------------------------------------------------------------------------------- */
+
 /**
- * Token leaf shape used by the authoring tree.
+ * Token leaf shape used by the next authoring tree.
  *
  * The `$`-prefixed keys follow the Design Tokens Community Group format.
  */
-export interface TokenLeaf extends TokenMetadata {
-  $value: TokenValue
+export interface TokenLeaf<TValue extends TokenValue = TokenValue>
+  extends TokenMetadata {
+  $value: TValue
 }
 
 /**
- * Token nodes are either token leaves or nested token branches.
- */
-export type TokenNode = TokenLeaf | TokenTree
-
-/**
- * Recursive token tree used across primitives, brand, semantics, themes, and
- * component token groups.
+ * Recursive token tree used by the next DTCG-shaped token model.
  *
  * Token branches may contain DTCG-style metadata without being treated as token
  * leaves during traversal or reference resolution.
+ *
+ * TypeScript cannot cleanly express:
+ * "metadata keys may have metadata values, but all other keys must be token
+ * leaves or token branches."
+ *
+ * Because of that, this index signature intentionally allows metadata values.
+ * Runtime validators must reject invalid non-metadata scalar branches.
  */
 export interface TokenTree extends TokenMetadata {
-  [key: string]: TokenNode | string | boolean | undefined
+  [key: string]:
+    | TokenLeaf
+    | TokenTree
+    | TokenMetadata[keyof TokenMetadata]
 }
 
 /**
- * Flat token representation consumed by CSS-oriented generators.
+ * Any node in the next DTCG-shaped token tree.
  */
-export interface TokenEntry {
-  name: string
-  value: string
-  type?: TokenType
-}
+export type TokenNode = TokenLeaf | TokenTree

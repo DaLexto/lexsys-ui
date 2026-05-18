@@ -1,4 +1,4 @@
-import type { ComponentTokenGroup } from "../types/index.js"
+import type { ComponentTokenGroup } from "../types"
 import { accordionComponentTokens } from "./accordion.js"
 import { alertDialogComponentTokens } from "./alert-dialog.js"
 import { alertComponentTokens } from "./alert.js"

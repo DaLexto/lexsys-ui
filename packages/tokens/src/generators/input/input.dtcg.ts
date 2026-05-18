@@ -3,8 +3,8 @@ import type {
   BrandId,
   ThemeDefinition,
   ThemeModeId,
-} from "../../types/index.js"
-import { isTokenValue } from "../shared/index.js"
+} from "../../types"
+import { isTokenValue } from "../shared"
 import {
   DTCG_NEUREX_EXTENSION_KEY,
   type DtcgNeurexMetadata,

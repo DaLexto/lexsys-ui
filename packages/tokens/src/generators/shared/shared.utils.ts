@@ -17,13 +17,13 @@
 
 import type {
   TokenLeaf,
-  TokenPrimitive,
+  TokenScalarValue,
   TokenTree,
   TokenValue,
-} from "../../types/index.js"
-import type { TokenType } from "../../types/index.js"
+  TokenType,
+} from "../../types"
 
-import type { FlattenedTokenEntry } from "./shared.types.js"
+import type { FlattenedTokenEntry } from "./shared.types"
 
 /**
  * Default metadata keys ignored when traversing token groups.
@@ -101,7 +101,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
 /**
  * Returns true when the value can be stored as a token scalar.
  */
-export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
+export const isTokenScalarValue = (value: unknown): value is TokenScalarValue => {
   return typeof value === "string" || typeof value === "number"
 }
 
@@ -129,7 +129,7 @@ const isTokenColorValue = (value: unknown): boolean => {
  */
 export const isTokenValue = (value: unknown): value is TokenValue => {
   return (
-    isTokenPrimitive(value) ||
+    isTokenScalarValue(value) ||
     isTokenUnitValue(value) ||
     isTokenColorValue(value)
   )

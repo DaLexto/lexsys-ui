@@ -19,13 +19,13 @@ import type {
   TokenColorValue,
   TokenUnitValue,
   TokenValue,
-} from "../../../types/index.js"
+} from "../../../types"
 
 import {
   DEFAULT_GENERATOR_METADATA_KEYS,
   toTokenName,
   type FlattenedTokenEntry,
-} from "../../shared/index.js"
+} from "../../shared"
 
 import type {
   CssVarsGeneratorOptions,

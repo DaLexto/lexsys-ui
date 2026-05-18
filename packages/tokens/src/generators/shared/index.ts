@@ -10,7 +10,7 @@ export {
   flattenTokenTree,
   isTokenBranch,
   isTokenLeaf,
-  isTokenPrimitive,
+  isTokenScalarValue,
   isTokenValue,
   normalizeTokenName,
   toKebabSegment,

@@ -21,7 +21,7 @@
  * - Semantic tokens should assign meaning to these raw layers before components consume them
  */
 
-import type { PrimitiveTokenGroup } from "../types/index.js"
+import type { PrimitiveTokenGroup } from "../types"
 
 export const zIndexPrimitives: PrimitiveTokenGroup = {
   name: "z-index",

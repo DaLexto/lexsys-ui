@@ -21,7 +21,7 @@
  * - Aspect ratio tokens use the DTCG `number` type
  */
 
-import type { PrimitiveTokenGroup } from "../types/index.js"
+import type { PrimitiveTokenGroup } from "../types"
 
 export const aspectRatioPrimitives: PrimitiveTokenGroup = {
   name: "aspect-ratio",

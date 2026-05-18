@@ -21,7 +21,7 @@
  * - Values are unitless numbers from 0 to 1
  */
 
-import type { PrimitiveTokenGroup } from "../types/index.js"
+import type { PrimitiveTokenGroup } from "../types"
 
 export const opacityPrimitives: PrimitiveTokenGroup = {
   name: "opacity",

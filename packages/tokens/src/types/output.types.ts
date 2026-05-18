@@ -5,7 +5,7 @@
  * @description Generated style output contracts.
  */
 
-export interface StyleOutputs {
+export interface TokenBuildArtifacts {
   tokensCss: string
   themeCss: string
   tokensJson: string

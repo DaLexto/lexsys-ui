@@ -1,4 +1,4 @@
-import type { PresetDefinition } from "../types/index.js"
+import type { PresetDefinition } from "../types"
 
 export const neurexPreset: PresetDefinition = {
   id: "neurex",

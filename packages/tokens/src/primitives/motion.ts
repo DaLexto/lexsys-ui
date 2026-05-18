@@ -21,7 +21,7 @@
  * - Easing tokens use the DTCG `cubicBezier` type
  */
 
-import type { PrimitiveTokenGroup } from "../types/index.js"
+import type { PrimitiveTokenGroup } from "../types"
 
 export const motionPrimitives: PrimitiveTokenGroup = {
   name: "motion",

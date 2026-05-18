@@ -20,7 +20,7 @@
  * - Breakpoint tokens use the DTCG `dimension` type
  */
 
-import type { PrimitiveTokenGroup } from "../types/index.js"
+import type { PrimitiveTokenGroup } from "../types"
 
 export const breakpointPrimitives: PrimitiveTokenGroup = {
   name: "breakpoint",

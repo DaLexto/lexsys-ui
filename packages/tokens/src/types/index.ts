@@ -6,23 +6,22 @@
  */
 
 export type {
-  TokenEntry,
   TokenMetadata,
   TokenLeaf,
   TokenNode,
+  TokenScalarValue,
   TokenColorValue,
-  TokenPrimitive,
   TokenType,
   TokenTree,
   TokenUnitValue,
   TokenValue,
-} from "./token.types.js"
+} from "./token.types"
 
 export type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,
   SemanticTokenGroup,
-} from "./group.types.js"
+} from "./group.types"
 
 export type {
   BrandId,
@@ -31,6 +30,6 @@ export type {
   ThemeDefinition,
   ThemeModeId,
   ThemeTokenMap,
-} from "./theme.types.js"
+} from "./theme.types"
 
-export type { StyleOutputs } from "./output.types.js"
+export type { TokenBuildArtifacts } from "./output.types"

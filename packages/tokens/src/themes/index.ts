@@ -1,4 +1,4 @@
-import type { ThemeDefinition } from "../types/index.js"
+import type { ThemeDefinition } from "../types"
 import { neurexDarkTheme } from "./neurex/dark.js"
 import { neurexLightTheme } from "./neurex/light.js"
 

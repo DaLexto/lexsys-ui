@@ -21,7 +21,7 @@
  * - Structured DTCG shadow objects can replace these strings when composite shadow generation is implemented
  */
 
-import type { PrimitiveTokenGroup } from "../types/index.js"
+import type { PrimitiveTokenGroup } from "../types"
 
 export const shadowPrimitives: PrimitiveTokenGroup = {
   name: "shadow",

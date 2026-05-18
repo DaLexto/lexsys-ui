@@ -1,4 +1,4 @@
-import type { ComponentTokenGroup } from "../types/index.js"
+import type { ComponentTokenGroup } from "../types"
 
 export const drawerComponentTokens: ComponentTokenGroup = {
   component: "drawer",
