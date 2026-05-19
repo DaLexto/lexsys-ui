@@ -205,7 +205,9 @@ Guidelines:
 - themes override semantic values per mode
 - themes are not a fifth token layer
 - presets are configuration, not token layers
-- components must never reference primitives directly
+- components should reference semantic tokens; raw `size.*` and `spacing.*`
+  component references are a temporary exception only while semantic roles are
+  missing
 
 Brand-specific semantic values should reference brand tokens. Non-brand semantic
 values, such as neutral, feedback, or foundation values, may reference primitive

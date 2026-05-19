@@ -26,7 +26,7 @@ Rules for using this TODO:
 - [ ] Document the current brand layer as canonical.
 - [x] Restore accurate DTCG generated output documentation.
 - [x] Fix stale `REVIEW_TODO.md` token migration history.
-- [ ] Decide how strict component-token layer rules should be before documenting them as build-failing.
+- [x] Decide how strict component-token layer rules should be before documenting them as build-failing.
 - [ ] Update examples to use real generated CSS variable names.
 
 ---
@@ -352,8 +352,8 @@ Confidence: High
 
 ### TODO: Rewrite Component Token Semantic-Only Rule
 
-- [ ] Update `docs/TOKENS.md`.
-- [ ] Update `docs/STYLEGUIDE.md`.
+- [x] Update `docs/TOKENS.md`.
+- [x] Update `docs/STYLEGUIDE.md`.
 
 Category: `REWRITE_PARTIALLY_TRUE`
 
@@ -490,9 +490,9 @@ Confidence: High
 
 ### TODO: Decide Component Token Layer Strictness
 
-- [ ] Decide whether component tokens may temporarily reference primitive `size` / `spacing`.
+- [x] Decide whether component tokens may temporarily reference primitive `size` / `spacing`.
 - [ ] If no, plan code migration to semantic `size` / `spacing` coverage.
-- [ ] If yes, document the exception clearly.
+- [x] If yes, document the exception clearly.
 
 Category: `NEEDS_HUMAN_DECISION`
 
@@ -591,7 +591,7 @@ Confidence: High
 - [x] 4. Fix stale `docs/REVIEW_TODO.md` migration status.
 - [x] 5. Rewrite semantic organization docs around current `color`, `action`, and `border` split.
 - [x] 6. Rewrite enforcement claims as target rules until validators exist.
-- [ ] 7. Decide component-token primitive-reference policy.
+- [x] 7. Decide component-token primitive-reference policy.
 - [ ] 8. Replace stale CSS variable examples with generated current names.
 - [ ] 9. Restore folder-context naming guidance in `docs/STYLE.md`.
 - [ ] 10. Run formatting checks for changed docs.

@@ -103,8 +103,9 @@ Important package-level rules:
 - use DTCG-compatible `$value` authoring
 - do not use legacy `value` leaves
 - primitives must not reference other tokens
-- components must reference semantic tokens only
-- components must never reference primitives directly
+- components should reference semantic tokens
+- raw `size.*` and `spacing.*` component references are a temporary exception
+  only while semantic roles are missing
 - components must never reference brand tokens directly
 - components must never reference theme tokens directly
 - themes override semantics per mode

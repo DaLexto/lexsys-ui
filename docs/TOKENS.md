@@ -77,8 +77,12 @@ primitives -> brand -> semantics -> components
 
 #### Components
 
-- Reference semantic tokens only.
-- Never reference primitive tokens directly.
+- Target rule: reference semantic tokens only.
+- Never reference primitive color, brand, or theme tokens directly.
+- Temporary exception: component tokens may reference raw `size.*` or
+  `spacing.*` scale tokens only when no semantic `size` or `spacing` role exists
+  yet. Do not add new raw scale references when a semantic role can be named
+  first.
 - Never reference brand tokens directly.
 - Never reference theme tokens directly.
 - Scoped to one component.
