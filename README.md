@@ -137,7 +137,7 @@ exact public preset-selection API remains internal and evolving.
 
 Runtime package responsibilities:
 
-- `packages/tokens` owns token source and generated CSS outputs.
+- `packages/tokens` owns token source, generated CSS outputs, and internal DTCG JSON artifacts.
 - `packages/ui` owns source/reference components.
 - `packages/registry` owns installable templates and metadata.
 - `packages/cli` installs registry items into user projects.

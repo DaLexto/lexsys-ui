@@ -212,7 +212,21 @@ values, such as neutral, feedback, or foundation values, may reference primitive
 tokens directly.
 
 Generated CSS belongs to the token pipeline, not to handwritten component
-styles.
+styles. The token package also generates W3C/DTCG JSON artifacts for
+package/tooling workflows:
+
+```txt
+dist/tokens/dtcg/tokens.tokens.json
+dist/tokens/dtcg/primitives/*.tokens.json
+dist/tokens/dtcg/brand/*.tokens.json
+dist/tokens/dtcg/semantics/*.tokens.json
+dist/tokens/dtcg/components/*.tokens.json
+dist/tokens/dtcg/themes/*.tokens.json
+```
+
+Registry and CLI install flows consume `tokens.css` and `theme.css` today. Do
+not document the DTCG JSON files as a public package export until the package
+export contract is finalized.
 
 The preferred dependency flow is:
 

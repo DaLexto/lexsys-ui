@@ -162,6 +162,7 @@ Initial outputs should include:
 
 - CSS custom properties
 - Tailwind `@theme` mappings
+- W3C/DTCG Design Tokens JSON artifacts for package/tooling workflows
 
 Current install output paths are:
 
@@ -169,6 +170,23 @@ Current install output paths are:
 styles/tokens.css
 styles/theme.css
 ```
+
+Current package build output paths are:
+
+```txt
+dist/tokens.css
+dist/theme.css
+dist/tokens/dtcg/tokens.tokens.json
+dist/tokens/dtcg/primitives/*.tokens.json
+dist/tokens/dtcg/brand/*.tokens.json
+dist/tokens/dtcg/semantics/*.tokens.json
+dist/tokens/dtcg/components/*.tokens.json
+dist/tokens/dtcg/themes/*.tokens.json
+```
+
+The CSS files are the current public style exports. The DTCG files are generated
+package artifacts for inspection, validation, design-tool exchange, and future
+tooling; a public JSON package export contract is still deferred.
 
 Future outputs may include:
 
