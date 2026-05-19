@@ -65,16 +65,20 @@ They may control:
 - component token defaults
 - color personality through theme-mode mappings
 
-The first official preset is:
+The current implementation has two names for the first style:
 
 ```txt
-id: default
+CLI/config style alias: default
+token package preset id: neurex
 name: Neurex Default
+brand: neurex
 ```
 
 Future examples may include `space-indigo`, `graphite`, or other named
 presets. Those names are not active contracts until implemented. Today,
-`default` is the only implemented style preset.
+`default` is the only public CLI style alias, and it resolves to the current
+token package preset id `neurex`. The exact public preset-selection API remains
+internal and evolving.
 
 Style presets are not theme modes.
 
@@ -272,7 +276,7 @@ generated outputs as installable artifacts
 
 Stable/current:
 
-- `default` / `Neurex Default` style preset
+- `default` CLI style alias resolving to the `neurex` / `Neurex Default` token preset
 - light and dark theme mode output
 - CSS custom property output under `styles/`
 - Tailwind v4 consumer styling model
@@ -291,6 +295,6 @@ Internal/evolving:
 Planned but not active contract:
 
 - additional framework starters
-- style presets beyond `default`
+- CLI style aliases or token presets beyond `default` / `neurex`
 - visual Creator UI
 - marketplace or remote preset delivery

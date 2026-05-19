@@ -22,7 +22,7 @@ Rules for using this TODO:
 ## Summary
 
 - [x] Align docs with current package identity: `@neurex/tokens`.
-- [ ] Restore the distinction between CLI style alias `default` and token preset id `neurex`.
+- [x] Restore the distinction between CLI style alias `default` and token preset id `neurex`.
 - [ ] Document the current brand layer as canonical.
 - [ ] Restore accurate DTCG generated output documentation.
 - [ ] Fix stale `REVIEW_TODO.md` token migration history.
@@ -35,10 +35,10 @@ Rules for using this TODO:
 
 ### TODO: Restore CLI Alias vs Token Preset ID Wording
 
-- [ ] Update `README.md`.
-- [ ] Update `docs/DESIGN_SYSTEM.md`.
-- [ ] Update `docs/ARCHITECTURE.md`.
-- [ ] Update `docs/CLI.md` if needed.
+- [x] Update `README.md`.
+- [x] Update `docs/DESIGN_SYSTEM.md`.
+- [x] Update `docs/ARCHITECTURE.md`.
+- [x] Update `docs/CLI.md` if needed.
 
 Category: `IMPORT_FROM_REFACTOR_TOKENS`
 
@@ -586,7 +586,7 @@ Confidence: High
 ## Recommended Work Order
 
 - [x] 1. Fix package identity in `packages/tokens/README.md`.
-- [ ] 2. Restore `default` alias vs `neurex` preset wording across public docs.
+- [x] 2. Restore `default` alias vs `neurex` preset wording across public docs.
 - [ ] 3. Restore accurate DTCG output documentation.
 - [ ] 4. Fix stale `docs/REVIEW_TODO.md` migration status.
 - [ ] 5. Rewrite semantic organization docs around current `color`, `action`, and `border` split.

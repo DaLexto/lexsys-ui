@@ -65,7 +65,8 @@ neurex.config.json
 ```
 
 The generated config tracks paths, aliases, Tailwind v4 entrypoint, selected
-style preset, installed component versions, and an optional remote registry URL:
+CLI style alias, installed component versions, and an optional remote registry
+URL:
 
 ```json
 {
@@ -126,9 +127,13 @@ The locked design-system flow is:
 TOKENS -> STYLE PRESETS -> THEME MODES -> OUTPUTS -> COMPONENTS -> REGISTRY -> DELIVERY -> USER
 ```
 
-The first style preset is `default` / `Neurex Default`. Style presets define
-the design personality; theme modes define mappings like light and dark. Today,
-`default` is the only implemented style preset.
+The current CLI/config style alias is `default`. Inside `@neurex/tokens`, that
+alias currently resolves to the token package preset id `neurex`, named
+`Neurex Default`, with brand `neurex`.
+
+Style presets define the design personality; theme modes define mappings like
+light and dark. Today, `default` is the only public CLI style alias, while the
+exact public preset-selection API remains internal and evolving.
 
 Runtime package responsibilities:
 
@@ -172,7 +177,7 @@ Internal or still evolving:
 - registry item generation internals
 - update/uninstall automation
 - remote registry hosting and version policy
-- additional style presets beyond `default`
+- additional CLI style aliases or token presets beyond `default` / `neurex`
 - Creator output and visual builder flows
 
 Planned but not promised as current API:

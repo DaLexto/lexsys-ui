@@ -377,16 +377,16 @@ Default config shape:
 
 ### Config Fields
 
-| Field            | Description                                                    |
-| ---------------- | -------------------------------------------------------------- |
-| `style`          | Active Neurex style preset. Current value: `default`.          |
-| `componentsPath` | Target directory for installed components.                     |
-| `utilitiesPath`  | Target directory for shared utilities.                         |
-| `stylesPath`     | Target directory for shared styles and token output.           |
-| `aliases`        | User-facing import aliases used by generated code and tooling. |
-| `tailwind`       | Supported Tailwind version and CSS entrypoint path.            |
-| `installed`      | Installed registry item versions tracked by the CLI.           |
-| `registryUrl`    | Optional remote registry URL. Uses local registry when `null`. |
+| Field            | Description                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------ |
+| `style`          | CLI-facing style alias. Current value: `default`; it resolves to token preset id `neurex`. |
+| `componentsPath` | Target directory for installed components.                                                 |
+| `utilitiesPath`  | Target directory for shared utilities.                                                     |
+| `stylesPath`     | Target directory for shared styles and token output.                                       |
+| `aliases`        | User-facing import aliases used by generated code and tooling.                             |
+| `tailwind`       | Supported Tailwind version and CSS entrypoint path.                                        |
+| `installed`      | Installed registry item versions tracked by the CLI.                                       |
+| `registryUrl`    | Optional remote registry URL. Uses local registry when `null`.                             |
 
 The MVP defaults are intentionally Vite-oriented. Other framework presets
 should add explicit detection/setup logic before changing these defaults.
@@ -539,7 +539,7 @@ Internal/evolving:
 - registry item generation internals,
 - update/uninstall write behavior,
 - remote registry hosting and versioning policy,
-- additional style presets beyond `default`,
+- additional CLI style aliases or token presets beyond `default` / `neurex`,
 - Creator-compatible output formats.
 
 ---

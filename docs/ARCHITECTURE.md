@@ -193,7 +193,10 @@ Neurex separates style presets from theme modes.
     style preset = design personality, density, radius, component feel
     theme mode   = light/dark/brand mapping inside that style
 
-The first style preset is `default` / `Neurex Default`.
+The current CLI/config style alias is `default`. Inside `@neurex/tokens`, that
+alias currently resolves to the token package preset id `neurex`, named
+`Neurex Default`, with brand `neurex`. The exact public preset-selection API
+remains internal and evolving.
 
 ### Token Layers
 
