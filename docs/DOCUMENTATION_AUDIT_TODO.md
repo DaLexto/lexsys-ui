@@ -122,7 +122,7 @@ Confidence: High
 
 ### TODO: Restore Folder-Context Naming Rule
 
-- [ ] Update `docs/STYLE.md`.
+- [x] Update `docs/STYLE.md`.
 
 Category: `IMPORT_FROM_REFACTOR_TOKENS`
 
@@ -136,14 +136,18 @@ Current code proves:
   - `primitives/color.ts`
   - `semantics/color.ts`
   - `themes/neurex/light.ts`
-- Mixed folders still use role suffixes:
+- Mixed `packages/tokens` folders still use role labels:
   - `resolver.types.ts`
   - `resolver.utils.ts`
-  - component `.types.ts` / `.variants.ts`
+  - `generator.create.ts`
+  - `generator.write.ts`
+  - `css.generator.ts`
 
 Recommendation:
 
-- Restore the rule from `refactor/tokens`.
+- Restore the `packages/tokens` part of the rule from `refactor/tokens`.
+- Do not import component `.types.ts` / `.variants.ts` examples for this
+  token-package alignment pass.
 
 Confidence: High
 
@@ -599,5 +603,5 @@ Confidence: High
 - [x] 6. Rewrite enforcement claims as target rules until validators exist.
 - [x] 7. Decide component-token primitive-reference policy.
 - [x] 8. Replace stale CSS variable examples with generated current names.
-- [ ] 9. Restore folder-context naming guidance in `docs/STYLE.md`.
+- [x] 9. Restore folder-context naming guidance in `docs/STYLE.md`.
 - [ ] 10. Run formatting checks for changed docs.
