@@ -23,7 +23,7 @@ Rules for using this TODO:
 
 - [x] Align docs with current package identity: `@neurex/tokens`.
 - [x] Restore the distinction between CLI style alias `default` and token preset id `neurex`.
-- [ ] Document the current brand layer as canonical.
+- [x] Document the current brand layer as canonical.
 - [x] Restore accurate DTCG generated output documentation.
 - [x] Fix stale `REVIEW_TODO.md` token migration history.
 - [x] Decide how strict component-token layer rules should be before documenting them as build-failing.
@@ -33,7 +33,7 @@ Rules for using this TODO:
 
 ## High Confidence Imports From `refactor/tokens`
 
-### TODO: Restore CLI Alias vs Token Preset ID Wording
+### DONE: Restore CLI Alias vs Token Preset ID Wording
 
 - [x] Update `README.md`.
 - [x] Update `docs/DESIGN_SYSTEM.md`.
@@ -63,7 +63,7 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Restore DTCG Package Output Documentation
+### DONE: Restore DTCG Package Output Documentation
 
 - [x] Update `docs/DESIGN_SYSTEM.md`.
 - [x] Update `docs/DEPLOY.md`.
@@ -97,7 +97,7 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Restore 2026-05-12 Token Progress Snapshot
+### DONE: Restore 2026-05-12 Token Progress Snapshot
 
 - [x] Update `docs/REVIEW_TODO.md`.
 
@@ -120,7 +120,7 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Restore Folder-Context Naming Rule
+### DONE: Restore Folder-Context Naming Rule
 
 - [x] Update `docs/STYLE.md`.
 
@@ -155,11 +155,11 @@ Confidence: High
 
 ## Foundation Docs That Should Stay
 
-### TODO: Keep Canonical Brand Layer Model
+### DONE: Keep Canonical Brand Layer Model
 
-- [ ] Keep `docs/TOKENS.md` layer model.
-- [ ] Keep matching wording in `docs/ARCHITECTURE.md`.
-- [ ] Keep matching wording in `docs/STYLEGUIDE.md`.
+- [x] Keep `docs/TOKENS.md` layer model.
+- [x] Keep matching wording in `docs/ARCHITECTURE.md`.
+- [x] Keep matching wording in `docs/STYLEGUIDE.md`.
 
 Category: `KEEP_FROM_FOUNDATION`
 
@@ -178,6 +178,8 @@ Recommendation:
 
 - Keep this architecture as the foundation.
 - Only adjust enforcement wording where current code is not strict yet.
+- No source documentation change needed for this item; current docs already
+  describe the `packages/tokens` brand layer model.
 
 Confidence: High
 
@@ -255,7 +257,7 @@ Confidence: High
 
 ## Outdated Refactor Docs To Reject
 
-### TODO: Do Not Restore Old Semantic Color Hierarchy Verbatim
+### DONE: Do Not Restore Old Semantic Color Hierarchy Verbatim
 
 - [x] Avoid old `color.action.*` and `color.border.*` wording.
 - [x] Rewrite semantic organization around current groups.
