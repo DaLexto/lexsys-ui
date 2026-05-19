@@ -328,8 +328,8 @@ Confidence: High
 
 ### TODO: Rewrite Build-Failing Layer Validation Claims
 
-- [ ] Update `docs/TOKENS.md`.
-- [ ] Update `packages/tokens/README.md`.
+- [x] Update `docs/TOKENS.md`.
+- [x] Update `packages/tokens/README.md`.
 - [ ] Update `AGENTS.md` only if needed in a later approved pass.
 
 Category: `REWRITE_PARTIALLY_TRUE`
@@ -590,7 +590,7 @@ Confidence: High
 - [x] 3. Restore accurate DTCG output documentation.
 - [x] 4. Fix stale `docs/REVIEW_TODO.md` migration status.
 - [x] 5. Rewrite semantic organization docs around current `color`, `action`, and `border` split.
-- [ ] 6. Rewrite enforcement claims as target rules until validators exist.
+- [x] 6. Rewrite enforcement claims as target rules until validators exist.
 - [ ] 7. Decide component-token primitive-reference policy.
 - [ ] 8. Replace stale CSS variable examples with generated current names.
 - [ ] 9. Restore folder-context naming guidance in `docs/STYLE.md`.

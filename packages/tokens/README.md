@@ -184,16 +184,21 @@ Expected rules:
 
 Token validation should fail for architecture violations that can break the system.
 
-Build-failing violations include:
+Current build-failing validation covers:
 
 - missing reference paths
 - circular references
+- missing theme modes required by a preset
+- invalid DTCG token leaf shape when importing token JSON
+
+Target architecture violations that must become build-failing before the token
+contract is considered stable:
+
 - component tokens referencing primitives directly
 - component tokens referencing brand tokens directly
 - component tokens referencing theme tokens directly
 - semantic tokens referencing component tokens
 - theme tokens referencing component tokens
-- missing theme modes required by a preset
 - brand tokens containing component-specific intent
 
 Warnings may be used for governance issues that should not block early development, such as naming quality, missing non-critical descriptions, or suspicious one-off semantic tokens.

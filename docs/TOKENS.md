@@ -140,16 +140,21 @@ Theme modes override semantic values before component tokens are resolved.
 
 ---
 
-### Build-Failing Violations
+### Validation Status
 
-The build must fail when:
+Current build-failing validation covers:
+
+- a reference path does not exist
+- a reference chain creates a circular reference
+- a theme is missing a mode required by its preset
+- invalid DTCG token leaf shape when importing token JSON
+
+Target architecture violations that must become build-failing before the token
+contract is considered stable:
 
 - a component token references a primitive token directly
 - a component token references a brand token directly
 - a component token references a theme token directly
 - a semantic token references a component token
 - a theme token references a component token
-- a reference path does not exist
-- a reference chain creates a circular reference
-- a theme is missing a mode required by its preset
 - a brand token contains component-specific intent
