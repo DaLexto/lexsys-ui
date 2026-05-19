@@ -27,7 +27,7 @@ Rules for using this TODO:
 - [x] Restore accurate DTCG generated output documentation.
 - [x] Fix stale `REVIEW_TODO.md` token migration history.
 - [x] Decide how strict component-token layer rules should be before documenting them as build-failing.
-- [ ] Update examples to use real generated CSS variable names.
+- [x] Update examples to use real generated CSS variable names.
 
 ---
 
@@ -302,7 +302,7 @@ Confidence: High
 
 ### TODO: Do Not Restore Old CSS Variable Examples
 
-- [ ] Replace stale `--nx-color-action-primary-*` examples.
+- [x] Replace stale `--nx-color-action-primary-*` examples.
 
 Category: `REJECT_OUTDATED`
 
@@ -312,13 +312,16 @@ What changed:
 
 Current code proves:
 
-- Current generated action variable naming is closer to:
-  - `--nx-action-primary-base`
+- Current generated action variable names include:
+  - semantic action CSS variable: `--nx-action-primary-base`
+  - theme override CSS variable: `--nx-color-action-primary-base`
   - Tailwind mapping: `--color-nx-action-primary-base`
 
 Recommendation:
 
 - Use real generated variables from current output.
+- Use `--nx-color-action-primary-base` for the README theme override example and
+  avoid the stale `--nx-color-primary` name.
 
 Confidence: High
 
@@ -422,7 +425,7 @@ Confidence: High
 
 ### TODO: Fix README CSS Variable Example
 
-- [ ] Update `README.md`.
+- [x] Update `README.md`.
 
 Category: `REWRITE_PARTIALLY_TRUE`
 
@@ -433,6 +436,9 @@ What changed:
 Current code proves:
 
 - Current generated variables do not use that exact name.
+- `packages/tokens/dist/theme.css` exposes `--nx-color-action-primary-base` as a
+  theme override variable.
+- The Tailwind `@theme` block exposes `--color-nx-action-primary-base`.
 
 Recommendation:
 
@@ -592,6 +598,6 @@ Confidence: High
 - [x] 5. Rewrite semantic organization docs around current `color`, `action`, and `border` split.
 - [x] 6. Rewrite enforcement claims as target rules until validators exist.
 - [x] 7. Decide component-token primitive-reference policy.
-- [ ] 8. Replace stale CSS variable examples with generated current names.
+- [x] 8. Replace stale CSS variable examples with generated current names.
 - [ ] 9. Restore folder-context naming guidance in `docs/STYLE.md`.
 - [ ] 10. Run formatting checks for changed docs.
