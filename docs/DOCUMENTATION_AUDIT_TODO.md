@@ -25,7 +25,7 @@ Rules for using this TODO:
 - [x] Restore the distinction between CLI style alias `default` and token preset id `neurex`.
 - [ ] Document the current brand layer as canonical.
 - [x] Restore accurate DTCG generated output documentation.
-- [ ] Fix stale `REVIEW_TODO.md` token migration history.
+- [x] Fix stale `REVIEW_TODO.md` token migration history.
 - [ ] Decide how strict component-token layer rules should be before documenting them as build-failing.
 - [ ] Update examples to use real generated CSS variable names.
 
@@ -99,7 +99,7 @@ Confidence: High
 
 ### TODO: Restore 2026-05-12 Token Progress Snapshot
 
-- [ ] Update `docs/REVIEW_TODO.md`.
+- [x] Update `docs/REVIEW_TODO.md`.
 
 Category: `IMPORT_FROM_REFACTOR_TOKENS`
 
@@ -588,7 +588,7 @@ Confidence: High
 - [x] 1. Fix package identity in `packages/tokens/README.md`.
 - [x] 2. Restore `default` alias vs `neurex` preset wording across public docs.
 - [x] 3. Restore accurate DTCG output documentation.
-- [ ] 4. Fix stale `docs/REVIEW_TODO.md` migration status.
+- [x] 4. Fix stale `docs/REVIEW_TODO.md` migration status.
 - [ ] 5. Rewrite semantic organization docs around current `color`, `action`, and `border` split.
 - [ ] 6. Rewrite enforcement claims as target rules until validators exist.
 - [ ] 7. Decide component-token primitive-reference policy.

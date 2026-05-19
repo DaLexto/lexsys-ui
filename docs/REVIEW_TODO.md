@@ -67,6 +67,26 @@ Completed so far on `feature/cli-install-hardening`:
 
 ---
 
+## Progress Snapshot - 2026-05-12
+
+Completed so far on token foundation alignment:
+
+- Token preset naming is split between consumer config and package internals:
+  `neurex.config.json` uses style alias `default`, while `@neurex/tokens`
+  exposes the current token package preset id `neurex`, named `Neurex Default`,
+  with brand `neurex`.
+- The token package owns the canonical token source and generated CSS outputs.
+  Registry and CLI installs still consume `styles/tokens.css` and
+  `styles/theme.css`.
+- DTCG JSON generation exists for package/tooling workflows. Package builds
+  write `dist/tokens/dtcg/tokens.tokens.json` plus per-layer `.tokens.json`
+  files for primitives, brand, semantics, components, and themes.
+- Public package exports remain intentionally limited to the root entrypoint,
+  `./tokens.css`, and `./theme.css`; explicit JSON package exports are deferred
+  until the public token JSON contract is finalized.
+
+---
+
 ## P0 - Publish and Install Blockers
 
 ### DONE: Make registry template resolution publish-safe
@@ -316,24 +336,18 @@ Status:
 
 ## P1 - Token Architecture Migration
 
-### TODO: Migrate token package from legacy `{ value }` leaves to DTCG-shaped `$value` leaves
+### DONE: Migrate token package from legacy `{ value }` leaves to DTCG-shaped `$value` leaves
 
 Problem:
 
 - Root token architecture is now documented in `docs/TOKENS.md`.
-- `packages/tokens/src/types/index.ts` still contains the legacy token model with
-  `{ value }` leaves and `TokenPrimitive = string | number | boolean | null`.
-- Existing resolver, generator, and token source files still depend on the
-  legacy types.
-- A new DTCG-shaped V2 type model has been introduced in
-  `packages/tokens/src/types/token.types.ts`, but the implementation has not
-  migrated to it yet.
+- Token source, resolver, generator, and DTCG output previously depended on the
+  legacy `{ value }` leaf shape.
+- That made the package diverge from the W3C/DTCG Design Tokens JSON direction
+  documented for the token foundation.
 
 Direction:
 
-- Keep the legacy model temporarily to avoid breaking resolver and generator
-  code during migration.
-- Use the new V2 types as the target model for future token authoring.
 - Migrate token source files from `{ value }` to `$value`.
 - Remove boolean and null token values from valid authoring.
 - Add runtime validation for DTCG-shaped token trees.
@@ -346,10 +360,16 @@ Direction:
 
 Status:
 
-- Not started.
-- `token.types.ts` may define the target DTCG-shaped type model.
-- Legacy exports remain necessary until the resolver and generator pipeline are
-  migrated.
+- Done.
+- Token source files now use DTCG-shaped `$value` leaves.
+- Resolver and shared generator flattening consume `$value`.
+- DTCG JSON input validation rejects invalid token leaves and preserves Neurex
+  metadata under `$extensions`.
+- Generated package output now includes layered `.tokens.json` files under
+  `dist/tokens/dtcg`, including primitives, brand, semantics, components, and
+  themes.
+- Public JSON package exports remain deferred; `package.json` currently exports
+  only the root entrypoint plus `./tokens.css` and `./theme.css`.
 
 ## P1 - CLI Safety and Correctness
 
