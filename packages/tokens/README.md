@@ -1,4 +1,4 @@
-# @neurex-ui/tokens
+# @neurex/tokens
 
 Design token source, validation, resolution, and generated style output package for Neurex.
 
@@ -6,7 +6,7 @@ This package owns the token system implementation. It does not own component ren
 
 ## Purpose
 
-`@neurex-ui/tokens` is responsible for:
+`@neurex/tokens` is responsible for:
 
 - defining token authoring files
 - validating token structure and references
@@ -274,10 +274,10 @@ Common commands should be run from the repository root unless a package-specific
 Useful commands:
 
 ```bash
-pnpm --filter @neurex-ui/tokens build
-pnpm --filter @neurex-ui/tokens typecheck
-pnpm --filter @neurex-ui/tokens test
-pnpm --filter @neurex-ui/tokens lint
+pnpm --filter @neurex/tokens build
+pnpm --filter @neurex/tokens typecheck
+pnpm --filter @neurex/tokens test
+pnpm --filter @neurex/tokens lint
 ```
 
 Repository-level checks:

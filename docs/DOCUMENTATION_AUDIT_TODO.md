@@ -21,7 +21,7 @@ Rules for using this TODO:
 
 ## Summary
 
-- [ ] Align docs with current package identity: `@neurex/tokens`.
+- [x] Align docs with current package identity: `@neurex/tokens`.
 - [ ] Restore the distinction between CLI style alias `default` and token preset id `neurex`.
 - [ ] Document the current brand layer as canonical.
 - [ ] Restore accurate DTCG generated output documentation.
@@ -401,7 +401,7 @@ Confidence: High
 
 ### TODO: Fix Token Package README Identity
 
-- [ ] Update `packages/tokens/README.md`.
+- [x] Update `packages/tokens/README.md`.
 
 Category: `REWRITE_PARTIALLY_TRUE`
 
@@ -585,7 +585,7 @@ Confidence: High
 
 ## Recommended Work Order
 
-- [ ] 1. Fix package identity in `packages/tokens/README.md`.
+- [x] 1. Fix package identity in `packages/tokens/README.md`.
 - [ ] 2. Restore `default` alias vs `neurex` preset wording across public docs.
 - [ ] 3. Restore accurate DTCG output documentation.
 - [ ] 4. Fix stale `docs/REVIEW_TODO.md` migration status.
