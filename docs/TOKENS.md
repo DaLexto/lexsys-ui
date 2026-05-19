@@ -26,9 +26,11 @@ convenience, this document wins for token-system decisions.
 
 ### Layer Order
 
+```txt
 primitives -> brand -> semantics -> components
                 ↑
               themes override semantics per mode
+```
 
 ---
 
@@ -61,7 +63,17 @@ primitives -> brand -> semantics -> components
 - Never references component tokens.
 - Semantic tokens must represent reusable product meaning.
 - One-off visual decisions belong in component tokens.
-- Structure semantic tokens by category, such as `background`, `text`, `border`, `feedback`, and `action`.
+- Structure semantic tokens by top-level group. Current active groups include
+  `color`, `action`, `border`, `motion`, `radius`, `size`, `spacing`, and
+  `typography`.
+- Current color-related semantics are split by responsibility:
+  - `color` owns global background, text, and feedback `bg` / `text` roles.
+  - `action` owns interactive state colors such as `primary`, `secondary`, and
+    `danger`.
+  - `border` owns reusable border color roles such as `default`, `strong`,
+    `focus`, and `accent`.
+- Do not document current action or border semantics as `color.action.*` or
+  `color.border.*`; those are not current token paths.
 
 #### Components
 
@@ -85,10 +97,11 @@ primitives -> brand -> semantics -> components
   - light mode hover usually moves toward stronger or darker emphasis
   - dark mode hover usually moves toward lighter or brighter emphasis
   - disabled states move toward lower emphasis while preserving accessibility
-- Every feedback status requires a full semantic triad:
+- Current feedback status roles provide:
   - background
   - text
-  - border
+- Add status-specific border roles only after the semantic and theme token
+  groups implement them.
 - Use one folder per brand and one file per mode.
 
 #### Presets
@@ -106,18 +119,22 @@ primitives -> brand -> semantics -> components
 
 Brand-specific path:
 
+```txt
 component token
   -> semantic token
     -> brand token
       -> primitive token
         -> concrete value
+```
 
 Non-brand/foundation path:
 
+```txt
 component token
   -> semantic token
     -> primitive token
       -> concrete value
+```
 
 Theme modes override semantic values before component tokens are resolved.
 

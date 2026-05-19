@@ -253,8 +253,8 @@ Confidence: High
 
 ### TODO: Do Not Restore Old Semantic Color Hierarchy Verbatim
 
-- [ ] Avoid old `color.action.*` and `color.border.*` wording.
-- [ ] Rewrite semantic organization around current groups.
+- [x] Avoid old `color.action.*` and `color.border.*` wording.
+- [x] Rewrite semantic organization around current groups.
 
 Category: `REJECT_OUTDATED`
 
@@ -381,7 +381,7 @@ Confidence: High
 
 ### TODO: Rewrite Feedback Triad Requirement
 
-- [ ] Update `docs/TOKENS.md`.
+- [x] Update `docs/TOKENS.md`.
 
 Category: `REWRITE_PARTIALLY_TRUE`
 
@@ -589,7 +589,7 @@ Confidence: High
 - [x] 2. Restore `default` alias vs `neurex` preset wording across public docs.
 - [x] 3. Restore accurate DTCG output documentation.
 - [x] 4. Fix stale `docs/REVIEW_TODO.md` migration status.
-- [ ] 5. Rewrite semantic organization docs around current `color`, `action`, and `border` split.
+- [x] 5. Rewrite semantic organization docs around current `color`, `action`, and `border` split.
 - [ ] 6. Rewrite enforcement claims as target rules until validators exist.
 - [ ] 7. Decide component-token primitive-reference policy.
 - [ ] 8. Replace stale CSS variable examples with generated current names.

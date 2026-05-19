@@ -124,8 +124,8 @@ variable strings. Group metadata lives beside token branches, and token leaves
 use DTCG-compatible `$value` authoring.
 
 References use string aliases such as `{brand.color.accent}` or
-`{color.action.primary.base}`. The `--nx` prefix belongs to output generation
-only, never to token authoring files.
+`{action.primary.base}`. The `--nx` prefix belongs to output generation only,
+never to token authoring files.
 
 The preferred dependency flow is:
 
