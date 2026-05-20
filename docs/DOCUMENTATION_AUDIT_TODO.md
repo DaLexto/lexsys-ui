@@ -554,10 +554,10 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Decide Current vs Target Enforcement Language
+### DONE: Decide Current vs Target Enforcement Language
 
-- [ ] Decide whether docs should describe current enforcement only.
-- [ ] Or decide that docs may describe locked target architecture with TODO labels.
+- [x] Decide whether docs should describe current enforcement only.
+- [x] Or decide that docs may describe locked target architecture with TODO labels.
 
 Category: `NEEDS_HUMAN_DECISION`
 
@@ -574,6 +574,11 @@ Recommendation:
 - Choose one style:
   - current behavior docs
   - target architecture docs with explicit implementation gaps
+- Decision: docs may describe the locked target architecture only when current
+  enforcement is listed separately and implementation gaps are explicit.
+- No source documentation change needed for this item; `docs/TOKENS.md`,
+  `packages/tokens/README.md`, and `AGENTS.md` already use the current-vs-target
+  split.
 
 Confidence: High
 
