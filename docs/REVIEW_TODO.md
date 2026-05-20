@@ -353,8 +353,8 @@ Direction:
 - Add runtime validation for DTCG-shaped token trees.
 - Update resolver reference handling for `$value`.
 - Update CSS and DTCG generators to consume the normalized token model.
-- Add tests for missing references, circular references, invalid layer skips,
-  and component-to-primitive references.
+- Add tests for missing references, circular references, invalid DTCG token
+  leaves, and JSON import metadata required by the current generators.
 - Remove legacy `{ value }` types only after resolver, generators, and source
   tokens have fully migrated.
 
@@ -370,6 +370,8 @@ Status:
   themes.
 - Public JSON package exports remain deferred; `package.json` currently exports
   only the root entrypoint plus `./tokens.css` and `./theme.css`.
+- Layer-boundary validators such as component-to-primitive and layer-skip checks
+  remain target architecture work, not completed `$value` migration work.
 
 ## P1 - CLI Safety and Correctness
 

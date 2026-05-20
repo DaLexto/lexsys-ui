@@ -497,9 +497,9 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Fix Stale Token Migration TODO
+### DONE: Fix Stale Token Migration TODO
 
-- [ ] Update `docs/REVIEW_TODO.md`.
+- [x] Update `docs/REVIEW_TODO.md`.
 
 Category: `REWRITE_PARTIALLY_TRUE`
 
@@ -510,11 +510,16 @@ What changed:
 Current code proves:
 
 - Token sources, resolver, generators, and tests use `$value`.
+- Current validation covers missing references, circular references, invalid
+  DTCG token leaves, DTCG metadata requirements, and missing preset theme modes.
+- Full layer-boundary validation is still target architecture work.
 
 Recommendation:
 
 - Mark migration as done.
 - Restore useful completion notes from `refactor/tokens`, updated to current filenames and branch state.
+- Keep layer-boundary validator work out of the completed `$value` migration
+  item.
 
 Confidence: High
 
