@@ -468,10 +468,10 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Restore CSS Plus DTCG Pipeline Wording
+### DONE: Restore CSS Plus DTCG Pipeline Wording
 
-- [ ] Update `docs/STYLEGUIDE.md`.
-- [ ] Update `docs/DESIGN_SYSTEM.md`.
+- [x] Update `docs/STYLEGUIDE.md`.
+- [x] Update `docs/DESIGN_SYSTEM.md`.
 
 Category: `REWRITE_PARTIALLY_TRUE`
 
@@ -483,11 +483,17 @@ Current code proves:
 
 - Token pipeline generates CSS and DTCG JSON.
 - Registry installs only CSS today.
+- `createStyleOutputs()` returns `tokensCss`, `themeCss`, `tokensJson`,
+  `tokenJsonFiles`, and `themesJson`.
+- `generator.write.ts` writes package CSS plus layered DTCG JSON under `dist`,
+  while registry style output writes only `tokens.css` and `theme.css`.
 
 Recommendation:
 
 - Say generated CSS and DTCG JSON belong to the token pipeline.
 - Say registry/CLI consumer install currently uses only `styles/tokens.css` and `styles/theme.css`.
+- No source documentation change needed for this item; current docs already
+  match the `packages/tokens` generated output pipeline.
 
 Confidence: High
 
