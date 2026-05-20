@@ -541,6 +541,36 @@ Status:
 
 ---
 
+## P3 - Future Architecture Planning and Vision
+
+### TODO: Turn resolver roadmap into an implementation plan
+
+Problem:
+
+- `docs/RESOLVER_EVOLUTION.md` captures a long-term resolver vision, but it is
+  not yet an implementation plan.
+- The roadmap includes ideas such as layer enforcement, DTCG compliance,
+  circular detection, AST-based resolution, color/math functions, contrast
+  diagnostics, provenance tracking, and dead-token elimination.
+- These ideas need sequencing and validation against the current
+  `packages/tokens` resolver/generator architecture before implementation
+  starts.
+
+Direction:
+
+- Review `docs/RESOLVER_EVOLUTION.md`.
+- Split the resolver vision into phases.
+- Decide which items belong in resolver core, generators, validators,
+  diagnostics, or future tooling.
+- Identify the first small implementation slice.
+- Keep speculative items out of the execution backlog until they are validated.
+
+Status:
+
+- Not started.
+
+---
+
 ## Recommended Work Order
 
 1. Fix CLI `--cwd` and dependency installation.
