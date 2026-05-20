@@ -582,9 +582,9 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Decide DTCG Canonical Contract Wording
+### DONE: Decide DTCG Canonical Contract Wording
 
-- [ ] Decide exact source-of-truth wording for TypeScript vs W3C/DTCG JSON.
+- [x] Decide exact source-of-truth wording for TypeScript vs W3C/DTCG JSON.
 
 Category: `NEEDS_HUMAN_DECISION`
 
@@ -595,13 +595,20 @@ What changed:
 
 Current code proves:
 
-- TypeScript authoring is still the current source.
+- TypeScript token files are the implementation source of truth.
 - DTCG output and DTCG input parsing exist.
+- `createStyleOutputs()` emits DTCG JSON artifacts.
+- `createTokensCssFromDtcgJson()` and `createThemeCssFromDtcgJson()` accept
+  DTCG JSON input for package/tooling workflows.
 
 Recommendation:
 
-- Suggested wording:
-  "TypeScript is the current typed authoring source. W3C/DTCG JSON is the generated interchange contract and future input boundary."
+- Corrected wording:
+  "TypeScript token files are the implementation source of truth. W3C/DTCG Design Tokens JSON is a generated interchange contract and supported package/tooling input boundary, not a replacement source of truth."
+- Implemented wording in `docs/DESIGN_SYSTEM.md`: TypeScript token files are
+  the implementation source of truth; W3C/DTCG Design Tokens JSON is a
+  generated interchange contract and supported package/tooling input boundary,
+  not a replacement source of truth.
 
 Confidence: Medium-High
 

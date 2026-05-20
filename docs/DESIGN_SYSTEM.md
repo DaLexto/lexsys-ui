@@ -123,6 +123,10 @@ Token authoring uses object trees, not flat token arrays or generated CSS
 variable strings. Group metadata lives beside token branches, and token leaves
 use DTCG-compatible `$value` authoring.
 
+TypeScript token files are the implementation source of truth. W3C/DTCG Design
+Tokens JSON is a generated interchange contract and supported package/tooling
+input boundary, not a replacement source of truth.
+
 References use string aliases such as `{brand.color.accent}` or
 `{action.primary.base}`. The `--nx` prefix belongs to output generation only,
 never to token authoring files.
