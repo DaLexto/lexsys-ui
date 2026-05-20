@@ -294,9 +294,9 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Do Not Restore Old Generator Filenames
+### DONE: Do Not Restore Old Generator Filenames
 
-- [ ] Update any imported TODO text to current filenames.
+- [x] Update any imported TODO text to current filenames.
 
 Category: `REJECT_OUTDATED`
 
@@ -315,6 +315,8 @@ Recommendation:
 
 - Keep the intent of the history.
 - Rewrite old filenames before importing.
+- No source documentation change needed for this item; current docs already
+  reference the current `packages/tokens/src/generators` filenames.
 
 Confidence: High
 
