@@ -239,10 +239,10 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Keep Brand Responsibility Rules
+### DONE: Keep Brand Responsibility Rules
 
-- [ ] Keep brand rules in `docs/TOKENS.md`.
-- [ ] Mirror concise brand guidance in `docs/STYLEGUIDE.md`.
+- [x] Keep brand rules in `docs/TOKENS.md`.
+- [x] Mirror concise brand guidance in `docs/STYLEGUIDE.md`.
 
 Category: `KEEP_FROM_FOUNDATION`
 
@@ -254,10 +254,14 @@ Current code proves:
 
 - `neurex.brand.ts` maps `brand.color.primary` and `brand.color.accent` to primitive color tokens.
 - It does not contain component-specific names.
+- `action.primary.*` semantics consume `brand.color.primary.*`, keeping usage
+  meaning in semantics instead of the brand layer.
 
 Recommendation:
 
 - Keep the rule.
+- No source documentation change needed for this item; current docs already
+  match the `packages/tokens` brand responsibility model.
 
 Confidence: High
 
