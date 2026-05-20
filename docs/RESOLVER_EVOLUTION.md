@@ -19,6 +19,7 @@ The resolver is the structural guardian of the Neurex design system. Its primary
 The resolver is not a simple string replacement script; it is a dedicated **interpreter** designed to preserve system integrity.
 
 ### Responsibilities
+
 - **Layer Enforcement:** Strict validation of the "Build-Failing Violations" rules. Prevents components from bypassing semantics to target primitives directly.
 - **DTCG Compliance:** Native support for the standard `$value`, `$type`, and `$description` authoring shape.
 - **Circular Detection:** Deep-tree analysis to prevent infinite reference loops during the resolution phase.
@@ -30,16 +31,20 @@ The resolver is not a simple string replacement script; it is a dedicated **inte
 The "Beast" engine introduces calculation and transformation capabilities directly into the resolution chain.
 
 ### A. Color & Math Engine
+
 - **OKLCH Manipulation:** Perceptually accurate transformations.
-    - *Example:* `oklch-modify({brand.color.primary}, l -10%)`
+  - _Example:_ `oklch-modify({brand.color.primary}, l -10%)`
 - **Unit-Aware Math:** Intelligent calculation across disparate units (`rem`, `px`, `%`).
-    - *Note:* Requires a built-in unit converter using a configurable `baseFontSize` (e.g., 16px) to normalize values before output.
+  - _Note:_ Requires a built-in unit converter using a configurable `baseFontSize` (e.g., 16px) to normalize values before output.
 
 ### B. Composite Token Expansion (The "Exploder")
+
 Handles complex object tokens such as typography, shadows, and borders.
+
 - **Flattening:** Decomposes a single composite token (e.g., `typography.body`) into individual atomic variables while maintaining internal alias links (e.g., `fontSize` still resolving to `{font.size.base}`).
 
 ### C. Contextual Overrides (The Transformer)
+
 - **Theme Switching:** Resolves values based on active `ThemeModeId` without altering the consumer-facing token name.
 - **Auto-Dark Algorithm:** Programmatic dark theme generation by algorithmically inverting Lightness channels while preserving brand chroma levels.
 
@@ -50,14 +55,17 @@ Handles complex object tokens such as typography, shadows, and borders.
 Stability is ensured through automated diagnostics that catch errors before they reach the user project.
 
 ### A. A11y Guard (Contrast Police)
+
 - **Automatic Validation:** Performs build-time contrast checks between semantic foreground and background pairs.
 - **Failure Condition:** If a combination fails WCAG AA standards, the build is halted.
 
 ### B. Traceability & Deprecation
+
 - **Metadata Tunneling:** Propagates `$description` and `$deprecated` metadata from the primitive source through the entire chain to the component output.
 - **Provenance Tracking:** Generates a "Deprecation Report" identifying exactly which components depend on obsolete tokens.
 
 ### C. Dead Token Elimination
+
 - Analyzes the graph to identify unused primitives, allowing the generator to strip "dead weight" from the final CSS output.
 
 ---

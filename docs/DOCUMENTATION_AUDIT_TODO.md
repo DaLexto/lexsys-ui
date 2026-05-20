@@ -612,10 +612,10 @@ Recommendation:
 
 Confidence: Medium-High
 
-### TODO: Decide DTCG JSON Package Export Policy
+### DONE: Decide DTCG JSON Package Export Policy
 
-- [ ] Decide whether generated DTCG JSON should remain internal package output.
-- [ ] Or decide whether to expose JSON through `package.json` exports later.
+- [x] Decide whether generated DTCG JSON should remain internal package output.
+- [x] Or decide whether to expose JSON through `package.json` exports later.
 
 Category: `NEEDS_HUMAN_DECISION`
 
@@ -630,10 +630,17 @@ Current code proves:
   - `.`
   - `./theme.css`
   - `./tokens.css`
+- Generated DTCG JSON files are written under `dist/tokens/dtcg`, but no
+  `package.json` export exposes them.
 
 Recommendation:
 
 - Keep docs explicit that JSON files are generated but not public exports until contract is finalized.
+- Decision: generated DTCG JSON remains package build output for inspection,
+  validation, design-tool exchange, and future tooling, but it is not a public
+  package export until the export contract is explicitly finalized.
+- No source documentation change needed for this item; existing docs already
+  describe this policy.
 
 Confidence: High
 
@@ -650,4 +657,4 @@ Confidence: High
 - [x] 7. Decide component-token primitive-reference policy.
 - [x] 8. Replace stale CSS variable examples with generated current names.
 - [x] 9. Restore folder-context naming guidance in `docs/STYLE.md`.
-- [ ] 10. Run formatting checks for changed docs.
+- [x] 10. Run formatting checks for changed docs.
