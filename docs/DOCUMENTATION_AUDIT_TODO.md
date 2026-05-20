@@ -349,11 +349,11 @@ Confidence: High
 
 ## Partially True Sections To Rewrite
 
-### TODO: Rewrite Build-Failing Layer Validation Claims
+### DONE: Rewrite Build-Failing Layer Validation Claims
 
 - [x] Update `docs/TOKENS.md`.
 - [x] Update `packages/tokens/README.md`.
-- [ ] Update `AGENTS.md` only if needed in a later approved pass.
+- [x] Update `AGENTS.md` only if needed in a later approved pass.
 
 Category: `REWRITE_PARTIALLY_TRUE`
 
@@ -370,6 +370,8 @@ Recommendation:
 
 - Rewrite as target architecture or intended build-failing validation.
 - Or implement validator before documenting as currently enforced.
+- `AGENTS.md` needed the same current-vs-target split because it still described
+  target layer-boundary rules as current build-failing behavior.
 
 Confidence: High
 
