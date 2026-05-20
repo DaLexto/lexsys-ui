@@ -527,10 +527,11 @@ Confidence: High
 
 ## Human Decisions Needed
 
-### TODO: Decide Component Token Layer Strictness
+### DONE: Decide Component Token Layer Strictness
 
 - [x] Decide whether component tokens may temporarily reference primitive `size` / `spacing`.
-- [ ] If no, plan code migration to semantic `size` / `spacing` coverage.
+- [x] Keep the current temporary exception documented without adding a
+      `REVIEW_TODO.md` cleanup item yet.
 - [x] If yes, document the exception clearly.
 
 Category: `NEEDS_HUMAN_DECISION`
@@ -546,6 +547,10 @@ Current code proves:
 Recommendation:
 
 - Make an explicit architecture decision before rewriting this as an enforced rule.
+- Current documentation keeps the semantic-first target rule, allows temporary
+  component references to primitive `size.*` and `spacing.*` while semantic
+  coverage is incomplete, and does not add a cleanup TODO until a semantic
+  size/spacing pass is explicitly planned.
 
 Confidence: High
 
