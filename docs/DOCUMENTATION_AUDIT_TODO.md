@@ -183,11 +183,11 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Keep Themes Override Semantics Wording
+### DONE: Keep Themes Override Semantics Wording
 
-- [ ] Keep theme override model in `docs/TOKENS.md`.
-- [ ] Keep theme override model in `docs/DESIGN_SYSTEM.md`.
-- [ ] Keep theme override model in `docs/ARCHITECTURE.md`.
+- [x] Keep theme override model in `docs/TOKENS.md`.
+- [x] Keep theme override model in `docs/DESIGN_SYSTEM.md`.
+- [x] Keep theme override model in `docs/ARCHITECTURE.md`.
 
 Category: `KEEP_FROM_FOUNDATION`
 
@@ -200,11 +200,15 @@ Current code proves:
 - Themes are defined under `packages/tokens/src/themes/neurex/`.
 - Generator input filters themes by active preset.
 - Themed validation merges foundation tokens, theme tokens, then component tokens.
+- Current theme files define semantic-shaped `color.*` overrides, including
+  `background`, `text`, `border`, `feedback`, and `action`.
 
 Recommendation:
 
 - Keep the model.
 - Optionally clarify that themes currently override semantic-shaped values.
+- No source documentation change needed for this item; current docs already
+  match the `packages/tokens` theme model.
 
 Confidence: High
 
@@ -306,7 +310,7 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Do Not Restore Old CSS Variable Examples
+### DONE: Do Not Restore Old CSS Variable Examples
 
 - [x] Replace stale `--nx-color-action-primary-*` examples.
 
@@ -359,7 +363,7 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Rewrite Component Token Semantic-Only Rule
+### DONE: Rewrite Component Token Semantic-Only Rule
 
 - [x] Update `docs/TOKENS.md`.
 - [x] Update `docs/STYLEGUIDE.md`.
@@ -388,7 +392,7 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Rewrite Feedback Triad Requirement
+### DONE: Rewrite Feedback Triad Requirement
 
 - [x] Update `docs/TOKENS.md`.
 
@@ -408,7 +412,7 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Fix Token Package README Identity
+### DONE: Fix Token Package README Identity
 
 - [x] Update `packages/tokens/README.md`.
 
@@ -429,7 +433,7 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Fix README CSS Variable Example
+### DONE: Fix README CSS Variable Example
 
 - [x] Update `README.md`.
 
