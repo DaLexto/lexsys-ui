@@ -212,11 +212,11 @@ Recommendation:
 
 Confidence: High
 
-### TODO: Keep Presets As Configuration Only
+### DONE: Keep Presets As Configuration Only
 
-- [ ] Keep preset model in `docs/TOKENS.md`.
-- [ ] Keep preset model in `docs/DESIGN_SYSTEM.md`.
-- [ ] Keep preset model in `docs/ARCHITECTURE.md`.
+- [x] Keep preset model in `docs/TOKENS.md`.
+- [x] Keep preset model in `docs/DESIGN_SYSTEM.md`.
+- [x] Keep preset model in `docs/ARCHITECTURE.md`.
 
 Category: `KEEP_FROM_FOUNDATION`
 
@@ -228,10 +228,14 @@ Current code proves:
 
 - `neurexPreset` contains id, name, brand, description, theme modes, and default theme.
 - It does not contain token values.
+- `createStyleTokenInput()` resolves a preset, filters theme inputs by preset
+  brand/theme modes, and keeps token trees separate from preset metadata.
 
 Recommendation:
 
 - Keep this rule.
+- No source documentation change needed for this item; current docs already
+  match the `packages/tokens` preset model.
 
 Confidence: High
 
