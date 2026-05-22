@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Field.types.ts
  *
@@ -7,15 +8,11 @@
 import type { Field as BaseField } from "@base-ui/react/field"
 
 export interface FieldProps extends Omit<BaseField.Root.Props, "className"> {
+  ref?: Ref<HTMLDivElement>
   className?: BaseField.Root.Props["className"]
 }
 
-export interface FieldLabelProps extends Omit<
-  BaseField.Label.Props,
-  "className"
-> {
-  className?: BaseField.Label.Props["className"]
-}
+export type FieldLabelProps = BaseField.Label.Props
 
 export interface FieldControlProps extends Omit<
   BaseField.Control.Props,
@@ -35,18 +32,8 @@ export interface FieldDescriptionProps extends Omit<
   className?: BaseField.Description.Props["className"]
 }
 
-export interface FieldItemProps extends Omit<
-  BaseField.Item.Props,
-  "className"
-> {
-  className?: BaseField.Item.Props["className"]
-}
+export type FieldItemProps = BaseField.Item.Props
 
-export interface FieldErrorProps extends Omit<
-  BaseField.Error.Props,
-  "className"
-> {
-  className?: BaseField.Error.Props["className"]
-}
+export type FieldErrorProps = BaseField.Error.Props
 
 export type FieldValidityProps = BaseField.Validity.Props

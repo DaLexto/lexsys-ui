@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Accordion.types.ts
  *
@@ -6,37 +7,14 @@
 
 import type { Accordion as BaseAccordion } from "@base-ui/react/accordion"
 
-export interface AccordionProps extends Omit<
-  BaseAccordion.Root.Props,
-  "className"
-> {
-  className?: BaseAccordion.Root.Props["className"]
+export type AccordionProps = BaseAccordion.Root.Props & {
+  ref?: Ref<HTMLDivElement>
 }
 
-export interface AccordionItemProps extends Omit<
-  BaseAccordion.Item.Props,
-  "className"
-> {
-  className?: BaseAccordion.Item.Props["className"]
-}
+export type AccordionItemProps = BaseAccordion.Item.Props
 
-export interface AccordionHeaderProps extends Omit<
-  BaseAccordion.Header.Props,
-  "className"
-> {
-  className?: BaseAccordion.Header.Props["className"]
-}
+export type AccordionHeaderProps = BaseAccordion.Header.Props
 
-export interface AccordionTriggerProps extends Omit<
-  BaseAccordion.Trigger.Props,
-  "className"
-> {
-  className?: BaseAccordion.Trigger.Props["className"]
-}
+export type AccordionTriggerProps = BaseAccordion.Trigger.Props
 
-export interface AccordionPanelProps extends Omit<
-  BaseAccordion.Panel.Props,
-  "className"
-> {
-  className?: BaseAccordion.Panel.Props["className"]
-}
+export type AccordionPanelProps = BaseAccordion.Panel.Props

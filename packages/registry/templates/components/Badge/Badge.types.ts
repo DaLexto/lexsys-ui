@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Badge.types.ts
  *
@@ -10,6 +11,7 @@ export interface BadgeProps extends Omit<
   HTMLAttributes<HTMLSpanElement>,
   "className"
 > {
+  ref?: Ref<HTMLSpanElement>
   variant?: "solid" | "outline"
   tone?: "neutral" | "primary" | "destructive"
   size?: "sm" | "md"

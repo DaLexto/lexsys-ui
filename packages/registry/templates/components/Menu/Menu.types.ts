@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Menu.types.ts
  *
@@ -8,122 +9,46 @@ import type { Menu as BaseMenu } from "@base-ui/react/menu"
 
 export type MenuProps<Payload = unknown> = BaseMenu.Root.Props<Payload>
 
-export interface MenuTriggerProps<Payload = unknown> extends Omit<
-  BaseMenu.Trigger.Props<Payload>,
-  "className"
-> {
-  className?: BaseMenu.Trigger.Props<Payload>["className"]
-}
+export type MenuTriggerProps<Payload = unknown> =
+  BaseMenu.Trigger.Props<Payload> & {
+    ref?: Ref<HTMLButtonElement>
+  }
 
 export type MenuPortalProps = BaseMenu.Portal.Props
 
-export interface MenuBackdropProps extends Omit<
-  BaseMenu.Backdrop.Props,
-  "className"
-> {
-  className?: BaseMenu.Backdrop.Props["className"]
-}
+export type MenuBackdropProps = BaseMenu.Backdrop.Props
 
-export interface MenuPositionerProps extends Omit<
-  BaseMenu.Positioner.Props,
-  "className"
-> {
-  className?: BaseMenu.Positioner.Props["className"]
-}
+export type MenuPositionerProps = BaseMenu.Positioner.Props
 
-export interface MenuPopupProps extends Omit<
-  BaseMenu.Popup.Props,
-  "className"
-> {
-  className?: BaseMenu.Popup.Props["className"]
-}
+export type MenuPopupProps = BaseMenu.Popup.Props
 
-export interface MenuArrowProps extends Omit<
-  BaseMenu.Arrow.Props,
-  "className"
-> {
-  className?: BaseMenu.Arrow.Props["className"]
-}
+export type MenuArrowProps = BaseMenu.Arrow.Props
 
-export interface MenuViewportProps extends Omit<
-  BaseMenu.Viewport.Props,
-  "className"
-> {
-  className?: BaseMenu.Viewport.Props["className"]
-}
+export type MenuViewportProps = BaseMenu.Viewport.Props
 
 export interface MenuItemProps extends Omit<BaseMenu.Item.Props, "className"> {
   className?: BaseMenu.Item.Props["className"]
 }
 
-export interface MenuLinkItemProps extends Omit<
-  BaseMenu.LinkItem.Props,
-  "className"
-> {
-  className?: BaseMenu.LinkItem.Props["className"]
-}
+export type MenuLinkItemProps = BaseMenu.LinkItem.Props
 
-export interface MenuCheckboxItemProps extends Omit<
-  BaseMenu.CheckboxItem.Props,
-  "className"
-> {
-  className?: BaseMenu.CheckboxItem.Props["className"]
-}
+export type MenuCheckboxItemProps = BaseMenu.CheckboxItem.Props
 
-export interface MenuCheckboxItemIndicatorProps extends Omit<
-  BaseMenu.CheckboxItemIndicator.Props,
-  "className"
-> {
-  className?: BaseMenu.CheckboxItemIndicator.Props["className"]
-}
+export type MenuCheckboxItemIndicatorProps =
+  BaseMenu.CheckboxItemIndicator.Props
 
-export interface MenuRadioGroupProps extends Omit<
-  BaseMenu.RadioGroup.Props,
-  "className"
-> {
-  className?: BaseMenu.RadioGroup.Props["className"]
-}
+export type MenuRadioGroupProps = BaseMenu.RadioGroup.Props
 
-export interface MenuRadioItemProps extends Omit<
-  BaseMenu.RadioItem.Props,
-  "className"
-> {
-  className?: BaseMenu.RadioItem.Props["className"]
-}
+export type MenuRadioItemProps = BaseMenu.RadioItem.Props
 
-export interface MenuRadioItemIndicatorProps extends Omit<
-  BaseMenu.RadioItemIndicator.Props,
-  "className"
-> {
-  className?: BaseMenu.RadioItemIndicator.Props["className"]
-}
+export type MenuRadioItemIndicatorProps = BaseMenu.RadioItemIndicator.Props
 
-export interface MenuGroupProps extends Omit<
-  BaseMenu.Group.Props,
-  "className"
-> {
-  className?: BaseMenu.Group.Props["className"]
-}
+export type MenuGroupProps = BaseMenu.Group.Props
 
-export interface MenuGroupLabelProps extends Omit<
-  BaseMenu.GroupLabel.Props,
-  "className"
-> {
-  className?: BaseMenu.GroupLabel.Props["className"]
-}
+export type MenuGroupLabelProps = BaseMenu.GroupLabel.Props
 
-export interface MenuSeparatorProps extends Omit<
-  BaseMenu.Separator.Props,
-  "className"
-> {
-  className?: BaseMenu.Separator.Props["className"]
-}
+export type MenuSeparatorProps = BaseMenu.Separator.Props
 
 export type MenuSubmenuRootProps = BaseMenu.SubmenuRoot.Props
 
-export interface MenuSubmenuTriggerProps extends Omit<
-  BaseMenu.SubmenuTrigger.Props,
-  "className"
-> {
-  className?: BaseMenu.SubmenuTrigger.Props["className"]
-}
+export type MenuSubmenuTriggerProps = BaseMenu.SubmenuTrigger.Props

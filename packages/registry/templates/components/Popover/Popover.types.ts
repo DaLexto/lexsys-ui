@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Popover.types.ts
  *
@@ -8,67 +9,27 @@ import type { Popover as BasePopover } from "@base-ui/react/popover"
 
 export type PopoverProps<Payload = unknown> = BasePopover.Root.Props<Payload>
 
-export interface PopoverTriggerProps<Payload = unknown> extends Omit<
-  BasePopover.Trigger.Props<Payload>,
-  "className"
-> {
-  className?: BasePopover.Trigger.Props<Payload>["className"]
+export type PopoverTriggerProps<Payload = unknown> =
+  BasePopover.Trigger.Props<Payload> & {
+    ref?: Ref<HTMLButtonElement>
+  }
+
+export type PopoverPortalProps = BasePopover.Portal.Props & {
+  ref?: Ref<HTMLDivElement>
 }
 
-export type PopoverPortalProps = BasePopover.Portal.Props
+export type PopoverBackdropProps = BasePopover.Backdrop.Props
 
-export interface PopoverBackdropProps extends Omit<
-  BasePopover.Backdrop.Props,
-  "className"
-> {
-  className?: BasePopover.Backdrop.Props["className"]
-}
+export type PopoverPositionerProps = BasePopover.Positioner.Props
 
-export interface PopoverPositionerProps extends Omit<
-  BasePopover.Positioner.Props,
-  "className"
-> {
-  className?: BasePopover.Positioner.Props["className"]
-}
+export type PopoverPopupProps = BasePopover.Popup.Props
 
-export interface PopoverPopupProps extends Omit<
-  BasePopover.Popup.Props,
-  "className"
-> {
-  className?: BasePopover.Popup.Props["className"]
-}
+export type PopoverArrowProps = BasePopover.Arrow.Props
 
-export interface PopoverArrowProps extends Omit<
-  BasePopover.Arrow.Props,
-  "className"
-> {
-  className?: BasePopover.Arrow.Props["className"]
-}
+export type PopoverTitleProps = BasePopover.Title.Props
 
-export interface PopoverTitleProps extends Omit<
-  BasePopover.Title.Props,
-  "className"
-> {
-  className?: BasePopover.Title.Props["className"]
-}
+export type PopoverDescriptionProps = BasePopover.Description.Props
 
-export interface PopoverDescriptionProps extends Omit<
-  BasePopover.Description.Props,
-  "className"
-> {
-  className?: BasePopover.Description.Props["className"]
-}
+export type PopoverCloseProps = BasePopover.Close.Props
 
-export interface PopoverCloseProps extends Omit<
-  BasePopover.Close.Props,
-  "className"
-> {
-  className?: BasePopover.Close.Props["className"]
-}
-
-export interface PopoverViewportProps extends Omit<
-  BasePopover.Viewport.Props,
-  "className"
-> {
-  className?: BasePopover.Viewport.Props["className"]
-}
+export type PopoverViewportProps = BasePopover.Viewport.Props

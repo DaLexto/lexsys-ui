@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Textarea.types.ts
  *
@@ -11,8 +12,9 @@ type TextareaClassName = BaseField.Control.Props["className"]
 
 export interface TextareaProps extends Omit<
   BaseField.Control.Props,
-  "aria-invalid" | "className" | "render" | "size" | "type"
+  "aria-invalid" | "className" | "ref" | "render" | "size" | "type"
 > {
+  ref?: Ref<HTMLTextAreaElement>
   variant?: "default" | "ghost"
   size?: "sm" | "md" | "lg"
   resize?: "none" | "vertical" | "both"

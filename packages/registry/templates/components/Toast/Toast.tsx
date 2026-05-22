@@ -4,7 +4,6 @@
  * Reference Toast component implementation.
  */
 
-import { forwardRef } from "react"
 import { X } from "lucide-react"
 import { Toast as BaseToast } from "@base-ui/react/toast"
 import type {
@@ -31,7 +30,7 @@ import {
   toastVariants,
   toastViewportVariants,
 } from "./Toast.variants"
-import { cn } from "@/lib/utils"
+import { mergeClassName } from "@/lib/utils"
 
 const ToastProvider = (props: ToastProviderProps) => {
   return <BaseToast.Provider {...props} />
@@ -39,167 +38,140 @@ const ToastProvider = (props: ToastProviderProps) => {
 
 ToastProvider.displayName = "ToastProvider"
 
-const ToastPortal = forwardRef<HTMLDivElement, ToastPortalProps>(
-  (props, ref) => {
-    return <BaseToast.Portal ref={ref} {...props} />
-  },
-)
+const ToastPortal = ({ ref, ...props }: ToastPortalProps) => {
+  return <BaseToast.Portal ref={ref} {...props} />
+}
 
 ToastPortal.displayName = "ToastPortal"
 
-const ToastViewport = forwardRef<HTMLDivElement, ToastViewportProps>(
-  ({ placement, className, ...props }, ref) => {
-    const viewportClassName: ToastViewportProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(toastViewportVariants({ placement }), userClassName)
-    }
-
-    return (
-      <BaseToast.Viewport ref={ref} className={viewportClassName} {...props} />
-    )
-  },
-)
-
-ToastViewport.displayName = "ToastViewport"
-
-const Toast = forwardRef<HTMLDivElement, ToastProps>(
-  ({ className, ...props }, ref) => {
-    const toastClassName: ToastProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(toastVariants(), userClassName)
-    }
-
-    return <BaseToast.Root ref={ref} className={toastClassName} {...props} />
-  },
-)
-
-Toast.displayName = "Toast"
-
-const ToastPositioner = forwardRef<HTMLDivElement, ToastPositionerProps>(
-  ({ className, ...props }, ref) => {
-    const positionerClassName: ToastPositionerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(toastPositionerVariants(), userClassName)
-    }
-
-    return (
-      <BaseToast.Positioner
-        ref={ref}
-        className={positionerClassName}
-        {...props}
-      />
-    )
-  },
-)
-
-ToastPositioner.displayName = "ToastPositioner"
-
-const ToastContent = forwardRef<HTMLDivElement, ToastContentProps>(
-  ({ className, ...props }, ref) => {
-    const contentClassName: ToastContentProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(toastContentVariants(), userClassName)
-    }
-
-    return (
-      <BaseToast.Content ref={ref} className={contentClassName} {...props} />
-    )
-  },
-)
-
-ToastContent.displayName = "ToastContent"
-
-const ToastArrow = forwardRef<HTMLDivElement, ToastArrowProps>(
-  ({ className, ...props }, ref) => {
-    const arrowClassName: ToastArrowProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(toastArrowVariants(), userClassName)
-    }
-
-    return <BaseToast.Arrow ref={ref} className={arrowClassName} {...props} />
-  },
-)
-
-ToastArrow.displayName = "ToastArrow"
-
-const ToastTitle = forwardRef<HTMLHeadingElement, ToastTitleProps>(
-  ({ className, ...props }, ref) => {
-    const titleClassName: ToastTitleProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(toastTitleVariants(), userClassName)
-    }
-
-    return <BaseToast.Title ref={ref} className={titleClassName} {...props} />
-  },
-)
-
-ToastTitle.displayName = "ToastTitle"
-
-const ToastDescription = forwardRef<
-  HTMLParagraphElement,
-  ToastDescriptionProps
->(({ className, ...props }, ref) => {
-  const descriptionClassName: ToastDescriptionProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(toastDescriptionVariants(), userClassName)
-  }
-
+const ToastViewport = ({
+  ref,
+  placement,
+  className,
+  ...props
+}: ToastViewportProps) => {
   return (
-    <BaseToast.Description
+    <BaseToast.Viewport
       ref={ref}
-      className={descriptionClassName}
+      className={mergeClassName(
+        toastViewportVariants({ placement }),
+        className,
+      )}
       {...props}
     />
   )
-})
+}
+
+ToastViewport.displayName = "ToastViewport"
+
+const Toast = ({ ref, className, ...props }: ToastProps) => {
+  return (
+    <BaseToast.Root
+      ref={ref}
+      className={mergeClassName(toastVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+Toast.displayName = "Toast"
+
+const ToastPositioner = ({
+  ref,
+  className,
+  ...props
+}: ToastPositionerProps) => {
+  return (
+    <BaseToast.Positioner
+      ref={ref}
+      className={mergeClassName(toastPositionerVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+ToastPositioner.displayName = "ToastPositioner"
+
+const ToastContent = ({ ref, className, ...props }: ToastContentProps) => {
+  return (
+    <BaseToast.Content
+      ref={ref}
+      className={mergeClassName(toastContentVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+ToastContent.displayName = "ToastContent"
+
+const ToastArrow = ({ ref, className, ...props }: ToastArrowProps) => {
+  return (
+    <BaseToast.Arrow
+      ref={ref}
+      className={mergeClassName(toastArrowVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+ToastArrow.displayName = "ToastArrow"
+
+const ToastTitle = ({ ref, className, ...props }: ToastTitleProps) => {
+  return (
+    <BaseToast.Title
+      ref={ref}
+      className={mergeClassName(toastTitleVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+ToastTitle.displayName = "ToastTitle"
+
+const ToastDescription = ({
+  ref,
+  className,
+  ...props
+}: ToastDescriptionProps) => {
+  return (
+    <BaseToast.Description
+      ref={ref}
+      className={mergeClassName(toastDescriptionVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 ToastDescription.displayName = "ToastDescription"
 
-const ToastAction = forwardRef<HTMLButtonElement, ToastActionProps>(
-  ({ className, ...props }, ref) => {
-    const actionClassName: ToastActionProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(toastActionVariants(), userClassName)
-    }
-
-    return <BaseToast.Action ref={ref} className={actionClassName} {...props} />
-  },
-)
+const ToastAction = ({ ref, className, ...props }: ToastActionProps) => {
+  return (
+    <BaseToast.Action
+      ref={ref}
+      className={mergeClassName(toastActionVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 ToastAction.displayName = "ToastAction"
 
-const ToastClose = forwardRef<HTMLButtonElement, ToastCloseProps>(
-  ({ className, children, ...props }, ref) => {
-    const closeClassName: ToastCloseProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(toastCloseVariants(), userClassName)
-    }
-
-    return (
-      <BaseToast.Close ref={ref} className={closeClassName} {...props}>
-        {children ?? <X aria-hidden="true" size={16} />}
-      </BaseToast.Close>
-    )
-  },
-)
+const ToastClose = ({
+  ref,
+  className,
+  children,
+  ...props
+}: ToastCloseProps) => {
+  return (
+    <BaseToast.Close
+      ref={ref}
+      className={mergeClassName(toastCloseVariants(), className)}
+      {...props}
+    >
+      {children ?? <X aria-hidden="true" size={16} />}
+    </BaseToast.Close>
+  )
+}
 
 ToastClose.displayName = "ToastClose"
 

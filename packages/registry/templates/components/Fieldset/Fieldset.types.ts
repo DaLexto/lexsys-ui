@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Fieldset.types.ts
  *
@@ -10,6 +11,7 @@ export interface FieldsetProps extends Omit<
   BaseFieldset.Root.Props,
   "className"
 > {
+  ref?: Ref<HTMLFieldSetElement>
   variant?: "surface" | "plain"
   className?: BaseFieldset.Root.Props["className"]
 }
