@@ -254,4 +254,15 @@
   --nx-outline-width-zero: var(--nx-outline-width-zero);
   --nx-outline-offset-focus: var(--nx-outline-offset-focus);
   --nx-outline-offset-zero: var(--nx-outline-offset-zero);
+  --nx-layout-viewport-mobile: var(--nx-layout-viewport-mobile);
+  --nx-layout-viewport-tablet: var(--nx-layout-viewport-tablet);
+  --nx-layout-viewport-desktop: var(--nx-layout-viewport-desktop);
+  --nx-layout-viewport-wide: var(--nx-layout-viewport-wide);
+  --nx-layout-viewport-ultrawide: var(--nx-layout-viewport-ultrawide);
+  --nx-layout-aspect-ratio-square: var(--nx-layout-aspect-ratio-square);
+  --nx-layout-aspect-ratio-standard: var(--nx-layout-aspect-ratio-standard);
+  --nx-layout-aspect-ratio-photo: var(--nx-layout-aspect-ratio-photo);
+  --nx-layout-aspect-ratio-portrait: var(--nx-layout-aspect-ratio-portrait);
+  --nx-layout-aspect-ratio-video: var(--nx-layout-aspect-ratio-video);
+  --nx-layout-aspect-ratio-ultrawide: var(--nx-layout-aspect-ratio-ultrawide);
 }

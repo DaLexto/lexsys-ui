@@ -474,6 +474,17 @@
   --nx-elevation-tooltip-z-index: var(--nx-z-index-tooltip);
   --nx-elevation-shadow-floating: var(--nx-shadow-4);
   --nx-elevation-shadow-raised: var(--nx-shadow-5);
+  --nx-layout-viewport-mobile: var(--nx-breakpoint-sm);
+  --nx-layout-viewport-tablet: var(--nx-breakpoint-md);
+  --nx-layout-viewport-desktop: var(--nx-breakpoint-lg);
+  --nx-layout-viewport-wide: var(--nx-breakpoint-xl);
+  --nx-layout-viewport-ultrawide: var(--nx-breakpoint-2xl);
+  --nx-layout-aspect-ratio-square: var(--nx-aspect-ratio-1-1);
+  --nx-layout-aspect-ratio-standard: var(--nx-aspect-ratio-4-3);
+  --nx-layout-aspect-ratio-photo: var(--nx-aspect-ratio-3-2);
+  --nx-layout-aspect-ratio-portrait: var(--nx-aspect-ratio-3-4);
+  --nx-layout-aspect-ratio-video: var(--nx-aspect-ratio-16-9);
+  --nx-layout-aspect-ratio-ultrawide: var(--nx-aspect-ratio-21-9);
   --nx-accordion-background: var(--nx-color-background-surface);
   --nx-accordion-foreground: var(--nx-color-text-primary);
   --nx-accordion-border-color: var(--nx-border-default);

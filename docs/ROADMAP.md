@@ -68,10 +68,6 @@ Resolver-specific planning lives in `docs/RESOLVER_EVOLUTION.md`.
 
 ### Semantic and product gaps
 
-- `layout` semantic group (staged stub only)
-
-### Authoring and tooling
-
 - Stronger governance workflows around token ownership and change review
 - Additional presets or CLI style aliases beyond `default` / `neurex`
 

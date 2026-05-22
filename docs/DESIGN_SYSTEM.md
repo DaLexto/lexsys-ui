@@ -98,7 +98,7 @@ Brand source: `packages/tokens/src/brand/`.
 Semantic tokens assign product meaning. They reference brand tokens for
 brand-specific values and primitive tokens for non-brand values.
 
-**10 active semantic groups:**
+**11 active semantic groups:**
 
 | Group        | Roles                                                                                                                                                                         |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -112,6 +112,7 @@ brand-specific values and primitive tokens for non-brand values.
 | `motion`     | Duration and easing semantic roles                                                                                                                                            |
 | `typography` | Font scale semantic roles                                                                                                                                                     |
 | `outline`    | Focus and state ring roles: `width` (focus, inset, zero), `offset` (focus, zero) — maps from primitive `outline.width.*` and `outline.offset.*`                               |
+| `layout`     | Responsive layout roles: `viewport` (mobile–ultrawide), `aspectRatio` (square, standard, photo, portrait, video, ultrawide) — maps from primitive `breakpoint.*` and `aspect-ratio.*` |
 
 Semantic path structure:
 
@@ -120,10 +121,7 @@ Semantic path structure:
 - `border.*` — border color roles (not nested under `color`)
 - `elevation.*` — stacking and shadow roles (not nested under `color`; components must not reference primitive `z-index.*` or `shadow.*` directly)
 - `outline.*` — focus ring width and offset roles (components use these for `focus.ringWidth` / `focus.ringOffset`; do not hardcode Tailwind `ring-2` / `ring-offset-2`)
-
-> **Note:** `layout.ts` exists as a staged stub with no content.
-> It is not in the active semantic output. Authoring lives under
-> `packages/tokens/src/semantics/color/` for the active `color` group.
+- `layout.*` — viewport breakpoint and aspect ratio roles (consumers must not reference primitive `breakpoint.*` or `aspect-ratio.*` directly)
 
 Semantic source: `packages/tokens/src/semantics/`.
 
@@ -418,7 +416,6 @@ API shape.
 - Token authoring module boundaries within `packages/tokens/src/`
 - Exact semantic group structure (new groups may be added)
 - Composite token type support in generators
-- `layout` semantic group (staged stub, not yet active)
 - DTCG public JSON package export contract
 
 **Planned but not active contract:**

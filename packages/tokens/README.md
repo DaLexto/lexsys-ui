@@ -80,13 +80,15 @@ src/
   scripts/          # clean-imports, governance-report
 ```
 
-**Active semantic groups (10):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`, `outline`.
+**Active semantic groups (11):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`, `outline`, `layout`.
 
-**Staged stubs only (not registered in token collections):** `semantics/layout.ts`, `primitives/asset.ts`.
+**Staged stubs only (not registered in token collections):** `primitives/asset.ts`.
 
 **Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component tokens → CSS vars (`--nx-*`).
 
 **Outline chain:** primitive `outline.width.*` / `outline.offset.*` → semantic `outline.*` → component `focus.ringWidth` / `focus.ringOffset` → CSS vars (`--nx-*-focus-ring-width`, `--nx-*-focus-ring-offset`).
+
+**Layout chain:** primitive `breakpoint.*` / `aspect-ratio.*` → semantic `layout.*` → CSS vars (`--nx-layout-viewport-*`, `--nx-layout-aspect-ratio-*`).
 
 The exact internal structure may evolve, but package boundaries must remain clear.
 
