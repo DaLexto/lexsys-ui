@@ -2,7 +2,7 @@
 
 **Audience:** Maintainers
 **Type:** Vision / implementation plan
-**Status:** Phases 1–7 shipped; Phases 8–10 planned; speculative items deferred
+**Status:** Phases 1–8 shipped; Phases 9–10 planned; speculative items deferred
 **Source of truth for:** Resolver and governance evolution sequencing after the initial platform pass
 **Verified against:** `packages/tokens/src/engine/`, `packages/tokens/src/generators/`
 
@@ -24,8 +24,8 @@ Neurex token validation and analysis split across three cooperating areas:
 | Generator pipeline | `packages/tokens/src/generators/` | CSS/DTCG output; calls validation before generation |
 | CLI entrypoints | `packages/tokens/scripts/` | Build output write, governance report, dev hygiene |
 
-Phases 1–7 (factory authoring, layer validation, governance reports, semantic organization, governance hardening) are complete.
-Remaining work is sequenced below as Phases 7–10 plus explicitly deferred speculative capabilities.
+Phases 1–8 (factory authoring, layer validation, governance reports, semantic organization, governance hardening, composite token expansion) are complete.
+Remaining work is sequenced below as Phases 9–10 plus explicitly deferred speculative capabilities.
 
 ```mermaid
 flowchart TB
@@ -35,9 +35,6 @@ flowchart TB
     layerVal[Layer validation]
     govReports[Governance + semantic audit reports]
     deadStrip[Optional dead-primitive stripping]
-  end
-
-  subgraph phase8 [Phase 8 Generator]
     composite[Composite token expansion]
   end
 
@@ -54,8 +51,7 @@ flowchart TB
     colorMath[Color math + unit arithmetic]
   end
 
-  shipped --> phase8
-  phase8 --> phase9
+  shipped --> phase9
   phase9 --> phase10
   phase9 --> speculative
 ```
@@ -142,14 +138,31 @@ pnpm --filter @neurex/tokens governance:report
 
 Promotion to build-failing checks (zero dead primitives, zero deprecated-with-dependents) requires an explicit maintainer policy — not automatic.
 
+### Composite token expansion (Phase 8)
+
+**Entry points:**
+
+- `packages/tokens/src/engine/composite/` — composite type registry, slot schemas, branch detection, atomic path collection
+- `packages/tokens/src/generators/outputs/dtcg/` — normalizes composite branches and resolves slot leaf types from schema
+- CSS output — typography slot leaves already flatten to atomic `--nx-*` vars via `flattenTokenTree` (regression-tested)
+
+Typography composite groups (`body`, `heading`, `control`, `label`, `display`, `code`) are authored as **branch + slot leaves** (for example `{typography.control.md.fontSize}`). Phase 8 formalizes that model:
+
+- `$type: "typography"` on all typography role branches
+- Schema-driven slot types (`fontFamily`, `fontSize`, `fontWeight`, `lineHeight`, `letterSpacing`)
+- DTCG JSON carries composite group metadata and typed atomic slot leaves
+- `collectCompositeAtomicPaths` exported for Phase 9 resolved-value work
+
+Default is **on** (no opt-in flag). CSS/Tailwind output is unchanged; DTCG gains composite group `$type` metadata on previously untyped role branches.
+
 ---
 
 ## Phase Summary
 
 | Phase | Name | Type | Depends on | Entry points |
 | ----- | ---- | ---- | ---------- | ------------ |
-| 7 | Governance hardening | Shipped | Shipped baseline | `resolver/graph/`, `governance/report/`, `scripts/write-style-outputs.ts` |
-| 8 | Composite expansion | Extends generators | Shipped baseline | `packages/tokens/src/generators/outputs/` |
+| 7 | Governance hardening | Shipped | Shipped baseline | `engine/resolver/graph/`, `engine/governance/report/`, `scripts/write-style-outputs.ts` |
+| 8 | Composite expansion | Shipped | Shipped baseline | `engine/composite/`, `generators/outputs/dtcg/` |
 | 9 | Resolved value pipeline | New resolver capability | Phases 7–8 (design) | `packages/tokens/src/engine/resolver/values/` |
 | 10 | Accessibility guard | Extends validation | Phase 9 | `packages/tokens/src/engine/validator/contrast/` |
 | — | Speculative (AST + math) | New subsystem | Phase 9 design | Not scheduled |
@@ -158,27 +171,24 @@ Promotion to build-failing checks (zero dead primitives, zero deprecated-with-de
 
 ## Phase 8: Composite Token Expansion
 
-**Status:** Planned
-**Extends:** CSS and DTCG generators under `packages/tokens/src/generators/outputs/`
+**Status:** Shipped
+**Entry points:** `packages/tokens/src/engine/composite/`, `packages/tokens/src/generators/outputs/dtcg/`
 
-### Current behavior
+### Shipped behavior
 
-Typography and other composite groups are consumed as **slot references** in component tokens (for example `{typography.control.md.fontSize}`). Composite leaves are not auto-flattened into atomic CSS variables in generated output.
+- Typography composite role groups declare `$type: "typography"` and fixed slot keys
+- CSS generator continues to emit atomic custom properties per slot leaf (for example `--nx-typography-control-md-font-size`)
+- DTCG generator normalizes composite branches and resolves slot leaf `$type` from the composite schema instead of path heuristics alone
+- `collectCompositeAtomicPaths`, `normalizeCompositeBranches`, and `resolveCompositeSlotType` are exported from the engine for Phase 9
 
-### Target behavior
+### Authoring model (unchanged)
 
-- Generator expands composite groups (typography first) into individual atomic variables
-- Internal slot references continue resolving through the existing reference chain (for example `fontSize` → `{font.size.base}`)
-- DTCG JSON output reflects expanded atomic leaves where appropriate
+Components keep slot references such as `{typography.control.md.fontSize}`. Composite groups remain branch + slot leaves, not object `$value` leaves.
 
-### Non-goals
+### Non-goals (still deferred)
 
-- Changing component token authoring style — slot refs remain valid
+- Structured composite object `$value` leaves (future shadow/border migration)
 - Expression evaluation or color math
-
-### Why before contrast
-
-Improves CSS/DTCG output fidelity without requiring a resolved-value pipeline.
 
 ---
 

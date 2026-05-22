@@ -19,6 +19,7 @@
  */
 
 import type { TokenTree } from "../../../types"
+import { normalizeCompositeBranches } from "../../../engine/composite"
 
 import type {
   DtcgGenerateResult,
@@ -41,7 +42,10 @@ export const generateJsonTokens = (
   options: DtcgGeneratorOptions = {},
 ): DtcgGenerateResult => {
   const generatorOptions = createDefaultDtcgGeneratorOptions(options)
-  const tokenTree = toDtcgTokenTree(tree, generatorOptions)
+  const tokenTree = toDtcgTokenTree(
+    normalizeCompositeBranches(tree),
+    generatorOptions,
+  )
 
   const json: DtcgTokenDocument = {
     $schema: generatorOptions.schemaUrl,

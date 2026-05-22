@@ -59,15 +59,15 @@ The items below are planned work, not current contracts.
 
 ### Resolver and generator evolution
 
-Phases 8–10 and deferred speculative work are sequenced in
+Phases 9–10 and deferred speculative work are sequenced in
 [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md):
 
-| Phase | Focus |
-| ----- | ----- |
-| 8 | Composite token expansion in generators |
-| 9 | Resolved value pipeline |
-| 10 | Accessibility contrast guard |
-| — | Speculative AST evaluator and color/unit math (deferred) |
+| Phase | Focus | Status |
+| ----- | ----- | ------ |
+| 8 | Composite token expansion in generators | Shipped |
+| 9 | Resolved value pipeline | Planned |
+| 10 | Accessibility contrast guard | Planned |
+| — | Speculative AST evaluator and color/unit math (deferred) | Not scheduled |
 
 Do not duplicate phase detail here — update RESOLVER_EVOLUTION when sequencing changes.
 

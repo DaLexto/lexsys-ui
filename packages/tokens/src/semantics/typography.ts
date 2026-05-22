@@ -94,6 +94,7 @@ export const typographySemantics = semanticTokens("typography", {
   },
 
   display: {
+    $type: "typography",
     sm: {
       fontFamily: { $value: "{typography.family.sans}" },
       fontSize: { $value: "{font-size.5xl}" },
@@ -118,6 +119,7 @@ export const typographySemantics = semanticTokens("typography", {
   },
 
   label: {
+    $type: "typography",
     xs: {
       fontFamily: { $value: "{typography.family.sans}" },
       fontSize: { $value: "{font-size.xs}" },
@@ -149,6 +151,7 @@ export const typographySemantics = semanticTokens("typography", {
   },
 
   control: {
+    $type: "typography",
     xs: {
       fontFamily: { $value: "{typography.family.sans}" },
       fontSize: { $value: "{font-size.xs}" },
@@ -187,6 +190,7 @@ export const typographySemantics = semanticTokens("typography", {
   },
 
   code: {
+    $type: "typography",
     sm: {
       fontFamily: { $value: "{typography.family.mono}" },
       fontSize: { $value: "{font-size.xs}" },

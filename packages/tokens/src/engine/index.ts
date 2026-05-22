@@ -37,6 +37,25 @@ export type {
 } from "./resolver"
 
 export {
+  collectCompositeAtomicPaths,
+  getCompositeBranchInfo,
+  isCompositeBranch,
+  isImplementedCompositeType,
+  normalizeCompositeBranches,
+  resolveCompositeSlotType,
+  COMPOSITE_TYPE_REGISTRY,
+  TYPOGRAPHY_COMPOSITE_DEFINITION,
+  TYPOGRAPHY_COMPOSITE_SLOTS,
+} from "./composite"
+
+export type {
+  CompositeAtomicPath,
+  CompositeBranchInfo,
+  CompositeSlotSchema,
+  CompositeTypeDefinition,
+} from "./composite"
+
+export {
   validateTokenLayerContracts,
   validateTokenLayerContractsStrict,
 } from "./validator"

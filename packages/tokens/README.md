@@ -78,6 +78,8 @@ src/
       reference/
       graph/
       shared/
+      values/         # Phase 9 resolved-value stub
+    composite/        # composite type registry and slot schemas
     validator/        # build-failing layer contracts
       layers/
     governance/       # non-blocking reports and audits

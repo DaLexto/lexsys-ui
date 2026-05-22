@@ -219,7 +219,25 @@ No other `$`-prefixed keys are valid on branches.
 ### Scalar token types
 
 A token `$value` MUST be a `string` or `number`. Arrays and objects are reserved
-for composite types (e.g. `typography`).
+for future composite object `$value` leaves (for example structured shadow objects).
+
+### Composite typography groups (branch + slot leaves)
+
+Typography semantic roles (`body`, `heading`, `control`, `label`, `display`, `code`)
+are composite branches with `$type: "typography"`. Each size variant (for example `md`)
+contains slot leaves:
+
+| Slot            | Type            |
+| --------------- | --------------- |
+| `fontFamily`    | `fontFamily`    |
+| `fontSize`      | `fontSize`      |
+| `fontWeight`    | `fontWeight`    |
+| `lineHeight`    | `number`        |
+| `letterSpacing` | `letterSpacing` |
+
+Components reference individual slots (for example `{typography.control.md.fontSize}`).
+The generator expands slot leaves into atomic CSS custom properties and typed DTCG
+leaves. Classification helpers live in `packages/tokens/src/engine/composite/`.
 
 ---
 
@@ -260,7 +278,7 @@ but do not change CSS or DTCG output unless dead-primitive stripping is explicit
 `node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
 primitive leaves from CSS/DTCG after full-graph validation. Default is off.
 
-**Planned (not build-failing):** Phase 8 composite token expansion, Phase 9 resolved value pipeline, Phase 10 accessibility contrast guard. Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+**Planned (not build-failing):** Phase 9 resolved value pipeline, Phase 10 accessibility contrast guard. Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
 
@@ -292,9 +310,8 @@ Key named exports from `.`:
 | `formatSemanticAuditReport`                    | Format a semantic audit report for CLI output       |
 
 Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`,
-`createStyleTokenInput`, and related types) live under
-`packages/tokens/src/engine/resolver/`, `packages/tokens/src/engine/validator/`, and
-`packages/tokens/src/generators/inputs/`.
+`collectCompositeAtomicPaths`, `normalizeCompositeBranches`, and related types)
+live under `packages/tokens/src/engine/`.
 They are used internally by the build pipeline and tests but are not exported
 from the package root entrypoint.
 

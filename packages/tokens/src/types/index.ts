@@ -20,6 +20,8 @@ export type {
   TokenTree,
   TokenUnitValue,
   TokenValue,
+  ScalarTokenType,
+  CompositeTokenType,
 } from "./token.types"
 
 /* Source groups */
