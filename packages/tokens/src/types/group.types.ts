@@ -24,40 +24,21 @@ export type ComponentTokenGroupMeta = {
 }
 
 /**
- * Legacy flat-mixed group: metadata keys live beside token branches.
- * Supported during migration; new authoring should use factories instead.
- */
-export type LegacyNamedTokenGroup = TokenTree & NamedTokenGroupMeta
-
-/**
  * Primitive token group.
  */
-export type PrimitiveTokenGroup =
-  | TokenGroupBase<NamedTokenGroupMeta>
-  | LegacyNamedTokenGroup
+export type PrimitiveTokenGroup = TokenGroupBase<NamedTokenGroupMeta>
 
 /**
  * Semantic token group.
  */
-export type SemanticTokenGroup =
-  | TokenGroupBase<NamedTokenGroupMeta>
-  | LegacyNamedTokenGroup
+export type SemanticTokenGroup = TokenGroupBase<NamedTokenGroupMeta>
 
 /**
  * Brand token group.
  */
-export type BrandTokenGroup =
-  | TokenGroupBase<NamedTokenGroupMeta>
-  | LegacyNamedTokenGroup
-
-/**
- * Legacy flat-mixed component group.
- */
-export type LegacyComponentTokenGroup = TokenTree & ComponentTokenGroupMeta
+export type BrandTokenGroup = TokenGroupBase<NamedTokenGroupMeta>
 
 /**
  * Component token group.
  */
-export type ComponentTokenGroup =
-  | TokenGroupBase<ComponentTokenGroupMeta>
-  | LegacyComponentTokenGroup
+export type ComponentTokenGroup = TokenGroupBase<ComponentTokenGroupMeta>

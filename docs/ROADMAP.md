@@ -25,8 +25,8 @@ Current implementation:
 - The resolver validates reference syntax, missing references, circular
   references, max-depth violations, and invalid DTCG token leaf shape when
   importing token JSON.
-- Token groups currently support both legacy mixed-envelope source objects and
-  the planned factory-produced metadata/token boundary during migration.
+- Token groups are authored through factory helpers with explicit metadata and
+  token payload boundaries.
 
 ## Target State
 
@@ -111,7 +111,7 @@ the authoring pattern.
 
 - All primitive, brand, semantic, component, and theme source files use factory
   helpers.
-- Legacy mixed-envelope support can be removed after migration is complete.
+- Legacy mixed-envelope adapter support has been removed.
 
 **Non-goals:**
 

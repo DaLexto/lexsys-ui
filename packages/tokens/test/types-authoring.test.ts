@@ -7,7 +7,7 @@ import {
   primitiveTokens as createPrimitiveTokens,
   themeTokens,
 } from "../src/types/authoring.js"
-import type { PresetDefinition, PrimitiveTokenGroup } from "../src/types"
+import type { PresetDefinition } from "../src/types"
 
 describe("token authoring factories", () => {
   test("create explicit metadata and token payload boundaries", () => {
@@ -60,19 +60,11 @@ describe("token authoring factories", () => {
     })
   })
 
-  test("reads factory groups and legacy groups through the same adapter", () => {
-    const legacyGroup: PrimitiveTokenGroup = {
-      name: "legacy",
-      sample: { $value: "1rem" },
-    }
-
+  test("reads factory group token payloads", () => {
     expect(getTokenTree(colorPrimitives)).toBe(colorPrimitives.tokens)
     expect(getTokenTree(buttonComponentTokens)).toBe(
       buttonComponentTokens.tokens,
     )
-    expect(getTokenTree(legacyGroup)).toEqual({
-      sample: { $value: "1rem" },
-    })
   })
 
   test("keeps current generator input behavior for migrated pilot groups", () => {
