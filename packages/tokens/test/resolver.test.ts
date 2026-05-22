@@ -21,10 +21,7 @@ const isTokenValue = (value: unknown): value is TokenValue => {
     return false
   }
 
-  if (
-    typeof value.value === "number" &&
-    typeof value.unit === "string"
-  ) {
+  if (typeof value.value === "number" && typeof value.unit === "string") {
     return true
   }
 

@@ -24,12 +24,12 @@ const typographyControlFixture: TokenTree = {
 describe("composite resolver", () => {
   it("detects typography role groups by slot pattern", () => {
     expect(isCompositeBranch(typographyControlFixture.control)).toBe(true)
-    expect(getCompositeBranchInfo(typographyControlFixture.control ?? {})).toEqual(
-      {
-        compositeType: "typography",
-        path: [],
-      },
-    )
+    expect(
+      getCompositeBranchInfo(typographyControlFixture.control ?? {}),
+    ).toEqual({
+      compositeType: "typography",
+      path: [],
+    })
   })
 
   it("does not treat typography family groups as composite role groups", () => {

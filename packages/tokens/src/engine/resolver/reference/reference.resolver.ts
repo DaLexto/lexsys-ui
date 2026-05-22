@@ -23,7 +23,12 @@ import {
   isTokenTree,
   toPathString,
 } from "../shared/shared.resolver.utils"
-import type { TokenLeaf, TokenNode, TokenTree, TokenValue } from "../../../types"
+import type {
+  TokenLeaf,
+  TokenNode,
+  TokenTree,
+  TokenValue,
+} from "../../../types"
 
 const cloneLeafWithValue = (leaf: TokenLeaf, value: TokenValue): TokenLeaf => {
   return {
@@ -81,10 +86,7 @@ const resolveNode = (
     const leafResult = resolveLeafValue(root, sourcePath, options)
 
     return {
-      node: cloneLeafWithValue(
-        node,
-        leafResult.resolved?.value ?? node.$value,
-      ),
+      node: cloneLeafWithValue(node, leafResult.resolved?.value ?? node.$value),
       errors: leafResult.errors,
       warnings: leafResult.warnings,
     }

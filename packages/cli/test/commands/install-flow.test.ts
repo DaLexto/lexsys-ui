@@ -128,7 +128,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Badge/Badge.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-(--nx-badge-background)")
+    ).resolves.toContain("bg-(--nx-badge-neutral-background)")
     await expect(
       readFile(join(tempDir, "src/components/ui/Badge/Badge.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
@@ -137,7 +137,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Alert/Alert.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-(--nx-alert-background)")
+    ).resolves.toContain("bg-(--nx-alert-neutral-background)")
     await expect(
       readFile(join(tempDir, "src/components/ui/Alert/Alert.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")

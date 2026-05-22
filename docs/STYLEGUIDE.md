@@ -161,15 +161,15 @@ them in components via Tailwind v4 canonical CSS variable syntax:
 
 ### Files and folders
 
-| Context                                | Convention                 | Example                                      |
-| -------------------------------------- | -------------------------- | -------------------------------------------- |
-| UI component folder                    | PascalCase                 | `Button/`, `AlertDialog/`                    |
-| UI component files                     | PascalCase                 | `Button.tsx`, `Button.types.ts`              |
-| Token source files (same-role folder)  | kebab-case, no role suffix | `color.ts`, `spacing.ts`                     |
-| Token source files (mixed-role folder) | role label prefix          | `resolver.types.ts`, `generator.create.ts`   |
-| Token engine modules (role subfolder)    | `{role}/{role}.{domain}.ts` | `graph/graph.resolver.ts`, `report/report.governance.ts` |
-| Package CLI scripts (`scripts/`)       | kebab-case at package root | `write-style-outputs.ts`, `governance-report.ts` |
-| CLI modules (`packages/cli`)           | kebab-case                 | `registry-provider.ts`, `install-results.ts` |
+| Context                                | Convention                  | Example                                                  |
+| -------------------------------------- | --------------------------- | -------------------------------------------------------- |
+| UI component folder                    | PascalCase                  | `Button/`, `AlertDialog/`                                |
+| UI component files                     | PascalCase                  | `Button.tsx`, `Button.types.ts`                          |
+| Token source files (same-role folder)  | kebab-case, no role suffix  | `color.ts`, `spacing.ts`                                 |
+| Token source files (mixed-role folder) | role label prefix           | `resolver.types.ts`, `generator.create.ts`               |
+| Token engine modules (role subfolder)  | `{role}/{role}.{domain}.ts` | `graph/graph.resolver.ts`, `report/report.governance.ts` |
+| Package CLI scripts (`scripts/`)       | kebab-case at package root  | `write-style-outputs.ts`, `governance-report.ts`         |
+| CLI modules (`packages/cli`)           | kebab-case                  | `registry-provider.ts`, `install-results.ts`             |
 
 ### Symbols
 

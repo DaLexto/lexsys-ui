@@ -248,11 +248,10 @@ export const stripDeadPrimitivesFromTree = (
       continue
     }
 
-    const child = stripDeadPrimitivesFromTree(
-      value as TokenTree,
-      usedPaths,
-      [...path, key],
-    )
+    const child = stripDeadPrimitivesFromTree(value as TokenTree, usedPaths, [
+      ...path,
+      key,
+    ])
 
     if (isTokenLeaf(child) || Object.keys(child).length > 0) {
       result[key] = child

@@ -6,4 +6,5 @@ coverage
 .next
 .vite
 .pnpm-store
+packages/registry/templates/styles/**
 pnpm-lock.yaml

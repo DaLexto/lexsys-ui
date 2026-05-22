@@ -41,18 +41,18 @@ Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 Phases 1–10 are complete. Detailed implementation history lives in git; this
 table is the high-level record only.
 
-| Phase                      | Outcome                                                           |
-| -------------------------- | ----------------------------------------------------------------- |
-| 1 — Types and factories    | Explicit source-group types and factory helpers                   |
-| 2 — Pilot migration        | Representative primitive, component, and theme sources migrated   |
-| 3 — Full source migration  | All source groups use factories; legacy adapter removed           |
-| 4 — Layer validation       | Build-failing layer contract enforcement                          |
-| 5 — Governance and tooling | Metadata, deprecation, and dead-token reports                     |
-| 6 — Semantic organization  | Elevation semantics, theme path alignment, feedback wiring, audit |
-| 7 — Governance hardening   | Transitive dependents, graph module, optional dead-primitive stripping, scripts layout |
-| 8 — Composite expansion    | Typography composite registry, DTCG slot typing, atomic path classification |
-| 9 — Resolved value pipeline | On-demand leaf resolution, themed lookup, contrast prep stubs |
-| 10 — Accessibility guard   | WCAG AA contrast report, semantic pair registry, governance CLI integration |
+| Phase                       | Outcome                                                                                |
+| --------------------------- | -------------------------------------------------------------------------------------- |
+| 1 — Types and factories     | Explicit source-group types and factory helpers                                        |
+| 2 — Pilot migration         | Representative primitive, component, and theme sources migrated                        |
+| 3 — Full source migration   | All source groups use factories; legacy adapter removed                                |
+| 4 — Layer validation        | Build-failing layer contract enforcement                                               |
+| 5 — Governance and tooling  | Metadata, deprecation, and dead-token reports                                          |
+| 6 — Semantic organization   | Elevation semantics, theme path alignment, feedback wiring, audit                      |
+| 7 — Governance hardening    | Transitive dependents, graph module, optional dead-primitive stripping, scripts layout |
+| 8 — Composite expansion     | Typography composite registry, DTCG slot typing, atomic path classification            |
+| 9 — Resolved value pipeline | On-demand leaf resolution, themed lookup, contrast prep stubs                          |
+| 10 — Accessibility guard    | WCAG AA contrast report, semantic pair registry, governance CLI integration            |
 
 ---
 
@@ -65,9 +65,9 @@ The items below are planned work, not current contracts.
 Deferred speculative work is sequenced in
 [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md):
 
-| Phase | Focus | Status |
-| ----- | ----- | ------ |
-| — | Speculative AST evaluator and color/unit math (deferred) | Not scheduled |
+| Phase | Focus                                                    | Status        |
+| ----- | -------------------------------------------------------- | ------------- |
+| —     | Speculative AST evaluator and color/unit math (deferred) | Not scheduled |
 
 Do not duplicate phase detail here — update RESOLVER_EVOLUTION when sequencing changes.
 

@@ -62,7 +62,7 @@ Presets are configuration. They are not a layer in this chain.
   | `size`       | Reusable sizing roles: `control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb` |
   | `spacing`    | Spacing roles: `control.gap`, `control.x`, `control.y`, `surface.*`                                  |
   | `typography` | Font family, body, label, heading, code composite roles                                              |
-  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                                |
+  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                               |
   | `layout`     | Viewport (`sm`–`2xl`) and `aspectRatio` roles (square, standard, photo, portrait, video, ultrawide)  |
 
 - `color`, `action`, `border`, `elevation`, `outline`, and `layout` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
@@ -175,12 +175,12 @@ inline alias chains across the full merged tree before CSS/DTCG generation.
 For on-demand lookups (governance, contrast prep, tooling), use the values API in
 `packages/tokens/src/engine/resolver/values/`:
 
-| Export | Purpose |
-| ------ | ------- |
-| `resolveLeafValue(tree, path, options?)` | Resolve one leaf `$value` through its alias chain |
-| `resolveLeafValues(tree, paths?, options?)` | Batch resolve; defaults to all leaf paths |
+| Export                                                   | Purpose                                                                     |
+| -------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf `$value` through its alias chain                           |
+| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve; defaults to all leaf paths                                   |
 | `resolveLeafValueForTheme(input, theme, path, options?)` | Resolve after `foundationTokens` + `theme.tokens` + `componentTokens` merge |
-| `isResolvedColorValue` / `toContrastReadyColor` | Color normalization for contrast math (OKLCH objects and strings) |
+| `isResolvedColorValue` / `toContrastReadyColor`          | Color normalization for contrast math (OKLCH objects and strings)           |
 
 `resolveLeafValue` returns `{ resolved, errors, warnings }` where `resolved` includes
 the terminal `TokenValue`, dotted `path`, and `referenceChain` (alias hops visited).
@@ -196,11 +196,11 @@ Tree merge helpers (`mergeTokenTrees`, `createThemedTokenTree`) live in
 Non-blocking WCAG AA checks on an **explicit semantic pair registry** in
 `packages/tokens/src/engine/validator/contrast/contrast.pairs.ts`.
 
-| Export | Purpose |
-| ------ | ------- |
-| `createContrastValidationReport(input)` | Resolve themed fg/bg pairs and compare contrast ratios |
-| `formatContrastValidationReport(report)` | CLI-friendly report text |
-| `SEMANTIC_CONTRAST_PAIRS` | Registered semantic foreground/background paths |
+| Export                                   | Purpose                                                |
+| ---------------------------------------- | ------------------------------------------------------ |
+| `createContrastValidationReport(input)`  | Resolve themed fg/bg pairs and compare contrast ratios |
+| `formatContrastValidationReport(report)` | CLI-friendly report text                               |
+| `SEMANTIC_CONTRAST_PAIRS`                | Registered semantic foreground/background paths        |
 
 Each pair is evaluated per theme mode using `resolveLeafValueForTheme`. Default
 threshold is **4.5:1** (WCAG AA normal text). Report is appended by:
@@ -333,10 +333,10 @@ Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOL
 
 `packages/tokens` exports via `package.json` `exports`:
 
-| Export path    | Content                                                                        |
-| -------------- | ------------------------------------------------------------------------------ |
-| `.`            | Package root API — token trees, presets, themes, generator outputs, governance |
-| `./tokens.css` | Generated CSS — base token variables (`:root` scope)                           |
+| Export path    | Content                                                                                               |
+| -------------- | ----------------------------------------------------------------------------------------------------- |
+| `.`            | Package root API — token trees, presets, themes, generator outputs, governance                        |
+| `./tokens.css` | Generated CSS — base token variables (`:root` scope)                                                  |
 | `./theme.css`  | Generated CSS — theme mode overrides (`:root` light, `.dark` dark) and Tailwind `@theme inline` block |
 
 Key named exports from `.`:
@@ -389,13 +389,13 @@ Use `generate:styles` after token generator changes that affect `packages/regist
 
 Generated output lives at:
 
-| File                                              | Description                                        |
-| ------------------------------------------------- | -------------------------------------------------- |
-| `packages/tokens/dist/tokens.css`                 | Base token variables (`:root`)                     |
-| `packages/tokens/dist/theme.css`                    | Theme mode overrides and Tailwind `@theme inline`  |
-| `packages/tokens/dist/tokens/dtcg/tokens.tokens.json` | Full merged DTCG JSON with unresolved references |
-| `packages/tokens/dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON              |
-| `packages/tokens/dist/tokens/dtcg/brand/*.tokens.json`      | Per-brand DTCG JSON                        |
-| `packages/tokens/dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON               |
-| `packages/tokens/dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                    |
-| `packages/tokens/dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                        |
+| File                                                        | Description                                       |
+| ----------------------------------------------------------- | ------------------------------------------------- |
+| `packages/tokens/dist/tokens.css`                           | Base token variables (`:root`)                    |
+| `packages/tokens/dist/theme.css`                            | Theme mode overrides and Tailwind `@theme inline` |
+| `packages/tokens/dist/tokens/dtcg/tokens.tokens.json`       | Full merged DTCG JSON with unresolved references  |
+| `packages/tokens/dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON                     |
+| `packages/tokens/dist/tokens/dtcg/brand/*.tokens.json`      | Per-brand DTCG JSON                               |
+| `packages/tokens/dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON                      |
+| `packages/tokens/dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                           |
+| `packages/tokens/dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                               |

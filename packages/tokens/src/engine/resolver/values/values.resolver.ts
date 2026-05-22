@@ -14,7 +14,10 @@ import type {
   ThemedTokenTreeSource,
 } from "../../shared/tree.utils"
 import { resolveReferenceChain } from "../reference/reference-chain"
-import type { ResolverError, ResolverWarning } from "../reference/reference.types"
+import type {
+  ResolverError,
+  ResolverWarning,
+} from "../reference/reference.types"
 import {
   createResolverError,
   DEFAULT_RESOLVER_OPTIONS,
@@ -51,7 +54,9 @@ const toResolvedLeafValue = (
     value,
     referenceChain,
     ...(leaf.$type !== undefined ? { $type: leaf.$type } : {}),
-    ...(leaf.$description !== undefined ? { $description: leaf.$description } : {}),
+    ...(leaf.$description !== undefined
+      ? { $description: leaf.$description }
+      : {}),
   }
 }
 

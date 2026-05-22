@@ -141,7 +141,11 @@ const resolveTypographyCompositeSlotType = (
 ): DtcgTokenType | undefined => {
   const slotKey = path[path.length - 1]
 
-  if (slotKey === undefined || path.length < 2 || !isTypographySlotKey(slotKey)) {
+  if (
+    slotKey === undefined ||
+    path.length < 2 ||
+    !isTypographySlotKey(slotKey)
+  ) {
     return undefined
   }
 

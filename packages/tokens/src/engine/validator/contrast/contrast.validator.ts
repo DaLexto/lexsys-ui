@@ -214,7 +214,10 @@ export const formatContrastValidationReport = (
   ]
 
   if (report.issues.length === 0) {
-    lines.push("", "All registered semantic contrast pairs pass WCAG AA thresholds.")
+    lines.push(
+      "",
+      "All registered semantic contrast pairs pass WCAG AA thresholds.",
+    )
     return lines.join("\n")
   }
 

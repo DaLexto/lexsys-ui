@@ -15,14 +15,14 @@ Platform phase history lives in [docs/ROADMAP.md](./ROADMAP.md).
 
 Neurex token validation and analysis split across three cooperating areas:
 
-| Area | Location | Role |
-| ---- | -------- | ---- |
-| Reference resolver | `packages/tokens/src/engine/resolver/reference/` | Resolve `{dotted.path}` chains; output-agnostic |
-| Graph traversal | `packages/tokens/src/engine/resolver/graph/` | Reachability, transitive dependents, dead-primitive analysis |
-| Layer validation | `packages/tokens/src/engine/validator/layers/` | Build-failing layer contract enforcement |
-| Governance + audit | `packages/tokens/src/engine/governance/` | Non-blocking graph analysis and reports |
-| Generator pipeline | `packages/tokens/src/generators/` | CSS/DTCG output; calls validation before generation |
-| CLI entrypoints | `packages/tokens/scripts/` | Build output write, governance report, dev hygiene |
+| Area               | Location                                         | Role                                                         |
+| ------------------ | ------------------------------------------------ | ------------------------------------------------------------ |
+| Reference resolver | `packages/tokens/src/engine/resolver/reference/` | Resolve `{dotted.path}` chains; output-agnostic              |
+| Graph traversal    | `packages/tokens/src/engine/resolver/graph/`     | Reachability, transitive dependents, dead-primitive analysis |
+| Layer validation   | `packages/tokens/src/engine/validator/layers/`   | Build-failing layer contract enforcement                     |
+| Governance + audit | `packages/tokens/src/engine/governance/`         | Non-blocking graph analysis and reports                      |
+| Generator pipeline | `packages/tokens/src/generators/`                | CSS/DTCG output; calls validation before generation          |
+| CLI entrypoints    | `packages/tokens/scripts/`                       | Build output write, governance report, dev hygiene           |
 
 Phases 1–10 (factory authoring through accessibility contrast guard) are complete.
 Remaining work is limited to explicitly deferred speculative capabilities.
@@ -101,13 +101,13 @@ Runs before reference resolution during `validateStyleTokenInput`.
 
 Available reports:
 
-| Report | What it covers |
-| ------ | -------------- |
-| Metadata inventory | Tokens with `$description` or `$deprecated` |
-| Deprecation dependents | Tokens marked `$deprecated` and their **transitive** dependents |
-| Metadata dependents | Metadata entries with transitive usage when `$description` or `$deprecated` is set |
-| Dead primitives | Primitive leaf paths not reached by upper-layer reference chains |
-| Semantic audit | Unused semantic paths, component-intent branches, theme path drift |
+| Report                 | What it covers                                                                     |
+| ---------------------- | ---------------------------------------------------------------------------------- |
+| Metadata inventory     | Tokens with `$description` or `$deprecated`                                        |
+| Deprecation dependents | Tokens marked `$deprecated` and their **transitive** dependents                    |
+| Metadata dependents    | Metadata entries with transitive usage when `$description` or `$deprecated` is set |
+| Dead primitives        | Primitive leaf paths not reached by upper-layer reference chains                   |
+| Semantic audit         | Unused semantic paths, component-intent branches, theme path drift                 |
 
 These reports analyze the token graph but do not change CSS or DTCG output by default.
 
@@ -152,13 +152,13 @@ Default is **on** (no opt-in flag). CSS/Tailwind output is unchanged; DTCG gains
 
 ## Phase Summary
 
-| Phase | Name | Type | Depends on | Entry points |
-| ----- | ---- | ---- | ---------- | ------------ |
-| 7 | Governance hardening | Shipped | Shipped baseline | `engine/resolver/graph/`, `engine/governance/report/`, `scripts/write-style-outputs.ts` |
-| 8 | Composite expansion | Shipped | Shipped baseline | `engine/composite/`, `generators/outputs/dtcg/` |
-| 9 | Resolved value pipeline | Shipped | Phases 7–8 | `packages/tokens/src/engine/resolver/values/` |
-| 10 | Accessibility guard | Shipped | Phase 9 | `packages/tokens/src/engine/validator/contrast/` |
-| — | Speculative (AST + math) | New subsystem | Phase 10 shipped design | Not scheduled |
+| Phase | Name                     | Type          | Depends on              | Entry points                                                                            |
+| ----- | ------------------------ | ------------- | ----------------------- | --------------------------------------------------------------------------------------- |
+| 7     | Governance hardening     | Shipped       | Shipped baseline        | `engine/resolver/graph/`, `engine/governance/report/`, `scripts/write-style-outputs.ts` |
+| 8     | Composite expansion      | Shipped       | Shipped baseline        | `engine/composite/`, `generators/outputs/dtcg/`                                         |
+| 9     | Resolved value pipeline  | Shipped       | Phases 7–8              | `packages/tokens/src/engine/resolver/values/`                                           |
+| 10    | Accessibility guard      | Shipped       | Phase 9                 | `packages/tokens/src/engine/validator/contrast/`                                        |
+| —     | Speculative (AST + math) | New subsystem | Phase 10 shipped design | Not scheduled                                                                           |
 
 ---
 
@@ -201,10 +201,10 @@ Components keep slot references such as `{typography.control.md.fontSize}`. Comp
 
 ### Distinction from build-time resolution
 
-| API | Purpose | Output |
-| --- | ------- | ------ |
-| `resolveTokenTree` / `validateStyleTokenInput` | Build-time validation; full-tree clone with inlined `$value` | Used before CSS/DTCG generation |
-| `resolveLeafValue` / `resolveLeafValues` | On-demand lookup for governance, contrast, and tooling | Single leaf or batch; preserves refs in source trees |
+| API                                            | Purpose                                                      | Output                                               |
+| ---------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
+| `resolveTokenTree` / `validateStyleTokenInput` | Build-time validation; full-tree clone with inlined `$value` | Used before CSS/DTCG generation                      |
+| `resolveLeafValue` / `resolveLeafValues`       | On-demand lookup for governance, contrast, and tooling       | Single leaf or batch; preserves refs in source trees |
 
 Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references; DTCG preserves alias strings.
 

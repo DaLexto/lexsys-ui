@@ -196,12 +196,12 @@ Current build-failing validation, target violations, resolver error codes, and g
 On-demand leaf resolution for governance, contrast prep, and tooling — **does not**
 change default CSS/DTCG output (generators still preserve references).
 
-| Export | Purpose |
-| ------ | ------- |
-| `resolveLeafValue(tree, path, options?)` | Resolve one leaf through alias chains |
-| `resolveLeafValues(tree, paths?, options?)` | Batch resolve all or selected leaf paths |
-| `resolveLeafValueForTheme(input, theme, path, options?)` | Themed merge then resolve |
-| `isResolvedColorValue` / `toContrastReadyColor` | Phase 10 contrast prep stubs |
+| Export                                                   | Purpose                                  |
+| -------------------------------------------------------- | ---------------------------------------- |
+| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf through alias chains    |
+| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve all or selected leaf paths |
+| `resolveLeafValueForTheme(input, theme, path, options?)` | Themed merge then resolve                |
+| `isResolvedColorValue` / `toContrastReadyColor`          | Phase 10 contrast prep stubs             |
 
 Build-time validation continues to use `resolveTokenTree` via `validateStyleTokenInput`.
 Leaf resolution in `resolveTokenTree` delegates to `resolveLeafValue` for a single code path.
@@ -212,11 +212,11 @@ Import from `packages/tokens/src/engine/` (or `./engine` within the package). No
 
 Non-blocking WCAG AA report on registered semantic foreground/background pairs.
 
-| Export | Purpose |
-| ------ | ------- |
-| `createContrastValidationReport(input)` | Themed contrast ratio checks per registered pair |
-| `formatContrastValidationReport(report)` | Format report for CLI output |
-| `SEMANTIC_CONTRAST_PAIRS` | Explicit pair registry |
+| Export                                   | Purpose                                          |
+| ---------------------------------------- | ------------------------------------------------ |
+| `createContrastValidationReport(input)`  | Themed contrast ratio checks per registered pair |
+| `formatContrastValidationReport(report)` | Format report for CLI output                     |
+| `SEMANTIC_CONTRAST_PAIRS`                | Explicit pair registry                           |
 
 Runs as part of `pnpm --filter @neurex/tokens governance:report`. Not build-failing by default.
 

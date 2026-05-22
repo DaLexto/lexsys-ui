@@ -708,7 +708,9 @@ describe("createStyleOutputs", () => {
 
     expect(explicitOutputs.tokensCss).toBe(defaultOutputs.tokensCss)
     expect(explicitOutputs.themeCss).toBe(defaultOutputs.themeCss)
-    expect(explicitOutputs.tokenJsonFiles).toEqual(defaultOutputs.tokenJsonFiles)
+    expect(explicitOutputs.tokenJsonFiles).toEqual(
+      defaultOutputs.tokenJsonFiles,
+    )
   })
 
   test("omits dead primitive CSS variables when stripDeadPrimitives is on", () => {

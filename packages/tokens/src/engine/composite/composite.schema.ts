@@ -7,7 +7,10 @@
 
 import type { CompositeTokenType, ScalarTokenType } from "../../types"
 
-import type { CompositeSlotSchema, CompositeTypeDefinition } from "./composite.types"
+import type {
+  CompositeSlotSchema,
+  CompositeTypeDefinition,
+} from "./composite.types"
 
 export const TYPOGRAPHY_SLOT_KEYS = [
   "fontFamily",
@@ -55,7 +58,9 @@ export const isImplementedCompositeType = (
   return compositeType in COMPOSITE_TYPE_REGISTRY
 }
 
-export const isTypographySlotKey = (slotKey: string): slotKey is TypographySlotKey => {
+export const isTypographySlotKey = (
+  slotKey: string,
+): slotKey is TypographySlotKey => {
   return TYPOGRAPHY_SLOT_KEY_SET.has(slotKey)
 }
 

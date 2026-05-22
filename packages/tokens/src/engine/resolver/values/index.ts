@@ -20,7 +20,4 @@ export {
   resolveLeafValueForTheme,
 } from "./values.resolver"
 
-export {
-  isResolvedColorValue,
-  toContrastReadyColor,
-} from "./values.normalize"
+export { isResolvedColorValue, toContrastReadyColor } from "./values.normalize"

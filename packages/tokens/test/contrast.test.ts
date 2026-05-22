@@ -20,10 +20,12 @@ describe("contrast.math", () => {
 
     expect(white).not.toBeNull()
     expect(black).not.toBeNull()
-    expect(contrastRatio(black as NonNullable<typeof black>, white as NonNullable<typeof white>)).toBeCloseTo(
-      21,
-      0,
-    )
+    expect(
+      contrastRatio(
+        black as NonNullable<typeof black>,
+        white as NonNullable<typeof white>,
+      ),
+    ).toBeCloseTo(21, 0)
   })
 
   it("reports low contrast for similar mid-tone colors", () => {
@@ -38,9 +40,9 @@ describe("contrast.math", () => {
         background as NonNullable<typeof background>,
       ),
     ).toBeLessThan(WCAG_AA_NORMAL_TEXT_RATIO)
-    expect(relativeLuminance(background as NonNullable<typeof background>)).toBeGreaterThan(
-      0,
-    )
+    expect(
+      relativeLuminance(background as NonNullable<typeof background>),
+    ).toBeGreaterThan(0)
   })
 })
 
@@ -135,10 +137,12 @@ describe("createContrastValidationReport", () => {
 
     const report = createContrastValidationReport(input)
 
-    expect(report.issues.some((issue) => issue.code === "INSUFFICIENT_CONTRAST")).toBe(
-      true,
+    expect(
+      report.issues.some((issue) => issue.code === "INSUFFICIENT_CONTRAST"),
+    ).toBe(true)
+    expect(formatContrastValidationReport(report)).toContain(
+      "INSUFFICIENT_CONTRAST",
     )
-    expect(formatContrastValidationReport(report)).toContain("INSUFFICIENT_CONTRAST")
   })
 
   it("passes all registered semantic contrast pairs for the Neurex token graph", () => {

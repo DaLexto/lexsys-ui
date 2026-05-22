@@ -25,15 +25,11 @@ const ensureTokensBuilt = async () => {
     console.log("Building @neurex/tokens for registry style sync check...")
   }
 
-  const result = spawnSync(
-    "pnpm",
-    ["--filter", "@neurex/tokens", "build"],
-    {
-      cwd: repoRoot,
-      stdio: "inherit",
-      shell: true,
-    },
-  )
+  const result = spawnSync("pnpm", ["--filter", "@neurex/tokens", "build"], {
+    cwd: repoRoot,
+    stdio: "inherit",
+    shell: true,
+  })
 
   if (result.status !== 0) {
     process.exit(result.status ?? 1)

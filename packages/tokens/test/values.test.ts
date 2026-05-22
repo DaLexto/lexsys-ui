@@ -146,16 +146,16 @@ describe("resolveLeafValue", () => {
       "color.accent",
       "color.blue.600",
     ])
-    expect(isResolvedColorValue(result.resolved?.value as TokenColorValue)).toBe(
-      true,
-    )
-    expect(toContrastReadyColor(result.resolved?.value as TokenColorValue)).toEqual(
-      {
-        colorSpace: "oklch",
-        components: [0.546, 0.245, 262.881],
-        alpha: 1,
-      },
-    )
+    expect(
+      isResolvedColorValue(result.resolved?.value as TokenColorValue),
+    ).toBe(true)
+    expect(
+      toContrastReadyColor(result.resolved?.value as TokenColorValue),
+    ).toEqual({
+      colorSpace: "oklch",
+      components: [0.546, 0.245, 262.881],
+      alpha: 1,
+    })
   })
 
   it("resolves TokenUnitValue terminals through alias chains", () => {
@@ -218,10 +218,12 @@ describe("resolveLeafValueForTheme", () => {
       alpha: 0.6,
       hex: "#000000",
     })
-    expect(toContrastReadyColor(lightResult.resolved?.value as TokenColorValue))
-      .toMatchObject({ alpha: 0.15 })
-    expect(toContrastReadyColor(darkResult.resolved?.value as TokenColorValue))
-      .toMatchObject({ alpha: 0.6 })
+    expect(
+      toContrastReadyColor(lightResult.resolved?.value as TokenColorValue),
+    ).toMatchObject({ alpha: 0.15 })
+    expect(
+      toContrastReadyColor(darkResult.resolved?.value as TokenColorValue),
+    ).toMatchObject({ alpha: 0.6 })
   })
 })
 
