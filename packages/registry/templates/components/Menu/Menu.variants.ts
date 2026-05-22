@@ -13,7 +13,7 @@ export const menuTriggerVariants = cva(
     "text-[length:var(--nx-menu-trigger-font-size)] font-[var(--nx-menu-trigger-font-weight)] leading-[var(--nx-menu-trigger-font-line-height)] text-[var(--nx-menu-trigger-foreground)]",
     "transition-colors duration-[var(--nx-menu-transition-duration)] ease-[var(--nx-menu-transition-easing)]",
     "outline-none data-[popup-open]:border-[var(--nx-menu-trigger-open-border-color)] data-[popup-open]:bg-[var(--nx-menu-trigger-open-background)]",
-    "data-[focused]:border-[var(--nx-menu-focus-border-color)] data-[focused]:ring-2 data-[focused]:ring-[var(--nx-menu-focus-ring-color)] data-[focused]:ring-offset-2 data-[focused]:ring-offset-[var(--nx-menu-focus-ring-offset-color)]",
+    "data-[focused]:border-[var(--nx-menu-focus-border-color)] data-[focused]:ring-[length:var(--nx-menu-focus-ring-width)] data-[focused]:ring-[var(--nx-menu-focus-ring-color)] data-[focused]:ring-offset-[length:var(--nx-menu-focus-ring-offset)] data-[focused]:ring-offset-[var(--nx-menu-focus-ring-offset-color)]",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )

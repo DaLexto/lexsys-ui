@@ -12,7 +12,7 @@ export const alertDialogTriggerVariants = cva(
     "bg-[var(--nx-alert-dialog-trigger-background)] px-[var(--nx-alert-dialog-trigger-padding-x)] text-[var(--nx-alert-dialog-trigger-foreground)]",
     "text-[length:var(--nx-alert-dialog-trigger-font-size)] font-[var(--nx-alert-dialog-trigger-font-weight)] leading-[var(--nx-alert-dialog-trigger-font-line-height)]",
     "transition-colors duration-[var(--nx-alert-dialog-transition-duration)] ease-[var(--nx-alert-dialog-transition-easing)]",
-    "outline-none hover:bg-[var(--nx-alert-dialog-trigger-hover-background)] focus-visible:ring-2 focus-visible:ring-[var(--nx-alert-dialog-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-alert-dialog-focus-ring-offset-color)]",
+    "outline-none hover:bg-[var(--nx-alert-dialog-trigger-hover-background)] focus-visible:ring-[length:var(--nx-alert-dialog-focus-ring-width)] focus-visible:ring-[var(--nx-alert-dialog-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-alert-dialog-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-alert-dialog-focus-ring-offset-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )
@@ -50,7 +50,7 @@ export const alertDialogCloseVariants = cva(
   [
     "absolute right-[var(--nx-alert-dialog-close-inset)] top-[var(--nx-alert-dialog-close-inset)] inline-flex size-[var(--nx-alert-dialog-close-size)] items-center justify-center rounded-[var(--nx-alert-dialog-close-radius)]",
     "text-[var(--nx-alert-dialog-close-foreground)] outline-none transition-colors duration-[var(--nx-alert-dialog-transition-duration)] ease-[var(--nx-alert-dialog-transition-easing)]",
-    "hover:bg-[var(--nx-alert-dialog-close-hover-background)] focus-visible:ring-2 focus-visible:ring-[var(--nx-alert-dialog-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-alert-dialog-focus-ring-offset-color)]",
+    "hover:bg-[var(--nx-alert-dialog-close-hover-background)] focus-visible:ring-[length:var(--nx-alert-dialog-focus-ring-width)] focus-visible:ring-[var(--nx-alert-dialog-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-alert-dialog-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-alert-dialog-focus-ring-offset-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )

@@ -12,7 +12,7 @@ export const dialogTriggerVariants = cva(
     "bg-[var(--nx-dialog-trigger-background)] px-[var(--nx-dialog-trigger-padding-x)] text-[var(--nx-dialog-trigger-foreground)]",
     "text-[length:var(--nx-dialog-trigger-font-size)] font-[var(--nx-dialog-trigger-font-weight)] leading-[var(--nx-dialog-trigger-font-line-height)]",
     "transition-colors duration-[var(--nx-dialog-transition-duration)] ease-[var(--nx-dialog-transition-easing)]",
-    "outline-none hover:bg-[var(--nx-dialog-trigger-hover-background)] focus-visible:ring-2 focus-visible:ring-[var(--nx-dialog-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-dialog-focus-ring-offset-color)]",
+    "outline-none hover:bg-[var(--nx-dialog-trigger-hover-background)] focus-visible:ring-[length:var(--nx-dialog-focus-ring-width)] focus-visible:ring-[var(--nx-dialog-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-dialog-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-dialog-focus-ring-offset-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )
@@ -49,7 +49,7 @@ export const dialogCloseVariants = cva(
   [
     "absolute right-[var(--nx-dialog-close-inset)] top-[var(--nx-dialog-close-inset)] inline-flex size-[var(--nx-dialog-close-size)] items-center justify-center rounded-[var(--nx-dialog-close-radius)]",
     "text-[var(--nx-dialog-close-foreground)] outline-none transition-colors duration-[var(--nx-dialog-transition-duration)] ease-[var(--nx-dialog-transition-easing)]",
-    "hover:bg-[var(--nx-dialog-close-hover-background)] focus-visible:ring-2 focus-visible:ring-[var(--nx-dialog-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-dialog-focus-ring-offset-color)]",
+    "hover:bg-[var(--nx-dialog-close-hover-background)] focus-visible:ring-[length:var(--nx-dialog-focus-ring-width)] focus-visible:ring-[var(--nx-dialog-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-dialog-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-dialog-focus-ring-offset-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )

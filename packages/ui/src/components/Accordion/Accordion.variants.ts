@@ -21,7 +21,7 @@ export const accordionTriggerVariants = cva(
     "flex w-full items-center justify-between px-[var(--nx-accordion-trigger-padding-x)] py-[var(--nx-accordion-trigger-padding-y)] text-left",
     "text-[length:var(--nx-accordion-trigger-font-size)] font-[var(--nx-accordion-trigger-font-weight)] leading-[var(--nx-accordion-trigger-font-line-height)] text-[var(--nx-accordion-foreground)]",
     "transition-colors duration-[var(--nx-accordion-transition-duration)] ease-[var(--nx-accordion-transition-easing)]",
-    "outline-none hover:bg-[var(--nx-accordion-trigger-background-hover)] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--nx-accordion-focus-ring-color)]",
+    "outline-none hover:bg-[var(--nx-accordion-trigger-background-hover)] focus-visible:ring-[length:var(--nx-accordion-focus-ring-width)] focus-visible:ring-inset focus-visible:ring-[var(--nx-accordion-focus-ring-color)]",
     "disabled:pointer-events-none disabled:opacity-50",
   ].join(" "),
 )

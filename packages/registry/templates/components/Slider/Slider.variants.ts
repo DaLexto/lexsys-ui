@@ -24,7 +24,7 @@ export const sliderThumbVariants = cva(
   [
     "block size-[var(--nx-slider-thumb-size)] rounded-[var(--nx-slider-thumb-radius)] border border-[var(--nx-slider-thumb-border-color)] bg-[var(--nx-slider-thumb-background)] shadow-sm",
     "outline-none transition-colors duration-[var(--nx-slider-transition-duration)] ease-[var(--nx-slider-transition-easing)]",
-    "focus-visible:ring-2 focus-visible:ring-[var(--nx-slider-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-slider-focus-ring-offset-color)]",
+    "focus-visible:ring-[length:var(--nx-slider-focus-ring-width)] focus-visible:ring-[var(--nx-slider-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-slider-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-slider-focus-ring-offset-color)]",
     "data-[disabled]:cursor-not-allowed",
   ].join(" "),
 )

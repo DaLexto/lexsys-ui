@@ -18,11 +18,11 @@ export const tabsTabVariants = cva(
     "text-[length:var(--nx-tabs-tab-font-size)] font-[var(--nx-tabs-tab-font-weight)] leading-[var(--nx-tabs-tab-font-line-height)] text-[var(--nx-tabs-tab-foreground)]",
     "transition-colors duration-[var(--nx-tabs-transition-duration)] ease-[var(--nx-tabs-transition-easing)]",
     "outline-none data-[active]:bg-[var(--nx-tabs-tab-active-background)] data-[active]:text-[var(--nx-tabs-tab-active-foreground)] data-[active]:shadow-sm",
-    "focus-visible:ring-2 focus-visible:ring-[var(--nx-tabs-focus-ring-color)]",
+    "focus-visible:ring-[length:var(--nx-tabs-focus-ring-width)] focus-visible:ring-[var(--nx-tabs-focus-ring-color)]",
     "disabled:pointer-events-none disabled:opacity-50",
   ].join(" "),
 )
 
 export const tabsPanelVariants = cva(
-  "text-[length:var(--nx-tabs-panel-font-size)] leading-[var(--nx-tabs-panel-font-line-height)] text-[var(--nx-tabs-panel-foreground)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--nx-tabs-focus-ring-color)]",
+  "text-[length:var(--nx-tabs-panel-font-size)] leading-[var(--nx-tabs-panel-font-line-height)] text-[var(--nx-tabs-panel-foreground)] outline-none focus-visible:ring-[length:var(--nx-tabs-focus-ring-width)] focus-visible:ring-[var(--nx-tabs-focus-ring-color)]",
 )

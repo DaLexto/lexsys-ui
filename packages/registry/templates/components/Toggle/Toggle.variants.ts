@@ -13,7 +13,7 @@ export const toggleVariants = cva(
     "[font-family:var(--nx-toggle-font-family)] font-[var(--nx-toggle-font-weight)] leading-[var(--nx-toggle-font-line-height)] tracking-[var(--nx-toggle-font-letter-spacing)]",
     "transition-colors duration-[var(--nx-toggle-transition-duration)] ease-[var(--nx-toggle-transition-easing)]",
     "outline-none hover:bg-[var(--nx-toggle-hover-background)] data-[pressed]:border-[var(--nx-toggle-pressed-border-color)] data-[pressed]:bg-[var(--nx-toggle-pressed-background)] data-[pressed]:text-[var(--nx-toggle-pressed-foreground)]",
-    "focus-visible:ring-2 focus-visible:ring-[var(--nx-toggle-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-toggle-focus-ring-offset-color)]",
+    "focus-visible:ring-[length:var(--nx-toggle-focus-ring-width)] focus-visible:ring-[var(--nx-toggle-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-toggle-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-toggle-focus-ring-offset-color)]",
     "disabled:pointer-events-none disabled:opacity-50",
   ].join(" "),
   {

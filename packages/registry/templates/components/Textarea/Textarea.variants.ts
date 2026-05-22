@@ -13,7 +13,7 @@ export const textareaVariants = cva(
     "[font-family:var(--nx-textarea-font-family)] font-[var(--nx-textarea-font-weight)] leading-[var(--nx-textarea-font-line-height)] tracking-[var(--nx-textarea-font-letter-spacing)]",
     "placeholder:text-[var(--nx-textarea-placeholder-color)]",
     "transition-colors duration-[var(--nx-textarea-transition-duration)] ease-[var(--nx-textarea-transition-easing)]",
-    "outline-none focus-visible:border-[var(--nx-textarea-focus-border-color)] focus-visible:ring-2 focus-visible:ring-[var(--nx-textarea-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-textarea-focus-ring-offset-color)]",
+    "outline-none focus-visible:border-[var(--nx-textarea-focus-border-color)] focus-visible:ring-[length:var(--nx-textarea-focus-ring-width)] focus-visible:ring-[var(--nx-textarea-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-textarea-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-textarea-focus-ring-offset-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
     "aria-invalid:border-[var(--nx-textarea-invalid-border-color)] aria-invalid:ring-[var(--nx-textarea-invalid-ring-color)] data-[invalid]:border-[var(--nx-textarea-invalid-border-color)] data-[invalid]:ring-[var(--nx-textarea-invalid-ring-color)]",
   ].join(" "),

@@ -24,6 +24,8 @@ export const sliderComponentTokens = componentTokens("slider", {
   focus: {
     ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+      ringWidth: { $value: "{outline.width.focus}" },
+      ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },

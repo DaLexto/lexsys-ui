@@ -60,7 +60,7 @@ export const toastActionVariants = cva(
   [
     "inline-flex h-[var(--nx-toast-action-height)] items-center justify-center rounded-[var(--nx-toast-action-radius)] border border-[var(--nx-toast-action-border-color)] px-[var(--nx-toast-action-padding-x)]",
     "text-[length:var(--nx-toast-action-font-size)] font-[var(--nx-toast-action-font-weight)] leading-[var(--nx-toast-action-font-line-height)] text-[var(--nx-toast-action-foreground)]",
-    "outline-none transition-colors duration-[var(--nx-toast-transition-duration)] ease-[var(--nx-toast-transition-easing)] hover:bg-[var(--nx-toast-action-hover-background)] focus-visible:ring-2 focus-visible:ring-[var(--nx-toast-focus-ring-color)]",
+    "outline-none transition-colors duration-[var(--nx-toast-transition-duration)] ease-[var(--nx-toast-transition-easing)] hover:bg-[var(--nx-toast-action-hover-background)] focus-visible:ring-[length:var(--nx-toast-focus-ring-width)] focus-visible:ring-[var(--nx-toast-focus-ring-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
   ].join(" "),
 )
@@ -68,7 +68,7 @@ export const toastActionVariants = cva(
 export const toastCloseVariants = cva(
   [
     "absolute right-[var(--nx-toast-close-inset)] top-[var(--nx-toast-close-inset)] inline-flex size-[var(--nx-toast-close-size)] items-center justify-center rounded-[var(--nx-toast-close-radius)]",
-    "text-[var(--nx-toast-close-foreground)] outline-none transition-colors duration-[var(--nx-toast-transition-duration)] ease-[var(--nx-toast-transition-easing)] hover:bg-[var(--nx-toast-close-hover-background)] focus-visible:ring-2 focus-visible:ring-[var(--nx-toast-focus-ring-color)]",
+    "text-[var(--nx-toast-close-foreground)] outline-none transition-colors duration-[var(--nx-toast-transition-duration)] ease-[var(--nx-toast-transition-easing)] hover:bg-[var(--nx-toast-close-hover-background)] focus-visible:ring-[length:var(--nx-toast-focus-ring-width)] focus-visible:ring-[var(--nx-toast-focus-ring-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
   ].join(" "),
 )

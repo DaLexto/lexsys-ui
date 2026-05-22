@@ -67,7 +67,7 @@ implemented; this item covers the remaining resolver evolution only.
 
 | Gap                                   | Notes                                                                              |
 | ------------------------------------- | ---------------------------------------------------------------------------------- |
-| `outline`, `layout` semantic groups   | Staged stubs only (`semantics/outline.ts`, `semantics/layout.ts`). Not active yet. |
+| `layout` semantic group               | Staged stub only (`semantics/layout.ts`). Not active yet.                            |
 | `neurex uninstall` not implemented    | Command exists in CLI surface but has no behavior. Tracked in `docs/CLI.md`.       |
 | No render tests for UI components     | Only CVA class output is tested. No `@testing-library/react` coverage.             |
 | Next.js and other framework scaffolds | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded. |

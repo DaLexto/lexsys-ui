@@ -5,6 +5,8 @@ export const buttonComponentTokens = componentTokens("button", {
   focus: {
     ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+      ringWidth: { $value: "{outline.width.focus}" },
+      ringOffset: { $value: "{outline.offset.focus}" },
   },
   primary: {
     $type: "color",

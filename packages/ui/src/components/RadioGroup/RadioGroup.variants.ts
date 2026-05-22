@@ -24,7 +24,7 @@ export const radioGroupItemVariants = cva(
     "border-[var(--nx-radio-group-item-border-color)] bg-[var(--nx-radio-group-item-background)] text-[var(--nx-radio-group-item-foreground)]",
     "transition-colors duration-[var(--nx-radio-group-transition-duration)] ease-[var(--nx-radio-group-transition-easing)]",
     "outline-none data-[checked]:border-[var(--nx-radio-group-item-checked-border-color)]",
-    "data-[focused]:ring-2 data-[focused]:ring-[var(--nx-radio-group-focus-ring-color)] data-[focused]:ring-offset-2 data-[focused]:ring-offset-[var(--nx-radio-group-focus-ring-offset-color)]",
+    "data-[focused]:ring-[length:var(--nx-radio-group-focus-ring-width)] data-[focused]:ring-[var(--nx-radio-group-focus-ring-color)] data-[focused]:ring-offset-[length:var(--nx-radio-group-focus-ring-offset)] data-[focused]:ring-offset-[var(--nx-radio-group-focus-ring-offset-color)]",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
   {

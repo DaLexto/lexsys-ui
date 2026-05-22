@@ -27,7 +27,7 @@ export const collapsibleTriggerVariants = cva(
     "flex w-full items-center justify-between gap-[var(--nx-collapsible-trigger-gap)] px-[var(--nx-collapsible-trigger-padding-x)] py-[var(--nx-collapsible-trigger-padding-y)] text-left",
     "text-[length:var(--nx-collapsible-trigger-font-size)] font-[var(--nx-collapsible-trigger-font-weight)] leading-[var(--nx-collapsible-trigger-font-line-height)]",
     "transition-colors duration-[var(--nx-collapsible-transition-duration)] ease-[var(--nx-collapsible-transition-easing)]",
-    "outline-none hover:bg-[var(--nx-collapsible-trigger-background-hover)] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--nx-collapsible-focus-ring-color)]",
+    "outline-none hover:bg-[var(--nx-collapsible-trigger-background-hover)] focus-visible:ring-[length:var(--nx-collapsible-focus-ring-width)] focus-visible:ring-inset focus-visible:ring-[var(--nx-collapsible-focus-ring-color)]",
     "disabled:pointer-events-none disabled:opacity-50 [&>svg]:size-[var(--nx-collapsible-trigger-icon-size)] [&>svg]:transition-transform data-[panel-open]:[&>svg]:rotate-45",
   ].join(" "),
 )

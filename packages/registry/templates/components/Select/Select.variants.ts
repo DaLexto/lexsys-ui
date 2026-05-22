@@ -16,8 +16,8 @@ export const selectTriggerVariants = cva(
     "border-[var(--nx-select-border-color)] bg-[var(--nx-select-background)] text-[var(--nx-select-foreground)]",
     "[font-family:var(--nx-select-font-family)] font-[var(--nx-select-font-weight)] leading-[var(--nx-select-font-line-height)] tracking-[var(--nx-select-font-letter-spacing)]",
     "transition-colors duration-[var(--nx-select-transition-duration)] ease-[var(--nx-select-transition-easing)]",
-    "outline-none data-[focused]:border-[var(--nx-select-focus-border-color)] data-[focused]:ring-2 data-[focused]:ring-[var(--nx-select-focus-ring-color)] data-[focused]:ring-offset-2 data-[focused]:ring-offset-[var(--nx-select-focus-ring-offset-color)]",
-    "data-[invalid]:border-[var(--nx-select-invalid-border-color)] data-[invalid]:ring-2 data-[invalid]:ring-[var(--nx-select-invalid-ring-color)]",
+    "outline-none data-[focused]:border-[var(--nx-select-focus-border-color)] data-[focused]:ring-[length:var(--nx-select-focus-ring-width)] data-[focused]:ring-[var(--nx-select-focus-ring-color)] data-[focused]:ring-offset-[length:var(--nx-select-focus-ring-offset)] data-[focused]:ring-offset-[var(--nx-select-focus-ring-offset-color)]",
+    "data-[invalid]:border-[var(--nx-select-invalid-border-color)] data-[invalid]:ring-[length:var(--nx-select-invalid-ring-width)] data-[invalid]:ring-[var(--nx-select-invalid-ring-color)]",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
   {

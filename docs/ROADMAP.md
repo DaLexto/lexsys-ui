@@ -68,7 +68,7 @@ Resolver-specific planning lives in `docs/RESOLVER_EVOLUTION.md`.
 
 ### Semantic and product gaps
 
-- Additional semantic groups such as `outline` and `layout` (staged stubs only)
+- `layout` semantic group (staged stub only)
 
 ### Authoring and tooling
 

@@ -98,7 +98,7 @@ Brand source: `packages/tokens/src/brand/`.
 Semantic tokens assign product meaning. They reference brand tokens for
 brand-specific values and primitive tokens for non-brand values.
 
-**9 active semantic groups:**
+**10 active semantic groups:**
 
 | Group        | Roles                                                                                                                                                                         |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -111,6 +111,7 @@ brand-specific values and primitive tokens for non-brand values.
 | `size`       | Reusable sizing roles (`control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names                                                   |
 | `motion`     | Duration and easing semantic roles                                                                                                                                            |
 | `typography` | Font scale semantic roles                                                                                                                                                     |
+| `outline`    | Focus and state ring roles: `width` (focus, inset, zero), `offset` (focus, zero) — maps from primitive `outline.width.*` and `outline.offset.*`                               |
 
 Semantic path structure:
 
@@ -118,9 +119,10 @@ Semantic path structure:
 - `action.*` — interactive state colors (not nested under `color`)
 - `border.*` — border color roles (not nested under `color`)
 - `elevation.*` — stacking and shadow roles (not nested under `color`; components must not reference primitive `z-index.*` or `shadow.*` directly)
+- `outline.*` — focus ring width and offset roles (components use these for `focus.ringWidth` / `focus.ringOffset`; do not hardcode Tailwind `ring-2` / `ring-offset-2`)
 
-> **Note:** `outline.ts` and `layout.ts` exist as staged stubs with no content.
-> They are not in the active semantic output. Authoring lives under
+> **Note:** `layout.ts` exists as a staged stub with no content.
+> It is not in the active semantic output. Authoring lives under
 > `packages/tokens/src/semantics/color/` for the active `color` group.
 
 Semantic source: `packages/tokens/src/semantics/`.
@@ -416,7 +418,7 @@ API shape.
 - Token authoring module boundaries within `packages/tokens/src/`
 - Exact semantic group structure (new groups may be added)
 - Composite token type support in generators
-- `outline`, `layout` semantic groups (staged stubs, not yet active)
+- `layout` semantic group (staged stub, not yet active)
 - DTCG public JSON package export contract
 
 **Planned but not active contract:**

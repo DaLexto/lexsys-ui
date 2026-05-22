@@ -8,6 +8,7 @@ import { colorSemantics } from "./color"
 import { actionSemantics } from "./action"
 import { borderSemantics } from "./border"
 import { elevationSemantics } from "./elevation"
+import { outlineSemantics } from "./outline"
 
 export { colorSemantics } from "./color"
 export { actionSemantics } from "./action"
@@ -18,6 +19,7 @@ export { sizeSemantics } from "./size"
 export { spacingSemantics } from "./spacing"
 export { borderSemantics } from "./border"
 export { elevationSemantics } from "./elevation"
+export { outlineSemantics } from "./outline"
 
 export const semanticTokens: SemanticTokenGroup[] = [
   radiusSemantics,
@@ -29,4 +31,5 @@ export const semanticTokens: SemanticTokenGroup[] = [
   actionSemantics,
   borderSemantics,
   elevationSemantics,
+  outlineSemantics,
 ]

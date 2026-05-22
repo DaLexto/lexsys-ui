@@ -11,7 +11,7 @@ export const switchVariants = cva(
     "inline-flex shrink-0 cursor-pointer items-center rounded-[var(--nx-switch-radius)] border border-transparent bg-[var(--nx-switch-background)] p-[var(--nx-switch-padding)]",
     "transition-colors duration-[var(--nx-switch-transition-duration)] ease-[var(--nx-switch-transition-easing)]",
     "outline-none data-[checked]:bg-[var(--nx-switch-checked-background)]",
-    "data-[focused]:ring-2 data-[focused]:ring-[var(--nx-switch-focus-ring-color)] data-[focused]:ring-offset-2 data-[focused]:ring-offset-[var(--nx-switch-focus-ring-offset-color)]",
+    "data-[focused]:ring-[length:var(--nx-switch-focus-ring-width)] data-[focused]:ring-[var(--nx-switch-focus-ring-color)] data-[focused]:ring-offset-[length:var(--nx-switch-focus-ring-offset)] data-[focused]:ring-offset-[var(--nx-switch-focus-ring-offset-color)]",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
   {

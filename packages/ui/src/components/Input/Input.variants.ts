@@ -13,7 +13,7 @@ export const inputVariants = cva(
     "[font-family:var(--nx-input-font-family)] font-[var(--nx-input-font-weight)] leading-[var(--nx-input-font-line-height)] tracking-[var(--nx-input-font-letter-spacing)]",
     "placeholder:text-[var(--nx-input-placeholder-color)]",
     "transition-colors duration-[var(--nx-input-transition-duration)] ease-[var(--nx-input-transition-easing)]",
-    "outline-none focus-visible:border-[var(--nx-input-focus-border-color)] focus-visible:ring-2 focus-visible:ring-[var(--nx-input-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-input-focus-ring-offset-color)]",
+    "outline-none focus-visible:border-[var(--nx-input-focus-border-color)] focus-visible:ring-[length:var(--nx-input-focus-ring-width)] focus-visible:ring-[var(--nx-input-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-input-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-input-focus-ring-offset-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "aria-invalid:border-[var(--nx-input-invalid-border-color)] aria-invalid:ring-[var(--nx-input-invalid-ring-color)]",
   ].join(" "),

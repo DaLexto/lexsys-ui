@@ -37,6 +37,8 @@ export const checkboxComponentTokens = componentTokens("checkbox", {
   focus: {
     ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+      ringWidth: { $value: "{outline.width.focus}" },
+      ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },

@@ -11,7 +11,7 @@ export const buttonVariants = cva(
     "inline-flex items-center justify-center whitespace-nowrap border border-transparent",
     "rounded-[var(--nx-button-radius)] [font-family:var(--nx-button-font-family)] font-[var(--nx-button-font-weight)]",
     "transition-colors duration-[var(--nx-button-transition-duration)] ease-[var(--nx-button-transition-easing)]",
-    "outline-none focus-visible:ring-2 focus-visible:ring-[var(--nx-button-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-button-focus-ring-offset-color)]",
+    "outline-none focus-visible:ring-[length:var(--nx-button-focus-ring-width)] focus-visible:ring-[var(--nx-button-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-button-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-button-focus-ring-offset-color)]",
     "disabled:pointer-events-none disabled:opacity-50",
     "aria-busy:cursor-wait aria-busy:opacity-80",
     "text-[length:var(--nx-button-font-size-md)]",

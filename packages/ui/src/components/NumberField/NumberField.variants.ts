@@ -36,8 +36,8 @@ export const numberFieldInputVariants = cva(
     "min-w-0 flex-1 border-0 bg-transparent text-[var(--nx-number-field-input-foreground)]",
     "[font-family:var(--nx-number-field-input-font-family)] font-[var(--nx-number-field-input-font-weight)] leading-[var(--nx-number-field-input-font-line-height)] tracking-[var(--nx-number-field-input-font-letter-spacing)]",
     "placeholder:text-[var(--nx-number-field-input-placeholder-color)]",
-    "outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--nx-number-field-focus-ring-color)]",
-    "aria-invalid:ring-2 aria-invalid:ring-inset aria-invalid:ring-[var(--nx-number-field-invalid-ring-color)] data-[invalid]:ring-2 data-[invalid]:ring-inset data-[invalid]:ring-[var(--nx-number-field-invalid-ring-color)]",
+    "outline-none focus-visible:ring-[length:var(--nx-number-field-focus-ring-width)] focus-visible:ring-inset focus-visible:ring-[var(--nx-number-field-focus-ring-color)]",
+    "aria-invalid:ring-[length:var(--nx-number-field-invalid-ring-width)] aria-invalid:ring-inset aria-invalid:ring-[var(--nx-number-field-invalid-ring-color)] data-[invalid]:ring-[length:var(--nx-number-field-invalid-ring-width)] data-[invalid]:ring-inset data-[invalid]:ring-[var(--nx-number-field-invalid-ring-color)]",
     "disabled:cursor-not-allowed data-[disabled]:cursor-not-allowed",
   ].join(" "),
   {
@@ -59,7 +59,7 @@ export const numberFieldButtonVariants = cva(
     "inline-flex shrink-0 select-none items-center justify-center border-[var(--nx-number-field-stepper-border-color)]",
     "bg-[var(--nx-number-field-stepper-background)] text-[var(--nx-number-field-stepper-foreground)]",
     "font-[var(--nx-number-field-stepper-font-weight)] transition-colors duration-[var(--nx-number-field-transition-duration)] ease-[var(--nx-number-field-transition-easing)]",
-    "hover:bg-[var(--nx-number-field-stepper-hover-background)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--nx-number-field-focus-ring-color)]",
+    "hover:bg-[var(--nx-number-field-stepper-hover-background)] focus-visible:outline-none focus-visible:ring-[length:var(--nx-number-field-focus-ring-width)] focus-visible:ring-inset focus-visible:ring-[var(--nx-number-field-focus-ring-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
   {

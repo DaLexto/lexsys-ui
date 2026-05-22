@@ -27,7 +27,7 @@ export const fieldControlVariants = cva(
     "[font-family:var(--nx-field-control-font-family)] font-[var(--nx-field-control-font-weight)] leading-[var(--nx-field-control-font-line-height)] tracking-[var(--nx-field-control-font-letter-spacing)]",
     "placeholder:text-[var(--nx-field-control-placeholder-color)]",
     "transition-colors duration-[var(--nx-field-transition-duration)] ease-[var(--nx-field-transition-easing)]",
-    "outline-none focus-visible:border-[var(--nx-field-control-focus-border-color)] focus-visible:ring-2 focus-visible:ring-[var(--nx-field-control-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-field-control-focus-ring-offset-color)]",
+    "outline-none focus-visible:border-[var(--nx-field-control-focus-border-color)] focus-visible:ring-[length:var(--nx-field-control-focus-ring-width)] focus-visible:ring-[var(--nx-field-control-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-field-control-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-field-control-focus-ring-offset-color)]",
     "data-[invalid]:border-[var(--nx-field-control-invalid-border-color)] data-[invalid]:ring-[var(--nx-field-control-invalid-ring-color)] aria-invalid:border-[var(--nx-field-control-invalid-border-color)] aria-invalid:ring-[var(--nx-field-control-invalid-ring-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),

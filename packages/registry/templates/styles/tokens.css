@@ -99,8 +99,8 @@
   --nx-color-text-secondary: var(--nx-color-neutral-600);
   --nx-color-text-disabled: var(--nx-color-neutral-400);
   --nx-color-text-inverse: var(--nx-color-white);
-  --nx-color-text-link: var(--nx-color-blue-600);
-  --nx-color-text-accent: var(--nx-color-purple-600);
+  --nx-color-text-link: var(--nx-brand-color-accent-base);
+  --nx-color-text-accent: var(--nx-brand-color-accent-base);
   --nx-color-feedback-info-background: var(--nx-color-blue-50);
   --nx-color-feedback-info-foreground: var(--nx-color-blue-700);
   --nx-color-feedback-success-background: var(--nx-color-green-50);
@@ -261,7 +261,7 @@
   --nx-border-thick: 4px;
   --nx-border-default: var(--nx-color-neutral-200);
   --nx-border-strong: var(--nx-color-neutral-400);
-  --nx-border-focus: var(--nx-color-neutral-500);
+  --nx-border-focus: var(--nx-brand-color-primary-base);
   --nx-border-accent: var(--nx-brand-color-accent-base);
   --nx-breakpoint-sm: 40rem;
   --nx-breakpoint-md: 48rem;
@@ -285,12 +285,17 @@
   --nx-outline-width-thin: 2px;
   --nx-outline-width-medium: 3px;
   --nx-outline-width-thick: 4px;
+  --nx-outline-width-focus: var(--nx-outline-width-thin);
+  --nx-outline-width-inset: var(--nx-outline-width-thin);
+  --nx-outline-width-zero: var(--nx-outline-width-none);
   --nx-outline-offset-none: 0px;
   --nx-outline-offset-xs: 1px;
   --nx-outline-offset-sm: 2px;
   --nx-outline-offset-md: 4px;
   --nx-outline-offset-lg: 6px;
   --nx-outline-offset-xl: 8px;
+  --nx-outline-offset-focus: var(--nx-outline-offset-sm);
+  --nx-outline-offset-zero: var(--nx-outline-offset-none);
   --nx-shadow-0: none;
   --nx-shadow-1: 0 1px 2px rgb(0 0 0 / 0.06), 0 1px 1px rgb(0 0 0 / 0.04);
   --nx-shadow-2: 0 2px 4px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.06);
@@ -487,6 +492,7 @@
   --nx-accordion-panel-font-size: var(--nx-typography-body-sm-font-size);
   --nx-accordion-panel-font-line-height: var(--nx-typography-body-sm-line-height);
   --nx-accordion-focus-ring-color: var(--nx-border-focus);
+  --nx-accordion-focus-ring-width: var(--nx-outline-width-inset);
   --nx-accordion-transition-duration: var(--nx-duration-control);
   --nx-accordion-transition-easing: var(--nx-easing-control);
   --nx-alert-dialog-backdrop-background: var(--nx-color-text-primary);
@@ -527,6 +533,8 @@
   --nx-alert-dialog-close-radius: var(--nx-radius-control);
   --nx-alert-dialog-focus-ring-color: var(--nx-border-focus);
   --nx-alert-dialog-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-alert-dialog-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-alert-dialog-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-alert-dialog-transition-duration: var(--nx-duration-control);
   --nx-alert-dialog-transition-easing: var(--nx-easing-control);
   --nx-alert-radius: var(--nx-radius-surface);
@@ -588,6 +596,8 @@
   --nx-button-radius: var(--nx-radius-control);
   --nx-button-focus-ring-color: var(--nx-border-focus);
   --nx-button-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-button-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-button-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-button-primary-background: var(--nx-action-primary-base);
   --nx-button-primary-foreground: var(--nx-color-text-inverse);
   --nx-button-primary-hover-background: var(--nx-action-primary-hover);
@@ -658,6 +668,8 @@
   --nx-checkbox-label-font-line-height: var(--nx-typography-label-sm-line-height);
   --nx-checkbox-focus-ring-color: var(--nx-border-focus);
   --nx-checkbox-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-checkbox-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-checkbox-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-checkbox-transition-duration: var(--nx-duration-control);
   --nx-checkbox-transition-easing: var(--nx-easing-control);
   --nx-collapsible-background: var(--nx-color-background-surface);
@@ -665,6 +677,7 @@
   --nx-collapsible-border-color: var(--nx-border-default);
   --nx-collapsible-radius: var(--nx-radius-surface);
   --nx-collapsible-focus-ring-color: var(--nx-border-focus);
+  --nx-collapsible-focus-ring-width: var(--nx-outline-width-inset);
   --nx-collapsible-trigger-background-hover: var(--nx-color-background-subtle);
   --nx-collapsible-trigger-gap: var(--nx-space-control-gap-sm);
   --nx-collapsible-trigger-padding-x: var(--nx-space-surface-md);
@@ -718,6 +731,8 @@
   --nx-dialog-close-radius: var(--nx-radius-control);
   --nx-dialog-focus-ring-color: var(--nx-border-focus);
   --nx-dialog-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-dialog-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-dialog-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-dialog-transition-duration: var(--nx-duration-control);
   --nx-dialog-transition-easing: var(--nx-easing-control);
   --nx-drawer-backdrop-background: var(--nx-color-text-primary);
@@ -773,6 +788,8 @@
   --nx-drawer-close-radius: var(--nx-radius-control);
   --nx-drawer-focus-ring-color: var(--nx-border-focus);
   --nx-drawer-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-drawer-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-drawer-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-drawer-transition-duration: var(--nx-duration-control);
   --nx-drawer-transition-easing: var(--nx-easing-control);
   --nx-field-gap: var(--nx-space-control-gap-sm);
@@ -801,8 +818,11 @@
   --nx-field-control-focus-border-color: var(--nx-border-focus);
   --nx-field-control-focus-ring-color: var(--nx-border-focus);
   --nx-field-control-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-field-control-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-field-control-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-field-control-invalid-border-color: var(--nx-action-danger-base);
   --nx-field-control-invalid-ring-color: var(--nx-action-danger-base);
+  --nx-field-control-invalid-ring-width: var(--nx-outline-width-focus);
   --nx-field-control-radius: var(--nx-radius-control);
   --nx-field-control-height-sm: var(--nx-size-control-sm);
   --nx-field-control-height-md: var(--nx-size-control-md);
@@ -840,8 +860,11 @@
   --nx-input-focus-border-color: var(--nx-border-focus);
   --nx-input-focus-ring-color: var(--nx-border-focus);
   --nx-input-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-input-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-input-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-input-invalid-border-color: var(--nx-action-danger-base);
   --nx-input-invalid-ring-color: var(--nx-action-danger-base);
+  --nx-input-invalid-ring-width: var(--nx-outline-width-focus);
   --nx-input-radius: var(--nx-radius-control);
   --nx-input-height-sm: var(--nx-size-control-sm);
   --nx-input-height-md: var(--nx-size-control-md);
@@ -909,6 +932,8 @@
   --nx-menu-focus-border-color: var(--nx-border-focus);
   --nx-menu-focus-ring-color: var(--nx-border-focus);
   --nx-menu-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-menu-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-menu-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-menu-transition-duration: var(--nx-duration-control);
   --nx-menu-transition-easing: var(--nx-easing-control);
   --nx-number-field-gap: var(--nx-space-control-gap-sm);
@@ -943,7 +968,9 @@
   --nx-number-field-stepper-font-size-lg: var(--nx-typography-control-lg-font-size);
   --nx-number-field-stepper-font-weight: var(--nx-typography-control-md-font-weight);
   --nx-number-field-focus-ring-color: var(--nx-border-focus);
+  --nx-number-field-focus-ring-width: var(--nx-outline-width-inset);
   --nx-number-field-invalid-ring-color: var(--nx-action-danger-base);
+  --nx-number-field-invalid-ring-width: var(--nx-outline-width-inset);
   --nx-number-field-scrub-foreground: var(--nx-color-text-secondary);
   --nx-number-field-scrub-font-size: var(--nx-typography-label-sm-font-size);
   --nx-number-field-scrub-font-weight: var(--nx-typography-label-sm-font-weight);
@@ -991,6 +1018,8 @@
   --nx-popover-close-radius: var(--nx-radius-control);
   --nx-popover-focus-ring-color: var(--nx-border-focus);
   --nx-popover-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-popover-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-popover-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-popover-transition-duration: var(--nx-duration-control);
   --nx-popover-transition-easing: var(--nx-easing-control);
   --nx-progress-gap: var(--nx-space-control-gap-sm);
@@ -1024,6 +1053,8 @@
   --nx-radio-group-label-font-line-height: var(--nx-typography-label-sm-line-height);
   --nx-radio-group-focus-ring-color: var(--nx-border-focus);
   --nx-radio-group-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-radio-group-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-radio-group-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-radio-group-transition-duration: var(--nx-duration-control);
   --nx-radio-group-transition-easing: var(--nx-easing-control);
   --nx-separator-color: var(--nx-border-default);
@@ -1087,8 +1118,11 @@
   --nx-select-focus-border-color: var(--nx-border-focus);
   --nx-select-focus-ring-color: var(--nx-border-focus);
   --nx-select-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-select-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-select-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-select-invalid-border-color: var(--nx-action-danger-base);
   --nx-select-invalid-ring-color: var(--nx-action-danger-base);
+  --nx-select-invalid-ring-width: var(--nx-outline-width-focus);
   --nx-select-transition-duration: var(--nx-duration-control);
   --nx-select-transition-easing: var(--nx-easing-control);
   --nx-slider-gap: var(--nx-space-control-gap-md);
@@ -1103,6 +1137,8 @@
   --nx-slider-thumb-size: var(--nx-size-thumb-md);
   --nx-slider-focus-ring-color: var(--nx-border-focus);
   --nx-slider-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-slider-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-slider-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-slider-transition-duration: var(--nx-duration-control);
   --nx-slider-transition-easing: var(--nx-easing-control);
   --nx-switch-background: var(--nx-color-background-subtle);
@@ -1125,6 +1161,8 @@
   --nx-switch-thumb-translate-lg: var(--nx-size-6);
   --nx-switch-focus-ring-color: var(--nx-border-focus);
   --nx-switch-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-switch-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-switch-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-switch-transition-duration: var(--nx-duration-control);
   --nx-switch-transition-easing: var(--nx-easing-control);
   --nx-tabs-gap: var(--nx-space-control-gap-lg);
@@ -1145,6 +1183,7 @@
   --nx-tabs-panel-font-size: var(--nx-typography-body-sm-font-size);
   --nx-tabs-panel-font-line-height: var(--nx-typography-body-sm-line-height);
   --nx-tabs-focus-ring-color: var(--nx-border-focus);
+  --nx-tabs-focus-ring-width: var(--nx-outline-width-inset);
   --nx-tabs-transition-duration: var(--nx-duration-control);
   --nx-tabs-transition-easing: var(--nx-easing-control);
   --nx-textarea-background: var(--nx-color-background-base);
@@ -1154,8 +1193,11 @@
   --nx-textarea-focus-border-color: var(--nx-border-focus);
   --nx-textarea-focus-ring-color: var(--nx-border-focus);
   --nx-textarea-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-textarea-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-textarea-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-textarea-invalid-border-color: var(--nx-action-danger-base);
   --nx-textarea-invalid-ring-color: var(--nx-action-danger-base);
+  --nx-textarea-invalid-ring-width: var(--nx-outline-width-focus);
   --nx-textarea-radius: var(--nx-radius-control);
   --nx-textarea-min-height-sm: var(--nx-size-14);
   --nx-textarea-min-height-md: var(--nx-size-16);
@@ -1216,6 +1258,7 @@
   --nx-toast-close-inset: var(--nx-space-control-x-sm);
   --nx-toast-close-radius: var(--nx-radius-control);
   --nx-toast-focus-ring-color: var(--nx-border-focus);
+  --nx-toast-focus-ring-width: var(--nx-outline-width-inset);
   --nx-toast-transition-duration: var(--nx-duration-control);
   --nx-toast-transition-easing: var(--nx-easing-control);
   --nx-toggle-background: var(--nx-color-background-base);
@@ -1241,6 +1284,8 @@
   --nx-toggle-font-letter-spacing: var(--nx-typography-control-md-letter-spacing);
   --nx-toggle-focus-ring-color: var(--nx-border-focus);
   --nx-toggle-focus-ring-offset-color: var(--nx-color-background-base);
+  --nx-toggle-focus-ring-width: var(--nx-outline-width-focus);
+  --nx-toggle-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-toggle-transition-duration: var(--nx-duration-control);
   --nx-toggle-transition-easing: var(--nx-easing-control);
   --nx-toggle-group-background: var(--nx-color-background-subtle);

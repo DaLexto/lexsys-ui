@@ -38,6 +38,7 @@ export const accordionComponentTokens = componentTokens("accordion", {
   focus: {
     $type: "dimension",
     ringColor: { $value: "{border.focus}" },
+      ringWidth: { $value: "{outline.width.inset}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },

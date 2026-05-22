@@ -12,7 +12,7 @@ export const drawerTriggerVariants = cva(
     "bg-[var(--nx-drawer-trigger-background)] px-[var(--nx-drawer-trigger-padding-x)] text-[var(--nx-drawer-trigger-foreground)]",
     "text-[length:var(--nx-drawer-trigger-font-size)] font-[var(--nx-drawer-trigger-font-weight)] leading-[var(--nx-drawer-trigger-font-line-height)]",
     "transition-colors duration-[var(--nx-drawer-transition-duration)] ease-[var(--nx-drawer-transition-easing)]",
-    "outline-none hover:bg-[var(--nx-drawer-trigger-hover-background)] focus-visible:ring-2 focus-visible:ring-[var(--nx-drawer-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-drawer-focus-ring-offset-color)]",
+    "outline-none hover:bg-[var(--nx-drawer-trigger-hover-background)] focus-visible:ring-[length:var(--nx-drawer-focus-ring-width)] focus-visible:ring-[var(--nx-drawer-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-drawer-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-drawer-focus-ring-offset-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )
@@ -159,7 +159,7 @@ export const drawerCloseVariants = cva(
   [
     "absolute right-[var(--nx-drawer-close-inset)] top-[var(--nx-drawer-close-inset)] inline-flex size-[var(--nx-drawer-close-size)] items-center justify-center rounded-[var(--nx-drawer-close-radius)]",
     "text-[var(--nx-drawer-close-foreground)] outline-none transition-colors duration-[var(--nx-drawer-transition-duration)] ease-[var(--nx-drawer-transition-easing)]",
-    "hover:bg-[var(--nx-drawer-close-hover-background)] focus-visible:ring-2 focus-visible:ring-[var(--nx-drawer-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-drawer-focus-ring-offset-color)]",
+    "hover:bg-[var(--nx-drawer-close-hover-background)] focus-visible:ring-[length:var(--nx-drawer-focus-ring-width)] focus-visible:ring-[var(--nx-drawer-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-drawer-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-drawer-focus-ring-offset-color)]",
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )

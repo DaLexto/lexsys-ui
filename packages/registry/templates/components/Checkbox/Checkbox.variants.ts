@@ -13,7 +13,7 @@ export const checkboxVariants = cva(
     "transition-colors duration-[var(--nx-checkbox-transition-duration)] ease-[var(--nx-checkbox-transition-easing)]",
     "outline-none data-[checked]:border-[var(--nx-checkbox-checked-border-color)] data-[checked]:bg-[var(--nx-checkbox-checked-background)] data-[checked]:text-[var(--nx-checkbox-checked-foreground)]",
     "data-[indeterminate]:border-[var(--nx-checkbox-checked-border-color)] data-[indeterminate]:bg-[var(--nx-checkbox-checked-background)]",
-    "data-[focused]:ring-2 data-[focused]:ring-[var(--nx-checkbox-focus-ring-color)] data-[focused]:ring-offset-2 data-[focused]:ring-offset-[var(--nx-checkbox-focus-ring-offset-color)]",
+    "data-[focused]:ring-[length:var(--nx-checkbox-focus-ring-width)] data-[focused]:ring-[var(--nx-checkbox-focus-ring-color)] data-[focused]:ring-offset-[length:var(--nx-checkbox-focus-ring-offset)] data-[focused]:ring-offset-[var(--nx-checkbox-focus-ring-offset-color)]",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
   {
