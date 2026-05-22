@@ -1,0 +1,154 @@
+---
+description: Neutral documentation governance rules for writing, reviewing, and maintaining project docs.
+globs: **/*.md,**/*.mdx
+alwaysApply: false
+---
+
+# Documentation Standards
+
+Use this rule to plan, write, review, and maintain project documentation in any
+codebase. Documentation must be current-first, code-verified, purpose-driven,
+and easy for future maintainers or agents to update without guessing.
+
+The goal is not only to write docs, but to create a maintainable documentation
+system where each document has a clear audience, type, ownership boundary,
+freshness marker, and source of truth.
+
+## Documentation Taxonomy
+
+| Document Type                  | Primary Audience                    | Purpose                                                                                            |
+| :----------------------------- | :---------------------------------- | :------------------------------------------------------------------------------------------------- |
+| Project overview / quick start | Users, evaluators, new contributors | Explain what the project is, how to start, current status, and where to go next.                   |
+| Architecture overview          | Maintainers                         | Explain system shape, boundaries, major flows, and links to deeper documents.                      |
+| Domain specification           | Maintainers and domain owners       | Define canonical rules for a core domain such as tokens, API, data model, auth, rendering, deploy. |
+| Package/module reference       | Maintainers of a package/module     | Explain public API, exports, inputs/outputs, commands, and implementation boundaries.              |
+| Conceptual model               | Maintainers and contributors        | Explain why the system works the way it does and how major concepts relate.                        |
+| CLI/API reference              | Users and maintainers               | Document current commands, options, config, request/response shapes, and safety behavior.          |
+| Contributor style guide        | Contributors and agents             | Define coding, naming, testing, documentation, and review conventions.                             |
+| Roadmap/backlog                | Maintainers                         | Track future work, TODOs, known gaps, and completed review outcomes.                               |
+| Vision/strategy document       | Maintainers                         | Capture long-term direction; never treat as current implementation contract.                       |
+
+## Governance Rules
+
+- Each document must have one primary purpose and one primary audience.
+- Do not mix tutorial, reference, architecture, roadmap, and vision content
+  unless each section is clearly labeled.
+- Current implementation wins over old docs, comments, memory, or intention.
+- Detailed rules live exactly once. Other documents link to the owning document
+  instead of duplicating the rule.
+- Architecture overview documents should be compact hubs, not copies of every
+  detailed spec.
+- Roadmap and vision content must be clearly labeled as future work.
+- Documentation must distinguish:
+  - **current implementation**
+  - **target architecture**
+  - **temporary exception**
+  - **known gap**
+- Use RFC-style normative wording:
+  - `MUST` / `MUST NOT`: enforced or intended to fail/block through build,
+    tests, validators, runtime checks, or tooling.
+  - `SHOULD` / `SHOULD NOT`: preferred direction not necessarily enforced.
+  - `MAY`: explicitly allowed option.
+  - `target`, `planned`, `roadmap`: future work, not current contract.
+
+## Writing Standards
+
+- Prefer concise, direct writing over long explanatory paragraphs.
+- Avoid marketing language, hype, or exaggerated claims.
+- Do not present planned or target architecture as current implementation.
+- Avoid fake certainty when behavior, APIs, or architecture are still evolving.
+- Do not make implementation claims that are not verified against code, tests,
+  configs, schemas, manifests, or official documentation.
+- Examples, commands, paths, package names, and configuration snippets should
+  match the real repository structure whenever possible.
+- Prefer explicit terminology over vague wording such as:
+  - "simple"
+  - "easy"
+  - "robust"
+  - "powerful"
+  - "scalable"
+  unless the claim is explained or measurable.
+- Prefer explaining constraints and tradeoffs over promotional wording.
+- Keep headings and section names descriptive and searchable.
+- Prefer structured sections, lists, and tables when they improve scanning.
+- Avoid unnecessary repetition within and across documents.
+- Use consistent terminology for the same concepts across related documentation.
+- Keep examples minimal, realistic, and aligned with the current implementation.
+
+## Documentation Workflow
+
+1. Create a documentation audit matrix before rewriting:
+   - Use the full audit workflow only for large documentation rewrites or architecture reviews.
+   - Classify each section as `current`, `outdated`, `duplicated`, `target`, or
+     `needs verification`.
+   - Record the source of truth for every major claim.
+   - Do not rewrite during the audit step unless explicitly requested.
+
+2. Define document ownership:
+   - Decide which document owns each major rule or concept.
+   - Move duplicated detail into the owning document.
+   - Replace duplicates with links or short summaries.
+
+3. Rewrite in priority order:
+   - Start with the architecture overview or project hub.
+   - Then update the highest-risk domain specification.
+   - Then align package/module references.
+   - Then align user-facing quick start and CLI/API docs.
+   - Leave roadmap and vision documents clearly separated from current-state
+     contracts.
+
+4. Review for truth and structure:
+   - Verify all implementation claims against code, tests, schemas, configs,
+     package manifests, or official external docs.
+   - Label target/roadmap material explicitly.
+   - Remove unsupported claims.
+   - Check that links point to the correct source of truth.
+
+5. Final polish:
+   - Run formatting checks.
+   - Check for broken links when tooling exists.
+   - Review diffs for accidental rewrites or unrelated churn.
+
+## Definition of Done
+
+For each edited document:
+
+- Clear audience.
+- Clear document type.
+- Current vs target state separated.
+- Normative language matches enforcement level.
+- No unverified implementation claims.
+- No duplicated ownership of major rules.
+- Links to source-of-truth documents or code where useful.
+- Formatting check passes.
+- Whitespace/diff check passes.
+
+For the full documentation pass:
+
+- Overview docs explain where to start.
+- Architecture docs explain boundaries and flows.
+- Domain specs own canonical rules.
+- Package/module docs match actual exports, APIs, and commands.
+- Roadmap and vision docs are not mixed into current implementation contracts.
+- Future maintainers can tell where to update each kind of documentation.
+
+## Verification
+
+Recommended checks:
+
+- Format changed docs.
+- Run whitespace/diff checks.
+- Run link checks if available.
+- For domain docs, inspect the relevant source code, tests, schemas, configs,
+  and package manifests.
+- For time-sensitive or external API claims, verify against official current
+  sources.
+
+## Assumptions
+
+- This rule applies to documentation work only.
+- Code behavior should not be changed during a documentation rewrite unless
+  explicitly requested.
+- Existing docs may be outdated and must be verified.
+- A project may rename documents, but every document should still fit one clear
+  type and ownership role.
