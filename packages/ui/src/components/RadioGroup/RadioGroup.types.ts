@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * RadioGroup.types.ts
  *
@@ -12,6 +13,7 @@ export interface RadioGroupProps<Value = string> extends Omit<
   BaseRadioGroup.Props<Value>,
   "className"
 > {
+  ref?: Ref<HTMLDivElement>
   orientation?: "horizontal" | "vertical"
   className?: BaseRadioGroup.Props<Value>["className"]
 }

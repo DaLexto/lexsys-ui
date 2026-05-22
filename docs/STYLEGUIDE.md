@@ -6,6 +6,7 @@
 **Verified against:** `packages/ui/src/`, `packages/tokens/src/`, `packages/registry/src/`, `packages/cli/src/`
 
 **Related docs:**
+
 - `docs/STYLE.md` — concise rule checklist for all packages
 - `docs/TOKENS.md` — token layer rules and validation contracts
 - `docs/CLI.md` — CLI command reference and install behavior
@@ -21,8 +22,8 @@ Every component in `packages/ui/src/components` uses a three-file split:
 ```
 components/
   Button/
-    Button.tsx          ← rendering, composition, forwardRef
-    Button.types.ts     ← public props, extended Base UI types
+    Button.tsx          ← rendering, composition, React 19 ref prop
+    Button.types.ts     ← public props, extended Base UI types, ref type
     Button.variants.ts  ← CVA variants and class composition
 ```
 
@@ -33,26 +34,25 @@ meaningful type surface.
 
 ## 2. Component Implementation Patterns
 
-### `forwardRef` and `displayName`
+### React 19 `ref` Prop and `displayName`
 
-All components use `forwardRef`. Declare the component locally and export it
-from a single block at the bottom of the file:
+Components use the React 19 `ref` prop pattern. Declare the component locally,
+set `displayName`, and export it from a single block at the bottom of the file:
 
 ```tsx
-const Button = forwardRef<HTMLElement, ButtonProps>(
-  ({ variant, size, className, ...props }, ref) => {
-    // ...
-  },
-)
+const Button = ({ ref, variant, size, className, ...props }: ButtonProps) => {
+  // ...
+}
 
 Button.displayName = "Button"
 
 export { Button }
 ```
 
-Use the specific HTML element type for the ref generic, not a broad `HTMLElement`,
-when the rendered element is known (e.g. `HTMLSpanElement` for Badge,
-`HTMLDivElement` for containers).
+Public prop types for ref-capable components should include a precise
+`ref?: React.Ref<...>` type, not a broad `HTMLElement`, when the rendered
+element is known (e.g. `HTMLSpanElement` for Badge, `HTMLDivElement` for
+containers).
 
 ### `className` handling
 
@@ -98,19 +98,16 @@ Define all visual variants using `cva` from `class-variance-authority`:
 ```ts
 import { cva } from "class-variance-authority"
 
-export const buttonVariants = cva(
-  "base classes here",
-  {
-    variants: {
-      variant: { primary: "...", secondary: "..." },
-      size: { xs: "...", sm: "...", md: "...", lg: "...", xl: "..." },
-    },
-    defaultVariants: {
-      variant: "primary",
-      size: "md",
-    },
+export const buttonVariants = cva("base classes here", {
+  variants: {
+    variant: { primary: "...", secondary: "..." },
+    size: { xs: "...", sm: "...", md: "...", lg: "...", xl: "..." },
   },
-)
+  defaultVariants: {
+    variant: "primary",
+    size: "md",
+  },
+})
 ```
 
 All variant classes in `.variants.ts` reference `--nx-*` CSS variables, not
@@ -135,24 +132,24 @@ segments are joined with `-`.
 
 **Group name overrides** are applied during generation:
 
-| Token group | CSS name |
-|---|---|
-| `spacing.*` | `--nx-space-*` |
+| Token group         | CSS name          |
+| ------------------- | ----------------- |
+| `spacing.*`         | `--nx-space-*`    |
 | `motion.duration.*` | `--nx-duration-*` |
-| `motion.easing.*` | `--nx-easing-*` |
+| `motion.easing.*`   | `--nx-easing-*`   |
 
 All other groups use their source name unchanged.
 
 **Examples:**
 
-| Token path | CSS variable |
-|---|---|
+| Token path                  | CSS variable                     |
+| --------------------------- | -------------------------------- |
 | `button.primary.background` | `--nx-button-primary-background` |
-| `button.radius` | `--nx-button-radius` |
-| `button.focus.ringColor` | `--nx-button-focus-ring-color` |
-| `spacing.control.x.sm` | `--nx-space-control-x-sm` |
-| `motion.duration.control` | `--nx-duration-control` |
-| `color.background.base` | `--nx-color-background-base` |
+| `button.radius`             | `--nx-button-radius`             |
+| `button.focus.ringColor`    | `--nx-button-focus-ring-color`   |
+| `spacing.control.x.sm`      | `--nx-space-control-x-sm`        |
+| `motion.duration.control`   | `--nx-duration-control`          |
+| `color.background.base`     | `--nx-color-background-base`     |
 
 Do not invent CSS variable names by hand. They are generated outputs. Reference
 them in components via Tailwind arbitrary value syntax:
@@ -164,23 +161,23 @@ them in components via Tailwind arbitrary value syntax:
 
 ### Files and folders
 
-| Context | Convention | Example |
-|---|---|---|
-| UI component folder | PascalCase | `Button/`, `AlertDialog/` |
-| UI component files | PascalCase | `Button.tsx`, `Button.types.ts` |
-| Token source files (same-role folder) | kebab-case, no role suffix | `color.ts`, `spacing.ts` |
-| Token source files (mixed-role folder) | role label prefix | `resolver.types.ts`, `generator.create.ts` |
-| CLI modules | kebab-case | `registry-provider.ts`, `install-results.ts` |
+| Context                                | Convention                 | Example                                      |
+| -------------------------------------- | -------------------------- | -------------------------------------------- |
+| UI component folder                    | PascalCase                 | `Button/`, `AlertDialog/`                    |
+| UI component files                     | PascalCase                 | `Button.tsx`, `Button.types.ts`              |
+| Token source files (same-role folder)  | kebab-case, no role suffix | `color.ts`, `spacing.ts`                     |
+| Token source files (mixed-role folder) | role label prefix          | `resolver.types.ts`, `generator.create.ts`   |
+| CLI modules                            | kebab-case                 | `registry-provider.ts`, `install-results.ts` |
 
 ### Symbols
 
-| Symbol type | Convention |
-|---|---|
-| Component functions | PascalCase (`Button`, `AlertDialog`) |
-| Variant export | camelCase + `Variants` suffix (`buttonVariants`) |
-| Registry item export | camelCase + `RegistryItem` suffix (`buttonRegistryItem`) |
-| Token group export | camelCase + layer + `s` (`primitiveTokens`, `semanticTokens`) |
-| CSS custom property | `--nx-` prefix, kebab-case (`--nx-button-radius`) |
+| Symbol type          | Convention                                                    |
+| -------------------- | ------------------------------------------------------------- |
+| Component functions  | PascalCase (`Button`, `AlertDialog`)                          |
+| Variant export       | camelCase + `Variants` suffix (`buttonVariants`)              |
+| Registry item export | camelCase + `RegistryItem` suffix (`buttonRegistryItem`)      |
+| Token group export   | camelCase + layer + `s` (`primitiveTokens`, `semanticTokens`) |
+| CSS custom property  | `--nx-` prefix, kebab-case (`--nx-button-radius`)             |
 
 ### Component naming alignment
 
@@ -214,12 +211,12 @@ import { join, dirname } from "node:path"
 
 ### Module resolution
 
-| Package | `moduleResolution` | Import extensions |
-|---|---|---|
-| `packages/ui` | `Bundler` | No extension required |
-| `packages/tokens` | `Bundler` | No extension required |
-| `packages/cli` | `NodeNext` | `.js` on all relative imports |
-| `packages/registry` | `NodeNext` | `.js` on all relative imports |
+| Package             | `moduleResolution` | Import extensions             |
+| ------------------- | ------------------ | ----------------------------- |
+| `packages/ui`       | `Bundler`          | No extension required         |
+| `packages/tokens`   | `Bundler`          | No extension required         |
+| `packages/cli`      | `NodeNext`         | `.js` on all relative imports |
+| `packages/registry` | `NodeNext`         | `.js` on all relative imports |
 
 In `cli` and `registry`, always include `.js` on relative imports even when
 the source file is `.ts`:
@@ -295,6 +292,7 @@ load config (neurex.config.json)
 ```
 
 Rules:
+
 - Install steps MUST be idempotent.
 - MUST NOT overwrite user files silently — use conflict detection (hash comparison).
 - Conflict detection compares file content hashes. Generated style files (with Neurex header) are updated without conflict.
@@ -302,6 +300,7 @@ Rules:
 - MUST support batched dependency installation per package manager.
 
 Avoid:
+
 - Hardcoded per-component install branches
 - Silent mutation of user project files
 - Install behavior that depends on undeclared assumptions
@@ -389,11 +388,11 @@ them as such until the package export contract is finalized.
 
 The default consumer project paths (from `neurex.config.json` defaults) are:
 
-| Config key | Default path | Contents |
-|---|---|---|
-| `componentsPath` | `src/components/ui` | Installed component files |
-| `utilitiesPath` | `src/lib` | Shared utilities (e.g. `utils.ts`) |
-| `stylesPath` | `styles` | Installed CSS files (`tokens.css`, `theme.css`) |
+| Config key       | Default path        | Contents                                        |
+| ---------------- | ------------------- | ----------------------------------------------- |
+| `componentsPath` | `src/components/ui` | Installed component files                       |
+| `utilitiesPath`  | `src/lib`           | Shared utilities (e.g. `utils.ts`)              |
+| `stylesPath`     | `styles`            | Installed CSS files (`tokens.css`, `theme.css`) |
 
 Do not install component files outside these paths without explicit config
 override. Do not duplicate shared utilities inside each component folder.
@@ -405,12 +404,14 @@ override. Do not duplicate shared utilities inside each component folder.
 Each package exposes a public API through `package.json` `exports` only.
 
 Good:
+
 - `@neurex/registry` exports registry metadata
 - CLI reads that metadata via `@neurex/registry`
 - Templates are resolved via `@neurex/registry/templates/*`
 - `@neurex/tokens` exports CSS files and source API
 
 Bad:
+
 - Importing from another package's `src/` or `dist/` directly
 - CLI hardcoding component-specific logic that belongs in registry metadata
 - Registry templates drifting from the UI source

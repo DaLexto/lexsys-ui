@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Switch.types.ts
  *
@@ -10,6 +11,7 @@ export interface SwitchProps extends Omit<
   BaseSwitch.Root.Props,
   "className" | "children"
 > {
+  ref?: Ref<HTMLElement>
   size?: "sm" | "md" | "lg"
   className?: BaseSwitch.Root.Props["className"]
   thumbClassName?: BaseSwitch.Thumb.Props["className"]

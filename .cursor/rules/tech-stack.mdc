@@ -17,24 +17,25 @@ Related: `project-directory-structure.mdc`, `docs/STYLE.md`, `docs/TOKENS.md`, `
 |----------------|----------------|-----------------|------|
 | **pnpm** | root `packageManager` | 10.33.0 | Workspace installs, `workspace:*` links |
 | **Node** | root `engines` | `>=24 <25` | Runtime for build, CLI, and consumers |
-| **TypeScript** | root dev / playground | `latest` → **6.0.3** resolved | Strict typing across monorepo |
+| **TypeScript** | root dev / playground | `latest` → **6.0.x** resolved | Strict typing across monorepo |
 | **Turbo** | root dev | `latest` | Task orchestration (`build`, `test`, `lint`, `typecheck`) |
 | **tsup** | root dev | ^8.5.1 | ESM + DTS builds for `cli`, `registry`, `tokens`, `ui` |
-| **Vitest** | root dev | ^4.1.5 | Package tests (`vitest run`, threads pool) |
-| **ESLint** | root dev | ^10.2.1 + `typescript-eslint` ^8.59.1 | `src` + `test` per package; root `*.config.mjs` |
+| **Vitest** | root dev | ^4.1.7 | Package tests (`vitest run`, threads pool) |
+| **ESLint** | root dev | ^10.4.0 + `typescript-eslint` ^8.59.4 + `@eslint/js` ^10.0.1 | `src` + `test` per package; root `*.config.mjs` |
 | **Prettier** | root dev | ^3.8.3 + `prettier-plugin-tailwindcss` ^0.8.0 | Formatting; Tailwind class order |
-| **Tailwind CSS** | root dev / playground / CLI init | ^4.2.4 | Utility layer; v4 CSS-first config |
-| **@tailwindcss/vite** | playground / CLI `init` | ^4.2.4 | Vite integration (required for Vite path) |
-| **@tailwindcss/cli** | root dev | ^4.2.4 | CLI tooling when needed |
-| **Vite** | playground / CLI scaffold | ^8.0.10 | Dev server and consumer app bundler |
-| **@vitejs/plugin-react** | playground / CLI scaffold | ^6.0.1 | React Fast Refresh |
-| **React** | ui peer / playground | peer `>=18`; playground **19.2.5** | UI runtime |
-| **@base-ui/react** | ui + registry items | ^1.0.0-beta.3 | Headless primitives (internal to components) |
+| **Tailwind CSS** | root dev / playground / CLI init | ^4.3.0 | Utility layer; v4 CSS-first config |
+| **@tailwindcss/vite** | playground / CLI `init` | ^4.3.0 | Vite integration (required for Vite path) |
+| **@tailwindcss/cli** | root dev | ^4.3.0 | CLI tooling when needed |
+| **Vite** | playground / CLI scaffold | ^8.0.14 | Dev server and consumer app bundler |
+| **@vitejs/plugin-react** | playground / CLI scaffold | ^6.0.2 | React Fast Refresh |
+| **React** | ui peer / playground | peer `>=19`; playground **^19.2.6** | UI runtime |
+| **@base-ui/react** | ui + registry items | ^1.5.0 | Headless primitives (internal to components) — stable since 1.0.0 |
 | **class-variance-authority** | ui + registry | ^0.7.1 | Variant definitions |
 | **clsx** | ui + registry | ^2.1.1 | Conditional classes |
-| **tailwind-merge** | ui + registry | ^3.5.0 | Conflict-safe Tailwind class merge |
-| **lucide-react** | ui + subset of registry items | ^1.14.0 | Icons (overlays, menus, dialogs, etc.) |
+| **tailwind-merge** | ui + registry | ^3.6.0 | Conflict-safe Tailwind class merge |
+| **lucide-react** | ui + subset of registry items | ^1.16.0 | Icons (overlays, menus, dialogs, etc.) |
 | **prompts** | root + cli | ^2.4.2 | Interactive CLI prompts |
+| **@types/node** | root dev / cli / registry / playground | ^25.9.1 | Node.js type definitions |
 
 **Workspace packages (no npm publish yet):** `@neurex/tokens`, `@neurex/ui`, `@neurex/registry`, CLI package name `neurex`.
 
@@ -81,7 +82,7 @@ Reference components in `packages/ui`. Consumers receive **copies** from `packag
 | Dependency | Purpose |
 |------------|---------|
 | `@neurex/tokens` | Token CSS variables and design contract |
-| `@base-ui/react` | Accessible headless behavior |
+| `@base-ui/react` | Accessible headless behavior — **stable 1.x API** |
 | `class-variance-authority` | `cva()` variant maps in `*.variants.ts` |
 | `clsx` | Class list composition |
 | `tailwind-merge` | `cn()` utility (with `clsx`) |
@@ -89,7 +90,7 @@ Reference components in `packages/ui`. Consumers receive **copies** from `packag
 
 ### Peer dependencies
 
-- `react`, `react-dom` — `>=18` (playground uses React 19)
+- `react`, `react-dom` — `>=19` (peer requirement bumped from 18 in lockstep with Base UI stable)
 
 ### Registry → consumer dependencies (typical)
 
@@ -118,8 +119,10 @@ tailwind-merge
 - Compose classes with shared `cn()` (installed as `src/lib/utils.ts` in consumers)
 - Use `cva()` for variants; avoid long inline class strings in JSX
 - Do not import `@neurex/ui` in consumer apps after CLI install — edit owned files under `componentsPath`
-- Preserve Base UI accessibility props and structure when wrapping primitives
+- Preserve Base UI accessibility props and structure when wrapping primitives — the 1.x stable API is the contract
 - Export public symbols in one block at the bottom of `Component.tsx`
+- Current components use `forwardRef`; React 19 supports `ref` as a regular prop (no `forwardRef` needed) — do not refactor existing components but prefer the React 19 pattern for new ones
+- `@base-ui/react` is now stable (1.x) — treat its API as stable; avoid reaching into internal subpaths
 
 ---
 
@@ -260,13 +263,13 @@ Without `@source`, Tailwind v4 will not see classes in linked packages.
 
 - Prefer **CSS variables** (`var(--nx-*)`) for token-driven values in custom CSS
 - Keep **playground** as the visual contract check after token or variant changes
-- CLI pins **`tailwindcss`** and **`@tailwindcss/vite`** together on init — keep versions aligned (currently 4.2.x)
+- CLI pins **`tailwindcss`** and **`@tailwindcss/vite`** together on init — keep versions aligned (currently 4.3.x)
 
 ---
 
-## TypeScript (5.4+ practices; monorepo on 6.x)
+## TypeScript (6.x)
 
-The repo targets **modern strict TypeScript**. Root resolves **6.0.3**; `tsconfig.base.json` sets `"ignoreDeprecations": "6.0"`. Practices below apply from **5.4+** onward and match Neurex configs.
+The repo targets **modern strict TypeScript**. Root resolves **6.0.x** (declared as `latest`); playground pins `^6.0.3`. `tsconfig.base.json` sets `"ignoreDeprecations": "6.0"`.
 
 ### Compiler baseline (packages / `tsconfig.base.json`)
 
@@ -285,12 +288,14 @@ The repo targets **modern strict TypeScript**. Root resolves **6.0.3**; `tsconfi
 - **Explicit exports** — package public API only through `package.json` `exports`
 - **Project references** — Vite apps use `tsc -b` with `tsconfig.app.json` + `tsconfig.node.json`
 
-### 5.4+ features to use when appropriate
+### 6.x features to use when appropriate
 
 - `satisfies` for constrained literals without widening
 - `const` type parameters (generic inference) in shared utilities
-- `moduleResolution: "Bundler"` (or `"bundler"`) with Vite/esbuild
+- `moduleResolution: "Bundler"` (or `"bundler"`) with Vite/esbuild — set in `tsconfig.base.json`
+- `moduleResolution: "NodeNext"` for `cli` and `registry` — requires `.js` extensions on relative imports
 - `verbatimModuleSyntax`-friendly patterns via explicit `import type`
+- `isolatedDeclarations` — available in 5.5+; not yet enforced but avoids expensive cross-file inference
 
 ### Avoid
 

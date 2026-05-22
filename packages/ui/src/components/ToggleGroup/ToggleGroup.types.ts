@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * ToggleGroup.types.ts
  *
@@ -10,6 +11,7 @@ export interface ToggleGroupProps<Value extends string = string> extends Omit<
   BaseToggleGroup.Props<Value>,
   "className" | "size"
 > {
+  ref?: Ref<HTMLDivElement>
   size?: "sm" | "md" | "lg"
   className?: BaseToggleGroup.Props<Value>["className"]
 }

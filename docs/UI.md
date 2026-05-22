@@ -30,12 +30,13 @@ Every component MUST use a three-file split:
 ```
 components/
   ComponentName/
-    ComponentName.tsx          ← rendering, forwardRef, composition
-    ComponentName.types.ts     ← public props, Base UI type extension
+    ComponentName.tsx          ← rendering, ref prop composition
+    ComponentName.types.ts     ← public props, Base UI type extension, ref type
     ComponentName.variants.ts  ← CVA variants and class composition
 ```
 
 Rules:
+
 - Folder name and file names MUST be PascalCase.
 - File naming MUST follow the `{ComponentName}.{role}.ts(x)` pattern exactly.
 - All three files MUST be present even for simple components.
@@ -47,15 +48,22 @@ Rules:
 
 ---
 
-## `forwardRef` Contract
+## React 19 Ref Contract
 
-Every component MUST use `forwardRef`. The ref generic MUST be the actual rendered
-HTML element type, not the generic `HTMLElement`:
+Components MUST use the React 19 `ref` prop pattern. Do not add new
+`forwardRef` wrappers.
+
+Public prop types for ref-capable components MUST include a precise
+`ref?: React.Ref<...>` type for the actual rendered HTML element:
 
 ```tsx
-const Badge = forwardRef<HTMLSpanElement, BadgeProps>(...)
-const Button = forwardRef<HTMLElement, ButtonProps>(...)    // acceptable when element varies
-const Dialog = forwardRef<HTMLDivElement, DialogProps>(...)
+export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+  ref?: React.Ref<HTMLSpanElement>
+}
+
+const Badge = ({ ref, ...props }: BadgeProps) => {
+  return <span ref={ref} {...props} />
+}
 ```
 
 ---
@@ -66,6 +74,7 @@ Base UI (`@base-ui/react`) provides headless accessibility primitives. It is an
 internal implementation detail.
 
 Rules:
+
 - Base UI components MUST be imported directly (e.g. `@base-ui/react/button`).
 - Base UI types MAY be re-exported in `.types.ts` when they form part of the
   public prop surface (e.g. extending `Button.Props`).
@@ -113,8 +122,8 @@ All variant classes MUST reference `--nx-*` CSS custom properties via Tailwind
 arbitrary value syntax, not hardcoded colors or spacing:
 
 ```ts
-"bg-[var(--nx-button-primary-background)]"   // correct
-"bg-orange-500"                               // incorrect
+"bg-[var(--nx-button-primary-background)]" // correct
+"bg-orange-500" // incorrect
 ```
 
 ---
@@ -140,6 +149,7 @@ export type * from "./components/Button/Button.types"
 ```
 
 Rules:
+
 - MUST NOT export Base UI internals directly.
 - MUST NOT export `.variants.ts` from the package root (variant functions are
   internal to the component folder).
@@ -158,15 +168,16 @@ Full template sync contract (transform rules, drift validation, manual vs. gener
 
 ## Ownership Boundaries
 
-| Concern | Owner |
-|---|---|
-| Component API, behavior, variants | `packages/ui/src/components/` |
-| Install templates | `packages/registry/templates/components/` |
-| Registry item metadata | `packages/registry/src/items/` |
-| Token CSS variables | `@neurex/tokens` (via build) |
-| CLI install logic | `packages/cli/src/` |
+| Concern                           | Owner                                     |
+| --------------------------------- | ----------------------------------------- |
+| Component API, behavior, variants | `packages/ui/src/components/`             |
+| Install templates                 | `packages/registry/templates/components/` |
+| Registry item metadata            | `packages/registry/src/items/`            |
+| Token CSS variables               | `@neurex/tokens` (via build)              |
+| CLI install logic                 | `packages/cli/src/`                       |
 
 `packages/ui` MUST NOT contain:
+
 - Registry metadata or install logic
 - CLI configuration or detection logic
 - Generated token CSS (use `@neurex/tokens` exports instead)

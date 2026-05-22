@@ -1,15 +1,12 @@
 # Neurex Style Rules
 
-## Purpose
+**Audience:** Contributors and agents
+**Type:** Contributor style guide
+**Source of truth for:** Coding rules and conventions across all packages
+**Related docs:** `docs/STYLEGUIDE.md` (practical patterns and examples), `docs/ARCHITECTURE.md` (package boundaries)
 
-This file defines coding style rules for the `neurex` repository.
-
-Use this together with:
-
-- `docs/ARCHITECTURE.md`
-- `docs/STYLEGUIDE.md`
-
-If there is a conflict, architecture wins over style convenience.
+If there is a conflict between this document and `docs/ARCHITECTURE.md`, architecture wins.
+For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 
 ---
 
@@ -26,31 +23,63 @@ If there is a conflict, architecture wins over style convenience.
 ## TypeScript
 
 - Use ESM imports/exports only.
-- Prefer `type` imports for type-only symbols.
-- Avoid `any`.
-- Narrow unknown data before using it.
+- Use `import type` for type-only symbols.
+- Enable strict mode. Avoid `any`.
+- Narrow `unknown` data before using it.
 - Let errors propagate unless there is explicit recovery logic.
-- Prefer small helpers over deeply nested inline logic.
+- Use the `node:` protocol for Node.js built-ins in `packages/cli` and `packages/registry`:
+  ```ts
+  import { readFile } from "node:fs/promises"
+  import { join } from "node:path"
+  ```
+- Module resolution differs by package:
+  - `packages/ui`, `packages/tokens` — `Bundler`: no extension required on relative imports.
+  - `packages/cli`, `packages/registry` — `NodeNext`: `.js` extension required on all relative imports.
 
 ---
 
 ## React Components
 
 - Keep reference components in `packages/ui/src/components`.
-- Use the standard component file split:
+- Every component MUST use the three-file split:
+  ```
+  ComponentName.tsx       ← rendering, ref prop composition
+  ComponentName.types.ts  ← public props
+  ComponentName.variants.ts ← CVA variants
+  ```
+- Components MUST use the React 19 `ref` prop pattern. Do not introduce new
+  `forwardRef` wrappers.
+- Public prop types for ref-capable components MUST include a precise
+  `ref?: React.Ref<...>` type for the actual rendered element.
+- Set `displayName` on every component.
+- Declare the component locally; export from a single block at the bottom of the file.
+- Preserve accessibility behavior when wrapping Base UI primitives.
+- Treat Base UI as an internal implementation detail — do not expose it through the public API.
 
-```txt
-ComponentName.tsx
-ComponentName.types.ts
-ComponentName.variants.ts
-```
+---
 
-- Support variants and `className` overrides.
-- Keep component APIs simple by default.
-- Preserve accessibility behavior when adding interactivity.
-- Treat Base UI as an internal implementation detail.
-- In `ComponentName.tsx`, keep component declarations local and export the
-  public component symbols from a single export block at the bottom of the file.
+## Styling
+
+- Tailwind v4 is the user-facing styling layer.
+- Define all visual variants with `cva` from `class-variance-authority` in `.variants.ts`.
+- Use `cn()` (clsx + tailwind-merge) for all class composition. Do not concatenate strings manually.
+- Variant classes MUST reference `--nx-*` CSS custom properties, not hardcoded Tailwind palette values:
+  ```ts
+  "bg-[var(--nx-button-primary-background)]" // correct
+  "bg-orange-500" // incorrect
+  ```
+- Do not duplicate shared styling helpers across components.
+- Do not handwrite `--nx-*` variables in component files — they are generated output.
+
+---
+
+## Tokens
+
+- Token source files use DTCG-shaped `$value` leaves. Do not use legacy `value` leaves.
+- Primitives hold raw values only — no references.
+- Components reference semantics. Raw `size.*`/`spacing.*` references are a temporary exception only.
+- Do not write `--nx-*` prefixes in token source files — the prefix is applied by the generator.
+- Full token layer rules: `docs/TOKENS.md`.
 
 ---
 
@@ -58,62 +87,41 @@ ComponentName.variants.ts
 
 - Registry metadata is the source of truth for install behavior.
 - Do not hardcode component-specific install branches in the CLI.
-- CLI output must be safe and idempotent.
-- Never overwrite user files silently.
-- Report clear created/skipped/conflict states.
-- Shared resources belong in the shared layer, not inside each component.
+- CLI installs MUST be idempotent.
+- MUST NOT overwrite user files silently.
+- Report clear created / updated / skipped / conflicted states.
+- Shared resources belong in the shared layer, not inside each component folder.
 
 ---
 
 ## Naming
 
-- Use PascalCase for component folders and component files.
-- Use `camelCase` for variables and function names.
+- PascalCase for component folders and files (`Button/`, `Button.tsx`).
+- `camelCase` for variables and function names.
 - Use clear, domain-specific names over abbreviations.
-- Keep canonical component naming aligned across `ui`, `registry`, and templates.
-- In `packages/tokens`, let folder context carry repeated token source meaning
-  when files in the folder share the same role, for example
-  `primitives/color.ts`, `semantics/color.ts`, and `themes/neurex/light.ts`.
-- Keep role labels in mixed token folders where files have different jobs, for
-  example `resolver.types.ts`, `resolver.utils.ts`, `generator.create.ts`,
-  `generator.write.ts`, and `css.generator.ts`.
+- Keep component naming aligned across `ui`, `registry`, and templates.
+- In `packages/tokens`: use folder context alone in same-role folders (e.g. `primitives/color.ts`); use role labels in mixed-purpose folders (e.g. `resolver.types.ts`, `generator.create.ts`).
 
 ---
 
 ## Comments
 
-- Add comments only when they explain intent or constraints.
+- Add comments only when they explain intent, constraints, or non-obvious behavior.
 - Do not narrate obvious code.
-- Prefer comments for architecture rules, install safety, or non-obvious behavior.
 
 ---
 
 ## Imports and Exports
 
-- Keep public APIs explicit through package `exports`.
-- Keep component file exports explicit and grouped at the bottom of the file.
-- Do not rely on deep imports into another package's `src` or `dist`.
-- Keep entrypoints small and intentional.
-
----
-
-## Styling
-
-- Tailwind is the user-facing styling layer.
-- Use variants for consistent visual choices.
-- Use shared utilities for class composition.
-- Do not duplicate shared styling helpers across components.
-- Token-driven styling should remain compatible with generated CSS variables.
+- Public APIs are defined only via `package.json` `exports`.
+- Do not deep-import into another package's `src/` or `dist/`.
+- Keep package entrypoints small and intentional.
+- Component file exports: explicit, grouped at the bottom of the file.
 
 ---
 
 ## Testing and Verification
 
-After meaningful changes, run what exists when possible:
+Run `pnpm check` before merging (format + lint + typecheck + test).
 
-- `pnpm build`
-- `pnpm typecheck`
-- `pnpm lint`
-- `pnpm test`
-
-If a script is only a placeholder, say so explicitly in review notes or handoff.
+For the full test command reference, per-package scripts, and when to run targeted vs full checks: `docs/TESTING.md`.

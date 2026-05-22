@@ -4,7 +4,6 @@
  * Reference Drawer component implementation.
  */
 
-import { forwardRef } from "react"
 import { X } from "lucide-react"
 import { Drawer as BaseDrawer } from "@base-ui/react/drawer"
 import type {
@@ -39,6 +38,7 @@ import {
   drawerViewportVariants,
 } from "./Drawer.variants"
 import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
 const Drawer = <Payload = unknown,>(props: DrawerProps<Payload>) => {
   return <BaseDrawer.Root {...props} />
@@ -52,20 +52,15 @@ const DrawerProvider = (props: DrawerProviderProps) => {
 
 DrawerProvider.displayName = "DrawerProvider"
 
-const DrawerTrigger = forwardRef<HTMLButtonElement, DrawerTriggerProps>(
-  ({ className, ...props }, ref) => {
-    const triggerClassName: DrawerTriggerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerTriggerVariants(), userClassName)
-    }
-
-    return (
-      <BaseDrawer.Trigger ref={ref} className={triggerClassName} {...props} />
-    )
-  },
-)
+const DrawerTrigger = ({ ref, className, ...props }: DrawerTriggerProps) => {
+  return (
+    <BaseDrawer.Trigger
+      ref={ref}
+      className={mergeClassName(drawerTriggerVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 DrawerTrigger.displayName = "DrawerTrigger"
 
@@ -75,110 +70,90 @@ const DrawerPortal = (props: DrawerPortalProps) => {
 
 DrawerPortal.displayName = "DrawerPortal"
 
-const DrawerIndentBackground = forwardRef<
-  HTMLDivElement,
-  DrawerIndentBackgroundProps
->(({ className, ...props }, ref) => {
-  const backgroundClassName: DrawerIndentBackgroundProps["className"] = (
-    state,
-  ) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(drawerIndentBackgroundVariants(), userClassName)
-  }
-
+const DrawerIndentBackground = ({
+  ref,
+  className,
+  ...props
+}: DrawerIndentBackgroundProps) => {
   return (
     <BaseDrawer.IndentBackground
       ref={ref}
-      className={backgroundClassName}
+      className={mergeClassName(drawerIndentBackgroundVariants(), className)}
       {...props}
     />
   )
-})
+}
 
 DrawerIndentBackground.displayName = "DrawerIndentBackground"
 
-const DrawerIndent = forwardRef<HTMLDivElement, DrawerIndentProps>(
-  ({ className, ...props }, ref) => {
-    const indentClassName: DrawerIndentProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerIndentVariants(), userClassName)
-    }
-
-    return (
-      <BaseDrawer.Indent ref={ref} className={indentClassName} {...props} />
-    )
-  },
-)
+const DrawerIndent = ({ ref, className, ...props }: DrawerIndentProps) => {
+  return (
+    <BaseDrawer.Indent
+      ref={ref}
+      className={mergeClassName(drawerIndentVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 DrawerIndent.displayName = "DrawerIndent"
 
-const DrawerBackdrop = forwardRef<HTMLDivElement, DrawerBackdropProps>(
-  ({ className, ...props }, ref) => {
-    const backdropClassName: DrawerBackdropProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerBackdropVariants(), userClassName)
-    }
-
-    return (
-      <BaseDrawer.Backdrop ref={ref} className={backdropClassName} {...props} />
-    )
-  },
-)
+const DrawerBackdrop = ({ ref, className, ...props }: DrawerBackdropProps) => {
+  return (
+    <BaseDrawer.Backdrop
+      ref={ref}
+      className={mergeClassName(drawerBackdropVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 DrawerBackdrop.displayName = "DrawerBackdrop"
 
-const DrawerViewport = forwardRef<HTMLDivElement, DrawerViewportProps>(
-  ({ side, className, ...props }, ref) => {
-    const viewportClassName: DrawerViewportProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerViewportVariants({ side }), userClassName)
-    }
-
-    return (
-      <BaseDrawer.Viewport ref={ref} className={viewportClassName} {...props} />
-    )
-  },
-)
+const DrawerViewport = ({
+  ref,
+  side,
+  className,
+  ...props
+}: DrawerViewportProps) => {
+  return (
+    <BaseDrawer.Viewport
+      ref={ref}
+      className={mergeClassName(drawerViewportVariants({ side }), className)}
+      {...props}
+    />
+  )
+}
 
 DrawerViewport.displayName = "DrawerViewport"
 
-const DrawerPopup = forwardRef<HTMLDivElement, DrawerPopupProps>(
-  ({ side, size, className, ...props }, ref) => {
-    const popupClassName: DrawerPopupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerPopupVariants({ side, size }), userClassName)
-    }
-
-    return <BaseDrawer.Popup ref={ref} className={popupClassName} {...props} />
-  },
-)
+const DrawerPopup = ({
+  ref,
+  side,
+  size,
+  className,
+  ...props
+}: DrawerPopupProps) => {
+  return (
+    <BaseDrawer.Popup
+      ref={ref}
+      className={mergeClassName(drawerPopupVariants({ side, size }), className)}
+      {...props}
+    />
+  )
+}
 
 DrawerPopup.displayName = "DrawerPopup"
 
-const DrawerContent = forwardRef<HTMLDivElement, DrawerContentProps>(
-  ({ className, ...props }, ref) => {
-    const contentClassName: DrawerContentProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerContentVariants(), userClassName)
-    }
-
-    return (
-      <BaseDrawer.Content ref={ref} className={contentClassName} {...props} />
-    )
-  },
-)
+const DrawerContent = ({ ref, className, ...props }: DrawerContentProps) => {
+  return (
+    <BaseDrawer.Content
+      ref={ref}
+      className={mergeClassName(drawerContentVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 DrawerContent.displayName = "DrawerContent"
 
@@ -197,80 +172,67 @@ const DrawerHandleIndicator = ({
 
 DrawerHandleIndicator.displayName = "DrawerHandleIndicator"
 
-const DrawerSwipeArea = forwardRef<HTMLDivElement, DrawerSwipeAreaProps>(
-  ({ side, className, ...props }, ref) => {
-    const swipeAreaClassName: DrawerSwipeAreaProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerSwipeAreaVariants({ side }), userClassName)
-    }
-
-    return (
-      <BaseDrawer.SwipeArea
-        ref={ref}
-        className={swipeAreaClassName}
-        {...props}
-      />
-    )
-  },
-)
-
-DrawerSwipeArea.displayName = "DrawerSwipeArea"
-
-const DrawerTitle = forwardRef<HTMLHeadingElement, DrawerTitleProps>(
-  ({ className, ...props }, ref) => {
-    const titleClassName: DrawerTitleProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerTitleVariants(), userClassName)
-    }
-
-    return <BaseDrawer.Title ref={ref} className={titleClassName} {...props} />
-  },
-)
-
-DrawerTitle.displayName = "DrawerTitle"
-
-const DrawerDescription = forwardRef<
-  HTMLParagraphElement,
-  DrawerDescriptionProps
->(({ className, ...props }, ref) => {
-  const descriptionClassName: DrawerDescriptionProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(drawerDescriptionVariants(), userClassName)
-  }
-
+const DrawerSwipeArea = ({
+  ref,
+  side,
+  className,
+  ...props
+}: DrawerSwipeAreaProps) => {
   return (
-    <BaseDrawer.Description
+    <BaseDrawer.SwipeArea
       ref={ref}
-      className={descriptionClassName}
+      className={mergeClassName(drawerSwipeAreaVariants({ side }), className)}
       {...props}
     />
   )
-})
+}
+
+DrawerSwipeArea.displayName = "DrawerSwipeArea"
+
+const DrawerTitle = ({ ref, className, ...props }: DrawerTitleProps) => {
+  return (
+    <BaseDrawer.Title
+      ref={ref}
+      className={mergeClassName(drawerTitleVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+DrawerTitle.displayName = "DrawerTitle"
+
+const DrawerDescription = ({
+  ref,
+  className,
+  ...props
+}: DrawerDescriptionProps) => {
+  return (
+    <BaseDrawer.Description
+      ref={ref}
+      className={mergeClassName(drawerDescriptionVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 DrawerDescription.displayName = "DrawerDescription"
 
-const DrawerClose = forwardRef<HTMLButtonElement, DrawerCloseProps>(
-  ({ className, children, ...props }, ref) => {
-    const closeClassName: DrawerCloseProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(drawerCloseVariants(), userClassName)
-    }
-
-    return (
-      <BaseDrawer.Close ref={ref} className={closeClassName} {...props}>
-        {children ?? <X aria-hidden="true" size={16} />}
-      </BaseDrawer.Close>
-    )
-  },
-)
+const DrawerClose = ({
+  ref,
+  className,
+  children,
+  ...props
+}: DrawerCloseProps) => {
+  return (
+    <BaseDrawer.Close
+      ref={ref}
+      className={mergeClassName(drawerCloseVariants(), className)}
+      {...props}
+    >
+      {children ?? <X aria-hidden="true" size={16} />}
+    </BaseDrawer.Close>
+  )
+}
 
 DrawerClose.displayName = "DrawerClose"
 

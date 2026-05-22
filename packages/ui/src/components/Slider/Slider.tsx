@@ -4,7 +4,6 @@
  * Reference Slider component implementation.
  */
 
-import { forwardRef } from "react"
 import { Slider as BaseSlider } from "@base-ui/react/slider"
 import type { SliderProps } from "./Slider.types"
 import {
@@ -14,75 +13,43 @@ import {
   sliderTrackVariants,
   sliderVariants,
 } from "./Slider.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
-const Slider = forwardRef<HTMLDivElement, SliderProps>(
-  (
-    {
-      className,
-      controlClassName,
-      trackClassName,
-      indicatorClassName,
-      thumbClassName,
-      ...props
-    },
-    ref,
-  ) => {
-    const rootClassName: SliderProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(sliderVariants(), userClassName)
-    }
-
-    return (
-      <BaseSlider.Root ref={ref} className={rootClassName} {...props}>
-        <BaseSlider.Control
-          className={(state) =>
-            cn(
-              sliderControlVariants(),
-              typeof controlClassName === "function"
-                ? controlClassName(state)
-                : controlClassName,
-            )
-          }
+const Slider = ({
+  ref,
+  className,
+  controlClassName,
+  trackClassName,
+  indicatorClassName,
+  thumbClassName,
+  ...props
+}: SliderProps) => {
+  return (
+    <BaseSlider.Root
+      ref={ref}
+      className={mergeClassName(sliderVariants(), className)}
+      {...props}
+    >
+      <BaseSlider.Control
+        className={mergeClassName(sliderControlVariants(), controlClassName)}
+      >
+        <BaseSlider.Track
+          className={mergeClassName(sliderTrackVariants(), trackClassName)}
         >
-          <BaseSlider.Track
-            className={(state) =>
-              cn(
-                sliderTrackVariants(),
-                typeof trackClassName === "function"
-                  ? trackClassName(state)
-                  : trackClassName,
-              )
-            }
-          >
-            <BaseSlider.Indicator
-              className={(state) =>
-                cn(
-                  sliderIndicatorVariants(),
-                  typeof indicatorClassName === "function"
-                    ? indicatorClassName(state)
-                    : indicatorClassName,
-                )
-              }
-            />
-          </BaseSlider.Track>
-          <BaseSlider.Thumb
-            className={(state) =>
-              cn(
-                sliderThumbVariants(),
-                typeof thumbClassName === "function"
-                  ? thumbClassName(state)
-                  : thumbClassName,
-              )
-            }
+          <BaseSlider.Indicator
+            className={mergeClassName(
+              sliderIndicatorVariants(),
+              indicatorClassName,
+            )}
           />
-        </BaseSlider.Control>
-      </BaseSlider.Root>
-    )
-  },
-)
+        </BaseSlider.Track>
+        <BaseSlider.Thumb
+          className={mergeClassName(sliderThumbVariants(), thumbClassName)}
+        />
+      </BaseSlider.Control>
+    </BaseSlider.Root>
+  )
+}
 
 Slider.displayName = "Slider"
 

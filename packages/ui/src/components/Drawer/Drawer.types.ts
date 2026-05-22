@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Drawer.types.ts
  *
@@ -15,33 +16,16 @@ export type DrawerProviderProps = BaseDrawer.Provider.Props
 export type DrawerPortalProps = BaseDrawer.Portal.Props
 export type DrawerHandle<Payload = unknown> = BaseDrawer.Handle<Payload>
 
-export interface DrawerTriggerProps<Payload = unknown> extends Omit<
-  BaseDrawer.Trigger.Props<Payload>,
-  "className"
-> {
-  className?: BaseDrawer.Trigger.Props<Payload>["className"]
-}
+export type DrawerTriggerProps<Payload = unknown> =
+  BaseDrawer.Trigger.Props<Payload> & {
+    ref?: Ref<HTMLButtonElement>
+  }
 
-export interface DrawerIndentBackgroundProps extends Omit<
-  BaseDrawer.IndentBackground.Props,
-  "className"
-> {
-  className?: BaseDrawer.IndentBackground.Props["className"]
-}
+export type DrawerIndentBackgroundProps = BaseDrawer.IndentBackground.Props
 
-export interface DrawerIndentProps extends Omit<
-  BaseDrawer.Indent.Props,
-  "className"
-> {
-  className?: BaseDrawer.Indent.Props["className"]
-}
+export type DrawerIndentProps = BaseDrawer.Indent.Props
 
-export interface DrawerBackdropProps extends Omit<
-  BaseDrawer.Backdrop.Props,
-  "className"
-> {
-  className?: BaseDrawer.Backdrop.Props["className"]
-}
+export type DrawerBackdropProps = BaseDrawer.Backdrop.Props
 
 export interface DrawerViewportProps extends Omit<
   BaseDrawer.Viewport.Props,
@@ -84,16 +68,6 @@ export interface DrawerTitleProps extends Omit<
   className?: BaseDrawer.Title.Props["className"]
 }
 
-export interface DrawerDescriptionProps extends Omit<
-  BaseDrawer.Description.Props,
-  "className"
-> {
-  className?: BaseDrawer.Description.Props["className"]
-}
+export type DrawerDescriptionProps = BaseDrawer.Description.Props
 
-export interface DrawerCloseProps extends Omit<
-  BaseDrawer.Close.Props,
-  "className"
-> {
-  className?: BaseDrawer.Close.Props["className"]
-}
+export type DrawerCloseProps = BaseDrawer.Close.Props

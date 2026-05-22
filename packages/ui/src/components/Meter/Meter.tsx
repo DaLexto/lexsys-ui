@@ -4,7 +4,6 @@
  * Reference Meter component implementation.
  */
 
-import { forwardRef } from "react"
 import { Meter as BaseMeter } from "@base-ui/react/meter"
 import type {
   MeterIndicatorProps,
@@ -21,124 +20,103 @@ import {
   meterValueVariants,
   meterVariants,
 } from "./Meter.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
-const Meter = forwardRef<HTMLDivElement, MeterProps>(
-  (
-    {
-      size,
-      label,
-      showValue,
-      children,
-      className,
-      trackClassName,
-      indicatorClassName,
-      labelClassName,
-      valueClassName,
-      ...props
-    },
-    ref,
-  ) => {
-    const rootClassName: MeterProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(meterVariants(), userClassName)
-    }
-
-    if (children !== undefined) {
-      return (
-        <BaseMeter.Root ref={ref} className={rootClassName} {...props}>
-          {children}
-        </BaseMeter.Root>
-      )
-    }
-
+const Meter = ({
+  ref,
+  size,
+  label,
+  showValue,
+  children,
+  className,
+  trackClassName,
+  indicatorClassName,
+  labelClassName,
+  valueClassName,
+  ...props
+}: MeterProps) => {
+  if (children !== undefined) {
     return (
-      <BaseMeter.Root ref={ref} className={rootClassName} {...props}>
-        {label === undefined && showValue !== true ? null : (
-          <div className={meterHeaderVariants()}>
-            {label === undefined ? null : (
-              <MeterLabel className={labelClassName}>{label}</MeterLabel>
-            )}
-            {showValue === true ? (
-              <MeterValue className={valueClassName} />
-            ) : null}
-          </div>
-        )}
-        <MeterTrack size={size} className={trackClassName}>
-          <MeterIndicator className={indicatorClassName} />
-        </MeterTrack>
+      <BaseMeter.Root
+        ref={ref}
+        className={mergeClassName(meterVariants(), className)}
+        {...props}
+      >
+        {children}
       </BaseMeter.Root>
     )
-  },
-)
+  }
+
+  return (
+    <BaseMeter.Root
+      ref={ref}
+      className={mergeClassName(meterVariants(), className)}
+      {...props}
+    >
+      {label === undefined && showValue !== true ? null : (
+        <div className={meterHeaderVariants()}>
+          {label === undefined ? null : (
+            <MeterLabel className={labelClassName}>{label}</MeterLabel>
+          )}
+          {showValue === true ? (
+            <MeterValue className={valueClassName} />
+          ) : null}
+        </div>
+      )}
+      <MeterTrack size={size} className={trackClassName}>
+        <MeterIndicator className={indicatorClassName} />
+      </MeterTrack>
+    </BaseMeter.Root>
+  )
+}
 
 Meter.displayName = "Meter"
 
-const MeterTrack = forwardRef<HTMLDivElement, MeterTrackProps>(
-  ({ size, className, ...props }, ref) => {
-    const trackClassName: MeterTrackProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(meterTrackVariants({ size }), userClassName)
-    }
-
-    return <BaseMeter.Track ref={ref} className={trackClassName} {...props} />
-  },
-)
+const MeterTrack = ({ ref, size, className, ...props }: MeterTrackProps) => {
+  return (
+    <BaseMeter.Track
+      ref={ref}
+      className={mergeClassName(meterTrackVariants({ size }), className)}
+      {...props}
+    />
+  )
+}
 
 MeterTrack.displayName = "MeterTrack"
 
-const MeterIndicator = forwardRef<HTMLDivElement, MeterIndicatorProps>(
-  ({ className, ...props }, ref) => {
-    const indicatorClassName: MeterIndicatorProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(meterIndicatorVariants(), userClassName)
-    }
-
-    return (
-      <BaseMeter.Indicator
-        ref={ref}
-        className={indicatorClassName}
-        {...props}
-      />
-    )
-  },
-)
+const MeterIndicator = ({ ref, className, ...props }: MeterIndicatorProps) => {
+  return (
+    <BaseMeter.Indicator
+      ref={ref}
+      className={mergeClassName(meterIndicatorVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MeterIndicator.displayName = "MeterIndicator"
 
-const MeterValue = forwardRef<HTMLSpanElement, MeterValueProps>(
-  ({ className, ...props }, ref) => {
-    const valueClassName: MeterValueProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(meterValueVariants(), userClassName)
-    }
-
-    return <BaseMeter.Value ref={ref} className={valueClassName} {...props} />
-  },
-)
+const MeterValue = ({ ref, className, ...props }: MeterValueProps) => {
+  return (
+    <BaseMeter.Value
+      ref={ref}
+      className={mergeClassName(meterValueVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MeterValue.displayName = "MeterValue"
 
-const MeterLabel = forwardRef<HTMLSpanElement, MeterLabelProps>(
-  ({ className, ...props }, ref) => {
-    const labelClassName: MeterLabelProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(meterLabelVariants(), userClassName)
-    }
-
-    return <BaseMeter.Label ref={ref} className={labelClassName} {...props} />
-  },
-)
+const MeterLabel = ({ ref, className, ...props }: MeterLabelProps) => {
+  return (
+    <BaseMeter.Label
+      ref={ref}
+      className={mergeClassName(meterLabelVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MeterLabel.displayName = "MeterLabel"
 
