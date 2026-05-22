@@ -7,18 +7,17 @@
 import { cva } from "class-variance-authority"
 
 const neutralTone =
-  "(--nx-alert-background:--nx-alert-neutral-background) (--nx-alert-foreground:--nx-alert-neutral-foreground) (--nx-alert-border-color:--nx-alert-neutral-border-color)"
+  "border-(--nx-alert-neutral-border-color) bg-(--nx-alert-neutral-background) text-(--nx-alert-neutral-foreground)"
 
 const primaryTone =
-  "(--nx-alert-background:--nx-alert-primary-background) (--nx-alert-foreground:--nx-alert-primary-foreground) (--nx-alert-border-color:--nx-alert-primary-border-color)"
+  "border-(--nx-alert-primary-border-color) bg-(--nx-alert-primary-background) text-(--nx-alert-primary-foreground)"
 
 const destructiveTone =
-  "(--nx-alert-background:--nx-alert-destructive-background) (--nx-alert-foreground:--nx-alert-destructive-foreground) (--nx-alert-border-color:--nx-alert-destructive-border-color)"
+  "border-(--nx-alert-destructive-border-color) bg-(--nx-alert-destructive-background) text-(--nx-alert-destructive-foreground)"
 
 export const alertVariants = cva(
   [
     "grid gap-(--nx-alert-gap) rounded-(--nx-alert-radius) border p-(--nx-alert-padding)",
-    "border-(--nx-alert-border-color) bg-(--nx-alert-background) text-(--nx-alert-foreground)",
     "transition-colors duration-(--nx-alert-transition-duration) ease-(--nx-alert-transition-easing)",
   ].join(" "),
   {
