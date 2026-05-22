@@ -29,6 +29,24 @@ export const SEMANTIC_CONTRAST_PAIRS: SemanticContrastPair[] = [
     backgroundPath: "color.background.surface",
   },
   {
+    id: "text-secondary-on-surface",
+    label: "Secondary text on surface background",
+    foregroundPath: "color.text.secondary",
+    backgroundPath: "color.background.surface",
+  },
+  {
+    id: "text-primary-on-subtle",
+    label: "Primary text on subtle background",
+    foregroundPath: "color.text.primary",
+    backgroundPath: "color.background.subtle",
+  },
+  {
+    id: "text-inverse-on-primary-action",
+    label: "Inverse text on primary action background",
+    foregroundPath: "color.text.inverse",
+    backgroundPath: "action.primary.base",
+  },
+  {
     id: "feedback-info",
     label: "Info feedback foreground on background",
     foregroundPath: "color.feedback.info.foreground",
