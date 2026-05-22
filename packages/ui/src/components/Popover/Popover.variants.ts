@@ -19,20 +19,20 @@ export const popoverTriggerVariants = cva(
 
 export const popoverBackdropVariants = cva(
   [
-    "fixed inset-0 z-40 bg-[var(--nx-popover-backdrop-background)] opacity-[var(--nx-popover-backdrop-opacity)]",
+    "fixed inset-0 z-[var(--nx-popover-backdrop-z-index)] bg-[var(--nx-popover-backdrop-background)] opacity-[var(--nx-popover-backdrop-opacity)]",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
     "transition-opacity duration-[var(--nx-popover-transition-duration)] ease-[var(--nx-popover-transition-easing)]",
   ].join(" "),
 )
 
 export const popoverPositionerVariants = cva(
-  "z-50 outline-none data-[anchor-hidden]:hidden",
+  "z-[var(--nx-popover-positioner-z-index)] outline-none data-[anchor-hidden]:hidden",
 )
 
 export const popoverPopupVariants = cva(
   [
     "grid w-[min(calc(100vw-2rem),var(--nx-popover-popup-max-width))] gap-[var(--nx-popover-popup-gap)] rounded-[var(--nx-popover-popup-radius)] border",
-    "border-[var(--nx-popover-popup-border-color)] bg-[var(--nx-popover-popup-background)] p-[var(--nx-popover-popup-padding)] text-[var(--nx-popover-popup-foreground)] shadow-md",
+    "border-[var(--nx-popover-popup-border-color)] bg-[var(--nx-popover-popup-background)] p-[var(--nx-popover-popup-padding)] text-[var(--nx-popover-popup-foreground)] shadow-[var(--nx-popover-popup-shadow)]",
     "outline-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "transition-[opacity,transform] duration-[var(--nx-popover-transition-duration)] ease-[var(--nx-popover-transition-easing)]",
   ].join(" "),

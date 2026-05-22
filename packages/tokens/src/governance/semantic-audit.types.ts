@@ -1,0 +1,28 @@
+/**
+ * semantic-audit.types.ts
+ *
+ * @layer governance
+ * @description Type contracts for semantic token organization audits.
+ */
+
+import type { TokenGovernanceInput } from "./governance.types"
+
+export type SemanticAuditIssueKind =
+  | "unused-semantic"
+  | "component-intent"
+  | "theme-path-mismatch"
+
+export interface SemanticAuditIssue {
+  kind: SemanticAuditIssueKind
+  path: string
+  message: string
+  themeName?: string
+}
+
+export interface SemanticAuditReport {
+  issues: SemanticAuditIssue[]
+  semanticPathCount: number
+  referencedSemanticPathCount: number
+}
+
+export type SemanticAuditInput = TokenGovernanceInput

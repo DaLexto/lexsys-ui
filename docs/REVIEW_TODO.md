@@ -18,6 +18,7 @@ The P0 and P1 implementation passes are complete:
 - CLI install safety (idempotency, conflict detection, `--cwd` scoping, packed template resolution)
 - Token foundation (DTCG-shaped source, CSS + DTCG JSON generation, brand layer, theme modes)
 - Token platform phases 1–5 (factory authoring, layer validation, governance reports)
+- Semantic token organization (elevation group, theme path alignment, feedback wiring, semantic audit)
 - Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution
@@ -31,23 +32,7 @@ Known gaps below.
 
 ## P2 — Product and DX
 
-### TODO: Tokenize Dialog stacking and elevation values
-
-**Problem:**
-
-`Dialog.variants.ts` uses hardcoded stacking and elevation classes (`z-40`, `z-50`, `shadow-lg`) because semantic elevation roles and component token wiring are not defined yet. Primitive scales already exist in `packages/tokens/src/primitives/z-index.ts` and `shadow.ts`.
-
-**Direction:**
-
-- Add semantic elevation and layering roles in `packages/tokens/src/semantics/` that map from the existing primitive z-index and shadow scales.
-- Replace hardcoded Dialog (and other overlay) stacking values with component CSS variables:
-  - `--nx-dialog-backdrop-z-index`
-  - `--nx-dialog-viewport-z-index`
-  - `--nx-dialog-popup-shadow`
-- Apply the same pattern to other overlay components that use hardcoded `z-*` or `shadow-*`.
-- Do not introduce placeholder tokens — model the semantic roles properly first.
-
-**Status:** Not started. Hardcoded values are acceptable markers for now but must be resolved before Dialog token integration is declared complete.
+_No active P2 items._
 
 ---
 
@@ -82,6 +67,7 @@ implemented; this item covers the remaining resolver evolution only.
 
 | Gap                                   | Notes                                                                              |
 | ------------------------------------- | ---------------------------------------------------------------------------------- |
+| `outline`, `layout` semantic groups   | Staged stubs only (`semantics/outline.ts`, `semantics/layout.ts`). Not active yet. |
 | `neurex uninstall` not implemented    | Command exists in CLI surface but has no behavior. Tracked in `docs/CLI.md`.       |
 | No render tests for UI components     | Only CVA class output is tested. No `@testing-library/react` coverage.             |
 | Next.js and other framework scaffolds | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded. |

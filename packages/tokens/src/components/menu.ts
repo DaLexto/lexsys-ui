@@ -28,7 +28,11 @@ export const menuComponentTokens = componentTokens("menu", {
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{border.default}" },
     minWidth: { $value: "{size.area.swipe.sm}" },
-    maxWidth: { $value: "{size.popover.maxWidth}" },
+    maxWidth: { $value: "{size.80}" },
+    shadow: { $value: "{elevation.shadow.floating}" },
+  },
+  positioner: {
+    zIndex: { $value: "{elevation.floating.zIndex}" },
   },
   viewport: {
     $type: "dimension",
@@ -103,6 +107,7 @@ export const menuComponentTokens = componentTokens("menu", {
   backdrop: {
     $type: "color",
     background: { $value: "{color.text.primary}" },
+    zIndex: { $value: "{elevation.backdrop.zIndex}" },
   },
   focus: {
     borderColor: { $value: "{border.focus}" },

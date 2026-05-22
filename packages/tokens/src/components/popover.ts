@@ -4,15 +4,20 @@ export const popoverComponentTokens = componentTokens("popover", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.24 },
+    zIndex: { $value: "{elevation.backdrop.zIndex}" },
+  },
+  positioner: {
+    zIndex: { $value: "{elevation.floating.zIndex}" },
   },
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
-    maxWidth: { $value: "{size.popover.maxWidth}" },
+    maxWidth: { $value: "{size.80}" },
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
+    shadow: { $value: "{elevation.shadow.floating}" },
   },
   arrow: {
     $type: "dimension",

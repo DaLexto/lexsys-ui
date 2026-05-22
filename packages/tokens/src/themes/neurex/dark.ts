@@ -1,5 +1,3 @@
-// themes/dark.ts
-
 import { themeTokens } from "../../types/authoring"
 
 export const neurexDarkTheme = themeTokens(
@@ -34,56 +32,56 @@ export const neurexDarkTheme = themeTokens(
         link: { $value: "{color.blue.300}" },
         accent: { $value: "{color.purple.300}" },
       },
-      border: {
-        $type: "color",
-        default: { $value: "{color.neutral.700}" },
-        strong: { $value: "{color.neutral.500}" },
-        focus: { $value: "{color.blue.400}" },
-        accent: { $value: "{color.purple.400}" },
-      },
       feedback: {
         info: {
           $type: "color",
-          bg: { $value: "{color.blue.950}" },
-          text: { $value: "{color.blue.200}" },
+          background: { $value: "{color.blue.950}" },
+          foreground: { $value: "{color.blue.200}" },
         },
         success: {
           $type: "color",
-          bg: { $value: "{color.green.950}" },
-          text: { $value: "{color.green.200}" },
+          background: { $value: "{color.green.950}" },
+          foreground: { $value: "{color.green.200}" },
         },
         warning: {
           $type: "color",
-          bg: { $value: "{color.yellow.950}" },
-          text: { $value: "{color.yellow.200}" },
+          background: { $value: "{color.yellow.950}" },
+          foreground: { $value: "{color.yellow.200}" },
         },
         danger: {
           $type: "color",
-          bg: { $value: "{color.red.950}" },
-          text: { $value: "{color.red.200}" },
+          background: { $value: "{color.red.950}" },
+          foreground: { $value: "{color.red.200}" },
         },
       },
-      action: {
-        primary: {
-          $type: "color",
-          base: { $value: "{color.purple.400}" },
-          hover: { $value: "{color.purple.300}" },
-          active: { $value: "{color.purple.200}" },
-          disabled: { $value: "{color.purple.700}" },
-        },
-        secondary: {
-          $type: "color",
-          base: { $value: "{color.neutral.800}" },
-          hover: { $value: "{color.neutral.700}" },
-          active: { $value: "{color.neutral.600}" },
-        },
-        danger: {
-          $type: "color",
-          base: { $value: "{color.red.400}" },
-          hover: { $value: "{color.red.300}" },
-          active: { $value: "{color.red.200}" },
-          disabled: { $value: "{color.red.700}" },
-        },
+    },
+    border: {
+      $type: "color",
+      default: { $value: "{color.neutral.700}" },
+      strong: { $value: "{color.neutral.500}" },
+      focus: { $value: "{color.blue.400}" },
+      accent: { $value: "{color.purple.400}" },
+    },
+    action: {
+      primary: {
+        $type: "color",
+        base: { $value: "{color.purple.400}" },
+        hover: { $value: "{color.purple.300}" },
+        active: { $value: "{color.purple.200}" },
+        disabled: { $value: "{color.purple.700}" },
+      },
+      secondary: {
+        $type: "color",
+        base: { $value: "{color.neutral.800}" },
+        hover: { $value: "{color.neutral.700}" },
+        active: { $value: "{color.neutral.600}" },
+      },
+      danger: {
+        $type: "color",
+        base: { $value: "{color.red.400}" },
+        hover: { $value: "{color.red.300}" },
+        active: { $value: "{color.red.200}" },
+        disabled: { $value: "{color.red.700}" },
       },
     },
   },

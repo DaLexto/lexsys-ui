@@ -29,14 +29,14 @@ export const alertComponentTokens = componentTokens("alert", {
   },
   primary: {
     $type: "color",
-    background: { $value: "{color.background.subtle}" },
-    foreground: { $value: "{action.primary.base}" },
-    borderColor: { $value: "{action.primary.base}" },
+    background: { $value: "{color.feedback.info.background}" },
+    foreground: { $value: "{color.feedback.info.foreground}" },
+    borderColor: { $value: "{color.feedback.info.foreground}" },
   },
   destructive: {
     $type: "color",
-    background: { $value: "{color.background.subtle}" },
-    foreground: { $value: "{action.danger.base}" },
-    borderColor: { $value: "{action.danger.base}" },
+    background: { $value: "{color.feedback.danger.background}" },
+    foreground: { $value: "{color.feedback.danger.foreground}" },
+    borderColor: { $value: "{color.feedback.danger.foreground}" },
   },
 })

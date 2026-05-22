@@ -3,21 +3,23 @@ import { componentTokens } from "../types/authoring"
 export const toastComponentTokens = componentTokens("toast", {
   viewport: {
     $type: "dimension",
-    width: { $value: "{size.toast.viewportWidth}" },
+    width: { $value: "{size.96}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     gapExpanded: { $value: "{spacing.surface.gap.md}" },
     padding: { $value: "{spacing.surface.sm}" },
+    zIndex: { $value: "{elevation.toast.zIndex}" },
   },
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
   borderColor: { $value: "{border.default}" },
+  shadow: { $value: "{elevation.shadow.raised}" },
   success: {
     $type: "color",
-    borderColor: { $value: "{action.primary.base}" },
+    borderColor: { $value: "{color.feedback.success.foreground}" },
   },
   destructive: {
     $type: "color",
-    borderColor: { $value: "{action.danger.base}" },
+    borderColor: { $value: "{color.feedback.danger.foreground}" },
   },
   radius: { $value: "{radius.surface}" },
   padding: { $value: "{spacing.surface.md}" },

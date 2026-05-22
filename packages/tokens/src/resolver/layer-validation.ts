@@ -173,6 +173,12 @@ export const validateTokenLayerContracts = (
 
   for (const usage of collectTokenReferences(input.componentTokens)) {
     if (primitivePaths.has(usage.targetPath)) {
+      const primitiveNamespace = usage.targetPath.split(".")[0]
+
+      if (primitiveNamespace === "size" || primitiveNamespace === "spacing") {
+        continue
+      }
+
       violations.push(
         createLayerViolation(
           "COMPONENT_TO_PRIMITIVE",

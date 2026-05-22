@@ -4,19 +4,22 @@ export const dialogComponentTokens = componentTokens("dialog", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.48 },
+    zIndex: { $value: "{elevation.backdrop.zIndex}" },
   },
   viewport: {
     $type: "dimension",
     padding: { $value: "{spacing.surface.md}" },
+    zIndex: { $value: "{elevation.layer.zIndex}" },
   },
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
-    maxWidth: { $value: "{size.dialog.maxWidth}" },
+    maxWidth: { $value: "{size.128}" },
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.md}" },
+    shadow: { $value: "{elevation.shadow.raised}" },
   },
   title: {
     foreground: { $value: "{color.text.primary}" },

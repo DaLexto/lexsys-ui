@@ -43,15 +43,17 @@ export const selectIconVariants = cva(
 )
 
 export const selectBackdropVariants = cva(
-  "fixed inset-0 z-40 bg-[var(--nx-select-backdrop-background)] opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+  "fixed inset-0 z-[var(--nx-select-backdrop-z-index)] bg-[var(--nx-select-backdrop-background)] opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
 )
 
-export const selectPositionerVariants = cva("z-50")
+export const selectPositionerVariants = cva(
+  "z-[var(--nx-select-positioner-z-index)]",
+)
 
 export const selectPopupVariants = cva(
   [
     "max-h-[var(--nx-select-popup-max-height)] overflow-hidden rounded-[var(--nx-select-radius)] border",
-    "border-[var(--nx-select-popup-border-color)] bg-[var(--nx-select-popup-background)] text-[var(--nx-select-popup-foreground)] shadow-md",
+    "border-[var(--nx-select-popup-border-color)] bg-[var(--nx-select-popup-background)] text-[var(--nx-select-popup-foreground)] shadow-[var(--nx-select-popup-shadow)]",
     "data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "origin-[var(--transform-origin)] transition-[opacity,transform] duration-[var(--nx-select-transition-duration)] ease-[var(--nx-select-transition-easing)]",
   ].join(" "),

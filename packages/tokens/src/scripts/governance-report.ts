@@ -1,8 +1,10 @@
 import { createStyleTokenInput } from "../generators/inputs/input.source"
 import {
+  createSemanticAuditReport,
   createTokenGovernanceReport,
+  formatSemanticAuditReport,
   formatTokenGovernanceReport,
-} from "../governance/create-governance-report"
+} from "../governance"
 
 const allowedArgs = new Set(["--json"])
 
@@ -44,6 +46,19 @@ const main = (): void => {
   }
 
   console.log(formatTokenGovernanceReport(report))
+  console.log("")
+  console.log(
+    formatSemanticAuditReport(
+      createSemanticAuditReport({
+        primitiveTokens: input.primitiveTokens,
+        brandTokens: input.brandTokens,
+        semanticTokens: input.semanticTokens,
+        componentTokens: input.componentTokens,
+        foundationTokens: input.foundationTokens,
+        themeTokens: input.themeTokens,
+      }),
+    ),
+  )
 }
 
 try {

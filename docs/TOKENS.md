@@ -51,18 +51,30 @@ Presets are configuration. They are not a layer in this chain.
 - Semantic tokens must represent reusable product meaning. One-off visual decisions belong in component tokens.
 - Organized by top-level group. Active groups:
 
-  | Group        | Role                                                                                           |
-  | ------------ | ---------------------------------------------------------------------------------------------- |
-  | `color`      | Global background, text, and feedback `bg`/`text` roles                                        |
-  | `action`     | Interactive state colors: `primary`, `secondary`, `danger`                                     |
-  | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                            |
-  | `motion`     | Duration and easing roles: `control`, `surface`                                                |
-  | `radius`     | Border-radius roles: `control`, `surface`                                                      |
-  | `size`       | Component sizing roles: `control`, `dialog`, `drawer`, `icon`, `indicator`, `sidebar`, `thumb` |
-  | `spacing`    | Spacing roles: `control.gap`, `control.x`, `control.y`                                         |
-  | `typography` | Font family, body, label, heading, code composite roles                                        |
+  | Group        | Role                                                                                                 |
+  | ------------ | ---------------------------------------------------------------------------------------------------- |
+  | `color`      | Nested surface/text/feedback roles: `background.*`, `text.*`, `feedback.*`                           |
+  | `action`     | Interactive state colors: `primary`, `secondary`, `danger`                                           |
+  | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                                  |
+  | `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow`     |
+  | `motion`     | Duration and easing roles: `control`, `surface`                                                      |
+  | `radius`     | Border-radius roles: `control`, `surface`                                                            |
+  | `size`       | Reusable sizing roles: `control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb` |
+  | `spacing`    | Spacing roles: `control.gap`, `control.x`, `control.y`, `surface.*`                                  |
+  | `typography` | Font family, body, label, heading, code composite roles                                              |
 
-- `color`, `action`, and `border` are separate top-level groups. Do not document them as `color.action.*` or `color.border.*` — those are not current paths.
+- `color`, `action`, `border`, and `elevation` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
+
+#### Semantic organization rules
+
+1. **Top-level group = product domain**, not a CSS property shorthand alone.
+2. **Within `color`, use sub-roles only** — `background`, `text`, `feedback`. Never component names (`button`, `alert`).
+3. **Keep `action` and `border` as top-level paths** — components reference `{border.default}` and `{action.primary.base}`, not `{color.border.default}`.
+4. **Theme overrides must use the same paths as semantics** — e.g. `border.focus`, not `color.border.focus`.
+5. **Feedback pairs use full words** — `background` / `foreground`, not `bg` / `text`.
+6. **File layout** — one group per file minimum; optional subfolder when a group has distinct sub-roles (see `semantics/color/`).
+7. **Forbidden in semantics** — component names, one-off variant names, slot-specific decisions.
+8. **Component-specific dimensions** belong in component tokens. Components may reference primitive `size.*` or `spacing.*` scale tokens when no reusable semantic role exists (temporary exception; enforced in layer validation).
 
 ### Components
 

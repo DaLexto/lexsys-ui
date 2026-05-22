@@ -25,18 +25,16 @@ export const drawerIndentVariants = cva(
   "min-h-dvh origin-top overflow-hidden transition-[border-radius,transform] duration-[var(--nx-drawer-transition-duration)] ease-[var(--nx-drawer-transition-easing)] data-[active]:scale-[var(--nx-drawer-indent-scale)] data-[active]:rounded-[var(--nx-drawer-indent-radius)]",
 )
 
-// TODO: (tokens): Replace hardcoded z-index values with overlay stacking tokens
-// after elevation/stacking primitives are added.
 export const drawerBackdropVariants = cva(
   [
-    "fixed inset-0 z-40 bg-[var(--nx-drawer-backdrop-background)] opacity-[var(--nx-drawer-backdrop-opacity)]",
+    "fixed inset-0 z-[var(--nx-drawer-backdrop-z-index)] bg-[var(--nx-drawer-backdrop-background)] opacity-[var(--nx-drawer-backdrop-opacity)]",
     "transition-opacity duration-[var(--nx-drawer-transition-duration)] ease-[var(--nx-drawer-transition-easing)]",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
   ].join(" "),
 )
 
 export const drawerViewportVariants = cva(
-  "fixed inset-0 z-50 flex overflow-hidden p-[var(--nx-drawer-viewport-padding)]",
+  "fixed inset-0 z-[var(--nx-drawer-viewport-z-index)] flex overflow-hidden p-[var(--nx-drawer-viewport-padding)]",
   {
     variants: {
       side: {
@@ -54,7 +52,7 @@ export const drawerViewportVariants = cva(
 
 export const drawerPopupVariants = cva(
   [
-    "relative flex bg-[var(--nx-drawer-popup-background)] text-[var(--nx-drawer-popup-foreground)] shadow-xl outline-none",
+    "relative flex bg-[var(--nx-drawer-popup-background)] text-[var(--nx-drawer-popup-foreground)] shadow-[var(--nx-drawer-popup-shadow)] outline-none",
     "border border-[var(--nx-drawer-popup-border-color)] transition-[opacity,transform] duration-[calc(var(--nx-drawer-transition-duration)*var(--drawer-swipe-strength,1))] ease-[var(--nx-drawer-transition-easing)]",
     "data-[swiping]:transition-none",
   ].join(" "),
