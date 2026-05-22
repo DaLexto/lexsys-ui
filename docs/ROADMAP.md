@@ -127,7 +127,7 @@ this phase becomes active.
 
 ## Phase 4: Layer Validation
 
-**Status:** current / next
+**Status:** completed
 
 **Goal:** make token layer contract violations build-failing.
 
@@ -152,7 +152,7 @@ planning details live in `docs/RESOLVER_EVOLUTION.md`.
 
 ## Phase 5: Governance And Tooling
 
-**Status:** planned / deferred
+**Status:** current / next
 
 **Goal:** add higher-level token governance after the source contract and layer
 validation are stable.

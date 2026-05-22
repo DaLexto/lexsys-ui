@@ -3,7 +3,7 @@ import { componentTokens } from "../types/authoring"
 export const fieldsetComponentTokens = componentTokens("fieldset", {
   background: { $value: "{color.background.surface}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.surface}" },
   padding: { $value: "{spacing.surface.md}" },
   gap: { $value: "{spacing.surface.gap.md}" },

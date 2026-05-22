@@ -10,7 +10,7 @@ export const toastComponentTokens = componentTokens("toast", {
   },
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   success: {
     $type: "color",
     borderColor: { $value: "{action.primary.base}" },
@@ -29,7 +29,7 @@ export const toastComponentTokens = componentTokens("toast", {
   },
   arrow: {
     $type: "dimension",
-    size: { $value: "{size.3}" },
+    size: { $value: "{size.selectionControl.sm}" },
   },
   title: {
     foreground: { $value: "{color.text.primary}" },
@@ -49,7 +49,7 @@ export const toastComponentTokens = componentTokens("toast", {
   },
   action: {
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     hover: {
       $type: "color",
       background: { $value: "{color.background.subtle}" },
@@ -78,7 +78,7 @@ export const toastComponentTokens = componentTokens("toast", {
   },
   focus: {
     $type: "dimension",
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },

@@ -5,10 +5,10 @@ export const menuComponentTokens = componentTokens("menu", {
   trigger: {
     background: { $value: "{color.background.surface}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     open: {
       background: { $value: "{color.background.subtle}" },
-      borderColor: { $value: "{color.border.focus}" },
+      borderColor: { $value: "{border.focus}" },
     },
     gap: { $value: "{spacing.control.gap.sm}" },
     radius: { $value: "{radius.control}" },
@@ -26,13 +26,13 @@ export const menuComponentTokens = componentTokens("menu", {
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
-    minWidth: { $value: "{size.12}" },
+    borderColor: { $value: "{border.default}" },
+    minWidth: { $value: "{size.area.swipe.sm}" },
     maxWidth: { $value: "{size.popover.maxWidth}" },
   },
   viewport: {
     $type: "dimension",
-    maxHeight: { $value: "{size.16}" },
+    maxHeight: { $value: "{size.area.swipe.md}" },
   },
   list: {
     $type: "dimension",
@@ -90,7 +90,7 @@ export const menuComponentTokens = componentTokens("menu", {
     },
   },
   separator: {
-    background: { $value: "{color.border.default}" },
+    background: { $value: "{border.default}" },
     margin: {
       $type: "dimension",
       y: { $value: "{spacing.control.y.xs}" },
@@ -105,8 +105,8 @@ export const menuComponentTokens = componentTokens("menu", {
     background: { $value: "{color.text.primary}" },
   },
   focus: {
-    borderColor: { $value: "{color.border.focus}" },
-    ringColor: { $value: "{color.border.focus}" },
+    borderColor: { $value: "{border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {

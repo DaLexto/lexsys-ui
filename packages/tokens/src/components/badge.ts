@@ -5,7 +5,7 @@ export const badgeComponentTokens = componentTokens("badge", {
   height: {
     $type: "dimension",
     sm: { $value: "{size.control.xs}" },
-    md: { $value: "{size.7}" },
+    md: { $value: "{size.badge.md}" },
   },
   padding: {
     x: {
@@ -33,7 +33,7 @@ export const badgeComponentTokens = componentTokens("badge", {
   neutral: {
     background: { $value: "{color.background.subtle}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
   },
   primary: {
     $type: "color",

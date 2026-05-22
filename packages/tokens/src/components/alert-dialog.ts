@@ -12,7 +12,7 @@ export const alertDialogComponentTokens = componentTokens("alert-dialog", {
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
     maxWidth: { $value: "{size.dialog.maxWidth}" },
     padding: { $value: "{spacing.surface.md}" },
@@ -65,7 +65,7 @@ export const alertDialogComponentTokens = componentTokens("alert-dialog", {
     radius: { $value: "{radius.control}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {

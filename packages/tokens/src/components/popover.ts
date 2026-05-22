@@ -8,7 +8,7 @@ export const popoverComponentTokens = componentTokens("popover", {
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
     maxWidth: { $value: "{size.popover.maxWidth}" },
     padding: { $value: "{spacing.surface.md}" },
@@ -16,7 +16,7 @@ export const popoverComponentTokens = componentTokens("popover", {
   },
   arrow: {
     $type: "dimension",
-    size: { $value: "{size.3}" },
+    size: { $value: "{size.selectionControl.sm}" },
   },
   title: {
     foreground: { $value: "{color.text.primary}" },
@@ -38,7 +38,7 @@ export const popoverComponentTokens = componentTokens("popover", {
   trigger: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     hover: {
       $type: "color",
       background: { $value: "{color.background.subtle}" },
@@ -66,7 +66,7 @@ export const popoverComponentTokens = componentTokens("popover", {
     radius: { $value: "{radius.control}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {

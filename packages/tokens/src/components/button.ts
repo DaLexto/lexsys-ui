@@ -3,7 +3,7 @@ import { componentTokens } from "../types/authoring"
 export const buttonComponentTokens = componentTokens("button", {
   radius: { $value: "{radius.control}" },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   primary: {
@@ -17,7 +17,7 @@ export const buttonComponentTokens = componentTokens("button", {
     background: { $value: "{color.background.subtle}" },
     foreground: { $value: "{color.text.primary}" },
     hoverBackground: { $value: "{color.background.surface}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
   },
   height: {
     $type: "dimension",

@@ -3,7 +3,7 @@ import { componentTokens } from "../types/authoring"
 export const tooltipComponentTokens = componentTokens("tooltip", {
   background: { $value: "{color.text.primary}" },
   foreground: { $value: "{color.background.base}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.control}" },
   padding: {
     $type: "dimension",

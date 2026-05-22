@@ -22,7 +22,7 @@ export const sliderComponentTokens = componentTokens("slider", {
     size: { $value: "{size.thumb.md}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {

@@ -7,7 +7,7 @@ export const switchComponentTokens = componentTokens("switch", {
     background: { $value: "{action.primary.base}" },
   },
   radius: { $value: "{radius.pill}" },
-  padding: { $value: "{spacing.1}" },
+  padding: { $value: "{spacing.control.y.xs}" },
   width: {
     $type: "dimension",
     sm: { $value: "{size.switch.width.sm}" },
@@ -37,7 +37,7 @@ export const switchComponentTokens = componentTokens("switch", {
     },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {

@@ -9,11 +9,11 @@ export const textareaComponentTokens = componentTokens("textarea", {
   },
   border: {
     $type: "dimension",
-    color: { $value: "{color.border.default}" },
+    color: { $value: "{border.default}" },
   },
   focus: {
-    borderColor: { $value: "{color.border.focus}" },
-    ringColor: { $value: "{color.border.focus}" },
+    borderColor: { $value: "{border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   invalid: {

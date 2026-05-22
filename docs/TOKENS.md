@@ -223,18 +223,19 @@ at build time and will throw, preventing CSS output from being generated:
 - A reference chain exceeds 50 hops
 - A token leaf has an invalid shape (no `$value`, or non-scalar `$value`)
 - A theme is missing a mode required by its preset
+- A component token references a primitive, brand, or theme-only token directly
+- A semantic token references a component token
+- A theme token references a component token
+- A brand token branch uses component-specific intent
+
+Layer validation is implemented in `packages/tokens/src/resolver/layer-validation.ts`
+and runs before reference resolution during `validateStyleTokenInput`.
 
 ### Target violations (not yet build-failing)
 
-The following architectural violations are not yet caught by the build. They
-MUST become build-failing before the token contract is considered stable:
-
-- A component token references a primitive token directly
-- A component token references a brand token directly
-- A component token references a theme token directly
-- A semantic token references a component token
-- A theme token references a component token
-- A brand token contains component-specific intent
+The token contract is considered stable once layer validation above is enforced.
+Remaining planned governance checks (contrast, dead tokens, deprecation reports)
+live in `docs/ROADMAP.md` Phase 5 and `docs/RESOLVER_EVOLUTION.md`.
 
 ---
 

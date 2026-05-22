@@ -76,6 +76,5 @@ Known gaps below.
 | ----------------------------------------- | ---------------------------------------------------------------------------------------- |
 | `neurex uninstall` not implemented        | Command exists in CLI surface but has no behavior. Tracked in `docs/CLI.md`.             |
 | No render tests for UI components         | Only CVA class output is tested. No `@testing-library/react` coverage.                   |
-| Token layer violation checks not enforced | Component→primitive/brand references are not caught at build time. See `docs/TOKENS.md`. |
 | Next.js and other framework scaffolds     | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded.       |
 | Remote registry manifest contract         | Remote registry format and trust model are not finalized.                                |

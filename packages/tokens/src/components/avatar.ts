@@ -3,7 +3,7 @@ import { componentTokens } from "../types/authoring"
 export const avatarComponentTokens = componentTokens("avatar", {
   background: { $value: "{color.background.subtle}" },
   foreground: { $value: "{color.text.secondary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   fallback: {
     $type: "color",
     background: { $value: "{color.background.subtle}" },

@@ -25,7 +25,7 @@ export const alertComponentTokens = componentTokens("alert", {
   neutral: {
     background: { $value: "{color.background.surface}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
   },
   primary: {
     $type: "color",

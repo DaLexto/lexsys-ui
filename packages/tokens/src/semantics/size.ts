@@ -38,6 +38,10 @@ export const sizeSemantics = semanticTokens("size", {
     md: { $value: "{size.4}" },
     lg: { $value: "{size.5}" },
   },
+  badge: {
+    $type: "dimension",
+    md: { $value: "{size.7}" },
+  },
   area: {
     swipe: {
       $type: "dimension",

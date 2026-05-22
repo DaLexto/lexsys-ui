@@ -3,7 +3,7 @@ import { componentTokens } from "../types/authoring"
 export const toggleComponentTokens = componentTokens("toggle", {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   hoverBackground: { $value: "{color.background.subtle}" },
   pressed: {
     $type: "color",
@@ -39,7 +39,7 @@ export const toggleComponentTokens = componentTokens("toggle", {
     letterSpacing: { $value: "{typography.control.md.letterSpacing}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {

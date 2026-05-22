@@ -3,6 +3,7 @@ import { primitiveTokens } from "../../primitives"
 import { brandTokens as brandTokenGroups } from "../../brand"
 import { defaultPresetId, presets } from "../../presets"
 import { resolveTokenTree } from "../../resolver"
+import { validateTokenLayerContractsStrict } from "../../resolver/layer-validation"
 import { semanticTokens as semanticTokenGroups } from "../../semantics"
 import { themes } from "../../themes"
 import type {
@@ -226,6 +227,8 @@ const validateTokenTreeReferences = (label: string, tree: TokenTree): void => {
 }
 
 export const validateStyleTokenInput = (input: StyleTokenInput): void => {
+  validateTokenLayerContractsStrict(input)
+
   if (input.themeTokens.length === 0) {
     validateTokenTreeReferences("tokens.css", input.tokenTree)
     return

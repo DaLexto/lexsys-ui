@@ -17,7 +17,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
     maxWidth: { $value: "{size.drawer.maxWidth}" },
     width: {
@@ -40,7 +40,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
   },
   handle: {
     $type: "dimension",
-    background: { $value: "{color.border.default}" },
+    background: { $value: "{border.default}" },
     width: { $value: "{size.control.lg}" },
     height: { $value: "{size.track.md}" },
     marginTop: { $value: "{spacing.control.y.sm}" },
@@ -97,7 +97,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
     radius: { $value: "{radius.control}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {

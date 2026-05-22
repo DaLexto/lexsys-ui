@@ -5,7 +5,7 @@ export const tabsComponentTokens = componentTokens("tabs", {
   list: {
     background: { $value: "{color.background.subtle}" },
     radius: { $value: "{radius.control}" },
-    padding: { $value: "{spacing.1}" },
+    padding: { $value: "{spacing.control.y.xs}" },
   },
   tab: {
     background: { $type: "color", $value: "transparent" },
@@ -33,7 +33,7 @@ export const tabsComponentTokens = componentTokens("tabs", {
   },
   focus: {
     $type: "dimension",
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },

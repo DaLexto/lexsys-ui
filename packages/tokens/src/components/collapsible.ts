@@ -3,11 +3,11 @@ import { componentTokens } from "../types/authoring"
 export const collapsibleComponentTokens = componentTokens("collapsible", {
   background: { $value: "{color.background.surface}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.surface}" },
   focus: {
     $type: "dimension",
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
   },
   trigger: {
     background: {

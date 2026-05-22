@@ -3,7 +3,7 @@ import { componentTokens } from "../types/authoring"
 export const cardComponentTokens = componentTokens("card", {
   background: { $value: "{color.background.surface}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   muted: {
     $type: "color",
     background: { $value: "{color.background.subtle}" },
