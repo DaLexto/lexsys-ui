@@ -1,164 +1,283 @@
 # Neurex Token Rules
 
-## Status
+**Audience:** Maintainers and token domain owners
+**Type:** Domain specification
+**Source of truth for:** Token layer rules, reference rules, resolution behavior, validation status, package exports
+**Verified against:** `packages/tokens/src/` (all layers, resolver, generator inputs)
+**Related docs:** `docs/DESIGN_SYSTEM.md` (token authoring guide, CSS output), `docs/ARCHITECTURE.md`
 
-LOCKED TOKEN ARCHITECTURE RULES
-
-## Purpose
-
-This document defines the canonical token layer rules, reference rules, theme
-override behavior, preset behavior, and build-failing token architecture
-violations for Neurex.
-
-Use this document together with:
-
-- docs/ARCHITECTURE.md
-- docs/DESIGN_SYSTEM.md
-- docs/STYLEGUIDE.md
-- docs/STYLE.md
-
-If there is a conflict between token architecture rules and general style
-convenience, this document wins for token-system decisions.
+If there is a conflict between this document and other documentation for any
+token-system decision, this document wins.
 
 ---
 
-## Token Layer Rules
+## Token Layer Order
 
-### Layer Order
-
-```txt
-primitives -> brand -> semantics -> components
+```
+primitives → brand → semantics → components
                 ↑
-              themes override semantics per mode
+          themes override semantics per mode
 ```
 
+Presets are configuration. They are not a layer in this chain.
+
 ---
 
-### Layer Rules
+## Layer Rules
 
-#### Primitives
+### Primitives
 
-- Raw values only.
-- No references.
+- Raw values only. No references.
 - No product meaning.
-- Never consumed directly by components.
+- Never consumed directly by component tokens.
 - Source palette for brand tokens and non-brand semantic values.
 
-#### Brand
+### Brand
 
 - References primitive tokens only.
-- Holds brand-level palette decisions.
-- Defines which colors represent the brand.
+- Holds brand-level palette decisions (which colors represent the brand).
 - Never holds usage intent.
-- Must not contain names such as `buttonBackground`, `headerText`, or component-specific intent.
-- Brand color sets should stay intentionally small, usually 6-8 tokens per brand color.
+- MUST NOT contain component-specific names such as `buttonBackground` or `headerText`.
+- Brand color sets SHOULD remain small — typically 6–8 tokens per brand color.
 - Expanding a brand color set requires repeated semantic need.
 - Use one file per brand.
 
-#### Semantics
+### Semantics
 
 - References brand tokens for brand-specific values.
 - References primitive tokens for non-brand values such as neutrals, feedback, and foundation scales.
 - Assigns product meaning and role to values.
-- Never references component tokens.
-- Semantic tokens must represent reusable product meaning.
-- One-off visual decisions belong in component tokens.
-- Structure semantic tokens by top-level group. Current active groups include
-  `color`, `action`, `border`, `motion`, `radius`, `size`, `spacing`, and
-  `typography`.
-- Current color-related semantics are split by responsibility:
-  - `color` owns global background, text, and feedback `bg` / `text` roles.
-  - `action` owns interactive state colors such as `primary`, `secondary`, and
-    `danger`.
-  - `border` owns reusable border color roles such as `default`, `strong`,
-    `focus`, and `accent`.
-- Do not document current action or border semantics as `color.action.*` or
-  `color.border.*`; those are not current token paths.
+- MUST NOT reference component tokens.
+- Semantic tokens must represent reusable product meaning. One-off visual decisions belong in component tokens.
+- Organized by top-level group. Active groups:
 
-#### Components
+  | Group | Role |
+  |---|---|
+  | `color` | Global background, text, and feedback `bg`/`text` roles |
+  | `action` | Interactive state colors: `primary`, `secondary`, `danger` |
+  | `border` | Reusable border color roles: `default`, `strong`, `focus`, `accent` |
+  | `motion` | Duration and easing roles: `control`, `surface` |
+  | `radius` | Border-radius roles: `control`, `surface` |
+  | `size` | Component sizing roles: `control`, `dialog`, `drawer`, `icon`, `indicator`, `sidebar`, `thumb` |
+  | `spacing` | Spacing roles: `control.gap`, `control.x`, `control.y` |
+  | `typography` | Font family, body, label, heading, code composite roles |
 
-- Target rule: reference semantic tokens only.
-- Never reference primitive color, brand, or theme tokens directly.
-- Temporary exception: component tokens may reference raw `size.*` or
-  `spacing.*` scale tokens only when no semantic `size` or `spacing` role exists
-  yet. Do not add new raw scale references when a semantic role can be named
-  first.
-- Never reference brand tokens directly.
-- Never reference theme tokens directly.
-- Scoped to one component.
-- Use one token file per component.
-- Component tokens describe component slot/property decisions, not global product meaning.
+- `color`, `action`, and `border` are separate top-level groups. Do not document them as `color.action.*` or `color.border.*` — those are not current paths.
 
-#### Themes
+### Components
+
+- **Target rule:** reference semantic tokens only.
+- MUST NOT reference primitive color, brand, or theme tokens directly.
+- MUST NOT reference other component token namespaces.
+- Temporary exception: component tokens may reference `size.*` or `spacing.*`
+  scale tokens only when no semantic role exists. Do not add new raw scale
+  references when a semantic role can be named first.
+- Scoped to one component. Use one token file per component.
+- Component tokens describe slot/property decisions, not global product meaning.
+- Namespaced by component name in the merged token tree (e.g. `button.*`, `badge.*`).
+
+### Themes
 
 - Override semantic token values per mode.
 - Themes are not a fifth token layer.
-- Reference brand tokens for brand-specific values.
-- Reference primitive tokens for non-brand values such as neutrals, feedback, and foundation scales.
-- Never reference component tokens.
-- Never introduce component-specific intent.
-- Default interactive behavior:
-  - light mode hover usually moves toward stronger or darker emphasis
-  - dark mode hover usually moves toward lighter or brighter emphasis
-  - disabled states move toward lower emphasis while preserving accessibility
-- Current feedback status roles provide:
-  - background
-  - text
-- Add status-specific border roles only after the semantic and theme token
-  groups implement them.
+- Reference brand tokens for brand-specific overrides.
+- Reference primitive tokens for non-brand overrides (neutrals, feedback, foundation scales).
+- MUST NOT reference component tokens.
+- MUST NOT introduce component-specific intent.
 - Use one folder per brand and one file per mode.
+- Currently active: `neurex/light` and `neurex/dark`.
 
-#### Presets
+### Presets
 
-- Configuration only.
-- Not a token layer.
+- Configuration only. Not a token layer.
 - Never hold token values.
-- Describe which brand, themes, and theme modes should be built.
-- Consumed by the generator to select output combinations.
-- Never participate in the token resolution chain.
+- Describe which brand, theme modes, and selector/color-scheme combinations to build.
+- Consumed by the generator to filter theme inputs.
+- Never participate in the token reference resolution chain.
+- Currently active preset: `neurex` (default).
 
 ---
 
-### Resolution Chain
+## Resolution Chain
+
+The resolver is output-agnostic. It operates on merged `TokenTree` objects and
+does not know about CSS variables, Tailwind, or any output format.
+
+### How merging works
+
+At build time, `createStyleTokenInput` assembles the full tree:
+
+1. **Foundation tree** = `primitiveTokens` + `brandTokens` + `semanticTokens` (deep-merged under their respective names)
+2. **Component tree** = all component token groups, each namespaced under their component name
+3. **Full token tree** = `foundationTokens` + `componentTokens`
+4. **Themed tree** (per theme mode) = `foundationTokens` + `theme.tokens` + `componentTokens`
+
+Theme tokens overlay the foundation, then components are applied on top. This
+ensures semantic overrides in a theme mode propagate through to component tokens
+when they reference semantics.
+
+### Reference resolution paths
 
 Brand-specific path:
 
-```txt
+```
 component token
-  -> semantic token
-    -> brand token
-      -> primitive token
-        -> concrete value
+  → semantic token
+    → brand token
+      → primitive token
+        → concrete value
 ```
 
-Non-brand/foundation path:
+Non-brand / foundation path:
 
-```txt
+```
 component token
-  -> semantic token
-    -> primitive token
-      -> concrete value
+  → semantic token
+    → primitive token
+      → concrete value
 ```
 
-Theme modes override semantic values before component tokens are resolved.
+### Reference format
+
+Only strict full-string references are supported:
+
+```
+{dotted.path.to.token}
+```
+
+Partial references, string interpolations, and bare paths are not supported.
+
+### Max resolution depth
+
+The resolver enforces a maximum chain depth of **50 hops** before reporting a
+`MAX_DEPTH_EXCEEDED` error. This catches runaway chains before circular
+detection would trigger.
 
 ---
 
-### Validation Status
+## Resolver Error Codes
 
-Current build-failing validation covers:
+| Code | Meaning |
+|---|---|
+| `MISSING_REFERENCE` | Reference path does not exist in the token tree |
+| `INVALID_REFERENCE_FORMAT` | Reference string is not a valid `{dotted.path}` |
+| `REFERENCE_POINTS_TO_BRANCH` | Reference resolves to a branch node, not a leaf |
+| `CIRCULAR_REFERENCE` | Reference chain forms a cycle |
+| `MAX_DEPTH_EXCEEDED` | Reference chain exceeds 50 hops |
+| `INVALID_TOKEN_LEAF` | Token node has a `$value` key but an invalid value type |
 
-- a reference path does not exist
-- a reference chain creates a circular reference
-- a theme is missing a mode required by its preset
-- invalid DTCG token leaf shape when importing token JSON
+Strict mode (default at build time) treats all of the above as build-failing
+errors. Safe mode (`resolveTokenTreeSafe`) downgrades unresolved references to
+warnings.
 
-Target architecture violations that must become build-failing before the token
-contract is considered stable:
+---
 
-- a component token references a primitive token directly
-- a component token references a brand token directly
-- a component token references a theme token directly
-- a semantic token references a component token
-- a theme token references a component token
-- a brand token contains component-specific intent
+## Token Authoring
+
+### Token leaf shape (DTCG)
+
+All token leaves use W3C DTCG-style shape:
+
+```ts
+{
+  $value: "..." | number,
+  $type?: "color" | "dimension" | "duration" | "fontFamily" | "cubicBezier" | "typography" | ...,
+  $description?: string,
+  $deprecated?: boolean | string,
+}
+```
+
+`$value` is required. All other fields are optional.
+
+### Branch metadata keys
+
+These keys are allowed on branch nodes (non-leaf objects):
+
+| Key | Purpose |
+|---|---|
+| `$type` | Inherited type hint for all leaves in this branch |
+| `$description` | Human-readable description of the branch |
+| `$deprecated` | Deprecation flag or message |
+| `$extensions` | Tool-specific extensions (Neurex uses `x-neurex` key) |
+
+No other `$`-prefixed keys are valid on branches.
+
+### Scalar token types
+
+A token `$value` MUST be a `string` or `number`. Arrays and objects are reserved
+for composite types (e.g. `typography`).
+
+---
+
+## Validation Status
+
+### Currently build-failing
+
+The following are caught by `validateStyleTokenInput` and `validatePresetThemeCoverage`
+at build time and will throw, preventing CSS output from being generated:
+
+- A reference path does not exist in the token tree
+- A reference string is malformed (not `{dotted.path}`)
+- A reference resolves to a branch, not a leaf
+- A reference chain is circular
+- A reference chain exceeds 50 hops
+- A token leaf has an invalid shape (no `$value`, or non-scalar `$value`)
+- A theme is missing a mode required by its preset
+
+### Target violations (not yet build-failing)
+
+The following architectural violations are not yet caught by the build. They
+MUST become build-failing before the token contract is considered stable:
+
+- A component token references a primitive token directly
+- A component token references a brand token directly
+- A component token references a theme token directly
+- A semantic token references a component token
+- A theme token references a component token
+- A brand token contains component-specific intent
+
+---
+
+## Package Public API
+
+`packages/tokens` exports via `package.json` `exports`:
+
+| Export path | Content |
+|---|---|
+| `.` | TypeScript source API (resolver, types, generator inputs, token trees) |
+| `./tokens.css` | Generated CSS — base token variables (`:root` scope) |
+| `./theme.css` | Generated CSS — theme mode overrides (`[data-theme]` scope) |
+
+Key named exports from `.`:
+
+| Export | Purpose |
+|---|---|
+| `primitiveTokens` | Flat array of all primitive token groups |
+| `semanticTokens` | Flat array of all semantic token groups |
+| `componentTokens` | Flat array of all component token groups |
+| `themes` | Array of all theme definitions |
+| `presets` / `neurexPreset` / `defaultPresetId` | Preset definitions and default ID |
+| `resolveReference` | Resolve a single `{reference}` string in a token tree |
+| `resolveTokenTreeStrict` | Resolve all references in a tree; throws on any error |
+| `resolveTokenTreeSafe` | Resolve all references in a tree; returns warnings instead of throwing |
+| `createStyleTokenInput` | Assemble the generator input contract from all layers |
+| `createStyleOutputs` | Run the full CSS generator pipeline |
+
+---
+
+## Build Commands
+
+From the repo root:
+
+```sh
+pnpm --filter @neurex/tokens build    # generate CSS + DTCG JSON outputs
+pnpm --filter @neurex/tokens test     # run resolver and generator tests
+```
+
+Generated output lives at:
+
+| File | Description |
+|---|---|
+| `packages/tokens/dist/tokens.css` | Base token variables (`:root`) |
+| `packages/tokens/dist/theme.css` | Theme mode overrides |
+| `packages/tokens/dist/tokens.json` | DTCG JSON with unresolved references (for tooling) |
