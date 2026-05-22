@@ -143,6 +143,17 @@ Use repository templates from [.github/PULL_REQUEST_TEMPLATE/](../../.github/PUL
 
 When unsure, use `full.md`.
 
+### Base branch
+
+**Default PR target is `dev`, not `main`.**
+
+| Branch | Role |
+|--------|------|
+| `dev` | Integration branch — open feature/fix PRs here |
+| `main` | Production/release — only when the user explicitly requests a PR to `main` |
+
+GitHub's repository default may still be `main`; do not infer the PR base from `gh repo view` or `origin/HEAD` alone. When the user does not specify a base, use `--base dev`.
+
 ### Before opening a PR
 
 Run in parallel:
@@ -152,10 +163,10 @@ git status --short
 git diff
 git log -5 --oneline
 git rev-parse --abbrev-ref HEAD
-git diff main...HEAD
+git diff dev...HEAD
 ```
 
-Adjust `main` to the repository default base branch if different. Confirm the branch is pushed or push only when the user explicitly requests it.
+Confirm the branch is pushed or push only when the user explicitly requests it.
 
 ### Fill the template
 
@@ -174,10 +185,12 @@ Use `gh` after the user explicitly requests a PR:
 
 ```bash
 git push -u origin HEAD
-gh pr create --title "short pr title" --body-file .github/PULL_REQUEST_TEMPLATE/lite.md
+gh pr create --base dev --title "short pr title" --body-file .github/PULL_REQUEST_TEMPLATE/lite.md
 ```
 
 For a filled body, write the completed template to a temporary file or pass a HEREDOC/`--body` string — do not open a PR with unfilled `<!-- -->` placeholders or empty required sections.
+
+If a PR was opened against the wrong base, fix with `gh pr edit <number> --base dev` (or `--base main` when explicitly requested).
 
 Return the PR URL when done. Do not push unless the user explicitly requests it.
 
