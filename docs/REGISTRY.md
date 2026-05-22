@@ -64,11 +64,12 @@ templates/
 Rules:
 
 - Component templates are generated copies of `packages/ui/src/components`.
-- Templates MUST NOT be manually edited. They are overwritten by `pnpm registry:sync`.
+- Style templates (`tokens.css`, `theme.css`) are generated copies of `@neurex/tokens` output.
+- Templates MUST NOT be manually edited. Component templates are overwritten by `pnpm registry:sync`; style templates by `pnpm --filter @neurex/tokens generate:styles`.
 - The only transform applied during sync is the `cn` import path rewrite:
   `import { cn } from "../../utils/cn"` → `import { cn } from "@/lib/utils"`
 - Any other template-specific transform MUST be added to `scripts/sync-component-templates.mjs`, not applied by hand.
-- Template drift is a validation error. `pnpm registry:check` will fail if templates are out of sync with the UI source.
+- Template drift is a validation error. `pnpm registry:check` will fail if component templates are out of sync with the UI source or if style templates differ from the current token generator output.
 
 Registry item metadata files (in `src/items/`) are manually authored because
 they define the install contract, not the component implementation.

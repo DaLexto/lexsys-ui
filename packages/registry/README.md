@@ -63,7 +63,7 @@ Each item in `src/items/` declares the full install contract (required fields, o
 
 ## Templates
 
-Installable templates live under `packages/registry/templates/` — component files, shared utilities, and token CSS styles. Templates are synced from `packages/ui/src/components` and MUST NOT be manually edited.
+Installable templates live under `packages/registry/templates/` — component files, shared utilities, and token CSS styles. Component templates are synced from `packages/ui/src/components`; style templates from `@neurex/tokens` via `generate:styles`. Templates MUST NOT be manually edited.
 
 Template sync rules, the `cn` import transform, and drift validation: [docs/REGISTRY.md](../../docs/REGISTRY.md).
 
@@ -87,7 +87,8 @@ pnpm --filter @neurex/registry build
 pnpm --filter @neurex/registry typecheck
 pnpm --filter @neurex/registry lint
 pnpm --filter @neurex/registry test
-pnpm registry:sync    # sync UI components → templates (from repo root)
-pnpm registry:check   # verify templates are in sync (from repo root)
-pnpm registry:build   # build package (from repo root)
+pnpm registry:sync                                      # sync UI components → templates (from repo root)
+pnpm --filter @neurex/tokens generate:styles            # refresh templates/styles CSS (from repo root)
+pnpm registry:check                                     # verify component + style templates are in sync
+pnpm registry:build                                       # build package (from repo root)
 ```
