@@ -19,7 +19,8 @@ Related: `project-directory-structure.mdc`, `docs/STYLE.md`, `docs/TOKENS.md`, `
 | **Node** | root `engines` | `>=24 <25` | Runtime for build, CLI, and consumers |
 | **TypeScript** | root dev / playground | `latest` → **6.0.x** resolved | Strict typing across monorepo |
 | **Turbo** | root dev | `latest` | Task orchestration (`build`, `test`, `lint`, `typecheck`) |
-| **tsup** | root dev | ^8.5.1 | ESM + DTS builds for `cli`, `registry`, `tokens`, `ui` |
+| **tsup** | root dev | ^8.5.1 | ESM bundles for `cli`, `registry`, `tokens`, `ui` |
+| **TypeScript (`tsc`)** | package build scripts | 6.0.x | Declaration emit (`--emitDeclarationOnly`) — tsup `dts` disabled pending TS 6 fix in tsup |
 | **Vitest** | root dev | ^4.1.7 | Package tests (`vitest run`, threads pool) |
 | **ESLint** | root dev | ^10.4.0 + `typescript-eslint` ^8.59.4 + `@eslint/js` ^10.0.1 | `src` + `test` per package; root `*.config.mjs` |
 | **Prettier** | root dev | ^3.8.3 + `prettier-plugin-tailwindcss` ^0.8.0 | Formatting; Tailwind class order |
@@ -50,7 +51,8 @@ Monorepo tooling shared at the root. Packages inherit via hoisting; only add roo
 - **pnpm workspaces** — `pnpm-workspace.yaml`: `apps/*`, `packages/*`
 - **Turborepo** — `turbo.json`: `build` depends on `^build`, outputs `dist/**`
 - **TypeScript** — `tsconfig.base.json`: `strict`, `moduleResolution: "Bundler"`, `target: "ES2022"`, path aliases to built `.d.ts`
-- **tsup** — per-package `tsup.config.ts`: ESM, `dts: true`, `external: ["react", "react-dom"]` for UI
+- **tsup** — per-package `tsup.config.ts`: ESM bundles, `dts: false`, `external: ["react", "react-dom"]` for UI
+- **TypeScript (`tsc`)** — package build scripts append `tsc -p tsconfig.json --emitDeclarationOnly --outDir dist` after tsup because tsup 8.5.1 injects deprecated `baseUrl` during DTS on TypeScript 6 (see egoist/tsup#1388)
 
 ### Quality
 

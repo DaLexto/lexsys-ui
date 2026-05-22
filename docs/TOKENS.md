@@ -231,11 +231,19 @@ at build time and will throw, preventing CSS output from being generated:
 Layer validation is implemented in `packages/tokens/src/resolver/layer-validation.ts`
 and runs before reference resolution during `validateStyleTokenInput`.
 
-### Target violations (not yet build-failing)
+### Governance tooling (non-blocking)
 
-The token contract is considered stable once layer validation above is enforced.
-Remaining planned governance checks (contrast, dead tokens, deprecation reports)
-live in `docs/ROADMAP.md` Phase 5 and `docs/RESOLVER_EVOLUTION.md`.
+The following are available via `createTokenGovernanceReport` and
+`pnpm --filter @neurex/tokens governance:report`. They analyze the token graph
+but do not change CSS or DTCG output:
+
+- Deprecation reports for tokens marked `$deprecated` with direct dependents
+- Metadata inventory reports
+- Dead primitive token detection (primitive leaves not referenced by upper layers)
+
+**Planned (not build-failing):** contrast validation, metadata propagation
+through full resolution chains, and optional stripping of dead tokens from
+generated output. See `docs/RESOLVER_EVOLUTION.md`.
 
 ---
 
@@ -245,7 +253,7 @@ live in `docs/ROADMAP.md` Phase 5 and `docs/RESOLVER_EVOLUTION.md`.
 
 | Export path | Content |
 |---|---|
-| `.` | TypeScript source API (resolver, types, generator inputs, token trees) |
+| `.` | Package root API — token trees, presets, themes, generator outputs, governance |
 | `./tokens.css` | Generated CSS — base token variables (`:root` scope) |
 | `./theme.css` | Generated CSS — theme mode overrides (`[data-theme]` scope) |
 
@@ -258,13 +266,17 @@ Key named exports from `.`:
 | `componentTokens` | Flat array of all component token groups |
 | `themes` | Array of all theme definitions |
 | `presets` / `neurexPreset` / `defaultPresetId` | Preset definitions and default ID |
-| `resolveReference` | Resolve a single `{reference}` string in a token tree |
-| `resolveTokenTreeStrict` | Resolve all references in a tree; throws on any error |
-| `resolveTokenTreeSafe` | Resolve all references in a tree; returns warnings instead of throwing |
-| `createStyleTokenInput` | Assemble the generator input contract from all layers |
 | `createStyleOutputs` | Run the full CSS generator pipeline |
+| `createTokensCssFromDtcgJson` | Generate base token CSS from DTCG JSON input |
+| `createThemeCssFromDtcgJson` | Generate theme CSS from DTCG JSON input |
 | `createTokenGovernanceReport` | Build deprecation, metadata, and dead-token reports |
 | `formatTokenGovernanceReport` | Format a governance report for CLI output |
+
+Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`,
+`createStyleTokenInput`, and related types) live under
+`packages/tokens/src/resolver/` and `packages/tokens/src/generators/inputs/`.
+They are used internally by the build pipeline and tests but are not exported
+from the package root entrypoint.
 
 Governance reports are optional tooling. They do not change CSS or DTCG output.
 

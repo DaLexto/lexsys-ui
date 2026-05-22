@@ -456,7 +456,7 @@ Before merging, verify:
 - [ ] Package boundaries preserved — no deep imports across packages
 - [ ] Public API surface unchanged or intentionally expanded
 - [ ] Component naming aligned across `ui`, `registry`, and templates
-- [ ] New component tokens reference semantics (not primitives or brand tokens directly) — manual check; build validation is planned but not yet enforced
+- [ ] New component tokens reference semantics (not primitives or brand tokens directly) — enforced at build time via layer validation; run `pnpm tokens:check` after token edits
 - [ ] New CSS classes use `--nx-*` variables, not hardcoded values
 - [ ] Templates synced (`pnpm registry:sync` run if UI components changed)
 - [ ] `pnpm check` passes (format + lint + typecheck + test)

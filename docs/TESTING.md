@@ -28,6 +28,9 @@ Test files in `packages/tokens/test/`:
 | File | What it tests |
 |---|---|
 | `resolver.test.ts` | Reference resolution — direct refs, nested chains, missing refs, circular detection, max depth, branch refs, strict vs safe mode |
+| `layer-validation.test.ts` | Layer contract enforcement — component-to-primitive, semantic-to-component, theme-to-component, brand component-intent violations |
+| `governance.test.ts` | Governance reports — metadata inventory, deprecation entries, dead primitive detection |
+| `types-authoring.test.ts` | Factory authoring shape and generator input behavior for migrated source groups |
 | `generator.test.ts` | Full generator pipeline — `createStyleTokenInput`, CSS output, DTCG JSON output, theme token inputs, preset coverage |
 | `css-generator.test.ts` | CSS variable generation — variable naming, `:root` blocks, `@theme` blocks, group name overrides (`spacing→space`, etc.) |
 
@@ -122,5 +125,3 @@ Run `registry:check` before merging any PR that changes `packages/ui` components
   correctness is verified through CVA class output tests only.
 - No end-to-end install tests against a real consumer project (outside the
   temp-directory smoke tests in `install-flow.test.ts`).
-- Token layer violation checks (component→primitive references) are not yet
-  covered by tests. See `docs/TOKENS.md` for the target validation list.

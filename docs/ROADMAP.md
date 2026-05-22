@@ -2,9 +2,10 @@
 
 **Audience:** Maintainers and token domain owners  
 **Type:** Vision / strategy document  
-**Status:** Planned work - not a current implementation contract  
-**Source of truth for:** Long-term tokens platform direction and phased
-evolution  
+**Status:** Phases 1–5 complete; future direction below — not a current
+implementation contract  
+**Source of truth for:** Long-term tokens platform direction after the initial
+platform pass  
 **Verified against:** `packages/tokens/src/` current state
 
 **Related docs:**
@@ -22,159 +23,63 @@ Current implementation:
 - TypeScript token files are the source of truth for authoring.
 - Token leaves use nested DTCG-shaped `$value` authoring.
 - CSS and W3C/DTCG JSON are generated outputs.
-- The resolver validates reference syntax, missing references, circular
-  references, max-depth violations, and invalid DTCG token leaf shape when
-  importing token JSON.
-- Token groups are authored through factory helpers with explicit metadata and
-  token payload boundaries.
+- Token groups use factory helpers with explicit `{ meta, tokens }` boundaries.
+- Build-failing validation covers reference integrity, preset theme coverage,
+  invalid DTCG leaf shape, and token layer contract violations.
+- Governance reports (metadata, deprecation, dead primitives) are available via
+  `createTokenGovernanceReport` and `pnpm --filter @neurex/tokens governance:report`.
 
-## Target State
+Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 
-Target architecture:
+---
 
-- New token source groups are authored through factory helpers.
-- Token metadata and token payload are separated explicitly.
-- Generator input reads `tokens` payloads directly for factory-authored groups.
-- Legacy mixed-envelope source groups are migrated in phases.
-- Layer-rule violations become build-failing validation before the token
-  contract is considered stable.
+## Completed Platform Phases (1–5)
 
-## Phased Evolution
+Phases 1–5 are complete. Detailed implementation history lives in git; this
+table is the high-level record only.
 
-```mermaid
-flowchart LR
-  phase1[Phase1_TypesAndFactories]
-  phase2[Phase2_PilotMigration]
-  phase3[Phase3_FullSourceMigration]
-  phase4[Phase4_LayerValidation]
-  phase5[Phase5_GovernanceAndTooling]
+| Phase | Outcome |
+| ----- | ------- |
+| 1 — Types and factories | Explicit source-group types and factory helpers |
+| 2 — Pilot migration | Representative primitive, component, and theme sources migrated |
+| 3 — Full source migration | All source groups use factories; legacy adapter removed |
+| 4 — Layer validation | Build-failing layer contract enforcement |
+| 5 — Governance and tooling | Metadata, deprecation, and dead-token reports |
 
-  phase1 --> phase2 --> phase3 --> phase4 --> phase5
-```
+---
 
-## Phase 1: Types And Factories
+## Future Direction
 
-**Status:** completed
+The items below are planned work, not current contracts.
 
-**Goal:** introduce explicit source group contracts and factory helpers without
-changing generated CSS or DTCG output behavior.
+### Resolver and generator evolution
 
-**Deliverables:**
+- Expression evaluation, color math, and unit-aware arithmetic
+- Composite token expansion in generators
+- Contrast and accessibility guards at build time
+- Metadata propagation through full resolution chains
+- Optional stripping of dead primitives from generated output
 
-- Clear token branch/tree/node type aliases.
-- Explicit token group metadata plus token payload contracts.
-- Factory helpers for primitive, brand, semantic, component, and theme token
-  groups.
-- Backward-compatible generator input adapter for unmigrated source files.
+Resolver-specific planning lives in `docs/RESOLVER_EVOLUTION.md`.
 
-**Non-goals:**
+### Semantic and product gaps
 
-- Bulk migration of every token source file.
-- Build-failing layer validation.
-- Generated output renaming or behavior changes.
+- Semantic elevation/layering roles wired from existing primitive z-index and
+  shadow scales (see `docs/REVIEW_TODO.md`)
+- Additional semantic groups such as `elevation`, `outline`, and `layout`
 
-**Verification:**
+### Authoring and tooling
 
-- Token package lint, typecheck, tests, and full check pass.
-- Type-surface tests cover factory output shape and generator input behavior.
+- Stronger governance workflows around token ownership and change review
+- Additional presets or CLI style aliases beyond `default` / `neurex`
 
-## Phase 2: Pilot Migration
+Active backlog items live in `docs/REVIEW_TODO.md`.
 
-**Status:** completed
-
-**Goal:** migrate a small representative set of token source files to establish
-the authoring pattern.
-
-**Deliverables:**
-
-- `packages/tokens/src/components/button.ts` uses `componentTokens`.
-- `packages/tokens/src/primitives/color.ts` uses `primitiveTokens`.
-- `packages/tokens/src/themes/neurex/light.ts` uses `themeTokens`.
-
-**Non-goals:**
-
-- Migrating all components, primitives, semantics, brands, and themes.
-
-**Verification:**
-
-- `createStyleTokenInput()` keeps the same namespaced token tree behavior for
-  migrated and unmigrated groups.
-- Existing CSS and DTCG output tests continue to pass.
-
-## Phase 3: Full Source Migration
-
-**Status:** completed
-
-**Goal:** migrate all remaining token source groups to factory authoring.
-
-**Deliverables:**
-
-- All primitive, brand, semantic, component, and theme source files use factory
-  helpers.
-- Legacy mixed-envelope adapter support has been removed.
-
-**Non-goals:**
-
-- Changing token layer rules or generated output naming.
-
-**Backlog link:** track actionable migration work in `docs/REVIEW_TODO.md` when
-this phase becomes active.
-
-**Verification:**
-
-- Source search finds no legacy token group envelopes.
-- Generator input no longer needs legacy adapter behavior.
-
-## Phase 4: Layer Validation
-
-**Status:** completed
-
-**Goal:** make token layer contract violations build-failing.
-
-**Deliverables:**
-
-- Detect component-to-primitive, component-to-brand, component-to-theme,
-  semantic-to-component, theme-to-component, and brand component-intent
-  violations.
-- Report violations with actionable paths.
-
-**Non-goals:**
-
-- Color math, contrast evaluation, or AST expression evaluation.
-
-**Backlog link:** `docs/REVIEW_TODO.md` tracks the current known gap; resolver
-planning details live in `docs/RESOLVER_EVOLUTION.md`.
-
-**Verification:**
-
-- Negative tests fail on known invalid layer references.
-- Token package check fails for layer violations.
-
-## Phase 5: Governance And Tooling
-
-**Status:** completed
-
-**Goal:** add higher-level token governance after the source contract and layer
-validation are stable.
-
-**Deliverables:**
-
-- Deprecation and metadata reports.
-- Dead token detection.
-- Optional governance tooling around token ownership and change review.
-
-**Non-goals:**
-
-- Treating generated DTCG JSON as the TypeScript source replacement.
-
-**Verification:**
-
-- Reports are generated from the current token graph and do not change CSS or
-  DTCG output unless explicitly configured.
+---
 
 ## Document Ownership
 
-- `docs/ROADMAP.md` owns long-term direction and phases.
+- `docs/ROADMAP.md` owns long-term direction after the initial platform pass.
 - `docs/TOKENS.md` owns current token rules, layer definitions, and generated
   output contracts.
 - `docs/REVIEW_TODO.md` owns actionable active work and known gaps.
@@ -182,10 +87,8 @@ validation are stable.
 
 ## Maintenance Workflow
 
-- Update `docs/ROADMAP.md` when direction, sequencing, or phase ownership
-  changes.
-- Update `docs/REVIEW_TODO.md` when a phase becomes actionable work.
-- Update `docs/TOKENS.md` only when current token behavior or enforced rules
-  change.
-- Keep completed phases out of the roadmap body; git history records completed
-  implementation details.
+- Update `docs/ROADMAP.md` when future direction or sequencing changes.
+- Update `docs/REVIEW_TODO.md` when work becomes actionable.
+- Update `docs/TOKENS.md` when current token behavior or enforced rules change.
+- Record completed implementation details in git history, not in this roadmap
+  body.

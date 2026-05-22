@@ -17,6 +17,7 @@ The P0 and P1 implementation passes are complete:
 
 - CLI install safety (idempotency, conflict detection, `--cwd` scoping, packed template resolution)
 - Token foundation (DTCG-shaped source, CSS + DTCG JSON generation, brand layer, theme modes)
+- Token platform phases 1–5 (factory authoring, layer validation, governance reports)
 - Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution
@@ -34,17 +35,17 @@ Known gaps below.
 
 **Problem:**
 
-`Dialog.variants.ts` uses hardcoded stacking and elevation classes (`z-40`, `z-50`, `shadow-lg`) because the token system does not yet include z-index or shadow/elevation token families.
+`Dialog.variants.ts` uses hardcoded stacking and elevation classes (`z-40`, `z-50`, `shadow-lg`) because semantic elevation roles and component token wiring are not defined yet. Primitive scales already exist in `packages/tokens/src/primitives/z-index.ts` and `shadow.ts`.
 
 **Direction:**
 
-- Add z-index and shadow/elevation token families to `packages/tokens/src/primitives/` and `src/semantics/`.
+- Add semantic elevation and layering roles in `packages/tokens/src/semantics/` that map from the existing primitive z-index and shadow scales.
 - Replace hardcoded Dialog (and other overlay) stacking values with component CSS variables:
   - `--nx-dialog-backdrop-z-index`
   - `--nx-dialog-viewport-z-index`
   - `--nx-dialog-popup-shadow`
 - Apply the same pattern to other overlay components that use hardcoded `z-*` or `shadow-*`.
-- Do not introduce placeholder tokens — model the token family properly first.
+- Do not introduce placeholder tokens — model the semantic roles properly first.
 
 **Status:** Not started. Hardcoded values are acceptable markers for now but must be resolved before Dialog token integration is declared complete.
 
@@ -56,17 +57,24 @@ Known gaps below.
 
 **Problem:**
 
-`docs/RESOLVER_EVOLUTION.md` captures a long-term resolver vision (layer enforcement, AST evaluation, color math, contrast diagnostics, dead token detection) but it is not sequenced into implementable phases.
+`docs/RESOLVER_EVOLUTION.md` captures long-term resolver capabilities (AST
+evaluation, color math, contrast diagnostics, composite expansion, metadata
+propagation) but it is not sequenced into implementable phases beyond the work
+already shipped (layer validation and governance reports).
 
 **Direction:**
 
-- Review `docs/RESOLVER_EVOLUTION.md` against the current `packages/tokens/src/resolver/` and generator architecture.
-- Split the vision into phases: what can be added to the current resolver, what needs a new subsystem, what is speculative.
-- Identify the first small slice — likely layer enforcement (component→primitive violation detection).
-- Keep speculative items (AST evaluator, color math engine) clearly separated from near-term work.
-- Update `docs/RESOLVER_EVOLUTION.md` with the phased plan once sequencing is decided.
+- Review `docs/RESOLVER_EVOLUTION.md` against the current
+  `packages/tokens/src/resolver/` and generator architecture.
+- Split the vision into phases: what extends the current resolver, what needs a
+  new subsystem, what is speculative.
+- Keep speculative items (AST evaluator, color math engine) clearly separated
+  from near-term work.
+- Update `docs/RESOLVER_EVOLUTION.md` with the phased plan once sequencing is
+  decided.
 
-**Status:** Not started.
+**Status:** Not started. Layer validation and governance reporting are already
+implemented; this item covers the remaining resolver evolution only.
 
 ---
 
