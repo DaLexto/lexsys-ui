@@ -15,14 +15,15 @@ import {
 
 import {
   COMPOSITE_TYPE_REGISTRY,
+  IMPLEMENTED_COMPOSITE_TYPES,
   isImplementedCompositeType,
-  isTypographySlotKey,
-  TYPOGRAPHY_COMPOSITE_DEFINITION,
+  isRegisteredCompositeSlotKey,
 } from "./composite.schema"
 
 import type {
   CompositeAtomicPath,
   CompositeBranchInfo,
+  CompositeTypeDefinition,
 } from "./composite.types"
 
 const getNonMetadataChildEntries = (
@@ -33,19 +34,33 @@ const getNonMetadataChildEntries = (
   })
 }
 
-const hasTypographySlotLeaves = (branch: TokenTree): boolean => {
-  const childEntries = getNonMetadataChildEntries(branch)
+const hasCompositeSlotLeaves = (
+  branch: TokenTree,
+  definition: CompositeTypeDefinition,
+): boolean => {
+  for (const slot of definition.slots) {
+    const value = branch[slot.slotKey]
 
-  if (childEntries.length === 0) {
-    return false
+    if (!isTokenLeaf(value)) {
+      return false
+    }
   }
 
-  return childEntries.every(([key, value]) => {
-    return isTypographySlotKey(key) && isTokenLeaf(value)
+  return getNonMetadataChildEntries(branch).every(([, value]) => {
+    return isTokenLeaf(value)
   })
 }
 
-const isTypographyRoleGroup = (branch: TokenTree): boolean => {
+const isCompositeRoleGroup = (
+  branch: TokenTree,
+  compositeType: CompositeTokenType,
+): boolean => {
+  const definition = COMPOSITE_TYPE_REGISTRY[compositeType]
+
+  if (definition === undefined) {
+    return false
+  }
+
   const childEntries = getNonMetadataChildEntries(branch)
 
   if (childEntries.length === 0) {
@@ -53,7 +68,7 @@ const isTypographyRoleGroup = (branch: TokenTree): boolean => {
   }
 
   return childEntries.every(([, value]) => {
-    return isTokenTree(value) && hasTypographySlotLeaves(value)
+    return isTokenTree(value) && hasCompositeSlotLeaves(value, definition)
   })
 }
 
@@ -69,8 +84,20 @@ const readBranchCompositeType = (
     return branchType
   }
 
-  if (isTypographyRoleGroup(branch)) {
-    return TYPOGRAPHY_COMPOSITE_DEFINITION.compositeType
+  for (const compositeType of IMPLEMENTED_COMPOSITE_TYPES) {
+    const definition = COMPOSITE_TYPE_REGISTRY[compositeType]
+
+    if (definition === undefined) {
+      continue
+    }
+
+    if (hasCompositeSlotLeaves(branch, definition)) {
+      return compositeType
+    }
+
+    if (isCompositeRoleGroup(branch, compositeType)) {
+      return compositeType
+    }
   }
 
   return undefined
@@ -145,27 +172,22 @@ const collectCompositeAtomicPathsFromBranch = (
     return
   }
 
-  const slotKeys = new Set(
-    definition.slots.map((slot) => {
-      return slot.slotKey
-    }),
-  )
-
-  for (const [key, value] of getNonMetadataChildEntries(branch)) {
-    const childPath = [...path, key]
-
-    if (isTokenLeaf(value) && slotKeys.has(key)) {
+  if (hasCompositeSlotLeaves(branch, definition)) {
+    for (const slot of definition.slots) {
       paths.push({
         compositeType,
-        path: toPathString(childPath),
+        path: toPathString([...path, slot.slotKey]),
       })
-      continue
     }
 
+    return
+  }
+
+  for (const [key, value] of getNonMetadataChildEntries(branch)) {
     if (isTokenTree(value)) {
       collectCompositeAtomicPathsFromBranch(
         value,
-        childPath,
+        [...path, key],
         compositeType,
         paths,
       )
@@ -202,4 +224,38 @@ export const collectCompositeAtomicPaths = (
   walk(tree, path)
 
   return paths
+}
+
+export const resolveCompositeTypeFromAtomicPath = (
+  path: string[],
+): CompositeTokenType | undefined => {
+  const slotKey = path[path.length - 1]
+
+  if (slotKey === undefined) {
+    return undefined
+  }
+
+  for (const compositeType of IMPLEMENTED_COMPOSITE_TYPES) {
+    if (!isRegisteredCompositeSlotKey(compositeType, slotKey)) {
+      continue
+    }
+
+    if (compositeType === "typography" && path.includes("typography")) {
+      return compositeType
+    }
+
+    if (compositeType === "shadow" && path.includes("shadow")) {
+      return compositeType
+    }
+
+    if (
+      compositeType === "border" &&
+      path.includes("border") &&
+      path.length >= 3
+    ) {
+      return compositeType
+    }
+  }
+
+  return undefined
 }

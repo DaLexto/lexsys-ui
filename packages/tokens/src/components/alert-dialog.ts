@@ -19,7 +19,7 @@ export const alertDialogComponentTokens = componentTokens("alert-dialog", {
     maxWidth: { $value: "{size.panel.width.lg}" },
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.md}" },
-    shadow: { $value: "{elevation.shadow.raised}" },
+    shadow: { $value: "{elevation.shadow.raised.boxShadow}" },
   },
   title: {
     foreground: { $value: "{color.text.primary}" },

@@ -20,12 +20,21 @@ export type {
 
 export {
   createContrastValidationReport,
+  DEFAULT_CONTRAST_POLICY,
+  evaluateContrastPolicy,
   formatContrastValidationReport,
+  resolveContrastPolicy,
+  resolveContrastPolicyTier,
+  resolvePairMinimumRatio,
   SEMANTIC_CONTRAST_PAIRS,
+  shouldFailOnContrastPolicy,
+  WCAG_AA_LARGE_TEXT_RATIO,
   WCAG_AA_NORMAL_TEXT_RATIO,
 } from "./contrast"
 
 export type {
+  ContrastPolicy,
+  ContrastPolicyTier,
   ContrastIssue,
   ContrastIssueCode,
   ContrastPairResult,

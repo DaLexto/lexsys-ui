@@ -70,4 +70,10 @@ export const SEMANTIC_CONTRAST_PAIRS: SemanticContrastPair[] = [
     foregroundPath: "color.feedback.danger.foreground",
     backgroundPath: "color.feedback.danger.background",
   },
+  {
+    id: "text-primary-on-overlay",
+    label: "Primary text on overlay background (composited over base)",
+    foregroundPath: "color.text.primary",
+    backgroundPath: "color.background.overlay",
+  },
 ]

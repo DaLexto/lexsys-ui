@@ -17,7 +17,7 @@ export const popoverComponentTokens = componentTokens("popover", {
     maxWidth: { $value: "{size.panel.width.sm}" },
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
-    shadow: { $value: "{elevation.shadow.floating}" },
+    shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
   },
   arrow: {
     $type: "dimension",

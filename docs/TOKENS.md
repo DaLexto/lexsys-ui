@@ -191,28 +191,45 @@ Tree merge helpers (`mergeTokenTrees`, `createThemedTokenTree`) live in
 
 ---
 
-### Accessibility contrast guard (Phase 10)
+### Accessibility contrast guard (Phase 10 + CI policy)
 
-Non-blocking WCAG AA checks on an **explicit semantic pair registry** in
-`packages/tokens/src/engine/validator/contrast/contrast.pairs.ts`.
+WCAG AA checks on an **explicit semantic pair registry** in
+`packages/tokens/src/engine/validator/contrast/contrast.pairs.ts`. Thresholds
+and enforcement tiers live in `contrast.policy.ts`.
 
 | Export                                   | Purpose                                                |
 | ---------------------------------------- | ------------------------------------------------------ |
 | `createContrastValidationReport(input)`  | Resolve themed fg/bg pairs and compare contrast ratios |
 | `formatContrastValidationReport(report)` | CLI-friendly report text                               |
+| `evaluateContrastPolicy(report, policy?)` | Returns pass/fail for CI/build tiers                  |
+| `resolveContrastPolicy()`                | Reads `NEUREX_CONTRAST_POLICY` (`report` \| `ci` \| `build`) |
 | `SEMANTIC_CONTRAST_PAIRS`                | Registered semantic foreground/background paths        |
 
 Each pair is evaluated per theme mode using `resolveLeafValueForTheme`. Resolved
 colors are normalized through `toContrastReadyColor` (structured OKLCH, `oklch()`,
 `#hex`, `rgb()`, `hsl()` — see `engine/shared/color-string.parse.ts`). Default
-threshold is **4.5:1** (WCAG AA normal text). Report is appended by:
+threshold is **4.5:1** (WCAG AA normal text); pairs may opt into **3:1** large
+text via `textSize: "large"` or set `minimumRatio` explicitly.
+
+Semi-transparent **background** colors composite over `color.background.base`
+before contrast math (overlay pairs). Foreground alpha compositing uses the same
+`compositeLinearRgb` helper in `contrast.math.ts`.
+
+**Two-layer accessibility model:** token-time contrast (explicit pairs + WCAG math
+here) complements runtime checks in consumer apps (axe-core, manual a11y review).
+See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+
+Report and enforcement:
 
 ```sh
 pnpm --filter @neurex/tokens governance:report
 ```
 
-Contrast validation is **not build-failing** until pair inventory and promotion
-policy are agreed. CSS/DTCG generator output is unchanged.
+- **`ci` tier (default in CI):** contrast policy failures exit with code 1 — the
+  `tokens-governance` workflow fails when registered pairs do not pass.
+- **`report` tier:** set `NEUREX_CONTRAST_POLICY=report` locally for report-only.
+- **`build` tier:** reserved for future promotion into `validateStyleTokenInput`;
+  not wired to the CSS build pipeline yet.
 
 ---
 
@@ -286,6 +303,39 @@ Components reference individual slots (for example `{typography.control.md.fontS
 The generator expands slot leaves into atomic CSS custom properties and typed DTCG
 leaves. Classification helpers live in `packages/tokens/src/engine/composite/`.
 
+### Composite shadow and border groups (branch + slot leaves)
+
+Shadow and border semantic roles use the same branch + slot model as typography
+(DTCG composite slot semantics; see [W3C DTCG composite types](https://www.designtokens.org/)).
+
+**Shadow** (`$type: "shadow"` on role branches such as `elevation.shadow.floating`):
+
+| Slot       | Type        |
+| ---------- | ----------- |
+| `color`    | `color`     |
+| `offsetX`  | `dimension` |
+| `offsetY`  | `dimension` |
+| `blur`     | `dimension` |
+| `spread`   | `dimension` |
+| `inset`    | `boolean` (optional) |
+
+**Border** (`$type: "border"` on groups such as `border.control`):
+
+| Slot    | Type          |
+| ------- | ------------- |
+| `color` | `color`       |
+| `width` | `dimension`   |
+| `style` | `strokeStyle` |
+
+Components may reference individual slots or transitional `boxShadow` leaves that
+still alias primitive CSS strings until full slot-based CSS composition ships.
+Flat color-only paths such as `border.default` remain unchanged.
+
+**Deferred:** DTCG composite **object** `$value` on a single leaf (spec-native
+structured shadow/border) requires a separate engine phase (`TokenValue`, resolver
+alias grammar, generator explode). Neurex authoring stays branch + slot; optional
+DTCG object export may follow. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+
 ---
 
 ## Validation Status
@@ -327,7 +377,10 @@ primitive leaves from CSS/DTCG after full-graph validation. Default is off.
 
 **Governance tooling (non-blocking):** contrast validation runs via
 `createContrastValidationReport` and `pnpm --filter @neurex/tokens governance:report`.
-Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+Contrast policy failures **fail CI** when tier is `ci` (default in
+`.github/workflows/tokens-governance.yml`). Build-time validation and CSS/DTCG
+output remain unchanged until `build` tier promotion. Speculative AST/color math
+is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
 

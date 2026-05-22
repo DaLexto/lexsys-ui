@@ -56,7 +56,7 @@ export const selectComponentTokens = componentTokens("select", {
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{border.default}" },
     maxHeight: { $value: "{size.area.swipe.md}" },
-    shadow: { $value: "{elevation.shadow.floating}" },
+    shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
   },
   positioner: {
     zIndex: { $value: "{elevation.floating.zIndex}" },

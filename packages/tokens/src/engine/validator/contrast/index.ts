@@ -15,6 +15,18 @@ export {
   WCAG_AA_NORMAL_TEXT_RATIO,
 } from "./contrast.pairs"
 
+export {
+  DEFAULT_CONTRAST_POLICY,
+  evaluateContrastPolicy,
+  resolveContrastPolicy,
+  resolveContrastPolicyTier,
+  resolvePairMinimumRatio,
+  shouldFailOnContrastPolicy,
+  WCAG_AA_LARGE_TEXT_RATIO,
+} from "./contrast.policy"
+
+export type { ContrastPolicy, ContrastPolicyTier } from "./contrast.policy"
+
 export type {
   ContrastIssue,
   ContrastIssueCode,

@@ -8,7 +8,7 @@ export const tooltipComponentTokens = componentTokens("tooltip", {
   foreground: { $value: "{color.background.base}" },
   borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.control}" },
-  shadow: { $value: "{elevation.shadow.floating}" },
+  shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
   padding: {
     $type: "dimension",
     x: { $value: "{spacing.control.x.xs}" },

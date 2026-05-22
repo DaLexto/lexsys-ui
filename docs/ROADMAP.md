@@ -28,12 +28,14 @@ Current implementation:
   invalid DTCG leaf shape, and token layer contract violations.
 - Governance reports (metadata, deprecation, dead primitives, semantic audit,
   WCAG contrast) are available via `pnpm --filter @neurex/tokens governance:report`.
+  Contrast policy failures fail the `tokens-governance` CI workflow (`ci` tier).
 - Semantic token organization is active: nested `color.*` paths, top-level
   `action.*` / `border.*` / `elevation.*`, theme overrides aligned to semantic
   paths.
-- Token engine (Phases 7–10): graph traversal, composite typography, on-demand
-  resolved values, and non-blocking WCAG contrast validation on registered
-  semantic pairs (10 pairs; `rgb()` / `hsl()` string parsing for contrast math).
+- Token engine (Phases 7–10): graph traversal, composite typography + shadow/border
+  branch+slot registry, on-demand resolved values, WCAG contrast validation on
+  registered semantic pairs (11 pairs; overlay compositing; CI policy gate;
+  `rgb()` / `hsl()` string parsing for contrast math).
 
 Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 
@@ -71,13 +73,14 @@ Summary only — do not duplicate detail here.
 
 **Planned (likely next):**
 
-- Further expand `SEMANTIC_CONTRAST_PAIRS` (overlay stacks, danger-action patterns)
-- Optional promotion of contrast checks to build-failing after pair/threshold policy is agreed
-- Extend composite registry beyond typography (shadow, border groups)
+- Further expand `SEMANTIC_CONTRAST_PAIRS` (danger-action patterns, large-text roles)
+- Promote contrast checks to build-failing (`build` tier in `validateStyleTokenInput`)
+- Full shadow primitive migration (CSS strings → slots) and slot-based `box-shadow` CSS composition
 - Optional promotion of selected governance checks to build-failing
 
 **Deferred (explicit non-goals for now):**
 
+- DTCG composite object `$value` authoring on single leaves (deferred engine phase; branch+slot is current)
 - AST expression evaluator and color/unit math (requires new subsystem — see RESOLVER_EVOLUTION)
 - Automatic contrast pair discovery without an explicit registry
 - Runtime accessibility checks in consumer apps

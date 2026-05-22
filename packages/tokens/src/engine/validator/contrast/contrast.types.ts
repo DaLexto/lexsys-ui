@@ -13,6 +13,7 @@ export interface SemanticContrastPair {
   foregroundPath: string
   backgroundPath: string
   minimumRatio?: number
+  textSize?: "normal" | "large"
 }
 
 export interface ContrastValidationThemeInput {

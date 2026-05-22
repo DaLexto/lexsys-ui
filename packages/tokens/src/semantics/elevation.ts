@@ -25,7 +25,35 @@ export const elevationSemantics = semanticTokens("elevation", {
   },
   shadow: {
     $type: "shadow",
-    floating: { $value: "{shadow.4}" },
-    raised: { $value: "{shadow.5}" },
+    floating: {
+      color: {
+        $value: {
+          colorSpace: "oklch",
+          components: [0, 0, 0],
+          alpha: 0.12,
+          hex: "#000000",
+        },
+      },
+      offsetX: { $value: "0" },
+      offsetY: { $value: "8px" },
+      blur: { $value: "16px" },
+      spread: { $value: "0" },
+      boxShadow: { $value: "{shadow.4}" },
+    },
+    raised: {
+      color: {
+        $value: {
+          colorSpace: "oklch",
+          components: [0, 0, 0],
+          alpha: 0.14,
+          hex: "#000000",
+        },
+      },
+      offsetX: { $value: "0" },
+      offsetY: { $value: "16px" },
+      blur: { $value: "32px" },
+      spread: { $value: "0" },
+      boxShadow: { $value: "{shadow.5}" },
+    },
   },
 })

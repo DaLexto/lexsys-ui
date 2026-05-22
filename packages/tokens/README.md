@@ -80,10 +80,10 @@ src/
       graph/
       shared/
       values/         # resolved leaf value pipeline (Phase 9)
-    composite/        # composite type registry and slot schemas
+    composite/        # typography + shadow/border composite type registry and slot schemas
     validator/        # build-failing layer contracts
       layers/
-      contrast/       # WCAG contrast report (Phase 10, non-blocking)
+      contrast/       # WCAG contrast report + CI policy gate
     governance/       # non-blocking reports and audits
       report/
       audit/
@@ -211,17 +211,25 @@ Import from `packages/tokens/src/engine/` (or `./engine` within the package). No
 
 ### Accessibility contrast guard (`engine/validator/contrast/`)
 
-Non-blocking WCAG AA report on registered semantic foreground/background pairs (10 pairs in `contrast.pairs.ts`).
+WCAG AA report on registered semantic foreground/background pairs (11 pairs in
+`contrast.pairs.ts`). CI enforcement via `contrast.policy.ts` and
+`evaluateContrastPolicy` (default `ci` tier; local override
+`NEUREX_CONTRAST_POLICY=report`).
 
 | Export                                   | Purpose                                          |
 | ---------------------------------------- | ------------------------------------------------ |
 | `createContrastValidationReport(input)`  | Themed contrast ratio checks per registered pair |
 | `formatContrastValidationReport(report)` | Format report for CLI output                     |
+| `evaluateContrastPolicy(report, policy?)` | Pass/fail for CI/build tiers                   |
 | `SEMANTIC_CONTRAST_PAIRS`                | Explicit pair registry                           |
 
-Color strings are parsed via `engine/shared/color-string.parse.ts` (`rgb()`, `hsl()`, plus OKLCH/hex in `values.normalize.ts`).
+Semi-transparent backgrounds composite over `color.background.base` before ratio
+checks. Color strings are parsed via `engine/shared/color-string.parse.ts`
+(`rgb()`, `hsl()`, plus OKLCH/hex in `values.normalize.ts`).
 
-Runs as part of `pnpm --filter @neurex/tokens governance:report`. Not build-failing by default.
+Runs as part of `pnpm --filter @neurex/tokens governance:report`. Failures exit
+with code 1 in CI (`tokens-governance` workflow). Not build-failing in
+`validateStyleTokenInput` until `build` tier promotion.
 
 ---
 

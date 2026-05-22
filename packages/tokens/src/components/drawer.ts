@@ -34,7 +34,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
       md: { $value: "{size.panel.height.md}" },
       lg: { $value: "{size.panel.height.lg}" },
     },
-    shadow: { $value: "{elevation.shadow.raised}" },
+    shadow: { $value: "{elevation.shadow.raised.boxShadow}" },
   },
   content: {
     $type: "dimension",

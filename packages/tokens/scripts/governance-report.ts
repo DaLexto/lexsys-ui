@@ -1,7 +1,10 @@
 import { createStyleTokenInput } from "../src/generators/inputs/input.source"
 import {
   createContrastValidationReport,
+  evaluateContrastPolicy,
   formatContrastValidationReport,
+  resolveContrastPolicy,
+  shouldFailOnContrastPolicy,
 } from "../src/engine/validator"
 import {
   createSemanticAuditReport,
@@ -64,15 +67,29 @@ const main = (): void => {
     ),
   )
   console.log("")
-  console.log(
-    formatContrastValidationReport(
-      createContrastValidationReport({
-        foundationTokens: input.foundationTokens,
-        componentTokens: input.componentTokens,
-        themeTokens: input.themeTokens,
-      }),
-    ),
+  const contrastReport = createContrastValidationReport({
+    foundationTokens: input.foundationTokens,
+    componentTokens: input.componentTokens,
+    themeTokens: input.themeTokens,
+  })
+  console.log(formatContrastValidationReport(contrastReport))
+
+  const contrastPolicy = resolveContrastPolicy()
+  const contrastEvaluation = evaluateContrastPolicy(
+    contrastReport,
+    contrastPolicy,
   )
+
+  if (
+    !contrastEvaluation.passes &&
+    shouldFailOnContrastPolicy(contrastPolicy)
+  ) {
+    console.error("")
+    console.error(
+      `Contrast policy (${contrastPolicy.tier}) failed with ${contrastEvaluation.failures.length} issue(s). Set ${"NEUREX_CONTRAST_POLICY=report"} to report-only locally.`,
+    )
+    process.exit(1)
+  }
 }
 
 try {
