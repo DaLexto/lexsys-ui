@@ -23,6 +23,7 @@ The P0 and P1 implementation passes are complete:
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution
 - Documentation alignment with current token/UI contracts (`docs/TOKENS.md`, design system, architecture, CLI, package READMEs)
+- Resolver evolution phased plan (`docs/RESOLVER_EVOLUTION.md` — Phases 7–10 + speculative)
 
 The current implementation supports: Vite + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 31 bundled components.
 
@@ -38,30 +39,7 @@ _No active P2 items._
 
 ## P3 — Architecture Planning
 
-### TODO: Turn resolver roadmap into an implementation plan
-
-**Problem:**
-
-`docs/RESOLVER_EVOLUTION.md` captures long-term resolver capabilities (AST
-evaluation, color math, contrast diagnostics, composite expansion, metadata
-propagation) but it is not sequenced into implementable phases beyond the work
-already shipped (layer validation and governance reports).
-
-**Direction:**
-
-- Review `docs/RESOLVER_EVOLUTION.md` against the current
-  `packages/tokens/src/resolver/` and generator architecture.
-- Split the vision into phases: what extends the current resolver, what needs a
-  new subsystem, what is speculative.
-- Keep speculative items (AST evaluator, color math engine) clearly separated
-  from near-term work.
-- Update `docs/RESOLVER_EVOLUTION.md` with the phased plan once sequencing is
-  decided.
-
-**Status:** Not started. Layer validation and governance reporting are already
-implemented; this item covers the remaining resolver evolution only.
-
----
+_No active P3 items. Resolver evolution is sequenced in `docs/RESOLVER_EVOLUTION.md` (Phase 7 governance hardening through Phase 10 accessibility guard, plus deferred speculative AST/math)._
 
 ## Known Gaps (no active item yet)
 

@@ -58,13 +58,18 @@ The items below are planned work, not current contracts.
 
 ### Resolver and generator evolution
 
-- Expression evaluation, color math, and unit-aware arithmetic
-- Composite token expansion in generators
-- Contrast and accessibility guards at build time
-- Metadata propagation through full resolution chains
-- Optional stripping of dead primitives from generated output
+Phases 7–10 and deferred speculative work are sequenced in
+[docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md):
 
-Resolver-specific planning lives in `docs/RESOLVER_EVOLUTION.md`.
+| Phase | Focus |
+| ----- | ----- |
+| 7 | Governance hardening (full-chain metadata, optional dead-primitive stripping, CI hooks) |
+| 8 | Composite token expansion in generators |
+| 9 | Resolved value pipeline |
+| 10 | Accessibility contrast guard |
+| — | Speculative AST evaluator and color/unit math (deferred) |
+
+Do not duplicate phase detail here — update RESOLVER_EVOLUTION when sequencing changes.
 
 ### Semantic and product gaps
 

@@ -256,9 +256,7 @@ but do not change CSS or DTCG output:
 - Dead primitive token detection (primitive leaves not referenced by upper layers)
 - Semantic audit reports (forbidden paths, missing groups, theme path drift)
 
-**Planned (not build-failing):** contrast validation, metadata propagation
-through full resolution chains, and optional stripping of dead tokens from
-generated output. See `docs/RESOLVER_EVOLUTION.md`.
+**Planned (not build-failing):** Phase 7 governance hardening (full-chain metadata propagation, optional dead-primitive stripping), Phase 8 composite token expansion, Phase 9 resolved value pipeline, Phase 10 accessibility contrast guard. Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
 
