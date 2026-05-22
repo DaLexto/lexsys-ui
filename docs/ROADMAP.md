@@ -2,8 +2,8 @@
 
 **Audience:** Maintainers and token domain owners  
 **Type:** Vision / strategy document  
-**Status:** Phases 1–5 complete; future direction below — not a current
-implementation contract  
+**Status:** Phases 1–8 complete; Phases 9–10 planned — future direction below is
+not a current implementation contract  
 **Source of truth for:** Long-term tokens platform direction after the initial
 platform pass  
 **Verified against:** `packages/tokens/src/` current state
@@ -36,9 +36,9 @@ Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 
 ---
 
-## Completed Platform Phases (1–5)
+## Completed Platform Phases (1–8)
 
-Phases 1–5 are complete. Detailed implementation history lives in git; this
+Phases 1–8 are complete. Detailed implementation history lives in git; this
 table is the high-level record only.
 
 | Phase                      | Outcome                                                           |
@@ -50,6 +50,7 @@ table is the high-level record only.
 | 5 — Governance and tooling | Metadata, deprecation, and dead-token reports                     |
 | 6 — Semantic organization  | Elevation semantics, theme path alignment, feedback wiring, audit |
 | 7 — Governance hardening   | Transitive dependents, graph module, optional dead-primitive stripping, scripts layout |
+| 8 — Composite expansion    | Typography composite registry, DTCG slot typing, atomic path classification |
 
 ---
 
@@ -64,7 +65,6 @@ Phases 9–10 and deferred speculative work are sequenced in
 
 | Phase | Focus | Status |
 | ----- | ----- | ------ |
-| 8 | Composite token expansion in generators | Shipped |
 | 9 | Resolved value pipeline | Planned |
 | 10 | Accessibility contrast guard | Planned |
 | — | Speculative AST evaluator and color/unit math (deferred) | Not scheduled |
