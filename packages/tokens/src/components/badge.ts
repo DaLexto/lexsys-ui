@@ -47,5 +47,4 @@ export const badgeComponentTokens = componentTokens("badge", {
     foreground: { $value: "{color.text.inverse}" },
     borderColor: { $value: "{action.danger.base}" },
   },
-
 })

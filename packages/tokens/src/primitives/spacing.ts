@@ -20,7 +20,6 @@
  * - Spacing tokens use the DTCG `dimension` type
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const spacingPrimitives = primitiveTokens("spacing", {
@@ -38,5 +37,4 @@ export const spacingPrimitives = primitiveTokens("spacing", {
   10: { $value: { value: 2.5, unit: "rem" } },
   12: { $value: { value: 3, unit: "rem" } },
   16: { $value: { value: 4, unit: "rem" } },
-
 })

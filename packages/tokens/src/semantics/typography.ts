@@ -209,5 +209,4 @@ export const typographySemantics = semanticTokens("typography", {
       letterSpacing: { $value: "{letter-spacing.normal}" },
     },
   },
-
 })

@@ -40,5 +40,4 @@ export const radioGroupComponentTokens = componentTokens("radio-group", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

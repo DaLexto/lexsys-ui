@@ -53,26 +53,26 @@ Raw values: no references, no product meaning.
 
 **18 active primitive groups:**
 
-| Group | Purpose |
-|-------|---------|
-| `color` | Full color scale (neutrals, blue, green, red, orange, purple, yellow, white, black, …) |
-| `radius` | Border radius scale (none → full) |
-| `spacing` | Spacing scale |
-| `size` | Size/dimension scale for controls |
-| `fontFamily` | Font stack definitions |
-| `fontSize` | Font size scale |
-| `fontWeight` | Weight values |
-| `lineHeight` | Line height scale |
-| `letterSpacing` | Tracking values |
-| `motion` | Duration and easing raw values |
-| `aspectRatio` | Aspect ratio scale |
-| `blur` | Blur values |
-| `border` | Border width values |
-| `breakpoint` | Responsive breakpoints |
-| `opacity` | Opacity scale |
-| `outline` | Outline width/offset values |
-| `shadow` | Shadow definitions |
-| `zIndex` | z-index scale |
+| Group           | Purpose                                                                                |
+| --------------- | -------------------------------------------------------------------------------------- |
+| `color`         | Full color scale (neutrals, blue, green, red, orange, purple, yellow, white, black, …) |
+| `radius`        | Border radius scale (none → full)                                                      |
+| `spacing`       | Spacing scale                                                                          |
+| `size`          | Size/dimension scale for controls                                                      |
+| `fontFamily`    | Font stack definitions                                                                 |
+| `fontSize`      | Font size scale                                                                        |
+| `fontWeight`    | Weight values                                                                          |
+| `lineHeight`    | Line height scale                                                                      |
+| `letterSpacing` | Tracking values                                                                        |
+| `motion`        | Duration and easing raw values                                                         |
+| `aspectRatio`   | Aspect ratio scale                                                                     |
+| `blur`          | Blur values                                                                            |
+| `border`        | Border width values                                                                    |
+| `breakpoint`    | Responsive breakpoints                                                                 |
+| `opacity`       | Opacity scale                                                                          |
+| `outline`       | Outline width/offset values                                                            |
+| `shadow`        | Shadow definitions                                                                     |
+| `zIndex`        | z-index scale                                                                          |
 
 Primitive token source: `packages/tokens/src/primitives/`.
 
@@ -100,18 +100,19 @@ brand-specific values and primitive tokens for non-brand values.
 
 **8 active semantic groups:**
 
-| Group | Roles |
-|-------|-------|
-| `color` | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × bg/text) |
-| `action` | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled |
-| `border` | `default`, `strong`, `focus`, `accent` |
-| `radius` | `control`, `selection`, `surface`, `pill` |
-| `spacing` | Semantic spacing roles |
-| `size` | Semantic size roles for controls |
-| `motion` | Duration and easing semantic roles |
-| `typography` | Font scale semantic roles |
+| Group        | Roles                                                                                                                                                           |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × bg/text) |
+| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                         |
+| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                          |
+| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                       |
+| `spacing`    | Semantic spacing roles                                                                                                                                          |
+| `size`       | Semantic size roles for controls                                                                                                                                |
+| `motion`     | Duration and easing semantic roles                                                                                                                              |
+| `typography` | Font scale semantic roles                                                                                                                                       |
 
 Semantic path structure:
+
 - `color.*` — global background and text roles
 - `action.*` — interactive state colors (not nested under `color`)
 - `border.*` — border color roles (not nested under `color`)
@@ -152,10 +153,10 @@ Themes override semantic values per mode. They are not a fifth token layer.
 
 **Active themes:**
 
-| Theme | Selector | Brand |
-|-------|----------|-------|
-| `neurexLightTheme` | `:root` | `neurex` |
-| `neurexDarkTheme` | `.dark` | `neurex` |
+| Theme              | Selector | Brand    |
+| ------------------ | -------- | -------- |
+| `neurexLightTheme` | `:root`  | `neurex` |
+| `neurexDarkTheme`  | `.dark`  | `neurex` |
 
 Theme files reference brand tokens for brand-specific values and primitive
 tokens for neutrals and non-brand values. Themes MUST NOT reference component
@@ -215,9 +216,15 @@ Supported metadata: `$value`, `$type`, `$description`, `$deprecated`.
 References use `{dotted.path}` strings:
 
 ```typescript
-{ $value: "{brand.color.primary.base}" }   // brand token
-{ $value: "{action.primary.base}" }        // semantic token
-{ $value: "{color.neutral.900}" }          // primitive token
+{
+  $value: "{brand.color.primary.base}"
+} // brand token
+{
+  $value: "{action.primary.base}"
+} // semantic token
+{
+  $value: "{color.neutral.900}"
+} // primitive token
 ```
 
 The `--nx-` prefix belongs to output generation only. Never use it in token
@@ -247,13 +254,14 @@ and Neurex aliases `fontSize`, `lineHeight`, `letterSpacing`.
 CSS variables follow `--nx-<token-path>` with dots replaced by dashes.
 Group name overrides apply at generation time:
 
-| Source name | CSS name segment |
-|-------------|-----------------|
-| `spacing` | `space` |
-| `motion-duration` | `duration` |
-| `motion-easing` | `easing` |
+| Source name       | CSS name segment |
+| ----------------- | ---------------- |
+| `spacing`         | `space`          |
+| `motion-duration` | `duration`       |
+| `motion-easing`   | `easing`         |
 
 Examples:
+
 - `action.primary.base` → `--nx-action-primary-base`
 - `radius.control` → `--nx-radius-control`
 - `spacing.4` → `--nx-space-4`
@@ -264,14 +272,14 @@ The generator also produces a Tailwind `@theme` block that maps CSS variables
 into Tailwind's design token namespaces:
 
 | Token source prefix | Tailwind namespace |
-|---------------------|--------------------|
-| `color` | `color` |
-| `duration` | `duration` |
-| `easing` | `ease` |
-| `radius` | `radius` |
-| `size` | `spacing` |
-| `space` | `spacing` |
-| `typography` | `text` |
+| ------------------- | ------------------ |
+| `color`             | `color`            |
+| `duration`          | `duration`         |
+| `easing`            | `ease`             |
+| `radius`            | `radius`           |
+| `size`              | `spacing`          |
+| `space`             | `spacing`          |
+| `typography`        | `text`             |
 
 This lets consumers use e.g. `text-nx-body-md` or `radius-nx-control` from
 Tailwind utilities.
@@ -280,24 +288,24 @@ Tailwind utilities.
 
 **Package (`dist/`):**
 
-| File | Contents |
-|------|----------|
-| `dist/tokens.css` | All token variables in `:root` + Tailwind `@theme` block |
-| `dist/theme.css` | Theme mode overrides (`:root` for light, `.dark` for dark) |
-| `dist/tokens/dtcg/tokens.tokens.json` | Full merged DTCG JSON |
-| `dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON |
-| `dist/tokens/dtcg/brand/*.tokens.json` | Per-brand DTCG JSON |
-| `dist/tokens/dtcg/semantics/*.tokens.json` | Per-group semantic DTCG JSON |
-| `dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON |
-| `dist/tokens/dtcg/themes/*.tokens.json` | Per-theme DTCG JSON |
+| File                                        | Contents                                                   |
+| ------------------------------------------- | ---------------------------------------------------------- |
+| `dist/tokens.css`                           | All token variables in `:root` + Tailwind `@theme` block   |
+| `dist/theme.css`                            | Theme mode overrides (`:root` for light, `.dark` for dark) |
+| `dist/tokens/dtcg/tokens.tokens.json`       | Full merged DTCG JSON                                      |
+| `dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON                              |
+| `dist/tokens/dtcg/brand/*.tokens.json`      | Per-brand DTCG JSON                                        |
+| `dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON                               |
+| `dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                                    |
+| `dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                                        |
 
 **Package exports:**
 
 ```json
 {
-  ".":           "./dist/index.js",
+  ".": "./dist/index.js",
   "./tokens.css": "./dist/tokens.css",
-  "./theme.css":  "./dist/theme.css"
+  "./theme.css": "./dist/theme.css"
 }
 ```
 
@@ -319,9 +327,9 @@ overwrite on `neurex update --styles`).
 
 ### Build commands
 
-| Command | Effect |
-|---------|--------|
-| `pnpm tokens:build` | Compiles TypeScript and writes `dist/` outputs |
+| Command                | Effect                                            |
+| ---------------------- | ------------------------------------------------- |
+| `pnpm tokens:build`    | Compiles TypeScript and writes `dist/` outputs    |
 | `pnpm generate:styles` | Writes both `dist/` and registry template outputs |
 
 ---

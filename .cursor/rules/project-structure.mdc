@@ -120,7 +120,7 @@ packages/ui/
 ├── src/
 │   ├── index.ts
 │   ├── utils/            # Shared UI utilities
-│   └── components/       # 33 component folders (see list below)
+│   └── components/       # 31 component folders (see list below)
 └── test/
     ├── public-api.test.ts
     └── components/<Name>/   # Variant tests per component

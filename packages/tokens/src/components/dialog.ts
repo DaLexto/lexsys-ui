@@ -72,5 +72,4 @@ export const dialogComponentTokens = componentTokens("dialog", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

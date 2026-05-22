@@ -39,5 +39,4 @@ export const alertComponentTokens = componentTokens("alert", {
     foreground: { $value: "{action.danger.base}" },
     borderColor: { $value: "{action.danger.base}" },
   },
-
 })

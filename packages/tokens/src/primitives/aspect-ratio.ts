@@ -21,7 +21,6 @@
  * - Aspect ratio tokens use the DTCG `number` type
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const aspectRatioPrimitives = primitiveTokens("aspect-ratio", {
@@ -35,5 +34,4 @@ export const aspectRatioPrimitives = primitiveTokens("aspect-ratio", {
   "3-4": { $value: 0.75 },
   "16-9": { $value: 1.777778 },
   "21-9": { $value: 2.333333 },
-
 })

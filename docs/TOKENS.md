@@ -51,16 +51,16 @@ Presets are configuration. They are not a layer in this chain.
 - Semantic tokens must represent reusable product meaning. One-off visual decisions belong in component tokens.
 - Organized by top-level group. Active groups:
 
-  | Group | Role |
-  |---|---|
-  | `color` | Global background, text, and feedback `bg`/`text` roles |
-  | `action` | Interactive state colors: `primary`, `secondary`, `danger` |
-  | `border` | Reusable border color roles: `default`, `strong`, `focus`, `accent` |
-  | `motion` | Duration and easing roles: `control`, `surface` |
-  | `radius` | Border-radius roles: `control`, `surface` |
-  | `size` | Component sizing roles: `control`, `dialog`, `drawer`, `icon`, `indicator`, `sidebar`, `thumb` |
-  | `spacing` | Spacing roles: `control.gap`, `control.x`, `control.y` |
-  | `typography` | Font family, body, label, heading, code composite roles |
+  | Group        | Role                                                                                           |
+  | ------------ | ---------------------------------------------------------------------------------------------- |
+  | `color`      | Global background, text, and feedback `bg`/`text` roles                                        |
+  | `action`     | Interactive state colors: `primary`, `secondary`, `danger`                                     |
+  | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                            |
+  | `motion`     | Duration and easing roles: `control`, `surface`                                                |
+  | `radius`     | Border-radius roles: `control`, `surface`                                                      |
+  | `size`       | Component sizing roles: `control`, `dialog`, `drawer`, `icon`, `indicator`, `sidebar`, `thumb` |
+  | `spacing`    | Spacing roles: `control.gap`, `control.x`, `control.y`                                         |
+  | `typography` | Font family, body, label, heading, code composite roles                                        |
 
 - `color`, `action`, and `border` are separate top-level groups. Do not document them as `color.action.*` or `color.border.*` — those are not current paths.
 
@@ -157,14 +157,14 @@ detection would trigger.
 
 ## Resolver Error Codes
 
-| Code | Meaning |
-|---|---|
-| `MISSING_REFERENCE` | Reference path does not exist in the token tree |
-| `INVALID_REFERENCE_FORMAT` | Reference string is not a valid `{dotted.path}` |
-| `REFERENCE_POINTS_TO_BRANCH` | Reference resolves to a branch node, not a leaf |
-| `CIRCULAR_REFERENCE` | Reference chain forms a cycle |
-| `MAX_DEPTH_EXCEEDED` | Reference chain exceeds 50 hops |
-| `INVALID_TOKEN_LEAF` | Token node has a `$value` key but an invalid value type |
+| Code                         | Meaning                                                 |
+| ---------------------------- | ------------------------------------------------------- |
+| `MISSING_REFERENCE`          | Reference path does not exist in the token tree         |
+| `INVALID_REFERENCE_FORMAT`   | Reference string is not a valid `{dotted.path}`         |
+| `REFERENCE_POINTS_TO_BRANCH` | Reference resolves to a branch node, not a leaf         |
+| `CIRCULAR_REFERENCE`         | Reference chain forms a cycle                           |
+| `MAX_DEPTH_EXCEEDED`         | Reference chain exceeds 50 hops                         |
+| `INVALID_TOKEN_LEAF`         | Token node has a `$value` key but an invalid value type |
 
 Strict mode (default at build time) treats all of the above as build-failing
 errors. Safe mode (`resolveTokenTreeSafe`) downgrades unresolved references to
@@ -193,12 +193,12 @@ All token leaves use W3C DTCG-style shape:
 
 These keys are allowed on branch nodes (non-leaf objects):
 
-| Key | Purpose |
-|---|---|
-| `$type` | Inherited type hint for all leaves in this branch |
-| `$description` | Human-readable description of the branch |
-| `$deprecated` | Deprecation flag or message |
-| `$extensions` | Tool-specific extensions (Neurex uses `x-neurex` key) |
+| Key            | Purpose                                               |
+| -------------- | ----------------------------------------------------- |
+| `$type`        | Inherited type hint for all leaves in this branch     |
+| `$description` | Human-readable description of the branch              |
+| `$deprecated`  | Deprecation flag or message                           |
+| `$extensions`  | Tool-specific extensions (Neurex uses `x-neurex` key) |
 
 No other `$`-prefixed keys are valid on branches.
 
@@ -231,11 +231,19 @@ at build time and will throw, preventing CSS output from being generated:
 Layer validation is implemented in `packages/tokens/src/resolver/layer-validation.ts`
 and runs before reference resolution during `validateStyleTokenInput`.
 
-### Target violations (not yet build-failing)
+### Governance tooling (non-blocking)
 
-The token contract is considered stable once layer validation above is enforced.
-Remaining planned governance checks (contrast, dead tokens, deprecation reports)
-live in `docs/ROADMAP.md` Phase 5 and `docs/RESOLVER_EVOLUTION.md`.
+The following are available via `createTokenGovernanceReport` and
+`pnpm --filter @neurex/tokens governance:report`. They analyze the token graph
+but do not change CSS or DTCG output:
+
+- Deprecation reports for tokens marked `$deprecated` with direct dependents
+- Metadata inventory reports
+- Dead primitive token detection (primitive leaves not referenced by upper layers)
+
+**Planned (not build-failing):** contrast validation, metadata propagation
+through full resolution chains, and optional stripping of dead tokens from
+generated output. See `docs/RESOLVER_EVOLUTION.md`.
 
 ---
 
@@ -243,28 +251,32 @@ live in `docs/ROADMAP.md` Phase 5 and `docs/RESOLVER_EVOLUTION.md`.
 
 `packages/tokens` exports via `package.json` `exports`:
 
-| Export path | Content |
-|---|---|
-| `.` | TypeScript source API (resolver, types, generator inputs, token trees) |
-| `./tokens.css` | Generated CSS — base token variables (`:root` scope) |
-| `./theme.css` | Generated CSS — theme mode overrides (`[data-theme]` scope) |
+| Export path    | Content                                                                        |
+| -------------- | ------------------------------------------------------------------------------ |
+| `.`            | Package root API — token trees, presets, themes, generator outputs, governance |
+| `./tokens.css` | Generated CSS — base token variables (`:root` scope)                           |
+| `./theme.css`  | Generated CSS — theme mode overrides (`[data-theme]` scope)                    |
 
 Key named exports from `.`:
 
-| Export | Purpose |
-|---|---|
-| `primitiveTokens` | Flat array of all primitive token groups |
-| `semanticTokens` | Flat array of all semantic token groups |
-| `componentTokens` | Flat array of all component token groups |
-| `themes` | Array of all theme definitions |
-| `presets` / `neurexPreset` / `defaultPresetId` | Preset definitions and default ID |
-| `resolveReference` | Resolve a single `{reference}` string in a token tree |
-| `resolveTokenTreeStrict` | Resolve all references in a tree; throws on any error |
-| `resolveTokenTreeSafe` | Resolve all references in a tree; returns warnings instead of throwing |
-| `createStyleTokenInput` | Assemble the generator input contract from all layers |
-| `createStyleOutputs` | Run the full CSS generator pipeline |
-| `createTokenGovernanceReport` | Build deprecation, metadata, and dead-token reports |
-| `formatTokenGovernanceReport` | Format a governance report for CLI output |
+| Export                                         | Purpose                                             |
+| ---------------------------------------------- | --------------------------------------------------- |
+| `primitiveTokens`                              | Flat array of all primitive token groups            |
+| `semanticTokens`                               | Flat array of all semantic token groups             |
+| `componentTokens`                              | Flat array of all component token groups            |
+| `themes`                                       | Array of all theme definitions                      |
+| `presets` / `neurexPreset` / `defaultPresetId` | Preset definitions and default ID                   |
+| `createStyleOutputs`                           | Run the full CSS generator pipeline                 |
+| `createTokensCssFromDtcgJson`                  | Generate base token CSS from DTCG JSON input        |
+| `createThemeCssFromDtcgJson`                   | Generate theme CSS from DTCG JSON input             |
+| `createTokenGovernanceReport`                  | Build deprecation, metadata, and dead-token reports |
+| `formatTokenGovernanceReport`                  | Format a governance report for CLI output           |
+
+Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`,
+`createStyleTokenInput`, and related types) live under
+`packages/tokens/src/resolver/` and `packages/tokens/src/generators/inputs/`.
+They are used internally by the build pipeline and tests but are not exported
+from the package root entrypoint.
 
 Governance reports are optional tooling. They do not change CSS or DTCG output.
 
@@ -286,8 +298,8 @@ pnpm --filter @neurex/tokens test     # run resolver and generator tests
 
 Generated output lives at:
 
-| File | Description |
-|---|---|
-| `packages/tokens/dist/tokens.css` | Base token variables (`:root`) |
-| `packages/tokens/dist/theme.css` | Theme mode overrides |
+| File                               | Description                                        |
+| ---------------------------------- | -------------------------------------------------- |
+| `packages/tokens/dist/tokens.css`  | Base token variables (`:root`)                     |
+| `packages/tokens/dist/theme.css`   | Theme mode overrides                               |
 | `packages/tokens/dist/tokens.json` | DTCG JSON with unresolved references (for tooling) |

@@ -27,5 +27,4 @@ export const progressComponentTokens = componentTokens("progress", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-
 })

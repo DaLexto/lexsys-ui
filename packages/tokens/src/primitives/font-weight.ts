@@ -20,7 +20,6 @@
  * - Numeric values are kept as strings to preserve stable CSS output behavior
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const fontWeightPrimitives = primitiveTokens("font-weight", {
@@ -37,5 +36,4 @@ export const fontWeightPrimitives = primitiveTokens("font-weight", {
   bold: { $value: "700" },
   extrabold: { $value: "800" },
   black: { $value: "900" },
-
 })

@@ -20,7 +20,6 @@
  * - Radius tokens use the DTCG `dimension` type
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const radiusPrimitives = primitiveTokens("radius", {
@@ -35,5 +34,4 @@ export const radiusPrimitives = primitiveTokens("radius", {
   xl: { $value: { value: 0.75, unit: "rem" } },
   "2xl": { $value: { value: 1, unit: "rem" } },
   full: { $value: { value: 9999, unit: "px" } },
-
 })

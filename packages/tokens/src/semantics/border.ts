@@ -5,7 +5,6 @@
  * @description Defines semantic border color roles.
  */
 
-
 import { semanticTokens } from "../types/authoring"
 
 export const borderSemantics = semanticTokens("border", {
@@ -15,5 +14,4 @@ export const borderSemantics = semanticTokens("border", {
   strong: { $value: "{color.neutral.400}" },
   focus: { $value: "{color.neutral.500}" },
   accent: { $value: "{brand.color.accent.base}" },
-
 })

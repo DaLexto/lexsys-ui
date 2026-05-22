@@ -20,5 +20,4 @@ export const fieldsetComponentTokens = componentTokens("fieldset", {
       letterSpacing: { $value: "{typography.label.md.letterSpacing}" },
     },
   },
-
 })

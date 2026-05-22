@@ -95,9 +95,7 @@ Neurex is designed to work directly with Tailwind utilities:
 import { Button } from "@/components/ui/Button/Button"
 
 export function App() {
-  return (
-    <Button className="w-full">Save</Button>
-  )
+  return <Button className="w-full">Save</Button>
 }
 ```
 

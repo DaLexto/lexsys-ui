@@ -31,20 +31,10 @@ export interface ThemeConfig {
 }
 
 /**
- * Structured theme definition with explicit token override payload.
- */
-export interface ThemeDefinitionStructured extends ThemeConfig {
-  tokens: TokenTree
-}
-
-/**
- * Legacy flat-mixed theme definition.
- */
-export type LegacyThemeDefinition = ThemeConfig & TokenTree
-
-/**
  * Theme definition for a single mode override set.
  */
-export type ThemeDefinition = ThemeDefinitionStructured | LegacyThemeDefinition
+export interface ThemeDefinition extends ThemeConfig {
+  tokens: TokenTree
+}
 
 export type ThemeTokenMap = TokenTree

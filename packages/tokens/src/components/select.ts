@@ -132,5 +132,4 @@ export const selectComponentTokens = componentTokens("select", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

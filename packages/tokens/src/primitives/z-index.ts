@@ -21,7 +21,6 @@
  * - Semantic tokens should assign meaning to these raw layers before components consume them
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const zIndexPrimitives = primitiveTokens("z-index", {
@@ -83,5 +82,4 @@ export const zIndexPrimitives = primitiveTokens("z-index", {
       "Maximum reserved stacking level for exceptional escape-hatch cases.",
     $value: 9999,
   },
-
 })

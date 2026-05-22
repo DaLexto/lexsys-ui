@@ -43,5 +43,4 @@ export type {
   TokenType,
   TokenTree,
   TokenGroupBase,
-  ThemeDefinitionStructured,
 } from "./types"

@@ -20,7 +20,6 @@
  * - Breakpoint tokens use the DTCG `dimension` type
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const breakpointPrimitives = primitiveTokens("breakpoint", {
@@ -57,5 +56,4 @@ export const breakpointPrimitives = primitiveTokens("breakpoint", {
       "Double-extra-large viewport breakpoint, equivalent to 1536px at a 16px root font size.",
     $value: { value: 96, unit: "rem" },
   },
-
 })

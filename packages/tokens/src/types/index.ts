@@ -25,8 +25,6 @@ export type {
 /* Source groups */
 export type {
   ComponentTokenGroupMeta,
-  LegacyNamedTokenGroup,
-  LegacyComponentTokenGroup,
   NamedTokenGroupMeta,
   ComponentTokenGroup,
   PrimitiveTokenGroup,
@@ -41,7 +39,6 @@ export {
   getTokenTreeFromSourceGroup,
   getNamedGroupNamespace,
   getComponentGroupNamespace,
-  hasStructuredTokenPayload,
 } from "./source-group.utils"
 
 export type { ThemeConfig } from "./theme.types"
@@ -52,8 +49,6 @@ export type {
   PresetDefinition,
   PresetId,
   ThemeDefinition,
-  ThemeDefinitionStructured,
-  LegacyThemeDefinition,
   ThemeModeId,
   ThemeTokenMap,
 } from "./theme.types"

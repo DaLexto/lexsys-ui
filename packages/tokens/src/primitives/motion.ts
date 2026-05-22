@@ -21,7 +21,6 @@
  * - Easing tokens use the DTCG `cubicBezier` type
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const motionPrimitives = primitiveTokens("motion", {
@@ -50,5 +49,4 @@ export const motionPrimitives = primitiveTokens("motion", {
     exit: { $value: "cubic-bezier(0.4, 0, 1, 1)" },
     emphasized: { $value: "cubic-bezier(0.2, 0, 0, 1)" },
   },
-
 })

@@ -11,5 +11,4 @@ export const toggleGroupComponentTokens = componentTokens("toggle-group", {
     md: { $value: "{spacing.control.gap.sm}" },
     lg: { $value: "{spacing.control.gap.md}" },
   },
-
 })

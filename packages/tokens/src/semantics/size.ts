@@ -106,5 +106,4 @@ export const sizeSemantics = semanticTokens("size", {
     md: { $value: "{size.5}" },
     lg: { $value: "{size.6}" },
   },
-
 })

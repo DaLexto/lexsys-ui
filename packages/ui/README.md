@@ -33,39 +33,39 @@ independent implementations.
 
 ## Components (31)
 
-| Component | Category |
-|---|---|
-| `Accordion` | surfaces |
-| `Alert` | feedback |
-| `AlertDialog` | overlays |
-| `Avatar` | data-display |
-| `Badge` | data-display |
-| `Button` | actions |
-| `Card` | surfaces |
-| `Checkbox` | forms |
-| `Collapsible` | surfaces |
-| `Dialog` | overlays |
-| `Drawer` | overlays |
-| `Field` | forms |
-| `Fieldset` | forms |
-| `Form` | forms |
-| `Input` | forms |
-| `Menu` | navigation |
-| `Meter` | feedback |
-| `NumberField` | forms |
-| `Popover` | overlays |
-| `Progress` | feedback |
-| `RadioGroup` | forms |
-| `Select` | forms |
-| `Separator` | layout |
-| `Slider` | forms |
-| `Switch` | forms |
-| `Tabs` | navigation |
-| `Textarea` | forms |
-| `Toast` | feedback |
-| `Toggle` | actions |
-| `ToggleGroup` | actions |
-| `Tooltip` | overlays |
+| Component     | Category     |
+| ------------- | ------------ |
+| `Accordion`   | surfaces     |
+| `Alert`       | feedback     |
+| `AlertDialog` | overlays     |
+| `Avatar`      | data-display |
+| `Badge`       | data-display |
+| `Button`      | actions      |
+| `Card`        | surfaces     |
+| `Checkbox`    | forms        |
+| `Collapsible` | surfaces     |
+| `Dialog`      | overlays     |
+| `Drawer`      | overlays     |
+| `Field`       | forms        |
+| `Fieldset`    | forms        |
+| `Form`        | forms        |
+| `Input`       | forms        |
+| `Menu`        | navigation   |
+| `Meter`       | feedback     |
+| `NumberField` | forms        |
+| `Popover`     | overlays     |
+| `Progress`    | feedback     |
+| `RadioGroup`  | forms        |
+| `Select`      | forms        |
+| `Separator`   | layout       |
+| `Slider`      | forms        |
+| `Switch`      | forms        |
+| `Tabs`        | navigation   |
+| `Textarea`    | forms        |
+| `Toast`       | feedback     |
+| `Toggle`      | actions      |
+| `ToggleGroup` | actions      |
+| `Tooltip`     | overlays     |
 
 ---
 
@@ -96,11 +96,11 @@ Do not import directly from `@neurex/ui/src/` or `@neurex/ui/dist/`.
 
 ## Key Dependencies
 
-| Package | Role |
-|---|---|
-| `@base-ui/react` | Headless primitive components (internal only) |
+| Package                    | Role                                            |
+| -------------------------- | ----------------------------------------------- |
+| `@base-ui/react`           | Headless primitive components (internal only)   |
 | `class-variance-authority` | CVA variant composition in `.variants.ts` files |
-| `clsx` + `tailwind-merge` | Class merge utility (`cn`) |
+| `clsx` + `tailwind-merge`  | Class merge utility (`cn`)                      |
 
 Base UI is an internal implementation detail. Do not expose Base UI types or
 components through the public API unless they are part of the intended prop

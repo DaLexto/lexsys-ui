@@ -39,5 +39,4 @@ export const tabsComponentTokens = componentTokens("tabs", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

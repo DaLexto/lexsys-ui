@@ -58,5 +58,4 @@ export const textareaComponentTokens = componentTokens("textarea", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

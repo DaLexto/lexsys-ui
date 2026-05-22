@@ -43,5 +43,4 @@ export const accordionComponentTokens = componentTokens("accordion", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

@@ -49,6 +49,8 @@ const main = (): void => {
 try {
   main()
 } catch (error) {
-  console.error(`Failed to create token governance report: ${formatErrorMessage(error)}`)
+  console.error(
+    `Failed to create token governance report: ${formatErrorMessage(error)}`,
+  )
   process.exit(1)
 }

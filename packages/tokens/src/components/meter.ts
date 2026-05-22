@@ -39,5 +39,4 @@ export const meterComponentTokens = componentTokens("meter", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-
 })

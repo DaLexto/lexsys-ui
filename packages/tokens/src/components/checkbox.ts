@@ -42,5 +42,4 @@ export const checkboxComponentTokens = componentTokens("checkbox", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

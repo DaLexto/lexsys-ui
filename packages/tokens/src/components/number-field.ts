@@ -87,5 +87,4 @@ export const numberFieldComponentTokens = componentTokens("number-field", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

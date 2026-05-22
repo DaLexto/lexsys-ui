@@ -38,9 +38,7 @@ const readDeprecated = (
   return node.$deprecated
 }
 
-const readDescription = (
-  node: TokenLeaf | TokenBranch,
-): string | undefined => {
+const readDescription = (node: TokenLeaf | TokenBranch): string | undefined => {
   const description = node.$description
 
   return typeof description === "string" ? description : undefined
@@ -170,7 +168,6 @@ export const pathMatchesDeprecatedTarget = (
   deprecatedPath: string,
 ): boolean => {
   return (
-    targetPath === deprecatedPath ||
-    targetPath.startsWith(`${deprecatedPath}.`)
+    targetPath === deprecatedPath || targetPath.startsWith(`${deprecatedPath}.`)
   )
 }
