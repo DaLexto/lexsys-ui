@@ -5,6 +5,7 @@
  * @description Token engine boundary: resolver, validator, and governance domains.
  */
 
+// Resolver + graph
 export {
   resolveReference,
   resolveTokenTree,
@@ -19,10 +20,16 @@ export {
   findTransitiveDependents,
   referenceDependsOnTarget,
   stripDeadPrimitivesFromTree,
+  resolveLeafValue,
+  resolveLeafValues,
+  resolveLeafValueForTheme,
+  isResolvedColorValue,
+  toContrastReadyColor,
 } from "./resolver"
 
 export type {
   ResolveReferenceResult,
+  ResolveReferenceChainResult,
   ResolveTreeResult,
   ResolverError,
   ResolverErrorCode,
@@ -36,6 +43,22 @@ export type {
   TokenGraphThemeInput,
 } from "./resolver"
 
+// Shared tree utilities
+export {
+  collectReferenceUsages,
+  createThemedTokenTree,
+  mergeTokenTrees,
+  walkTokenTree,
+} from "./shared"
+
+export type {
+  ThemedTokenTreeOverlay,
+  ThemedTokenTreeSource,
+  TokenReferenceUsage,
+  WalkTokenTreeOptions,
+} from "./shared"
+
+// Composite
 export {
   collectCompositeAtomicPaths,
   getCompositeBranchInfo,
@@ -55,6 +78,15 @@ export type {
   CompositeTypeDefinition,
 } from "./composite"
 
+export type {
+  ResolvedLeafValue,
+  ResolveLeafResult,
+  ResolveLeafValuesResult,
+  ResolveValuesOptions,
+  ContrastReadyColor,
+} from "./resolver/values"
+
+// Validator
 export {
   validateTokenLayerContracts,
   validateTokenLayerContractsStrict,
@@ -68,6 +100,7 @@ export type {
   LayerViolationCode,
 } from "./validator"
 
+// Governance
 export {
   createTokenGovernanceReport,
   formatTokenGovernanceReport,

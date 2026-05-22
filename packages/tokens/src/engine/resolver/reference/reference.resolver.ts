@@ -12,48 +12,24 @@ import type {
   ResolverOptions,
   ResolverWarning,
 } from "./reference.types"
+import { resolveReferenceChain } from "./reference-chain"
+import { resolveLeafValue } from "../values/values.resolver"
 import {
   createResolverError,
-  createResolverWarning,
   DEFAULT_RESOLVER_OPTIONS,
-  getNodeByPath,
   isReferenceString,
   isTokenLeaf,
   isTokenMetadataKey,
   isTokenTree,
-  parseReference,
   toPathString,
 } from "../shared/shared.resolver.utils"
 import type { TokenLeaf, TokenNode, TokenTree, TokenValue } from "../../../types"
-
-const mergeOptions = (
-  options: ResolverOptions = {},
-): Required<ResolverOptions> => {
-  return {
-    strict: options.strict ?? DEFAULT_RESOLVER_OPTIONS.strict ?? true,
-    maxDepth: options.maxDepth ?? DEFAULT_RESOLVER_OPTIONS.maxDepth ?? 50,
-  }
-}
 
 const cloneLeafWithValue = (leaf: TokenLeaf, value: TokenValue): TokenLeaf => {
   return {
     ...leaf,
     $value: value,
   }
-}
-
-const getDefaultLeafFromBranch = (node: TokenNode): TokenLeaf | undefined => {
-  if (!isTokenTree(node)) {
-    return undefined
-  }
-
-  const defaultNode = node.DEFAULT
-
-  if (!isTokenLeaf(defaultNode)) {
-    return undefined
-  }
-
-  return defaultNode
 }
 
 export const resolveReference = (
@@ -63,139 +39,18 @@ export const resolveReference = (
   sourcePath = "",
   chain: string[] = [],
 ): ResolveReferenceResult => {
-  const originalReference = reference
-  const resolvedOptions = mergeOptions(options)
-  const warnings: ResolverWarning[] = []
-  const errors: ResolverError[] = []
-
-  if (!isReferenceString(reference)) {
-    errors.push(
-      createResolverError(
-        "INVALID_REFERENCE_FORMAT",
-        `Invalid token reference format: "${originalReference}"`,
-        sourcePath,
-        originalReference,
-        chain,
-      ),
-    )
-
-    return {
-      value: originalReference,
-      errors,
-      warnings,
-    }
-  }
-
-  const targetPath = parseReference(reference)
-
-  if (chain.includes(targetPath)) {
-    errors.push(
-      createResolverError(
-        "CIRCULAR_REFERENCE",
-        `Circular token reference detected: ${[...chain, targetPath].join(" -> ")}`,
-        sourcePath,
-        reference,
-        [...chain, targetPath],
-        targetPath,
-      ),
-    )
-
-    return {
-      value: reference,
-      errors,
-      warnings,
-    }
-  }
-
-  if (chain.length >= resolvedOptions.maxDepth) {
-    errors.push(
-      createResolverError(
-        "MAX_DEPTH_EXCEEDED",
-        `Maximum token reference depth exceeded while resolving "${reference}"`,
-        sourcePath,
-        reference,
-        chain,
-        targetPath,
-      ),
-    )
-
-    return {
-      value: reference,
-      errors,
-      warnings,
-    }
-  }
-
-  const targetNode = getNodeByPath(root, targetPath)
-
-  if (targetNode === undefined) {
-    if (resolvedOptions.strict) {
-      errors.push(
-        createResolverError(
-          "MISSING_REFERENCE",
-          `Missing token reference target: "${targetPath}"`,
-          sourcePath,
-          reference,
-          chain,
-          targetPath,
-        ),
-      )
-    } else {
-      warnings.push(createResolverWarning(sourcePath, reference))
-    }
-
-    return {
-      value: reference,
-      errors,
-      warnings,
-    }
-  }
-
-  const targetLeaf = isTokenLeaf(targetNode)
-    ? targetNode
-    : getDefaultLeafFromBranch(targetNode)
-
-  if (targetLeaf === undefined) {
-    errors.push(
-      createResolverError(
-        "REFERENCE_POINTS_TO_BRANCH",
-        `Token reference "${reference}" points to a branch without a DEFAULT token leaf.`,
-        sourcePath,
-        reference,
-        chain,
-        targetPath,
-      ),
-    )
-
-    return {
-      value: reference,
-      errors,
-      warnings,
-    }
-  }
-
-  const targetValue = targetLeaf.$value
-
-  if (!isReferenceString(targetValue)) {
-    return {
-      value: targetValue,
-      errors,
-      warnings,
-    }
-  }
-
-  const nestedResult = resolveReference(
+  const result = resolveReferenceChain(
     root,
-    targetValue,
-    resolvedOptions,
-    targetPath,
-    [...chain, targetPath],
+    reference,
+    options,
+    sourcePath,
+    chain,
   )
 
   return {
-    value: nestedResult.value,
-    errors: [...errors, ...nestedResult.errors],
-    warnings: [...warnings, ...nestedResult.warnings],
+    value: result.value,
+    errors: result.errors,
+    warnings: result.warnings,
   }
 }
 
@@ -223,12 +78,15 @@ const resolveNode = (
       }
     }
 
-    const result = resolveReference(root, node.$value, options, sourcePath)
+    const leafResult = resolveLeafValue(root, sourcePath, options)
 
     return {
-      node: cloneLeafWithValue(node, result.value),
-      errors: result.errors,
-      warnings: result.warnings,
+      node: cloneLeafWithValue(
+        node,
+        leafResult.resolved?.value ?? node.$value,
+      ),
+      errors: leafResult.errors,
+      warnings: leafResult.warnings,
     }
   }
 
@@ -283,6 +141,15 @@ const resolveNode = (
     node,
     errors,
     warnings,
+  }
+}
+
+const mergeOptions = (
+  options: ResolverOptions = {},
+): Required<ResolverOptions> => {
+  return {
+    strict: options.strict ?? DEFAULT_RESOLVER_OPTIONS.strict ?? true,
+    maxDepth: options.maxDepth ?? DEFAULT_RESOLVER_OPTIONS.maxDepth ?? 50,
   }
 }
 

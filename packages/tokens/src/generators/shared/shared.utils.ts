@@ -24,16 +24,12 @@ import type {
 } from "../../types"
 
 import type { FlattenedTokenEntry } from "./shared.types"
+import { AUTHORING_GROUP_METADATA_KEYS } from "../../engine/shared/metadata-keys"
 
 /**
  * Default metadata keys ignored when traversing token groups.
  */
-export const DEFAULT_GENERATOR_METADATA_KEYS = new Set([
-  "name",
-  "component",
-  "selector",
-  "colorScheme",
-])
+export const DEFAULT_GENERATOR_METADATA_KEYS = AUTHORING_GROUP_METADATA_KEYS
 
 const ROOT_TOKEN_KEYS = new Set(["DEFAULT", "$root"])
 

@@ -6,18 +6,37 @@ import {
   resolveTokenTreeStrict,
 } from "../src/engine/resolver"
 
-import type { TokenLeaf, TokenScalarValue, TokenTree } from "../src/types"
+import type { TokenLeaf, TokenTree, TokenValue } from "../src/types"
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
   return typeof value === "object" && value !== null && !Array.isArray(value)
 }
 
-const isTokenPrimitive = (value: unknown): value is TokenScalarValue => {
-  return typeof value === "string" || typeof value === "number"
+const isTokenValue = (value: unknown): value is TokenValue => {
+  if (typeof value === "string" || typeof value === "number") {
+    return true
+  }
+
+  if (!isRecord(value)) {
+    return false
+  }
+
+  if (
+    typeof value.value === "number" &&
+    typeof value.unit === "string"
+  ) {
+    return true
+  }
+
+  return (
+    typeof value.colorSpace === "string" &&
+    Array.isArray(value.components) &&
+    value.components.every((component) => typeof component === "number")
+  )
 }
 
 const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  return isRecord(value) && "$value" in value && isTokenPrimitive(value.$value)
+  return isRecord(value) && "$value" in value && isTokenValue(value.$value)
 }
 
 const getTokenLeaf = (tree: TokenTree, path: string[]): TokenLeaf => {
@@ -143,6 +162,30 @@ describe("resolveTokenTreeStrict", () => {
     expect(() => {
       resolveTokenTreeStrict(tokens)
     }).toThrow(/Missing token reference target/)
+  })
+
+  it("resolves structured OKLCH objects through nested references", () => {
+    const blue600 = {
+      colorSpace: "oklch" as const,
+      components: [0.546, 0.245, 262.881],
+    }
+    const tokens: TokenTree = {
+      color: {
+        blue: {
+          600: { $value: blue600 },
+        },
+        accent: { $value: "{color.blue.600}" },
+      },
+      button: {
+        background: { $value: "{color.accent}" },
+      },
+    }
+
+    const resolved = resolveTokenTreeStrict(tokens)
+
+    expect(getTokenLeaf(resolved, ["button", "background"]).$value).toEqual(
+      blue600,
+    )
   })
 })
 

@@ -167,6 +167,28 @@ The resolver enforces a maximum chain depth of **50 hops** before reporting a
 `MAX_DEPTH_EXCEEDED` error. This catches runaway chains before circular
 detection would trigger.
 
+### Resolved value pipeline (Phase 9)
+
+Build-time validation uses `resolveTokenTree` inside `validateStyleTokenInput` to
+inline alias chains across the full merged tree before CSS/DTCG generation.
+
+For on-demand lookups (governance, contrast prep, tooling), use the values API in
+`packages/tokens/src/engine/resolver/values/`:
+
+| Export | Purpose |
+| ------ | ------- |
+| `resolveLeafValue(tree, path, options?)` | Resolve one leaf `$value` through its alias chain |
+| `resolveLeafValues(tree, paths?, options?)` | Batch resolve; defaults to all leaf paths |
+| `resolveLeafValueForTheme(input, theme, path, options?)` | Resolve after `foundationTokens` + `theme.tokens` + `componentTokens` merge |
+| `isResolvedColorValue` / `toContrastReadyColor` | Phase 10 contrast prep stubs for structured OKLCH objects |
+
+`resolveLeafValue` returns `{ resolved, errors, warnings }` where `resolved` includes
+the terminal `TokenValue`, dotted `path`, and `referenceChain` (alias hops visited).
+This API does **not** mutate source trees or change default CSS/DTCG output.
+
+Tree merge helpers (`mergeTokenTrees`, `createThemedTokenTree`) live in
+`packages/tokens/src/engine/shared/tree.utils.ts`.
+
 ---
 
 ## Resolver Error Codes
@@ -278,7 +300,7 @@ but do not change CSS or DTCG output unless dead-primitive stripping is explicit
 `node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
 primitive leaves from CSS/DTCG after full-graph validation. Default is off.
 
-**Planned (not build-failing):** Phase 9 resolved value pipeline, Phase 10 accessibility contrast guard. Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+**Planned (not build-failing):** Phase 10 accessibility contrast guard. Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
 
@@ -309,9 +331,10 @@ Key named exports from `.`:
 | `createSemanticAuditReport`                    | Build semantic organization audit issues            |
 | `formatSemanticAuditReport`                    | Format a semantic audit report for CLI output       |
 
-Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`,
-`collectCompositeAtomicPaths`, `normalizeCompositeBranches`, and related types)
-live under `packages/tokens/src/engine/`.
+Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`, `resolveLeafValue`,
+`resolveLeafValues`, `resolveLeafValueForTheme`, `collectCompositeAtomicPaths`,
+`normalizeCompositeBranches`, and related types) live under
+`packages/tokens/src/engine/`.
 They are used internally by the build pipeline and tests but are not exported
 from the package root entrypoint.
 

@@ -19,19 +19,14 @@ import type {
   TokenValue,
 } from "../../../types"
 
+export { isTokenMetadataKey } from "../../shared/metadata-keys"
+
 export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
   strict: true,
   maxDepth: 50,
 }
 
 export const STRICT_REFERENCE_PATTERN = /^\{([^{}]+)\}$/
-
-const TOKEN_METADATA_KEYS = new Set([
-  "$description",
-  "$deprecated",
-  "$extensions",
-  "$type",
-])
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
   return typeof value === "object" && value !== null && !Array.isArray(value)
@@ -106,6 +101,22 @@ export const parseReference = (reference: string): string => {
   return parsedPath.trim()
 }
 
+export const getDefaultLeafFromBranch = (
+  node: TokenNode,
+): TokenLeaf | undefined => {
+  if (!isTokenTree(node)) {
+    return undefined
+  }
+
+  const defaultNode = node.DEFAULT
+
+  if (!isTokenLeaf(defaultNode)) {
+    return undefined
+  }
+
+  return defaultNode
+}
+
 export const getNodeByPath = (
   root: TokenTree,
   path: string,
@@ -163,8 +174,4 @@ export const createResolverWarning = (
     sourcePath,
     reference,
   }
-}
-
-export const isTokenMetadataKey = (key: string): boolean => {
-  return TOKEN_METADATA_KEYS.has(key)
 }

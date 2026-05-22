@@ -42,6 +42,11 @@ export interface ResolveReferenceResult {
   warnings: ResolverWarning[]
 }
 
+export interface ResolveReferenceChainResult extends ResolveReferenceResult {
+  /** Dotted paths visited while following alias chains, in resolution order. */
+  referenceChain: string[]
+}
+
 export interface ResolveTreeResult {
   tree: TokenTree
   errors: ResolverError[]

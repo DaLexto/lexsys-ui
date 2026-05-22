@@ -78,7 +78,7 @@ src/
       reference/
       graph/
       shared/
-      values/         # Phase 9 resolved-value stub
+      values/         # resolved leaf value pipeline (Phase 9)
     composite/        # composite type registry and slot schemas
     validator/        # build-failing layer contracts
       layers/
@@ -189,6 +189,23 @@ Expected rules:
 ## Validation, Resolver, and Generator Rules
 
 Current build-failing validation, target violations, resolver error codes, and generator behavior are documented in [docs/TOKENS.md](../../docs/TOKENS.md) and [docs/DESIGN_SYSTEM.md](../../docs/DESIGN_SYSTEM.md).
+
+### Resolved value pipeline (`engine/resolver/values/`)
+
+On-demand leaf resolution for governance, contrast prep, and tooling — **does not**
+change default CSS/DTCG output (generators still preserve references).
+
+| Export | Purpose |
+| ------ | ------- |
+| `resolveLeafValue(tree, path, options?)` | Resolve one leaf through alias chains |
+| `resolveLeafValues(tree, paths?, options?)` | Batch resolve all or selected leaf paths |
+| `resolveLeafValueForTheme(input, theme, path, options?)` | Themed merge then resolve |
+| `isResolvedColorValue` / `toContrastReadyColor` | Phase 10 contrast prep stubs |
+
+Build-time validation continues to use `resolveTokenTree` via `validateStyleTokenInput`.
+Leaf resolution in `resolveTokenTree` delegates to `resolveLeafValue` for a single code path.
+
+Import from `packages/tokens/src/engine/` (or `./engine` within the package). Not exported from the package root `.` entrypoint.
 
 ---
 

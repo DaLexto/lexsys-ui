@@ -2,7 +2,7 @@
 
 **Audience:** Maintainers
 **Type:** Vision / implementation plan
-**Status:** Phases 1–8 shipped; Phases 9–10 planned; speculative items deferred
+**Status:** Phases 1–9 shipped; Phase 10 planned; speculative items deferred
 **Source of truth for:** Resolver and governance evolution sequencing after the initial platform pass
 **Verified against:** `packages/tokens/src/engine/`, `packages/tokens/src/generators/`
 
@@ -24,8 +24,8 @@ Neurex token validation and analysis split across three cooperating areas:
 | Generator pipeline | `packages/tokens/src/generators/` | CSS/DTCG output; calls validation before generation |
 | CLI entrypoints | `packages/tokens/scripts/` | Build output write, governance report, dev hygiene |
 
-Phases 1–8 (factory authoring, layer validation, governance reports, semantic organization, governance hardening, composite token expansion) are complete.
-Remaining work is sequenced below as Phases 9–10 plus explicitly deferred speculative capabilities.
+Phases 1–9 (factory authoring, layer validation, governance reports, semantic organization, governance hardening, composite token expansion, resolved value pipeline) are complete.
+Remaining work is sequenced below as Phase 10 plus explicitly deferred speculative capabilities.
 
 ```mermaid
 flowchart TB
@@ -36,9 +36,6 @@ flowchart TB
     govReports[Governance + semantic audit reports]
     deadStrip[Optional dead-primitive stripping]
     composite[Composite token expansion]
-  end
-
-  subgraph phase9 [Phase 9 Resolved values]
     resolvedPipeline[Resolved leaf value pipeline]
   end
 
@@ -51,9 +48,9 @@ flowchart TB
     colorMath[Color math + unit arithmetic]
   end
 
-  shipped --> phase9
-  phase9 --> phase10
-  phase9 --> speculative
+  shipped --> phase10
+  resolvedPipeline --> phase10
+  resolvedPipeline --> speculative
 ```
 
 ---
@@ -163,9 +160,9 @@ Default is **on** (no opt-in flag). CSS/Tailwind output is unchanged; DTCG gains
 | ----- | ---- | ---- | ---------- | ------------ |
 | 7 | Governance hardening | Shipped | Shipped baseline | `engine/resolver/graph/`, `engine/governance/report/`, `scripts/write-style-outputs.ts` |
 | 8 | Composite expansion | Shipped | Shipped baseline | `engine/composite/`, `generators/outputs/dtcg/` |
-| 9 | Resolved value pipeline | New resolver capability | Phases 7–8 (design) | `packages/tokens/src/engine/resolver/values/` |
+| 9 | Resolved value pipeline | Shipped | Phases 7–8 | `packages/tokens/src/engine/resolver/values/` |
 | 10 | Accessibility guard | Extends validation | Phase 9 | `packages/tokens/src/engine/validator/contrast/` |
-| — | Speculative (AST + math) | New subsystem | Phase 9 design | Not scheduled |
+| — | Speculative (AST + math) | New subsystem | Phase 9 shipped design | Not scheduled |
 
 ---
 
@@ -194,24 +191,32 @@ Components keep slot references such as `{typography.control.md.fontSize}`. Comp
 
 ## Phase 9: Resolved Value Pipeline
 
-**Status:** Planned
-**Type:** New resolver capability adjacent to `packages/tokens/src/engine/resolver/reference/`
+**Status:** Shipped
+**Entry points:** `packages/tokens/src/engine/resolver/values/`, `packages/tokens/src/engine/shared/tree.utils.ts`
 
-### Target behavior
+### Shipped behavior
 
-- Produce fully resolved scalar and object leaf values after reference chain resolution
-- Support DTCG object values already authored in primitives (for example OKLCH color objects in `primitives/color.ts`)
-- Remain output-agnostic — no CSS variable naming or Tailwind mapping in the resolver
+- On-demand resolved leaf values via `resolveLeafValue`, `resolveLeafValues`, and `resolveLeafValueForTheme`
+- Alias chain resolution reuses `resolveReferenceChain` — the same core logic as build-time `resolveTokenTree`
+- Terminal values include structured OKLCH objects and `TokenUnitValue` shapes already authored in source
+- Composite typography slot paths (for example `typography.control.md.fontSize`) resolve to atomic terminal values
+- Theme-aware lookup merges `foundationTokens` + `theme.tokens` + `componentTokens` before resolving
+- Phase 10 prep: `isResolvedColorValue` and `toContrastReadyColor` stubs in `values.normalize.ts`
 
-### Prerequisites
+### Distinction from build-time resolution
 
-- Phase 7 governance hardening (stable graph analysis patterns)
-- Phase 8 composite expansion design (know which leaves are atomic vs composite)
+| API | Purpose | Output |
+| --- | ------- | ------ |
+| `resolveTokenTree` / `validateStyleTokenInput` | Build-time validation; full-tree clone with inlined `$value` | Used before CSS/DTCG generation |
+| `resolveLeafValue` / `resolveLeafValues` | On-demand lookup for governance, contrast, and tooling | Single leaf or batch; preserves refs in source trees |
 
-### Unblocks
+Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references; DTCG preserves alias strings.
 
-- Phase 10 contrast validation
-- Future speculative color math (if ever adopted)
+### Non-goals (still deferred)
+
+- Replacing CSS/DTCG reference preservation with hardcoded literals
+- WCAG contrast checks (Phase 10)
+- CSS color string parsing in `toContrastReadyColor` (Phase 10)
 
 ---
 
@@ -237,7 +242,7 @@ Components keep slot references such as `{typography.control.md.fontSize}`. Comp
 
 **Status:** Not scheduled — no phase number, no near-term commitment
 
-These capabilities require a formal expression evaluator. The current string-match reference resolver cannot evolve incrementally into them. **Do not implement until Phase 9 resolved-value design is settled.**
+These capabilities require a formal expression evaluator. The current string-match reference resolver cannot evolve incrementally into them. **Do not implement until contrast and governance consumers are stable on the Phase 9 values API.**
 
 ### AST evaluator subsystem
 

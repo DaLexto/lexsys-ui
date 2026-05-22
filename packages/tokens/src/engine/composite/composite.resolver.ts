@@ -6,9 +6,9 @@
  */
 
 import type { CompositeTokenType, TokenTree } from "../../types"
+import { shouldSkipTokenTreeKey } from "../shared/metadata-keys"
 import {
   isTokenLeaf,
-  isTokenMetadataKey,
   isTokenTree,
   toPathString,
 } from "../resolver/shared/shared.resolver.utils"
@@ -25,18 +25,11 @@ import type {
   CompositeBranchInfo,
 } from "./composite.types"
 
-const AUTHORING_METADATA_KEYS = new Set([
-  "name",
-  "component",
-  "selector",
-  "colorScheme",
-])
-
 const getNonMetadataChildEntries = (
   branch: TokenTree,
 ): Array<[string, unknown]> => {
   return Object.entries(branch).filter(([key]) => {
-    return !isTokenMetadataKey(key) && !AUTHORING_METADATA_KEYS.has(key)
+    return !shouldSkipTokenTreeKey(key, { includeAuthoringKeys: true })
   })
 }
 

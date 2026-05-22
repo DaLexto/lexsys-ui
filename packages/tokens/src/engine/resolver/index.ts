@@ -12,8 +12,11 @@ export {
   resolveTokenTreeSafe,
 } from "./reference/reference.resolver"
 
+export { resolveReferenceChain } from "./reference/reference-chain"
+
 export type {
   ResolveReferenceResult,
+  ResolveReferenceChainResult,
   ResolveTreeResult,
   ResolverError,
   ResolverErrorCode,
@@ -41,3 +44,20 @@ export type {
   TokenGraphReference,
   TokenGraphThemeInput,
 } from "./graph/graph.types"
+
+// Values pipeline (Phase 9)
+export {
+  resolveLeafValue,
+  resolveLeafValues,
+  resolveLeafValueForTheme,
+  isResolvedColorValue,
+  toContrastReadyColor,
+} from "./values"
+
+export type {
+  ResolvedLeafValue,
+  ResolveLeafResult,
+  ResolveLeafValuesResult,
+  ResolveValuesOptions,
+  ContrastReadyColor,
+} from "./values"

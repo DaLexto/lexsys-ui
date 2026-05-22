@@ -7,6 +7,11 @@
 
 import type { TokenBranch, TokenLeaf, TokenTree } from "../../../types"
 import {
+  collectLeafPaths,
+  collectReferenceUsages,
+  walkTokenTree,
+} from "../../shared/tree.utils"
+import {
   getNodeByPath,
   isReferenceString,
   isTokenLeaf,
@@ -23,6 +28,8 @@ import type {
   TokenGraphReference,
 } from "./graph.types"
 
+export { collectLeafPaths } from "../../shared/tree.utils"
+
 const readDeprecated = (
   node: TokenLeaf | TokenBranch,
 ): boolean | string | undefined => {
@@ -35,33 +42,6 @@ const readDescription = (node: TokenLeaf | TokenBranch): string | undefined => {
   return typeof description === "string" ? description : undefined
 }
 
-export const collectLeafPaths = (
-  tree: TokenTree,
-  path: string[] = [],
-  paths: Set<string> = new Set(),
-): Set<string> => {
-  if (isTokenLeaf(tree)) {
-    paths.add(toPathString(path))
-    return paths
-  }
-
-  if (!isTokenTree(tree)) {
-    return paths
-  }
-
-  for (const [key, value] of Object.entries(tree)) {
-    if (isTokenMetadataKey(key)) {
-      continue
-    }
-
-    if (isTokenLeaf(value) || isTokenTree(value)) {
-      collectLeafPaths(value as TokenTree, [...path, key], paths)
-    }
-  }
-
-  return paths
-}
-
 export const collectTokenGraphReferences = (
   tree: TokenTree,
   layer: TokenGraphLayer,
@@ -69,38 +49,14 @@ export const collectTokenGraphReferences = (
   path: string[] = [],
   references: TokenGraphReference[] = [],
 ): TokenGraphReference[] => {
-  if (isTokenLeaf(tree)) {
-    if (isReferenceString(tree.$value)) {
-      references.push({
-        layer,
-        sourcePath: toPathString(path),
-        reference: tree.$value,
-        targetPath: parseReference(tree.$value),
-        themeName,
-      })
-    }
-
-    return references
-  }
-
-  if (!isTokenTree(tree)) {
-    return references
-  }
-
-  for (const [key, value] of Object.entries(tree)) {
-    if (isTokenMetadataKey(key)) {
-      continue
-    }
-
-    if (isTokenLeaf(value) || isTokenTree(value)) {
-      collectTokenGraphReferences(
-        value as TokenTree,
-        layer,
-        themeName,
-        [...path, key],
-        references,
-      )
-    }
+  for (const usage of collectReferenceUsages(tree, path)) {
+    references.push({
+      layer,
+      sourcePath: usage.sourcePath,
+      reference: usage.reference,
+      targetPath: usage.targetPath,
+      themeName,
+    })
   }
 
   return references
@@ -113,43 +69,29 @@ export const collectTokenGraphMetadata = (
   path: string[] = [],
   metadata: TokenGraphMetadata[] = [],
 ): TokenGraphMetadata[] => {
-  const currentPath = toPathString(path)
-  const description = readDescription(tree)
-  const deprecated = readDeprecated(tree)
+  walkTokenTree(
+    tree,
+    {
+      onNode: (node, nodePath) => {
+        const currentPath = toPathString(nodePath)
+        const description = readDescription(node)
+        const deprecated = readDeprecated(node)
 
-  if (description !== undefined || deprecated !== undefined) {
-    metadata.push({
-      layer,
-      path: currentPath === "" ? layer : currentPath,
-      description,
-      deprecated,
-      themeName,
-    })
-  }
+        if (description === undefined && deprecated === undefined) {
+          return
+        }
 
-  if (isTokenLeaf(tree)) {
-    return metadata
-  }
-
-  if (!isTokenTree(tree)) {
-    return metadata
-  }
-
-  for (const [key, value] of Object.entries(tree)) {
-    if (isTokenMetadataKey(key)) {
-      continue
-    }
-
-    if (isTokenLeaf(value) || isTokenTree(value)) {
-      collectTokenGraphMetadata(
-        value as TokenTree,
-        layer,
-        themeName,
-        [...path, key],
-        metadata,
-      )
-    }
-  }
+        metadata.push({
+          layer,
+          path: currentPath === "" ? layer : currentPath,
+          description,
+          deprecated,
+          themeName,
+        })
+      },
+    },
+    path,
+  )
 
   return metadata
 }

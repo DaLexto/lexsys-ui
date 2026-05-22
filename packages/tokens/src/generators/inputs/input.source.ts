@@ -3,6 +3,7 @@ import { primitiveTokens } from "../../primitives"
 import { brandTokens as brandTokenGroups } from "../../brand"
 import { defaultPresetId, presets } from "../../presets"
 import { resolveTokenTree } from "../../engine/resolver"
+import { createThemedTokenTree, mergeTokenTrees } from "../../engine/shared"
 import { validateTokenLayerContractsStrict } from "../../engine/validator"
 import { semanticTokens as semanticTokenGroups } from "../../semantics"
 import { themes } from "../../themes"
@@ -23,7 +24,9 @@ import {
   getTokenTreeFromSourceGroup,
   type TokenSourceGroup,
 } from "../../types"
-import { isTokenBranch } from "../shared"
+
+export type { ThemedTokenTreeOverlay, ThemedTokenTreeSource } from "../../engine/shared"
+export { mergeTokenTrees } from "../../engine/shared"
 
 export interface ThemeTokenInput {
   name: ThemeModeId
@@ -51,25 +54,6 @@ export interface StyleTokenInput {
 
 export const getTokenTree = (group: TokenSourceGroup): TokenTree => {
   return getTokenTreeFromSourceGroup(group)
-}
-
-export const mergeTokenTrees = (...trees: TokenTree[]): TokenTree => {
-  const merged: TokenTree = {}
-
-  for (const tree of trees) {
-    for (const [key, value] of Object.entries(tree)) {
-      const existingValue = merged[key]
-
-      if (isTokenBranch(existingValue) && isTokenBranch(value)) {
-        merged[key] = mergeTokenTrees(existingValue, value)
-        continue
-      }
-
-      merged[key] = value
-    }
-  }
-
-  return merged
 }
 
 const createNamespacedTokenTree = (
@@ -196,16 +180,7 @@ export const createStyleTokenInput = (
   }
 }
 
-export const createThemedTokenTree = (
-  input: StyleTokenInput,
-  theme: ThemeTokenInput,
-): TokenTree => {
-  return mergeTokenTrees(
-    input.foundationTokens,
-    theme.tokens,
-    input.componentTokens,
-  )
-}
+export { createThemedTokenTree } from "../../engine/shared"
 
 const validateTokenTreeReferences = (label: string, tree: TokenTree): void => {
   const result = resolveTokenTree(tree, {
