@@ -6,9 +6,9 @@ export const neurexBrand = brandTokens("brand", {
   color: {
     $type: "color",
     primary: {
-      base: { $value: "{color.orange.500}" },
-      hover: { $value: "{color.orange.600}" },
-      active: { $value: "{color.orange.700}" },
+      base: { $value: "{color.orange.600}" },
+      hover: { $value: "{color.orange.700}" },
+      active: { $value: "{color.orange.800}" },
       disabled: { $value: "{color.neutral.300}" },
     },
 

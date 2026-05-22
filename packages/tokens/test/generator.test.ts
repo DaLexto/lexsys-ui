@@ -382,7 +382,7 @@ describe("createStyleOutputs", () => {
       brand: expect.objectContaining({
         color: expect.objectContaining({
           primary: expect.objectContaining({
-            base: { $value: "{color.orange.500}" },
+            base: { $value: "{color.orange.600}" },
           }),
           accent: expect.objectContaining({
             base: { $value: "{color.spaceIndigo.500}" },
@@ -539,7 +539,7 @@ describe("createStyleOutputs", () => {
       primitivesContent.indexOf('"50"'),
     )
     expect(primitives.semantics).toBeUndefined()
-    expect(brand.brand?.color?.primary?.base?.$value).toBe("{color.orange.500}")
+    expect(brand.brand?.color?.primary?.base?.$value).toBe("{color.orange.600}")
     expect(brand.primitives).toBeUndefined()
     expect(brand.semantics).toBeUndefined()
     expect(semantics.color?.background?.base?.$value).toBe("{color.white}")
@@ -633,7 +633,7 @@ describe("createStyleOutputs", () => {
     expect(css).toContain("--nx-radius-control: var(--nx-radius-md)")
     expect(css).toContain("--nx-button-radius: var(--nx-radius-control)")
     expect(css).toContain(
-      "--nx-brand-color-primary-base: var(--nx-color-orange-500)",
+      "--nx-brand-color-primary-base: var(--nx-color-orange-600)",
     )
     expect(css).not.toContain("--nx-$schema")
     expect(css).not.toContain("--nx-$extensions")
