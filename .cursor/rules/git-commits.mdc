@@ -1,0 +1,184 @@
+---
+description: Neurex conventional commits, monorepo scopes, and commit/push authorization when the user requests git commits
+globs:
+alwaysApply: false
+---
+# Neurex Git Commits
+
+Commit policy for this repository. Format follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Authoring guide: [git-commit-rules.mdc](git-commit-rules.mdc). Layout: [project-structure.mdc](project-structure.mdc).
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+Imperative mood, lowercase subject, no trailing period. Prefer ≤ 72 characters in the subject.
+
+---
+
+## Authorization
+
+| Action | Allowed when |
+|--------|----------------|
+| `git commit` | User **explicitly** requests a commit (or user rules override) |
+| `git push` | User **explicitly** requests push — do not offer push proactively |
+| `git commit --amend` | User rules allow (unpushed HEAD, hook fixed files, user said amend) |
+| `push --force`, `reset --hard`, etc. | User explicitly requests and understands impact |
+| `git config` | Never |
+
+If intent is unclear (“save this”, “finish up”), confirm whether to commit. Stage only paths for the current task unless the user approves a broader commit.
+
+---
+
+## Commit types
+
+| Type | Use for |
+|------|---------|
+| `feat` | New component, CLI behavior, token layer, registry item |
+| `fix` | Incorrect install, resolver, validation, or runtime behavior |
+| `docs` | `docs/`, [AGENTS.md](../../AGENTS.md), package READMEs — no logic change |
+| `test` | `packages/*/test/**` |
+| `refactor` | Internal restructure, same intended behavior |
+| `chore` | Tooling, deps, formatting, repo hygiene |
+| `build` | `tsup`, turbo, generated artifact wiring |
+| `ci` | CI workflows |
+| `perf` | Measurable performance win |
+| `style` | Formatting or class order only |
+
+Use `docs` for documentation-only work, not `feat`.
+
+---
+
+## Scopes in this repository
+
+pnpm workspace: `apps/*`, `packages/*` ([pnpm-workspace.yaml](../../pnpm-workspace.yaml)). Pick **one primary scope** per commit from where most lines changed (`git diff --stat`).
+
+### Package scopes
+
+| Scope | Paths |
+|-------|--------|
+| `tokens` | `packages/tokens/` |
+| `ui` | `packages/ui/` |
+| `registry` | `packages/registry/` (`src/`, `templates/`, `scripts/`) |
+| `cli` | `packages/cli/` |
+| `playground` | `apps/playground/` |
+
+### Cross-cutting scopes
+
+| Scope | Use when |
+|-------|----------|
+| `docs` | Multiple files under `docs/` or cross-package documentation |
+| `repo` | Root `package.json`, `turbo.json`, `pnpm-workspace.yaml`, workspace scripts |
+| `cursor` | `.cursor/rules/**` |
+| `agents` | [AGENTS.md](../../AGENTS.md), `.agent/` (gitignored locally) |
+
+Optional nested doc scopes when a single doc area dominates: `docs(tokens)`, `docs(cli)`, `docs(registry)`.
+
+### Avoid as scope
+
+- Component names (`button`, `dialog`) — put the name in the **description**: `feat(ui): add dialog component`
+- `tests` — use `test(<package>)` e.g. `test(cli)`
+- Vague scope on multi-package diffs — split commits or use `repo` with a body listing areas
+
+### Multi-package workflow
+
+Prefer separate commits:
+
+```txt
+feat(ui): add drawer component
+feat(registry): add drawer item and sync templates
+feat(tokens): add drawer component tokens
+```
+
+After `packages/ui` changes that affect install templates, run `pnpm registry:sync` before or note it in the `registry` commit body. After token generator changes, note `pnpm tokens:build` when registry style outputs depend on it.
+
+---
+
+## Breaking changes
+
+Mark with `!` or `BREAKING CHANGE:` footer when:
+
+- `neurex.config.json` shape or default paths change
+- Package `exports` or public entrypoints change
+- Token rules become build-failing and invalidate consumer CSS
+- Bundled registry item files or `target` paths change
+
+Example: `chore(repo)!: rename workspace package`
+
+Details: [Conventional Commits — breaking change](https://www.conventionalcommits.org/en/v1.0.0/#commit-message-with-description-and-breaking-change-footer).
+
+---
+
+## Before committing
+
+1. `git status --short` and `git diff` (and `git diff --staged` if needed)
+2. `git log -5 --oneline` for message style
+3. Exclude unrelated files, `.env`, credentials, accidental `dist/` unless intentional
+4. Match scope to [project-structure.mdc](project-structure.mdc) ownership
+5. Do not use `git add -A` unless the user wants everything
+6. No `--no-verify` unless the user explicitly requests it
+7. No interactive git (`-i`)
+
+---
+
+## Commands
+
+```bash
+git status --short
+git diff
+git diff --staged
+git log -5 --oneline
+git add -- <path>
+git restore --staged -- <path>
+git restore -- <path>
+```
+
+Commit (after authorization; HEREDOC on Unix):
+
+```bash
+git commit -m "$(cat <<'EOF'
+type(scope): short summary
+
+Optional body.
+
+EOF
+)"
+```
+
+On PowerShell, use a quoted multi-line `-m` or equivalent the shell supports.
+
+---
+
+## Examples (this repo)
+
+```txt
+feat(tokens): add brand layer to token pipeline
+fix(cli): make registry source flags deterministic
+test(registry): guard public api and template sync
+refactor(ui): route components through semantic token classes
+docs: document component token reference exception
+docs(tokens): record dtcg output paths
+chore(repo): add scoped package check scripts
+feat(playground): add overlays QA panel
+```
+
+## Avoid
+
+```txt
+Normalize line height tokens
+update: docs
+feat: add TypeScript definitions for Dialog, Drawer, Menu...
+fix(tests): formatting feat(tokens): ensure formatting
+feat(button): add button
+```
+
+---
+
+## Related
+
+- [git-commit-rules.mdc](git-commit-rules.mdc) — how this file was authored
+- [cursor-rules.mdc](cursor-rules.mdc) — rule file location
+- [AGENTS.md](../../AGENTS.md) — architectural contracts commits should respect

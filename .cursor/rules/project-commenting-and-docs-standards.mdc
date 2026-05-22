@@ -1,0 +1,47 @@
+---
+description: Project Commenting & Documentation Standards
+globs: 
+alwaysApply: false
+---
+📝 Project Commenting & Documentation Standards
+
+📄 JSDoc Comments (Required):
+- All exported functions, classes, and public methods must be documented using **JSDoc** format.
+- JSDoc should include:
+  - `@param` for each parameter (with types and descriptions)
+  - `@returns` for return values
+  - `@throws` if applicable
+  - Brief, meaningful descriptions of the purpose and behavior
+
+📁 Module & File Headers:
+- At the top of each file, include a concise summary explaining:
+  - What the file/module does
+  - Which layer it belongs to (domain, application, etc.)
+  - Any important design notes or architectural context
+
+🧱 Internal Comments:
+- Use inline comments (`//`) to explain *why* complex logic exists — not just *what* it does
+- Avoid redundant comments that just restate code (e.g., `// adds 1 to x`)
+
+📌 Continuous Documentation:
+- As the extension evolves, **keep all JSDoc comments and summaries up to date**
+- Refactor comments alongside code changes
+- Do not leave outdated or misleading docs in the project
+
+🧠 Developer-Facing Comments:
+- For debugging, coordination, or TODOs, use clearly marked tags:
+  - `// TODO:`
+  - `// NOTE:`
+  - `// FIXME:`
+
+📦 ESLint:
+- Make sure all public functions are documented to avoid linting warnings
+- Avoid disabling ESLint unless absolutely necessary
+
+🧭 AI Role:
+- Always include proper JSDoc when generating code for exported symbols
+- When writing new modules or refactoring, **ensure the documentation is accurate and updated**
+- If something’s unclear or undocumented, ask before proceeding
+
+
+

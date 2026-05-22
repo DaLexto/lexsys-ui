@@ -1,0 +1,351 @@
+---
+description: Neurex tech stack by layer (Infrastructure, UI, Tokens, CLI) with dependency versions and Tailwind v4 / TypeScript practices
+globs:
+alwaysApply: false
+---
+# Neurex Tech Stack
+
+Authoritative dependency map from root and workspace `package.json` files, plus registry-declared consumer dependencies. Do not add packages outside the correct layer.
+
+Related: `project-directory-structure.mdc`, `docs/STYLE.md`, `docs/TOKENS.md`, `AGENTS.md`.
+
+---
+
+## Version Matrix (workspace)
+
+| Package / tool | Where declared | Version (range) | Role |
+|----------------|----------------|-----------------|------|
+| **pnpm** | root `packageManager` | 10.33.0 | Workspace installs, `workspace:*` links |
+| **Node** | root `engines` | `>=24 <25` | Runtime for build, CLI, and consumers |
+| **TypeScript** | root dev / playground | `latest` → **6.0.3** resolved | Strict typing across monorepo |
+| **Turbo** | root dev | `latest` | Task orchestration (`build`, `test`, `lint`, `typecheck`) |
+| **tsup** | root dev | ^8.5.1 | ESM + DTS builds for `cli`, `registry`, `tokens`, `ui` |
+| **Vitest** | root dev | ^4.1.5 | Package tests (`vitest run`, threads pool) |
+| **ESLint** | root dev | ^10.2.1 + `typescript-eslint` ^8.59.1 | `src` + `test` per package; root `*.config.mjs` |
+| **Prettier** | root dev | ^3.8.3 + `prettier-plugin-tailwindcss` ^0.8.0 | Formatting; Tailwind class order |
+| **Tailwind CSS** | root dev / playground / CLI init | ^4.2.4 | Utility layer; v4 CSS-first config |
+| **@tailwindcss/vite** | playground / CLI `init` | ^4.2.4 | Vite integration (required for Vite path) |
+| **@tailwindcss/cli** | root dev | ^4.2.4 | CLI tooling when needed |
+| **Vite** | playground / CLI scaffold | ^8.0.10 | Dev server and consumer app bundler |
+| **@vitejs/plugin-react** | playground / CLI scaffold | ^6.0.1 | React Fast Refresh |
+| **React** | ui peer / playground | peer `>=18`; playground **19.2.5** | UI runtime |
+| **@base-ui/react** | ui + registry items | ^1.0.0-beta.3 | Headless primitives (internal to components) |
+| **class-variance-authority** | ui + registry | ^0.7.1 | Variant definitions |
+| **clsx** | ui + registry | ^2.1.1 | Conditional classes |
+| **tailwind-merge** | ui + registry | ^3.5.0 | Conflict-safe Tailwind class merge |
+| **lucide-react** | ui + subset of registry items | ^1.14.0 | Icons (overlays, menus, dialogs, etc.) |
+| **prompts** | root + cli | ^2.4.2 | Interactive CLI prompts |
+
+**Workspace packages (no npm publish yet):** `@neurex/tokens`, `@neurex/ui`, `@neurex/registry`, CLI package name `neurex`.
+
+---
+
+## Infrastructure
+
+Monorepo tooling shared at the root. Packages inherit via hoisting; only add root devDeps when **two or more** packages need the same tool.
+
+### Core
+
+- **pnpm workspaces** — `pnpm-workspace.yaml`: `apps/*`, `packages/*`
+- **Turborepo** — `turbo.json`: `build` depends on `^build`, outputs `dist/**`
+- **TypeScript** — `tsconfig.base.json`: `strict`, `moduleResolution: "Bundler"`, `target: "ES2022"`, path aliases to built `.d.ts`
+- **tsup** — per-package `tsup.config.ts`: ESM, `dts: true`, `external: ["react", "react-dom"]` for UI
+
+### Quality
+
+- **Vitest** — run from each package: `vitest run test --pool threads`
+- **ESLint** — zero warnings policy (`--max-warnings=0`)
+- **Prettier** — repo-wide; use `prettier-plugin-tailwindcss` for class lists in components
+
+### Scripts (root)
+
+Prefer scoped checks before full CI:
+
+- `pnpm tokens:check` / `ui:check` / `registry:check` / `cli:check`
+- `pnpm check` — format + lint + typecheck + test (full gate)
+
+### Rules
+
+- Do not put React, Base UI, or Tailwind in `packages/tokens` or `packages/registry` `dependencies`.
+- Build order for playground: `tokens:build` → `ui:build` → playground (tokens CSS must exist).
+- `dist/` is the only published artifact; never import another package's `src/` from outside that package.
+
+---
+
+## UI (`@neurex/ui` + consumer-installed stack)
+
+Reference components in `packages/ui`. Consumers receive **copies** from `packages/registry/templates`, not a runtime `@neurex/ui` dependency.
+
+### Direct dependencies (`packages/ui/package.json`)
+
+| Dependency | Purpose |
+|------------|---------|
+| `@neurex/tokens` | Token CSS variables and design contract |
+| `@base-ui/react` | Accessible headless behavior |
+| `class-variance-authority` | `cva()` variant maps in `*.variants.ts` |
+| `clsx` | Class list composition |
+| `tailwind-merge` | `cn()` utility (with `clsx`) |
+| `lucide-react` | Icons in reference components |
+
+### Peer dependencies
+
+- `react`, `react-dom` — `>=18` (playground uses React 19)
+
+### Registry → consumer dependencies (typical)
+
+Most interactive components declare:
+
+```txt
+@base-ui/react
+class-variance-authority
+clsx
+tailwind-merge
+```
+
+**Also `lucide-react`** on: Accordion (collapsible chevrons), AlertDialog, Collapsible, Dialog, Drawer, Menu, Popover, Select, Toast.
+
+**No `@base-ui/react`** on presentational-only items such as **Alert** and **Badge** (CVA + clsx + tailwind-merge only).
+
+### Styling stack
+
+- **Tailwind CSS v4** — user-facing utility classes in `*.variants.ts`
+- **Generated CSS variables** — `--nx-*` from `@neurex/tokens` / installed `tokens.css` + `theme.css`
+- **Semantic classes** — `nx-` prefix where defined (see `docs/STYLE.md`)
+
+### UI best practices
+
+- Keep the file split: `Component.tsx`, `Component.types.ts`, `Component.variants.ts`
+- Compose classes with shared `cn()` (installed as `src/lib/utils.ts` in consumers)
+- Use `cva()` for variants; avoid long inline class strings in JSX
+- Do not import `@neurex/ui` in consumer apps after CLI install — edit owned files under `componentsPath`
+- Preserve Base UI accessibility props and structure when wrapping primitives
+- Export public symbols in one block at the bottom of `Component.tsx`
+
+---
+
+## Tokens (`@neurex/tokens`)
+
+Zero runtime npm dependencies. Token logic is TypeScript-only; CSS is **generated**, never hand-maintained in source trees.
+
+### Outputs (`package.json` exports)
+
+| Export | Artifact |
+|--------|----------|
+| `.` | `dist/index.js` + types |
+| `./tokens.css` | Generated primitives + component token variables |
+| `./theme.css` | Generated theme/mode overrides |
+
+`sideEffects` includes both CSS entrypoints so bundlers retain them.
+
+### Build pipeline
+
+```txt
+tsup → dist/*.js
+node dist/generators/generator.write.js --package   # package CSS
+node dist/generators/generator.write.js --package --registry   # registry templates
+```
+
+### Token layer contract (enforced in docs / validation)
+
+```txt
+primitives → brand → semantics → components
+themes override semantics (not a fifth layer)
+presets = config only (no resolution)
+```
+
+### Tokens best practices
+
+- Add or change values in `packages/tokens/src/` layers, then run `pnpm tokens:build`
+- Run `pnpm registry:sync` or `generate:styles` when registry template CSS must refresh
+- Reference tokens only through the resolver chain; no component → primitive shortcuts
+- Use `pnpm imports:clean` (`tsx src/scripts/clean-imports.ts`) when maintaining imports
+- Consumers import installed `styles/tokens.css` and `styles/theme.css` — do not edit generated files
+
+---
+
+## CLI (`neurex` package)
+
+Installs registry metadata into consumer projects. Depends on **`@neurex/registry`** and **`prompts`** only.
+
+### CLI responsibilities
+
+- Read registry items (files, `dependencies`, `utilities`, `styles`, `target`)
+- Install npm deps per item metadata (no hardcoded per-component install branches)
+- Wire Tailwind v4 + Vite (supported MVP path)
+- Idempotent writes; surface conflicts; never silent overwrite
+
+### `neurex init` / `neurex init vite` installs
+
+**Dev dependencies (Tailwind + Vite path):**
+
+```txt
+tailwindcss
+@tailwindcss/vite
+```
+
+**Vite scaffold also adds:**
+
+```txt
+react, react-dom
+@types/react, @types/react-dom, @types/node
+@vitejs/plugin-react, vite, typescript, prettier
+```
+
+### Per-component installs (`neurex add`)
+
+Dependencies come from each `packages/registry/src/items/*.ts` `dependencies` array (see UI section). Shared utility **`cn`** and styles **`theme`** / token CSS are patched via installer, not duplicated in every item file.
+
+### CLI best practices
+
+- New install behavior → registry metadata first, then generic CLI handling
+- Tailwind entrypoint path comes from `neurex.config.json` → `tailwind.css` (default applied by `ensureTailwindCssImport`)
+- Use `pnpm` in docs and examples; respect consumer `packageManager` when detecting projects
+- Test changes under `packages/cli/test` (commands + core installer/tailwind)
+
+---
+
+## Tailwind CSS v4
+
+Neurex standardizes on **v4 CSS-first** setup (no `tailwind.config.js` required for the default Vite path).
+
+### Required consumer / playground setup
+
+**1. CSS entrypoint** — first line:
+
+```css
+@import "tailwindcss";
+```
+
+CLI `ensureTailwindCssImport` enforces this in `config.tailwind.css`.
+
+**2. Vite plugin** — `vite.config.ts`:
+
+```typescript
+import tailwindcss from "@tailwindcss/vite"
+
+export default defineConfig({
+  plugins: [tailwindcss(), react()],
+})
+```
+
+**3. Token CSS** — after Tailwind import:
+
+```css
+@import "./styles/tokens.css";
+@import "./styles/theme.css";
+```
+
+(Paths relative to consumer `stylesPath`; playground uses package imports `@neurex/tokens/tokens.css`.)
+
+**4. Monorepo / library scanning** — when components live outside the app tree, use `@source`:
+
+```css
+@import "tailwindcss";
+@source "../../../packages/ui/src";
+@source "../../../packages/ui/dist";
+```
+
+Without `@source`, Tailwind v4 will not see classes in linked packages.
+
+### Tailwind v4 practices
+
+| Do | Don't |
+|----|--------|
+| Use `@import "tailwindcss"` | Use legacy `@tailwind base/components/utilities` |
+| Use `@tailwindcss/vite` on Vite | Assume PostCSS-only v3 setup |
+| Use `@source` for external component paths | Duplicate every utility into app CSS |
+| Style via utilities + `cva` + CSS variables | Hand-write token CSS in app repos |
+| Use `tailwind-merge` in `cn()` | Concatenate conflicting utilities manually |
+| Run Prettier with Tailwind plugin on class strings | Rely on random class order in reviews |
+
+- Prefer **CSS variables** (`var(--nx-*)`) for token-driven values in custom CSS
+- Keep **playground** as the visual contract check after token or variant changes
+- CLI pins **`tailwindcss`** and **`@tailwindcss/vite`** together on init — keep versions aligned (currently 4.2.x)
+
+---
+
+## TypeScript (5.4+ practices; monorepo on 6.x)
+
+The repo targets **modern strict TypeScript**. Root resolves **6.0.3**; `tsconfig.base.json` sets `"ignoreDeprecations": "6.0"`. Practices below apply from **5.4+** onward and match Neurex configs.
+
+### Compiler baseline (packages / `tsconfig.base.json`)
+
+- `"strict": true`
+- `"module": "ESNext"`, `"moduleResolution": "Bundler"`
+- `"isolatedModules": true` — required for `tsup` / Vite
+- `"noEmit": true` for typecheck-only package configs
+- `"skipLibCheck": true` at base; consumer Vite apps may use stricter unused checks
+
+### Required habits
+
+- **ESM only** — `"type": "module"`; use `import` / `export`, not `require`
+- **Type-only imports** — `import type { Foo } from "..."` for types
+- **No `any`** — narrow `unknown` at boundaries (CLI config parse, registry validation)
+- **`satisfies`** — prefer for token maps and registry objects where literal inference matters
+- **Explicit exports** — package public API only through `package.json` `exports`
+- **Project references** — Vite apps use `tsc -b` with `tsconfig.app.json` + `tsconfig.node.json`
+
+### 5.4+ features to use when appropriate
+
+- `satisfies` for constrained literals without widening
+- `const` type parameters (generic inference) in shared utilities
+- `moduleResolution: "Bundler"` (or `"bundler"`) with Vite/esbuild
+- `verbatimModuleSyntax`-friendly patterns via explicit `import type`
+
+### Avoid
+
+- Deep imports into `@neurex/*/src` or foreign `dist` internals
+- `// @ts-ignore` without a one-line justification
+- CommonJS interop in new package code
+- Duplicating consumer `tsconfig` paths — CLI adds `"@/*": ["./src/*"]` via `ensureTypeScriptSrcAlias`
+
+### Typecheck commands
+
+```bash
+pnpm typecheck          # turbo, all packages
+pnpm --filter @neurex/ui typecheck
+pnpm playground:typecheck   # requires tokens + ui build first
+```
+
+---
+
+## Dependency boundaries (quick reference)
+
+```mermaid
+flowchart LR
+  subgraph infra [Infrastructure]
+    pnpm[pnpm]
+    turbo[Turbo]
+    tsc[TypeScript]
+    tsup[tsup]
+    vitest[Vitest]
+  end
+  subgraph tokens [Tokens]
+    tok["@neurex/tokens"]
+  end
+  subgraph ui [UI]
+    u["@neurex/ui"]
+    base["@base-ui/react"]
+    cva[CVA / clsx / merge]
+  end
+  subgraph reg [Registry]
+    r["@neurex/registry"]
+  end
+  subgraph cli [CLI]
+    c[neurex CLI]
+  end
+  subgraph consumer [Consumer app]
+    app[Vite + React + Tailwind v4]
+  end
+  infra --> tok
+  infra --> u
+  infra --> r
+  infra --> c
+  tok --> u
+  r --> c
+  c --> app
+  u -.->|templates copied| app
+  tok -.->|CSS installed| app
+```
+
+When adding a dependency, ask: **which layer owns it?** If the answer spans two layers, split the concern (metadata in registry, implementation in ui/tokens, wiring in cli).
