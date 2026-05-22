@@ -268,6 +268,7 @@ invocation.
 | Document                       | Owns                                                        |
 | ------------------------------ | ----------------------------------------------------------- |
 | [TOKENS.md](TOKENS.md)         | Token layer rules, resolver, CSS generation, validation     |
+| [RESOLVER_EVOLUTION.md](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work |
 | [CLI.md](CLI.md)               | Full CLI command reference, flags, config options           |
 | [STYLEGUIDE.md](STYLEGUIDE.md) | Component naming, file layout, CSS class conventions        |
 | [STYLE.md](STYLE.md)           | Coding style, TypeScript, React, import/export rules        |

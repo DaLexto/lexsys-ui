@@ -18,14 +18,16 @@ Neurex token validation and analysis split across three cooperating areas:
 | Area               | Location                                         | Role                                                         |
 | ------------------ | ------------------------------------------------ | ------------------------------------------------------------ |
 | Reference resolver | `packages/tokens/src/engine/resolver/reference/` | Resolve `{dotted.path}` chains; output-agnostic              |
+| Resolved values    | `packages/tokens/src/engine/resolver/values/`    | On-demand leaf resolution and color normalization for tooling  |
 | Graph traversal    | `packages/tokens/src/engine/resolver/graph/`     | Reachability, transitive dependents, dead-primitive analysis |
 | Layer validation   | `packages/tokens/src/engine/validator/layers/`   | Build-failing layer contract enforcement                     |
+| Contrast guard     | `packages/tokens/src/engine/validator/contrast/` | Non-blocking WCAG AA report on registered semantic pairs       |
 | Governance + audit | `packages/tokens/src/engine/governance/`         | Non-blocking graph analysis and reports                      |
 | Generator pipeline | `packages/tokens/src/generators/`                | CSS/DTCG output; calls validation before generation          |
 | CLI entrypoints    | `packages/tokens/scripts/`                       | Build output write, governance report, dev hygiene           |
 
 Phases 1–10 (factory authoring through accessibility contrast guard) are complete.
-Remaining work is limited to explicitly deferred speculative capabilities.
+Next work is **planned hardening and expansion** (below) plus **speculative** AST/math (deferred).
 
 ```mermaid
 flowchart TB
@@ -158,7 +160,8 @@ Default is **on** (no opt-in flag). CSS/Tailwind output is unchanged; DTCG gains
 | 8     | Composite expansion      | Shipped       | Shipped baseline        | `engine/composite/`, `generators/outputs/dtcg/`                                         |
 | 9     | Resolved value pipeline  | Shipped       | Phases 7–8              | `packages/tokens/src/engine/resolver/values/`                                           |
 | 10    | Accessibility guard      | Shipped       | Phase 9                 | `packages/tokens/src/engine/validator/contrast/`                                        |
-| —     | Speculative (AST + math) | New subsystem | Phase 10 shipped design | Not scheduled                                                                           |
+| —     | Post–Phase 10 hardening  | Planned       | Phase 10 shipped        | See [After Phase 10](#after-phase-10)                                                   |
+| —     | Speculative (AST + math) | New subsystem | Stable values + contrast APIs | Not scheduled — see [Speculative (Deferred)](#speculative-deferred)              |
 
 ---
 
@@ -197,7 +200,7 @@ Components keep slot references such as `{typography.control.md.fontSize}`. Comp
 - Terminal values include structured OKLCH objects and `TokenUnitValue` shapes already authored in source
 - Composite typography slot paths (for example `typography.control.md.fontSize`) resolve to atomic terminal values
 - Theme-aware lookup merges `foundationTokens` + `theme.tokens` + `componentTokens` before resolving
-- Phase 10 prep: `isResolvedColorValue` and `toContrastReadyColor` stubs in `values.normalize.ts`
+- `isResolvedColorValue` and `toContrastReadyColor` in `values.normalize.ts` (used by Phase 10 contrast math)
 
 ### Distinction from build-time resolution
 
@@ -211,8 +214,7 @@ Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references;
 ### Non-goals (still deferred)
 
 - Replacing CSS/DTCG reference preservation with hardcoded literals
-- WCAG contrast checks (Phase 10)
-- CSS color string parsing in `toContrastReadyColor` (Phase 10)
+- Exporting the full engine API from the `@neurex/tokens` package root entrypoint (engine remains internal to the tokens package today)
 
 ---
 
@@ -242,11 +244,60 @@ Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references;
 
 ---
 
+## After Phase 10
+
+**Status:** Planned and known gaps — not current implementation contracts.
+
+Phases 1–10 delivered the token engine baseline. The items below are the
+recommended next evolution track. High-level platform summary lives in
+[docs/ROADMAP.md](./ROADMAP.md). Actionable backlog items belong in
+[docs/REVIEW_TODO.md](./REVIEW_TODO.md).
+
+### Planned (likely next, no phase number yet)
+
+| Track | Target behavior | Why not shipped in Phase 10 |
+| ----- | --------------- | --------------------------- |
+| Contrast pair expansion | Add semantic pairs beyond text-on-base and feedback (for example action foreground/background, inverse text, overlay stacks) | Initial registry intentionally small; each pair needs design sign-off |
+| Contrast policy promotion | Optional build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA | Requires agreed pair inventory, threshold policy (AA vs AAA, large text), and CI gate decision |
+| Composite migration | Extend composite registry beyond typography (shadow, border structured groups) | Typography branch+slot model shipped first; other composites need schema + generator work |
+| Color parse coverage | `rgb()` / `hsl()` string parsing in contrast normalization | OKLCH objects and `oklch()` strings cover current authoring; other formats are incremental |
+| Governance promotion | Make selected governance checks build-failing (zero dead primitives, zero deprecated-with-dependents) | Documented hook only today; promotion is a maintainer policy choice |
+
+None of the above require the speculative AST evaluator. They extend shipped
+engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
+
+### Deferred (explicit non-goals for now)
+
+| Capability | Reason deferred |
+| ---------- | --------------- |
+| AST expression evaluator (`({space.md} * 2) + 4px`) | Requires a new tokenizer/parser/evaluator subsystem; string-match alias resolution cannot grow into this incrementally |
+| OKLCH modify / color math (`oklch-modify(...)`, `%` lightness shifts) | Depends on AST + structured color math, not alias walking |
+| Unit arithmetic across `rem` / `px` / `%` | Depends on AST + base-font context; out of scope for reference resolver |
+| Automatic contrast pair discovery | Semantic usage pairs are product decisions; registry must stay explicit |
+| Runtime a11y checks in consumer apps | Tokens package validates design-time semantics only |
+| DTCG Resolver Module JSON documents | Neurex uses its own merge + alias model; no interchange requirement today |
+| Replacing CSS `var(--nx-*)` with resolved literals in default output | Breaks Neurex consumer model and DTCG alias preservation by design |
+
+### Known gaps (current state, not bugs)
+
+- **Contrast is non-blocking** — `createContrastValidationReport` reports issues; build does not fail unless a future policy promotes it.
+- **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@neurex/tokens` root export today.
+- **`rgb()` / `hsl()` in `toContrastReadyColor`** — recognized by `isResolvedColorValue` but not fully parsed for contrast math yet (returns `null` for string fallbacks other than `oklch()` / `#hex`).
+- **Composite object `$value` leaves** — typography uses branch + slot leaves only; shadow/border as single structured leaves remain future composite work.
+
+---
+
 ## Speculative (Deferred)
 
 **Status:** Not scheduled — no phase number, no near-term commitment
 
-These capabilities require a formal expression evaluator. The current string-match reference resolver cannot evolve incrementally into them. **Do not implement until contrast and governance consumers are stable on the Phase 9 values API.**
+These capabilities require a formal expression evaluator. The current
+string-match reference resolver cannot evolve incrementally into them.
+
+**Prerequisite:** Planned post–Phase 10 work (contrast pair expansion, composite
+migration, optional governance promotion) should stabilize first. Values and
+contrast APIs from Phases 9–10 are the intended foundation for any future math
+layer — not a blocker for the planned tracks above.
 
 ### AST evaluator subsystem
 

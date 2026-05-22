@@ -26,11 +26,14 @@ Current implementation:
 - Token groups use factory helpers with explicit `{ meta, tokens }` boundaries.
 - Build-failing validation covers reference integrity, preset theme coverage,
   invalid DTCG leaf shape, and token layer contract violations.
-- Governance reports (metadata, deprecation, dead primitives) are available via
-  `createTokenGovernanceReport` and `pnpm --filter @neurex/tokens governance:report`.
+- Governance reports (metadata, deprecation, dead primitives, semantic audit,
+  WCAG contrast) are available via `pnpm --filter @neurex/tokens governance:report`.
 - Semantic token organization is active: nested `color.*` paths, top-level
   `action.*` / `border.*` / `elevation.*`, theme overrides aligned to semantic
-  paths, and semantic audit reporting via `createSemanticAuditReport`.
+  paths.
+- Token engine (Phases 7–10): graph traversal, composite typography, on-demand
+  resolved values, and non-blocking WCAG contrast validation on registered
+  semantic pairs.
 
 Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 
@@ -51,7 +54,7 @@ table is the high-level record only.
 | 6 — Semantic organization   | Elevation semantics, theme path alignment, feedback wiring, audit                      |
 | 7 — Governance hardening    | Transitive dependents, graph module, optional dead-primitive stripping, scripts layout |
 | 8 — Composite expansion     | Typography composite registry, DTCG slot typing, atomic path classification            |
-| 9 — Resolved value pipeline | On-demand leaf resolution, themed lookup, contrast prep stubs                          |
+| 9 — Resolved value pipeline | On-demand leaf resolution, themed lookup, color normalization for tooling        |
 | 10 — Accessibility guard    | WCAG AA contrast report, semantic pair registry, governance CLI integration            |
 
 ---
@@ -60,16 +63,26 @@ table is the high-level record only.
 
 The items below are planned work, not current contracts.
 
-### Resolver and generator evolution
+### Token engine — next direction
 
-Deferred speculative work is sequenced in
-[docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md):
+Planned hardening and deferred speculative work are documented in
+[docs/RESOLVER_EVOLUTION.md — After Phase 10](./RESOLVER_EVOLUTION.md#after-phase-10).
+Summary only — do not duplicate detail here.
 
-| Phase | Focus                                                    | Status        |
-| ----- | -------------------------------------------------------- | ------------- |
-| —     | Speculative AST evaluator and color/unit math (deferred) | Not scheduled |
+**Planned (likely next):**
 
-Do not duplicate phase detail here — update RESOLVER_EVOLUTION when sequencing changes.
+- Expand `SEMANTIC_CONTRAST_PAIRS` beyond text-on-base and feedback roles
+- Optional promotion of contrast checks to build-failing after pair/threshold policy is agreed
+- Extend composite registry beyond typography (shadow, border groups)
+- Broader color string parsing for contrast math (`rgb()`, `hsl()`)
+- Optional promotion of selected governance checks to build-failing
+
+**Deferred (explicit non-goals for now):**
+
+- AST expression evaluator and color/unit math (requires new subsystem — see RESOLVER_EVOLUTION)
+- Automatic contrast pair discovery without an explicit registry
+- Runtime accessibility checks in consumer apps
+- Default CSS/DTCG output switching from `var(--nx-*)` refs to hardcoded literals
 
 ### Semantic and product gaps
 

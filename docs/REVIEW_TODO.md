@@ -17,13 +17,12 @@ The P0 and P1 implementation passes are complete:
 
 - CLI install safety (idempotency, conflict detection, `--cwd` scoping, packed template resolution)
 - Token foundation (DTCG-shaped source, CSS + DTCG JSON generation, brand layer, theme modes)
-- Token platform phases 1–5 (factory authoring, layer validation, governance reports)
-- Semantic token organization (elevation group, theme path alignment, feedback wiring, semantic audit, component size/spacing semantic migration)
+- Token platform phases 1–10 (factory authoring through accessibility contrast guard; see [docs/ROADMAP.md](./ROADMAP.md))
+- Token engine: resolved value pipeline, composite typography, governance graph, WCAG contrast report (`docs/RESOLVER_EVOLUTION.md`)
 - Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution
 - Documentation alignment with current token/UI contracts (`docs/TOKENS.md`, design system, architecture, CLI, package READMEs)
-- Resolver evolution phased plan (`docs/RESOLVER_EVOLUTION.md` — Phases 7–10 + speculative)
 
 The current implementation supports: Vite + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 31 bundled components.
 
@@ -39,7 +38,13 @@ _No active P2 items._
 
 ## P3 — Architecture Planning
 
-_No active P3 items. Resolver evolution is sequenced in `docs/RESOLVER_EVOLUTION.md` (Phase 7 governance hardening through Phase 10 accessibility guard, plus deferred speculative AST/math)._
+Optional follow-ups after Phases 1–10 (detail in
+[docs/RESOLVER_EVOLUTION.md — After Phase 10](./RESOLVER_EVOLUTION.md#after-phase-10)):
+
+- Expand `SEMANTIC_CONTRAST_PAIRS` and agree contrast policy (thresholds, build-failing vs report-only)
+- Extend composite registry beyond typography
+- Broader color parsing for contrast math (`rgb()`, `hsl()`)
+- Speculative AST evaluator and color/unit math — **deferred**, not scheduled
 
 ## Known Gaps (no active item yet)
 
