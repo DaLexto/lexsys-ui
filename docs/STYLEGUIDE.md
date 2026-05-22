@@ -152,7 +152,7 @@ All other groups use their source name unchanged.
 | `color.background.base`     | `--nx-color-background-base`     |
 
 Do not invent CSS variable names by hand. They are generated outputs. Reference
-them in components via Tailwind arbitrary value syntax:
+them in components via Tailwind v4 canonical CSS variable syntax:
 `bg-(--nx-button-primary-background)`.
 
 ---
@@ -370,7 +370,7 @@ Generated CSS output paths:
 
 ```
 dist/tokens.css                          ← base variables (:root)
-dist/theme.css                           ← theme mode overrides ([data-theme])
+dist/theme.css                           ← theme mode overrides (:root light, .dark dark) + @theme inline
 dist/tokens/dtcg/tokens.tokens.json      ← full DTCG JSON
 dist/tokens/dtcg/primitives/*.tokens.json
 dist/tokens/dtcg/brand/*.tokens.json
@@ -435,7 +435,8 @@ pnpm check              # format:check + lint + typecheck + test
 Per-package shortcuts:
 
 ```sh
-pnpm tokens:build       # build @neurex/tokens (generates CSS + DTCG JSON)
+pnpm tokens:build       # build @neurex/tokens (dist CSS + DTCG JSON; --package)
+pnpm --filter @neurex/tokens generate:styles  # dist + registry templates/styles sync
 pnpm ui:build           # build @neurex/ui
 pnpm registry:build     # build @neurex/registry
 pnpm cli:build          # build neurex CLI

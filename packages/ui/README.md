@@ -74,7 +74,7 @@ independent implementations.
 ```
 components/
   Button/
-    Button.tsx          ← rendering, forwardRef, composition
+    Button.tsx          ← rendering, ref-as-prop, composition
     Button.types.ts     ← public props, Base UI type extensions
     Button.variants.ts  ← CVA variants and class composition
 ```

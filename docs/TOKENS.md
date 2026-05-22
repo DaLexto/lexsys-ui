@@ -49,21 +49,25 @@ Presets are configuration. They are not a layer in this chain.
 - Assigns product meaning and role to values.
 - MUST NOT reference component tokens.
 - Semantic tokens must represent reusable product meaning. One-off visual decisions belong in component tokens.
-- Organized by top-level group. Active groups:
+- Organized by top-level group. **11 active groups:**
 
   | Group        | Role                                                                                                 |
   | ------------ | ---------------------------------------------------------------------------------------------------- |
   | `color`      | Nested surface/text/feedback roles: `background.*`, `text.*`, `feedback.*`                           |
-  | `action`     | Interactive state colors: `primary`, `secondary`, `danger`                                           |
+  | `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled              |
   | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                                  |
   | `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow`     |
   | `motion`     | Duration and easing roles: `control`, `surface`                                                      |
-  | `radius`     | Border-radius roles: `control`, `surface`                                                            |
+  | `radius`     | Border-radius roles: `control`, `selection`, `surface`, `pill`                                       |
   | `size`       | Reusable sizing roles: `control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb` |
   | `spacing`    | Spacing roles: `control.gap`, `control.x`, `control.y`, `surface.*`                                  |
   | `typography` | Font family, body, label, heading, code composite roles                                              |
+  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                                |
+  | `layout`     | Viewport (`sm`–`2xl`) and `aspectRatio` roles (square, standard, photo, portrait, video, ultrawide)  |
 
-- `color`, `action`, `border`, and `elevation` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
+- `color`, `action`, `border`, `elevation`, `outline`, and `layout` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
+- `outline.*` supplies component `focus.ringWidth` / `focus.ringOffset` decisions. Do not hardcode Tailwind `ring-2` / `ring-offset-2` in component variants.
+- `layout.*` maps from primitive `breakpoint.*` and `aspect-ratio.*`. Consumers use generated `--nx-layout-*` CSS variables directly; layout is not remapped into Tailwind `breakpoint` or `aspect` namespaces.
 
 #### Semantic organization rules
 
@@ -235,7 +239,7 @@ at build time and will throw, preventing CSS output from being generated:
 - A reference chain exceeds 50 hops
 - A token leaf has an invalid shape (no `$value`, or non-scalar `$value`)
 - A theme is missing a mode required by its preset
-- A component token references a primitive, brand, or theme-only token directly
+- A component token references a primitive, brand, or theme-only token directly — except the temporary `size.*` / `spacing.*` scale exception documented under Components
 - A semantic token references a component token
 - A theme token references a component token
 - A brand token branch uses component-specific intent
@@ -245,13 +249,14 @@ and runs before reference resolution during `validateStyleTokenInput`.
 
 ### Governance tooling (non-blocking)
 
-The following are available via `createTokenGovernanceReport` and
+The following are available via `createTokenGovernanceReport`, `createSemanticAuditReport`, and
 `pnpm --filter @neurex/tokens governance:report`. They analyze the token graph
 but do not change CSS or DTCG output:
 
 - Deprecation reports for tokens marked `$deprecated` with direct dependents
 - Metadata inventory reports
 - Dead primitive token detection (primitive leaves not referenced by upper layers)
+- Semantic audit reports (forbidden paths, missing groups, theme path drift)
 
 **Planned (not build-failing):** contrast validation, metadata propagation
 through full resolution chains, and optional stripping of dead tokens from
@@ -267,7 +272,7 @@ generated output. See `docs/RESOLVER_EVOLUTION.md`.
 | -------------- | ------------------------------------------------------------------------------ |
 | `.`            | Package root API — token trees, presets, themes, generator outputs, governance |
 | `./tokens.css` | Generated CSS — base token variables (`:root` scope)                           |
-| `./theme.css`  | Generated CSS — theme mode overrides (`[data-theme]` scope)                    |
+| `./theme.css`  | Generated CSS — theme mode overrides (`:root` light, `.dark` dark) and Tailwind `@theme inline` block |
 
 Key named exports from `.`:
 
@@ -283,6 +288,8 @@ Key named exports from `.`:
 | `createThemeCssFromDtcgJson`                   | Generate theme CSS from DTCG JSON input             |
 | `createTokenGovernanceReport`                  | Build deprecation, metadata, and dead-token reports |
 | `formatTokenGovernanceReport`                  | Format a governance report for CLI output           |
+| `createSemanticAuditReport`                    | Build semantic organization audit issues            |
+| `formatSemanticAuditReport`                    | Format a semantic audit report for CLI output       |
 
 Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`,
 `createStyleTokenInput`, and related types) live under
@@ -304,14 +311,23 @@ pnpm --filter @neurex/tokens governance:report -- --json
 From the repo root:
 
 ```sh
-pnpm --filter @neurex/tokens build    # generate CSS + DTCG JSON outputs
-pnpm --filter @neurex/tokens test     # run resolver and generator tests
+pnpm --filter @neurex/tokens build            # generate dist CSS + DTCG JSON (--package)
+pnpm --filter @neurex/tokens generate:styles  # dist + registry template CSS sync (--package --registry)
+pnpm --filter @neurex/tokens test             # run resolver and generator tests
+pnpm --filter @neurex/tokens governance:report
 ```
+
+Use `generate:styles` after token generator changes that affect `packages/registry/templates/styles/`.
 
 Generated output lives at:
 
-| File                               | Description                                        |
-| ---------------------------------- | -------------------------------------------------- |
-| `packages/tokens/dist/tokens.css`  | Base token variables (`:root`)                     |
-| `packages/tokens/dist/theme.css`   | Theme mode overrides                               |
-| `packages/tokens/dist/tokens.json` | DTCG JSON with unresolved references (for tooling) |
+| File                                              | Description                                        |
+| ------------------------------------------------- | -------------------------------------------------- |
+| `packages/tokens/dist/tokens.css`                 | Base token variables (`:root`)                     |
+| `packages/tokens/dist/theme.css`                    | Theme mode overrides and Tailwind `@theme inline`  |
+| `packages/tokens/dist/tokens/dtcg/tokens.tokens.json` | Full merged DTCG JSON with unresolved references |
+| `packages/tokens/dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON              |
+| `packages/tokens/dist/tokens/dtcg/brand/*.tokens.json`      | Per-brand DTCG JSON                        |
+| `packages/tokens/dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON               |
+| `packages/tokens/dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                    |
+| `packages/tokens/dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                        |
