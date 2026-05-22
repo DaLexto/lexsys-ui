@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest"
 
-import { createStyleTokenInput } from "../src/generators/inputs/input.source"
+import {
+  createStyleTokenInput,
+  validateStyleTokenInput,
+} from "../src/generators/inputs/input.source"
 import {
   contrastRatio,
   compositeLinearRgb,
@@ -13,6 +16,7 @@ import {
   evaluateContrastPolicy,
   formatContrastValidationReport,
   resolvePairMinimumRatio,
+  validateContrastPolicyStrict,
   WCAG_AA_LARGE_TEXT_RATIO,
   WCAG_AA_NORMAL_TEXT_RATIO,
 } from "../src/engine/validator/contrast"
@@ -287,5 +291,63 @@ describe("overlay background compositing", () => {
         composited,
       ),
     ).toBeGreaterThan(WCAG_AA_NORMAL_TEXT_RATIO)
+  })
+})
+
+describe("validateContrastPolicyStrict", () => {
+  it("passes for the Neurex token graph", () => {
+    const input = createStyleTokenInput()
+
+    expect(() => {
+      validateContrastPolicyStrict({
+        foundationTokens: input.foundationTokens,
+        componentTokens: input.componentTokens,
+        themeTokens: input.themeTokens,
+      })
+    }).not.toThrow()
+  })
+
+  it("throws when contrast policy failures exist", () => {
+    expect(() => {
+      validateContrastPolicyStrict({
+        foundationTokens: {
+          color: {
+            muted: { $value: "oklch(0.55 0 0)" },
+            surface: { $value: "oklch(0.5 0 0)" },
+          },
+        },
+        componentTokens: {},
+        themeTokens: [
+          {
+            name: "light",
+            tokens: {
+              color: {
+                text: {
+                  primary: { $value: "{color.muted}" },
+                },
+                background: {
+                  base: { $value: "{color.surface}" },
+                },
+              },
+            },
+          },
+        ],
+        pairs: [
+          {
+            id: "text-primary-on-base",
+            foregroundPath: "color.text.primary",
+            backgroundPath: "color.background.base",
+          },
+        ],
+      })
+    }).toThrow(/Contrast policy validation failed/)
+  })
+})
+
+describe("validateStyleTokenInput", () => {
+  it("enforces contrast policy during style token validation", () => {
+    expect(() => {
+      validateStyleTokenInput(createStyleTokenInput())
+    }).not.toThrow()
   })
 })

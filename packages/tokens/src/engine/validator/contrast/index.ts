@@ -8,6 +8,7 @@
 export {
   createContrastValidationReport,
   formatContrastValidationReport,
+  validateContrastPolicyStrict,
 } from "./contrast.validator"
 
 export {
@@ -18,9 +19,12 @@ export {
 export {
   DEFAULT_CONTRAST_POLICY,
   evaluateContrastPolicy,
+  formatContrastPolicyFailures,
+  resolveBuildContrastPolicy,
   resolveContrastPolicy,
   resolveContrastPolicyTier,
   resolvePairMinimumRatio,
+  shouldEnforceContrastInStyleValidation,
   shouldFailOnContrastPolicy,
   WCAG_AA_LARGE_TEXT_RATIO,
 } from "./contrast.policy"

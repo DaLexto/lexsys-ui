@@ -228,8 +228,9 @@ checks. Color strings are parsed via `engine/shared/color-string.parse.ts`
 (`rgb()`, `hsl()`, plus OKLCH/hex in `values.normalize.ts`).
 
 Runs as part of `pnpm --filter @neurex/tokens governance:report`. Failures exit
-with code 1 in CI (`tokens-governance` workflow). Not build-failing in
-`validateStyleTokenInput` until `build` tier promotion.
+with code 1 in CI (`tokens-governance` workflow). Also enforced in
+`validateStyleTokenInput` via `validateContrastPolicyStrict` unless
+`NEUREX_CONTRAST_POLICY=report`.
 
 ---
 

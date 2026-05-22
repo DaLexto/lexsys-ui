@@ -13,7 +13,13 @@ import type { TokenValue } from "../../../types"
 import {
   SEMANTIC_CONTRAST_PAIRS,
 } from "./contrast.pairs"
-import { resolvePairMinimumRatio } from "./contrast.policy"
+import {
+  evaluateContrastPolicy,
+  formatContrastPolicyFailures,
+  resolveBuildContrastPolicy,
+  resolvePairMinimumRatio,
+  shouldEnforceContrastInStyleValidation,
+} from "./contrast.policy"
 import {
   compositeLinearRgb,
   contrastRatio,
@@ -297,4 +303,20 @@ export const formatContrastValidationReport = (
   }
 
   return lines.join("\n")
+}
+
+export const validateContrastPolicyStrict = (
+  input: ContrastValidationInput,
+): void => {
+  if (!shouldEnforceContrastInStyleValidation()) {
+    return
+  }
+
+  const policy = resolveBuildContrastPolicy()
+  const report = createContrastValidationReport(input)
+  const evaluation = evaluateContrastPolicy(report, policy)
+
+  if (!evaluation.passes) {
+    throw new Error(formatContrastPolicyFailures(evaluation.failures))
+  }
 }

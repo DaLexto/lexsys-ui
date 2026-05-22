@@ -227,9 +227,13 @@ pnpm --filter @neurex/tokens governance:report
 
 - **`ci` tier (default in CI):** contrast policy failures exit with code 1 — the
   `tokens-governance` workflow fails when registered pairs do not pass.
-- **`report` tier:** set `NEUREX_CONTRAST_POLICY=report` locally for report-only.
-- **`build` tier:** reserved for future promotion into `validateStyleTokenInput`;
-  not wired to the CSS build pipeline yet.
+- **`report` tier:** set `NEUREX_CONTRAST_POLICY=report` locally to skip CI/build
+  enforcement (report-only).
+- **`build` tier:** `validateContrastPolicyStrict` runs inside `validateStyleTokenInput`
+  (CSS/DTCG generation) unless tier is `report`. Uses the same pair registry and
+  thresholds as CI.
+
+Also exported: `validateContrastPolicyStrict(input)`.
 
 ---
 
@@ -356,9 +360,12 @@ at build time and will throw, preventing CSS output from being generated:
 - A semantic token references a component token
 - A theme token references a component token
 - A brand token branch uses component-specific intent
+- Registered semantic contrast pairs fail WCAG AA thresholds (`validateContrastPolicyStrict`)
 
 Layer validation is implemented in `packages/tokens/src/engine/validator/layers/layers.validator.ts`
-and runs before reference resolution during `validateStyleTokenInput`.
+and runs before reference resolution during `validateStyleTokenInput`. Contrast policy
+validation runs after reference resolution via `validateContrastPolicyStrict` unless
+`NEUREX_CONTRAST_POLICY=report`.
 
 ### Governance tooling (non-blocking)
 
@@ -375,12 +382,12 @@ but do not change CSS or DTCG output unless dead-primitive stripping is explicit
 `node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
 primitive leaves from CSS/DTCG after full-graph validation. Default is off.
 
-**Governance tooling (non-blocking):** contrast validation runs via
+**Governance tooling (non-blocking):** contrast validation also runs via
 `createContrastValidationReport` and `pnpm --filter @neurex/tokens governance:report`.
 Contrast policy failures **fail CI** when tier is `ci` (default in
-`.github/workflows/tokens-governance.yml`). Build-time validation and CSS/DTCG
-output remain unchanged until `build` tier promotion. Speculative AST/color math
-is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+`.github/workflows/tokens-governance.yml`). Build-time contrast enforcement is active
+in `validateStyleTokenInput` unless `NEUREX_CONTRAST_POLICY=report`. Speculative
+AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
 

@@ -5,6 +5,7 @@ import { defaultPresetId, presets } from "../../presets"
 import { resolveTokenTree } from "../../engine/resolver"
 import { createThemedTokenTree, mergeTokenTrees } from "../../engine/shared"
 import { validateTokenLayerContractsStrict } from "../../engine/validator"
+import { validateContrastPolicyStrict } from "../../engine/validator/contrast"
 import { semanticTokens as semanticTokenGroups } from "../../semantics"
 import { themes } from "../../themes"
 import type {
@@ -219,4 +220,10 @@ export const validateStyleTokenInput = (input: StyleTokenInput): void => {
       createThemedTokenTree(input, theme),
     )
   }
+
+  validateContrastPolicyStrict({
+    foundationTokens: input.foundationTokens,
+    componentTokens: input.componentTokens,
+    themeTokens: input.themeTokens,
+  })
 }

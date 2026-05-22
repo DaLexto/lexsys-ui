@@ -89,3 +89,25 @@ export const evaluateContrastPolicy = (
 export const shouldFailOnContrastPolicy = (policy: ContrastPolicy): boolean => {
   return policy.tier === "ci" || policy.tier === "build"
 }
+
+export const shouldEnforceContrastInStyleValidation = (): boolean => {
+  return resolveContrastPolicyTier() !== "report"
+}
+
+export const resolveBuildContrastPolicy = (): ContrastPolicy => {
+  return resolveContrastPolicy({ tier: "build" })
+}
+
+export const formatContrastPolicyFailures = (
+  failures: ContrastIssue[],
+): string => {
+  if (failures.length === 0) {
+    return ""
+  }
+
+  const lines = failures.map((issue) => {
+    return `- [${issue.code}] ${issue.theme}/${issue.pairId}: ${issue.message}`
+  })
+
+  return `Contrast policy validation failed:\n${lines.join("\n")}`
+}

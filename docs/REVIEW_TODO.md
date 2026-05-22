@@ -42,8 +42,7 @@ _No active P2 items._
 Optional follow-ups after Phases 1–10 (detail in
 [docs/RESOLVER_EVOLUTION.md — After Phase 10](./RESOLVER_EVOLUTION.md#after-phase-10)):
 
-- Further expand `SEMANTIC_CONTRAST_PAIRS` (danger-action patterns, large-text roles)
-- Promote contrast to build-failing (`build` tier in `validateStyleTokenInput`)
+- Further expand `SEMANTIC_CONTRAST_PAIRS` (additional danger-action / large-text roles)
 - Full shadow primitive migration and slot-based `box-shadow` CSS composition
 - DTCG composite object `$value` engine phase (option B — after slot model stable)
 - Speculative AST evaluator and color/unit math — **deferred**, not scheduled
@@ -53,6 +52,8 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~Extend composite registry beyond typography~~ — shadow/border schemas; elevation shadow pilot; `border.control` group
 - ~~Contrast policy CI gate~~ — `contrast.policy.ts`; `governance:report` exits 1 on failures in CI
 - ~~Overlay background compositing + overlay contrast pair~~ — compositing over `color.background.base`; `text-primary-on-overlay` pair
+- ~~Build-failing contrast~~ — `validateContrastPolicyStrict` in `validateStyleTokenInput` (unless `NEUREX_CONTRAST_POLICY=report`)
+- ~~Contrast pair expansion (partial)~~ — danger/secondary action + large-text heading pairs (15 pairs)
 
 ## Known Gaps (no active item yet)
 
