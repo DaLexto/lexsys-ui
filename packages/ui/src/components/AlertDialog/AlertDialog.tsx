@@ -4,7 +4,6 @@
  * Reference AlertDialog component implementation.
  */
 
-import { forwardRef } from "react"
 import { X } from "lucide-react"
 import { AlertDialog as BaseAlertDialog } from "@base-ui/react/alert-dialog"
 import type {
@@ -27,7 +26,7 @@ import {
   alertDialogTriggerVariants,
   alertDialogViewportVariants,
 } from "./AlertDialog.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
 const AlertDialog = <Payload = unknown,>(props: AlertDialogProps<Payload>) => {
   return <BaseAlertDialog.Root {...props} />
@@ -35,25 +34,19 @@ const AlertDialog = <Payload = unknown,>(props: AlertDialogProps<Payload>) => {
 
 AlertDialog.displayName = "AlertDialog"
 
-const AlertDialogTrigger = forwardRef<
-  HTMLButtonElement,
-  AlertDialogTriggerProps
->(({ className, ...props }, ref) => {
-  const triggerClassName: AlertDialogTriggerProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(alertDialogTriggerVariants(), userClassName)
-  }
-
+const AlertDialogTrigger = ({
+  ref,
+  className,
+  ...props
+}: AlertDialogTriggerProps) => {
   return (
     <BaseAlertDialog.Trigger
       ref={ref}
-      className={triggerClassName}
+      className={mergeClassName(alertDialogTriggerVariants(), className)}
       {...props}
     />
   )
-})
+}
 
 AlertDialogTrigger.displayName = "AlertDialogTrigger"
 
@@ -63,124 +56,102 @@ const AlertDialogPortal = (props: AlertDialogPortalProps) => {
 
 AlertDialogPortal.displayName = "AlertDialogPortal"
 
-const AlertDialogBackdrop = forwardRef<
-  HTMLDivElement,
-  AlertDialogBackdropProps
->(({ className, ...props }, ref) => {
-  const backdropClassName: AlertDialogBackdropProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(alertDialogBackdropVariants(), userClassName)
-  }
-
+const AlertDialogBackdrop = ({
+  ref,
+  className,
+  ...props
+}: AlertDialogBackdropProps) => {
   return (
     <BaseAlertDialog.Backdrop
       ref={ref}
-      className={backdropClassName}
+      className={mergeClassName(alertDialogBackdropVariants(), className)}
       {...props}
     />
   )
-})
+}
 
 AlertDialogBackdrop.displayName = "AlertDialogBackdrop"
 
-const AlertDialogViewport = forwardRef<
-  HTMLDivElement,
-  AlertDialogViewportProps
->(({ className, ...props }, ref) => {
-  const viewportClassName: AlertDialogViewportProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(alertDialogViewportVariants(), userClassName)
-  }
-
+const AlertDialogViewport = ({
+  ref,
+  className,
+  ...props
+}: AlertDialogViewportProps) => {
   return (
     <BaseAlertDialog.Viewport
       ref={ref}
-      className={viewportClassName}
+      className={mergeClassName(alertDialogViewportVariants(), className)}
       {...props}
     />
   )
-})
+}
 
 AlertDialogViewport.displayName = "AlertDialogViewport"
 
-const AlertDialogPopup = forwardRef<HTMLDivElement, AlertDialogPopupProps>(
-  ({ className, ...props }, ref) => {
-    const popupClassName: AlertDialogPopupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(alertDialogPopupVariants(), userClassName)
-    }
-
-    return (
-      <BaseAlertDialog.Popup ref={ref} className={popupClassName} {...props} />
-    )
-  },
-)
-
-AlertDialogPopup.displayName = "AlertDialogPopup"
-
-const AlertDialogTitle = forwardRef<HTMLHeadingElement, AlertDialogTitleProps>(
-  ({ className, ...props }, ref) => {
-    const titleClassName: AlertDialogTitleProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(alertDialogTitleVariants(), userClassName)
-    }
-
-    return (
-      <BaseAlertDialog.Title ref={ref} className={titleClassName} {...props} />
-    )
-  },
-)
-
-AlertDialogTitle.displayName = "AlertDialogTitle"
-
-const AlertDialogDescription = forwardRef<
-  HTMLParagraphElement,
-  AlertDialogDescriptionProps
->(({ className, ...props }, ref) => {
-  const descriptionClassName: AlertDialogDescriptionProps["className"] = (
-    state,
-  ) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(alertDialogDescriptionVariants(), userClassName)
-  }
-
+const AlertDialogPopup = ({
+  ref,
+  className,
+  ...props
+}: AlertDialogPopupProps) => {
   return (
-    <BaseAlertDialog.Description
+    <BaseAlertDialog.Popup
       ref={ref}
-      className={descriptionClassName}
+      className={mergeClassName(alertDialogPopupVariants(), className)}
       {...props}
     />
   )
-})
+}
+
+AlertDialogPopup.displayName = "AlertDialogPopup"
+
+const AlertDialogTitle = ({
+  ref,
+  className,
+  ...props
+}: AlertDialogTitleProps) => {
+  return (
+    <BaseAlertDialog.Title
+      ref={ref}
+      className={mergeClassName(alertDialogTitleVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+AlertDialogTitle.displayName = "AlertDialogTitle"
+
+const AlertDialogDescription = ({
+  ref,
+  className,
+  ...props
+}: AlertDialogDescriptionProps) => {
+  return (
+    <BaseAlertDialog.Description
+      ref={ref}
+      className={mergeClassName(alertDialogDescriptionVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 AlertDialogDescription.displayName = "AlertDialogDescription"
 
-const AlertDialogClose = forwardRef<HTMLButtonElement, AlertDialogCloseProps>(
-  ({ className, children, ...props }, ref) => {
-    const closeClassName: AlertDialogCloseProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(alertDialogCloseVariants(), userClassName)
-    }
-
-    return (
-      <BaseAlertDialog.Close ref={ref} className={closeClassName} {...props}>
-        {children ?? <X aria-hidden="true" size={16} />}
-      </BaseAlertDialog.Close>
-    )
-  },
-)
+const AlertDialogClose = ({
+  ref,
+  className,
+  children,
+  ...props
+}: AlertDialogCloseProps) => {
+  return (
+    <BaseAlertDialog.Close
+      ref={ref}
+      className={mergeClassName(alertDialogCloseVariants(), className)}
+      {...props}
+    >
+      {children ?? <X aria-hidden="true" size={16} />}
+    </BaseAlertDialog.Close>
+  )
+}
 
 AlertDialogClose.displayName = "AlertDialogClose"
 

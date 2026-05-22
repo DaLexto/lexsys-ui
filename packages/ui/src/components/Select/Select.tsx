@@ -4,7 +4,6 @@
  * Reference Select component implementation.
  */
 
-import { forwardRef } from "react"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
 import { Select as BaseSelect } from "@base-ui/react/select"
 import type {
@@ -44,7 +43,7 @@ import {
   selectTriggerVariants,
   selectValueVariants,
 } from "./Select.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
 const Select = <Value = string, Multiple extends boolean | undefined = false>(
   props: SelectProps<Value, Multiple>,
@@ -54,69 +53,63 @@ const Select = <Value = string, Multiple extends boolean | undefined = false>(
 
 Select.displayName = "Select"
 
-const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
-  ({ className, ...props }, ref) => {
-    const labelClassName: SelectLabelProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectLabelVariants(), userClassName)
-    }
-
-    return <BaseSelect.Label ref={ref} className={labelClassName} {...props} />
-  },
-)
+const SelectLabel = ({ ref, className, ...props }: SelectLabelProps) => {
+  return (
+    <BaseSelect.Label
+      ref={ref}
+      className={mergeClassName(selectLabelVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectLabel.displayName = "SelectLabel"
 
-const SelectTrigger = forwardRef<HTMLButtonElement, SelectTriggerProps>(
-  ({ size, className, ...props }, ref) => {
-    const triggerClassName: SelectTriggerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectTriggerVariants({ size }), userClassName)
-    }
-
-    return (
-      <BaseSelect.Trigger ref={ref} className={triggerClassName} {...props} />
-    )
-  },
-)
+const SelectTrigger = ({
+  ref,
+  size,
+  className,
+  ...props
+}: SelectTriggerProps) => {
+  return (
+    <BaseSelect.Trigger
+      ref={ref}
+      className={mergeClassName(selectTriggerVariants({ size }), className)}
+      {...props}
+    />
+  )
+}
 
 SelectTrigger.displayName = "SelectTrigger"
 
-const SelectValue = forwardRef<HTMLSpanElement, SelectValueProps>(
-  ({ className, ...props }, ref) => {
-    const valueClassName: SelectValueProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectValueVariants(), userClassName)
-    }
-
-    return <BaseSelect.Value ref={ref} className={valueClassName} {...props} />
-  },
-)
+const SelectValue = ({ ref, className, ...props }: SelectValueProps) => {
+  return (
+    <BaseSelect.Value
+      ref={ref}
+      className={mergeClassName(selectValueVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectValue.displayName = "SelectValue"
 
-const SelectIcon = forwardRef<HTMLSpanElement, SelectIconProps>(
-  ({ className, children, ...props }, ref) => {
-    const iconClassName: SelectIconProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectIconVariants(), userClassName)
-    }
-
-    return (
-      <BaseSelect.Icon ref={ref} className={iconClassName} {...props}>
-        {children ?? <ChevronDown aria-hidden="true" size={16} />}
-      </BaseSelect.Icon>
-    )
-  },
-)
+const SelectIcon = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SelectIconProps) => {
+  return (
+    <BaseSelect.Icon
+      ref={ref}
+      className={mergeClassName(selectIconVariants(), className)}
+      {...props}
+    >
+      {children ?? <ChevronDown aria-hidden="true" size={16} />}
+    </BaseSelect.Icon>
+  )
+}
 
 SelectIcon.displayName = "SelectIcon"
 
@@ -126,214 +119,176 @@ const SelectPortal = (props: SelectPortalProps) => {
 
 SelectPortal.displayName = "SelectPortal"
 
-const SelectBackdrop = forwardRef<HTMLDivElement, SelectBackdropProps>(
-  ({ className, ...props }, ref) => {
-    const backdropClassName: SelectBackdropProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectBackdropVariants(), userClassName)
-    }
-
-    return (
-      <BaseSelect.Backdrop ref={ref} className={backdropClassName} {...props} />
-    )
-  },
-)
+const SelectBackdrop = ({ ref, className, ...props }: SelectBackdropProps) => {
+  return (
+    <BaseSelect.Backdrop
+      ref={ref}
+      className={mergeClassName(selectBackdropVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectBackdrop.displayName = "SelectBackdrop"
 
-const SelectPositioner = forwardRef<HTMLDivElement, SelectPositionerProps>(
-  ({ className, ...props }, ref) => {
-    const positionerClassName: SelectPositionerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectPositionerVariants(), userClassName)
-    }
-
-    return (
-      <BaseSelect.Positioner
-        ref={ref}
-        className={positionerClassName}
-        {...props}
-      />
-    )
-  },
-)
+const SelectPositioner = ({
+  ref,
+  className,
+  ...props
+}: SelectPositionerProps) => {
+  return (
+    <BaseSelect.Positioner
+      ref={ref}
+      className={mergeClassName(selectPositionerVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectPositioner.displayName = "SelectPositioner"
 
-const SelectPopup = forwardRef<HTMLDivElement, SelectPopupProps>(
-  ({ className, ...props }, ref) => {
-    const popupClassName: SelectPopupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectPopupVariants(), userClassName)
-    }
-
-    return <BaseSelect.Popup ref={ref} className={popupClassName} {...props} />
-  },
-)
+const SelectPopup = ({ ref, className, ...props }: SelectPopupProps) => {
+  return (
+    <BaseSelect.Popup
+      ref={ref}
+      className={mergeClassName(selectPopupVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectPopup.displayName = "SelectPopup"
 
-const SelectList = forwardRef<HTMLDivElement, SelectListProps>(
-  ({ className, ...props }, ref) => {
-    const listClassName: SelectListProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectListVariants(), userClassName)
-    }
-
-    return <BaseSelect.List ref={ref} className={listClassName} {...props} />
-  },
-)
+const SelectList = ({ ref, className, ...props }: SelectListProps) => {
+  return (
+    <BaseSelect.List
+      ref={ref}
+      className={mergeClassName(selectListVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectList.displayName = "SelectList"
 
-const SelectItem = forwardRef<HTMLElement, SelectItemProps>(
-  ({ className, ...props }, ref) => {
-    const itemClassName: SelectItemProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectItemVariants(), userClassName)
-    }
-
-    return <BaseSelect.Item ref={ref} className={itemClassName} {...props} />
-  },
-)
+const SelectItem = ({ ref, className, ...props }: SelectItemProps) => {
+  return (
+    <BaseSelect.Item
+      ref={ref}
+      className={mergeClassName(selectItemVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectItem.displayName = "SelectItem"
 
-const SelectItemIndicator = forwardRef<
-  HTMLSpanElement,
-  SelectItemIndicatorProps
->(({ className, children, ...props }, ref) => {
-  const indicatorClassName: SelectItemIndicatorProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(selectItemIndicatorVariants(), userClassName)
-  }
-
+const SelectItemIndicator = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SelectItemIndicatorProps) => {
   return (
     <BaseSelect.ItemIndicator
       ref={ref}
-      className={indicatorClassName}
+      className={mergeClassName(selectItemIndicatorVariants(), className)}
       {...props}
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseSelect.ItemIndicator>
   )
-})
+}
 
 SelectItemIndicator.displayName = "SelectItemIndicator"
 
-const SelectItemText = forwardRef<HTMLDivElement, SelectItemTextProps>(
-  ({ className, ...props }, ref) => {
-    const textClassName: SelectItemTextProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectItemTextVariants(), userClassName)
-    }
-
-    return (
-      <BaseSelect.ItemText ref={ref} className={textClassName} {...props} />
-    )
-  },
-)
+const SelectItemText = ({ ref, className, ...props }: SelectItemTextProps) => {
+  return (
+    <BaseSelect.ItemText
+      ref={ref}
+      className={mergeClassName(selectItemTextVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectItemText.displayName = "SelectItemText"
 
-const SelectArrow = forwardRef<HTMLDivElement, SelectArrowProps>(
-  ({ className, ...props }, ref) => {
-    const arrowClassName: SelectArrowProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectArrowVariants(), userClassName)
-    }
-
-    return <BaseSelect.Arrow ref={ref} className={arrowClassName} {...props} />
-  },
-)
+const SelectArrow = ({ ref, className, ...props }: SelectArrowProps) => {
+  return (
+    <BaseSelect.Arrow
+      ref={ref}
+      className={mergeClassName(selectScrollArrowVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectArrow.displayName = "SelectArrow"
 
-const SelectScrollUpArrow = forwardRef<
-  HTMLDivElement,
-  SelectScrollUpArrowProps
->(({ className, children, ...props }, ref) => {
-  const arrowClassName: SelectScrollUpArrowProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(selectScrollArrowVariants(), userClassName)
-  }
-
+const SelectScrollUpArrow = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SelectScrollUpArrowProps) => {
   return (
-    <BaseSelect.ScrollUpArrow ref={ref} className={arrowClassName} {...props}>
+    <BaseSelect.ScrollUpArrow
+      ref={ref}
+      className={mergeClassName(selectScrollArrowVariants(), className)}
+      {...props}
+    >
       {children ?? <ChevronUp aria-hidden="true" size={16} />}
     </BaseSelect.ScrollUpArrow>
   )
-})
+}
 
 SelectScrollUpArrow.displayName = "SelectScrollUpArrow"
 
-const SelectScrollDownArrow = forwardRef<
-  HTMLDivElement,
-  SelectScrollDownArrowProps
->(({ className, children, ...props }, ref) => {
-  const arrowClassName: SelectScrollDownArrowProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(selectScrollArrowVariants(), userClassName)
-  }
-
+const SelectScrollDownArrow = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SelectScrollDownArrowProps) => {
   return (
-    <BaseSelect.ScrollDownArrow ref={ref} className={arrowClassName} {...props}>
+    <BaseSelect.ScrollDownArrow
+      ref={ref}
+      className={mergeClassName(selectArrowVariants(), className)}
+      {...props}
+    >
       {children ?? <ChevronDown aria-hidden="true" size={16} />}
     </BaseSelect.ScrollDownArrow>
   )
-})
+}
 
 SelectScrollDownArrow.displayName = "SelectScrollDownArrow"
 
-const SelectGroup = forwardRef<HTMLDivElement, SelectGroupProps>(
-  ({ className, ...props }, ref) => {
-    const groupClassName: SelectGroupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectGroupVariants(), userClassName)
-    }
-
-    return <BaseSelect.Group ref={ref} className={groupClassName} {...props} />
-  },
-)
+const SelectGroup = ({ ref, className, ...props }: SelectGroupProps) => {
+  return (
+    <BaseSelect.Group
+      ref={ref}
+      className={mergeClassName(selectGroupVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectGroup.displayName = "SelectGroup"
 
-const SelectGroupLabel = forwardRef<HTMLDivElement, SelectGroupLabelProps>(
-  ({ className, ...props }, ref) => {
-    const labelClassName: SelectGroupLabelProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(selectGroupLabelVariants(), userClassName)
-    }
-
-    return (
-      <BaseSelect.GroupLabel ref={ref} className={labelClassName} {...props} />
-    )
-  },
-)
+const SelectGroupLabel = ({
+  ref,
+  className,
+  ...props
+}: SelectGroupLabelProps) => {
+  return (
+    <BaseSelect.GroupLabel
+      ref={ref}
+      className={mergeClassName(selectGroupLabelVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 SelectGroupLabel.displayName = "SelectGroupLabel"
 

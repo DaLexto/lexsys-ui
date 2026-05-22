@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Button.types.ts
  *
@@ -7,6 +8,7 @@
 import type { Button as BaseButton } from "@base-ui/react/button"
 
 export interface ButtonProps extends Omit<BaseButton.Props, "className"> {
+  ref?: Ref<HTMLButtonElement>
   variant?: "primary" | "secondary"
   size?: "xs" | "sm" | "md" | "lg" | "xl"
   isLoading?: boolean

@@ -4,7 +4,6 @@
  * Reference RadioGroup component implementation.
  */
 
-import { forwardRef } from "react"
 import { Radio } from "@base-ui/react/radio"
 import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group"
 import type { RadioGroupItemProps, RadioGroupProps } from "./RadioGroup.types"
@@ -15,51 +14,52 @@ import {
   radioGroupVariants,
 } from "./RadioGroup.variants"
 import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
-const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
-  ({ orientation = "vertical", className, ...props }, ref) => {
-    const radioGroupClassName: RadioGroupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(radioGroupVariants({ orientation }), userClassName)
-    }
-
-    return (
-      <BaseRadioGroup ref={ref} className={radioGroupClassName} {...props} />
-    )
-  },
-)
+const RadioGroup = ({
+  ref,
+  orientation = "vertical",
+  className,
+  ...props
+}: RadioGroupProps) => {
+  return (
+    <BaseRadioGroup
+      ref={ref}
+      className={mergeClassName(radioGroupVariants({ orientation }), className)}
+      {...props}
+    />
+  )
+}
 
 RadioGroup.displayName = "RadioGroup"
 
-const RadioGroupItem = forwardRef<HTMLElement, RadioGroupItemProps>(
-  (
-    { size, className, indicatorClassName, labelClassName, children, ...props },
-    ref,
-  ) => {
-    const radioClassName: RadioGroupItemProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(radioGroupItemVariants({ size }), userClassName)
-    }
-
-    return (
-      <label className={cn(radioGroupLabelVariants(), labelClassName)}>
-        <Radio.Root ref={ref} className={radioClassName} {...props}>
-          <Radio.Indicator
-            className={cn(
-              radioGroupIndicatorVariants({ size }),
-              indicatorClassName,
-            )}
-          />
-        </Radio.Root>
-        {children === undefined ? null : <span>{children}</span>}
-      </label>
-    )
-  },
-)
+const RadioGroupItem = ({
+  ref,
+  size,
+  className,
+  indicatorClassName,
+  labelClassName,
+  children,
+  ...props
+}: RadioGroupItemProps) => {
+  return (
+    <label className={cn(radioGroupLabelVariants(), labelClassName)}>
+      <Radio.Root
+        ref={ref}
+        className={mergeClassName(radioGroupItemVariants({ size }), className)}
+        {...props}
+      >
+        <Radio.Indicator
+          className={cn(
+            radioGroupIndicatorVariants({ size }),
+            indicatorClassName,
+          )}
+        />
+      </Radio.Root>
+      {children === undefined ? null : <span>{children}</span>}
+    </label>
+  )
+}
 
 RadioGroupItem.displayName = "RadioGroupItem"
 

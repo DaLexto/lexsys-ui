@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Collapsible.types.ts
  *
@@ -10,6 +11,7 @@ export interface CollapsibleProps extends Omit<
   BaseCollapsible.Root.Props,
   "className"
 > {
+  ref?: Ref<HTMLDivElement>
   variant?: "surface" | "plain"
   className?: BaseCollapsible.Root.Props["className"]
 }
@@ -21,9 +23,4 @@ export interface CollapsibleTriggerProps extends Omit<
   className?: BaseCollapsible.Trigger.Props["className"]
 }
 
-export interface CollapsiblePanelProps extends Omit<
-  BaseCollapsible.Panel.Props,
-  "className"
-> {
-  className?: BaseCollapsible.Panel.Props["className"]
-}
+export type CollapsiblePanelProps = BaseCollapsible.Panel.Props

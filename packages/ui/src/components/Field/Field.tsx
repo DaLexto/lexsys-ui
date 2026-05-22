@@ -4,7 +4,6 @@
  * Reference Field component implementation.
  */
 
-import { forwardRef } from "react"
 import { Field as BaseField } from "@base-ui/react/field"
 import type {
   FieldControlProps,
@@ -23,112 +22,96 @@ import {
   fieldLabelVariants,
   fieldVariants,
 } from "./Field.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
-const Field = forwardRef<HTMLDivElement, FieldProps>(
-  ({ className, ...props }, ref) => {
-    const fieldClassName: FieldProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(fieldVariants(), userClassName)
-    }
-
-    return <BaseField.Root ref={ref} className={fieldClassName} {...props} />
-  },
-)
-
-Field.displayName = "Field"
-
-const FieldLabel = forwardRef<HTMLElement, FieldLabelProps>(
-  ({ className, ...props }, ref) => {
-    const labelClassName: FieldLabelProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(fieldLabelVariants(), userClassName)
-    }
-
-    return <BaseField.Label ref={ref} className={labelClassName} {...props} />
-  },
-)
-
-FieldLabel.displayName = "FieldLabel"
-
-const FieldControl = forwardRef<HTMLElement, FieldControlProps>(
-  ({ variant, size, className, isInvalid, ...props }, ref) => {
-    const baseControlProps: Omit<
-      FieldControlProps,
-      "className" | "isInvalid" | "size" | "variant"
-    > = isInvalid ? { ...props, "aria-invalid": true } : props
-    const controlClassName: FieldControlProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(fieldControlVariants({ variant, size }), userClassName)
-    }
-
-    return (
-      <BaseField.Control
-        ref={ref}
-        className={controlClassName}
-        {...baseControlProps}
-      />
-    )
-  },
-)
-
-FieldControl.displayName = "FieldControl"
-
-const FieldDescription = forwardRef<
-  HTMLParagraphElement,
-  FieldDescriptionProps
->(({ className, ...props }, ref) => {
-  const descriptionClassName: FieldDescriptionProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(fieldDescriptionVariants(), userClassName)
-  }
-
+const Field = ({ ref, className, ...props }: FieldProps) => {
   return (
-    <BaseField.Description
+    <BaseField.Root
       ref={ref}
-      className={descriptionClassName}
+      className={mergeClassName(fieldVariants(), className)}
       {...props}
     />
   )
-})
+}
+
+Field.displayName = "Field"
+
+const FieldLabel = ({ ref, className, ...props }: FieldLabelProps) => {
+  return (
+    <BaseField.Label
+      ref={ref}
+      className={mergeClassName(fieldLabelVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+FieldLabel.displayName = "FieldLabel"
+
+const FieldControl = ({
+  ref,
+  variant,
+  size,
+  className,
+  isInvalid,
+  ...props
+}: FieldControlProps) => {
+  const baseControlProps: Omit<
+    FieldControlProps,
+    "className" | "isInvalid" | "size" | "variant"
+  > = isInvalid ? { ...props, "aria-invalid": true } : props
+
+  return (
+    <BaseField.Control
+      ref={ref}
+      className={mergeClassName(
+        fieldControlVariants({ variant, size }),
+        className,
+      )}
+      {...baseControlProps}
+    />
+  )
+}
+
+FieldControl.displayName = "FieldControl"
+
+const FieldDescription = ({
+  ref,
+  className,
+  ...props
+}: FieldDescriptionProps) => {
+  return (
+    <BaseField.Description
+      ref={ref}
+      className={mergeClassName(fieldDescriptionVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 FieldDescription.displayName = "FieldDescription"
 
-const FieldItem = forwardRef<HTMLDivElement, FieldItemProps>(
-  ({ className, ...props }, ref) => {
-    const itemClassName: FieldItemProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(fieldItemVariants(), userClassName)
-    }
-
-    return <BaseField.Item ref={ref} className={itemClassName} {...props} />
-  },
-)
+const FieldItem = ({ ref, className, ...props }: FieldItemProps) => {
+  return (
+    <BaseField.Item
+      ref={ref}
+      className={mergeClassName(fieldItemVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 FieldItem.displayName = "FieldItem"
 
-const FieldError = forwardRef<HTMLDivElement, FieldErrorProps>(
-  ({ className, ...props }, ref) => {
-    const errorClassName: FieldErrorProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(fieldErrorVariants(), userClassName)
-    }
-
-    return <BaseField.Error ref={ref} className={errorClassName} {...props} />
-  },
-)
+const FieldError = ({ ref, className, ...props }: FieldErrorProps) => {
+  return (
+    <BaseField.Error
+      ref={ref}
+      className={mergeClassName(fieldErrorVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 FieldError.displayName = "FieldError"
 

@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Input.types.ts
  *
@@ -13,6 +14,7 @@ export interface InputProps extends Omit<
   BaseInput.Props,
   "aria-invalid" | "className" | "size"
 > {
+  ref?: Ref<HTMLInputElement>
   variant?: "default" | "ghost"
   size?: "sm" | "md" | "lg"
   isInvalid?: boolean

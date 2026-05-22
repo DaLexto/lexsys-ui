@@ -1,868 +1,273 @@
-# Neurex — Architecture v2 (LOCKED)
+# Neurex — Architecture
 
-## Status
+**Audience:** Maintainers  
+**Type:** Architecture overview  
+**Source of truth for:** System shape, package boundaries, install flow, major constraints
 
-**LOCKED ARCHITECTURE DECISION**
-
-This document defines the long-term architecture for Neurex.
-
-Neurex is not a traditional npm-only component library.  
-It is a registry-first UI framework inspired by the shadcn model, built with:
-
-- Base UI as the internal headless behavior engine
-- Tailwind as the user-facing styling layer
-- Neurex design tokens as the design-system source of truth
-- A CLI and registry workflow for installing copyable components
+Domain specifications own their canonical rules. This document links to them.
 
 ---
 
-## 1. Product Direction
+## System model
 
-Neurex is a **registry-first UI framework**.
+Neurex is a **registry-first UI framework**. Components are not imported as
+library dependencies — they are installed as user-owned source files.
 
-The primary product experience is:
-
-```bash
-npx neurex add button
-```
-
-The CLI installs component source code directly into the consumer project.
-
-This means installed components become user-owned code, not black-box runtime imports.
-
-### Core Principle
+Install flow:
 
 ```txt
-Neurex provides the system.
-The user owns the installed code.
+packages/tokens  →  generated CSS (tokens.css, theme.css)
+packages/ui      →  source/reference components
+packages/registry →  installable templates + metadata
+packages/cli     →  reads registry, installs into consumer project
+                         ↓
+                 consumer project (user-owned code)
 ```
+
+Core invariants:
+
+- The CLI MUST read registry metadata to drive installs; no per-component
+  install logic is hardcoded in the CLI.
+- Installed files become user-owned. The CLI MUST NOT overwrite them silently.
+- Installs MUST be idempotent.
 
 ---
 
-## 2. Distribution Model
+## Monorepo packages
 
-### Primary Distribution
+| Package | npm name | Role |
+|---------|----------|------|
+| `packages/tokens` | `@neurex/tokens` | Design token source of truth; resolver; CSS + DTCG generators |
+| `packages/ui` | `@neurex/ui` | Source/reference React components (not the final distributed form) |
+| `packages/registry` | `@neurex/registry` | Registry items, templates, utilities, styles, and metadata validator |
+| `packages/cli` | `neurex` (bin) | CLI installer; reads `@neurex/registry`; orchestrates install into consumer projects |
+| `apps/playground` | `@neurex/playground` | Local Vite app for visual verification of tokens, components, and theming |
 
-The primary distribution model is a CLI/registry workflow:
+Package boundaries MUST be respected. See [AGENTS.md](../AGENTS.md) for package
+contracts and `package.json` exports for each package's public API.
+
+Build toolchain: pnpm workspaces, Turborepo, tsup, TypeScript 6, Vitest,
+ESLint, Prettier. See [DEPLOY.md](DEPLOY.md) for build and publish rules.
+
+---
+
+## Component file contract
+
+Every component in `packages/ui/src/components/` and every installed template
+in `packages/registry/templates/components/` follows this layout:
 
 ```txt
-Neurex registry
-      ↓
-Neurex CLI
-      ↓
-Consumer project
-      ↓
-User-owned components
+ComponentName/
+├── ComponentName.tsx          — implementation
+├── ComponentName.types.ts     — props interfaces
+└── ComponentName.variants.ts  — CVA variant definitions
 ```
 
-### Optional Future Distribution
+Components support structured `variant` props and `className` overrides.
+Interactive components use `@base-ui/react` primitives internally.
+Base UI is an implementation detail — it MUST NOT define the public API shape.
 
-An npm package may be introduced later as an additional distribution layer.
-
-This must remain optional.
-
-The architecture must not depend on npm-only component usage.
+See [STYLEGUIDE.md](STYLEGUIDE.md) and [STYLE.md](STYLE.md) for naming and
+coding conventions.
 
 ---
 
-## 3. High-Level Architecture
+## Design token system
+
+Token dependency chain:
 
 ```txt
-neurex/
-├── apps/
-│   ├── docs/
-│   └── playground/
-│
-├── packages/
-│   ├── ui/
-│   ├── registry/
-│   ├── cli/
-│   └── tokens/
-│
-├── docs/
-│   ├── ARCHITECTURE.md
-│   ├── STYLE.md
-│   ├── STYLEGUIDE.md
-│   └── DEPLOY.md
-│
-├── AGENTS.md
-└── package.json
+primitives → brand → semantics → component tokens
+                 ↑
+           themes override semantics per mode (light / dark)
+           presets are configuration, not a token layer
 ```
 
-### Package Responsibilities
+CSS output uses generated CSS variables: `var(--nx-<component>-<property>)`.
+Component variants in `*.variants.ts` reference these variables; they MUST NOT
+use raw Tailwind palette values.
+
+The current preset is `neurex` (`Neurex Default`), brand `neurex`, with
+`light` (`:root`) and `dark` (`.dark`) theme modes.
+
+Tailwind v4 is the user-facing styling layer. No runtime theme provider is
+required; theme switching is left to the consumer application via class toggling.
+
+Canonical token rules are owned by [TOKENS.md](TOKENS.md).
+
+---
+
+## Registry metadata
+
+Every installable item is declared as a `RegistryItem` in
+`packages/registry/src/items/`. Required fields:
+
+| Field | Purpose |
+|-------|---------|
+| `name` / `canonicalName` | Registry key + PascalCase folder name |
+| `version` | Item version (tracked in `neurex.config.json` after install) |
+| `type` / `category` | `component`, `utility`, or `style`; one of 8 categories |
+| `files` | Template paths relative to `packages/registry/templates/` |
+| `dependencies` | npm packages the CLI installs into the consumer project |
+| `registryDependencies` | Other registry items that must be installed first |
+| `utilities` | Shared utilities (e.g. `cn`) |
+| `styles` | Style manifests (e.g. `theme`) |
+| `target` | Default install path in the consumer project |
+
+Registry items MAY declare `remoteFiles` for fetching from a remote source.
+The registry validator checks for missing references and unknown manifests at
+build time.
+
+---
+
+## CLI behavior
+
+### Supported commands
+
+| Command | Description |
+|---------|-------------|
+| `neurex init` | Initialize Neurex in an existing project or scaffold a new Vite+React app |
+| `neurex add [items...]` | Install one or more registry items; interactive multiselect when no args |
+| `neurex update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes` |
+| `neurex update styles` | Update theme/token CSS files only |
+| `neurex list [--json]` | List available registry items |
+| `neurex status` | Show installed component versions |
+| `neurex doctor` | Check project health (config, paths, registry connectivity) |
+| `neurex uninstall [items...]` | Remove tracked components from config |
+| `neurex registry` | Inspect the active registry source |
+| `neurex version` | Print CLI version |
+| `neurex help` | Show usage |
+
+### Registry source
+
+The CLI resolves registry items from:
+
+1. **Local** (`@neurex/registry` bundled with the CLI) — default when
+   `registryUrl` is `null` in `neurex.config.json`.
+2. **Remote** — when `registryUrl` is set, the CLI fetches a remote manifest
+   and falls back to local if the fetch fails (unless `--no-fallback` is used).
+
+### Install idempotency
+
+Each resource reports one of four states:
 
 ```txt
-packages/ui
-  Source/reference implementation for components.
-
-packages/registry
-  Installable templates, metadata, dependency information, and registry item definitions.
-
-packages/cli
-  Command-line interface that reads registry metadata and installs components into user projects.
-
-packages/tokens
-  Full design-token system and generated theme outputs.
+created    — file or dependency was new
+updated    — file changed and was safe to overwrite (generated content)
+skipped    — already identical; no action taken
+conflicted — file differs and is user-modified; left untouched, requires review
 ```
 
----
+Conflicts are reported clearly. The CLI MUST NOT proceed silently past a conflict
+on user-owned files.
 
-## 4. Source vs Registry Output
+Update operations create `.bak` backup files before overwriting.
 
-Neurex separates source components from installable registry output.
+### Framework support (current)
 
-```txt
-packages/ui
-  ↓ source/reference components
+The `init` command detects an existing **Vite** project and wires:
 
-packages/registry
-  ↓ installable registry templates
+- `@import "tailwindcss"` in the CSS entrypoint (Tailwind v4)
+- `@tailwindcss/vite` plugin in `vite.config.*`
+- `@/*` TypeScript path alias in `tsconfig.app.json` or `tsconfig.json`
+- Matching Vite runtime alias
 
-packages/cli
-  ↓ install process
+Scaffolding a new Vite+React app from scratch is also supported:
+`neurex init vite [app-name]`.
 
-consumer project
-  ↓ generated user-owned files
-```
+> **Note (target):** Next.js and other framework scaffolds are not yet
+> implemented. The CLI defaults to Vite-compatible setup when project type
+> cannot be detected.
 
-### Rule
+Tailwind v4 is the only supported Tailwind version. The config schema has
+`tailwind.version: "v4"` hardcoded.
 
-The CLI must read registry metadata.
-
-It must not hardcode component-specific install behavior.
-
----
-
-## 5. Component Output Contract
-
-Each installed component follows a structured multi-file format.
-
-```txt
-src/components/ui/ComponentName/
-├── ComponentName.tsx
-├── ComponentName.types.ts
-└── ComponentName.variants.ts
-```
-
-### Purpose
-
-- `ComponentName.tsx` contains the component implementation.
-- `ComponentName.types.ts` contains public and internal component types.
-- `ComponentName.variants.ts` contains variant styling logic, usually CVA + Tailwind.
-
-### Default Registry Output
-
-Tests, stories, examples, and internal development files are not installed by default.
-
-They may exist in `packages/ui`, docs, or examples, but they are not part of the default consumer output.
+See [CLI.md](CLI.md) for the full command reference.
 
 ---
 
-## 6. Self-Contained Components
+## Consumer project layout
 
-Installed components must work immediately after installation.
-
-The CLI is responsible for installing all required dependencies.
-
-### Requirements
-
-- No hidden dependencies
-- No undocumented manual setup
-- No missing utility files
-- No missing token/theme CSS
-- No missing Tailwind integration
-
-After running:
-
-```bash
-npx neurex add button
-```
-
-the installed Button must be usable without manual wiring.
-
----
-
-## 7. Design System Strategy
-
-Neurex uses a full design-token system as the styling source of truth.
-
-### Style Preset vs Theme Mode
-
-Neurex separates style presets from theme modes.
-
-    style preset = design personality, density, radius, component feel
-    theme mode   = light/dark/brand mapping inside that style
-
-The current CLI/config style alias is `default`. Inside `@neurex/tokens`, that
-alias currently resolves to the token package preset id `neurex`, named
-`Neurex Default`, with brand `neurex`. The exact public preset-selection API
-remains internal and evolving.
-
-### Token Layers
-
-Detailed token architecture rules are defined in `docs/TOKENS.md`.
-
-Neurex token dependencies follow this canonical model:
-
-    primitives -> brand -> semantics -> components
-
-Layer responsibilities:
-
-    primitives
-      ↓ raw values only
-
-    brand
-      ↓ brand-level palette decisions
-
-    semantics
-      ↓ reusable product meaning and roles
-
-    component tokens
-      ↓ component-specific slot/property decisions
-
-Themes override semantic values per mode. Themes are not a fifth token layer.
-
-    primitives -> brand -> semantics -> components
-                    ↑
-                  themes override semantics per mode
-
-Style presets are configuration, not token layers. A preset may configure which
-brand, theme modes, density, radius feel, spacing rhythm, component defaults,
-and output combinations are built, but it must not become a dependency layer
-between tokens and components.
-
-Reference rules:
-
-- primitive tokens contain raw values only
-- brand tokens reference primitive tokens
-- semantic tokens reference brand tokens for brand-specific values
-- semantic tokens may reference primitive tokens for non-brand values such as neutrals, feedback, and foundation scales
-- component tokens reference semantic tokens only
-- component tokens must never reference primitives, brand tokens, or theme tokens directly
-- themes override semantic values per mode
-- themes must never reference component tokens
-- presets never participate in token resolution
-
-### User-Facing Styling
-
-The user-facing DX remains Tailwind-first.
-
-Users should work with normal Tailwind classes and component variants, while Neurex controls the values through generated CSS variables and theme outputs.
-
-    Tailwind classes
-      ↓
-    CSS variables
-      ↓
-    Neurex tokens
-
-### Goal
-
-Neurex keeps enterprise-grade design-system control internally without forcing users to manually understand the entire token pipeline.
-
----
-
-## 8. Base UI Role
-
-Base UI is the default headless foundation for interactive Neurex components.
-
-Base UI provides:
-
-- accessibility behavior
-- keyboard navigation
-- state primitives
-- interaction logic
-
-Neurex provides:
-
-- public component API
-- styling
-- variants
-- tokens
-- registry output
-
-### Rule
-
-Base UI is an internal implementation detail.
-
-It must not define the public identity of Neurex.
-
-```txt
-User sees:
-  <Dialog />
-  <Button />
-
-Internally:
-  Base UI behavior
-  Neurex API
-  Tailwind styling
-  Neurex tokens
-```
-
----
-
-## 9. CLI Automation
-
-The Neurex CLI must provide full automation.
-
-When a user runs:
-
-```bash
-npx neurex add button
-```
-
-the CLI should:
-
-- copy required component files
-- install required dependencies
-- add or update shared utilities
-- add or update token/theme CSS
-- update Tailwind configuration when needed
-- avoid manual setup whenever possible
-
-### Goal
-
-The installation experience should be fast, safe, and close to shadcn-level DX, while adding Neurex design-system integration.
-
----
-
-## 10. Registry Metadata
-
-Neurex uses registry metadata to describe installable items.
-
-Each registry item must define:
-
-- name
-- type
-- category
-- aliases
-- files
-- dependencies
-- registry dependencies
-- required utilities
-- required styles/tokens
-- target install paths
-
-### Example Shape
-
-```json
-{
-  "name": "button",
-  "canonicalName": "Button",
-  "type": "component",
-  "category": "actions",
-  "aliases": ["btn"],
-  "files": [
-    "components/Button/Button.tsx",
-    "components/Button/Button.types.ts",
-    "components/Button/Button.variants.ts"
-  ],
-  "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
-  "registryDependencies": [],
-  "utilities": ["cn"],
-  "styles": ["theme"],
-  "target": "src/components/ui/Button"
-}
-```
-
-Registry-level utility and style manifests define the shared install contract.
-The validator must verify that item references point to known manifests and that
-every referenced local template file exists.
-
----
-
-## 11. Idempotent Installs
-
-Registry installs must be idempotent.
-
-Running install commands multiple times must not duplicate or damage existing project files.
-
-### Behavior
-
-```txt
-Resource missing
-  → install it
-
-Resource already exists and is identical
-  → skip it
-
-Resource already exists and differs
-  → report conflict and require confirmation
-
-Dependency already exists
-  → do not reinstall unnecessarily
-
-Shared utility already exists
-  → reuse or safely patch
-```
-
-### Rule
-
-The CLI must never overwrite user code silently.
-
----
-
-## 12. Global Shared Layer
-
-Neurex uses a global shared layer for reusable resources.
-
-Default locations:
-
-```txt
-src/lib/
-styles/
-```
-
-Shared resources include:
-
-- utilities
-- shared helpers
-- token/theme CSS
-- Tailwind integration
-- shared primitives required by installed components
-
-### Rule
-
-Components must not duplicate shared utilities or theme resources per component.
-
----
-
-## 13. Default Install Paths
-
-Default consumer project output:
+Default paths after `neurex init` and component installs:
 
 ```txt
 project/
 ├── src/
-│   ├── components/
-│   │   └── ui/
-│   │       └── Button/
-│   │           ├── Button.tsx
-│   │           ├── Button.types.ts
-│   │           └── Button.variants.ts
-│   │
-│   └── lib/
-│       └── utils.ts
-│
+│   ├── components/ui/<ComponentName>/   ← installed components
+│   └── lib/                             ← shared utilities (cn.ts)
 ├── styles/
-│   ├── tokens.css
-│   └── theme.css
-│
-└── neurex.config.json
+│   ├── tokens.css                       ← generated token variables
+│   └── theme.css                        ← generated theme overrides
+└── neurex.config.json                   ← Neurex project config
 ```
 
-### Rules
-
-- Components install to `src/components/ui/ComponentName/`
-- Utilities install to `src/lib/`
-- Styles and tokens install to `styles/`
-- Generated imports use the configured user-facing aliases, starting with
-  `@/lib/utils`
-- Project configuration lives in `neurex.config.json`
+Paths are configurable via `neurex.config.json` (`componentsPath`,
+`utilitiesPath`, `stylesPath`). Import aliases default to `@/components/ui`,
+`@/lib/utils`, `@/lib`, `@/hooks`.
 
 ---
 
-## 14. Component API Philosophy
+## Configuration
 
-Neurex components use a hybrid API model.
+`neurex.config.json` is read and written by the CLI. Shape:
 
-Components must support:
-
-- structured variants
-- `className` overrides
-
-### Example
-
-```tsx
-<Button variant="primary" size="md" />
-<Button className="bg-red-500" />
+```json
+{
+  "style": "default",
+  "componentsPath": "src/components/ui",
+  "utilitiesPath": "src/lib",
+  "stylesPath": "styles",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "tailwind": { "version": "v4", "css": "src/style.css" },
+  "installed": { "button": "0.0.1" },
+  "registryUrl": null
+}
 ```
 
-### Rationale
+If the file is missing, the CLI falls back to built-in defaults.
+
+---
+
+## End-to-end install flow
 
 ```txt
-Variants provide consistency.
-className provides flexibility.
-```
-
-Neither approach should block the other.
-
----
-
-## 15. Composition Model
-
-Complex components use a hybrid composition model.
-
-They must support:
-
-- simple API for common use cases
-- compound API for advanced control
-
-### Simple Usage
-
-```tsx
-<Dialog open={open} onOpenChange={setOpen}>
-  <DialogPortal>
-    <DialogBackdrop />
-    <DialogViewport>
-      <DialogPopup>
-        <DialogTitle>Confirm action</DialogTitle>
-        <DialogDescription>
-          This uses Base UI behavior underneath.
-        </DialogDescription>
-      </DialogPopup>
-    </DialogViewport>
-  </DialogPortal>
-</Dialog>
-```
-
-### Advanced Usage
-
-```tsx
-<Dialog>
-  <DialogTrigger render={<Button />}>Open</DialogTrigger>
-  <DialogPortal>
-    <DialogBackdrop />
-    <DialogViewport>
-      <DialogPopup>
-        <DialogClose aria-label="Close dialog" />
-        <DialogTitle>Publish registry item</DialogTitle>
-        <DialogDescription>
-          Compound parts preserve advanced control.
-        </DialogDescription>
-      </DialogPopup>
-    </DialogViewport>
-  </DialogPortal>
-</Dialog>
-```
-
-### Rule
-
-Simple mode improves speed and DX.  
-Compound mode preserves flexibility and power.
-
----
-
-## 16. Update Strategy
-
-Installed components are user-owned code.
-
-The CLI may provide update helpers, but it must never silently overwrite modified files.
-
-### Update Behavior
-
-```txt
-Unchanged generated file
-  → safe to update
-
-User-modified file
-  → report diff/conflict
-
-Missing file
-  → restore only with confirmation
-
-Shared dependency/config update
-  → patch idempotently when safe
-```
-
-### Batch Updates
-
-The CLI must support updating multiple components in one command.
-
-```bash
-neurex update button textfield dialog
-neurex update --all
-```
-
-Batch updates must follow the same safety rules.
-
----
-
-## 17. Configuration System
-
-Neurex uses a hybrid configuration model.
-
-The CLI must:
-
-- auto-detect project structure and defaults
-- support an optional explicit config file
-
-Default config file:
-
-```txt
-neurex.config.json
-```
-
-The config file may define:
-
-- install paths
-- styling preferences
-- token/theme options
-- component behavior overrides
-
-If missing, the CLI falls back to sensible defaults.
-
----
-
-## 18. CLI Command Surface
-
-Neurex CLI uses a full DX command surface.
-
-Required commands:
-
-```bash
-neurex init
-neurex add <component...>
-neurex update <component...>
-neurex update --all
-neurex list
-neurex doctor
-```
-
-### Interactive Add
-
-If the user runs:
-
-```bash
-neurex add
-```
-
-without component names, the CLI must show an interactive/selectable list of available components.
-
-```txt
-? Select components to add:
-  ◯ AlertDialog
-  ◯ Avatar
-  ◯ Button
-  ◯ Collapsible
-  ◯ Dialog
-  ◯ Drawer
-  ◯ Input
-  ◯ Menu
-  ◯ Meter
-  ◯ Select
-  ◯ Toast
-  ◯ ToggleGroup
+neurex add button
+  1. Load neurex.config.json (or apply defaults)
+  2. Detect registry source (local | remote URL)
+  3. Resolve "button" to Button registry item (by name, alias, or case-insensitive match)
+  4. Collect transitive registryDependencies, utilities, styles
+  5. Install missing npm dependencies (npm / pnpm / yarn detected from lockfile)
+  6. Install shared utilities (skip if identical, conflict if user-modified)
+  7. Install token/theme CSS files (skip generated-file header check)
+  8. Copy component template files to componentsPath/Button/
+  9. Record item version in installed map; save config
+ 10. Print created / updated / skipped / conflicted summary
 ```
 
 ---
 
-## 19. Registry Taxonomy
+## Package manager detection
 
-Registry items are grouped by category.
-
-Initial categories:
-
-- actions
-- forms
-- overlays
-- navigation
-- feedback
-- layout
-- data-display
-- utilities
-
-### Usage
-
-Categories are used for:
-
-- CLI interactive selection
-- search/filtering
-- documentation grouping
-- discoverability
+The CLI detects `pnpm-lock.yaml`, `yarn.lock`, or `package-lock.json` to pick
+the correct install invocation. Unrecognized package managers default to npm.
+Dependency names are validated against a safe-name regex before any shell
+invocation.
 
 ---
 
-## 20. CLI Naming and Aliases
+## Related documents
 
-The CLI accepts flexible component names.
-
-Requirements:
-
-- case-insensitive input
-- canonical name normalization
-- alias support
-
-### Examples
-
-```txt
-button → Button
-Button → Button
-BUTTON → Button
-input → Input
-modal → Dialog
-```
-
-Each registry item may define:
-
-- canonical name
-- aliases
-
----
-
-## 21. Dependency Strategy
-
-Neurex uses a hybrid dependency versioning strategy.
-
-Dependencies are divided into:
-
-- core dependencies
-- secondary dependencies
-
-### Core Dependencies
-
-Core dependencies are stability-critical.
-
-They must use fixed or tightly controlled versions.
-
-Examples:
-
-- Base UI
-- React integration dependencies
-- core styling/runtime dependencies when breaking changes are likely
-
-### Secondary Dependencies
-
-Secondary dependencies may use semver ranges when safe.
-
-The CLI is responsible for installing compatible versions and avoiding breaking changes.
-
----
-
-## 22. Framework Support
-
-The CLI supports multiple React environments.
-
-It must detect:
-
-- Next.js
-- Vite
-- CRA
-- Tailwind presence
-- TypeScript presence
-
-If detection fails, the CLI must:
-
-- notify the user
-- proceed with a safe default React-compatible setup
-
-Manual override may be supported:
-
-```bash
-neurex init --framework next
-neurex init --framework vite
-```
-
----
-
-## 23. Theming Strategy
-
-Neurex uses a multi-theme CSS-variable strategy.
-
-Themes are activated through CSS selectors/classes.
-
-Default strategy:
-
-```txt
-:root       → default theme
-.dark       → dark theme
-.theme-*    → optional custom/brand themes
-```
-
-### Runtime Provider
-
-Neurex does not require a runtime theme provider by default.
-
-Theme switching is left to the consumer application.
-
-Consumers may use:
-
-- class toggling
-- framework-specific theme tools
-- `next-themes`
-- custom theme state
-
-### Goal
-
-Strong theming support without forcing runtime complexity.
-
----
-
-## 24. End-to-End Install Flow
-
-```txt
-User runs:
-  npx neurex add button
-
-CLI:
-  1. Loads neurex.config.json if present
-  2. Detects framework and project structure
-  3. Resolves "button" to Button registry item
-  4. Reads registry metadata
-  5. Checks existing files and dependencies
-  6. Installs missing dependencies
-  7. Installs shared utilities if missing
-  8. Installs token/theme CSS if missing
-  9. Copies component files
-  10. Reports created/updated/skipped/conflicted resources
-```
-
----
-
-## 25. Architecture Diagram
-
-```txt
-                       ┌────────────────────┐
-                       │   packages/tokens   │
-                       │  Design token source│
-                       └─────────┬──────────┘
-                                 │
-                                 ▼
-                       ┌────────────────────┐
-                       │   Generated CSS     │
-                       │ tokens / themes     │
-                       └─────────┬──────────┘
-                                 │
-                                 ▼
-┌────────────────────┐   ┌────────────────────┐   ┌────────────────────┐
-│   packages/ui       │   │ packages/registry  │   │   packages/cli      │
-│ source components   │──▶│ templates/metadata │──▶│ installer/generator │
-└────────────────────┘   └────────────────────┘   └─────────┬──────────┘
-                                                              │
-                                                              ▼
-                                                   ┌────────────────────┐
-                                                   │ consumer project    │
-                                                   │ user-owned code     │
-                                                   └────────────────────┘
-```
-
----
-
-## 26. Anti-Patterns
-
-Avoid:
-
-- npm-only architecture as the primary model
-- hardcoded CLI install logic
-- silent file overwrites
-- duplicated shared utilities per component
-- exposing Base UI as the public identity
-- forcing a runtime theme provider
-- installing files without metadata
-- requiring manual setup after component installation
-- treating generated code as owned by Neurex after installation
-
----
-
-## 27. Final Statement
-
-Neurex is a registry-first design-system framework.
-
-It combines:
-
-- shadcn-like installation DX
-- Base UI accessibility and behavior
-- Tailwind styling ergonomics
-- full Neurex token architecture
-- safe, idempotent CLI workflows
-
-The long-term goal is to provide a professional UI framework where users get copyable, editable, production-ready components while Neurex maintains strong architectural consistency behind the scenes.
+| Document | Owns |
+|----------|------|
+| [TOKENS.md](TOKENS.md) | Token layer rules, resolver, CSS generation, validation |
+| [CLI.md](CLI.md) | Full CLI command reference, flags, config options |
+| [STYLEGUIDE.md](STYLEGUIDE.md) | Component naming, file layout, CSS class conventions |
+| [STYLE.md](STYLE.md) | Coding style, TypeScript, React, import/export rules |
+| [DEPLOY.md](DEPLOY.md) | Build pipeline, publish-readiness, artifact contract |
+| [AGENTS.md](../AGENTS.md) | Package contracts, architectural invariants, agent guidance |

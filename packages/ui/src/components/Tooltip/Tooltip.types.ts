@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Tooltip.types.ts
  *
@@ -8,32 +9,14 @@ import type { Tooltip as BaseTooltip } from "@base-ui/react/tooltip"
 
 export type TooltipProps = BaseTooltip.Root.Props
 
-export interface TooltipTriggerProps extends Omit<
-  BaseTooltip.Trigger.Props,
-  "className"
-> {
-  className?: BaseTooltip.Trigger.Props["className"]
+export type TooltipTriggerProps = BaseTooltip.Trigger.Props & {
+  ref?: Ref<HTMLButtonElement>
 }
 
 export type TooltipPortalProps = BaseTooltip.Portal.Props
 
-export interface TooltipPositionerProps extends Omit<
-  BaseTooltip.Positioner.Props,
-  "className"
-> {
-  className?: BaseTooltip.Positioner.Props["className"]
-}
+export type TooltipPositionerProps = BaseTooltip.Positioner.Props
 
-export interface TooltipPopupProps extends Omit<
-  BaseTooltip.Popup.Props,
-  "className"
-> {
-  className?: BaseTooltip.Popup.Props["className"]
-}
+export type TooltipPopupProps = BaseTooltip.Popup.Props
 
-export interface TooltipArrowProps extends Omit<
-  BaseTooltip.Arrow.Props,
-  "className"
-> {
-  className?: BaseTooltip.Arrow.Props["className"]
-}
+export type TooltipArrowProps = BaseTooltip.Arrow.Props

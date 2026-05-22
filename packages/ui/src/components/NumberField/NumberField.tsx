@@ -4,7 +4,6 @@
  * Reference NumberField component implementation.
  */
 
-import { forwardRef } from "react"
 import { NumberField as BaseNumberField } from "@base-ui/react/number-field"
 import type {
   NumberFieldDecrementProps,
@@ -23,156 +22,138 @@ import {
   numberFieldScrubAreaVariants,
   numberFieldVariants,
 } from "./NumberField.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
-const NumberField = forwardRef<HTMLDivElement, NumberFieldProps>(
-  ({ className, ...props }, ref) => {
-    const rootClassName: NumberFieldProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(numberFieldVariants(), userClassName)
-    }
-
-    return (
-      <BaseNumberField.Root ref={ref} className={rootClassName} {...props} />
-    )
-  },
-)
+const NumberField = ({ ref, className, ...props }: NumberFieldProps) => {
+  return (
+    <BaseNumberField.Root
+      ref={ref}
+      className={mergeClassName(numberFieldVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 NumberField.displayName = "NumberField"
 
-const NumberFieldGroup = forwardRef<HTMLDivElement, NumberFieldGroupProps>(
-  ({ size, className, ...props }, ref) => {
-    const groupClassName: NumberFieldGroupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(numberFieldGroupVariants({ size }), userClassName)
-    }
-
-    return (
-      <BaseNumberField.Group ref={ref} className={groupClassName} {...props} />
-    )
-  },
-)
+const NumberFieldGroup = ({
+  ref,
+  size,
+  className,
+  ...props
+}: NumberFieldGroupProps) => {
+  return (
+    <BaseNumberField.Group
+      ref={ref}
+      className={mergeClassName(numberFieldGroupVariants({ size }), className)}
+      {...props}
+    />
+  )
+}
 
 NumberFieldGroup.displayName = "NumberFieldGroup"
 
-const NumberFieldInput = forwardRef<HTMLInputElement, NumberFieldInputProps>(
-  ({ size, className, isInvalid, ...props }, ref) => {
-    const baseInputProps: Omit<
-      NumberFieldInputProps,
-      "className" | "isInvalid" | "size"
-    > = isInvalid ? { ...props, "aria-invalid": true } : props
-    const inputClassName: NumberFieldInputProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
+const NumberFieldInput = ({
+  ref,
+  size,
+  className,
+  isInvalid,
+  ...props
+}: NumberFieldInputProps) => {
+  const baseInputProps: Omit<
+    NumberFieldInputProps,
+    "className" | "isInvalid" | "size"
+  > = isInvalid ? { ...props, "aria-invalid": true } : props
 
-      return cn(numberFieldInputVariants({ size }), userClassName)
-    }
-
-    return (
-      <BaseNumberField.Input
-        ref={ref}
-        className={inputClassName}
-        {...baseInputProps}
-      />
-    )
-  },
-)
+  return (
+    <BaseNumberField.Input
+      ref={ref}
+      className={mergeClassName(numberFieldInputVariants({ size }), className)}
+      {...baseInputProps}
+    />
+  )
+}
 
 NumberFieldInput.displayName = "NumberFieldInput"
 
-const NumberFieldIncrement = forwardRef<
-  HTMLButtonElement,
-  NumberFieldIncrementProps
->(({ size, className, children, ...props }, ref) => {
-  const buttonClassName: NumberFieldIncrementProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(
-      numberFieldButtonVariants({ position: "increment", size }),
-      userClassName,
-    )
-  }
-
+const NumberFieldIncrement = ({
+  ref,
+  size,
+  className,
+  children,
+  ...props
+}: NumberFieldIncrementProps) => {
   return (
-    <BaseNumberField.Increment ref={ref} className={buttonClassName} {...props}>
+    <BaseNumberField.Increment
+      ref={ref}
+      className={mergeClassName(
+        numberFieldButtonVariants({ position: "increment", size }),
+        className,
+      )}
+      {...props}
+    >
       {children ?? "+"}
     </BaseNumberField.Increment>
   )
-})
+}
 
 NumberFieldIncrement.displayName = "NumberFieldIncrement"
 
-const NumberFieldDecrement = forwardRef<
-  HTMLButtonElement,
-  NumberFieldDecrementProps
->(({ size, className, children, ...props }, ref) => {
-  const buttonClassName: NumberFieldDecrementProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(
-      numberFieldButtonVariants({ position: "decrement", size }),
-      userClassName,
-    )
-  }
-
+const NumberFieldDecrement = ({
+  ref,
+  size,
+  className,
+  children,
+  ...props
+}: NumberFieldDecrementProps) => {
   return (
-    <BaseNumberField.Decrement ref={ref} className={buttonClassName} {...props}>
+    <BaseNumberField.Decrement
+      ref={ref}
+      className={mergeClassName(
+        numberFieldButtonVariants({ position: "decrement", size }),
+        className,
+      )}
+      {...props}
+    >
       {children ?? "-"}
     </BaseNumberField.Decrement>
   )
-})
+}
 
 NumberFieldDecrement.displayName = "NumberFieldDecrement"
 
-const NumberFieldScrubArea = forwardRef<
-  HTMLSpanElement,
-  NumberFieldScrubAreaProps
->(({ className, ...props }, ref) => {
-  const scrubClassName: NumberFieldScrubAreaProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(numberFieldScrubAreaVariants(), userClassName)
-  }
-
+const NumberFieldScrubArea = ({
+  ref,
+  className,
+  ...props
+}: NumberFieldScrubAreaProps) => {
   return (
     <BaseNumberField.ScrubArea
       ref={ref}
-      className={scrubClassName}
+      className={mergeClassName(numberFieldScrubAreaVariants(), className)}
       {...props}
     />
   )
-})
+}
 
 NumberFieldScrubArea.displayName = "NumberFieldScrubArea"
 
-const NumberFieldScrubAreaCursor = forwardRef<
-  HTMLSpanElement,
-  NumberFieldScrubAreaCursorProps
->(({ className, ...props }, ref) => {
-  const cursorClassName: NumberFieldScrubAreaCursorProps["className"] = (
-    state,
-  ) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(numberFieldScrubAreaCursorVariants(), userClassName)
-  }
-
+const NumberFieldScrubAreaCursor = ({
+  ref,
+  className,
+  ...props
+}: NumberFieldScrubAreaCursorProps) => {
   return (
     <BaseNumberField.ScrubAreaCursor
       ref={ref}
-      className={cursorClassName}
+      className={mergeClassName(
+        numberFieldScrubAreaCursorVariants(),
+        className,
+      )}
       {...props}
     />
   )
-})
+}
 
 NumberFieldScrubAreaCursor.displayName = "NumberFieldScrubAreaCursor"
 
