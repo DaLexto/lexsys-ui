@@ -48,7 +48,7 @@ neurex/
 | `DEPLOY.md` | Build and distribution |
 | `ROADMAP.md` | Long-term tokens platform direction (future work) |
 | `RESOLVER_EVOLUTION.md` | Token resolver roadmap |
-| `REVIEW_TODO.md` | Review backlog |
+| `docs/REVIEW_TODO.md` | Review backlog |
 
 ---
 
@@ -92,7 +92,7 @@ packages/tokens/
 │   ├── brand/            # Brand palette (references primitives)
 │   ├── semantics/        # Usage intent (references brand/primitives)
 │   │   └── color/        # Optional subfolder; merges into top-level color.* paths
-│   ├── components/       # Per-component tokens (references semantics; size/spacing primitive exception)
+│   ├── components/       # Per-component tokens (semantic references only)
 │   ├── themes/           # Mode overrides — same paths as semantics (border.*, action.*, color.*)
 │   ├── presets/          # Preset config (not a token layer)
 │   ├── resolver/         # Token resolution + layer-validation.ts (build-failing contracts)

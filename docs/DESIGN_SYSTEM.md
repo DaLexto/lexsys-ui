@@ -267,7 +267,7 @@ Examples:
 
 - `action.primary.base` → `--nx-action-primary-base`
 - `radius.control` → `--nx-radius-control`
-- `spacing.4` → `--nx-space-4`
+- `spacing.control.x.md` → `--nx-space-control-x-md`
 
 ### Tailwind `@theme`
 

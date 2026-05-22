@@ -18,7 +18,7 @@ The P0 and P1 implementation passes are complete:
 - CLI install safety (idempotency, conflict detection, `--cwd` scoping, packed template resolution)
 - Token foundation (DTCG-shaped source, CSS + DTCG JSON generation, brand layer, theme modes)
 - Token platform phases 1–5 (factory authoring, layer validation, governance reports)
-- Semantic token organization (elevation group, theme path alignment, feedback wiring, semantic audit)
+- Semantic token organization (elevation group, theme path alignment, feedback wiring, semantic audit, component size/spacing semantic migration)
 - Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution

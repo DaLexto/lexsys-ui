@@ -203,7 +203,7 @@ feat(tokens): add brand layer to token pipeline
 fix(cli): make registry source flags deterministic
 test(registry): guard public api and template sync
 refactor(ui): route components through semantic token classes
-docs: document component token reference exception
+docs(tokens): document semantic size and spacing roles
 docs(tokens): record dtcg output paths
 chore(repo): add scoped package check scripts
 feat(playground): add overlays QA panel

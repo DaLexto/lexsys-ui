@@ -82,7 +82,7 @@ Presets are configuration. They are not a layer in this chain.
 
 ### Components
 
-- **Target rule:** reference semantic tokens only.
+- **Rule:** reference semantic tokens only (enforced by layer validation).
 - MUST NOT reference primitive color, brand, or theme tokens directly.
 - MUST NOT reference primitive `size.*` or `spacing.*` scale tokens directly.
 - MUST NOT reference other component token namespaces.
