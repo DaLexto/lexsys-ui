@@ -400,6 +400,9 @@ describe("createStyleOutputs", () => {
             base?: {
               $value?: unknown
             }
+            overlay?: {
+              $value?: unknown
+            }
           }
         }
       }
@@ -482,6 +485,9 @@ describe("createStyleOutputs", () => {
       color?: {
         background?: {
           base?: {
+            $value?: unknown
+          }
+          overlay?: {
             $value?: unknown
           }
         }
