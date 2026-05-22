@@ -22,7 +22,7 @@ The P0 and P1 implementation passes are complete:
 - Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution
-- Documentation rewrite (all package READMEs, domain docs, architecture, CLI, tokens, design system)
+- Documentation alignment with current token/UI contracts (`docs/TOKENS.md`, design system, architecture, CLI, package READMEs)
 
 The current implementation supports: Vite + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 31 bundled components.
 

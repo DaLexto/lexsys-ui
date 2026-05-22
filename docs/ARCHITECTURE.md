@@ -83,9 +83,11 @@ primitives → brand → semantics → component tokens
            presets are configuration, not a token layer
 ```
 
-CSS output uses generated CSS variables: `var(--nx-<component>-<property>)`.
-Component variants in `*.variants.ts` reference these variables; they MUST NOT
-use raw Tailwind palette values.
+CSS output uses generated CSS variables as `--nx-<token-path>`. Component
+variants in `*.variants.ts` reference them through Tailwind v4 canonical syntax
+(for example `bg-(--nx-button-primary-background)`,
+`ring-(length:--nx-button-focus-ring-width)`). They MUST NOT use raw Tailwind
+palette values or the legacy `[var(--nx-*)]` arbitrary form.
 
 The current preset is `neurex` (`Neurex Default`), brand `neurex`, with
 `light` (`:root`) and `dark` (`.dark`) theme modes.

@@ -98,7 +98,7 @@ Rules:
 - semantic tokens may reference primitive tokens for non-brand values such as neutrals, feedback, and foundation scales
 - semantic tokens must never reference component tokens
 - component tokens reference semantic tokens only
-- component tokens must never reference primitives, brand tokens, or theme tokens directly
+- component tokens must never reference primitives, brand tokens, or theme tokens directly — except the temporary `size.*` / `spacing.*` scale exception enforced in layer validation
 - themes override semantic values per mode
 - themes are not a fifth token layer
 - themes must never reference component tokens

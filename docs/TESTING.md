@@ -30,6 +30,7 @@ Test files in `packages/tokens/test/`:
 | `resolver.test.ts`         | Reference resolution — direct refs, nested chains, missing refs, circular detection, max depth, branch refs, strict vs safe mode  |
 | `layer-validation.test.ts` | Layer contract enforcement — component-to-primitive, semantic-to-component, theme-to-component, brand component-intent violations |
 | `governance.test.ts`       | Governance reports — metadata inventory, deprecation entries, dead primitive detection                                            |
+| `semantic-audit.test.ts`   | Semantic audit — forbidden paths, missing groups, theme path drift                                                                |
 | `types-authoring.test.ts`  | Factory authoring shape and generator input behavior for migrated source groups                                                   |
 | `generator.test.ts`        | Full generator pipeline — `createStyleTokenInput`, CSS output, DTCG JSON output, theme token inputs, preset coverage              |
 | `css-generator.test.ts`    | CSS variable generation — variable naming, `:root` blocks, `@theme` blocks, group name overrides (`spacing→space`, etc.)          |

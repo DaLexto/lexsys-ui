@@ -83,7 +83,7 @@ neurex/
 
 Token dependency chain: **primitives → brand → semantics → component tokens**; **themes** override semantics per mode; **presets** are config only.
 
-**Active semantic groups (9):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`. Staged stubs only: `outline`, `layout`. Authoring for `color` lives under `semantics/color/` (merged into one `color` namespace). Canonical rules: `docs/TOKENS.md`.
+**Active semantic groups (11):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`, `outline`, `layout`. Authoring for `color` lives under `semantics/color/` (merged into one `color` namespace). Canonical rules: `docs/TOKENS.md`.
 
 ```
 packages/tokens/
