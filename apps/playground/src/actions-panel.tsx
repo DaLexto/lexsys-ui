@@ -61,9 +61,9 @@ export const ActionsPanel = () => {
               defaultValue="Focus or edit me"
               className={(state: { dirty?: boolean; focused?: boolean }) =>
                 state.focused
-                  ? "border-green-600 ring-green-600/20"
+                  ? "border-[var(--nx-border-focus)] ring-[var(--nx-border-focus)]/20"
                   : state.dirty
-                    ? "border-blue-600"
+                    ? "border-[var(--nx-brand-color-accent-base)]"
                     : undefined
               }
             />

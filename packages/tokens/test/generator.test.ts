@@ -421,7 +421,11 @@ describe("createStyleOutputs", () => {
         colorScheme: "dark",
       },
     ])
-    expect(json.light?.color?.background?.base?.$value).toBe("{color.white}")
+    expect(json.light?.color?.background?.overlay?.$value).toMatchObject({
+      colorSpace: "oklch",
+      alpha: 0.15,
+    })
+    expect(json.light?.color?.background?.base).toBeUndefined()
     expect(json.light).not.toHaveProperty("selector")
     expect(json.light).not.toHaveProperty("colorScheme")
     expect(json.dark).not.toHaveProperty("selector")
@@ -508,7 +512,11 @@ describe("createStyleOutputs", () => {
     expect(brand.semantics).toBeUndefined()
     expect(semantics.color?.background?.base?.$value).toBe("{color.white}")
     expect(semantics.primitives).toBeUndefined()
-    expect(lightTheme.color?.background?.base?.$value).toBe("{color.white}")
+    expect(lightTheme.color?.background?.overlay?.$value).toMatchObject({
+      colorSpace: "oklch",
+      alpha: 0.15,
+    })
+    expect(lightTheme.color?.background?.base).toBeUndefined()
     expect(lightTheme.light).toBeUndefined()
   })
 
