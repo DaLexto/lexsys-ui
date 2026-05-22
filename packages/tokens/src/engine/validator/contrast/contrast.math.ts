@@ -5,6 +5,10 @@
  * @description WCAG relative luminance and contrast ratio helpers.
  */
 
+import {
+  parseHslColorString,
+  parseRgbColorString,
+} from "../../shared/color-string.parse"
 import type { ContrastReadyColor } from "../../resolver/values/values.normalize"
 
 export interface LinearRgb {
@@ -163,15 +167,43 @@ export const contrastReadyColorToLinearRgb = (
   return null
 }
 
+const parsedSrgbToLinearRgb = (color: {
+  components: [number, number, number]
+  alpha: number
+}): LinearRgb => {
+  const [red, green, blue] = color.components
+
+  return {
+    r: linearizeChannel(red),
+    g: linearizeChannel(green),
+    b: linearizeChannel(blue),
+    alpha: clamp01(color.alpha),
+  }
+}
+
 export const parseColorStringToLinearRgb = (
   value: string,
 ): LinearRgb | null => {
-  if (value.startsWith("#")) {
-    return parseHexColor(value)
+  const normalized = value.trim()
+
+  if (normalized.startsWith("#")) {
+    return parseHexColor(normalized)
   }
 
-  if (value.startsWith("oklch(")) {
-    return parseOklchString(value)
+  if (normalized.startsWith("oklch(")) {
+    return parseOklchString(normalized)
+  }
+
+  const rgb = parseRgbColorString(normalized)
+
+  if (rgb !== null) {
+    return parsedSrgbToLinearRgb(rgb)
+  }
+
+  const hsl = parseHslColorString(normalized)
+
+  if (hsl !== null) {
+    return parsedSrgbToLinearRgb(hsl)
   }
 
   return null
