@@ -376,7 +376,7 @@ describe("createStyleOutputs", () => {
             base: { $value: "{color.orange.500}" },
           }),
           accent: expect.objectContaining({
-            base: { $value: "{color.blue.500}" },
+            base: { $value: "{color.spaceIndigo.500}" },
           }),
         }),
       }),
