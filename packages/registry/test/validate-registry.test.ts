@@ -36,13 +36,19 @@ const templateRoot = join(process.cwd(), "templates")
 const uiSourceRoot = join(process.cwd(), "../ui/src")
 const componentSourceImport = 'import { cn } from "../../utils/cn"'
 const componentTemplateImport = 'import { cn } from "@/lib/utils"'
+const mergeClassNameSourceImport =
+  'import { mergeClassName } from "../../utils/merge-class-name"'
+const mergeClassNameTemplateImport =
+  'import { mergeClassName } from "@/lib/utils"'
 
 const readTemplateFile = (templatePath: string): string => {
   return readFileSync(join(templateRoot, templatePath), "utf-8")
 }
 
 const toRegistryTemplate = (source: string): string => {
-  return source.replaceAll(componentSourceImport, componentTemplateImport)
+  return source
+    .replaceAll(componentSourceImport, componentTemplateImport)
+    .replaceAll(mergeClassNameSourceImport, mergeClassNameTemplateImport)
 }
 
 // Mock podaci za testiranje
