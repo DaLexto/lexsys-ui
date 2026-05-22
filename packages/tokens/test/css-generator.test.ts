@@ -168,6 +168,43 @@ describe("css vars generator", () => {
     ])
   })
 
+  it("composes shadow boxShadow from composite slot CSS variables", () => {
+    const tokens: TokenTree = {
+      elevation: {
+        shadow: {
+          $type: "shadow",
+          floating: {
+            color: {
+              $value: {
+                colorSpace: "oklch",
+                components: [0, 0, 0],
+                alpha: 0.12,
+              },
+            },
+            offsetX: { $value: "0" },
+            offsetY: { $value: "8px" },
+            blur: { $value: "16px" },
+            spread: { $value: "0" },
+            boxShadow: { $value: "0 8px 16px 0 oklch(0 0 0 / 0.12)" },
+          },
+        },
+      },
+    }
+
+    const entries = createCssVariableEntries(tokens, generatorOptions)
+
+    expect(entries).toContainEqual({
+      name: "elevation-shadow-floating-color",
+      value: "oklch(0 0 0 / 0.12)",
+    })
+
+    expect(entries).toContainEqual({
+      name: "elevation-shadow-floating-box-shadow",
+      value:
+        "var(--nx-elevation-shadow-floating-offset-x) var(--nx-elevation-shadow-floating-offset-y) var(--nx-elevation-shadow-floating-blur) var(--nx-elevation-shadow-floating-spread) var(--nx-elevation-shadow-floating-color)",
+    })
+  })
+
   it("collapses DEFAULT path segments", () => {
     const tokens: TokenTree = {
       radius: {

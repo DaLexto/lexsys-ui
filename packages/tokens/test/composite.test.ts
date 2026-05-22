@@ -102,7 +102,7 @@ describe("composite resolver", () => {
           offsetY: { $value: "8px" },
           blur: { $value: "16px" },
           spread: { $value: "0" },
-          boxShadow: { $value: "{shadow.4}" },
+          boxShadow: { $value: "0 8px 16px 0 oklch(0 0 0 / 0.12)" },
         },
       },
     }

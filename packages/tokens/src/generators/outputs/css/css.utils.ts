@@ -28,6 +28,10 @@ import {
 } from "../../shared"
 
 import type { CssVarsGeneratorOptions, CssVariableEntry } from "./css.types"
+import {
+  composeShadowBoxShadowCSSValue,
+  isShadowCompositeBoxShadowPath,
+} from "./css.shadow-compose"
 
 const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
 
@@ -131,6 +135,17 @@ export const toCssVariableEntry = (
   options: Required<CssVarsGeneratorOptions>,
 ): CssVariableEntry => {
   const tokenName = toTokenName(entry.path, options.groupNameOverrides)
+
+  if (isShadowCompositeBoxShadowPath(entry.path)) {
+    return {
+      name: tokenName,
+      value: composeShadowBoxShadowCSSValue(
+        entry.path.slice(0, -1),
+        options,
+      ),
+    }
+  }
+
   const cssValue = toCssTokenValue(entry.value, options)
 
   return {
