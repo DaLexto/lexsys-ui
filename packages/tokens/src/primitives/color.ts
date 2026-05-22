@@ -175,5 +175,3 @@ export const colorPrimitives = primitiveTokens("color", {
     950: { $value: oklch(0.108, 0.013, 269.716) },
   },
 })
-
-

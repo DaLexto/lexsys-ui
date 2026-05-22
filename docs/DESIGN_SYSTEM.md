@@ -100,17 +100,17 @@ brand-specific values and primitive tokens for non-brand values.
 
 **9 active semantic groups:**
 
-| Group        | Roles                                                                                                                                                                      |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Group        | Roles                                                                                                                                                                         |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × background/foreground) |
-| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                    |
-| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                     |
-| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                         |
-| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                  |
-| `spacing`    | Semantic spacing roles                                                                                                                                                     |
-| `size`       | Reusable sizing roles (`control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names                                                |
-| `motion`     | Duration and easing semantic roles                                                                                                                                         |
-| `typography` | Font scale semantic roles                                                                                                                                                  |
+| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                       |
+| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                        |
+| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                             |
+| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                     |
+| `spacing`    | Semantic spacing roles                                                                                                                                                        |
+| `size`       | Reusable sizing roles (`control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names                                                   |
+| `motion`     | Duration and easing semantic roles                                                                                                                                            |
+| `typography` | Font scale semantic roles                                                                                                                                                     |
 
 Semantic path structure:
 
