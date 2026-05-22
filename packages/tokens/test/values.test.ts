@@ -359,6 +359,8 @@ describe("values.normalize", () => {
     expect(isResolvedColorValue(blue600Color)).toBe(true)
     expect(isResolvedColorValue("oklch(1 0 0)")).toBe(true)
     expect(isResolvedColorValue("#ffffff")).toBe(true)
+    expect(isResolvedColorValue("rgb(255 255 255)")).toBe(true)
+    expect(isResolvedColorValue("hsl(0 0% 100%)")).toBe(true)
     expect(isResolvedColorValue(fontSizeSm)).toBe(false)
   })
 

@@ -5,6 +5,10 @@
  * @description Color normalization for Phase 10 contrast checks.
  */
 
+import {
+  parseHslColorString,
+  parseRgbColorString,
+} from "../../shared/color-string.parse"
 import type { TokenColorValue, TokenValue } from "../../../types"
 
 export interface ContrastReadyColor {
@@ -101,6 +105,26 @@ export const toContrastReadyColor = (
   }
 
   if (typeof value === "string") {
+    const rgb = parseRgbColorString(value)
+
+    if (rgb !== null) {
+      return {
+        colorSpace: "srgb",
+        components: rgb.components,
+        alpha: rgb.alpha,
+      }
+    }
+
+    const hsl = parseHslColorString(value)
+
+    if (hsl !== null) {
+      return {
+        colorSpace: "srgb",
+        components: hsl.components,
+        alpha: hsl.alpha,
+      }
+    }
+
     return parseOklchString(value) ?? parseHexString(value)
   }
 

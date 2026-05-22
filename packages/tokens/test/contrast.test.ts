@@ -44,6 +44,20 @@ describe("contrast.math", () => {
       relativeLuminance(background as NonNullable<typeof background>),
     ).toBeGreaterThan(0)
   })
+
+  it("parses rgb() and hsl() strings for contrast math", () => {
+    const white = parseColorStringToLinearRgb("rgb(255, 255, 255)")
+    const black = parseColorStringToLinearRgb("hsl(0, 0%, 0%)")
+
+    expect(white).not.toBeNull()
+    expect(black).not.toBeNull()
+    expect(
+      contrastRatio(
+        black as NonNullable<typeof black>,
+        white as NonNullable<typeof white>,
+      ),
+    ).toBeCloseTo(21, 0)
+  })
 })
 
 describe("createContrastValidationReport", () => {
