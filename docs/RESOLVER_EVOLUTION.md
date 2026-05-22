@@ -80,17 +80,20 @@ which the current resolver produces.
 
 ## 5. Planned: Metadata Propagation
 
-**Target:** `$description` and `$deprecated` metadata propagates from the
-primitive source through the full resolution chain to component output. A
-deprecation report identifies which components depend on deprecated tokens.
+**Current:** governance reports list token metadata and flag deprecated tokens with
+direct dependents via `createTokenGovernanceReport`.
+
+**Target:** `$description` and `$deprecated` metadata propagates through the full
+resolution chain to component output, not only direct reference matches.
 
 ---
 
 ## 6. Planned: Dead Token Detection
 
-**Target:** unused primitives (those not reached by any semantic or component
-token) are identified. Generators may optionally strip them from output to
-reduce CSS file size.
+**Current:** governance reports list primitive leaf tokens not reached by upper-layer
+reference chains.
+
+**Target:** optional generator stripping of unused primitives from CSS/DTCG output.
 
 ---
 

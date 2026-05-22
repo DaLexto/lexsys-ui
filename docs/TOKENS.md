@@ -263,6 +263,15 @@ Key named exports from `.`:
 | `resolveTokenTreeSafe` | Resolve all references in a tree; returns warnings instead of throwing |
 | `createStyleTokenInput` | Assemble the generator input contract from all layers |
 | `createStyleOutputs` | Run the full CSS generator pipeline |
+| `createTokenGovernanceReport` | Build deprecation, metadata, and dead-token reports |
+| `formatTokenGovernanceReport` | Format a governance report for CLI output |
+
+Governance reports are optional tooling. They do not change CSS or DTCG output.
+
+```sh
+pnpm --filter @neurex/tokens governance:report
+pnpm --filter @neurex/tokens governance:report -- --json
+```
 
 ---
 

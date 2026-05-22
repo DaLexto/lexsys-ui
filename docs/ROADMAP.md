@@ -152,7 +152,7 @@ planning details live in `docs/RESOLVER_EVOLUTION.md`.
 
 ## Phase 5: Governance And Tooling
 
-**Status:** current / next
+**Status:** completed
 
 **Goal:** add higher-level token governance after the source contract and layer
 validation are stable.
