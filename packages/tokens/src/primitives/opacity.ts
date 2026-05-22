@@ -21,10 +21,10 @@
  * - Values are unitless numbers from 0 to 1
  */
 
-import type { PrimitiveTokenGroup } from "../types"
 
-export const opacityPrimitives: PrimitiveTokenGroup = {
-  name: "opacity",
+import { primitiveTokens } from "../types/authoring"
+
+export const opacityPrimitives = primitiveTokens("opacity", {
   $type: "number",
   $description:
     "Raw opacity scale used as the source for transparency and state semantics.",
@@ -41,4 +41,5 @@ export const opacityPrimitives: PrimitiveTokenGroup = {
   80: { $value: 0.8 },
   90: { $value: 0.9 },
   100: { $value: 1 },
-}
+
+})

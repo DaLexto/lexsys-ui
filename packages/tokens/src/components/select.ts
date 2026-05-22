@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const selectComponentTokens: ComponentTokenGroup = {
-  component: "select",
+export const selectComponentTokens = componentTokens("select", {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
   placeholder: {
@@ -133,4 +132,5 @@ export const selectComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

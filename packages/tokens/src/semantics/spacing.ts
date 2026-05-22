@@ -1,7 +1,6 @@
-import type { SemanticTokenGroup } from "../types"
+import { semanticTokens } from "../types/authoring"
 
-export const spacingSemantics: SemanticTokenGroup = {
-  name: "spacing",
+export const spacingSemantics = semanticTokens("spacing", {
   control: {
     gap: {
       $type: "dimension",
@@ -34,4 +33,5 @@ export const spacingSemantics: SemanticTokenGroup = {
       md: { $value: "{spacing.3}" },
     },
   },
-}
+
+})

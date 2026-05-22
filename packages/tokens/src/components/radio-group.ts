@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const radioGroupComponentTokens: ComponentTokenGroup = {
-  component: "radio-group",
+export const radioGroupComponentTokens = componentTokens("radio-group", {
   gap: { $value: "{spacing.control.gap.md}" },
   item: {
     background: { $value: "{color.background.base}" },
@@ -41,4 +40,5 @@ export const radioGroupComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

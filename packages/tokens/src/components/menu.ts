@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const menuComponentTokens: ComponentTokenGroup = {
-  component: "menu",
+export const menuComponentTokens = componentTokens("menu", {
   radius: { $value: "{radius.surface}" },
   trigger: {
     background: { $value: "{color.background.surface}" },
@@ -114,4 +113,5 @@ export const menuComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

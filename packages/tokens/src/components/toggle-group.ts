@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const toggleGroupComponentTokens: ComponentTokenGroup = {
-  component: "toggle-group",
+export const toggleGroupComponentTokens = componentTokens("toggle-group", {
   background: { $value: "{color.background.subtle}" },
   borderColor: { $value: "{color.border.default}" },
   radius: { $value: "{radius.control}" },
@@ -12,4 +11,5 @@ export const toggleGroupComponentTokens: ComponentTokenGroup = {
     md: { $value: "{spacing.1}" },
     lg: { $value: "{spacing.2}" },
   },
-}
+
+})

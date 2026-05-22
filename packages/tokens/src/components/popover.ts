@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const popoverComponentTokens: ComponentTokenGroup = {
-  component: "popover",
+export const popoverComponentTokens = componentTokens("popover", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.24 },
@@ -74,4 +73,5 @@ export const popoverComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

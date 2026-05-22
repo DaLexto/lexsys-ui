@@ -103,7 +103,7 @@ the authoring pattern.
 
 ## Phase 3: Full Source Migration
 
-**Status:** current / next
+**Status:** completed
 
 **Goal:** migrate all remaining token source groups to factory authoring.
 
@@ -127,7 +127,7 @@ this phase becomes active.
 
 ## Phase 4: Layer Validation
 
-**Status:** planned
+**Status:** current / next
 
 **Goal:** make token layer contract violations build-failing.
 

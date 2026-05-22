@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const toastComponentTokens: ComponentTokenGroup = {
-  component: "toast",
+export const toastComponentTokens = componentTokens("toast", {
   viewport: {
     $type: "dimension",
     width: { $value: "{size.toast.viewportWidth}" },
@@ -85,4 +84,5 @@ export const toastComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

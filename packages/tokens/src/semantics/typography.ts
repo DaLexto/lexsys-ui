@@ -1,8 +1,6 @@
-import type { SemanticTokenGroup } from "../types"
+import { semanticTokens } from "../types/authoring"
 
-export const typographySemantics: SemanticTokenGroup = {
-  name: "typography",
-
+export const typographySemantics = semanticTokens("typography", {
   family: {
     $type: "fontFamily",
     sans: { $value: "{font-family.sans}" },
@@ -211,4 +209,5 @@ export const typographySemantics: SemanticTokenGroup = {
       letterSpacing: { $value: "{letter-spacing.normal}" },
     },
   },
-}
+
+})

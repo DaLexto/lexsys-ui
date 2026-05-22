@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const alertComponentTokens: ComponentTokenGroup = {
-  component: "alert",
+export const alertComponentTokens = componentTokens("alert", {
   radius: { $value: "{radius.surface}" },
   padding: { $value: "{spacing.surface.sm}" },
   gap: { $value: "{spacing.surface.gap.sm}" },
@@ -40,4 +39,5 @@ export const alertComponentTokens: ComponentTokenGroup = {
     foreground: { $value: "{action.danger.base}" },
     borderColor: { $value: "{action.danger.base}" },
   },
-}
+
+})

@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const tabsComponentTokens: ComponentTokenGroup = {
-  component: "tabs",
+export const tabsComponentTokens = componentTokens("tabs", {
   gap: { $value: "{spacing.control.gap.lg}" },
   list: {
     background: { $value: "{color.background.subtle}" },
@@ -40,4 +39,5 @@ export const tabsComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

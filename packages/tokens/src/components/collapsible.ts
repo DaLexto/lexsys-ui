@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const collapsibleComponentTokens: ComponentTokenGroup = {
-  component: "collapsible",
+export const collapsibleComponentTokens = componentTokens("collapsible", {
   background: { $value: "{color.background.surface}" },
   foreground: { $value: "{color.text.primary}" },
   borderColor: { $value: "{color.border.default}" },
@@ -47,4 +46,5 @@ export const collapsibleComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-}
+
+})

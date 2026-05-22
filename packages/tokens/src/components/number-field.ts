@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const numberFieldComponentTokens: ComponentTokenGroup = {
-  component: "number-field",
+export const numberFieldComponentTokens = componentTokens("number-field", {
   gap: { $value: "{spacing.control.gap.sm}" },
   foreground: { $value: "{color.text.primary}" },
   background: { $value: "{color.background.base}" },
@@ -88,4 +87,5 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

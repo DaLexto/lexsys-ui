@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const badgeComponentTokens: ComponentTokenGroup = {
-  component: "badge",
+export const badgeComponentTokens = componentTokens("badge", {
   radius: { $value: "{radius.control}" },
   height: {
     $type: "dimension",
@@ -48,4 +47,5 @@ export const badgeComponentTokens: ComponentTokenGroup = {
     foreground: { $value: "{color.text.inverse}" },
     borderColor: { $value: "{action.danger.base}" },
   },
-}
+
+})

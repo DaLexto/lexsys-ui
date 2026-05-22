@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const alertDialogComponentTokens: ComponentTokenGroup = {
-  component: "alert-dialog",
+export const alertDialogComponentTokens = componentTokens("alert-dialog", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.56 },
@@ -73,4 +72,5 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const fieldsetComponentTokens: ComponentTokenGroup = {
-  component: "fieldset",
+export const fieldsetComponentTokens = componentTokens("fieldset", {
   background: { $value: "{color.background.surface}" },
   foreground: { $value: "{color.text.primary}" },
   borderColor: { $value: "{color.border.default}" },
@@ -21,4 +20,5 @@ export const fieldsetComponentTokens: ComponentTokenGroup = {
       letterSpacing: { $value: "{typography.label.md.letterSpacing}" },
     },
   },
-}
+
+})

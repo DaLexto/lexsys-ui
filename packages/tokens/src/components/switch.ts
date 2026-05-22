@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const switchComponentTokens: ComponentTokenGroup = {
-  component: "switch",
+export const switchComponentTokens = componentTokens("switch", {
   background: { $value: "{color.background.subtle}" },
   checked: {
     $type: "color",
@@ -45,4 +44,5 @@ export const switchComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

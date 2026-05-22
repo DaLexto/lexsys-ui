@@ -20,10 +20,10 @@
  * - Numeric values are kept as strings to preserve stable CSS output behavior
  */
 
-import type { PrimitiveTokenGroup } from "../types"
 
-export const fontWeightPrimitives: PrimitiveTokenGroup = {
-  name: "font-weight",
+import { primitiveTokens } from "../types/authoring"
+
+export const fontWeightPrimitives = primitiveTokens("font-weight", {
   $type: "fontWeight",
   $description:
     "Raw font weight scale used as the source for typography semantics.",
@@ -37,4 +37,5 @@ export const fontWeightPrimitives: PrimitiveTokenGroup = {
   bold: { $value: "700" },
   extrabold: { $value: "800" },
   black: { $value: "900" },
-}
+
+})

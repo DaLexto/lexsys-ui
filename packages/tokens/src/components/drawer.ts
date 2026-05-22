@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const drawerComponentTokens: ComponentTokenGroup = {
-  component: "drawer",
+export const drawerComponentTokens = componentTokens("drawer", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.48 },
@@ -105,4 +104,5 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

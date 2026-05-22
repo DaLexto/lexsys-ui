@@ -20,10 +20,10 @@
  * - Outline width and offset tokens use the DTCG `dimension` type
  */
 
-import type { PrimitiveTokenGroup } from "../types"
 
-export const outlinePrimitives: PrimitiveTokenGroup = {
-  name: "outline",
+import { primitiveTokens } from "../types/authoring"
+
+export const outlinePrimitives = primitiveTokens("outline", {
   $description:
     "Raw outline width and offset values used as the source for focus and state outline semantics.",
 
@@ -49,4 +49,5 @@ export const outlinePrimitives: PrimitiveTokenGroup = {
     lg: { $value: { value: 6, unit: "px" } },
     xl: { $value: { value: 8, unit: "px" } },
   },
-}
+
+})
