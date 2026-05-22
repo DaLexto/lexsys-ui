@@ -10,6 +10,11 @@ export {
   formatTokenGovernanceReport,
 } from "./create-governance-report"
 
+export {
+  createSemanticAuditReport,
+  formatSemanticAuditReport,
+} from "./semantic-audit"
+
 export type {
   DeadTokenEntry,
   DeprecationDependency,
@@ -20,3 +25,9 @@ export type {
   TokenGovernanceThemeInput,
   TokenMetadataEntry,
 } from "./governance.types"
+
+export type {
+  SemanticAuditIssue,
+  SemanticAuditIssueKind,
+  SemanticAuditReport,
+} from "./semantic-audit.types"

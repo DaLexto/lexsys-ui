@@ -4,6 +4,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.48 },
+    zIndex: { $value: "{elevation.backdrop.zIndex}" },
   },
   indent: {
     background: { $value: "{color.background.subtle}" },
@@ -13,25 +14,27 @@ export const drawerComponentTokens = componentTokens("drawer", {
   viewport: {
     $type: "dimension",
     padding: { $value: "{spacing.surface.sm}" },
+    zIndex: { $value: "{elevation.layer.zIndex}" },
   },
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
-    maxWidth: { $value: "{size.drawer.maxWidth}" },
+    maxWidth: { $value: "{size.160}" },
     width: {
       $type: "dimension",
-      sm: { $value: "{size.drawer.width.sm}" },
-      md: { $value: "{size.drawer.width.md}" },
-      lg: { $value: "{size.drawer.width.lg}" },
+      sm: { $value: "{size.80}" },
+      md: { $value: "{size.96}" },
+      lg: { $value: "{size.128}" },
     },
     height: {
       $type: "dimension",
-      sm: { $value: "{size.drawer.height.sm}" },
-      md: { $value: "{size.drawer.height.md}" },
-      lg: { $value: "{size.drawer.height.lg}" },
+      sm: { $value: "{size.48}" },
+      md: { $value: "{size.80}" },
+      lg: { $value: "{size.128}" },
     },
+    shadow: { $value: "{elevation.shadow.raised}" },
   },
   content: {
     $type: "dimension",

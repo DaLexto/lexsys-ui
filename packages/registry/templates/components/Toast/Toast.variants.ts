@@ -8,7 +8,7 @@ import { cva } from "class-variance-authority"
 
 export const toastViewportVariants = cva(
   [
-    "fixed z-50 flex max-h-dvh w-[min(calc(100vw-2rem),var(--nx-toast-viewport-width))] flex-col gap-[var(--nx-toast-viewport-gap)] p-[var(--nx-toast-viewport-padding)]",
+    "fixed z-[var(--nx-toast-viewport-z-index)] flex max-h-dvh w-[min(calc(100vw-2rem),var(--nx-toast-viewport-width))] flex-col gap-[var(--nx-toast-viewport-gap)] p-[var(--nx-toast-viewport-padding)]",
     "data-[expanded]:gap-[var(--nx-toast-viewport-gap-expanded)]",
   ].join(" "),
   {
@@ -28,7 +28,7 @@ export const toastViewportVariants = cva(
 
 export const toastVariants = cva(
   [
-    "relative grid gap-[var(--nx-toast-gap)] rounded-[var(--nx-toast-radius)] border bg-[var(--nx-toast-background)] p-[var(--nx-toast-padding)] pr-[var(--nx-toast-padding-end)] text-[var(--nx-toast-foreground)] shadow-lg outline-none",
+    "relative grid gap-[var(--nx-toast-gap)] rounded-[var(--nx-toast-radius)] border bg-[var(--nx-toast-background)] p-[var(--nx-toast-padding)] pr-[var(--nx-toast-padding-end)] text-[var(--nx-toast-foreground)] shadow-[var(--nx-toast-shadow)] outline-none",
     "transition-[opacity,transform] duration-[var(--nx-toast-transition-duration)] ease-[var(--nx-toast-transition-easing)]",
     "data-[starting-style]:translate-y-2 data-[starting-style]:opacity-0 data-[ending-style]:translate-y-2 data-[ending-style]:opacity-0 data-[swiping]:transition-none",
     "translate-x-[var(--toast-swipe-movement-x,0px)] translate-y-[var(--toast-swipe-movement-y,0px)]",
@@ -41,7 +41,7 @@ export const toastContentVariants = cva(
 )
 
 export const toastPositionerVariants = cva(
-  "z-50 max-w-[min(var(--available-width,calc(100vw-2rem)),var(--nx-toast-viewport-width))]",
+  "z-[var(--nx-toast-viewport-z-index)] max-w-[min(var(--available-width,calc(100vw-2rem)),var(--nx-toast-viewport-width))]",
 )
 
 export const toastArrowVariants = cva(

@@ -148,7 +148,7 @@ describe("createStyleOutputs", () => {
       "--nx-alert-radius: var(--nx-radius-surface)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-alert-destructive-foreground: var(--nx-action-danger-base)",
+      "--nx-alert-destructive-foreground: var(--nx-color-feedback-danger-foreground)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-card-background: var(--nx-color-background-surface)",
@@ -160,7 +160,7 @@ describe("createStyleOutputs", () => {
       "--nx-checkbox-size-md: var(--nx-size-selection-control-md)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-switch-thumb-translate-md: var(--nx-size-switch-thumb-translate-md)",
+      "--nx-switch-thumb-translate-md: var(--nx-size-5)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-tabs-tab-active-background: var(--nx-color-background-base)",
@@ -172,7 +172,8 @@ describe("createStyleOutputs", () => {
     expect(outputs.themeCss).toContain("--nx-color-background-base")
     expect(outputs.themeCss).toContain(".dark")
     expect(outputs.themeCss).toContain("@theme inline")
-    expect(outputs.themeCss).toContain("--color-nx-action-primary-base")
+    expect(outputs.themeCss).toContain("--nx-action-primary-base")
+    expect(outputs.themeCss).toContain("--nx-border-focus")
     expect(outputs.themeCss).toContain("--color-nx-background-base")
     expect(outputs.themeCss).toContain("--radius-nx-control")
     expect(outputs.themeCss).toContain("--spacing-nx-surface-md")

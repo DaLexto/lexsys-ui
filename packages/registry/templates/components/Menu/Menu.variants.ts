@@ -19,15 +19,17 @@ export const menuTriggerVariants = cva(
 )
 
 export const menuBackdropVariants = cva(
-  "fixed inset-0 z-40 bg-[var(--nx-menu-backdrop-background)] opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+  "fixed inset-0 z-[var(--nx-menu-backdrop-z-index)] bg-[var(--nx-menu-backdrop-background)] opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
 )
 
-export const menuPositionerVariants = cva("z-50")
+export const menuPositionerVariants = cva(
+  "z-[var(--nx-menu-positioner-z-index)]",
+)
 
 export const menuPopupVariants = cva(
   [
     "min-w-[var(--nx-menu-popup-min-width)] max-w-[var(--nx-menu-popup-max-width)] rounded-[var(--nx-menu-radius)] border",
-    "border-[var(--nx-menu-popup-border-color)] bg-[var(--nx-menu-popup-background)] text-[var(--nx-menu-popup-foreground)] shadow-md",
+    "border-[var(--nx-menu-popup-border-color)] bg-[var(--nx-menu-popup-background)] text-[var(--nx-menu-popup-foreground)] shadow-[var(--nx-menu-popup-shadow)]",
     "data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "origin-[var(--transform-origin)] transition-[opacity,transform] duration-[var(--nx-menu-transition-duration)] ease-[var(--nx-menu-transition-easing)]",
   ].join(" "),

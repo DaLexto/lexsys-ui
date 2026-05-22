@@ -17,24 +17,22 @@ export const alertDialogTriggerVariants = cva(
   ].join(" "),
 )
 
-// TODO: (tokens): Replace hardcoded z-index values with overlay stacking tokens
-// after elevation/stacking primitives are added.
 export const alertDialogBackdropVariants = cva(
   [
-    "fixed inset-0 z-40 bg-[var(--nx-alert-dialog-backdrop-background)] opacity-[var(--nx-alert-dialog-backdrop-opacity)]",
+    "fixed inset-0 z-[var(--nx-alert-dialog-backdrop-z-index)] bg-[var(--nx-alert-dialog-backdrop-background)] opacity-[var(--nx-alert-dialog-backdrop-opacity)]",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
     "transition-opacity duration-[var(--nx-alert-dialog-transition-duration)] ease-[var(--nx-alert-dialog-transition-easing)]",
   ].join(" "),
 )
 
 export const alertDialogViewportVariants = cva(
-  "fixed inset-0 z-50 grid place-items-center overflow-y-auto p-[var(--nx-alert-dialog-viewport-padding)]",
+  "fixed inset-0 z-[var(--nx-alert-dialog-viewport-z-index)] grid place-items-center overflow-y-auto p-[var(--nx-alert-dialog-viewport-padding)]",
 )
 
 export const alertDialogPopupVariants = cva(
   [
     "grid w-[min(calc(100vw-2rem),var(--nx-alert-dialog-popup-max-width))] gap-[var(--nx-alert-dialog-popup-gap)] rounded-[var(--nx-alert-dialog-popup-radius)] border",
-    "border-[var(--nx-alert-dialog-popup-border-color)] bg-[var(--nx-alert-dialog-popup-background)] p-[var(--nx-alert-dialog-popup-padding)] text-[var(--nx-alert-dialog-popup-foreground)] shadow-lg",
+    "border-[var(--nx-alert-dialog-popup-border-color)] bg-[var(--nx-alert-dialog-popup-background)] p-[var(--nx-alert-dialog-popup-padding)] text-[var(--nx-alert-dialog-popup-foreground)] shadow-[var(--nx-alert-dialog-popup-shadow)]",
     "outline-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "transition-[opacity,transform] duration-[var(--nx-alert-dialog-transition-duration)] ease-[var(--nx-alert-dialog-transition-easing)]",
   ].join(" "),

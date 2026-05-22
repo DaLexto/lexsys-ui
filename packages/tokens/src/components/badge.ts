@@ -5,7 +5,7 @@ export const badgeComponentTokens = componentTokens("badge", {
   height: {
     $type: "dimension",
     sm: { $value: "{size.control.xs}" },
-    md: { $value: "{size.badge.md}" },
+    md: { $value: "{size.7}" },
   },
   padding: {
     x: {

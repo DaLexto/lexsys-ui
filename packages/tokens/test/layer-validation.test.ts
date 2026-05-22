@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest"
 
-import { createStyleTokenInput } from "../src/generators/inputs/input.source"
+import {
+  createStyleTokenInput,
+  type StyleTokenInput,
+} from "../src/generators/inputs/input.source"
 import {
   validateTokenLayerContracts,
   validateTokenLayerContractsStrict,
 } from "../src/resolver/layer-validation"
-import type {
-  StyleTokenInput,
-  TokenTree,
-} from "../src/generators/inputs/input.source"
+import type { TokenTree } from "../src/types"
 
 const createFixtureInput = (
   overrides: Partial<{
@@ -35,6 +35,29 @@ describe("validateTokenLayerContracts", () => {
 
     expect(validateTokenLayerContracts(input).violations).toEqual([])
     expect(() => validateTokenLayerContractsStrict(input)).not.toThrow()
+  })
+
+  it("allows component-to-primitive references for size and spacing scale tokens", () => {
+    const input = createFixtureInput({
+      primitiveTokens: {
+        size: {
+          "128": { $value: "32rem" },
+        },
+        spacing: {
+          "4": { $value: "1rem" },
+        },
+      },
+      componentTokens: {
+        dialog: {
+          popup: {
+            maxWidth: { $value: "{size.128}" },
+            padding: { $value: "{spacing.4}" },
+          },
+        },
+      },
+    })
+
+    expect(validateTokenLayerContracts(input).violations).toEqual([])
   })
 
   it("flags component-to-primitive violations", () => {
@@ -81,9 +104,24 @@ describe("validateTokenLayerContracts", () => {
     const input = createFixtureInput({
       componentTokens: {
         button: {
-          background: { $value: "{color.action.primary.base}" },
+          background: { $value: "{color.background.experimental}" },
         },
       },
+      themeTokens: [
+        {
+          name: "light",
+          brand: "neurex",
+          selector: ":root",
+          colorScheme: "light",
+          tokens: {
+            color: {
+              background: {
+                experimental: { $value: "{color.neutral.100}" },
+              },
+            },
+          },
+        },
+      ],
     })
 
     const { violations } = validateTokenLayerContracts(input)
@@ -92,7 +130,7 @@ describe("validateTokenLayerContracts", () => {
       expect.objectContaining({
         code: "COMPONENT_TO_THEME",
         sourcePath: "button.background",
-        targetPath: "color.action.primary.base",
+        targetPath: "color.background.experimental",
       }),
     ])
   })

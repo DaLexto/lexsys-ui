@@ -16,24 +16,22 @@ export const dialogTriggerVariants = cva(
     "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
   ].join(" "),
 )
-// TODO: (tokens): Replace hardcoded z-index values with dialog overlay tokens
-// after elevation/stacking primitives are added.
 export const dialogBackdropVariants = cva(
   [
-    "fixed inset-0 z-40 bg-[var(--nx-dialog-backdrop-background)] opacity-[var(--nx-dialog-backdrop-opacity)]",
+    "fixed inset-0 z-[var(--nx-dialog-backdrop-z-index)] bg-[var(--nx-dialog-backdrop-background)] opacity-[var(--nx-dialog-backdrop-opacity)]",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
     "transition-opacity duration-[var(--nx-dialog-transition-duration)] ease-[var(--nx-dialog-transition-easing)]",
   ].join(" "),
 )
 
 export const dialogViewportVariants = cva(
-  "fixed inset-0 z-50 grid place-items-center overflow-y-auto p-[var(--nx-dialog-viewport-padding)]",
+  "fixed inset-0 z-[var(--nx-dialog-viewport-z-index)] grid place-items-center overflow-y-auto p-[var(--nx-dialog-viewport-padding)]",
 )
 
 export const dialogPopupVariants = cva(
   [
     "grid w-[min(calc(100vw-2rem),var(--nx-dialog-popup-max-width))] gap-[var(--nx-dialog-popup-gap)] rounded-[var(--nx-dialog-popup-radius)] border",
-    "border-[var(--nx-dialog-popup-border-color)] bg-[var(--nx-dialog-popup-background)] p-[var(--nx-dialog-popup-padding)] text-[var(--nx-dialog-popup-foreground)] shadow-lg",
+    "border-[var(--nx-dialog-popup-border-color)] bg-[var(--nx-dialog-popup-background)] p-[var(--nx-dialog-popup-padding)] text-[var(--nx-dialog-popup-foreground)] shadow-[var(--nx-dialog-popup-shadow)]",
     "outline-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "transition-[opacity,transform] duration-[var(--nx-dialog-transition-duration)] ease-[var(--nx-dialog-transition-easing)]",
   ].join(" "),
