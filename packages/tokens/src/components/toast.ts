@@ -81,7 +81,7 @@ export const toastComponentTokens = componentTokens("toast", {
   focus: {
     $type: "dimension",
     ringColor: { $value: "{border.focus}" },
-      ringWidth: { $value: "{outline.width.inset}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },

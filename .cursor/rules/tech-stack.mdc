@@ -171,7 +171,7 @@ presets = config only (no resolution)
 - Run `pnpm --filter @neurex/tokens governance:report` for metadata, deprecation, and semantic audit output
 - Use `pnpm imports:clean` (`tsx src/scripts/clean-imports.ts`) when maintaining imports
 - Consumers import installed `styles/tokens.css` and `styles/theme.css` — do not edit generated files
-- Overlay variants: use `z-[var(--nx-<component>-backdrop-z-index)]` and `shadow-[var(--nx-<component>-popup-shadow)]` — not hardcoded `z-40` / `shadow-lg`
+- Overlay variants: use `z-(--nx-<component>-backdrop-z-index)` and `shadow-(--nx-<component>-popup-shadow)` — not hardcoded `z-40` / `shadow-lg`
 
 ---
 

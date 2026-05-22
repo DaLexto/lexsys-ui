@@ -8,9 +8,9 @@ import { cva } from "class-variance-authority"
 
 export const fieldsetVariants = cva(
   [
-    "m-0 grid min-w-0 gap-[var(--nx-fieldset-gap)] rounded-[var(--nx-fieldset-radius)]",
-    "border border-[var(--nx-fieldset-border-color)] p-[var(--nx-fieldset-padding)]",
-    "bg-[var(--nx-fieldset-background)] text-[var(--nx-fieldset-foreground)]",
+    "m-0 grid min-w-0 gap-(--nx-fieldset-gap) rounded-(--nx-fieldset-radius)",
+    "border border-(--nx-fieldset-border-color) p-(--nx-fieldset-padding)",
+    "bg-(--nx-fieldset-background) text-(--nx-fieldset-foreground)",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-60",
   ].join(" "),
   {
@@ -29,9 +29,9 @@ export const fieldsetVariants = cva(
 
 export const fieldsetLegendVariants = cva(
   [
-    "mb-[var(--nx-fieldset-legend-margin-bottom)] text-[length:var(--nx-fieldset-legend-font-size)]",
-    "font-[var(--nx-fieldset-legend-font-weight)] leading-[var(--nx-fieldset-legend-font-line-height)]",
-    "tracking-[var(--nx-fieldset-legend-font-letter-spacing)] text-[var(--nx-fieldset-legend-foreground)]",
+    "mb-(--nx-fieldset-legend-margin-bottom) text-(length:--nx-fieldset-legend-font-size)",
+    "font-(--nx-fieldset-legend-font-weight) leading-(--nx-fieldset-legend-font-line-height)",
+    "tracking-(--nx-fieldset-legend-font-letter-spacing) text-(--nx-fieldset-legend-foreground)",
     "data-[disabled]:cursor-not-allowed",
   ].join(" "),
 )

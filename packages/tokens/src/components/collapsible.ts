@@ -8,7 +8,7 @@ export const collapsibleComponentTokens = componentTokens("collapsible", {
   focus: {
     $type: "dimension",
     ringColor: { $value: "{border.focus}" },
-      ringWidth: { $value: "{outline.width.inset}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   trigger: {
     background: {

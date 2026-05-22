@@ -9,48 +9,48 @@ import { cva } from "class-variance-authority"
 export const buttonVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap border border-transparent",
-    "rounded-[var(--nx-button-radius)] [font-family:var(--nx-button-font-family)] font-[var(--nx-button-font-weight)]",
-    "transition-colors duration-[var(--nx-button-transition-duration)] ease-[var(--nx-button-transition-easing)]",
-    "outline-none focus-visible:ring-[length:var(--nx-button-focus-ring-width)] focus-visible:ring-[var(--nx-button-focus-ring-color)] focus-visible:ring-offset-[length:var(--nx-button-focus-ring-offset)] focus-visible:ring-offset-[var(--nx-button-focus-ring-offset-color)]",
+    "rounded-(--nx-button-radius) font-(family-name:--nx-button-font-family) font-(--nx-button-font-weight)",
+    "transition-colors duration-(--nx-button-transition-duration) ease-(--nx-button-transition-easing)",
+    "outline-none focus-visible:ring-(length:--nx-button-focus-ring-width) focus-visible:ring-(--nx-button-focus-ring-color) focus-visible:ring-offset-(length:--nx-button-focus-ring-offset) focus-visible:ring-offset-(--nx-button-focus-ring-offset-color)",
     "disabled:pointer-events-none disabled:opacity-50",
     "aria-busy:cursor-wait aria-busy:opacity-80",
-    "text-[length:var(--nx-button-font-size-md)]",
-    "leading-[var(--nx-button-font-line-height)]",
-    "tracking-[var(--nx-button-font-letter-spacing)]",
+    "text-(length:--nx-button-font-size-md)",
+    "leading-(--nx-button-font-line-height)",
+    "tracking-(--nx-button-font-letter-spacing)",
   ].join(" "),
   {
     variants: {
       variant: {
         primary:
-          "border-[var(--nx-button-primary-border-color)] bg-[var(--nx-button-primary-background)] text-[var(--nx-button-primary-foreground)] hover:bg-[var(--nx-button-primary-hover-background)]",
+          "border-(--nx-button-primary-border-color) bg-(--nx-button-primary-background) text-(--nx-button-primary-foreground) hover:bg-(--nx-button-primary-hover-background)",
         secondary:
-          "border-[var(--nx-button-secondary-border-color)] bg-[var(--nx-button-secondary-background)] text-[var(--nx-button-secondary-foreground)] hover:bg-[var(--nx-button-secondary-hover-background)]",
+          "border-(--nx-button-secondary-border-color) bg-(--nx-button-secondary-background) text-(--nx-button-secondary-foreground) hover:bg-(--nx-button-secondary-hover-background)",
       },
       size: {
         xs: [
-          "h-[var(--nx-button-height-xs)]",
-          "px-[var(--nx-button-padding-x-xs)]",
-          "text-[length:var(--nx-button-font-size-xs)]",
+          "h-(--nx-button-height-xs)",
+          "px-(--nx-button-padding-x-xs)",
+          "text-(length:--nx-button-font-size-xs)",
         ],
         sm: [
-          "h-[var(--nx-button-height-sm)]",
-          "px-[var(--nx-button-padding-x-sm)]",
-          "text-[length:var(--nx-button-font-size-sm)]",
+          "h-(--nx-button-height-sm)",
+          "px-(--nx-button-padding-x-sm)",
+          "text-(length:--nx-button-font-size-sm)",
         ],
         md: [
-          "h-[var(--nx-button-height-md)]",
-          "px-[var(--nx-button-padding-x-md)]",
-          "text-[length:var(--nx-button-font-size-md)]",
+          "h-(--nx-button-height-md)",
+          "px-(--nx-button-padding-x-md)",
+          "text-(length:--nx-button-font-size-md)",
         ],
         lg: [
-          "h-[var(--nx-button-height-lg)]",
-          "px-[var(--nx-button-padding-x-lg)]",
-          "text-[length:var(--nx-button-font-size-lg)]",
+          "h-(--nx-button-height-lg)",
+          "px-(--nx-button-padding-x-lg)",
+          "text-(length:--nx-button-font-size-lg)",
         ],
         xl: [
-          "h-[var(--nx-button-height-xl)]",
-          "px-[var(--nx-button-padding-x-xl)]",
-          "text-[length:var(--nx-button-font-size-xl)]",
+          "h-(--nx-button-height-xl)",
+          "px-(--nx-button-padding-x-xl)",
+          "text-(length:--nx-button-font-size-xl)",
         ],
       },
     },

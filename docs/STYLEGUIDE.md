@@ -114,7 +114,7 @@ All variant classes in `.variants.ts` reference `--nx-*` CSS variables, not
 hardcoded color or spacing values:
 
 ```ts
-"bg-[var(--nx-button-primary-background)] text-[var(--nx-button-primary-foreground)]"
+"bg-(--nx-button-primary-background) text-(--nx-button-primary-foreground)"
 ```
 
 ---
@@ -153,7 +153,7 @@ All other groups use their source name unchanged.
 
 Do not invent CSS variable names by hand. They are generated outputs. Reference
 them in components via Tailwind arbitrary value syntax:
-`bg-[var(--nx-button-primary-background)]`.
+`bg-(--nx-button-primary-background)`.
 
 ---
 

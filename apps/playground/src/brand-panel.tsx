@@ -43,7 +43,7 @@ export const BrandPanel = () => {
         </Badge>
         <Badge
           variant="outline"
-          className="border-[var(--nx-border-accent)] text-[var(--nx-color-text-accent)]"
+          className="border-(--nx-border-accent) text-(--nx-color-text-accent)"
         >
           Accent outline
         </Badge>

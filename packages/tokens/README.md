@@ -88,7 +88,7 @@ src/
 
 **Outline chain:** primitive `outline.width.*` / `outline.offset.*` → semantic `outline.*` → component `focus.ringWidth` / `focus.ringOffset` → CSS vars (`--nx-*-focus-ring-width`, `--nx-*-focus-ring-offset`).
 
-**Layout chain:** primitive `breakpoint.*` / `aspect-ratio.*` → semantic `layout.*` → CSS vars (`--nx-layout-viewport-*`, `--nx-layout-aspect-ratio-*`).
+**Layout chain:** primitive `breakpoint.*` / `aspect-ratio.*` → semantic `layout.*` → CSS vars (`--nx-layout-viewport-*`, `--nx-layout-aspect-ratio-*`). Consumers reference semantic layout vars directly; layout is not mapped into Tailwind `@theme` namespaces.
 
 The exact internal structure may evolve, but package boundaries must remain clear.
 

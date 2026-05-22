@@ -11,13 +11,28 @@ export const layoutSemantics = semanticTokens("layout", {
   viewport: {
     $type: "dimension",
     $description:
-      "Semantic viewport breakpoint roles mapped from primitive breakpoint.*.",
+      "Semantic viewport breakpoint roles mapped from primitive breakpoint.*. Keys align with the breakpoint scale.",
 
-    mobile: { $value: "{breakpoint.sm}" },
-    tablet: { $value: "{breakpoint.md}" },
-    desktop: { $value: "{breakpoint.lg}" },
-    wide: { $value: "{breakpoint.xl}" },
-    ultrawide: { $value: "{breakpoint.2xl}" },
+    sm: {
+      $description: "Mobile viewport.",
+      $value: "{breakpoint.sm}",
+    },
+    md: {
+      $description: "Tablet viewport.",
+      $value: "{breakpoint.md}",
+    },
+    lg: {
+      $description: "Desktop viewport.",
+      $value: "{breakpoint.lg}",
+    },
+    xl: {
+      $description: "Wide viewport.",
+      $value: "{breakpoint.xl}",
+    },
+    "2xl": {
+      $description: "Ultrawide viewport.",
+      $value: "{breakpoint.2xl}",
+    },
   },
 
   aspectRatio: {

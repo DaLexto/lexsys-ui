@@ -6,12 +6,10 @@ import {
 
 describe("fieldset variants", () => {
   test("uses token-backed classes for fieldset parts", () => {
-    expect(fieldsetVariants()).toContain("gap-[var(--nx-fieldset-gap)]")
-    expect(fieldsetVariants()).toContain(
-      "border-[var(--nx-fieldset-border-color)]",
-    )
+    expect(fieldsetVariants()).toContain("gap-(--nx-fieldset-gap)")
+    expect(fieldsetVariants()).toContain("border-(--nx-fieldset-border-color)")
     expect(fieldsetLegendVariants()).toContain(
-      "text-[var(--nx-fieldset-legend-foreground)]",
+      "text-(--nx-fieldset-legend-foreground)",
     )
   })
 

@@ -110,7 +110,7 @@ packages/tokens/
 
 **Exports:** `.`, `./tokens.css`, `./theme.css` (generated; do not hand-write CSS).
 
-**Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component slot tokens → UI `z-[var(--nx-*)]` / `shadow-[var(--nx-*)]` in `*.variants.ts`.
+**Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component slot tokens → UI `z-(--nx-*)` / `shadow-(--nx-*)` in `*.variants.ts`.
 
 ---
 

@@ -280,6 +280,75 @@ body {
   font-size: 0.75rem;
 }
 
+.layout-viewport-board {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-control);
+  background: var(--nx-color-background-base);
+}
+
+.layout-viewport-row {
+  display: grid;
+  grid-template-columns: minmax(0, 120px) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  color: var(--nx-color-text-primary);
+  font-size: 0.8125rem;
+}
+
+.layout-viewport-row code {
+  overflow-wrap: anywhere;
+  color: var(--nx-color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.layout-ratio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.layout-ratio-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-control);
+  background: var(--nx-color-background-base);
+}
+
+.layout-ratio-chip {
+  width: 100%;
+  border: 1px solid var(--nx-border-default);
+  border-radius: var(--nx-radius-control);
+  background: linear-gradient(
+    135deg,
+    var(--nx-brand-color-accent-base),
+    var(--nx-brand-color-primary-base)
+  );
+}
+
+.layout-ratio-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.layout-ratio-copy strong {
+  color: var(--nx-color-text-primary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.layout-ratio-copy code {
+  overflow-wrap: anywhere;
+  color: var(--nx-color-text-secondary);
+  font-size: 0.75rem;
+}
+
 .brand-semantic-board {
   display: grid;
   border: 1px solid var(--nx-color-border-default);
@@ -436,7 +505,8 @@ body {
   line-height: var(--nx-button-font-line-height);
 }
 
-@media (max-width: 640px) {
+/* layout.viewport.sm / breakpoint.sm (40rem) */
+@media (width <= 40rem) {
   .playground-shell {
     padding: 28px 20px 40px;
   }
@@ -477,6 +547,14 @@ body {
 
   .brand-swatch-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layout-ratio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-viewport-row {
+    grid-template-columns: 1fr;
   }
 
   .brand-semantic-row {
