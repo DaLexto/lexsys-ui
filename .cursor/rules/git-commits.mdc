@@ -175,10 +175,3 @@ fix(tests): formatting feat(tokens): ensure formatting
 feat(button): add button
 ```
 
----
-
-## Related
-
-- [git-commit-rules.mdc](git-commit-rules.mdc) — how this file was authored
-- [cursor-rules.mdc](cursor-rules.mdc) — rule file location
-- [AGENTS.md](../../AGENTS.md) — architectural contracts commits should respect
