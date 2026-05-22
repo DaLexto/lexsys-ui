@@ -98,27 +98,30 @@ Brand source: `packages/tokens/src/brand/`.
 Semantic tokens assign product meaning. They reference brand tokens for
 brand-specific values and primitive tokens for non-brand values.
 
-**8 active semantic groups:**
+**9 active semantic groups:**
 
-| Group        | Roles                                                                                                                                                           |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × bg/text) |
-| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                         |
-| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                          |
-| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                       |
-| `spacing`    | Semantic spacing roles                                                                                                                                          |
-| `size`       | Semantic size roles for controls                                                                                                                                |
-| `motion`     | Duration and easing semantic roles                                                                                                                              |
-| `typography` | Font scale semantic roles                                                                                                                                       |
+| Group        | Roles                                                                                                                                                                      |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × background/foreground) |
+| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                    |
+| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                     |
+| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                         |
+| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                  |
+| `spacing`    | Semantic spacing roles                                                                                                                                                     |
+| `size`       | Reusable sizing roles (`control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names                                                |
+| `motion`     | Duration and easing semantic roles                                                                                                                                         |
+| `typography` | Font scale semantic roles                                                                                                                                                  |
 
 Semantic path structure:
 
-- `color.*` — global background and text roles
+- `color.*` — global background, text, and feedback roles
 - `action.*` — interactive state colors (not nested under `color`)
 - `border.*` — border color roles (not nested under `color`)
+- `elevation.*` — stacking and shadow roles (not nested under `color`; components must not reference primitive `z-index.*` or `shadow.*` directly)
 
-> **Note:** `elevation.ts`, `outline.ts`, and `layout.ts` exist as staged stubs
-> with no content. They are not in the active semantic output.
+> **Note:** `outline.ts` and `layout.ts` exist as staged stubs with no content.
+> They are not in the active semantic output. Authoring lives under
+> `packages/tokens/src/semantics/color/` for the active `color` group.
 
 Semantic source: `packages/tokens/src/semantics/`.
 
@@ -138,12 +141,17 @@ Tabs, Textarea, Toast, Toggle, ToggleGroup, Tooltip.
 // packages/tokens/src/components/button.ts — example slot pattern
 buttonComponentTokens.primary.background  → "{action.primary.base}"
 buttonComponentTokens.radius              → "{radius.control}"
-buttonComponentTokens.focus.ringColor     → "{color.border.focus}"
+buttonComponentTokens.focus.ringColor     → "{border.focus}"
+
+// packages/tokens/src/components/dialog.ts — overlay elevation pattern
+dialogComponentTokens.backdrop.zIndex     → "{elevation.backdrop.zIndex}"
+dialogComponentTokens.popup.shadow        → "{elevation.shadow.raised}"
 ```
 
 **Temporary exception:** component tokens MAY reference raw `size.*` or
-`spacing.*` scale tokens when no semantic role exists yet. This exception must
-not be expanded; add a semantic role instead.
+`spacing.*` primitive scale tokens when no semantic role exists yet. This
+exception must not be expanded to `z-index.*`, `shadow.*`, or other primitives;
+add or use a semantic role (for example `elevation.*`) instead.
 
 Component source: `packages/tokens/src/components/`.
 
@@ -408,7 +416,7 @@ API shape.
 - Token authoring module boundaries within `packages/tokens/src/`
 - Exact semantic group structure (new groups may be added)
 - Composite token type support in generators
-- `elevation`, `outline`, `layout` semantic groups (staged stubs, not yet active)
+- `outline`, `layout` semantic groups (staged stubs, not yet active)
 - DTCG public JSON package export contract
 
 **Planned but not active contract:**

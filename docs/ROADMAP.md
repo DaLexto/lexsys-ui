@@ -28,6 +28,9 @@ Current implementation:
   invalid DTCG leaf shape, and token layer contract violations.
 - Governance reports (metadata, deprecation, dead primitives) are available via
   `createTokenGovernanceReport` and `pnpm --filter @neurex/tokens governance:report`.
+- Semantic token organization is active: nested `color.*` paths, top-level
+  `action.*` / `border.*` / `elevation.*`, theme overrides aligned to semantic
+  paths, and semantic audit reporting via `createSemanticAuditReport`.
 
 Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 
@@ -45,6 +48,7 @@ table is the high-level record only.
 | 3 — Full source migration  | All source groups use factories; legacy adapter removed         |
 | 4 — Layer validation       | Build-failing layer contract enforcement                        |
 | 5 — Governance and tooling | Metadata, deprecation, and dead-token reports                   |
+| 6 — Semantic organization  | Elevation semantics, theme path alignment, feedback wiring, audit |
 
 ---
 
@@ -64,9 +68,7 @@ Resolver-specific planning lives in `docs/RESOLVER_EVOLUTION.md`.
 
 ### Semantic and product gaps
 
-- Semantic elevation/layering roles wired from existing primitive z-index and
-  shadow scales (see `docs/REVIEW_TODO.md`)
-- Additional semantic groups such as `elevation`, `outline`, and `layout`
+- Additional semantic groups such as `outline` and `layout` (staged stubs only)
 
 ### Authoring and tooling
 
