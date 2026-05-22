@@ -242,21 +242,25 @@ at build time and will throw, preventing CSS output from being generated:
 - A theme token references a component token
 - A brand token branch uses component-specific intent
 
-Layer validation is implemented in `packages/tokens/src/resolver/layer-validation.ts`
+Layer validation is implemented in `packages/tokens/src/engine/validator/layers/layers.validator.ts`
 and runs before reference resolution during `validateStyleTokenInput`.
 
 ### Governance tooling (non-blocking)
 
 The following are available via `createTokenGovernanceReport`, `createSemanticAuditReport`, and
 `pnpm --filter @neurex/tokens governance:report`. They analyze the token graph
-but do not change CSS or DTCG output:
+but do not change CSS or DTCG output unless dead-primitive stripping is explicitly enabled:
 
-- Deprecation reports for tokens marked `$deprecated` with direct dependents
-- Metadata inventory reports
+- Deprecation reports for tokens marked `$deprecated` with **transitive** dependents
+- Metadata inventory reports (including transitive dependents when metadata is present)
 - Dead primitive token detection (primitive leaves not referenced by upper layers)
 - Semantic audit reports (forbidden paths, missing groups, theme path drift)
 
-**Planned (not build-failing):** Phase 7 governance hardening (full-chain metadata propagation, optional dead-primitive stripping), Phase 8 composite token expansion, Phase 9 resolved value pipeline, Phase 10 accessibility contrast guard. Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+**Optional output change (opt-in):** `createStyleOutputs({ stripDeadPrimitives: true })` or
+`node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
+primitive leaves from CSS/DTCG after full-graph validation. Default is off.
+
+**Planned (not build-failing):** Phase 8 composite token expansion, Phase 9 resolved value pipeline, Phase 10 accessibility contrast guard. Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
 
@@ -289,7 +293,8 @@ Key named exports from `.`:
 
 Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`,
 `createStyleTokenInput`, and related types) live under
-`packages/tokens/src/resolver/` and `packages/tokens/src/generators/inputs/`.
+`packages/tokens/src/engine/resolver/`, `packages/tokens/src/engine/validator/`, and
+`packages/tokens/src/generators/inputs/`.
 They are used internally by the build pipeline and tests but are not exported
 from the package root entrypoint.
 
@@ -311,6 +316,8 @@ pnpm --filter @neurex/tokens build            # generate dist CSS + DTCG JSON (-
 pnpm --filter @neurex/tokens generate:styles  # dist + registry template CSS sync (--package --registry)
 pnpm --filter @neurex/tokens test             # run resolver and generator tests
 pnpm --filter @neurex/tokens governance:report
+# Optional: omit dead primitives from generated CSS/DTCG after build (breaking output change)
+pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
 
 Use `generate:styles` after token generator changes that affect `packages/registry/templates/styles/`.

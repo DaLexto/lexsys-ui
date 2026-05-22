@@ -2,8 +2,8 @@ import { componentTokens as componentTokenGroups } from "../../components"
 import { primitiveTokens } from "../../primitives"
 import { brandTokens as brandTokenGroups } from "../../brand"
 import { defaultPresetId, presets } from "../../presets"
-import { resolveTokenTree } from "../../resolver"
-import { validateTokenLayerContractsStrict } from "../../resolver/layer-validation"
+import { resolveTokenTree } from "../../engine/resolver"
+import { validateTokenLayerContractsStrict } from "../../engine/validator"
 import { semanticTokens as semanticTokenGroups } from "../../semantics"
 import { themes } from "../../themes"
 import type {
@@ -35,6 +35,7 @@ export interface ThemeTokenInput {
 
 export interface StyleTokenInputOptions {
   presetId?: PresetId
+  stripDeadPrimitives?: boolean
 }
 
 export interface StyleTokenInput {

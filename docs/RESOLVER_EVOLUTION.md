@@ -2,9 +2,9 @@
 
 **Audience:** Maintainers
 **Type:** Vision / implementation plan
-**Status:** Phases 1–6 shipped; Phases 7–10 planned; speculative items deferred
+**Status:** Phases 1–7 shipped; Phases 8–10 planned; speculative items deferred
 **Source of truth for:** Resolver and governance evolution sequencing after the initial platform pass
-**Verified against:** `packages/tokens/src/resolver/`, `packages/tokens/src/governance/`, `packages/tokens/src/generators/`
+**Verified against:** `packages/tokens/src/engine/`, `packages/tokens/src/generators/`
 
 Current enforced rules and build-failing validation live in [docs/TOKENS.md](./TOKENS.md).
 Platform phase history lives in [docs/ROADMAP.md](./ROADMAP.md).
@@ -17,26 +17,24 @@ Neurex token validation and analysis split across three cooperating areas:
 
 | Area | Location | Role |
 | ---- | -------- | ---- |
-| Reference resolver | `packages/tokens/src/resolver/resolver.ts` | Resolve `{dotted.path}` chains; output-agnostic |
-| Layer validation | `packages/tokens/src/resolver/layer-validation.ts` | Build-failing layer contract enforcement |
-| Governance + audit | `packages/tokens/src/governance/` | Non-blocking graph analysis and reports |
+| Reference resolver | `packages/tokens/src/engine/resolver/reference/` | Resolve `{dotted.path}` chains; output-agnostic |
+| Graph traversal | `packages/tokens/src/engine/resolver/graph/` | Reachability, transitive dependents, dead-primitive analysis |
+| Layer validation | `packages/tokens/src/engine/validator/layers/` | Build-failing layer contract enforcement |
+| Governance + audit | `packages/tokens/src/engine/governance/` | Non-blocking graph analysis and reports |
 | Generator pipeline | `packages/tokens/src/generators/` | CSS/DTCG output; calls validation before generation |
+| CLI entrypoints | `packages/tokens/scripts/` | Build output write, governance report, dev hygiene |
 
-Phases 1–6 (factory authoring, layer validation, governance reports, semantic organization) are complete.
+Phases 1–7 (factory authoring, layer validation, governance reports, semantic organization, governance hardening) are complete.
 Remaining work is sequenced below as Phases 7–10 plus explicitly deferred speculative capabilities.
 
 ```mermaid
 flowchart TB
   subgraph shipped [Shipped Baseline]
     resolver[Reference resolver]
+    graph[Graph traversal]
     layerVal[Layer validation]
     govReports[Governance + semantic audit reports]
-  end
-
-  subgraph phase7 [Phase 7 Near-term]
-    metaProp[Full-chain metadata propagation]
     deadStrip[Optional dead-primitive stripping]
-    govCI[Governance CI workflow hooks]
   end
 
   subgraph phase8 [Phase 8 Generator]
@@ -56,9 +54,7 @@ flowchart TB
     colorMath[Color math + unit arithmetic]
   end
 
-  shipped --> phase7
   shipped --> phase8
-  phase7 --> phase9
   phase8 --> phase9
   phase9 --> phase10
   phase9 --> speculative
@@ -73,7 +69,7 @@ non-blocking behavior, see [docs/TOKENS.md — Validation Status](./TOKENS.md#va
 
 ### Reference resolver
 
-**Entry point:** `packages/tokens/src/resolver/resolver.ts`
+**Entry point:** `packages/tokens/src/engine/resolver/reference/reference.resolver.ts`
 
 - Validates reference format (`{dotted.path}`)
 - Detects missing references, branch references, circular chains, and max-depth violations (50 hops)
@@ -86,7 +82,7 @@ Invoked at build time via `validateStyleTokenInput` in
 
 ### Layer validation
 
-**Entry point:** `packages/tokens/src/resolver/layer-validation.ts`
+**Entry point:** `packages/tokens/src/engine/validator/layers/layers.validator.ts`
 
 Build-failing layer contract checks:
 
@@ -97,24 +93,54 @@ Build-failing layer contract checks:
 
 Runs before reference resolution during `validateStyleTokenInput`.
 
+### Graph traversal (shared)
+
+**Entry point:** `packages/tokens/src/engine/resolver/graph/graph.resolver.ts`
+
+- Expands reference chains through `foundationTokens` (`expandReferencedPaths`)
+- Collects upper-layer references and used primitive paths
+- Finds **transitive** dependents for deprecated/metadata targets
+- Powers governance reports and optional dead-primitive stripping
+
 ### Governance and semantic audit (non-blocking)
 
 **Entry points:**
 
-- `packages/tokens/src/governance/create-governance-report.ts`
-- `packages/tokens/src/governance/semantic-audit.ts`
-- CLI: `pnpm --filter @neurex/tokens governance:report`
+- `packages/tokens/src/engine/governance/report/report.governance.ts`
+- `packages/tokens/src/engine/governance/audit/audit.governance.ts`
+- CLI: `pnpm --filter @neurex/tokens governance:report` (`scripts/governance-report.ts`)
 
 Available reports:
 
 | Report | What it covers |
 | ------ | -------------- |
 | Metadata inventory | Tokens with `$description` or `$deprecated` |
-| Deprecation dependents | Tokens marked `$deprecated` and their **direct** dependents |
+| Deprecation dependents | Tokens marked `$deprecated` and their **transitive** dependents |
+| Metadata dependents | Metadata entries with transitive usage when `$description` or `$deprecated` is set |
 | Dead primitives | Primitive leaf paths not reached by upper-layer reference chains |
 | Semantic audit | Unused semantic paths, component-intent branches, theme path drift |
 
-These reports analyze the token graph but do not change CSS or DTCG output.
+These reports analyze the token graph but do not change CSS or DTCG output by default.
+
+### Optional dead-primitive stripping (Phase 7)
+
+**Entry points:** `createStyleOutputs({ stripDeadPrimitives: true })` in `generator.create.ts`; CLI flag on `scripts/write-style-outputs.ts`:
+
+```sh
+node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
+```
+
+Default is **off**. When enabled, unreached primitive leaves are omitted from CSS/DTCG output after full-graph validation.
+
+### Governance CI (documented hook)
+
+Recommended non-blocking PR check when `packages/tokens/**` changes:
+
+```sh
+pnpm --filter @neurex/tokens governance:report
+```
+
+Promotion to build-failing checks (zero dead primitives, zero deprecated-with-dependents) requires an explicit maintainer policy — not automatic.
 
 ---
 
@@ -122,44 +148,11 @@ These reports analyze the token graph but do not change CSS or DTCG output.
 
 | Phase | Name | Type | Depends on | Entry points |
 | ----- | ---- | ---- | ---------- | ------------ |
-| 7 | Governance hardening | Extends governance | Shipped baseline | `token-graph.utils.ts`, `create-governance-report.ts`, `generator.write.ts` |
+| 7 | Governance hardening | Shipped | Shipped baseline | `resolver/graph/`, `governance/report/`, `scripts/write-style-outputs.ts` |
 | 8 | Composite expansion | Extends generators | Shipped baseline | `packages/tokens/src/generators/outputs/` |
-| 9 | Resolved value pipeline | New resolver capability | Phases 7–8 (design) | `packages/tokens/src/resolver/` |
-| 10 | Accessibility guard | Extends validation | Phase 9 | `packages/tokens/src/governance/` or new validator |
+| 9 | Resolved value pipeline | New resolver capability | Phases 7–8 (design) | `packages/tokens/src/engine/resolver/values/` |
+| 10 | Accessibility guard | Extends validation | Phase 9 | `packages/tokens/src/engine/validator/contrast/` |
 | — | Speculative (AST + math) | New subsystem | Phase 9 design | Not scheduled |
-
----
-
-## Phase 7: Governance Hardening
-
-**Status:** Planned — near-term
-**Extends:** existing graph traversal in `packages/tokens/src/governance/`
-
-### Goals
-
-1. **Full-chain metadata propagation**
-   - Reuse the `expandReferencedPaths` pattern already used for dead-token reachability in `create-governance-report.ts`
-   - Surface **transitive** dependents for `$deprecated` and `$description`, not only direct reference matches
-   - Output: extended deprecation/metadata sections in governance reports
-
-2. **Optional dead-primitive stripping**
-   - Opt-in generator flag in `generator.create.ts` / `generator.write.ts`
-   - When enabled, omit unreached primitive leaves from CSS/DTCG output
-   - Default: **off** — enabling is a breaking output change and requires explicit product decision
-
-3. **Governance CI workflow**
-   - Document recommended CI hook: `pnpm --filter @neurex/tokens governance:report`
-   - Define decision gate for promoting governance warnings to build-failing checks (explicit maintainer choice, not automatic)
-
-### Why first
-
-No new subsystem. Builds on shipped graph traversal. Unblocks safer token cleanup without expression evaluation.
-
-### Non-goals
-
-- Changing layer validation rules
-- Stripping semantics or components from output
-- Auto-failing builds on dead primitives without an explicit policy decision
 
 ---
 
@@ -192,7 +185,7 @@ Improves CSS/DTCG output fidelity without requiring a resolved-value pipeline.
 ## Phase 9: Resolved Value Pipeline
 
 **Status:** Planned
-**Type:** New resolver capability adjacent to `packages/tokens/src/resolver/resolver.ts`
+**Type:** New resolver capability adjacent to `packages/tokens/src/engine/resolver/reference/`
 
 ### Target behavior
 

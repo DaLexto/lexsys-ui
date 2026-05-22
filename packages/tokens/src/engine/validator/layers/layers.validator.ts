@@ -1,11 +1,11 @@
 /**
- * layer-validation.ts
+ * layers.validator.ts
  *
- * @layer resolver
+ * @layer validator
  * @description Validates cross-layer token reference contracts.
  */
 
-import type { TokenTree } from "../types"
+import type { TokenTree } from "../../../types"
 import {
   isReferenceString,
   isTokenLeaf,
@@ -13,13 +13,13 @@ import {
   isTokenTree,
   parseReference,
   toPathString,
-} from "./resolver.utils"
+} from "../../resolver/shared/shared.resolver.utils"
 import type {
   LayerValidationInput,
   LayerValidationResult,
   LayerViolation,
   LayerViolationCode,
-} from "./layer-validation.types"
+} from "./layers.types"
 
 interface TokenReferenceUsage {
   reference: string

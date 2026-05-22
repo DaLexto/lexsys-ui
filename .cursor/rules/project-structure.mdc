@@ -95,17 +95,28 @@ packages/tokens/
 │   ├── components/       # Per-component tokens (semantic references only)
 │   ├── themes/           # Mode overrides — same paths as semantics (border.*, action.*, color.*)
 │   ├── presets/          # Preset config (not a token layer)
-│   ├── resolver/         # Token resolution + layer-validation.ts (build-failing contracts)
-│   ├── governance/       # Non-blocking reports (metadata, deprecation, semantic audit)
+│   ├── engine/           # Token engine: read/transform, validate, report
+│   │   ├── resolver/     # reference + graph traversal
+│   │   │   ├── reference/
+│   │   │   ├── graph/
+│   │   │   └── shared/
+│   │   ├── validator/    # build-failing layer contracts
+│   │   │   └── layers/
+│   │   └── governance/   # non-blocking reports
+│   │       ├── report/
+│   │       └── audit/
 │   ├── generators/
 │   │   ├── inputs/       # Source inputs for generation
 │   │   ├── outputs/css/  # CSS generator
 │   │   ├── outputs/dtcg/ # DTCG JSON generator
 │   │   └── shared/       # Shared generator utilities
 │   ├── types/            # Token/type definitions + authoring factories
-│   ├── scripts/          # clean-imports, governance-report
 │   └── index.ts          # Package entry
-└── test/                 # resolver, generator, layer-validation, governance, semantic-audit
+├── scripts/              # CLI entrypoints (parallel to src/, not inside src/)
+│   ├── write-style-outputs.ts
+│   ├── governance-report.ts
+│   └── clean-imports.ts
+└── test/                 # resolver, validator, generator, governance, semantic-audit
 ```
 
 **Exports:** `.`, `./tokens.css`, `./theme.css` (generated; do not hand-write CSS).
@@ -229,7 +240,7 @@ Rules: idempotent installs, no silent overwrites, clear conflict reporting.
 | Task | Primary location |
 |------|------------------|
 | Token values / layers | `packages/tokens/src/` |
-| Semantic organization / audit | `packages/tokens/src/governance/`, `docs/TOKENS.md` |
+| Semantic organization / audit | `packages/tokens/src/engine/governance/`, `docs/TOKENS.md` |
 | Generated CSS | Build pipeline only (`packages/tokens` build) |
 | Component behavior (reference) | `packages/ui/src/components/` |
 | What gets installed / paths | `packages/registry/src/items/` + `templates/` |

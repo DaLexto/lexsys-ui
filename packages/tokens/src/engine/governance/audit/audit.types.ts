@@ -1,11 +1,11 @@
 /**
- * semantic-audit.types.ts
+ * audit.types.ts
  *
  * @layer governance
  * @description Type contracts for semantic token organization audits.
  */
 
-import type { TokenGovernanceInput } from "./governance.types"
+import type { TokenGovernanceInput } from "../shared/shared.governance.types"
 
 export type SemanticAuditIssueKind =
   | "unused-semantic"

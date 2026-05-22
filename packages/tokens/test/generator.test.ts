@@ -670,4 +670,33 @@ describe("createStyleOutputs", () => {
     expect(tokenSource).not.toContain("{line-height.6}")
     expect(tokenSource).toContain("{motion.duration.fast}")
   })
+
+  test("leaves default style outputs unchanged when stripDeadPrimitives is off", () => {
+    const defaultOutputs = createStyleOutputs()
+    const explicitOutputs = createStyleOutputs({ stripDeadPrimitives: false })
+
+    expect(explicitOutputs.tokensCss).toBe(defaultOutputs.tokensCss)
+    expect(explicitOutputs.themeCss).toBe(defaultOutputs.themeCss)
+    expect(explicitOutputs.tokenJsonFiles).toEqual(defaultOutputs.tokenJsonFiles)
+  })
+
+  test("omits dead primitive CSS variables when stripDeadPrimitives is on", () => {
+    const defaultOutputs = createStyleOutputs()
+    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true })
+
+    expect(strippedOutputs.tokensCss.length).toBeLessThan(
+      defaultOutputs.tokensCss.length,
+    )
+    expect(strippedOutputs.tokensCss).not.toContain("--nx-color-blue-100:")
+    expect(defaultOutputs.tokensCss).toContain("--nx-color-blue-100:")
+  })
+
+  test("omits dead primitive leaves from DTCG output when stripDeadPrimitives is on", () => {
+    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true })
+    const colorPrimitivesJson =
+      strippedOutputs.tokenJsonFiles["tokens/dtcg/primitives/color.tokens.json"]
+
+    expect(colorPrimitivesJson).toBeDefined()
+    expect(colorPrimitivesJson).not.toContain("blue-100")
+  })
 })

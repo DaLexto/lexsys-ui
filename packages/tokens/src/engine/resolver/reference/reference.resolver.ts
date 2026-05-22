@@ -1,18 +1,8 @@
 /**
- * resolver.ts
+ * reference.resolver.ts
  *
  * @layer resolver
  * @description Token reference resolver for Neurex token trees.
- *
- * @responsibility
- * - Resolve strict full-string token references
- * - Preserve the DTCG-style { $value } token leaf shape
- * - Report missing, invalid, circular, and branch references
- *
- * @notes
- * - This resolver is output-agnostic.
- * - It does not generate CSS variables.
- * - It does not know about Tailwind or output naming.
  */
 
 import type {
@@ -21,8 +11,7 @@ import type {
   ResolverError,
   ResolverOptions,
   ResolverWarning,
-} from "./resolver.types"
-
+} from "./reference.types"
 import {
   createResolverError,
   createResolverWarning,
@@ -30,17 +19,12 @@ import {
   getNodeByPath,
   isReferenceString,
   isTokenLeaf,
-  isTokenTree,
   isTokenMetadataKey,
+  isTokenTree,
   parseReference,
   toPathString,
-} from "./resolver.utils"
-
-import type { TokenLeaf, TokenNode, TokenTree, TokenValue } from "../types"
-
-/* -------------------------------------------------------------------------------------------------
- * Internal helpers
- * ------------------------------------------------------------------------------------------------- */
+} from "../shared/shared.resolver.utils"
+import type { TokenLeaf, TokenNode, TokenTree, TokenValue } from "../../../types"
 
 const mergeOptions = (
   options: ResolverOptions = {},
@@ -71,10 +55,6 @@ const getDefaultLeafFromBranch = (node: TokenNode): TokenLeaf | undefined => {
 
   return defaultNode
 }
-
-/* -------------------------------------------------------------------------------------------------
- * Reference resolver
- * ------------------------------------------------------------------------------------------------- */
 
 export const resolveReference = (
   root: TokenTree,
@@ -218,10 +198,6 @@ export const resolveReference = (
     warnings: [...warnings, ...nestedResult.warnings],
   }
 }
-
-/* -------------------------------------------------------------------------------------------------
- * Tree resolver
- * ------------------------------------------------------------------------------------------------- */
 
 const resolveNode = (
   root: TokenTree,

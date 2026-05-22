@@ -73,12 +73,28 @@ src/
   components/
   themes/
   presets/
-  resolver/         # includes layer-validation.ts
-  governance/       # metadata, deprecation, semantic audit
-  generators/
+  engine/             # token engine (read/transform, validate, report)
+    resolver/         # reference + graph traversal
+      reference/
+      graph/
+      shared/
+    validator/        # build-failing layer contracts
+      layers/
+    governance/       # non-blocking reports and audits
+      report/
+      audit/
+  generators/       # CSS/DTCG modules (library API)
   types/
-  scripts/          # clean-imports, governance-report
+scripts/            # CLI entrypoints (parallel to src/, not inside src/)
+  write-style-outputs.ts
+  governance-report.ts
+  clean-imports.ts
+test/
 ```
+
+**Package layout rule:** `src/` holds publishable library code and generator modules; `scripts/` holds all Node entrypoints (`tsup` bundles or `tsx` dev tools). Same pattern as `packages/registry/scripts/`.
+
+**Token engine naming:** subfolders use `{role}/{role}.{domain}.ts` (for example `graph/graph.resolver.ts`, `report/report.governance.ts`).
 
 **Active semantic groups (11):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`, `outline`, `layout`.
 
@@ -220,6 +236,8 @@ pnpm --filter @neurex/tokens test
 pnpm --filter @neurex/tokens lint
 pnpm --filter @neurex/tokens governance:report
 pnpm --filter @neurex/tokens imports:clean
+# Optional dead-primitive stripping (omits unreached primitives from CSS/DTCG):
+pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
 
 Repository-level checks:

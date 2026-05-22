@@ -49,6 +49,7 @@ table is the high-level record only.
 | 4 — Layer validation       | Build-failing layer contract enforcement                          |
 | 5 — Governance and tooling | Metadata, deprecation, and dead-token reports                     |
 | 6 — Semantic organization  | Elevation semantics, theme path alignment, feedback wiring, audit |
+| 7 — Governance hardening   | Transitive dependents, graph module, optional dead-primitive stripping, scripts layout |
 
 ---
 
@@ -58,12 +59,11 @@ The items below are planned work, not current contracts.
 
 ### Resolver and generator evolution
 
-Phases 7–10 and deferred speculative work are sequenced in
+Phases 8–10 and deferred speculative work are sequenced in
 [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md):
 
 | Phase | Focus |
 | ----- | ----- |
-| 7 | Governance hardening (full-chain metadata, optional dead-primitive stripping, CI hooks) |
 | 8 | Composite token expansion in generators |
 | 9 | Resolved value pipeline |
 | 10 | Accessibility contrast guard |

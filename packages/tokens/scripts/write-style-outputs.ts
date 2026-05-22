@@ -1,14 +1,19 @@
 import { mkdir, rm, writeFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import { createStyleOutputs } from "./generator.create"
-import { defaultStyleOutputConfig } from "./generator.config"
+import { createStyleOutputs } from "../src/generators/generator.create"
+import { defaultStyleOutputConfig } from "../src/generators/generator.config"
 
-const allowedArgs = new Set(["--package", "--registry"])
+const allowedArgs = new Set([
+  "--package",
+  "--registry",
+  "--strip-dead-primitives",
+])
 
 interface WriteStyleOutputsArgs {
   package: boolean
   registry: boolean
+  stripDeadPrimitives: boolean
 }
 
 const writeOutput = async (path: string, content: string): Promise<void> => {
@@ -35,6 +40,7 @@ const parseArgs = (rawArgs: string[]): WriteStyleOutputsArgs => {
   return {
     package: args.has("--package"),
     registry: args.has("--registry"),
+    stripDeadPrimitives: args.has("--strip-dead-primitives"),
   }
 }
 
@@ -93,7 +99,9 @@ const main = async (): Promise<void> => {
     return
   }
 
-  const outputs = createStyleOutputs()
+  const outputs = createStyleOutputs({
+    stripDeadPrimitives: args.stripDeadPrimitives,
+  })
 
   if (args.package) {
     await writePackageOutputs(outputs)

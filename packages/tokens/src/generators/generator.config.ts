@@ -19,6 +19,7 @@ export interface StyleOutputConfig {
   registryStylesPath: string
   styleHeader: string
   groupNameOverrides: Readonly<Record<string, string>>
+  tailwindThemeNamespaces: Readonly<Record<string, string>>
 }
 
 export const defaultStyleOutputConfig: StyleOutputConfig = {
@@ -30,5 +31,14 @@ export const defaultStyleOutputConfig: StyleOutputConfig = {
     spacing: "space",
     "motion-duration": "duration",
     "motion-easing": "easing",
+  },
+  tailwindThemeNamespaces: {
+    color: "color",
+    duration: "duration",
+    easing: "ease",
+    radius: "radius",
+    size: "spacing",
+    space: "spacing",
+    typography: "text",
   },
 }

@@ -4,7 +4,7 @@ import {
   resolveReference,
   resolveTokenTreeSafe,
   resolveTokenTreeStrict,
-} from "../src/resolver"
+} from "../src/engine/resolver"
 
 import type { TokenLeaf, TokenScalarValue, TokenTree } from "../src/types"
 

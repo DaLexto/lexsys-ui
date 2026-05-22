@@ -1,10 +1,10 @@
-import { createStyleTokenInput } from "../generators/inputs/input.source"
+import { createStyleTokenInput } from "../src/generators/inputs/input.source"
 import {
   createSemanticAuditReport,
   createTokenGovernanceReport,
   formatSemanticAuditReport,
   formatTokenGovernanceReport,
-} from "../governance"
+} from "../src/engine/governance"
 
 const allowedArgs = new Set(["--json"])
 
