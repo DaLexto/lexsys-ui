@@ -1,11 +1,15 @@
 // themes/dark.ts
-import type { ThemeDefinition } from "../../types"
 
-export const neurexDarkTheme: ThemeDefinition = {
-  name: "dark",
-  brand: "neurex",
-  selector: ".dark",
-  colorScheme: "dark",
+import { themeTokens } from "../../types/authoring"
+
+export const neurexDarkTheme = themeTokens(
+  {
+    name: "dark",
+    brand: "neurex",
+    selector: ".dark",
+    colorScheme: "dark",
+  },
+  {
   color: {
     background: {
       $type: "color",
@@ -82,4 +86,6 @@ export const neurexDarkTheme: ThemeDefinition = {
       },
     },
   },
-}
+
+  },
+)

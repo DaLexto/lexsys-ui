@@ -1,14 +1,13 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const accordionComponentTokens: ComponentTokenGroup = {
-  component: "accordion",
+export const accordionComponentTokens = componentTokens("accordion", {
   background: { $value: "{color.background.surface}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.surface}" },
   item: {
     $type: "dimension",
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
   },
   trigger: {
     backgroundHover: { $value: "{color.background.subtle}" },
@@ -38,10 +37,11 @@ export const accordionComponentTokens: ComponentTokenGroup = {
   },
   focus: {
     $type: "dimension",
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

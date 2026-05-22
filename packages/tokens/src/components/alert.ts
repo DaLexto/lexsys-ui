@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const alertComponentTokens: ComponentTokenGroup = {
-  component: "alert",
+export const alertComponentTokens = componentTokens("alert", {
   radius: { $value: "{radius.surface}" },
   padding: { $value: "{spacing.surface.sm}" },
   gap: { $value: "{spacing.surface.gap.sm}" },
@@ -26,7 +25,7 @@ export const alertComponentTokens: ComponentTokenGroup = {
   neutral: {
     background: { $value: "{color.background.surface}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
   },
   primary: {
     $type: "color",
@@ -40,4 +39,5 @@ export const alertComponentTokens: ComponentTokenGroup = {
     foreground: { $value: "{action.danger.base}" },
     borderColor: { $value: "{action.danger.base}" },
   },
-}
+
+})

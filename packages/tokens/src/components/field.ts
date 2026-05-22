@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const fieldComponentTokens: ComponentTokenGroup = {
-  component: "field",
+export const fieldComponentTokens = componentTokens("field", {
   gap: { $value: "{spacing.control.gap.sm}" },
   foreground: { $value: "{color.text.primary}" },
   label: {
@@ -48,11 +47,11 @@ export const fieldComponentTokens: ComponentTokenGroup = {
     },
     border: {
       $type: "dimension",
-      color: { $value: "{color.border.default}" },
+      color: { $value: "{border.default}" },
     },
     focus: {
-      borderColor: { $value: "{color.border.focus}" },
-      ringColor: { $value: "{color.border.focus}" },
+      borderColor: { $value: "{border.focus}" },
+      ringColor: { $value: "{border.focus}" },
       ringOffsetColor: { $value: "{color.background.base}" },
     },
     invalid: {
@@ -92,4 +91,5 @@ export const fieldComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

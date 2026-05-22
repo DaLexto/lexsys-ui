@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const meterComponentTokens: ComponentTokenGroup = {
-  component: "meter",
+export const meterComponentTokens = componentTokens("meter", {
   gap: { $value: "{spacing.control.gap.sm}" },
   header: {
     $type: "dimension",
@@ -40,4 +39,5 @@ export const meterComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-}
+
+})

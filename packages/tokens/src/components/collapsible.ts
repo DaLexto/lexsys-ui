@@ -1,14 +1,13 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const collapsibleComponentTokens: ComponentTokenGroup = {
-  component: "collapsible",
+export const collapsibleComponentTokens = componentTokens("collapsible", {
   background: { $value: "{color.background.surface}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.surface}" },
   focus: {
     $type: "dimension",
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
   },
   trigger: {
     background: {
@@ -47,4 +46,5 @@ export const collapsibleComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-}
+
+})

@@ -1,10 +1,10 @@
-import type { SemanticTokenGroup } from "../types"
+import { semanticTokens } from "../types/authoring"
 
-export const radiusSemantics: SemanticTokenGroup = {
+export const radiusSemantics = semanticTokens("radius", {
   $type: "dimension",
-  name: "radius",
   control: { $value: "{radius.md}" },
   selection: { $value: "{radius.sm}" },
   surface: { $value: "{radius.lg}" },
   pill: { $value: "{radius.full}" },
-}
+
+})

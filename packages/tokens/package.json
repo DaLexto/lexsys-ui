@@ -21,12 +21,13 @@
     "./tokens.css": "./dist/tokens.css"
   },
   "scripts": {
-    "build": "tsup && node dist/generators/generator.write.js --package",
+    "build": "tsup && tsc -p tsconfig.json --emitDeclarationOnly --outDir dist && node dist/generators/generator.write.js --package",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
-    "generate:styles": "tsup && node dist/generators/generator.write.js --package --registry",
+    "generate:styles": "tsup && tsc -p tsconfig.json --emitDeclarationOnly --outDir dist && node dist/generators/generator.write.js --package --registry",
     "lint": "eslint src test --max-warnings=0",
     "lint:fix": "eslint src test --fix",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",
+    "governance:report": "tsup && node dist/scripts/governance-report.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "imports:clean": "tsx src/scripts/clean-imports.ts"
   }

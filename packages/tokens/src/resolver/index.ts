@@ -20,6 +20,19 @@ export {
   resolveTokenTreeSafe,
 } from "./resolver"
 
+export {
+  validateTokenLayerContracts,
+  validateTokenLayerContractsStrict,
+} from "./layer-validation"
+
+export type {
+  LayerValidationInput,
+  LayerValidationResult,
+  LayerValidationThemeInput,
+  LayerViolation,
+  LayerViolationCode,
+} from "./layer-validation.types"
+
 export type {
   ResolveReferenceResult,
   ResolveTreeResult,

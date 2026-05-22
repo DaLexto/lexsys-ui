@@ -1,10 +1,9 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const checkboxComponentTokens: ComponentTokenGroup = {
-  component: "checkbox",
+export const checkboxComponentTokens = componentTokens("checkbox", {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.inverse}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   checked: {
     $type: "color",
     background: { $value: "{action.primary.base}" },
@@ -36,11 +35,12 @@ export const checkboxComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

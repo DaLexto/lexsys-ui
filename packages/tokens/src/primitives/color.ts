@@ -23,7 +23,8 @@
  * @created 2026-04-18 09:48
  */
 
-import type { PrimitiveTokenGroup, TokenColorValue } from "../types"
+import type { TokenColorValue } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
 const oklch = (
   lightness: number,
@@ -40,8 +41,7 @@ const oklch = (
   }
 }
 
-export const colorPrimitives: PrimitiveTokenGroup = {
-  name: "color",
+export const colorPrimitives = primitiveTokens("color", {
   $type: "color",
   $description: "Raw color palette. Never use directly in components.",
 
@@ -158,4 +158,4 @@ export const colorPrimitives: PrimitiveTokenGroup = {
     900: { $value: oklch(0.381, 0.176, 304.987) },
     950: { $value: oklch(0.291, 0.149, 302.717) },
   },
-}
+})

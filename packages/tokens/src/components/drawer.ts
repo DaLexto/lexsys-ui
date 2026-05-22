@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const drawerComponentTokens: ComponentTokenGroup = {
-  component: "drawer",
+export const drawerComponentTokens = componentTokens("drawer", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.48 },
@@ -18,7 +17,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
     maxWidth: { $value: "{size.drawer.maxWidth}" },
     width: {
@@ -41,7 +40,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
   },
   handle: {
     $type: "dimension",
-    background: { $value: "{color.border.default}" },
+    background: { $value: "{border.default}" },
     width: { $value: "{size.control.lg}" },
     height: { $value: "{size.track.md}" },
     marginTop: { $value: "{spacing.control.y.sm}" },
@@ -98,11 +97,12 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.control}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

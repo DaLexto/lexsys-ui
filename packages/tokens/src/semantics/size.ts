@@ -1,7 +1,6 @@
-import type { SemanticTokenGroup } from "../types"
+import { semanticTokens } from "../types/authoring"
 
-export const sizeSemantics: SemanticTokenGroup = {
-  name: "size",
+export const sizeSemantics = semanticTokens("size", {
   control: {
     $type: "dimension",
     xs: { $value: "{size.6}" },
@@ -38,6 +37,10 @@ export const sizeSemantics: SemanticTokenGroup = {
     sm: { $value: "{size.3}" },
     md: { $value: "{size.4}" },
     lg: { $value: "{size.5}" },
+  },
+  badge: {
+    $type: "dimension",
+    md: { $value: "{size.7}" },
   },
   area: {
     swipe: {
@@ -103,4 +106,5 @@ export const sizeSemantics: SemanticTokenGroup = {
     md: { $value: "{size.5}" },
     lg: { $value: "{size.6}" },
   },
-}
+
+})

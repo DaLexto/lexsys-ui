@@ -1,7 +1,7 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const formComponentTokens: ComponentTokenGroup = {
-  component: "form",
+export const formComponentTokens = componentTokens("form", {
   gap: { $value: "{spacing.surface.gap.md}" },
   foreground: { $value: "{color.text.primary}" },
-}
+
+})

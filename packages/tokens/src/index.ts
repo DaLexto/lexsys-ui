@@ -13,10 +13,22 @@ export { semanticTokens } from "./semantics"
 export { componentTokens } from "./components"
 export { neurexPreset, defaultPresetId, presets } from "./presets"
 export { themes } from "./themes"
+export {
+  createTokenGovernanceReport,
+  formatTokenGovernanceReport,
+} from "./governance"
+export type {
+  TokenGovernanceReport,
+  TokenGovernanceInput,
+  DeprecationReportEntry,
+  DeadTokenEntry,
+  TokenMetadataEntry,
+} from "./governance"
 export type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,
   SemanticTokenGroup,
+  BrandTokenGroup,
   TokenBuildArtifacts,
   PresetDefinition,
   PresetId,
@@ -24,7 +36,12 @@ export type {
   ThemeDefinition,
   ThemeModeId,
   ThemeTokenMap,
+  ThemeConfig,
   TokenLeaf,
+  TokenBranch,
+  TokenReference,
   TokenType,
   TokenTree,
+  TokenGroupBase,
+  ThemeDefinitionStructured,
 } from "./types"

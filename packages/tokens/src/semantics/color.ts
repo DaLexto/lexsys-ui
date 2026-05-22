@@ -1,8 +1,6 @@
-import type { SemanticTokenGroup } from "../types"
+import { semanticTokens } from "../types/authoring"
 
-export const colorSemantics: SemanticTokenGroup = {
-  name: "color",
-
+export const colorSemantics = semanticTokens("color", {
   background: {
     $type: "color",
     base: { $value: "{color.white}" },
@@ -41,4 +39,5 @@ export const colorSemantics: SemanticTokenGroup = {
       text: { $value: "{color.red.700}" },
     },
   },
-}
+
+})

@@ -1,10 +1,9 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const toggleComponentTokens: ComponentTokenGroup = {
-  component: "toggle",
+export const toggleComponentTokens = componentTokens("toggle", {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   hoverBackground: { $value: "{color.background.subtle}" },
   pressed: {
     $type: "color",
@@ -40,11 +39,12 @@ export const toggleComponentTokens: ComponentTokenGroup = {
     letterSpacing: { $value: "{typography.control.md.letterSpacing}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

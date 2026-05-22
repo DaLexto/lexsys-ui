@@ -5,11 +5,10 @@
  * @description Defines semantic action color roles for interactive UI states.
  */
 
-import type { SemanticTokenGroup } from "../types"
 
-export const actionSemantics: SemanticTokenGroup = {
-  name: "action",
+import { semanticTokens } from "../types/authoring"
 
+export const actionSemantics = semanticTokens("action", {
   primary: {
     $type: "color",
     base: { $value: "{brand.color.primary.base}" },
@@ -33,4 +32,5 @@ export const actionSemantics: SemanticTokenGroup = {
     active: { $value: "{color.red.800}" },
     disabled: { $value: "{color.red.300}" },
   },
-}
+
+})

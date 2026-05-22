@@ -1,7 +1,6 @@
-import type { BrandTokenGroup } from "../types"
+import { brandTokens } from "../types/authoring"
 
-export const neurexBrand: BrandTokenGroup = {
-  name: "brand",
+export const neurexBrand = brandTokens("brand", {
   $description: "Brand tokens for Neurex.",
 
   color: {
@@ -21,4 +20,5 @@ export const neurexBrand: BrandTokenGroup = {
       disabled: { $value: "{color.neutral.200}" },
     },
   },
-}
+
+})

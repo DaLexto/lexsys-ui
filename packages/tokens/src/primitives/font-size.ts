@@ -20,10 +20,10 @@
  * - Font size tokens use the DTCG `fontSize` type even though values emit as CSS dimensions
  */
 
-import type { PrimitiveTokenGroup } from "../types"
 
-export const fontSizePrimitives: PrimitiveTokenGroup = {
-  name: "font-size",
+import { primitiveTokens } from "../types/authoring"
+
+export const fontSizePrimitives = primitiveTokens("font-size", {
   $type: "fontSize",
   $description:
     "Raw font size scale used as the source for typography semantics.",
@@ -41,4 +41,5 @@ export const fontSizePrimitives: PrimitiveTokenGroup = {
   "7xl": { $value: { value: 4.5, unit: "rem" } },
   "8xl": { $value: { value: 6, unit: "rem" } },
   "9xl": { $value: { value: 8, unit: "rem" } },
-}
+
+})

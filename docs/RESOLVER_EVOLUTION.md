@@ -9,6 +9,8 @@ This document captures planned evolution for the token resolver. All sections
 describe future direction. No section in this document is a current-state
 contract. For the current resolver behavior, see `docs/TOKENS.md`.
 
+Parent tokens platform roadmap: [docs/ROADMAP.md](./ROADMAP.md).
+
 ---
 
 ## Current State
@@ -31,11 +33,11 @@ Build-failing validation and target architecture violations are documented in
 
 ## 1. Planned: Layer Enforcement
 
-**Current:** layer violations (e.g. component token references a primitive
-directly) are not caught at build time.
+**Current:** layer contract violations are build-failing via
+`validateTokenLayerContractsStrict` in `packages/tokens/src/resolver/layer-validation.ts`.
 
-**Target:** the resolver validates layer contract violations and fails the build
-for each category listed in `docs/TOKENS.md` under "Target violations".
+**Target:** extend enforcement with governance reports described in Phase 5 of
+`docs/ROADMAP.md`.
 
 ---
 
@@ -78,17 +80,20 @@ which the current resolver produces.
 
 ## 5. Planned: Metadata Propagation
 
-**Target:** `$description` and `$deprecated` metadata propagates from the
-primitive source through the full resolution chain to component output. A
-deprecation report identifies which components depend on deprecated tokens.
+**Current:** governance reports list token metadata and flag deprecated tokens with
+direct dependents via `createTokenGovernanceReport`.
+
+**Target:** `$description` and `$deprecated` metadata propagates through the full
+resolution chain to component output, not only direct reference matches.
 
 ---
 
 ## 6. Planned: Dead Token Detection
 
-**Target:** unused primitives (those not reached by any semantic or component
-token) are identified. Generators may optionally strip them from output to
-reduce CSS file size.
+**Current:** governance reports list primitive leaf tokens not reached by upper-layer
+reference chains.
+
+**Target:** optional generator stripping of unused primitives from CSS/DTCG output.
 
 ---
 

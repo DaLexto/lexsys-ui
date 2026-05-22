@@ -1,12 +1,11 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const radioGroupComponentTokens: ComponentTokenGroup = {
-  component: "radio-group",
+export const radioGroupComponentTokens = componentTokens("radio-group", {
   gap: { $value: "{spacing.control.gap.md}" },
   item: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{action.primary.base}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     checkedBorderColor: { $value: "{action.primary.base}" },
     radius: { $value: "{radius.pill}" },
     size: {
@@ -34,11 +33,12 @@ export const radioGroupComponentTokens: ComponentTokenGroup = {
     },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

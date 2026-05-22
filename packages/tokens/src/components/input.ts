@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const inputComponentTokens: ComponentTokenGroup = {
-  component: "input",
+export const inputComponentTokens = componentTokens("input", {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
   placeholder: {
@@ -10,11 +9,11 @@ export const inputComponentTokens: ComponentTokenGroup = {
   },
   border: {
     $type: "dimension",
-    color: { $value: "{color.border.default}" },
+    color: { $value: "{border.default}" },
   },
   focus: {
-    borderColor: { $value: "{color.border.focus}" },
-    ringColor: { $value: "{color.border.focus}" },
+    borderColor: { $value: "{border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   invalid: {
@@ -53,4 +52,5 @@ export const inputComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

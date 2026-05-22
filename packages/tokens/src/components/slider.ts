@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const sliderComponentTokens: ComponentTokenGroup = {
-  component: "slider",
+export const sliderComponentTokens = componentTokens("slider", {
   gap: { $value: "{spacing.control.gap.md}" },
   control: {
     $type: "dimension",
@@ -23,11 +22,12 @@ export const sliderComponentTokens: ComponentTokenGroup = {
     size: { $value: "{size.thumb.md}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

@@ -1,15 +1,14 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const menuComponentTokens: ComponentTokenGroup = {
-  component: "menu",
+export const menuComponentTokens = componentTokens("menu", {
   radius: { $value: "{radius.surface}" },
   trigger: {
     background: { $value: "{color.background.surface}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     open: {
       background: { $value: "{color.background.subtle}" },
-      borderColor: { $value: "{color.border.focus}" },
+      borderColor: { $value: "{border.focus}" },
     },
     gap: { $value: "{spacing.control.gap.sm}" },
     radius: { $value: "{radius.control}" },
@@ -27,13 +26,13 @@ export const menuComponentTokens: ComponentTokenGroup = {
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
-    minWidth: { $value: "{size.12}" },
+    borderColor: { $value: "{border.default}" },
+    minWidth: { $value: "{size.area.swipe.sm}" },
     maxWidth: { $value: "{size.popover.maxWidth}" },
   },
   viewport: {
     $type: "dimension",
-    maxHeight: { $value: "{size.16}" },
+    maxHeight: { $value: "{size.area.swipe.md}" },
   },
   list: {
     $type: "dimension",
@@ -91,7 +90,7 @@ export const menuComponentTokens: ComponentTokenGroup = {
     },
   },
   separator: {
-    background: { $value: "{color.border.default}" },
+    background: { $value: "{border.default}" },
     margin: {
       $type: "dimension",
       y: { $value: "{spacing.control.y.xs}" },
@@ -106,12 +105,13 @@ export const menuComponentTokens: ComponentTokenGroup = {
     background: { $value: "{color.text.primary}" },
   },
   focus: {
-    borderColor: { $value: "{color.border.focus}" },
-    ringColor: { $value: "{color.border.focus}" },
+    borderColor: { $value: "{border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})

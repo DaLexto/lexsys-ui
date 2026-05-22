@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const alertDialogComponentTokens: ComponentTokenGroup = {
-  component: "alert-dialog",
+export const alertDialogComponentTokens = componentTokens("alert-dialog", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.56 },
@@ -13,7 +12,7 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
     maxWidth: { $value: "{size.dialog.maxWidth}" },
     padding: { $value: "{spacing.surface.md}" },
@@ -66,11 +65,12 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.control}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+
+})
