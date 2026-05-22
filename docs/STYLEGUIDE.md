@@ -262,76 +262,19 @@ export type * from "./components/Button/Button.types"
 
 ## 6. Registry Item Structure
 
-Every installable item declares the full install contract.
-The required fields are defined by `RegistryItem` in `registry.types.ts`:
+Every item in `packages/registry/src/items/` declares the full install contract: files, dependencies, utilities, styles, target path, and category. The CLI reads this contract — if it needs knowledge not declared here, the item is incomplete.
 
-| Field | Type | Purpose |
-|---|---|---|
-| `name` | `string` | Lookup key (lowercase, kebab-case) |
-| `canonicalName` | `string` | Display name (PascalCase) |
-| `version` | `string` | Item version |
-| `type` | `"component" \| "utility" \| "style"` | Item type |
-| `category` | `RegistryItemCategory` | Grouping for `list` command |
-| `aliases` | `string[]` | Alternative lookup names |
-| `files` | `string[]` | Template-relative file paths |
-| `remoteFiles` | `RegistryFile[]` (optional) | Remote source file descriptors |
-| `dependencies` | `string[]` | npm packages to install |
-| `registryDependencies` | `string[]` | Other registry items required |
-| `utilities` | `string[]` | Shared utility names required |
-| `styles` | `string[]` | Style names required (`"theme"`) |
-| `target` | `string` | Default install path in consumer project |
-
-Example from `button.ts`:
-
-```ts
-export const buttonRegistryItem: RegistryItem = {
-  name: "button",
-  canonicalName: "Button",
-  version: "0.0.1",
-  type: "component",
-  category: "actions",
-  aliases: ["btn"],
-  files: [
-    "components/Button/Button.tsx",
-    "components/Button/Button.types.ts",
-    "components/Button/Button.variants.ts",
-  ],
-  dependencies: ["@base-ui/react", "class-variance-authority", "clsx", "tailwind-merge"],
-  registryDependencies: [],
-  utilities: ["cn"],
-  styles: ["theme"],
-  target: "src/components/ui/Button",
-}
-```
-
-If the CLI needs knowledge not declared here, the registry item is incomplete.
+Full field contract, category values, and validation rules: [docs/REGISTRY.md](REGISTRY.md).
 
 ---
 
 ## 7. Template Sync
 
-Installable templates live under `packages/registry/templates/components`.
+Templates in `packages/registry/templates/components/` are synced from `packages/ui/src/components`. Do not manually edit them. Run `pnpm registry:sync` after editing UI components and `pnpm registry:check` to verify no drift.
 
-Templates are generated copies of the UI source, not independent files. The
-sync script (`scripts/sync-component-templates.mjs`) copies files from
-`packages/ui/src/components` and applies one transform:
+The only transform the sync script applies is the `cn` import path rewrite. Any additional transform goes in the sync script, not the template file.
 
-```
-import { cn } from "../../utils/cn"
-→
-import { cn } from "@/lib/utils"
-```
-
-Rules:
-- All other component API, variant structure, and export style is owned by `packages/ui`.
-- Do not manually edit files under `templates/components`. Manual edits will be overwritten by `registry:sync`.
-- To add a template-only transform, add it to the sync script, not the template file.
-- Run `pnpm registry:sync` after editing UI components to keep templates in sync.
-- Run `pnpm registry:check` to verify templates are not drifted.
-
-Registry item metadata (files in `packages/registry/src/items/`) is always
-manually authored because it defines the install contract, not the component
-implementation.
+Full template rules and sync contract: [docs/REGISTRY.md](REGISTRY.md).
 
 ---
 

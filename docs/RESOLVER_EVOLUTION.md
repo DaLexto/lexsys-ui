@@ -1,88 +1,106 @@
 # Neurex Resolver Roadmap
 
-## Status
+**Audience:** Maintainers
+**Type:** Vision/strategy document
+**Status:** Planned — nothing described here is currently implemented
+**Current implementation:** `packages/tokens/src/resolver/`
 
-**ARCHITECTING**
-
-This document defines the technical evolution of the Neurex token resolver—transitioning from a static reference mapper to an intelligent design compiler.
-
----
-
-## Core Vision: The "Brooklyn Bridge" Model
-
-The resolver is the structural guardian of the Neurex design system. Its primary responsibility is to ensure that the token foundation remains indestructible, predictable, and immune to manual design errors.
+This document captures planned evolution for the token resolver. All sections
+describe future direction. No section in this document is a current-state
+contract. For the current resolver behavior, see `docs/TOKENS.md`.
 
 ---
 
-## 1. Core Architecture (The Foundation)
+## Current State
 
-The resolver is not a simple string replacement script; it is a dedicated **interpreter** designed to preserve system integrity.
+The current resolver (`packages/tokens/src/resolver/`) is a reference-chain
+resolver that:
 
-### Responsibilities
+- validates token reference format (`{dotted.path}`)
+- detects missing references
+- detects circular references
+- detects max-depth violations (50 hops)
+- detects invalid token leaf shape
+- operates in strict or safe mode
+- is output-agnostic (no CSS, Tailwind, or DTCG knowledge)
 
-- **Layer Enforcement:** Strict validation of the "Build-Failing Violations" rules. Prevents components from bypassing semantics to target primitives directly.
-- **DTCG Compliance:** Native support for the standard `$value`, `$type`, and `$description` authoring shape.
-- **Circular Detection:** Deep-tree analysis to prevent infinite reference loops during the resolution phase.
-
----
-
-## 2. Advanced Resolution (The "Beast" Logic)
-
-The "Beast" engine introduces calculation and transformation capabilities directly into the resolution chain.
-
-### A. Color & Math Engine
-
-- **OKLCH Manipulation:** Perceptually accurate transformations.
-  - _Example:_ `oklch-modify({brand.color.primary}, l -10%)`
-- **Unit-Aware Math:** Intelligent calculation across disparate units (`rem`, `px`, `%`).
-  - _Note:_ Requires a built-in unit converter using a configurable `baseFontSize` (e.g., 16px) to normalize values before output.
-
-### B. Composite Token Expansion (The "Exploder")
-
-Handles complex object tokens such as typography, shadows, and borders.
-
-- **Flattening:** Decomposes a single composite token (e.g., `typography.body`) into individual atomic variables while maintaining internal alias links (e.g., `fontSize` still resolving to `{font.size.base}`).
-
-### C. Contextual Overrides (The Transformer)
-
-- **Theme Switching:** Resolves values based on active `ThemeModeId` without altering the consumer-facing token name.
-- **Auto-Dark Algorithm:** Programmatic dark theme generation by algorithmically inverting Lightness channels while preserving brand chroma levels.
+Build-failing validation and target architecture violations are documented in
+`docs/TOKENS.md`.
 
 ---
 
-## 3. Reliability & Diagnostics (The Bridge Guards)
+## 1. Planned: Layer Enforcement
 
-Stability is ensured through automated diagnostics that catch errors before they reach the user project.
+**Current:** layer violations (e.g. component token references a primitive
+directly) are not caught at build time.
 
-### A. A11y Guard (Contrast Police)
-
-- **Automatic Validation:** Performs build-time contrast checks between semantic foreground and background pairs.
-- **Failure Condition:** If a combination fails WCAG AA standards, the build is halted.
-
-### B. Traceability & Deprecation
-
-- **Metadata Tunneling:** Propagates `$description` and `$deprecated` metadata from the primitive source through the entire chain to the component output.
-- **Provenance Tracking:** Generates a "Deprecation Report" identifying exactly which components depend on obsolete tokens.
-
-### C. Dead Token Elimination
-
-- Analyzes the graph to identify unused primitives, allowing the generator to strip "dead weight" from the final CSS output.
+**Target:** the resolver validates layer contract violations and fails the build
+for each category listed in `docs/TOKENS.md` under "Target violations".
 
 ---
 
-## 4. Technical Strategy: AST Compiler
+## 2. Planned: Color and Math Engine
 
-The next-generation resolver abandons Regex in favor of a formal **Abstract Syntax Tree (AST)** approach.
+The resolver does not currently evaluate expressions. Token values are stored
+and output as-is.
 
-1. **Tokenizer:** Breaks complex values (e.g., `({space.md} * 2) + 4px`) into atomic tokens.
-2. **Parser:** Constructs a logical operation tree based on precedence.
-3. **Evaluator:** Recursively resolves references and executes mathematical or color functions.
-4. **Serializer:** Outputs the final calculated value in the format required by the specific Generator (CSS, JSON, etc.).
+**Target capabilities:**
+
+- OKLCH-aware color transformations:
+  - Example: `oklch-modify({brand.color.primary}, l -10%)`
+- Unit-aware arithmetic across `rem`, `px`, `%` with configurable base font size
+
+These require a formal expression evaluator. The current string-match resolver
+cannot support them.
 
 ---
 
-## 5. Guiding Principle
+## 3. Planned: Composite Token Expansion
 
-**"Nemože mi niko ništa" (Invincibility)**
+The resolver currently treats composite token leaves (e.g. `typography.body.md`)
+as opaque objects.
 
-The Bridge is complete when no design decision can pass through the system without verification. The Neurex Resolver transforms artistic intent into a **predictable, secure, and scalable engineering product**.
+**Target:** composite tokens are expanded into individual atomic variables while
+preserving internal reference links (e.g. the `fontSize` slot continues
+resolving through `{font.size.base}`).
+
+---
+
+## 4. Planned: Accessibility Guard
+
+**Target:** build-time contrast validation between semantic foreground and
+background token pairs. Build fails if a pairing does not meet WCAG AA.
+
+This requires resolved color values and a color contrast evaluator, neither of
+which the current resolver produces.
+
+---
+
+## 5. Planned: Metadata Propagation
+
+**Target:** `$description` and `$deprecated` metadata propagates from the
+primitive source through the full resolution chain to component output. A
+deprecation report identifies which components depend on deprecated tokens.
+
+---
+
+## 6. Planned: Dead Token Detection
+
+**Target:** unused primitives (those not reached by any semantic or component
+token) are identified. Generators may optionally strip them from output to
+reduce CSS file size.
+
+---
+
+## 7. Planned: AST Evaluator
+
+Supporting color math and unit-aware arithmetic requires moving beyond regex
+pattern matching to a formal AST approach:
+
+1. **Tokenizer** — breaks complex values like `({space.md} * 2) + 4px` into
+   atomic tokens
+2. **Parser** — builds a precedence-aware operation tree
+3. **Evaluator** — resolves references and evaluates math and color expressions
+4. **Serializer** — formats output for a specific generator target
+
+This is a significant implementation change and is not planned for the near term.

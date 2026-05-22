@@ -46,26 +46,15 @@ Generated output files are artifacts. They must not become the source of truth.
 
 ## Token Dependency Model
 
-Neurex token dependencies follow this canonical model:
-
 ```text
 primitives -> brand -> semantics -> components
                 ↑
               themes override semantics per mode
 ```
 
-Layer summary:
+Themes are not a fifth token layer. Presets are configuration, not token layers.
 
-- primitives contain raw values only
-- brand tokens define brand-level palette decisions
-- semantic tokens assign reusable product meaning
-- component tokens map semantic values to component slot/property decisions
-- themes override semantic values per mode
-- presets select which brand/theme combinations are built
-
-Themes are not a fifth token layer.
-
-Presets are configuration, not token layers.
+Full layer rules, reference rules, and resolution behavior: [docs/TOKENS.md](../../docs/TOKENS.md).
 
 ---
 
@@ -96,24 +85,9 @@ Do not treat generated CSS or JSON as editable source.
 
 ## Authoring Rules
 
-Token authoring must follow the canonical rules from [docs/TOKENS.md](../../docs/TOKENS.md).
+Token authoring follows the canonical rules in [docs/TOKENS.md](../../docs/TOKENS.md). That document is the source of truth. If this README conflicts with it, TOKENS.md wins.
 
-Important package-level rules:
-
-- use DTCG-compatible `$value` authoring
-- do not use legacy `value` leaves
-- primitives must not reference other tokens
-- components should reference semantic tokens
-- raw `size.*` and `spacing.*` component references are a temporary exception
-  only while semantic roles are missing
-- components must never reference brand tokens directly
-- components must never reference theme tokens directly
-- themes override semantics per mode
-- presets never participate in token resolution
-
-Brand-specific semantic values should reference brand tokens.
-
-Non-brand semantic values, such as neutrals, feedback, and foundation values, may reference primitive tokens directly.
+Key package-level constraints: use `$value` leaves (DTCG shape), primitives hold raw values only, components reference semantics, raw scale references (`size.*`, `spacing.*`) are a temporary exception only.
 
 ---
 
@@ -181,63 +155,9 @@ Expected rules:
 
 ---
 
-## Validation Rules
+## Validation, Resolver, and Generator Rules
 
-Token validation should fail for architecture violations that can break the system.
-
-Current build-failing validation covers:
-
-- missing reference paths
-- circular references
-- missing theme modes required by a preset
-- invalid DTCG token leaf shape when importing token JSON
-
-Target architecture violations that must become build-failing before the token
-contract is considered stable:
-
-- component tokens referencing primitives directly
-- component tokens referencing brand tokens directly
-- component tokens referencing theme tokens directly
-- semantic tokens referencing component tokens
-- theme tokens referencing component tokens
-- brand tokens containing component-specific intent
-
-Warnings may be used for governance issues that should not block early development, such as naming quality, missing non-critical descriptions, or suspicious one-off semantic tokens.
-
----
-
-## Resolver Rules
-
-The resolver is responsible for reference validation and value resolution.
-
-It should:
-
-- detect missing references
-- detect circular references
-- preserve token tree shape where required
-- support strict mode for build-failing validation
-- avoid silently swallowing invalid token states
-
-The resolver should not encode package-specific output formatting. Formatting belongs in generators.
-
----
-
-## Generator Rules
-
-Generators are responsible for converting validated token data into output formats.
-
-Generators should be output-specific:
-
-```text
-CSS generator
-DTCG JSON generator
-Tailwind @theme generator
-future platform generators
-```
-
-Authoring format must not change when a new output target is added.
-
-A new platform should add a generator or serializer, not rewrite token source.
+Current build-failing validation, target violations, resolver error codes, and generator behavior are documented in [docs/TOKENS.md](../../docs/TOKENS.md) and [docs/DESIGN_SYSTEM.md](../../docs/DESIGN_SYSTEM.md).
 
 ---
 
