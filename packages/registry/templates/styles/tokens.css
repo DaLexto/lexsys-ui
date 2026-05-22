@@ -106,7 +106,7 @@
   --nx-color-feedback-success-background: var(--nx-color-green-50);
   --nx-color-feedback-success-foreground: var(--nx-color-green-700);
   --nx-color-feedback-warning-background: var(--nx-color-yellow-50);
-  --nx-color-feedback-warning-foreground: var(--nx-color-yellow-700);
+  --nx-color-feedback-warning-foreground: var(--nx-color-yellow-800);
   --nx-color-feedback-danger-background: var(--nx-color-red-50);
   --nx-color-feedback-danger-foreground: var(--nx-color-red-700);
   --nx-radius-none: 0px;
@@ -278,6 +278,9 @@
   --nx-border-strong: var(--nx-color-neutral-400);
   --nx-border-focus: var(--nx-brand-color-primary-base);
   --nx-border-accent: var(--nx-brand-color-accent-base);
+  --nx-border-control-color: var(--nx-color-neutral-200);
+  --nx-border-control-width: var(--nx-border-thin);
+  --nx-border-control-style: solid;
   --nx-breakpoint-sm: 40rem;
   --nx-breakpoint-md: 48rem;
   --nx-breakpoint-lg: 64rem;
@@ -329,9 +332,9 @@
   --nx-z-index-toast: 5000;
   --nx-z-index-tooltip: 6000;
   --nx-z-index-max: 9999;
-  --nx-brand-color-primary-base: var(--nx-color-orange-500);
-  --nx-brand-color-primary-hover: var(--nx-color-orange-600);
-  --nx-brand-color-primary-active: var(--nx-color-orange-700);
+  --nx-brand-color-primary-base: var(--nx-color-orange-600);
+  --nx-brand-color-primary-hover: var(--nx-color-orange-700);
+  --nx-brand-color-primary-active: var(--nx-color-orange-800);
   --nx-brand-color-primary-disabled: var(--nx-color-neutral-300);
   --nx-brand-color-accent-base: var(--nx-color-space-indigo-500);
   --nx-brand-color-accent-hover: var(--nx-color-space-indigo-700);
@@ -487,8 +490,18 @@
   --nx-elevation-floating-z-index: var(--nx-z-index-popover);
   --nx-elevation-toast-z-index: var(--nx-z-index-toast);
   --nx-elevation-tooltip-z-index: var(--nx-z-index-tooltip);
-  --nx-elevation-shadow-floating: var(--nx-shadow-4);
-  --nx-elevation-shadow-raised: var(--nx-shadow-5);
+  --nx-elevation-shadow-floating-color: oklch(0 0 0 / 0.12);
+  --nx-elevation-shadow-floating-offset-x: 0;
+  --nx-elevation-shadow-floating-offset-y: 8px;
+  --nx-elevation-shadow-floating-blur: 16px;
+  --nx-elevation-shadow-floating-spread: 0;
+  --nx-elevation-shadow-floating-box-shadow: var(--nx-elevation-shadow-floating-offset-x) var(--nx-elevation-shadow-floating-offset-y) var(--nx-elevation-shadow-floating-blur) var(--nx-elevation-shadow-floating-spread) var(--nx-elevation-shadow-floating-color);
+  --nx-elevation-shadow-raised-color: oklch(0 0 0 / 0.14);
+  --nx-elevation-shadow-raised-offset-x: 0;
+  --nx-elevation-shadow-raised-offset-y: 16px;
+  --nx-elevation-shadow-raised-blur: 32px;
+  --nx-elevation-shadow-raised-spread: 0;
+  --nx-elevation-shadow-raised-box-shadow: var(--nx-elevation-shadow-raised-offset-x) var(--nx-elevation-shadow-raised-offset-y) var(--nx-elevation-shadow-raised-blur) var(--nx-elevation-shadow-raised-spread) var(--nx-elevation-shadow-raised-color);
   --nx-layout-viewport-sm: var(--nx-breakpoint-sm);
   --nx-layout-viewport-md: var(--nx-breakpoint-md);
   --nx-layout-viewport-lg: var(--nx-breakpoint-lg);
@@ -533,7 +546,7 @@
   --nx-alert-dialog-popup-max-width: var(--nx-size-panel-width-lg);
   --nx-alert-dialog-popup-padding: var(--nx-space-surface-md);
   --nx-alert-dialog-popup-gap: var(--nx-space-surface-gap-md);
-  --nx-alert-dialog-popup-shadow: var(--nx-elevation-shadow-raised);
+  --nx-alert-dialog-popup-shadow: var(--nx-elevation-shadow-raised-box-shadow);
   --nx-alert-dialog-title-foreground: var(--nx-color-text-primary);
   --nx-alert-dialog-title-padding-end: var(--nx-size-control-lg);
   --nx-alert-dialog-title-font-size: var(--nx-typography-heading-sm-font-size);
@@ -731,7 +744,7 @@
   --nx-dialog-popup-max-width: var(--nx-size-panel-width-lg);
   --nx-dialog-popup-padding: var(--nx-space-surface-md);
   --nx-dialog-popup-gap: var(--nx-space-surface-gap-md);
-  --nx-dialog-popup-shadow: var(--nx-elevation-shadow-raised);
+  --nx-dialog-popup-shadow: var(--nx-elevation-shadow-raised-box-shadow);
   --nx-dialog-title-foreground: var(--nx-color-text-primary);
   --nx-dialog-title-padding-end: var(--nx-size-control-lg);
   --nx-dialog-title-font-size: var(--nx-typography-heading-sm-font-size);
@@ -780,7 +793,7 @@
   --nx-drawer-popup-height-sm: var(--nx-size-panel-height-sm);
   --nx-drawer-popup-height-md: var(--nx-size-panel-height-md);
   --nx-drawer-popup-height-lg: var(--nx-size-panel-height-lg);
-  --nx-drawer-popup-shadow: var(--nx-elevation-shadow-raised);
+  --nx-drawer-popup-shadow: var(--nx-elevation-shadow-raised-box-shadow);
   --nx-drawer-content-padding: var(--nx-space-surface-md);
   --nx-drawer-content-gap: var(--nx-space-surface-gap-md);
   --nx-drawer-handle-background: var(--nx-border-default);
@@ -925,7 +938,7 @@
   --nx-menu-popup-border-color: var(--nx-border-default);
   --nx-menu-popup-min-width: var(--nx-size-area-swipe-sm);
   --nx-menu-popup-max-width: var(--nx-size-panel-width-sm);
-  --nx-menu-popup-shadow: var(--nx-elevation-shadow-floating);
+  --nx-menu-popup-shadow: var(--nx-elevation-shadow-floating-box-shadow);
   --nx-menu-positioner-z-index: var(--nx-elevation-floating-z-index);
   --nx-menu-viewport-max-height: var(--nx-size-area-swipe-md);
   --nx-menu-list-gap: var(--nx-space-control-gap-sm);
@@ -1016,7 +1029,7 @@
   --nx-popover-popup-max-width: var(--nx-size-panel-width-sm);
   --nx-popover-popup-padding: var(--nx-space-surface-md);
   --nx-popover-popup-gap: var(--nx-space-surface-gap-sm);
-  --nx-popover-popup-shadow: var(--nx-elevation-shadow-floating);
+  --nx-popover-popup-shadow: var(--nx-elevation-shadow-floating-box-shadow);
   --nx-popover-arrow-size: var(--nx-size-selection-control-sm);
   --nx-popover-title-foreground: var(--nx-color-text-primary);
   --nx-popover-title-padding-end: var(--nx-size-control-lg);
@@ -1083,8 +1096,10 @@
   --nx-radio-group-focus-ring-offset: var(--nx-outline-offset-focus);
   --nx-radio-group-transition-duration: var(--nx-duration-control);
   --nx-radio-group-transition-easing: var(--nx-easing-control);
-  --nx-separator-color: var(--nx-border-default);
-  --nx-separator-thickness: 1px;
+  --nx-scroll-area-scrollbar-size: var(--nx-size-control-xs);
+  --nx-scroll-area-scrollbar-padding: var(--nx-space-control-x-xs);
+  --nx-scroll-area-thumb-background: var(--nx-border-strong);
+  --nx-scroll-area-thumb-radius: var(--nx-radius-pill);
   --nx-select-background: var(--nx-color-background-base);
   --nx-select-foreground: var(--nx-color-text-primary);
   --nx-select-placeholder-color: var(--nx-color-text-secondary);
@@ -1114,7 +1129,7 @@
   --nx-select-popup-foreground: var(--nx-color-text-primary);
   --nx-select-popup-border-color: var(--nx-border-default);
   --nx-select-popup-max-height: var(--nx-size-area-swipe-md);
-  --nx-select-popup-shadow: var(--nx-elevation-shadow-floating);
+  --nx-select-popup-shadow: var(--nx-elevation-shadow-floating-box-shadow);
   --nx-select-positioner-z-index: var(--nx-elevation-floating-z-index);
   --nx-select-list-gap: var(--nx-space-control-gap-sm);
   --nx-select-list-padding: var(--nx-space-control-y-xs);
@@ -1151,6 +1166,8 @@
   --nx-select-invalid-ring-width: var(--nx-outline-width-focus);
   --nx-select-transition-duration: var(--nx-duration-control);
   --nx-select-transition-easing: var(--nx-easing-control);
+  --nx-separator-color: var(--nx-border-default);
+  --nx-separator-thickness: 1px;
   --nx-slider-gap: var(--nx-space-control-gap-md);
   --nx-slider-control-padding-y: var(--nx-space-control-y-sm);
   --nx-slider-track-background: var(--nx-color-background-subtle);
@@ -1251,7 +1268,7 @@
   --nx-toast-background: var(--nx-color-background-base);
   --nx-toast-foreground: var(--nx-color-text-primary);
   --nx-toast-border-color: var(--nx-border-default);
-  --nx-toast-shadow: var(--nx-elevation-shadow-raised);
+  --nx-toast-shadow: var(--nx-elevation-shadow-raised-box-shadow);
   --nx-toast-success-border-color: var(--nx-color-feedback-success-foreground);
   --nx-toast-destructive-border-color: var(--nx-color-feedback-danger-foreground);
   --nx-toast-radius: var(--nx-radius-surface);
@@ -1326,7 +1343,7 @@
   --nx-tooltip-foreground: var(--nx-color-background-base);
   --nx-tooltip-border-color: var(--nx-border-default);
   --nx-tooltip-radius: var(--nx-radius-control);
-  --nx-tooltip-shadow: var(--nx-elevation-shadow-floating);
+  --nx-tooltip-shadow: var(--nx-elevation-shadow-floating-box-shadow);
   --nx-tooltip-padding-x: var(--nx-space-control-x-xs);
   --nx-tooltip-padding-y: var(--nx-space-control-y-xs);
   --nx-tooltip-font-size: var(--nx-typography-label-xs-font-size);

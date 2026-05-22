@@ -28,6 +28,10 @@
   --nx-action-secondary-base: var(--nx-color-neutral-800);
   --nx-action-secondary-hover: var(--nx-color-neutral-700);
   --nx-action-secondary-active: var(--nx-color-neutral-600);
+  --nx-action-danger-base: var(--nx-color-red-400);
+  --nx-action-danger-hover: var(--nx-color-red-500);
+  --nx-action-danger-active: var(--nx-color-red-600);
+  --nx-action-danger-disabled: var(--nx-color-red-300);
 }
 
 @theme inline {
@@ -257,13 +261,26 @@
   --nx-border-strong: var(--nx-border-strong);
   --nx-border-focus: var(--nx-border-focus);
   --nx-border-accent: var(--nx-border-accent);
+  --nx-border-control-color: var(--nx-border-control-color);
+  --nx-border-control-width: var(--nx-border-control-width);
+  --nx-border-control-style: var(--nx-border-control-style);
   --nx-elevation-backdrop-z-index: var(--nx-elevation-backdrop-z-index);
   --nx-elevation-layer-z-index: var(--nx-elevation-layer-z-index);
   --nx-elevation-floating-z-index: var(--nx-elevation-floating-z-index);
   --nx-elevation-toast-z-index: var(--nx-elevation-toast-z-index);
   --nx-elevation-tooltip-z-index: var(--nx-elevation-tooltip-z-index);
-  --nx-elevation-shadow-floating: var(--nx-elevation-shadow-floating);
-  --nx-elevation-shadow-raised: var(--nx-elevation-shadow-raised);
+  --nx-elevation-shadow-floating-color: var(--nx-elevation-shadow-floating-color);
+  --nx-elevation-shadow-floating-offset-x: var(--nx-elevation-shadow-floating-offset-x);
+  --nx-elevation-shadow-floating-offset-y: var(--nx-elevation-shadow-floating-offset-y);
+  --nx-elevation-shadow-floating-blur: var(--nx-elevation-shadow-floating-blur);
+  --nx-elevation-shadow-floating-spread: var(--nx-elevation-shadow-floating-spread);
+  --nx-elevation-shadow-floating-box-shadow: var(--nx-elevation-shadow-floating-box-shadow);
+  --nx-elevation-shadow-raised-color: var(--nx-elevation-shadow-raised-color);
+  --nx-elevation-shadow-raised-offset-x: var(--nx-elevation-shadow-raised-offset-x);
+  --nx-elevation-shadow-raised-offset-y: var(--nx-elevation-shadow-raised-offset-y);
+  --nx-elevation-shadow-raised-blur: var(--nx-elevation-shadow-raised-blur);
+  --nx-elevation-shadow-raised-spread: var(--nx-elevation-shadow-raised-spread);
+  --nx-elevation-shadow-raised-box-shadow: var(--nx-elevation-shadow-raised-box-shadow);
   --nx-outline-width-focus: var(--nx-outline-width-focus);
   --nx-outline-width-inset: var(--nx-outline-width-inset);
   --nx-outline-width-zero: var(--nx-outline-width-zero);
