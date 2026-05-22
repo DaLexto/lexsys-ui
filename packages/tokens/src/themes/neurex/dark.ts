@@ -65,6 +65,13 @@ export const neurexDarkTheme = themeTokens(
         hover: { $value: "{color.neutral.700}" },
         active: { $value: "{color.neutral.600}" },
       },
+      danger: {
+        $type: "color",
+        base: { $value: "{color.red.400}" },
+        hover: { $value: "{color.red.500}" },
+        active: { $value: "{color.red.600}" },
+        disabled: { $value: "{color.red.300}" },
+      },
     },
   },
 )

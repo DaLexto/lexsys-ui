@@ -41,10 +41,36 @@ export const SEMANTIC_CONTRAST_PAIRS: SemanticContrastPair[] = [
     backgroundPath: "color.background.subtle",
   },
   {
+    id: "heading-primary-on-base",
+    label: "Large primary heading text on base background",
+    foregroundPath: "color.text.primary",
+    backgroundPath: "color.background.base",
+    textSize: "large",
+  },
+  {
+    id: "heading-primary-on-surface",
+    label: "Large primary heading text on surface background",
+    foregroundPath: "color.text.primary",
+    backgroundPath: "color.background.surface",
+    textSize: "large",
+  },
+  {
     id: "text-inverse-on-primary-action",
     label: "Inverse text on primary action background",
     foregroundPath: "color.text.inverse",
     backgroundPath: "action.primary.base",
+  },
+  {
+    id: "text-inverse-on-danger-action",
+    label: "Inverse text on danger action background",
+    foregroundPath: "color.text.inverse",
+    backgroundPath: "action.danger.base",
+  },
+  {
+    id: "text-primary-on-secondary-action",
+    label: "Primary text on secondary action background",
+    foregroundPath: "color.text.primary",
+    backgroundPath: "action.secondary.base",
   },
   {
     id: "feedback-info",
