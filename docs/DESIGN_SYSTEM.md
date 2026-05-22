@@ -98,19 +98,21 @@ Brand source: `packages/tokens/src/brand/`.
 Semantic tokens assign product meaning. They reference brand tokens for
 brand-specific values and primitive tokens for non-brand values.
 
-**9 active semantic groups:**
+**11 active semantic groups:**
 
-| Group        | Roles                                                                                                                                                                      |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × background/foreground) |
-| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                    |
-| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                     |
-| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                         |
-| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                  |
-| `spacing`    | Semantic spacing roles                                                                                                                                                     |
-| `size`       | Reusable sizing roles (`control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names                                                |
-| `motion`     | Duration and easing semantic roles                                                                                                                                         |
-| `typography` | Font scale semantic roles                                                                                                                                                  |
+| Group        | Roles                                                                                                                                                                                                          |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × background/foreground)                                  |
+| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                                                        |
+| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                                                         |
+| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                                                              |
+| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                                                      |
+| `spacing`    | Semantic spacing roles                                                                                                                                                                                         |
+| `size`       | Reusable sizing roles (`control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names                                                                                    |
+| `motion`     | Duration and easing semantic roles                                                                                                                                                                             |
+| `typography` | Font scale semantic roles                                                                                                                                                                                      |
+| `outline`    | Focus and state ring roles: `width` (focus, inset, zero), `offset` (focus, zero) — maps from primitive `outline.width.*` and `outline.offset.*`                                                                |
+| `layout`     | Responsive layout roles: `viewport` (`sm`–`2xl`, aligned with breakpoint scale), `aspectRatio` (square, standard, photo, portrait, video, ultrawide) — maps from primitive `breakpoint.*` and `aspect-ratio.*` |
 
 Semantic path structure:
 
@@ -118,10 +120,8 @@ Semantic path structure:
 - `action.*` — interactive state colors (not nested under `color`)
 - `border.*` — border color roles (not nested under `color`)
 - `elevation.*` — stacking and shadow roles (not nested under `color`; components must not reference primitive `z-index.*` or `shadow.*` directly)
-
-> **Note:** `outline.ts` and `layout.ts` exist as staged stubs with no content.
-> They are not in the active semantic output. Authoring lives under
-> `packages/tokens/src/semantics/color/` for the active `color` group.
+- `outline.*` — focus ring width and offset roles (components use these for `focus.ringWidth` / `focus.ringOffset`; do not hardcode Tailwind `ring-2` / `ring-offset-2`)
+- `layout.*` — viewport breakpoint and aspect ratio roles (consumers must not reference primitive `breakpoint.*` or `aspect-ratio.*` directly)
 
 Semantic source: `packages/tokens/src/semantics/`.
 
@@ -292,20 +292,26 @@ into Tailwind's design token namespaces:
 This lets consumers use e.g. `text-nx-body-md` or `radius-nx-control` from
 Tailwind utilities.
 
+Semantic groups without a mapped namespace (including `layout`, `action`,
+`border`, `elevation`, and `outline`) still appear in `@theme` as
+`--nx-<token-path>` entries that reference the same `:root` CSS variables.
+They are not remapped into Tailwind namespaces such as `breakpoint` or
+`aspect`.
+
 ### Output files
 
 **Package (`dist/`):**
 
-| File                                        | Contents                                                   |
-| ------------------------------------------- | ---------------------------------------------------------- |
-| `dist/tokens.css`                           | All token variables in `:root` + Tailwind `@theme` block   |
-| `dist/theme.css`                            | Theme mode overrides (`:root` for light, `.dark` for dark) |
-| `dist/tokens/dtcg/tokens.tokens.json`       | Full merged DTCG JSON                                      |
-| `dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON                              |
-| `dist/tokens/dtcg/brand/*.tokens.json`      | Per-brand DTCG JSON                                        |
-| `dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON                               |
-| `dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                                    |
-| `dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                                        |
+| File                                        | Contents                                                                                      |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `dist/tokens.css`                           | All token variables in `:root`                                                                |
+| `dist/theme.css`                            | Theme mode overrides (`:root` for light, `.dark` for dark) and Tailwind `@theme inline` block |
+| `dist/tokens/dtcg/tokens.tokens.json`       | Full merged DTCG JSON                                                                         |
+| `dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON                                                                 |
+| `dist/tokens/dtcg/brand/*.tokens.json`      | Per-brand DTCG JSON                                                                           |
+| `dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON                                                                  |
+| `dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                                                                       |
+| `dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                                                                           |
 
 **Package exports:**
 
@@ -352,7 +358,7 @@ consumed as CSS variables:
 
 ```typescript
 // packages/ui/src/components/Button/Button.variants.ts
-primary: "bg-[var(--nx-button-primary-background)] text-[var(--nx-button-primary-foreground)]"
+primary: "bg-(--nx-button-primary-background) text-(--nx-button-primary-foreground)"
 ```
 
 Variable names for component tokens follow `--nx-<component>-<property>`, where
@@ -416,7 +422,6 @@ API shape.
 - Token authoring module boundaries within `packages/tokens/src/`
 - Exact semantic group structure (new groups may be added)
 - Composite token type support in generators
-- `outline`, `layout` semantic groups (staged stubs, not yet active)
 - DTCG public JSON package export contract
 
 **Planned but not active contract:**

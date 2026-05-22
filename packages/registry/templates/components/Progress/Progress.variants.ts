@@ -7,17 +7,17 @@
 import { cva } from "class-variance-authority"
 
 export const progressVariants = cva(
-  "grid gap-[var(--nx-progress-gap)] text-[length:var(--nx-progress-label-font-size)] leading-[var(--nx-progress-label-font-line-height)] text-[var(--nx-progress-label-foreground)]",
+  "grid gap-(--nx-progress-gap) text-(length:--nx-progress-label-font-size) leading-(--nx-progress-label-font-line-height) text-(--nx-progress-label-foreground)",
 )
 
 export const progressTrackVariants = cva(
-  "overflow-hidden rounded-[var(--nx-progress-track-radius)] bg-[var(--nx-progress-track-background)]",
+  "overflow-hidden rounded-(--nx-progress-track-radius) bg-(--nx-progress-track-background)",
   {
     variants: {
       size: {
-        sm: "h-[var(--nx-progress-track-height-sm)]",
-        md: "h-[var(--nx-progress-track-height-md)]",
-        lg: "h-[var(--nx-progress-track-height-lg)]",
+        sm: "h-(--nx-progress-track-height-sm)",
+        md: "h-(--nx-progress-track-height-md)",
+        lg: "h-(--nx-progress-track-height-lg)",
       },
     },
     defaultVariants: {
@@ -27,5 +27,5 @@ export const progressTrackVariants = cva(
 )
 
 export const progressIndicatorVariants = cva(
-  "h-full bg-[var(--nx-progress-indicator-background)] transition-transform duration-[var(--nx-progress-transition-duration)] ease-[var(--nx-progress-transition-easing)] data-[indeterminate]:animate-pulse",
+  "h-full bg-(--nx-progress-indicator-background) transition-transform duration-(--nx-progress-transition-duration) ease-(--nx-progress-transition-easing) data-[indeterminate]:animate-pulse",
 )

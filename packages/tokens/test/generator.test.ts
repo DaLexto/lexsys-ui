@@ -4,12 +4,12 @@ import {
   createStyleOutputs,
   createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
-} from "../src/generators/generator.create.js"
+} from "../src/generators/generator.create"
 import {
   createDtcgTokenInputFromJson,
   createStyleTokenInput,
-} from "../src/generators/inputs/index.js"
-import { colorPrimitives } from "../src/primitives/color.js"
+} from "../src/generators/inputs/index"
+import { colorPrimitives } from "../src/primitives/color"
 import { primitiveTokens } from "../src/primitives"
 import { semanticTokens } from "../src/semantics"
 import { neurexPreset, defaultPresetId, presets } from "../src/presets"
@@ -376,7 +376,7 @@ describe("createStyleOutputs", () => {
             base: { $value: "{color.orange.500}" },
           }),
           accent: expect.objectContaining({
-            base: { $value: "{color.blue.500}" },
+            base: { $value: "{color.spaceIndigo.500}" },
           }),
         }),
       }),
@@ -400,6 +400,9 @@ describe("createStyleOutputs", () => {
             base?: {
               $value?: unknown
             }
+            overlay?: {
+              $value?: unknown
+            }
           }
         }
       }
@@ -421,7 +424,11 @@ describe("createStyleOutputs", () => {
         colorScheme: "dark",
       },
     ])
-    expect(json.light?.color?.background?.base?.$value).toBe("{color.white}")
+    expect(json.light?.color?.background?.overlay?.$value).toMatchObject({
+      colorSpace: "oklch",
+      alpha: 0.15,
+    })
+    expect(json.light?.color?.background?.base).toBeUndefined()
     expect(json.light).not.toHaveProperty("selector")
     expect(json.light).not.toHaveProperty("colorScheme")
     expect(json.dark).not.toHaveProperty("selector")
@@ -480,6 +487,9 @@ describe("createStyleOutputs", () => {
           base?: {
             $value?: unknown
           }
+          overlay?: {
+            $value?: unknown
+          }
         }
       }
       light?: unknown
@@ -508,7 +518,11 @@ describe("createStyleOutputs", () => {
     expect(brand.semantics).toBeUndefined()
     expect(semantics.color?.background?.base?.$value).toBe("{color.white}")
     expect(semantics.primitives).toBeUndefined()
-    expect(lightTheme.color?.background?.base?.$value).toBe("{color.white}")
+    expect(lightTheme.color?.background?.overlay?.$value).toMatchObject({
+      colorSpace: "oklch",
+      alpha: 0.15,
+    })
+    expect(lightTheme.color?.background?.base).toBeUndefined()
     expect(lightTheme.light).toBeUndefined()
   })
 

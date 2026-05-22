@@ -16,6 +16,8 @@ export { themes } from "./themes"
 export {
   createTokenGovernanceReport,
   formatTokenGovernanceReport,
+  createSemanticAuditReport,
+  formatSemanticAuditReport,
 } from "./governance"
 export type {
   TokenGovernanceReport,
@@ -23,6 +25,9 @@ export type {
   DeprecationReportEntry,
   DeadTokenEntry,
   TokenMetadataEntry,
+  SemanticAuditIssue,
+  SemanticAuditIssueKind,
+  SemanticAuditReport,
 } from "./governance"
 export type {
   ComponentTokenGroup,

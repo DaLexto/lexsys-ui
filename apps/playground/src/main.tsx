@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
 import { Button } from "@neurex/ui"
+import { BrandPanel } from "./brand-panel"
+import { LayoutPanel } from "./layout-panel"
 import { ActionsPanel } from "./actions-panel"
 import { FormsPanel } from "./forms-panel"
 import { InteractionsPanel } from "./interactions-panel"
@@ -22,7 +24,7 @@ const App = () => {
       <section className="playground-header">
         <div>
           <p className="playground-label">Neurex Default</p>
-          <h1>Component QA</h1>
+          <h1>Design system preview</h1>
         </div>
 
         <div className="playground-toolbar">
@@ -60,6 +62,8 @@ const App = () => {
       </section>
 
       <section className="component-grid" aria-label="Component examples">
+        <BrandPanel />
+        <LayoutPanel />
         <ActionsPanel />
 
         <FormsPanel

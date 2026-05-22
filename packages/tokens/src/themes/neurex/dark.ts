@@ -29,8 +29,6 @@ export const neurexDarkTheme = themeTokens(
         secondary: { $value: "{color.neutral.400}" },
         disabled: { $value: "{color.neutral.600}" },
         inverse: { $value: "{color.neutral.950}" },
-        link: { $value: "{color.blue.300}" },
-        accent: { $value: "{color.purple.300}" },
       },
       feedback: {
         info: {
@@ -59,29 +57,13 @@ export const neurexDarkTheme = themeTokens(
       $type: "color",
       default: { $value: "{color.neutral.700}" },
       strong: { $value: "{color.neutral.500}" },
-      focus: { $value: "{color.blue.400}" },
-      accent: { $value: "{color.purple.400}" },
     },
     action: {
-      primary: {
-        $type: "color",
-        base: { $value: "{color.purple.400}" },
-        hover: { $value: "{color.purple.300}" },
-        active: { $value: "{color.purple.200}" },
-        disabled: { $value: "{color.purple.700}" },
-      },
       secondary: {
         $type: "color",
         base: { $value: "{color.neutral.800}" },
         hover: { $value: "{color.neutral.700}" },
         active: { $value: "{color.neutral.600}" },
-      },
-      danger: {
-        $type: "color",
-        base: { $value: "{color.red.400}" },
-        hover: { $value: "{color.red.300}" },
-        active: { $value: "{color.red.200}" },
-        disabled: { $value: "{color.red.700}" },
       },
     },
   },

@@ -65,7 +65,7 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 - Use `cn()` (clsx + tailwind-merge) for all class composition. Do not concatenate strings manually.
 - Variant classes MUST reference `--nx-*` CSS custom properties, not hardcoded Tailwind palette values:
   ```ts
-  "bg-[var(--nx-button-primary-background)]" // correct
+  "bg-(--nx-button-primary-background)" // correct — Tailwind v4 canonical CSS var syntax
   "bg-orange-500" // incorrect
   ```
 - Do not duplicate shared styling helpers across components.

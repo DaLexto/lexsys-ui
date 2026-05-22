@@ -5,21 +5,21 @@ describe("inputVariants", () => {
   test("uses token-backed classes for base styling", () => {
     const className = inputVariants()
 
-    expect(className).toContain("rounded-[var(--nx-input-radius)]")
-    expect(className).toContain("border-[var(--nx-input-border-color)]")
-    expect(className).toContain("bg-[var(--nx-input-background)]")
-    expect(className).toContain("leading-[var(--nx-input-font-line-height)]")
-    expect(className).toContain("h-[var(--nx-input-height-md)]")
+    expect(className).toContain("rounded-(--nx-input-radius)")
+    expect(className).toContain("border-(--nx-input-border-color)")
+    expect(className).toContain("bg-(--nx-input-background)")
+    expect(className).toContain("leading-(--nx-input-font-line-height)")
+    expect(className).toContain("h-(--nx-input-height-md)")
   })
 
   test("includes focus, invalid, disabled, and size classes", () => {
     const className = inputVariants({ variant: "ghost", size: "lg" })
 
     expect(className).toContain(
-      "focus-visible:ring-[var(--nx-input-focus-ring-color)]",
+      "focus-visible:ring-(--nx-input-focus-ring-color)",
     )
     expect(className).toContain("aria-invalid:border-")
     expect(className).toContain("disabled:opacity-50")
-    expect(className).toContain("h-[var(--nx-input-height-lg)]")
+    expect(className).toContain("h-(--nx-input-height-lg)")
   })
 })

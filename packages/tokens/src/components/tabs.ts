@@ -34,6 +34,7 @@ export const tabsComponentTokens = componentTokens("tabs", {
   focus: {
     $type: "dimension",
     ringColor: { $value: "{border.focus}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },

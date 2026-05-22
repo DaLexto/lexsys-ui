@@ -1,5 +1,67 @@
-import type { ComponentProps } from "react"
+import type { ComponentProps, ReactNode } from "react"
 import type { Button, Input } from "@neurex/ui"
+
+export const brandSwatches = [
+  {
+    label: "Primary base",
+    token: "--nx-action-primary-base",
+  },
+  {
+    label: "Primary hover",
+    token: "--nx-action-primary-hover",
+  },
+  {
+    label: "Primary active",
+    token: "--nx-action-primary-active",
+  },
+  {
+    label: "Accent base",
+    token: "--nx-brand-color-accent-base",
+  },
+  {
+    label: "Accent hover",
+    token: "--nx-brand-color-accent-hover",
+  },
+  {
+    label: "Accent active",
+    token: "--nx-brand-color-accent-active",
+  },
+  {
+    label: "Focus ring",
+    token: "--nx-border-focus",
+  },
+  {
+    label: "Link text",
+    token: "--nx-color-text-link",
+  },
+] as const
+
+export const semanticColorExamples: Array<{
+  label: string
+  className: string
+  content: ReactNode
+}> = [
+  {
+    label: "Primary CTA",
+    className: "brand-demo-primary",
+    content: "Orange maps through action.primary and brand.color.primary.",
+  },
+  {
+    label: "Accent text",
+    className: "brand-demo-accent-text",
+    content: "Space indigo accent copy for highlights and links.",
+  },
+  {
+    label: "Accent link",
+    className: "brand-demo-link",
+    content: "Read the Neurex token contract",
+  },
+  {
+    label: "Accent border",
+    className: "brand-demo-accent-border",
+    content: "border.accent uses brand.color.accent.base.",
+  },
+]
 
 export const buttonExamples: Array<{
   label: string
@@ -30,14 +92,14 @@ export const buttonExamples: Array<{
     props: { children: "Preview", variant: "secondary" },
   },
   {
-    label: "Custom class",
+    label: "Disabled primary",
     props: {
-      children: "Tailwind override",
-      className: "bg-green-600 text-white hover:bg-green-700",
+      children: "Unavailable",
+      disabled: true,
     },
   },
   {
-    label: "Disabled",
+    label: "Disabled secondary",
     props: {
       children: "Unavailable",
       disabled: true,

@@ -1,11 +1,11 @@
 ---
-description: Neurex conventional commits, monorepo scopes, and commit/push authorization when the user requests git commits
+description: Neurex conventional commits, monorepo scopes, commit/push authorization, and pull request workflow using repository PR templates
 globs:
 alwaysApply: false
 ---
-# Neurex Git Commits
+# Neurex Git Commits and Pull Requests
 
-Commit policy for this repository. Format follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Authoring guide: [git-commit-rules.mdc](git-commit-rules.mdc). Layout: [project-structure.mdc](project-structure.mdc).
+Operational policy for commits and pull requests in this repository. Format follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Authoring guide: [git-commit-rules.mdc](git-commit-rules.mdc). Layout: [project-structure.mdc](project-structure.mdc).
 
 ```
 <type>(<scope>): <description>
@@ -25,11 +25,12 @@ Imperative mood, lowercase subject, no trailing period. Prefer ≤ 72 characters
 |--------|----------------|
 | `git commit` | User **explicitly** requests a commit (or user rules override) |
 | `git push` | User **explicitly** requests push — do not offer push proactively |
+| `gh pr create` / open PR | User **explicitly** requests a pull request |
 | `git commit --amend` | User rules allow (unpushed HEAD, hook fixed files, user said amend) |
 | `push --force`, `reset --hard`, etc. | User explicitly requests and understands impact |
 | `git config` | Never |
 
-If intent is unclear (“save this”, “finish up”), confirm whether to commit. Stage only paths for the current task unless the user approves a broader commit.
+If intent is unclear (“save this”, “finish up”, “ship it”), confirm whether the user wants file changes only, a commit, push, or a PR. Stage only paths for the current task unless the user approves a broader commit.
 
 ---
 
@@ -56,8 +57,6 @@ Use `docs` for documentation-only work, not `feat`.
 
 pnpm workspace: `apps/*`, `packages/*` ([pnpm-workspace.yaml](../../pnpm-workspace.yaml)). Pick **one primary scope** per commit from where most lines changed (`git diff --stat`).
 
-### Package scopes
-
 | Scope | Paths |
 |-------|--------|
 | `tokens` | `packages/tokens/` |
@@ -65,35 +64,16 @@ pnpm workspace: `apps/*`, `packages/*` ([pnpm-workspace.yaml](../../pnpm-workspa
 | `registry` | `packages/registry/` (`src/`, `templates/`, `scripts/`) |
 | `cli` | `packages/cli/` |
 | `playground` | `apps/playground/` |
-
-### Cross-cutting scopes
-
-| Scope | Use when |
-|-------|----------|
 | `docs` | Multiple files under `docs/` or cross-package documentation |
 | `repo` | Root `package.json`, `turbo.json`, `pnpm-workspace.yaml`, workspace scripts |
 | `cursor` | `.cursor/rules/**` |
 | `agents` | [AGENTS.md](../../AGENTS.md), `.agent/` (gitignored locally) |
 
-Optional nested doc scopes when a single doc area dominates: `docs(tokens)`, `docs(cli)`, `docs(registry)`.
+Optional nested doc scopes when one doc area dominates: `docs(tokens)`, `docs(cli)`, `docs(registry)`.
 
-### Avoid as scope
+**Avoid as scope:** component names (`button`, `dialog`), vague `tests` — use `test(<package>)` instead.
 
-- Component names (`button`, `dialog`) — put the name in the **description**: `feat(ui): add dialog component`
-- `tests` — use `test(<package>)` e.g. `test(cli)`
-- Vague scope on multi-package diffs — split commits or use `repo` with a body listing areas
-
-### Multi-package workflow
-
-Prefer separate commits:
-
-```txt
-feat(ui): add drawer component
-feat(registry): add drawer item and sync templates
-feat(tokens): add drawer component tokens
-```
-
-After `packages/ui` changes that affect install templates, run `pnpm registry:sync` before or note it in the `registry` commit body. After token generator changes, note `pnpm tokens:build` when registry style outputs depend on it.
+**Multi-package workflow:** prefer separate commits (`feat(ui)` → `feat(registry)` → `feat(tokens)`). After `packages/ui` changes that affect install templates, run `pnpm registry:sync` before or note it in the registry commit body. After token generator changes, note `pnpm --filter @neurex/tokens generate:styles` when registry style outputs depend on it.
 
 ---
 
@@ -105,8 +85,6 @@ Mark with `!` or `BREAKING CHANGE:` footer when:
 - Package `exports` or public entrypoints change
 - Token rules become build-failing and invalidate consumer CSS
 - Bundled registry item files or `target` paths change
-
-Example: `chore(repo)!: rename workspace package`
 
 Details: [Conventional Commits — breaking change](https://www.conventionalcommits.org/en/v1.0.0/#commit-message-with-description-and-breaking-change-footer).
 
@@ -124,7 +102,7 @@ Details: [Conventional Commits — breaking change](https://www.conventionalcomm
 
 ---
 
-## Commands
+## Commit commands
 
 ```bash
 git status --short
@@ -152,7 +130,60 @@ On PowerShell, use a quoted multi-line `-m` or equivalent the shell supports.
 
 ---
 
-## Examples (this repo)
+## Pull requests
+
+Use repository templates from [.github/PULL_REQUEST_TEMPLATE/](../../.github/PULL_REQUEST_TEMPLATE/). Do not invent a one-off PR body when a template applies.
+
+### Choose a template
+
+| Template | Use when |
+|----------|----------|
+| [lite.md](../../.github/PULL_REQUEST_TEMPLATE/lite.md) | Small PRs: docs-only, single-file chores, tiny fixes, low risk |
+| [full.md](../../.github/PULL_REQUEST_TEMPLATE/full.md) | Multi-package work, tokens/registry/cli, UI + template sync, breaking changes, or architectural impact |
+
+When unsure, use `full.md`.
+
+### Before opening a PR
+
+Run in parallel:
+
+```bash
+git status --short
+git diff
+git log -5 --oneline
+git rev-parse --abbrev-ref HEAD
+git diff main...HEAD
+```
+
+Adjust `main` to the repository default base branch if different. Confirm the branch is pushed or push only when the user explicitly requests it.
+
+### Fill the template
+
+1. Read the chosen template file from `.github/PULL_REQUEST_TEMPLATE/`.
+2. Replace HTML comments with concrete content from **all commits** on the branch, not only the latest commit.
+3. Check Scope and Change Type boxes that match the diff.
+4. Complete Package Boundary, Registry/CLI, Token/Styling, and UI safety sections when those areas are touched; mark **Not applicable** otherwise.
+5. Record exact verification commands and results in the Verification table.
+6. Delete optional sections that do not apply (per template comments).
+
+PR title should summarize the branch intent; it may differ from a single commit subject when the branch contains multiple commits.
+
+### Create the PR
+
+Use `gh` after the user explicitly requests a PR:
+
+```bash
+git push -u origin HEAD
+gh pr create --title "short pr title" --body-file .github/PULL_REQUEST_TEMPLATE/lite.md
+```
+
+For a filled body, write the completed template to a temporary file or pass a HEREDOC/`--body` string — do not open a PR with unfilled `<!-- -->` placeholders or empty required sections.
+
+Return the PR URL when done. Do not push unless the user explicitly requests it.
+
+---
+
+## Examples
 
 ```txt
 feat(tokens): add brand layer to token pipeline
@@ -174,4 +205,3 @@ feat: add TypeScript definitions for Dialog, Drawer, Menu...
 fix(tests): formatting feat(tokens): ensure formatting
 feat(button): add button
 ```
-

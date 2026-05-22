@@ -13,10 +13,10 @@ export const neurexBrand = brandTokens("brand", {
     },
 
     accent: {
-      $description: "Secondary accent color for Neurex.",
-      base: { $value: "{color.blue.500}" },
-      hover: { $value: "{color.blue.700}" },
-      active: { $value: "{color.blue.900}" },
+      $description: "Space indigo secondary accent for Neurex.",
+      base: { $value: "{color.spaceIndigo.500}" },
+      hover: { $value: "{color.spaceIndigo.700}" },
+      active: { $value: "{color.spaceIndigo.900}" },
       disabled: { $value: "{color.neutral.200}" },
     },
   },

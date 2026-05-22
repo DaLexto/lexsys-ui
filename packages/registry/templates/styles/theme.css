@@ -2,55 +2,321 @@
 
 :root {
   color-scheme: light;
-  --nx-color-background: var(--nx-color-white);
-  --nx-color-foreground: var(--nx-color-neutral-950);
-  --nx-color-muted: var(--nx-color-neutral-100);
-  --nx-color-muted-foreground: var(--nx-color-neutral-500);
-  --nx-color-surface: var(--nx-color-white);
-  --nx-color-surface-foreground: var(--nx-color-neutral-950);
-  --nx-color-border: var(--nx-color-neutral-200);
-  --nx-color-ring: var(--nx-color-blue-600);
-  --nx-color-primary: var(--nx-color-blue-600);
-  --nx-color-primary-foreground: var(--nx-color-white);
-  --nx-color-primary-hover: var(--nx-color-blue-700);
-  --nx-color-destructive: var(--nx-color-red-600);
-  --nx-color-destructive-foreground: var(--nx-color-white);
+  --nx-color-background-overlay: oklch(0 0 0 / 0.15);
 }
 
 .dark {
   color-scheme: dark;
-  --nx-color-background: var(--nx-color-neutral-950);
-  --nx-color-foreground: var(--nx-color-neutral-50);
-  --nx-color-muted: var(--nx-color-neutral-900);
-  --nx-color-muted-foreground: var(--nx-color-neutral-300);
-  --nx-color-surface: var(--nx-color-neutral-900);
-  --nx-color-surface-foreground: var(--nx-color-neutral-50);
-  --nx-color-border: var(--nx-color-neutral-700);
-  --nx-color-ring: var(--nx-color-blue-500);
-  --nx-color-primary: var(--nx-color-blue-500);
-  --nx-color-primary-foreground: var(--nx-color-white);
-  --nx-color-primary-hover: var(--nx-color-blue-600);
-  --nx-color-destructive: var(--nx-color-red-500);
-  --nx-color-destructive-foreground: var(--nx-color-white);
+  --nx-color-background-base: var(--nx-color-neutral-950);
+  --nx-color-background-surface: var(--nx-color-neutral-900);
+  --nx-color-background-subtle: var(--nx-color-neutral-800);
+  --nx-color-background-overlay: oklch(0 0 0 / 0.6);
+  --nx-color-text-primary: var(--nx-color-neutral-50);
+  --nx-color-text-secondary: var(--nx-color-neutral-400);
+  --nx-color-text-disabled: var(--nx-color-neutral-600);
+  --nx-color-text-inverse: var(--nx-color-neutral-950);
+  --nx-color-feedback-info-background: var(--nx-color-blue-950);
+  --nx-color-feedback-info-foreground: var(--nx-color-blue-200);
+  --nx-color-feedback-success-background: var(--nx-color-green-950);
+  --nx-color-feedback-success-foreground: var(--nx-color-green-200);
+  --nx-color-feedback-warning-background: var(--nx-color-yellow-950);
+  --nx-color-feedback-warning-foreground: var(--nx-color-yellow-200);
+  --nx-color-feedback-danger-background: var(--nx-color-red-950);
+  --nx-color-feedback-danger-foreground: var(--nx-color-red-200);
+  --nx-border-default: var(--nx-color-neutral-700);
+  --nx-border-strong: var(--nx-color-neutral-500);
+  --nx-action-secondary-base: var(--nx-color-neutral-800);
+  --nx-action-secondary-hover: var(--nx-color-neutral-700);
+  --nx-action-secondary-active: var(--nx-color-neutral-600);
 }
 
 @theme inline {
-  --color-nx-background: var(--nx-color-background);
-  --color-nx-foreground: var(--nx-color-foreground);
-  --color-nx-muted: var(--nx-color-muted);
-  --color-nx-muted-foreground: var(--nx-color-muted-foreground);
-  --color-nx-surface: var(--nx-color-surface);
-  --color-nx-surface-foreground: var(--nx-color-surface-foreground);
-  --color-nx-border: var(--nx-color-border);
-  --color-nx-ring: var(--nx-color-ring);
-  --color-nx-primary: var(--nx-color-primary);
-  --color-nx-primary-foreground: var(--nx-color-primary-foreground);
-  --color-nx-primary-hover: var(--nx-color-primary-hover);
-  --color-nx-destructive: var(--nx-color-destructive);
-  --color-nx-destructive-foreground: var(--nx-color-destructive-foreground);
-  --radius-nx-sm: var(--nx-radius-sm);
-  --radius-nx-md: var(--nx-radius-md);
-  --radius-nx-lg: var(--nx-radius-lg);
-  --radius-nx-xl: var(--nx-radius-xl);
-  --radius-nx-full: var(--nx-radius-full);
+  --radius-nx-control: var(--nx-radius-control);
+  --radius-nx-selection: var(--nx-radius-selection);
+  --radius-nx-surface: var(--nx-radius-surface);
+  --radius-nx-pill: var(--nx-radius-pill);
+  --spacing-nx-control-gap-sm: var(--nx-space-control-gap-sm);
+  --spacing-nx-control-gap-md: var(--nx-space-control-gap-md);
+  --spacing-nx-control-gap-lg: var(--nx-space-control-gap-lg);
+  --spacing-nx-control-x-xs: var(--nx-space-control-x-xs);
+  --spacing-nx-control-x-sm: var(--nx-space-control-x-sm);
+  --spacing-nx-control-x-md: var(--nx-space-control-x-md);
+  --spacing-nx-control-x-lg: var(--nx-space-control-x-lg);
+  --spacing-nx-control-x-xl: var(--nx-space-control-x-xl);
+  --spacing-nx-control-y-xs: var(--nx-space-control-y-xs);
+  --spacing-nx-control-y-sm: var(--nx-space-control-y-sm);
+  --spacing-nx-control-y-md: var(--nx-space-control-y-md);
+  --spacing-nx-control-y-lg: var(--nx-space-control-y-lg);
+  --spacing-nx-surface-sm: var(--nx-space-surface-sm);
+  --spacing-nx-surface-md: var(--nx-space-surface-md);
+  --spacing-nx-surface-gap-sm: var(--nx-space-surface-gap-sm);
+  --spacing-nx-surface-gap-md: var(--nx-space-surface-gap-md);
+  --spacing-nx-control-xs: var(--nx-size-control-xs);
+  --spacing-nx-control-sm: var(--nx-size-control-sm);
+  --spacing-nx-control-md: var(--nx-size-control-md);
+  --spacing-nx-control-lg: var(--nx-size-control-lg);
+  --spacing-nx-control-xl: var(--nx-size-control-xl);
+  --spacing-nx-selection-control-sm: var(--nx-size-selection-control-sm);
+  --spacing-nx-selection-control-md: var(--nx-size-selection-control-md);
+  --spacing-nx-selection-control-lg: var(--nx-size-selection-control-lg);
+  --spacing-nx-area-swipe-sm: var(--nx-size-area-swipe-sm);
+  --spacing-nx-area-swipe-md: var(--nx-size-area-swipe-md);
+  --spacing-nx-area-swipe-lg: var(--nx-size-area-swipe-lg);
+  --spacing-nx-selection-indicator-sm: var(--nx-size-selection-indicator-sm);
+  --spacing-nx-selection-indicator-md: var(--nx-size-selection-indicator-md);
+  --spacing-nx-selection-indicator-lg: var(--nx-size-selection-indicator-lg);
+  --spacing-nx-track-sm: var(--nx-size-track-sm);
+  --spacing-nx-track-md: var(--nx-size-track-md);
+  --spacing-nx-track-lg: var(--nx-size-track-lg);
+  --spacing-nx-thumb-sm: var(--nx-size-thumb-sm);
+  --spacing-nx-thumb-md: var(--nx-size-thumb-md);
+  --spacing-nx-thumb-lg: var(--nx-size-thumb-lg);
+  --duration-nx-control: var(--nx-duration-control);
+  --duration-nx-surface: var(--nx-duration-surface);
+  --ease-nx-control: var(--nx-easing-control);
+  --ease-nx-surface: var(--nx-easing-surface);
+  --text-nx-family-sans: var(--nx-typography-family-sans);
+  --text-nx-family-serif: var(--nx-typography-family-serif);
+  --text-nx-family-mono: var(--nx-typography-family-mono);
+  --text-nx-body-xs-font-family: var(--nx-typography-body-xs-font-family);
+  --text-nx-body-xs-font-size: var(--nx-typography-body-xs-font-size);
+  --text-nx-body-xs-font-weight: var(--nx-typography-body-xs-font-weight);
+  --text-nx-body-xs-line-height: var(--nx-typography-body-xs-line-height);
+  --text-nx-body-xs-letter-spacing: var(--nx-typography-body-xs-letter-spacing);
+  --text-nx-body-sm-font-family: var(--nx-typography-body-sm-font-family);
+  --text-nx-body-sm-font-size: var(--nx-typography-body-sm-font-size);
+  --text-nx-body-sm-font-weight: var(--nx-typography-body-sm-font-weight);
+  --text-nx-body-sm-line-height: var(--nx-typography-body-sm-line-height);
+  --text-nx-body-sm-letter-spacing: var(--nx-typography-body-sm-letter-spacing);
+  --text-nx-body-md-font-family: var(--nx-typography-body-md-font-family);
+  --text-nx-body-md-font-size: var(--nx-typography-body-md-font-size);
+  --text-nx-body-md-font-weight: var(--nx-typography-body-md-font-weight);
+  --text-nx-body-md-line-height: var(--nx-typography-body-md-line-height);
+  --text-nx-body-md-letter-spacing: var(--nx-typography-body-md-letter-spacing);
+  --text-nx-body-lg-font-family: var(--nx-typography-body-lg-font-family);
+  --text-nx-body-lg-font-size: var(--nx-typography-body-lg-font-size);
+  --text-nx-body-lg-font-weight: var(--nx-typography-body-lg-font-weight);
+  --text-nx-body-lg-line-height: var(--nx-typography-body-lg-line-height);
+  --text-nx-body-lg-letter-spacing: var(--nx-typography-body-lg-letter-spacing);
+  --text-nx-body-xl-font-family: var(--nx-typography-body-xl-font-family);
+  --text-nx-body-xl-font-size: var(--nx-typography-body-xl-font-size);
+  --text-nx-body-xl-font-weight: var(--nx-typography-body-xl-font-weight);
+  --text-nx-body-xl-line-height: var(--nx-typography-body-xl-line-height);
+  --text-nx-body-xl-letter-spacing: var(--nx-typography-body-xl-letter-spacing);
+  --text-nx-heading-xs-font-family: var(--nx-typography-heading-xs-font-family);
+  --text-nx-heading-xs-font-size: var(--nx-typography-heading-xs-font-size);
+  --text-nx-heading-xs-font-weight: var(--nx-typography-heading-xs-font-weight);
+  --text-nx-heading-xs-line-height: var(--nx-typography-heading-xs-line-height);
+  --text-nx-heading-xs-letter-spacing: var(
+    --nx-typography-heading-xs-letter-spacing
+  );
+  --text-nx-heading-sm-font-family: var(--nx-typography-heading-sm-font-family);
+  --text-nx-heading-sm-font-size: var(--nx-typography-heading-sm-font-size);
+  --text-nx-heading-sm-font-weight: var(--nx-typography-heading-sm-font-weight);
+  --text-nx-heading-sm-line-height: var(--nx-typography-heading-sm-line-height);
+  --text-nx-heading-sm-letter-spacing: var(
+    --nx-typography-heading-sm-letter-spacing
+  );
+  --text-nx-heading-md-font-family: var(--nx-typography-heading-md-font-family);
+  --text-nx-heading-md-font-size: var(--nx-typography-heading-md-font-size);
+  --text-nx-heading-md-font-weight: var(--nx-typography-heading-md-font-weight);
+  --text-nx-heading-md-line-height: var(--nx-typography-heading-md-line-height);
+  --text-nx-heading-md-letter-spacing: var(
+    --nx-typography-heading-md-letter-spacing
+  );
+  --text-nx-heading-lg-font-family: var(--nx-typography-heading-lg-font-family);
+  --text-nx-heading-lg-font-size: var(--nx-typography-heading-lg-font-size);
+  --text-nx-heading-lg-font-weight: var(--nx-typography-heading-lg-font-weight);
+  --text-nx-heading-lg-line-height: var(--nx-typography-heading-lg-line-height);
+  --text-nx-heading-lg-letter-spacing: var(
+    --nx-typography-heading-lg-letter-spacing
+  );
+  --text-nx-heading-xl-font-family: var(--nx-typography-heading-xl-font-family);
+  --text-nx-heading-xl-font-size: var(--nx-typography-heading-xl-font-size);
+  --text-nx-heading-xl-font-weight: var(--nx-typography-heading-xl-font-weight);
+  --text-nx-heading-xl-line-height: var(--nx-typography-heading-xl-line-height);
+  --text-nx-heading-xl-letter-spacing: var(
+    --nx-typography-heading-xl-letter-spacing
+  );
+  --text-nx-heading-2xl-font-family: var(
+    --nx-typography-heading-2xl-font-family
+  );
+  --text-nx-heading-2xl-font-size: var(--nx-typography-heading-2xl-font-size);
+  --text-nx-heading-2xl-font-weight: var(
+    --nx-typography-heading-2xl-font-weight
+  );
+  --text-nx-heading-2xl-line-height: var(
+    --nx-typography-heading-2xl-line-height
+  );
+  --text-nx-heading-2xl-letter-spacing: var(
+    --nx-typography-heading-2xl-letter-spacing
+  );
+  --text-nx-display-sm-font-family: var(--nx-typography-display-sm-font-family);
+  --text-nx-display-sm-font-size: var(--nx-typography-display-sm-font-size);
+  --text-nx-display-sm-font-weight: var(--nx-typography-display-sm-font-weight);
+  --text-nx-display-sm-line-height: var(--nx-typography-display-sm-line-height);
+  --text-nx-display-sm-letter-spacing: var(
+    --nx-typography-display-sm-letter-spacing
+  );
+  --text-nx-display-md-font-family: var(--nx-typography-display-md-font-family);
+  --text-nx-display-md-font-size: var(--nx-typography-display-md-font-size);
+  --text-nx-display-md-font-weight: var(--nx-typography-display-md-font-weight);
+  --text-nx-display-md-line-height: var(--nx-typography-display-md-line-height);
+  --text-nx-display-md-letter-spacing: var(
+    --nx-typography-display-md-letter-spacing
+  );
+  --text-nx-display-lg-font-family: var(--nx-typography-display-lg-font-family);
+  --text-nx-display-lg-font-size: var(--nx-typography-display-lg-font-size);
+  --text-nx-display-lg-font-weight: var(--nx-typography-display-lg-font-weight);
+  --text-nx-display-lg-line-height: var(--nx-typography-display-lg-line-height);
+  --text-nx-display-lg-letter-spacing: var(
+    --nx-typography-display-lg-letter-spacing
+  );
+  --text-nx-label-xs-font-family: var(--nx-typography-label-xs-font-family);
+  --text-nx-label-xs-font-size: var(--nx-typography-label-xs-font-size);
+  --text-nx-label-xs-font-weight: var(--nx-typography-label-xs-font-weight);
+  --text-nx-label-xs-line-height: var(--nx-typography-label-xs-line-height);
+  --text-nx-label-xs-letter-spacing: var(
+    --nx-typography-label-xs-letter-spacing
+  );
+  --text-nx-label-sm-font-family: var(--nx-typography-label-sm-font-family);
+  --text-nx-label-sm-font-size: var(--nx-typography-label-sm-font-size);
+  --text-nx-label-sm-font-weight: var(--nx-typography-label-sm-font-weight);
+  --text-nx-label-sm-line-height: var(--nx-typography-label-sm-line-height);
+  --text-nx-label-sm-letter-spacing: var(
+    --nx-typography-label-sm-letter-spacing
+  );
+  --text-nx-label-md-font-family: var(--nx-typography-label-md-font-family);
+  --text-nx-label-md-font-size: var(--nx-typography-label-md-font-size);
+  --text-nx-label-md-font-weight: var(--nx-typography-label-md-font-weight);
+  --text-nx-label-md-line-height: var(--nx-typography-label-md-line-height);
+  --text-nx-label-md-letter-spacing: var(
+    --nx-typography-label-md-letter-spacing
+  );
+  --text-nx-label-lg-font-family: var(--nx-typography-label-lg-font-family);
+  --text-nx-label-lg-font-size: var(--nx-typography-label-lg-font-size);
+  --text-nx-label-lg-font-weight: var(--nx-typography-label-lg-font-weight);
+  --text-nx-label-lg-line-height: var(--nx-typography-label-lg-line-height);
+  --text-nx-label-lg-letter-spacing: var(
+    --nx-typography-label-lg-letter-spacing
+  );
+  --text-nx-control-xs-font-family: var(--nx-typography-control-xs-font-family);
+  --text-nx-control-xs-font-size: var(--nx-typography-control-xs-font-size);
+  --text-nx-control-xs-font-weight: var(--nx-typography-control-xs-font-weight);
+  --text-nx-control-xs-line-height: var(--nx-typography-control-xs-line-height);
+  --text-nx-control-xs-letter-spacing: var(
+    --nx-typography-control-xs-letter-spacing
+  );
+  --text-nx-control-sm-font-family: var(--nx-typography-control-sm-font-family);
+  --text-nx-control-sm-font-size: var(--nx-typography-control-sm-font-size);
+  --text-nx-control-sm-font-weight: var(--nx-typography-control-sm-font-weight);
+  --text-nx-control-sm-line-height: var(--nx-typography-control-sm-line-height);
+  --text-nx-control-sm-letter-spacing: var(
+    --nx-typography-control-sm-letter-spacing
+  );
+  --text-nx-control-md-font-family: var(--nx-typography-control-md-font-family);
+  --text-nx-control-md-font-size: var(--nx-typography-control-md-font-size);
+  --text-nx-control-md-font-weight: var(--nx-typography-control-md-font-weight);
+  --text-nx-control-md-line-height: var(--nx-typography-control-md-line-height);
+  --text-nx-control-md-letter-spacing: var(
+    --nx-typography-control-md-letter-spacing
+  );
+  --text-nx-control-lg-font-family: var(--nx-typography-control-lg-font-family);
+  --text-nx-control-lg-font-size: var(--nx-typography-control-lg-font-size);
+  --text-nx-control-lg-font-weight: var(--nx-typography-control-lg-font-weight);
+  --text-nx-control-lg-line-height: var(--nx-typography-control-lg-line-height);
+  --text-nx-control-lg-letter-spacing: var(
+    --nx-typography-control-lg-letter-spacing
+  );
+  --text-nx-control-xl-font-family: var(--nx-typography-control-xl-font-family);
+  --text-nx-control-xl-font-size: var(--nx-typography-control-xl-font-size);
+  --text-nx-control-xl-font-weight: var(--nx-typography-control-xl-font-weight);
+  --text-nx-control-xl-line-height: var(--nx-typography-control-xl-line-height);
+  --text-nx-control-xl-letter-spacing: var(
+    --nx-typography-control-xl-letter-spacing
+  );
+  --text-nx-code-sm-font-family: var(--nx-typography-code-sm-font-family);
+  --text-nx-code-sm-font-size: var(--nx-typography-code-sm-font-size);
+  --text-nx-code-sm-font-weight: var(--nx-typography-code-sm-font-weight);
+  --text-nx-code-sm-line-height: var(--nx-typography-code-sm-line-height);
+  --text-nx-code-sm-letter-spacing: var(--nx-typography-code-sm-letter-spacing);
+  --text-nx-code-md-font-family: var(--nx-typography-code-md-font-family);
+  --text-nx-code-md-font-size: var(--nx-typography-code-md-font-size);
+  --text-nx-code-md-font-weight: var(--nx-typography-code-md-font-weight);
+  --text-nx-code-md-line-height: var(--nx-typography-code-md-line-height);
+  --text-nx-code-md-letter-spacing: var(--nx-typography-code-md-letter-spacing);
+  --text-nx-code-lg-font-family: var(--nx-typography-code-lg-font-family);
+  --text-nx-code-lg-font-size: var(--nx-typography-code-lg-font-size);
+  --text-nx-code-lg-font-weight: var(--nx-typography-code-lg-font-weight);
+  --text-nx-code-lg-line-height: var(--nx-typography-code-lg-line-height);
+  --text-nx-code-lg-letter-spacing: var(--nx-typography-code-lg-letter-spacing);
+  --color-nx-background-base: var(--nx-color-background-base);
+  --color-nx-background-surface: var(--nx-color-background-surface);
+  --color-nx-background-subtle: var(--nx-color-background-subtle);
+  --color-nx-background-overlay: var(--nx-color-background-overlay);
+  --color-nx-text-primary: var(--nx-color-text-primary);
+  --color-nx-text-secondary: var(--nx-color-text-secondary);
+  --color-nx-text-disabled: var(--nx-color-text-disabled);
+  --color-nx-text-inverse: var(--nx-color-text-inverse);
+  --color-nx-text-link: var(--nx-color-text-link);
+  --color-nx-text-accent: var(--nx-color-text-accent);
+  --color-nx-feedback-info-background: var(--nx-color-feedback-info-background);
+  --color-nx-feedback-info-foreground: var(--nx-color-feedback-info-foreground);
+  --color-nx-feedback-success-background: var(
+    --nx-color-feedback-success-background
+  );
+  --color-nx-feedback-success-foreground: var(
+    --nx-color-feedback-success-foreground
+  );
+  --color-nx-feedback-warning-background: var(
+    --nx-color-feedback-warning-background
+  );
+  --color-nx-feedback-warning-foreground: var(
+    --nx-color-feedback-warning-foreground
+  );
+  --color-nx-feedback-danger-background: var(
+    --nx-color-feedback-danger-background
+  );
+  --color-nx-feedback-danger-foreground: var(
+    --nx-color-feedback-danger-foreground
+  );
+  --nx-action-primary-base: var(--nx-action-primary-base);
+  --nx-action-primary-hover: var(--nx-action-primary-hover);
+  --nx-action-primary-active: var(--nx-action-primary-active);
+  --nx-action-primary-disabled: var(--nx-action-primary-disabled);
+  --nx-action-secondary-base: var(--nx-action-secondary-base);
+  --nx-action-secondary-hover: var(--nx-action-secondary-hover);
+  --nx-action-secondary-active: var(--nx-action-secondary-active);
+  --nx-action-secondary-disabled: var(--nx-action-secondary-disabled);
+  --nx-action-danger-base: var(--nx-action-danger-base);
+  --nx-action-danger-hover: var(--nx-action-danger-hover);
+  --nx-action-danger-active: var(--nx-action-danger-active);
+  --nx-action-danger-disabled: var(--nx-action-danger-disabled);
+  --nx-border-default: var(--nx-border-default);
+  --nx-border-strong: var(--nx-border-strong);
+  --nx-border-focus: var(--nx-border-focus);
+  --nx-border-accent: var(--nx-border-accent);
+  --nx-elevation-backdrop-z-index: var(--nx-elevation-backdrop-z-index);
+  --nx-elevation-layer-z-index: var(--nx-elevation-layer-z-index);
+  --nx-elevation-floating-z-index: var(--nx-elevation-floating-z-index);
+  --nx-elevation-toast-z-index: var(--nx-elevation-toast-z-index);
+  --nx-elevation-tooltip-z-index: var(--nx-elevation-tooltip-z-index);
+  --nx-elevation-shadow-floating: var(--nx-elevation-shadow-floating);
+  --nx-elevation-shadow-raised: var(--nx-elevation-shadow-raised);
+  --nx-outline-width-focus: var(--nx-outline-width-focus);
+  --nx-outline-width-inset: var(--nx-outline-width-inset);
+  --nx-outline-width-zero: var(--nx-outline-width-zero);
+  --nx-outline-offset-focus: var(--nx-outline-offset-focus);
+  --nx-outline-offset-zero: var(--nx-outline-offset-zero);
+  --nx-layout-viewport-sm: var(--nx-layout-viewport-sm);
+  --nx-layout-viewport-md: var(--nx-layout-viewport-md);
+  --nx-layout-viewport-lg: var(--nx-layout-viewport-lg);
+  --nx-layout-viewport-xl: var(--nx-layout-viewport-xl);
+  --nx-layout-viewport-2xl: var(--nx-layout-viewport-2xl);
+  --nx-layout-aspect-ratio-square: var(--nx-layout-aspect-ratio-square);
+  --nx-layout-aspect-ratio-standard: var(--nx-layout-aspect-ratio-standard);
+  --nx-layout-aspect-ratio-photo: var(--nx-layout-aspect-ratio-photo);
+  --nx-layout-aspect-ratio-portrait: var(--nx-layout-aspect-ratio-portrait);
+  --nx-layout-aspect-ratio-video: var(--nx-layout-aspect-ratio-video);
+  --nx-layout-aspect-ratio-ultrawide: var(--nx-layout-aspect-ratio-ultrawide);
 }

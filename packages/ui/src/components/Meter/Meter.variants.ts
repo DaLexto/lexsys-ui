@@ -7,29 +7,29 @@
 import { cva } from "class-variance-authority"
 
 export const meterVariants = cva(
-  "grid gap-[var(--nx-meter-gap)] text-[length:var(--nx-meter-label-font-size)] leading-[var(--nx-meter-label-font-line-height)] text-[var(--nx-meter-label-foreground)]",
+  "grid gap-(--nx-meter-gap) text-(length:--nx-meter-label-font-size) leading-(--nx-meter-label-font-line-height) text-(--nx-meter-label-foreground)",
 )
 
 export const meterHeaderVariants = cva(
-  "flex items-center justify-between gap-[var(--nx-meter-header-gap)]",
+  "flex items-center justify-between gap-(--nx-meter-header-gap)",
 )
 
 export const meterLabelVariants = cva(
-  "font-[var(--nx-meter-label-font-weight)] text-[var(--nx-meter-label-foreground)]",
+  "font-(--nx-meter-label-font-weight) text-(--nx-meter-label-foreground)",
 )
 
 export const meterValueVariants = cva(
-  "font-[var(--nx-meter-value-font-weight)] text-[var(--nx-meter-value-foreground)]",
+  "font-(--nx-meter-value-font-weight) text-(--nx-meter-value-foreground)",
 )
 
 export const meterTrackVariants = cva(
-  "overflow-hidden rounded-[var(--nx-meter-track-radius)] bg-[var(--nx-meter-track-background)]",
+  "overflow-hidden rounded-(--nx-meter-track-radius) bg-(--nx-meter-track-background)",
   {
     variants: {
       size: {
-        sm: "h-[var(--nx-meter-track-height-sm)]",
-        md: "h-[var(--nx-meter-track-height-md)]",
-        lg: "h-[var(--nx-meter-track-height-lg)]",
+        sm: "h-(--nx-meter-track-height-sm)",
+        md: "h-(--nx-meter-track-height-md)",
+        lg: "h-(--nx-meter-track-height-lg)",
       },
     },
     defaultVariants: {
@@ -40,8 +40,8 @@ export const meterTrackVariants = cva(
 
 export const meterIndicatorVariants = cva(
   [
-    "h-full bg-[var(--nx-meter-indicator-background)] transition-transform",
-    "duration-[var(--nx-meter-transition-duration)] ease-[var(--nx-meter-transition-easing)]",
-    "data-[complete]:bg-[var(--nx-meter-indicator-background-complete)]",
+    "h-full bg-(--nx-meter-indicator-background) transition-transform",
+    "duration-(--nx-meter-transition-duration) ease-(--nx-meter-transition-easing)",
+    "data-[complete]:bg-(--nx-meter-indicator-background-complete)",
   ].join(" "),
 )

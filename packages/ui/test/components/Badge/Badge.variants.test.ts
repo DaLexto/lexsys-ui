@@ -5,10 +5,10 @@ describe("badgeVariants", () => {
   test("uses token-backed classes for visual styling", () => {
     const className = badgeVariants()
 
-    expect(className).toContain("rounded-[var(--nx-badge-radius)]")
-    expect(className).toContain("bg-[var(--nx-badge-background)]")
-    expect(className).toContain("text-[var(--nx-badge-foreground)]")
-    expect(className).toContain("border-[var(--nx-badge-border-color)]")
+    expect(className).toContain("rounded-(--nx-badge-radius)")
+    expect(className).toContain("bg-(--nx-badge-background)")
+    expect(className).toContain("text-(--nx-badge-foreground)")
+    expect(className).toContain("border-(--nx-badge-border-color)")
   })
 
   test("maps tone, variant, and size through component tokens", () => {
@@ -19,12 +19,12 @@ describe("badgeVariants", () => {
     })
 
     expect(className).toContain(
-      "[--nx-badge-background:var(--nx-badge-primary-background)]",
+      "(--nx-badge-background:--nx-badge-primary-background)",
     )
     expect(className).toContain(
-      "[--nx-badge-background:var(--nx-badge-outline-background)]",
+      "(--nx-badge-background:--nx-badge-outline-background)",
     )
-    expect(className).toContain("h-[var(--nx-badge-height-sm)]")
-    expect(className).toContain("text-[length:var(--nx-badge-font-size-sm)]")
+    expect(className).toContain("h-(--nx-badge-height-sm)")
+    expect(className).toContain("text-(length:--nx-badge-font-size-sm)")
   })
 })

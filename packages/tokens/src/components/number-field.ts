@@ -66,10 +66,12 @@ export const numberFieldComponentTokens = componentTokens("number-field", {
   focus: {
     $type: "dimension",
     ringColor: { $value: "{border.focus}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   invalid: {
     $type: "color",
     ringColor: { $value: "{action.danger.base}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   scrub: {
     foreground: { $value: "{color.text.secondary}" },

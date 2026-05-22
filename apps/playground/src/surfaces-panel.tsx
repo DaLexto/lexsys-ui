@@ -81,12 +81,6 @@ export const SurfacesPanel = () => {
           <Badge tone="primary" variant="outline">
             Primary outline
           </Badge>
-          <Badge
-            tone="primary"
-            className="border-green-600 bg-green-600 text-white"
-          >
-            Tailwind override
-          </Badge>
         </div>
       </section>
 

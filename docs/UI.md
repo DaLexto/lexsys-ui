@@ -122,7 +122,7 @@ All variant classes MUST reference `--nx-*` CSS custom properties via Tailwind
 arbitrary value syntax, not hardcoded colors or spacing:
 
 ```ts
-"bg-[var(--nx-button-primary-background)]" // correct
+"bg-(--nx-button-primary-background)" // correct
 "bg-orange-500" // incorrect
 ```
 

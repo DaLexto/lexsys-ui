@@ -15,8 +15,8 @@ export const colorTextBranch = {
     secondary: { $value: "{color.neutral.600}" },
     disabled: { $value: "{color.neutral.400}" },
     inverse: { $value: "{color.white}" },
-    link: { $value: "{color.blue.600}" },
-    accent: { $value: "{color.purple.600}" },
+    link: { $value: "{brand.color.accent.base}" },
+    accent: { $value: "{brand.color.accent.base}" },
   },
 } as const
 

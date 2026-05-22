@@ -158,4 +158,20 @@ export const colorPrimitives = primitiveTokens("color", {
     900: { $value: oklch(0.381, 0.176, 304.987) },
     950: { $value: oklch(0.291, 0.149, 302.717) },
   },
+
+  spaceIndigo: {
+    $description:
+      "Space indigo primitive palette for deep brand and cosmic accent mappings.",
+    50: { $value: oklch(0.937, 0.005, 274.963) },
+    100: { $value: oklch(0.871, 0.011, 274.875) },
+    200: { $value: oklch(0.737, 0.025, 275.233) },
+    300: { $value: oklch(0.599, 0.037, 272.432) },
+    400: { $value: oklch(0.452, 0.055, 272.278) },
+    500: { $value: oklch(0.295, 0.076, 269.953) },
+    600: { $value: oklch(0.259, 0.063, 270.048) },
+    700: { $value: oklch(0.221, 0.048, 269.859) },
+    800: { $value: oklch(0.179, 0.036, 272.337) },
+    900: { $value: oklch(0.136, 0.019, 270.815) },
+    950: { $value: oklch(0.108, 0.013, 269.716) },
+  },
 })

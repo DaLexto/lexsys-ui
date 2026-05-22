@@ -6,17 +6,14 @@
 
 import { cva } from "class-variance-authority"
 
-export const separatorVariants = cva(
-  "shrink-0 bg-[var(--nx-separator-color)]",
-  {
-    variants: {
-      orientation: {
-        horizontal: "h-[var(--nx-separator-thickness)] w-full",
-        vertical: "h-full w-[var(--nx-separator-thickness)]",
-      },
-    },
-    defaultVariants: {
-      orientation: "horizontal",
+export const separatorVariants = cva("shrink-0 bg-(--nx-separator-color)", {
+  variants: {
+    orientation: {
+      horizontal: "h-(--nx-separator-thickness) w-full",
+      vertical: "h-full w-(--nx-separator-thickness)",
     },
   },
-)
+  defaultVariants: {
+    orientation: "horizontal",
+  },
+})

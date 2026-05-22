@@ -9,7 +9,7 @@ describe("toggleGroupVariants", () => {
     })
 
     expect(className).toContain("flex-col")
-    expect(className).toContain("gap-[var(--nx-toggle-group-gap-lg)]")
-    expect(className).toContain("bg-[var(--nx-toggle-group-background)]")
+    expect(className).toContain("gap-(--nx-toggle-group-gap-lg)")
+    expect(className).toContain("bg-(--nx-toggle-group-background)")
   })
 })
