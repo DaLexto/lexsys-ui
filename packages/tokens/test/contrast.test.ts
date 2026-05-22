@@ -3,12 +3,17 @@ import { describe, expect, it } from "vitest"
 import { createStyleTokenInput } from "../src/generators/inputs/input.source"
 import {
   contrastRatio,
+  compositeLinearRgb,
   parseColorStringToLinearRgb,
   relativeLuminance,
 } from "../src/engine/validator/contrast/contrast.math"
 import {
   createContrastValidationReport,
+  DEFAULT_CONTRAST_POLICY,
+  evaluateContrastPolicy,
   formatContrastValidationReport,
+  resolvePairMinimumRatio,
+  WCAG_AA_LARGE_TEXT_RATIO,
   WCAG_AA_NORMAL_TEXT_RATIO,
 } from "../src/engine/validator/contrast"
 import type { ContrastValidationInput } from "../src/engine/validator/contrast"
@@ -169,5 +174,118 @@ describe("createContrastValidationReport", () => {
 
     expect(report.issues).toEqual([])
     expect(report.pairs.every((result) => result.passes)).toBe(true)
+  })
+})
+
+describe("contrast.policy", () => {
+  it("uses large-text threshold when textSize is large", () => {
+    expect(
+      resolvePairMinimumRatio({
+        id: "fixture",
+        foregroundPath: "a",
+        backgroundPath: "b",
+        textSize: "large",
+      }),
+    ).toBe(WCAG_AA_LARGE_TEXT_RATIO)
+  })
+
+  it("fails policy evaluation when report has contrast issues", () => {
+    const evaluation = evaluateContrastPolicy({
+      pairs: [],
+      issues: [
+        {
+          code: "INSUFFICIENT_CONTRAST",
+          message: "fixture",
+          pairId: "fixture",
+          theme: "light",
+          foregroundPath: "a",
+          backgroundPath: "b",
+          minimumRatio: WCAG_AA_NORMAL_TEXT_RATIO,
+        },
+      ],
+    })
+
+    expect(evaluation.passes).toBe(false)
+    expect(evaluation.failures).toHaveLength(1)
+  })
+
+  it("passes policy evaluation for a clean report", () => {
+    const evaluation = evaluateContrastPolicy({
+      pairs: [],
+      issues: [],
+    })
+
+    expect(evaluation.passes).toBe(true)
+    expect(DEFAULT_CONTRAST_POLICY.tier).toBe("ci")
+  })
+})
+
+describe("overlay background compositing", () => {
+  it("composites semi-transparent overlay over base before contrast math", () => {
+    const input: ContrastValidationInput = {
+      foundationTokens: {
+        color: {
+          white: { $value: "oklch(1 0 0)" },
+          black: { $value: "oklch(0 0 0)" },
+        },
+      },
+      componentTokens: {},
+      themeTokens: [
+        {
+          name: "light",
+          tokens: {
+            color: {
+              text: {
+                primary: { $value: "{color.black}" },
+              },
+              background: {
+                base: { $value: "{color.white}" },
+                overlay: {
+                  $value: {
+                    colorSpace: "oklch",
+                    components: [0, 0, 0],
+                    alpha: 0.15,
+                  },
+                },
+              },
+            },
+          },
+        },
+      ],
+      pairs: [
+        {
+          id: "text-primary-on-overlay",
+          foregroundPath: "color.text.primary",
+          backgroundPath: "color.background.overlay",
+        },
+      ],
+    }
+
+    const report = createContrastValidationReport(input)
+
+    expect(report.issues).toHaveLength(0)
+    expect(report.pairs[0]?.passes).toBe(true)
+  })
+
+  it("matches composited overlay luminance against manual alpha blend", () => {
+    const overlay = parseColorStringToLinearRgb("oklch(0 0 0 / 0.15)")
+    const base = parseColorStringToLinearRgb("oklch(1 0 0)")
+    const foreground = parseColorStringToLinearRgb("oklch(0 0 0)")
+
+    expect(overlay).not.toBeNull()
+    expect(base).not.toBeNull()
+    expect(foreground).not.toBeNull()
+
+    const composited = compositeLinearRgb(
+      overlay as NonNullable<typeof overlay>,
+      base as NonNullable<typeof base>,
+    )
+
+    expect(
+      contrastRatio(
+        foreground as NonNullable<typeof foreground>,
+        composited,
+      ),
+    ).toBeGreaterThan(WCAG_AA_NORMAL_TEXT_RATIO)
   })
 })

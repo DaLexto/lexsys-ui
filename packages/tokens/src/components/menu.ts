@@ -29,7 +29,7 @@ export const menuComponentTokens = componentTokens("menu", {
     borderColor: { $value: "{border.default}" },
     minWidth: { $value: "{size.area.swipe.sm}" },
     maxWidth: { $value: "{size.panel.width.sm}" },
-    shadow: { $value: "{elevation.shadow.floating}" },
+    shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
   },
   positioner: {
     zIndex: { $value: "{elevation.floating.zIndex}" },

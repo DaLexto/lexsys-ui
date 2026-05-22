@@ -21,4 +21,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Run governance report
+        env:
+          NEUREX_CONTRAST_POLICY: ci
         run: pnpm --filter @neurex/tokens governance:report

@@ -14,4 +14,11 @@ export const borderSemantics = semanticTokens("border", {
   strong: { $value: "{color.neutral.400}" },
   focus: { $value: "{brand.color.primary.base}" },
   accent: { $value: "{brand.color.accent.base}" },
+
+  control: {
+    $type: "border",
+    color: { $value: "{color.neutral.200}" },
+    width: { $value: "{border.thin}" },
+    style: { $value: "solid" },
+  },
 })

@@ -12,7 +12,7 @@ export const toastComponentTokens = componentTokens("toast", {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
   borderColor: { $value: "{border.default}" },
-  shadow: { $value: "{elevation.shadow.raised}" },
+  shadow: { $value: "{elevation.shadow.raised.boxShadow}" },
   success: {
     $type: "color",
     borderColor: { $value: "{color.feedback.success.foreground}" },

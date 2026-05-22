@@ -12,9 +12,10 @@ import {
 import type { TokenValue } from "../../../types"
 import {
   SEMANTIC_CONTRAST_PAIRS,
-  WCAG_AA_NORMAL_TEXT_RATIO,
 } from "./contrast.pairs"
+import { resolvePairMinimumRatio } from "./contrast.policy"
 import {
+  compositeLinearRgb,
   contrastRatio,
   contrastReadyColorToLinearRgb,
   parseColorStringToLinearRgb,
@@ -28,8 +29,10 @@ import type {
   SemanticContrastPair,
 } from "./contrast.types"
 
+const BACKGROUND_UNDERLAY_PATH = "color.background.base"
+
 const resolveMinimumRatio = (pair: SemanticContrastPair): number => {
-  return pair.minimumRatio ?? WCAG_AA_NORMAL_TEXT_RATIO
+  return resolvePairMinimumRatio(pair)
 }
 
 const valueToLinearRgb = (value: TokenValue): LinearRgb | null => {
@@ -44,6 +47,39 @@ const valueToLinearRgb = (value: TokenValue): LinearRgb | null => {
   }
 
   return null
+}
+
+const resolveEffectiveBackgroundLinear = (
+  input: ContrastValidationInput,
+  theme: ContrastValidationInput["themeTokens"][number],
+  backgroundLinear: LinearRgb,
+): LinearRgb | null => {
+  if (backgroundLinear.alpha >= 1) {
+    return backgroundLinear
+  }
+
+  const themedSource = {
+    foundationTokens: input.foundationTokens,
+    componentTokens: input.componentTokens,
+  }
+  const themeOverlay = { tokens: theme.tokens }
+  const underlayResult = resolveLeafValueForTheme(
+    themedSource,
+    themeOverlay,
+    BACKGROUND_UNDERLAY_PATH,
+  )
+
+  if (underlayResult.errors.length > 0 || underlayResult.resolved === null) {
+    return null
+  }
+
+  const underlayLinear = valueToLinearRgb(underlayResult.resolved.value)
+
+  if (underlayLinear === null) {
+    return null
+  }
+
+  return compositeLinearRgb(backgroundLinear, underlayLinear)
 }
 
 const createIssue = (
@@ -154,7 +190,38 @@ const evaluatePairForTheme = (
     }
   }
 
-  const ratio = contrastRatio(foregroundLinear, backgroundLinear)
+  const effectiveBackgroundLinear = resolveEffectiveBackgroundLinear(
+    input,
+    theme,
+    backgroundLinear,
+  )
+
+  if (effectiveBackgroundLinear === null) {
+    issues.push(
+      createIssue({
+        code: "UNPARSEABLE_COLOR",
+        message: `Could not composite background path "${pair.backgroundPath}" over "${BACKGROUND_UNDERLAY_PATH}" for pair "${pair.id}" in theme "${theme.name}".`,
+        pairId: pair.id,
+        theme: theme.name,
+        foregroundPath: pair.foregroundPath,
+        backgroundPath: pair.backgroundPath,
+        minimumRatio,
+      }),
+    )
+
+    return {
+      pairId: pair.id,
+      theme: theme.name,
+      foregroundPath: pair.foregroundPath,
+      backgroundPath: pair.backgroundPath,
+      ratio: null,
+      minimumRatio,
+      passes: false,
+      issues,
+    }
+  }
+
+  const ratio = contrastRatio(foregroundLinear, effectiveBackgroundLinear)
   const passes = ratio >= minimumRatio
 
   if (!passes) {

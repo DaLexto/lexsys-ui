@@ -22,7 +22,7 @@ Neurex token validation and analysis split across three cooperating areas:
 | Color string parse | `packages/tokens/src/engine/shared/color-string.parse.ts` | Shared `rgb()` / `hsl()` parsing for contrast normalization |
 | Graph traversal    | `packages/tokens/src/engine/resolver/graph/`     | Reachability, transitive dependents, dead-primitive analysis |
 | Layer validation   | `packages/tokens/src/engine/validator/layers/`   | Build-failing layer contract enforcement                     |
-| Contrast guard     | `packages/tokens/src/engine/validator/contrast/` | Non-blocking WCAG AA report on registered semantic pairs       |
+| Contrast guard     | `packages/tokens/src/engine/validator/contrast/` | WCAG AA report + CI policy gate on registered semantic pairs |
 | Governance + audit | `packages/tokens/src/engine/governance/`         | Non-blocking graph analysis and reports                      |
 | Generator pipeline | `packages/tokens/src/generators/`                | CSS/DTCG output; calls validation before generation          |
 | CLI entrypoints    | `packages/tokens/scripts/`                       | Build output write, governance report, dev hygiene           |
@@ -149,6 +149,12 @@ Typography composite groups (`body`, `heading`, `control`, `label`, `display`, `
 - DTCG JSON carries composite group metadata and typed atomic slot leaves
 - `collectCompositeAtomicPaths` exported for Phase 9 resolved-value work
 
+**Post–Phase 10 extension:** shadow and border composite schemas registered in
+`COMPOSITE_TYPE_REGISTRY` (`elevation.shadow.floating` / `raised` pilot with slot
+leaves + transitional `boxShadow`; `border.control` group). DTCG composite **object**
+`$value` leaves on a single token remain a deferred engine phase — see
+[After Phase 10](#after-phase-10).
+
 Default is **on** (no opt-in flag). CSS/Tailwind output is unchanged; DTCG gains composite group `$type` metadata on previously untyped role branches.
 
 ---
@@ -227,18 +233,22 @@ Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references;
 ### Shipped behavior
 
 - Explicit semantic foreground/background pair registry in `contrast.pairs.ts`
-- WCAG AA normal-text threshold (4.5:1) via `contrast.math.ts`
+- WCAG AA normal-text threshold (4.5:1) and large-text (3:1) via `contrast.policy.ts` / `contrast.math.ts`
 - Themed resolution through `resolveLeafValueForTheme` (Phase 9 values pipeline)
-- Non-blocking `createContrastValidationReport` appended to `pnpm --filter @neurex/tokens governance:report`
+- Semi-transparent background compositing over `color.background.base` before ratio checks
+- `createContrastValidationReport` appended to `pnpm --filter @neurex/tokens governance:report`
+- CI enforcement: `evaluateContrastPolicy` exits with code 1 when tier is `ci` (override with `NEUREX_CONTRAST_POLICY=report` locally)
 - OKLCH object and string parsing (`oklch()`, `#hex`, `rgb()`, `hsl()`) via `values.normalize.ts` and `engine/shared/color-string.parse.ts`
+
+**Two-layer model:** design-time pair registry + WCAG math here; runtime a11y in consumer apps (axe-core, manual review) complements but does not replace token checks.
 
 ### Registered pairs
 
-Ten semantic foreground/background pairs in `contrast.pairs.ts` (text-on-base/surface/subtle, feedback roles, primary-action inverse). Further expansion (overlay stacks, danger-action patterns) is tracked in [After Phase 10](#after-phase-10).
+Eleven semantic foreground/background pairs in `contrast.pairs.ts` (text-on-base/surface/subtle/overlay, feedback roles, primary-action inverse). Further expansion (danger-action patterns, large-text pairs) remains optional.
 
 ### Non-goals (still deferred)
 
-- Build-failing contrast enforcement (promote only after pair/threshold policy is agreed)
+- Build-failing contrast enforcement in `validateStyleTokenInput` (`build` tier reserved; CI gate is current)
 - Runtime accessibility checks in consumer apps
 - Automatic pair discovery without the explicit registry
 
@@ -257,9 +267,9 @@ recommended next evolution track. High-level platform summary lives in
 
 | Track | Target behavior | Why not shipped in Phase 10 |
 | ----- | --------------- | --------------------------- |
-| Contrast pair expansion | Add semantic pairs beyond the current registry (for example overlay stacks, danger-action foreground) | First expansion shipped (10 pairs); overlay compositing and design sign-off remain |
-| Contrast policy promotion | Optional build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA | Requires agreed pair inventory, threshold policy (AA vs AAA, large text), and CI gate decision |
-| Composite migration | Extend composite registry beyond typography (shadow, border structured groups) | Typography branch+slot model shipped first; other composites need schema + generator work |
+| Contrast pair expansion | Add semantic pairs beyond the current registry (for example danger-action foreground, large-text roles) | Overlay pair shipped after background compositing; further pairs need design sign-off |
+| Contrast build promotion | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA | CI gate shipped; `build` tier awaits stable inventory |
+| Shadow primitive migration | Full CSS string → slot migration for all elevation roles; optional slot-based `box-shadow` CSS composition | Pilot roles (`floating`, `raised`) on branch+slot; primitive strings remain for unmigrated scales |
 | Governance promotion | Make selected governance checks build-failing (zero dead primitives, zero deprecated-with-dependents) | Documented hook only today; promotion is a maintainer policy choice |
 
 None of the above require the speculative AST evaluator. They extend shipped
@@ -279,10 +289,9 @@ engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
 
 ### Known gaps (current state, not bugs)
 
-- **Contrast is non-blocking** — `createContrastValidationReport` reports issues; build does not fail unless a future policy promotes it.
+- **Contrast CI vs build** — `evaluateContrastPolicy` fails `governance:report` in CI (`ci` tier); CSS build does not fail until `build` tier is wired into `validateStyleTokenInput`.
 - **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@neurex/tokens` root export today.
-- **Overlay contrast** — semi-transparent `color.background.overlay` is not composited over base before contrast checks; overlay pairs remain future work.
-- **Composite object `$value` leaves** — typography uses branch + slot leaves only; shadow/border as single structured leaves remain future composite work.
+- **Composite object `$value` leaves** — authoring uses branch + slot leaves (typography, shadow, border); DTCG-native single-leaf composite objects remain a deferred engine phase.
 
 ---
 
