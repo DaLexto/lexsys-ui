@@ -94,7 +94,7 @@ describe("createStyleOutputs", () => {
   })
 
   test("keeps the yellow primitive scale ordered from light to dark", () => {
-    const yellow = colorPrimitives.yellow as Record<
+    const yellow = colorPrimitives.tokens.yellow as Record<
       string,
       { $value?: unknown }
     >

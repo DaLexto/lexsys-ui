@@ -4,6 +4,8 @@
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
 
+Long-term tokens platform direction lives in [docs/ROADMAP.md](./ROADMAP.md).
+
 Completed work is tracked in git history. This document only contains items
 that are not yet done.
 
@@ -70,10 +72,10 @@ Known gaps below.
 
 ## Known Gaps (no active item yet)
 
-| Gap | Notes |
-|---|---|
-| `neurex uninstall` not implemented | Command exists in CLI surface but has no behavior. Tracked in `docs/CLI.md`. |
-| No render tests for UI components | Only CVA class output is tested. No `@testing-library/react` coverage. |
+| Gap                                       | Notes                                                                                    |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `neurex uninstall` not implemented        | Command exists in CLI surface but has no behavior. Tracked in `docs/CLI.md`.             |
+| No render tests for UI components         | Only CVA class output is tested. No `@testing-library/react` coverage.                   |
 | Token layer violation checks not enforced | Component→primitive/brand references are not caught at build time. See `docs/TOKENS.md`. |
-| Next.js and other framework scaffolds | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded. |
-| Remote registry manifest contract | Remote registry format and trust model are not finalized. |
+| Next.js and other framework scaffolds     | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded.       |
+| Remote registry manifest contract         | Remote registry format and trust model are not finalized.                                |

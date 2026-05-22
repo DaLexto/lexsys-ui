@@ -9,6 +9,8 @@ This document captures planned evolution for the token resolver. All sections
 describe future direction. No section in this document is a current-state
 contract. For the current resolver behavior, see `docs/TOKENS.md`.
 
+Parent tokens platform roadmap: [docs/ROADMAP.md](./ROADMAP.md).
+
 ---
 
 ## Current State

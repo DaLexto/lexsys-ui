@@ -14,10 +14,8 @@
  * @see https://www.designtokens.org/tr/2025.10/format/
  *
  * @notes
- * - This file defines the next token authoring model.
- * - Existing legacy { value } token types still live in index.ts during migration.
- * - Do not add CSS-generator-specific flattened output types here.
  * - Runtime validators must enforce stricter tree rules than TypeScript can express.
+ * - Source group metadata is separated from token payloads via authoring factories.
  */
 
 /* -------------------------------------------------------------------------------------------------
@@ -186,6 +184,11 @@ export interface TokenMetadata {
   $type?: TokenType
 }
 
+/**
+ * Metadata value allowed on DTCG `$`-prefixed branch keys.
+ */
+export type TokenMetadataValue = TokenMetadata[keyof TokenMetadata]
+
 /* -------------------------------------------------------------------------------------------------
  * Token tree
  * ------------------------------------------------------------------------------------------------- */
@@ -202,7 +205,7 @@ export interface TokenLeaf<
 }
 
 /**
- * Recursive token tree used by the next DTCG-shaped token model.
+ * Recursive branch node used by the next DTCG-shaped token model.
  *
  * Token branches may contain DTCG-style metadata without being treated as token
  * leaves during traversal or reference resolution.
@@ -214,11 +217,16 @@ export interface TokenLeaf<
  * Because of that, this index signature intentionally allows metadata values.
  * Runtime validators must reject invalid non-metadata scalar branches.
  */
-export interface TokenTree extends TokenMetadata {
-  [key: string]: TokenLeaf | TokenTree | TokenMetadata[keyof TokenMetadata]
+export interface TokenBranch extends TokenMetadata {
+  [key: string]: TokenLeaf | TokenBranch | TokenMetadataValue
 }
 
 /**
- * Any node in the next DTCG-shaped token tree.
+ * Token tree root used by resolver and generator inputs.
  */
-export type TokenNode = TokenLeaf | TokenTree
+export type TokenTree = TokenBranch
+
+/**
+ * Any node in the DTCG-shaped token tree.
+ */
+export type TokenNode = TokenLeaf | TokenBranch

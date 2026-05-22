@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const buttonComponentTokens: ComponentTokenGroup = {
-  component: "button",
+export const buttonComponentTokens = componentTokens("button", {
   radius: { $value: "{radius.control}" },
   focus: {
     ringColor: { $value: "{color.border.focus}" },
@@ -56,4 +55,4 @@ export const buttonComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

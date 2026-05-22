@@ -8,39 +8,56 @@
 import type { TokenTree } from "./token.types"
 
 /**
- * Primitive token group.
- *
- * Primitive groups define raw source values such as colors, spacing, radius,
- * typography scales, and motion values.
+ * Factory-authored token group with explicit metadata and token payload.
  */
-export interface PrimitiveTokenGroup extends TokenTree {
+export interface TokenGroupBase<TMeta extends Record<string, string>> {
+  meta: TMeta
+  tokens: TokenTree
+}
+
+export type NamedTokenGroupMeta = {
   name: string
 }
 
-/**
- * Semantic token group.
- *
- * Semantic groups map primitive values to product-level meaning.
- */
-export interface SemanticTokenGroup extends TokenTree {
-  name: string
-}
-
-/**
- * Component token group.
- *
- * Component groups map semantic values to component-level design decisions.
- */
-export interface ComponentTokenGroup extends TokenTree {
+export type ComponentTokenGroupMeta = {
   component: string
 }
 
 /**
- * Brand token group.
- *
- * Brand groups map primitive values to brand-level palette decisions.
- * They must not contain product usage or component-specific intent.
+ * Legacy flat-mixed group: metadata keys live beside token branches.
+ * Supported during migration; new authoring should use factories instead.
  */
-export interface BrandTokenGroup extends TokenTree {
-  name: string
-}
+export type LegacyNamedTokenGroup = TokenTree & NamedTokenGroupMeta
+
+/**
+ * Primitive token group.
+ */
+export type PrimitiveTokenGroup =
+  | TokenGroupBase<NamedTokenGroupMeta>
+  | LegacyNamedTokenGroup
+
+/**
+ * Semantic token group.
+ */
+export type SemanticTokenGroup =
+  | TokenGroupBase<NamedTokenGroupMeta>
+  | LegacyNamedTokenGroup
+
+/**
+ * Brand token group.
+ */
+export type BrandTokenGroup =
+  | TokenGroupBase<NamedTokenGroupMeta>
+  | LegacyNamedTokenGroup
+
+/**
+ * Legacy flat-mixed component group.
+ */
+export type LegacyComponentTokenGroup = TokenTree & ComponentTokenGroupMeta
+
+/**
+ * Component token group.
+ */
+export type ComponentTokenGroup =
+  | TokenGroupBase<ComponentTokenGroupMeta>
+  | LegacyComponentTokenGroup
