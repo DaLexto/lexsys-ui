@@ -19,6 +19,7 @@ Neurex token validation and analysis split across three cooperating areas:
 | ------------------ | ------------------------------------------------ | ------------------------------------------------------------ |
 | Reference resolver | `packages/tokens/src/engine/resolver/reference/` | Resolve `{dotted.path}` chains; output-agnostic              |
 | Resolved values    | `packages/tokens/src/engine/resolver/values/`    | On-demand leaf resolution and color normalization for tooling  |
+| Color string parse | `packages/tokens/src/engine/shared/color-string.parse.ts` | Shared `rgb()` / `hsl()` parsing for contrast normalization |
 | Graph traversal    | `packages/tokens/src/engine/resolver/graph/`     | Reachability, transitive dependents, dead-primitive analysis |
 | Layer validation   | `packages/tokens/src/engine/validator/layers/`   | Build-failing layer contract enforcement                     |
 | Contrast guard     | `packages/tokens/src/engine/validator/contrast/` | Non-blocking WCAG AA report on registered semantic pairs       |
@@ -200,7 +201,7 @@ Components keep slot references such as `{typography.control.md.fontSize}`. Comp
 - Terminal values include structured OKLCH objects and `TokenUnitValue` shapes already authored in source
 - Composite typography slot paths (for example `typography.control.md.fontSize`) resolve to atomic terminal values
 - Theme-aware lookup merges `foundationTokens` + `theme.tokens` + `componentTokens` before resolving
-- `isResolvedColorValue` and `toContrastReadyColor` in `values.normalize.ts` (used by Phase 10 contrast math)
+- `isResolvedColorValue` and `toContrastReadyColor` in `values.normalize.ts` (OKLCH objects, `oklch()` / `#hex` / `rgb()` / `hsl()` strings via `engine/shared/color-string.parse.ts`)
 
 ### Distinction from build-time resolution
 
@@ -229,12 +230,11 @@ Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references;
 - WCAG AA normal-text threshold (4.5:1) via `contrast.math.ts`
 - Themed resolution through `resolveLeafValueForTheme` (Phase 9 values pipeline)
 - Non-blocking `createContrastValidationReport` appended to `pnpm --filter @neurex/tokens governance:report`
-- OKLCH object and `oklch()` string parsing in `toContrastReadyColor`
+- OKLCH object and string parsing (`oklch()`, `#hex`, `rgb()`, `hsl()`) via `values.normalize.ts` and `engine/shared/color-string.parse.ts`
 
-### Registered pairs (initial inventory)
+### Registered pairs
 
-- `color.text.primary` / `color.text.secondary` on `color.background.base` and `color.background.surface`
-- Feedback roles: info, success, warning, danger (`foreground` on `background` per role)
+Ten semantic foreground/background pairs in `contrast.pairs.ts` (text-on-base/surface/subtle, feedback roles, primary-action inverse). Further expansion (overlay stacks, danger-action patterns) is tracked in [After Phase 10](#after-phase-10).
 
 ### Non-goals (still deferred)
 
@@ -257,10 +257,9 @@ recommended next evolution track. High-level platform summary lives in
 
 | Track | Target behavior | Why not shipped in Phase 10 |
 | ----- | --------------- | --------------------------- |
-| Contrast pair expansion | Add semantic pairs beyond text-on-base and feedback (for example action foreground/background, inverse text, overlay stacks) | Initial registry intentionally small; each pair needs design sign-off |
+| Contrast pair expansion | Add semantic pairs beyond the current registry (for example overlay stacks, danger-action foreground) | First expansion shipped (10 pairs); overlay compositing and design sign-off remain |
 | Contrast policy promotion | Optional build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA | Requires agreed pair inventory, threshold policy (AA vs AAA, large text), and CI gate decision |
 | Composite migration | Extend composite registry beyond typography (shadow, border structured groups) | Typography branch+slot model shipped first; other composites need schema + generator work |
-| Color parse coverage | `rgb()` / `hsl()` string parsing in contrast normalization | OKLCH objects and `oklch()` strings cover current authoring; other formats are incremental |
 | Governance promotion | Make selected governance checks build-failing (zero dead primitives, zero deprecated-with-dependents) | Documented hook only today; promotion is a maintainer policy choice |
 
 None of the above require the speculative AST evaluator. They extend shipped
@@ -282,7 +281,7 @@ engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
 
 - **Contrast is non-blocking** — `createContrastValidationReport` reports issues; build does not fail unless a future policy promotes it.
 - **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@neurex/tokens` root export today.
-- **`rgb()` / `hsl()` in `toContrastReadyColor`** — recognized by `isResolvedColorValue` but not fully parsed for contrast math yet (returns `null` for string fallbacks other than `oklch()` / `#hex`).
+- **Overlay contrast** — semi-transparent `color.background.overlay` is not composited over base before contrast checks; overlay pairs remain future work.
 - **Composite object `$value` leaves** — typography uses branch + slot leaves only; shadow/border as single structured leaves remain future composite work.
 
 ---

@@ -19,6 +19,7 @@ The P0 and P1 implementation passes are complete:
 - Token foundation (DTCG-shaped source, CSS + DTCG JSON generation, brand layer, theme modes)
 - Token platform phases 1–10 (factory authoring through accessibility contrast guard; see [docs/ROADMAP.md](./ROADMAP.md))
 - Token engine: resolved value pipeline, composite typography, governance graph, WCAG contrast report (`docs/RESOLVER_EVOLUTION.md`)
+- Post–Phase 10 hardening: contrast pair registry expanded to 10 pairs; `rgb()` / `hsl()` parsing for contrast math (`engine/shared/color-string.parse.ts`)
 - Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution
@@ -41,9 +42,8 @@ _No active P2 items._
 Optional follow-ups after Phases 1–10 (detail in
 [docs/RESOLVER_EVOLUTION.md — After Phase 10](./RESOLVER_EVOLUTION.md#after-phase-10)):
 
-- Expand `SEMANTIC_CONTRAST_PAIRS` and agree contrast policy (thresholds, build-failing vs report-only)
+- Further expand `SEMANTIC_CONTRAST_PAIRS` (overlay stacks, danger-action patterns) and agree contrast policy (thresholds, build-failing vs report-only)
 - Extend composite registry beyond typography
-- Broader color parsing for contrast math (`rgb()`, `hsl()`)
 - Speculative AST evaluator and color/unit math — **deferred**, not scheduled
 
 ## Known Gaps (no active item yet)

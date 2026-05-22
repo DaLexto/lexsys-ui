@@ -74,6 +74,7 @@ src/
   themes/
   presets/
   engine/             # token engine (read/transform, validate, report)
+    shared/           # tree utils, metadata keys, color-string.parse.ts
     resolver/         # reference + graph traversal
       reference/
       graph/
@@ -201,7 +202,7 @@ change default CSS/DTCG output (generators still preserve references).
 | `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf through alias chains    |
 | `resolveLeafValues(tree, paths?, options?)`              | Batch resolve all or selected leaf paths |
 | `resolveLeafValueForTheme(input, theme, path, options?)` | Themed merge then resolve                |
-| `isResolvedColorValue` / `toContrastReadyColor`          | Phase 10 contrast prep stubs             |
+| `isResolvedColorValue` / `toContrastReadyColor`          | Color normalization for contrast math (OKLCH; `oklch()` / `#hex` / `rgb()` / `hsl()`) |
 
 Build-time validation continues to use `resolveTokenTree` via `validateStyleTokenInput`.
 Leaf resolution in `resolveTokenTree` delegates to `resolveLeafValue` for a single code path.
@@ -210,13 +211,15 @@ Import from `packages/tokens/src/engine/` (or `./engine` within the package). No
 
 ### Accessibility contrast guard (`engine/validator/contrast/`)
 
-Non-blocking WCAG AA report on registered semantic foreground/background pairs.
+Non-blocking WCAG AA report on registered semantic foreground/background pairs (10 pairs in `contrast.pairs.ts`).
 
 | Export                                   | Purpose                                          |
 | ---------------------------------------- | ------------------------------------------------ |
 | `createContrastValidationReport(input)`  | Themed contrast ratio checks per registered pair |
 | `formatContrastValidationReport(report)` | Format report for CLI output                     |
 | `SEMANTIC_CONTRAST_PAIRS`                | Explicit pair registry                           |
+
+Color strings are parsed via `engine/shared/color-string.parse.ts` (`rgb()`, `hsl()`, plus OKLCH/hex in `values.normalize.ts`).
 
 Runs as part of `pnpm --filter @neurex/tokens governance:report`. Not build-failing by default.
 
