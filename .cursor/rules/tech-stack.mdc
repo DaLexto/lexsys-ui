@@ -162,7 +162,7 @@ presets = config only (no resolution)
 
 **Elevation:** `z-index.*` / `shadow.*` (primitives) → `elevation.*` (semantics) → component tokens. Components must not reference primitive `z-index.*` or `shadow.*` directly.
 
-**Temporary exception (layer validation):** component tokens may reference primitive `size.*` or `spacing.*` only when no semantic role exists. Do not extend this to other primitives.
+**Layer validation:** component tokens must reference semantic tokens only — no direct primitive references (including `size.*` and `spacing.*`).
 
 ### Tokens best practices
 

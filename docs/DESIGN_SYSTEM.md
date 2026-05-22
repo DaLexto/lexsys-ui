@@ -148,11 +148,6 @@ dialogComponentTokens.backdrop.zIndex     → "{elevation.backdrop.zIndex}"
 dialogComponentTokens.popup.shadow        → "{elevation.shadow.raised}"
 ```
 
-**Temporary exception:** component tokens MAY reference raw `size.*` or
-`spacing.*` primitive scale tokens when no semantic role exists yet. This
-exception must not be expanded to `z-index.*`, `shadow.*`, or other primitives;
-add or use a semantic role (for example `elevation.*`) instead.
-
 Component source: `packages/tokens/src/components/`.
 
 ### Themes

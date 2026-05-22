@@ -100,7 +100,7 @@ Do not treat generated CSS or JSON as editable source.
 
 Token authoring follows the canonical rules in [docs/TOKENS.md](../../docs/TOKENS.md). That document is the source of truth. If this README conflicts with it, TOKENS.md wins.
 
-Key package-level constraints: use `$value` leaves (DTCG shape), primitives hold raw values only, components reference semantics, raw scale references (`size.*`, `spacing.*`) are a temporary exception only.
+Key package-level constraints: use `$value` leaves (DTCG shape), primitives hold raw values only, components reference semantic tokens only.
 
 ---
 

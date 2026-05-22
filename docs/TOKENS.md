@@ -78,16 +78,14 @@ Presets are configuration. They are not a layer in this chain.
 5. **Feedback pairs use full words** — `background` / `foreground`, not `bg` / `text`.
 6. **File layout** — one group per file minimum; optional subfolder when a group has distinct sub-roles (see `semantics/color/`).
 7. **Forbidden in semantics** — component names, one-off variant names, slot-specific decisions.
-8. **Component-specific dimensions** belong in component tokens. Components may reference primitive `size.*` or `spacing.*` scale tokens when no reusable semantic role exists (temporary exception; enforced in layer validation).
+8. **Component-specific dimensions** belong in component tokens. Reusable size and spacing roles belong in semantic `size.*` and `spacing.*` groups first.
 
 ### Components
 
 - **Target rule:** reference semantic tokens only.
 - MUST NOT reference primitive color, brand, or theme tokens directly.
+- MUST NOT reference primitive `size.*` or `spacing.*` scale tokens directly.
 - MUST NOT reference other component token namespaces.
-- Temporary exception: component tokens may reference `size.*` or `spacing.*`
-  scale tokens only when no semantic role exists. Do not add new raw scale
-  references when a semantic role can be named first.
 - Scoped to one component. Use one token file per component.
 - Component tokens describe slot/property decisions, not global product meaning.
 - Namespaced by component name in the merged token tree (e.g. `button.*`, `badge.*`).
@@ -239,7 +237,7 @@ at build time and will throw, preventing CSS output from being generated:
 - A reference chain exceeds 50 hops
 - A token leaf has an invalid shape (no `$value`, or non-scalar `$value`)
 - A theme is missing a mode required by its preset
-- A component token references a primitive, brand, or theme-only token directly — except the temporary `size.*` / `spacing.*` scale exception documented under Components
+- A component token references a primitive, brand, or theme-only token directly
 - A semantic token references a component token
 - A theme token references a component token
 - A brand token branch uses component-specific intent

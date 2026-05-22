@@ -3,7 +3,7 @@ import { componentTokens } from "../types/authoring"
 export const toastComponentTokens = componentTokens("toast", {
   viewport: {
     $type: "dimension",
-    width: { $value: "{size.96}" },
+    width: { $value: "{size.panel.width.md}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     gapExpanded: { $value: "{spacing.surface.gap.md}" },
     padding: { $value: "{spacing.surface.sm}" },

@@ -77,7 +77,7 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 
 - Token source files use DTCG-shaped `$value` leaves. Do not use legacy `value` leaves.
 - Primitives hold raw values only — no references.
-- Components reference semantics. Raw `size.*`/`spacing.*` references are a temporary exception only.
+- Components reference semantics only.
 - Do not write `--nx-*` prefixes in token source files — the prefix is applied by the generator.
 - Full token layer rules: `docs/TOKENS.md`.
 

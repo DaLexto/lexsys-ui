@@ -103,7 +103,7 @@ Target / planned:
 - [ ] Themes override semantics but are not a token layer.
 - [ ] Presets remain configuration only.
 - [ ] Component tokens use semantic tokens where semantic coverage exists.
-- [ ] Temporary `size.*` / `spacing.*` component references are intentional and not expanded casually.
+- [ ] Component tokens reference semantic roles for size and spacing (no raw primitive scale refs).
 - [ ] CSS/DTCG output names and paths match the current generator.
 - [ ] Not applicable.
 

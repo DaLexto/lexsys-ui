@@ -160,7 +160,7 @@ describe("createStyleOutputs", () => {
       "--nx-checkbox-size-md: var(--nx-size-selection-control-md)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-switch-thumb-translate-md: var(--nx-size-5)",
+      "--nx-switch-thumb-translate-md: var(--nx-size-thumb-md)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-tabs-tab-active-background: var(--nx-color-background-base)",

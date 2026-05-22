@@ -37,7 +37,7 @@ describe("validateTokenLayerContracts", () => {
     expect(() => validateTokenLayerContractsStrict(input)).not.toThrow()
   })
 
-  it("allows component-to-primitive references for size and spacing scale tokens", () => {
+  it("flags component-to-primitive references for size and spacing scale tokens", () => {
     const input = createFixtureInput({
       primitiveTokens: {
         size: {
@@ -57,7 +57,20 @@ describe("validateTokenLayerContracts", () => {
       },
     })
 
-    expect(validateTokenLayerContracts(input).violations).toEqual([])
+    const { violations } = validateTokenLayerContracts(input)
+
+    expect(violations).toEqual([
+      expect.objectContaining({
+        code: "COMPONENT_TO_PRIMITIVE",
+        sourcePath: "dialog.popup.maxWidth",
+        targetPath: "size.128",
+      }),
+      expect.objectContaining({
+        code: "COMPONENT_TO_PRIMITIVE",
+        sourcePath: "dialog.popup.padding",
+        targetPath: "spacing.4",
+      }),
+    ])
   })
 
   it("flags component-to-primitive violations", () => {

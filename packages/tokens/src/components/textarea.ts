@@ -27,9 +27,9 @@ export const textareaComponentTokens = componentTokens("textarea", {
   radius: { $value: "{radius.control}" },
   minHeight: {
     $type: "dimension",
-    sm: { $value: "{size.14}" },
-    md: { $value: "{size.16}" },
-    lg: { $value: "{size.16}" },
+    sm: { $value: "{size.control.xl}" },
+    md: { $value: "{size.control.2xl}" },
+    lg: { $value: "{size.control.2xl}" },
   },
   padding: {
     x: {

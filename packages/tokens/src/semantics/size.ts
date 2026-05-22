@@ -4,10 +4,12 @@ export const sizeSemantics = semanticTokens("size", {
   control: {
     $type: "dimension",
     xs: { $value: "{size.6}" },
+    compact: { $value: "{size.7}" },
     sm: { $value: "{size.8}" },
     md: { $value: "{size.10}" },
     lg: { $value: "{size.12}" },
     xl: { $value: "{size.14}" },
+    "2xl": { $value: "{size.16}" },
   },
   selectionControl: {
     $type: "dimension",
@@ -40,5 +42,34 @@ export const sizeSemantics = semanticTokens("size", {
     sm: { $value: "{size.4}" },
     md: { $value: "{size.5}" },
     lg: { $value: "{size.6}" },
+  },
+  switchTrack: {
+    width: {
+      $type: "dimension",
+      sm: { $value: "{size.9}" },
+      md: { $value: "{size.11}" },
+      lg: { $value: "{size.13}" },
+    },
+    height: {
+      $type: "dimension",
+      sm: { $value: "{size.5}" },
+      md: { $value: "{size.6}" },
+      lg: { $value: "{size.7}" },
+    },
+  },
+  panel: {
+    width: {
+      $type: "dimension",
+      sm: { $value: "{size.80}" },
+      md: { $value: "{size.96}" },
+      lg: { $value: "{size.128}" },
+      xl: { $value: "{size.160}" },
+    },
+    height: {
+      $type: "dimension",
+      sm: { $value: "{size.48}" },
+      md: { $value: "{size.80}" },
+      lg: { $value: "{size.128}" },
+    },
   },
 })

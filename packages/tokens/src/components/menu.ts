@@ -28,7 +28,7 @@ export const menuComponentTokens = componentTokens("menu", {
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{border.default}" },
     minWidth: { $value: "{size.area.swipe.sm}" },
-    maxWidth: { $value: "{size.80}" },
+    maxWidth: { $value: "{size.panel.width.sm}" },
     shadow: { $value: "{elevation.shadow.floating}" },
   },
   positioner: {
