@@ -2,7 +2,7 @@
 
 **Audience:** Maintainers
 **Type:** Vision / implementation plan
-**Status:** Phases 1–9 shipped; Phase 10 planned; speculative items deferred
+**Status:** Phases 1–10 shipped; speculative items deferred
 **Source of truth for:** Resolver and governance evolution sequencing after the initial platform pass
 **Verified against:** `packages/tokens/src/engine/`, `packages/tokens/src/generators/`
 
@@ -24,8 +24,8 @@ Neurex token validation and analysis split across three cooperating areas:
 | Generator pipeline | `packages/tokens/src/generators/` | CSS/DTCG output; calls validation before generation |
 | CLI entrypoints | `packages/tokens/scripts/` | Build output write, governance report, dev hygiene |
 
-Phases 1–9 (factory authoring, layer validation, governance reports, semantic organization, governance hardening, composite token expansion, resolved value pipeline) are complete.
-Remaining work is sequenced below as Phase 10 plus explicitly deferred speculative capabilities.
+Phases 1–10 (factory authoring through accessibility contrast guard) are complete.
+Remaining work is limited to explicitly deferred speculative capabilities.
 
 ```mermaid
 flowchart TB
@@ -37,9 +37,6 @@ flowchart TB
     deadStrip[Optional dead-primitive stripping]
     composite[Composite token expansion]
     resolvedPipeline[Resolved leaf value pipeline]
-  end
-
-  subgraph phase10 [Phase 10 A11y]
     contrast[WCAG contrast guard]
   end
 
@@ -48,9 +45,8 @@ flowchart TB
     colorMath[Color math + unit arithmetic]
   end
 
-  shipped --> phase10
-  resolvedPipeline --> phase10
-  resolvedPipeline --> speculative
+  shipped --> speculative
+  contrast --> speculative
 ```
 
 ---
@@ -161,8 +157,8 @@ Default is **on** (no opt-in flag). CSS/Tailwind output is unchanged; DTCG gains
 | 7 | Governance hardening | Shipped | Shipped baseline | `engine/resolver/graph/`, `engine/governance/report/`, `scripts/write-style-outputs.ts` |
 | 8 | Composite expansion | Shipped | Shipped baseline | `engine/composite/`, `generators/outputs/dtcg/` |
 | 9 | Resolved value pipeline | Shipped | Phases 7–8 | `packages/tokens/src/engine/resolver/values/` |
-| 10 | Accessibility guard | Extends validation | Phase 9 | `packages/tokens/src/engine/validator/contrast/` |
-| — | Speculative (AST + math) | New subsystem | Phase 9 shipped design | Not scheduled |
+| 10 | Accessibility guard | Shipped | Phase 9 | `packages/tokens/src/engine/validator/contrast/` |
+| — | Speculative (AST + math) | New subsystem | Phase 10 shipped design | Not scheduled |
 
 ---
 
@@ -222,19 +218,27 @@ Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references;
 
 ## Phase 10: Accessibility Guard
 
-**Status:** Planned
-**Depends on:** Phase 9 resolved value pipeline
+**Status:** Shipped
+**Entry points:** `packages/tokens/src/engine/validator/contrast/`, `packages/tokens/scripts/governance-report.ts`
 
-### Target behavior
+### Shipped behavior
 
-- Build-time WCAG AA contrast validation on declared semantic foreground/background pairs
-- Start as a governance-style report (non-blocking)
-- Promote to build-failing only after the pair inventory and threshold policy are agreed
+- Explicit semantic foreground/background pair registry in `contrast.pairs.ts`
+- WCAG AA normal-text threshold (4.5:1) via `contrast.math.ts`
+- Themed resolution through `resolveLeafValueForTheme` (Phase 9 values pipeline)
+- Non-blocking `createContrastValidationReport` appended to `pnpm --filter @neurex/tokens governance:report`
+- OKLCH object and `oklch()` string parsing in `toContrastReadyColor`
 
-### Non-goals
+### Registered pairs (initial inventory)
 
+- `color.text.primary` / `color.text.secondary` on `color.background.base` and `color.background.surface`
+- Feedback roles: info, success, warning, danger (`foreground` on `background` per role)
+
+### Non-goals (still deferred)
+
+- Build-failing contrast enforcement (promote only after pair/threshold policy is agreed)
 - Runtime accessibility checks in consumer apps
-- Automatic pair discovery without an explicit semantic pair registry
+- Automatic pair discovery without the explicit registry
 
 ---
 

@@ -1,5 +1,9 @@
 import { createStyleTokenInput } from "../src/generators/inputs/input.source"
 import {
+  createContrastValidationReport,
+  formatContrastValidationReport,
+} from "../src/engine/validator"
+import {
   createSemanticAuditReport,
   createTokenGovernanceReport,
   formatSemanticAuditReport,
@@ -55,6 +59,16 @@ const main = (): void => {
         semanticTokens: input.semanticTokens,
         componentTokens: input.componentTokens,
         foundationTokens: input.foundationTokens,
+        themeTokens: input.themeTokens,
+      }),
+    ),
+  )
+  console.log("")
+  console.log(
+    formatContrastValidationReport(
+      createContrastValidationReport({
+        foundationTokens: input.foundationTokens,
+        componentTokens: input.componentTokens,
         themeTokens: input.themeTokens,
       }),
     ),

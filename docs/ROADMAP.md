@@ -2,7 +2,7 @@
 
 **Audience:** Maintainers and token domain owners  
 **Type:** Vision / strategy document  
-**Status:** Phases 1–9 complete; Phase 10 planned — future direction below is
+**Status:** Phases 1–10 complete — future direction below is
 not a current implementation contract  
 **Source of truth for:** Long-term tokens platform direction after the initial
 platform pass  
@@ -36,9 +36,9 @@ Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 
 ---
 
-## Completed Platform Phases (1–9)
+## Completed Platform Phases (1–10)
 
-Phases 1–9 are complete. Detailed implementation history lives in git; this
+Phases 1–10 are complete. Detailed implementation history lives in git; this
 table is the high-level record only.
 
 | Phase                      | Outcome                                                           |
@@ -52,6 +52,7 @@ table is the high-level record only.
 | 7 — Governance hardening   | Transitive dependents, graph module, optional dead-primitive stripping, scripts layout |
 | 8 — Composite expansion    | Typography composite registry, DTCG slot typing, atomic path classification |
 | 9 — Resolved value pipeline | On-demand leaf resolution, themed lookup, contrast prep stubs |
+| 10 — Accessibility guard   | WCAG AA contrast report, semantic pair registry, governance CLI integration |
 
 ---
 
@@ -61,12 +62,11 @@ The items below are planned work, not current contracts.
 
 ### Resolver and generator evolution
 
-Phases 10 and deferred speculative work are sequenced in
+Deferred speculative work is sequenced in
 [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md):
 
 | Phase | Focus | Status |
 | ----- | ----- | ------ |
-| 10 | Accessibility contrast guard | Planned |
 | — | Speculative AST evaluator and color/unit math (deferred) | Not scheduled |
 
 Do not duplicate phase detail here — update RESOLVER_EVOLUTION when sequencing changes.

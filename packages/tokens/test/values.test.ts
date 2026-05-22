@@ -360,7 +360,17 @@ describe("values.normalize", () => {
     expect(isResolvedColorValue(fontSizeSm)).toBe(false)
   })
 
-  it("returns null for string fallbacks until Phase 10 parsing ships", () => {
-    expect(toContrastReadyColor("oklch(1 0 0)")).toBeNull()
+  it("parses oklch and hex string fallbacks for contrast prep", () => {
+    expect(toContrastReadyColor("oklch(1 0 0)")).toEqual({
+      colorSpace: "oklch",
+      components: [1, 0, 0],
+      alpha: 1,
+    })
+    expect(toContrastReadyColor("#ffffff")).toEqual({
+      colorSpace: "srgb",
+      components: [0, 0, 0],
+      alpha: 1,
+      hex: "#ffffff",
+    })
   })
 })

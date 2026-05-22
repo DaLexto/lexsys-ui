@@ -180,7 +180,7 @@ For on-demand lookups (governance, contrast prep, tooling), use the values API i
 | `resolveLeafValue(tree, path, options?)` | Resolve one leaf `$value` through its alias chain |
 | `resolveLeafValues(tree, paths?, options?)` | Batch resolve; defaults to all leaf paths |
 | `resolveLeafValueForTheme(input, theme, path, options?)` | Resolve after `foundationTokens` + `theme.tokens` + `componentTokens` merge |
-| `isResolvedColorValue` / `toContrastReadyColor` | Phase 10 contrast prep stubs for structured OKLCH objects |
+| `isResolvedColorValue` / `toContrastReadyColor` | Color normalization for contrast math (OKLCH objects and strings) |
 
 `resolveLeafValue` returns `{ resolved, errors, warnings }` where `resolved` includes
 the terminal `TokenValue`, dotted `path`, and `referenceChain` (alias hops visited).
@@ -188,6 +188,29 @@ This API does **not** mutate source trees or change default CSS/DTCG output.
 
 Tree merge helpers (`mergeTokenTrees`, `createThemedTokenTree`) live in
 `packages/tokens/src/engine/shared/tree.utils.ts`.
+
+---
+
+### Accessibility contrast guard (Phase 10)
+
+Non-blocking WCAG AA checks on an **explicit semantic pair registry** in
+`packages/tokens/src/engine/validator/contrast/contrast.pairs.ts`.
+
+| Export | Purpose |
+| ------ | ------- |
+| `createContrastValidationReport(input)` | Resolve themed fg/bg pairs and compare contrast ratios |
+| `formatContrastValidationReport(report)` | CLI-friendly report text |
+| `SEMANTIC_CONTRAST_PAIRS` | Registered semantic foreground/background paths |
+
+Each pair is evaluated per theme mode using `resolveLeafValueForTheme`. Default
+threshold is **4.5:1** (WCAG AA normal text). Report is appended by:
+
+```sh
+pnpm --filter @neurex/tokens governance:report
+```
+
+Contrast validation is **not build-failing** until pair inventory and promotion
+policy are agreed. CSS/DTCG generator output is unchanged.
 
 ---
 
@@ -300,7 +323,9 @@ but do not change CSS or DTCG output unless dead-primitive stripping is explicit
 `node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
 primitive leaves from CSS/DTCG after full-graph validation. Default is off.
 
-**Planned (not build-failing):** Phase 10 accessibility contrast guard. Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+**Governance tooling (non-blocking):** contrast validation runs via
+`createContrastValidationReport` and `pnpm --filter @neurex/tokens governance:report`.
+Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
 
@@ -332,8 +357,8 @@ Key named exports from `.`:
 | `formatSemanticAuditReport`                    | Format a semantic audit report for CLI output       |
 
 Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`, `resolveLeafValue`,
-`resolveLeafValues`, `resolveLeafValueForTheme`, `collectCompositeAtomicPaths`,
-`normalizeCompositeBranches`, and related types) live under
+`resolveLeafValues`, `resolveLeafValueForTheme`, `createContrastValidationReport`,
+`collectCompositeAtomicPaths`, `normalizeCompositeBranches`, and related types) live under
 `packages/tokens/src/engine/`.
 They are used internally by the build pipeline and tests but are not exported
 from the package root entrypoint.

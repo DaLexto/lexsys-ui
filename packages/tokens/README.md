@@ -82,6 +82,7 @@ src/
     composite/        # composite type registry and slot schemas
     validator/        # build-failing layer contracts
       layers/
+      contrast/       # WCAG contrast report (Phase 10, non-blocking)
     governance/       # non-blocking reports and audits
       report/
       audit/
@@ -206,6 +207,18 @@ Build-time validation continues to use `resolveTokenTree` via `validateStyleToke
 Leaf resolution in `resolveTokenTree` delegates to `resolveLeafValue` for a single code path.
 
 Import from `packages/tokens/src/engine/` (or `./engine` within the package). Not exported from the package root `.` entrypoint.
+
+### Accessibility contrast guard (`engine/validator/contrast/`)
+
+Non-blocking WCAG AA report on registered semantic foreground/background pairs.
+
+| Export | Purpose |
+| ------ | ------- |
+| `createContrastValidationReport(input)` | Themed contrast ratio checks per registered pair |
+| `formatContrastValidationReport(report)` | Format report for CLI output |
+| `SEMANTIC_CONTRAST_PAIRS` | Explicit pair registry |
+
+Runs as part of `pnpm --filter @neurex/tokens governance:report`. Not build-failing by default.
 
 ---
 

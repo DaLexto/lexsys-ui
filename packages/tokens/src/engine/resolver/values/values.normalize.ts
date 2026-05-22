@@ -2,9 +2,7 @@
  * values.normalize.ts
  *
  * @layer resolver
- * @description Color normalization stubs for Phase 10 contrast checks.
- *
- * Accepts resolved terminal values only. No WCAG math or string parsing yet.
+ * @description Color normalization for Phase 10 contrast checks.
  */
 
 import type { TokenColorValue, TokenValue } from "../../../types"
@@ -42,6 +40,38 @@ const isColorStringFallback = (value: string): boolean => {
   )
 }
 
+const parseOklchString = (value: string): ContrastReadyColor | null => {
+  const normalized = value.trim()
+  const match = normalized.match(
+    /^oklch\(\s*([+-]?\d*\.?\d+(?:e[-+]?\d+)?)\s+([+-]?\d*\.?\d+(?:e[-+]?\d+)?)\s+([+-]?\d*\.?\d+(?:e[-+]?\d+)?)(?:\s*\/\s*([+-]?\d*\.?\d+(?:e[-+]?\d+)?))?\s*\)$/i,
+  )
+
+  if (!match) {
+    return null
+  }
+
+  return {
+    colorSpace: "oklch",
+    components: [Number(match[1]), Number(match[2]), Number(match[3])],
+    alpha: match[4] === undefined ? 1 : Number(match[4]),
+  }
+}
+
+const parseHexString = (value: string): ContrastReadyColor | null => {
+  const normalized = value.trim()
+
+  if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(normalized)) {
+    return null
+  }
+
+  return {
+    colorSpace: "srgb",
+    components: [0, 0, 0],
+    alpha: 1,
+    hex: normalized,
+  }
+}
+
 /**
  * Returns true when a resolved leaf value can be handed to contrast tooling.
  */
@@ -56,22 +86,23 @@ export const isResolvedColorValue = (
 }
 
 /**
- * Normalizes structured OKLCH objects for Phase 10 contrast math.
- *
- * String fallbacks are recognized by {@link isResolvedColorValue} but are not
- * parsed here yet — Phase 10 will add CSS color string parsing.
+ * Normalizes resolved color values for Phase 10 contrast math.
  */
 export const toContrastReadyColor = (
   value: TokenValue,
 ): ContrastReadyColor | null => {
-  if (!isTokenColorValue(value)) {
-    return null
+  if (isTokenColorValue(value)) {
+    return {
+      colorSpace: value.colorSpace,
+      components: value.components,
+      alpha: value.alpha ?? 1,
+      ...(value.hex !== undefined ? { hex: value.hex } : {}),
+    }
   }
 
-  return {
-    colorSpace: value.colorSpace,
-    components: value.components,
-    alpha: value.alpha ?? 1,
-    ...(value.hex !== undefined ? { hex: value.hex } : {}),
+  if (typeof value === "string") {
+    return parseOklchString(value) ?? parseHexString(value)
   }
+
+  return null
 }

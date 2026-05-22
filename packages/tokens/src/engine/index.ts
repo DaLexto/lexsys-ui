@@ -98,6 +98,20 @@ export type {
   LayerValidationThemeInput,
   LayerViolation,
   LayerViolationCode,
+  ContrastIssue,
+  ContrastIssueCode,
+  ContrastPairResult,
+  ContrastValidationInput,
+  ContrastValidationReport,
+  ContrastValidationThemeInput,
+  SemanticContrastPair,
+} from "./validator"
+
+export {
+  createContrastValidationReport,
+  formatContrastValidationReport,
+  SEMANTIC_CONTRAST_PAIRS,
+  WCAG_AA_NORMAL_TEXT_RATIO,
 } from "./validator"
 
 // Governance
