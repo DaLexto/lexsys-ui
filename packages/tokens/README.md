@@ -69,13 +69,22 @@ src/
   primitives/
   brand/
   semantics/
+    color/          # optional subfolder; merges into color.* namespace
   components/
   themes/
   presets/
-  resolver/
+  resolver/         # includes layer-validation.ts
+  governance/       # metadata, deprecation, semantic audit
   generators/
   types/
+  scripts/          # clean-imports, governance-report
 ```
+
+**Active semantic groups (9):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`.
+
+**Staged stubs only (not registered in token collections):** `semantics/outline.ts`, `semantics/layout.ts`, `primitives/asset.ts`.
+
+**Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component tokens → CSS vars (`--nx-*`).
 
 The exact internal structure may evolve, but package boundaries must remain clear.
 
@@ -201,9 +210,12 @@ Useful commands:
 
 ```bash
 pnpm --filter @neurex/tokens build
+pnpm --filter @neurex/tokens check
 pnpm --filter @neurex/tokens typecheck
 pnpm --filter @neurex/tokens test
 pnpm --filter @neurex/tokens lint
+pnpm --filter @neurex/tokens governance:report
+pnpm --filter @neurex/tokens imports:clean
 ```
 
 Repository-level checks:

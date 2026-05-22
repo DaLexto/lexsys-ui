@@ -1,12 +1,12 @@
 import { describe, expect, expectTypeOf, test } from "vitest"
-import { buttonComponentTokens } from "../src/components/button.js"
+import { buttonComponentTokens } from "../src/components/button"
 import { createStyleTokenInput, getTokenTree } from "../src/generators/inputs"
-import { colorPrimitives } from "../src/primitives/color.js"
+import { colorPrimitives } from "../src/primitives/color"
 import {
   componentTokens as createComponentTokens,
   primitiveTokens as createPrimitiveTokens,
   themeTokens,
-} from "../src/types/authoring.js"
+} from "../src/types/authoring"
 import type { PresetDefinition } from "../src/types"
 
 describe("token authoring factories", () => {

@@ -7,9 +7,7 @@ const TARGET_EXTENSIONS = new Set([".ts", ".tsx"])
 const cleanImportSpecifiers = (content: string): string => {
   return content
     .replaceAll('/index.js"', '"')
-    .replaceAll("'", "'")
     .replaceAll('.js"', '"')
-    .replaceAll("'", "'")
 }
 
 const walk = (directory: string): string[] => {

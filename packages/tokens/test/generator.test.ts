@@ -4,12 +4,12 @@ import {
   createStyleOutputs,
   createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
-} from "../src/generators/generator.create.js"
+} from "../src/generators/generator.create"
 import {
   createDtcgTokenInputFromJson,
   createStyleTokenInput,
-} from "../src/generators/inputs/index.js"
-import { colorPrimitives } from "../src/primitives/color.js"
+} from "../src/generators/inputs/index"
+import { colorPrimitives } from "../src/primitives/color"
 import { primitiveTokens } from "../src/primitives"
 import { semanticTokens } from "../src/semantics"
 import { neurexPreset, defaultPresetId, presets } from "../src/presets"
