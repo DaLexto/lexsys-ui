@@ -33,7 +33,7 @@ Current implementation:
   paths.
 - Token engine (Phases 7–10): graph traversal, composite typography, on-demand
   resolved values, and non-blocking WCAG contrast validation on registered
-  semantic pairs.
+  semantic pairs (10 pairs; `rgb()` / `hsl()` string parsing for contrast math).
 
 Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 
@@ -71,10 +71,9 @@ Summary only — do not duplicate detail here.
 
 **Planned (likely next):**
 
-- Expand `SEMANTIC_CONTRAST_PAIRS` beyond text-on-base and feedback roles
+- Further expand `SEMANTIC_CONTRAST_PAIRS` (overlay stacks, danger-action patterns)
 - Optional promotion of contrast checks to build-failing after pair/threshold policy is agreed
 - Extend composite registry beyond typography (shadow, border groups)
-- Broader color string parsing for contrast math (`rgb()`, `hsl()`)
 - Optional promotion of selected governance checks to build-failing
 
 **Deferred (explicit non-goals for now):**

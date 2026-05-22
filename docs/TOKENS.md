@@ -180,7 +180,7 @@ For on-demand lookups (governance, contrast prep, tooling), use the values API i
 | `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf `$value` through its alias chain                           |
 | `resolveLeafValues(tree, paths?, options?)`              | Batch resolve; defaults to all leaf paths                                   |
 | `resolveLeafValueForTheme(input, theme, path, options?)` | Resolve after `foundationTokens` + `theme.tokens` + `componentTokens` merge |
-| `isResolvedColorValue` / `toContrastReadyColor`          | Color normalization for contrast math (OKLCH objects and strings)           |
+| `isResolvedColorValue` / `toContrastReadyColor`          | Color normalization for contrast math (OKLCH objects; `oklch()` / `#hex` / `rgb()` / `hsl()` strings) |
 
 `resolveLeafValue` returns `{ resolved, errors, warnings }` where `resolved` includes
 the terminal `TokenValue`, dotted `path`, and `referenceChain` (alias hops visited).
@@ -202,7 +202,9 @@ Non-blocking WCAG AA checks on an **explicit semantic pair registry** in
 | `formatContrastValidationReport(report)` | CLI-friendly report text                               |
 | `SEMANTIC_CONTRAST_PAIRS`                | Registered semantic foreground/background paths        |
 
-Each pair is evaluated per theme mode using `resolveLeafValueForTheme`. Default
+Each pair is evaluated per theme mode using `resolveLeafValueForTheme`. Resolved
+colors are normalized through `toContrastReadyColor` (structured OKLCH, `oklch()`,
+`#hex`, `rgb()`, `hsl()` — see `engine/shared/color-string.parse.ts`). Default
 threshold is **4.5:1** (WCAG AA normal text). Report is appended by:
 
 ```sh
