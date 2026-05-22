@@ -6,5 +6,4 @@ export const radiusSemantics = semanticTokens("radius", {
   selection: { $value: "{radius.sm}" },
   surface: { $value: "{radius.lg}" },
   pill: { $value: "{radius.full}" },
-
 })

@@ -38,13 +38,13 @@ Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 Phases 1–5 are complete. Detailed implementation history lives in git; this
 table is the high-level record only.
 
-| Phase | Outcome |
-| ----- | ------- |
-| 1 — Types and factories | Explicit source-group types and factory helpers |
-| 2 — Pilot migration | Representative primitive, component, and theme sources migrated |
-| 3 — Full source migration | All source groups use factories; legacy adapter removed |
-| 4 — Layer validation | Build-failing layer contract enforcement |
-| 5 — Governance and tooling | Metadata, deprecation, and dead-token reports |
+| Phase                      | Outcome                                                         |
+| -------------------------- | --------------------------------------------------------------- |
+| 1 — Types and factories    | Explicit source-group types and factory helpers                 |
+| 2 — Pilot migration        | Representative primitive, component, and theme sources migrated |
+| 3 — Full source migration  | All source groups use factories; legacy adapter removed         |
+| 4 — Layer validation       | Build-failing layer contract enforcement                        |
+| 5 — Governance and tooling | Metadata, deprecation, and dead-token reports                   |
 
 ---
 

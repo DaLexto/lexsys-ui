@@ -5,7 +5,6 @@
  * @description Defines semantic action color roles for interactive UI states.
  */
 
-
 import { semanticTokens } from "../types/authoring"
 
 export const actionSemantics = semanticTokens("action", {
@@ -32,5 +31,4 @@ export const actionSemantics = semanticTokens("action", {
     active: { $value: "{color.red.800}" },
     disabled: { $value: "{color.red.300}" },
   },
-
 })

@@ -31,18 +31,18 @@ This package does not own:
 
 From the package root (`.`):
 
-| Export | Type | Purpose |
-|---|---|---|
-| `registryManifest` | `RegistryManifest` | Full registry: items, styles, utilities, version |
-| `registryItems` | `RegistryItem[]` | All installable component/utility/style items |
-| `registryStyles` | `RegistryStyle[]` | All style descriptors (`theme`) |
-| `registryUtilities` | `RegistryUtility[]` | All shared utility descriptors (`cn`) |
-| `registryVersion` | `string` | Package version string |
-| `themeRegistryStyle` | `RegistryStyle` | Theme style metadata |
-| `cnRegistryUtility` | `RegistryUtility` | `cn` utility metadata |
-| `validateRegistry` | `function` | Validate the full registry manifest |
-| `validateRegistryItem` | `function` | Validate a single registry item |
-| Individual item exports | `RegistryItem` | e.g. `buttonRegistryItem`, `badgeRegistryItem` |
+| Export                  | Type                | Purpose                                          |
+| ----------------------- | ------------------- | ------------------------------------------------ |
+| `registryManifest`      | `RegistryManifest`  | Full registry: items, styles, utilities, version |
+| `registryItems`         | `RegistryItem[]`    | All installable component/utility/style items    |
+| `registryStyles`        | `RegistryStyle[]`   | All style descriptors (`theme`)                  |
+| `registryUtilities`     | `RegistryUtility[]` | All shared utility descriptors (`cn`)            |
+| `registryVersion`       | `string`            | Package version string                           |
+| `themeRegistryStyle`    | `RegistryStyle`     | Theme style metadata                             |
+| `cnRegistryUtility`     | `RegistryUtility`   | `cn` utility metadata                            |
+| `validateRegistry`      | `function`          | Validate the full registry manifest              |
+| `validateRegistryItem`  | `function`          | Validate a single registry item                  |
+| Individual item exports | `RegistryItem`      | e.g. `buttonRegistryItem`, `badgeRegistryItem`   |
 
 Types exported: `RegistryFile`, `RegistryItem`, `RegistryItemCategory`,
 `RegistryItemType`, `RegistryStyle`, `RegistryStyleFile`, `RegistryUtility`.

@@ -39,5 +39,4 @@ export const colorSemantics = semanticTokens("color", {
       text: { $value: "{color.red.700}" },
     },
   },
-
 })

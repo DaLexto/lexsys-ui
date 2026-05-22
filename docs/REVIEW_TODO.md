@@ -80,9 +80,9 @@ implemented; this item covers the remaining resolver evolution only.
 
 ## Known Gaps (no active item yet)
 
-| Gap                                       | Notes                                                                                    |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `neurex uninstall` not implemented        | Command exists in CLI surface but has no behavior. Tracked in `docs/CLI.md`.             |
-| No render tests for UI components         | Only CVA class output is tested. No `@testing-library/react` coverage.                   |
-| Next.js and other framework scaffolds     | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded.       |
-| Remote registry manifest contract         | Remote registry format and trust model are not finalized.                                |
+| Gap                                   | Notes                                                                              |
+| ------------------------------------- | ---------------------------------------------------------------------------------- |
+| `neurex uninstall` not implemented    | Command exists in CLI surface but has no behavior. Tracked in `docs/CLI.md`.       |
+| No render tests for UI components     | Only CVA class output is tested. No `@testing-library/react` coverage.             |
+| Next.js and other framework scaffolds | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded. |
+| Remote registry manifest contract     | Remote registry format and trust model are not finalized.                          |

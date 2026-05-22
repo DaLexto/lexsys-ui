@@ -91,5 +91,4 @@ export const fieldComponentTokens = componentTokens("field", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

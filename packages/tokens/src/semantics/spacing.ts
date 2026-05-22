@@ -33,5 +33,4 @@ export const spacingSemantics = semanticTokens("spacing", {
       md: { $value: "{spacing.3}" },
     },
   },
-
 })

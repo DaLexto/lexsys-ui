@@ -21,7 +21,6 @@
  * - Structured DTCG shadow objects can replace these strings when composite shadow generation is implemented
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const shadowPrimitives = primitiveTokens("shadow", {
@@ -72,5 +71,4 @@ export const shadowPrimitives = primitiveTokens("shadow", {
       "Inset shadow for pressed, recessed, or contained surface effects.",
     $value: "inset 0 1px 2px rgb(0 0 0 / 0.08)",
   },
-
 })

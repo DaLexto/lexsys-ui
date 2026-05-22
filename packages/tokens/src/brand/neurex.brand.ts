@@ -20,5 +20,4 @@ export const neurexBrand = brandTokens("brand", {
       disabled: { $value: "{color.neutral.200}" },
     },
   },
-
 })

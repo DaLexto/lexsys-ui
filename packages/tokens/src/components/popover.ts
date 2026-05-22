@@ -73,5 +73,4 @@ export const popoverComponentTokens = componentTokens("popover", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

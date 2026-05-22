@@ -16,6 +16,7 @@ Each entry includes a symptom, cause, and fix verified against the source.
 **Cause:** The CLI binary is not installed or not in PATH.
 
 **Fix:**
+
 ```sh
 # Install globally
 npm install -g neurex
@@ -41,6 +42,7 @@ pnpm exec neurex init
 **Cause:** `init` has not been run yet, or was run in a different directory.
 
 **Fix:**
+
 ```sh
 neurex init          # run in the consumer project root
 # or
@@ -55,9 +57,11 @@ neurex --cwd /path/to/project init
 does not match the current registry template. The CLI detected user edits.
 
 **Fix:** Review the conflict. If you want to overwrite with the latest template:
+
 ```sh
 neurex update <component>
 ```
+
 If you want to keep your edits, the conflict is intentional — no action needed.
 
 ---
@@ -80,6 +84,7 @@ not injected.
 
 **Fix:** Create the CSS entrypoint file before running `neurex init`, or set
 the correct path in `neurex.config.json`:
+
 ```json
 { "tailwind": { "css": "src/styles/globals.css" } }
 ```
@@ -92,6 +97,7 @@ the correct path in `neurex.config.json`:
 returns an invalid response.
 
 **Fix:**
+
 ```sh
 neurex registry --source   # check which source is active
 neurex config --set-registry-url ""  # clear the URL to force local
@@ -106,6 +112,7 @@ neurex config --set-registry-url ""  # clear the URL to force local
 **Cause:** A token references a path that does not exist in the merged token tree.
 
 **Example error:**
+
 ```
 [MISSING_REFERENCE] Cannot resolve reference "{action.primary.hover}" at "button.primary.hoverBackground"
 ```
@@ -130,6 +137,7 @@ must be replaced with a concrete value or a reference to a token outside the cyc
 **Cause:** A token references an intermediate branch node, not a leaf with `$value`.
 
 **Example:**
+
 ```
 {color.primary}   ← this is a branch, not a leaf
 {color.primary.base}  ← correct, this is a leaf
@@ -155,6 +163,7 @@ override map. Do not invent variable names manually — they are generated outpu
 built without updating the registry templates.
 
 **Fix:**
+
 ```sh
 pnpm tokens:build             # regenerate dist/tokens.css and dist/theme.css
 pnpm registry:sync            # copy updated styles to registry templates
@@ -169,6 +178,7 @@ pnpm registry:sync            # copy updated styles to registry templates
 **Cause:** A UI component was edited but `pnpm registry:sync` was not run.
 
 **Fix:**
+
 ```sh
 pnpm registry:sync    # sync UI source → registry templates
 pnpm registry:check   # verify (should pass now)
@@ -195,9 +205,10 @@ All fields are required except `remoteFiles`. Valid `category` values: `actions`
 MUST end in `.js`, even when the source file is `.ts`.
 
 **Fix:** Check the failing import. Add the `.js` extension:
+
 ```ts
-import { fileExists } from "./fs.js"   // correct
-import { fileExists } from "./fs"      // incorrect for NodeNext
+import { fileExists } from "./fs.js" // correct
+import { fileExists } from "./fs" // incorrect for NodeNext
 ```
 
 ---
@@ -218,6 +229,7 @@ failing token reference.
 has not been rebuilt after token source changes, the playground uses stale output.
 
 **Fix:**
+
 ```sh
 pnpm tokens:build
 pnpm playground:build

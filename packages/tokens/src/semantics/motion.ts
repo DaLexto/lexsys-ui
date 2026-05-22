@@ -11,5 +11,4 @@ export const motionSemantics = semanticTokens("motion", {
     control: { $value: "{motion.easing.standard}" },
     surface: { $value: "{motion.easing.standard}" },
   },
-
 })

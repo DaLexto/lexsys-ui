@@ -113,5 +113,4 @@ export const menuComponentTokens = componentTokens("menu", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

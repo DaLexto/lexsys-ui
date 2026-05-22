@@ -23,28 +23,28 @@ about what to install, and templates to copy.
 
 Every installable item MUST declare all of the following fields:
 
-| Field | Type | Contract |
-|---|---|---|
-| `name` | `string` | Lowercase lookup key; unique across the registry |
-| `canonicalName` | `string` | PascalCase display name; matches component folder name |
-| `version` | `string` | Semver string; used by `status` and `update` to detect drift |
-| `type` | `"component" \| "utility" \| "style"` | Determines install behavior |
-| `category` | `RegistryItemCategory` | Groups items in `list` output |
-| `aliases` | `string[]` | Alternative lookup names; MAY be empty |
-| `files` | `string[]` | Template-relative paths of files to copy |
-| `dependencies` | `string[]` | npm packages the CLI MUST install |
-| `registryDependencies` | `string[]` | Other registry items that MUST be installed first |
-| `utilities` | `string[]` | Shared utility names the CLI MUST resolve and install |
-| `styles` | `string[]` | Style names the CLI MUST resolve and install |
-| `target` | `string` | Default consumer project install path |
+| Field                  | Type                                  | Contract                                                     |
+| ---------------------- | ------------------------------------- | ------------------------------------------------------------ |
+| `name`                 | `string`                              | Lowercase lookup key; unique across the registry             |
+| `canonicalName`        | `string`                              | PascalCase display name; matches component folder name       |
+| `version`              | `string`                              | Semver string; used by `status` and `update` to detect drift |
+| `type`                 | `"component" \| "utility" \| "style"` | Determines install behavior                                  |
+| `category`             | `RegistryItemCategory`                | Groups items in `list` output                                |
+| `aliases`              | `string[]`                            | Alternative lookup names; MAY be empty                       |
+| `files`                | `string[]`                            | Template-relative paths of files to copy                     |
+| `dependencies`         | `string[]`                            | npm packages the CLI MUST install                            |
+| `registryDependencies` | `string[]`                            | Other registry items that MUST be installed first            |
+| `utilities`            | `string[]`                            | Shared utility names the CLI MUST resolve and install        |
+| `styles`               | `string[]`                            | Style names the CLI MUST resolve and install                 |
+| `target`               | `string`                              | Default consumer project install path                        |
 
 If the CLI needs any knowledge not declared in the registry item, the item is
 incomplete.
 
 ### Optional fields
 
-| Field | Type | Contract |
-|---|---|---|
+| Field         | Type             | Contract                                                          |
+| ------------- | ---------------- | ----------------------------------------------------------------- |
 | `remoteFiles` | `RegistryFile[]` | Remote source descriptors used when the remote registry is active |
 
 ---
@@ -106,28 +106,28 @@ The CLI MUST NOT require format differences between local and remote sources.
 
 Valid `RegistryItemCategory` values:
 
-| Category | Description |
-|---|---|
-| `actions` | Buttons, toggles, interactive triggers |
-| `forms` | Inputs, checkboxes, selects, form primitives |
-| `overlays` | Dialogs, drawers, popovers, tooltips |
-| `navigation` | Menus, tabs, pagination |
-| `feedback` | Alerts, toasts, progress, meters |
-| `layout` | Separators, containers, layout helpers |
-| `data-display` | Avatars, badges, cards, data visualization |
-| `utilities` | Shared utility code |
+| Category       | Description                                  |
+| -------------- | -------------------------------------------- |
+| `actions`      | Buttons, toggles, interactive triggers       |
+| `forms`        | Inputs, checkboxes, selects, form primitives |
+| `overlays`     | Dialogs, drawers, popovers, tooltips         |
+| `navigation`   | Menus, tabs, pagination                      |
+| `feedback`     | Alerts, toasts, progress, meters             |
+| `layout`       | Separators, containers, layout helpers       |
+| `data-display` | Avatars, badges, cards, data visualization   |
+| `utilities`    | Shared utility code                          |
 
 ---
 
 ## Ownership Boundaries
 
-| Concern | Owner |
-|---|---|
+| Concern                            | Owner                          |
+| ---------------------------------- | ------------------------------ |
 | Install metadata (what to install) | `packages/registry/src/items/` |
-| Install templates (files to copy) | `packages/registry/templates/` |
-| Install behavior (how to install) | `packages/cli/src/` |
-| Component implementations | `packages/ui/src/components/` |
-| Token CSS artifacts | `@neurex/tokens` build output |
+| Install templates (files to copy)  | `packages/registry/templates/` |
+| Install behavior (how to install)  | `packages/cli/src/`            |
+| Component implementations          | `packages/ui/src/components/`  |
+| Token CSS artifacts                | `@neurex/tokens` build output  |
 
 Do not add install logic to registry metadata. Do not add registry metadata
 rules to CLI code. Do not manually maintain templates.

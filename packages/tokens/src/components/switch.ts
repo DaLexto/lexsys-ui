@@ -44,5 +44,4 @@ export const switchComponentTokens = componentTokens("switch", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

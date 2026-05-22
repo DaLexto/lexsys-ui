@@ -29,5 +29,4 @@ export const sliderComponentTokens = componentTokens("slider", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

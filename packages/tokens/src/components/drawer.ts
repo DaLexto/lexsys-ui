@@ -104,5 +104,4 @@ export const drawerComponentTokens = componentTokens("drawer", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

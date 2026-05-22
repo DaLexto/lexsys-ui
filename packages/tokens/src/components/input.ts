@@ -52,5 +52,4 @@ export const inputComponentTokens = componentTokens("input", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

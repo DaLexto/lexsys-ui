@@ -20,7 +20,6 @@
  * - Letter spacing tokens use the DTCG `letterSpacing` type
  */
 
-
 import { primitiveTokens } from "../types/authoring"
 
 export const letterSpacingPrimitives = primitiveTokens("letter-spacing", {
@@ -34,5 +33,4 @@ export const letterSpacingPrimitives = primitiveTokens("letter-spacing", {
   wide: { $value: { value: 0.025, unit: "em" } },
   wider: { $value: { value: 0.05, unit: "em" } },
   widest: { $value: { value: 0.1, unit: "em" } },
-
 })

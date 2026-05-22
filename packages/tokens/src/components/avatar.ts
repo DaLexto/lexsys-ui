@@ -33,5 +33,4 @@ export const avatarComponentTokens = componentTokens("avatar", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-
 })

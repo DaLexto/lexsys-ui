@@ -72,5 +72,4 @@ export const alertDialogComponentTokens = componentTokens("alert-dialog", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

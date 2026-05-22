@@ -42,7 +42,11 @@ const expandReferencedPaths = (
   const paths = new Set<string>([targetPath])
   const node = getNodeByPath(root, targetPath)
 
-  if (node === undefined || !isTokenLeaf(node) || !isReferenceString(node.$value)) {
+  if (
+    node === undefined ||
+    !isTokenLeaf(node) ||
+    !isReferenceString(node.$value)
+  ) {
     return paths
   }
 
@@ -57,7 +61,9 @@ const expandReferencedPaths = (
   return paths
 }
 
-const collectReferences = (input: TokenGovernanceInput): TokenGraphReference[] => {
+const collectReferences = (
+  input: TokenGovernanceInput,
+): TokenGraphReference[] => {
   const references = [
     ...collectTokenGraphReferences(input.semanticTokens, "semantic"),
     ...collectTokenGraphReferences(input.brandTokens, "brand"),
@@ -149,7 +155,9 @@ const createDeprecationReport = (
     })
 }
 
-const createDeadTokenReport = (input: TokenGovernanceInput): DeadTokenEntry[] => {
+const createDeadTokenReport = (
+  input: TokenGovernanceInput,
+): DeadTokenEntry[] => {
   const primitivePaths = collectLeafPaths(input.primitiveTokens)
   const usedPrimitivePaths = new Set<string>()
 

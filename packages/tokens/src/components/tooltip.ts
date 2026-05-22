@@ -19,5 +19,4 @@ export const tooltipComponentTokens = componentTokens("tooltip", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-
 })

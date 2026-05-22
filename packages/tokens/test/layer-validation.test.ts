@@ -5,7 +5,10 @@ import {
   validateTokenLayerContracts,
   validateTokenLayerContractsStrict,
 } from "../src/resolver/layer-validation"
-import type { StyleTokenInput, TokenTree } from "../src/generators/inputs/input.source"
+import type {
+  StyleTokenInput,
+  TokenTree,
+} from "../src/generators/inputs/input.source"
 
 const createFixtureInput = (
   overrides: Partial<{
