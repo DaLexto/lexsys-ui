@@ -1,27 +1,21 @@
 /**
- * semantic-audit.ts
+ * audit.governance.ts
  *
  * @layer governance
  * @description Audits semantic token organization: unused paths, component-intent names, theme alignment.
  */
 
+import { collectLeafPaths, collectTokenGraphReferences } from "../../resolver"
 import {
   getNodeByPath,
   isReferenceString,
   isTokenLeaf,
   isTokenTree,
   parseReference,
-} from "../resolver/resolver.utils"
-import type { TokenTree } from "../types"
-import type { TokenGovernanceInput } from "./governance.types"
-import type {
-  SemanticAuditIssue,
-  SemanticAuditReport,
-} from "./semantic-audit.types"
-import {
-  collectLeafPaths,
-  collectTokenGraphReferences,
-} from "./token-graph.utils"
+} from "../../resolver/shared/shared.resolver.utils"
+import type { TokenTree } from "../../../types"
+import type { TokenGovernanceInput } from "../shared/shared.governance.types"
+import type { SemanticAuditIssue, SemanticAuditReport } from "./audit.types"
 
 const SEMANTIC_COMPONENT_INTENT_BRANCHES: Record<string, readonly string[]> = {
   size: ["dialog", "drawer", "popover", "badge", "switch", "textarea", "toast"],

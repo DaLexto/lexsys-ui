@@ -1,97 +1,36 @@
 /**
- * layer-validation.ts
+ * layers.validator.ts
  *
- * @layer resolver
+ * @layer validator
  * @description Validates cross-layer token reference contracts.
  */
 
-import type { TokenTree } from "../types"
+import type { TokenTree } from "../../../types"
 import {
-  isReferenceString,
+  collectLeafPaths,
+  collectReferenceUsages,
+} from "../../shared/tree.utils"
+import {
   isTokenLeaf,
   isTokenMetadataKey,
   isTokenTree,
-  parseReference,
   toPathString,
-} from "./resolver.utils"
+} from "../../resolver/shared/shared.resolver.utils"
 import type {
   LayerValidationInput,
   LayerValidationResult,
   LayerViolation,
   LayerViolationCode,
-} from "./layer-validation.types"
-
-interface TokenReferenceUsage {
-  reference: string
-  sourcePath: string
-  targetPath: string
-}
-
-const collectLeafPaths = (
-  tree: TokenTree,
-  path: string[] = [],
-  paths: Set<string> = new Set(),
-): Set<string> => {
-  if (isTokenLeaf(tree)) {
-    paths.add(toPathString(path))
-    return paths
-  }
-
-  if (!isTokenTree(tree)) {
-    return paths
-  }
-
-  for (const [key, value] of Object.entries(tree)) {
-    if (isTokenMetadataKey(key)) {
-      continue
-    }
-
-    if (isTokenLeaf(value) || isTokenTree(value)) {
-      collectLeafPaths(value as TokenTree, [...path, key], paths)
-    }
-  }
-
-  return paths
-}
-
-const collectTokenReferences = (
-  tree: TokenTree,
-  path: string[] = [],
-  references: TokenReferenceUsage[] = [],
-): TokenReferenceUsage[] => {
-  if (isTokenLeaf(tree)) {
-    if (isReferenceString(tree.$value)) {
-      references.push({
-        reference: tree.$value,
-        sourcePath: toPathString(path),
-        targetPath: parseReference(tree.$value),
-      })
-    }
-
-    return references
-  }
-
-  if (!isTokenTree(tree)) {
-    return references
-  }
-
-  for (const [key, value] of Object.entries(tree)) {
-    if (isTokenMetadataKey(key)) {
-      continue
-    }
-
-    if (isTokenLeaf(value) || isTokenTree(value)) {
-      collectTokenReferences(value as TokenTree, [...path, key], references)
-    }
-  }
-
-  return references
-}
+} from "./layers.types"
 
 const createLayerViolation = (
   code: LayerViolationCode,
   message: string,
-  usage: TokenReferenceUsage,
+  usage: {
+    reference: string
+    sourcePath: string
+    targetPath: string
+  },
 ): LayerViolation => {
   return {
     code,
@@ -171,7 +110,7 @@ export const validateTokenLayerContracts = (
     ...collectBrandComponentIntentViolations(input),
   ]
 
-  for (const usage of collectTokenReferences(input.componentTokens)) {
+  for (const usage of collectReferenceUsages(input.componentTokens)) {
     if (primitivePaths.has(usage.targetPath)) {
       violations.push(
         createLayerViolation(
@@ -208,7 +147,7 @@ export const validateTokenLayerContracts = (
     }
   }
 
-  for (const usage of collectTokenReferences(input.semanticTokens)) {
+  for (const usage of collectReferenceUsages(input.semanticTokens)) {
     if (componentPaths.has(usage.targetPath)) {
       violations.push(
         createLayerViolation(
@@ -221,7 +160,7 @@ export const validateTokenLayerContracts = (
   }
 
   for (const theme of input.themeTokens) {
-    for (const usage of collectTokenReferences(theme.tokens)) {
+    for (const usage of collectReferenceUsages(theme.tokens)) {
       if (componentPaths.has(usage.targetPath)) {
         violations.push(
           createLayerViolation(

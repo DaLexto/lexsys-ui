@@ -73,12 +73,31 @@ src/
   components/
   themes/
   presets/
-  resolver/         # includes layer-validation.ts
-  governance/       # metadata, deprecation, semantic audit
-  generators/
+  engine/             # token engine (read/transform, validate, report)
+    resolver/         # reference + graph traversal
+      reference/
+      graph/
+      shared/
+      values/         # resolved leaf value pipeline (Phase 9)
+    composite/        # composite type registry and slot schemas
+    validator/        # build-failing layer contracts
+      layers/
+      contrast/       # WCAG contrast report (Phase 10, non-blocking)
+    governance/       # non-blocking reports and audits
+      report/
+      audit/
+  generators/       # CSS/DTCG modules (library API)
   types/
-  scripts/          # clean-imports, governance-report
+scripts/            # CLI entrypoints (parallel to src/, not inside src/)
+  write-style-outputs.ts
+  governance-report.ts
+  clean-imports.ts
+test/
 ```
+
+**Package layout rule:** `src/` holds publishable library code and generator modules; `scripts/` holds all Node entrypoints (`tsup` bundles or `tsx` dev tools). Same pattern as `packages/registry/scripts/`.
+
+**Token engine naming:** subfolders use `{role}/{role}.{domain}.ts` (for example `graph/graph.resolver.ts`, `report/report.governance.ts`).
 
 **Active semantic groups (11):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`, `outline`, `layout`.
 
@@ -172,6 +191,35 @@ Expected rules:
 
 Current build-failing validation, target violations, resolver error codes, and generator behavior are documented in [docs/TOKENS.md](../../docs/TOKENS.md) and [docs/DESIGN_SYSTEM.md](../../docs/DESIGN_SYSTEM.md).
 
+### Resolved value pipeline (`engine/resolver/values/`)
+
+On-demand leaf resolution for governance, contrast prep, and tooling — **does not**
+change default CSS/DTCG output (generators still preserve references).
+
+| Export                                                   | Purpose                                  |
+| -------------------------------------------------------- | ---------------------------------------- |
+| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf through alias chains    |
+| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve all or selected leaf paths |
+| `resolveLeafValueForTheme(input, theme, path, options?)` | Themed merge then resolve                |
+| `isResolvedColorValue` / `toContrastReadyColor`          | Phase 10 contrast prep stubs             |
+
+Build-time validation continues to use `resolveTokenTree` via `validateStyleTokenInput`.
+Leaf resolution in `resolveTokenTree` delegates to `resolveLeafValue` for a single code path.
+
+Import from `packages/tokens/src/engine/` (or `./engine` within the package). Not exported from the package root `.` entrypoint.
+
+### Accessibility contrast guard (`engine/validator/contrast/`)
+
+Non-blocking WCAG AA report on registered semantic foreground/background pairs.
+
+| Export                                   | Purpose                                          |
+| ---------------------------------------- | ------------------------------------------------ |
+| `createContrastValidationReport(input)`  | Themed contrast ratio checks per registered pair |
+| `formatContrastValidationReport(report)` | Format report for CLI output                     |
+| `SEMANTIC_CONTRAST_PAIRS`                | Explicit pair registry                           |
+
+Runs as part of `pnpm --filter @neurex/tokens governance:report`. Not build-failing by default.
+
 ---
 
 ## Registry Relationship
@@ -220,6 +268,8 @@ pnpm --filter @neurex/tokens test
 pnpm --filter @neurex/tokens lint
 pnpm --filter @neurex/tokens governance:report
 pnpm --filter @neurex/tokens imports:clean
+# Optional dead-primitive stripping (omits unreached primitives from CSS/DTCG):
+pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
 
 Repository-level checks:

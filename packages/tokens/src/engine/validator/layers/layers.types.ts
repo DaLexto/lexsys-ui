@@ -1,11 +1,11 @@
 /**
- * layer-validation.types.ts
+ * layers.types.ts
  *
- * @layer resolver
+ * @layer validator
  * @description Type contracts for token layer validation.
  */
 
-import type { TokenTree } from "../types"
+import type { TokenTree } from "../../../types"
 
 export type LayerViolationCode =
   | "COMPONENT_TO_PRIMITIVE"

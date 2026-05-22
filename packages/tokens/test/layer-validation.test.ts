@@ -7,7 +7,7 @@ import {
 import {
   validateTokenLayerContracts,
   validateTokenLayerContractsStrict,
-} from "../src/resolver/layer-validation"
+} from "../src/engine/validator"
 import type { TokenTree } from "../src/types"
 
 const createFixtureInput = (

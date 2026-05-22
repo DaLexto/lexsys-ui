@@ -369,6 +369,15 @@ describe("createStyleOutputs", () => {
       $type: "fontFamily",
       $value: "{typography.family.sans}",
     })
+    expect(json.semantics?.typography?.control?.$type).toBe("typography")
+    expect(json.semantics?.typography?.control?.md?.fontSize).toEqual({
+      $type: "fontSize",
+      $value: "{font-size.sm}",
+    })
+    expect(json.semantics?.typography?.control?.md?.lineHeight).toEqual({
+      $type: "number",
+      $value: "{line-height.tight}",
+    })
     expect(json.brand).toEqual({
       brand: expect.objectContaining({
         color: expect.objectContaining({
@@ -479,6 +488,22 @@ describe("createStyleOutputs", () => {
       }
       primitives?: unknown
     }
+    const typographySemantics = JSON.parse(
+      outputs.tokenJsonFiles["tokens/dtcg/semantics/typography.tokens.json"] ??
+        "{}",
+    ) as {
+      typography?: {
+        control?: {
+          $type?: unknown
+          md?: {
+            fontSize?: {
+              $type?: unknown
+              $value?: unknown
+            }
+          }
+        }
+      }
+    }
     const lightTheme = JSON.parse(
       outputs.tokenJsonFiles["tokens/dtcg/themes/light.tokens.json"] ?? "{}",
     ) as {
@@ -500,6 +525,7 @@ describe("createStyleOutputs", () => {
     expect(fileNames).toContain("tokens/dtcg/primitives/spacing.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/brand/brand.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/semantics/color.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/semantics/typography.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/components/button.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/components/dialog.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/themes/light.tokens.json")
@@ -518,6 +544,11 @@ describe("createStyleOutputs", () => {
     expect(brand.semantics).toBeUndefined()
     expect(semantics.color?.background?.base?.$value).toBe("{color.white}")
     expect(semantics.primitives).toBeUndefined()
+    expect(typographySemantics.typography?.control?.$type).toBe("typography")
+    expect(typographySemantics.typography?.control?.md?.fontSize).toEqual({
+      $type: "fontSize",
+      $value: "{font-size.sm}",
+    })
     expect(lightTheme.color?.background?.overlay?.$value).toMatchObject({
       colorSpace: "oklch",
       alpha: 0.15,
@@ -669,5 +700,36 @@ describe("createStyleOutputs", () => {
     expect(tokenSource).not.toContain("var(--")
     expect(tokenSource).not.toContain("{line-height.6}")
     expect(tokenSource).toContain("{motion.duration.fast}")
+  })
+
+  test("leaves default style outputs unchanged when stripDeadPrimitives is off", () => {
+    const defaultOutputs = createStyleOutputs()
+    const explicitOutputs = createStyleOutputs({ stripDeadPrimitives: false })
+
+    expect(explicitOutputs.tokensCss).toBe(defaultOutputs.tokensCss)
+    expect(explicitOutputs.themeCss).toBe(defaultOutputs.themeCss)
+    expect(explicitOutputs.tokenJsonFiles).toEqual(
+      defaultOutputs.tokenJsonFiles,
+    )
+  })
+
+  test("omits dead primitive CSS variables when stripDeadPrimitives is on", () => {
+    const defaultOutputs = createStyleOutputs()
+    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true })
+
+    expect(strippedOutputs.tokensCss.length).toBeLessThan(
+      defaultOutputs.tokensCss.length,
+    )
+    expect(strippedOutputs.tokensCss).not.toContain("--nx-color-blue-100:")
+    expect(defaultOutputs.tokensCss).toContain("--nx-color-blue-100:")
+  })
+
+  test("omits dead primitive leaves from DTCG output when stripDeadPrimitives is on", () => {
+    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true })
+    const colorPrimitivesJson =
+      strippedOutputs.tokenJsonFiles["tokens/dtcg/primitives/color.tokens.json"]
+
+    expect(colorPrimitivesJson).toBeDefined()
+    expect(colorPrimitivesJson).not.toContain("blue-100")
   })
 })

@@ -32,6 +32,8 @@ describe("badgeVariants", () => {
 
     expect(outlineClassName).toContain("bg-(--nx-badge-outline-background)")
     expect(outlineClassName).toContain("text-(--nx-badge-primary-border-color)")
-    expect(outlineClassName).not.toContain("text-(--nx-badge-primary-foreground)")
+    expect(outlineClassName).not.toContain(
+      "text-(--nx-badge-primary-foreground)",
+    )
   })
 })

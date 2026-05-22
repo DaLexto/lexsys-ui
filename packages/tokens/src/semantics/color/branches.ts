@@ -35,7 +35,7 @@ export const colorFeedbackBranch = {
     warning: {
       $type: "color",
       background: { $value: "{color.yellow.50}" },
-      foreground: { $value: "{color.yellow.700}" },
+      foreground: { $value: "{color.yellow.800}" },
     },
     danger: {
       $type: "color",

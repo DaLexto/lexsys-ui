@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 
 import { createStyleTokenInput } from "../src/generators/inputs/input.source"
-import { createSemanticAuditReport } from "../src/governance"
+import { createSemanticAuditReport } from "../src/engine/governance"
 
 describe("createSemanticAuditReport", () => {
   it("reports a clean audit after semantic organization fixes", () => {

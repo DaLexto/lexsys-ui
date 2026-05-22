@@ -62,7 +62,7 @@ Presets are configuration. They are not a layer in this chain.
   | `size`       | Reusable sizing roles: `control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb` |
   | `spacing`    | Spacing roles: `control.gap`, `control.x`, `control.y`, `surface.*`                                  |
   | `typography` | Font family, body, label, heading, code composite roles                                              |
-  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                                |
+  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                               |
   | `layout`     | Viewport (`sm`–`2xl`) and `aspectRatio` roles (square, standard, photo, portrait, video, ultrawide)  |
 
 - `color`, `action`, `border`, `elevation`, `outline`, and `layout` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
@@ -167,6 +167,51 @@ The resolver enforces a maximum chain depth of **50 hops** before reporting a
 `MAX_DEPTH_EXCEEDED` error. This catches runaway chains before circular
 detection would trigger.
 
+### Resolved value pipeline (Phase 9)
+
+Build-time validation uses `resolveTokenTree` inside `validateStyleTokenInput` to
+inline alias chains across the full merged tree before CSS/DTCG generation.
+
+For on-demand lookups (governance, contrast prep, tooling), use the values API in
+`packages/tokens/src/engine/resolver/values/`:
+
+| Export                                                   | Purpose                                                                     |
+| -------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf `$value` through its alias chain                           |
+| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve; defaults to all leaf paths                                   |
+| `resolveLeafValueForTheme(input, theme, path, options?)` | Resolve after `foundationTokens` + `theme.tokens` + `componentTokens` merge |
+| `isResolvedColorValue` / `toContrastReadyColor`          | Color normalization for contrast math (OKLCH objects and strings)           |
+
+`resolveLeafValue` returns `{ resolved, errors, warnings }` where `resolved` includes
+the terminal `TokenValue`, dotted `path`, and `referenceChain` (alias hops visited).
+This API does **not** mutate source trees or change default CSS/DTCG output.
+
+Tree merge helpers (`mergeTokenTrees`, `createThemedTokenTree`) live in
+`packages/tokens/src/engine/shared/tree.utils.ts`.
+
+---
+
+### Accessibility contrast guard (Phase 10)
+
+Non-blocking WCAG AA checks on an **explicit semantic pair registry** in
+`packages/tokens/src/engine/validator/contrast/contrast.pairs.ts`.
+
+| Export                                   | Purpose                                                |
+| ---------------------------------------- | ------------------------------------------------------ |
+| `createContrastValidationReport(input)`  | Resolve themed fg/bg pairs and compare contrast ratios |
+| `formatContrastValidationReport(report)` | CLI-friendly report text                               |
+| `SEMANTIC_CONTRAST_PAIRS`                | Registered semantic foreground/background paths        |
+
+Each pair is evaluated per theme mode using `resolveLeafValueForTheme`. Default
+threshold is **4.5:1** (WCAG AA normal text). Report is appended by:
+
+```sh
+pnpm --filter @neurex/tokens governance:report
+```
+
+Contrast validation is **not build-failing** until pair inventory and promotion
+policy are agreed. CSS/DTCG generator output is unchanged.
+
 ---
 
 ## Resolver Error Codes
@@ -219,7 +264,25 @@ No other `$`-prefixed keys are valid on branches.
 ### Scalar token types
 
 A token `$value` MUST be a `string` or `number`. Arrays and objects are reserved
-for composite types (e.g. `typography`).
+for future composite object `$value` leaves (for example structured shadow objects).
+
+### Composite typography groups (branch + slot leaves)
+
+Typography semantic roles (`body`, `heading`, `control`, `label`, `display`, `code`)
+are composite branches with `$type: "typography"`. Each size variant (for example `md`)
+contains slot leaves:
+
+| Slot            | Type            |
+| --------------- | --------------- |
+| `fontFamily`    | `fontFamily`    |
+| `fontSize`      | `fontSize`      |
+| `fontWeight`    | `fontWeight`    |
+| `lineHeight`    | `number`        |
+| `letterSpacing` | `letterSpacing` |
+
+Components reference individual slots (for example `{typography.control.md.fontSize}`).
+The generator expands slot leaves into atomic CSS custom properties and typed DTCG
+leaves. Classification helpers live in `packages/tokens/src/engine/composite/`.
 
 ---
 
@@ -242,23 +305,27 @@ at build time and will throw, preventing CSS output from being generated:
 - A theme token references a component token
 - A brand token branch uses component-specific intent
 
-Layer validation is implemented in `packages/tokens/src/resolver/layer-validation.ts`
+Layer validation is implemented in `packages/tokens/src/engine/validator/layers/layers.validator.ts`
 and runs before reference resolution during `validateStyleTokenInput`.
 
 ### Governance tooling (non-blocking)
 
 The following are available via `createTokenGovernanceReport`, `createSemanticAuditReport`, and
 `pnpm --filter @neurex/tokens governance:report`. They analyze the token graph
-but do not change CSS or DTCG output:
+but do not change CSS or DTCG output unless dead-primitive stripping is explicitly enabled:
 
-- Deprecation reports for tokens marked `$deprecated` with direct dependents
-- Metadata inventory reports
+- Deprecation reports for tokens marked `$deprecated` with **transitive** dependents
+- Metadata inventory reports (including transitive dependents when metadata is present)
 - Dead primitive token detection (primitive leaves not referenced by upper layers)
 - Semantic audit reports (forbidden paths, missing groups, theme path drift)
 
-**Planned (not build-failing):** contrast validation, metadata propagation
-through full resolution chains, and optional stripping of dead tokens from
-generated output. See `docs/RESOLVER_EVOLUTION.md`.
+**Optional output change (opt-in):** `createStyleOutputs({ stripDeadPrimitives: true })` or
+`node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
+primitive leaves from CSS/DTCG after full-graph validation. Default is off.
+
+**Governance tooling (non-blocking):** contrast validation runs via
+`createContrastValidationReport` and `pnpm --filter @neurex/tokens governance:report`.
+Speculative AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
 
@@ -266,10 +333,10 @@ generated output. See `docs/RESOLVER_EVOLUTION.md`.
 
 `packages/tokens` exports via `package.json` `exports`:
 
-| Export path    | Content                                                                        |
-| -------------- | ------------------------------------------------------------------------------ |
-| `.`            | Package root API — token trees, presets, themes, generator outputs, governance |
-| `./tokens.css` | Generated CSS — base token variables (`:root` scope)                           |
+| Export path    | Content                                                                                               |
+| -------------- | ----------------------------------------------------------------------------------------------------- |
+| `.`            | Package root API — token trees, presets, themes, generator outputs, governance                        |
+| `./tokens.css` | Generated CSS — base token variables (`:root` scope)                                                  |
 | `./theme.css`  | Generated CSS — theme mode overrides (`:root` light, `.dark` dark) and Tailwind `@theme inline` block |
 
 Key named exports from `.`:
@@ -289,9 +356,10 @@ Key named exports from `.`:
 | `createSemanticAuditReport`                    | Build semantic organization audit issues            |
 | `formatSemanticAuditReport`                    | Format a semantic audit report for CLI output       |
 
-Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`,
-`createStyleTokenInput`, and related types) live under
-`packages/tokens/src/resolver/` and `packages/tokens/src/generators/inputs/`.
+Resolver helpers (`resolveReference`, `resolveTokenTreeStrict`, `resolveLeafValue`,
+`resolveLeafValues`, `resolveLeafValueForTheme`, `createContrastValidationReport`,
+`collectCompositeAtomicPaths`, `normalizeCompositeBranches`, and related types) live under
+`packages/tokens/src/engine/`.
 They are used internally by the build pipeline and tests but are not exported
 from the package root entrypoint.
 
@@ -313,19 +381,21 @@ pnpm --filter @neurex/tokens build            # generate dist CSS + DTCG JSON (-
 pnpm --filter @neurex/tokens generate:styles  # dist + registry template CSS sync (--package --registry)
 pnpm --filter @neurex/tokens test             # run resolver and generator tests
 pnpm --filter @neurex/tokens governance:report
+# Optional: omit dead primitives from generated CSS/DTCG after build (breaking output change)
+pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
 
 Use `generate:styles` after token generator changes that affect `packages/registry/templates/styles/`.
 
 Generated output lives at:
 
-| File                                              | Description                                        |
-| ------------------------------------------------- | -------------------------------------------------- |
-| `packages/tokens/dist/tokens.css`                 | Base token variables (`:root`)                     |
-| `packages/tokens/dist/theme.css`                    | Theme mode overrides and Tailwind `@theme inline`  |
-| `packages/tokens/dist/tokens/dtcg/tokens.tokens.json` | Full merged DTCG JSON with unresolved references |
-| `packages/tokens/dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON              |
-| `packages/tokens/dist/tokens/dtcg/brand/*.tokens.json`      | Per-brand DTCG JSON                        |
-| `packages/tokens/dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON               |
-| `packages/tokens/dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                    |
-| `packages/tokens/dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                        |
+| File                                                        | Description                                       |
+| ----------------------------------------------------------- | ------------------------------------------------- |
+| `packages/tokens/dist/tokens.css`                           | Base token variables (`:root`)                    |
+| `packages/tokens/dist/theme.css`                            | Theme mode overrides and Tailwind `@theme inline` |
+| `packages/tokens/dist/tokens/dtcg/tokens.tokens.json`       | Full merged DTCG JSON with unresolved references  |
+| `packages/tokens/dist/tokens/dtcg/primitives/*.tokens.json` | Per-group primitive DTCG JSON                     |
+| `packages/tokens/dist/tokens/dtcg/brand/*.tokens.json`      | Per-brand DTCG JSON                               |
+| `packages/tokens/dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON                      |
+| `packages/tokens/dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                           |
+| `packages/tokens/dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                               |

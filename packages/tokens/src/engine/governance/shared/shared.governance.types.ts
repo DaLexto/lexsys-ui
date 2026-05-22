@@ -1,11 +1,11 @@
 /**
- * governance.types.ts
+ * shared.governance.types.ts
  *
  * @layer governance
  * @description Type contracts for token governance reports.
  */
 
-import type { TokenTree } from "../types"
+import type { TokenTree } from "../../../types"
 
 export type TokenGovernanceLayer =
   | "primitive"
@@ -34,6 +34,7 @@ export interface TokenMetadataEntry {
   themeName?: string
   description?: string
   deprecated?: boolean | string
+  dependents?: DeprecationDependency[]
 }
 
 export interface DeprecationDependency {

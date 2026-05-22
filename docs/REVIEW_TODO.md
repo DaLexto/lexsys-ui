@@ -17,8 +17,8 @@ The P0 and P1 implementation passes are complete:
 
 - CLI install safety (idempotency, conflict detection, `--cwd` scoping, packed template resolution)
 - Token foundation (DTCG-shaped source, CSS + DTCG JSON generation, brand layer, theme modes)
-- Token platform phases 1–5 (factory authoring, layer validation, governance reports)
-- Semantic token organization (elevation group, theme path alignment, feedback wiring, semantic audit, component size/spacing semantic migration)
+- Token platform phases 1–10 (factory authoring through accessibility contrast guard; see [docs/ROADMAP.md](./ROADMAP.md))
+- Token engine: resolved value pipeline, composite typography, governance graph, WCAG contrast report (`docs/RESOLVER_EVOLUTION.md`)
 - Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution
@@ -38,30 +38,13 @@ _No active P2 items._
 
 ## P3 — Architecture Planning
 
-### TODO: Turn resolver roadmap into an implementation plan
+Optional follow-ups after Phases 1–10 (detail in
+[docs/RESOLVER_EVOLUTION.md — After Phase 10](./RESOLVER_EVOLUTION.md#after-phase-10)):
 
-**Problem:**
-
-`docs/RESOLVER_EVOLUTION.md` captures long-term resolver capabilities (AST
-evaluation, color math, contrast diagnostics, composite expansion, metadata
-propagation) but it is not sequenced into implementable phases beyond the work
-already shipped (layer validation and governance reports).
-
-**Direction:**
-
-- Review `docs/RESOLVER_EVOLUTION.md` against the current
-  `packages/tokens/src/resolver/` and generator architecture.
-- Split the vision into phases: what extends the current resolver, what needs a
-  new subsystem, what is speculative.
-- Keep speculative items (AST evaluator, color math engine) clearly separated
-  from near-term work.
-- Update `docs/RESOLVER_EVOLUTION.md` with the phased plan once sequencing is
-  decided.
-
-**Status:** Not started. Layer validation and governance reporting are already
-implemented; this item covers the remaining resolver evolution only.
-
----
+- Expand `SEMANTIC_CONTRAST_PAIRS` and agree contrast policy (thresholds, build-failing vs report-only)
+- Extend composite registry beyond typography
+- Broader color parsing for contrast math (`rgb()`, `hsl()`)
+- Speculative AST evaluator and color/unit math — **deferred**, not scheduled
 
 ## Known Gaps (no active item yet)
 

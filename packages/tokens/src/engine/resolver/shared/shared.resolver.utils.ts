@@ -1,23 +1,8 @@
 /**
- * resolver.utils.ts
+ * shared.resolver.utils.ts
  *
- * @layer utilities
- * @description Shared helpers for token reference parsing, path access, guards,
- * and diagnostic object creation.
- *
- * @responsibility
- * - Provide type guards for token leaves and token trees
- * - Parse and validate strict token reference strings
- * - Read token nodes from dot-paths
- * - Create structured resolver errors and warnings
- *
- * @usage
- * - Used internally by the main token resolver engine
- *
- * @notes
- * - This file must remain generic and free of token-category-specific logic.
- * - Only strict full-string references such as "{color.gray.900}" are supported.
- * - Token leaves use the DTCG-style { $value } authoring shape.
+ * @layer resolver
+ * @description Shared helpers for token reference parsing, path access, and guards.
  */
 
 import type {
@@ -25,15 +10,16 @@ import type {
   ResolverErrorCode,
   ResolverOptions,
   ResolverWarning,
-} from "./resolver.types"
-
+} from "../reference/reference.types"
 import type {
   TokenLeaf,
   TokenNode,
   TokenScalarValue,
   TokenTree,
   TokenValue,
-} from "../types"
+} from "../../../types"
+
+export { isTokenMetadataKey } from "../../shared/metadata-keys"
 
 export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
   strict: true,
@@ -42,23 +28,10 @@ export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
 
 export const STRICT_REFERENCE_PATTERN = /^\{([^{}]+)\}$/
 
-const TOKEN_METADATA_KEYS = new Set([
-  "$description",
-  "$deprecated",
-  "$extensions",
-  "$type",
-])
-
-/**
- * Returns true when the value is a non-array object.
- */
 const isRecord = (value: unknown): value is Record<string, unknown> => {
   return typeof value === "object" && value !== null && !Array.isArray(value)
 }
 
-/**
- * Returns true when the value can be stored as a token scalar.
- */
 export const isTokenScalarValue = (
   value: unknown,
 ): value is TokenScalarValue => {
@@ -84,9 +57,6 @@ const isTokenColorValue = (value: unknown): boolean => {
   )
 }
 
-/**
- * Returns true when the value can be stored as a DTCG token value.
- */
 export const isTokenValue = (value: unknown): value is TokenValue => {
   return (
     isTokenScalarValue(value) ||
@@ -95,53 +65,25 @@ export const isTokenValue = (value: unknown): value is TokenValue => {
   )
 }
 
-/**
- * Returns true when the value is a Neurex token leaf.
- *
- * A token leaf must use:
- * {
- *   $value: string | number | DTCG object value
- * }
- */
 export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
   if (!isRecord(value)) return false
   return "$value" in value && isTokenValue(value["$value"])
 }
 
-/**
- * Returns true when the value is a token branch/tree.
- *
- * Important:
- * - Token leaves are objects too, so they must be excluded.
- * - Metadata-bearing groups may still be passed in, but metadata keys are handled
- *   by the caller or ignored during traversal where needed.
- */
 export const isTokenTree = (value: unknown): value is TokenTree => {
   return isRecord(value) && !isTokenLeaf(value)
 }
 
-/**
- * Returns true only for strict reference strings like "{color.gray.900}".
- */
 export const isReferenceString = (value: unknown): value is string => {
   return (
     typeof value === "string" && STRICT_REFERENCE_PATTERN.test(value.trim())
   )
 }
 
-/**
- * Joins a path array into a stable dot path.
- */
 export const toPathString = (segments: string[]): string => {
   return segments.join(".")
 }
 
-/**
- * Extracts a target token path from a strict reference string.
- *
- * Example:
- * "{color.gray.900}" -> "color.gray.900"
- */
 export const parseReference = (reference: string): string => {
   const normalizedReference = reference.trim()
   const match = normalizedReference.match(STRICT_REFERENCE_PATTERN)
@@ -159,14 +101,22 @@ export const parseReference = (reference: string): string => {
   return parsedPath.trim()
 }
 
-/**
- * Safely reads a token node from a dot path.
- *
- * This returns:
- * - TokenLeaf when the path points to a token leaf
- * - TokenTree when the path points to a branch
- * - undefined when the path does not exist
- */
+export const getDefaultLeafFromBranch = (
+  node: TokenNode,
+): TokenLeaf | undefined => {
+  if (!isTokenTree(node)) {
+    return undefined
+  }
+
+  const defaultNode = node.DEFAULT
+
+  if (!isTokenLeaf(defaultNode)) {
+    return undefined
+  }
+
+  return defaultNode
+}
+
 export const getNodeByPath = (
   root: TokenTree,
   path: string,
@@ -196,9 +146,6 @@ export const getNodeByPath = (
   return undefined
 }
 
-/**
- * Creates a structured resolver error payload.
- */
 export const createResolverError = (
   code: ResolverErrorCode,
   message: string,
@@ -217,9 +164,6 @@ export const createResolverError = (
   }
 }
 
-/**
- * Creates a structured resolver warning payload.
- */
 export const createResolverWarning = (
   sourcePath: string,
   reference: string,
@@ -230,14 +174,4 @@ export const createResolverWarning = (
     sourcePath,
     reference,
   }
-}
-
-/**
- * Checks whether a token tree key is a DTCG metadata key.
- *
- * Metadata keys describe token leaves or branches and must not be traversed as
- * token child nodes during reference resolution.
- */
-export const isTokenMetadataKey = (key: string): boolean => {
-  return TOKEN_METADATA_KEYS.has(key)
 }

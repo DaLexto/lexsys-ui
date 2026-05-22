@@ -261,4 +261,62 @@ describe("css vars generator", () => {
       [":root {", "  --nx-color-white: oklch(1 0 0);", "}"].join("\n"),
     )
   })
+
+  it("flattens typography composite slot leaves into atomic CSS variables", () => {
+    const tokens: TokenTree = {
+      typography: {
+        family: {
+          sans: { $value: "{font-family.sans}" },
+        },
+        control: {
+          $type: "typography",
+          md: {
+            fontFamily: { $value: "{typography.family.sans}" },
+            fontSize: { $value: "{font-size.sm}" },
+            fontWeight: { $value: "{font-weight.medium}" },
+            lineHeight: { $value: "{line-height.tight}" },
+            letterSpacing: { $value: "{letter-spacing.normal}" },
+          },
+        },
+      },
+      "font-family": {
+        sans: { $value: "Inter, sans-serif" },
+      },
+      "font-size": {
+        sm: { $value: "0.875rem" },
+      },
+      "font-weight": {
+        medium: { $value: 500 },
+      },
+      "line-height": {
+        tight: { $value: 1.25 },
+      },
+      "letter-spacing": {
+        normal: { $value: "0em" },
+      },
+    }
+
+    const entries = createCssVariableEntries(tokens, generatorOptions)
+
+    expect(entries).toContainEqual({
+      name: "typography-control-md-font-family",
+      value: "var(--nx-typography-family-sans)",
+    })
+    expect(entries).toContainEqual({
+      name: "typography-control-md-font-size",
+      value: "var(--nx-font-size-sm)",
+    })
+    expect(entries).toContainEqual({
+      name: "typography-control-md-font-weight",
+      value: "var(--nx-font-weight-medium)",
+    })
+    expect(entries).toContainEqual({
+      name: "typography-control-md-line-height",
+      value: "var(--nx-line-height-tight)",
+    })
+    expect(entries).toContainEqual({
+      name: "typography-control-md-letter-spacing",
+      value: "var(--nx-letter-spacing-normal)",
+    })
+  })
 })

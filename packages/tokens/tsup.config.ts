@@ -1,11 +1,11 @@
 import { defineConfig } from "tsup"
 
 export default defineConfig({
-  entry: [
-    "src/index.ts",
-    "src/generators/generator.write.ts",
-    "src/scripts/governance-report.ts",
-  ],
+  entry: {
+    index: "src/index.ts",
+    "scripts/write-style-outputs": "scripts/write-style-outputs.ts",
+    "scripts/governance-report": "scripts/governance-report.ts",
+  },
 
   format: ["esm"],
   dts: false,

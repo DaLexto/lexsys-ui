@@ -5,8 +5,8 @@ import { createStyleOutputs } from "../src/generators/generator.create"
 import {
   createTokenGovernanceReport,
   formatTokenGovernanceReport,
-} from "../src/governance"
-import type { TokenGovernanceInput } from "../src/governance"
+} from "../src/engine/governance"
+import type { TokenGovernanceInput } from "../src/engine/governance"
 
 const createFixtureInput = (
   overrides: Partial<TokenGovernanceInput> = {},
@@ -92,6 +92,9 @@ describe("createTokenGovernanceReport", () => {
               $deprecated: true,
               $value: "0.25rem",
             },
+            panel: {
+              padding: { $value: "{spacing.legacy}" },
+            },
           },
         },
         semanticTokens: {
@@ -120,9 +123,107 @@ describe("createTokenGovernanceReport", () => {
             layer: "semantic",
             sourcePath: "spacing.panel.padding",
           }),
+          expect.objectContaining({
+            layer: "component",
+            sourcePath: "card.padding",
+          }),
         ]),
       }),
     ])
+  })
+
+  it("lists transitive dependents on metadata entries with description only", () => {
+    const report = createTokenGovernanceReport(
+      createFixtureInput({
+        primitiveTokens: {
+          spacing: {
+            legacy: {
+              $description: "Legacy spacing token.",
+              $value: "0.25rem",
+            },
+          },
+        },
+        foundationTokens: {
+          spacing: {
+            legacy: {
+              $description: "Legacy spacing token.",
+              $value: "0.25rem",
+            },
+            panel: {
+              padding: { $value: "{spacing.legacy}" },
+            },
+          },
+        },
+        semanticTokens: {
+          spacing: {
+            panel: {
+              padding: { $value: "{spacing.legacy}" },
+            },
+          },
+        },
+        brandTokens: {},
+        componentTokens: {},
+        themeTokens: [],
+      }),
+    )
+
+    expect(report.metadata).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          path: "spacing.legacy",
+          dependents: expect.arrayContaining([
+            expect.objectContaining({
+              layer: "semantic",
+              sourcePath: "spacing.panel.padding",
+            }),
+          ]),
+        }),
+      ]),
+    )
+  })
+
+  it("formats transitive dependent counts in the governance report", () => {
+    const report = createTokenGovernanceReport(
+      createFixtureInput({
+        primitiveTokens: {
+          spacing: {
+            legacy: {
+              $deprecated: true,
+              $value: "0.25rem",
+            },
+          },
+        },
+        foundationTokens: {
+          spacing: {
+            legacy: {
+              $deprecated: true,
+              $value: "0.25rem",
+            },
+            panel: {
+              padding: { $value: "{spacing.legacy}" },
+            },
+          },
+        },
+        semanticTokens: {
+          spacing: {
+            panel: {
+              padding: { $value: "{spacing.legacy}" },
+            },
+          },
+        },
+        brandTokens: {},
+        componentTokens: {
+          card: {
+            padding: { $value: "{spacing.panel.padding}" },
+          },
+        },
+        themeTokens: [],
+      }),
+    )
+
+    expect(formatTokenGovernanceReport(report)).toContain(
+      "2 transitive dependent(s)",
+    )
   })
 
   it("detects dead primitive tokens not referenced by upper layers", () => {

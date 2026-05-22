@@ -18,7 +18,7 @@ export {
   formatTokenGovernanceReport,
   createSemanticAuditReport,
   formatSemanticAuditReport,
-} from "./governance"
+} from "./engine/governance"
 export type {
   TokenGovernanceReport,
   TokenGovernanceInput,
@@ -28,7 +28,7 @@ export type {
   SemanticAuditIssue,
   SemanticAuditIssueKind,
   SemanticAuditReport,
-} from "./governance"
+} from "./engine/governance"
 export type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,

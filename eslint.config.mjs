@@ -48,5 +48,9 @@ export default tseslint.config(
     files: ["**/*.test.ts"],
     extends: [tseslint.configs.disableTypeChecked],
   },
+  {
+    files: ["packages/tokens/scripts/**/*.ts"],
+    extends: [tseslint.configs.disableTypeChecked],
+  },
   eslintConfigPrettier,
 )
