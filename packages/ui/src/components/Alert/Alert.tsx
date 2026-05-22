@@ -4,7 +4,6 @@
  * Reference Alert component implementation.
  */
 
-import { forwardRef } from "react"
 import type {
   AlertDescriptionProps,
   AlertProps,
@@ -17,35 +16,38 @@ import {
 } from "./Alert.variants"
 import { cn } from "../../utils/cn"
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(
-  ({ tone, className, role = "alert", ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        role={role}
-        className={cn(alertVariants({ tone }), className)}
-        {...props}
-      />
-    )
-  },
-)
+const Alert = ({
+  ref,
+  tone,
+  className,
+  role = "alert",
+  ...props
+}: AlertProps) => {
+  return (
+    <div
+      ref={ref}
+      role={role}
+      className={cn(alertVariants({ tone }), className)}
+      {...props}
+    />
+  )
+}
 
 Alert.displayName = "Alert"
 
-const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
-  ({ className, ...props }, ref) => {
-    return (
-      <h3 ref={ref} className={cn(alertTitleClassName, className)} {...props} />
-    )
-  },
-)
+const AlertTitle = ({ ref, className, ...props }: AlertTitleProps) => {
+  return (
+    <h3 ref={ref} className={cn(alertTitleClassName, className)} {...props} />
+  )
+}
 
 AlertTitle.displayName = "AlertTitle"
 
-const AlertDescription = forwardRef<
-  HTMLParagraphElement,
-  AlertDescriptionProps
->(({ className, ...props }, ref) => {
+const AlertDescription = ({
+  ref,
+  className,
+  ...props
+}: AlertDescriptionProps) => {
   return (
     <p
       ref={ref}
@@ -53,7 +55,7 @@ const AlertDescription = forwardRef<
       {...props}
     />
   )
-})
+}
 
 AlertDescription.displayName = "AlertDescription"
 

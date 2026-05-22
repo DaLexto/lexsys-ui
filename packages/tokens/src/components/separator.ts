@@ -1,7 +1,7 @@
-import type { ComponentTokenGroup } from "../types/index.js"
+import type { ComponentTokenGroup } from "../types"
 
 export const separatorComponentTokens: ComponentTokenGroup = {
   component: "separator",
-  color: { value: "{color.border}" },
-  thickness: { value: "1px" },
+  color: { $value: "{color.border.default}" },
+  thickness: { $type: "dimension", $value: { value: 1, unit: "px" } },
 }

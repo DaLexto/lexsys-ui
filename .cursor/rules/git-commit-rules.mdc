@@ -1,0 +1,267 @@
+---
+description: How to author a reusable Cursor rule for Git commit workflows, Conventional Commits, and safe commit authorization boundaries
+globs: .cursor/rules/**/*
+alwaysApply: false
+---
+# Authoring Git Commit Rules (`.mdc`)
+
+Meta-guide for agents and maintainers who **create or update** a project-specific Git commit rule (for example `git-commits.mdc`). This file is **not** the commit policy itself — it teaches how to write one.
+
+Follow [cursor-rules.mdc](cursor-rules.mdc) for file placement and frontmatter. Do not duplicate the full [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification inside generated rules.
+
+---
+
+## Where the rule file belongs
+
+| Requirement | Detail |
+|-------------|--------|
+| Location | `PROJECT_ROOT/.cursor/rules/` only |
+| Filename | kebab-case, `.mdc` extension, purpose-clear (e.g. `git-commits.mdc`, `git-commit-policy.mdc`) |
+| Forbidden | Project root, `docs/`, package folders, or any path outside `.cursor/rules/` |
+
+Suggested layout:
+
+```txt
+.cursor/rules/
+├── cursor-rules.mdc
+├── git-commit-rules.mdc    # this meta-guide
+└── git-commits.mdc         # project policy (you author per repo)
+```
+
+---
+
+## Neutral frontmatter
+
+Keep frontmatter **portable** and **discovery-friendly**:
+
+```yaml
+---
+description: Conventional commit format, scope inference, and commit/push authorization for this repository
+globs:
+alwaysApply: false
+---
+```
+
+| Field | Guidance |
+|-------|----------|
+| `description` | Third person; state **what** the rule does and **when** to use it (commit, push, branch naming, message drafting). No product or framework names unless the repo itself is named in user docs. |
+| `globs` | Optional. Omit or leave empty unless the rule should attach when editing certain paths (e.g. only when touching `.cursor/rules/`). Most commit rules use no globs. |
+| `alwaysApply` | Prefer `false`. Commit rules are invoked when the user asks for commits or when the agent drafts messages — not on every turn. |
+
+Avoid `alwaysApply: true` unless the repository explicitly wants commit policy on every request.
+
+---
+
+## Keep the generated rule reusable
+
+A good project commit rule is **short, operational, and local**:
+
+1. **Separate meta from policy** — This file explains authoring; the generated `git-commits.mdc` (or similar) holds the repo policy.
+2. **Link upward, not outward** — Use relative links to other rules in the same folder (see [Links](#links)).
+3. **No frozen inventory** — Do not paste a fixed list of scopes, packages, or apps from one repo into a template meant for all repos.
+4. **Teach inference** — Tell the agent how to **derive** scopes from the current tree (see [Scope inference](#scope-inference)).
+5. **Placeholder examples only** — Use `type`, `scope`, `short summary` in examples, not real module names from a past project.
+6. **Point to external spec once** — One link to Conventional Commits; summarize types in a small table instead of copying RFC-style MUST/SHALL blocks.
+
+---
+
+## Commit authorization boundaries
+
+Every generated commit rule **must** state when git write operations are allowed. Adapt wording to the repo; keep boundaries explicit.
+
+### Default boundaries (recommended)
+
+| Action | Rule |
+|--------|------|
+| `git commit` | Only when the user **explicitly** requests a commit in the current turn (or a user rule overrides). |
+| `git push` | Only when the user **explicitly** requests push. Do not offer push proactively. |
+| `git commit --amend` | Only when user rules allow amend (e.g. hook fixed files, unpushed HEAD, user said amend). |
+| Destructive git | No `push --force`, `reset --hard`, or similar unless the user explicitly requests and understands impact. |
+| `git config` | Do not change local or global git config for the user. |
+
+### Clarification behavior
+
+- If the user says “save this” or “finish up” without saying **commit**, ask whether they want a commit or only file changes.
+- Before committing, **inspect** what will be included; exclude unrelated paths unless the user approves a broader commit.
+- When authorization is unclear, **confirm** before any write operation.
+
+Include a short **“Before committing”** checklist in the generated rule (status, diff, scope of changes, secrets check).
+
+---
+
+## Conventional Commits (compact, not a spec dump)
+
+In the generated rule, include only:
+
+### Format
+
+```txt
+<type>[optional scope][optional !]: <description>
+
+[optional body]
+
+[optional footer]
+```
+
+### Types table (typical)
+
+| Type | Intent |
+|------|--------|
+| `feat` | New behavior or capability |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `test` | Tests only |
+| `refactor` | Code change without intended behavior change |
+| `chore` | Maintenance, tooling, deps |
+| `build` | Build system or generated artifacts |
+| `ci` | CI configuration |
+| `perf` | Performance improvement |
+| `style` | Formatting-only |
+
+Add other types only if the repository already uses them consistently.
+
+### Subject line habits
+
+- Imperative mood (`add`, `fix`, `remove`, not `added`)
+- Lowercase summary (no trailing period unless team style says otherwise)
+- Short (aim for ≤ 72 characters)
+- Describe **intent**, not file names only
+
+### Breaking changes
+
+One paragraph: use `!` after type/scope or a `BREAKING CHANGE:` footer when public API, config shape, or consumer contracts change. Link to [Conventional Commits — breaking change](https://www.conventionalcommits.org/en/v1.0.0/#commit-message-with-description-and-breaking-change-footer) instead of reproducing the full rules.
+
+**Do not** paste the entire Conventional Commits specification or Angular commitlint appendix into `.mdc` files.
+
+---
+
+## Scope inference (repository-specific, not hardcoded)
+
+Instruct the agent to **discover** scopes when authoring or applying the project commit rule:
+
+1. Read the repository layout: monorepo manifests (`pnpm-workspace.yaml`, `lerna.json`, `nx.json`, `turbo.json`), top-level `apps/`, `packages/`, `services/`, `crates/`, etc.
+2. Prefer **one primary scope per commit** matching the owning area of most changes.
+3. Derive scope names from **folder names** or **published package names** (last segment of package name), normalized to lowercase kebab-case.
+4. Use cross-cutting scopes only when appropriate (`docs`, `ci`, `deps`, `repo`) — define them in the generated rule **after** inspecting the repo, not from a global template list.
+5. For documentation-only or root-tooling changes, use `docs` or `repo` (or omit scope if the team allows).
+6. If a change spans multiple owners, **split commits** or document all areas in the body — do not invent a vague scope.
+
+Template paragraph for generated rules:
+
+> **Scopes:** Infer from this repository’s directory and package layout. Do not use scopes from other projects. When unsure, inspect `git diff --stat` and match the path prefix that owns the majority of lines changed.
+
+---
+
+## Avoid project-specific examples in templates
+
+When writing or updating a **reusable** commit rule template:
+
+| Do | Don't |
+|----|--------|
+| `feat(scope): add validation for install paths` | Names of internal packages, apps, or frameworks |
+| `fix(scope): prevent duplicate config merge` | Real ticket IDs unless user supplies them |
+| `docs: clarify configuration format` | “Always run X script” tied to one repo’s scripts |
+| Placeholder `scope` in every example | Copy-paste examples from another repository’s git log |
+
+After cloning a template into a repo, **one** maintenance pass may add a small “Scopes in this repository” table — that table belongs in the **project** `git-commits.mdc`, not in this neutral meta-guide.
+
+---
+
+## Safe git workflow commands
+
+Include non-interactive commands suitable for agents. Prefer modern Git when available:
+
+```bash
+git status --short
+git diff
+git diff --staged
+git log -5 --oneline
+git add -- <path>
+git restore --staged -- <path>
+git restore -- <path>
+git switch -c <branch>
+git switch <branch>
+```
+
+Commit (only after authorization):
+
+```bash
+git commit -m "$(cat <<'EOF'
+type(scope): short summary
+
+Optional body paragraph.
+
+EOF
+)"
+```
+
+HEREDOC-style messages reduce shell-escaping mistakes on Unix shells. On Windows shells, use the platform-appropriate equivalent the user environment supports.
+
+### Practices to document in generated rules
+
+- Run `git status` and `git diff` before staging.
+- Stage **paths**, not `git add -A`, unless the user wants everything.
+- Never use `-i` / interactive commands (no `git add -i`, `rebase -i`).
+- Do not skip hooks (`--no-verify`) unless the user explicitly requests it.
+- Do not push unless explicitly requested.
+
+Optional trailers (Co-authored-by, Signed-off-by): only if the repository or user rules require them — do not invent trailers in the neutral template.
+
+---
+
+## Links
+
+Use **relative** Markdown links only — files in the same repo, same rule folder when possible:
+
+| Link target | Example |
+|-------------|---------|
+| Rule authoring | [cursor-rules.mdc](cursor-rules.mdc) |
+| This meta-guide | [git-commit-rules.mdc](git-commit-rules.mdc) |
+| Project commit policy | [git-commits.mdc](git-commits.mdc) *(if present)* |
+
+Do not use `mdc:` URLs or absolute paths to another developer’s machine.
+
+External specs: full URL once (Conventional Commits, optional Conventional Branch), not duplicated in prose.
+
+---
+
+## Checklist: creating `git-commits.mdc` for a repository
+
+1. Create `.cursor/rules/git-commits.mdc` per [cursor-rules.mdc](cursor-rules.mdc).
+2. Write neutral `description` and `alwaysApply: false`.
+3. Add **authorization** section (commit / push / amend / destructive).
+4. Add compact **Conventional Commits** section (format + types table + breaking note).
+5. Add **scope inference** instructions tied to **this repo’s** layout (discovered at apply time, not copied from elsewhere).
+6. Add **before commit** steps (`status`, `diff`, secrets, unrelated files).
+7. Add **safe commands** block (non-interactive).
+8. Add 3–5 **placeholder** examples (`type(scope): …`).
+9. Link to [cursor-rules.mdc](cursor-rules.mdc) and, if useful, [git-commit-rules.mdc](git-commit-rules.mdc).
+10. Keep the file under ~150 lines unless the repository has exceptional needs.
+
+---
+
+## Good vs bad meta-authoring
+
+```markdown
+<!-- Good: teaches inference -->
+Scopes are derived from top-level folders under `packages/` and `apps/`.
+
+<!-- Bad: hardcodes another project -->
+Use scopes: tokens, ui, registry, cli.
+```
+
+```markdown
+<!-- Good: boundary -->
+Run `git commit` only when the user explicitly asks for a commit.
+
+<!-- Bad: vague -->
+Be careful with git.
+```
+
+```markdown
+<!-- Good: link -->
+See [cursor-rules.mdc](cursor-rules.mdc).
+
+<!-- Bad: absolute -->
+See file:///C:/Users/dev/project/.cursor/rules/cursor-rules.mdc
+```

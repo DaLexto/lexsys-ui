@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Checkbox.types.ts
  *
@@ -11,6 +12,7 @@ export interface CheckboxProps extends Omit<
   BaseCheckbox.Root.Props,
   "className" | "children"
 > {
+  ref?: Ref<HTMLElement>
   size?: "sm" | "md" | "lg"
   children?: ReactNode
   className?: BaseCheckbox.Root.Props["className"]

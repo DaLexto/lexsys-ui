@@ -1,43 +1,46 @@
-import type { ComponentTokenGroup } from "../types/index.js"
+import type { ComponentTokenGroup } from "../types"
 
 export const checkboxComponentTokens: ComponentTokenGroup = {
   component: "checkbox",
-  background: { value: "{color.background}" },
-  foreground: { value: "{color.primary.foreground}" },
-  borderColor: { value: "{color.border}" },
+  background: { $value: "{color.background.base}" },
+  foreground: { $value: "{color.text.inverse}" },
+  borderColor: { $value: "{color.border.default}" },
   checked: {
-    background: { value: "{color.primary}" },
-    borderColor: { value: "{color.primary}" },
-    foreground: { value: "{color.primary.foreground}" },
+    $type: "color",
+    background: { $value: "{action.primary.base}" },
+    borderColor: { $value: "{action.primary.base}" },
+    foreground: { $value: "{color.text.inverse}" },
   },
-  radius: { value: "{radius.selection}" },
+  radius: { $value: "{radius.selection}" },
   size: {
-    sm: { value: "{size.selectionControl.sm}" },
-    md: { value: "{size.selectionControl.md}" },
-    lg: { value: "{size.selectionControl.lg}" },
+    $type: "dimension",
+    sm: { $value: "{size.selectionControl.sm}" },
+    md: { $value: "{size.selectionControl.md}" },
+    lg: { $value: "{size.selectionControl.lg}" },
   },
   indicator: {
     fontSize: {
-      sm: { value: "{typography.label.xs.fontSize}" },
-      md: { value: "{typography.label.xs.fontSize}" },
-      lg: { value: "{typography.label.sm.fontSize}" },
+      $type: "fontSize",
+      sm: { $value: "{typography.label.xs.fontSize}" },
+      md: { $value: "{typography.label.xs.fontSize}" },
+      lg: { $value: "{typography.label.sm.fontSize}" },
     },
   },
   label: {
-    gap: { value: "{spacing.control.gap.md}" },
-    foreground: { value: "{color.foreground}" },
+    gap: { $value: "{spacing.control.gap.md}" },
+    foreground: { $value: "{color.text.primary}" },
     font: {
-      size: { value: "{typography.label.sm.fontSize}" },
-      weight: { value: "{typography.label.sm.fontWeight}" },
-      lineHeight: { value: "{typography.label.sm.lineHeight}" },
+      size: { $value: "{typography.label.sm.fontSize}" },
+      weight: { $value: "{typography.label.sm.fontWeight}" },
+      lineHeight: { $value: "{typography.label.sm.lineHeight}" },
     },
   },
   focus: {
-    ringColor: { value: "{color.ring}" },
-    ringOffsetColor: { value: "{color.background}" },
+    ringColor: { $value: "{color.border.focus}" },
+    ringOffsetColor: { $value: "{color.background.base}" },
   },
   transition: {
-    duration: { value: "{motion.duration.control}" },
-    easing: { value: "{motion.easing.control}" },
+    duration: { $value: "{motion.duration.control}" },
+    easing: { $value: "{motion.easing.control}" },
   },
 }

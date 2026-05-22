@@ -13,8 +13,8 @@
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  color: var(--nx-color-foreground);
-  background: var(--nx-color-background);
+  color: var(--nx-color-text-primary);
+  background-color: var(--nx-color-background-base);
 }
 
 * {
@@ -24,8 +24,6 @@
 body {
   margin: 0;
   min-width: 320px;
-  color: var(--nx-color-foreground);
-  background: var(--nx-color-background);
   line-height: 1.5;
 }
 
@@ -45,12 +43,12 @@ body {
   justify-content: space-between;
   gap: 24px;
   padding-bottom: 24px;
-  border-bottom: 1px solid var(--nx-color-border);
+  border-bottom: 1px solid var(--nx-color-border-default);
 }
 
 .playground-label {
   margin: 0 0 12px;
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.875rem;
   font-weight: 600;
 }
@@ -74,9 +72,9 @@ body {
   flex: 0 0 auto;
   gap: 8px;
   padding: 4px;
-  border: 1px solid var(--nx-color-border);
+  border: 1px solid var(--nx-color-border-default);
   border-radius: var(--nx-radius-control);
-  background: var(--nx-color-surface);
+  background: var(--nx-color-background-surface);
 }
 
 .component-grid {
@@ -88,9 +86,9 @@ body {
   display: grid;
   gap: 16px;
   padding: 22px;
-  border: 1px solid var(--nx-color-border);
+  border: 1px solid var(--nx-color-border-default);
   border-radius: var(--nx-radius-surface);
-  background: var(--nx-color-surface);
+  background: var(--nx-color-background-surface);
 }
 
 .panel-header {
@@ -108,9 +106,9 @@ body {
 
 .button-board {
   display: grid;
-  border: 1px solid var(--nx-color-border);
+  border: 1px solid var(--nx-color-border-default);
   border-radius: var(--nx-radius-surface);
-  background: var(--nx-color-background);
+  background: var(--nx-color-background-base);
   overflow: hidden;
 }
 
@@ -121,7 +119,7 @@ body {
   justify-content: space-between;
   gap: 24px;
   padding: 18px 20px;
-  border-bottom: 1px solid var(--nx-color-border);
+  border-bottom: 1px solid var(--nx-color-border-default);
 }
 
 .button-row:last-child {
@@ -129,16 +127,16 @@ body {
 }
 
 .button-row span {
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.875rem;
   font-weight: 600;
 }
 
 .input-board {
   display: grid;
-  border: 1px solid var(--nx-color-border);
+  border: 1px solid var(--nx-color-border-default);
   border-radius: var(--nx-radius-surface);
-  background: var(--nx-color-background);
+  background: var(--nx-color-background-base);
   overflow: hidden;
 }
 
@@ -149,7 +147,7 @@ body {
   gap: 16px;
   min-height: 64px;
   padding: 14px 16px;
-  border-bottom: 1px solid var(--nx-color-border);
+  border-bottom: 1px solid var(--nx-color-border-default);
 }
 
 .input-row:last-child {
@@ -157,7 +155,7 @@ body {
 }
 
 .input-row span {
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.875rem;
   font-weight: 600;
 }
@@ -174,7 +172,7 @@ body {
   gap: 10px;
   min-width: 0;
   padding: 14px 0 0;
-  border-top: 1px solid var(--nx-color-border);
+  border-top: 1px solid var(--nx-color-border-default);
 }
 
 .input-example > :not(label) {
@@ -182,7 +180,7 @@ body {
 }
 
 .input-example label {
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.8125rem;
   font-weight: 700;
 }
@@ -191,7 +189,7 @@ body {
   min-height: 1.25rem;
   margin: 0;
   overflow-wrap: anywhere;
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.8125rem;
 }
 
@@ -204,12 +202,12 @@ body {
 .field-board > * {
   min-width: 0;
   padding-top: 14px;
-  border-top: 1px solid var(--nx-color-border);
+  border-top: 1px solid var(--nx-color-border-default);
 }
 
 .field-validity-note {
   margin: 0;
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.8125rem;
 }
 
@@ -223,10 +221,10 @@ body {
   min-height: 3.75rem;
   margin: 0;
   overflow: auto;
-  border: 1px solid var(--nx-color-border);
+  border: 1px solid var(--nx-color-border-default);
   border-radius: var(--nx-radius-control);
   padding: 10px;
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.8125rem;
   line-height: 1.4;
 }
@@ -251,9 +249,9 @@ body {
 .interaction-board {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  border: 1px solid var(--nx-color-border);
+  border: 1px solid var(--nx-color-border-default);
   border-radius: var(--nx-radius-surface);
-  background: var(--nx-color-background);
+  background: var(--nx-color-background-base);
   overflow: hidden;
 }
 
@@ -263,8 +261,8 @@ body {
   gap: 14px;
   min-width: 0;
   padding: 16px;
-  border-right: 1px solid var(--nx-color-border);
-  border-bottom: 1px solid var(--nx-color-border);
+  border-right: 1px solid var(--nx-color-border-default);
+  border-bottom: 1px solid var(--nx-color-border-default);
 }
 
 .interaction-section:nth-child(2n) {
@@ -277,7 +275,7 @@ body {
 
 .interaction-section h3 {
   margin: 0;
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.2;
@@ -296,7 +294,7 @@ body {
   gap: 12px;
   width: fit-content;
   height: 28px;
-  color: var(--nx-color-muted-foreground);
+  color: var(--nx-color-text-secondary);
   font-size: 0.875rem;
 }
 
@@ -363,7 +361,7 @@ body {
   .interaction-section:nth-child(2n),
   .interaction-section:nth-last-child(-n + 2) {
     border-right: 0;
-    border-bottom: 1px solid var(--nx-color-border);
+    border-bottom: 1px solid var(--nx-color-border-default);
   }
 
   .interaction-section:last-child {

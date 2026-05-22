@@ -18,7 +18,7 @@ export {
   resolveTokenTree,
   resolveTokenTreeStrict,
   resolveTokenTreeSafe,
-} from "./resolver.js"
+} from "./resolver"
 
 export type {
   ResolveReferenceResult,
@@ -27,4 +27,4 @@ export type {
   ResolverErrorCode,
   ResolverOptions,
   ResolverWarning,
-} from "./resolver.types.js"
+} from "./resolver.types"

@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * AlertDialog.types.ts
  *
@@ -9,53 +10,21 @@ import type { AlertDialog as BaseAlertDialog } from "@base-ui/react/alert-dialog
 export type AlertDialogProps<Payload = unknown> =
   BaseAlertDialog.Root.Props<Payload>
 
-export interface AlertDialogTriggerProps<Payload = unknown> extends Omit<
-  BaseAlertDialog.Trigger.Props<Payload>,
-  "className"
-> {
-  className?: BaseAlertDialog.Trigger.Props<Payload>["className"]
-}
+export type AlertDialogTriggerProps<Payload = unknown> =
+  BaseAlertDialog.Trigger.Props<Payload> & {
+    ref?: Ref<HTMLButtonElement>
+  }
 
 export type AlertDialogPortalProps = BaseAlertDialog.Portal.Props
 
-export interface AlertDialogBackdropProps extends Omit<
-  BaseAlertDialog.Backdrop.Props,
-  "className"
-> {
-  className?: BaseAlertDialog.Backdrop.Props["className"]
-}
+export type AlertDialogBackdropProps = BaseAlertDialog.Backdrop.Props
 
-export interface AlertDialogViewportProps extends Omit<
-  BaseAlertDialog.Viewport.Props,
-  "className"
-> {
-  className?: BaseAlertDialog.Viewport.Props["className"]
-}
+export type AlertDialogViewportProps = BaseAlertDialog.Viewport.Props
 
-export interface AlertDialogPopupProps extends Omit<
-  BaseAlertDialog.Popup.Props,
-  "className"
-> {
-  className?: BaseAlertDialog.Popup.Props["className"]
-}
+export type AlertDialogPopupProps = BaseAlertDialog.Popup.Props
 
-export interface AlertDialogTitleProps extends Omit<
-  BaseAlertDialog.Title.Props,
-  "className"
-> {
-  className?: BaseAlertDialog.Title.Props["className"]
-}
+export type AlertDialogTitleProps = BaseAlertDialog.Title.Props
 
-export interface AlertDialogDescriptionProps extends Omit<
-  BaseAlertDialog.Description.Props,
-  "className"
-> {
-  className?: BaseAlertDialog.Description.Props["className"]
-}
+export type AlertDialogDescriptionProps = BaseAlertDialog.Description.Props
 
-export interface AlertDialogCloseProps extends Omit<
-  BaseAlertDialog.Close.Props,
-  "className"
-> {
-  className?: BaseAlertDialog.Close.Props["className"]
-}
+export type AlertDialogCloseProps = BaseAlertDialog.Close.Props

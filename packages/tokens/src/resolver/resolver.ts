@@ -6,7 +6,7 @@
  *
  * @responsibility
  * - Resolve strict full-string token references
- * - Preserve the Neurex { value } token leaf shape
+ * - Preserve the DTCG-style { $value } token leaf shape
  * - Report missing, invalid, circular, and branch references
  *
  * @notes
@@ -31,11 +31,12 @@ import {
   isReferenceString,
   isTokenLeaf,
   isTokenTree,
+  isTokenMetadataKey,
   parseReference,
   toPathString,
 } from "./resolver.utils"
 
-import type { TokenLeaf, TokenNode, TokenPrimitive, TokenTree } from "../types"
+import type { TokenLeaf, TokenNode, TokenTree, TokenValue } from "../types"
 
 /* -------------------------------------------------------------------------------------------------
  * Internal helpers
@@ -50,13 +51,10 @@ const mergeOptions = (
   }
 }
 
-const cloneLeafWithValue = (
-  leaf: TokenLeaf,
-  value: TokenPrimitive,
-): TokenLeaf => {
+const cloneLeafWithValue = (leaf: TokenLeaf, value: TokenValue): TokenLeaf => {
   return {
     ...leaf,
-    value,
+    $value: value,
   }
 }
 
@@ -196,7 +194,7 @@ export const resolveReference = (
     }
   }
 
-  const targetValue = targetLeaf.value
+  const targetValue = targetLeaf.$value
 
   if (!isReferenceString(targetValue)) {
     return {
@@ -241,7 +239,7 @@ const resolveNode = (
   if (isTokenLeaf(node)) {
     const sourcePath = toPathString(path)
 
-    if (!isReferenceString(node.value)) {
+    if (!isReferenceString(node.$value)) {
       return {
         node,
         errors,
@@ -249,7 +247,7 @@ const resolveNode = (
       }
     }
 
-    const result = resolveReference(root, node.value, options, sourcePath)
+    const result = resolveReference(root, node.$value, options, sourcePath)
 
     return {
       node: cloneLeafWithValue(node, result.value),
@@ -262,6 +260,25 @@ const resolveNode = (
     const resolvedTree: TokenTree = {}
 
     for (const [key, value] of Object.entries(node)) {
+      if (isTokenMetadataKey(key)) {
+        resolvedTree[key] = value
+        continue
+      }
+
+      if (!isTokenLeaf(value) && !isTokenTree(value)) {
+        errors.push(
+          createResolverError(
+            "INVALID_TOKEN_LEAF",
+            `Invalid token node at "${toPathString([...path, key])}". Expected a token leaf or token branch.`,
+            toPathString([...path, key]),
+            String(value),
+            [],
+          ),
+        )
+
+        continue
+      }
+
       const childResult = resolveNode(root, value, [...path, key], options)
 
       resolvedTree[key] = childResult.node
