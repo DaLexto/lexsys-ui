@@ -4,52 +4,39 @@
  * Reference Button component implementation.
  */
 
-import { forwardRef } from "react"
 import { Button as BaseButton } from "@base-ui/react/button"
 import type { ButtonProps } from "./Button.types"
 import { buttonVariants } from "./Button.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
-const Button = forwardRef<HTMLElement, ButtonProps>(
-  (
-    {
-      variant,
-      size,
-      className,
-      isLoading,
-      children,
-      disabled,
-      focusableWhenDisabled,
-      type,
-      ...props
-    },
-    ref,
-  ) => {
-    const isDisabled = isLoading || disabled
-    const buttonClassName: ButtonProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
+const Button = ({
+  ref,
+  variant,
+  size,
+  className,
+  isLoading,
+  children,
+  disabled,
+  focusableWhenDisabled,
+  type,
+  ...props
+}: ButtonProps) => {
+  const isDisabled = isLoading || disabled
 
-      return cn(buttonVariants({ variant, size }), userClassName)
-    }
-
-    return (
-      <BaseButton
-        ref={ref}
-        type={type ?? "button"}
-        className={buttonClassName}
-        disabled={Boolean(isDisabled)}
-        focusableWhenDisabled={
-          isLoading ? true : Boolean(focusableWhenDisabled)
-        }
-        aria-busy={isLoading ? true : undefined}
-        {...props}
-      >
-        {isLoading ? "Loading..." : children}
-      </BaseButton>
-    )
-  },
-)
+  return (
+    <BaseButton
+      ref={ref}
+      type={type ?? "button"}
+      className={mergeClassName(buttonVariants({ variant, size }), className)}
+      disabled={Boolean(isDisabled)}
+      focusableWhenDisabled={isLoading ? true : Boolean(focusableWhenDisabled)}
+      aria-busy={isLoading ? true : undefined}
+      {...props}
+    >
+      {isLoading ? "Loading..." : children}
+    </BaseButton>
+  )
+}
 
 Button.displayName = "Button"
 

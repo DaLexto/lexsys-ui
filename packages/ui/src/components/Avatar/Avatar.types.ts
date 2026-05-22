@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Avatar.types.ts
  *
@@ -10,6 +11,7 @@ export interface AvatarProps extends Omit<
   BaseAvatar.Root.Props,
   "className" | "size"
 > {
+  ref?: Ref<HTMLSpanElement>
   size?: "sm" | "md" | "lg"
   shape?: "circle" | "square"
   className?: BaseAvatar.Root.Props["className"]
@@ -22,9 +24,4 @@ export interface AvatarImageProps extends Omit<
   className?: BaseAvatar.Image.Props["className"]
 }
 
-export interface AvatarFallbackProps extends Omit<
-  BaseAvatar.Fallback.Props,
-  "className"
-> {
-  className?: BaseAvatar.Fallback.Props["className"]
-}
+export type AvatarFallbackProps = BaseAvatar.Fallback.Props

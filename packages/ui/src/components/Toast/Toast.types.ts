@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Toast.types.ts
  *
@@ -13,7 +14,9 @@ export type ToastPlacement =
   | "bottom-left"
 
 export type ToastProviderProps = BaseToast.Provider.Props
-export type ToastPortalProps = BaseToast.Portal.Props
+export type ToastPortalProps = BaseToast.Portal.Props & {
+  ref?: Ref<HTMLDivElement>
+}
 export type ToastObject<Data extends object = object> =
   BaseToast.Root.ToastObject<Data>
 
@@ -36,44 +39,14 @@ export interface ToastPositionerProps extends Omit<
   className?: BaseToast.Positioner.Props["className"]
 }
 
-export interface ToastContentProps extends Omit<
-  BaseToast.Content.Props,
-  "className"
-> {
-  className?: BaseToast.Content.Props["className"]
-}
+export type ToastContentProps = BaseToast.Content.Props
 
-export interface ToastArrowProps extends Omit<
-  BaseToast.Arrow.Props,
-  "className"
-> {
-  className?: BaseToast.Arrow.Props["className"]
-}
+export type ToastArrowProps = BaseToast.Arrow.Props
 
-export interface ToastTitleProps extends Omit<
-  BaseToast.Title.Props,
-  "className"
-> {
-  className?: BaseToast.Title.Props["className"]
-}
+export type ToastTitleProps = BaseToast.Title.Props
 
-export interface ToastDescriptionProps extends Omit<
-  BaseToast.Description.Props,
-  "className"
-> {
-  className?: BaseToast.Description.Props["className"]
-}
+export type ToastDescriptionProps = BaseToast.Description.Props
 
-export interface ToastActionProps extends Omit<
-  BaseToast.Action.Props,
-  "className"
-> {
-  className?: BaseToast.Action.Props["className"]
-}
+export type ToastActionProps = BaseToast.Action.Props
 
-export interface ToastCloseProps extends Omit<
-  BaseToast.Close.Props,
-  "className"
-> {
-  className?: BaseToast.Close.Props["className"]
-}
+export type ToastCloseProps = BaseToast.Close.Props

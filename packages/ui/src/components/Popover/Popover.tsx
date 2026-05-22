@@ -4,7 +4,6 @@
  * Reference Popover component implementation.
  */
 
-import { forwardRef } from "react"
 import { X } from "lucide-react"
 import { Popover as BasePopover } from "@base-ui/react/popover"
 import type {
@@ -31,7 +30,7 @@ import {
   popoverTriggerVariants,
   popoverViewportVariants,
 } from "./Popover.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
 const Popover = <Payload = unknown,>(props: PopoverProps<Payload>) => {
   return <BasePopover.Root {...props} />
@@ -39,181 +38,140 @@ const Popover = <Payload = unknown,>(props: PopoverProps<Payload>) => {
 
 Popover.displayName = "Popover"
 
-const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(
-  ({ className, ...props }, ref) => {
-    const triggerClassName: PopoverTriggerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(popoverTriggerVariants(), userClassName)
-    }
-
-    return (
-      <BasePopover.Trigger ref={ref} className={triggerClassName} {...props} />
-    )
-  },
-)
-
-PopoverTrigger.displayName = "PopoverTrigger"
-
-const PopoverPortal = forwardRef<HTMLDivElement, PopoverPortalProps>(
-  (props, ref) => {
-    return <BasePopover.Portal ref={ref} {...props} />
-  },
-)
-
-PopoverPortal.displayName = "PopoverPortal"
-
-const PopoverBackdrop = forwardRef<HTMLDivElement, PopoverBackdropProps>(
-  ({ className, ...props }, ref) => {
-    const backdropClassName: PopoverBackdropProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(popoverBackdropVariants(), userClassName)
-    }
-
-    return (
-      <BasePopover.Backdrop
-        ref={ref}
-        className={backdropClassName}
-        {...props}
-      />
-    )
-  },
-)
-
-PopoverBackdrop.displayName = "PopoverBackdrop"
-
-const PopoverPositioner = forwardRef<HTMLDivElement, PopoverPositionerProps>(
-  ({ className, ...props }, ref) => {
-    const positionerClassName: PopoverPositionerProps["className"] = (
-      state,
-    ) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(popoverPositionerVariants(), userClassName)
-    }
-
-    return (
-      <BasePopover.Positioner
-        ref={ref}
-        className={positionerClassName}
-        {...props}
-      />
-    )
-  },
-)
-
-PopoverPositioner.displayName = "PopoverPositioner"
-
-const PopoverPopup = forwardRef<HTMLDivElement, PopoverPopupProps>(
-  ({ className, ...props }, ref) => {
-    const popupClassName: PopoverPopupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(popoverPopupVariants(), userClassName)
-    }
-
-    return <BasePopover.Popup ref={ref} className={popupClassName} {...props} />
-  },
-)
-
-PopoverPopup.displayName = "PopoverPopup"
-
-const PopoverArrow = forwardRef<HTMLDivElement, PopoverArrowProps>(
-  ({ className, ...props }, ref) => {
-    const arrowClassName: PopoverArrowProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(popoverArrowVariants(), userClassName)
-    }
-
-    return <BasePopover.Arrow ref={ref} className={arrowClassName} {...props} />
-  },
-)
-
-PopoverArrow.displayName = "PopoverArrow"
-
-const PopoverTitle = forwardRef<HTMLHeadingElement, PopoverTitleProps>(
-  ({ className, ...props }, ref) => {
-    const titleClassName: PopoverTitleProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(popoverTitleVariants(), userClassName)
-    }
-
-    return <BasePopover.Title ref={ref} className={titleClassName} {...props} />
-  },
-)
-
-PopoverTitle.displayName = "PopoverTitle"
-
-const PopoverDescription = forwardRef<
-  HTMLParagraphElement,
-  PopoverDescriptionProps
->(({ className, ...props }, ref) => {
-  const descriptionClassName: PopoverDescriptionProps["className"] = (
-    state,
-  ) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(popoverDescriptionVariants(), userClassName)
-  }
-
+const PopoverTrigger = ({ ref, className, ...props }: PopoverTriggerProps) => {
   return (
-    <BasePopover.Description
+    <BasePopover.Trigger
       ref={ref}
-      className={descriptionClassName}
+      className={mergeClassName(popoverTriggerVariants(), className)}
       {...props}
     />
   )
-})
+}
+
+PopoverTrigger.displayName = "PopoverTrigger"
+
+const PopoverPortal = ({ ref, ...props }: PopoverPortalProps) => {
+  return <BasePopover.Portal ref={ref} {...props} />
+}
+
+PopoverPortal.displayName = "PopoverPortal"
+
+const PopoverBackdrop = ({
+  ref,
+  className,
+  ...props
+}: PopoverBackdropProps) => {
+  return (
+    <BasePopover.Backdrop
+      ref={ref}
+      className={mergeClassName(popoverBackdropVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+PopoverBackdrop.displayName = "PopoverBackdrop"
+
+const PopoverPositioner = ({
+  ref,
+  className,
+  ...props
+}: PopoverPositionerProps) => {
+  return (
+    <BasePopover.Positioner
+      ref={ref}
+      className={mergeClassName(popoverPositionerVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+PopoverPositioner.displayName = "PopoverPositioner"
+
+const PopoverPopup = ({ ref, className, ...props }: PopoverPopupProps) => {
+  return (
+    <BasePopover.Popup
+      ref={ref}
+      className={mergeClassName(popoverPopupVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+PopoverPopup.displayName = "PopoverPopup"
+
+const PopoverArrow = ({ ref, className, ...props }: PopoverArrowProps) => {
+  return (
+    <BasePopover.Arrow
+      ref={ref}
+      className={mergeClassName(popoverArrowVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+PopoverArrow.displayName = "PopoverArrow"
+
+const PopoverTitle = ({ ref, className, ...props }: PopoverTitleProps) => {
+  return (
+    <BasePopover.Title
+      ref={ref}
+      className={mergeClassName(popoverTitleVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+PopoverTitle.displayName = "PopoverTitle"
+
+const PopoverDescription = ({
+  ref,
+  className,
+  ...props
+}: PopoverDescriptionProps) => {
+  return (
+    <BasePopover.Description
+      ref={ref}
+      className={mergeClassName(popoverDescriptionVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 PopoverDescription.displayName = "PopoverDescription"
 
-const PopoverClose = forwardRef<HTMLButtonElement, PopoverCloseProps>(
-  ({ className, children, ...props }, ref) => {
-    const closeClassName: PopoverCloseProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(popoverCloseVariants(), userClassName)
-    }
-
-    return (
-      <BasePopover.Close ref={ref} className={closeClassName} {...props}>
-        {children ?? <X aria-hidden="true" size={16} />}
-      </BasePopover.Close>
-    )
-  },
-)
+const PopoverClose = ({
+  ref,
+  className,
+  children,
+  ...props
+}: PopoverCloseProps) => {
+  return (
+    <BasePopover.Close
+      ref={ref}
+      className={mergeClassName(popoverCloseVariants(), className)}
+      {...props}
+    >
+      {children ?? <X aria-hidden="true" size={16} />}
+    </BasePopover.Close>
+  )
+}
 
 PopoverClose.displayName = "PopoverClose"
 
-const PopoverViewport = forwardRef<HTMLDivElement, PopoverViewportProps>(
-  ({ className, ...props }, ref) => {
-    const viewportClassName: PopoverViewportProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(popoverViewportVariants(), userClassName)
-    }
-
-    return (
-      <BasePopover.Viewport
-        ref={ref}
-        className={viewportClassName}
-        {...props}
-      />
-    )
-  },
-)
+const PopoverViewport = ({
+  ref,
+  className,
+  ...props
+}: PopoverViewportProps) => {
+  return (
+    <BasePopover.Viewport
+      ref={ref}
+      className={mergeClassName(popoverViewportVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 PopoverViewport.displayName = "PopoverViewport"
 

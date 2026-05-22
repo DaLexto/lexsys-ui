@@ -4,7 +4,6 @@
  * Reference Collapsible component implementation.
  */
 
-import { forwardRef } from "react"
 import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
 import { Plus } from "lucide-react"
 import type {
@@ -17,64 +16,58 @@ import {
   collapsibleTriggerVariants,
   collapsibleVariants,
 } from "./Collapsible.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
-const Collapsible = forwardRef<HTMLDivElement, CollapsibleProps>(
-  ({ variant, className, ...props }, ref) => {
-    const collapsibleClassName: CollapsibleProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(collapsibleVariants({ variant }), userClassName)
-    }
-
-    return (
-      <BaseCollapsible.Root
-        ref={ref}
-        className={collapsibleClassName}
-        {...props}
-      />
-    )
-  },
-)
+const Collapsible = ({
+  ref,
+  variant,
+  className,
+  ...props
+}: CollapsibleProps) => {
+  return (
+    <BaseCollapsible.Root
+      ref={ref}
+      className={mergeClassName(collapsibleVariants({ variant }), className)}
+      {...props}
+    />
+  )
+}
 
 Collapsible.displayName = "Collapsible"
 
-const CollapsibleTrigger = forwardRef<
-  HTMLButtonElement,
-  CollapsibleTriggerProps
->(({ className, children, ...props }, ref) => {
-  const triggerClassName: CollapsibleTriggerProps["className"] = (state) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(collapsibleTriggerVariants(), userClassName)
-  }
-
+const CollapsibleTrigger = ({
+  ref,
+  className,
+  children,
+  ...props
+}: CollapsibleTriggerProps) => {
   return (
-    <BaseCollapsible.Trigger ref={ref} className={triggerClassName} {...props}>
+    <BaseCollapsible.Trigger
+      ref={ref}
+      className={mergeClassName(collapsibleTriggerVariants(), className)}
+      {...props}
+    >
       <span>{children}</span>
       <Plus aria-hidden="true" />
     </BaseCollapsible.Trigger>
   )
-})
+}
 
 CollapsibleTrigger.displayName = "CollapsibleTrigger"
 
-const CollapsiblePanel = forwardRef<HTMLDivElement, CollapsiblePanelProps>(
-  ({ className, ...props }, ref) => {
-    const panelClassName: CollapsiblePanelProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(collapsiblePanelVariants(), userClassName)
-    }
-
-    return (
-      <BaseCollapsible.Panel ref={ref} className={panelClassName} {...props} />
-    )
-  },
-)
+const CollapsiblePanel = ({
+  ref,
+  className,
+  ...props
+}: CollapsiblePanelProps) => {
+  return (
+    <BaseCollapsible.Panel
+      ref={ref}
+      className={mergeClassName(collapsiblePanelVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 CollapsiblePanel.displayName = "CollapsiblePanel"
 

@@ -92,7 +92,9 @@ If `lint` or `test` are still placeholders, record that explicitly in the releas
 
 - compiled token entrypoints in `dist`
 - generated CSS artifacts in `dist`
+- generated W3C/DTCG token JSON artifacts under `dist/tokens/dtcg`
 - explicit style export paths
+- no public JSON export contract until package metadata intentionally exposes one
 
 ---
 

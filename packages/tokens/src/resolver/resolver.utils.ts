@@ -17,7 +17,7 @@
  * @notes
  * - This file must remain generic and free of token-category-specific logic.
  * - Only strict full-string references such as "{color.gray.900}" are supported.
- * - Token leaves use the Neurex { value } authoring shape.
+ * - Token leaves use the DTCG-style { $value } authoring shape.
  */
 
 import type {
@@ -27,7 +27,13 @@ import type {
   ResolverWarning,
 } from "./resolver.types"
 
-import type { TokenLeaf, TokenNode, TokenPrimitive, TokenTree } from "../types"
+import type {
+  TokenLeaf,
+  TokenNode,
+  TokenScalarValue,
+  TokenTree,
+  TokenValue,
+} from "../types"
 
 export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
   strict: true,
@@ -35,6 +41,13 @@ export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
 }
 
 export const STRICT_REFERENCE_PATTERN = /^\{([^{}]+)\}$/
+
+const TOKEN_METADATA_KEYS = new Set([
+  "$description",
+  "$deprecated",
+  "$extensions",
+  "$type",
+])
 
 /**
  * Returns true when the value is a non-array object.
@@ -44,14 +57,41 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
 }
 
 /**
- * Returns true when the value can be stored as a token primitive.
+ * Returns true when the value can be stored as a token scalar.
  */
-export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
+export const isTokenScalarValue = (
+  value: unknown,
+): value is TokenScalarValue => {
+  return typeof value === "string" || typeof value === "number"
+}
+
+const isTokenUnitValue = (value: unknown): boolean => {
   return (
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean" ||
-    value === null
+    isRecord(value) &&
+    typeof value.value === "number" &&
+    typeof value.unit === "string"
+  )
+}
+
+const isTokenColorValue = (value: unknown): boolean => {
+  return (
+    isRecord(value) &&
+    typeof value.colorSpace === "string" &&
+    Array.isArray(value.components) &&
+    value.components.every((component) => typeof component === "number") &&
+    (value.alpha === undefined || typeof value.alpha === "number") &&
+    (value.hex === undefined || typeof value.hex === "string")
+  )
+}
+
+/**
+ * Returns true when the value can be stored as a DTCG token value.
+ */
+export const isTokenValue = (value: unknown): value is TokenValue => {
+  return (
+    isTokenScalarValue(value) ||
+    isTokenUnitValue(value) ||
+    isTokenColorValue(value)
   )
 }
 
@@ -60,15 +100,12 @@ export const isTokenPrimitive = (value: unknown): value is TokenPrimitive => {
  *
  * A token leaf must use:
  * {
- *   value: string | number | boolean | null
+ *   $value: string | number | DTCG object value
  * }
  */
 export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  if (!isRecord(value)) {
-    return false
-  }
-
-  return "value" in value && isTokenPrimitive(value.value)
+  if (!isRecord(value)) return false
+  return "$value" in value && isTokenValue(value["$value"])
 }
 
 /**
@@ -193,4 +230,14 @@ export const createResolverWarning = (
     sourcePath,
     reference,
   }
+}
+
+/**
+ * Checks whether a token tree key is a DTCG metadata key.
+ *
+ * Metadata keys describe token leaves or branches and must not be traversed as
+ * token child nodes during reference resolution.
+ */
+export const isTokenMetadataKey = (key: string): boolean => {
+  return TOKEN_METADATA_KEYS.has(key)
 }

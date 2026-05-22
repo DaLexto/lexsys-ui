@@ -1,21 +1,9 @@
-# Neurex CLI
+# Neurex CLI Reference
 
-## Overview
-
-The Neurex CLI installs and manages **registry-first UI components** inside consumer projects.
-
-Installed components become **user-owned source code**, not black-box runtime imports.
-
-The CLI is responsible for:
-
-- creating or initializing supported Vite projects,
-- installing registry items as editable source files,
-- installing required dependencies when they are missing,
-- installing shared utilities and token/theme styles,
-- wiring Tailwind v4 CSS imports and Vite/TypeScript aliases,
-- tracking installed component versions,
-- checking project health,
-- safely updating generated files without silently overwriting user changes.
+**Audience:** Users and maintainers  
+**Type:** CLI/API reference  
+**Source of truth for:** Command surface, flags, config schema, install behavior, error handling  
+**Verified against:** `packages/cli/src/` (all commands and core modules)
 
 ---
 
@@ -25,13 +13,26 @@ The CLI is responsible for:
 neurex <command> [options]
 ```
 
+The binary is `neurex`. It reads `neurex.config.json` from the working directory
+or applies built-in defaults when the file is absent.
+
+### Global options
+
+| Flag | Description |
+|------|-------------|
+| `--cwd <path>` | Run from a different directory instead of `process.cwd()` |
+| `--yes` | Auto-confirm safe prompts where supported |
+| `--no-fallback` | Disable local registry fallback where supported |
+| `--help`, `-h` | Print help message |
+| `--version`, `-v` | Print CLI version |
+
 ---
 
 ## Commands
 
 ### `init`
 
-Initializes Neurex in the current project or starts a framework-specific setup.
+Initialize Neurex in a project or scaffold a new Vite+React app.
 
 ```bash
 neurex init
@@ -39,573 +40,387 @@ neurex init vite
 neurex init vite my-app
 ```
 
-Plain `init` is for an existing app. If no supported app scaffold is detected,
-the CLI should offer a framework-specific starter instead of silently creating
-files for the wrong project type. For now, the only starter is Vite.
+**`neurex init` (no arguments)**
 
-When a supported app scaffold exists, plain `init` creates the default Neurex
-project structure and wires the supported styling setup:
+Detects whether a supported project scaffold exists in the working directory.
+Vite is detected by presence of `vite.config.ts|.mts|.js|.mjs` or `vite` in
+`package.json` dependencies.
 
-```txt
-src/components/ui/
-src/lib/
-styles/
-neurex.config.json
-```
+- **Scaffold detected:** runs the Neurex init sequence (see below).
+- **No scaffold detected:** prompts to create a Vite+React project here.
+  Answering no prints `"Run neurex init vite to create a Vite starter."` and exits.
 
-For Vite, init also wires the `@/* -> ./src/*` TypeScript path and the matching
-Vite runtime alias. Generated components can import shared utilities through
-`@/lib/utils`.
+**Neurex init sequence** (runs for both paths above):
 
-The current Vite target assumes a React app with:
+1. Creates `componentsPath`, `utilitiesPath`, `stylesPath` directories.
+2. Installs `tailwindcss` and `@tailwindcss/vite` as dev dependencies.
+3. Ensures `@import "tailwindcss";` at the top of `tailwind.css`.
+4. Ensures `tailwindcss()` plugin in `vite.config.*`.
+5. Ensures `"@": fileURLToPath(...)` resolve alias in `vite.config.*`.
+6. Ensures `"@/*": ["./src/*"]` in `tsconfig.app.json` or `tsconfig.json`.
+7. Writes `neurex.config.json` with default values.
 
-```txt
-src/main.tsx
-src/style.css
-vite.config.ts
-tsconfig.json
-tsconfig.app.json
-tsconfig.node.json
-```
+**`neurex init vite [directory]`**
 
-Framework init is explicit:
+Scaffolds a full Vite+React+TypeScript project at `directory` (defaults to
+current directory), then runs the Neurex init sequence above.
 
-```bash
-neurex init vite [directory]
-```
+Installs:
+- `react`, `react-dom`
+- `@types/react`, `@types/react-dom`, `@types/node`, `@vitejs/plugin-react`,
+  `prettier`, `typescript`, `vite` (dev)
 
-Rules:
-
-- `neurex init vite` targets the current working directory.
-- `neurex init vite my-app` targets `./my-app`.
-- `neurex init vite my-app --cwd ./playground` targets `./playground/my-app`.
-- If the target directory does not exist, the CLI may create it.
-- If the target directory exists and is not empty, the CLI must only continue
-  when the directory is safe for the selected framework setup.
-
-Supported framework init targets:
-
-| Framework | Status |
-| --------- | ------ |
-| `vite`    | MVP    |
-
-Future framework init targets may include `next`, `laravel`, and `custom`.
+> Only Vite is supported as an init target. Passing any other framework name
+> throws `CliError: Unsupported init target: <name>`.
 
 ---
 
 ### `add`
 
-Installs one or more registry items.
+Install one or more registry components, their shared utilities, token/theme
+CSS, and npm dependencies.
 
 ```bash
-neurex add button
-neurex add button dialog
-neurex add input select dialog popover
-```
-
-Preview changes without writing files or installing dependencies:
-
-```bash
+neurex add <component...>
+neurex add button dialog input
 neurex add button --dry-run
-```
-
-Run the command against a different working directory:
-
-```bash
 neurex add button --cwd ./apps/web
+neurex add                          # interactive multiselect
 ```
 
-#### Add Output
+| Flag | Description |
+|------|-------------|
+| `--dry-run` | Preview components, dependencies, utilities, styles, and install paths — no writes |
+| `--no-fallback` | Fail if remote registry is configured and unavailable (no local fallback) |
 
-After writing files, `add` prints an install summary grouped by component files
-and shared resources:
+**Without component arguments**, shows an interactive multiselect of all
+available registry items (format: `CanonicalName (category)`).
 
-```txt
-Install summary:
-- components: 3 created
-- shared resources: 3 created, 1 updated
-- tracked components: 1/1
-```
+**Install sequence per `add` run:**
 
-Shared utility/style conflicts are reported and left untouched. Component file
-conflicts prevent that component from being tracked as installed.
+1. Resolve component names (case-insensitive; matches `name`, `canonicalName`,
+   or `aliases`). On unknown name, suggests closest match via Levenshtein
+   distance ≤ 3.
+2. Collect transitive `registryDependencies` (deduped).
+3. Collect npm `dependencies`, `utilities`, and `styles` across all items.
+4. Install missing npm dependencies.
+5. Install utilities to `utilitiesPath` (skip if identical; conflict if differs).
+6. Install style files to `stylesPath` (skip if identical; auto-update if both
+   source and target are generated Neurex files; conflict otherwise).
+7. Wire style `@import` statements into the Tailwind CSS entrypoint.
+8. Copy component template files to `componentsPath/<CanonicalName>/`.
+9. Track successfully installed items (no conflicts) in `neurex.config.json`.
+10. Print install summary.
 
-#### Add Install Contract
+**Component install states:**
 
-For each requested component, `add` resolves registry metadata and then:
+| State | Meaning |
+|-------|---------|
+| `created` | File was new; written |
+| `skipped` | File exists and is identical; no action |
+| `conflicted` | File exists and differs; left untouched |
+| `updated` | File was auto-updated (generated styles only) |
 
-1. checks `package.json` and installs only missing package dependencies,
-2. installs required utilities such as `src/lib/utils.ts`,
-3. installs required style files such as `styles/tokens.css` and
-   `styles/theme.css`,
-4. wires Neurex style imports into the configured Tailwind CSS entrypoint,
-5. writes component files under the configured `componentsPath`,
-6. records the component in `neurex.config.json` only when its own component
-   files are not conflicted.
+Components with any conflict are **not** added to the `installed` map.
 
-Repeated installs must be idempotent:
-
-- existing identical files are skipped,
-- existing generated styles may be updated when still generated,
-- user-modified files are reported as conflicts,
-- duplicate CSS imports must not be added,
-- shared utility/style conflicts do not block tracking when the requested
-  component files installed safely.
+**Remote file support:** registry items MAY declare `remoteFiles` with a
+`remoteUrl`. When present, the file is fetched from the URL and hash-compared
+before writing.
 
 ---
 
 ### `update`
 
-Checks or safely updates installed components.
+Check and apply updates to tracked components or token/theme CSS files.
 
 ```bash
 neurex update button
+neurex update button dialog
 neurex update --all
 neurex update --styles
-```
-
-Preview update changes without writing files:
-
-```bash
 neurex update button --dry-run
-neurex update --all --dry-run
-neurex update --styles --dry-run
+neurex update --all --force
+neurex update --all --yes
 ```
 
-Force update:
+| Flag | Description |
+|------|-------------|
+| `--all` | Update all components tracked in `neurex.config.json` |
+| `--styles` | Update token/theme CSS files only (skips component files) |
+| `--dry-run` | Preview what would change; no writes; reports conflict/identical per file |
+| `--force` | Write conflicted files after creating `.bak` timestamped backups |
+| `--yes` | Auto-confirm safe prompts |
+| `--no-fallback` | Fail if remote registry unavailable |
 
-```bash
-neurex update button --force
-```
+**Version check:** an update is available when the registry item version is
+semver-greater than the installed version recorded in `neurex.config.json`.
 
-Reserved future flags:
+**Per-file update logic:**
 
-```bash
-neurex update button --yes
-```
+- Missing file → restored.
+- Identical file → skipped.
+- Differs, no `--force` → reported as conflict; installed version unchanged.
+- Differs, `--force` → backup created as `<file>.<ISO-timestamp>.bak`; file overwritten.
 
-#### Update Rules
+Components that complete without conflicts have their version updated in config.
 
-- Identical files may be updated.
-- Missing files may be restored.
-- Conflicted files are skipped.
-- Installed component version is not bumped if conflicts exist.
-- User-modified files must never be overwritten silently.
-- `--styles` updates only generated `styles/tokens.css` and
-  `styles/theme.css`, then rewires the configured CSS entrypoint if needed.
-
----
-
-### `status`
-
-Shows tracked installed components and whether updates are available.
-
-```bash
-neurex status
-```
-
----
-
-### `doctor`
-
-Checks the local Neurex setup.
-
-```bash
-neurex doctor
-```
-
-The doctor command checks:
-
-- `package.json`
-- configured components path
-- configured utilities path
-- configured styles path
-- tracked component folders
+**`--styles`** updates token/theme CSS files (the `theme` style manifest) using
+the same generated-file auto-update path as `add`.
 
 ---
 
 ### `list`
 
-Lists available registry items.
+List available registry items from the resolved registry source.
 
 ```bash
 neurex list
-```
-
-Print a public-friendly JSON list:
-
-```bash
 neurex list --json
 ```
 
+| Flag | Description |
+|------|-------------|
+| `--json` | Output as JSON array with `name`, `canonicalName`, `version`, `category` |
+| `--no-fallback` | Fail if remote registry unavailable |
+
+Default output format: `- CanonicalName vX.X.X (category)` per line.
+
 ---
 
-### `registry`
+### `status`
 
-Prints registry metadata and registry diagnostics.
-
-```bash
-neurex registry
-neurex registry --summary
-neurex registry --source
-neurex registry --local
-neurex registry --remote
-```
-
-#### Registry Flags
-
-| Flag        | Description                                 |
-| ----------- | ------------------------------------------- |
-| `--summary` | Prints a compact registry summary.          |
-| `--source`  | Prints the active registry source.          |
-| `--local`   | Uses the bundled local registry metadata.   |
-| `--remote`  | Fetches the configured remote registry URL. |
-
-If `--remote` fails, the CLI reports the error and keeps the local registry available through:
+Show installed component versions and update availability.
 
 ```bash
-neurex registry --local
+neurex status
 ```
+
+Reads the `installed` map from `neurex.config.json` and compares each recorded
+version against the active registry. Output per component:
+
+```txt
+- Button v0.0.1 (up to date)
+- Dialog v0.0.1 (update available: v0.0.1 → v0.0.2)
+- Input v0.0.1 (missing from registry)
+```
+
+If no components are tracked: `"No Neurex components are currently tracked."`
+
+---
+
+### `doctor`
+
+Check project health against the current config.
+
+```bash
+neurex doctor
+neurex doctor --no-fallback
+```
+
+| Flag | Description |
+|------|-------------|
+| `--no-fallback` | Fail if remote registry unavailable |
+
+Checks and prints `✓` / `×` for:
+
+- `package.json` — present in working directory
+- `componentsPath` — directory exists
+- `utilitiesPath` — directory exists
+- `stylesPath` — directory exists
+- `tailwind.css` — entrypoint file exists
+- Registry connectivity — source URL, fallback used, item count
+- Each tracked component — directory exists; reports `missing from registry` if
+  the item was removed from the active registry
 
 ---
 
 ### `config`
 
-Prints and manages the active Neurex config.
+Print or modify `neurex.config.json`.
 
 ```bash
-neurex config
-neurex config --path
-neurex config --exists
-```
-
-Configure a remote registry URL:
-
-```bash
-neurex config --set-registry-url https://registry.neurex.dev
-```
-
-Clear the remote registry URL:
-
-```bash
+neurex config                                           # print full config as JSON
+neurex config --path                                    # print config file path
+neurex config --exists                                  # print "Config exists." or "Config does not exist."
+neurex config --set-registry-url https://example.com/registry.json
 neurex config --clear-registry-url
 ```
+
+| Flag | Description |
+|------|-------------|
+| `--path`, `-p` | Print the resolved path to `neurex.config.json` |
+| `--exists`, `-e` | Print whether the config file is present |
+| `--set-registry-url <url>` | Persist a remote registry URL |
+| `--clear-registry-url` | Set `registryUrl` to `null` |
+
+With no flags: reads config (merging defaults) and prints as indented JSON.
+
+---
+
+### `registry`
+
+Inspect the registry source and manifest.
+
+```bash
+neurex registry                      # JSON manifest from resolved source
+neurex registry --summary            # human-readable: source, item count, per-item details
+neurex registry --source             # print active registry source string
+neurex registry --local              # inspect the bundled local registry
+neurex registry --local --summary
+neurex registry --remote             # inspect the configured remote registry
+neurex registry --remote --source
+neurex registry --no-fallback
+```
+
+| Flag | Description |
+|------|-------------|
+| `--summary` | Human-readable output (source, fallback, items with type/category/remote file count) |
+| `--source` | Print the effective source string (includes `(fallback: local)` note when fallback is used) |
+| `--local` | Read only the bundled `@neurex/registry` package; ignore remote URL |
+| `--remote` | Read only the remote URL from config; error if none configured |
+| `--no-fallback` | Disable local fallback for the default resolution path |
 
 ---
 
 ### `uninstall`
 
-Placeholder command for the future uninstall flow.
+> **Known gap:** File removal is not yet implemented.
+> The command accepts names and `--dry-run`, looks up each in the installed map,
+> and prints `"Uninstall is not implemented yet. <name> is tracked at v<version>."`.
+> Names not found in the installed map print `"<name> is not tracked as installed."`.
+> No files are deleted.
 
 ```bash
 neurex uninstall button
 neurex uninstall button --dry-run
 ```
 
-The command currently checks whether the component is tracked. It does not remove files yet.
-
 ---
 
 ### `version`
 
-Shows the CLI version.
+Print the CLI version read from the installed package's `package.json`.
 
 ```bash
 neurex version
-neurex --version
 neurex -v
+neurex --version
 ```
 
 ---
 
 ### `help`
 
-Shows CLI help.
+Print the full usage message.
 
 ```bash
 neurex help
-neurex --help
 neurex -h
+neurex --help
 ```
 
 ---
 
-## Global Options
+## Configuration
 
-| Option          | Description                                           |
-| --------------- | ----------------------------------------------------- |
-| `--cwd <path>`  | Run the CLI against a different working directory.    |
-| `--dry-run`     | Preview changes without writing files.                |
-| `--yes`         | Reserved for future confirmation flows.               |
-| `--force`       | Force update conflicted files after creating backups. |
-| `--help`, `-h`  | Show help.                                            |
-| `--no-fallback` | Disable local registry fallback where supported.      |
+`neurex.config.json` in the project root. Created by `init`; read and updated
+by all commands. The CLI merges persisted values with built-in defaults on every
+load — missing fields fall back to defaults without error.
 
----
+### Schema
 
-## Config
-
-Default config file:
-
-```txt
-neurex.config.json
-```
-
-Default config shape:
-
-```json
-{
-  "style": "default",
-  "componentsPath": "src/components/ui",
-  "utilitiesPath": "src/lib",
-  "stylesPath": "styles",
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  },
-  "tailwind": {
-    "version": "v4",
-    "css": "src/style.css"
-  },
-  "installed": {},
-  "registryUrl": null
+```ts
+interface NeurexConfig {
+  style: "default"
+  componentsPath: string
+  utilitiesPath: string
+  stylesPath: string
+  aliases: {
+    components: string
+    utils: string
+    ui: string
+    lib: string
+    hooks: string
+  }
+  tailwind: {
+    version: "v4"
+    css: string
+  }
+  installed?: Record<string, string>   // name → installed version
+  registryUrl?: string | null
 }
 ```
 
-### Config Fields
+### Defaults
 
-| Field            | Description                                                    |
-| ---------------- | -------------------------------------------------------------- |
-| `style`          | Active Neurex style preset. Current value: `default`.          |
-| `componentsPath` | Target directory for installed components.                     |
-| `utilitiesPath`  | Target directory for shared utilities.                         |
-| `stylesPath`     | Target directory for shared styles and token output.           |
-| `aliases`        | User-facing import aliases used by generated code and tooling. |
-| `tailwind`       | Supported Tailwind version and CSS entrypoint path.            |
-| `installed`      | Installed registry item versions tracked by the CLI.           |
-| `registryUrl`    | Optional remote registry URL. Uses local registry when `null`. |
+| Field | Default |
+|-------|---------|
+| `style` | `"default"` (only valid value) |
+| `componentsPath` | `"src/components/ui"` |
+| `utilitiesPath` | `"src/lib"` |
+| `stylesPath` | `"styles"` |
+| `aliases.components` | `"@/components"` |
+| `aliases.utils` | `"@/lib/utils"` |
+| `aliases.ui` | `"@/components/ui"` |
+| `aliases.lib` | `"@/lib"` |
+| `aliases.hooks` | `"@/hooks"` |
+| `tailwind.version` | `"v4"` (only valid value) |
+| `tailwind.css` | `"src/style.css"` |
+| `installed` | `{}` |
+| `registryUrl` | `null` |
 
-The MVP defaults are intentionally Vite-oriented. Other framework presets
-should add explicit detection/setup logic before changing these defaults.
-
----
-
-## Current Bundled Components
-
-The local registry currently includes:
-
-```txt
-accordion
-alert
-alert-dialog
-avatar
-badge
-button
-card
-checkbox
-collapsible
-dialog
-drawer
-field
-fieldset
-form
-input
-menu
-meter
-number-field
-popover
-progress
-radio-group
-select
-separator
-slider
-switch
-tabs
-textarea
-toast
-toggle
-toggle-group
-tooltip
-```
-
-All bundled component installs are covered by the CLI install-flow smoke test.
+`tailwind.version` is a type literal locked to `"v4"`. Tailwind v3 is not
+supported.
 
 ---
 
-## Registry Sources
+## Registry source resolution
 
-Neurex currently supports two registry source concepts:
+The CLI resolves registry items from one of two sources:
 
-| Source          | Description                                               |
-| --------------- | --------------------------------------------------------- |
-| Local registry  | Bundled registry metadata from the installed CLI/package. |
-| Remote registry | Optional configured remote JSON registry source.          |
+| Source | When active |
+|--------|-------------|
+| **Local** | `registryUrl` is `null` or absent; uses `@neurex/registry` bundled with the CLI |
+| **Remote** | `registryUrl` is a URL string; fetches the manifest JSON, validates, then uses it |
 
-The local registry is always available.
-
-Remote registry support is additive and must not break local registry usage.
-
-### Source Resolution
-
-The CLI resolves registry metadata using this order:
-
-```txt
-configured remote registry
-  → if valid, use remote registry
-  → if unavailable or invalid, fall back to local registry
-local registry
-```
-
-### Registry Manifest Shape
-
-Remote registries should expose a manifest object:
-
-```json
-{
-  "version": "0.0.1",
-  "items": []
-}
-```
-
-For backward compatibility, the CLI can also parse a raw array of registry items, but the manifest object is preferred.
-
-### Strict Registry Mode
-
-Some commands support strict registry resolution through:
-
-```bash
---no-fallback
-```
-
-When enabled, the CLI fails if the configured remote registry cannot be resolved.
-
-Supported commands:
-
-- add
-- update
-- list
-- status
-- doctor
-- registry
-
-### Fallback Behavior
-
-When `registryUrl` is configured, commands that resolve registry items use the remote registry first.
-
-If the remote registry is unavailable or invalid, the CLI falls back to the bundled local registry unless fallback is explicitly disabled.
-
-Commands using registry resolution include:
-
-- `add`
-- `update`
-- `status`
-- `uninstall`
-- `list`
-- `registry`
+When a remote URL is configured and the fetch fails, the CLI falls back to the
+local bundled registry (unless `--no-fallback` is passed). The registry is
+cached in-memory for the duration of a single CLI invocation.
 
 ---
 
-## Safety Rules
+## Package manager detection
 
-The CLI must **never silently overwrite user code**.
+On every dependency install, the CLI detects the package manager in this order:
 
-When existing files differ from registry templates, the CLI must:
+1. `packageManager` field in `package.json` (e.g. `"pnpm@10.33.0"`)
+2. Lockfile presence: `package-lock.json` → npm, `pnpm-lock.yaml` → pnpm,
+   `yarn.lock` → yarn
+3. Default: npm
 
-- report conflicts,
-- skip conflicted files,
-- avoid tracking a component when its own component files conflict,
-- keep shared utility/style conflicts visible without silently overwriting them,
-- require explicit user action before overwrite behavior is introduced.
-- Remote registry failures must not break local registry usage.
+Dependency names are validated against a safe-name regex before any shell
+invocation. On Windows, commands are run via `cmd.exe /d /s /c`.
 
----
-
-## Stability Boundary
-
-Stable enough for current MVP work:
-
-- local registry item resolution,
-- Vite init and Tailwind v4 wiring,
-- default config paths and aliases,
-- `add` idempotency and conflict reporting,
-- component template sync from `packages/ui`,
-- user-owned installed source files.
-
-Internal/evolving:
-
-- registry item generation internals,
-- update/uninstall write behavior,
-- remote registry hosting and versioning policy,
-- additional style presets beyond `default`,
-- Creator-compatible output formats.
+Only missing dependencies are installed — packages already present in
+`dependencies` or `devDependencies` are skipped.
 
 ---
 
-## Testing
+## Error handling
 
-CLI tests live outside source trees so `src` remains production/source-only.
-
-Current layout:
-
-```txt
-packages/cli/test/
-packages/registry/test/
-packages/tokens/test/
-packages/ui/test/
-```
-
-Each package owns its own tests. Add package-local `fixtures/` or `utils/`
-folders only when tests need shared setup.
-
-CLI tests cover install safety, package-manager detection, registry resolution,
-Tailwind/Vite setup, and repeatable Vite install-flow smoke tests, including
-the full bundled registry component set.
+`CliError` messages are printed as `Error: <message>` and exit with code 1.
+Unexpected errors print `Unexpected error: <message>` and exit with code 1.
+Unknown commands throw `CliError: Unknown command: <name>` and the help message
+is printed.
 
 ---
 
-## Examples
+## Install safety rules
 
-Initialize Neurex:
-
-```bash
-neurex init
-```
-
-Install a component:
-
-```bash
-neurex add button
-```
-
-Preview component installation:
-
-```bash
-neurex add button --dry-run
-```
-
-Check update status:
-
-```bash
-neurex status
-```
-
-Preview updates:
-
-```bash
-neurex update --all --dry-run
-```
-
-Inspect registry source:
-
-```bash
-neurex registry --source
-```
-
-Use a custom working directory:
-
-```bash
-neurex add button --cwd ./apps/web
-```
+- The CLI MUST NOT overwrite user-modified files silently.
+- Conflicts are reported and left untouched unless `--force` is specified.
+- `--force` MUST create a timestamped `.bak` backup before overwriting.
+- Style files starting with `/* Generated by @neurex/tokens. Do not edit directly. */`
+  are auto-updated without conflict because they are not user-owned.
+- Items with any conflict during `add` are not recorded in the installed map.
+- Items with conflicts during `update` do not have their version bumped.

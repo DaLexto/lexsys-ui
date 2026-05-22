@@ -4,7 +4,6 @@
  * Reference Avatar component implementation.
  */
 
-import { forwardRef } from "react"
 import { Avatar as BaseAvatar } from "@base-ui/react/avatar"
 import type {
   AvatarFallbackProps,
@@ -16,52 +15,41 @@ import {
   avatarImageVariants,
   avatarVariants,
 } from "./Avatar.variants"
-import { cn } from "../../utils/cn"
+import { mergeClassName } from "../../utils/merge-class-name"
 
-const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
-  ({ size, shape, className, ...props }, ref) => {
-    const avatarClassName: AvatarProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(avatarVariants({ size, shape }), userClassName)
-    }
-
-    return <BaseAvatar.Root ref={ref} className={avatarClassName} {...props} />
-  },
-)
+const Avatar = ({ ref, size, shape, className, ...props }: AvatarProps) => {
+  return (
+    <BaseAvatar.Root
+      ref={ref}
+      className={mergeClassName(avatarVariants({ size, shape }), className)}
+      {...props}
+    />
+  )
+}
 
 Avatar.displayName = "Avatar"
 
-const AvatarImage = forwardRef<HTMLImageElement, AvatarImageProps>(
-  ({ className, ...props }, ref) => {
-    const imageClassName: AvatarImageProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(avatarImageVariants(), userClassName)
-    }
-
-    return <BaseAvatar.Image ref={ref} className={imageClassName} {...props} />
-  },
-)
+const AvatarImage = ({ ref, className, ...props }: AvatarImageProps) => {
+  return (
+    <BaseAvatar.Image
+      ref={ref}
+      className={mergeClassName(avatarImageVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 AvatarImage.displayName = "AvatarImage"
 
-const AvatarFallback = forwardRef<HTMLSpanElement, AvatarFallbackProps>(
-  ({ className, ...props }, ref) => {
-    const fallbackClassName: AvatarFallbackProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(avatarFallbackVariants(), userClassName)
-    }
-
-    return (
-      <BaseAvatar.Fallback ref={ref} className={fallbackClassName} {...props} />
-    )
-  },
-)
+const AvatarFallback = ({ ref, className, ...props }: AvatarFallbackProps) => {
+  return (
+    <BaseAvatar.Fallback
+      ref={ref}
+      className={mergeClassName(avatarFallbackVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 AvatarFallback.displayName = "AvatarFallback"
 

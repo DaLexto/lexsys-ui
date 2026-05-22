@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Slider.types.ts
  *
@@ -10,6 +11,7 @@ export interface SliderProps extends Omit<
   BaseSlider.Root.Props,
   "className" | "children"
 > {
+  ref?: Ref<HTMLDivElement>
   className?: BaseSlider.Root.Props["className"]
   controlClassName?: BaseSlider.Control.Props["className"]
   trackClassName?: BaseSlider.Track.Props["className"]

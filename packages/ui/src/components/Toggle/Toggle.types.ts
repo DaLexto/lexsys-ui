@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Toggle.types.ts
  *
@@ -10,6 +11,7 @@ export interface ToggleProps extends Omit<
   BaseToggle.Props,
   "className" | "size"
 > {
+  ref?: Ref<HTMLButtonElement>
   size?: "sm" | "md" | "lg"
   className?: BaseToggle.Props["className"]
 }

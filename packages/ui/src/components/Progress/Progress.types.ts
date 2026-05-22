@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Progress.types.ts
  *
@@ -11,6 +12,7 @@ export interface ProgressProps extends Omit<
   BaseProgress.Root.Props,
   "className" | "children"
 > {
+  ref?: Ref<HTMLDivElement>
   size?: "sm" | "md" | "lg"
   label?: ReactNode
   className?: BaseProgress.Root.Props["className"]
