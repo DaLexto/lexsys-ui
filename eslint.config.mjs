@@ -10,6 +10,7 @@ export default tseslint.config(
       "**/coverage/**",
       "**/node_modules/**",
       "**/.turbo/**",
+      "packages/registry/templates/**",
     ],
   },
   js.configs.recommended,
