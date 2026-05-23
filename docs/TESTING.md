@@ -32,6 +32,7 @@ Test files in `packages/tokens/test/`:
 | `types-authoring.test.ts`  | Factory authoring shape and generator input behavior for migrated source groups                                                   |
 | `generator.test.ts`        | Full generator pipeline — `createStyleTokenInput`, CSS output, DTCG JSON output, theme token inputs, preset coverage              |
 | `css-generator.test.ts`    | CSS variable generation — variable naming, `:root` blocks, `@theme` blocks, group name overrides (`spacing→space`, etc.)          |
+| `contrast.test.ts`         | WCAG contrast math, overlay compositing, policy tiers (`NEUREX_CONTRAST_POLICY`), `RESOLVE_FAILED` / `UNPARSEABLE_COLOR` codes    |
 
 Run:
 
@@ -61,9 +62,10 @@ pnpm --filter @neurex/ui test
 
 Test files in `packages/registry/test/`:
 
-| File                        | What it tests                                                                                                   |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `validate-registry.test.ts` | Registry manifest validation — all items have required fields, no missing template files, no invalid categories |
+| File                           | What it tests                                                                                                   |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| `validate-registry.test.ts`    | Registry manifest validation — all items have required fields, no missing template files, no invalid categories |
+| `registry-styles-sync.test.ts` | Registry style sync helpers — in-sync templates, stale content, missing template files                          |
 
 Run:
 
@@ -76,17 +78,17 @@ pnpm --filter @neurex/registry test
 
 Test files in `packages/cli/test/`:
 
-| File                            | What it tests                                                                                         |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `commands/add.test.ts`          | `neurex add` — file creation, skipping unchanged files, conflict detection, utilities/styles install  |
-| `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                      |
-| `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                         |
-| `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                         |
-| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior                   |
-| `commands/install-flow.test.ts` | Full install smoke — runs `init` + `add` twice to verify end-to-end idempotency across all components |
-| `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection |
-| `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                              |
-| `core/tailwind-setup.test.ts`   | Tailwind CSS wiring — idempotent `@import` injection, entrypoint detection                            |
+| File                            | What it tests                                                                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `commands/add.test.ts`          | `neurex add` — file creation, skipping unchanged files, conflict detection, utilities/styles install                          |
+| `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                                              |
+| `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                                                 |
+| `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                                                 |
+| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior, orphaned shared utilities/styles cleanup |
+| `commands/install-flow.test.ts` | Full install smoke — runs `init` + `add` twice to verify end-to-end idempotency across all components                         |
+| `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection                         |
+| `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                                                      |
+| `core/tailwind-setup.test.ts`   | Tailwind CSS wiring — idempotent `@import` injection, entrypoint detection                                                    |
 
 Run:
 
@@ -113,7 +115,9 @@ pnpm --filter neurex test
 
 ## Template Sync Verification
 
-Registry template drift is a separate verification step, not a Vitest test:
+Registry template drift is checked by `pnpm registry:check` (component templates + generated style CSS).
+
+Unit tests in `packages/registry/test/registry-styles-sync.test.ts` cover the style sync compare helpers. The full script still runs as part of `registry:check`:
 
 ```sh
 pnpm registry:sync    # sync templates from UI source
@@ -138,3 +142,5 @@ Pilot render tests use `@testing-library/react` with Vitest `jsdom` (`packages/u
 - Render test coverage is limited to pilot components (ScrollArea, Collapsible, Dialog). Most components still rely on CVA class output tests only.
 - No end-to-end install tests against a real consumer project (outside the
   temp-directory smoke tests in `install-flow.test.ts`).
+- CLI diagnostic commands (`doctor`, `status`, `list`, `config`) have no dedicated tests yet.
+- Install-flow round-trip (`add` → `update` → `uninstall`) is not covered end-to-end.

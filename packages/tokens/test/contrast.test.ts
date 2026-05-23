@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest"
+import { afterEach, describe, expect, it, vi } from "vitest"
 
 import {
   createStyleTokenInput,
@@ -16,6 +16,9 @@ import {
   evaluateContrastPolicy,
   formatContrastValidationReport,
   resolvePairMinimumRatio,
+  resolveContrastPolicyTier,
+  shouldEnforceContrastInStyleValidation,
+  shouldFailOnContrastPolicy,
   validateContrastPolicyStrict,
   WCAG_AA_LARGE_TEXT_RATIO,
   WCAG_AA_NORMAL_TEXT_RATIO,
@@ -222,6 +225,119 @@ describe("contrast.policy", () => {
     expect(evaluation.passes).toBe(true)
     expect(DEFAULT_CONTRAST_POLICY.tier).toBe("ci")
   })
+
+  it("reports RESOLVE_FAILED when a contrast pair path is missing", () => {
+    const input: ContrastValidationInput = {
+      foundationTokens: {
+        color: {
+          white: { $value: "oklch(1 0 0)" },
+        },
+      },
+      componentTokens: {},
+      themeTokens: [
+        {
+          name: "light",
+          tokens: {
+            color: {
+              background: {
+                base: { $value: "{color.white}" },
+              },
+            },
+          },
+        },
+      ],
+      pairs: [
+        {
+          id: "missing-foreground",
+          foregroundPath: "color.text.missing",
+          backgroundPath: "color.background.base",
+        },
+      ],
+    }
+
+    const report = createContrastValidationReport(input)
+
+    expect(report.issues.some((issue) => issue.code === "RESOLVE_FAILED")).toBe(
+      true,
+    )
+  })
+
+  it("reports UNPARSEABLE_COLOR when resolved values are not contrast-ready colors", () => {
+    const input: ContrastValidationInput = {
+      foundationTokens: {
+        color: {
+          white: { $value: "oklch(1 0 0)" },
+        },
+      },
+      componentTokens: {},
+      themeTokens: [
+        {
+          name: "light",
+          tokens: {
+            color: {
+              text: {
+                primary: { $value: "not-a-color" },
+              },
+              background: {
+                base: { $value: "{color.white}" },
+              },
+            },
+          },
+        },
+      ],
+      pairs: [
+        {
+          id: "text-primary-on-base",
+          foregroundPath: "color.text.primary",
+          backgroundPath: "color.background.base",
+        },
+      ],
+    }
+
+    const report = createContrastValidationReport(input)
+
+    expect(
+      report.issues.some((issue) => issue.code === "UNPARSEABLE_COLOR"),
+    ).toBe(true)
+  })
+
+  it("parses NEUREX_CONTRAST_POLICY for report, ci, and build tiers", () => {
+    vi.stubEnv("NEUREX_CONTRAST_POLICY", "report")
+    expect(resolveContrastPolicyTier()).toBe("report")
+    expect(shouldEnforceContrastInStyleValidation()).toBe(false)
+
+    vi.stubEnv("NEUREX_CONTRAST_POLICY", "ci")
+    expect(resolveContrastPolicyTier()).toBe("ci")
+    expect(shouldEnforceContrastInStyleValidation()).toBe(true)
+
+    vi.stubEnv("NEUREX_CONTRAST_POLICY", "build")
+    expect(resolveContrastPolicyTier()).toBe("build")
+    expect(shouldEnforceContrastInStyleValidation()).toBe(true)
+  })
+
+  it("falls back to the default ci tier for invalid policy env values", () => {
+    vi.stubEnv("NEUREX_CONTRAST_POLICY", "invalid-tier")
+    expect(resolveContrastPolicyTier()).toBe("ci")
+  })
+
+  it("uses shouldFailOnContrastPolicy only for ci and build tiers", () => {
+    expect(
+      shouldFailOnContrastPolicy({
+        ...DEFAULT_CONTRAST_POLICY,
+        tier: "report",
+      }),
+    ).toBe(false)
+    expect(
+      shouldFailOnContrastPolicy({ ...DEFAULT_CONTRAST_POLICY, tier: "ci" }),
+    ).toBe(true)
+    expect(
+      shouldFailOnContrastPolicy({ ...DEFAULT_CONTRAST_POLICY, tier: "build" }),
+    ).toBe(true)
+  })
+})
+
+afterEach(() => {
+  vi.unstubAllEnvs()
 })
 
 describe("overlay background compositing", () => {

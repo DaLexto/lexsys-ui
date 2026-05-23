@@ -83,8 +83,10 @@ Two validators are exported from the package:
 - `validateRegistryItem(item)` — validates a single item against the schema
 - `validateRegistry(manifest)` — validates the full registry manifest
 
-These are run in `test/validate-registry.test.ts`. This test MUST pass before
-publishing the registry package.
+These are run in `test/validate-registry.test.ts`. Style template sync helpers
+are covered in `test/registry-styles-sync.test.ts`. Full inventory:
+[TESTING.md](./TESTING.md). Registry checks MUST pass before publishing the
+registry package.
 
 ---
 
