@@ -48,7 +48,14 @@ export const getRegistryItems = async (
 
   try {
     const remote = await fetchRemoteRegistry(source)
-    validateRegistry(remote.items)
+    validateRegistry(
+      remote.items,
+      remote.styles !== undefined
+        ? {
+            styles: remote.styles,
+          }
+        : {},
+    )
 
     cachedRegistry = remote.items
     cachedSource = source
