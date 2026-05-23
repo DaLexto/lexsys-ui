@@ -309,6 +309,10 @@ Status: shipped
 
 **Phase PR:** `docs(m7): maintainer onboarding and tooling`
 
+#### Post-M7 — GitHub label sync (shipped)
+
+- Strict namespaced label manifest (`.github/labels.yml`) synced via `github-label-sync` and [`.github/workflows/labels-sync.yml`](../.github/workflows/labels-sync.yml).
+
 ### Explicitly deferred
 
 | Item                              | Why deferred                                                                   |
