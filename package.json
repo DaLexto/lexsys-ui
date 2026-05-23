@@ -28,7 +28,7 @@
     "tokens:typecheck": "pnpm --filter @neurex/tokens typecheck",
     "ui:build": "pnpm --filter @neurex/ui build",
     "ui:check": "pnpm --filter @neurex/ui check",
-    "ui:audit": "pnpm --filter @neurex/ui audit",
+    "ui:audit": "pnpm --filter @neurex/ui run audit",
     "ui:lint:fix": "pnpm --filter @neurex/ui lint:fix",
     "ui:typecheck": "pnpm --filter @neurex/ui typecheck",
     "registry:build": "pnpm --filter @neurex/registry build",

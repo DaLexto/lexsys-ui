@@ -8,8 +8,14 @@
 import { semanticTokens } from "../types/authoring"
 
 export const elevationSemantics = semanticTokens("elevation", {
+  behind: {
+    zIndex: { $value: "{z-index.behind}", $type: "number" },
+  },
   backdrop: {
     zIndex: { $value: "{z-index.overlay}", $type: "number" },
+  },
+  handle: {
+    zIndex: { $value: "{z-index.local}", $type: "number" },
   },
   layer: {
     zIndex: { $value: "{z-index.modal}", $type: "number" },

@@ -5,6 +5,7 @@
  */
 
 import { cva } from "class-variance-authority"
+import { disabledStateClasses } from "../../utils/cn"
 
 export const drawerTriggerVariants = cva(
   [
@@ -13,16 +14,16 @@ export const drawerTriggerVariants = cva(
     "text-(length:--nx-drawer-trigger-font-size) font-(--nx-drawer-trigger-font-weight) leading-(--nx-drawer-trigger-font-line-height)",
     "transition-colors duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing)",
     "outline-none hover:bg-(--nx-drawer-trigger-hover-background) focus-visible:ring-(length:--nx-drawer-focus-ring-width) focus-visible:ring-(--nx-drawer-focus-ring-color) focus-visible:ring-offset-(length:--nx-drawer-focus-ring-offset) focus-visible:ring-offset-(--nx-drawer-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    disabledStateClasses,
   ].join(" "),
 )
 
 export const drawerIndentBackgroundVariants = cva(
-  "fixed inset-0 -z-10 bg-(--nx-drawer-indent-background) opacity-0 transition-opacity duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing) data-[active]:opacity-100",
+  "fixed inset-0 z-(--nx-drawer-indent-z-index) bg-(--nx-drawer-indent-background) opacity-0 transition-opacity duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing) data-[active]:opacity-100",
 )
 
 export const drawerIndentVariants = cva(
-  "min-h-dvh origin-top overflow-hidden transition-[border-radius,transform] duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing) data-[active]:scale-(--nx-drawer-indent-scale) data-[active]:rounded-(--nx-drawer-indent-radius)",
+  "min-h-(--nx-drawer-viewport-max-height) origin-top overflow-hidden transition-[border-radius,transform] duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing) data-[active]:scale-(--nx-drawer-indent-scale) data-[active]:rounded-(--nx-drawer-indent-radius)",
 )
 
 export const drawerBackdropVariants = cva(
@@ -60,8 +61,8 @@ export const drawerPopupVariants = cva(
     variants: {
       side: {
         bottom:
-          "max-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))] w-[min(calc(100vw-(var(--nx-drawer-viewport-inset)*2)),var(--nx-drawer-popup-max-width))] translate-y-[calc(var(--drawer-snap-point-offset,0px)+var(--drawer-swipe-movement-y,0px))] rounded-t-(--nx-drawer-popup-radius) data-[ending-style]:translate-y-full data-[starting-style]:translate-y-full",
-        top: "max-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))] w-[min(calc(100vw-(var(--nx-drawer-viewport-inset)*2)),var(--nx-drawer-popup-max-width))] translate-y-[var(--drawer-swipe-movement-y,0px)] rounded-b-(--nx-drawer-popup-radius) data-[ending-style]:-translate-y-full data-[starting-style]:-translate-y-full",
+          "max-h-[calc(var(--nx-drawer-viewport-max-height)-(var(--nx-drawer-viewport-padding)*2))] w-[min(calc(100vw-(var(--nx-drawer-viewport-inset)*2)),var(--nx-drawer-popup-max-width))] translate-y-[calc(var(--drawer-snap-point-offset,0px)+var(--drawer-swipe-movement-y,0px))] rounded-t-(--nx-drawer-popup-radius) data-[ending-style]:translate-y-full data-[starting-style]:translate-y-full",
+        top: "max-h-[calc(var(--nx-drawer-viewport-max-height)-(var(--nx-drawer-viewport-padding)*2))] w-[min(calc(100vw-(var(--nx-drawer-viewport-inset)*2)),var(--nx-drawer-popup-max-width))] translate-y-[var(--drawer-swipe-movement-y,0px)] rounded-b-(--nx-drawer-popup-radius) data-[ending-style]:-translate-y-full data-[starting-style]:-translate-y-full",
         right:
           "h-full max-w-[calc(100vw-(var(--nx-drawer-viewport-inset)*2))] translate-x-[var(--drawer-swipe-movement-x,0px)] rounded-l-(--nx-drawer-popup-radius) data-[ending-style]:translate-x-full data-[starting-style]:translate-x-full",
         left: "h-full max-w-[calc(100vw-(var(--nx-drawer-viewport-inset)*2))] translate-x-[var(--drawer-swipe-movement-x,0px)] rounded-r-(--nx-drawer-popup-radius) data-[ending-style]:-translate-x-full data-[starting-style]:-translate-x-full",
@@ -92,7 +93,8 @@ export const drawerPopupVariants = cva(
       {
         side: ["bottom", "top"],
         size: "full",
-        class: "min-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))]",
+        class:
+          "min-h-[calc(var(--nx-drawer-viewport-max-height)-(var(--nx-drawer-viewport-padding)*2))]",
       },
       {
         side: ["left", "right"],
@@ -160,6 +162,6 @@ export const drawerCloseVariants = cva(
     "absolute right-(--nx-drawer-close-inset) top-(--nx-drawer-close-inset) inline-flex size-(--nx-drawer-close-size) items-center justify-center rounded-(--nx-drawer-close-radius)",
     "text-(--nx-drawer-close-foreground) outline-none transition-colors duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing)",
     "hover:bg-(--nx-drawer-close-hover-background) focus-visible:ring-(length:--nx-drawer-focus-ring-width) focus-visible:ring-(--nx-drawer-focus-ring-color) focus-visible:ring-offset-(length:--nx-drawer-focus-ring-offset) focus-visible:ring-offset-(--nx-drawer-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    disabledStateClasses,
   ].join(" "),
 )

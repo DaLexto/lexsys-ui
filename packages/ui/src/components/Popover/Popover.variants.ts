@@ -5,6 +5,7 @@
  */
 
 import { cva } from "class-variance-authority"
+import { disabledStateClasses } from "../../utils/cn"
 
 export const popoverTriggerVariants = cva(
   [
@@ -13,7 +14,7 @@ export const popoverTriggerVariants = cva(
     "text-(length:--nx-popover-trigger-font-size) font-(--nx-popover-trigger-font-weight) leading-(--nx-popover-trigger-font-line-height)",
     "transition-colors duration-(--nx-popover-transition-duration) ease-(--nx-popover-transition-easing)",
     "outline-none hover:bg-(--nx-popover-trigger-hover-background) focus-visible:ring-(length:--nx-popover-focus-ring-width) focus-visible:ring-(--nx-popover-focus-ring-color) focus-visible:ring-offset-(length:--nx-popover-focus-ring-offset) focus-visible:ring-offset-(--nx-popover-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    disabledStateClasses,
   ].join(" "),
 )
 
@@ -58,7 +59,7 @@ export const popoverCloseVariants = cva(
     "absolute right-(--nx-popover-close-inset) top-(--nx-popover-close-inset) inline-flex size-(--nx-popover-close-size) items-center justify-center rounded-(--nx-popover-close-radius)",
     "text-(--nx-popover-close-foreground) outline-none transition-colors duration-(--nx-popover-transition-duration) ease-(--nx-popover-transition-easing)",
     "hover:bg-(--nx-popover-close-hover-background) focus-visible:ring-(length:--nx-popover-focus-ring-width) focus-visible:ring-(--nx-popover-focus-ring-color) focus-visible:ring-offset-(length:--nx-popover-focus-ring-offset) focus-visible:ring-offset-(--nx-popover-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    disabledStateClasses,
   ].join(" "),
 )
 

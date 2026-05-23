@@ -33,6 +33,18 @@ export const zIndexPrimitives = primitiveTokens("z-index", {
     $value: 0,
   },
 
+  behind: {
+    $description:
+      "Negative stacking level for decorative layers behind content.",
+    $value: -10,
+  },
+
+  local: {
+    $description:
+      "Local stacking level for handles and controls within a bounded surface.",
+    $value: 30,
+  },
+
   raised: {
     $description: "Low stacking level for slightly raised local elements.",
     $value: 10,

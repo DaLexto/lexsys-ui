@@ -125,16 +125,57 @@ Per-component allowed enums live in [UI_AUDIT.md](./UI_AUDIT.md). Force **consis
 
 ## Token consumption
 
-| Layer           | Rule                                                | Enforcement                          |
-| --------------- | --------------------------------------------------- | ------------------------------------ |
-| **Authoring**   | Component tokens reference semantics only           | `pnpm tokens:check`                  |
-| **Consumption** | `*.variants.ts` uses `--nx-*`; minimal raw literals | Variant tests, `pnpm ui:audit` (PR4) |
+| Layer           | Rule                                                | Enforcement                                     |
+| --------------- | --------------------------------------------------- | ----------------------------------------------- |
+| **Authoring**   | Component tokens reference semantics only           | `pnpm tokens:check`                             |
+| **Consumption** | `*.variants.ts` uses `--nx-*`; minimal raw literals | Variant tests, `pnpm ui:audit` (blocking in CI) |
 
 Shared semantic tokens (PR1+):
 
 - `opacity.disabled` → 50% (`{opacity.50}`)
 - `opacity.busy` → 80% (`{opacity.80}`)
 - `action.danger` — unchanged semantic source for danger variants
+
+Overlay semantics (shared scroll/stacking roles):
+
+- `size.overlay.list.maxHeight` — scrollable Select list + Menu viewport
+- `size.overlay.viewport.maxHeight` — full dynamic viewport height (`100dvh`)
+- `spacing.overlay.sideOffset` — default floating gap (maps to `spacing.2` / 8px at 16px root)
+- `elevation.behind.zIndex` / `elevation.handle.zIndex` — decorative behind-layer and local handle stacking
+
+### Token-only styling
+
+`*.variants.ts` must use generated `--nx-*` classes for color, size, spacing, motion, opacity, and z-index. **`pnpm ui:audit` is blocking** in `pnpm ui:check`.
+
+**Allowed non-`--nx-*` forms in CVA strings:**
+
+| Form                   | Why                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| Structural Tailwind    | `inline-flex`, `grid`, `outline-none`, `truncate`, `overflow-hidden`           |
+| Base UI runtime vars   | `--anchor-width`, `--available-width`, `--transform-origin`, drawer swipe vars |
+| Base UI owned attrs    | `data-[type=destructive]`, `data-[starting-style]`, `aria-invalid`             |
+| Fractional anchor math | `translate-x-1/2`, `translate-y-1/2` on arrow slots (center on anchor edge)    |
+| Generated `--nx-*`     | All color, size, spacing, motion, opacity, z-index, viewport math              |
+
+Use `disabledStateClasses`, `busyStateClasses`, and `invalidStateClasses` from `@/lib/utils` (installed) or `../../utils/cn` (reference UI) instead of inline disabled opacity fragments.
+
+### Recommended Select / Menu composition
+
+For scrollable lists, compose portal → positioner → popup → list (Select) or viewport (Menu). Scroll arrows are optional but recommended when lists may overflow:
+
+```tsx
+<SelectPortal>
+  <SelectPositioner>
+    <SelectPopup>
+      <SelectScrollUpArrow />
+      <SelectList>{/* items */}</SelectList>
+      <SelectScrollDownArrow />
+    </SelectPopup>
+  </SelectPositioner>
+</SelectPortal>
+```
+
+`SelectPositioner`, `MenuPositioner`, `PopoverPositioner`, and `TooltipPositioner` default `sideOffset` to the overlay semantic token (`8` px at 16px root). Override only when design requires a different gap.
 
 ---
 

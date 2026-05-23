@@ -44,6 +44,7 @@ import {
   menuViewportVariants,
 } from "./Menu.variants"
 import { mergeClassName } from "@/lib/utils"
+import { overlayPositionerSideOffset } from "../../utils/overlay-positioner"
 
 const Menu = <Payload = unknown,>(props: MenuProps<Payload>) => {
   return <BaseMenu.Root {...props} />
@@ -81,10 +82,16 @@ const MenuBackdrop = ({ ref, className, ...props }: MenuBackdropProps) => {
 
 MenuBackdrop.displayName = "MenuBackdrop"
 
-const MenuPositioner = ({ ref, className, ...props }: MenuPositionerProps) => {
+const MenuPositioner = ({
+  ref,
+  className,
+  sideOffset = overlayPositionerSideOffset,
+  ...props
+}: MenuPositionerProps) => {
   return (
     <BaseMenu.Positioner
       ref={ref}
+      sideOffset={sideOffset}
       className={mergeClassName(menuPositionerVariants(), className)}
       {...props}
     />

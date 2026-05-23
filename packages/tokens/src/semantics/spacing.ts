@@ -33,4 +33,7 @@ export const spacingSemantics = semanticTokens("spacing", {
       md: { $value: "{spacing.3}" },
     },
   },
+  overlay: {
+    sideOffset: { $value: "{spacing.2}" },
+  },
 })

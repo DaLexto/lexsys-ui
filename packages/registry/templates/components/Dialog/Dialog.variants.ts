@@ -5,6 +5,7 @@
  */
 
 import { cva } from "class-variance-authority"
+import { disabledStateClasses } from "@/lib/utils"
 
 export const dialogTriggerVariants = cva(
   [
@@ -13,7 +14,7 @@ export const dialogTriggerVariants = cva(
     "text-(length:--nx-dialog-trigger-font-size) font-(--nx-dialog-trigger-font-weight) leading-(--nx-dialog-trigger-font-line-height)",
     "transition-colors duration-(--nx-dialog-transition-duration) ease-(--nx-dialog-transition-easing)",
     "outline-none hover:bg-(--nx-dialog-trigger-hover-background) focus-visible:ring-(length:--nx-dialog-focus-ring-width) focus-visible:ring-(--nx-dialog-focus-ring-color) focus-visible:ring-offset-(length:--nx-dialog-focus-ring-offset) focus-visible:ring-offset-(--nx-dialog-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    disabledStateClasses,
   ].join(" "),
 )
 export const dialogBackdropVariants = cva(
@@ -50,6 +51,6 @@ export const dialogCloseVariants = cva(
     "absolute right-(--nx-dialog-close-inset) top-(--nx-dialog-close-inset) inline-flex size-(--nx-dialog-close-size) items-center justify-center rounded-(--nx-dialog-close-radius)",
     "text-(--nx-dialog-close-foreground) outline-none transition-colors duration-(--nx-dialog-transition-duration) ease-(--nx-dialog-transition-easing)",
     "hover:bg-(--nx-dialog-close-hover-background) focus-visible:ring-(length:--nx-dialog-focus-ring-width) focus-visible:ring-(--nx-dialog-focus-ring-color) focus-visible:ring-offset-(length:--nx-dialog-focus-ring-offset) focus-visible:ring-offset-(--nx-dialog-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    disabledStateClasses,
   ].join(" "),
 )

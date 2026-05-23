@@ -8,6 +8,7 @@ export const popoverComponentTokens = componentTokens("popover", {
   },
   positioner: {
     zIndex: { $value: "{elevation.floating.zIndex}" },
+    sideOffset: { $value: "{spacing.overlay.sideOffset}" },
   },
   popup: {
     background: { $value: "{color.background.base}" },

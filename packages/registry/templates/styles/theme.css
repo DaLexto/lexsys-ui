@@ -55,6 +55,7 @@
   --spacing-nx-surface-md: var(--nx-space-surface-md);
   --spacing-nx-surface-gap-sm: var(--nx-space-surface-gap-sm);
   --spacing-nx-surface-gap-md: var(--nx-space-surface-gap-md);
+  --spacing-nx-overlay-side-offset: var(--nx-space-overlay-side-offset);
   --spacing-nx-control-xs: var(--nx-size-control-xs);
   --spacing-nx-control-compact: var(--nx-size-control-compact);
   --spacing-nx-control-sm: var(--nx-size-control-sm);
@@ -90,10 +91,13 @@
   --spacing-nx-panel-height-sm: var(--nx-size-panel-height-sm);
   --spacing-nx-panel-height-md: var(--nx-size-panel-height-md);
   --spacing-nx-panel-height-lg: var(--nx-size-panel-height-lg);
+  --spacing-nx-overlay-list-max-height: var(--nx-size-overlay-list-max-height);
+  --spacing-nx-overlay-viewport-max-height: var(--nx-size-overlay-viewport-max-height);
   --duration-nx-control: var(--nx-duration-control);
   --duration-nx-surface: var(--nx-duration-surface);
   --ease-nx-control: var(--nx-easing-control);
   --ease-nx-surface: var(--nx-easing-surface);
+  --nx-motion-offset-entry-y: var(--nx-motion-offset-entry-y);
   --text-nx-family-sans: var(--nx-typography-family-sans);
   --text-nx-family-serif: var(--nx-typography-family-serif);
   --text-nx-family-mono: var(--nx-typography-family-mono);
@@ -264,7 +268,9 @@
   --nx-border-control-color: var(--nx-border-control-color);
   --nx-border-control-width: var(--nx-border-control-width);
   --nx-border-control-style: var(--nx-border-control-style);
+  --nx-elevation-behind-z-index: var(--nx-elevation-behind-z-index);
   --nx-elevation-backdrop-z-index: var(--nx-elevation-backdrop-z-index);
+  --nx-elevation-handle-z-index: var(--nx-elevation-handle-z-index);
   --nx-elevation-layer-z-index: var(--nx-elevation-layer-z-index);
   --nx-elevation-floating-z-index: var(--nx-elevation-floating-z-index);
   --nx-elevation-toast-z-index: var(--nx-elevation-toast-z-index);
@@ -293,6 +299,7 @@
   --nx-layout-viewport-lg: var(--nx-layout-viewport-lg);
   --nx-layout-viewport-xl: var(--nx-layout-viewport-xl);
   --nx-layout-viewport-2xl: var(--nx-layout-viewport-2xl);
+  --nx-layout-viewport-full: var(--nx-layout-viewport-full);
   --nx-layout-aspect-ratio-square: var(--nx-layout-aspect-ratio-square);
   --nx-layout-aspect-ratio-standard: var(--nx-layout-aspect-ratio-standard);
   --nx-layout-aspect-ratio-photo: var(--nx-layout-aspect-ratio-photo);

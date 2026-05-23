@@ -10,9 +10,16 @@ const componentRoot = join(process.cwd(), "src/components")
 
 const rules = [
   {
+    id: "opacity-20",
+    pattern: /opacity-20\b/,
+    message:
+      "Use opacity-(--nx-*-backdrop-opacity) or a semantic opacity token",
+  },
+  {
     id: "opacity-50",
     pattern: /opacity-50\b/,
-    message: "Use opacity-(--nx-opacity-disabled) or disabledStateClasses from utils",
+    message:
+      "Use opacity-(--nx-opacity-disabled) or disabledStateClasses from utils",
   },
   {
     id: "opacity-60",
@@ -25,14 +32,36 @@ const rules = [
     message: "Use opacity-(--nx-opacity-busy)",
   },
   {
+    id: "max-h-dvh",
+    pattern: /max-h-dvh\b/,
+    message:
+      "Use max-h-(--nx-*-viewport-max-height) from overlay viewport tokens",
+  },
+  {
+    id: "min-h-dvh",
+    pattern: /min-h-dvh\b/,
+    message:
+      "Use min-h-(--nx-*-viewport-max-height) from overlay viewport tokens",
+  },
+  {
+    id: "bare-100dvh",
+    pattern: /100dvh/,
+    message: "Replace bare 100dvh with --nx-* viewport max-height tokens",
+  },
+  {
     id: "raw-viewport-calc",
     pattern: /100vw-2rem/,
     message: "Tokenize viewport inset (calc with --nx-*-viewport-inset)",
   },
   {
     id: "raw-z-index",
-    pattern: /\bz-\d+\b/,
+    pattern: /(?:^|[\s"'])z-\d+\b|-z-\d+\b/,
     message: "Use token-backed z-index (--nx-*-z-index)",
+  },
+  {
+    id: "raw-translate-offset",
+    pattern: /translate-[xy]-\d+(?!\/)\b/,
+    message: "Use motion offset tokens (translate-*-(--nx-*-motion-offset-*))",
   },
   {
     id: "leading-none",
@@ -58,6 +87,13 @@ const rules = [
     id: "public-tone",
     pattern: /tone\?:/,
     message: "Use variant prop per UI_VARIANTS.md",
+  },
+  {
+    id: "inline-disabled-state",
+    pattern:
+      /disabled:(?:pointer-events-none|cursor-not-allowed) disabled:opacity-\(--nx-opacity-disabled\)/,
+    message:
+      "Use disabledStateClasses from @/lib/utils (or ../../utils/cn in reference UI)",
   },
 ]
 

@@ -40,7 +40,9 @@ Command Options
 
   update
     --all                      Update all tracked components
-    --styles                   Update only generated token/theme CSS files
+    --styles                   Update generated token/theme CSS files
+    --utilities                Update shared utility files (for example utils.ts)
+    --sync                     Refresh tracked components even when versions match
     --dry-run                  Preview update without writing files
     --force                    Write conflicted updates after creating backups
     --yes                      Auto-confirm safe prompts
@@ -78,6 +80,8 @@ Examples
   neurex update button --dry-run
   neurex update --all
   neurex update --styles
+  neurex update --utilities
+  neurex update --all --sync --utilities --styles
   neurex list --json
   neurex config --set-registry-url https://example.com/registry.json
   neurex registry --summary

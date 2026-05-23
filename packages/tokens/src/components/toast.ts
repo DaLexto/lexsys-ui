@@ -4,6 +4,7 @@ export const toastComponentTokens = componentTokens("toast", {
   viewport: {
     $type: "dimension",
     width: { $value: "{size.panel.width.md}" },
+    maxHeight: { $value: "{size.overlay.viewport.maxHeight}" },
     inset: { $value: "{spacing.surface.sm}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     gapExpanded: { $value: "{spacing.surface.gap.md}" },
@@ -87,5 +88,8 @@ export const toastComponentTokens = componentTokens("toast", {
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
+  },
+  motion: {
+    offsetY: { $value: "{motion.offset.entry.y}" },
   },
 })

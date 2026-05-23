@@ -3,6 +3,7 @@ import { componentTokens } from "../types/authoring"
 export const tooltipComponentTokens = componentTokens("tooltip", {
   positioner: {
     zIndex: { $value: "{elevation.tooltip.zIndex}" },
+    sideOffset: { $value: "{spacing.overlay.sideOffset}" },
   },
   background: { $value: "{color.text.primary}" },
   foreground: { $value: "{color.background.base}" },

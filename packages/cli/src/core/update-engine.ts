@@ -135,6 +135,7 @@ export const checkItemUpdate = async (
   dryRun: boolean,
   componentsPath: string,
   force: boolean,
+  sync = false,
 ): Promise<boolean> => {
   const item = await findItem(name)
 
@@ -143,14 +144,25 @@ export const checkItemUpdate = async (
     return false
   }
 
-  if (!isUpdateAvailable(installedVersion, item.version)) {
+  const versionUpdateAvailable = isUpdateAvailable(
+    installedVersion,
+    item.version,
+  )
+
+  if (!sync && !versionUpdateAvailable) {
     console.log(`${item.canonicalName} is up to date (v${installedVersion}).`)
     return false
   }
 
-  console.log(
-    `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
-  )
+  if (sync && !versionUpdateAvailable) {
+    console.log(
+      `${item.canonicalName} template sync (installed v${installedVersion}, registry v${item.version})`,
+    )
+  } else {
+    console.log(
+      `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
+    )
+  }
 
   if (dryRun) {
     console.log("\nChanged file candidates:")

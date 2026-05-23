@@ -5,10 +5,7 @@
  */
 
 import { cva } from "class-variance-authority"
-import {
-  disabledStateClasses,
-  invalidStateClasses,
-} from "@/lib/utils"
+import { disabledStateClasses, invalidStateClasses } from "@/lib/utils"
 
 export const inputVariants = cva(
   [

@@ -635,6 +635,14 @@ describe("createStyleOutputs", () => {
     expect(css).toContain(
       "--nx-brand-color-primary-base: var(--nx-color-orange-600)",
     )
+    expect(css).toContain("--nx-size-overlay-list-max-height")
+    expect(css).toContain("--nx-space-overlay-side-offset")
+    expect(css).toContain("--nx-elevation-behind-z-index")
+    expect(css).toContain("--nx-toast-viewport-max-height")
+    expect(css).toContain("--nx-select-positioner-side-offset")
+    expect(css).toContain("--nx-select-backdrop-opacity")
+    expect(css).toContain("--nx-toast-motion-offset-y")
+    expect(css).toContain("--nx-drawer-viewport-max-height")
     expect(css).not.toContain("--nx-$schema")
     expect(css).not.toContain("--nx-$extensions")
   })

@@ -94,11 +94,12 @@ Details: [Conventional Commits — breaking change](https://www.conventionalcomm
 
 1. `git status --short` and `git diff` (and `git diff --staged` if needed)
 2. `git log -5 --oneline` for message style
-3. Exclude unrelated files, `.env`, credentials, accidental `dist/` unless intentional
-4. Match scope to [project-structure.mdc](project-structure.mdc) ownership
-5. Do not use `git add -A` unless the user wants everything
-6. No `--no-verify` unless the user explicitly requests it
-7. No interactive git (`-i`)
+3. **`pnpm format:check`** — required before every commit. If it fails, run `pnpm format`, re-check, then commit. CI `root-check` runs the same gate.
+4. Exclude unrelated files, `.env`, credentials, accidental `dist/` unless intentional
+5. Match scope to [project-structure.mdc](project-structure.mdc) ownership
+6. Do not use `git add -A` unless the user wants everything
+7. No `--no-verify` unless the user explicitly requests it
+8. No interactive git (`-i`)
 
 ---
 
@@ -177,6 +178,8 @@ git log -5 --oneline
 git rev-parse --abbrev-ref HEAD
 git diff dev...HEAD
 ```
+
+Then run **`pnpm format:check`** (or `pnpm format` + re-check if it fails). Do not push or open a PR until formatting passes — CI `root-check` fails on the same step.
 
 Confirm the branch is pushed or push only when the user explicitly requests it.
 

@@ -20,6 +20,7 @@ import {
   tooltipTriggerVariants,
 } from "./Tooltip.variants"
 import { mergeClassName } from "../../utils/merge-class-name"
+import { overlayPositionerSideOffset } from "../../utils/overlay-positioner"
 
 const Tooltip = (props: TooltipProps) => {
   return <BaseTooltip.Root {...props} />
@@ -48,11 +49,13 @@ TooltipPortal.displayName = "TooltipPortal"
 const TooltipPositioner = ({
   ref,
   className,
+  sideOffset = overlayPositionerSideOffset,
   ...props
 }: TooltipPositionerProps) => {
   return (
     <BaseTooltip.Positioner
       ref={ref}
+      sideOffset={sideOffset}
       className={mergeClassName(tooltipPositionerVariants(), className)}
       {...props}
     />

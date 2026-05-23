@@ -102,10 +102,10 @@ Optional follow-ups after Phases 1–10 (detail in
 
 ## Known Gaps (no active item yet)
 
-| Gap                                    | Notes                                                                               |
-| -------------------------------------- | ----------------------------------------------------------------------------------- |
+| Gap                                      | Notes                                                                                                                                                                                                                                                   |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CVA state helpers in consumer `utils.ts` | Shipped as exports on installed `utils.ts` (`disabledStateClasses`, etc.). Works, but couples styling fragments to the cn utility file — consider a dedicated registry shared module and/or same-version template refresh for better install/update UX. |
-| Select popup overlap / scroll chrome      | Base UI `alignItemWithTrigger` (default true) overlaps popup on trigger — Neurex `SelectPositioner` now defaults to `false`. Select list `max-height` uses `size.panel.height.sm`; popup matches trigger via `min-w-[var(--anchor-width)]`. |
-| CLI diagnostic command tests           | Covered in `diagnostics.test.ts`.                                                   |
-| Install-flow round-trip                | Covered in `install-flow.test.ts`.                                                  |
-| Remote registry signatures / allowlist | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet. |
+| Select popup overlap / scroll chrome     | Base UI `alignItemWithTrigger` (default true) overlaps popup on trigger — Neurex `SelectPositioner` now defaults to `false`. Select list `max-height` uses `size.panel.height.sm`; popup matches trigger via `min-w-[var(--anchor-width)]`.             |
+| CLI diagnostic command tests             | Covered in `diagnostics.test.ts`.                                                                                                                                                                                                                       |
+| Install-flow round-trip                  | Covered in `install-flow.test.ts`.                                                                                                                                                                                                                      |
+| Remote registry signatures / allowlist   | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                                                                                     |

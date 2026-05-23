@@ -5,6 +5,7 @@
  */
 
 import { cva } from "class-variance-authority"
+import { disabledStateClasses } from "@/lib/utils"
 
 export const alertDialogTriggerVariants = cva(
   [
@@ -13,7 +14,7 @@ export const alertDialogTriggerVariants = cva(
     "text-(length:--nx-alert-dialog-trigger-font-size) font-(--nx-alert-dialog-trigger-font-weight) leading-(--nx-alert-dialog-trigger-font-line-height)",
     "transition-colors duration-(--nx-alert-dialog-transition-duration) ease-(--nx-alert-dialog-transition-easing)",
     "outline-none hover:bg-(--nx-alert-dialog-trigger-hover-background) focus-visible:ring-(length:--nx-alert-dialog-focus-ring-width) focus-visible:ring-(--nx-alert-dialog-focus-ring-color) focus-visible:ring-offset-(length:--nx-alert-dialog-focus-ring-offset) focus-visible:ring-offset-(--nx-alert-dialog-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    disabledStateClasses,
   ].join(" "),
 )
 
@@ -51,6 +52,6 @@ export const alertDialogCloseVariants = cva(
     "absolute right-(--nx-alert-dialog-close-inset) top-(--nx-alert-dialog-close-inset) inline-flex size-(--nx-alert-dialog-close-size) items-center justify-center rounded-(--nx-alert-dialog-close-radius)",
     "text-(--nx-alert-dialog-close-foreground) outline-none transition-colors duration-(--nx-alert-dialog-transition-duration) ease-(--nx-alert-dialog-transition-easing)",
     "hover:bg-(--nx-alert-dialog-close-hover-background) focus-visible:ring-(length:--nx-alert-dialog-focus-ring-width) focus-visible:ring-(--nx-alert-dialog-focus-ring-color) focus-visible:ring-offset-(length:--nx-alert-dialog-focus-ring-offset) focus-visible:ring-offset-(--nx-alert-dialog-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    disabledStateClasses,
   ].join(" "),
 )

@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.json --emitDeclarationOnly --outDir dist",
-    "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
+    "check": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run audit",
     "lint": "eslint src test --max-warnings=0",
     "lint:fix": "eslint src test --fix",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",
