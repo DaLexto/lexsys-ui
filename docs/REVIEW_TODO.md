@@ -15,16 +15,16 @@ that are not yet done.
 
 **Monorepo optimization M1–M7** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3 and M5–M7 shipped; **M4 release readiness** remains planned.
 
-| Phase   | Focus                                                    | Status  |
-| ------- | -------------------------------------------------------- | ------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                            | done    |
-| M1      | Infra and DX (filter, CI, turbo, docs)                   | shipped |
-| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist) | shipped |
+| Phase   | Focus                                                               | Status  |
+| ------- | ------------------------------------------------------------------- | ------- |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done    |
+| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped |
+| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped |
 | M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
-| M4      | Release readiness (CHANGELOG, publish audit, sequence)   | planned |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)     | shipped |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)         | shipped |
-| M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)    | shipped |
+| M4      | Release readiness (CHANGELOG, publish audit, sequence)              | planned |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
+| M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)               | shipped |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 

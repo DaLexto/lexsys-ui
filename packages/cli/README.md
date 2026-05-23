@@ -43,19 +43,21 @@ Installed via `npm install -g neurex` or run directly with `pnpm exec neurex`.
 
 ## Command Surface
 
-| Command                        | Purpose                                                                         |
-| ------------------------------ | ------------------------------------------------------------------------------- |
-| `neurex init`                  | Initialize a consumer project — installs Tailwind, wires styles, creates config |
-| `neurex add <component>`       | Install one or more components into the consumer project                        |
-| `neurex update [component]`    | Update installed components to latest registry version                          |
-| `neurex list`                  | List available registry components                                              |
-| `neurex status`                | Show installed component versions vs registry versions                          |
-| `neurex doctor`                | Check project health and config validity                                        |
-| `neurex config`                | Read or modify `neurex.config.json`                                             |
-| `neurex registry`              | Inspect the active registry source                                              |
-| `neurex uninstall <component>` | Remove installed component files when they match registry templates             |
-| `neurex version`               | Print CLI version                                                               |
-| `neurex help`                  | Print command list                                                              |
+| Command                        | Purpose                                                                     |
+| ------------------------------ | --------------------------------------------------------------------------- |
+| `neurex init`                  | Initialize inside an existing supported Vite app                            |
+| `neurex init vite [directory]` | Scaffold a new Vite + React consumer                                        |
+| `neurex init next [directory]` | Scaffold a new Next.js App Router consumer (pinned Next.js 15.3.3)          |
+| `neurex add <component>`       | Install one or more components into the consumer project                    |
+| `neurex update [component]`    | Update installed components; `--sync`, `--utilities`, `--styles`, `--force` |
+| `neurex list`                  | List available registry components                                          |
+| `neurex status`                | Show installed component versions vs registry versions                      |
+| `neurex doctor`                | Check project health and config validity                                    |
+| `neurex config`                | Read or modify `neurex.config.json`                                         |
+| `neurex registry`              | Inspect the active registry source                                          |
+| `neurex uninstall <component>` | Remove installed component files when they match registry templates         |
+| `neurex version`               | Print CLI version                                                           |
+| `neurex help`                  | Print command list                                                          |
 
 ### Global flags
 

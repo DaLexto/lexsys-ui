@@ -80,11 +80,11 @@ pnpm --filter @neurex/tokens test
 
 Test files in `packages/ui/test/`:
 
-| File                                             | What it tests                                                                                                                                 |
-| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`                                                          |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (32 components)                                                       |
-| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (Alert, Collapsible, Dialog, Field, ScrollArea, Select, Switch, Tabs, Toast) |
+| File                                             | What it tests                                                                                   |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`            |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (32 components)         |
+| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**32/32** bundled components) |
 
 Run:
 
