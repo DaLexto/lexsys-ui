@@ -265,11 +265,11 @@ recommended next evolution track. High-level platform summary lives in
 
 ### Planned (likely next, no phase number yet)
 
-| Track                      | Target behavior                                                                | Status                                                                                                             |
-| -------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| Contrast pair expansion    | Add semantic pairs beyond the current 15-pair registry                         | Partial — danger/secondary action + large-text heading pairs shipped; further pairs need design sign-off           |
-| Contrast build promotion   | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA             | **Shipped** — `validateContrastPolicyStrict` in `validateStyleTokenInput`                                          |
-| Shadow primitive migration | Primitive shadow scale on branch+slot; slot-based `box-shadow` CSS composition | **Shipped** — `shadow.0`–`shadow.6`; `elevation.shadow.*` refs primitive slots; `shadow.inner` uses inset slot |
+| Track                      | Target behavior                                                                | Status                                                                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Contrast pair expansion    | Add semantic pairs beyond the current 15-pair registry                         | Partial — danger/secondary action + large-text heading pairs shipped; further pairs need design sign-off                   |
+| Contrast build promotion   | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA             | **Shipped** — `validateContrastPolicyStrict` in `validateStyleTokenInput`                                                  |
+| Shadow primitive migration | Primitive shadow scale on branch+slot; slot-based `box-shadow` CSS composition | **Shipped** — `shadow.0`–`shadow.6`; `elevation.shadow.*` refs primitive slots; `shadow.inner` uses inset slot             |
 | Governance promotion       | Make selected governance checks build-failing                                  | **Shipped** — semantic audit **`error`-severity** fails `pnpm tokens:governance:report` in CI (`NEUREX_GOVERNANCE_POLICY`) |
 
 None of the above require the speculative AST evaluator. They extend shipped

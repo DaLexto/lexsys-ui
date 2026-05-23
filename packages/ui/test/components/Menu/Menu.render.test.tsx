@@ -24,9 +24,13 @@ describe("Menu render", () => {
       </Menu>,
     )
 
-    expect(screen.getByRole("menuitem", { name: "Edit profile" })).toBeInTheDocument()
     expect(
-      screen.getByRole("menuitem", { name: "Edit profile" }).closest(".custom-menu"),
+      screen.getByRole("menuitem", { name: "Edit profile" }),
+    ).toBeInTheDocument()
+    expect(
+      screen
+        .getByRole("menuitem", { name: "Edit profile" })
+        .closest(".custom-menu"),
     ).not.toBeNull()
   })
 })

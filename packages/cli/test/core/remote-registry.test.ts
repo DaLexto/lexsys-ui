@@ -78,9 +78,7 @@ describe("parseRemoteRegistry", () => {
         version: "1.0.0",
         items: [{ ...item, canonicalName: 123 }],
       })
-    }).toThrow(
-      "Remote registry contains invalid registry item at index 0.",
-    )
+    }).toThrow("Remote registry contains invalid registry item at index 0.")
   })
 })
 
@@ -97,9 +95,8 @@ describe("fetchRemoteRegistry", () => {
       }),
     )
 
-    const { fetchRemoteRegistry } = await import(
-      "../../src/core/remote-registry.js"
-    )
+    const { fetchRemoteRegistry } =
+      await import("../../src/core/remote-registry.js")
 
     await expect(
       fetchRemoteRegistry("https://example.test/registry.json"),

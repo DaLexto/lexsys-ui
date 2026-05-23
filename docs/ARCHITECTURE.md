@@ -126,19 +126,19 @@ build time.
 
 ### Supported commands
 
-| Command                             | Description                                                               |
-| ----------------------------------- | ------------------------------------------------------------------------- |
+| Command                             | Description                                                                           |
+| ----------------------------------- | ------------------------------------------------------------------------------------- |
 | `neurex init`                       | Initialize Neurex in an existing project or scaffold Vite+React or Next.js App Router |
-| `neurex add [items...]`             | Install one or more registry items; interactive multiselect when no args  |
-| `neurex update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes`       |
-| `neurex update styles`              | Update theme/token CSS files only                                         |
-| `neurex list [--json]`              | List available registry items                                             |
-| `neurex status`                     | Show installed component versions                                         |
-| `neurex doctor`                     | Check project health (config, paths, registry connectivity)               |
-| `neurex uninstall [items...]`       | Remove tracked components from config                                     |
-| `neurex registry`                   | Inspect the active registry source                                        |
-| `neurex version`                    | Print CLI version                                                         |
-| `neurex help`                       | Show usage                                                                |
+| `neurex add [items...]`             | Install one or more registry items; interactive multiselect when no args              |
+| `neurex update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes`                   |
+| `neurex update styles`              | Update theme/token CSS files only                                                     |
+| `neurex list [--json]`              | List available registry items                                                         |
+| `neurex status`                     | Show installed component versions                                                     |
+| `neurex doctor`                     | Check project health (config, paths, registry connectivity)                           |
+| `neurex uninstall [items...]`       | Remove tracked components from config                                                 |
+| `neurex registry`                   | Inspect the active registry source                                                    |
+| `neurex version`                    | Print CLI version                                                                     |
+| `neurex help`                       | Show usage                                                                            |
 
 ### Registry source
 

@@ -22,6 +22,8 @@ describe("Card render", () => {
 
     expect(screen.getByText("Project summary")).toBeInTheDocument()
     expect(screen.getByText("Card body content")).toBeInTheDocument()
-    expect(screen.getByText("Project summary").closest(".custom-card")).not.toBeNull()
+    expect(
+      screen.getByText("Project summary").closest(".custom-card"),
+    ).not.toBeNull()
   })
 })

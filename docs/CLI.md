@@ -415,10 +415,10 @@ cached in-memory for the duration of a single CLI invocation.
 Remote manifests MUST be JSON fetched over HTTPS. The CLI parses payloads with
 `parseRemoteRegistry`:
 
-| Shape | Fields | Notes |
-| ----- | ------ | ----- |
-| Manifest object | `version` (string), `items` (array), `styles?` (array) | Preferred contract |
-| Legacy array | bare `RegistryItem[]` | Accepted; `version` becomes `"unknown"` |
+| Shape           | Fields                                                 | Notes                                   |
+| --------------- | ------------------------------------------------------ | --------------------------------------- |
+| Manifest object | `version` (string), `items` (array), `styles?` (array) | Preferred contract                      |
+| Legacy array    | bare `RegistryItem[]`                                  | Accepted; `version` becomes `"unknown"` |
 
 Each `items[]` entry MUST match the local registry item shape (`name`,
 `canonicalName`, `version`, `type`, `category`, `aliases`, `files`,

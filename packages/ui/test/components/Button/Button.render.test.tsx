@@ -10,8 +10,8 @@ describe("Button render", () => {
       </Button>,
     )
 
-    expect(
-      screen.getByRole("button", { name: "Save changes" }),
-    ).toHaveClass("custom-button")
+    expect(screen.getByRole("button", { name: "Save changes" })).toHaveClass(
+      "custom-button",
+    )
   })
 })

@@ -17,6 +17,8 @@ describe("ToggleGroup render", () => {
     )
 
     expect(screen.getByRole("group")).toHaveClass("custom-toggle-group")
-    expect(screen.getByRole("button", { name: "Align left" })).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: "Align left" }),
+    ).toBeInTheDocument()
   })
 })

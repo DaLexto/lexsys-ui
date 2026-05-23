@@ -89,8 +89,8 @@ Optional follow-ups after Phases 1–10 (detail in
 
 ## Known Gaps (no active item yet)
 
-| Gap                                   | Notes                                                                                     |
-| ------------------------------------- | ----------------------------------------------------------------------------------------- |
-| CLI diagnostic command tests          | Covered in `diagnostics.test.ts`.                                                         |
-| Install-flow round-trip               | Covered in `install-flow.test.ts`.                                                        |
-| Remote registry signatures / allowlist | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.      |
+| Gap                                    | Notes                                                                               |
+| -------------------------------------- | ----------------------------------------------------------------------------------- |
+| CLI diagnostic command tests           | Covered in `diagnostics.test.ts`.                                                   |
+| Install-flow round-trip                | Covered in `install-flow.test.ts`.                                                  |
+| Remote registry signatures / allowlist | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet. |

@@ -20,11 +20,13 @@ describe("NumberField render", () => {
       </NumberField>,
     )
 
-    expect(screen.getByRole("textbox", { name: "Quantity" })).toBeInTheDocument()
     expect(
-      screen.getByRole("textbox", { name: "Quantity" }).closest(
-        ".custom-number-field",
-      ),
+      screen.getByRole("textbox", { name: "Quantity" }),
+    ).toBeInTheDocument()
+    expect(
+      screen
+        .getByRole("textbox", { name: "Quantity" })
+        .closest(".custom-number-field"),
     ).not.toBeNull()
   })
 })

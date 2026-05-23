@@ -69,9 +69,8 @@ const main = (): void => {
   console.log(formatSemanticAuditReport(semanticAuditReport))
 
   const governancePolicy = resolveGovernancePolicy()
-  const semanticAuditEvaluation = evaluateSemanticAuditPolicy(
-    semanticAuditReport,
-  )
+  const semanticAuditEvaluation =
+    evaluateSemanticAuditPolicy(semanticAuditReport)
 
   if (
     !semanticAuditEvaluation.passes &&

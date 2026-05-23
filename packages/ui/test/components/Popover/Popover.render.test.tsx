@@ -25,6 +25,8 @@ describe("Popover render", () => {
     )
 
     expect(screen.getByText("Popover title")).toBeInTheDocument()
-    expect(screen.getByText("Popover title").closest(".custom-popover")).not.toBeNull()
+    expect(
+      screen.getByText("Popover title").closest(".custom-popover"),
+    ).not.toBeNull()
   })
 })

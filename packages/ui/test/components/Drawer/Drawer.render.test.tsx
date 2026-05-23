@@ -28,6 +28,8 @@ describe("Drawer render", () => {
     )
 
     expect(screen.getByText("Drawer title")).toBeInTheDocument()
-    expect(screen.getByText("Drawer title").closest(".custom-drawer")).not.toBeNull()
+    expect(
+      screen.getByText("Drawer title").closest(".custom-drawer"),
+    ).not.toBeNull()
   })
 })

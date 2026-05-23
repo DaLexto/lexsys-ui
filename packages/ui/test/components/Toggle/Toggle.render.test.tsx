@@ -5,11 +5,7 @@ import { Toggle } from "../../../src/components/Toggle/Toggle.js"
 describe("Toggle render", () => {
   it("renders toggle with accessible name and custom className", () => {
     render(
-      <Toggle
-        aria-label="Bold text"
-        defaultPressed
-        className="custom-toggle"
-      >
+      <Toggle aria-label="Bold text" defaultPressed className="custom-toggle">
         B
       </Toggle>,
     )

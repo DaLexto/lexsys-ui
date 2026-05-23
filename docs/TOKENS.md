@@ -384,9 +384,9 @@ but do not change CSS or DTCG output unless dead-primitive stripping is explicit
 
 **CI policy tiers:**
 
-| Env var | Tier values | Effect |
-| ------- | ----------- | ------ |
-| `NEUREX_CONTRAST_POLICY` | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on contrast pair failures when `ci` |
+| Env var                    | Tier values                    | Effect                                                                                            |
+| -------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `NEUREX_CONTRAST_POLICY`   | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on contrast pair failures when `ci`                         |
 | `NEUREX_GOVERNANCE_POLICY` | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on semantic audit issues with `severity: "error"` when `ci` |
 
 Build-time contrast enforcement is also active in `validateStyleTokenInput` unless

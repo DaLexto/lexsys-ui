@@ -300,13 +300,9 @@ export const scaffoldNextProject = async (
       allowExisting: true,
     },
   )
-  await writeScaffoldFile(
-    join(targetDirectory, "next.config.ts"),
-    nextConfig,
-    {
-      allowExisting: true,
-    },
-  )
+  await writeScaffoldFile(join(targetDirectory, "next.config.ts"), nextConfig, {
+    allowExisting: true,
+  })
   await writeScaffoldFile(
     join(targetDirectory, "postcss.config.mjs"),
     postcssConfig,
@@ -317,17 +313,10 @@ export const scaffoldNextProject = async (
   await writeScaffoldFile(join(targetDirectory, "tsconfig.json"), tsConfig, {
     allowExisting: true,
   })
-  await writeScaffoldFile(
-    join(targetDirectory, "next-env.d.ts"),
-    nextEnvDts,
-    {
-      allowExisting: true,
-    },
-  )
-  await writeScaffoldFile(
-    join(targetDirectory, "app", "layout.tsx"),
-    layoutTsx,
-  )
+  await writeScaffoldFile(join(targetDirectory, "next-env.d.ts"), nextEnvDts, {
+    allowExisting: true,
+  })
+  await writeScaffoldFile(join(targetDirectory, "app", "layout.tsx"), layoutTsx)
   await writeScaffoldFile(join(targetDirectory, "app", "page.tsx"), pageTsx)
   await writeScaffoldFile(
     join(targetDirectory, "app", "globals.css"),

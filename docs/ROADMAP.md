@@ -135,7 +135,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | ----- | ------------------------ | ------- | --------------------------------------------------------------------------------- | ------------------------------------- |
 | M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment    | SCRIPTS.md, DEPLOY.md                 |
 | M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                     | TESTING.md, AGENTS.md                 |
-| M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
+| M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
 | M4    | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`               | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                    | DEPLOY.md                             |
@@ -318,7 +318,7 @@ Status: shipped
 | `@vitest/ui` browser dashboard    | Decided overkill                                                               |
 | Visual regression / screenshots   | Overkill for current coverage                                                  |
 | Changesets / npm provenance       | M4 release phase                                                               |
-| Next.js scaffold, remote registry | **Shipped in M3** — `neurex init next`; remote manifest contract                         |
+| Next.js scaffold, remote registry | **Shipped in M3** — `neurex init next`; remote manifest contract               |
 
 ### PR sequence
 
@@ -326,11 +326,11 @@ Status: shipped
 [#18](https://github.com/DaLexto/neurex/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
 separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. M4 remains planned.
 
-| PR    | Phase | Title sketch                                        | Delivery               |
-| ----- | ----- | --------------------------------------------------- | ---------------------- |
-| 0–7   | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **PR #18** — single PR |
+| PR    | Phase | Title sketch                                        | Delivery                              |
+| ----- | ----- | --------------------------------------------------- | ------------------------------------- |
+| 0–7   | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **PR #18** — single PR                |
 | 3a–3b | M3    | Product slices + docs sync                          | **shipped** (consolidated PR → `dev`) |
-| 4a–4b | M4    | Release readiness + docs sync                       | planned                |
+| 4a–4b | M4    | Release readiness + docs sync                       | planned                               |
 
 Original per-phase sketch (reference if splitting future work):
 

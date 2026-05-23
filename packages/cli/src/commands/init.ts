@@ -8,10 +8,7 @@ import { removeFlagsWithValues } from "../core/flags.js"
 import { fileExists } from "../core/fs.js"
 import { ensureProjectStructure } from "../core/installer.js"
 import { installDependencies } from "../core/package-manager.js"
-import {
-  NEXT_VERSION,
-  scaffoldNextProject,
-} from "../core/next-scaffold.js"
+import { NEXT_VERSION, scaffoldNextProject } from "../core/next-scaffold.js"
 import {
   ensureNextPostCssConfig,
   ensureTailwindCssImport,
@@ -185,7 +182,8 @@ const promptFrameworkInit = async (): Promise<void> => {
   const response: unknown = await prompts({
     type: "select",
     name: "framework",
-    message: "No supported app scaffold was detected. Create a starter project:",
+    message:
+      "No supported app scaffold was detected. Create a starter project:",
     choices: [
       { title: "Vite + React", value: "vite" },
       { title: "Next.js App Router", value: "next" },
@@ -212,7 +210,9 @@ const promptFrameworkInit = async (): Promise<void> => {
   }
 
   console.log("No project scaffold selected. Nothing changed.")
-  console.log("Run `neurex init vite` or `neurex init next` to create a starter.")
+  console.log(
+    "Run `neurex init vite` or `neurex init next` to create a starter.",
+  )
 }
 
 export const runInit = async (args: string[] = []): Promise<void> => {

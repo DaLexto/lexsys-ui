@@ -12,8 +12,8 @@ describe("Input render", () => {
       />,
     )
 
-    expect(
-      screen.getByRole("textbox", { name: "Email address" }),
-    ).toHaveClass("custom-input")
+    expect(screen.getByRole("textbox", { name: "Email address" })).toHaveClass(
+      "custom-input",
+    )
   })
 })
