@@ -9,6 +9,7 @@
 
 - `docs/STYLE.md` — concise rule checklist for all packages
 - `docs/TOKENS.md` — token layer rules and validation contracts
+- `docs/UI_VARIANTS.md` — canonical variant prop contract and CVA rules
 - `docs/CLI.md` — CLI command reference and install behavior
 
 If a rule conflicts between this document and `docs/STYLE.md`, `docs/STYLE.md` wins for rule decisions. This document provides practical patterns and examples.
@@ -92,6 +93,8 @@ cn(variantClasses, userClassName)
 strings manually.
 
 ### CVA in `.variants.ts`
+
+Canonical rules and vocabulary: [UI_VARIANTS.md](./UI_VARIANTS.md).
 
 Define all visual variants using `cva` from `class-variance-authority`:
 

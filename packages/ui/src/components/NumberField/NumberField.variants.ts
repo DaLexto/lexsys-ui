@@ -5,9 +5,10 @@
  */
 
 import { cva } from "class-variance-authority"
+import { disabledStateClasses } from "../../utils/variant-states"
 
 export const numberFieldVariants = cva(
-  "grid gap-(--nx-number-field-gap) text-(--nx-number-field-foreground) data-[disabled]:opacity-60",
+  "grid gap-(--nx-number-field-gap) text-(--nx-number-field-foreground) data-[disabled]:opacity-(--nx-opacity-disabled)",
 )
 
 export const numberFieldGroupVariants = cva(
@@ -15,7 +16,7 @@ export const numberFieldGroupVariants = cva(
     "inline-flex w-full min-w-0 items-stretch overflow-hidden rounded-(--nx-number-field-radius)",
     "border border-(--nx-number-field-border-color) bg-(--nx-number-field-background)",
     "transition-colors duration-(--nx-number-field-transition-duration) ease-(--nx-number-field-transition-easing)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-60",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
   {
     variants: {
@@ -60,7 +61,8 @@ export const numberFieldButtonVariants = cva(
     "bg-(--nx-number-field-stepper-background) text-(--nx-number-field-stepper-foreground)",
     "font-(--nx-number-field-stepper-font-weight) transition-colors duration-(--nx-number-field-transition-duration) ease-(--nx-number-field-transition-easing)",
     "hover:bg-(--nx-number-field-stepper-hover-background) focus-visible:outline-none focus-visible:ring-(length:--nx-number-field-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--nx-number-field-focus-ring-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed",
+    disabledStateClasses,
   ].join(" "),
   {
     variants: {

@@ -14,6 +14,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
   viewport: {
     $type: "dimension",
     padding: { $value: "{spacing.surface.sm}" },
+    inset: { $value: "{spacing.surface.sm}" },
     zIndex: { $value: "{elevation.layer.zIndex}" },
   },
   popup: {
@@ -48,6 +49,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
     height: { $value: "{size.track.md}" },
     marginTop: { $value: "{spacing.control.y.sm}" },
     radius: { $value: "{radius.pill}" },
+    zIndex: { $value: 30 },
   },
   swipeArea: {
     $type: "dimension",

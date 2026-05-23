@@ -5,11 +5,12 @@
  */
 
 import { cva } from "class-variance-authority"
+import { disabledStateClasses } from "../../utils/variant-states"
 
 export const fieldVariants = cva(
   [
     "grid gap-(--nx-field-gap) text-(--nx-field-foreground)",
-    "data-[disabled]:opacity-60",
+    "data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 
@@ -29,7 +30,8 @@ export const fieldControlVariants = cva(
     "transition-colors duration-(--nx-field-transition-duration) ease-(--nx-field-transition-easing)",
     "outline-none focus-visible:border-(--nx-field-control-focus-border-color) focus-visible:ring-(length:--nx-field-control-focus-ring-width) focus-visible:ring-(--nx-field-control-focus-ring-color) focus-visible:ring-offset-(length:--nx-field-control-focus-ring-offset) focus-visible:ring-offset-(--nx-field-control-focus-ring-offset-color)",
     "data-[invalid]:border-(--nx-field-control-invalid-border-color) data-[invalid]:ring-(--nx-field-control-invalid-ring-color) aria-invalid:border-(--nx-field-control-invalid-border-color) aria-invalid:ring-(--nx-field-control-invalid-ring-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed",
+    disabledStateClasses,
   ].join(" "),
   {
     variants: {
@@ -54,21 +56,21 @@ export const fieldControlVariants = cva(
 export const fieldDescriptionVariants = cva(
   [
     "m-0 text-(length:--nx-field-description-font-size) font-(--nx-field-description-font-weight) leading-(--nx-field-description-font-line-height) tracking-(--nx-field-description-font-letter-spacing)",
-    "text-(--nx-field-description-foreground) data-[disabled]:opacity-70",
+    "text-(--nx-field-description-foreground) data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 
 export const fieldItemVariants = cva(
   [
     "grid gap-(--nx-field-item-gap)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-60",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 
 export const fieldErrorVariants = cva(
   [
     "m-0 text-(length:--nx-field-error-font-size) font-(--nx-field-error-font-weight) leading-(--nx-field-error-font-line-height) tracking-(--nx-field-error-font-letter-spacing)",
-    "text-(--nx-field-error-foreground) data-[disabled]:opacity-70",
+    "text-(--nx-field-error-foreground) data-[disabled]:opacity-(--nx-opacity-disabled)",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
     "transition-opacity duration-(--nx-field-transition-duration) ease-(--nx-field-transition-easing)",
   ].join(" "),

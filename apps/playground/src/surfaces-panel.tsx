@@ -75,10 +75,10 @@ export const SurfacesPanel = () => {
 
         <div className="badge-board">
           <Badge size="sm">Neutral sm</Badge>
-          <Badge tone="primary">Primary</Badge>
-          <Badge tone="destructive">Destructive</Badge>
-          <Badge variant="outline">Neutral outline</Badge>
-          <Badge tone="primary" variant="outline">
+          <Badge variant="primary">Primary</Badge>
+          <Badge variant="danger">Danger</Badge>
+          <Badge appearance="outline">Neutral outline</Badge>
+          <Badge variant="primary" appearance="outline">
             Primary outline
           </Badge>
         </div>
@@ -124,16 +124,16 @@ export const SurfacesPanel = () => {
               A calm system message using surface and border tokens.
             </AlertDescription>
           </Alert>
-          <Alert tone="primary">
+          <Alert variant="primary">
             <AlertTitle>Primary alert</AlertTitle>
             <AlertDescription>
               A highlighted message mapped through primary semantic tokens.
             </AlertDescription>
           </Alert>
-          <Alert tone="destructive">
-            <AlertTitle>Destructive alert</AlertTitle>
+          <Alert variant="danger">
+            <AlertTitle>Danger alert</AlertTitle>
             <AlertDescription>
-              A critical message using destructive semantic token mapping.
+              A critical message using danger semantic token mapping.
             </AlertDescription>
           </Alert>
         </div>

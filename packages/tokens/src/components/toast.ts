@@ -4,6 +4,7 @@ export const toastComponentTokens = componentTokens("toast", {
   viewport: {
     $type: "dimension",
     width: { $value: "{size.panel.width.md}" },
+    inset: { $value: "{spacing.surface.sm}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     gapExpanded: { $value: "{spacing.surface.gap.md}" },
     padding: { $value: "{spacing.surface.sm}" },
@@ -17,7 +18,7 @@ export const toastComponentTokens = componentTokens("toast", {
     $type: "color",
     borderColor: { $value: "{color.feedback.success.foreground}" },
   },
-  destructive: {
+  danger: {
     $type: "color",
     borderColor: { $value: "{color.feedback.danger.foreground}" },
   },

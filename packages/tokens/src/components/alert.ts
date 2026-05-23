@@ -33,7 +33,7 @@ export const alertComponentTokens = componentTokens("alert", {
     foreground: { $value: "{color.feedback.info.foreground}" },
     borderColor: { $value: "{color.feedback.info.foreground}" },
   },
-  destructive: {
+  danger: {
     $type: "color",
     background: { $value: "{color.feedback.danger.background}" },
     foreground: { $value: "{color.feedback.danger.foreground}" },

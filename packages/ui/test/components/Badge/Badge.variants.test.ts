@@ -11,10 +11,10 @@ describe("badgeVariants", () => {
     expect(className).toContain("border-(--nx-badge-neutral-border-color)")
   })
 
-  test("maps tone, variant, and size through component tokens", () => {
+  test("maps variant, appearance, and size through component tokens", () => {
     const solidClassName = badgeVariants({
-      tone: "primary",
-      variant: "solid",
+      variant: "primary",
+      appearance: "solid",
       size: "sm",
     })
 
@@ -25,8 +25,8 @@ describe("badgeVariants", () => {
     expect(solidClassName).toContain("text-(length:--nx-badge-font-size-sm)")
 
     const outlineClassName = badgeVariants({
-      tone: "primary",
-      variant: "outline",
+      variant: "primary",
+      appearance: "outline",
       size: "sm",
     })
 

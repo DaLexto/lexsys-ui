@@ -12,7 +12,7 @@ export interface AlertProps extends Omit<
   "className"
 > {
   ref?: Ref<HTMLDivElement>
-  tone?: "neutral" | "primary" | "destructive"
+  variant?: "neutral" | "primary" | "danger"
   className?: string
 }
 

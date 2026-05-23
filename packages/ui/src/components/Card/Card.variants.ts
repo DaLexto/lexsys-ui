@@ -35,7 +35,7 @@ export const cardDescriptionClassName =
   "text-(length:--nx-card-description-font-size) leading-(--nx-card-description-font-line-height) text-(--nx-card-description-foreground)"
 
 export const cardContentClassName =
-  "p-(--nx-card-padding) pt-0 text-(length:--nx-card-content-font-size) leading-(--nx-card-content-font-line-height)"
+  "p-(--nx-card-padding) pt-(--nx-card-content-padding-top) text-(length:--nx-card-content-font-size) leading-(--nx-card-content-font-line-height)"
 
 export const cardFooterClassName =
-  "flex items-center gap-(--nx-card-gap-md) p-(--nx-card-padding) pt-0"
+  "flex items-center gap-(--nx-card-gap-md) p-(--nx-card-padding) pt-(--nx-card-footer-padding-top)"

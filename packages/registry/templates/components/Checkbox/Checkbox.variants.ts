@@ -14,7 +14,7 @@ export const checkboxVariants = cva(
     "outline-none data-[checked]:border-(--nx-checkbox-checked-border-color) data-[checked]:bg-(--nx-checkbox-checked-background) data-[checked]:text-(--nx-checkbox-checked-foreground)",
     "data-[indeterminate]:border-(--nx-checkbox-checked-border-color) data-[indeterminate]:bg-(--nx-checkbox-checked-background)",
     "data-[focused]:ring-(length:--nx-checkbox-focus-ring-width) data-[focused]:ring-(--nx-checkbox-focus-ring-color) data-[focused]:ring-offset-(length:--nx-checkbox-focus-ring-offset) data-[focused]:ring-offset-(--nx-checkbox-focus-ring-offset-color)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
   {
     variants: {

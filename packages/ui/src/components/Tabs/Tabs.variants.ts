@@ -19,7 +19,7 @@ export const tabsTabVariants = cva(
     "transition-colors duration-(--nx-tabs-transition-duration) ease-(--nx-tabs-transition-easing)",
     "outline-none data-[active]:bg-(--nx-tabs-tab-active-background) data-[active]:text-(--nx-tabs-tab-active-foreground) data-[active]:shadow-sm",
     "focus-visible:ring-(length:--nx-tabs-focus-ring-width) focus-visible:ring-(--nx-tabs-focus-ring-color)",
-    "disabled:pointer-events-none disabled:opacity-50",
+    "disabled:pointer-events-none disabled:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 

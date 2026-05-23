@@ -12,7 +12,7 @@ export const switchVariants = cva(
     "transition-colors duration-(--nx-switch-transition-duration) ease-(--nx-switch-transition-easing)",
     "outline-none data-[checked]:bg-(--nx-switch-checked-background)",
     "data-[focused]:ring-(length:--nx-switch-focus-ring-width) data-[focused]:ring-(--nx-switch-focus-ring-color) data-[focused]:ring-offset-(length:--nx-switch-focus-ring-offset) data-[focused]:ring-offset-(--nx-switch-focus-ring-offset-color)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
   {
     variants: {

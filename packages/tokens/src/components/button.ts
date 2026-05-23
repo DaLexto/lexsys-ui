@@ -21,6 +21,13 @@ export const buttonComponentTokens = componentTokens("button", {
     hoverBackground: { $value: "{color.background.surface}" },
     borderColor: { $value: "{border.default}" },
   },
+  danger: {
+    $type: "color",
+    background: { $value: "{action.danger.base}" },
+    foreground: { $value: "{color.text.inverse}" },
+    hoverBackground: { $value: "{action.danger.hover}" },
+    borderColor: { $value: "transparent" },
+  },
   height: {
     $type: "dimension",
     xs: { $value: "{size.control.xs}" },

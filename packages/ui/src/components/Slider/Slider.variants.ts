@@ -9,7 +9,7 @@ import { cva } from "class-variance-authority"
 export const sliderVariants = cva("grid gap-(--nx-slider-gap)")
 
 export const sliderControlVariants = cva(
-  "relative flex touch-none items-center py-(--nx-slider-control-padding-y) data-[disabled]:opacity-50",
+  "relative flex touch-none items-center py-(--nx-slider-control-padding-y) data-[disabled]:opacity-(--nx-opacity-disabled)",
 )
 
 export const sliderTrackVariants = cva(

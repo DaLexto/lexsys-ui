@@ -13,7 +13,7 @@ export const drawerTriggerVariants = cva(
     "text-(length:--nx-drawer-trigger-font-size) font-(--nx-drawer-trigger-font-weight) leading-(--nx-drawer-trigger-font-line-height)",
     "transition-colors duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing)",
     "outline-none hover:bg-(--nx-drawer-trigger-hover-background) focus-visible:ring-(length:--nx-drawer-focus-ring-width) focus-visible:ring-(--nx-drawer-focus-ring-color) focus-visible:ring-offset-(length:--nx-drawer-focus-ring-offset) focus-visible:ring-offset-(--nx-drawer-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 
@@ -60,11 +60,11 @@ export const drawerPopupVariants = cva(
     variants: {
       side: {
         bottom:
-          "max-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))] w-[min(calc(100vw-(var(--nx-drawer-viewport-padding)*2)),var(--nx-drawer-popup-max-width))] translate-y-[calc(var(--drawer-snap-point-offset,0px)+var(--drawer-swipe-movement-y,0px))] rounded-t-(--nx-drawer-popup-radius) data-[ending-style]:translate-y-full data-[starting-style]:translate-y-full",
-        top: "max-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))] w-[min(calc(100vw-(var(--nx-drawer-viewport-padding)*2)),var(--nx-drawer-popup-max-width))] translate-y-[var(--drawer-swipe-movement-y,0px)] rounded-b-(--nx-drawer-popup-radius) data-[ending-style]:-translate-y-full data-[starting-style]:-translate-y-full",
+          "max-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))] w-[min(calc(100vw-(var(--nx-drawer-viewport-inset)*2)),var(--nx-drawer-popup-max-width))] translate-y-[calc(var(--drawer-snap-point-offset,0px)+var(--drawer-swipe-movement-y,0px))] rounded-t-(--nx-drawer-popup-radius) data-[ending-style]:translate-y-full data-[starting-style]:translate-y-full",
+        top: "max-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))] w-[min(calc(100vw-(var(--nx-drawer-viewport-inset)*2)),var(--nx-drawer-popup-max-width))] translate-y-[var(--drawer-swipe-movement-y,0px)] rounded-b-(--nx-drawer-popup-radius) data-[ending-style]:-translate-y-full data-[starting-style]:-translate-y-full",
         right:
-          "h-full max-w-[calc(100vw-(var(--nx-drawer-viewport-padding)*2))] translate-x-[var(--drawer-swipe-movement-x,0px)] rounded-l-(--nx-drawer-popup-radius) data-[ending-style]:translate-x-full data-[starting-style]:translate-x-full",
-        left: "h-full max-w-[calc(100vw-(var(--nx-drawer-viewport-padding)*2))] translate-x-[var(--drawer-swipe-movement-x,0px)] rounded-r-(--nx-drawer-popup-radius) data-[ending-style]:-translate-x-full data-[starting-style]:-translate-x-full",
+          "h-full max-w-[calc(100vw-(var(--nx-drawer-viewport-inset)*2))] translate-x-[var(--drawer-swipe-movement-x,0px)] rounded-l-(--nx-drawer-popup-radius) data-[ending-style]:translate-x-full data-[starting-style]:translate-x-full",
+        left: "h-full max-w-[calc(100vw-(var(--nx-drawer-viewport-inset)*2))] translate-x-[var(--drawer-swipe-movement-x,0px)] rounded-r-(--nx-drawer-popup-radius) data-[ending-style]:-translate-x-full data-[starting-style]:-translate-x-full",
       },
       size: {
         sm: "",
@@ -77,42 +77,42 @@ export const drawerPopupVariants = cva(
       {
         side: ["bottom", "top"],
         size: "sm",
-        className: "min-h-(--nx-drawer-popup-height-sm)",
+        class: "min-h-(--nx-drawer-popup-height-sm)",
       },
       {
         side: ["bottom", "top"],
         size: "md",
-        className: "min-h-(--nx-drawer-popup-height-md)",
+        class: "min-h-(--nx-drawer-popup-height-md)",
       },
       {
         side: ["bottom", "top"],
         size: "lg",
-        className: "min-h-(--nx-drawer-popup-height-lg)",
+        class: "min-h-(--nx-drawer-popup-height-lg)",
       },
       {
         side: ["bottom", "top"],
         size: "full",
-        className: "min-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))]",
+        class: "min-h-[calc(100dvh-(var(--nx-drawer-viewport-padding)*2))]",
       },
       {
         side: ["left", "right"],
         size: "sm",
-        className: "w-(--nx-drawer-popup-width-sm)",
+        class: "w-(--nx-drawer-popup-width-sm)",
       },
       {
         side: ["left", "right"],
         size: "md",
-        className: "w-(--nx-drawer-popup-width-md)",
+        class: "w-(--nx-drawer-popup-width-md)",
       },
       {
         side: ["left", "right"],
         size: "lg",
-        className: "w-(--nx-drawer-popup-width-lg)",
+        class: "w-(--nx-drawer-popup-width-lg)",
       },
       {
         side: ["left", "right"],
         size: "full",
-        className: "w-[calc(100vw-(var(--nx-drawer-viewport-padding)*2))]",
+        class: "w-[calc(100vw-(var(--nx-drawer-viewport-inset)*2))]",
       },
     ],
     defaultVariants: {
@@ -131,7 +131,7 @@ export const drawerHandleVariants = cva(
 )
 
 export const drawerSwipeAreaVariants = cva(
-  "fixed z-30 data-[disabled]:pointer-events-none data-[disabled]:opacity-0",
+  "fixed z-(--nx-drawer-handle-z-index) data-[disabled]:pointer-events-none data-[disabled]:opacity-0",
   {
     variants: {
       side: {
@@ -160,6 +160,6 @@ export const drawerCloseVariants = cva(
     "absolute right-(--nx-drawer-close-inset) top-(--nx-drawer-close-inset) inline-flex size-(--nx-drawer-close-size) items-center justify-center rounded-(--nx-drawer-close-radius)",
     "text-(--nx-drawer-close-foreground) outline-none transition-colors duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing)",
     "hover:bg-(--nx-drawer-close-hover-background) focus-visible:ring-(length:--nx-drawer-focus-ring-width) focus-visible:ring-(--nx-drawer-focus-ring-color) focus-visible:ring-offset-(length:--nx-drawer-focus-ring-offset) focus-visible:ring-offset-(--nx-drawer-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )

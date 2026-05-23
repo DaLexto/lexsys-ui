@@ -5,6 +5,7 @@
  */
 
 import { cva } from "class-variance-authority"
+import { disabledStateClasses } from "../../utils/variant-states"
 
 export const textareaVariants = cva(
   [
@@ -14,7 +15,8 @@ export const textareaVariants = cva(
     "placeholder:text-(--nx-textarea-placeholder-color)",
     "transition-colors duration-(--nx-textarea-transition-duration) ease-(--nx-textarea-transition-easing)",
     "outline-none focus-visible:border-(--nx-textarea-focus-border-color) focus-visible:ring-(length:--nx-textarea-focus-ring-width) focus-visible:ring-(--nx-textarea-focus-ring-color) focus-visible:ring-offset-(length:--nx-textarea-focus-ring-offset) focus-visible:ring-offset-(--nx-textarea-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed",
+    disabledStateClasses,
     "aria-invalid:border-(--nx-textarea-invalid-border-color) aria-invalid:ring-(--nx-textarea-invalid-ring-color) data-[invalid]:border-(--nx-textarea-invalid-border-color) data-[invalid]:ring-(--nx-textarea-invalid-ring-color)",
   ].join(" "),
   {

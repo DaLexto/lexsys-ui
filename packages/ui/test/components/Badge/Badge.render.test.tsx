@@ -5,7 +5,7 @@ import { Badge } from "../../../src/components/Badge/Badge.js"
 describe("Badge render", () => {
   it("renders badge text with custom className", () => {
     render(
-      <Badge tone="neutral" className="custom-badge">
+      <Badge variant="neutral" className="custom-badge">
         New
       </Badge>,
     )

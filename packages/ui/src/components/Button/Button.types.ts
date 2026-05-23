@@ -9,7 +9,7 @@ import type { Button as BaseButton } from "@base-ui/react/button"
 
 export interface ButtonProps extends Omit<BaseButton.Props, "className"> {
   ref?: Ref<HTMLButtonElement>
-  variant?: "primary" | "secondary"
+  variant?: "primary" | "secondary" | "danger"
   size?: "xs" | "sm" | "md" | "lg" | "xl"
   isLoading?: boolean
   className?: BaseButton.Props["className"]

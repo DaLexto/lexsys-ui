@@ -71,7 +71,12 @@ Known gaps below.
 
 ## P2 — Product and DX
 
-_No active P2 items._
+### UI package polish (post-M3)
+
+Pre-0.1.0 variant API unification and token compliance across 32 components.
+Canonical standard: [UI_VARIANTS.md](./UI_VARIANTS.md). Inventory: [UI_AUDIT.md](./UI_AUDIT.md).
+
+Delivery: PR0 audit → PR1 actions → PR2 forms → PR3 overlays → PR4 surfaces + `pnpm ui:audit`. **Shipped** on `feat/ui-package-polish`.
 
 ---
 
