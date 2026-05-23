@@ -78,7 +78,7 @@ Rules:
 - No circular `registryDependencies`
 - Blocks MUST NOT depend on templates
 
-Example block metadata:
+Example block metadata (from `packages/registry/src/items/sidebar.ts`):
 
 ```typescript
 export const sidebarRegistryItem: RegistryItem = {
@@ -88,36 +88,56 @@ export const sidebarRegistryItem: RegistryItem = {
   type: "block",
   category: "blocks",
   aliases: [],
-  files: ["blocks/Sidebar/Sidebar.tsx", "blocks/Sidebar/Sidebar.types.ts"],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
-  registryDependencies: ["drawer", "menu", "scroll-area"],
+  files: [
+    "blocks/Sidebar/Sidebar.tsx",
+    "blocks/Sidebar/Sidebar.types.ts",
+    "blocks/Sidebar/Sidebar.variants.ts",
+  ],
+  dependencies: [
+    "class-variance-authority",
+    "clsx",
+    "lucide-react",
+    "tailwind-merge",
+  ],
+  registryDependencies: ["button", "drawer", "menu", "scroll-area"],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/blocks/Sidebar",
+  target: "src/components/ui/Sidebar",
 }
 ```
 
-Example template metadata:
+Example template metadata (from `packages/registry/src/items/dashboard-shell.ts`):
 
 ```typescript
-export const dashboardTemplateRegistryItem: RegistryItem = {
-  name: "dashboard-template",
-  canonicalName: "DashboardTemplate",
+export const dashboardShellRegistryItem: RegistryItem = {
+  name: "dashboard-shell",
+  canonicalName: "DashboardShell",
   version: "0.0.1",
   type: "block",
-  category: "blocks",
-  aliases: [],
-  files: ["templates/DashboardTemplate/DashboardTemplate.tsx"],
-  dependencies: [],
+  category: "layout",
+  aliases: ["dashboard-template"],
+  files: [
+    "templates/DashboardShell/DashboardShell.tsx",
+    "templates/DashboardShell/DashboardShell.types.ts",
+    "templates/DashboardShell/DashboardShell.variants.ts",
+  ],
+  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
   registryDependencies: ["sidebar"],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/templates/DashboardTemplate",
+  target: "src/components/ui/DashboardShell",
 }
 ```
 
-Block/primitive templates live under `packages/registry/templates/{primitives,blocks,templates}/`.
-Reference source: `packages/ui/src/components/{primitives,blocks,templates}/`.
+Block/primitive/template reference source lives under
+`packages/ui/src/components/{primitives,blocks,templates}/`. Install templates
+mirror that layout under `packages/registry/templates/{primitives,blocks,templates}/`.
+
+**Consumer install path vs monorepo layout:** `target` is always flat
+`src/components/ui/<CanonicalName>/` regardless of registry layer. The CLI
+rewrites cross-layer imports in block/template files at install time
+(`../../primitives/` → `../`, etc.) so consumers do not mirror monorepo folder
+depth. See [CLI.md](./CLI.md) and `packages/cli/src/core/import-rewriter.ts`.
 
 If the CLI needs any knowledge not declared in the registry item, the item is
 incomplete.
@@ -146,13 +166,21 @@ templates/
 
 Rules:
 
-- Component templates are generated copies of `packages/ui/src/components`.
-- Style templates (`tokens.css`, `theme.css`) are generated copies of `@neurex/tokens` output.
-- Templates MUST NOT be manually edited. Component templates are overwritten by `pnpm registry:sync`; style templates by `pnpm tokens:generate:styles`.
-- The only transform applied during sync is the `cn` import path rewrite:
-  `import { cn } from "../../utils/cn"` → `import { cn } from "@/lib/utils"`
-- Any other template-specific transform MUST be added to `scripts/sync-component-templates.mjs`, not applied by hand.
-- Template drift is a validation error. `pnpm registry:check` will fail if component templates are out of sync with the UI source or if style templates differ from the current token generator output.
+- Primitive, block, and template files are generated copies of
+  `packages/ui/src/components/{primitives,blocks,templates}/` via
+  `pnpm registry:sync` (`sync-all-templates.mjs`).
+- Style templates (`tokens.css`, `theme.css`) are generated copies of
+  `@neurex/tokens` output.
+- Templates MUST NOT be hand-edited. Overwrite via sync scripts only.
+- **Sync transforms (registry templates):**
+  - `cn` / `mergeClassName` import paths → `@/lib/utils`
+  - Block/template sync may rewrite monorepo-relative cross-layer imports for
+    template storage; see `scripts/sync-block-templates.mjs`
+- **Install transforms (consumer project):** CLI rewrites cross-layer imports in
+  block/template installs for flat `paths.components` layout. Sync does not
+  apply consumer paths — that happens in `packages/cli` at install/update time.
+- Template drift is a validation error. `pnpm registry:check` fails if templates
+  are out of sync with UI source or if style templates differ from token output.
 
 Registry item metadata files (in `src/items/`) are manually authored because
 they define the install contract, not the component implementation.
@@ -165,11 +193,15 @@ Two validators are exported from the package:
 
 - `validateRegistryItem(item)` — validates a single item against the schema
 - `validateRegistry(manifest)` — validates the full registry manifest
+- `validateRegistryComposition(items)` — enforces layer dependency rules for
+  blocks and templates (see composition table above)
 
 These are run in `test/validate-registry.test.ts`. Style template sync helpers
 are covered in `test/registry-styles-sync.test.ts`. Full inventory:
 [TESTING.md](./TESTING.md). Registry checks MUST pass before publishing the
 registry package.
+
+Sync commands: [SCRIPTS.md](./SCRIPTS.md) (`registry:sync`, `registry:check`).
 
 ---
 
@@ -192,17 +224,17 @@ The CLI MUST NOT require format differences between local and remote sources.
 
 Valid `RegistryItemCategory` values:
 
-| Category       | Description                                         |
-| -------------- | --------------------------------------------------- |
-| `actions`      | Buttons, toggles, interactive triggers              |
-| `forms`        | Inputs, checkboxes, selects, form primitives        |
-| `overlays`     | Dialogs, drawers, popovers, tooltips                |
-| `navigation`   | Menus, tabs, pagination                             |
-| `feedback`     | Alerts, toasts, progress, meters                    |
-| `layout`       | Separators, containers, layout helpers              |
-| `data-display` | Avatars, badges, cards, data visualization          |
-| `utilities`    | Shared utility code                                 |
-| `blocks`       | Composed patterns (molecules, organisms, templates) |
+| Category       | Description                                           |
+| -------------- | ----------------------------------------------------- |
+| `actions`      | Buttons, toggles, interactive triggers                |
+| `forms`        | Inputs, checkboxes, selects, form primitives          |
+| `overlays`     | Dialogs, drawers, popovers, tooltips                  |
+| `navigation`   | Menus, tabs, pagination                               |
+| `feedback`     | Alerts, toasts, progress, meters                      |
+| `layout`       | Separators, containers, layout helpers                |
+| `data-display` | Avatars, badges, cards, data visualization            |
+| `utilities`    | Shared utility code                                   |
+| `blocks`       | Composed patterns (Sidebar, FormField, layout shells) |
 
 ---
 
