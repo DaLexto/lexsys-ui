@@ -5,6 +5,8 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
 import { setCwd } from "../../src/core/context.js"
 import { runAdd } from "../../src/commands/add.js"
 import { runInit } from "../../src/commands/init.js"
+import { runUninstall } from "../../src/commands/uninstall.js"
+import { runUpdate } from "../../src/commands/update.js"
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
   await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
@@ -278,5 +280,30 @@ describe("install flow smoke", () => {
         }),
       ),
     )
+  })
+
+  test("add, update styles, and uninstall round-trip in temp consumer", async () => {
+    await writeViteConsumerFiles(tempDir)
+
+    await runInit()
+    await runAdd(["button", "card"])
+
+    await runUpdate(["--styles"])
+
+    await expect(
+      readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
+    ).resolves.toContain("--nx-button-primary-background")
+
+    await runUninstall(["button", "card"])
+
+    await expect(
+      readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
+    ).rejects.toThrow()
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toEqual({})
   })
 })
