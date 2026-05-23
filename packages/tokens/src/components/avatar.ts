@@ -28,6 +28,7 @@ export const avatarComponentTokens = componentTokens("avatar", {
       lg: { $value: "{typography.label.md.fontSize}" },
     },
     weight: { $value: "{typography.label.md.fontWeight}" },
+    lineHeight: { $value: 1 },
   },
   transition: {
     duration: { $value: "{motion.duration.surface}" },

@@ -19,7 +19,7 @@ describe("inputVariants", () => {
       "focus-visible:ring-(--nx-input-focus-ring-color)",
     )
     expect(className).toContain("aria-invalid:border-")
-    expect(className).toContain("disabled:opacity-50")
+    expect(className).toContain("disabled:opacity-(--nx-opacity-disabled)")
     expect(className).toContain("h-(--nx-input-height-lg)")
   })
 })

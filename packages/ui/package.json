@@ -23,6 +23,7 @@
     "lint": "eslint src test --max-warnings=0",
     "lint:fix": "eslint src test --fix",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",
+    "audit": "node scripts/audit-variants.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "peerDependencies": {

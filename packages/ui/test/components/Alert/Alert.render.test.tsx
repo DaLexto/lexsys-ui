@@ -9,7 +9,7 @@ import {
 describe("Alert render", () => {
   it("renders title and description with alert role", () => {
     render(
-      <Alert tone="neutral" className="custom-alert">
+      <Alert variant="neutral" className="custom-alert">
         <AlertTitle>Heads up</AlertTitle>
         <AlertDescription>Something needs your attention.</AlertDescription>
       </Alert>,

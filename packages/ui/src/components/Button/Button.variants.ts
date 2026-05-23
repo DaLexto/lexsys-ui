@@ -5,6 +5,10 @@
  */
 
 import { cva } from "class-variance-authority"
+import {
+  busyStateClasses,
+  disabledStateClasses,
+} from "../../utils/variant-states"
 
 export const buttonVariants = cva(
   [
@@ -12,8 +16,8 @@ export const buttonVariants = cva(
     "rounded-(--nx-button-radius) font-(family-name:--nx-button-font-family) font-(--nx-button-font-weight)",
     "transition-colors duration-(--nx-button-transition-duration) ease-(--nx-button-transition-easing)",
     "outline-none focus-visible:ring-(length:--nx-button-focus-ring-width) focus-visible:ring-(--nx-button-focus-ring-color) focus-visible:ring-offset-(length:--nx-button-focus-ring-offset) focus-visible:ring-offset-(--nx-button-focus-ring-offset-color)",
-    "disabled:pointer-events-none disabled:opacity-50",
-    "aria-busy:cursor-wait aria-busy:opacity-80",
+    disabledStateClasses,
+    busyStateClasses,
     "text-(length:--nx-button-font-size-md)",
     "leading-(--nx-button-font-line-height)",
     "tracking-(--nx-button-font-letter-spacing)",
@@ -25,6 +29,8 @@ export const buttonVariants = cva(
           "border-(--nx-button-primary-border-color) bg-(--nx-button-primary-background) text-(--nx-button-primary-foreground) hover:bg-(--nx-button-primary-hover-background)",
         secondary:
           "border-(--nx-button-secondary-border-color) bg-(--nx-button-secondary-background) text-(--nx-button-secondary-foreground) hover:bg-(--nx-button-secondary-hover-background)",
+        danger:
+          "border-(--nx-button-danger-border-color) bg-(--nx-button-danger-background) text-(--nx-button-danger-foreground) hover:bg-(--nx-button-danger-hover-background)",
       },
       size: {
         xs: [

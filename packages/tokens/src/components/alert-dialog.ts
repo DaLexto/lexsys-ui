@@ -9,6 +9,7 @@ export const alertDialogComponentTokens = componentTokens("alert-dialog", {
   viewport: {
     $type: "dimension",
     padding: { $value: "{spacing.surface.md}" },
+    inset: { $value: "{spacing.surface.md}" },
     zIndex: { $value: "{elevation.layer.zIndex}" },
   },
   popup: {

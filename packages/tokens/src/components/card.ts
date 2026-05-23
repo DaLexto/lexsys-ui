@@ -42,6 +42,16 @@ export const cardComponentTokens = componentTokens("card", {
       size: { $value: "{typography.body.sm.fontSize}" },
       lineHeight: { $value: "{typography.body.sm.lineHeight}" },
     },
+    padding: {
+      $type: "dimension",
+      top: { $value: 0 },
+    },
+  },
+  footer: {
+    padding: {
+      $type: "dimension",
+      top: { $value: 0 },
+    },
   },
   transition: {
     duration: { $value: "{motion.duration.surface}" },

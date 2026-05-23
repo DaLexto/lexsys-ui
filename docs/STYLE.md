@@ -62,6 +62,7 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 
 - Tailwind v4 is the user-facing styling layer.
 - Define all visual variants with `cva` from `class-variance-authority` in `.variants.ts`.
+- Canonical variant contract: [UI_VARIANTS.md](./UI_VARIANTS.md). Per-component audit: [UI_AUDIT.md](./UI_AUDIT.md).
 - Use `cn()` (clsx + tailwind-merge) for all class composition. Do not concatenate strings manually.
 - Variant classes MUST reference `--nx-*` CSS custom properties, not hardcoded Tailwind palette values:
   ```ts

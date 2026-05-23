@@ -206,6 +206,55 @@ If a PR was opened against the wrong base, fix with `gh pr edit <number> --base 
 
 Return the PR URL when done. Do not push unless the user explicitly requests it.
 
+### GitHub labels (required after PR create)
+
+After `gh pr create` succeeds, **always apply labels** with `gh pr edit`. Taxonomy: [CONTRIBUTING.md](../../CONTRIBUTING.md) § GitHub labels, manifest [`.github/labels.yml`](../../.github/labels.yml).
+
+**Always apply when opening a PR:**
+
+| Label | When |
+|-------|------|
+| `type:*` | One — mirrors primary commit type (`type:feat`, `type:fix`, `type:docs`, …) |
+| `area:*` | One or more — every primary package/surface touched (see mapping below) |
+| `status:ready-for-review` | PR is complete and awaiting review |
+| `meta:breaking-change` | Public API, registry install paths, token CSS, or config breaks |
+
+**Do not apply on PRs:** `priority:*` (issues only), `automation:*` (bot PRs only), `meta:good-first-issue`, `meta:help-wanted`.
+
+#### `area:*` mapping
+
+| Label | Paths / trigger |
+|-------|-----------------|
+| `area:ui` | `packages/ui/**` |
+| `area:tokens` | `packages/tokens/**` |
+| `area:registry` | `packages/registry/**` |
+| `area:cli` | `packages/cli/**` |
+| `area:playground` | `apps/playground/**` |
+| `area:docs` | `docs/**`, `AGENTS.md`, package READMEs when docs-heavy |
+| `area:repo` | Root tooling, `turbo.json`, workspace scripts, `.github/**` |
+
+Pick **all areas** that match the diff — cross-package PRs get multiple `area:*` labels.
+
+#### Examples
+
+| PR shape | Labels |
+|----------|--------|
+| UI-only feature | `type:feat`, `area:ui`, `status:ready-for-review` |
+| UI + registry sync | `type:feat`, `area:ui`, `area:registry`, `status:ready-for-review` |
+| UI polish + tokens + docs + playground (breaking) | `type:feat`, `area:ui`, `area:tokens`, `area:registry`, `area:docs`, `area:playground`, `meta:breaking-change`, `status:ready-for-review` |
+| Docs-only | `type:docs`, `area:docs`, `status:ready-for-review` |
+| CI workflow | `type:ci`, `area:repo`, `status:ready-for-review` |
+
+#### Command
+
+After PR is created, derive labels from diff/commits, then:
+
+```bash
+gh pr edit <number> --add-label "type:feat,area:ui,area:registry,status:ready-for-review"
+```
+
+Comma-separated list; no spaces after commas. Add `meta:breaking-change` when applicable.
+
 ---
 
 ## Examples

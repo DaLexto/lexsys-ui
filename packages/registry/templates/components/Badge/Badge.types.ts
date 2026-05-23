@@ -12,8 +12,8 @@ export interface BadgeProps extends Omit<
   "className"
 > {
   ref?: Ref<HTMLSpanElement>
-  variant?: "solid" | "outline"
-  tone?: "neutral" | "primary" | "destructive"
+  variant?: "neutral" | "primary" | "danger"
+  appearance?: "solid" | "outline"
   size?: "sm" | "md"
   className?: string
 }

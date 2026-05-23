@@ -148,7 +148,7 @@ describe("createStyleOutputs", () => {
       "--nx-alert-radius: var(--nx-radius-surface)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-alert-destructive-foreground: var(--nx-color-feedback-danger-foreground)",
+      "--nx-alert-danger-foreground: var(--nx-color-feedback-danger-foreground)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-card-background: var(--nx-color-background-surface)",

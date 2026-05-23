@@ -298,6 +298,8 @@
   --nx-opacity-80: 0.8;
   --nx-opacity-90: 0.9;
   --nx-opacity-100: 1;
+  --nx-opacity-disabled: var(--nx-opacity-50);
+  --nx-opacity-busy: var(--nx-opacity-80);
   --nx-outline-width-none: 0px;
   --nx-outline-width-hairline: 1px;
   --nx-outline-width-thin: 2px;
@@ -588,6 +590,7 @@
   --nx-alert-dialog-backdrop-opacity: 0.56;
   --nx-alert-dialog-backdrop-z-index: var(--nx-elevation-backdrop-z-index);
   --nx-alert-dialog-viewport-padding: var(--nx-space-surface-md);
+  --nx-alert-dialog-viewport-inset: var(--nx-space-surface-md);
   --nx-alert-dialog-viewport-z-index: var(--nx-elevation-layer-z-index);
   --nx-alert-dialog-popup-background: var(--nx-color-background-base);
   --nx-alert-dialog-popup-foreground: var(--nx-color-text-primary);
@@ -643,9 +646,9 @@
   --nx-alert-primary-background: var(--nx-color-feedback-info-background);
   --nx-alert-primary-foreground: var(--nx-color-feedback-info-foreground);
   --nx-alert-primary-border-color: var(--nx-color-feedback-info-foreground);
-  --nx-alert-destructive-background: var(--nx-color-feedback-danger-background);
-  --nx-alert-destructive-foreground: var(--nx-color-feedback-danger-foreground);
-  --nx-alert-destructive-border-color: var(--nx-color-feedback-danger-foreground);
+  --nx-alert-danger-background: var(--nx-color-feedback-danger-background);
+  --nx-alert-danger-foreground: var(--nx-color-feedback-danger-foreground);
+  --nx-alert-danger-border-color: var(--nx-color-feedback-danger-foreground);
   --nx-avatar-background: var(--nx-color-background-subtle);
   --nx-avatar-foreground: var(--nx-color-text-secondary);
   --nx-avatar-border-color: var(--nx-border-default);
@@ -660,6 +663,7 @@
   --nx-avatar-font-size-md: var(--nx-typography-label-sm-font-size);
   --nx-avatar-font-size-lg: var(--nx-typography-label-md-font-size);
   --nx-avatar-font-weight: var(--nx-typography-label-md-font-weight);
+  --nx-avatar-font-line-height: 1;
   --nx-avatar-transition-duration: var(--nx-duration-surface);
   --nx-avatar-transition-easing: var(--nx-easing-surface);
   --nx-badge-radius: var(--nx-radius-control);
@@ -670,6 +674,7 @@
   --nx-badge-font-size-sm: var(--nx-typography-label-xs-font-size);
   --nx-badge-font-size-md: var(--nx-typography-label-sm-font-size);
   --nx-badge-font-weight: var(--nx-typography-label-sm-font-weight);
+  --nx-badge-font-line-height: 1;
   --nx-badge-transition-duration: var(--nx-duration-control);
   --nx-badge-transition-easing: var(--nx-easing-control);
   --nx-badge-outline-background: transparent;
@@ -679,9 +684,9 @@
   --nx-badge-primary-background: var(--nx-action-primary-base);
   --nx-badge-primary-foreground: var(--nx-color-text-inverse);
   --nx-badge-primary-border-color: var(--nx-action-primary-base);
-  --nx-badge-destructive-background: var(--nx-action-danger-base);
-  --nx-badge-destructive-foreground: var(--nx-color-text-inverse);
-  --nx-badge-destructive-border-color: var(--nx-action-danger-base);
+  --nx-badge-danger-background: var(--nx-action-danger-base);
+  --nx-badge-danger-foreground: var(--nx-color-text-inverse);
+  --nx-badge-danger-border-color: var(--nx-action-danger-base);
   --nx-button-radius: var(--nx-radius-control);
   --nx-button-focus-ring-color: var(--nx-border-focus);
   --nx-button-focus-ring-offset-color: var(--nx-color-background-base);
@@ -695,6 +700,10 @@
   --nx-button-secondary-foreground: var(--nx-color-text-primary);
   --nx-button-secondary-hover-background: var(--nx-color-background-surface);
   --nx-button-secondary-border-color: var(--nx-border-default);
+  --nx-button-danger-background: var(--nx-action-danger-base);
+  --nx-button-danger-foreground: var(--nx-color-text-inverse);
+  --nx-button-danger-hover-background: var(--nx-action-danger-hover);
+  --nx-button-danger-border-color: transparent;
   --nx-button-height-xs: var(--nx-size-control-xs);
   --nx-button-height-sm: var(--nx-size-control-sm);
   --nx-button-height-md: var(--nx-size-control-md);
@@ -735,6 +744,8 @@
   --nx-card-description-font-line-height: var(--nx-typography-body-sm-line-height);
   --nx-card-content-font-size: var(--nx-typography-body-sm-font-size);
   --nx-card-content-font-line-height: var(--nx-typography-body-sm-line-height);
+  --nx-card-content-padding-top: 0;
+  --nx-card-footer-padding-top: 0;
   --nx-card-transition-duration: var(--nx-duration-surface);
   --nx-card-transition-easing: var(--nx-easing-surface);
   --nx-checkbox-background: var(--nx-color-background-base);
@@ -786,6 +797,7 @@
   --nx-dialog-backdrop-opacity: 0.48;
   --nx-dialog-backdrop-z-index: var(--nx-elevation-backdrop-z-index);
   --nx-dialog-viewport-padding: var(--nx-space-surface-md);
+  --nx-dialog-viewport-inset: var(--nx-space-surface-md);
   --nx-dialog-viewport-z-index: var(--nx-elevation-layer-z-index);
   --nx-dialog-popup-background: var(--nx-color-background-base);
   --nx-dialog-popup-foreground: var(--nx-color-text-primary);
@@ -831,6 +843,7 @@
   --nx-drawer-indent-scale: 0.96;
   --nx-drawer-indent-radius: var(--nx-radius-surface);
   --nx-drawer-viewport-padding: var(--nx-space-surface-sm);
+  --nx-drawer-viewport-inset: var(--nx-space-surface-sm);
   --nx-drawer-viewport-z-index: var(--nx-elevation-layer-z-index);
   --nx-drawer-popup-background: var(--nx-color-background-base);
   --nx-drawer-popup-foreground: var(--nx-color-text-primary);
@@ -851,6 +864,7 @@
   --nx-drawer-handle-height: var(--nx-size-track-md);
   --nx-drawer-handle-margin-top: var(--nx-space-control-y-sm);
   --nx-drawer-handle-radius: var(--nx-radius-pill);
+  --nx-drawer-handle-z-index: 30;
   --nx-drawer-swipe-area-size: var(--nx-size-area-swipe-sm);
   --nx-drawer-title-foreground: var(--nx-color-text-primary);
   --nx-drawer-title-padding-end: var(--nx-size-control-lg);
@@ -1077,6 +1091,7 @@
   --nx-popover-popup-border-color: var(--nx-border-default);
   --nx-popover-popup-radius: var(--nx-radius-surface);
   --nx-popover-popup-max-width: var(--nx-size-panel-width-sm);
+  --nx-popover-popup-inset: var(--nx-space-surface-md);
   --nx-popover-popup-padding: var(--nx-space-surface-md);
   --nx-popover-popup-gap: var(--nx-space-surface-gap-sm);
   --nx-popover-popup-shadow: var(--nx-elevation-shadow-floating-box-shadow);
@@ -1311,6 +1326,7 @@
   --nx-textarea-transition-duration: var(--nx-duration-control);
   --nx-textarea-transition-easing: var(--nx-easing-control);
   --nx-toast-viewport-width: var(--nx-size-panel-width-md);
+  --nx-toast-viewport-inset: var(--nx-space-surface-sm);
   --nx-toast-viewport-gap: var(--nx-space-surface-gap-sm);
   --nx-toast-viewport-gap-expanded: var(--nx-space-surface-gap-md);
   --nx-toast-viewport-padding: var(--nx-space-surface-sm);
@@ -1320,7 +1336,7 @@
   --nx-toast-border-color: var(--nx-border-default);
   --nx-toast-shadow: var(--nx-elevation-shadow-raised-box-shadow);
   --nx-toast-success-border-color: var(--nx-color-feedback-success-foreground);
-  --nx-toast-destructive-border-color: var(--nx-color-feedback-danger-foreground);
+  --nx-toast-danger-border-color: var(--nx-color-feedback-danger-foreground);
   --nx-toast-radius: var(--nx-radius-surface);
   --nx-toast-padding: var(--nx-space-surface-md);
   --nx-toast-padding-end: var(--nx-size-control-lg);

@@ -18,9 +18,19 @@ describe("buttonVariants", () => {
     expect(className).toContain(
       "focus-visible:ring-(--nx-button-focus-ring-color)",
     )
-    expect(className).toContain("disabled:opacity-50")
-    expect(className).toContain("aria-busy:cursor-wait")
+    expect(className).toContain("disabled:opacity-(--nx-opacity-disabled)")
+    expect(className).toContain("aria-busy:opacity-(--nx-opacity-busy)")
     expect(className).toContain("border-(--nx-button-secondary-border-color)")
     expect(className).toContain("h-(--nx-button-height-lg)")
+  })
+
+  test("maps danger variant through component tokens", () => {
+    const className = buttonVariants({ variant: "danger" })
+
+    expect(className).toContain("bg-(--nx-button-danger-background)")
+    expect(className).toContain("text-(--nx-button-danger-foreground)")
+    expect(className).toContain(
+      "hover:bg-(--nx-button-danger-hover-background)",
+    )
   })
 })

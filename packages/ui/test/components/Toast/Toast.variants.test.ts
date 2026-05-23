@@ -12,6 +12,8 @@ describe("toastVariants", () => {
     )
     expect(toastViewportVariants()).toContain("var(--nx-toast-viewport-width)")
     expect(toastVariants()).toContain("data-[type=destructive]")
+    expect(toastVariants()).toContain("--nx-toast-danger-border-color")
+    expect(toastViewportVariants()).toContain("--nx-toast-viewport-inset")
     expect(toastVariants()).toContain("var(--toast-swipe-movement-x,0px)")
     expect(toastActionVariants()).toContain(
       "bg-(--nx-toast-action-hover-background)",

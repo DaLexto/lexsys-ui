@@ -13,7 +13,7 @@ export const alertDialogTriggerVariants = cva(
     "text-(length:--nx-alert-dialog-trigger-font-size) font-(--nx-alert-dialog-trigger-font-weight) leading-(--nx-alert-dialog-trigger-font-line-height)",
     "transition-colors duration-(--nx-alert-dialog-transition-duration) ease-(--nx-alert-dialog-transition-easing)",
     "outline-none hover:bg-(--nx-alert-dialog-trigger-hover-background) focus-visible:ring-(length:--nx-alert-dialog-focus-ring-width) focus-visible:ring-(--nx-alert-dialog-focus-ring-color) focus-visible:ring-offset-(length:--nx-alert-dialog-focus-ring-offset) focus-visible:ring-offset-(--nx-alert-dialog-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 
@@ -31,7 +31,7 @@ export const alertDialogViewportVariants = cva(
 
 export const alertDialogPopupVariants = cva(
   [
-    "grid w-[min(calc(100vw-2rem),var(--nx-alert-dialog-popup-max-width))] gap-(--nx-alert-dialog-popup-gap) rounded-(--nx-alert-dialog-popup-radius) border",
+    "grid w-[min(calc(100vw-(var(--nx-alert-dialog-viewport-inset)*2)),var(--nx-alert-dialog-popup-max-width))] gap-(--nx-alert-dialog-popup-gap) rounded-(--nx-alert-dialog-popup-radius) border",
     "border-(--nx-alert-dialog-popup-border-color) bg-(--nx-alert-dialog-popup-background) p-(--nx-alert-dialog-popup-padding) text-(--nx-alert-dialog-popup-foreground) shadow-(--nx-alert-dialog-popup-shadow)",
     "outline-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "transition-[opacity,transform] duration-(--nx-alert-dialog-transition-duration) ease-(--nx-alert-dialog-transition-easing)",
@@ -51,6 +51,6 @@ export const alertDialogCloseVariants = cva(
     "absolute right-(--nx-alert-dialog-close-inset) top-(--nx-alert-dialog-close-inset) inline-flex size-(--nx-alert-dialog-close-size) items-center justify-center rounded-(--nx-alert-dialog-close-radius)",
     "text-(--nx-alert-dialog-close-foreground) outline-none transition-colors duration-(--nx-alert-dialog-transition-duration) ease-(--nx-alert-dialog-transition-easing)",
     "hover:bg-(--nx-alert-dialog-close-hover-background) focus-visible:ring-(length:--nx-alert-dialog-focus-ring-width) focus-visible:ring-(--nx-alert-dialog-focus-ring-color) focus-visible:ring-offset-(length:--nx-alert-dialog-focus-ring-offset) focus-visible:ring-offset-(--nx-alert-dialog-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )

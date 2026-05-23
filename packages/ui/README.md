@@ -31,7 +31,7 @@ independent implementations.
 
 ---
 
-## Components (31)
+## Components (32)
 
 | Component     | Category     |
 | ------------- | ------------ |
@@ -56,6 +56,7 @@ independent implementations.
 | `Popover`     | overlays     |
 | `Progress`    | feedback     |
 | `RadioGroup`  | forms        |
+| `ScrollArea`  | layout       |
 | `Select`      | forms        |
 | `Separator`   | layout       |
 | `Slider`      | forms        |
@@ -66,6 +67,12 @@ independent implementations.
 | `Toggle`      | actions      |
 | `ToggleGroup` | actions      |
 | `Tooltip`     | overlays     |
+
+---
+
+## Breaking changes (pre-0.1.0)
+
+See [CHANGELOG.md](./CHANGELOG.md). Canonical variant rules: [docs/UI_VARIANTS.md](../../docs/UI_VARIANTS.md).
 
 ---
 
@@ -128,6 +135,7 @@ Public API surface test lives in `test/public-api.test.ts`.
 
 ```sh
 pnpm --filter @neurex/ui test
+pnpm --filter @neurex/ui audit
 pnpm --filter @neurex/ui typecheck
 ```
 
@@ -137,6 +145,7 @@ pnpm --filter @neurex/ui typecheck
 
 ```sh
 pnpm ui:check
+pnpm ui:audit
 pnpm ui:build
 ```
 

@@ -22,7 +22,9 @@ describe("textareaVariants", () => {
       "focus-visible:ring-(--nx-textarea-focus-ring-color)",
     )
     expect(className).toContain("aria-invalid:border-")
-    expect(className).toContain("data-[disabled]:opacity-50")
+    expect(className).toContain(
+      "data-[disabled]:opacity-(--nx-opacity-disabled)",
+    )
     expect(className).toContain("resize-none")
     expect(className).toContain("min-h-(--nx-textarea-min-height-lg)")
   })

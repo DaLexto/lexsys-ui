@@ -24,7 +24,7 @@ describe("cardVariants", () => {
     expect(cardDescriptionClassName).toContain(
       "text-(--nx-card-description-foreground)",
     )
-    expect(cardContentClassName).toContain("pt-0")
+    expect(cardContentClassName).toContain("pt-(--nx-card-content-padding-top)")
     expect(cardFooterClassName).toContain("gap-(--nx-card-gap-md)")
   })
 })

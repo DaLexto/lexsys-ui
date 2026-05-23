@@ -10,7 +10,7 @@ export const avatarVariants = cva(
   [
     "inline-flex shrink-0 items-center justify-center overflow-hidden border border-(--nx-avatar-border-color)",
     "bg-(--nx-avatar-background) text-(--nx-avatar-foreground)",
-    "font-(--nx-avatar-font-weight) leading-none",
+    "font-(--nx-avatar-font-weight) leading-(--nx-avatar-font-line-height)",
   ].join(" "),
   {
     variants: {

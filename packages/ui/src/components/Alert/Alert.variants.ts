@@ -6,14 +6,14 @@
 
 import { cva } from "class-variance-authority"
 
-const neutralTone =
+const neutralVariant =
   "border-(--nx-alert-neutral-border-color) bg-(--nx-alert-neutral-background) text-(--nx-alert-neutral-foreground)"
 
-const primaryTone =
+const primaryVariant =
   "border-(--nx-alert-primary-border-color) bg-(--nx-alert-primary-background) text-(--nx-alert-primary-foreground)"
 
-const destructiveTone =
-  "border-(--nx-alert-destructive-border-color) bg-(--nx-alert-destructive-background) text-(--nx-alert-destructive-foreground)"
+const dangerVariant =
+  "border-(--nx-alert-danger-border-color) bg-(--nx-alert-danger-background) text-(--nx-alert-danger-foreground)"
 
 export const alertVariants = cva(
   [
@@ -22,14 +22,14 @@ export const alertVariants = cva(
   ].join(" "),
   {
     variants: {
-      tone: {
-        neutral: neutralTone,
-        primary: primaryTone,
-        destructive: destructiveTone,
+      variant: {
+        neutral: neutralVariant,
+        primary: primaryVariant,
+        danger: dangerVariant,
       },
     },
     defaultVariants: {
-      tone: "neutral",
+      variant: "neutral",
     },
   },
 )

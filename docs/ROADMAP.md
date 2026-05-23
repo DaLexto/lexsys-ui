@@ -370,6 +370,16 @@ Original per-phase sketch (reference if splitting future work):
 - `docs/SCRIPTS.md` owns monorepo script names and sync workflows.
 - `docs/TESTING.md` owns test coverage tiers and when-to-run checks.
 - `docs/DEPLOY.md` owns release and build contract.
+- `docs/UI_VARIANTS.md` owns the canonical UI variant prop contract and CVA rules.
+- `docs/UI_AUDIT.md` owns the per-component compliance inventory.
+
+## UI polish track (post-M3)
+
+Pre-0.1.0 hardening: unified `variant` / `size` / `appearance` API, `danger` vocabulary,
+semantic opacity tokens, and `pnpm ui:audit` automation. See [UI_VARIANTS.md](./UI_VARIANTS.md)
+and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes acceptable pre-publish.
+
+---
 
 ## Maintenance Workflow
 

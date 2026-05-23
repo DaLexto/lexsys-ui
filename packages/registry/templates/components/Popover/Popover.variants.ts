@@ -13,7 +13,7 @@ export const popoverTriggerVariants = cva(
     "text-(length:--nx-popover-trigger-font-size) font-(--nx-popover-trigger-font-weight) leading-(--nx-popover-trigger-font-line-height)",
     "transition-colors duration-(--nx-popover-transition-duration) ease-(--nx-popover-transition-easing)",
     "outline-none hover:bg-(--nx-popover-trigger-hover-background) focus-visible:ring-(length:--nx-popover-focus-ring-width) focus-visible:ring-(--nx-popover-focus-ring-color) focus-visible:ring-offset-(length:--nx-popover-focus-ring-offset) focus-visible:ring-offset-(--nx-popover-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 
@@ -31,7 +31,7 @@ export const popoverPositionerVariants = cva(
 
 export const popoverPopupVariants = cva(
   [
-    "grid w-[min(calc(100vw-2rem),var(--nx-popover-popup-max-width))] gap-(--nx-popover-popup-gap) rounded-(--nx-popover-popup-radius) border",
+    "grid w-[min(calc(100vw-(var(--nx-popover-popup-inset)*2)),var(--nx-popover-popup-max-width))] gap-(--nx-popover-popup-gap) rounded-(--nx-popover-popup-radius) border",
     "border-(--nx-popover-popup-border-color) bg-(--nx-popover-popup-background) p-(--nx-popover-popup-padding) text-(--nx-popover-popup-foreground) shadow-(--nx-popover-popup-shadow)",
     "outline-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "transition-[opacity,transform] duration-(--nx-popover-transition-duration) ease-(--nx-popover-transition-easing)",
@@ -58,7 +58,7 @@ export const popoverCloseVariants = cva(
     "absolute right-(--nx-popover-close-inset) top-(--nx-popover-close-inset) inline-flex size-(--nx-popover-close-size) items-center justify-center rounded-(--nx-popover-close-radius)",
     "text-(--nx-popover-close-foreground) outline-none transition-colors duration-(--nx-popover-transition-duration) ease-(--nx-popover-transition-easing)",
     "hover:bg-(--nx-popover-close-hover-background) focus-visible:ring-(length:--nx-popover-focus-ring-width) focus-visible:ring-(--nx-popover-focus-ring-color) focus-visible:ring-offset-(length:--nx-popover-focus-ring-offset) focus-visible:ring-offset-(--nx-popover-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "disabled:cursor-not-allowed disabled:opacity-(--nx-opacity-disabled) data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 

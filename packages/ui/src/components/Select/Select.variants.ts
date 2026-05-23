@@ -18,7 +18,7 @@ export const selectTriggerVariants = cva(
     "transition-colors duration-(--nx-select-transition-duration) ease-(--nx-select-transition-easing)",
     "outline-none data-[focused]:border-(--nx-select-focus-border-color) data-[focused]:ring-(length:--nx-select-focus-ring-width) data-[focused]:ring-(--nx-select-focus-ring-color) data-[focused]:ring-offset-(length:--nx-select-focus-ring-offset) data-[focused]:ring-offset-(--nx-select-focus-ring-offset-color)",
     "data-[invalid]:border-(--nx-select-invalid-border-color) data-[invalid]:ring-(length:--nx-select-invalid-ring-width) data-[invalid]:ring-(--nx-select-invalid-ring-color)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
   {
     variants: {
@@ -69,7 +69,7 @@ export const selectItemVariants = cva(
     "text-(length:--nx-select-item-font-size) font-(--nx-select-item-font-weight) leading-(--nx-select-item-font-line-height) text-(--nx-select-item-foreground) outline-none",
     "data-[highlighted]:bg-(--nx-select-item-highlight-background) data-[highlighted]:text-(--nx-select-item-highlight-foreground)",
     "data-[selected]:bg-(--nx-select-item-selected-background) data-[selected]:text-(--nx-select-item-selected-foreground)",
-    "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+    "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 

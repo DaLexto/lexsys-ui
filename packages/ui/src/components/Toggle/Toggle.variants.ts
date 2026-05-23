@@ -5,6 +5,7 @@
  */
 
 import { cva } from "class-variance-authority"
+import { disabledStateClasses } from "../../utils/variant-states"
 
 export const toggleVariants = cva(
   [
@@ -14,7 +15,7 @@ export const toggleVariants = cva(
     "transition-colors duration-(--nx-toggle-transition-duration) ease-(--nx-toggle-transition-easing)",
     "outline-none hover:bg-(--nx-toggle-hover-background) data-[pressed]:border-(--nx-toggle-pressed-border-color) data-[pressed]:bg-(--nx-toggle-pressed-background) data-[pressed]:text-(--nx-toggle-pressed-foreground)",
     "focus-visible:ring-(length:--nx-toggle-focus-ring-width) focus-visible:ring-(--nx-toggle-focus-ring-color) focus-visible:ring-offset-(length:--nx-toggle-focus-ring-offset) focus-visible:ring-offset-(--nx-toggle-focus-ring-offset-color)",
-    "disabled:pointer-events-none disabled:opacity-50",
+    disabledStateClasses,
   ].join(" "),
   {
     variants: {

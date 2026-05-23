@@ -15,6 +15,7 @@ export const popoverComponentTokens = componentTokens("popover", {
     borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
     maxWidth: { $value: "{size.panel.width.sm}" },
+    inset: { $value: "{spacing.surface.md}" },
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     shadow: { $value: "{elevation.shadow.floating.boxShadow}" },

@@ -299,4 +299,6 @@
   --nx-layout-aspect-ratio-portrait: var(--nx-layout-aspect-ratio-portrait);
   --nx-layout-aspect-ratio-video: var(--nx-layout-aspect-ratio-video);
   --nx-layout-aspect-ratio-ultrawide: var(--nx-layout-aspect-ratio-ultrawide);
+  --nx-opacity-disabled: var(--nx-opacity-disabled);
+  --nx-opacity-busy: var(--nx-opacity-busy);
 }

@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 const Badge = ({
   ref,
   variant,
-  tone,
+  appearance,
   size,
   className,
   ...props
@@ -19,7 +19,7 @@ const Badge = ({
   return (
     <span
       ref={ref}
-      className={cn(badgeVariants({ variant, tone, size }), className)}
+      className={cn(badgeVariants({ variant, appearance, size }), className)}
       {...props}
     />
   )

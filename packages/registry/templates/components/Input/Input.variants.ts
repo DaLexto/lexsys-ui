@@ -5,6 +5,10 @@
  */
 
 import { cva } from "class-variance-authority"
+import {
+  disabledStateClasses,
+  invalidStateClasses,
+} from "../../utils/variant-states"
 
 export const inputVariants = cva(
   [
@@ -14,8 +18,9 @@ export const inputVariants = cva(
     "placeholder:text-(--nx-input-placeholder-color)",
     "transition-colors duration-(--nx-input-transition-duration) ease-(--nx-input-transition-easing)",
     "outline-none focus-visible:border-(--nx-input-focus-border-color) focus-visible:ring-(length:--nx-input-focus-ring-width) focus-visible:ring-(--nx-input-focus-ring-color) focus-visible:ring-offset-(length:--nx-input-focus-ring-offset) focus-visible:ring-offset-(--nx-input-focus-ring-offset-color)",
-    "disabled:cursor-not-allowed disabled:opacity-50",
-    "aria-invalid:border-(--nx-input-invalid-border-color) aria-invalid:ring-(--nx-input-invalid-ring-color)",
+    "disabled:cursor-not-allowed",
+    disabledStateClasses,
+    invalidStateClasses,
   ].join(" "),
   {
     variants: {

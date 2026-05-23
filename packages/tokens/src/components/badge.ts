@@ -21,6 +21,7 @@ export const badgeComponentTokens = componentTokens("badge", {
       md: { $value: "{typography.label.sm.fontSize}" },
     },
     weight: { $value: "{typography.label.sm.fontWeight}" },
+    lineHeight: { $value: 1 },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
@@ -41,7 +42,7 @@ export const badgeComponentTokens = componentTokens("badge", {
     foreground: { $value: "{color.text.inverse}" },
     borderColor: { $value: "{action.primary.base}" },
   },
-  destructive: {
+  danger: {
     $type: "color",
     background: { $value: "{action.danger.base}" },
     foreground: { $value: "{color.text.inverse}" },

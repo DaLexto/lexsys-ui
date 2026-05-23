@@ -31,6 +31,7 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm tokens:governance:report` | Token governance + contrast audit report                                              |
 | `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                |
 | `pnpm ui:check`                 | Lint + typecheck + test `@neurex/ui`                                                  |
+| `pnpm ui:audit`                 | Scan `*.variants.ts` for forbidden styling literals                                   |
 | `pnpm ui:build`                 | Build `@neurex/ui`                                                                    |
 | `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                  |
 | `pnpm registry:sync`            | Sync UI source → registry component templates                                         |

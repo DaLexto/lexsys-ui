@@ -15,12 +15,12 @@ describe("alertVariants", () => {
     expect(className).toContain("border-(--nx-alert-neutral-border-color)")
   })
 
-  test("maps alert tones and slots through component tokens", () => {
-    const className = alertVariants({ tone: "destructive" })
+  test("maps alert variants and slots through component tokens", () => {
+    const className = alertVariants({ variant: "danger" })
 
-    expect(className).toContain("bg-(--nx-alert-destructive-background)")
-    expect(className).toContain("text-(--nx-alert-destructive-foreground)")
-    expect(className).toContain("border-(--nx-alert-destructive-border-color)")
+    expect(className).toContain("bg-(--nx-alert-danger-background)")
+    expect(className).toContain("text-(--nx-alert-danger-foreground)")
+    expect(className).toContain("border-(--nx-alert-danger-border-color)")
     expect(alertTitleClassName).toContain("font-(--nx-alert-title-font-weight)")
     expect(alertDescriptionClassName).toContain(
       "text-(--nx-alert-description-foreground)",

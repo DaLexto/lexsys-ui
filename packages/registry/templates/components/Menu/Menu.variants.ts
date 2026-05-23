@@ -14,7 +14,7 @@ export const menuTriggerVariants = cva(
     "transition-colors duration-(--nx-menu-transition-duration) ease-(--nx-menu-transition-easing)",
     "outline-none data-[popup-open]:border-(--nx-menu-trigger-open-border-color) data-[popup-open]:bg-(--nx-menu-trigger-open-background)",
     "data-[focused]:border-(--nx-menu-focus-border-color) data-[focused]:ring-(length:--nx-menu-focus-ring-width) data-[focused]:ring-(--nx-menu-focus-ring-color) data-[focused]:ring-offset-(length:--nx-menu-focus-ring-offset) data-[focused]:ring-offset-(--nx-menu-focus-ring-offset-color)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 
@@ -44,7 +44,7 @@ export const menuItemVariants = cva(
     "text-(--nx-menu-item-foreground) outline-none",
     "data-[highlighted]:bg-(--nx-menu-item-highlight-background) data-[highlighted]:text-(--nx-menu-item-highlight-foreground)",
     "data-[checked]:bg-(--nx-menu-item-checked-background) data-[checked]:text-(--nx-menu-item-checked-foreground)",
-    "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+    "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 

@@ -22,7 +22,7 @@ export const accordionTriggerVariants = cva(
     "text-(length:--nx-accordion-trigger-font-size) font-(--nx-accordion-trigger-font-weight) leading-(--nx-accordion-trigger-font-line-height) text-(--nx-accordion-foreground)",
     "transition-colors duration-(--nx-accordion-transition-duration) ease-(--nx-accordion-transition-easing)",
     "outline-none hover:bg-(--nx-accordion-trigger-background-hover) focus-visible:ring-(length:--nx-accordion-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--nx-accordion-focus-ring-color)",
-    "disabled:pointer-events-none disabled:opacity-50",
+    "disabled:pointer-events-none disabled:opacity-(--nx-opacity-disabled)",
   ].join(" "),
 )
 

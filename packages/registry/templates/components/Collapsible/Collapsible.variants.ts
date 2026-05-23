@@ -28,7 +28,7 @@ export const collapsibleTriggerVariants = cva(
     "text-(length:--nx-collapsible-trigger-font-size) font-(--nx-collapsible-trigger-font-weight) leading-(--nx-collapsible-trigger-font-line-height)",
     "transition-colors duration-(--nx-collapsible-transition-duration) ease-(--nx-collapsible-transition-easing)",
     "outline-none hover:bg-(--nx-collapsible-trigger-background-hover) focus-visible:ring-(length:--nx-collapsible-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--nx-collapsible-focus-ring-color)",
-    "disabled:pointer-events-none disabled:opacity-50 [&>svg]:size-(--nx-collapsible-trigger-icon-size) [&>svg]:transition-transform data-[panel-open]:[&>svg]:rotate-45",
+    "disabled:pointer-events-none disabled:opacity-(--nx-opacity-disabled) [&>svg]:size-(--nx-collapsible-trigger-icon-size) [&>svg]:transition-transform data-[panel-open]:[&>svg]:rotate-45",
   ].join(" "),
 )
 

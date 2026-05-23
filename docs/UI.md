@@ -106,6 +106,8 @@ Components that render plain HTML elements MAY merge `className` directly:
 
 ## Variant Contract
 
+Canonical standard: [UI_VARIANTS.md](./UI_VARIANTS.md). Audit inventory: [UI_AUDIT.md](./UI_AUDIT.md).
+
 Every component with visual options MUST define variants in `.variants.ts` using
 `class-variance-authority`:
 

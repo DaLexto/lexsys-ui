@@ -18,7 +18,7 @@ import { cn } from "../../utils/cn"
 
 const Alert = ({
   ref,
-  tone,
+  variant,
   className,
   role = "alert",
   ...props
@@ -27,7 +27,7 @@ const Alert = ({
     <div
       ref={ref}
       role={role}
-      className={cn(alertVariants({ tone }), className)}
+      className={cn(alertVariants({ variant }), className)}
       {...props}
     />
   )

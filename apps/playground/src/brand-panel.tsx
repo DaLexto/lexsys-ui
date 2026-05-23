@@ -37,12 +37,12 @@ export const BrandPanel = () => {
       </div>
 
       <div className="brand-badge-row">
-        <Badge tone="primary">Primary badge</Badge>
-        <Badge tone="primary" variant="outline">
+        <Badge variant="primary">Primary badge</Badge>
+        <Badge variant="primary" appearance="outline">
           Primary outline
         </Badge>
         <Badge
-          variant="outline"
+          appearance="outline"
           className="border-(--nx-border-accent) text-(--nx-color-text-accent)"
         >
           Accent outline
