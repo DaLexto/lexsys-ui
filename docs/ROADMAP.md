@@ -325,7 +325,7 @@ separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.
 
 | PR    | Phase | Title sketch                                        | Delivery                                                 |
 | ----- | ----- | --------------------------------------------------- | -------------------------------------------------------- |
-| 0–7   | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **single PR** — see branch `chore/monorepo-optimization` |
+| 0–7   | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **PR #18** — single PR                                   |
 | 3a–3b | M3    | Product slices + docs sync                          | planned                                                  |
 | 4a–4b | M4    | Release readiness + docs sync                       | planned                                                  |
 
