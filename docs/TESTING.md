@@ -94,7 +94,7 @@ Run:
 
 ```sh
 pnpm cli:check                # from repo root
-pnpm --filter neurex test
+pnpm --filter ./packages/cli test
 ```
 
 ---

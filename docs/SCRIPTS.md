@@ -143,10 +143,10 @@ pnpm --filter @neurex/registry <script>
 | `pnpm cli:lint:fix`  | `lint:fix`     | Auto-fix CLI package lint              |
 | `pnpm cli:typecheck` | `typecheck`    | Types only                             |
 
-Filter equivalent:
+Filter equivalent (use path filter — root package is also named `neurex`):
 
 ```sh
-pnpm --filter neurex <script>
+pnpm --filter ./packages/cli <script>
 ```
 
 ---
@@ -234,6 +234,7 @@ With `NEUREX_CONTRAST_POLICY=ci` in CI.
 | `pnpm check`, `pnpm build`, `pnpm test`      | Run across all workspace packages via turbo                      |
 | `pnpm tokens:check`, `pnpm registry:sync`, … | Daily maintainer shortcuts from repo root                        |
 | `pnpm --filter @neurex/tokens test`          | Running a single package script without a root alias, or from CI |
+| `pnpm --filter ./packages/cli check`         | CLI package only (avoids root `neurex` name collision)           |
 
 Prefer root aliases in docs and commit messages when they exist. Use `--filter` when documenting the underlying package script or when no root alias exists (e.g. `templates:check-sync`).
 
