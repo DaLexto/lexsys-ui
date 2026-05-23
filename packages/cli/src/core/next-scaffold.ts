@@ -66,13 +66,19 @@ const tsConfig = `{
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
 `
 
 const nextEnvDts = `/// <reference types="next" />
 /// <reference types="next/image-types/global" />
+`
+
+const globalDts = `declare module "*.css" {
+  const content: Record<string, string>
+  export default content
+}
 `
 
 const layoutTsx = `import type { Metadata } from "next"
@@ -314,6 +320,9 @@ export const scaffoldNextProject = async (
     allowExisting: true,
   })
   await writeScaffoldFile(join(targetDirectory, "next-env.d.ts"), nextEnvDts, {
+    allowExisting: true,
+  })
+  await writeScaffoldFile(join(targetDirectory, "global.d.ts"), globalDts, {
     allowExisting: true,
   })
   await writeScaffoldFile(join(targetDirectory, "app", "layout.tsx"), layoutTsx)
