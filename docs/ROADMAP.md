@@ -34,8 +34,11 @@ Current implementation:
   paths.
 - Token engine (Phases 7–10): graph traversal, composite typography + shadow/border
   branch+slot registry, on-demand resolved values, WCAG contrast validation on
-  registered semantic pairs (11 pairs; overlay compositing; CI policy gate;
+  registered semantic pairs (15 pairs; overlay compositing; CI + CSS build policy;
   `rgb()` / `hsl()` string parsing for contrast math).
+- Post–Phase 10 hardening shipped: primitive shadow scale `0`–`6` on branch+slot
+  leaves; `elevation.shadow.*` references primitive slots; CSS `boxShadow`
+  composition for primitive and semantic shadow paths.
 
 Canonical current rules and enforcement details live in `docs/TOKENS.md`.
 
@@ -73,10 +76,16 @@ Summary only — do not duplicate detail here.
 
 **Planned (likely next):**
 
-- Further expand `SEMANTIC_CONTRAST_PAIRS` (danger-action patterns, large-text roles)
-- Promote contrast checks to build-failing (`build` tier in `validateStyleTokenInput`)
-- Full shadow primitive migration (CSS strings → slots) and slot-based `box-shadow` CSS composition
+- Further expand `SEMANTIC_CONTRAST_PAIRS` (additional roles beyond the current 15-pair registry)
 - Optional promotion of selected governance checks to build-failing
+- Inset / multi-layer shadow authoring improvements (`shadow.inner` remains a flat CSS string today)
+
+**Recently shipped (post–Phase 10 queue):**
+
+- Build-failing contrast in `validateStyleTokenInput` (unless `NEUREX_CONTRAST_POLICY=report`)
+- Full primitive shadow scale migration (`shadow.0`–`shadow.6` branch+slot) with CSS compose
+- `neurex uninstall` metadata-driven removal with dry-run and conflict reporting
+- UI render test pilot (`ScrollArea`, `Collapsible`, `Dialog`)
 
 **Deferred (explicit non-goals for now):**
 

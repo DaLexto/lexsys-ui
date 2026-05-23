@@ -205,6 +205,36 @@ describe("css vars generator", () => {
     })
   })
 
+  it("composes primitive shadow boxShadow from composite slot CSS variables", () => {
+    const tokens: TokenTree = {
+      shadow: {
+        $type: "shadow",
+        4: {
+          color: {
+            $value: {
+              colorSpace: "oklch",
+              components: [0, 0, 0],
+              alpha: 0.12,
+            },
+          },
+          offsetX: { $value: "0" },
+          offsetY: { $value: "8px" },
+          blur: { $value: "16px" },
+          spread: { $value: "0" },
+          boxShadow: { $value: "0 8px 16px rgb(0 0 0 / 0.12)" },
+        },
+      },
+    }
+
+    const entries = createCssVariableEntries(tokens, generatorOptions)
+
+    expect(entries).toContainEqual({
+      name: "shadow-4-box-shadow",
+      value:
+        "var(--nx-shadow-4-offset-x) var(--nx-shadow-4-offset-y) var(--nx-shadow-4-blur) var(--nx-shadow-4-spread) var(--nx-shadow-4-color)",
+    })
+  })
+
   it("collapses DEFAULT path segments", () => {
     const tokens: TokenTree = {
       radius: {

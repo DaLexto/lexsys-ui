@@ -248,7 +248,7 @@ Eleven semantic foreground/background pairs in `contrast.pairs.ts` (text-on-base
 
 ### Non-goals (still deferred)
 
-- Build-failing contrast enforcement in `validateStyleTokenInput` (`build` tier reserved; CI gate is current)
+- Build-failing contrast enforcement in `validateStyleTokenInput` via `validateContrastPolicyStrict` (unless `NEUREX_CONTRAST_POLICY=report`)
 - Runtime accessibility checks in consumer apps
 - Automatic pair discovery without the explicit registry
 
@@ -265,12 +265,12 @@ recommended next evolution track. High-level platform summary lives in
 
 ### Planned (likely next, no phase number yet)
 
-| Track | Target behavior | Why not shipped in Phase 10 |
-| ----- | --------------- | --------------------------- |
-| Contrast pair expansion | Add semantic pairs beyond the current registry (for example danger-action foreground, large-text roles) | Overlay pair shipped after background compositing; further pairs need design sign-off |
-| Contrast build promotion | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA | CI gate shipped; `build` tier awaits stable inventory |
-| Shadow primitive migration | Full CSS string → slot migration for all elevation roles; optional slot-based `box-shadow` CSS composition | Pilot roles (`floating`, `raised`) on branch+slot; primitive strings remain for unmigrated scales |
-| Governance promotion | Make selected governance checks build-failing (zero dead primitives, zero deprecated-with-dependents) | Documented hook only today; promotion is a maintainer policy choice |
+| Track | Target behavior | Status |
+| ----- | --------------- | ------ |
+| Contrast pair expansion | Add semantic pairs beyond the current 15-pair registry | Partial — danger/secondary action + large-text heading pairs shipped; further pairs need design sign-off |
+| Contrast build promotion | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA | **Shipped** — `validateContrastPolicyStrict` in `validateStyleTokenInput` |
+| Shadow primitive migration | Primitive shadow scale on branch+slot; slot-based `box-shadow` CSS composition | **Shipped** — `shadow.0`–`shadow.6`; `elevation.shadow.*` refs primitive slots; `shadow.inner` flat string remains |
+| Governance promotion | Make selected governance checks build-failing | Open — maintainer policy choice |
 
 None of the above require the speculative AST evaluator. They extend shipped
 engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
@@ -289,9 +289,10 @@ engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
 
 ### Known gaps (current state, not bugs)
 
-- **Contrast CI vs build** — `evaluateContrastPolicy` fails `governance:report` in CI (`ci` tier); CSS build does not fail until `build` tier is wired into `validateStyleTokenInput`.
+- **Contrast policy tiers** — `evaluateContrastPolicy` fails `governance:report` in CI (`ci` tier) and CSS build fails via `validateContrastPolicyStrict` unless `NEUREX_CONTRAST_POLICY=report`.
 - **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@neurex/tokens` root export today.
 - **Composite object `$value` leaves** — authoring uses branch + slot leaves (typography, shadow, border); DTCG-native single-leaf composite objects remain a deferred engine phase.
+- **`shadow.inner`** — inset shadow remains a flat CSS string leaf; slot model does not model `inset` yet.
 
 ---
 

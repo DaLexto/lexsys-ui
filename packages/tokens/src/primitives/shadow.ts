@@ -15,13 +15,41 @@
  * - Components must not consume primitive shadows directly
  *
  * @notes
- * - This file contains raw shadow values only
- * - It does not define semantic usage such as card, popover, dialog, or tooltip elevation
- * - Shadow values are currently authored as CSS-compatible strings
- * - Structured DTCG shadow objects can replace these strings when composite shadow generation is implemented
+ * - Scales 0–6 use branch + slot leaves; CSS generator composes boxShadow from slots
+ * - boxShadow shorthand leaves preserve full CSS (including multi-layer strings) for export
+ * - inner remains a flat CSS string (inset) until inset slot support exists
  */
 
 import { primitiveTokens } from "../types/authoring"
+
+const shadowColor = (alpha: number) => ({
+  $value: {
+    colorSpace: "oklch" as const,
+    components: [0, 0, 0] as [number, number, number],
+    alpha,
+    hex: "#000000",
+  },
+})
+
+const shadowScaleStep = (options: {
+  description: string
+  offsetY: string
+  blur: string
+  alpha: number
+  boxShadow: string
+}) => ({
+  $description: options.description,
+  color: shadowColor(options.alpha),
+  offsetX: { $value: "0" },
+  offsetY: { $value: options.offsetY },
+  blur: { $value: options.blur },
+  spread: { $value: "0" },
+  boxShadow: {
+    $value: options.boxShadow,
+    $description:
+      "Full CSS shadow string; slot vars compose the primary layer for boxShadow output.",
+  },
+})
 
 export const shadowPrimitives = primitiveTokens("shadow", {
   $type: "shadow",
@@ -30,41 +58,64 @@ export const shadowPrimitives = primitiveTokens("shadow", {
 
   0: {
     $description: "No shadow. Used as the base elevation reset.",
-    $value: "none",
+    color: shadowColor(0),
+    offsetX: { $value: "0" },
+    offsetY: { $value: "0" },
+    blur: { $value: "0" },
+    spread: { $value: "0" },
+    boxShadow: { $value: "none" },
   },
 
-  1: {
-    $description: "Subtle shadow for minimally raised surfaces.",
-    $value: "0 1px 2px rgb(0 0 0 / 0.06), 0 1px 1px rgb(0 0 0 / 0.04)",
-  },
+  1: shadowScaleStep({
+    description: "Subtle shadow for minimally raised surfaces.",
+    offsetY: "1px",
+    blur: "2px",
+    alpha: 0.06,
+    boxShadow: "0 1px 2px rgb(0 0 0 / 0.06), 0 1px 1px rgb(0 0 0 / 0.04)",
+  }),
 
-  2: {
-    $description: "Low shadow for small elevated surfaces and controls.",
-    $value: "0 2px 4px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.06)",
-  },
+  2: shadowScaleStep({
+    description: "Low shadow for small elevated surfaces and controls.",
+    offsetY: "2px",
+    blur: "4px",
+    alpha: 0.08,
+    boxShadow: "0 2px 4px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.06)",
+  }),
 
-  3: {
-    $description: "Medium shadow for cards and raised containers.",
-    $value: "0 4px 8px rgb(0 0 0 / 0.10), 0 2px 4px rgb(0 0 0 / 0.08)",
-  },
+  3: shadowScaleStep({
+    description: "Medium shadow for cards and raised containers.",
+    offsetY: "4px",
+    blur: "8px",
+    alpha: 0.1,
+    boxShadow: "0 4px 8px rgb(0 0 0 / 0.10), 0 2px 4px rgb(0 0 0 / 0.08)",
+  }),
 
-  4: {
-    $description:
+  4: shadowScaleStep({
+    description:
       "High shadow for floating surfaces such as popovers and menus.",
-    $value: "0 8px 16px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.08)",
-  },
+    offsetY: "8px",
+    blur: "16px",
+    alpha: 0.12,
+    boxShadow: "0 8px 16px rgb(0 0 0 / 0.12), 0 4px 8px rgb(0 0 0 / 0.08)",
+  }),
 
-  5: {
-    $description:
+  5: shadowScaleStep({
+    description:
       "Strong shadow for prominent overlays such as dialogs and drawers.",
-    $value: "0 16px 32px rgb(0 0 0 / 0.14), 0 8px 16px rgb(0 0 0 / 0.10)",
-  },
+    offsetY: "16px",
+    blur: "32px",
+    alpha: 0.14,
+    boxShadow: "0 16px 32px rgb(0 0 0 / 0.14), 0 8px 16px rgb(0 0 0 / 0.10)",
+  }),
 
-  6: {
-    $description:
+  6: shadowScaleStep({
+    description:
       "Maximum shadow for highest elevation surfaces and dramatic depth.",
-    $value: "0 24px 48px rgb(0 0 0 / 0.16), 0 12px 24px rgb(0 0 0 / 0.12)",
-  },
+    offsetY: "24px",
+    blur: "48px",
+    alpha: 0.16,
+    boxShadow: "0 24px 48px rgb(0 0 0 / 0.16), 0 12px 24px rgb(0 0 0 / 0.12)",
+  }),
 
   inner: {
     $description:

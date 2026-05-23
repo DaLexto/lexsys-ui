@@ -138,13 +138,13 @@ packages/ui/
 ├── src/
 │   ├── index.ts
 │   ├── utils/            # Shared UI utilities
-│   └── components/       # 31 component folders (see list below)
+│   └── components/       # 32 component folders (see list below)
 └── test/
     ├── public-api.test.ts
     └── components/<Name>/   # Variant tests per component
 ```
 
-**Components:** Accordion, Alert, AlertDialog, Avatar, Badge, Button, Card, Checkbox, Collapsible, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Meter, NumberField, Popover, Progress, RadioGroup, Select, Separator, Slider, Switch, Tabs, Textarea, Toast, Toggle, ToggleGroup, Tooltip.
+**Components:** Accordion, Alert, AlertDialog, Avatar, Badge, Button, Card, Checkbox, Collapsible, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Meter, NumberField, Popover, Progress, RadioGroup, ScrollArea, Select, Separator, Slider, Switch, Tabs, Textarea, Toast, Toggle, ToggleGroup, Tooltip.
 
 Base UI (`@base-ui/react`) is internal; preserve accessibility when editing.
 

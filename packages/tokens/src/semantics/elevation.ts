@@ -26,42 +26,20 @@ export const elevationSemantics = semanticTokens("elevation", {
   shadow: {
     $type: "shadow",
     floating: {
-      color: {
-        $value: {
-          colorSpace: "oklch",
-          components: [0, 0, 0],
-          alpha: 0.12,
-          hex: "#000000",
-        },
-      },
-      offsetX: { $value: "0" },
-      offsetY: { $value: "8px" },
-      blur: { $value: "16px" },
-      spread: { $value: "0" },
-      boxShadow: {
-        $value: "0 8px 16px 0 oklch(0 0 0 / 0.12)",
-        $description:
-          "Shorthand leaf for component refs; CSS generator composes from slot vars.",
-      },
+      color: { $value: "{shadow.4.color}" },
+      offsetX: { $value: "{shadow.4.offsetX}" },
+      offsetY: { $value: "{shadow.4.offsetY}" },
+      blur: { $value: "{shadow.4.blur}" },
+      spread: { $value: "{shadow.4.spread}" },
+      boxShadow: { $value: "{shadow.4.boxShadow}" },
     },
     raised: {
-      color: {
-        $value: {
-          colorSpace: "oklch",
-          components: [0, 0, 0],
-          alpha: 0.14,
-          hex: "#000000",
-        },
-      },
-      offsetX: { $value: "0" },
-      offsetY: { $value: "16px" },
-      blur: { $value: "32px" },
-      spread: { $value: "0" },
-      boxShadow: {
-        $value: "0 16px 32px 0 oklch(0 0 0 / 0.14)",
-        $description:
-          "Shorthand leaf for component refs; CSS generator composes from slot vars.",
-      },
+      color: { $value: "{shadow.5.color}" },
+      offsetX: { $value: "{shadow.5.offsetX}" },
+      offsetY: { $value: "{shadow.5.offsetY}" },
+      blur: { $value: "{shadow.5.blur}" },
+      spread: { $value: "{shadow.5.spread}" },
+      boxShadow: { $value: "{shadow.5.boxShadow}" },
     },
   },
 })

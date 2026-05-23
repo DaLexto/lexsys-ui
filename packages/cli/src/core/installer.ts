@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises"
+import { copyFile, mkdir, readFile, readdir, rm, unlink, writeFile } from "node:fs/promises"
 import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import type { RegistryItem } from "@neurex/registry"
@@ -17,6 +17,10 @@ import {
   hasInstallConflicts,
 } from "./install-results.js"
 import type { InstallResourceResult } from "./install-results.js"
+import {
+  createUninstallResourceResult,
+  type UninstallResourceResult,
+} from "./uninstall-results.js"
 
 export const getRegistryTemplatePath = (templatePath: string): string => {
   const templateUrl = import.meta.resolve(
@@ -290,6 +294,190 @@ export const installItemFiles = async (
   }
 
   console.log("\nDone.")
+
+  return result
+}
+
+const removeFileIfMatchesTemplate = async (
+  sourcePath: string,
+  targetPath: string,
+  result: UninstallResourceResult,
+): Promise<void> => {
+  if (!(await fileExists(targetPath))) {
+    console.log(`Skipped missing file: ${targetPath}`)
+    result.missing.push(targetPath)
+    return
+  }
+
+  const isSameFile = await filesAreEqual(sourcePath, targetPath)
+
+  if (!isSameFile) {
+    console.log(`Conflict: file differs from registry template: ${targetPath}`)
+    result.conflicted.push(targetPath)
+    return
+  }
+
+  await unlink(targetPath)
+  console.log(`Removed: ${targetPath}`)
+  result.removed.push(targetPath)
+}
+
+const removeGeneratedStyleIfMatchesTemplate = async (
+  sourcePath: string,
+  targetPath: string,
+  result: UninstallResourceResult,
+): Promise<void> => {
+  if (!(await fileExists(targetPath))) {
+    console.log(`Skipped missing style: ${targetPath}`)
+    result.missing.push(targetPath)
+    return
+  }
+
+  const sourceContent = await readFile(sourcePath, "utf-8")
+  const targetContent = await readFile(targetPath, "utf-8")
+
+  if (
+    isGeneratedNeurexStyle(sourceContent) &&
+    isGeneratedNeurexStyle(targetContent) &&
+    sourceContent === targetContent
+  ) {
+    await unlink(targetPath)
+    console.log(`Removed generated style: ${targetPath}`)
+    result.removed.push(targetPath)
+    return
+  }
+
+  const isSameFile = await filesAreEqual(sourcePath, targetPath)
+
+  if (isSameFile) {
+    await unlink(targetPath)
+    console.log(`Removed style: ${targetPath}`)
+    result.removed.push(targetPath)
+    return
+  }
+
+  console.log(`Conflict: style differs from registry template: ${targetPath}`)
+  result.conflicted.push(targetPath)
+}
+
+const tryRemoveEmptyDirectory = async (directoryPath: string): Promise<void> => {
+  try {
+    const entries = await readdir(directoryPath)
+
+    if (entries.length === 0) {
+      await rm(directoryPath, { recursive: true })
+      console.log(`Removed empty directory: ${directoryPath}`)
+    }
+  } catch {
+    return
+  }
+}
+
+export const uninstallItemFiles = async (
+  item: RegistryItem,
+  config: NeurexConfig,
+): Promise<UninstallResourceResult> => {
+  const result = createUninstallResourceResult()
+
+  console.log(`Uninstalling ${item.canonicalName}...\n`)
+
+  await validateTemplateFiles(item)
+
+  const componentDirectory = join(
+    getCwd(),
+    config.componentsPath,
+    item.canonicalName,
+  )
+
+  const plannedRemovals: Array<{
+    sourcePath: string
+    targetPath: string
+  }> = []
+
+  for (const file of item.files) {
+    const sourcePath = getRegistryTemplatePath(file)
+    const fileName = file.split("/").at(-1)
+
+    if (!fileName) {
+      throw new Error(`Invalid registry file path: ${file}`)
+    }
+
+    const targetPath = join(componentDirectory, fileName)
+
+    if (!(await fileExists(targetPath))) {
+      console.log(`Skipped missing file: ${targetPath}`)
+      result.missing.push(targetPath)
+      continue
+    }
+
+    const isSameFile = await filesAreEqual(sourcePath, targetPath)
+
+    if (!isSameFile) {
+      console.log(`Conflict: file differs from registry template: ${targetPath}`)
+      result.conflicted.push(targetPath)
+      continue
+    }
+
+    plannedRemovals.push({ sourcePath, targetPath })
+  }
+
+  if (result.conflicted.length > 0) {
+    console.log(
+      "Skipped component file removal because one or more files differ from registry templates.",
+    )
+    console.log("\nDone.")
+    return result
+  }
+
+  for (const removal of plannedRemovals) {
+    await unlink(removal.targetPath)
+    console.log(`Removed: ${removal.targetPath}`)
+    result.removed.push(removal.targetPath)
+  }
+
+  await tryRemoveEmptyDirectory(componentDirectory)
+
+  console.log("\nDone.")
+
+  return result
+}
+
+export const uninstallUtilities = async (
+  utilities: ResolvedRegistryUtility[],
+  config: NeurexConfig,
+): Promise<UninstallResourceResult> => {
+  const result = createUninstallResourceResult()
+
+  for (const utility of utilities) {
+    const sourcePath = getRegistryTemplatePath(utility.path)
+    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
+
+    await removeFileIfMatchesTemplate(sourcePath, targetPath, result)
+  }
+
+  return result
+}
+
+export const uninstallStyles = async (
+  styles: ResolvedRegistryStyle[],
+  config: NeurexConfig,
+): Promise<UninstallResourceResult> => {
+  const result = createUninstallResourceResult()
+
+  for (const style of styles) {
+    console.log(`Uninstalling style ${style.name}...`)
+
+    for (const file of style.files) {
+      const sourcePath = getRegistryTemplatePath(file.path)
+      const targetPath = join(getCwd(), config.stylesPath, file.target)
+
+      await removeGeneratedStyleIfMatchesTemplate(
+        sourcePath,
+        targetPath,
+        result,
+      )
+    }
+  }
 
   return result
 }
