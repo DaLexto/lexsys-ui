@@ -63,6 +63,7 @@ The P0 and P1 implementation passes are complete:
 - Tier 1 test coverage: CLI uninstall orphan cleanup, contrast failure codes + policy tiers, registry style sync helpers (`docs/TESTING.md`)
 - Per-package `vitest.config.ts` for Vitest VS Code extension discovery (Vitest 4; no root workspace file)
 - UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
+- Post–PR #24 ship (PR #25, `af729d5`): CLI `--sync` / `--utilities`, overlay token semantics, blocking `ui:audit`, full variant token sweep ([UI_VARIANTS.md](./UI_VARIANTS.md), [CLI.md](./CLI.md))
 
 The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
 
@@ -102,10 +103,10 @@ Optional follow-ups after Phases 1–10 (detail in
 
 ## Known Gaps (no active item yet)
 
-| Gap                                      | Notes                                                                                                                                                                                                                                                   |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CVA state helpers in consumer `utils.ts` | Shipped as exports on installed `utils.ts` (`disabledStateClasses`, etc.). Works, but couples styling fragments to the cn utility file — consider a dedicated registry shared module and/or same-version template refresh for better install/update UX. |
-| Select popup overlap / scroll chrome     | Base UI `alignItemWithTrigger` (default true) overlaps popup on trigger — Neurex `SelectPositioner` now defaults to `false`. Select list `max-height` uses `size.panel.height.sm`; popup matches trigger via `min-w-[var(--anchor-width)]`.             |
-| CLI diagnostic command tests             | Covered in `diagnostics.test.ts`.                                                                                                                                                                                                                       |
-| Install-flow round-trip                  | Covered in `install-flow.test.ts`.                                                                                                                                                                                                                      |
-| Remote registry signatures / allowlist   | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                                                                                     |
+| Gap                                      | Notes                                                                                                                                                       |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CVA state helpers in consumer `utils.ts` | Shipped on installed `utils.ts` including `overlayPositionerSideOffset`. Refresh via `neurex update --utilities --sync`.                                    |
+| Select popup overlap / scroll chrome     | Fixed in PR #25: `alignItemWithTrigger={false}` default, anchor-width popup, shared `size.overlay.list.maxHeight`, scroll arrows documented in UI_VARIANTS. |
+| CLI diagnostic command tests             | Covered in `diagnostics.test.ts`.                                                                                                                           |
+| Install-flow round-trip                  | Covered in `install-flow.test.ts`.                                                                                                                          |
+| Remote registry signatures / allowlist   | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                         |
