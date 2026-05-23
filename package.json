@@ -37,7 +37,7 @@
     "registry:sync": "pnpm --filter @neurex/registry templates:sync",
     "registry:typecheck": "pnpm --filter @neurex/registry typecheck",
     "cli:build": "pnpm --filter ./packages/cli build",
-    "cli:check": "pnpm --filter ./packages/cli check",
+    "cli:check": "pnpm turbo run check --filter=./packages/cli",
     "cli:lint:fix": "pnpm --filter ./packages/cli lint:fix",
     "cli:typecheck": "pnpm --filter ./packages/cli typecheck",
     "playground:build": "pnpm tokens:build && pnpm ui:build && pnpm --filter @neurex/playground build",

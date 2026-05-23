@@ -110,7 +110,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter ./packages/cli check
+      - run: pnpm turbo run check --filter=./packages/cli
 
   playground-build:
     needs: changes
