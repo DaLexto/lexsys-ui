@@ -319,6 +319,18 @@ Status: shipped
 
 ### PR sequence
 
+**Delivered (2026-05-22):** Phase 0 + **M1, M2, M5, M6, M7** shipped in one consolidated PR
+(`chore/monorepo-optimization` → `dev`) instead of separate per-phase PRs. Commit
+discipline remained one commit per sub-item (`Mx.y`). M3 and M4 remain planned.
+
+| PR    | Phase | Title sketch                                        | Delivery                                                 |
+| ----- | ----- | --------------------------------------------------- | -------------------------------------------------------- |
+| 0–7   | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **single PR** — see branch `chore/monorepo-optimization` |
+| 3a–3b | M3    | Product slices + docs sync                          | planned                                                  |
+| 4a–4b | M4    | Release readiness + docs sync                       | planned                                                  |
+
+Original per-phase sketch (reference if splitting future work):
+
 | PR    | Phase   | Title sketch                                            |
 | ----- | ------- | ------------------------------------------------------- |
 | 0     | Phase 0 | `docs(roadmap): add monorepo optimization phases M1–M7` |
@@ -326,8 +338,6 @@ Status: shipped
 | 1b    | M1      | `docs(roadmap): mark M1 shipped` (if needed)            |
 | 2a    | M2      | `test(m2): quality and verification`                    |
 | 2b    | M2      | `docs(testing): sync M2 coverage` (if needed)           |
-| 3a–3b | M3      | Product slices + docs sync                              |
-| 4a–4b | M4      | Release readiness + docs sync                           |
 | 5a–5b | M5      | Advanced CI + docs sync                                 |
 | 6a–6b | M6      | Dependency hygiene + docs sync                          |
 | 7a–7b | M7      | Maintainer tooling + docs sync                          |

@@ -13,7 +13,7 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M7** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). Work in phase order on branch `chore/monorepo-optimization` (one commit per sub-item, one PR per phase).
+**Monorepo optimization M1–M7** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). Delivered in **one consolidated PR** (`chore/monorepo-optimization` → `dev`); M3–M4 remain planned.
 
 | Phase   | Focus                                                    | Status  |
 | ------- | -------------------------------------------------------- | ------- |
