@@ -1,0 +1,46 @@
+name: Sync GitHub labels
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+    paths:
+      - .github/labels.yml
+      - .github/workflows/labels-sync.yml
+  pull_request:
+    paths:
+      - .github/labels.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  dry-run:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Preview label diff (strict, no writes)
+        run: >
+          npx github-label-sync@3
+          --access-token "${{ secrets.GITHUB_TOKEN }}"
+          --labels .github/labels.yml
+          --dry-run
+          DaLexto/neurex
+
+  sync:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Apply strict label sync
+        run: >
+          npx github-label-sync@3
+          --access-token "${{ secrets.GITHUB_TOKEN }}"
+          --labels .github/labels.yml
+          DaLexto/neurex

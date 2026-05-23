@@ -1,0 +1,168 @@
+# Neurex GitHub label manifest (strict sync via github-label-sync).
+# Namespaces: type/* (Conventional Commits), area/* (monorepo scope),
+# priority/*, status/*, meta/*, automation/*.
+# Legacy GitHub defaults migrate through aliases; unlisted labels are deleted.
+
+# --- type:* (change kind) ---
+
+- name: "type:feat"
+  color: "0E8A16"
+  description: New feature or capability
+  aliases:
+    - enhancement
+
+- name: "type:fix"
+  color: "D73A4A"
+  description: Bug fix or incorrect behavior correction
+  aliases:
+    - bug
+
+- name: "type:docs"
+  color: "0075CA"
+  description: Documentation-only changes
+  aliases:
+    - documentation
+
+- name: "type:test"
+  color: "1D76DB"
+  description: Tests or test infrastructure
+
+- name: "type:refactor"
+  color: "C5DEF5"
+  description: Internal restructure without intended behavior change
+
+- name: "type:chore"
+  color: "FEF2C0"
+  description: Repo hygiene, deps, formatting, maintenance
+
+- name: "type:build"
+  color: "D4C5F9"
+  description: Build pipeline, bundler, or artifact wiring
+
+- name: "type:ci"
+  color: "0052CC"
+  description: CI workflows and automation config
+
+- name: "type:perf"
+  color: "FBCA04"
+  description: Measurable performance improvement
+
+- name: "type:style"
+  color: "E4E669"
+  description: Formatting or class/style order only
+
+# --- area:* (monorepo scope) ---
+
+- name: "area:tokens"
+  color: "5319E7"
+  description: packages/tokens
+
+- name: "area:ui"
+  color: "1D76DB"
+  description: packages/ui
+
+- name: "area:registry"
+  color: "006B75"
+  description: packages/registry
+
+- name: "area:cli"
+  color: "0E8A16"
+  description: packages/cli
+
+- name: "area:playground"
+  color: "FBCA04"
+  description: apps/playground
+
+- name: "area:docs"
+  color: "0075CA"
+  description: docs/ and handbook alignment
+
+- name: "area:repo"
+  color: "6E7781"
+  description: Root tooling, workspace config, monorepo infra
+
+# --- priority:* (issue triage) ---
+
+- name: "priority:P0"
+  color: "B60205"
+  description: Critical — blocks release or core workflow
+
+- name: "priority:P1"
+  color: "D93F0B"
+  description: High — should be addressed soon
+
+- name: "priority:P2"
+  color: "FBCA04"
+  description: Normal priority
+
+- name: "priority:P3"
+  color: "C2E0C6"
+  description: Low priority or nice-to-have
+
+# --- status:* (workflow) ---
+
+- name: "status:needs-triage"
+  color: "EDEDED"
+  description: Awaiting maintainer triage
+
+- name: "status:blocked"
+  color: "B60205"
+  description: Blocked by dependency or external decision
+
+- name: "status:ready-for-review"
+  color: "0E8A16"
+  description: Ready for reviewer attention
+
+# --- meta:* (cross-cutting) ---
+
+- name: "meta:breaking-change"
+  color: "B60205"
+  description: Breaking change for consumers or public API
+
+- name: "meta:good-first-issue"
+  color: "7057FF"
+  description: Good entry point for new contributors
+  aliases:
+    - "good first issue"
+
+- name: "meta:help-wanted"
+  color: "008672"
+  description: Extra contributor attention welcome
+  aliases:
+    - "help wanted"
+
+# --- automation:* (bots) ---
+
+- name: "automation:dependencies"
+  color: "0366D6"
+  description: Dependency update pull requests
+  aliases:
+    - dependencies
+
+- name: "automation:github-actions"
+  color: "6E7781"
+  description: GitHub Actions workflow or action updates
+  aliases:
+    - github_actions
+
+# --- explicit deprecations (strict cleanup) ---
+
+- name: duplicate
+  color: "cfd3d7"
+  delete: true
+
+- name: invalid
+  color: "e4e669"
+  delete: true
+
+- name: question
+  color: "d876e3"
+  delete: true
+
+- name: wontfix
+  color: "ffffff"
+  delete: true
+
+- name: javascript
+  color: "168700"
+  delete: true
