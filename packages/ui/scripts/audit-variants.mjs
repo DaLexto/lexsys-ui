@@ -12,12 +12,14 @@ const rules = [
   {
     id: "opacity-20",
     pattern: /opacity-20\b/,
-    message: "Use opacity-(--nx-*-backdrop-opacity) or a semantic opacity token",
+    message:
+      "Use opacity-(--nx-*-backdrop-opacity) or a semantic opacity token",
   },
   {
     id: "opacity-50",
     pattern: /opacity-50\b/,
-    message: "Use opacity-(--nx-opacity-disabled) or disabledStateClasses from utils",
+    message:
+      "Use opacity-(--nx-opacity-disabled) or disabledStateClasses from utils",
   },
   {
     id: "opacity-60",
@@ -32,12 +34,14 @@ const rules = [
   {
     id: "max-h-dvh",
     pattern: /max-h-dvh\b/,
-    message: "Use max-h-(--nx-*-viewport-max-height) from overlay viewport tokens",
+    message:
+      "Use max-h-(--nx-*-viewport-max-height) from overlay viewport tokens",
   },
   {
     id: "min-h-dvh",
     pattern: /min-h-dvh\b/,
-    message: "Use min-h-(--nx-*-viewport-max-height) from overlay viewport tokens",
+    message:
+      "Use min-h-(--nx-*-viewport-max-height) from overlay viewport tokens",
   },
   {
     id: "bare-100dvh",
@@ -88,7 +92,8 @@ const rules = [
     id: "inline-disabled-state",
     pattern:
       /disabled:(?:pointer-events-none|cursor-not-allowed) disabled:opacity-\(--nx-opacity-disabled\)/,
-    message: "Use disabledStateClasses from @/lib/utils (or ../../utils/cn in reference UI)",
+    message:
+      "Use disabledStateClasses from @/lib/utils (or ../../utils/cn in reference UI)",
   },
 ]
 

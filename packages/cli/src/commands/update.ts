@@ -193,8 +193,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   }
 
   const shouldUpdateComponents = updateAll || targetArgs.length > 0
-  const resourcesOnly =
-    (stylesFlag || utilitiesFlag) && !shouldUpdateComponents
+  const resourcesOnly = (stylesFlag || utilitiesFlag) && !shouldUpdateComponents
 
   if (resourcesOnly) {
     if (stylesFlag) {

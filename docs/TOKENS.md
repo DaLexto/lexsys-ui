@@ -51,13 +51,13 @@ Presets are configuration. They are not a layer in this chain.
 - Semantic tokens must represent reusable product meaning. One-off visual decisions belong in component tokens.
 - Organized by top-level group. **11 active groups:**
 
-  | Group        | Role                                                                                                 |
-  | ------------ | ---------------------------------------------------------------------------------------------------- |
-  | `color`      | Nested surface/text/feedback roles: `background.*`, `text.*`, `feedback.*`                           |
-  | `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled              |
-  | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                                  |
+  | Group        | Role                                                                                                                 |
+  | ------------ | -------------------------------------------------------------------------------------------------------------------- |
+  | `color`      | Nested surface/text/feedback roles: `background.*`, `text.*`, `feedback.*`                                           |
+  | `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                              |
+  | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                                                  |
   | `elevation`  | Overlay stacking and shadow roles: `behind`, `backdrop`, `handle`, `layer`, `floating`, `toast`, `tooltip`, `shadow` |
-  | `motion`     | Duration, easing, and entry offset roles: `control`, `surface`, `offset.entry.*`                                       |
+  | `motion`     | Duration, easing, and entry offset roles: `control`, `surface`, `offset.entry.*`                                     |
   | `radius`     | Border-radius roles: `control`, `selection`, `surface`, `pill`                                                       |
   | `size`       | Reusable sizing roles: `control`, `selectionControl`, `area`, `panel`, `overlay.*`                                   |
   | `spacing`    | Spacing roles: `control.*`, `surface.*`, `overlay.sideOffset`                                                        |
@@ -84,13 +84,13 @@ Presets are configuration. They are not a layer in this chain.
 
 Shared roles for floating surfaces (Select, Menu, Popover, Tooltip, Drawer, Toast):
 
-| Semantic path | Typical component mapping | Purpose |
-|---------------|---------------------------|---------|
-| `size.overlay.list.maxHeight` | `select.popup.maxHeight`, `menu.viewport.maxHeight` | Scroll-cap for list-like overlays |
+| Semantic path                     | Typical component mapping                               | Purpose                                                          |
+| --------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------- |
+| `size.overlay.list.maxHeight`     | `select.popup.maxHeight`, `menu.viewport.maxHeight`     | Scroll-cap for list-like overlays                                |
 | `size.overlay.viewport.maxHeight` | `toast.viewport.maxHeight`, `drawer.viewport.maxHeight` | Full dynamic viewport height (`layout.viewport.full` → `100dvh`) |
-| `spacing.overlay.sideOffset` | `*.positioner.sideOffset` | Default trigger-to-popup gap |
-| `elevation.behind.zIndex` | `drawer.indent.zIndex` | Decorative layer behind content (`z-index.behind`: `-10`) |
-| `elevation.handle.zIndex` | `drawer.handle.zIndex` | Local handle stacking (`z-index.local`: `30`) |
+| `spacing.overlay.sideOffset`      | `*.positioner.sideOffset`                               | Default trigger-to-popup gap                                     |
+| `elevation.behind.zIndex`         | `drawer.indent.zIndex`                                  | Decorative layer behind content (`z-index.behind`: `-10`)        |
+| `elevation.handle.zIndex`         | `drawer.handle.zIndex`                                  | Local handle stacking (`z-index.local`: `30`)                    |
 
 Generated CSS uses `--nx-size-overlay-*`, `--nx-space-overlay-side-offset` (spacing group maps to `space` in CSS output), and `--nx-elevation-behind-z-index`.
 

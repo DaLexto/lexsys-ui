@@ -93,7 +93,8 @@ export const drawerPopupVariants = cva(
       {
         side: ["bottom", "top"],
         size: "full",
-        class: "min-h-[calc(var(--nx-drawer-viewport-max-height)-(var(--nx-drawer-viewport-padding)*2))]",
+        class:
+          "min-h-[calc(var(--nx-drawer-viewport-max-height)-(var(--nx-drawer-viewport-padding)*2))]",
       },
       {
         side: ["left", "right"],

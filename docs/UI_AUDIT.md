@@ -12,13 +12,13 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
 ## Summary
 
-| Batch   | Components                                                                                                   | Focus                                                         |
-| ------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| **PR0** | (this doc)                                                                                                   | Inventory + standard                                          |
+| Batch   | Components                                                                                                   | Focus                                                                             |
+| ------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| **PR0** | (this doc)                                                                                                   | Inventory + standard                                                              |
 | **PR1** | Button, Input, Textarea, NumberField, Toggle, ToggleGroup, Badge, Alert                                      | Variant API, danger tokens, opacity semantics, shared state helpers in `utils.ts` |
-| **PR2** | Field, Fieldset, Form, Checkbox, RadioGroup, Select, Switch, Slider, Meter, Progress, Separator, Collapsible | Invalid attrs, opacity-60→50, CVA standard                    |
-| **PR3** | Dialog, Drawer, Popover, Menu, Tooltip, AlertDialog, Toast, Select (overlay slots)                           | Viewport tokens, z-index, compound `class:`                   |
-| **PR4** | Card, Avatar, Accordion, Tabs, ScrollArea                                                                    | Padding/typography tokens, audit automation, CHANGELOG        |
+| **PR2** | Field, Fieldset, Form, Checkbox, RadioGroup, Select, Switch, Slider, Meter, Progress, Separator, Collapsible | Invalid attrs, opacity-60→50, CVA standard                                        |
+| **PR3** | Dialog, Drawer, Popover, Menu, Tooltip, AlertDialog, Toast, Select (overlay slots)                           | Viewport tokens, z-index, compound `class:`                                       |
+| **PR4** | Card, Avatar, Accordion, Tabs, ScrollArea                                                                    | Padding/typography tokens, audit automation, CHANGELOG                            |
 
 ---
 
@@ -63,20 +63,20 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
 ## Cross-cutting issues
 
-| Issue                           | Affected                                    | Fix                                                |
-| ------------------------------- | ------------------------------------------- | -------------------------------------------------- |
-| `tone` public prop              | Alert, Badge                                | PR1 → `variant` / `appearance`                     |
-| `destructive` token/API naming  | Alert, Badge, Button, Toast                 | PR1–PR3 → `danger`                                 |
+| Issue                           | Affected                                    | Fix                                                                 |
+| ------------------------------- | ------------------------------------------- | ------------------------------------------------------------------- |
+| `tone` public prop              | Alert, Badge                                | PR1 → `variant` / `appearance`                                      |
+| `destructive` token/API naming  | Alert, Badge, Button, Toast                 | PR1–PR3 → `danger`                                                  |
 | `disabled:opacity-50` literal   | ~15 components                              | PR1–PR4 → `disabledStateClasses` in `utils.ts` + `opacity.disabled` |
-| `opacity-60` literal            | Field, Fieldset, NumberField                | PR1–PR2 → unify to 50% token                       |
-| `aria-busy:opacity-80`          | Button                                      | PR1 → `opacity.busy`                               |
-| `calc(100vw-2rem)` raw          | Dialog, AlertDialog, Popover, Toast, Drawer | PR3 → viewport tokens                              |
-| `z-30` literal                  | Drawer handle                               | PR3 → component token                              |
-| `pt-0` literal                  | Card content/footer                         | PR4 → semantic padding                             |
-| `leading-none` literal          | Badge, Avatar                               | PR4 → typography token                             |
-| `className:` in compounds       | Drawer                                      | PR3 → `class:`                                     |
-| Input vs Textarea invalid attrs | Input missing `data-[invalid]`              | PR2 unify                                          |
-| Registry `tone` drift           | Alert/Badge templates                       | PR1 `pnpm registry:sync`                           |
+| `opacity-60` literal            | Field, Fieldset, NumberField                | PR1–PR2 → unify to 50% token                                        |
+| `aria-busy:opacity-80`          | Button                                      | PR1 → `opacity.busy`                                                |
+| `calc(100vw-2rem)` raw          | Dialog, AlertDialog, Popover, Toast, Drawer | PR3 → viewport tokens                                               |
+| `z-30` literal                  | Drawer handle                               | PR3 → component token                                               |
+| `pt-0` literal                  | Card content/footer                         | PR4 → semantic padding                                              |
+| `leading-none` literal          | Badge, Avatar                               | PR4 → typography token                                              |
+| `className:` in compounds       | Drawer                                      | PR3 → `class:`                                                      |
+| Input vs Textarea invalid attrs | Input missing `data-[invalid]`              | PR2 unify                                                           |
+| Registry `tone` drift           | Alert/Badge templates                       | PR1 `pnpm registry:sync`                                            |
 
 ---
 

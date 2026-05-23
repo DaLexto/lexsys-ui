@@ -104,10 +104,7 @@ describe("runUpdate", () => {
     await runInit()
     await runAdd(["button"])
 
-    const buttonPath = join(
-      tempDir,
-      "src/components/ui/Button/Button.tsx",
-    )
+    const buttonPath = join(tempDir, "src/components/ui/Button/Button.tsx")
 
     await writeFile(
       buttonPath,
@@ -143,9 +140,7 @@ describe("runUpdate", () => {
 
     await runUpdate(["--utilities"])
 
-    await expect(readFile(utilsPath, "utf-8")).resolves.toBe(
-      "// stale utils\n",
-    )
+    await expect(readFile(utilsPath, "utf-8")).resolves.toBe("// stale utils\n")
     expect(console.log).toHaveBeenCalledWith("Utility update summary:")
 
     await runUpdate(["--utilities", "--force"])
@@ -168,7 +163,11 @@ describe("runUpdate", () => {
       `${generatedHeader}\n\n:root {\n  --nx-stale-token: true;\n}\n`,
       "utf-8",
     )
-    await writeFile(join(tempDir, "src/lib/utils.ts"), "// stale utils\n", "utf-8")
+    await writeFile(
+      join(tempDir, "src/lib/utils.ts"),
+      "// stale utils\n",
+      "utf-8",
+    )
 
     await runUpdate(["--all", "--sync", "--utilities", "--styles", "--force"])
 

@@ -34,7 +34,8 @@ export const zIndexPrimitives = primitiveTokens("z-index", {
   },
 
   behind: {
-    $description: "Negative stacking level for decorative layers behind content.",
+    $description:
+      "Negative stacking level for decorative layers behind content.",
     $value: -10,
   },
 

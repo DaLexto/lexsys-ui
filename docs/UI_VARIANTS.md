@@ -125,9 +125,9 @@ Per-component allowed enums live in [UI_AUDIT.md](./UI_AUDIT.md). Force **consis
 
 ## Token consumption
 
-| Layer           | Rule                                                | Enforcement                          |
-| --------------- | --------------------------------------------------- | ------------------------------------ |
-| **Authoring**   | Component tokens reference semantics only           | `pnpm tokens:check`                  |
+| Layer           | Rule                                                | Enforcement                                     |
+| --------------- | --------------------------------------------------- | ----------------------------------------------- |
+| **Authoring**   | Component tokens reference semantics only           | `pnpm tokens:check`                             |
 | **Consumption** | `*.variants.ts` uses `--nx-*`; minimal raw literals | Variant tests, `pnpm ui:audit` (blocking in CI) |
 
 Shared semantic tokens (PR1+):
@@ -149,13 +149,13 @@ Overlay semantics (shared scroll/stacking roles):
 
 **Allowed non-`--nx-*` forms in CVA strings:**
 
-| Form | Why |
-|------|-----|
-| Structural Tailwind | `inline-flex`, `grid`, `outline-none`, `truncate`, `overflow-hidden` |
-| Base UI runtime vars | `--anchor-width`, `--available-width`, `--transform-origin`, drawer swipe vars |
-| Base UI owned attrs | `data-[type=destructive]`, `data-[starting-style]`, `aria-invalid` |
-| Fractional anchor math | `translate-x-1/2`, `translate-y-1/2` on arrow slots (center on anchor edge) |
-| Generated `--nx-*` | All color, size, spacing, motion, opacity, z-index, viewport math |
+| Form                   | Why                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| Structural Tailwind    | `inline-flex`, `grid`, `outline-none`, `truncate`, `overflow-hidden`           |
+| Base UI runtime vars   | `--anchor-width`, `--available-width`, `--transform-origin`, drawer swipe vars |
+| Base UI owned attrs    | `data-[type=destructive]`, `data-[starting-style]`, `aria-invalid`             |
+| Fractional anchor math | `translate-x-1/2`, `translate-y-1/2` on arrow slots (center on anchor edge)    |
+| Generated `--nx-*`     | All color, size, spacing, motion, opacity, z-index, viewport math              |
 
 Use `disabledStateClasses`, `busyStateClasses`, and `invalidStateClasses` from `@/lib/utils` (installed) or `../../utils/cn` (reference UI) instead of inline disabled opacity fragments.
 
