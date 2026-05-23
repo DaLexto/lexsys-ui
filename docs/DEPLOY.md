@@ -63,7 +63,22 @@ pnpm check
 
 See [SCRIPTS.md](./SCRIPTS.md) for per-package build and verify commands.
 
-If `lint` or `test` are still placeholders, record that explicitly in the release notes or PR.
+CI runs `pnpm check` on pull requests and pushes to `dev`/`main` via
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) (Node 24, frozen lockfile).
+Pull requests use path-filtered jobs; pushes to `dev`/`main` also run a full
+`pnpm check`. Token-path PRs also run
+[tokens-governance](../.github/workflows/tokens-governance.yml).
+
+### Lockfile and dependency updates
+
+- CI MUST use `pnpm install --frozen-lockfile` — do not commit hand-edited
+  `pnpm-lock.yaml` without running install locally.
+- Dependabot opens weekly update PRs via
+  [`.github/dependabot.yml`](../.github/dependabot.yml); review grouped bumps
+  before merge.
+- Node version MUST match root `engines` and CI (Node 24).
+- `pnpm audit --audit-level=high` runs as a non-blocking CI job; fix high
+  severity issues before release when practical.
 
 ---
 
@@ -156,3 +171,12 @@ This guide should be expanded when the repository adds:
 - update command support in the CLI
 
 Until then, use this document as the minimum build-and-release contract.
+
+---
+
+## Optional: Turbo remote cache
+
+At current repo size, local turbo cache is sufficient. Maintainers MAY opt into
+[Vercel Remote Cache](https://turbo.build/docs/core-concepts/remote-caching) if
+CI duration grows — configure `TURBO_TOKEN` and `TURBO_TEAM` in GitHub Actions
+secrets and enable remote cache in CI only after measuring baseline job times.

@@ -45,11 +45,11 @@ pnpm --filter @neurex/tokens test
 
 Test files in `packages/ui/test/`:
 
-| File                                             | What it tests                                                                                             |
-| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`                      |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (32 components)                   |
-| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (pilot: ScrollArea, Collapsible, Dialog) |
+| File                                             | What it tests                                                                                                                                 |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`                                                          |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (32 components)                                                       |
+| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (Alert, Collapsible, Dialog, Field, ScrollArea, Select, Switch, Tabs, Toast) |
 
 Run:
 
@@ -85,7 +85,8 @@ Test files in `packages/cli/test/`:
 | `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                                                 |
 | `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                                                 |
 | `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior, orphaned shared utilities/styles cleanup |
-| `commands/install-flow.test.ts` | Full install smoke — runs `init` + `add` twice to verify end-to-end idempotency across all components                         |
+| `commands/diagnostics.test.ts`  | `doctor`, `status`, `list`, `config` — path checks, registry output, config mutations                                         |
+| `commands/install-flow.test.ts` | Full install smoke — idempotency, all components, add → update → uninstall round-trip                                         |
 | `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection                         |
 | `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                                                      |
 | `core/tailwind-setup.test.ts`   | Tailwind CSS wiring — idempotent `@import` injection, entrypoint detection                                                    |
@@ -94,7 +95,7 @@ Run:
 
 ```sh
 pnpm cli:check                # from repo root
-pnpm --filter neurex test
+pnpm --filter ./packages/cli test
 ```
 
 ---
@@ -141,6 +142,10 @@ Each test package owns a colocated [`vitest.config.ts`](../packages/cli/vitest.c
 
 Package `test` scripts still run via `vitest run test --pool threads` (unchanged for CI and turbo).
 
+### Playground tooling
+
+`apps/playground` uses project references (`tsconfig.app.json`, `tsconfig.node.json`) rather than extending `tsconfig.base.json` directly — intentional for Vite app vs node config split. Playground lint runs via root `eslint.config.mjs` through its `lint` script; there is no Vitest suite in the playground app.
+
 ### IDE test explorer (Vitest extension)
 
 Install the [Vitest VS Code extension](https://marketplace.visualstudio.com/items?itemName=vitest.explorer). It auto-discovers each `packages/*/vitest.config.ts` from the repo root — no root `vitest.workspace.ts` (removed in Vitest 4; use per-project configs instead).
@@ -160,10 +165,25 @@ Pilot render tests use `@testing-library/react` with Vitest `jsdom` (`packages/u
 
 ---
 
+## Consumer sandbox verification
+
+Maintainers SHOULD verify CLI and registry changes against an external consumer
+project outside this monorepo (for example `D:\PLAYGROUND\sandbox-neurex`). This
+is manual verification — not CI.
+
+Checklist after CLI or registry changes:
+
+1. Link or install the CLI from the monorepo branch under test.
+2. From the sandbox root: `neurex add <component>` (or re-run `neurex init` if scaffolding changed).
+3. Run the sandbox build (`npm run build` or equivalent).
+4. Spot-check installed component paths, `neurex.config.json`, and token CSS imports.
+5. If templates or styles changed: confirm `styles/tokens.css` and `styles/theme.css` update as expected.
+
+Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monorepo CI on sandbox path availability.
+
+---
+
 ## Known Gaps
 
-- Render test coverage is limited to pilot components (ScrollArea, Collapsible, Dialog). Most components still rely on CVA class output tests only.
-- No end-to-end install tests against a real consumer project (outside the
-  temp-directory smoke tests in `install-flow.test.ts`).
-- CLI diagnostic commands (`doctor`, `status`, `list`, `config`) have no dedicated tests yet.
-- Install-flow round-trip (`add` → `update` → `uninstall`) is not covered end-to-end.
+- Render test coverage expanded (Alert, Collapsible, Dialog, Field, ScrollArea, Select, Switch, Tabs, Toast). Most remaining components still rely on CVA class output tests only.
+- No automated end-to-end install tests against a real external consumer project (temp-directory smoke tests cover CLI flow; see Consumer sandbox verification above).

@@ -143,10 +143,10 @@ pnpm --filter @neurex/registry <script>
 | `pnpm cli:lint:fix`  | `lint:fix`     | Auto-fix CLI package lint              |
 | `pnpm cli:typecheck` | `typecheck`    | Types only                             |
 
-Filter equivalent:
+Filter equivalent (use path filter — root package is also named `neurex`):
 
 ```sh
-pnpm --filter neurex <script>
+pnpm --filter ./packages/cli <script>
 ```
 
 ---
@@ -216,7 +216,30 @@ Test coverage details and per-file test inventory: [TESTING.md](./TESTING.md).
 
 ## CI reference
 
-[`.github/workflows/tokens-governance.yml`](../.github/workflows/tokens-governance.yml) runs on token PRs:
+### Monorepo check (all PRs)
+
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs on every pull request and on push to `dev`/`main`.
+
+**Pull requests** — path-filtered jobs (via `dorny/paths-filter`):
+
+| Filter                                     | Command                                          |
+| ------------------------------------------ | ------------------------------------------------ |
+| `packages/tokens/**`                       | `pnpm tokens:check`                              |
+| `packages/ui/**`                           | `pnpm ui:check`                                  |
+| `packages/ui/**` or `packages/registry/**` | `pnpm registry:check` (template drift on UI PRs) |
+| `packages/cli/**`                          | `pnpm --filter ./packages/cli check`             |
+| `apps/playground/**` (+ tokens/ui deps)    | `pnpm playground:build`                          |
+| Root config/docs                           | `pnpm format:check` + `pnpm lint:root`           |
+
+**Push to `dev`/`main`** — additionally runs full `pnpm check`.
+
+**Audit** — non-blocking `pnpm audit --audit-level=high` on all workflow runs.
+
+Setup: Node 24, `pnpm install --frozen-lockfile`, pnpm cache enabled.
+
+### Token governance (token-path PRs)
+
+[`.github/workflows/tokens-governance.yml`](../.github/workflows/tokens-governance.yml) runs when `packages/tokens/**` changes:
 
 ```sh
 pnpm tokens:governance:report
@@ -234,6 +257,7 @@ With `NEUREX_CONTRAST_POLICY=ci` in CI.
 | `pnpm check`, `pnpm build`, `pnpm test`      | Run across all workspace packages via turbo                      |
 | `pnpm tokens:check`, `pnpm registry:sync`, … | Daily maintainer shortcuts from repo root                        |
 | `pnpm --filter @neurex/tokens test`          | Running a single package script without a root alias, or from CI |
+| `pnpm --filter ./packages/cli check`         | CLI package only (avoids root `neurex` name collision)           |
 
 Prefer root aliases in docs and commit messages when they exist. Use `--filter` when documenting the underlying package script or when no root alias exists (e.g. `templates:check-sync`).
 

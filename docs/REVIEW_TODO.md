@@ -13,15 +13,18 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-Order: **E → A → C → B → Docs alignment** — **completed** (2026-05-23).
+**Monorepo optimization M1–M7** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). Delivered in **one consolidated PR** (`chore/monorepo-optimization` → `dev`); M3–M4 remain planned.
 
-| Step | Track            | Goal                                                                  | Status |
-| ---- | ---------------- | --------------------------------------------------------------------- | ------ |
-| E    | Hygiene          | Refresh agent/backlog state after PR #14; fix stale counts            | done   |
-| A    | Tokens hardening | Full primitive shadow slot migration + contrast/governance follow-ups | done   |
-| C    | Quality          | UI render tests (pilot components)                                    | done   |
-| B    | CLI product      | Implement `neurex uninstall`                                          | done   |
-| Docs | Alignment pass   | Sync ROADMAP, RESOLVER_EVOLUTION, rules, cross-links                  | done   |
+| Phase   | Focus                                                    | Status  |
+| ------- | -------------------------------------------------------- | ------- |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                            | done    |
+| M1      | Infra and DX (filter, CI, turbo, docs)                   | shipped |
+| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist) | shipped |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)     | shipped |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)         | shipped |
+| M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)    | shipped |
+
+Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 ---
 
@@ -78,12 +81,12 @@ Optional follow-ups after Phases 1–10 (detail in
 
 ## Known Gaps (no active item yet)
 
-| Gap                                   | Notes                                                                              |
-| ------------------------------------- | ---------------------------------------------------------------------------------- |
-| No broad UI render test coverage      | Pilot only (ScrollArea, Collapsible, Dialog). Most components still use CVA tests. |
-| CLI diagnostic command tests          | `doctor`, `status`, `list`, and `config` have no dedicated tests yet.              |
-| Install-flow round-trip               | `add` → `update` → `uninstall` not covered end-to-end in temp-dir smoke tests.     |
-| Next.js and other framework scaffolds | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded. |
-| Remote registry manifest contract     | Remote registry format and trust model are not finalized.                          |
-| Governance promotion                  | Selected governance checks are report-only; build-failing promotion is optional.   |
-| `shadow.inner` inset authoring        | Flat CSS string leaf; no inset slot model yet.                                     |
+| Gap                                   | Notes                                                                                     |
+| ------------------------------------- | ----------------------------------------------------------------------------------------- |
+| No broad UI render test coverage      | Expanded batch shipped; remaining components still CVA-only. **M3.1**                     |
+| CLI diagnostic command tests          | Covered in `diagnostics.test.ts`.                                                         |
+| Install-flow round-trip               | Covered in `install-flow.test.ts`.                                                        |
+| Next.js and other framework scaffolds | `neurex init` only supports Vite. **Scheduled: ROADMAP M3.2**                             |
+| Remote registry manifest contract     | Remote registry format and trust model are not finalized. **M3.3**                        |
+| Governance promotion                  | Selected governance checks are report-only; build-failing promotion is optional. **M3.4** |
+| `shadow.inner` inset authoring        | Flat CSS string leaf; no inset slot model yet. **M3.5**                                   |

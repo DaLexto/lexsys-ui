@@ -54,11 +54,11 @@ Do not blur responsibilities between packages.
 
 Outside this monorepo, a **100% CLI-installed consumer project** is used for integration testing:
 
-| | Monorepo `apps/playground` | Consumer sandbox |
-| --- | --- | --- |
-| Model | Workspace `@neurex/ui` + package CSS | `neurex add` → user-owned `src/components/ui/` |
-| CSS | Workspace token build | Installed `styles/tokens.css` + `styles/theme.css` |
-| Best for | Reference exports, component panels, turbo checks | Install/update flow, real layouts, theme/brand UX |
+|          | Monorepo `apps/playground`                        | Consumer sandbox                                   |
+| -------- | ------------------------------------------------- | -------------------------------------------------- |
+| Model    | Workspace `@neurex/ui` + package CSS              | `neurex add` → user-owned `src/components/ui/`     |
+| CSS      | Workspace token build                             | Installed `styles/tokens.css` + `styles/theme.css` |
+| Best for | Reference exports, component panels, turbo checks | Install/update flow, real layouts, theme/brand UX  |
 
 **Local path:** `D:\PLAYGROUND\sandbox-neurex`  
 **Agent contract:** `D:\PLAYGROUND\sandbox-neurex\AGENTS.md`
@@ -241,6 +241,14 @@ Read:
 This is the canonical short-form state file.
 
 Update it intentionally when state changes.
+
+---
+
+## Consumer sandbox
+
+After CLI or registry changes, verify against an external consumer project outside
+the monorepo when possible. Checklist: [docs/TESTING.md](./docs/TESTING.md) §
+Consumer sandbox verification.
 
 ---
 
