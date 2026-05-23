@@ -52,7 +52,7 @@ export const selectPositionerVariants = cva(
 
 export const selectPopupVariants = cva(
   [
-    "max-h-(--nx-select-popup-max-height) overflow-hidden rounded-(--nx-select-radius) border",
+    "min-w-[var(--anchor-width)] overflow-hidden rounded-(--nx-select-radius) border",
     "border-(--nx-select-popup-border-color) bg-(--nx-select-popup-background) text-(--nx-select-popup-foreground) shadow-(--nx-select-popup-shadow)",
     "data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "origin-[var(--transform-origin)] transition-[opacity,transform] duration-(--nx-select-transition-duration) ease-(--nx-select-transition-easing)",
@@ -60,7 +60,7 @@ export const selectPopupVariants = cva(
 )
 
 export const selectListVariants = cva(
-  "grid gap-(--nx-select-list-gap) overflow-y-auto p-(--nx-select-list-padding)",
+  "grid max-h-(--nx-select-popup-max-height) gap-(--nx-select-list-gap) overflow-y-auto p-(--nx-select-list-padding)",
 )
 
 export const selectItemVariants = cva(

@@ -8,7 +8,7 @@ import { cva } from "class-variance-authority"
 import {
   busyStateClasses,
   disabledStateClasses,
-} from "../../utils/variant-states"
+} from "@/lib/utils"
 
 export const buttonVariants = cva(
   [

@@ -55,7 +55,7 @@ export const selectComponentTokens = componentTokens("select", {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{border.default}" },
-    maxHeight: { $value: "{size.area.swipe.md}" },
+    maxHeight: { $value: "{size.panel.height.sm}" },
     shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
   },
   positioner: {

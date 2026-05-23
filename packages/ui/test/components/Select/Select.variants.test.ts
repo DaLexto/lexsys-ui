@@ -17,6 +17,7 @@ describe("Select variants", () => {
 
   it("uses token-backed popup and item states", () => {
     expect(selectPopupVariants()).toContain("bg-(--nx-select-popup-background)")
+    expect(selectPopupVariants()).toContain("min-w-[var(--anchor-width)]")
     expect(selectItemVariants()).toContain(
       "data-[selected]:bg-(--nx-select-item-selected-background)",
     )

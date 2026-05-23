@@ -102,7 +102,7 @@ Other examples: `data-[swiping]`, `data-[behind]`, `data-[invalid]`, `aria-busy`
 3. **Color variants** — extracted constants or direct variant entries; avoid empty stubs + compound matrix when constants suffice.
 4. **`compoundVariants`** — use **`class:`** key consistently (not `className:`).
 5. **Compound components** — export slot strings as `{slot}ClassName` or `{slot}Variants` (Card, Alert, Field patterns).
-6. **Shared states** — import from `packages/ui/src/utils/variant-states.ts`: disabled, busy, invalid fragments backed by semantic opacity tokens.
+6. **Shared states** — import `disabledStateClasses`, `busyStateClasses`, and `invalidStateClasses` from `@/lib/utils` (installed `utils.ts`); reference package uses `packages/ui/src/utils/cn.ts`.
 7. **Allowed literals whitelist** — explicit exceptions only (`border-transparent`, `bg-transparent`, `min-w-0`, `truncate`). Viewport/layout math must use **component tokens**, not raw `calc(100vw-2rem)` (PR3).
 8. **Data-attribute styling** — pattern 3 above; library state wins over invented props.
 

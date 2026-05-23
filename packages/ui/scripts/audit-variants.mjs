@@ -12,7 +12,7 @@ const rules = [
   {
     id: "opacity-50",
     pattern: /opacity-50\b/,
-    message: "Use opacity-(--nx-opacity-disabled) or variant-states helper",
+    message: "Use opacity-(--nx-opacity-disabled) or disabledStateClasses from utils",
   },
   {
     id: "opacity-60",

@@ -1193,7 +1193,7 @@
   --nx-select-popup-background: var(--nx-color-background-base);
   --nx-select-popup-foreground: var(--nx-color-text-primary);
   --nx-select-popup-border-color: var(--nx-border-default);
-  --nx-select-popup-max-height: var(--nx-size-area-swipe-md);
+  --nx-select-popup-max-height: var(--nx-size-panel-height-sm);
   --nx-select-popup-shadow: var(--nx-elevation-shadow-floating-box-shadow);
   --nx-select-positioner-z-index: var(--nx-elevation-floating-z-index);
   --nx-select-list-gap: var(--nx-space-control-gap-sm);

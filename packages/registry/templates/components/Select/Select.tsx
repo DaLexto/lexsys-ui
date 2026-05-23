@@ -134,11 +134,13 @@ SelectBackdrop.displayName = "SelectBackdrop"
 const SelectPositioner = ({
   ref,
   className,
+  alignItemWithTrigger = false,
   ...props
 }: SelectPositionerProps) => {
   return (
     <BaseSelect.Positioner
       ref={ref}
+      alignItemWithTrigger={alignItemWithTrigger}
       className={mergeClassName(selectPositionerVariants(), className)}
       {...props}
     />

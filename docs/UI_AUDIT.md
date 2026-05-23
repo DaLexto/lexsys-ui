@@ -15,7 +15,7 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 | Batch   | Components                                                                                                   | Focus                                                         |
 | ------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
 | **PR0** | (this doc)                                                                                                   | Inventory + standard                                          |
-| **PR1** | Button, Input, Textarea, NumberField, Toggle, ToggleGroup, Badge, Alert                                      | Variant API, danger tokens, opacity semantics, variant-states |
+| **PR1** | Button, Input, Textarea, NumberField, Toggle, ToggleGroup, Badge, Alert                                      | Variant API, danger tokens, opacity semantics, shared state helpers in `utils.ts` |
 | **PR2** | Field, Fieldset, Form, Checkbox, RadioGroup, Select, Switch, Slider, Meter, Progress, Separator, Collapsible | Invalid attrs, opacity-60→50, CVA standard                    |
 | **PR3** | Dialog, Drawer, Popover, Menu, Tooltip, AlertDialog, Toast, Select (overlay slots)                           | Viewport tokens, z-index, compound `class:`                   |
 | **PR4** | Card, Avatar, Accordion, Tabs, ScrollArea                                                                    | Padding/typography tokens, audit automation, CHANGELOG        |
@@ -67,7 +67,7 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 | ------------------------------- | ------------------------------------------- | -------------------------------------------------- |
 | `tone` public prop              | Alert, Badge                                | PR1 → `variant` / `appearance`                     |
 | `destructive` token/API naming  | Alert, Badge, Button, Toast                 | PR1–PR3 → `danger`                                 |
-| `disabled:opacity-50` literal   | ~15 components                              | PR1–PR4 → `variant-states.ts` + `opacity.disabled` |
+| `disabled:opacity-50` literal   | ~15 components                              | PR1–PR4 → `disabledStateClasses` in `utils.ts` + `opacity.disabled` |
 | `opacity-60` literal            | Field, Fieldset, NumberField                | PR1–PR2 → unify to 50% token                       |
 | `aria-busy:opacity-80`          | Button                                      | PR1 → `opacity.busy`                               |
 | `calc(100vw-2rem)` raw          | Dialog, AlertDialog, Popover, Toast, Drawer | PR3 → viewport tokens                              |
@@ -92,10 +92,10 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
 ## Resolution tracking
 
-**Status:** Resolved in `feat/ui-package-polish` (2026-05-22).
+**Status:** Resolved — PR #24 merged to `dev` (`c619a85`, 2026-05-22).
 
 - Unified `variant` / `appearance` API; `danger` vocabulary; semantic opacity tokens
-- `variant-states.ts` shared helpers; viewport inset tokens for overlays
+- Shared state helpers in installed `utils.ts`; viewport inset tokens for overlays
 - `pnpm ui:audit` automation; [CHANGELOG.md](../packages/ui/CHANGELOG.md) breaking notes
 
 Run `pnpm ui:audit` after future variant edits to catch literal drift.

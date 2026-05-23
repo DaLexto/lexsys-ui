@@ -8,7 +8,7 @@ import { cva } from "class-variance-authority"
 import {
   disabledStateClasses,
   invalidStateClasses,
-} from "../../utils/variant-states"
+} from "../../utils/cn"
 
 export const inputVariants = cva(
   [

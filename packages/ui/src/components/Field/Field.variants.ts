@@ -5,7 +5,7 @@
  */
 
 import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../utils/variant-states"
+import { disabledStateClasses } from "../../utils/cn"
 
 export const fieldVariants = cva(
   [

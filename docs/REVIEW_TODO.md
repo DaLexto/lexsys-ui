@@ -62,6 +62,7 @@ The P0 and P1 implementation passes are complete:
 - Documentation alignment with current token/UI contracts (`docs/TOKENS.md`, design system, architecture, CLI, package READMEs)
 - Tier 1 test coverage: CLI uninstall orphan cleanup, contrast failure codes + policy tiers, registry style sync helpers (`docs/TESTING.md`)
 - Per-package `vitest.config.ts` for Vitest VS Code extension discovery (Vitest 4; no root workspace file)
+- UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 
 The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
 
@@ -71,12 +72,7 @@ Known gaps below.
 
 ## P2 — Product and DX
 
-### UI package polish (post-M3)
-
-Pre-0.1.0 variant API unification and token compliance across 32 components.
-Canonical standard: [UI_VARIANTS.md](./UI_VARIANTS.md). Inventory: [UI_AUDIT.md](./UI_AUDIT.md).
-
-Delivery: PR0 audit → PR1 actions → PR2 forms → PR3 overlays → PR4 surfaces + `pnpm ui:audit`. **Shipped** on `feat/ui-package-polish`.
+_No active P2 items._
 
 ---
 
@@ -102,11 +98,14 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~Remote registry contract~~ — manifest parser + validation (M3.3)
 - ~~Governance promotion (semantic audit errors)~~ — `NEUREX_GOVERNANCE_POLICY` (M3.4)
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
+- ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 
 ## Known Gaps (no active item yet)
 
 | Gap                                    | Notes                                                                               |
 | -------------------------------------- | ----------------------------------------------------------------------------------- |
+| CVA state helpers in consumer `utils.ts` | Shipped as exports on installed `utils.ts` (`disabledStateClasses`, etc.). Works, but couples styling fragments to the cn utility file — consider a dedicated registry shared module and/or same-version template refresh for better install/update UX. |
+| Select popup overlap / scroll chrome      | Base UI `alignItemWithTrigger` (default true) overlaps popup on trigger — Neurex `SelectPositioner` now defaults to `false`. Select list `max-height` uses `size.panel.height.sm`; popup matches trigger via `min-w-[var(--anchor-width)]`. |
 | CLI diagnostic command tests           | Covered in `diagnostics.test.ts`.                                                   |
 | Install-flow round-trip                | Covered in `install-flow.test.ts`.                                                  |
 | Remote registry signatures / allowlist | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet. |
