@@ -10,6 +10,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
     background: { $value: "{color.background.subtle}" },
     scale: { $value: 0.96 },
     radius: { $value: "{radius.surface}" },
+    zIndex: { $value: "{elevation.behind.zIndex}" },
   },
   viewport: {
     $type: "dimension",
@@ -49,7 +50,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
     height: { $value: "{size.track.md}" },
     marginTop: { $value: "{spacing.control.y.sm}" },
     radius: { $value: "{radius.pill}" },
-    zIndex: { $value: 30 },
+    zIndex: { $value: "{elevation.handle.zIndex}" },
   },
   swipeArea: {
     $type: "dimension",

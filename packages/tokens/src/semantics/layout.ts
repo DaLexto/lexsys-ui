@@ -33,6 +33,10 @@ export const layoutSemantics = semanticTokens("layout", {
       $description: "Ultrawide viewport.",
       $value: "{breakpoint.2xl}",
     },
+    full: {
+      $description: "Full dynamic viewport height.",
+      $value: { value: 100, unit: "dvh" },
+    },
   },
 
   aspectRatio: {

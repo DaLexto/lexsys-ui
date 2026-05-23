@@ -146,6 +146,7 @@
   --nx-space-surface-md: var(--nx-space-6);
   --nx-space-surface-gap-sm: var(--nx-space-1);
   --nx-space-surface-gap-md: var(--nx-space-3);
+  --nx-space-overlay-side-offset: var(--nx-space-2);
   --nx-size-1: 0.25rem;
   --nx-size-2: 0.5rem;
   --nx-size-3: 0.75rem;
@@ -203,6 +204,8 @@
   --nx-size-panel-height-sm: var(--nx-size-48);
   --nx-size-panel-height-md: var(--nx-size-80);
   --nx-size-panel-height-lg: var(--nx-size-128);
+  --nx-size-overlay-list-max-height: var(--nx-size-panel-height-sm);
+  --nx-size-overlay-viewport-max-height: var(--nx-layout-viewport-full);
   --nx-font-family-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --nx-font-family-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --nx-font-family-mono: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -373,6 +376,8 @@
   --nx-shadow-inner-inset: inset;
   --nx-shadow-inner-box-shadow: var(--nx-shadow-inner-inset) var(--nx-shadow-inner-offset-x) var(--nx-shadow-inner-offset-y) var(--nx-shadow-inner-blur) var(--nx-shadow-inner-spread) var(--nx-shadow-inner-color);
   --nx-z-index-base: 0;
+  --nx-z-index-behind: -10;
+  --nx-z-index-local: 30;
   --nx-z-index-raised: 10;
   --nx-z-index-sticky: 100;
   --nx-z-index-dropdown: 1000;
@@ -535,7 +540,9 @@
   --nx-action-danger-hover: var(--nx-color-red-700);
   --nx-action-danger-active: var(--nx-color-red-800);
   --nx-action-danger-disabled: var(--nx-color-red-300);
+  --nx-elevation-behind-z-index: var(--nx-z-index-behind);
   --nx-elevation-backdrop-z-index: var(--nx-z-index-overlay);
+  --nx-elevation-handle-z-index: var(--nx-z-index-local);
   --nx-elevation-layer-z-index: var(--nx-z-index-modal);
   --nx-elevation-floating-z-index: var(--nx-z-index-popover);
   --nx-elevation-toast-z-index: var(--nx-z-index-toast);
@@ -559,6 +566,7 @@
   --nx-layout-viewport-lg: var(--nx-breakpoint-lg);
   --nx-layout-viewport-xl: var(--nx-breakpoint-xl);
   --nx-layout-viewport-2xl: var(--nx-breakpoint-2xl);
+  --nx-layout-viewport-full: 100dvh;
   --nx-layout-aspect-ratio-square: var(--nx-aspect-ratio-1-1);
   --nx-layout-aspect-ratio-standard: var(--nx-aspect-ratio-4-3);
   --nx-layout-aspect-ratio-photo: var(--nx-aspect-ratio-3-2);
@@ -842,6 +850,7 @@
   --nx-drawer-indent-background: var(--nx-color-background-subtle);
   --nx-drawer-indent-scale: 0.96;
   --nx-drawer-indent-radius: var(--nx-radius-surface);
+  --nx-drawer-indent-z-index: var(--nx-elevation-behind-z-index);
   --nx-drawer-viewport-padding: var(--nx-space-surface-sm);
   --nx-drawer-viewport-inset: var(--nx-space-surface-sm);
   --nx-drawer-viewport-z-index: var(--nx-elevation-layer-z-index);
@@ -864,7 +873,7 @@
   --nx-drawer-handle-height: var(--nx-size-track-md);
   --nx-drawer-handle-margin-top: var(--nx-space-control-y-sm);
   --nx-drawer-handle-radius: var(--nx-radius-pill);
-  --nx-drawer-handle-z-index: 30;
+  --nx-drawer-handle-z-index: var(--nx-elevation-handle-z-index);
   --nx-drawer-swipe-area-size: var(--nx-size-area-swipe-sm);
   --nx-drawer-title-foreground: var(--nx-color-text-primary);
   --nx-drawer-title-padding-end: var(--nx-size-control-lg);
@@ -1000,11 +1009,11 @@
   --nx-menu-popup-background: var(--nx-color-background-base);
   --nx-menu-popup-foreground: var(--nx-color-text-primary);
   --nx-menu-popup-border-color: var(--nx-border-default);
-  --nx-menu-popup-min-width: var(--nx-size-area-swipe-sm);
   --nx-menu-popup-max-width: var(--nx-size-panel-width-sm);
   --nx-menu-popup-shadow: var(--nx-elevation-shadow-floating-box-shadow);
   --nx-menu-positioner-z-index: var(--nx-elevation-floating-z-index);
-  --nx-menu-viewport-max-height: var(--nx-size-area-swipe-md);
+  --nx-menu-positioner-side-offset: var(--nx-space-overlay-side-offset);
+  --nx-menu-viewport-max-height: var(--nx-size-overlay-list-max-height);
   --nx-menu-list-gap: var(--nx-space-control-gap-sm);
   --nx-menu-list-padding: var(--nx-space-control-y-xs);
   --nx-menu-item-foreground: var(--nx-color-text-primary);
@@ -1086,6 +1095,7 @@
   --nx-popover-backdrop-opacity: 0.24;
   --nx-popover-backdrop-z-index: var(--nx-elevation-backdrop-z-index);
   --nx-popover-positioner-z-index: var(--nx-elevation-floating-z-index);
+  --nx-popover-positioner-side-offset: var(--nx-space-overlay-side-offset);
   --nx-popover-popup-background: var(--nx-color-background-base);
   --nx-popover-popup-foreground: var(--nx-color-text-primary);
   --nx-popover-popup-border-color: var(--nx-border-default);
@@ -1193,9 +1203,10 @@
   --nx-select-popup-background: var(--nx-color-background-base);
   --nx-select-popup-foreground: var(--nx-color-text-primary);
   --nx-select-popup-border-color: var(--nx-border-default);
-  --nx-select-popup-max-height: var(--nx-size-panel-height-sm);
+  --nx-select-popup-max-height: var(--nx-size-overlay-list-max-height);
   --nx-select-popup-shadow: var(--nx-elevation-shadow-floating-box-shadow);
   --nx-select-positioner-z-index: var(--nx-elevation-floating-z-index);
+  --nx-select-positioner-side-offset: var(--nx-space-overlay-side-offset);
   --nx-select-list-gap: var(--nx-space-control-gap-sm);
   --nx-select-list-padding: var(--nx-space-control-y-xs);
   --nx-select-item-foreground: var(--nx-color-text-primary);
@@ -1326,6 +1337,7 @@
   --nx-textarea-transition-duration: var(--nx-duration-control);
   --nx-textarea-transition-easing: var(--nx-easing-control);
   --nx-toast-viewport-width: var(--nx-size-panel-width-md);
+  --nx-toast-viewport-max-height: var(--nx-size-overlay-viewport-max-height);
   --nx-toast-viewport-inset: var(--nx-space-surface-sm);
   --nx-toast-viewport-gap: var(--nx-space-surface-gap-sm);
   --nx-toast-viewport-gap-expanded: var(--nx-space-surface-gap-md);
@@ -1405,6 +1417,7 @@
   --nx-toggle-group-gap-md: var(--nx-space-control-gap-sm);
   --nx-toggle-group-gap-lg: var(--nx-space-control-gap-md);
   --nx-tooltip-positioner-z-index: var(--nx-elevation-tooltip-z-index);
+  --nx-tooltip-positioner-side-offset: var(--nx-space-overlay-side-offset);
   --nx-tooltip-background: var(--nx-color-text-primary);
   --nx-tooltip-foreground: var(--nx-color-background-base);
   --nx-tooltip-border-color: var(--nx-border-default);

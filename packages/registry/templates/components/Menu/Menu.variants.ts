@@ -26,7 +26,7 @@ export const menuPositionerVariants = cva("z-(--nx-menu-positioner-z-index)")
 
 export const menuPopupVariants = cva(
   [
-    "min-w-(--nx-menu-popup-min-width) max-w-(--nx-menu-popup-max-width) rounded-(--nx-menu-radius) border",
+    "min-w-[var(--anchor-width)] max-w-(--nx-menu-popup-max-width) rounded-(--nx-menu-radius) border",
     "border-(--nx-menu-popup-border-color) bg-(--nx-menu-popup-background) text-(--nx-menu-popup-foreground) shadow-(--nx-menu-popup-shadow)",
     "data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "origin-[var(--transform-origin)] transition-[opacity,transform] duration-(--nx-menu-transition-duration) ease-(--nx-menu-transition-easing)",

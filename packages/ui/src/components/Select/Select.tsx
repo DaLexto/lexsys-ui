@@ -44,6 +44,7 @@ import {
   selectValueVariants,
 } from "./Select.variants"
 import { mergeClassName } from "../../utils/merge-class-name"
+import { overlayPositionerSideOffset } from "../../utils/overlay-positioner"
 
 const Select = <Value = string, Multiple extends boolean | undefined = false>(
   props: SelectProps<Value, Multiple>,
@@ -135,12 +136,14 @@ const SelectPositioner = ({
   ref,
   className,
   alignItemWithTrigger = false,
+  sideOffset = overlayPositionerSideOffset,
   ...props
 }: SelectPositionerProps) => {
   return (
     <BaseSelect.Positioner
       ref={ref}
       alignItemWithTrigger={alignItemWithTrigger}
+      sideOffset={sideOffset}
       className={mergeClassName(selectPositionerVariants(), className)}
       {...props}
     />
@@ -220,7 +223,7 @@ const SelectArrow = ({ ref, className, ...props }: SelectArrowProps) => {
   return (
     <BaseSelect.Arrow
       ref={ref}
-      className={mergeClassName(selectScrollArrowVariants(), className)}
+      className={mergeClassName(selectArrowVariants(), className)}
       {...props}
     />
   )
@@ -256,7 +259,7 @@ const SelectScrollDownArrow = ({
   return (
     <BaseSelect.ScrollDownArrow
       ref={ref}
-      className={mergeClassName(selectArrowVariants(), className)}
+      className={mergeClassName(selectScrollArrowVariants(), className)}
       {...props}
     >
       {children ?? <ChevronDown aria-hidden="true" size={16} />}

@@ -72,4 +72,14 @@ export const sizeSemantics = semanticTokens("size", {
       lg: { $value: "{size.128}" },
     },
   },
+  overlay: {
+    list: {
+      $type: "dimension",
+      maxHeight: { $value: "{size.panel.height.sm}" },
+    },
+    viewport: {
+      $type: "dimension",
+      maxHeight: { $value: "{layout.viewport.full}" },
+    },
+  },
 })

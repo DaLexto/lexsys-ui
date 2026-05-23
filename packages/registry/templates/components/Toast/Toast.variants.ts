@@ -8,7 +8,7 @@ import { cva } from "class-variance-authority"
 
 export const toastViewportVariants = cva(
   [
-    "fixed z-(--nx-toast-viewport-z-index) flex max-h-dvh w-[min(calc(100vw-(var(--nx-toast-viewport-inset)*2)),var(--nx-toast-viewport-width))] flex-col gap-(--nx-toast-viewport-gap) p-(--nx-toast-viewport-padding)",
+    "fixed z-(--nx-toast-viewport-z-index) flex max-h-(--nx-toast-viewport-max-height) w-[min(calc(100vw-(var(--nx-toast-viewport-inset)*2)),var(--nx-toast-viewport-width))] flex-col gap-(--nx-toast-viewport-gap) p-(--nx-toast-viewport-padding)",
     "data-[expanded]:gap-(--nx-toast-viewport-gap-expanded)",
   ].join(" "),
   {

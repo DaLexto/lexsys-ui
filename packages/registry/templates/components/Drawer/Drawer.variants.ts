@@ -18,7 +18,7 @@ export const drawerTriggerVariants = cva(
 )
 
 export const drawerIndentBackgroundVariants = cva(
-  "fixed inset-0 -z-10 bg-(--nx-drawer-indent-background) opacity-0 transition-opacity duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing) data-[active]:opacity-100",
+  "fixed inset-0 z-(--nx-drawer-indent-z-index) bg-(--nx-drawer-indent-background) opacity-0 transition-opacity duration-(--nx-drawer-transition-duration) ease-(--nx-drawer-transition-easing) data-[active]:opacity-100",
 )
 
 export const drawerIndentVariants = cva(

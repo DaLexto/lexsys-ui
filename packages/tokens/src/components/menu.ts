@@ -27,16 +27,16 @@ export const menuComponentTokens = componentTokens("menu", {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
     borderColor: { $value: "{border.default}" },
-    minWidth: { $value: "{size.area.swipe.sm}" },
     maxWidth: { $value: "{size.panel.width.sm}" },
     shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
   },
   positioner: {
     zIndex: { $value: "{elevation.floating.zIndex}" },
+    sideOffset: { $value: "{spacing.overlay.sideOffset}" },
   },
   viewport: {
     $type: "dimension",
-    maxHeight: { $value: "{size.area.swipe.md}" },
+    maxHeight: { $value: "{size.overlay.list.maxHeight}" },
   },
   list: {
     $type: "dimension",
