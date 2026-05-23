@@ -83,21 +83,29 @@
 
 # --- priority:* (issue triage) ---
 
-- name: "priority:P0"
+- name: "priority:critical"
   color: "B60205"
   description: Critical — blocks release or core workflow
+  aliases:
+    - "priority:P0"
 
-- name: "priority:P1"
+- name: "priority:high"
   color: "D93F0B"
   description: High — should be addressed soon
+  aliases:
+    - "priority:P1"
 
-- name: "priority:P2"
+- name: "priority:medium"
   color: "FBCA04"
   description: Normal priority
+  aliases:
+    - "priority:P2"
 
-- name: "priority:P3"
+- name: "priority:low"
   color: "C2E0C6"
   description: Low priority or nice-to-have
+  aliases:
+    - "priority:P3"
 
 # --- status:* (workflow) ---
 
