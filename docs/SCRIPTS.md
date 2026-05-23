@@ -259,11 +259,11 @@ With `NEUREX_CONTRAST_POLICY=ci` in CI.
 
 [`.github/workflows/labels-sync.yml`](../.github/workflows/labels-sync.yml) keeps repo labels aligned with [`.github/labels.yml`](../.github/labels.yml) using [`github-label-sync`](https://github.com/Financial-Times/github-label-sync) v3 in **strict** mode (labels not in the manifest are deleted).
 
-| Trigger | Behavior |
-| --- | --- |
-| Pull request touching `.github/labels.yml` | Dry-run only — diff in job log, no writes |
-| Push to `dev` / `main` (manifest or workflow) | Apply sync to `DaLexto/neurex` |
-| `workflow_dispatch` | Manual re-sync |
+| Trigger                                       | Behavior                                  |
+| --------------------------------------------- | ----------------------------------------- |
+| Pull request touching `.github/labels.yml`    | Dry-run only — diff in job log, no writes |
+| Push to `dev` / `main` (manifest or workflow) | Apply sync to `DaLexto/neurex`            |
+| `workflow_dispatch`                           | Manual re-sync                            |
 
 Local preview (requires a PAT with `repo` scope):
 

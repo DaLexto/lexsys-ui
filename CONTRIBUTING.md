@@ -32,14 +32,14 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) with monorepo s
 
 Issues and pull requests use the namespaced label set in [`.github/labels.yml`](./.github/labels.yml). Apply labels that match the change:
 
-| Namespace | When to use |
-| --- | --- |
-| `type:*` | Change kind — mirrors commit types (`type:feat`, `type:fix`, `type:docs`, …) |
-| `area:*` | Primary package or surface (`area:tokens`, `area:cli`, `area:repo`, …) |
-| `priority:*` | Issue triage only (`priority:P0`–`P3`) |
-| `status:*` | Workflow state (`status:needs-triage`, `status:blocked`, `status:ready-for-review`) |
-| `meta:*` | Cross-cutting flags (`meta:breaking-change`, `meta:good-first-issue`, `meta:help-wanted`) |
-| `automation:*` | Bot PRs (`automation:dependencies`, `automation:github-actions`) |
+| Namespace      | When to use                                                                               |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| `type:*`       | Change kind — mirrors commit types (`type:feat`, `type:fix`, `type:docs`, …)              |
+| `area:*`       | Primary package or surface (`area:tokens`, `area:cli`, `area:repo`, …)                    |
+| `priority:*`   | Issue triage only (`priority:P0`–`P3`)                                                    |
+| `status:*`     | Workflow state (`status:needs-triage`, `status:blocked`, `status:ready-for-review`)       |
+| `meta:*`       | Cross-cutting flags (`meta:breaking-change`, `meta:good-first-issue`, `meta:help-wanted`) |
+| `automation:*` | Bot PRs (`automation:dependencies`, `automation:github-actions`)                          |
 
 The manifest is synced in **strict** mode: labels not listed in `.github/labels.yml` are removed on sync. Edit the manifest in a PR; CI runs a dry-run preview. Sync applies on merge to `dev`/`main`. See [docs/SCRIPTS.md](./docs/SCRIPTS.md) § GitHub label sync.
 
