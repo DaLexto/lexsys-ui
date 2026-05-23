@@ -15,13 +15,54 @@ export interface PackageManagerInvocation {
   args: string[]
 }
 
-const isSafeDependencyName = (dependency: string): boolean => {
-  return /^(?:@[a-z0-9][a-z0-9._-]*\/)?[a-z0-9][a-z0-9._-]*$/iu.test(dependency)
+const dependencyNamePattern =
+  /^(?:@[a-z0-9][a-z0-9._-]*\/)?[a-z0-9][a-z0-9._-]*$/iu
+
+const parseDependencySpec = (
+  spec: string,
+): { name: string; version?: string } => {
+  if (spec.startsWith("@")) {
+    const versionSeparator = spec.indexOf("@", 1)
+
+    if (versionSeparator === -1) {
+      return { name: spec }
+    }
+
+    return {
+      name: spec.slice(0, versionSeparator),
+      version: spec.slice(versionSeparator + 1),
+    }
+  }
+
+  const versionSeparator = spec.indexOf("@")
+
+  if (versionSeparator === -1) {
+    return { name: spec }
+  }
+
+  return {
+    name: spec.slice(0, versionSeparator),
+    version: spec.slice(versionSeparator + 1),
+  }
+}
+
+const isSafeDependencySpec = (spec: string): boolean => {
+  const { name, version } = parseDependencySpec(spec)
+
+  if (!dependencyNamePattern.test(name)) {
+    return false
+  }
+
+  if (version === undefined) {
+    return true
+  }
+
+  return version.length > 0
 }
 
 const assertSafeDependencyNames = (deps: string[]): void => {
   const unsafeDependency = deps.find(
-    (dependency) => !isSafeDependencyName(dependency),
+    (dependency) => !isSafeDependencySpec(dependency),
   )
 
   if (unsafeDependency) {
@@ -112,7 +153,10 @@ export const installDependencies = async (
   }
 
   const packageManager = await detectPackageManager(packageJson)
-  const missing = deps.filter((dep) => !existingDeps[dep])
+  const missing = deps.filter((dep) => {
+    const { name } = parseDependencySpec(dep)
+    return !existingDeps[name]
+  })
 
   assertSafeDependencyNames(missing)
 

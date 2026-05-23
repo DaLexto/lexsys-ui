@@ -12,6 +12,7 @@ const viteConfigFiles = [
   "vite.config.mjs",
 ]
 const tsConfigFiles = ["tsconfig.app.json", "tsconfig.json"]
+const postcssConfigFiles = ["postcss.config.mjs", "postcss.config.js"]
 const viteSrcAlias = `"@": fileURLToPath(new URL("./src", import.meta.url))`
 const tsSrcAlias = `"@/*": ["./src/*"]`
 
@@ -117,6 +118,40 @@ export const ensureTypeScriptSrcAlias = async (): Promise<void> => {
 
   await writeFile(tsConfigPath, updatedContent, "utf-8")
   console.log(`Updated TypeScript alias: ${tsConfigPath}`)
+}
+
+export const ensureNextPostCssConfig = async (): Promise<void> => {
+  for (const file of postcssConfigFiles) {
+    const configPath = join(getCwd(), file)
+
+    if (!(await fileExists(configPath))) {
+      continue
+    }
+
+    const content = await readFile(configPath, "utf-8")
+
+    if (content.includes("@tailwindcss/postcss")) {
+      console.log(
+        `Skipped PostCSS config: ${configPath} already configures Tailwind`,
+      )
+      return
+    }
+  }
+
+  const targetPath = join(getCwd(), "postcss.config.mjs")
+  await writeFile(
+    targetPath,
+    `const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+}
+
+export default config
+`,
+    "utf-8",
+  )
+  console.log(`Created PostCSS config: ${targetPath}`)
 }
 
 const findViteConfigPath = async (): Promise<string | undefined> => {

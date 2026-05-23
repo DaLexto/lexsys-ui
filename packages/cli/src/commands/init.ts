@@ -9,6 +9,11 @@ import { fileExists } from "../core/fs.js"
 import { ensureProjectStructure } from "../core/installer.js"
 import { installDependencies } from "../core/package-manager.js"
 import {
+  NEXT_VERSION,
+  scaffoldNextProject,
+} from "../core/next-scaffold.js"
+import {
+  ensureNextPostCssConfig,
   ensureTailwindCssImport,
   ensureTypeScriptSrcAlias,
   ensureViteSrcAlias,
@@ -17,6 +22,7 @@ import {
 import { scaffoldViteProject } from "../core/vite-scaffold.js"
 
 const tailwindViteDependencies = ["tailwindcss", "@tailwindcss/vite"]
+const tailwindNextDependencies = ["tailwindcss", "@tailwindcss/postcss"]
 
 const viteDependencies = ["react", "react-dom"]
 
@@ -30,12 +36,24 @@ const viteDevDependencies = [
   "vite",
 ]
 
+const nextDependencies = ["react", "react-dom", `next@${NEXT_VERSION}`]
+
+const nextDevDependencies = [
+  "@types/node",
+  "@types/react",
+  "@types/react-dom",
+  "prettier",
+  "typescript",
+]
+
 const viteConfigFiles = [
   "vite.config.ts",
   "vite.config.mts",
   "vite.config.js",
   "vite.config.mjs",
 ]
+
+const nextConfigFiles = ["next.config.ts", "next.config.mjs", "next.config.js"]
 
 const packageJsonHasDependency = (
   packageJson: Record<string, unknown>,
@@ -75,20 +93,54 @@ const hasViteScaffold = async (): Promise<boolean> => {
   return packageJsonHasDependency(packageJson, "vite")
 }
 
+const hasNextScaffold = async (): Promise<boolean> => {
+  for (const configFile of nextConfigFiles) {
+    if (await fileExists(resolve(getCwd(), configFile))) {
+      return true
+    }
+  }
+
+  const packageJsonPath = resolve(getCwd(), "package.json")
+
+  if (!(await fileExists(packageJsonPath))) {
+    return false
+  }
+
+  const packageJson = JSON.parse(
+    await readFile(packageJsonPath, "utf-8"),
+  ) as Record<string, unknown>
+
+  return packageJsonHasDependency(packageJson, "next")
+}
+
 const hasSupportedScaffold = async (): Promise<boolean> => {
-  return hasViteScaffold()
+  return (await hasViteScaffold()) || (await hasNextScaffold())
 }
 
 const runNeurexInit = async (): Promise<void> => {
   console.log("Initializing Neurex...\n")
 
   const config = await loadConfig()
+  const usesNext = await hasNextScaffold()
+
+  if (usesNext && config.tailwind.css === "src/style.css") {
+    config.tailwind.css = "app/globals.css"
+  }
 
   await ensureProjectStructure(config)
-  await installDependencies(tailwindViteDependencies, { dev: true })
+  await installDependencies(
+    usesNext ? tailwindNextDependencies : tailwindViteDependencies,
+    { dev: true },
+  )
   await ensureTailwindCssImport(config)
-  await ensureViteTailwindPlugin()
-  await ensureViteSrcAlias()
+
+  if (usesNext) {
+    await ensureNextPostCssConfig()
+  } else {
+    await ensureViteTailwindPlugin()
+    await ensureViteSrcAlias()
+  }
+
   await ensureTypeScriptSrcAlias()
   await saveConfig(config)
 
@@ -112,28 +164,55 @@ const runViteInit = async (args: string[]): Promise<void> => {
   await runNeurexInit()
 }
 
+const runNextInit = async (args: string[]): Promise<void> => {
+  if (args.length > 1) {
+    throw new CliError("Usage: neurex init next [directory]")
+  }
+
+  const targetDirectory = resolve(getCwd(), args[0] ?? ".")
+
+  setCwd(targetDirectory)
+
+  console.log(`Initializing Next.js project at ${targetDirectory}...\n`)
+
+  await scaffoldNextProject(targetDirectory)
+  await installDependencies(nextDependencies)
+  await installDependencies(nextDevDependencies, { dev: true })
+  await runNeurexInit()
+}
+
 const promptFrameworkInit = async (): Promise<void> => {
   const response: unknown = await prompts({
-    type: "confirm",
-    name: "useVite",
-    message:
-      "No supported app scaffold was detected. Create a Vite + React project here?",
-    initial: true,
+    type: "select",
+    name: "framework",
+    message: "No supported app scaffold was detected. Create a starter project:",
+    choices: [
+      { title: "Vite + React", value: "vite" },
+      { title: "Next.js App Router", value: "next" },
+    ],
+    initial: 0,
   })
 
-  const useVite =
+  const framework =
     typeof response === "object" &&
     response !== null &&
-    "useVite" in response &&
-    response.useVite === true
+    "framework" in response &&
+    typeof response.framework === "string"
+      ? response.framework
+      : undefined
 
-  if (!useVite) {
-    console.log("No project scaffold selected. Nothing changed.")
-    console.log("Run `neurex init vite` to create a Vite starter.")
+  if (framework === "vite") {
+    await runViteInit([])
     return
   }
 
-  await runViteInit([])
+  if (framework === "next") {
+    await runNextInit([])
+    return
+  }
+
+  console.log("No project scaffold selected. Nothing changed.")
+  console.log("Run `neurex init vite` or `neurex init next` to create a starter.")
 }
 
 export const runInit = async (args: string[] = []): Promise<void> => {
@@ -152,6 +231,11 @@ export const runInit = async (args: string[] = []): Promise<void> => {
 
   if (framework === "vite") {
     await runViteInit(frameworkArgs)
+    return
+  }
+
+  if (framework === "next") {
+    await runNextInit(frameworkArgs)
     return
   }
 
