@@ -320,8 +320,8 @@ Status: shipped
 ### PR sequence
 
 **Delivered (2026-05-22):** Phase 0 + **M1, M2, M5, M6, M7** shipped in one consolidated PR
-(`chore/monorepo-optimization` → `dev`) instead of separate per-phase PRs. Commit
-discipline remained one commit per sub-item (`Mx.y`). M3 and M4 remain planned.
+[#18](https://github.com/DaLexto/neurex/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
+separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). M3 and M4 remain planned.
 
 | PR    | Phase | Title sketch                                        | Delivery                                                 |
 | ----- | ----- | --------------------------------------------------- | -------------------------------------------------------- |
