@@ -11,34 +11,34 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 
 ## Quick reference (root)
 
-| Script                          | Purpose                                                            |
-| ------------------------------- | ------------------------------------------------------------------ |
-| `pnpm check`                    | Full gate: Prettier + root ESLint + turbo `check` in all packages  |
-| `pnpm build`                    | Build all packages (turbo)                                         |
-| `pnpm dev`                      | Start dev servers (turbo)                                          |
-| `pnpm test`                     | Run all package tests (turbo)                                      |
-| `pnpm typecheck`                | Typecheck all packages (turbo)                                     |
-| `pnpm lint`                     | Root config ESLint + lint all packages (turbo)                     |
-| `pnpm lint:fix`                 | Auto-fix lint across root + packages                               |
-| `pnpm format`                   | Format repo with Prettier                                          |
-| `pnpm format:check`             | Check Prettier formatting                                          |
-| `pnpm sync:templates`           | Sync UI components → registry templates                            |
-| `pnpm sync:styles`              | Regenerate token CSS in dist + registry style templates            |
-| `pnpm sync:all`                 | `sync:templates` then `sync:styles` — follow with `registry:check` |
-| `pnpm tokens:check`             | Lint + typecheck + test `@neurex/tokens`                           |
-| `pnpm tokens:build`             | Build `@neurex/tokens`                                             |
-| `pnpm tokens:generate:styles`   | Write dist + registry style CSS                                    |
-| `pnpm tokens:governance:report` | Token governance + contrast audit report                           |
-| `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                             |
-| `pnpm ui:check`                 | Lint + typecheck + test `@neurex/ui`                               |
-| `pnpm ui:build`                 | Build `@neurex/ui`                                                 |
-| `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test               |
-| `pnpm registry:sync`            | Sync UI source → registry component templates                      |
-| `pnpm registry:styles:sync`     | Alias for `tokens:generate:styles` via registry                    |
-| `pnpm cli:check`                | Build registry + lint + typecheck + test CLI                       |
-| `pnpm playground:dev`           | Start local playground (Vite)                                      |
-| `pnpm playground:check`         | Lint + typecheck playground                                        |
-| `pnpm playground:build`         | Build tokens + UI, then playground                                 |
+| Script                          | Purpose                                                                               |
+| ------------------------------- | ------------------------------------------------------------------------------------- |
+| `pnpm check`                    | Full gate: Prettier + root ESLint + turbo `check` in all packages                     |
+| `pnpm build`                    | Build all packages (turbo)                                                            |
+| `pnpm dev`                      | Start dev servers (turbo)                                                             |
+| `pnpm test`                     | Run all package tests (turbo)                                                         |
+| `pnpm typecheck`                | Typecheck all packages (turbo)                                                        |
+| `pnpm lint`                     | Root config ESLint + lint all packages (turbo)                                        |
+| `pnpm lint:fix`                 | Auto-fix lint across root + packages                                                  |
+| `pnpm format`                   | Format repo with Prettier                                                             |
+| `pnpm format:check`             | Check Prettier formatting                                                             |
+| `pnpm sync:templates`           | Sync UI components → registry templates                                               |
+| `pnpm sync:styles`              | Regenerate token CSS in dist + registry style templates                               |
+| `pnpm sync:all`                 | `sync:templates` then `sync:styles` — follow with `registry:check`                    |
+| `pnpm tokens:check`             | Lint + typecheck + test `@neurex/tokens`                                              |
+| `pnpm tokens:build`             | Build `@neurex/tokens`                                                                |
+| `pnpm tokens:generate:styles`   | Write dist + registry style CSS                                                       |
+| `pnpm tokens:governance:report` | Token governance + contrast audit report                                              |
+| `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                |
+| `pnpm ui:check`                 | Lint + typecheck + test `@neurex/ui`                                                  |
+| `pnpm ui:build`                 | Build `@neurex/ui`                                                                    |
+| `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                  |
+| `pnpm registry:sync`            | Sync UI source → registry component templates                                         |
+| `pnpm registry:styles:sync`     | Alias for `tokens:generate:styles` via registry                                       |
+| `pnpm cli:check`                | Turbo `check` for CLI (builds `@neurex/registry` first, then lint + typecheck + test) |
+| `pnpm playground:dev`           | Start local playground (Vite)                                                         |
+| `pnpm playground:check`         | Lint + typecheck playground                                                           |
+| `pnpm playground:build`         | Build tokens + UI, then playground                                                    |
 
 Per-package `*:lint:fix`, `*:typecheck`, and `*:build` aliases follow the same `{package}:{action}` pattern. See sections below.
 
@@ -139,15 +139,22 @@ pnpm --filter @neurex/registry <script>
 | Root alias           | Package script | When to run                            |
 | -------------------- | -------------- | -------------------------------------- |
 | `pnpm cli:build`     | `build`        | Build CLI binary                       |
-| `pnpm cli:check`     | `check`        | After CLI command or installer changes |
+| `pnpm cli:check`     | turbo `check`  | After CLI command or installer changes |
 | `pnpm cli:lint:fix`  | `lint:fix`     | Auto-fix CLI package lint              |
 | `pnpm cli:typecheck` | `typecheck`    | Types only                             |
 
-Filter equivalent (use path filter — root package is also named `neurex`):
+`pnpm cli:check` runs `pnpm turbo run check --filter=./packages/cli`, so workspace
+dependencies (notably `@neurex/registry`) are built before lint and typecheck.
+Do not substitute `pnpm --filter ./packages/cli check` for the full gate — that
+skips the turbo `^build` graph and ESLint can fail on unresolved registry types.
+
+Filter equivalent for other CLI scripts (use path filter — root package is also named `neurex`):
 
 ```sh
 pnpm --filter ./packages/cli <script>
 ```
+
+For tests only (registry already built): `pnpm --filter ./packages/cli test`.
 
 ---
 
@@ -227,7 +234,7 @@ Test coverage details and per-file test inventory: [TESTING.md](./TESTING.md).
 | `packages/tokens/**`                       | `pnpm tokens:check`                              |
 | `packages/ui/**`                           | `pnpm ui:check`                                  |
 | `packages/ui/**` or `packages/registry/**` | `pnpm registry:check` (template drift on UI PRs) |
-| `packages/cli/**`                          | `pnpm --filter ./packages/cli check`             |
+| `packages/cli/**`                          | `pnpm turbo run check --filter=./packages/cli`   |
 | `apps/playground/**` (+ tokens/ui deps)    | `pnpm playground:build`                          |
 | Root config/docs                           | `pnpm format:check` + `pnpm lint:root`           |
 
@@ -256,8 +263,9 @@ With `NEUREX_CONTRAST_POLICY=ci` in CI.
 | -------------------------------------------- | ---------------------------------------------------------------- |
 | `pnpm check`, `pnpm build`, `pnpm test`      | Run across all workspace packages via turbo                      |
 | `pnpm tokens:check`, `pnpm registry:sync`, … | Daily maintainer shortcuts from repo root                        |
+| `pnpm cli:check`                             | CLI gate via turbo (`^build` then lint + typecheck + test)       |
 | `pnpm --filter @neurex/tokens test`          | Running a single package script without a root alias, or from CI |
-| `pnpm --filter ./packages/cli check`         | CLI package only (avoids root `neurex` name collision)           |
+| `pnpm --filter ./packages/cli test`          | CLI tests only (not the full check gate; registry must be built) |
 
 Prefer root aliases in docs and commit messages when they exist. Use `--filter` when documenting the underlying package script or when no root alias exists (e.g. `templates:check-sync`).
 
