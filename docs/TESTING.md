@@ -158,7 +158,8 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-Pilot render tests use `@testing-library/react` with Vitest `jsdom` (`packages/ui/vitest.config.ts`).
+All 32 bundled components have render smoke tests using `@testing-library/react`
+with Vitest `jsdom` (`packages/ui/vitest.config.ts`).
 
 - Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.
 - Variant class output remains covered by `*.variants.test.ts` files.
@@ -174,8 +175,8 @@ is manual verification — not CI.
 Checklist after CLI or registry changes:
 
 1. Link or install the CLI from the monorepo branch under test.
-2. From the sandbox root: `neurex add <component>` (or re-run `neurex init` if scaffolding changed).
-3. Run the sandbox build (`npm run build` or equivalent).
+2. **Vite regression:** from sandbox root — `neurex add <component>` (or re-run `neurex init` if scaffolding changed); `neurex update --styles`; run build.
+3. **Next.js smoke:** fresh directory — `neurex init next`; `neurex add button`; run build.
 4. Spot-check installed component paths, `neurex.config.json`, and token CSS imports.
 5. If templates or styles changed: confirm `styles/tokens.css` and `styles/theme.css` update as expected.
 
@@ -185,5 +186,4 @@ Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monore
 
 ## Known Gaps
 
-- Render test coverage expanded (Alert, Collapsible, Dialog, Field, ScrollArea, Select, Switch, Tabs, Toast). Most remaining components still rely on CVA class output tests only.
 - No automated end-to-end install tests against a real external consumer project (temp-directory smoke tests cover CLI flow; see Consumer sandbox verification above).

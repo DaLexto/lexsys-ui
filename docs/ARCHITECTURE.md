@@ -128,7 +128,7 @@ build time.
 
 | Command                             | Description                                                               |
 | ----------------------------------- | ------------------------------------------------------------------------- |
-| `neurex init`                       | Initialize Neurex in an existing project or scaffold a new Vite+React app |
+| `neurex init`                       | Initialize Neurex in an existing project or scaffold Vite+React or Next.js App Router |
 | `neurex add [items...]`             | Install one or more registry items; interactive multiselect when no args  |
 | `neurex update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes`       |
 | `neurex update styles`              | Update theme/token CSS files only                                         |
@@ -147,7 +147,12 @@ The CLI resolves registry items from:
 1. **Local** (`@neurex/registry` bundled with the CLI) — default when
    `registryUrl` is `null` in `neurex.config.json`.
 2. **Remote** — when `registryUrl` is set, the CLI fetches a remote manifest
-   and falls back to local if the fetch fails (unless `--no-fallback` is used).
+   JSON over HTTPS, validates item (and optional style) shape, and falls back to
+   local if the fetch fails (unless `--no-fallback` is used).
+
+**Trust model:** remote manifests are trusted as configured — no signature,
+checksum, or host allowlist enforcement yet. See [CLI.md](./CLI.md) § Remote
+registry manifest contract.
 
 ### Install idempotency
 
@@ -167,19 +172,29 @@ Update operations create `.bak` backup files before overwriting.
 
 ### Framework support (current)
 
-The `init` command detects an existing **Vite** project and wires:
+The `init` command detects an existing **Vite** or **Next.js App Router**
+project and wires Tailwind v4 accordingly.
 
-- `@import "tailwindcss"` in the CSS entrypoint (Tailwind v4)
+**Vite** detection wires:
+
+- `@import "tailwindcss"` in the CSS entrypoint (`src/style.css` by default)
 - `@tailwindcss/vite` plugin in `vite.config.*`
 - `@/*` TypeScript path alias in `tsconfig.app.json` or `tsconfig.json`
 - Matching Vite runtime alias
 
-Scaffolding a new Vite+React app from scratch is also supported:
-`neurex init vite [app-name]`.
+Scaffolding a new Vite+React app: `neurex init vite [app-name]`.
 
-> **Note (target):** Next.js and other framework scaffolds are not yet
-> implemented. The CLI defaults to Vite-compatible setup when project type
-> cannot be detected.
+**Next.js App Router** detection wires:
+
+- `@import "tailwindcss"` in `app/globals.css` (config `tailwind.css`)
+- `@tailwindcss/postcss` in `postcss.config.mjs` when missing
+- `@/*` TypeScript path alias in `tsconfig.json`
+
+Scaffolding a new Next.js App Router app: `neurex init next [app-name]` (pinned
+Next.js 15.3.3).
+
+> **Note:** Pages Router, middleware presets, and additional framework scaffolds
+> are not implemented yet.
 
 Tailwind v4 is the only supported Tailwind version. The config schema has
 `tailwind.version: "v4"` hardcoded.

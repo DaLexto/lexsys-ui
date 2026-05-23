@@ -40,14 +40,19 @@ The P0 and P1 implementation passes are complete:
 - ScrollArea component (UI, tokens, registry, playground) merged via PR #14 (`884e3eb`)
 - `neurex uninstall` removes registry-owned files with dry-run and conflict reporting
 - UI render test pilot: ScrollArea, Collapsible, Dialog (`@testing-library/react` + Vitest jsdom)
+- Broad UI render coverage: all 32 bundled components have render smoke tests
+- Next.js App Router minimal scaffold (`neurex init next`; pinned Next.js 15.3.3)
+- Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
+- Governance CI promotion: semantic audit **`error`-severity** fails `pnpm tokens:governance:report` (`NEUREX_GOVERNANCE_POLICY`)
+- `shadow.inner` inset slot model (branch+slot with `inset: true`)
 - Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
-- Tailwind v4 + Vite init sequence
+- Tailwind v4 + Vite or Next.js init sequence
 - Registry validation and publish-safe template resolution
 - Documentation alignment with current token/UI contracts (`docs/TOKENS.md`, design system, architecture, CLI, package READMEs)
 - Tier 1 test coverage: CLI uninstall orphan cleanup, contrast failure codes + policy tiers, registry style sync helpers (`docs/TESTING.md`)
 - Per-package `vitest.config.ts` for Vitest VS Code extension discovery (Vitest 4; no root workspace file)
 
-The current implementation supports: Vite + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
 
 Known gaps below.
 
@@ -65,8 +70,6 @@ Optional follow-ups after Phases 1–10 (detail in
 [docs/RESOLVER_EVOLUTION.md — After Phase 10](./RESOLVER_EVOLUTION.md#after-phase-10)):
 
 - Further expand `SEMANTIC_CONTRAST_PAIRS` (design sign-off per pair)
-- Governance promotion to build-failing checks (maintainer policy choice)
-- Inset / multi-layer shadow improvements (`shadow.inner` flat string today)
 - DTCG composite object `$value` engine phase (option B — after slot model stable)
 - Speculative AST evaluator and color/unit math — **deferred**, not scheduled
 
@@ -78,15 +81,16 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~Build-failing contrast~~ — `validateContrastPolicyStrict` in `validateStyleTokenInput` (unless `NEUREX_CONTRAST_POLICY=report`)
 - ~~Contrast pair expansion (partial)~~ — danger/secondary action + large-text heading pairs (15 pairs)
 - ~~Full primitive shadow migration~~ — `shadow.0`–`shadow.6` branch+slot; elevation refs; CSS compose for primitive + semantic paths
+- ~~Broad UI render coverage~~ — 32/32 components (M3.1)
+- ~~Next.js scaffold~~ — `neurex init next` App Router minimal (M3.2)
+- ~~Remote registry contract~~ — manifest parser + validation (M3.3)
+- ~~Governance promotion (semantic audit errors)~~ — `NEUREX_GOVERNANCE_POLICY` (M3.4)
+- ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
 
 ## Known Gaps (no active item yet)
 
 | Gap                                   | Notes                                                                                     |
 | ------------------------------------- | ----------------------------------------------------------------------------------------- |
-| No broad UI render test coverage      | Expanded batch shipped; remaining components still CVA-only. **M3.1**                     |
 | CLI diagnostic command tests          | Covered in `diagnostics.test.ts`.                                                         |
 | Install-flow round-trip               | Covered in `install-flow.test.ts`.                                                        |
-| Next.js and other framework scaffolds | `neurex init` only supports Vite. **Scheduled: ROADMAP M3.2**                             |
-| Remote registry manifest contract     | Remote registry format and trust model are not finalized. **M3.3**                        |
-| Governance promotion                  | Selected governance checks are report-only; build-failing promotion is optional. **M3.4** |
-| `shadow.inner` inset authoring        | Flat CSS string leaf; no inset slot model yet. **M3.5**                                   |
+| Remote registry signatures / allowlist | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.      |

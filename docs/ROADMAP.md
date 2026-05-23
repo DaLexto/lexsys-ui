@@ -80,13 +80,16 @@ Summary only — do not duplicate detail here.
 **Planned (likely next):**
 
 - Further expand `SEMANTIC_CONTRAST_PAIRS` (additional roles beyond the current 15-pair registry)
-- Optional promotion of selected governance checks to build-failing
-- Inset / multi-layer shadow authoring improvements (`shadow.inner` remains a flat CSS string today)
 
 **Recently shipped (post–Phase 10 queue):**
 
 - Build-failing contrast in `validateStyleTokenInput` (unless `NEUREX_CONTRAST_POLICY=report`)
 - Full primitive shadow scale migration (`shadow.0`–`shadow.6` branch+slot) with CSS compose
+- `shadow.inner` inset slot model (branch+slot with `inset: true`; CSS compose prepends `inset`)
+- Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`NEUREX_GOVERNANCE_POLICY=ci`; override with `report`)
+- Broad UI render coverage (32/32 components)
+- Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
+- Next.js App Router minimal scaffold (`neurex init next`; pinned Next.js 15.3.3)
 - `neurex uninstall` metadata-driven removal with dry-run and conflict reporting
 - UI render test pilot (`ScrollArea`, `Collapsible`, `Dialog`)
 
@@ -132,7 +135,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | ----- | ------------------------ | ------- | --------------------------------------------------------------------------------- | ------------------------------------- |
 | M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment    | SCRIPTS.md, DEPLOY.md                 |
 | M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                     | TESTING.md, AGENTS.md                 |
-| M3    | Product and architecture | planned | UI render expansion, scaffolds, remote registry, tokens backlog                   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
+| M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
 | M4    | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`               | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                    | DEPLOY.md                             |
@@ -206,29 +209,29 @@ Status: shipped
 
 ### M3 — Product and architecture backlog
 
-Status: planned — only after M1–M2 stable.
+Status: shipped
 
 #### M3.1 — Broad UI render coverage
 
-- Ongoing batches beyond M2.3 pilot; each batch = own commit.
+- Render smoke tests for all 32 bundled components (DOM, className merge, key ARIA roles).
 
-#### M3.2 — Next.js and other scaffolds
+#### M3.2 — Next.js scaffold
 
-- `neurex init` beyond Vite; large, separate PR series.
+- Minimal App Router starter via `neurex init next [directory]`; pinned Next.js 15.3.3; Tailwind v4 via PostCSS.
 
 #### M3.3 — Remote registry contract
 
-- Trust model and manifest parity; large.
+- Manifest parser (`{ version, items, styles? }` or legacy item array); validation parity with local registry; trust model documented in CLI.md and ARCHITECTURE.md.
 
 #### M3.4 — Governance build promotion
 
-- Optional promotion of report-only governance checks; see [RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+- `NEUREX_GOVERNANCE_POLICY` tier (`report` / `ci`); semantic audit **`error`-severity** issues fail `pnpm tokens:governance:report` in CI.
 
 #### M3.5 — Token engine items
 
-- e.g. `shadow.inner` inset model — cross-link token Future Direction above; detail in RESOLVER_EVOLUTION.md.
+- `shadow.inner` migrated to branch+slot with `inset: true`; CSS compose prepends `inset` in composed `box-shadow`.
 
-**Phase PR:** one PR per agreed M3 milestone.
+**Phase PR:** `chore(m3): product and architecture backlog`
 
 ### M4 — Release readiness
 
@@ -315,18 +318,18 @@ Status: shipped
 | `@vitest/ui` browser dashboard    | Decided overkill                                                               |
 | Visual regression / screenshots   | Overkill for current coverage                                                  |
 | Changesets / npm provenance       | M4 release phase                                                               |
-| Next.js scaffold, remote registry | M3 product — large separate work                                               |
+| Next.js scaffold, remote registry | **Shipped in M3** — `neurex init next`; remote manifest contract                         |
 
 ### PR sequence
 
 **Delivered (2026-05-22):** Phase 0 + **M1, M2, M5, M6, M7** shipped in one consolidated PR
 [#18](https://github.com/DaLexto/neurex/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
-separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). M3 and M4 remain planned.
+separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. M4 remains planned.
 
 | PR    | Phase | Title sketch                                        | Delivery               |
 | ----- | ----- | --------------------------------------------------- | ---------------------- |
 | 0–7   | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **PR #18** — single PR |
-| 3a–3b | M3    | Product slices + docs sync                          | planned                |
+| 3a–3b | M3    | Product slices + docs sync                          | **shipped** (consolidated PR → `dev`) |
 | 4a–4b | M4    | Release readiness + docs sync                       | planned                |
 
 Original per-phase sketch (reference if splitting future work):

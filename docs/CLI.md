@@ -32,33 +32,36 @@ or applies built-in defaults when the file is absent.
 
 ### `init`
 
-Initialize Neurex in a project or scaffold a new Vite+React app.
+Initialize Neurex in a project or scaffold a new Vite+React or Next.js App Router app.
 
 ```bash
 neurex init
 neurex init vite
 neurex init vite my-app
+neurex init next
+neurex init next my-app
 ```
 
 **`neurex init` (no arguments)**
 
 Detects whether a supported project scaffold exists in the working directory.
-Vite is detected by presence of `vite.config.ts|.mts|.js|.mjs` or `vite` in
-`package.json` dependencies.
+
+- **Vite** — `vite.config.ts|.mts|.js|.mjs` or `vite` in `package.json` dependencies.
+- **Next.js** — `next.config.ts|.mjs|.js` or `next` in `package.json` dependencies.
 
 - **Scaffold detected:** runs the Neurex init sequence (see below).
-- **No scaffold detected:** prompts to create a Vite+React project here.
-  Answering no prints `"Run neurex init vite to create a Vite starter."` and exits.
+- **No scaffold detected:** prompts to create a Vite+React or Next.js App Router starter.
+  Declining prints guidance to run `neurex init vite` or `neurex init next`.
 
-**Neurex init sequence** (runs for both paths above):
+**Neurex init sequence** (runs after scaffold detection or scaffold command):
 
 1. Creates `componentsPath`, `utilitiesPath`, `stylesPath` directories.
-2. Installs `tailwindcss` and `@tailwindcss/vite` as dev dependencies.
-3. Ensures `@import "tailwindcss";` at the top of `tailwind.css`.
-4. Ensures `tailwindcss()` plugin in `vite.config.*`.
-5. Ensures `"@": fileURLToPath(...)` resolve alias in `vite.config.*`.
+2. Installs Tailwind v4 dependencies (Vite: `tailwindcss`, `@tailwindcss/vite`; Next: `tailwindcss`, `@tailwindcss/postcss`).
+3. Ensures `@import "tailwindcss";` at the top of the Tailwind CSS entrypoint (`src/style.css` for Vite; `app/globals.css` for Next).
+4. **Vite only:** ensures `tailwindcss()` plugin and `"@": fileURLToPath(...)` resolve alias in `vite.config.*`.
+5. **Next only:** ensures `postcss.config.mjs` with `@tailwindcss/postcss` when missing.
 6. Ensures `"@/*": ["./src/*"]` in `tsconfig.app.json` or `tsconfig.json`.
-7. Writes `neurex.config.json` with default values.
+7. Writes `neurex.config.json` with default values (Next sets `tailwind.css` to `app/globals.css`).
 
 **`neurex init vite [directory]`**
 
@@ -71,8 +74,20 @@ Installs:
 - `@types/react`, `@types/react-dom`, `@types/node`, `@vitejs/plugin-react`,
   `prettier`, `typescript`, `vite` (dev)
 
-> Only Vite is supported as an init target. Passing any other framework name
-> throws `CliError: Unsupported init target: <name>`.
+**`neurex init next [directory]`**
+
+Scaffolds a minimal Next.js App Router + TypeScript project at `directory`
+(defaults to current directory), then runs the Neurex init sequence above.
+
+Installs:
+
+- `react`, `react-dom`, `next@15.3.3` (pinned semver)
+- `@types/node`, `@types/react`, `@types/react-dom`, `prettier`, `typescript` (dev)
+
+Scaffold files include `app/layout.tsx`, `app/page.tsx`, `app/globals.css`,
+`next.config.ts`, and `postcss.config.mjs`.
+
+> Unsupported framework names throw `CliError: Unsupported init target: <name>`.
 
 ---
 
@@ -394,6 +409,31 @@ The CLI resolves registry items from one of two sources:
 When a remote URL is configured and the fetch fails, the CLI falls back to the
 local bundled registry (unless `--no-fallback` is passed). The registry is
 cached in-memory for the duration of a single CLI invocation.
+
+### Remote registry manifest contract
+
+Remote manifests MUST be JSON fetched over HTTPS. The CLI parses payloads with
+`parseRemoteRegistry`:
+
+| Shape | Fields | Notes |
+| ----- | ------ | ----- |
+| Manifest object | `version` (string), `items` (array), `styles?` (array) | Preferred contract |
+| Legacy array | bare `RegistryItem[]` | Accepted; `version` becomes `"unknown"` |
+
+Each `items[]` entry MUST match the local registry item shape (`name`,
+`canonicalName`, `version`, `type`, `category`, `aliases`, `files`,
+`dependencies`, `registryDependencies`, `utilities`, `styles`, `target`).
+Optional `styles[]` entries follow the local style manifest shape (`name`,
+`version`, `files[]` with `path` + `target`).
+
+Malformed manifests throw descriptive errors (invalid item/style index, missing
+`version`/`items`, non-array `styles`). Remote optional styles are validated
+with the same registry validator options as local styles where applicable.
+
+**Trust model (current):** the CLI trusts the configured URL. There is no
+signature verification, checksum enforcement, or host allowlist yet — configure
+`registryUrl` only for sources you control. Use `--no-fallback` when remote
+unavailability must fail the command instead of using the bundled registry.
 
 ---
 

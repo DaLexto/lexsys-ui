@@ -68,6 +68,11 @@ Use `apps/playground` when validating **reference package wiring** inside the mo
 
 After monorepo changes to UI, registry, tokens, or CLI, verify in the sandbox when the task affects what users install — not only in playground.
 
+Maintainer checklist (see [docs/TESTING.md](./docs/TESTING.md) § Consumer sandbox verification):
+
+- **Vite regression:** `neurex add` → `update --styles` → build in existing sandbox.
+- **Next.js smoke:** fresh dir → `neurex init next` → `neurex add button` → build.
+
 ---
 
 ## Architectural Contract
