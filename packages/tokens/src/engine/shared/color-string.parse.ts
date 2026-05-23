@@ -115,8 +115,7 @@ const splitColorFunctionArgs = (value: string): string[] | null => {
   }
 
   const slashIndex = args.indexOf("/")
-  const colorPart =
-    slashIndex === -1 ? args : args.slice(0, slashIndex).trim()
+  const colorPart = slashIndex === -1 ? args : args.slice(0, slashIndex).trim()
   const alphaPart =
     slashIndex === -1 ? undefined : args.slice(slashIndex + 1).trim()
 

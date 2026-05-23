@@ -1,4 +1,12 @@
-import { copyFile, mkdir, readFile, readdir, rm, unlink, writeFile } from "node:fs/promises"
+import {
+  copyFile,
+  mkdir,
+  readFile,
+  readdir,
+  rm,
+  unlink,
+  writeFile,
+} from "node:fs/promises"
 import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import type { RegistryItem } from "@neurex/registry"
@@ -360,7 +368,9 @@ const removeGeneratedStyleIfMatchesTemplate = async (
   result.conflicted.push(targetPath)
 }
 
-const tryRemoveEmptyDirectory = async (directoryPath: string): Promise<void> => {
+const tryRemoveEmptyDirectory = async (
+  directoryPath: string,
+): Promise<void> => {
   try {
     const entries = await readdir(directoryPath)
 
@@ -413,7 +423,9 @@ export const uninstallItemFiles = async (
     const isSameFile = await filesAreEqual(sourcePath, targetPath)
 
     if (!isSameFile) {
-      console.log(`Conflict: file differs from registry template: ${targetPath}`)
+      console.log(
+        `Conflict: file differs from registry template: ${targetPath}`,
+      )
       result.conflicted.push(targetPath)
       continue
     }
