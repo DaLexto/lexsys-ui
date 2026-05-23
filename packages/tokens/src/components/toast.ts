@@ -17,10 +17,20 @@ export const toastComponentTokens = componentTokens("toast", {
   shadow: { $value: "{elevation.shadow.raised.boxShadow}" },
   success: {
     $type: "color",
+    background: { $value: "{color.feedback.success.background}" },
+    foreground: { $value: "{color.feedback.success.foreground}" },
     borderColor: { $value: "{color.feedback.success.foreground}" },
+  },
+  info: {
+    $type: "color",
+    background: { $value: "{color.feedback.info.background}" },
+    foreground: { $value: "{color.feedback.info.foreground}" },
+    borderColor: { $value: "{color.feedback.info.foreground}" },
   },
   danger: {
     $type: "color",
+    background: { $value: "{color.feedback.danger.background}" },
+    foreground: { $value: "{color.feedback.danger.foreground}" },
     borderColor: { $value: "{color.feedback.danger.foreground}" },
   },
   radius: { $value: "{radius.surface}" },
