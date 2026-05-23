@@ -5,6 +5,7 @@ Neurex CLI
 Usage
   neurex <command> [options]
   neurex init vite [directory]
+  neurex init next [directory]
   neurex add <component...>
 
 Commands
@@ -30,7 +31,8 @@ Global Options
 Command Options
   init
     vite [directory]           Scaffold a Vite React app and initialize Neurex
-                               Plain init offers this when no app is detected
+    next [directory]           Scaffold a Next.js App Router app and initialize Neurex
+                               Plain init offers a starter when no app is detected
 
   add
     --dry-run                  Preview files, dependencies, and install paths
@@ -68,6 +70,8 @@ Examples
   neurex init
   neurex init vite
   neurex init vite my-app
+  neurex init next
+  neurex init next my-app
   neurex add button
   neurex add button --dry-run
   neurex add button --cwd ./apps/web

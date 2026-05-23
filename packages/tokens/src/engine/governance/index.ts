@@ -15,6 +15,20 @@ export {
   formatSemanticAuditReport,
 } from "./audit/audit.governance"
 
+export {
+  DEFAULT_GOVERNANCE_POLICY,
+  evaluateSemanticAuditPolicy,
+  formatSemanticAuditPolicyFailures,
+  resolveGovernancePolicy,
+  resolveGovernancePolicyTier,
+  shouldFailOnGovernancePolicy,
+} from "./governance.policy"
+
+export type {
+  GovernancePolicy,
+  GovernancePolicyTier,
+} from "./governance.policy"
+
 export type {
   DeadTokenEntry,
   DeprecationDependency,
@@ -29,5 +43,6 @@ export type {
 export type {
   SemanticAuditIssue,
   SemanticAuditIssueKind,
+  SemanticAuditIssueSeverity,
   SemanticAuditReport,
 } from "./audit/audit.types"

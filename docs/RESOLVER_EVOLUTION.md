@@ -265,12 +265,12 @@ recommended next evolution track. High-level platform summary lives in
 
 ### Planned (likely next, no phase number yet)
 
-| Track                      | Target behavior                                                                | Status                                                                                                             |
-| -------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| Contrast pair expansion    | Add semantic pairs beyond the current 15-pair registry                         | Partial — danger/secondary action + large-text heading pairs shipped; further pairs need design sign-off           |
-| Contrast build promotion   | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA             | **Shipped** — `validateContrastPolicyStrict` in `validateStyleTokenInput`                                          |
-| Shadow primitive migration | Primitive shadow scale on branch+slot; slot-based `box-shadow` CSS composition | **Shipped** — `shadow.0`–`shadow.6`; `elevation.shadow.*` refs primitive slots; `shadow.inner` flat string remains |
-| Governance promotion       | Make selected governance checks build-failing                                  | Open — maintainer policy choice                                                                                    |
+| Track                      | Target behavior                                                                | Status                                                                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Contrast pair expansion    | Add semantic pairs beyond the current 15-pair registry                         | Partial — danger/secondary action + large-text heading pairs shipped; further pairs need design sign-off                   |
+| Contrast build promotion   | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA             | **Shipped** — `validateContrastPolicyStrict` in `validateStyleTokenInput`                                                  |
+| Shadow primitive migration | Primitive shadow scale on branch+slot; slot-based `box-shadow` CSS composition | **Shipped** — `shadow.0`–`shadow.6`; `elevation.shadow.*` refs primitive slots; `shadow.inner` uses inset slot             |
+| Governance promotion       | Make selected governance checks build-failing                                  | **Shipped** — semantic audit **`error`-severity** fails `pnpm tokens:governance:report` in CI (`NEUREX_GOVERNANCE_POLICY`) |
 
 None of the above require the speculative AST evaluator. They extend shipped
 engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
@@ -290,9 +290,10 @@ engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
 ### Known gaps (current state, not bugs)
 
 - **Contrast policy tiers** — `evaluateContrastPolicy` fails `governance:report` in CI (`ci` tier) and CSS build fails via `validateContrastPolicyStrict` unless `NEUREX_CONTRAST_POLICY=report`.
+- **Governance policy tiers** — semantic audit issues with `severity: "error"` fail `pnpm tokens:governance:report` when tier is `ci` (default in CI). Override locally with `NEUREX_GOVERNANCE_POLICY=report`. Dead-token and deprecation reports remain informational.
 - **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@neurex/tokens` root export today.
 - **Composite object `$value` leaves** — authoring uses branch + slot leaves (typography, shadow, border); DTCG-native single-leaf composite objects remain a deferred engine phase.
-- **`shadow.inner`** — inset shadow remains a flat CSS string leaf; slot model does not model `inset` yet.
+- **`shadow.inner`** — inset shadow uses branch+slot leaves (`color`, offsets, blur, `inset: true`); CSS compose prepends `inset` in composed `box-shadow`.
 
 ---
 

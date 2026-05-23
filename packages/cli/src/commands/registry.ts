@@ -64,7 +64,14 @@ const getRemoteRegistryResult = async (
   source: string,
 ): Promise<RegistryCommandResult> => {
   const remote = await fetchRemoteRegistry(source)
-  validateRegistry(remote.items)
+  validateRegistry(
+    remote.items,
+    remote.styles !== undefined
+      ? {
+          styles: remote.styles,
+        }
+      : {},
+  )
 
   return {
     items: remote.items,

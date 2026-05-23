@@ -9,8 +9,12 @@ import {
 import {
   createSemanticAuditReport,
   createTokenGovernanceReport,
+  evaluateSemanticAuditPolicy,
   formatSemanticAuditReport,
+  formatSemanticAuditPolicyFailures,
   formatTokenGovernanceReport,
+  resolveGovernancePolicy,
+  shouldFailOnGovernancePolicy,
 } from "../src/engine/governance"
 
 const allowedArgs = new Set(["--json"])
@@ -54,18 +58,35 @@ const main = (): void => {
 
   console.log(formatTokenGovernanceReport(report))
   console.log("")
-  console.log(
-    formatSemanticAuditReport(
-      createSemanticAuditReport({
-        primitiveTokens: input.primitiveTokens,
-        brandTokens: input.brandTokens,
-        semanticTokens: input.semanticTokens,
-        componentTokens: input.componentTokens,
-        foundationTokens: input.foundationTokens,
-        themeTokens: input.themeTokens,
-      }),
-    ),
-  )
+  const semanticAuditReport = createSemanticAuditReport({
+    primitiveTokens: input.primitiveTokens,
+    brandTokens: input.brandTokens,
+    semanticTokens: input.semanticTokens,
+    componentTokens: input.componentTokens,
+    foundationTokens: input.foundationTokens,
+    themeTokens: input.themeTokens,
+  })
+  console.log(formatSemanticAuditReport(semanticAuditReport))
+
+  const governancePolicy = resolveGovernancePolicy()
+  const semanticAuditEvaluation =
+    evaluateSemanticAuditPolicy(semanticAuditReport)
+
+  if (
+    !semanticAuditEvaluation.passes &&
+    shouldFailOnGovernancePolicy(governancePolicy)
+  ) {
+    console.error("")
+    console.error(
+      formatSemanticAuditPolicyFailures(semanticAuditEvaluation.failures),
+    )
+    console.error("")
+    console.error(
+      `Governance policy (${governancePolicy.tier}) failed with ${semanticAuditEvaluation.failures.length} semantic audit error(s). Set ${"NEUREX_GOVERNANCE_POLICY=report"} to report-only locally.`,
+    )
+    process.exit(1)
+  }
+
   console.log("")
   const contrastReport = createContrastValidationReport({
     foundationTokens: input.foundationTokens,

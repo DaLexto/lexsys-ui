@@ -314,6 +314,10 @@ Shadow and border semantic roles use the same branch + slot model as typography
 
 **Shadow** (`$type: "shadow"` on role branches such as `elevation.shadow.floating`):
 
+Branch+slot leaves compose into CSS `box-shadow` values. Slots include `color`,
+`offsetX`, `offsetY`, `blur`, `spread`, and optional `inset` (boolean). Primitive
+`shadow.inner` uses `inset: true` for inset shadows.
+
 | Slot      | Type                 |
 | --------- | -------------------- |
 | `color`   | `color`              |
@@ -331,9 +335,8 @@ Shadow and border semantic roles use the same branch + slot model as typography
 | `width` | `dimension`   |
 | `style` | `strokeStyle` |
 
-Components may reference individual slots or transitional `boxShadow` leaves that
-still alias primitive CSS strings until full slot-based CSS composition ships.
-Flat color-only paths such as `border.default` remain unchanged.
+Components may reference individual slots or composed shadow paths. Flat color-only
+paths such as `border.default` remain unchanged.
 
 **Deferred:** DTCG composite **object** `$value` on a single leaf (spec-native
 structured shadow/border) requires a separate engine phase (`TokenValue`, resolver
@@ -367,26 +370,31 @@ and runs before reference resolution during `validateStyleTokenInput`. Contrast 
 validation runs after reference resolution via `validateContrastPolicyStrict` unless
 `NEUREX_CONTRAST_POLICY=report`.
 
-### Governance tooling (non-blocking)
+### Governance tooling
 
 The following are available via `createTokenGovernanceReport`, `createSemanticAuditReport`, and
 `pnpm tokens:governance:report`. They analyze the token graph
 but do not change CSS or DTCG output unless dead-primitive stripping is explicitly enabled:
 
-- Deprecation reports for tokens marked `$deprecated` with **transitive** dependents
-- Metadata inventory reports (including transitive dependents when metadata is present)
-- Dead primitive token detection (primitive leaves not referenced by upper layers)
+- Deprecation reports for tokens marked `$deprecated` with **transitive** dependents (informational)
+- Metadata inventory reports (including transitive dependents when metadata is present) (informational)
+- Dead primitive token detection (primitive leaves not referenced by upper layers) (informational)
 - Semantic audit reports (forbidden paths, missing groups, theme path drift)
+- Contrast validation via `createContrastValidationReport`
+
+**CI policy tiers:**
+
+| Env var                    | Tier values                    | Effect                                                                                            |
+| -------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `NEUREX_CONTRAST_POLICY`   | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on contrast pair failures when `ci`                         |
+| `NEUREX_GOVERNANCE_POLICY` | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on semantic audit issues with `severity: "error"` when `ci` |
+
+Build-time contrast enforcement is also active in `validateStyleTokenInput` unless
+`NEUREX_CONTRAST_POLICY=report`.
 
 **Optional output change (opt-in):** `createStyleOutputs({ stripDeadPrimitives: true })` or
 `node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
-primitive leaves from CSS/DTCG after full-graph validation. Default is off.
-
-**Governance tooling (non-blocking):** contrast validation also runs via
-`createContrastValidationReport` and `pnpm tokens:governance:report`.
-Contrast policy failures **fail CI** when tier is `ci` (default in
-`.github/workflows/tokens-governance.yml`). Build-time contrast enforcement is active
-in `validateStyleTokenInput` unless `NEUREX_CONTRAST_POLICY=report`. Speculative
+primitive leaves from CSS/DTCG after full-graph validation. Default is off. Speculative
 AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---

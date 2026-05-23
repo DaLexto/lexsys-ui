@@ -31,6 +31,7 @@ export const TYPOGRAPHY_COMPOSITE_SLOTS: readonly CompositeSlotSchema[] = [
 ]
 
 export const SHADOW_SLOT_KEYS = [
+  "inset",
   "color",
   "offsetX",
   "offsetY",
@@ -41,6 +42,7 @@ export const SHADOW_SLOT_KEYS = [
 export type ShadowSlotKey = (typeof SHADOW_SLOT_KEYS)[number]
 
 export const SHADOW_COMPOSITE_SLOTS: readonly CompositeSlotSchema[] = [
+  { slotKey: "inset", scalarType: "string" },
   { slotKey: "color", scalarType: "color" },
   { slotKey: "offsetX", scalarType: "dimension" },
   { slotKey: "offsetY", scalarType: "dimension" },
