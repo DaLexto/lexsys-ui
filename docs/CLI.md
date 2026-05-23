@@ -285,16 +285,23 @@ neurex registry --no-fallback
 
 ### `uninstall`
 
-> **Known gap:** File removal is not yet implemented.
-> The command accepts names and `--dry-run`, looks up each in the installed map,
-> and prints `"Uninstall is not implemented yet. <name> is tracked at v<version>."`.
-> Names not found in the installed map print `"<name> is not tracked as installed."`.
-> No files are deleted.
+Removes registry-owned component files when they still match install templates.
+Shared utilities and styles are removed only when no remaining installed
+component still references them. Modified files are left in place and reported
+as conflicts; the component stays tracked in `neurex.config.json`.
 
 ```bash
 neurex uninstall button
 neurex uninstall button --dry-run
 ```
+
+**Behavior:**
+
+- `--dry-run` — print targets without deleting files or updating config
+- Removes component files only when content matches the registry template
+- Skips the whole component when any file differs (atomic per component)
+- Orphaned utilities/styles removed only after successful component uninstall
+- npm dependencies are **not** removed automatically
 
 ---
 

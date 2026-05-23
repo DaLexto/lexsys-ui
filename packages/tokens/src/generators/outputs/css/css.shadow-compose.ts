@@ -25,11 +25,21 @@ const SHADOW_BOX_SHADOW_SLOT_ORDER = [
 export const isShadowCompositeBoxShadowPath = (
   path: readonly string[],
 ): boolean => {
-  if (path.length < 4) {
+  if (path.length < 3) {
     return false
   }
 
   if (path[path.length - 1] !== SHADOW_BOX_SHADOW_LEAF_KEY) {
+    return false
+  }
+
+  // primitives/shadow.{scale}.boxShadow
+  if (path[0] === SHADOW_BRANCH_SEGMENT && path.length === 3) {
+    return true
+  }
+
+  // semantics/elevation.shadow.{role}.boxShadow
+  if (path.length < 4) {
     return false
   }
 

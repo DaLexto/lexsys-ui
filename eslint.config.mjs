@@ -45,7 +45,11 @@ export default tseslint.config(
     extends: [tseslint.configs.disableTypeChecked],
   },
   {
-    files: ["**/*.test.ts"],
+    files: ["**/*.test.ts", "**/*.test.tsx"],
+    extends: [tseslint.configs.disableTypeChecked],
+  },
+  {
+    files: ["packages/ui/test/setup.ts"],
     extends: [tseslint.configs.disableTypeChecked],
   },
   {

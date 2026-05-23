@@ -49,7 +49,8 @@ Test files in `packages/ui/test/`:
 | File                                             | What it tests                                                                           |
 | ------------------------------------------------ | --------------------------------------------------------------------------------------- |
 | `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`    |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (31 components) |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (32 components) |
+| `test/components/<Name>/<Name>.render.test.tsx` | Render smoke tests — DOM output, className merge, key a11y roles (pilot: ScrollArea, Collapsible, Dialog) |
 
 Run:
 
@@ -83,6 +84,7 @@ Test files in `packages/cli/test/`:
 | `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                      |
 | `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                         |
 | `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                         |
+| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior |
 | `commands/install-flow.test.ts` | Full install smoke — runs `init` + `add` twice to verify end-to-end idempotency across all components |
 | `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection |
 | `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                              |
@@ -124,9 +126,17 @@ Run `registry:check` before merging any PR that changes `packages/ui` components
 
 ---
 
+## UI render tests
+
+Pilot render tests use `@testing-library/react` with Vitest `jsdom` (`packages/ui/vitest.config.ts`).
+
+- Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.
+- Variant class output remains covered by `*.variants.test.ts` files.
+
+---
+
 ## Known Gaps
 
-- No render tests for UI components (no `@testing-library/react`). Variant
-  correctness is verified through CVA class output tests only.
+- Render test coverage is limited to pilot components (ScrollArea, Collapsible, Dialog). Most components still rely on CVA class output tests only.
 - No end-to-end install tests against a real consumer project (outside the
   temp-directory smoke tests in `install-flow.test.ts`).

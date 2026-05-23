@@ -53,7 +53,7 @@ Installed via `npm install -g neurex` or run directly with `pnpm exec neurex`.
 | `neurex doctor`                | Check project health and config validity                                        |
 | `neurex config`                | Read or modify `neurex.config.json`                                             |
 | `neurex registry`              | Inspect the active registry source                                              |
-| `neurex uninstall <component>` | Remove installed component files (known gap — not yet implemented)              |
+| `neurex uninstall <component>` | Remove installed component files when they match registry templates              |
 | `neurex version`               | Print CLI version                                                               |
 | `neurex help`                  | Print command list                                                              |
 
