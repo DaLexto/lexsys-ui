@@ -7,6 +7,5 @@
     "syncable",
     "Turborepo",
     "WCAG"
-  ],
-  "css.lint.unknownAtRules": "ignore"
+  ]
 }
