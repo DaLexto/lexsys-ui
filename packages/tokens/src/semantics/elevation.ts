@@ -27,6 +27,7 @@ export const elevationSemantics = semanticTokens("elevation", {
     $type: "shadow",
     floating: {
       color: { $value: "{shadow.4.color}" },
+      inset: { $value: "{shadow.4.inset}" },
       offsetX: { $value: "{shadow.4.offsetX}" },
       offsetY: { $value: "{shadow.4.offsetY}" },
       blur: { $value: "{shadow.4.blur}" },
@@ -35,6 +36,7 @@ export const elevationSemantics = semanticTokens("elevation", {
     },
     raised: {
       color: { $value: "{shadow.5.color}" },
+      inset: { $value: "{shadow.5.inset}" },
       offsetX: { $value: "{shadow.5.offsetX}" },
       offsetY: { $value: "{shadow.5.offsetY}" },
       blur: { $value: "{shadow.5.blur}" },

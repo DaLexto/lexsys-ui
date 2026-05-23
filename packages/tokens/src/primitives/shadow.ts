@@ -15,9 +15,8 @@
  * - Components must not consume primitive shadows directly
  *
  * @notes
- * - Scales 0–6 use branch + slot leaves; CSS generator composes boxShadow from slots
+ * - Scales 0–6 and inner use branch + slot leaves; CSS generator composes boxShadow from slots
  * - boxShadow shorthand leaves preserve full CSS (including multi-layer strings) for export
- * - inner remains a flat CSS string (inset) until inset slot support exists
  */
 
 import { primitiveTokens } from "../types/authoring"
@@ -44,6 +43,7 @@ const shadowScaleStep = (options: {
   offsetY: { $value: options.offsetY },
   blur: { $value: options.blur },
   spread: { $value: "0" },
+  inset: { $value: "" },
   boxShadow: {
     $value: options.boxShadow,
     $description:
@@ -63,6 +63,7 @@ export const shadowPrimitives = primitiveTokens("shadow", {
     offsetY: { $value: "0" },
     blur: { $value: "0" },
     spread: { $value: "0" },
+    inset: { $value: "" },
     boxShadow: { $value: "none" },
   },
 
@@ -120,6 +121,16 @@ export const shadowPrimitives = primitiveTokens("shadow", {
   inner: {
     $description:
       "Inset shadow for pressed, recessed, or contained surface effects.",
-    $value: "inset 0 1px 2px rgb(0 0 0 / 0.08)",
+    color: shadowColor(0.08),
+    offsetX: { $value: "0" },
+    offsetY: { $value: "1px" },
+    blur: { $value: "2px" },
+    spread: { $value: "0" },
+    inset: { $value: "inset" },
+    boxShadow: {
+      $value: "inset 0 1px 2px rgb(0 0 0 / 0.08)",
+      $description:
+        "Full CSS shadow string; slot vars compose the inset layer for boxShadow output.",
+    },
   },
 })
