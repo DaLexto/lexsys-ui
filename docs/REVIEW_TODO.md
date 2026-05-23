@@ -86,15 +86,15 @@ or still compose atoms only. **Higher blocks compose lower blocks** — atoms �
 organisms → templates; no layer skipping. **`neurex add <block>` installs the full transitive
 closure** (smaller blocks + atoms + npm deps + utilities + styles) via `registryDependencies`.
 
-| Item | Layer | Status | Notes |
-| ---- | ----- | ------ | ----- |
-| AD.1 | All | planned | Block metadata + compositional rules; direct `registryDependencies`; CLI transitive install |
-| AD.2 | Molecules | planned | Pilot 2–3 items (e.g. form field row, menu trigger row) |
-| AD.3 | Organisms | planned | Pilot sidebar nav or settings panel from sandbox learnings |
-| AD.4 | Templates | planned | Dashboard layout shell; migrate sandbox layout CSS where appropriate |
-| AD.5 | Pages | n/a | Document: pages stay consumer-owned; examples only in sandbox/docs |
-| AD.6 | CLI | planned | `list` / `add` UX for blocks category; docs in CLI.md |
-| AD.7 | CLI | planned | Transitive install smoke tests (block → molecules → atoms); registry dep-graph validator |
+| Item | Layer     | Status  | Notes                                                                                       |
+| ---- | --------- | ------- | ------------------------------------------------------------------------------------------- |
+| AD.1 | All       | planned | Block metadata + compositional rules; direct `registryDependencies`; CLI transitive install |
+| AD.2 | Molecules | planned | Pilot 2–3 items (e.g. form field row, menu trigger row)                                     |
+| AD.3 | Organisms | planned | Pilot sidebar nav or settings panel from sandbox learnings                                  |
+| AD.4 | Templates | planned | Dashboard layout shell; migrate sandbox layout CSS where appropriate                        |
+| AD.5 | Pages     | n/a     | Document: pages stay consumer-owned; examples only in sandbox/docs                          |
+| AD.6 | CLI       | planned | `list` / `add` UX for blocks category; docs in CLI.md                                       |
+| AD.7 | CLI       | planned | Transitive install smoke tests (block → molecules → atoms); registry dep-graph validator    |
 
 **In flight (atom layer, pre-M5):** Menu collision fix + Toast type surfaces on branch
 `fix/sandbox-menu-toast-qa` — sandbox QA, not block delivery.

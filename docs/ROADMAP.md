@@ -388,13 +388,13 @@ and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes
 
 Neurex UI follows [Atomic Design](https://atomicdesign.bradfrost.com/) layers:
 
-| Layer | Neurex today | Target |
-| ----- | ------------ | ------ |
-| Atoms | Shipped (32 components + tokens + `cn`) | Maintain and extend |
-| Molecules | Consumer composes manually | Optional registry blocks |
-| Organisms | Consumer composes manually | Optional registry blocks (e.g. sidebar, form shell) |
-| Templates | Consumer layout CSS | Optional layout shells via registry |
-| Pages | Consumer-owned | Always consumer-owned |
+| Layer     | Neurex today                            | Target                                              |
+| --------- | --------------------------------------- | --------------------------------------------------- |
+| Atoms     | Shipped (32 components + tokens + `cn`) | Maintain and extend                                 |
+| Molecules | Consumer composes manually              | Optional registry blocks                            |
+| Organisms | Consumer composes manually              | Optional registry blocks (e.g. sidebar, form shell) |
+| Templates | Consumer layout CSS                     | Optional layout shells via registry                 |
+| Pages     | Consumer-owned                          | Always consumer-owned                               |
 
 Canonical mapping, compositional rules (blocks compose lower blocks), package boundaries,
 and dual consumer paths: [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
@@ -403,14 +403,14 @@ and dual consumer paths: [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
 
 Status: **planned** — after current atom polish and sandbox QA fixes land on `dev`.
 
-| Sub-item | Outcome |
-| -------- | ------- |
-| UC.1 | Block registry conventions, metadata shape, **compositional rules** (layer-only deps) |
-| UC.2 | Pilot molecules (2–3 composed patterns) |
-| UC.3 | Pilot organism (sidebar or settings panel from sandbox) |
-| UC.4 | Template shell + sandbox migration |
-| UC.5 | CLI/docs UX for `neurex add` blocks |
-| UC.6 | Transitive dependency install tests + registry dep-graph validation |
+| Sub-item | Outcome                                                                               |
+| -------- | ------------------------------------------------------------------------------------- |
+| UC.1     | Block registry conventions, metadata shape, **compositional rules** (layer-only deps) |
+| UC.2     | Pilot molecules (2–3 composed patterns)                                               |
+| UC.3     | Pilot organism (sidebar or settings panel from sandbox)                               |
+| UC.4     | Template shell + sandbox migration                                                    |
+| UC.5     | CLI/docs UX for `neurex add` blocks                                                   |
+| UC.6     | Transitive dependency install tests + registry dep-graph validation                   |
 
 Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-atomic-design).
 

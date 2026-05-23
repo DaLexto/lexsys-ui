@@ -37,13 +37,13 @@ without forking atoms; new templates assemble existing organisms.
 
 Brad Frost's Atomic Design layers, mapped to Neurex:
 
-| Layer | Neurex meaning | Ownership | Install path (target) |
-| ----- | -------------- | --------- | --------------------- |
-| **Atoms** | Tokens, utilities, primitive UI components | Neurex registry | `neurex add button` → `src/components/ui/` |
-| **Molecules** | Small composed UI (field row, menu trigger + label, button group) | Neurex blocks (planned) | `neurex add …` → e.g. `src/components/blocks/` |
-| **Organisms** | Larger sections (sidebar nav, settings panel, auth form shell) | Neurex blocks (planned) | Same as molecules |
-| **Templates** | Page shells without real data (dashboard layout, auth layout) | Neurex blocks (planned) | e.g. `src/layouts/` or consumer choice |
-| **Pages** | Full screens with app data and routing | **Consumer** | `src/pages/`, `src/routes/`, app router segments |
+| Layer         | Neurex meaning                                                    | Ownership               | Install path (target)                            |
+| ------------- | ----------------------------------------------------------------- | ----------------------- | ------------------------------------------------ |
+| **Atoms**     | Tokens, utilities, primitive UI components                        | Neurex registry         | `neurex add button` → `src/components/ui/`       |
+| **Molecules** | Small composed UI (field row, menu trigger + label, button group) | Neurex blocks (planned) | `neurex add …` → e.g. `src/components/blocks/`   |
+| **Organisms** | Larger sections (sidebar nav, settings panel, auth form shell)    | Neurex blocks (planned) | Same as molecules                                |
+| **Templates** | Page shells without real data (dashboard layout, auth layout)     | Neurex blocks (planned) | e.g. `src/layouts/` or consumer choice           |
+| **Pages**     | Full screens with app data and routing                            | **Consumer**            | `src/pages/`, `src/routes/`, app router segments |
 
 ```txt
 tokens (--nx-*)     atoms (Button, Menu, Field, …)
@@ -67,12 +67,12 @@ consumer projects after install.
 
 **Core rule:** build up, never sideways or down.
 
-| Layer | MAY compose from | MUST NOT |
-| ----- | ---------------- | -------- |
-| **Molecules** | Atoms, tokens, utilities | Duplicate atom markup/styles inline |
-| **Organisms** | Molecules, atoms | Rebuild a molecule inline instead of importing the block |
-| **Templates** | Organisms, molecules, atoms | Hardcode page data, routing, or business logic |
-| **Pages** | Templates, organisms, molecules, atoms | — (consumer app) |
+| Layer         | MAY compose from                       | MUST NOT                                                 |
+| ------------- | -------------------------------------- | -------------------------------------------------------- |
+| **Molecules** | Atoms, tokens, utilities               | Duplicate atom markup/styles inline                      |
+| **Organisms** | Molecules, atoms                       | Rebuild a molecule inline instead of importing the block |
+| **Templates** | Organisms, molecules, atoms            | Hardcode page data, routing, or business logic           |
+| **Pages**     | Templates, organisms, molecules, atoms | — (consumer app)                                         |
 
 ### Block composition
 
@@ -110,12 +110,12 @@ neurex add app-sidebar
 
 **Composable dependency installation (required):**
 
-| Resource | Transitive? | Mechanism |
-| -------- | ----------- | --------- |
-| Registry items (atoms + blocks) | **Yes** | `resolveRegistryItems` recursive `registryDependencies` visit |
-| npm `dependencies` | **Yes** | `collectDependencies` over resolved items |
-| `utilities` (`cn`, …) | **Yes** | `collectUtilities` over resolved items |
-| `styles` (`theme`, token CSS) | **Yes** | `collectStyles` over resolved items |
+| Resource                        | Transitive? | Mechanism                                                     |
+| ------------------------------- | ----------- | ------------------------------------------------------------- |
+| Registry items (atoms + blocks) | **Yes**     | `resolveRegistryItems` recursive `registryDependencies` visit |
+| npm `dependencies`              | **Yes**     | `collectDependencies` over resolved items                     |
+| `utilities` (`cn`, …)           | **Yes**     | `collectUtilities` over resolved items                        |
+| `styles` (`theme`, token CSS)   | **Yes**     | `collectStyles` over resolved items                           |
 
 Rules:
 
@@ -155,11 +155,11 @@ and customization depth differ.
 
 ### Atoms — yes
 
-| Kind | Location | Notes |
-| ---- | -------- | ----- |
+| Kind          | Location                                | Notes                                                   |
+| ------------- | --------------------------------------- | ------------------------------------------------------- |
 | Design tokens | `styles/tokens.css`, `styles/theme.css` | Generated from `@neurex/tokens`; `--nx-*` CSS variables |
-| Utilities | `src/lib/cn.ts` (installed) | `cn`, CVA state helpers |
-| UI primitives | 32 registry components | `Button`, `Menu`, `Field`, `Dialog`, `Toast`, … |
+| Utilities     | `src/lib/cn.ts` (installed)             | `cn`, CVA state helpers                                 |
+| UI primitives | 32 registry components                  | `Button`, `Menu`, `Field`, `Dialog`, `Toast`, …         |
 
 Each atom follows the component file contract (`ComponentName.tsx`, `.types.ts`,
 `.variants.ts`). Styling uses token-backed Tailwind transport (`bg-(--nx-*)`), not
@@ -208,24 +208,24 @@ Blocks MUST NOT:
 
 ### Dual path for consumers
 
-| Consumer need | Path |
-| ------------- | ---- |
-| Full control, custom design system integration | Atoms only + own composition |
-| Fast start, Neurex-default look | Atoms + optional blocks/templates |
-| Hybrid | Install organism, customize locally (user-owned code) |
+| Consumer need                                  | Path                                                  |
+| ---------------------------------------------- | ----------------------------------------------------- |
+| Full control, custom design system integration | Atoms only + own composition                          |
+| Fast start, Neurex-default look                | Atoms + optional blocks/templates                     |
+| Hybrid                                         | Install organism, customize locally (user-owned code) |
 
 ---
 
 ## Package mapping
 
-| Monorepo package | Atomic layers |
-| ---------------- | ------------- |
-| `packages/tokens` | Foundation for all layers (not a UI layer) |
-| `packages/ui` | Atom reference implementations; block references when added |
-| `packages/registry` | Atom templates today; block templates planned |
-| `packages/cli` | Installs atoms and blocks via metadata — no hardcoded layout logic |
-| `apps/playground` | Atom smoke / variant checks only (~10–20% focus) |
-| Consumer sandbox | Molecule+ composition truth (~80–90% focus) |
+| Monorepo package    | Atomic layers                                                      |
+| ------------------- | ------------------------------------------------------------------ |
+| `packages/tokens`   | Foundation for all layers (not a UI layer)                         |
+| `packages/ui`       | Atom reference implementations; block references when added        |
+| `packages/registry` | Atom templates today; block templates planned                      |
+| `packages/cli`      | Installs atoms and blocks via metadata — no hardcoded layout logic |
+| `apps/playground`   | Atom smoke / variant checks only (~10–20% focus)                   |
+| Consumer sandbox    | Molecule+ composition truth (~80–90% focus)                        |
 
 ---
 

@@ -103,7 +103,9 @@ const MenuPositioner = ({
 }: MenuPositionerProps) => {
   const resolvedCollisionAvoidance =
     collisionAvoidance ??
-    (side && horizontalMenuSides.has(side) ? popupCollisionAvoidance : undefined)
+    (side && horizontalMenuSides.has(side)
+      ? popupCollisionAvoidance
+      : undefined)
 
   return (
     <BaseMenu.Positioner
