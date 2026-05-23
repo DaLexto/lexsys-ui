@@ -35,12 +35,12 @@ Core invariants:
 
 ## Monorepo packages
 
-| Package             | npm name             | Role                                                                                 |
-| ------------------- | -------------------- | ------------------------------------------------------------------------------------ |
-| `packages/tokens`   | `@neurex/tokens`     | Design token source of truth; resolver; CSS + DTCG generators                        |
-| `packages/ui`       | `@neurex/ui`         | Source/reference React components (not the final distributed form)                   |
-| `packages/registry` | `@neurex/registry`   | Registry items, templates, utilities, styles, and metadata validator                 |
-| `packages/cli`      | `neurex` (bin)       | CLI installer; reads `@neurex/registry`; orchestrates install into consumer projects |
+| Package             | npm name             | Role                                                                                                                           |
+| ------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `packages/tokens`   | `@neurex/tokens`     | Design token source of truth; resolver; CSS + DTCG generators                                                                  |
+| `packages/ui`       | `@neurex/ui`         | Source/reference React components (not the final distributed form)                                                             |
+| `packages/registry` | `@neurex/registry`   | Registry items, templates, utilities, styles, and metadata validator                                                           |
+| `packages/cli`      | `neurex` (bin)       | CLI installer; reads `@neurex/registry`; orchestrates install into consumer projects                                           |
 | `apps/playground`   | `@neurex/playground` | Monorepo smoke app — workspace `@neurex/ui`; not the consumer install path. See [TESTING.md](TESTING.md#verification-surfaces) |
 
 Consumer validation (CLI install path, real layouts, brand/theme UX) happens outside the monorepo — sandbox or SaaS — not in playground.

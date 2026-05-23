@@ -54,11 +54,11 @@ Do not blur responsibilities between packages.
 
 Canonical policy: [docs/TESTING.md § Verification surfaces](./docs/TESTING.md#verification-surfaces).
 
-| Surface | Model | Policy | Maintainer focus |
-| ------- | ----- | ------ | ---------------- |
-| `apps/playground` | Workspace `@neurex/ui` + built token CSS | **Maintenance-only** monorepo smoke | **~10–20%** — optional wiring check |
-| External consumer sandbox | `neurex add` → user-owned templates/CSS | **Consumer truth** | **~80–90%** — CLI, install UX, design sign-off |
-| Your SaaS (future) | CLI-installed consumer app | Primary product surface | Replaces sandbox for UX; sandbox stays minimal CLI regression |
+| Surface                   | Model                                    | Policy                              | Maintainer focus                                              |
+| ------------------------- | ---------------------------------------- | ----------------------------------- | ------------------------------------------------------------- |
+| `apps/playground`         | Workspace `@neurex/ui` + built token CSS | **Maintenance-only** monorepo smoke | **~10–20%** — optional wiring check                           |
+| External consumer sandbox | `neurex add` → user-owned templates/CSS  | **Consumer truth**                  | **~80–90%** — CLI, install UX, design sign-off                |
+| Your SaaS (future)        | CLI-installed consumer app               | Primary product surface             | Replaces sandbox for UX; sandbox stays minimal CLI regression |
 
 **Local sandbox path (example):** `D:\PLAYGROUND\sandbox-neurex`  
 **Agent contract:** `D:\PLAYGROUND\sandbox-neurex\AGENTS.md`

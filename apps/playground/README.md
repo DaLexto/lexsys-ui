@@ -20,15 +20,15 @@ Run from the repository root.
 
 Sticky nav jumps to component categories. Each section wraps existing panel demos — no new install path.
 
-| Category | Anchor | Panel |
-| -------- | ------ | ----- |
-| Brand | `#category-brand` | Token swatches, semantic color demos |
-| Layout | `#category-layout` | Viewport tokens, aspect ratios, ScrollArea |
-| Actions | `#category-actions` | Button, Input |
-| Forms | `#category-forms` | Field, Form, Fieldset, inputs, Select, Switch |
-| Overlays | `#category-overlays` | Dialog, Drawer, Popover, Menu, Tooltip, Toast |
-| Surfaces | `#category-surfaces` | Alert, Avatar, Badge, Card, Meter, Progress |
-| Interactions | `#category-interactions` | Accordion, Collapsible, Tabs, Toggle, Slider |
+| Category     | Anchor                   | Panel                                         |
+| ------------ | ------------------------ | --------------------------------------------- |
+| Brand        | `#category-brand`        | Token swatches, semantic color demos          |
+| Layout       | `#category-layout`       | Viewport tokens, aspect ratios, ScrollArea    |
+| Actions      | `#category-actions`      | Button, Input                                 |
+| Forms        | `#category-forms`        | Field, Form, Fieldset, inputs, Select, Switch |
+| Overlays     | `#category-overlays`     | Dialog, Drawer, Popover, Menu, Tooltip, Toast |
+| Surfaces     | `#category-surfaces`     | Alert, Avatar, Badge, Card, Meter, Progress   |
+| Interactions | `#category-interactions` | Accordion, Collapsible, Tabs, Toggle, Slider  |
 
 Toggle **Light / Dark** in the header to verify theme CSS. Brand preset switching belongs in sandbox or SaaS — not here.
 
