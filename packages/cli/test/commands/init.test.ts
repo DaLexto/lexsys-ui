@@ -175,18 +175,22 @@ describe("runInit", () => {
     ).resolves.toContain("Neurex + Vite")
   })
 
-  test("prompts to create a Vite scaffold when plain init has no supported app scaffold", async () => {
-    promptsMock.mockResolvedValue({ useVite: true })
+  test("prompts to create a starter scaffold when plain init has no supported app scaffold", async () => {
+    promptsMock.mockResolvedValue({ framework: "vite" })
     const { runInit } = await import("../../src/commands/init.js")
 
     await runInit()
 
     expect(promptsMock).toHaveBeenCalledWith({
-      type: "confirm",
-      name: "useVite",
+      type: "select",
+      name: "framework",
       message:
-        "No supported app scaffold was detected. Create a Vite + React project here?",
-      initial: true,
+        "No supported app scaffold was detected. Create a starter project:",
+      choices: [
+        { title: "Vite + React", value: "vite" },
+        { title: "Next.js App Router", value: "next" },
+      ],
+      initial: 0,
     })
     await expect(
       readFile(join(tempDir, "package.json"), "utf-8"),
@@ -197,7 +201,7 @@ describe("runInit", () => {
   })
 
   test("does not change files when plain init prompt is declined", async () => {
-    promptsMock.mockResolvedValue({ useVite: false })
+    promptsMock.mockResolvedValue({})
     const { runInit } = await import("../../src/commands/init.js")
 
     await runInit()
@@ -206,6 +210,97 @@ describe("runInit", () => {
       readFile(join(tempDir, "package.json"), "utf-8"),
     ).rejects.toThrow()
     expect(execFileSyncMock).not.toHaveBeenCalled()
+  })
+
+  test("uses the current directory when init next has no directory argument", async () => {
+    const { runInit } = await import("../../src/commands/init.js")
+
+    await runInit(["next"])
+
+    await expect(
+      readFile(join(tempDir, "package.json"), "utf-8"),
+    ).resolves.toContain('"name":')
+    await expect(
+      readFile(join(tempDir, "app", "page.tsx"), "utf-8"),
+    ).resolves.toContain("Neurex + Next.js")
+  })
+
+  test("scaffolds a Next.js app in the provided directory and initializes Neurex", async () => {
+    const { runInit } = await import("../../src/commands/init.js")
+
+    await runInit(["next", "my-next-app"])
+
+    const appDir = join(tempDir, "my-next-app")
+    const packageJson = JSON.parse(
+      await readFile(join(appDir, "package.json"), "utf-8"),
+    ) as { name?: string; packageManager?: string; scripts?: object }
+
+    expect(packageJson.name).toBe("my-next-app")
+    expect(packageJson.packageManager).toBe("pnpm@10.33.0")
+    expect(packageJson.scripts).toEqual({
+      build: "next build",
+      dev: "next dev",
+      format: "prettier --write .",
+      "format:check": "prettier --check .",
+      start: "next start",
+      typecheck: "tsc --noEmit",
+    })
+    await expect(
+      readFile(join(appDir, "next.config.ts"), "utf-8"),
+    ).resolves.toContain("NextConfig")
+    await expect(
+      readFile(join(appDir, "postcss.config.mjs"), "utf-8"),
+    ).resolves.toContain("@tailwindcss/postcss")
+    await expect(
+      readFile(join(appDir, "app", "layout.tsx"), "utf-8"),
+    ).resolves.toContain('import "./globals.css"')
+    await expect(
+      readFile(join(appDir, "app", "globals.css"), "utf-8"),
+    ).resolves.toContain('@import "tailwindcss";')
+    await expect(
+      readFile(join(appDir, "neurex.config.json"), "utf-8"),
+    ).resolves.toContain('"componentsPath": "src/components/ui"')
+    await expect(
+      readFile(join(appDir, "neurex.config.json"), "utf-8"),
+    ).resolves.toContain('"css": "app/globals.css"')
+
+    expect(execFileSyncMock).toHaveBeenCalledWith(
+      packageManagerCommand("pnpm"),
+      packageManagerArgs("pnpm", ["add", "react", "react-dom", "next@15.3.3"]),
+      {
+        cwd: appDir,
+        stdio: "inherit",
+      },
+    )
+    expect(execFileSyncMock).toHaveBeenCalledWith(
+      packageManagerCommand("pnpm"),
+      packageManagerArgs("pnpm", [
+        "add",
+        "-D",
+        "@types/node",
+        "@types/react",
+        "@types/react-dom",
+        "prettier",
+        "typescript",
+      ]),
+      {
+        cwd: appDir,
+        stdio: "inherit",
+      },
+    )
+    expect(execFileSyncMock).toHaveBeenCalledWith(
+      packageManagerCommand("pnpm"),
+      packageManagerArgs("pnpm", [
+        "add",
+        "-D",
+        "tailwindcss",
+        "@tailwindcss/postcss",
+      ]),
+      {
+        cwd: appDir,
+        stdio: "inherit",
+      },
+    )
   })
 
   test("refuses to overwrite existing scaffold files", async () => {

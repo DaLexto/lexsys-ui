@@ -98,6 +98,25 @@ describe("installDependencies", () => {
     )
   })
 
+  test("installs pinned dependency versions when the base package is missing", async () => {
+    await writeFile(
+      join(tempDir, "package.json"),
+      JSON.stringify({ packageManager: "pnpm@10.33.0" }, null, 2),
+      "utf-8",
+    )
+
+    await installDependencies(["next@15.3.3"])
+
+    expect(execFileSyncMock).toHaveBeenCalledWith(
+      packageManagerCommand("pnpm"),
+      packageManagerArgs("pnpm", ["add", "next@15.3.3"]),
+      {
+        cwd: tempDir,
+        stdio: "inherit",
+      },
+    )
+  })
+
   test("rejects unsafe dependency names before invoking the package manager", async () => {
     await writeFile(
       join(tempDir, "package.json"),
