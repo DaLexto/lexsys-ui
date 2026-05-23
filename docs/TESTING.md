@@ -2,10 +2,45 @@
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Verification workflow reference
-**Source of truth for:** Test coverage by package, when to run which checks
+**Source of truth for:** Verification surfaces (playground vs sandbox), test coverage by package, when to run which checks
 **Verified against:** `packages/*/test/`, `packages/*/vitest.config.ts`, `package.json` scripts
 
 Command names and sync workflows: [SCRIPTS.md](./SCRIPTS.md).
+
+---
+
+## Verification surfaces
+
+Neurex has two complementary manual verification surfaces. Invest maintainer time **asymmetrically** — most effort on the consumer path, not the playground.
+
+| Surface | Model | CSS source | Validates | Does not validate | Focus | Commands |
+| ------- | ----- | ---------- | --------- | ----------------- | ----- | -------- |
+| [`apps/playground`](../apps/playground) | Workspace `@neurex/ui` + built token CSS | `@neurex/tokens` build output | Reference exports, category panel demos, light/dark theme wiring | CLI install path, `neurex add`, user-owned templates, real product layouts | **~10–20%** — optional monorepo smoke | `pnpm playground:dev`, `pnpm playground:check` |
+| External consumer sandbox | `neurex add` → user-owned `src/components/ui/` | Installed `styles/tokens.css` + `styles/theme.css` | Install/update/uninstall, conflicts, installed CSS, brand/theme UX in real apps | Workspace `@neurex/ui` dist wiring inside the monorepo | **~80–90%** — consumer truth | Manual checklist below |
+| Your SaaS (future) | Same as sandbox — CLI-installed consumer | Installed styles in your app | Primary product UX and design sign-off | Monorepo reference wiring | Replaces sandbox as main UX surface over time | Your app build + deploy |
+
+**Policy:** `apps/playground` is **maintenance-only**. Keep existing panels compiling; do not expand playground product UX unless the PR explicitly targets `apps/playground/**`. Consumer UX belongs in sandbox or SaaS.
+
+### `apps/playground`
+
+- Imports `@neurex/ui` from workspace `dist/` — rebuild UI after variant changes.
+- Sticky category nav: Brand, Layout, Actions, Forms, Overlays, Surfaces, Interactions (see [apps/playground/README.md](../apps/playground/README.md)).
+- Optional after UI/token changes; CI runs `playground:build` when `apps/playground/**` changes (M2.4).
+
+### Consumer sandbox
+
+External project outside this monorepo (example: `D:\PLAYGROUND\sandbox-neurex`). Manual verification — not CI.
+
+**Primary manual gate** before PRs that touch CLI, registry, templates, or install artifacts.
+
+### Practical workflow
+
+| Step | When |
+| ---- | ---- |
+| `pnpm ui:check` / `pnpm registry:check` / `pnpm check` | After UI, token, registry, or CLI changes |
+| `pnpm playground:dev` (optional) | Quick component glance inside the monorepo |
+| Sandbox Vite + Next checklist (below) | Pre-PR when CLI/registry/templates affect what users install |
+| SaaS app smoke | When SaaS is active — primary consumer test; sandbox shrinks to minimal CLI regression (`add` / `update` / `build`) |
 
 ---
 
@@ -168,9 +203,9 @@ with Vitest `jsdom` (`packages/ui/vitest.config.ts`).
 
 ## Consumer sandbox verification
 
-Maintainers SHOULD verify CLI and registry changes against an external consumer
-project outside this monorepo (for example `D:\PLAYGROUND\sandbox-neurex`). This
-is manual verification — not CI.
+Policy and surface roles: [§ Verification surfaces](#verification-surfaces) above.
+
+Maintainers SHOULD verify CLI and registry changes against an external consumer project outside this monorepo (for example `D:\PLAYGROUND\sandbox-neurex`).
 
 Checklist after CLI or registry changes:
 
@@ -186,4 +221,4 @@ Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monore
 
 ## Known Gaps
 
-- No automated end-to-end install tests against a real external consumer project (temp-directory smoke tests cover CLI flow; see Consumer sandbox verification above).
+- No automated end-to-end install tests against a real external consumer project (temp-directory smoke tests cover CLI flow; see [§ Verification surfaces](#verification-surfaces) and Consumer sandbox verification above).
