@@ -49,6 +49,8 @@ const toRegistryTemplate = (source: string): string => {
   return source
     .replaceAll(componentSourceImport, componentTemplateImport)
     .replaceAll(mergeClassNameSourceImport, mergeClassNameTemplateImport)
+    .replaceAll('from "../../utils/cn"', 'from "@/lib/utils"')
+    .replaceAll('from "../../utils/variant-states"', 'from "@/lib/utils"')
 }
 
 // Mock podaci za testiranje
