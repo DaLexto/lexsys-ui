@@ -171,9 +171,12 @@ packages/registry/
 │   └── styles/                # tokens.css, theme.css templates
 ├── scripts/
 │   ├── sync-component-templates.mjs   # Sync ui → templates
+│   ├── check-registry-styles-sync.mjs # Verify style templates vs token output
+│   ├── lib/registry-styles-sync.mjs   # Shared compare helpers for style sync
 │   └── registry-item-generator.mjs
 └── test/
-    └── validate-registry.test.ts
+    ├── validate-registry.test.ts
+    └── registry-styles-sync.test.ts
 ```
 
 **Exports:** `.`, `./templates/*` (templates ship with the package).

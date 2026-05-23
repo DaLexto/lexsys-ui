@@ -1,4 +1,11 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
+import {
+  access,
+  mkdir,
+  mkdtemp,
+  readFile,
+  rm,
+  writeFile,
+} from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
 import { setCwd } from "../../src/core/context.js"
@@ -11,6 +18,15 @@ const writeJson = async (path: string, value: unknown): Promise<void> => {
 
 const consoleOutput = (): string => {
   return vi.mocked(console.log).mock.calls.flat().join("\n")
+}
+
+const fileExists = async (path: string): Promise<boolean> => {
+  try {
+    await access(path)
+    return true
+  } catch {
+    return false
+  }
 }
 
 const writeConsumerProject = async (root: string): Promise<void> => {
@@ -110,5 +126,83 @@ describe("runUninstall", () => {
     expect(consoleOutput()).toContain(
       'Component "button" is not tracked as installed.',
     )
+  })
+
+  test("keeps shared cn utility when another component still needs it", async () => {
+    await writeConsumerProject(tempDir)
+    await runAdd(["button", "input"])
+
+    await runUninstall(["button"])
+
+    await expect(
+      readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
+    ).resolves.toContain("mergeClassName")
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toEqual({ input: "0.0.1" })
+    expect(consoleOutput()).toContain("- untracked components: 1/1")
+  })
+
+  test("removes orphaned shared styles when the last consumer is uninstalled", async () => {
+    await writeConsumerProject(tempDir)
+    await runAdd(["button"])
+
+    await runUninstall(["button"])
+
+    expect(await fileExists(join(tempDir, "styles/tokens.css"))).toBe(false)
+    expect(await fileExists(join(tempDir, "styles/theme.css"))).toBe(false)
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toEqual({})
+    expect(consoleOutput()).toContain("- shared resources:")
+  })
+
+  test("dry run previews orphaned shared resources without deleting files", async () => {
+    await writeConsumerProject(tempDir)
+    await runAdd(["button"])
+
+    await runUninstall(["button", "--dry-run"])
+
+    await expect(
+      readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
+    ).resolves.toContain("export { Button }")
+    expect(await fileExists(join(tempDir, "styles/tokens.css"))).toBe(true)
+    expect(await fileExists(join(tempDir, "src/lib/utils.ts"))).toBe(true)
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(consoleOutput()).toContain("Shared resources eligible for removal:")
+    expect(consoleOutput()).toContain("- utility: cn")
+    expect(consoleOutput()).toContain("- style: theme")
+  })
+
+  test("keeps a modified shared utility and reports a shared resource conflict", async () => {
+    await writeConsumerProject(tempDir)
+    await runAdd(["button"])
+
+    const utilsPath = join(tempDir, "src/lib/utils.ts")
+    await writeFile(utilsPath, "user modified cn", "utf-8")
+
+    await runUninstall(["button"])
+
+    await expect(readFile(utilsPath, "utf-8")).resolves.toBe("user modified cn")
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toEqual({})
+    expect(consoleOutput()).toContain("- untracked components: 1/1")
+    expect(consoleOutput()).toContain("- shared resources:")
+    expect(consoleOutput()).toContain("1 conflicted")
   })
 })

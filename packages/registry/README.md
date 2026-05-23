@@ -76,7 +76,12 @@ Two validation functions are exported:
 - `validateRegistryItem(item)` — validates a single item against the `RegistryItem` schema
 - `validateRegistry(manifest)` — validates the full registry manifest
 
-Tests live in `test/validate-registry.test.ts`.
+Tests live in `packages/registry/test/`:
+
+- `validate-registry.test.ts` — manifest and template validation
+- `registry-styles-sync.test.ts` — style template drift compare helpers
+
+Full inventory: [docs/TESTING.md](../../docs/TESTING.md).
 
 ---
 

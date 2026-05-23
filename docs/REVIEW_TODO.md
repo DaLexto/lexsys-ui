@@ -41,6 +41,7 @@ The P0 and P1 implementation passes are complete:
 - Tailwind v4 + Vite init sequence
 - Registry validation and publish-safe template resolution
 - Documentation alignment with current token/UI contracts (`docs/TOKENS.md`, design system, architecture, CLI, package READMEs)
+- Tier 1 test coverage: CLI uninstall orphan cleanup, contrast failure codes + policy tiers, registry style sync helpers (`docs/TESTING.md`)
 
 The current implementation supports: Vite + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
 
@@ -79,6 +80,8 @@ Optional follow-ups after Phases 1–10 (detail in
 | Gap                                   | Notes                                                                              |
 | ------------------------------------- | ---------------------------------------------------------------------------------- |
 | No broad UI render test coverage      | Pilot only (ScrollArea, Collapsible, Dialog). Most components still use CVA tests. |
+| CLI diagnostic command tests          | `doctor`, `status`, `list`, and `config` have no dedicated tests yet.              |
+| Install-flow round-trip               | `add` → `update` → `uninstall` not covered end-to-end in temp-dir smoke tests.     |
 | Next.js and other framework scaffolds | `neurex init` only supports Vite. Other frameworks are not detected or scaffolded. |
 | Remote registry manifest contract     | Remote registry format and trust model are not finalized.                          |
 | Governance promotion                  | Selected governance checks are report-only; build-failing promotion is optional.   |
