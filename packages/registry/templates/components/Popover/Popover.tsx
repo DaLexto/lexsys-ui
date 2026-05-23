@@ -31,7 +31,7 @@ import {
   popoverViewportVariants,
 } from "./Popover.variants"
 import { mergeClassName } from "@/lib/utils"
-import { overlayPositionerSideOffset } from "../../utils/overlay-positioner"
+import { overlayPositionerSideOffset } from "@/lib/utils"
 
 const Popover = <Payload = unknown,>(props: PopoverProps<Payload>) => {
   return <BasePopover.Root {...props} />

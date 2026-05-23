@@ -44,7 +44,7 @@ import {
   selectValueVariants,
 } from "./Select.variants"
 import { mergeClassName } from "@/lib/utils"
-import { overlayPositionerSideOffset } from "../../utils/overlay-positioner"
+import { overlayPositionerSideOffset } from "@/lib/utils"
 
 const Select = <Value = string, Multiple extends boolean | undefined = false>(
   props: SelectProps<Value, Multiple>,
