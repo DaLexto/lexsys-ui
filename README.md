@@ -186,6 +186,17 @@ Planned but not current API:
 - predefined theme/style preset selection
 - richer update and migration workflows
 
+## Maintainers
+
+| Doc                                            | Purpose                                                      |
+| ---------------------------------------------- | ------------------------------------------------------------ |
+| [docs/ROADMAP.md](./docs/ROADMAP.md)           | Long-term direction and monorepo optimization phases (M1–M7) |
+| [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)   | Active execution queue and known gaps                        |
+| [docs/SCRIPTS.md](./docs/SCRIPTS.md)           | Monorepo `pnpm` script names and CI reference                |
+| [docs/TESTING.md](./docs/TESTING.md)           | Test coverage and verification workflows                     |
+| [CONTRIBUTING.md](./CONTRIBUTING.md)           | Branch, check, and commit expectations                       |
+| [.agent/CONTINUITY.md](./.agent/CONTINUITY.md) | Short-form agent/maintainer state                            |
+
 ## Development
 
 Install dependencies:

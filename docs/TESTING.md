@@ -142,6 +142,10 @@ Each test package owns a colocated [`vitest.config.ts`](../packages/cli/vitest.c
 
 Package `test` scripts still run via `vitest run test --pool threads` (unchanged for CI and turbo).
 
+### Playground tooling
+
+`apps/playground` uses project references (`tsconfig.app.json`, `tsconfig.node.json`) rather than extending `tsconfig.base.json` directly — intentional for Vite app vs node config split. Playground lint runs via root `eslint.config.mjs` through its `lint` script; there is no Vitest suite in the playground app.
+
 ### IDE test explorer (Vitest extension)
 
 Install the [Vitest VS Code extension](https://marketplace.visualstudio.com/items?itemName=vitest.explorer). It auto-discovers each `packages/*/vitest.config.ts` from the repo root — no root `vitest.workspace.ts` (removed in Vitest 4; use per-project configs instead).

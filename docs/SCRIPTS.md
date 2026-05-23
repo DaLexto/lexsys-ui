@@ -222,14 +222,14 @@ Test coverage details and per-file test inventory: [TESTING.md](./TESTING.md).
 
 **Pull requests** — path-filtered jobs (via `dorny/paths-filter`):
 
-| Filter | Command |
-| ------ | ------- |
-| `packages/tokens/**` | `pnpm tokens:check` |
-| `packages/ui/**` | `pnpm ui:check` |
+| Filter                                     | Command                                          |
+| ------------------------------------------ | ------------------------------------------------ |
+| `packages/tokens/**`                       | `pnpm tokens:check`                              |
+| `packages/ui/**`                           | `pnpm ui:check`                                  |
 | `packages/ui/**` or `packages/registry/**` | `pnpm registry:check` (template drift on UI PRs) |
-| `packages/cli/**` | `pnpm --filter ./packages/cli check` |
-| `apps/playground/**` (+ tokens/ui deps) | `pnpm playground:build` |
-| Root config/docs | `pnpm format:check` + `pnpm lint:root` |
+| `packages/cli/**`                          | `pnpm --filter ./packages/cli check`             |
+| `apps/playground/**` (+ tokens/ui deps)    | `pnpm playground:build`                          |
+| Root config/docs                           | `pnpm format:check` + `pnpm lint:root`           |
 
 **Push to `dev`/`main`** — additionally runs full `pnpm check`.
 

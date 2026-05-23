@@ -20,9 +20,9 @@ that are not yet done.
 | Phase 0 | ROADMAP + REVIEW_TODO publish                            | done    |
 | M1      | Infra and DX (filter, CI, turbo, docs)                   | shipped |
 | M2      | Quality (Tier 2 tests, playground CI, sandbox checklist) | shipped |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)     | pending |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)         | pending |
-| M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)    | pending |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)     | shipped |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)         | shipped |
+| M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)    | shipped |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 

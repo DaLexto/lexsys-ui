@@ -134,9 +134,9 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                     | TESTING.md, AGENTS.md                 |
 | M3    | Product and architecture | planned | UI render expansion, scaffolds, remote registry, tokens backlog                   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
 | M4    | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
-| M5    | Advanced CI              | planned | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`               | SCRIPTS.md, `.github/workflows/`      |
-| M6    | Dependency hygiene       | planned | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                    | DEPLOY.md                             |
-| M7    | Maintainer and tooling   | planned | CONTINUITY/README/CONTRIBUTING, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agent/CONTINUITY.md`     |
+| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`               | SCRIPTS.md, `.github/workflows/`      |
+| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                    | DEPLOY.md                             |
+| M7    | Maintainer and tooling   | shipped | CONTINUITY/README/CONTRIBUTING, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agent/CONTINUITY.md`     |
 
 ### M1 — Infra and DX
 
@@ -250,7 +250,7 @@ Status: planned — when approaching first npm publish (`0.1.0`).
 
 ### M5 — Advanced CI
 
-Status: planned — prerequisite: M1 baseline `ci.yml` merged.
+Status: shipped — prerequisite: M1 baseline `ci.yml` merged.
 
 #### M5.1 — Path-filter job matrix
 
@@ -268,7 +268,7 @@ Status: planned — prerequisite: M1 baseline `ci.yml` merged.
 
 ### M6 — Dependency hygiene
 
-Status: planned
+Status: shipped
 
 #### M6.1 — Automated update PRs
 
@@ -286,7 +286,7 @@ Status: planned
 
 ### M7 — Maintainer and tooling
 
-Status: planned
+Status: shipped
 
 #### M7.1 — Agent continuity workflow
 
