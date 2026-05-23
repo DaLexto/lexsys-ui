@@ -57,15 +57,16 @@ neurex/
 
 | Path | Status | Role |
 |------|--------|------|
-| `apps/playground/` | Active | Local Vite app to verify tokens, UI exports, and component styling |
+| `apps/playground/` | Active | Monorepo smoke — workspace `@neurex/ui`; maintenance-only. See [docs/TESTING.md](../../docs/TESTING.md#verification-surfaces) and [AGENTS.md](../../AGENTS.md#change-workflow) |
 | `apps/docs/` | Placeholder | Reserved in workspace; no source files yet |
 
 **Playground source (`apps/playground/src/`):**
 
-- `main.tsx` — app entry
+- `main.tsx` — shell, sticky category nav, theme toggle
 - `examples.tsx` — shared example wiring
-- `*-panel.tsx` — `actions-panel`, `forms-panel`, `interactions-panel`, `overlays-panel`, `surfaces-panel`
-- `styles.css` — app styles
+- `*-panel.tsx` — `brand-panel`, `layout-panel`, `actions-panel`, `forms-panel`, `overlays-panel`, `surfaces-panel`, `interactions-panel`
+- `styles.css` — playground layout (not shipped to consumers)
+- `README.md` — maintenance-only role and category anchors
 
 ---
 
@@ -253,7 +254,8 @@ Rules: idempotent installs, no silent overwrites, clear conflict reporting.
 | Component behavior (reference) | `packages/ui/src/components/` |
 | What gets installed / paths | `packages/registry/src/items/` + `templates/` |
 | Install/init/update behavior | `packages/cli/src/` |
-| Visual verification | `apps/playground/` |
+| Visual verification (monorepo smoke) | `apps/playground/` — maintenance-only; consumer truth in external sandbox ([TESTING.md](../../docs/TESTING.md#verification-surfaces)) |
+| Maintainer workflow | `AGENTS.md` § Change workflow; branch off `dev`, PR to `dev` last |
 | Architecture contracts | `docs/` + `AGENTS.md` |
 
 After editing `packages/ui` components, run `pnpm registry:sync` to refresh registry templates when templates should match UI.

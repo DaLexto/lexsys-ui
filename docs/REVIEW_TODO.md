@@ -28,6 +28,17 @@ Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 ---
 
+## Verification policy (maintainer contract)
+
+Canonical detail: [docs/TESTING.md § Verification surfaces](./TESTING.md#verification-surfaces).
+
+- **`apps/playground`** — monorepo smoke, **maintenance-only** (~10–20% focus). Optional `pnpm playground:dev`; category nav for quick scans. Do not build product UX here unless the PR explicitly targets `apps/playground/**`.
+- **Consumer sandbox** — **consumer truth** (~80–90% focus) for CLI, registry, template, and install-artifact PRs. Manual checklist — not CI.
+- **Playground dark/brand demos** — deferred; consumer UX belongs in sandbox/SaaS ([ROADMAP.md § Explicitly deferred](./ROADMAP.md#explicitly-deferred)).
+- **Change workflow** — branch off `dev` → implement → docs alignment → PR to `dev` last; **`main` untouched** unless explicitly requested ([AGENTS.md § Change workflow](../AGENTS.md#change-workflow)).
+
+---
+
 ## Current State
 
 The P0 and P1 implementation passes are complete:

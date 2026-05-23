@@ -6,7 +6,17 @@
 
 1. Clone the repo and install from the root: `pnpm install`
 2. Use Node 24 (see root `package.json` `engines`).
-3. Branch off `dev` for feature work.
+3. Branch off **`dev`** for feature work. Do not commit to **`main`** unless explicitly requested.
+
+## Change workflow
+
+For non-trivial changes, follow [AGENTS.md § Change workflow](./AGENTS.md#change-workflow):
+
+1. Branch off **`dev`**
+2. Implement on the branch
+3. Docs alignment / update when contracts change
+4. Verify (`pnpm check` and scoped checks)
+5. Open PR **to `dev` last** — never target **`main`** without explicit user request
 
 ## Before opening a PR
 
@@ -17,6 +27,12 @@ pnpm check
 ```
 
 Use scoped checks when touching one package — see [docs/SCRIPTS.md](./docs/SCRIPTS.md) and [docs/TESTING.md](./docs/TESTING.md).
+
+**Verification split** ([docs/TESTING.md § Verification surfaces](./docs/TESTING.md#verification-surfaces)):
+
+- Package changes → scoped `pnpm *:check`
+- CLI/registry/template changes → external sandbox checklist ([Consumer sandbox verification](./docs/TESTING.md#consumer-sandbox-verification))
+- Playground → optional quick UI glance (`pnpm playground:dev`); not consumer truth
 
 After UI or token changes that affect install artifacts:
 
@@ -51,4 +67,4 @@ The manifest is synced in **strict** mode: labels not listed in `.github/labels.
 
 ## Consumer verification
 
-When changing CLI or registry behavior, follow the external sandbox checklist in [docs/TESTING.md](./docs/TESTING.md) § Consumer sandbox verification.
+When changing CLI or registry behavior, follow the external sandbox checklist in [docs/TESTING.md](./docs/TESTING.md) § [Consumer sandbox verification](./docs/TESTING.md#consumer-sandbox-verification). Surface roles: [§ Verification surfaces](./docs/TESTING.md#verification-surfaces).

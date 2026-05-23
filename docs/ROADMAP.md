@@ -318,7 +318,7 @@ Status: shipped
 | Item                              | Why deferred                                                                   |
 | --------------------------------- | ------------------------------------------------------------------------------ |
 | `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M4 |
-| Playground dark/brand demos       | Product/DX nice-to-have                                                        |
+| Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([TESTING.md § Verification surfaces](./TESTING.md#verification-surfaces)) |
 | `@vitest/ui` browser dashboard    | Decided overkill                                                               |
 | Visual regression / screenshots   | Overkill for current coverage                                                  |
 | Changesets / npm provenance       | M4 release phase                                                               |

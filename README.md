@@ -135,7 +135,7 @@ Package responsibilities:
 - `packages/ui` — source/reference components (not what the CLI ships to users)
 - `packages/registry` — installable templates and metadata
 - `packages/cli` — installs registry items into user projects
-- `apps/playground` — verifies public package exports and rendered states
+- `apps/playground` — optional monorepo smoke (maintenance-only); consumer validation uses external sandbox — see [docs/TESTING.md](docs/TESTING.md#verification-surfaces)
 
 See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) for the full system design.
 
@@ -213,11 +213,13 @@ pnpm check
 
 For the full script reference (per-package shortcuts, sync workflows, CI), see [docs/SCRIPTS.md](docs/SCRIPTS.md).
 
-Run the playground:
+Run the playground (optional monorepo smoke — category nav for quick component scans):
 
 ```bash
 pnpm playground:dev
 ```
+
+For CLI/registry install verification, use an external consumer sandbox — see [docs/TESTING.md](docs/TESTING.md#verification-surfaces).
 
 ## Status
 

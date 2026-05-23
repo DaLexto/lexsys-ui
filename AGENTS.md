@@ -50,28 +50,22 @@ Do not blur responsibilities between packages.
 
 ---
 
-## Real-world consumer sandbox
+## Verification surfaces
 
-Outside this monorepo, a **100% CLI-installed consumer project** is used for integration testing:
+Canonical policy: [docs/TESTING.md § Verification surfaces](./docs/TESTING.md#verification-surfaces).
 
-|          | Monorepo `apps/playground`                        | Consumer sandbox                                   |
-| -------- | ------------------------------------------------- | -------------------------------------------------- |
-| Model    | Workspace `@neurex/ui` + package CSS              | `neurex add` → user-owned `src/components/ui/`     |
-| CSS      | Workspace token build                             | Installed `styles/tokens.css` + `styles/theme.css` |
-| Best for | Reference exports, component panels, turbo checks | Install/update flow, real layouts, theme/brand UX  |
+| Surface | Model | Policy | Maintainer focus |
+| ------- | ----- | ------ | ---------------- |
+| `apps/playground` | Workspace `@neurex/ui` + built token CSS | **Maintenance-only** monorepo smoke | **~10–20%** — optional wiring check |
+| External consumer sandbox | `neurex add` → user-owned templates/CSS | **Consumer truth** | **~80–90%** — CLI, install UX, design sign-off |
+| Your SaaS (future) | CLI-installed consumer app | Primary product surface | Replaces sandbox for UX; sandbox stays minimal CLI regression |
 
-**Local path:** `D:\PLAYGROUND\sandbox-neurex`  
+**Local sandbox path (example):** `D:\PLAYGROUND\sandbox-neurex`  
 **Agent contract:** `D:\PLAYGROUND\sandbox-neurex\AGENTS.md`
 
-Use the sandbox when validating **consumer behavior** (CLI, conflicts, `update --styles`, dashboard-style apps).  
-Use `apps/playground` when validating **reference package wiring** inside the monorepo.
+Do not expand playground product UX unless explicitly editing `apps/playground/**`. After changes that affect what users install, verify in the sandbox — not only in playground.
 
-After monorepo changes to UI, registry, tokens, or CLI, verify in the sandbox when the task affects what users install — not only in playground.
-
-Maintainer checklist (see [docs/TESTING.md](./docs/TESTING.md) § Consumer sandbox verification):
-
-- **Vite regression:** `neurex add` → `update --styles` → build in existing sandbox.
-- **Next.js smoke:** fresh dir → `neurex init next` → `neurex add button` → build.
+Sandbox checklist: [docs/TESTING.md § Consumer sandbox verification](./docs/TESTING.md#consumer-sandbox-verification).
 
 ---
 
@@ -249,11 +243,19 @@ Update it intentionally when state changes.
 
 ---
 
-## Consumer sandbox
+## Change workflow
 
-After CLI or registry changes, verify against an external consumer project outside
-the monorepo when possible. Checklist: [docs/TESTING.md](./docs/TESTING.md) §
-Consumer sandbox verification.
+For non-trivial refactors, edits, updates, or patches (multi-file changes, behavior changes, playground shell work, CLI/registry/template changes, or any task with an agreed plan):
+
+1. **Branch** — create a feature branch off **`dev`** before code changes. Never commit directly to **`main`**.
+2. **Implement** — complete planned code and test changes on that branch; use scoped commits per concern.
+3. **Docs alignment** — update docs, cross-refs, README, rules, and `.agent/CONTINUITY.md` when behavior or maintainer contracts change. Link to canonical sections — do not duplicate.
+4. **Verify** — run `pnpm check` and scoped checks ([docs/TESTING.md](./docs/TESTING.md), [docs/SCRIPTS.md](./docs/SCRIPTS.md)).
+5. **PR last** — open the PR **to `dev` only** when the branch is complete. Do not target **`main`** unless the user explicitly requests it. No WIP PR unless the user asks.
+
+**Branch policy:** `dev` is the integration branch (branch off `dev`, PR to `dev`). Do not touch **`main`** — no commits, merges, fast-forwards, or PRs targeting `main` — unless the user explicitly requests it. Do not infer `main` from GitHub default branch or `origin/HEAD`.
+
+Trivial one-line fixes with no contract impact may skip the docs pass; still branch off `dev`.
 
 ---
 
