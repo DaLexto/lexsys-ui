@@ -244,6 +244,14 @@ Update it intentionally when state changes.
 
 ---
 
+## Consumer sandbox
+
+After CLI or registry changes, verify against an external consumer project outside
+the monorepo when possible. Checklist: [docs/TESTING.md](./docs/TESTING.md) §
+Consumer sandbox verification.
+
+---
+
 ## Task Guidance
 
 When working in this repository:

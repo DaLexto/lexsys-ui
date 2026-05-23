@@ -15,14 +15,14 @@ that are not yet done.
 
 **Monorepo optimization M1–M7** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). Work in phase order on branch `chore/monorepo-optimization` (one commit per sub-item, one PR per phase).
 
-| Phase   | Focus                                                    | Status      |
-| ------- | -------------------------------------------------------- | ----------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                            | done        |
-| M1      | Infra and DX (filter, CI, turbo, docs)                   | shipped     |
-| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist) | pending     |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)     | pending     |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)         | pending     |
-| M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)    | pending     |
+| Phase   | Focus                                                    | Status  |
+| ------- | -------------------------------------------------------- | ------- |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                            | done    |
+| M1      | Infra and DX (filter, CI, turbo, docs)                   | shipped |
+| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist) | shipped |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)     | pending |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)         | pending |
+| M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)    | pending |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
@@ -83,11 +83,9 @@ Optional follow-ups after Phases 1–10 (detail in
 
 | Gap                                   | Notes                                                                                     |
 | ------------------------------------- | ----------------------------------------------------------------------------------------- |
-| No broad UI render test coverage      | Pilot only (ScrollArea, Collapsible, Dialog). **Scheduled: ROADMAP M2.3, M3.1**           |
-| CLI diagnostic command tests          | `doctor`, `status`, `list`, and `config` have no dedicated tests yet. **M2.1**            |
-| Install-flow round-trip               | `add` → `update` → `uninstall` not covered end-to-end. **M2.2**                           |
-| Baseline monorepo CI                  | Only token governance workflow today. **M1.2**                                            |
-| pnpm filter collision (root vs CLI)   | `pnpm --filter neurex` matches both packages. **M1.1**                                    |
+| No broad UI render test coverage      | Expanded batch shipped; remaining components still CVA-only. **M3.1**                     |
+| CLI diagnostic command tests          | Covered in `diagnostics.test.ts`.                                                         |
+| Install-flow round-trip               | Covered in `install-flow.test.ts`.                                                        |
 | Next.js and other framework scaffolds | `neurex init` only supports Vite. **Scheduled: ROADMAP M3.2**                             |
 | Remote registry manifest contract     | Remote registry format and trust model are not finalized. **M3.3**                        |
 | Governance promotion                  | Selected governance checks are report-only; build-failing promotion is optional. **M3.4** |

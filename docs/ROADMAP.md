@@ -131,7 +131,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | Phase | Name                     | Status  | Outcome (summary)                                                                 | Primary docs                          |
 | ----- | ------------------------ | ------- | --------------------------------------------------------------------------------- | ------------------------------------- |
 | M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment    | SCRIPTS.md, DEPLOY.md                 |
-| M2    | Quality and verification | planned | Tier 2 tests, playground build CI, consumer sandbox checklist                     | TESTING.md, AGENTS.md                 |
+| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                     | TESTING.md, AGENTS.md                 |
 | M3    | Product and architecture | planned | UI render expansion, scaffolds, remote registry, tokens backlog                   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
 | M4    | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
 | M5    | Advanced CI              | planned | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`               | SCRIPTS.md, `.github/workflows/`      |
@@ -175,7 +175,7 @@ Status: shipped
 
 ### M2 — Quality and verification
 
-Status: planned
+Status: shipped
 
 #### M2.1 — Tier 2 CLI diagnostic tests
 
