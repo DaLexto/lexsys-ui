@@ -10,6 +10,12 @@ import { OverlaysPanel } from "./overlays-panel"
 import { SurfacesPanel } from "./surfaces-panel"
 import "./styles.css"
 
+type CategoryEntry = {
+  id: string
+  label: string
+  render: () => React.ReactNode
+}
+
 const App = () => {
   const [themeMode, setThemeMode] = useState<"light" | "dark">("light")
   const [submittedFormValues, setSubmittedFormValues] =
@@ -19,62 +25,102 @@ const App = () => {
     document.documentElement.classList.toggle("dark", themeMode === "dark")
   }, [themeMode])
 
-  return (
-    <main className="playground-shell">
-      <section className="playground-header">
-        <div>
-          <p className="playground-label">Neurex Default</p>
-          <h1>Design system preview</h1>
-        </div>
-
-        <div className="playground-toolbar">
-          <div className="theme-control" aria-label="Theme mode">
-            <Button
-              size="sm"
-              variant={themeMode === "light" ? "primary" : "secondary"}
-              onClick={() => {
-                setThemeMode("light")
-              }}
-            >
-              Light
-            </Button>
-            <Button
-              size="sm"
-              variant={themeMode === "dark" ? "primary" : "secondary"}
-              onClick={() => {
-                setThemeMode("dark")
-              }}
-            >
-              Dark
-            </Button>
-          </div>
-
-          <div className="style-control" aria-label="Style preset">
-            <Button size="sm">Default</Button>
-            <Button size="sm" variant="secondary" disabled>
-              Graphite
-            </Button>
-            <Button size="sm" variant="secondary" disabled>
-              Solar
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="component-grid" aria-label="Component examples">
-        <BrandPanel />
-        <LayoutPanel />
-        <ActionsPanel />
-
+  const categories: CategoryEntry[] = [
+    { id: "category-brand", label: "Brand", render: () => <BrandPanel /> },
+    { id: "category-layout", label: "Layout", render: () => <LayoutPanel /> },
+    {
+      id: "category-actions",
+      label: "Actions",
+      render: () => <ActionsPanel />,
+    },
+    {
+      id: "category-forms",
+      label: "Forms",
+      render: () => (
         <FormsPanel
           submittedFormValues={submittedFormValues}
           onSubmittedFormValuesChange={setSubmittedFormValues}
         />
+      ),
+    },
+    {
+      id: "category-overlays",
+      label: "Overlays",
+      render: () => <OverlaysPanel />,
+    },
+    {
+      id: "category-surfaces",
+      label: "Surfaces",
+      render: () => <SurfacesPanel />,
+    },
+    {
+      id: "category-interactions",
+      label: "Interactions",
+      render: () => <InteractionsPanel />,
+    },
+  ]
 
-        <OverlaysPanel />
-        <SurfacesPanel />
-        <InteractionsPanel />
-      </section>
+  return (
+    <main className="playground-shell">
+      <header className="playground-top">
+        <section className="playground-header">
+          <div>
+            <p className="playground-label">Neurex playground</p>
+            <h1>Component smoke</h1>
+            <p className="playground-subtitle">
+              Monorepo reference — not the CLI install path
+            </p>
+          </div>
+
+          <div className="playground-toolbar">
+            <div className="theme-control" aria-label="Theme mode">
+              <Button
+                size="sm"
+                variant={themeMode === "light" ? "primary" : "secondary"}
+                onClick={() => {
+                  setThemeMode("light")
+                }}
+              >
+                Light
+              </Button>
+              <Button
+                size="sm"
+                variant={themeMode === "dark" ? "primary" : "secondary"}
+                onClick={() => {
+                  setThemeMode("dark")
+                }}
+              >
+                Dark
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <nav className="playground-nav" aria-label="Component categories">
+          {categories.map(({ id, label }) => (
+            <a key={id} className="playground-nav-link" href={`#${id}`}>
+              {label}
+            </a>
+          ))}
+        </nav>
+      </header>
+
+      <div className="playground-categories">
+        {categories.map(({ id, label, render }) => (
+          <section
+            key={id}
+            id={id}
+            className="playground-category"
+            aria-labelledby={`${id}-title`}
+          >
+            <header className="category-header">
+              <p className="playground-label">{label}</p>
+              <h2 id={`${id}-title`}>{label}</h2>
+            </header>
+            {render()}
+          </section>
+        ))}
+      </div>
     </main>
   )
 }

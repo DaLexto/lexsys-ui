@@ -37,13 +37,84 @@ body {
   padding: 44px 48px 56px;
 }
 
+.playground-top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--nx-color-border-default);
+  background: var(--nx-color-background-base);
+}
+
 .playground-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
-  padding-bottom: 24px;
+}
+
+.playground-subtitle {
+  margin: 8px 0 0;
+  color: var(--nx-color-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
+.playground-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.playground-nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--nx-color-border-default);
+  border-radius: var(--nx-radius-control);
+  background: var(--nx-color-background-surface);
+  color: var(--nx-color-text-primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.playground-nav-link:hover {
+  border-color: var(--nx-border-accent);
+  color: var(--nx-color-text-accent);
+}
+
+.playground-nav-link:focus-visible {
+  outline: 2px solid var(--nx-outline-focus);
+  outline-offset: 2px;
+}
+
+.playground-categories {
+  display: grid;
+  gap: 40px;
+}
+
+.playground-category {
+  display: grid;
+  gap: 20px;
+  scroll-margin-top: 140px;
+}
+
+.category-header {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--nx-color-border-default);
+}
+
+.category-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
 }
 
 .playground-label {
@@ -66,8 +137,7 @@ body {
   gap: 10px;
 }
 
-.theme-control,
-.style-control {
+.theme-control {
   display: inline-flex;
   flex: 0 0 auto;
   gap: 8px;
@@ -583,6 +653,26 @@ body {
     padding: 28px 20px 40px;
   }
 
+  .playground-top {
+    top: 0;
+  }
+
+  .playground-category {
+    scroll-margin-top: 180px;
+  }
+
+  .playground-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+
+  .playground-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .button-row {
     align-items: flex-start;
     flex-direction: column;
@@ -598,11 +688,6 @@ body {
 
   .field-board {
     grid-template-columns: 1fr;
-  }
-
-  .playground-header {
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   .playground-toolbar {
