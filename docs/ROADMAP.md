@@ -27,7 +27,7 @@ Current implementation:
 - Build-failing validation covers reference integrity, preset theme coverage,
   invalid DTCG leaf shape, and token layer contract violations.
 - Governance reports (metadata, deprecation, dead primitives, semantic audit,
-  WCAG contrast) are available via `pnpm --filter @neurex/tokens governance:report`.
+  WCAG contrast) are available via `pnpm tokens:governance:report`.
   Contrast policy failures fail the `tokens-governance` CI workflow (`ci` tier).
 - Semantic token organization is active: nested `color.*` paths, top-level
   `action.*` / `border.*` / `elevation.*`, theme overrides aligned to semantic
@@ -59,7 +59,7 @@ table is the high-level record only.
 | 6 — Semantic organization   | Elevation semantics, theme path alignment, feedback wiring, audit                      |
 | 7 — Governance hardening    | Transitive dependents, graph module, optional dead-primitive stripping, scripts layout |
 | 8 — Composite expansion     | Typography composite registry, DTCG slot typing, atomic path classification            |
-| 9 — Resolved value pipeline | On-demand leaf resolution, themed lookup, color normalization for tooling        |
+| 9 — Resolved value pipeline | On-demand leaf resolution, themed lookup, color normalization for tooling              |
 | 10 — Accessibility guard    | WCAG AA contrast report, semantic pair registry, governance CLI integration            |
 
 ---

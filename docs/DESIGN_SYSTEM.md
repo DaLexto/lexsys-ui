@@ -322,7 +322,7 @@ DTCG JSON files are not exported as a public package contract yet.
 
 **Registry templates (`packages/registry/templates/styles/`):**
 
-`tokens.css` and `theme.css` are also written here by `pnpm generate:styles`.
+`tokens.css` and `theme.css` are also written here by `pnpm tokens:generate:styles`.
 These are the files the CLI copies into consumer projects.
 
 All generated files start with:
@@ -336,10 +336,10 @@ overwrite on `neurex update --styles`).
 
 ### Build commands
 
-| Command                | Effect                                            |
-| ---------------------- | ------------------------------------------------- |
-| `pnpm tokens:build`    | Compiles TypeScript and writes `dist/` outputs    |
-| `pnpm generate:styles` | Writes both `dist/` and registry template outputs |
+| Command                       | Effect                                            |
+| ----------------------------- | ------------------------------------------------- |
+| `pnpm tokens:build`           | Compiles TypeScript and writes `dist/` outputs    |
+| `pnpm tokens:generate:styles` | Writes both `dist/` and registry template outputs |
 
 ---
 

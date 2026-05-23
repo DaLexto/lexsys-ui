@@ -15,17 +15,17 @@ Platform phase history lives in [docs/ROADMAP.md](./ROADMAP.md).
 
 Neurex token validation and analysis split across three cooperating areas:
 
-| Area               | Location                                         | Role                                                         |
-| ------------------ | ------------------------------------------------ | ------------------------------------------------------------ |
-| Reference resolver | `packages/tokens/src/engine/resolver/reference/` | Resolve `{dotted.path}` chains; output-agnostic              |
-| Resolved values    | `packages/tokens/src/engine/resolver/values/`    | On-demand leaf resolution and color normalization for tooling  |
-| Color string parse | `packages/tokens/src/engine/shared/color-string.parse.ts` | Shared `rgb()` / `hsl()` parsing for contrast normalization |
-| Graph traversal    | `packages/tokens/src/engine/resolver/graph/`     | Reachability, transitive dependents, dead-primitive analysis |
-| Layer validation   | `packages/tokens/src/engine/validator/layers/`   | Build-failing layer contract enforcement                     |
-| Contrast guard     | `packages/tokens/src/engine/validator/contrast/` | WCAG AA report + CI policy gate on registered semantic pairs |
-| Governance + audit | `packages/tokens/src/engine/governance/`         | Non-blocking graph analysis and reports                      |
-| Generator pipeline | `packages/tokens/src/generators/`                | CSS/DTCG output; calls validation before generation          |
-| CLI entrypoints    | `packages/tokens/scripts/`                       | Build output write, governance report, dev hygiene           |
+| Area               | Location                                                  | Role                                                          |
+| ------------------ | --------------------------------------------------------- | ------------------------------------------------------------- |
+| Reference resolver | `packages/tokens/src/engine/resolver/reference/`          | Resolve `{dotted.path}` chains; output-agnostic               |
+| Resolved values    | `packages/tokens/src/engine/resolver/values/`             | On-demand leaf resolution and color normalization for tooling |
+| Color string parse | `packages/tokens/src/engine/shared/color-string.parse.ts` | Shared `rgb()` / `hsl()` parsing for contrast normalization   |
+| Graph traversal    | `packages/tokens/src/engine/resolver/graph/`              | Reachability, transitive dependents, dead-primitive analysis  |
+| Layer validation   | `packages/tokens/src/engine/validator/layers/`            | Build-failing layer contract enforcement                      |
+| Contrast guard     | `packages/tokens/src/engine/validator/contrast/`          | WCAG AA report + CI policy gate on registered semantic pairs  |
+| Governance + audit | `packages/tokens/src/engine/governance/`                  | Non-blocking graph analysis and reports                       |
+| Generator pipeline | `packages/tokens/src/generators/`                         | CSS/DTCG output; calls validation before generation           |
+| CLI entrypoints    | `packages/tokens/scripts/`                                | Build output write, governance report, dev hygiene            |
 
 Phases 1–10 (factory authoring through accessibility contrast guard) are complete.
 Next work is **planned hardening and expansion** (below) plus **speculative** AST/math (deferred).
@@ -100,7 +100,7 @@ Runs before reference resolution during `validateStyleTokenInput`.
 
 - `packages/tokens/src/engine/governance/report/report.governance.ts`
 - `packages/tokens/src/engine/governance/audit/audit.governance.ts`
-- CLI: `pnpm --filter @neurex/tokens governance:report` (`scripts/governance-report.ts`)
+- CLI: `pnpm tokens:governance:report` (`scripts/governance-report.ts`)
 
 Available reports:
 
@@ -129,7 +129,7 @@ Default is **off**. When enabled, unreached primitive leaves are omitted from CS
 Recommended non-blocking PR check when `packages/tokens/**` changes:
 
 ```sh
-pnpm --filter @neurex/tokens governance:report
+pnpm tokens:governance:report
 ```
 
 Promotion to build-failing checks (zero dead primitives, zero deprecated-with-dependents) requires an explicit maintainer policy — not automatic.
@@ -161,14 +161,14 @@ Default is **on** (no opt-in flag). CSS/Tailwind output is unchanged; DTCG gains
 
 ## Phase Summary
 
-| Phase | Name                     | Type          | Depends on              | Entry points                                                                            |
-| ----- | ------------------------ | ------------- | ----------------------- | --------------------------------------------------------------------------------------- |
-| 7     | Governance hardening     | Shipped       | Shipped baseline        | `engine/resolver/graph/`, `engine/governance/report/`, `scripts/write-style-outputs.ts` |
-| 8     | Composite expansion      | Shipped       | Shipped baseline        | `engine/composite/`, `generators/outputs/dtcg/`                                         |
-| 9     | Resolved value pipeline  | Shipped       | Phases 7–8              | `packages/tokens/src/engine/resolver/values/`                                           |
-| 10    | Accessibility guard      | Shipped       | Phase 9                 | `packages/tokens/src/engine/validator/contrast/`                                        |
-| —     | Post–Phase 10 hardening  | Planned       | Phase 10 shipped        | See [After Phase 10](#after-phase-10)                                                   |
-| —     | Speculative (AST + math) | New subsystem | Stable values + contrast APIs | Not scheduled — see [Speculative (Deferred)](#speculative-deferred)              |
+| Phase | Name                     | Type          | Depends on                    | Entry points                                                                            |
+| ----- | ------------------------ | ------------- | ----------------------------- | --------------------------------------------------------------------------------------- |
+| 7     | Governance hardening     | Shipped       | Shipped baseline              | `engine/resolver/graph/`, `engine/governance/report/`, `scripts/write-style-outputs.ts` |
+| 8     | Composite expansion      | Shipped       | Shipped baseline              | `engine/composite/`, `generators/outputs/dtcg/`                                         |
+| 9     | Resolved value pipeline  | Shipped       | Phases 7–8                    | `packages/tokens/src/engine/resolver/values/`                                           |
+| 10    | Accessibility guard      | Shipped       | Phase 9                       | `packages/tokens/src/engine/validator/contrast/`                                        |
+| —     | Post–Phase 10 hardening  | Planned       | Phase 10 shipped              | See [After Phase 10](#after-phase-10)                                                   |
+| —     | Speculative (AST + math) | New subsystem | Stable values + contrast APIs | Not scheduled — see [Speculative (Deferred)](#speculative-deferred)                     |
 
 ---
 
@@ -236,7 +236,7 @@ Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references;
 - WCAG AA normal-text threshold (4.5:1) and large-text (3:1) via `contrast.policy.ts` / `contrast.math.ts`
 - Themed resolution through `resolveLeafValueForTheme` (Phase 9 values pipeline)
 - Semi-transparent background compositing over `color.background.base` before ratio checks
-- `createContrastValidationReport` appended to `pnpm --filter @neurex/tokens governance:report`
+- `createContrastValidationReport` appended to `pnpm tokens:governance:report`
 - CI enforcement: `evaluateContrastPolicy` exits with code 1 when tier is `ci` (override with `NEUREX_CONTRAST_POLICY=report` locally)
 - OKLCH object and string parsing (`oklch()`, `#hex`, `rgb()`, `hsl()`) via `values.normalize.ts` and `engine/shared/color-string.parse.ts`
 
@@ -265,27 +265,27 @@ recommended next evolution track. High-level platform summary lives in
 
 ### Planned (likely next, no phase number yet)
 
-| Track | Target behavior | Status |
-| ----- | --------------- | ------ |
-| Contrast pair expansion | Add semantic pairs beyond the current 15-pair registry | Partial — danger/secondary action + large-text heading pairs shipped; further pairs need design sign-off |
-| Contrast build promotion | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA | **Shipped** — `validateContrastPolicyStrict` in `validateStyleTokenInput` |
+| Track                      | Target behavior                                                                | Status                                                                                                             |
+| -------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| Contrast pair expansion    | Add semantic pairs beyond the current 15-pair registry                         | Partial — danger/secondary action + large-text heading pairs shipped; further pairs need design sign-off           |
+| Contrast build promotion   | Build-failing contrast when `SEMANTIC_CONTRAST_PAIRS` fail WCAG AA             | **Shipped** — `validateContrastPolicyStrict` in `validateStyleTokenInput`                                          |
 | Shadow primitive migration | Primitive shadow scale on branch+slot; slot-based `box-shadow` CSS composition | **Shipped** — `shadow.0`–`shadow.6`; `elevation.shadow.*` refs primitive slots; `shadow.inner` flat string remains |
-| Governance promotion | Make selected governance checks build-failing | Open — maintainer policy choice |
+| Governance promotion       | Make selected governance checks build-failing                                  | Open — maintainer policy choice                                                                                    |
 
 None of the above require the speculative AST evaluator. They extend shipped
 engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
 
 ### Deferred (explicit non-goals for now)
 
-| Capability | Reason deferred |
-| ---------- | --------------- |
-| AST expression evaluator (`({space.md} * 2) + 4px`) | Requires a new tokenizer/parser/evaluator subsystem; string-match alias resolution cannot grow into this incrementally |
-| OKLCH modify / color math (`oklch-modify(...)`, `%` lightness shifts) | Depends on AST + structured color math, not alias walking |
-| Unit arithmetic across `rem` / `px` / `%` | Depends on AST + base-font context; out of scope for reference resolver |
-| Automatic contrast pair discovery | Semantic usage pairs are product decisions; registry must stay explicit |
-| Runtime a11y checks in consumer apps | Tokens package validates design-time semantics only |
-| DTCG Resolver Module JSON documents | Neurex uses its own merge + alias model; no interchange requirement today |
-| Replacing CSS `var(--nx-*)` with resolved literals in default output | Breaks Neurex consumer model and DTCG alias preservation by design |
+| Capability                                                            | Reason deferred                                                                                                        |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| AST expression evaluator (`({space.md} * 2) + 4px`)                   | Requires a new tokenizer/parser/evaluator subsystem; string-match alias resolution cannot grow into this incrementally |
+| OKLCH modify / color math (`oklch-modify(...)`, `%` lightness shifts) | Depends on AST + structured color math, not alias walking                                                              |
+| Unit arithmetic across `rem` / `px` / `%`                             | Depends on AST + base-font context; out of scope for reference resolver                                                |
+| Automatic contrast pair discovery                                     | Semantic usage pairs are product decisions; registry must stay explicit                                                |
+| Runtime a11y checks in consumer apps                                  | Tokens package validates design-time semantics only                                                                    |
+| DTCG Resolver Module JSON documents                                   | Neurex uses its own merge + alias model; no interchange requirement today                                              |
+| Replacing CSS `var(--nx-*)` with resolved literals in default output  | Breaks Neurex consumer model and DTCG alias preservation by design                                                     |
 
 ### Known gaps (current state, not bugs)
 

@@ -24,6 +24,7 @@ freshness marker, and source of truth.
 | Package/module reference       | Maintainers of a package/module     | Explain public API, exports, inputs/outputs, commands, and implementation boundaries.              |
 | Conceptual model               | Maintainers and contributors        | Explain why the system works the way it does and how major concepts relate.                        |
 | CLI/API reference              | Users and maintainers               | Document current commands, options, config, request/response shapes, and safety behavior.          |
+| Scripts / commands reference   | Maintainers and contributors        | Canonical monorepo `pnpm` script names, sync workflows, and when to run checks.                  |
 | Contributor style guide        | Contributors and agents             | Define coding, naming, testing, documentation, and review conventions.                             |
 | Roadmap/backlog                | Maintainers                         | Track future work, TODOs, known gaps, and completed review outcomes.                               |
 | Vision/strategy document       | Maintainers                         | Capture long-term direction; never treat as current implementation contract.                       |
@@ -36,6 +37,12 @@ freshness marker, and source of truth.
 - Current implementation wins over old docs, comments, memory, or intention.
 - Detailed rules live exactly once. Other documents link to the owning document
   instead of duplicating the rule.
+- Monorepo script names and sync workflows MUST be documented in `docs/SCRIPTS.md`
+  only. Other docs link to SCRIPTS.md instead of duplicating full script inventories.
+- Split with related docs:
+  - `docs/TESTING.md` — test coverage and when-to-run scenarios (links to SCRIPTS.md for command names).
+  - `docs/CLI.md` — consumer-facing `neurex` CLI (not monorepo `pnpm` scripts).
+  - `docs/DEPLOY.md` — release/build contract (links to SCRIPTS.md for day-to-day commands).
 - Architecture overview documents should be compact hubs, not copies of every
   detailed spec.
 - Roadmap and vision content must be clearly labeled as future work.

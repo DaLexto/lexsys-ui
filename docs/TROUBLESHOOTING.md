@@ -165,8 +165,8 @@ built without updating the registry templates.
 **Fix:**
 
 ```sh
-pnpm tokens:build             # regenerate dist/tokens.css and dist/theme.css
-pnpm registry:sync            # copy updated styles to registry templates
+pnpm tokens:generate:styles   # regenerate dist + registry style templates
+pnpm registry:check           # verify style templates are in sync
 ```
 
 ---

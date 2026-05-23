@@ -83,7 +83,7 @@ const checkRegistryStylesSync = async () => {
       console.error(`- ${file}`)
     }
     console.error(
-      "Run `pnpm --filter @neurex/tokens generate:styles` to refresh registry templates.",
+      "Run `pnpm tokens:generate:styles` to refresh registry templates.",
     )
     process.exitCode = 1
     return

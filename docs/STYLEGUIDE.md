@@ -423,29 +423,9 @@ Bad:
 
 ## 12. Build and Check Commands
 
-Run from the repo root:
+Monorepo script names, sync workflows, and per-package aliases live in [SCRIPTS.md](./SCRIPTS.md).
 
-```sh
-pnpm build              # build all packages
-pnpm typecheck          # typecheck all packages
-pnpm lint               # lint all packages
-pnpm test               # run all tests
-pnpm format:check       # check formatting (Prettier)
-pnpm check              # format:check + lint + typecheck + test
-```
-
-Per-package shortcuts:
-
-```sh
-pnpm tokens:build       # build @neurex/tokens (dist CSS + DTCG JSON; --package)
-pnpm --filter @neurex/tokens generate:styles  # dist + registry templates/styles sync
-pnpm ui:build           # build @neurex/ui
-pnpm registry:build     # build @neurex/registry
-pnpm cli:build          # build neurex CLI
-pnpm registry:sync      # sync UI components → registry templates
-pnpm registry:check     # verify templates are in sync
-pnpm playground:dev     # start playground dev server
-```
+Before merging: `pnpm check`. After UI edits: `pnpm registry:sync` then `pnpm registry:check`.
 
 ---
 

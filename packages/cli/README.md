@@ -53,7 +53,7 @@ Installed via `npm install -g neurex` or run directly with `pnpm exec neurex`.
 | `neurex doctor`                | Check project health and config validity                                        |
 | `neurex config`                | Read or modify `neurex.config.json`                                             |
 | `neurex registry`              | Inspect the active registry source                                              |
-| `neurex uninstall <component>` | Remove installed component files when they match registry templates              |
+| `neurex uninstall <component>` | Remove installed component files when they match registry templates             |
 | `neurex version`               | Print CLI version                                                               |
 | `neurex help`                  | Print command list                                                              |
 
@@ -92,12 +92,12 @@ Full `neurex.config.json` schema (all fields, defaults, aliases) and install ide
 
 ## Development
 
+Root aliases (full list: [docs/SCRIPTS.md](../../docs/SCRIPTS.md)):
+
 ```sh
-pnpm --filter ./packages/cli build
-pnpm --filter ./packages/cli typecheck
-pnpm --filter ./packages/cli lint
-pnpm --filter ./packages/cli test
-pnpm cli:check    # from repo root
+pnpm cli:build
+pnpm cli:typecheck
+pnpm cli:check
 ```
 
 ---

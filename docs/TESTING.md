@@ -2,20 +2,18 @@
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Verification workflow reference
-**Source of truth for:** Test commands, test coverage by package, when to run which checks
+**Source of truth for:** Test coverage by package, when to run which checks
 **Verified against:** `packages/*/test/`, `package.json` scripts
+
+Command names and sync workflows: [SCRIPTS.md](./SCRIPTS.md).
 
 ---
 
 ## Quick Reference
 
-```sh
-pnpm check           # full check: format + lint + typecheck + test (all packages)
-pnpm test            # all tests via Turbo
-pnpm typecheck       # all typechecks via Turbo
-pnpm lint            # all lint via Turbo
-pnpm format:check    # Prettier format check
-```
+Primary gate: `pnpm check` (see [SCRIPTS.md](./SCRIPTS.md) for full inventory).
+
+Per-package test commands are listed in each section below.
 
 ---
 
@@ -46,11 +44,11 @@ pnpm --filter @neurex/tokens test
 
 Test files in `packages/ui/test/`:
 
-| File                                             | What it tests                                                                           |
-| ------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`    |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (32 components) |
-| `test/components/<Name>/<Name>.render.test.tsx` | Render smoke tests — DOM output, className merge, key a11y roles (pilot: ScrollArea, Collapsible, Dialog) |
+| File                                             | What it tests                                                                                             |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`                      |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (32 components)                   |
+| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (pilot: ScrollArea, Collapsible, Dialog) |
 
 Run:
 
@@ -84,7 +82,7 @@ Test files in `packages/cli/test/`:
 | `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                      |
 | `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                         |
 | `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                         |
-| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior |
+| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior                   |
 | `commands/install-flow.test.ts` | Full install smoke — runs `init` + `add` twice to verify end-to-end idempotency across all components |
 | `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection |
 | `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                              |
@@ -94,7 +92,7 @@ Run:
 
 ```sh
 pnpm cli:check                # from repo root
-pnpm --filter ./packages/cli test
+pnpm --filter neurex test
 ```
 
 ---

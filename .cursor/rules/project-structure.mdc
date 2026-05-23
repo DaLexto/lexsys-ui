@@ -41,6 +41,7 @@ neurex/
 | File | Purpose |
 |------|---------|
 | `ARCHITECTURE.md` | Core system design and package contracts |
+| `SCRIPTS.md` | Monorepo `pnpm` scripts, sync workflows, check commands |
 | `TOKENS.md` | Token layers, resolution, validation rules |
 | `CLI.md` | CLI commands and consumer setup |
 | `STYLE.md` / `STYLEGUIDE.md` | Naming, file layout, CSS class conventions |

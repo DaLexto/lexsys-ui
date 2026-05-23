@@ -73,7 +73,7 @@ Optional nested doc scopes when one doc area dominates: `docs(tokens)`, `docs(cl
 
 **Avoid as scope:** component names (`button`, `dialog`), vague `tests` — use `test(<package>)` instead.
 
-**Multi-package workflow:** prefer separate commits (`feat(ui)` → `feat(registry)` → `feat(tokens)`). After `packages/ui` changes that affect install templates, run `pnpm registry:sync` before or note it in the registry commit body. After token generator changes, note `pnpm --filter @neurex/tokens generate:styles` when registry style outputs depend on it.
+**Multi-package workflow:** prefer separate commits (`feat(ui)` → `feat(registry)` → `feat(tokens)`). After `packages/ui` changes that affect install templates, run `pnpm registry:sync` before or note it in the registry commit body. After token generator changes, note `pnpm tokens:generate:styles` when registry style outputs depend on it.
 
 ---
 
