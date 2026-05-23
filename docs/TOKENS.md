@@ -175,11 +175,11 @@ inline alias chains across the full merged tree before CSS/DTCG generation.
 For on-demand lookups (governance, contrast prep, tooling), use the values API in
 `packages/tokens/src/engine/resolver/values/`:
 
-| Export                                                   | Purpose                                                                     |
-| -------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf `$value` through its alias chain                           |
-| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve; defaults to all leaf paths                                   |
-| `resolveLeafValueForTheme(input, theme, path, options?)` | Resolve after `foundationTokens` + `theme.tokens` + `componentTokens` merge |
+| Export                                                   | Purpose                                                                                               |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf `$value` through its alias chain                                                     |
+| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve; defaults to all leaf paths                                                             |
+| `resolveLeafValueForTheme(input, theme, path, options?)` | Resolve after `foundationTokens` + `theme.tokens` + `componentTokens` merge                           |
 | `isResolvedColorValue` / `toContrastReadyColor`          | Color normalization for contrast math (OKLCH objects; `oklch()` / `#hex` / `rgb()` / `hsl()` strings) |
 
 `resolveLeafValue` returns `{ resolved, errors, warnings }` where `resolved` includes
@@ -197,13 +197,13 @@ WCAG AA checks on an **explicit semantic pair registry** in
 `packages/tokens/src/engine/validator/contrast/contrast.pairs.ts`. Thresholds
 and enforcement tiers live in `contrast.policy.ts`.
 
-| Export                                   | Purpose                                                |
-| ---------------------------------------- | ------------------------------------------------------ |
-| `createContrastValidationReport(input)`  | Resolve themed fg/bg pairs and compare contrast ratios |
-| `formatContrastValidationReport(report)` | CLI-friendly report text                               |
-| `evaluateContrastPolicy(report, policy?)` | Returns pass/fail for CI/build tiers                  |
-| `resolveContrastPolicy()`                | Reads `NEUREX_CONTRAST_POLICY` (`report` \| `ci` \| `build`) |
-| `SEMANTIC_CONTRAST_PAIRS`                | Registered semantic foreground/background paths        |
+| Export                                    | Purpose                                                      |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| `createContrastValidationReport(input)`   | Resolve themed fg/bg pairs and compare contrast ratios       |
+| `formatContrastValidationReport(report)`  | CLI-friendly report text                                     |
+| `evaluateContrastPolicy(report, policy?)` | Returns pass/fail for CI/build tiers                         |
+| `resolveContrastPolicy()`                 | Reads `NEUREX_CONTRAST_POLICY` (`report` \| `ci` \| `build`) |
+| `SEMANTIC_CONTRAST_PAIRS`                 | Registered semantic foreground/background paths              |
 
 Each pair is evaluated per theme mode using `resolveLeafValueForTheme`. Resolved
 colors are normalized through `toContrastReadyColor` (structured OKLCH, `oklch()`,
@@ -222,7 +222,7 @@ See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 Report and enforcement:
 
 ```sh
-pnpm --filter @neurex/tokens governance:report
+pnpm tokens:governance:report
 ```
 
 - **`ci` tier (default in CI):** contrast policy failures exit with code 1 — the
@@ -314,14 +314,14 @@ Shadow and border semantic roles use the same branch + slot model as typography
 
 **Shadow** (`$type: "shadow"` on role branches such as `elevation.shadow.floating`):
 
-| Slot       | Type        |
-| ---------- | ----------- |
-| `color`    | `color`     |
-| `offsetX`  | `dimension` |
-| `offsetY`  | `dimension` |
-| `blur`     | `dimension` |
-| `spread`   | `dimension` |
-| `inset`    | `boolean` (optional) |
+| Slot      | Type                 |
+| --------- | -------------------- |
+| `color`   | `color`              |
+| `offsetX` | `dimension`          |
+| `offsetY` | `dimension`          |
+| `blur`    | `dimension`          |
+| `spread`  | `dimension`          |
+| `inset`   | `boolean` (optional) |
 
 **Border** (`$type: "border"` on groups such as `border.control`):
 
@@ -370,7 +370,7 @@ validation runs after reference resolution via `validateContrastPolicyStrict` un
 ### Governance tooling (non-blocking)
 
 The following are available via `createTokenGovernanceReport`, `createSemanticAuditReport`, and
-`pnpm --filter @neurex/tokens governance:report`. They analyze the token graph
+`pnpm tokens:governance:report`. They analyze the token graph
 but do not change CSS or DTCG output unless dead-primitive stripping is explicitly enabled:
 
 - Deprecation reports for tokens marked `$deprecated` with **transitive** dependents
@@ -383,7 +383,7 @@ but do not change CSS or DTCG output unless dead-primitive stripping is explicit
 primitive leaves from CSS/DTCG after full-graph validation. Default is off.
 
 **Governance tooling (non-blocking):** contrast validation also runs via
-`createContrastValidationReport` and `pnpm --filter @neurex/tokens governance:report`.
+`createContrastValidationReport` and `pnpm tokens:governance:report`.
 Contrast policy failures **fail CI** when tier is `ci` (default in
 `.github/workflows/tokens-governance.yml`). Build-time contrast enforcement is active
 in `validateStyleTokenInput` unless `NEUREX_CONTRAST_POLICY=report`. Speculative
@@ -428,8 +428,8 @@ from the package root entrypoint.
 Governance reports are optional tooling. They do not change CSS or DTCG output.
 
 ```sh
-pnpm --filter @neurex/tokens governance:report
-pnpm --filter @neurex/tokens governance:report -- --json
+pnpm tokens:governance:report
+pnpm tokens:governance:report -- --json
 ```
 
 ---
@@ -440,9 +440,9 @@ From the repo root:
 
 ```sh
 pnpm --filter @neurex/tokens build            # generate dist CSS + DTCG JSON (--package)
-pnpm --filter @neurex/tokens generate:styles  # dist + registry template CSS sync (--package --registry)
+pnpm tokens:generate:styles  # dist + registry template CSS sync (--package --registry)
 pnpm --filter @neurex/tokens test             # run resolver and generator tests
-pnpm --filter @neurex/tokens governance:report
+pnpm tokens:governance:report
 # Optional: omit dead primitives from generated CSS/DTCG after build (breaking output change)
 pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```

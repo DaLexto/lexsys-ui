@@ -23,9 +23,10 @@ apps/*
 packages/*
 ```
 
-Root scripts:
+Root scripts (full reference: [SCRIPTS.md](./SCRIPTS.md)):
 
 - `pnpm build`
+- `pnpm check`
 - `pnpm typecheck`
 - `pnpm lint`
 - `pnpm test`
@@ -57,11 +58,10 @@ Current package roles:
 Before any release or publish attempt, run:
 
 ```bash
-pnpm build
-pnpm typecheck
-pnpm lint
-pnpm test
+pnpm check
 ```
+
+See [SCRIPTS.md](./SCRIPTS.md) for per-package build and verify commands.
 
 If `lint` or `test` are still placeholders, record that explicitly in the release notes or PR.
 

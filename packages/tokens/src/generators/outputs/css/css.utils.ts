@@ -139,10 +139,7 @@ export const toCssVariableEntry = (
   if (isShadowCompositeBoxShadowPath(entry.path)) {
     return {
       name: tokenName,
-      value: composeShadowBoxShadowCSSValue(
-        entry.path.slice(0, -1),
-        options,
-      ),
+      value: composeShadowBoxShadowCSSValue(entry.path.slice(0, -1), options),
     }
   }
 

@@ -122,6 +122,6 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 
 ## Testing and Verification
 
-Run `pnpm check` before merging (format + lint + typecheck + test).
+Run `pnpm check` before merging. Full script reference: [docs/SCRIPTS.md](./SCRIPTS.md).
 
 For the full test command reference, per-package scripts, and when to run targeted vs full checks: `docs/TESTING.md`.

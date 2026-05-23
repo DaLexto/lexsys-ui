@@ -194,15 +194,13 @@ Install dependencies:
 pnpm install
 ```
 
-Run the main checks:
+Run the main gate before merging:
 
 ```bash
-pnpm build
-pnpm test
-pnpm typecheck
-pnpm lint
-pnpm format:check
+pnpm check
 ```
+
+For the full script reference (per-package shortcuts, sync workflows, CI), see [docs/SCRIPTS.md](docs/SCRIPTS.md).
 
 Run the playground:
 

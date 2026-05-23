@@ -83,12 +83,10 @@ Tests live in `test/validate-registry.test.ts`.
 ## Development
 
 ```sh
-pnpm --filter @neurex/registry build
-pnpm --filter @neurex/registry typecheck
-pnpm --filter @neurex/registry lint
-pnpm --filter @neurex/registry test
-pnpm registry:sync                                      # sync UI components → templates (from repo root)
-pnpm --filter @neurex/tokens generate:styles            # refresh templates/styles CSS (from repo root)
-pnpm registry:check                                     # verify component + style templates are in sync
-pnpm registry:build                                       # build package (from repo root)
+pnpm registry:build
+pnpm registry:check
+pnpm registry:sync
+pnpm tokens:generate:styles
 ```
+
+Full script reference: [docs/SCRIPTS.md](../../docs/SCRIPTS.md).

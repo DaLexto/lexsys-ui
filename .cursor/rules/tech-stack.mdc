@@ -168,7 +168,7 @@ presets = config only (no resolution)
 
 - Add or change values in `packages/tokens/src/` layers, then run `pnpm tokens:build` or `pnpm tokens:check`
 - Run `pnpm registry:sync` when UI or registry template variants/tokens change
-- Run `pnpm --filter @neurex/tokens governance:report` for metadata, deprecation, and semantic audit output
+- Run `pnpm tokens:governance:report` for metadata, deprecation, and semantic audit output
 - Use `pnpm imports:clean` (`tsx src/scripts/clean-imports.ts`) when maintaining imports
 - Consumers import installed `styles/tokens.css` and `styles/theme.css` — do not edit generated files
 - Overlay variants: use `z-(--nx-<component>-backdrop-z-index)` and `shadow-(--nx-<component>-popup-shadow)` — not hardcoded `z-40` / `shadow-lg`

@@ -15,13 +15,13 @@ that are not yet done.
 
 Order: **E → A → C → B → Docs alignment** — **completed** (2026-05-23).
 
-| Step | Track | Goal | Status |
-| ---- | ----- | ---- | ------ |
-| E | Hygiene | Refresh agent/backlog state after PR #14; fix stale counts | done |
-| A | Tokens hardening | Full primitive shadow slot migration + contrast/governance follow-ups | done |
-| C | Quality | UI render tests (pilot components) | done |
-| B | CLI product | Implement `neurex uninstall` | done |
-| Docs | Alignment pass | Sync ROADMAP, RESOLVER_EVOLUTION, rules, cross-links | done |
+| Step | Track            | Goal                                                                  | Status |
+| ---- | ---------------- | --------------------------------------------------------------------- | ------ |
+| E    | Hygiene          | Refresh agent/backlog state after PR #14; fix stale counts            | done   |
+| A    | Tokens hardening | Full primitive shadow slot migration + contrast/governance follow-ups | done   |
+| C    | Quality          | UI render tests (pilot components)                                    | done   |
+| B    | CLI product      | Implement `neurex uninstall`                                          | done   |
+| Docs | Alignment pass   | Sync ROADMAP, RESOLVER_EVOLUTION, rules, cross-links                  | done   |
 
 ---
 

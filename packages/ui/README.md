@@ -136,12 +136,9 @@ pnpm --filter @neurex/ui typecheck
 ## Development
 
 ```sh
-pnpm --filter @neurex/ui build
-pnpm --filter @neurex/ui typecheck
-pnpm --filter @neurex/ui lint
-pnpm --filter @neurex/ui test
-pnpm ui:check    # from repo root
+pnpm ui:check
+pnpm ui:build
 ```
 
-After editing component files, run `pnpm registry:sync` from the repo root to
-keep registry templates in sync.
+After editing component files, run `pnpm registry:sync` then `pnpm registry:check`.
+Monorepo scripts: [docs/SCRIPTS.md](../../docs/SCRIPTS.md).

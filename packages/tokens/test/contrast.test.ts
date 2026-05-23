@@ -286,10 +286,7 @@ describe("overlay background compositing", () => {
     )
 
     expect(
-      contrastRatio(
-        foreground as NonNullable<typeof foreground>,
-        composited,
-      ),
+      contrastRatio(foreground as NonNullable<typeof foreground>, composited),
     ).toBeGreaterThan(WCAG_AA_NORMAL_TEXT_RATIO)
   })
 })

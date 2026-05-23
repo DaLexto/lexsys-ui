@@ -10,9 +10,7 @@ import {
   toContrastReadyColor,
 } from "../../resolver/values"
 import type { TokenValue } from "../../../types"
-import {
-  SEMANTIC_CONTRAST_PAIRS,
-} from "./contrast.pairs"
+import { SEMANTIC_CONTRAST_PAIRS } from "./contrast.pairs"
 import {
   evaluateContrastPolicy,
   formatContrastPolicyFailures,

@@ -8,7 +8,9 @@ import { cva } from "class-variance-authority"
 
 export const scrollAreaRootVariants = cva("relative overflow-hidden")
 
-export const scrollAreaViewportVariants = cva("size-full rounded-[inherit] outline-none")
+export const scrollAreaViewportVariants = cva(
+  "size-full rounded-[inherit] outline-none",
+)
 
 export const scrollAreaContentVariants = cva("")
 

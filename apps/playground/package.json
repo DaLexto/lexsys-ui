@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc -b && vite build",
+    "check": "pnpm run lint && pnpm run typecheck",
+    "dev": "vite",
     "lint": "eslint src vite.config.ts --max-warnings=0",
     "lint:fix": "eslint src vite.config.ts --fix",
     "preview": "vite preview",

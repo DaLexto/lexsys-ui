@@ -197,11 +197,11 @@ Current build-failing validation, target violations, resolver error codes, and g
 On-demand leaf resolution for governance, contrast prep, and tooling — **does not**
 change default CSS/DTCG output (generators still preserve references).
 
-| Export                                                   | Purpose                                  |
-| -------------------------------------------------------- | ---------------------------------------- |
-| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf through alias chains    |
-| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve all or selected leaf paths |
-| `resolveLeafValueForTheme(input, theme, path, options?)` | Themed merge then resolve                |
+| Export                                                   | Purpose                                                                               |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf through alias chains                                                 |
+| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve all or selected leaf paths                                              |
+| `resolveLeafValueForTheme(input, theme, path, options?)` | Themed merge then resolve                                                             |
 | `isResolvedColorValue` / `toContrastReadyColor`          | Color normalization for contrast math (OKLCH; `oklch()` / `#hex` / `rgb()` / `hsl()`) |
 
 Build-time validation continues to use `resolveTokenTree` via `validateStyleTokenInput`.
@@ -216,18 +216,18 @@ WCAG AA report on registered semantic foreground/background pairs (11 pairs in
 `evaluateContrastPolicy` (default `ci` tier; local override
 `NEUREX_CONTRAST_POLICY=report`).
 
-| Export                                   | Purpose                                          |
-| ---------------------------------------- | ------------------------------------------------ |
-| `createContrastValidationReport(input)`  | Themed contrast ratio checks per registered pair |
-| `formatContrastValidationReport(report)` | Format report for CLI output                     |
-| `evaluateContrastPolicy(report, policy?)` | Pass/fail for CI/build tiers                   |
-| `SEMANTIC_CONTRAST_PAIRS`                | Explicit pair registry                           |
+| Export                                    | Purpose                                          |
+| ----------------------------------------- | ------------------------------------------------ |
+| `createContrastValidationReport(input)`   | Themed contrast ratio checks per registered pair |
+| `formatContrastValidationReport(report)`  | Format report for CLI output                     |
+| `evaluateContrastPolicy(report, policy?)` | Pass/fail for CI/build tiers                     |
+| `SEMANTIC_CONTRAST_PAIRS`                 | Explicit pair registry                           |
 
 Semi-transparent backgrounds composite over `color.background.base` before ratio
 checks. Color strings are parsed via `engine/shared/color-string.parse.ts`
 (`rgb()`, `hsl()`, plus OKLCH/hex in `values.normalize.ts`).
 
-Runs as part of `pnpm --filter @neurex/tokens governance:report`. Failures exit
+Runs as part of `pnpm tokens:governance:report`. Failures exit
 with code 1 in CI (`tokens-governance` workflow). Also enforced in
 `validateStyleTokenInput` via `validateContrastPolicyStrict` unless
 `NEUREX_CONTRAST_POLICY=report`.
@@ -270,16 +270,14 @@ Consumers and sibling packages should only use supported entrypoints.
 
 Common commands should be run from the repository root unless a package-specific script is intentionally provided.
 
-Useful commands:
+Useful commands (full reference: [docs/SCRIPTS.md](../../docs/SCRIPTS.md)):
 
 ```bash
-pnpm --filter @neurex/tokens build
-pnpm --filter @neurex/tokens check
-pnpm --filter @neurex/tokens typecheck
-pnpm --filter @neurex/tokens test
-pnpm --filter @neurex/tokens lint
-pnpm --filter @neurex/tokens governance:report
-pnpm --filter @neurex/tokens imports:clean
+pnpm tokens:build
+pnpm tokens:check
+pnpm tokens:generate:styles
+pnpm tokens:governance:report
+pnpm tokens:imports:clean
 # Optional dead-primitive stripping (omits unreached primitives from CSS/DTCG):
 pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
@@ -287,10 +285,7 @@ pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --pac
 Repository-level checks:
 
 ```bash
-pnpm build
-pnpm typecheck
-pnpm lint
-pnpm test
+pnpm check
 ```
 
 If a script is a placeholder, say so explicitly in review notes or handoff.
