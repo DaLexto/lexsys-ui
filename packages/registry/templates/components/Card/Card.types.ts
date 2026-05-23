@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Card.types.ts
  *
@@ -10,6 +11,7 @@ export interface CardProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "className"
 > {
+  ref?: Ref<HTMLDivElement>
   variant?: "surface" | "muted"
   className?: string
 }
@@ -18,6 +20,7 @@ export interface CardSectionProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "className"
 > {
+  ref?: Ref<HTMLDivElement>
   className?: string
 }
 
@@ -27,6 +30,7 @@ export interface CardTitleProps extends Omit<
   HTMLAttributes<HTMLHeadingElement>,
   "className"
 > {
+  ref?: Ref<HTMLHeadingElement>
   className?: string
 }
 
@@ -34,6 +38,7 @@ export interface CardDescriptionProps extends Omit<
   HTMLAttributes<HTMLParagraphElement>,
   "className"
 > {
+  ref?: Ref<HTMLParagraphElement>
   className?: string
 }
 

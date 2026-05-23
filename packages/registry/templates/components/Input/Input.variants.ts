@@ -8,26 +8,26 @@ import { cva } from "class-variance-authority"
 
 export const inputVariants = cva(
   [
-    "flex w-full min-w-0 border bg-[var(--nx-input-background)] text-[var(--nx-input-foreground)]",
-    "rounded-[var(--nx-input-radius)] border-[var(--nx-input-border-color)]",
-    "[font-family:var(--nx-input-font-family)] font-[var(--nx-input-font-weight)] leading-[var(--nx-input-font-line-height)] tracking-[var(--nx-input-font-letter-spacing)]",
-    "placeholder:text-[var(--nx-input-placeholder-color)]",
-    "transition-colors duration-[var(--nx-input-transition-duration)] ease-[var(--nx-input-transition-easing)]",
-    "outline-none focus-visible:border-[var(--nx-input-focus-border-color)] focus-visible:ring-2 focus-visible:ring-[var(--nx-input-focus-ring-color)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--nx-input-focus-ring-offset-color)]",
+    "flex w-full min-w-0 border bg-(--nx-input-background) text-(--nx-input-foreground)",
+    "rounded-(--nx-input-radius) border-(--nx-input-border-color)",
+    "font-(family-name:--nx-input-font-family) font-(--nx-input-font-weight) leading-(--nx-input-font-line-height) tracking-(--nx-input-font-letter-spacing)",
+    "placeholder:text-(--nx-input-placeholder-color)",
+    "transition-colors duration-(--nx-input-transition-duration) ease-(--nx-input-transition-easing)",
+    "outline-none focus-visible:border-(--nx-input-focus-border-color) focus-visible:ring-(length:--nx-input-focus-ring-width) focus-visible:ring-(--nx-input-focus-ring-color) focus-visible:ring-offset-(length:--nx-input-focus-ring-offset) focus-visible:ring-offset-(--nx-input-focus-ring-offset-color)",
     "disabled:cursor-not-allowed disabled:opacity-50",
-    "aria-invalid:border-[var(--nx-input-invalid-border-color)] aria-invalid:ring-[var(--nx-input-invalid-ring-color)]",
+    "aria-invalid:border-(--nx-input-invalid-border-color) aria-invalid:ring-(--nx-input-invalid-ring-color)",
   ].join(" "),
   {
     variants: {
       variant: {
         default: "",
         ghost:
-          "border-transparent bg-transparent focus-visible:bg-[var(--nx-input-background)]",
+          "border-transparent bg-transparent focus-visible:bg-(--nx-input-background)",
       },
       size: {
-        sm: "h-[var(--nx-input-height-sm)] px-[var(--nx-input-padding-x-sm)] text-[length:var(--nx-input-font-size-sm)]",
-        md: "h-[var(--nx-input-height-md)] px-[var(--nx-input-padding-x-md)] text-[length:var(--nx-input-font-size-md)]",
-        lg: "h-[var(--nx-input-height-lg)] px-[var(--nx-input-padding-x-lg)] text-[length:var(--nx-input-font-size-lg)]",
+        sm: "h-(--nx-input-height-sm) px-(--nx-input-padding-x-sm) text-(length:--nx-input-font-size-sm)",
+        md: "h-(--nx-input-height-md) px-(--nx-input-padding-x-md) text-(length:--nx-input-font-size-md)",
+        lg: "h-(--nx-input-height-lg) px-(--nx-input-padding-x-lg) text-(length:--nx-input-font-size-lg)",
       },
     },
     defaultVariants: {

@@ -101,7 +101,7 @@ describe("install flow smoke", () => {
     ).resolves.toContain("--nx-alert-radius")
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
-    ).resolves.toContain("--color-nx-primary")
+    ).resolves.toContain("--color-nx-background-base")
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("twMerge")
@@ -110,7 +110,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Button/Button.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-[var(--nx-button-primary-background)]")
+    ).resolves.toContain("bg-(--nx-button-primary-background)")
     await expect(
       readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
@@ -119,7 +119,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Card/Card.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-[var(--nx-card-background)]")
+    ).resolves.toContain("bg-(--nx-card-background)")
     await expect(
       readFile(join(tempDir, "src/components/ui/Card/Card.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
@@ -128,7 +128,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Badge/Badge.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-[var(--nx-badge-background)]")
+    ).resolves.toContain("bg-(--nx-badge-neutral-background)")
     await expect(
       readFile(join(tempDir, "src/components/ui/Badge/Badge.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
@@ -137,7 +137,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Alert/Alert.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-[var(--nx-alert-background)]")
+    ).resolves.toContain("bg-(--nx-alert-neutral-background)")
     await expect(
       readFile(join(tempDir, "src/components/ui/Alert/Alert.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")

@@ -7,12 +7,12 @@ import {
 
 describe("meterVariants", () => {
   it("includes token-backed root, track, and indicator classes", () => {
-    expect(meterVariants()).toContain("gap-[var(--nx-meter-gap)]")
+    expect(meterVariants()).toContain("gap-(--nx-meter-gap)")
     expect(meterTrackVariants({ size: "lg" })).toContain(
-      "h-[var(--nx-meter-track-height-lg)]",
+      "h-(--nx-meter-track-height-lg)",
     )
     expect(meterIndicatorVariants()).toContain(
-      "data-[complete]:bg-[var(--nx-meter-indicator-background-complete)]",
+      "data-[complete]:bg-(--nx-meter-indicator-background-complete)",
     )
   })
 })

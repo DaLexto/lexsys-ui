@@ -1,23 +1,27 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const popoverComponentTokens: ComponentTokenGroup = {
-  component: "popover",
+export const popoverComponentTokens = componentTokens("popover", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.24 },
+    zIndex: { $value: "{elevation.backdrop.zIndex}" },
+  },
+  positioner: {
+    zIndex: { $value: "{elevation.floating.zIndex}" },
   },
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
-    maxWidth: { $value: "{size.popover.maxWidth}" },
+    maxWidth: { $value: "{size.panel.width.sm}" },
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
+    shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
   },
   arrow: {
     $type: "dimension",
-    size: { $value: "{size.3}" },
+    size: { $value: "{size.selectionControl.sm}" },
   },
   title: {
     foreground: { $value: "{color.text.primary}" },
@@ -39,7 +43,7 @@ export const popoverComponentTokens: ComponentTokenGroup = {
   trigger: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     hover: {
       $type: "color",
       background: { $value: "{color.background.subtle}" },
@@ -67,11 +71,13 @@ export const popoverComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.control}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+    ringWidth: { $value: "{outline.width.focus}" },
+    ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

@@ -1,23 +1,25 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const alertDialogComponentTokens: ComponentTokenGroup = {
-  component: "alert-dialog",
+export const alertDialogComponentTokens = componentTokens("alert-dialog", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.56 },
+    zIndex: { $value: "{elevation.backdrop.zIndex}" },
   },
   viewport: {
     $type: "dimension",
     padding: { $value: "{spacing.surface.md}" },
+    zIndex: { $value: "{elevation.layer.zIndex}" },
   },
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
-    maxWidth: { $value: "{size.dialog.maxWidth}" },
+    maxWidth: { $value: "{size.panel.width.lg}" },
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.md}" },
+    shadow: { $value: "{elevation.shadow.raised.boxShadow}" },
   },
   title: {
     foreground: { $value: "{color.text.primary}" },
@@ -66,11 +68,13 @@ export const alertDialogComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.control}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+    ringWidth: { $value: "{outline.width.focus}" },
+    ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

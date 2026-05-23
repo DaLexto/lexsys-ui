@@ -1,8 +1,6 @@
-import type { SemanticTokenGroup } from "../types"
+import { semanticTokens } from "../types/authoring"
 
-export const typographySemantics: SemanticTokenGroup = {
-  name: "typography",
-
+export const typographySemantics = semanticTokens("typography", {
   family: {
     $type: "fontFamily",
     sans: { $value: "{font-family.sans}" },
@@ -96,6 +94,7 @@ export const typographySemantics: SemanticTokenGroup = {
   },
 
   display: {
+    $type: "typography",
     sm: {
       fontFamily: { $value: "{typography.family.sans}" },
       fontSize: { $value: "{font-size.5xl}" },
@@ -120,6 +119,7 @@ export const typographySemantics: SemanticTokenGroup = {
   },
 
   label: {
+    $type: "typography",
     xs: {
       fontFamily: { $value: "{typography.family.sans}" },
       fontSize: { $value: "{font-size.xs}" },
@@ -151,6 +151,7 @@ export const typographySemantics: SemanticTokenGroup = {
   },
 
   control: {
+    $type: "typography",
     xs: {
       fontFamily: { $value: "{typography.family.sans}" },
       fontSize: { $value: "{font-size.xs}" },
@@ -189,6 +190,7 @@ export const typographySemantics: SemanticTokenGroup = {
   },
 
   code: {
+    $type: "typography",
     sm: {
       fontFamily: { $value: "{typography.family.mono}" },
       fontSize: { $value: "{font-size.xs}" },
@@ -211,4 +213,4 @@ export const typographySemantics: SemanticTokenGroup = {
       letterSpacing: { $value: "{letter-spacing.normal}" },
     },
   },
-}
+})

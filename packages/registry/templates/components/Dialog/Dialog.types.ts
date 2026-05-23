@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Dialog.types.ts
  *
@@ -8,53 +9,21 @@ import type { Dialog as BaseDialog } from "@base-ui/react/dialog"
 
 export type DialogProps<Payload = unknown> = BaseDialog.Root.Props<Payload>
 
-export interface DialogTriggerProps<Payload = unknown> extends Omit<
-  BaseDialog.Trigger.Props<Payload>,
-  "className"
-> {
-  className?: BaseDialog.Trigger.Props<Payload>["className"]
-}
+export type DialogTriggerProps<Payload = unknown> =
+  BaseDialog.Trigger.Props<Payload> & {
+    ref?: Ref<HTMLButtonElement>
+  }
 
 export type DialogPortalProps = BaseDialog.Portal.Props
 
-export interface DialogBackdropProps extends Omit<
-  BaseDialog.Backdrop.Props,
-  "className"
-> {
-  className?: BaseDialog.Backdrop.Props["className"]
-}
+export type DialogBackdropProps = BaseDialog.Backdrop.Props
 
-export interface DialogViewportProps extends Omit<
-  BaseDialog.Viewport.Props,
-  "className"
-> {
-  className?: BaseDialog.Viewport.Props["className"]
-}
+export type DialogViewportProps = BaseDialog.Viewport.Props
 
-export interface DialogPopupProps extends Omit<
-  BaseDialog.Popup.Props,
-  "className"
-> {
-  className?: BaseDialog.Popup.Props["className"]
-}
+export type DialogPopupProps = BaseDialog.Popup.Props
 
-export interface DialogTitleProps extends Omit<
-  BaseDialog.Title.Props,
-  "className"
-> {
-  className?: BaseDialog.Title.Props["className"]
-}
+export type DialogTitleProps = BaseDialog.Title.Props
 
-export interface DialogDescriptionProps extends Omit<
-  BaseDialog.Description.Props,
-  "className"
-> {
-  className?: BaseDialog.Description.Props["className"]
-}
+export type DialogDescriptionProps = BaseDialog.Description.Props
 
-export interface DialogCloseProps extends Omit<
-  BaseDialog.Close.Props,
-  "className"
-> {
-  className?: BaseDialog.Close.Props["className"]
-}
+export type DialogCloseProps = BaseDialog.Close.Props

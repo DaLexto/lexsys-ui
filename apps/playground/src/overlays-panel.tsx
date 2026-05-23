@@ -219,7 +219,7 @@ export const OverlaysPanel = () => {
                   </AlertDialogClose>
                   <Button
                     size="sm"
-                    className="bg-[var(--nx-alert-dialog-trigger-background)] text-[var(--nx-alert-dialog-trigger-foreground)] hover:bg-[var(--nx-alert-dialog-trigger-hover-background)]"
+                    className="bg-(--nx-alert-dialog-trigger-background) text-(--nx-alert-dialog-trigger-foreground) hover:bg-(--nx-alert-dialog-trigger-hover-background)"
                   >
                     Delete
                   </Button>
@@ -260,7 +260,7 @@ export const OverlaysPanel = () => {
 
         <DrawerProvider>
           <DrawerIndentBackground />
-          <DrawerIndent className="rounded-[var(--nx-card-radius)] border border-[var(--nx-card-border-color)] bg-[var(--nx-card-background)] p-[var(--nx-card-padding)]">
+          <DrawerIndent className="rounded-(--nx-card-radius) border border-(--nx-card-border-color) bg-(--nx-card-background) p-(--nx-card-padding)">
             <Drawer swipeDirection="right">
               <DrawerTrigger>Open inspector</DrawerTrigger>
               <DrawerPortal>

@@ -18,13 +18,13 @@ or applies built-in defaults when the file is absent.
 
 ### Global options
 
-| Flag | Description |
-|------|-------------|
-| `--cwd <path>` | Run from a different directory instead of `process.cwd()` |
-| `--yes` | Auto-confirm safe prompts where supported |
-| `--no-fallback` | Disable local registry fallback where supported |
-| `--help`, `-h` | Print help message |
-| `--version`, `-v` | Print CLI version |
+| Flag              | Description                                               |
+| ----------------- | --------------------------------------------------------- |
+| `--cwd <path>`    | Run from a different directory instead of `process.cwd()` |
+| `--yes`           | Auto-confirm safe prompts where supported                 |
+| `--no-fallback`   | Disable local registry fallback where supported           |
+| `--help`, `-h`    | Print help message                                        |
+| `--version`, `-v` | Print CLI version                                         |
 
 ---
 
@@ -66,6 +66,7 @@ Scaffolds a full Vite+React+TypeScript project at `directory` (defaults to
 current directory), then runs the Neurex init sequence above.
 
 Installs:
+
 - `react`, `react-dom`
 - `@types/react`, `@types/react-dom`, `@types/node`, `@vitejs/plugin-react`,
   `prettier`, `typescript`, `vite` (dev)
@@ -88,10 +89,10 @@ neurex add button --cwd ./apps/web
 neurex add                          # interactive multiselect
 ```
 
-| Flag | Description |
-|------|-------------|
-| `--dry-run` | Preview components, dependencies, utilities, styles, and install paths — no writes |
-| `--no-fallback` | Fail if remote registry is configured and unavailable (no local fallback) |
+| Flag            | Description                                                                        |
+| --------------- | ---------------------------------------------------------------------------------- |
+| `--dry-run`     | Preview components, dependencies, utilities, styles, and install paths — no writes |
+| `--no-fallback` | Fail if remote registry is configured and unavailable (no local fallback)          |
 
 **Without component arguments**, shows an interactive multiselect of all
 available registry items (format: `CanonicalName (category)`).
@@ -114,12 +115,12 @@ available registry items (format: `CanonicalName (category)`).
 
 **Component install states:**
 
-| State | Meaning |
-|-------|---------|
-| `created` | File was new; written |
-| `skipped` | File exists and is identical; no action |
-| `conflicted` | File exists and differs; left untouched |
-| `updated` | File was auto-updated (generated styles only) |
+| State        | Meaning                                       |
+| ------------ | --------------------------------------------- |
+| `created`    | File was new; written                         |
+| `skipped`    | File exists and is identical; no action       |
+| `conflicted` | File exists and differs; left untouched       |
+| `updated`    | File was auto-updated (generated styles only) |
 
 Components with any conflict are **not** added to the `installed` map.
 
@@ -143,14 +144,14 @@ neurex update --all --force
 neurex update --all --yes
 ```
 
-| Flag | Description |
-|------|-------------|
-| `--all` | Update all components tracked in `neurex.config.json` |
-| `--styles` | Update token/theme CSS files only (skips component files) |
-| `--dry-run` | Preview what would change; no writes; reports conflict/identical per file |
-| `--force` | Write conflicted files after creating `.bak` timestamped backups |
-| `--yes` | Auto-confirm safe prompts |
-| `--no-fallback` | Fail if remote registry unavailable |
+| Flag            | Description                                                               |
+| --------------- | ------------------------------------------------------------------------- |
+| `--all`         | Update all components tracked in `neurex.config.json`                     |
+| `--styles`      | Update token/theme CSS files only (skips component files)                 |
+| `--dry-run`     | Preview what would change; no writes; reports conflict/identical per file |
+| `--force`       | Write conflicted files after creating `.bak` timestamped backups          |
+| `--yes`         | Auto-confirm safe prompts                                                 |
+| `--no-fallback` | Fail if remote registry unavailable                                       |
 
 **Version check:** an update is available when the registry item version is
 semver-greater than the installed version recorded in `neurex.config.json`.
@@ -178,10 +179,10 @@ neurex list
 neurex list --json
 ```
 
-| Flag | Description |
-|------|-------------|
-| `--json` | Output as JSON array with `name`, `canonicalName`, `version`, `category` |
-| `--no-fallback` | Fail if remote registry unavailable |
+| Flag            | Description                                                              |
+| --------------- | ------------------------------------------------------------------------ |
+| `--json`        | Output as JSON array with `name`, `canonicalName`, `version`, `category` |
+| `--no-fallback` | Fail if remote registry unavailable                                      |
 
 Default output format: `- CanonicalName vX.X.X (category)` per line.
 
@@ -217,8 +218,8 @@ neurex doctor
 neurex doctor --no-fallback
 ```
 
-| Flag | Description |
-|------|-------------|
+| Flag            | Description                         |
+| --------------- | ----------------------------------- |
 | `--no-fallback` | Fail if remote registry unavailable |
 
 Checks and prints `✓` / `×` for:
@@ -246,12 +247,12 @@ neurex config --set-registry-url https://example.com/registry.json
 neurex config --clear-registry-url
 ```
 
-| Flag | Description |
-|------|-------------|
-| `--path`, `-p` | Print the resolved path to `neurex.config.json` |
-| `--exists`, `-e` | Print whether the config file is present |
-| `--set-registry-url <url>` | Persist a remote registry URL |
-| `--clear-registry-url` | Set `registryUrl` to `null` |
+| Flag                       | Description                                     |
+| -------------------------- | ----------------------------------------------- |
+| `--path`, `-p`             | Print the resolved path to `neurex.config.json` |
+| `--exists`, `-e`           | Print whether the config file is present        |
+| `--set-registry-url <url>` | Persist a remote registry URL                   |
+| `--clear-registry-url`     | Set `registryUrl` to `null`                     |
 
 With no flags: reads config (merging defaults) and prints as indented JSON.
 
@@ -272,13 +273,13 @@ neurex registry --remote --source
 neurex registry --no-fallback
 ```
 
-| Flag | Description |
-|------|-------------|
-| `--summary` | Human-readable output (source, fallback, items with type/category/remote file count) |
-| `--source` | Print the effective source string (includes `(fallback: local)` note when fallback is used) |
-| `--local` | Read only the bundled `@neurex/registry` package; ignore remote URL |
-| `--remote` | Read only the remote URL from config; error if none configured |
-| `--no-fallback` | Disable local fallback for the default resolution path |
+| Flag            | Description                                                                                 |
+| --------------- | ------------------------------------------------------------------------------------------- |
+| `--summary`     | Human-readable output (source, fallback, items with type/category/remote file count)        |
+| `--source`      | Print the effective source string (includes `(fallback: local)` note when fallback is used) |
+| `--local`       | Read only the bundled `@neurex/registry` package; ignore remote URL                         |
+| `--remote`      | Read only the remote URL from config; error if none configured                              |
+| `--no-fallback` | Disable local fallback for the default resolution path                                      |
 
 ---
 
@@ -346,28 +347,28 @@ interface NeurexConfig {
     version: "v4"
     css: string
   }
-  installed?: Record<string, string>   // name → installed version
+  installed?: Record<string, string> // name → installed version
   registryUrl?: string | null
 }
 ```
 
 ### Defaults
 
-| Field | Default |
-|-------|---------|
-| `style` | `"default"` (only valid value) |
-| `componentsPath` | `"src/components/ui"` |
-| `utilitiesPath` | `"src/lib"` |
-| `stylesPath` | `"styles"` |
-| `aliases.components` | `"@/components"` |
-| `aliases.utils` | `"@/lib/utils"` |
-| `aliases.ui` | `"@/components/ui"` |
-| `aliases.lib` | `"@/lib"` |
-| `aliases.hooks` | `"@/hooks"` |
-| `tailwind.version` | `"v4"` (only valid value) |
-| `tailwind.css` | `"src/style.css"` |
-| `installed` | `{}` |
-| `registryUrl` | `null` |
+| Field                | Default                        |
+| -------------------- | ------------------------------ |
+| `style`              | `"default"` (only valid value) |
+| `componentsPath`     | `"src/components/ui"`          |
+| `utilitiesPath`      | `"src/lib"`                    |
+| `stylesPath`         | `"styles"`                     |
+| `aliases.components` | `"@/components"`               |
+| `aliases.utils`      | `"@/lib/utils"`                |
+| `aliases.ui`         | `"@/components/ui"`            |
+| `aliases.lib`        | `"@/lib"`                      |
+| `aliases.hooks`      | `"@/hooks"`                    |
+| `tailwind.version`   | `"v4"` (only valid value)      |
+| `tailwind.css`       | `"src/style.css"`              |
+| `installed`          | `{}`                           |
+| `registryUrl`        | `null`                         |
 
 `tailwind.version` is a type literal locked to `"v4"`. Tailwind v3 is not
 supported.
@@ -378,9 +379,9 @@ supported.
 
 The CLI resolves registry items from one of two sources:
 
-| Source | When active |
-|--------|-------------|
-| **Local** | `registryUrl` is `null` or absent; uses `@neurex/registry` bundled with the CLI |
+| Source     | When active                                                                       |
+| ---------- | --------------------------------------------------------------------------------- |
+| **Local**  | `registryUrl` is `null` or absent; uses `@neurex/registry` bundled with the CLI   |
 | **Remote** | `registryUrl` is a URL string; fetches the manifest JSON, validates, then uses it |
 
 When a remote URL is configured and the fetch fails, the CLI falls back to the

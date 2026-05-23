@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * NumberField.types.ts
  *
@@ -6,11 +7,8 @@
 
 import type { NumberField as BaseNumberField } from "@base-ui/react/number-field"
 
-export interface NumberFieldProps extends Omit<
-  BaseNumberField.Root.Props,
-  "className"
-> {
-  className?: BaseNumberField.Root.Props["className"]
+export type NumberFieldProps = BaseNumberField.Root.Props & {
+  ref?: Ref<HTMLDivElement>
 }
 
 export interface NumberFieldGroupProps extends Omit<
@@ -49,9 +47,5 @@ export interface NumberFieldScrubAreaProps extends Omit<
   className?: BaseNumberField.ScrubArea.Props["className"]
 }
 
-export interface NumberFieldScrubAreaCursorProps extends Omit<
-  BaseNumberField.ScrubAreaCursor.Props,
-  "className"
-> {
-  className?: BaseNumberField.ScrubAreaCursor.Props["className"]
-}
+export type NumberFieldScrubAreaCursorProps =
+  BaseNumberField.ScrubAreaCursor.Props

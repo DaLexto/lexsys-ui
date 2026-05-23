@@ -20,10 +20,9 @@
  * - Font stacks are ordered from preferred typeface to generic fallback
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const fontFamilyPrimitives: PrimitiveTokenGroup = {
-  name: "font-family",
+export const fontFamilyPrimitives = primitiveTokens("font-family", {
   $type: "fontFamily",
   $description:
     "Raw font family stacks used as the source for typography semantics.",
@@ -41,4 +40,4 @@ export const fontFamilyPrimitives: PrimitiveTokenGroup = {
     $value:
       '"JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace',
   },
-}
+})

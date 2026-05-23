@@ -1,24 +1,25 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const toastComponentTokens: ComponentTokenGroup = {
-  component: "toast",
+export const toastComponentTokens = componentTokens("toast", {
   viewport: {
     $type: "dimension",
-    width: { $value: "{size.toast.viewportWidth}" },
+    width: { $value: "{size.panel.width.md}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     gapExpanded: { $value: "{spacing.surface.gap.md}" },
     padding: { $value: "{spacing.surface.sm}" },
+    zIndex: { $value: "{elevation.toast.zIndex}" },
   },
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
+  shadow: { $value: "{elevation.shadow.raised.boxShadow}" },
   success: {
     $type: "color",
-    borderColor: { $value: "{action.primary.base}" },
+    borderColor: { $value: "{color.feedback.success.foreground}" },
   },
   destructive: {
     $type: "color",
-    borderColor: { $value: "{action.danger.base}" },
+    borderColor: { $value: "{color.feedback.danger.foreground}" },
   },
   radius: { $value: "{radius.surface}" },
   padding: { $value: "{spacing.surface.md}" },
@@ -30,7 +31,7 @@ export const toastComponentTokens: ComponentTokenGroup = {
   },
   arrow: {
     $type: "dimension",
-    size: { $value: "{size.3}" },
+    size: { $value: "{size.selectionControl.sm}" },
   },
   title: {
     foreground: { $value: "{color.text.primary}" },
@@ -50,7 +51,7 @@ export const toastComponentTokens: ComponentTokenGroup = {
   },
   action: {
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     hover: {
       $type: "color",
       background: { $value: "{color.background.subtle}" },
@@ -79,10 +80,11 @@ export const toastComponentTokens: ComponentTokenGroup = {
   },
   focus: {
     $type: "dimension",
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

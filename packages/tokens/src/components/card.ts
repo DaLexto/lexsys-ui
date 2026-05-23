@@ -1,10 +1,9 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const cardComponentTokens: ComponentTokenGroup = {
-  component: "card",
+export const cardComponentTokens = componentTokens("card", {
   background: { $value: "{color.background.surface}" },
   foreground: { $value: "{color.text.primary}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   muted: {
     $type: "color",
     background: { $value: "{color.background.subtle}" },
@@ -48,4 +47,4 @@ export const cardComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-}
+})

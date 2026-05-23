@@ -1,11 +1,10 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const numberFieldComponentTokens: ComponentTokenGroup = {
-  component: "number-field",
+export const numberFieldComponentTokens = componentTokens("number-field", {
   gap: { $value: "{spacing.control.gap.sm}" },
   foreground: { $value: "{color.text.primary}" },
   background: { $value: "{color.background.base}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.control}" },
   height: {
     $type: "dimension",
@@ -47,7 +46,7 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
       $type: "color",
       background: { $value: "{color.background.subtle}" },
     },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     width: {
       $type: "dimension",
       sm: { $value: "{size.control.sm}" },
@@ -66,11 +65,13 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
   },
   focus: {
     $type: "dimension",
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   invalid: {
     $type: "color",
     ringColor: { $value: "{action.danger.base}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   scrub: {
     foreground: { $value: "{color.text.secondary}" },
@@ -88,4 +89,4 @@ export const numberFieldComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

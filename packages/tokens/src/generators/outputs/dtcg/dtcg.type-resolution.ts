@@ -6,6 +6,11 @@
  */
 
 import type { TokenColorValue, TokenLeaf, TokenUnitValue } from "../../../types"
+import {
+  isTypographySlotKey,
+  resolveCompositeSlotType,
+  resolveCompositeTypeFromAtomicPath,
+} from "../../../engine/composite"
 import { toTokenName, type FlattenedTokenEntry } from "../../shared"
 
 import type { DtcgGeneratorOptions, DtcgTokenType } from "./dtcg.types"
@@ -132,12 +137,46 @@ const getReferenceTokenName = (value: unknown): string | undefined => {
   return referencePath.replace(/\./g, "-")
 }
 
+const resolveCompositeSlotTypeFromPath = (
+  path: string[],
+): DtcgTokenType | undefined => {
+  const compositeType = resolveCompositeTypeFromAtomicPath(path)
+
+  if (compositeType === undefined) {
+    return undefined
+  }
+
+  const slotKey = path[path.length - 1]
+
+  if (slotKey === undefined) {
+    return undefined
+  }
+
+  const scalarType = resolveCompositeSlotType(compositeType, slotKey)
+
+  if (scalarType === undefined) {
+    return undefined
+  }
+
+  if (compositeType === "typography" && !isTypographySlotKey(slotKey)) {
+    return undefined
+  }
+
+  return scalarType
+}
+
 export const resolveDtcgFlattenedTokenType = (
   entry: FlattenedTokenEntry,
   options: Required<DtcgGeneratorOptions>,
 ): DtcgTokenType => {
   if (entry.type !== undefined) {
     return entry.type
+  }
+
+  const compositeSlotType = resolveCompositeSlotTypeFromPath(entry.path)
+
+  if (compositeSlotType !== undefined) {
+    return compositeSlotType
   }
 
   const tokenName = entry.path.join("-")
@@ -166,6 +205,12 @@ export const resolveDtcgTokenLeafType = (
 ): DtcgTokenType => {
   if (leaf.$type !== undefined) {
     return leaf.$type
+  }
+
+  const compositeSlotType = resolveCompositeSlotTypeFromPath(path)
+
+  if (compositeSlotType !== undefined) {
+    return compositeSlotType
   }
 
   const tokenName = toTokenName(path, {})

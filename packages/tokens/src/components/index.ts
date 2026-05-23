@@ -19,8 +19,9 @@ import { numberFieldComponentTokens } from "./number-field"
 import { popoverComponentTokens } from "./popover"
 import { progressComponentTokens } from "./progress"
 import { radioGroupComponentTokens } from "./radio-group"
-import { separatorComponentTokens } from "./separator"
+import { scrollAreaComponentTokens } from "./scroll-area"
 import { selectComponentTokens } from "./select"
+import { separatorComponentTokens } from "./separator"
 import { sliderComponentTokens } from "./slider"
 import { switchComponentTokens } from "./switch"
 import { tabsComponentTokens } from "./tabs"
@@ -50,8 +51,9 @@ export { numberFieldComponentTokens } from "./number-field"
 export { popoverComponentTokens } from "./popover"
 export { progressComponentTokens } from "./progress"
 export { radioGroupComponentTokens } from "./radio-group"
-export { separatorComponentTokens } from "./separator"
+export { scrollAreaComponentTokens } from "./scroll-area"
 export { selectComponentTokens } from "./select"
+export { separatorComponentTokens } from "./separator"
 export { sliderComponentTokens } from "./slider"
 export { switchComponentTokens } from "./switch"
 export { tabsComponentTokens } from "./tabs"
@@ -82,8 +84,9 @@ export const componentTokens: ComponentTokenGroup[] = [
   popoverComponentTokens,
   progressComponentTokens,
   radioGroupComponentTokens,
-  separatorComponentTokens,
+  scrollAreaComponentTokens,
   selectComponentTokens,
+  separatorComponentTokens,
   sliderComponentTokens,
   switchComponentTokens,
   tabsComponentTokens,

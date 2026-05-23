@@ -5,26 +5,35 @@ describe("badgeVariants", () => {
   test("uses token-backed classes for visual styling", () => {
     const className = badgeVariants()
 
-    expect(className).toContain("rounded-[var(--nx-badge-radius)]")
-    expect(className).toContain("bg-[var(--nx-badge-background)]")
-    expect(className).toContain("text-[var(--nx-badge-foreground)]")
-    expect(className).toContain("border-[var(--nx-badge-border-color)]")
+    expect(className).toContain("rounded-(--nx-badge-radius)")
+    expect(className).toContain("bg-(--nx-badge-neutral-background)")
+    expect(className).toContain("text-(--nx-badge-neutral-foreground)")
+    expect(className).toContain("border-(--nx-badge-neutral-border-color)")
   })
 
   test("maps tone, variant, and size through component tokens", () => {
-    const className = badgeVariants({
+    const solidClassName = badgeVariants({
+      tone: "primary",
+      variant: "solid",
+      size: "sm",
+    })
+
+    expect(solidClassName).toContain("bg-(--nx-badge-primary-background)")
+    expect(solidClassName).toContain("text-(--nx-badge-primary-foreground)")
+    expect(solidClassName).toContain("border-(--nx-badge-primary-border-color)")
+    expect(solidClassName).toContain("h-(--nx-badge-height-sm)")
+    expect(solidClassName).toContain("text-(length:--nx-badge-font-size-sm)")
+
+    const outlineClassName = badgeVariants({
       tone: "primary",
       variant: "outline",
       size: "sm",
     })
 
-    expect(className).toContain(
-      "[--nx-badge-background:var(--nx-badge-primary-background)]",
+    expect(outlineClassName).toContain("bg-(--nx-badge-outline-background)")
+    expect(outlineClassName).toContain("text-(--nx-badge-primary-border-color)")
+    expect(outlineClassName).not.toContain(
+      "text-(--nx-badge-primary-foreground)",
     )
-    expect(className).toContain(
-      "[--nx-badge-background:var(--nx-badge-outline-background)]",
-    )
-    expect(className).toContain("h-[var(--nx-badge-height-sm)]")
-    expect(className).toContain("text-[length:var(--nx-badge-font-size-sm)]")
   })
 })

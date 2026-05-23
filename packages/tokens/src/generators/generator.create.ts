@@ -1,5 +1,9 @@
 import type { TokenBuildArtifacts, TokenTree } from "../types"
 import {
+  collectUsedPrimitivePaths,
+  stripDeadPrimitivesFromTree,
+} from "../engine/resolver"
+import {
   createDtcgThemeTokenInputFromJson,
   createDtcgTokenInputFromJson,
   createStyleTokenInput,
@@ -32,16 +36,6 @@ const toCssVarReference = (tokenName: string): string => {
   return `var(--${cssPrefix}-${tokenName})`
 }
 
-const tailwindNamespaceBySourcePrefix: Readonly<Record<string, string>> = {
-  color: "color",
-  duration: "duration",
-  easing: "ease",
-  radius: "radius",
-  size: "spacing",
-  space: "spacing",
-  typography: "text",
-}
-
 const createTailwindThemeVariableName = (tokenName: string): string => {
   const [sourcePrefix, ...tailwindNameParts] = tokenName.split("-")
 
@@ -49,7 +43,8 @@ const createTailwindThemeVariableName = (tokenName: string): string => {
     return `--${twPrefix}-${tokenName}`
   }
 
-  const tailwindNamespace = tailwindNamespaceBySourcePrefix[sourcePrefix]
+  const tailwindNamespace =
+    styleOutputConfig.tailwindThemeNamespaces[sourcePrefix]
 
   if (tailwindNamespace === undefined) {
     return `--${twPrefix}-${tokenName}`
@@ -313,6 +308,26 @@ const createThemeCss = (input: StyleTokenInput): string => {
   ].join("\n\n")}\n`
 }
 
+const applyStripDeadPrimitives = (input: StyleTokenInput): StyleTokenInput => {
+  const usedPaths = collectUsedPrimitivePaths(input)
+  const filteredPrimitives = stripDeadPrimitivesFromTree(
+    input.primitiveTokens,
+    usedPaths,
+  )
+  const foundationTokens = mergeTokenTrees(
+    filteredPrimitives,
+    input.brandTokens,
+    input.semanticTokens,
+  )
+
+  return {
+    ...input,
+    primitiveTokens: filteredPrimitives,
+    foundationTokens,
+    tokenTree: mergeTokenTrees(foundationTokens, input.componentTokens),
+  }
+}
+
 export const createStyleOutputs = (
   options: StyleTokenInputOptions = {},
 ): TokenBuildArtifacts => {
@@ -320,12 +335,16 @@ export const createStyleOutputs = (
 
   validateStyleTokenInput(input)
 
+  const outputInput = options.stripDeadPrimitives
+    ? applyStripDeadPrimitives(input)
+    : input
+
   return {
-    tokensCss: createTokensCss(input),
-    themeCss: createThemeCss(input),
-    tokensJson: createTokensJson(input),
-    tokenJsonFiles: createTokenJsonFiles(input),
-    themesJson: createThemesJson(input),
+    tokensCss: createTokensCss(outputInput),
+    themeCss: createThemeCss(outputInput),
+    tokensJson: createTokensJson(outputInput),
+    tokenJsonFiles: createTokenJsonFiles(outputInput),
+    themesJson: createThemesJson(outputInput),
   }
 }
 

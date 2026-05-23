@@ -12,6 +12,11 @@ const targetRoot = resolve(registryRoot, "templates/components")
 const componentSourceImport = 'import { cn } from "../../utils/cn"'
 const componentTemplateImport = 'import { cn } from "@/lib/utils"'
 
+const mergeClassNameSourceImport =
+  'import { mergeClassName } from "../../utils/merge-class-name"'
+const mergeClassNameTemplateImport =
+  'import { mergeClassName } from "@/lib/utils"'
+
 const syncableExtensions = new Set([".ts", ".tsx"])
 const checkOnly = process.argv.includes("--check")
 
@@ -46,7 +51,9 @@ const collectFiles = async (directory) => {
 }
 
 const toRegistryTemplate = (source) => {
-  return source.replaceAll(componentSourceImport, componentTemplateImport)
+  return source
+    .replaceAll(componentSourceImport, componentTemplateImport)
+    .replaceAll(mergeClassNameSourceImport, mergeClassNameTemplateImport)
 }
 
 const readExistingTemplate = async (path) => {

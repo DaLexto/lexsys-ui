@@ -12,21 +12,29 @@ export type BrandId = "neurex" | (string & {})
 
 export type ThemeModeId = "light" | "dark"
 
-export interface PresetDefinition {
+export interface PresetDefinition<
+  TThemeModes extends readonly ThemeModeId[] = readonly ThemeModeId[],
+> {
   id: PresetId
   name: string
   description: string
-  themeModes: ThemeModeId[]
-  defaultTheme: ThemeModeId
+  themeModes: TThemeModes
+  defaultTheme: TThemeModes[number]
   brand?: BrandId
 }
 
-export interface ThemeDefinition {
+export interface ThemeConfig {
   name: ThemeModeId
   brand?: BrandId
   selector: ":root" | `.${string}` | `[${string}]`
   colorScheme: ThemeModeId
-  [key: string]: unknown
+}
+
+/**
+ * Theme definition for a single mode override set.
+ */
+export interface ThemeDefinition extends ThemeConfig {
+  tokens: TokenTree
 }
 
 export type ThemeTokenMap = TokenTree

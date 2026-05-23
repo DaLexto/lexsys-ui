@@ -1,10 +1,10 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const drawerComponentTokens: ComponentTokenGroup = {
-  component: "drawer",
+export const drawerComponentTokens = componentTokens("drawer", {
   backdrop: {
     background: { $value: "{color.text.primary}" },
     opacity: { $value: 0.48 },
+    zIndex: { $value: "{elevation.backdrop.zIndex}" },
   },
   indent: {
     background: { $value: "{color.background.subtle}" },
@@ -14,25 +14,27 @@ export const drawerComponentTokens: ComponentTokenGroup = {
   viewport: {
     $type: "dimension",
     padding: { $value: "{spacing.surface.sm}" },
+    zIndex: { $value: "{elevation.layer.zIndex}" },
   },
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
     radius: { $value: "{radius.surface}" },
-    maxWidth: { $value: "{size.drawer.maxWidth}" },
+    maxWidth: { $value: "{size.panel.width.xl}" },
     width: {
       $type: "dimension",
-      sm: { $value: "{size.drawer.width.sm}" },
-      md: { $value: "{size.drawer.width.md}" },
-      lg: { $value: "{size.drawer.width.lg}" },
+      sm: { $value: "{size.panel.width.sm}" },
+      md: { $value: "{size.panel.width.md}" },
+      lg: { $value: "{size.panel.width.lg}" },
     },
     height: {
       $type: "dimension",
-      sm: { $value: "{size.drawer.height.sm}" },
-      md: { $value: "{size.drawer.height.md}" },
-      lg: { $value: "{size.drawer.height.lg}" },
+      sm: { $value: "{size.panel.height.sm}" },
+      md: { $value: "{size.panel.height.md}" },
+      lg: { $value: "{size.panel.height.lg}" },
     },
+    shadow: { $value: "{elevation.shadow.raised.boxShadow}" },
   },
   content: {
     $type: "dimension",
@@ -41,7 +43,7 @@ export const drawerComponentTokens: ComponentTokenGroup = {
   },
   handle: {
     $type: "dimension",
-    background: { $value: "{color.border.default}" },
+    background: { $value: "{border.default}" },
     width: { $value: "{size.control.lg}" },
     height: { $value: "{size.track.md}" },
     marginTop: { $value: "{spacing.control.y.sm}" },
@@ -98,11 +100,13 @@ export const drawerComponentTokens: ComponentTokenGroup = {
     radius: { $value: "{radius.control}" },
   },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+    ringWidth: { $value: "{outline.width.focus}" },
+    ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

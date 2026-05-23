@@ -1,11 +1,12 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const buttonComponentTokens: ComponentTokenGroup = {
-  component: "button",
+export const buttonComponentTokens = componentTokens("button", {
   radius: { $value: "{radius.control}" },
   focus: {
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+    ringWidth: { $value: "{outline.width.focus}" },
+    ringOffset: { $value: "{outline.offset.focus}" },
   },
   primary: {
     $type: "color",
@@ -18,7 +19,7 @@ export const buttonComponentTokens: ComponentTokenGroup = {
     background: { $value: "{color.background.subtle}" },
     foreground: { $value: "{color.text.primary}" },
     hoverBackground: { $value: "{color.background.surface}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
   },
   height: {
     $type: "dimension",
@@ -56,4 +57,4 @@ export const buttonComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

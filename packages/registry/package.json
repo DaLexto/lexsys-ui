@@ -17,10 +17,12 @@
     "./templates/*": "./templates/*"
   },
   "scripts": {
-    "build": "tsup",
-    "check": "pnpm run lint && pnpm run typecheck && pnpm run templates:check-sync && pnpm run test",
+    "build": "tsup && tsc -p tsconfig.json --emitDeclarationOnly --outDir dist",
+    "check": "pnpm run lint && pnpm run typecheck && pnpm run templates:check-sync && pnpm run styles:check-sync && pnpm run test",
     "lint": "eslint src test --max-warnings=0",
     "lint:fix": "eslint src test --fix",
+    "styles:check-sync": "node scripts/check-registry-styles-sync.mjs",
+    "styles:sync": "pnpm --filter @neurex/tokens generate:styles",
     "templates:check-sync": "node scripts/sync-component-templates.mjs --check",
     "templates:sync": "node scripts/sync-component-templates.mjs",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",

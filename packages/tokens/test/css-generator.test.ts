@@ -168,6 +168,43 @@ describe("css vars generator", () => {
     ])
   })
 
+  it("composes shadow boxShadow from composite slot CSS variables", () => {
+    const tokens: TokenTree = {
+      elevation: {
+        shadow: {
+          $type: "shadow",
+          floating: {
+            color: {
+              $value: {
+                colorSpace: "oklch",
+                components: [0, 0, 0],
+                alpha: 0.12,
+              },
+            },
+            offsetX: { $value: "0" },
+            offsetY: { $value: "8px" },
+            blur: { $value: "16px" },
+            spread: { $value: "0" },
+            boxShadow: { $value: "0 8px 16px 0 oklch(0 0 0 / 0.12)" },
+          },
+        },
+      },
+    }
+
+    const entries = createCssVariableEntries(tokens, generatorOptions)
+
+    expect(entries).toContainEqual({
+      name: "elevation-shadow-floating-color",
+      value: "oklch(0 0 0 / 0.12)",
+    })
+
+    expect(entries).toContainEqual({
+      name: "elevation-shadow-floating-box-shadow",
+      value:
+        "var(--nx-elevation-shadow-floating-offset-x) var(--nx-elevation-shadow-floating-offset-y) var(--nx-elevation-shadow-floating-blur) var(--nx-elevation-shadow-floating-spread) var(--nx-elevation-shadow-floating-color)",
+    })
+  })
+
   it("collapses DEFAULT path segments", () => {
     const tokens: TokenTree = {
       radius: {
@@ -260,5 +297,63 @@ describe("css vars generator", () => {
     expect(result.css).toBe(
       [":root {", "  --nx-color-white: oklch(1 0 0);", "}"].join("\n"),
     )
+  })
+
+  it("flattens typography composite slot leaves into atomic CSS variables", () => {
+    const tokens: TokenTree = {
+      typography: {
+        family: {
+          sans: { $value: "{font-family.sans}" },
+        },
+        control: {
+          $type: "typography",
+          md: {
+            fontFamily: { $value: "{typography.family.sans}" },
+            fontSize: { $value: "{font-size.sm}" },
+            fontWeight: { $value: "{font-weight.medium}" },
+            lineHeight: { $value: "{line-height.tight}" },
+            letterSpacing: { $value: "{letter-spacing.normal}" },
+          },
+        },
+      },
+      "font-family": {
+        sans: { $value: "Inter, sans-serif" },
+      },
+      "font-size": {
+        sm: { $value: "0.875rem" },
+      },
+      "font-weight": {
+        medium: { $value: 500 },
+      },
+      "line-height": {
+        tight: { $value: 1.25 },
+      },
+      "letter-spacing": {
+        normal: { $value: "0em" },
+      },
+    }
+
+    const entries = createCssVariableEntries(tokens, generatorOptions)
+
+    expect(entries).toContainEqual({
+      name: "typography-control-md-font-family",
+      value: "var(--nx-typography-family-sans)",
+    })
+    expect(entries).toContainEqual({
+      name: "typography-control-md-font-size",
+      value: "var(--nx-font-size-sm)",
+    })
+    expect(entries).toContainEqual({
+      name: "typography-control-md-font-weight",
+      value: "var(--nx-font-weight-medium)",
+    })
+    expect(entries).toContainEqual({
+      name: "typography-control-md-line-height",
+      value: "var(--nx-line-height-tight)",
+    })
+    expect(entries).toContainEqual({
+      name: "typography-control-md-letter-spacing",
+      value: "var(--nx-letter-spacing-normal)",
+    })
   })
 })

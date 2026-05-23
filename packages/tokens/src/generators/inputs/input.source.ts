@@ -2,28 +2,35 @@ import { componentTokens as componentTokenGroups } from "../../components"
 import { primitiveTokens } from "../../primitives"
 import { brandTokens as brandTokenGroups } from "../../brand"
 import { defaultPresetId, presets } from "../../presets"
-import { resolveTokenTree } from "../../resolver"
+import { resolveTokenTree } from "../../engine/resolver"
+import { createThemedTokenTree, mergeTokenTrees } from "../../engine/shared"
+import { validateTokenLayerContractsStrict } from "../../engine/validator"
+import { validateContrastPolicyStrict } from "../../engine/validator/contrast"
 import { semanticTokens as semanticTokenGroups } from "../../semantics"
 import { themes } from "../../themes"
 import type {
+  BrandTokenGroup,
   ComponentTokenGroup,
   PresetDefinition,
   PresetId,
   PrimitiveTokenGroup,
-  BrandTokenGroup,
   SemanticTokenGroup,
   ThemeDefinition,
   ThemeModeId,
   TokenTree,
 } from "../../types"
-import { isTokenBranch } from "../shared"
+import {
+  getComponentGroupNamespace,
+  getNamedGroupNamespace,
+  getTokenTreeFromSourceGroup,
+  type TokenSourceGroup,
+} from "../../types"
 
-type TokenSourceGroup =
-  | PrimitiveTokenGroup
-  | BrandTokenGroup
-  | SemanticTokenGroup
-  | ComponentTokenGroup
-  | ThemeDefinition
+export type {
+  ThemedTokenTreeOverlay,
+  ThemedTokenTreeSource,
+} from "../../engine/shared"
+export { mergeTokenTrees } from "../../engine/shared"
 
 export interface ThemeTokenInput {
   name: ThemeModeId
@@ -35,6 +42,7 @@ export interface ThemeTokenInput {
 
 export interface StyleTokenInputOptions {
   presetId?: PresetId
+  stripDeadPrimitives?: boolean
 }
 
 export interface StyleTokenInput {
@@ -48,39 +56,8 @@ export interface StyleTokenInput {
   themeTokens: ThemeTokenInput[]
 }
 
-const TOKEN_SOURCE_CONTROL_KEYS = new Set([
-  "name",
-  "component",
-  "brand",
-  "selector",
-  "colorScheme",
-])
-
 export const getTokenTree = (group: TokenSourceGroup): TokenTree => {
-  return Object.fromEntries(
-    Object.entries(group).filter(
-      ([key]) => !TOKEN_SOURCE_CONTROL_KEYS.has(key),
-    ),
-  ) as TokenTree
-}
-
-export const mergeTokenTrees = (...trees: TokenTree[]): TokenTree => {
-  const merged: TokenTree = {}
-
-  for (const tree of trees) {
-    for (const [key, value] of Object.entries(tree)) {
-      const existingValue = merged[key]
-
-      if (isTokenBranch(existingValue) && isTokenBranch(value)) {
-        merged[key] = mergeTokenTrees(existingValue, value)
-        continue
-      }
-
-      merged[key] = value
-    }
-  }
-
-  return merged
+  return getTokenTreeFromSourceGroup(group)
 }
 
 const createNamespacedTokenTree = (
@@ -96,7 +73,10 @@ const createTokenTreeFromNamedGroups = (
   groups: Array<PrimitiveTokenGroup | BrandTokenGroup | SemanticTokenGroup>,
 ): TokenTree => {
   const trees = groups.map((group) => {
-    return createNamespacedTokenTree(group.name, getTokenTree(group))
+    return createNamespacedTokenTree(
+      getNamedGroupNamespace(group),
+      getTokenTree(group),
+    )
   })
 
   return mergeTokenTrees(...trees)
@@ -106,7 +86,10 @@ const createTokenTreeFromComponentGroups = (
   groups: ComponentTokenGroup[],
 ): TokenTree => {
   const trees = groups.map((group) => {
-    return createNamespacedTokenTree(group.component, getTokenTree(group))
+    return createNamespacedTokenTree(
+      getComponentGroupNamespace(group),
+      getTokenTree(group),
+    )
   })
 
   return mergeTokenTrees(...trees)
@@ -201,16 +184,7 @@ export const createStyleTokenInput = (
   }
 }
 
-export const createThemedTokenTree = (
-  input: StyleTokenInput,
-  theme: ThemeTokenInput,
-): TokenTree => {
-  return mergeTokenTrees(
-    input.foundationTokens,
-    theme.tokens,
-    input.componentTokens,
-  )
-}
+export { createThemedTokenTree } from "../../engine/shared"
 
 const validateTokenTreeReferences = (label: string, tree: TokenTree): void => {
   const result = resolveTokenTree(tree, {
@@ -233,6 +207,8 @@ const validateTokenTreeReferences = (label: string, tree: TokenTree): void => {
 }
 
 export const validateStyleTokenInput = (input: StyleTokenInput): void => {
+  validateTokenLayerContractsStrict(input)
+
   if (input.themeTokens.length === 0) {
     validateTokenTreeReferences("tokens.css", input.tokenTree)
     return
@@ -244,4 +220,10 @@ export const validateStyleTokenInput = (input: StyleTokenInput): void => {
       createThemedTokenTree(input, theme),
     )
   }
+
+  validateContrastPolicyStrict({
+    foundationTokens: input.foundationTokens,
+    componentTokens: input.componentTokens,
+    themeTokens: input.themeTokens,
+  })
 }

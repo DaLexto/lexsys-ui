@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const separatorComponentTokens: ComponentTokenGroup = {
-  component: "separator",
-  color: { $value: "{color.border.default}" },
+export const separatorComponentTokens = componentTokens("separator", {
+  color: { $value: "{border.default}" },
   thickness: { $type: "dimension", $value: { value: 1, unit: "px" } },
-}
+})

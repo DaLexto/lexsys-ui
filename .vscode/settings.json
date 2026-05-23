@@ -1,0 +1,12 @@
+{
+  "cSpell.words": [
+    "dtcg",
+    "neurex",
+    "oklch",
+    "STYLEGUIDE",
+    "syncable",
+    "Turborepo",
+    "WCAG"
+  ],
+  "css.lint.unknownAtRules": "ignore"
+}

@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Select.types.ts
  *
@@ -13,11 +14,8 @@ export type SelectProps<
   Multiple extends boolean | undefined = false,
 > = BaseSelect.Root.Props<Value, Multiple>
 
-export interface SelectLabelProps extends Omit<
-  BaseSelect.Label.Props,
-  "className"
-> {
-  className?: BaseSelect.Label.Props["className"]
+export type SelectLabelProps = BaseSelect.Label.Props & {
+  ref?: Ref<HTMLDivElement>
 }
 
 export interface SelectTriggerProps extends Omit<
@@ -35,47 +33,23 @@ export interface SelectValueProps extends Omit<
   className?: BaseSelect.Value.Props["className"]
 }
 
-export interface SelectIconProps extends Omit<
-  BaseSelect.Icon.Props,
-  "className"
-> {
-  className?: BaseSelect.Icon.Props["className"]
-}
+export type SelectIconProps = BaseSelect.Icon.Props
 
 export type SelectPortalProps = BaseSelect.Portal.Props
 
-export interface SelectBackdropProps extends Omit<
-  BaseSelect.Backdrop.Props,
-  "className"
-> {
-  className?: BaseSelect.Backdrop.Props["className"]
-}
+export type SelectBackdropProps = BaseSelect.Backdrop.Props
 
-export interface SelectPositionerProps extends Omit<
-  BaseSelect.Positioner.Props,
-  "className"
-> {
-  className?: BaseSelect.Positioner.Props["className"]
-}
+export type SelectPositionerProps = BaseSelect.Positioner.Props
 
-export interface SelectPopupProps extends Omit<
-  BaseSelect.Popup.Props,
-  "className"
-> {
-  className?: BaseSelect.Popup.Props["className"]
-}
+export type SelectPopupProps = BaseSelect.Popup.Props
 
-export interface SelectListProps extends Omit<
-  BaseSelect.List.Props,
-  "className"
-> {
-  className?: BaseSelect.List.Props["className"]
-}
+export type SelectListProps = BaseSelect.List.Props
 
 export interface SelectItemProps extends Omit<
   BaseSelect.Item.Props,
-  "className"
+  "className" | "ref"
 > {
+  ref?: Ref<HTMLDivElement>
   className?: BaseSelect.Item.Props["className"]
 }
 
@@ -86,40 +60,15 @@ export interface SelectItemIndicatorProps extends Omit<
   className?: BaseSelect.ItemIndicator.Props["className"]
 }
 
-export interface SelectItemTextProps extends Omit<
-  BaseSelect.ItemText.Props,
-  "className"
-> {
-  className?: BaseSelect.ItemText.Props["className"]
-}
+export type SelectItemTextProps = BaseSelect.ItemText.Props
 
-export interface SelectArrowProps extends Omit<
-  BaseSelect.Arrow.Props,
-  "className"
-> {
-  className?: BaseSelect.Arrow.Props["className"]
-}
+export type SelectArrowProps = BaseSelect.Arrow.Props
 
-export interface SelectScrollArrowProps extends Omit<
-  BaseSelect.ScrollDownArrow.Props,
-  "className"
-> {
-  className?: BaseSelect.ScrollDownArrow.Props["className"]
-}
+export type SelectScrollArrowProps = BaseSelect.ScrollDownArrow.Props
 
 export type SelectScrollUpArrowProps = SelectScrollArrowProps
 export type SelectScrollDownArrowProps = SelectScrollArrowProps
 
-export interface SelectGroupProps extends Omit<
-  BaseSelect.Group.Props,
-  "className"
-> {
-  className?: BaseSelect.Group.Props["className"]
-}
+export type SelectGroupProps = BaseSelect.Group.Props
 
-export interface SelectGroupLabelProps extends Omit<
-  BaseSelect.GroupLabel.Props,
-  "className"
-> {
-  className?: BaseSelect.GroupLabel.Props["className"]
-}
+export type SelectGroupLabelProps = BaseSelect.GroupLabel.Props

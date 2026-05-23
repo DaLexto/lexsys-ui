@@ -21,10 +21,9 @@
  * - Structured DTCG shadow objects can replace these strings when composite shadow generation is implemented
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const shadowPrimitives: PrimitiveTokenGroup = {
-  name: "shadow",
+export const shadowPrimitives = primitiveTokens("shadow", {
   $type: "shadow",
   $description:
     "Raw shadow scale used as the source for elevation, depth, and surface layering semantics.",
@@ -72,4 +71,4 @@ export const shadowPrimitives: PrimitiveTokenGroup = {
       "Inset shadow for pressed, recessed, or contained surface effects.",
     $value: "inset 0 1px 2px rgb(0 0 0 / 0.08)",
   },
-}
+})

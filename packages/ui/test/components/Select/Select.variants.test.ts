@@ -8,19 +8,17 @@ import {
 describe("Select variants", () => {
   it("uses token-backed trigger sizing", () => {
     expect(selectTriggerVariants({ size: "sm" })).toContain(
-      "h-[var(--nx-select-height-sm)]",
+      "h-(--nx-select-height-sm)",
     )
     expect(selectTriggerVariants({ size: "lg" })).toContain(
-      "h-[var(--nx-select-height-lg)]",
+      "h-(--nx-select-height-lg)",
     )
   })
 
   it("uses token-backed popup and item states", () => {
-    expect(selectPopupVariants()).toContain(
-      "bg-[var(--nx-select-popup-background)]",
-    )
+    expect(selectPopupVariants()).toContain("bg-(--nx-select-popup-background)")
     expect(selectItemVariants()).toContain(
-      "data-[selected]:bg-[var(--nx-select-item-selected-background)]",
+      "data-[selected]:bg-(--nx-select-item-selected-background)",
     )
   })
 })

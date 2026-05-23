@@ -46,8 +46,9 @@ neurex/
 | `STYLE.md` / `STYLEGUIDE.md` | Naming, file layout, CSS class conventions |
 | `DESIGN_SYSTEM.md` | Design system overview |
 | `DEPLOY.md` | Build and distribution |
+| `ROADMAP.md` | Long-term tokens platform direction (future work) |
 | `RESOLVER_EVOLUTION.md` | Token resolver roadmap |
-| `REVIEW_TODO.md` | Review backlog |
+| `docs/REVIEW_TODO.md` | Review backlog |
 
 ---
 
@@ -82,28 +83,45 @@ neurex/
 
 Token dependency chain: **primitives → brand → semantics → component tokens**; **themes** override semantics per mode; **presets** are config only.
 
+**Active semantic groups (11):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`, `outline`, `layout`. Authoring for `color` lives under `semantics/color/` (merged into one `color` namespace). Canonical rules: `docs/TOKENS.md`.
+
 ```
 packages/tokens/
 ├── src/
-│   ├── primitives/       # Raw values only (color, spacing, radius, motion, …)
+│   ├── primitives/       # Raw values only (color, spacing, radius, motion, z-index, shadow, …)
 │   ├── brand/            # Brand palette (references primitives)
 │   ├── semantics/        # Usage intent (references brand/primitives)
-│   ├── components/       # Per-component tokens (references semantics only)
-│   ├── themes/           # Mode overrides (e.g. themes/neurex/light.ts, dark.ts)
+│   │   └── color/        # Optional subfolder; merges into top-level color.* paths
+│   ├── components/       # Per-component tokens (semantic references only)
+│   ├── themes/           # Mode overrides — same paths as semantics (border.*, action.*, color.*)
 │   ├── presets/          # Preset config (not a token layer)
-│   ├── resolver/         # Token resolution engine
+│   ├── engine/           # Token engine: read/transform, validate, report
+│   │   ├── resolver/     # reference + graph traversal
+│   │   │   ├── reference/
+│   │   │   ├── graph/
+│   │   │   └── shared/
+│   │   ├── validator/    # build-failing layer contracts
+│   │   │   └── layers/
+│   │   └── governance/   # non-blocking reports
+│   │       ├── report/
+│   │       └── audit/
 │   ├── generators/
 │   │   ├── inputs/       # Source inputs for generation
 │   │   ├── outputs/css/  # CSS generator
 │   │   ├── outputs/dtcg/ # DTCG JSON generator
 │   │   └── shared/       # Shared generator utilities
-│   ├── types/            # Token/type definitions
-│   ├── scripts/          # Maintenance scripts (e.g. clean-imports)
+│   ├── types/            # Token/type definitions + authoring factories
 │   └── index.ts          # Package entry
-└── test/                 # resolver, generator, css-generator tests
+├── scripts/              # CLI entrypoints (parallel to src/, not inside src/)
+│   ├── write-style-outputs.ts
+│   ├── governance-report.ts
+│   └── clean-imports.ts
+└── test/                 # resolver, validator, generator, governance, semantic-audit
 ```
 
 **Exports:** `.`, `./tokens.css`, `./theme.css` (generated; do not hand-write CSS).
+
+**Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component slot tokens → UI `z-(--nx-*)` / `shadow-(--nx-*)` in `*.variants.ts`.
 
 ---
 
@@ -120,7 +138,7 @@ packages/ui/
 ├── src/
 │   ├── index.ts
 │   ├── utils/            # Shared UI utilities
-│   └── components/       # 33 component folders (see list below)
+│   └── components/       # 31 component folders (see list below)
 └── test/
     ├── public-api.test.ts
     └── components/<Name>/   # Variant tests per component
@@ -222,6 +240,7 @@ Rules: idempotent installs, no silent overwrites, clear conflict reporting.
 | Task | Primary location |
 |------|------------------|
 | Token values / layers | `packages/tokens/src/` |
+| Semantic organization / audit | `packages/tokens/src/engine/governance/`, `docs/TOKENS.md` |
 | Generated CSS | Build pipeline only (`packages/tokens` build) |
 | Component behavior (reference) | `packages/ui/src/components/` |
 | What gets installed / paths | `packages/registry/src/items/` + `templates/` |
@@ -230,6 +249,8 @@ Rules: idempotent installs, no silent overwrites, clear conflict reporting.
 | Architecture contracts | `docs/` + `AGENTS.md` |
 
 After editing `packages/ui` components, run `pnpm registry:sync` to refresh registry templates when templates should match UI.
+
+After editing overlay `*.variants.ts` stacking/shadow classes or component elevation tokens, sync registry templates and run `pnpm tokens:check`.
 
 ---
 

@@ -20,10 +20,9 @@
  * - Border width tokens use the DTCG `dimension` type
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const borderPrimitives: PrimitiveTokenGroup = {
-  name: "border",
+export const borderPrimitives = primitiveTokens("border", {
   $type: "dimension",
   $description:
     "Raw border width scale used as the source for border and outline semantics.",
@@ -33,4 +32,4 @@ export const borderPrimitives: PrimitiveTokenGroup = {
   thin: { $value: { value: 1, unit: "px" } },
   medium: { $value: { value: 2, unit: "px" } },
   thick: { $value: { value: 4, unit: "px" } },
-}
+})

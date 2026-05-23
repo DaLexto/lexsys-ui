@@ -4,7 +4,6 @@
  * Reference Accordion component implementation.
  */
 
-import { forwardRef } from "react"
 import { Accordion as BaseAccordion } from "@base-ui/react/accordion"
 import type {
   AccordionHeaderProps,
@@ -20,89 +19,77 @@ import {
   accordionTriggerVariants,
   accordionVariants,
 } from "./Accordion.variants"
-import { cn } from "@/lib/utils"
+import { mergeClassName } from "@/lib/utils"
 
-const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
-  ({ className, ...props }, ref) => {
-    const rootClassName: AccordionProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(accordionVariants(), userClassName)
-    }
-
-    return <BaseAccordion.Root ref={ref} className={rootClassName} {...props} />
-  },
-)
+const Accordion = ({ ref, className, ...props }: AccordionProps) => {
+  return (
+    <BaseAccordion.Root
+      ref={ref}
+      className={mergeClassName(accordionVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 Accordion.displayName = "Accordion"
 
-const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
-  ({ className, ...props }, ref) => {
-    const itemClassName: AccordionItemProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(accordionItemVariants(), userClassName)
-    }
-
-    return <BaseAccordion.Item ref={ref} className={itemClassName} {...props} />
-  },
-)
+const AccordionItem = ({ ref, className, ...props }: AccordionItemProps) => {
+  return (
+    <BaseAccordion.Item
+      ref={ref}
+      className={mergeClassName(accordionItemVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 AccordionItem.displayName = "AccordionItem"
 
-const AccordionHeader = forwardRef<HTMLHeadingElement, AccordionHeaderProps>(
-  ({ className, ...props }, ref) => {
-    const headerClassName: AccordionHeaderProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(accordionHeaderVariants(), userClassName)
-    }
-
-    return (
-      <BaseAccordion.Header ref={ref} className={headerClassName} {...props} />
-    )
-  },
-)
+const AccordionHeader = ({
+  ref,
+  className,
+  ...props
+}: AccordionHeaderProps) => {
+  return (
+    <BaseAccordion.Header
+      ref={ref}
+      className={mergeClassName(accordionHeaderVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 AccordionHeader.displayName = "AccordionHeader"
 
-const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
-  ({ className, children, ...props }, ref) => {
-    const triggerClassName: AccordionTriggerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(accordionTriggerVariants(), userClassName)
-    }
-
-    return (
-      <BaseAccordion.Trigger ref={ref} className={triggerClassName} {...props}>
-        <span>{children}</span>
-        <span aria-hidden="true">+</span>
-      </BaseAccordion.Trigger>
-    )
-  },
-)
+const AccordionTrigger = ({
+  ref,
+  className,
+  children,
+  ...props
+}: AccordionTriggerProps) => {
+  return (
+    <BaseAccordion.Trigger
+      ref={ref}
+      className={mergeClassName(accordionTriggerVariants(), className)}
+      {...props}
+    >
+      <span>{children}</span>
+      <span aria-hidden="true">+</span>
+    </BaseAccordion.Trigger>
+  )
+}
 
 AccordionTrigger.displayName = "AccordionTrigger"
 
-const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
-  ({ className, ...props }, ref) => {
-    const panelClassName: AccordionPanelProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(accordionPanelVariants(), userClassName)
-    }
-
-    return (
-      <BaseAccordion.Panel ref={ref} className={panelClassName} {...props} />
-    )
-  },
-)
+const AccordionPanel = ({ ref, className, ...props }: AccordionPanelProps) => {
+  return (
+    <BaseAccordion.Panel
+      ref={ref}
+      className={mergeClassName(accordionPanelVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 AccordionPanel.displayName = "AccordionPanel"
 

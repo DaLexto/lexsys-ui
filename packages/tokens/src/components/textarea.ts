@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const textareaComponentTokens: ComponentTokenGroup = {
-  component: "textarea",
+export const textareaComponentTokens = componentTokens("textarea", {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
   placeholder: {
@@ -10,24 +9,27 @@ export const textareaComponentTokens: ComponentTokenGroup = {
   },
   border: {
     $type: "dimension",
-    color: { $value: "{color.border.default}" },
+    color: { $value: "{border.default}" },
   },
   focus: {
-    borderColor: { $value: "{color.border.focus}" },
-    ringColor: { $value: "{color.border.focus}" },
+    borderColor: { $value: "{border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+    ringWidth: { $value: "{outline.width.focus}" },
+    ringOffset: { $value: "{outline.offset.focus}" },
   },
   invalid: {
     $type: "color",
     borderColor: { $value: "{action.danger.base}" },
     ringColor: { $value: "{action.danger.base}" },
+    ringWidth: { $value: "{outline.width.focus}" },
   },
   radius: { $value: "{radius.control}" },
   minHeight: {
     $type: "dimension",
-    sm: { $value: "{size.textarea.minHeight.sm}" },
-    md: { $value: "{size.textarea.minHeight.md}" },
-    lg: { $value: "{size.textarea.minHeight.lg}" },
+    sm: { $value: "{size.control.xl}" },
+    md: { $value: "{size.control.2xl}" },
+    lg: { $value: "{size.control.2xl}" },
   },
   padding: {
     x: {
@@ -59,4 +61,4 @@ export const textareaComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

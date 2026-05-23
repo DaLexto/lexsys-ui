@@ -21,10 +21,9 @@
  * - Easing tokens use the DTCG `cubicBezier` type
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const motionPrimitives: PrimitiveTokenGroup = {
-  name: "motion",
+export const motionPrimitives = primitiveTokens("motion", {
   $description:
     "Raw motion duration and easing values used as the source for motion semantics.",
 
@@ -50,4 +49,4 @@ export const motionPrimitives: PrimitiveTokenGroup = {
     exit: { $value: "cubic-bezier(0.4, 0, 1, 1)" },
     emphasized: { $value: "cubic-bezier(0.2, 0, 0, 1)" },
   },
-}
+})

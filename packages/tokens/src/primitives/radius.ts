@@ -20,10 +20,9 @@
  * - Radius tokens use the DTCG `dimension` type
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const radiusPrimitives: PrimitiveTokenGroup = {
-  name: "radius",
+export const radiusPrimitives = primitiveTokens("radius", {
   $type: "dimension",
   $description:
     "Raw border radius scale used as the source for shape semantics.",
@@ -35,4 +34,4 @@ export const radiusPrimitives: PrimitiveTokenGroup = {
   xl: { $value: { value: 0.75, unit: "rem" } },
   "2xl": { $value: { value: 1, unit: "rem" } },
   full: { $value: { value: 9999, unit: "px" } },
-}
+})

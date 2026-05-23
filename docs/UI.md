@@ -119,12 +119,17 @@ export const componentVariants = cva("base classes", {
 ```
 
 All variant classes MUST reference `--nx-*` CSS custom properties via Tailwind
-arbitrary value syntax, not hardcoded colors or spacing:
+v4 canonical CSS variable syntax, not hardcoded colors or spacing:
 
 ```ts
-"bg-[var(--nx-button-primary-background)]" // correct
+"bg-(--nx-button-primary-background)" // correct
+"ring-(length:--nx-button-focus-ring-width)" // correct — token-backed focus ring
 "bg-orange-500" // incorrect
 ```
+
+Do not use the legacy `[var(--nx-*)]` form or CSS variable alias utilities
+such as `(--nx-a:--nx-b)` — Tailwind v4 does not emit CSS for that pattern.
+Use direct component token utilities instead (see `Badge.variants.ts`).
 
 ---
 

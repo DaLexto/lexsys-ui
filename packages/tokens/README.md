@@ -69,13 +69,46 @@ src/
   primitives/
   brand/
   semantics/
+    color/          # optional subfolder; merges into color.* namespace
   components/
   themes/
   presets/
-  resolver/
-  generators/
+  engine/             # token engine (read/transform, validate, report)
+    shared/           # tree utils, metadata keys, color-string.parse.ts
+    resolver/         # reference + graph traversal
+      reference/
+      graph/
+      shared/
+      values/         # resolved leaf value pipeline (Phase 9)
+    composite/        # typography + shadow/border composite type registry and slot schemas
+    validator/        # build-failing layer contracts
+      layers/
+      contrast/       # WCAG contrast report + CI policy gate
+    governance/       # non-blocking reports and audits
+      report/
+      audit/
+  generators/       # CSS/DTCG modules (library API)
   types/
+scripts/            # CLI entrypoints (parallel to src/, not inside src/)
+  write-style-outputs.ts
+  governance-report.ts
+  clean-imports.ts
+test/
 ```
+
+**Package layout rule:** `src/` holds publishable library code and generator modules; `scripts/` holds all Node entrypoints (`tsup` bundles or `tsx` dev tools). Same pattern as `packages/registry/scripts/`.
+
+**Token engine naming:** subfolders use `{role}/{role}.{domain}.ts` (for example `graph/graph.resolver.ts`, `report/report.governance.ts`).
+
+**Active semantic groups (11):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`, `outline`, `layout`.
+
+**Staged stubs only (not registered in token collections):** `primitives/asset.ts`.
+
+**Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component tokens → CSS vars (`--nx-*`).
+
+**Outline chain:** primitive `outline.width.*` / `outline.offset.*` → semantic `outline.*` → component `focus.ringWidth` / `focus.ringOffset` → CSS vars (`--nx-*-focus-ring-width`, `--nx-*-focus-ring-offset`).
+
+**Layout chain:** primitive `breakpoint.*` / `aspect-ratio.*` → semantic `layout.*` → CSS vars (`--nx-layout-viewport-*`, `--nx-layout-aspect-ratio-*`). Consumers reference semantic layout vars directly; layout is not mapped into Tailwind `@theme` namespaces.
 
 The exact internal structure may evolve, but package boundaries must remain clear.
 
@@ -87,7 +120,7 @@ Do not treat generated CSS or JSON as editable source.
 
 Token authoring follows the canonical rules in [docs/TOKENS.md](../../docs/TOKENS.md). That document is the source of truth. If this README conflicts with it, TOKENS.md wins.
 
-Key package-level constraints: use `$value` leaves (DTCG shape), primitives hold raw values only, components reference semantics, raw scale references (`size.*`, `spacing.*`) are a temporary exception only.
+Key package-level constraints: use `$value` leaves (DTCG shape), primitives hold raw values only, components reference semantic tokens only.
 
 ---
 
@@ -159,6 +192,46 @@ Expected rules:
 
 Current build-failing validation, target violations, resolver error codes, and generator behavior are documented in [docs/TOKENS.md](../../docs/TOKENS.md) and [docs/DESIGN_SYSTEM.md](../../docs/DESIGN_SYSTEM.md).
 
+### Resolved value pipeline (`engine/resolver/values/`)
+
+On-demand leaf resolution for governance, contrast prep, and tooling — **does not**
+change default CSS/DTCG output (generators still preserve references).
+
+| Export                                                   | Purpose                                  |
+| -------------------------------------------------------- | ---------------------------------------- |
+| `resolveLeafValue(tree, path, options?)`                 | Resolve one leaf through alias chains    |
+| `resolveLeafValues(tree, paths?, options?)`              | Batch resolve all or selected leaf paths |
+| `resolveLeafValueForTheme(input, theme, path, options?)` | Themed merge then resolve                |
+| `isResolvedColorValue` / `toContrastReadyColor`          | Color normalization for contrast math (OKLCH; `oklch()` / `#hex` / `rgb()` / `hsl()`) |
+
+Build-time validation continues to use `resolveTokenTree` via `validateStyleTokenInput`.
+Leaf resolution in `resolveTokenTree` delegates to `resolveLeafValue` for a single code path.
+
+Import from `packages/tokens/src/engine/` (or `./engine` within the package). Not exported from the package root `.` entrypoint.
+
+### Accessibility contrast guard (`engine/validator/contrast/`)
+
+WCAG AA report on registered semantic foreground/background pairs (11 pairs in
+`contrast.pairs.ts`). CI enforcement via `contrast.policy.ts` and
+`evaluateContrastPolicy` (default `ci` tier; local override
+`NEUREX_CONTRAST_POLICY=report`).
+
+| Export                                   | Purpose                                          |
+| ---------------------------------------- | ------------------------------------------------ |
+| `createContrastValidationReport(input)`  | Themed contrast ratio checks per registered pair |
+| `formatContrastValidationReport(report)` | Format report for CLI output                     |
+| `evaluateContrastPolicy(report, policy?)` | Pass/fail for CI/build tiers                   |
+| `SEMANTIC_CONTRAST_PAIRS`                | Explicit pair registry                           |
+
+Semi-transparent backgrounds composite over `color.background.base` before ratio
+checks. Color strings are parsed via `engine/shared/color-string.parse.ts`
+(`rgb()`, `hsl()`, plus OKLCH/hex in `values.normalize.ts`).
+
+Runs as part of `pnpm --filter @neurex/tokens governance:report`. Failures exit
+with code 1 in CI (`tokens-governance` workflow). Also enforced in
+`validateStyleTokenInput` via `validateContrastPolicyStrict` unless
+`NEUREX_CONTRAST_POLICY=report`.
+
 ---
 
 ## Registry Relationship
@@ -201,9 +274,14 @@ Useful commands:
 
 ```bash
 pnpm --filter @neurex/tokens build
+pnpm --filter @neurex/tokens check
 pnpm --filter @neurex/tokens typecheck
 pnpm --filter @neurex/tokens test
 pnpm --filter @neurex/tokens lint
+pnpm --filter @neurex/tokens governance:report
+pnpm --filter @neurex/tokens imports:clean
+# Optional dead-primitive stripping (omits unreached primitives from CSS/DTCG):
+pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
 
 Repository-level checks:

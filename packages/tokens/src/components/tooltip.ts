@@ -1,11 +1,14 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const tooltipComponentTokens: ComponentTokenGroup = {
-  component: "tooltip",
+export const tooltipComponentTokens = componentTokens("tooltip", {
+  positioner: {
+    zIndex: { $value: "{elevation.tooltip.zIndex}" },
+  },
   background: { $value: "{color.text.primary}" },
   foreground: { $value: "{color.background.base}" },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.control}" },
+  shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
   padding: {
     $type: "dimension",
     x: { $value: "{spacing.control.x.xs}" },
@@ -20,4 +23,4 @@ export const tooltipComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

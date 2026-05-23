@@ -8,14 +8,14 @@ import {
 describe("avatarVariants", () => {
   it("includes token-backed size, shape, image, and fallback classes", () => {
     expect(avatarVariants({ size: "lg", shape: "square" })).toContain(
-      "size-[var(--nx-avatar-size-lg)]",
+      "size-(--nx-avatar-size-lg)",
     )
     expect(avatarVariants({ shape: "square" })).toContain(
-      "rounded-[var(--nx-avatar-radius-square)]",
+      "rounded-(--nx-avatar-radius-square)",
     )
     expect(avatarImageVariants()).toContain("object-cover")
     expect(avatarFallbackVariants()).toContain(
-      "bg-[var(--nx-avatar-fallback-background)]",
+      "bg-(--nx-avatar-fallback-background)",
     )
   })
 })

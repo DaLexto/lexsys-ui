@@ -20,10 +20,9 @@
  * - Blur radius tokens use the DTCG `dimension` type
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const blurPrimitives: PrimitiveTokenGroup = {
-  name: "blur",
+export const blurPrimitives = primitiveTokens("blur", {
   $type: "dimension",
   $description:
     "Raw blur radius scale used as the source for effect and surface treatment semantics.",
@@ -36,4 +35,4 @@ export const blurPrimitives: PrimitiveTokenGroup = {
   xl: { $value: { value: 16, unit: "px" } },
   "2xl": { $value: { value: 24, unit: "px" } },
   "3xl": { $value: { value: 40, unit: "px" } },
-}
+})

@@ -21,10 +21,9 @@
  * - Semantic tokens should assign meaning to these raw layers before components consume them
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const zIndexPrimitives: PrimitiveTokenGroup = {
-  name: "z-index",
+export const zIndexPrimitives = primitiveTokens("z-index", {
   $type: "number",
   $description:
     "Raw z-index scale used as the source for stacking and overlay semantics.",
@@ -83,4 +82,4 @@ export const zIndexPrimitives: PrimitiveTokenGroup = {
       "Maximum reserved stacking level for exceptional escape-hatch cases.",
     $value: 9999,
   },
-}
+})

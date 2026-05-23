@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const progressComponentTokens: ComponentTokenGroup = {
-  component: "progress",
+export const progressComponentTokens = componentTokens("progress", {
   gap: { $value: "{spacing.control.gap.sm}" },
   label: {
     foreground: { $value: "{color.text.secondary}" },
@@ -28,4 +27,4 @@ export const progressComponentTokens: ComponentTokenGroup = {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-}
+})

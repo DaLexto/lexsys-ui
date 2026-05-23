@@ -1,7 +1,6 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const alertComponentTokens: ComponentTokenGroup = {
-  component: "alert",
+export const alertComponentTokens = componentTokens("alert", {
   radius: { $value: "{radius.surface}" },
   padding: { $value: "{spacing.surface.sm}" },
   gap: { $value: "{spacing.surface.gap.sm}" },
@@ -26,18 +25,18 @@ export const alertComponentTokens: ComponentTokenGroup = {
   neutral: {
     background: { $value: "{color.background.surface}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
+    borderColor: { $value: "{border.default}" },
   },
   primary: {
     $type: "color",
-    background: { $value: "{color.background.subtle}" },
-    foreground: { $value: "{action.primary.base}" },
-    borderColor: { $value: "{action.primary.base}" },
+    background: { $value: "{color.feedback.info.background}" },
+    foreground: { $value: "{color.feedback.info.foreground}" },
+    borderColor: { $value: "{color.feedback.info.foreground}" },
   },
   destructive: {
     $type: "color",
-    background: { $value: "{color.background.subtle}" },
-    foreground: { $value: "{action.danger.base}" },
-    borderColor: { $value: "{action.danger.base}" },
+    background: { $value: "{color.feedback.danger.background}" },
+    foreground: { $value: "{color.feedback.danger.foreground}" },
+    borderColor: { $value: "{color.feedback.danger.foreground}" },
   },
-}
+})

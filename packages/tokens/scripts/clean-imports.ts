@@ -5,11 +5,7 @@ const ROOT_DIR = join(process.cwd(), "src")
 const TARGET_EXTENSIONS = new Set([".ts", ".tsx"])
 
 const cleanImportSpecifiers = (content: string): string => {
-  return content
-    .replaceAll("/index.js\"", "\"")
-    .replaceAll("'", "'")
-    .replaceAll(".js\"", "\"")
-    .replaceAll("'", "'")
+  return content.replaceAll('/index.js"', '"').replaceAll('.js"', '"')
 }
 
 const walk = (directory: string): string[] => {

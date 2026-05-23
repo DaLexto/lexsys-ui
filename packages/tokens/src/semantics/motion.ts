@@ -1,7 +1,6 @@
-import type { SemanticTokenGroup } from "../types"
+import { semanticTokens } from "../types/authoring"
 
-export const motionSemantics: SemanticTokenGroup = {
-  name: "motion",
+export const motionSemantics = semanticTokens("motion", {
   duration: {
     $type: "duration",
     control: { $value: "{motion.duration.fast}" },
@@ -12,4 +11,4 @@ export const motionSemantics: SemanticTokenGroup = {
     control: { $value: "{motion.easing.standard}" },
     surface: { $value: "{motion.easing.standard}" },
   },
-}
+})

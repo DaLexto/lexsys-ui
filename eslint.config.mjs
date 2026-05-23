@@ -10,6 +10,7 @@ export default tseslint.config(
       "**/coverage/**",
       "**/node_modules/**",
       "**/.turbo/**",
+      "packages/registry/templates/**",
     ],
   },
   js.configs.recommended,
@@ -45,6 +46,10 @@ export default tseslint.config(
   },
   {
     files: ["**/*.test.ts"],
+    extends: [tseslint.configs.disableTypeChecked],
+  },
+  {
+    files: ["packages/tokens/scripts/**/*.ts"],
     extends: [tseslint.configs.disableTypeChecked],
   },
   eslintConfigPrettier,

@@ -114,7 +114,7 @@ All variant classes in `.variants.ts` reference `--nx-*` CSS variables, not
 hardcoded color or spacing values:
 
 ```ts
-"bg-[var(--nx-button-primary-background)] text-[var(--nx-button-primary-foreground)]"
+"bg-(--nx-button-primary-background) text-(--nx-button-primary-foreground)"
 ```
 
 ---
@@ -152,8 +152,8 @@ All other groups use their source name unchanged.
 | `color.background.base`     | `--nx-color-background-base`     |
 
 Do not invent CSS variable names by hand. They are generated outputs. Reference
-them in components via Tailwind arbitrary value syntax:
-`bg-[var(--nx-button-primary-background)]`.
+them in components via Tailwind v4 canonical CSS variable syntax:
+`bg-(--nx-button-primary-background)`.
 
 ---
 
@@ -161,13 +161,15 @@ them in components via Tailwind arbitrary value syntax:
 
 ### Files and folders
 
-| Context                                | Convention                 | Example                                      |
-| -------------------------------------- | -------------------------- | -------------------------------------------- |
-| UI component folder                    | PascalCase                 | `Button/`, `AlertDialog/`                    |
-| UI component files                     | PascalCase                 | `Button.tsx`, `Button.types.ts`              |
-| Token source files (same-role folder)  | kebab-case, no role suffix | `color.ts`, `spacing.ts`                     |
-| Token source files (mixed-role folder) | role label prefix          | `resolver.types.ts`, `generator.create.ts`   |
-| CLI modules                            | kebab-case                 | `registry-provider.ts`, `install-results.ts` |
+| Context                                | Convention                  | Example                                                  |
+| -------------------------------------- | --------------------------- | -------------------------------------------------------- |
+| UI component folder                    | PascalCase                  | `Button/`, `AlertDialog/`                                |
+| UI component files                     | PascalCase                  | `Button.tsx`, `Button.types.ts`                          |
+| Token source files (same-role folder)  | kebab-case, no role suffix  | `color.ts`, `spacing.ts`                                 |
+| Token source files (mixed-role folder) | role label prefix           | `resolver.types.ts`, `generator.create.ts`               |
+| Token engine modules (role subfolder)  | `{role}/{role}.{domain}.ts` | `graph/graph.resolver.ts`, `report/report.governance.ts` |
+| Package CLI scripts (`scripts/`)       | kebab-case at package root  | `write-style-outputs.ts`, `governance-report.ts`         |
+| CLI modules (`packages/cli`)           | kebab-case                  | `registry-provider.ts`, `install-results.ts`             |
 
 ### Symbols
 
@@ -370,7 +372,7 @@ Generated CSS output paths:
 
 ```
 dist/tokens.css                          ← base variables (:root)
-dist/theme.css                           ← theme mode overrides ([data-theme])
+dist/theme.css                           ← theme mode overrides (:root light, .dark dark) + @theme inline
 dist/tokens/dtcg/tokens.tokens.json      ← full DTCG JSON
 dist/tokens/dtcg/primitives/*.tokens.json
 dist/tokens/dtcg/brand/*.tokens.json
@@ -435,7 +437,8 @@ pnpm check              # format:check + lint + typecheck + test
 Per-package shortcuts:
 
 ```sh
-pnpm tokens:build       # build @neurex/tokens (generates CSS + DTCG JSON)
+pnpm tokens:build       # build @neurex/tokens (dist CSS + DTCG JSON; --package)
+pnpm --filter @neurex/tokens generate:styles  # dist + registry templates/styles sync
 pnpm ui:build           # build @neurex/ui
 pnpm registry:build     # build @neurex/registry
 pnpm cli:build          # build neurex CLI
@@ -456,7 +459,7 @@ Before merging, verify:
 - [ ] Package boundaries preserved — no deep imports across packages
 - [ ] Public API surface unchanged or intentionally expanded
 - [ ] Component naming aligned across `ui`, `registry`, and templates
-- [ ] New component tokens reference semantics (not primitives or brand tokens directly) — manual check; build validation is planned but not yet enforced
+- [ ] New component tokens reference semantics (not primitives or brand tokens directly) — enforced at build time via layer validation; run `pnpm tokens:check` after token edits
 - [ ] New CSS classes use `--nx-*` variables, not hardcoded values
 - [ ] Templates synced (`pnpm registry:sync` run if UI components changed)
 - [ ] `pnpm check` passes (format + lint + typecheck + test)

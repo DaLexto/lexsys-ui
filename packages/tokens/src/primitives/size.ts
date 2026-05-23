@@ -20,10 +20,9 @@
  * - Size tokens use the DTCG `dimension` type
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const sizePrimitives: PrimitiveTokenGroup = {
-  name: "size",
+export const sizePrimitives = primitiveTokens("size", {
   $type: "dimension",
   $description:
     "Raw size scale used as the source for fixed width, height, and component sizing semantics.",
@@ -50,4 +49,4 @@ export const sizePrimitives: PrimitiveTokenGroup = {
   96: { $value: { value: 24, unit: "rem" } },
   128: { $value: { value: 32, unit: "rem" } },
   160: { $value: { value: 40, unit: "rem" } },
-}
+})

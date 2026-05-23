@@ -4,12 +4,12 @@ import {
   createStyleOutputs,
   createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
-} from "../src/generators/generator.create.js"
+} from "../src/generators/generator.create"
 import {
   createDtcgTokenInputFromJson,
   createStyleTokenInput,
-} from "../src/generators/inputs/index.js"
-import { colorPrimitives } from "../src/primitives/color.js"
+} from "../src/generators/inputs/index"
+import { colorPrimitives } from "../src/primitives/color"
 import { primitiveTokens } from "../src/primitives"
 import { semanticTokens } from "../src/semantics"
 import { neurexPreset, defaultPresetId, presets } from "../src/presets"
@@ -94,7 +94,7 @@ describe("createStyleOutputs", () => {
   })
 
   test("keeps the yellow primitive scale ordered from light to dark", () => {
-    const yellow = colorPrimitives.yellow as Record<
+    const yellow = colorPrimitives.tokens.yellow as Record<
       string,
       { $value?: unknown }
     >
@@ -148,7 +148,7 @@ describe("createStyleOutputs", () => {
       "--nx-alert-radius: var(--nx-radius-surface)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-alert-destructive-foreground: var(--nx-action-danger-base)",
+      "--nx-alert-destructive-foreground: var(--nx-color-feedback-danger-foreground)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-card-background: var(--nx-color-background-surface)",
@@ -160,7 +160,7 @@ describe("createStyleOutputs", () => {
       "--nx-checkbox-size-md: var(--nx-size-selection-control-md)",
     )
     expect(outputs.tokensCss).toContain(
-      "--nx-switch-thumb-translate-md: var(--nx-size-switch-thumb-translate-md)",
+      "--nx-switch-thumb-translate-md: var(--nx-size-thumb-md)",
     )
     expect(outputs.tokensCss).toContain(
       "--nx-tabs-tab-active-background: var(--nx-color-background-base)",
@@ -172,7 +172,8 @@ describe("createStyleOutputs", () => {
     expect(outputs.themeCss).toContain("--nx-color-background-base")
     expect(outputs.themeCss).toContain(".dark")
     expect(outputs.themeCss).toContain("@theme inline")
-    expect(outputs.themeCss).toContain("--color-nx-action-primary-base")
+    expect(outputs.themeCss).toContain("--nx-action-primary-base")
+    expect(outputs.themeCss).toContain("--nx-border-focus")
     expect(outputs.themeCss).toContain("--color-nx-background-base")
     expect(outputs.themeCss).toContain("--radius-nx-control")
     expect(outputs.themeCss).toContain("--spacing-nx-surface-md")
@@ -368,14 +369,23 @@ describe("createStyleOutputs", () => {
       $type: "fontFamily",
       $value: "{typography.family.sans}",
     })
+    expect(json.semantics?.typography?.control?.$type).toBe("typography")
+    expect(json.semantics?.typography?.control?.md?.fontSize).toEqual({
+      $type: "fontSize",
+      $value: "{font-size.sm}",
+    })
+    expect(json.semantics?.typography?.control?.md?.lineHeight).toEqual({
+      $type: "number",
+      $value: "{line-height.tight}",
+    })
     expect(json.brand).toEqual({
       brand: expect.objectContaining({
         color: expect.objectContaining({
           primary: expect.objectContaining({
-            base: { $value: "{color.orange.500}" },
+            base: { $value: "{color.orange.600}" },
           }),
           accent: expect.objectContaining({
-            base: { $value: "{color.blue.500}" },
+            base: { $value: "{color.spaceIndigo.500}" },
           }),
         }),
       }),
@@ -399,6 +409,9 @@ describe("createStyleOutputs", () => {
             base?: {
               $value?: unknown
             }
+            overlay?: {
+              $value?: unknown
+            }
           }
         }
       }
@@ -420,7 +433,11 @@ describe("createStyleOutputs", () => {
         colorScheme: "dark",
       },
     ])
-    expect(json.light?.color?.background?.base?.$value).toBe("{color.white}")
+    expect(json.light?.color?.background?.overlay?.$value).toMatchObject({
+      colorSpace: "oklch",
+      alpha: 0.15,
+    })
+    expect(json.light?.color?.background?.base).toBeUndefined()
     expect(json.light).not.toHaveProperty("selector")
     expect(json.light).not.toHaveProperty("colorScheme")
     expect(json.dark).not.toHaveProperty("selector")
@@ -471,12 +488,31 @@ describe("createStyleOutputs", () => {
       }
       primitives?: unknown
     }
+    const typographySemantics = JSON.parse(
+      outputs.tokenJsonFiles["tokens/dtcg/semantics/typography.tokens.json"] ??
+        "{}",
+    ) as {
+      typography?: {
+        control?: {
+          $type?: unknown
+          md?: {
+            fontSize?: {
+              $type?: unknown
+              $value?: unknown
+            }
+          }
+        }
+      }
+    }
     const lightTheme = JSON.parse(
       outputs.tokenJsonFiles["tokens/dtcg/themes/light.tokens.json"] ?? "{}",
     ) as {
       color?: {
         background?: {
           base?: {
+            $value?: unknown
+          }
+          overlay?: {
             $value?: unknown
           }
         }
@@ -489,6 +525,7 @@ describe("createStyleOutputs", () => {
     expect(fileNames).toContain("tokens/dtcg/primitives/spacing.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/brand/brand.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/semantics/color.tokens.json")
+    expect(fileNames).toContain("tokens/dtcg/semantics/typography.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/components/button.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/components/dialog.tokens.json")
     expect(fileNames).toContain("tokens/dtcg/themes/light.tokens.json")
@@ -502,12 +539,21 @@ describe("createStyleOutputs", () => {
       primitivesContent.indexOf('"50"'),
     )
     expect(primitives.semantics).toBeUndefined()
-    expect(brand.brand?.color?.primary?.base?.$value).toBe("{color.orange.500}")
+    expect(brand.brand?.color?.primary?.base?.$value).toBe("{color.orange.600}")
     expect(brand.primitives).toBeUndefined()
     expect(brand.semantics).toBeUndefined()
     expect(semantics.color?.background?.base?.$value).toBe("{color.white}")
     expect(semantics.primitives).toBeUndefined()
-    expect(lightTheme.color?.background?.base?.$value).toBe("{color.white}")
+    expect(typographySemantics.typography?.control?.$type).toBe("typography")
+    expect(typographySemantics.typography?.control?.md?.fontSize).toEqual({
+      $type: "fontSize",
+      $value: "{font-size.sm}",
+    })
+    expect(lightTheme.color?.background?.overlay?.$value).toMatchObject({
+      colorSpace: "oklch",
+      alpha: 0.15,
+    })
+    expect(lightTheme.color?.background?.base).toBeUndefined()
     expect(lightTheme.light).toBeUndefined()
   })
 
@@ -587,7 +633,7 @@ describe("createStyleOutputs", () => {
     expect(css).toContain("--nx-radius-control: var(--nx-radius-md)")
     expect(css).toContain("--nx-button-radius: var(--nx-radius-control)")
     expect(css).toContain(
-      "--nx-brand-color-primary-base: var(--nx-color-orange-500)",
+      "--nx-brand-color-primary-base: var(--nx-color-orange-600)",
     )
     expect(css).not.toContain("--nx-$schema")
     expect(css).not.toContain("--nx-$extensions")
@@ -654,5 +700,36 @@ describe("createStyleOutputs", () => {
     expect(tokenSource).not.toContain("var(--")
     expect(tokenSource).not.toContain("{line-height.6}")
     expect(tokenSource).toContain("{motion.duration.fast}")
+  })
+
+  test("leaves default style outputs unchanged when stripDeadPrimitives is off", () => {
+    const defaultOutputs = createStyleOutputs()
+    const explicitOutputs = createStyleOutputs({ stripDeadPrimitives: false })
+
+    expect(explicitOutputs.tokensCss).toBe(defaultOutputs.tokensCss)
+    expect(explicitOutputs.themeCss).toBe(defaultOutputs.themeCss)
+    expect(explicitOutputs.tokenJsonFiles).toEqual(
+      defaultOutputs.tokenJsonFiles,
+    )
+  })
+
+  test("omits dead primitive CSS variables when stripDeadPrimitives is on", () => {
+    const defaultOutputs = createStyleOutputs()
+    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true })
+
+    expect(strippedOutputs.tokensCss.length).toBeLessThan(
+      defaultOutputs.tokensCss.length,
+    )
+    expect(strippedOutputs.tokensCss).not.toContain("--nx-color-blue-100:")
+    expect(defaultOutputs.tokensCss).toContain("--nx-color-blue-100:")
+  })
+
+  test("omits dead primitive leaves from DTCG output when stripDeadPrimitives is on", () => {
+    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true })
+    const colorPrimitivesJson =
+      strippedOutputs.tokenJsonFiles["tokens/dtcg/primitives/color.tokens.json"]
+
+    expect(colorPrimitivesJson).toBeDefined()
+    expect(colorPrimitivesJson).not.toContain("blue-100")
   })
 })

@@ -1,12 +1,11 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const tabsComponentTokens: ComponentTokenGroup = {
-  component: "tabs",
+export const tabsComponentTokens = componentTokens("tabs", {
   gap: { $value: "{spacing.control.gap.lg}" },
   list: {
     background: { $value: "{color.background.subtle}" },
     radius: { $value: "{radius.control}" },
-    padding: { $value: "{spacing.1}" },
+    padding: { $value: "{spacing.control.y.xs}" },
   },
   tab: {
     background: { $type: "color", $value: "transparent" },
@@ -34,10 +33,11 @@ export const tabsComponentTokens: ComponentTokenGroup = {
   },
   focus: {
     $type: "dimension",
-    ringColor: { $value: "{color.border.focus}" },
+    ringColor: { $value: "{border.focus}" },
+    ringWidth: { $value: "{outline.width.inset}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

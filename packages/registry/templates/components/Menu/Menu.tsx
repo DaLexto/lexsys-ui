@@ -4,7 +4,6 @@
  * Reference Menu component implementation.
  */
 
-import { forwardRef } from "react"
 import { Check, ChevronRight } from "lucide-react"
 import { Menu as BaseMenu } from "@base-ui/react/menu"
 import type {
@@ -44,7 +43,7 @@ import {
   menuTriggerVariants,
   menuViewportVariants,
 } from "./Menu.variants"
-import { cn } from "@/lib/utils"
+import { mergeClassName } from "@/lib/utils"
 
 const Menu = <Payload = unknown,>(props: MenuProps<Payload>) => {
   return <BaseMenu.Root {...props} />
@@ -52,20 +51,15 @@ const Menu = <Payload = unknown,>(props: MenuProps<Payload>) => {
 
 Menu.displayName = "Menu"
 
-const MenuTrigger = forwardRef<HTMLButtonElement, MenuTriggerProps>(
-  ({ className, ...props }, ref) => {
-    const triggerClassName: MenuTriggerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuTriggerVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.Trigger ref={ref} className={triggerClassName} {...props} />
-    )
-  },
-)
+const MenuTrigger = ({ ref, className, ...props }: MenuTriggerProps) => {
+  return (
+    <BaseMenu.Trigger
+      ref={ref}
+      className={mergeClassName(menuTriggerVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuTrigger.displayName = "MenuTrigger"
 
@@ -75,268 +69,201 @@ const MenuPortal = (props: MenuPortalProps) => {
 
 MenuPortal.displayName = "MenuPortal"
 
-const MenuBackdrop = forwardRef<HTMLDivElement, MenuBackdropProps>(
-  ({ className, ...props }, ref) => {
-    const backdropClassName: MenuBackdropProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuBackdropVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.Backdrop ref={ref} className={backdropClassName} {...props} />
-    )
-  },
-)
+const MenuBackdrop = ({ ref, className, ...props }: MenuBackdropProps) => {
+  return (
+    <BaseMenu.Backdrop
+      ref={ref}
+      className={mergeClassName(menuBackdropVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuBackdrop.displayName = "MenuBackdrop"
 
-const MenuPositioner = forwardRef<HTMLDivElement, MenuPositionerProps>(
-  ({ className, ...props }, ref) => {
-    const positionerClassName: MenuPositionerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuPositionerVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.Positioner
-        ref={ref}
-        className={positionerClassName}
-        {...props}
-      />
-    )
-  },
-)
+const MenuPositioner = ({ ref, className, ...props }: MenuPositionerProps) => {
+  return (
+    <BaseMenu.Positioner
+      ref={ref}
+      className={mergeClassName(menuPositionerVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuPositioner.displayName = "MenuPositioner"
 
-const MenuPopup = forwardRef<HTMLDivElement, MenuPopupProps>(
-  ({ className, ...props }, ref) => {
-    const popupClassName: MenuPopupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuPopupVariants(), userClassName)
-    }
-
-    return <BaseMenu.Popup ref={ref} className={popupClassName} {...props} />
-  },
-)
+const MenuPopup = ({ ref, className, ...props }: MenuPopupProps) => {
+  return (
+    <BaseMenu.Popup
+      ref={ref}
+      className={mergeClassName(menuPopupVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuPopup.displayName = "MenuPopup"
 
-const MenuArrow = forwardRef<HTMLDivElement, MenuArrowProps>(
-  ({ className, ...props }, ref) => {
-    const arrowClassName: MenuArrowProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuArrowVariants(), userClassName)
-    }
-
-    return <BaseMenu.Arrow ref={ref} className={arrowClassName} {...props} />
-  },
-)
+const MenuArrow = ({ ref, className, ...props }: MenuArrowProps) => {
+  return (
+    <BaseMenu.Arrow
+      ref={ref}
+      className={mergeClassName(menuArrowVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuArrow.displayName = "MenuArrow"
 
-const MenuViewport = forwardRef<HTMLDivElement, MenuViewportProps>(
-  ({ className, ...props }, ref) => {
-    const viewportClassName: MenuViewportProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuViewportVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.Viewport ref={ref} className={viewportClassName} {...props} />
-    )
-  },
-)
+const MenuViewport = ({ ref, className, ...props }: MenuViewportProps) => {
+  return (
+    <BaseMenu.Viewport
+      ref={ref}
+      className={mergeClassName(menuViewportVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuViewport.displayName = "MenuViewport"
 
-const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
-  ({ className, ...props }, ref) => {
-    const itemClassName: MenuItemProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuItemVariants(), userClassName)
-    }
-
-    return <BaseMenu.Item ref={ref} className={itemClassName} {...props} />
-  },
-)
+const MenuItem = ({ ref, className, ...props }: MenuItemProps) => {
+  return (
+    <BaseMenu.Item
+      ref={ref}
+      className={mergeClassName(menuItemVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuItem.displayName = "MenuItem"
 
-const MenuLinkItem = forwardRef<Element, MenuLinkItemProps>(
-  ({ className, ...props }, ref) => {
-    const itemClassName: MenuLinkItemProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuItemVariants(), menuItemTextVariants(), userClassName)
-    }
-
-    return <BaseMenu.LinkItem ref={ref} className={itemClassName} {...props} />
-  },
-)
+const MenuLinkItem = ({ ref, className, ...props }: MenuLinkItemProps) => {
+  return (
+    <BaseMenu.LinkItem
+      ref={ref}
+      className={mergeClassName(menuItemVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuLinkItem.displayName = "MenuLinkItem"
 
-const MenuCheckboxItem = forwardRef<HTMLElement, MenuCheckboxItemProps>(
-  ({ className, ...props }, ref) => {
-    const itemClassName: MenuCheckboxItemProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuItemVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.CheckboxItem ref={ref} className={itemClassName} {...props} />
-    )
-  },
-)
+const MenuCheckboxItem = ({
+  ref,
+  className,
+  ...props
+}: MenuCheckboxItemProps) => {
+  return (
+    <BaseMenu.CheckboxItem
+      ref={ref}
+      className={mergeClassName(menuItemVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuCheckboxItem.displayName = "MenuCheckboxItem"
 
-const MenuCheckboxItemIndicator = forwardRef<
-  HTMLSpanElement,
-  MenuCheckboxItemIndicatorProps
->(({ className, children, ...props }, ref) => {
-  const indicatorClassName: MenuCheckboxItemIndicatorProps["className"] = (
-    state,
-  ) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(menuItemIndicatorVariants(), userClassName)
-  }
-
+const MenuCheckboxItemIndicator = ({
+  ref,
+  className,
+  children,
+  ...props
+}: MenuCheckboxItemIndicatorProps) => {
   return (
     <BaseMenu.CheckboxItemIndicator
       ref={ref}
-      className={indicatorClassName}
+      className={mergeClassName(menuItemIndicatorVariants(), className)}
       {...props}
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseMenu.CheckboxItemIndicator>
   )
-})
+}
 
 MenuCheckboxItemIndicator.displayName = "MenuCheckboxItemIndicator"
 
-const MenuRadioGroup = forwardRef<HTMLDivElement, MenuRadioGroupProps>(
-  ({ className, ...props }, ref) => {
-    const groupClassName: MenuRadioGroupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuGroupVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.RadioGroup ref={ref} className={groupClassName} {...props} />
-    )
-  },
-)
+const MenuRadioGroup = ({ ref, className, ...props }: MenuRadioGroupProps) => {
+  return (
+    <BaseMenu.RadioGroup
+      ref={ref}
+      className={mergeClassName(menuGroupVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuRadioGroup.displayName = "MenuRadioGroup"
 
-const MenuRadioItem = forwardRef<HTMLElement, MenuRadioItemProps>(
-  ({ className, ...props }, ref) => {
-    const itemClassName: MenuRadioItemProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuItemVariants(), userClassName)
-    }
-
-    return <BaseMenu.RadioItem ref={ref} className={itemClassName} {...props} />
-  },
-)
+const MenuRadioItem = ({ ref, className, ...props }: MenuRadioItemProps) => {
+  return (
+    <BaseMenu.RadioItem
+      ref={ref}
+      className={mergeClassName(menuItemVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuRadioItem.displayName = "MenuRadioItem"
 
-const MenuRadioItemIndicator = forwardRef<
-  HTMLSpanElement,
-  MenuRadioItemIndicatorProps
->(({ className, children, ...props }, ref) => {
-  const indicatorClassName: MenuRadioItemIndicatorProps["className"] = (
-    state,
-  ) => {
-    const userClassName =
-      typeof className === "function" ? className(state) : className
-
-    return cn(menuItemIndicatorVariants(), userClassName)
-  }
-
+const MenuRadioItemIndicator = ({
+  ref,
+  className,
+  children,
+  ...props
+}: MenuRadioItemIndicatorProps) => {
   return (
     <BaseMenu.RadioItemIndicator
       ref={ref}
-      className={indicatorClassName}
+      className={mergeClassName(menuItemIndicatorVariants(), className)}
       {...props}
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseMenu.RadioItemIndicator>
   )
-})
+}
 
 MenuRadioItemIndicator.displayName = "MenuRadioItemIndicator"
 
-const MenuGroup = forwardRef<HTMLDivElement, MenuGroupProps>(
-  ({ className, ...props }, ref) => {
-    const groupClassName: MenuGroupProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuGroupVariants(), userClassName)
-    }
-
-    return <BaseMenu.Group ref={ref} className={groupClassName} {...props} />
-  },
-)
+const MenuGroup = ({ ref, className, ...props }: MenuGroupProps) => {
+  return (
+    <BaseMenu.Group
+      ref={ref}
+      className={mergeClassName(menuGroupVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuGroup.displayName = "MenuGroup"
 
-const MenuGroupLabel = forwardRef<HTMLDivElement, MenuGroupLabelProps>(
-  ({ className, ...props }, ref) => {
-    const labelClassName: MenuGroupLabelProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuGroupLabelVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.GroupLabel ref={ref} className={labelClassName} {...props} />
-    )
-  },
-)
+const MenuGroupLabel = ({ ref, className, ...props }: MenuGroupLabelProps) => {
+  return (
+    <BaseMenu.GroupLabel
+      ref={ref}
+      className={mergeClassName(menuGroupLabelVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuGroupLabel.displayName = "MenuGroupLabel"
 
-const MenuSeparator = forwardRef<HTMLDivElement, MenuSeparatorProps>(
-  ({ className, ...props }, ref) => {
-    const separatorClassName: MenuSeparatorProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuSeparatorVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.Separator ref={ref} className={separatorClassName} {...props} />
-    )
-  },
-)
+const MenuSeparator = ({ ref, className, ...props }: MenuSeparatorProps) => {
+  return (
+    <BaseMenu.Separator
+      ref={ref}
+      className={mergeClassName(menuSeparatorVariants(), className)}
+      {...props}
+    />
+  )
+}
 
 MenuSeparator.displayName = "MenuSeparator"
 
@@ -346,29 +273,25 @@ const MenuSubmenuRoot = (props: MenuSubmenuRootProps) => {
 
 MenuSubmenuRoot.displayName = "MenuSubmenuRoot"
 
-const MenuSubmenuTrigger = forwardRef<HTMLElement, MenuSubmenuTriggerProps>(
-  ({ className, children, ...props }, ref) => {
-    const triggerClassName: MenuSubmenuTriggerProps["className"] = (state) => {
-      const userClassName =
-        typeof className === "function" ? className(state) : className
-
-      return cn(menuItemVariants(), userClassName)
-    }
-
-    return (
-      <BaseMenu.SubmenuTrigger
-        ref={ref}
-        className={triggerClassName}
-        {...props}
-      >
-        <span className={menuItemTextVariants()}>{children}</span>
-        <span className={menuSubmenuTriggerIconVariants()}>
-          <ChevronRight aria-hidden="true" size={14} />
-        </span>
-      </BaseMenu.SubmenuTrigger>
-    )
-  },
-)
+const MenuSubmenuTrigger = ({
+  ref,
+  className,
+  children,
+  ...props
+}: MenuSubmenuTriggerProps) => {
+  return (
+    <BaseMenu.SubmenuTrigger
+      ref={ref}
+      className={mergeClassName(menuTriggerVariants(), className)}
+      {...props}
+    >
+      <span className={menuItemTextVariants()}>{children}</span>
+      <span className={menuSubmenuTriggerIconVariants()}>
+        <ChevronRight aria-hidden="true" size={14} />
+      </span>
+    </BaseMenu.SubmenuTrigger>
+  )
+}
 
 MenuSubmenuTrigger.displayName = "MenuSubmenuTrigger"
 

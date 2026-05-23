@@ -1,14 +1,13 @@
-import type { ComponentTokenGroup } from "../types"
+import { componentTokens } from "../types/authoring"
 
-export const selectComponentTokens: ComponentTokenGroup = {
-  component: "select",
+export const selectComponentTokens = componentTokens("select", {
   background: { $value: "{color.background.base}" },
   foreground: { $value: "{color.text.primary}" },
   placeholder: {
     $type: "color",
     color: { $value: "{color.text.secondary}" },
   },
-  borderColor: { $value: "{color.border.default}" },
+  borderColor: { $value: "{border.default}" },
   radius: { $value: "{radius.control}" },
   height: {
     $type: "dimension",
@@ -55,8 +54,12 @@ export const selectComponentTokens: ComponentTokenGroup = {
   popup: {
     background: { $value: "{color.background.base}" },
     foreground: { $value: "{color.text.primary}" },
-    borderColor: { $value: "{color.border.default}" },
-    maxHeight: { $value: "{size.16}" },
+    borderColor: { $value: "{border.default}" },
+    maxHeight: { $value: "{size.area.swipe.md}" },
+    shadow: { $value: "{elevation.shadow.floating.boxShadow}" },
+  },
+  positioner: {
+    zIndex: { $value: "{elevation.floating.zIndex}" },
   },
   list: {
     $type: "dimension",
@@ -118,19 +121,23 @@ export const selectComponentTokens: ComponentTokenGroup = {
   backdrop: {
     $type: "color",
     background: { $value: "{color.text.primary}" },
+    zIndex: { $value: "{elevation.backdrop.zIndex}" },
   },
   focus: {
-    borderColor: { $value: "{color.border.focus}" },
-    ringColor: { $value: "{color.border.focus}" },
+    borderColor: { $value: "{border.focus}" },
+    ringColor: { $value: "{border.focus}" },
     ringOffsetColor: { $value: "{color.background.base}" },
+    ringWidth: { $value: "{outline.width.focus}" },
+    ringOffset: { $value: "{outline.offset.focus}" },
   },
   invalid: {
     $type: "color",
     borderColor: { $value: "{action.danger.base}" },
     ringColor: { $value: "{action.danger.base}" },
+    ringWidth: { $value: "{outline.width.focus}" },
   },
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-}
+})

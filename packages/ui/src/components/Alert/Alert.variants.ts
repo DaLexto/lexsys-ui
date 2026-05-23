@@ -7,19 +7,18 @@
 import { cva } from "class-variance-authority"
 
 const neutralTone =
-  "[--nx-alert-background:var(--nx-alert-neutral-background)] [--nx-alert-foreground:var(--nx-alert-neutral-foreground)] [--nx-alert-border-color:var(--nx-alert-neutral-border-color)]"
+  "border-(--nx-alert-neutral-border-color) bg-(--nx-alert-neutral-background) text-(--nx-alert-neutral-foreground)"
 
 const primaryTone =
-  "[--nx-alert-background:var(--nx-alert-primary-background)] [--nx-alert-foreground:var(--nx-alert-primary-foreground)] [--nx-alert-border-color:var(--nx-alert-primary-border-color)]"
+  "border-(--nx-alert-primary-border-color) bg-(--nx-alert-primary-background) text-(--nx-alert-primary-foreground)"
 
 const destructiveTone =
-  "[--nx-alert-background:var(--nx-alert-destructive-background)] [--nx-alert-foreground:var(--nx-alert-destructive-foreground)] [--nx-alert-border-color:var(--nx-alert-destructive-border-color)]"
+  "border-(--nx-alert-destructive-border-color) bg-(--nx-alert-destructive-background) text-(--nx-alert-destructive-foreground)"
 
 export const alertVariants = cva(
   [
-    "grid gap-[var(--nx-alert-gap)] rounded-[var(--nx-alert-radius)] border p-[var(--nx-alert-padding)]",
-    "border-[var(--nx-alert-border-color)] bg-[var(--nx-alert-background)] text-[var(--nx-alert-foreground)]",
-    "transition-colors duration-[var(--nx-alert-transition-duration)] ease-[var(--nx-alert-transition-easing)]",
+    "grid gap-(--nx-alert-gap) rounded-(--nx-alert-radius) border p-(--nx-alert-padding)",
+    "transition-colors duration-(--nx-alert-transition-duration) ease-(--nx-alert-transition-easing)",
   ].join(" "),
   {
     variants: {
@@ -36,7 +35,7 @@ export const alertVariants = cva(
 )
 
 export const alertTitleClassName =
-  "text-[length:var(--nx-alert-title-font-size)] font-[var(--nx-alert-title-font-weight)] leading-[var(--nx-alert-title-font-line-height)]"
+  "text-(length:--nx-alert-title-font-size) font-(--nx-alert-title-font-weight) leading-(--nx-alert-title-font-line-height)"
 
 export const alertDescriptionClassName =
-  "text-[length:var(--nx-alert-description-font-size)] leading-[var(--nx-alert-description-font-line-height)] text-[var(--nx-alert-description-foreground)]"
+  "text-(length:--nx-alert-description-font-size) leading-(--nx-alert-description-font-line-height) text-(--nx-alert-description-foreground)"

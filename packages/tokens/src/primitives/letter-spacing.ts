@@ -20,10 +20,9 @@
  * - Letter spacing tokens use the DTCG `letterSpacing` type
  */
 
-import type { PrimitiveTokenGroup } from "../types"
+import { primitiveTokens } from "../types/authoring"
 
-export const letterSpacingPrimitives: PrimitiveTokenGroup = {
-  name: "letter-spacing",
+export const letterSpacingPrimitives = primitiveTokens("letter-spacing", {
   $type: "letterSpacing",
   $description:
     "Raw letter spacing scale used as the source for typography semantics.",
@@ -34,4 +33,4 @@ export const letterSpacingPrimitives: PrimitiveTokenGroup = {
   wide: { $value: { value: 0.025, unit: "em" } },
   wider: { $value: { value: 0.05, unit: "em" } },
   widest: { $value: { value: 0.1, unit: "em" } },
-}
+})

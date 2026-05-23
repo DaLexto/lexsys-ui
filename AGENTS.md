@@ -107,14 +107,15 @@ Rules:
 - CSS must be generated, never handwritten
 
 Current build-failing validation covers missing references, circular references,
-missing preset-required theme modes, and invalid DTCG token leaf shape when
-importing token JSON.
+missing preset-required theme modes, invalid DTCG token leaf shape, and token
+layer contract violations (component-to-primitive, component-to-brand,
+component-to-theme, semantic-to-component, theme-to-component, and brand tokens
+with component-specific intent). Layer validation runs in
+`validateStyleTokenInput` via `validateTokenLayerContractsStrict`.
 
-Target architecture violations that must become build-failing before the token
-contract is considered stable include component-to-primitive references,
-component-to-brand references, component-to-theme references,
-semantic-to-component references, theme-to-component references, and brand tokens
-with component-specific intent.
+Target capabilities not yet build-failing include color math, contrast
+validation, composite token expansion, and expression evaluation. See
+`docs/RESOLVER_EVOLUTION.md`.
 
 ---
 

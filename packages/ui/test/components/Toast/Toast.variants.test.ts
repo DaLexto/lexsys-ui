@@ -14,7 +14,7 @@ describe("toastVariants", () => {
     expect(toastVariants()).toContain("data-[type=destructive]")
     expect(toastVariants()).toContain("var(--toast-swipe-movement-x,0px)")
     expect(toastActionVariants()).toContain(
-      "bg-[var(--nx-toast-action-hover-background)]",
+      "bg-(--nx-toast-action-hover-background)",
     )
   })
 })

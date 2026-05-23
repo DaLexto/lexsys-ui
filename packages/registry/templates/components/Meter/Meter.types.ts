@@ -1,3 +1,4 @@
+import type { Ref } from "react"
 /**
  * Meter.types.ts
  *
@@ -11,6 +12,7 @@ export interface MeterProps extends Omit<
   BaseMeter.Root.Props,
   "className" | "size"
 > {
+  ref?: Ref<HTMLDivElement>
   size?: "sm" | "md" | "lg"
   label?: ReactNode
   showValue?: boolean
@@ -36,16 +38,6 @@ export interface MeterIndicatorProps extends Omit<
   className?: BaseMeter.Indicator.Props["className"]
 }
 
-export interface MeterValueProps extends Omit<
-  BaseMeter.Value.Props,
-  "className"
-> {
-  className?: BaseMeter.Value.Props["className"]
-}
+export type MeterValueProps = BaseMeter.Value.Props
 
-export interface MeterLabelProps extends Omit<
-  BaseMeter.Label.Props,
-  "className"
-> {
-  className?: BaseMeter.Label.Props["className"]
-}
+export type MeterLabelProps = BaseMeter.Label.Props

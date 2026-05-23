@@ -35,13 +35,13 @@ Core invariants:
 
 ## Monorepo packages
 
-| Package | npm name | Role |
-|---------|----------|------|
-| `packages/tokens` | `@neurex/tokens` | Design token source of truth; resolver; CSS + DTCG generators |
-| `packages/ui` | `@neurex/ui` | Source/reference React components (not the final distributed form) |
-| `packages/registry` | `@neurex/registry` | Registry items, templates, utilities, styles, and metadata validator |
-| `packages/cli` | `neurex` (bin) | CLI installer; reads `@neurex/registry`; orchestrates install into consumer projects |
-| `apps/playground` | `@neurex/playground` | Local Vite app for visual verification of tokens, components, and theming |
+| Package             | npm name             | Role                                                                                 |
+| ------------------- | -------------------- | ------------------------------------------------------------------------------------ |
+| `packages/tokens`   | `@neurex/tokens`     | Design token source of truth; resolver; CSS + DTCG generators                        |
+| `packages/ui`       | `@neurex/ui`         | Source/reference React components (not the final distributed form)                   |
+| `packages/registry` | `@neurex/registry`   | Registry items, templates, utilities, styles, and metadata validator                 |
+| `packages/cli`      | `neurex` (bin)       | CLI installer; reads `@neurex/registry`; orchestrates install into consumer projects |
+| `apps/playground`   | `@neurex/playground` | Local Vite app for visual verification of tokens, components, and theming            |
 
 Package boundaries MUST be respected. See [AGENTS.md](../AGENTS.md) for package
 contracts and `package.json` exports for each package's public API.
@@ -83,9 +83,11 @@ primitives → brand → semantics → component tokens
            presets are configuration, not a token layer
 ```
 
-CSS output uses generated CSS variables: `var(--nx-<component>-<property>)`.
-Component variants in `*.variants.ts` reference these variables; they MUST NOT
-use raw Tailwind palette values.
+CSS output uses generated CSS variables as `--nx-<token-path>`. Component
+variants in `*.variants.ts` reference them through Tailwind v4 canonical syntax
+(for example `bg-(--nx-button-primary-background)`,
+`ring-(length:--nx-button-focus-ring-width)`). They MUST NOT use raw Tailwind
+palette values or the legacy `[var(--nx-*)]` arbitrary form.
 
 The current preset is `neurex` (`Neurex Default`), brand `neurex`, with
 `light` (`:root`) and `dark` (`.dark`) theme modes.
@@ -102,17 +104,17 @@ Canonical token rules are owned by [TOKENS.md](TOKENS.md).
 Every installable item is declared as a `RegistryItem` in
 `packages/registry/src/items/`. Required fields:
 
-| Field | Purpose |
-|-------|---------|
-| `name` / `canonicalName` | Registry key + PascalCase folder name |
-| `version` | Item version (tracked in `neurex.config.json` after install) |
-| `type` / `category` | `component`, `utility`, or `style`; one of 8 categories |
-| `files` | Template paths relative to `packages/registry/templates/` |
-| `dependencies` | npm packages the CLI installs into the consumer project |
-| `registryDependencies` | Other registry items that must be installed first |
-| `utilities` | Shared utilities (e.g. `cn`) |
-| `styles` | Style manifests (e.g. `theme`) |
-| `target` | Default install path in the consumer project |
+| Field                    | Purpose                                                      |
+| ------------------------ | ------------------------------------------------------------ |
+| `name` / `canonicalName` | Registry key + PascalCase folder name                        |
+| `version`                | Item version (tracked in `neurex.config.json` after install) |
+| `type` / `category`      | `component`, `utility`, or `style`; one of 8 categories      |
+| `files`                  | Template paths relative to `packages/registry/templates/`    |
+| `dependencies`           | npm packages the CLI installs into the consumer project      |
+| `registryDependencies`   | Other registry items that must be installed first            |
+| `utilities`              | Shared utilities (e.g. `cn`)                                 |
+| `styles`                 | Style manifests (e.g. `theme`)                               |
+| `target`                 | Default install path in the consumer project                 |
 
 Registry items MAY declare `remoteFiles` for fetching from a remote source.
 The registry validator checks for missing references and unknown manifests at
@@ -124,19 +126,19 @@ build time.
 
 ### Supported commands
 
-| Command | Description |
-|---------|-------------|
-| `neurex init` | Initialize Neurex in an existing project or scaffold a new Vite+React app |
-| `neurex add [items...]` | Install one or more registry items; interactive multiselect when no args |
-| `neurex update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes` |
-| `neurex update styles` | Update theme/token CSS files only |
-| `neurex list [--json]` | List available registry items |
-| `neurex status` | Show installed component versions |
-| `neurex doctor` | Check project health (config, paths, registry connectivity) |
-| `neurex uninstall [items...]` | Remove tracked components from config |
-| `neurex registry` | Inspect the active registry source |
-| `neurex version` | Print CLI version |
-| `neurex help` | Show usage |
+| Command                             | Description                                                               |
+| ----------------------------------- | ------------------------------------------------------------------------- |
+| `neurex init`                       | Initialize Neurex in an existing project or scaffold a new Vite+React app |
+| `neurex add [items...]`             | Install one or more registry items; interactive multiselect when no args  |
+| `neurex update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes`       |
+| `neurex update styles`              | Update theme/token CSS files only                                         |
+| `neurex list [--json]`              | List available registry items                                             |
+| `neurex status`                     | Show installed component versions                                         |
+| `neurex doctor`                     | Check project health (config, paths, registry connectivity)               |
+| `neurex uninstall [items...]`       | Remove tracked components from config                                     |
+| `neurex registry`                   | Inspect the active registry source                                        |
+| `neurex version`                    | Print CLI version                                                         |
+| `neurex help`                       | Show usage                                                                |
 
 ### Registry source
 
@@ -263,11 +265,12 @@ invocation.
 
 ## Related documents
 
-| Document | Owns |
-|----------|------|
-| [TOKENS.md](TOKENS.md) | Token layer rules, resolver, CSS generation, validation |
-| [CLI.md](CLI.md) | Full CLI command reference, flags, config options |
-| [STYLEGUIDE.md](STYLEGUIDE.md) | Component naming, file layout, CSS class conventions |
-| [STYLE.md](STYLE.md) | Coding style, TypeScript, React, import/export rules |
-| [DEPLOY.md](DEPLOY.md) | Build pipeline, publish-readiness, artifact contract |
-| [AGENTS.md](../AGENTS.md) | Package contracts, architectural invariants, agent guidance |
+| Document                       | Owns                                                        |
+| ------------------------------ | ----------------------------------------------------------- |
+| [TOKENS.md](TOKENS.md)         | Token layer rules, resolver, CSS generation, validation     |
+| [RESOLVER_EVOLUTION.md](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work |
+| [CLI.md](CLI.md)               | Full CLI command reference, flags, config options           |
+| [STYLEGUIDE.md](STYLEGUIDE.md) | Component naming, file layout, CSS class conventions        |
+| [STYLE.md](STYLE.md)           | Coding style, TypeScript, React, import/export rules        |
+| [DEPLOY.md](DEPLOY.md)         | Build pipeline, publish-readiness, artifact contract        |
+| [AGENTS.md](../AGENTS.md)      | Package contracts, architectural invariants, agent guidance |
