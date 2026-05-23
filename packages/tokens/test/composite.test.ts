@@ -102,6 +102,7 @@ describe("composite resolver", () => {
           offsetY: { $value: "8px" },
           blur: { $value: "16px" },
           spread: { $value: "0" },
+          inset: { $value: "" },
           boxShadow: { $value: "0 8px 16px 0 oklch(0 0 0 / 0.12)" },
         },
       },
@@ -115,6 +116,7 @@ describe("composite resolver", () => {
 
     const paths = collectCompositeAtomicPaths(shadowFixture)
     expect(paths.map((entry) => entry.path)).toEqual([
+      "shadow.floating.inset",
       "shadow.floating.color",
       "shadow.floating.offsetX",
       "shadow.floating.offsetY",

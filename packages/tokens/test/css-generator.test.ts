@@ -185,6 +185,7 @@ describe("css vars generator", () => {
             offsetY: { $value: "8px" },
             blur: { $value: "16px" },
             spread: { $value: "0" },
+            inset: { $value: "" },
             boxShadow: { $value: "0 8px 16px 0 oklch(0 0 0 / 0.12)" },
           },
         },
@@ -201,7 +202,7 @@ describe("css vars generator", () => {
     expect(entries).toContainEqual({
       name: "elevation-shadow-floating-box-shadow",
       value:
-        "var(--nx-elevation-shadow-floating-offset-x) var(--nx-elevation-shadow-floating-offset-y) var(--nx-elevation-shadow-floating-blur) var(--nx-elevation-shadow-floating-spread) var(--nx-elevation-shadow-floating-color)",
+        "var(--nx-elevation-shadow-floating-inset) var(--nx-elevation-shadow-floating-offset-x) var(--nx-elevation-shadow-floating-offset-y) var(--nx-elevation-shadow-floating-blur) var(--nx-elevation-shadow-floating-spread) var(--nx-elevation-shadow-floating-color)",
     })
   })
 
@@ -221,6 +222,7 @@ describe("css vars generator", () => {
           offsetY: { $value: "8px" },
           blur: { $value: "16px" },
           spread: { $value: "0" },
+          inset: { $value: "" },
           boxShadow: { $value: "0 8px 16px rgb(0 0 0 / 0.12)" },
         },
       },
@@ -231,7 +233,38 @@ describe("css vars generator", () => {
     expect(entries).toContainEqual({
       name: "shadow-4-box-shadow",
       value:
-        "var(--nx-shadow-4-offset-x) var(--nx-shadow-4-offset-y) var(--nx-shadow-4-blur) var(--nx-shadow-4-spread) var(--nx-shadow-4-color)",
+        "var(--nx-shadow-4-inset) var(--nx-shadow-4-offset-x) var(--nx-shadow-4-offset-y) var(--nx-shadow-4-blur) var(--nx-shadow-4-spread) var(--nx-shadow-4-color)",
+    })
+  })
+
+  it("composes inset primitive shadow boxShadow from composite slot CSS variables", () => {
+    const tokens: TokenTree = {
+      shadow: {
+        $type: "shadow",
+        inner: {
+          color: {
+            $value: {
+              colorSpace: "oklch",
+              components: [0, 0, 0],
+              alpha: 0.08,
+            },
+          },
+          inset: { $value: "inset" },
+          offsetX: { $value: "0" },
+          offsetY: { $value: "1px" },
+          blur: { $value: "2px" },
+          spread: { $value: "0" },
+          boxShadow: { $value: "inset 0 1px 2px rgb(0 0 0 / 0.08)" },
+        },
+      },
+    }
+
+    const entries = createCssVariableEntries(tokens, generatorOptions)
+
+    expect(entries).toContainEqual({
+      name: "shadow-inner-box-shadow",
+      value:
+        "var(--nx-shadow-inner-inset) var(--nx-shadow-inner-offset-x) var(--nx-shadow-inner-offset-y) var(--nx-shadow-inner-blur) var(--nx-shadow-inner-spread) var(--nx-shadow-inner-color)",
     })
   })
 
