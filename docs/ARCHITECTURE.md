@@ -55,8 +55,10 @@ ESLint, Prettier. See [DEPLOY.md](DEPLOY.md) for build and publish rules.
 
 ## Component file contract
 
-Every component in `packages/ui/src/components/` and every installed template
-in `packages/registry/templates/components/` follows this layout:
+Reference components in `packages/ui/src/components/` and install templates in
+`packages/registry/templates/` follow this layout. Monorepo folders use three
+layers (`primitives/`, `blocks/`, `templates/`); consumer installs flatten to
+`src/components/ui/<CanonicalName>/`. See [ATOMIC_DESIGN.md](ATOMIC_DESIGN.md).
 
 ```txt
 ComponentName/
@@ -72,17 +74,26 @@ Base UI is an implementation detail — it MUST NOT define the public API shape.
 See [STYLEGUIDE.md](STYLEGUIDE.md) and [STYLE.md](STYLE.md) for naming and
 coding conventions.
 
-### UI composition layers (Atomic Design)
+### UI composition layers
 
-Neurex UI evolves along Atomic Design layers. **Atoms** (registry components,
-tokens, utilities) are shipped today. **Molecules, organisms, and templates** are
-planned as optional registry blocks; **pages** remain consumer-owned. Higher blocks
-compose lower blocks and atoms only — scalable upward, no layer skipping. CLI
-`neurex add` resolves `registryDependencies` transitively (blocks + atoms + shared
-resources).
+Neurex uses a **three-layer** reference model in the monorepo:
 
-Full layer mapping, compositional rules, dependency install contract, ownership, and
-sequencing: [ATOMIC_DESIGN.md](ATOMIC_DESIGN.md).
+| Layer      | Monorepo path                            | Consumer install path       |
+| ---------- | ---------------------------------------- | --------------------------- |
+| Primitives | `packages/ui/src/components/primitives/` | `src/components/ui/<Name>/` |
+| Blocks     | `packages/ui/src/components/blocks/`     | `src/components/ui/<Name>/` |
+| Templates  | `packages/ui/src/components/templates/`  | `src/components/ui/<Name>/` |
+
+**Shipped today:** 32 primitives, pilot blocks (FormField, Sidebar), pilot
+template (DashboardShell). **Pages** remain consumer-owned.
+
+The CLI installs from `item.target` (flat `src/components/ui/`) and rewrites
+cross-layer imports at install time so consumer projects do not mirror monorepo
+folder depth. `registryDependencies` resolve transitively.
+
+Full layer rules, composition validator, and optimization backlog:
+[ATOMIC_DESIGN.md](ATOMIC_DESIGN.md), [REGISTRY.md](REGISTRY.md),
+[REVIEW_TODO.md § Blocks/templates optimization backlog](REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 ---
 
@@ -118,17 +129,17 @@ Canonical token rules are owned by [TOKENS.md](TOKENS.md).
 Every installable item is declared as a `RegistryItem` in
 `packages/registry/src/items/`. Required fields:
 
-| Field                    | Purpose                                                      |
-| ------------------------ | ------------------------------------------------------------ |
-| `name` / `canonicalName` | Registry key + PascalCase folder name                        |
-| `version`                | Item version (tracked in `neurex.config.json` after install) |
-| `type` / `category`      | `component`, `utility`, or `style`; one of 8 categories      |
-| `files`                  | Template paths relative to `packages/registry/templates/`    |
-| `dependencies`           | npm packages the CLI installs into the consumer project      |
-| `registryDependencies`   | Other registry items that must be installed first            |
-| `utilities`              | Shared utilities (e.g. `cn`)                                 |
-| `styles`                 | Style manifests (e.g. `theme`)                               |
-| `target`                 | Default install path in the consumer project                 |
+| Field                    | Purpose                                                                                 |
+| ------------------------ | --------------------------------------------------------------------------------------- |
+| `name` / `canonicalName` | Registry key + PascalCase folder name                                                   |
+| `version`                | Item version (tracked in `neurex.config.json` after install)                            |
+| `type` / `category`      | `component`, `block`, `utility`, or `style`; category includes `blocks`, `layout`, etc. |
+| `files`                  | Template paths relative to `packages/registry/templates/`                               |
+| `dependencies`           | npm packages the CLI installs into the consumer project                                 |
+| `registryDependencies`   | Other registry items that must be installed first                                       |
+| `utilities`              | Shared utilities (e.g. `cn`)                                                            |
+| `styles`                 | Style manifests (e.g. `theme`)                                                          |
+| `target`                 | Default install path in the consumer project                                            |
 
 Registry items MAY declare `remoteFiles` for fetching from a remote source.
 The registry validator checks for missing references and unknown manifests at
@@ -232,8 +243,8 @@ project/
 └── neurex.config.json                   ← Neurex project config
 ```
 
-Paths are configurable via `neurex.config.json` (`componentsPath`,
-`utilitiesPath`, `stylesPath`). Import aliases default to `@/components/ui`,
+Paths are configurable via `neurex.config.json` (`paths.components`,
+`paths.utilities`, `paths.styles`). Import aliases default to `@/components/ui`,
 `@/lib/utils`, `@/lib`, `@/hooks`.
 
 ---
@@ -245,13 +256,15 @@ Paths are configurable via `neurex.config.json` (`componentsPath`,
 ```json
 {
   "style": "default",
-  "componentsPath": "src/components/ui",
-  "utilitiesPath": "src/lib",
-  "stylesPath": "styles",
+  "paths": {
+    "components": "src/components/ui",
+    "utilities": "src/lib",
+    "styles": "styles"
+  },
   "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
+    "components": "@/components/ui",
     "ui": "@/components/ui",
+    "utils": "@/lib/utils",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
@@ -276,9 +289,10 @@ neurex add button
   5. Install missing npm dependencies (npm / pnpm / yarn detected from lockfile)
   6. Install shared utilities (skip if identical, conflict if user-modified)
   7. Install token/theme CSS files (skip generated-file header check)
-  8. Copy component template files to componentsPath/Button/
-  9. Record item version in installed map; save config
- 10. Print created / updated / skipped / conflicted summary
+  8. Copy template files to paths.components/<CanonicalName>/
+  9. Rewrite cross-layer imports for flat consumer layout (blocks/templates)
+ 10. Record item version in installed map; save config
+ 11. Print created / updated / skipped / conflicted summary
 ```
 
 ---
@@ -294,12 +308,13 @@ invocation.
 
 ## Related documents
 
-| Document                                       | Owns                                                        |
-| ---------------------------------------------- | ----------------------------------------------------------- |
-| [TOKENS.md](TOKENS.md)                         | Token layer rules, resolver, CSS generation, validation     |
-| [RESOLVER_EVOLUTION.md](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work |
-| [CLI.md](CLI.md)                               | Full CLI command reference, flags, config options           |
-| [STYLEGUIDE.md](STYLEGUIDE.md)                 | Component naming, file layout, CSS class conventions        |
-| [STYLE.md](STYLE.md)                           | Coding style, TypeScript, React, import/export rules        |
-| [DEPLOY.md](DEPLOY.md)                         | Build pipeline, publish-readiness, artifact contract        |
-| [AGENTS.md](../AGENTS.md)                      | Package contracts, architectural invariants, agent guidance |
+| Document                                       | Owns                                                          |
+| ---------------------------------------------- | ------------------------------------------------------------- |
+| [TOKENS.md](TOKENS.md)                         | Token layer rules, resolver, CSS generation, validation       |
+| [RESOLVER_EVOLUTION.md](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work   |
+| [CLI.md](CLI.md)                               | Full CLI command reference, flags, config options             |
+| [STYLEGUIDE.md](STYLEGUIDE.md)                 | Component naming, file layout, CSS class conventions          |
+| [STYLE.md](STYLE.md)                           | Coding style, TypeScript, React, import/export rules          |
+| [DEPLOY.md](DEPLOY.md)                         | Build pipeline, publish-readiness, artifact contract          |
+| [ATOMIC_DESIGN.md](ATOMIC_DESIGN.md)           | UI layer model, composition rules, monorepo vs consumer paths |
+| [AGENTS.md](../AGENTS.md)                      | Package contracts, architectural invariants, agent guidance   |
