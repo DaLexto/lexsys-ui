@@ -241,9 +241,9 @@ Prefer root aliases in docs and commit messages when they exist. Use `--filter` 
 
 ## Related docs
 
-| Document                                   | Owns                                                             |
-| ------------------------------------------ | ---------------------------------------------------------------- |
-| [TESTING.md](./TESTING.md)                 | Test file inventory, render-test conventions, scenario checklist |
-| [CLI.md](./CLI.md)                         | Consumer `neurex` CLI commands (not monorepo scripts)            |
-| [DEPLOY.md](./DEPLOY.md)                   | Release and publish contract                                     |
-| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common failure fixes (links here for command names)              |
+| Document                                   | Owns                                                                       |
+| ------------------------------------------ | -------------------------------------------------------------------------- |
+| [TESTING.md](./TESTING.md)                 | Test file inventory, Vitest config, IDE extension, render-test conventions |
+| [CLI.md](./CLI.md)                         | Consumer `neurex` CLI commands (not monorepo scripts)                      |
+| [DEPLOY.md](./DEPLOY.md)                   | Release and publish contract                                               |
+| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common failure fixes (links here for command names)                        |

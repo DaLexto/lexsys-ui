@@ -3,7 +3,7 @@
 **Audience:** Maintainers, contributors, and agents
 **Type:** Verification workflow reference
 **Source of truth for:** Test coverage by package, when to run which checks
-**Verified against:** `packages/*/test/`, `package.json` scripts
+**Verified against:** `packages/*/test/`, `packages/*/vitest.config.ts`, `package.json` scripts
 
 Command names and sync workflows: [SCRIPTS.md](./SCRIPTS.md).
 
@@ -125,6 +125,29 @@ pnpm registry:check   # verify no drift (fails if templates are out of date)
 ```
 
 Run `registry:check` before merging any PR that changes `packages/ui` components.
+
+---
+
+## Vitest configuration
+
+Each test package owns a colocated [`vitest.config.ts`](../packages/cli/vitest.config.ts) using `defineProject` and `root: import.meta.dirname`:
+
+| Package             | Config             | Test environment            |
+| ------------------- | ------------------ | --------------------------- |
+| `packages/cli`      | `vitest.config.ts` | `node`                      |
+| `packages/tokens`   | `vitest.config.ts` | `node`                      |
+| `packages/registry` | `vitest.config.ts` | `node`                      |
+| `packages/ui`       | `vitest.config.ts` | `jsdom` (+ `test/setup.ts`) |
+
+Package `test` scripts still run via `vitest run test --pool threads` (unchanged for CI and turbo).
+
+### IDE test explorer (Vitest extension)
+
+Install the [Vitest VS Code extension](https://marketplace.visualstudio.com/items?itemName=vitest.explorer). It auto-discovers each `packages/*/vitest.config.ts` from the repo root — no root `vitest.workspace.ts` (removed in Vitest 4; use per-project configs instead).
+
+Use the **Testing** sidebar or gutter icons to run/debug individual tests while editing.
+
+`@vitest/ui` (browser dashboard) is intentionally not configured — the IDE extension covers day-to-day needs without extra dev tooling.
 
 ---
 

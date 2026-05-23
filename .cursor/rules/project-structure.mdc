@@ -117,6 +117,7 @@ packages/tokens/
 │   ├── write-style-outputs.ts
 │   ├── governance-report.ts
 │   └── clean-imports.ts
+├── vitest.config.ts      # Vitest project config (node)
 └── test/                 # resolver, validator, generator, governance, semantic-audit
 ```
 
@@ -140,6 +141,7 @@ packages/ui/
 │   ├── index.ts
 │   ├── utils/            # Shared UI utilities
 │   └── components/       # 32 component folders (see list below)
+├── vitest.config.ts      # Vitest project config (jsdom)
 └── test/
     ├── public-api.test.ts
     └── components/<Name>/   # Variant tests per component
@@ -174,6 +176,7 @@ packages/registry/
 │   ├── check-registry-styles-sync.mjs # Verify style templates vs token output
 │   ├── lib/registry-styles-sync.mjs   # Shared compare helpers for style sync
 │   └── registry-item-generator.mjs
+├── vitest.config.ts
 └── test/
     ├── validate-registry.test.ts
     └── registry-styles-sync.test.ts
@@ -213,6 +216,7 @@ packages/cli/
 │       ├── tailwind-setup.ts
 │       ├── vite-scaffold.ts
 │       └── …
+├── vitest.config.ts
 └── test/
     ├── commands/         # add, init, install-flow, registry, update
     └── core/             # installer, package-manager, tailwind-setup

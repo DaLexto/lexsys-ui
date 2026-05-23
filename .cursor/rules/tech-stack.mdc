@@ -56,7 +56,7 @@ Monorepo tooling shared at the root. Packages inherit via hoisting; only add roo
 
 ### Quality
 
-- **Vitest** — run from each package: `vitest run test --pool threads`
+- **Vitest** — per-package `vitest.config.ts` (`defineProject`, `root: import.meta.dirname`); run via `vitest run test --pool threads`; Vitest VS Code extension auto-discovers configs (see `docs/TESTING.md`)
 - **ESLint** — zero warnings policy (`--max-warnings=0`)
 - **Prettier** — repo-wide; use `prettier-plugin-tailwindcss` for class lists in components
 
