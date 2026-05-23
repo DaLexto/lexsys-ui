@@ -29,7 +29,7 @@ const overlayComponentNames = new Set([
 
 const dataDisplayComponentNames = new Set(["Avatar", "Meter"])
 
-const layoutComponentNames = new Set(["Collapsible"])
+const layoutComponentNames = new Set(["Collapsible", "ScrollArea"])
 
 const actionComponentNames = new Set(["Button", "Toggle", "ToggleGroup"])
 

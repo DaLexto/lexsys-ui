@@ -20,7 +20,6 @@ import { numberFieldRegistryItem } from "./number-field.js"
 import { popoverRegistryItem } from "./popover.js"
 import { progressRegistryItem } from "./progress.js"
 import { radioGroupRegistryItem } from "./radio-group.js"
-import { scrollAreaRegistryItem } from "./scroll-area.js"
 import { selectRegistryItem } from "./select.js"
 import { separatorRegistryItem } from "./separator.js"
 import { sliderRegistryItem } from "./slider.js"
@@ -31,6 +30,7 @@ import { toastRegistryItem } from "./toast.js"
 import { toggleGroupRegistryItem } from "./toggle-group.js"
 import { toggleRegistryItem } from "./toggle.js"
 import { tooltipRegistryItem } from "./tooltip.js"
+import { scrollAreaRegistryItem } from "./scroll-area.js"
 
 export { accordionRegistryItem } from "./accordion.js"
 export { alertDialogRegistryItem } from "./alert-dialog.js"
@@ -53,7 +53,6 @@ export { numberFieldRegistryItem } from "./number-field.js"
 export { popoverRegistryItem } from "./popover.js"
 export { progressRegistryItem } from "./progress.js"
 export { radioGroupRegistryItem } from "./radio-group.js"
-export { scrollAreaRegistryItem } from "./scroll-area.js"
 export { selectRegistryItem } from "./select.js"
 export { separatorRegistryItem } from "./separator.js"
 export { sliderRegistryItem } from "./slider.js"
@@ -64,6 +63,7 @@ export { toastRegistryItem } from "./toast.js"
 export { toggleGroupRegistryItem } from "./toggle-group.js"
 export { toggleRegistryItem } from "./toggle.js"
 export { tooltipRegistryItem } from "./tooltip.js"
+export { scrollAreaRegistryItem } from "./scroll-area.js"
 
 export const registryItems: RegistryItem[] = [
   accordionRegistryItem,
@@ -88,7 +88,6 @@ export const registryItems: RegistryItem[] = [
   progressRegistryItem,
   radioGroupRegistryItem,
   selectRegistryItem,
-  scrollAreaRegistryItem,
   separatorRegistryItem,
   sliderRegistryItem,
   switchRegistryItem,
@@ -98,4 +97,5 @@ export const registryItems: RegistryItem[] = [
   toggleGroupRegistryItem,
   toggleRegistryItem,
   tooltipRegistryItem,
+  scrollAreaRegistryItem,
 ]
