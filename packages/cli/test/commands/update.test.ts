@@ -59,16 +59,13 @@ describe("runUpdate", () => {
     await writeJson(join(tempDir, "neurex.config.json"), {
       style: "default",
       paths: {
-        primitives: "src/components/primitives",
-        blocks: "src/components/blocks",
-        templates: "src/components/templates",
+        components: "src/components/ui",
         utilities: "src/lib",
         styles: "styles",
       },
       aliases: {
-        primitives: "@/components/primitives",
-        blocks: "@/components/blocks",
-        templates: "@/components/templates",
+        components: "@/components/ui",
+        ui: "@/components/ui",
         utils: "@/lib/utils",
         lib: "@/lib",
         hooks: "@/hooks",
@@ -116,10 +113,7 @@ describe("runUpdate", () => {
     await runInit()
     await runAdd(["button"])
 
-    const buttonPath = join(
-      tempDir,
-      "src/components/primitives/Button/Button.tsx",
-    )
+    const buttonPath = join(tempDir, "src/components/ui/Button/Button.tsx")
 
     await writeFile(
       buttonPath,

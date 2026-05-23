@@ -38,5 +38,5 @@ export const buttonRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Button",
+  target: "src/components/ui/Button",
 }

@@ -27,5 +27,5 @@ export const sidebarRegistryItem: RegistryItem = {
   registryDependencies: ["button", "drawer", "menu", "scroll-area"],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/blocks/Sidebar",
+  target: "src/components/ui/Sidebar",
 }

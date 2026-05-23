@@ -33,5 +33,5 @@ export const alertRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Alert",
+  target: "src/components/ui/Alert",
 }

@@ -38,5 +38,5 @@ export const inputRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Input",
+  target: "src/components/ui/Input",
 }

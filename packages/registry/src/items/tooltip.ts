@@ -38,5 +38,5 @@ export const tooltipRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Tooltip",
+  target: "src/components/ui/Tooltip",
 }

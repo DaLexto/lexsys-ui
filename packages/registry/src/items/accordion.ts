@@ -38,5 +38,5 @@ export const accordionRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Accordion",
+  target: "src/components/ui/Accordion",
 }

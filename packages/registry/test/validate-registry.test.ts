@@ -71,7 +71,7 @@ const item: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Button",
+  target: "src/components/ui/Button",
 }
 
 const style: RegistryStyle = {
@@ -127,16 +127,14 @@ describe("validateRegistry", () => {
             "tailwind-merge",
           ]),
           styles: ["theme"],
-          target: expect.stringMatching(/^src\/components\/primitives\//),
+          target: expect.stringMatching(/^src\/components\/ui\//),
           type: "component",
           utilities: ["cn"],
         }),
       )
       expect(item?.files).toHaveLength(3)
       expect(item?.remoteFiles).toHaveLength(3)
-      expect(item?.target).toBe(
-        `src/components/primitives/${item.canonicalName}`,
-      )
+      expect(item?.target).toBe(`src/components/ui/${item.canonicalName}`)
       expect(item?.remoteFiles?.map((file) => file.path).sort()).toEqual(
         item.files.toSorted(),
       )
@@ -175,7 +173,7 @@ describe("validateRegistry", () => {
           canonicalName: "Input",
           aliases: ["button"],
           files: ["primitives/Input/Input.tsx"],
-          target: "src/components/primitives/Input",
+          target: "src/components/ui/Input",
         },
       ]),
     ).toThrow(/is used by both "button" and "input"/)
@@ -294,7 +292,7 @@ describe("validateRegistry", () => {
       aliases: [],
       files: ["primitives/Field/Field.tsx"],
       remoteFiles: [{ path: "primitives/Field/Field.tsx" }],
-      target: "src/components/primitives/Field",
+      target: "src/components/ui/Field",
     }
 
     const input: RegistryItem = {
@@ -304,7 +302,7 @@ describe("validateRegistry", () => {
       aliases: [],
       files: ["primitives/Input/Input.tsx"],
       remoteFiles: [{ path: "primitives/Input/Input.tsx" }],
-      target: "src/components/primitives/Input",
+      target: "src/components/ui/Input",
     }
 
     const drawer: RegistryItem = {
@@ -314,7 +312,7 @@ describe("validateRegistry", () => {
       aliases: [],
       files: ["primitives/Drawer/Drawer.tsx"],
       remoteFiles: [{ path: "primitives/Drawer/Drawer.tsx" }],
-      target: "src/components/primitives/Drawer",
+      target: "src/components/ui/Drawer",
     }
 
     const menu: RegistryItem = {
@@ -324,7 +322,7 @@ describe("validateRegistry", () => {
       aliases: [],
       files: ["primitives/Menu/Menu.tsx"],
       remoteFiles: [{ path: "primitives/Menu/Menu.tsx" }],
-      target: "src/components/primitives/Menu",
+      target: "src/components/ui/Menu",
     }
 
     const formField: RegistryItem = {
@@ -339,7 +337,7 @@ describe("validateRegistry", () => {
       registryDependencies: ["field", "input"],
       utilities: ["cn"],
       styles: ["theme"],
-      target: "src/components/blocks/FormField",
+      target: "src/components/ui/FormField",
     }
 
     const sidebar: RegistryItem = {
@@ -354,7 +352,7 @@ describe("validateRegistry", () => {
       registryDependencies: ["button", "drawer", "menu"],
       utilities: ["cn"],
       styles: ["theme"],
-      target: "src/components/blocks/Sidebar",
+      target: "src/components/ui/Sidebar",
     }
 
     expect(() =>
@@ -389,7 +387,7 @@ describe("validateRegistry", () => {
       registryDependencies: ["sidebar"],
       utilities: ["cn"],
       styles: ["theme"],
-      target: "src/components/templates/DashboardShell",
+      target: "src/components/ui/DashboardShell",
     }
 
     const sidebarBlock: RegistryItem = {
@@ -404,7 +402,7 @@ describe("validateRegistry", () => {
       registryDependencies: ["dashboard-shell"],
       utilities: ["cn"],
       styles: ["theme"],
-      target: "src/components/blocks/Sidebar",
+      target: "src/components/ui/Sidebar",
     }
 
     expect(() => validateRegistry([dashboardShell, sidebarBlock])).toThrow(
@@ -425,7 +423,7 @@ describe("validateRegistry", () => {
       registryDependencies: ["dashboard-shell"],
       utilities: ["cn"],
       styles: ["theme"],
-      target: "src/components/blocks/Sidebar",
+      target: "src/components/ui/Sidebar",
     }
 
     const dashboardShell: RegistryItem = {
@@ -440,7 +438,7 @@ describe("validateRegistry", () => {
       registryDependencies: [],
       utilities: ["cn"],
       styles: ["theme"],
-      target: "src/components/templates/DashboardShell",
+      target: "src/components/ui/DashboardShell",
     }
 
     expect(() =>
@@ -461,7 +459,7 @@ describe("validateRegistry", () => {
       registryDependencies: ["block-b"],
       utilities: ["cn"],
       styles: ["theme"],
-      target: "src/components/blocks/BlockA",
+      target: "src/components/ui/BlockA",
     }
 
     const blockB: RegistryItem = {
@@ -476,7 +474,7 @@ describe("validateRegistry", () => {
       registryDependencies: ["block-a"],
       utilities: ["cn"],
       styles: ["theme"],
-      target: "src/components/blocks/BlockB",
+      target: "src/components/ui/BlockB",
     }
 
     expect(() => validateRegistry([blockA, blockB])).toThrow(/dependency cycle/)

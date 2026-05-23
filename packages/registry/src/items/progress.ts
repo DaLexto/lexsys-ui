@@ -38,5 +38,5 @@ export const progressRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Progress",
+  target: "src/components/ui/Progress",
 }

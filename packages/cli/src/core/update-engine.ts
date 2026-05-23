@@ -1,24 +1,30 @@
-import { copyFile, mkdir } from "node:fs/promises"
+import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join } from "node:path"
 import { createBackupFile } from "./backup.js"
+import { loadConfig } from "./config.js"
 import { getCwd } from "./context.js"
-import { fileExists, filesAreEqual } from "./fs.js"
+import { fileExists } from "./fs.js"
+import { hashesAreEqual } from "./hash.js"
+import { prepareInstalledFileContent } from "./import-rewriter.js"
+import { resolveItemInstallTarget } from "./install-target.js"
 import { getRegistryTemplatePath } from "./installer.js"
 import { findItem } from "./registry-resolver.js"
 import { isUpdateAvailable } from "./version.js"
 
 export const checkItemFiles = async (name: string): Promise<void> => {
   const item = await findItem(name)
+  const config = await loadConfig()
 
   if (!item) {
     console.log(`Component "${name}" no longer exists in the registry.`)
     return
   }
 
+  const installTarget = resolveItemInstallTarget(config, item)
+
   console.log(`File check for ${item.canonicalName}:`)
 
   for (const file of item.files) {
-    const sourcePath = getRegistryTemplatePath(file)
     const fileName = file.split("/").at(-1)
 
     if (!fileName) {
@@ -26,16 +32,20 @@ export const checkItemFiles = async (name: string): Promise<void> => {
       continue
     }
 
-    const targetPath = join(getCwd(), item.target, fileName)
+    const targetPath = join(getCwd(), installTarget, fileName)
 
     if (!(await fileExists(targetPath))) {
       console.log(`- missing: ${targetPath}`)
       continue
     }
 
-    const isSameFile = await filesAreEqual(sourcePath, targetPath)
+    const preparedContent = prepareInstalledFileContent(
+      await readFile(getRegistryTemplatePath(file), "utf-8"),
+      item,
+    )
+    const targetContent = await readFile(targetPath, "utf-8")
 
-    if (isSameFile) {
+    if (hashesAreEqual(preparedContent, targetContent)) {
       console.log(`- identical: ${targetPath}`)
       continue
     }
@@ -49,12 +59,14 @@ const applySafeItemUpdate = async (
   force: boolean,
 ): Promise<boolean> => {
   const item = await findItem(name)
+  const config = await loadConfig()
 
   if (!item) {
     console.log(`Component "${name}" no longer exists in the registry.`)
     return false
   }
 
+  const installTarget = resolveItemInstallTarget(config, item)
   let hasConflict = false
 
   console.log(`Applying update for ${item.canonicalName}:`)
@@ -69,19 +81,23 @@ const applySafeItemUpdate = async (
       continue
     }
 
-    const targetPath = join(getCwd(), item.target, fileName)
+    const targetPath = join(getCwd(), installTarget, fileName)
+    const preparedContent = prepareInstalledFileContent(
+      await readFile(sourcePath, "utf-8"),
+      item,
+    )
 
     await mkdir(dirname(targetPath), { recursive: true })
 
     if (!(await fileExists(targetPath))) {
-      await copyFile(sourcePath, targetPath)
+      await writeFile(targetPath, preparedContent, "utf-8")
       console.log(`- restored missing file: ${targetPath}`)
       continue
     }
 
-    const isSameFile = await filesAreEqual(sourcePath, targetPath)
+    const targetContent = await readFile(targetPath, "utf-8")
 
-    if (isSameFile) {
+    if (hashesAreEqual(preparedContent, targetContent)) {
       console.log(`- identical: ${targetPath}`)
       continue
     }
@@ -93,7 +109,7 @@ const applySafeItemUpdate = async (
         console.log(`- backup created: ${backupPath}`)
       }
 
-      await copyFile(sourcePath, targetPath)
+      await writeFile(targetPath, preparedContent, "utf-8")
       console.log(`- force updated file: ${targetPath}`)
       continue
     }

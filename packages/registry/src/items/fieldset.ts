@@ -38,5 +38,5 @@ export const fieldsetRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Fieldset",
+  target: "src/components/ui/Fieldset",
 }

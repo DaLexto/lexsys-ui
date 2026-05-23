@@ -39,5 +39,5 @@ export const selectRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Select",
+  target: "src/components/ui/Select",
 }

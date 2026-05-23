@@ -41,7 +41,7 @@ describe("runAdd", () => {
       packageManager: "pnpm@10.33.0",
     })
 
-    const buttonDir = join(tempDir, "src/components/primitives/Button")
+    const buttonDir = join(tempDir, "src/components/ui/Button")
     await mkdir(buttonDir, { recursive: true })
     await writeFile(join(buttonDir, "Button.tsx"), "user modified", "utf-8")
 

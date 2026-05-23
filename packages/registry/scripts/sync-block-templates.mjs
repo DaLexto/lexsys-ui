@@ -11,14 +11,14 @@ const layerConfigs = [
     sourceRoot: resolve(repoRoot, "packages/ui/src/components/blocks"),
     targetRoot: resolve(registryRoot, "templates/blocks"),
     templatePrefix: "blocks",
-    targetPrefix: "src/components/blocks",
+    targetPrefix: "src/components/ui",
   },
   {
     layerName: "templates",
     sourceRoot: resolve(repoRoot, "packages/ui/src/components/templates"),
     targetRoot: resolve(registryRoot, "templates/templates"),
     templatePrefix: "templates",
-    targetPrefix: "src/components/templates",
+    targetPrefix: "src/components/ui",
   },
 ]
 

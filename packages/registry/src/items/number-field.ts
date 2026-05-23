@@ -38,5 +38,5 @@ export const numberFieldRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/NumberField",
+  target: "src/components/ui/NumberField",
 }

@@ -213,7 +213,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   const successfullyUninstalled: RegistryItem[] = []
 
   for (const item of allRemovalTargets) {
-    const itemResult = await uninstallItemFiles(item)
+    const itemResult = await uninstallItemFiles(item, config)
     itemResults.push(itemResult)
 
     if (hasUninstallConflicts(itemResult)) {

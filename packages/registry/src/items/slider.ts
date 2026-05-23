@@ -38,5 +38,5 @@ export const sliderRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Slider",
+  target: "src/components/ui/Slider",
 }

@@ -22,5 +22,5 @@ export const formFieldRegistryItem: RegistryItem = {
   registryDependencies: ["field", "input"],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/blocks/FormField",
+  target: "src/components/ui/FormField",
 }

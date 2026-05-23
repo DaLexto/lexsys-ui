@@ -38,5 +38,5 @@ export const switchRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Switch",
+  target: "src/components/ui/Switch",
 }

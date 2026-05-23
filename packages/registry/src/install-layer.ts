@@ -4,18 +4,20 @@ export type InstallLayer = "primitive" | "block" | "template"
 
 export const getInstallLayer = (item: RegistryItem): InstallLayer | null => {
   if (item.type === "component") {
-    return item.target.includes("/components/primitives/") ? "primitive" : null
+    return "primitive"
   }
 
   if (item.type !== "block") {
     return null
   }
 
-  if (item.target.includes("/components/blocks/")) {
+  const firstFile = item.files[0] ?? ""
+
+  if (firstFile.startsWith("blocks/")) {
     return "block"
   }
 
-  if (item.target.includes("/components/templates/")) {
+  if (firstFile.startsWith("templates/")) {
     return "template"
   }
 

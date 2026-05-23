@@ -38,5 +38,5 @@ export const textareaRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Textarea",
+  target: "src/components/ui/Textarea",
 }

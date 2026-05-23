@@ -13,16 +13,13 @@ import {
 const config: NeurexConfig = {
   style: "default",
   paths: {
-    primitives: "src/components/primitives",
-    blocks: "src/components/blocks",
-    templates: "src/components/templates",
+    components: "src/components/ui",
     utilities: "src/lib",
     styles: "styles",
   },
   aliases: {
-    primitives: "@/components/primitives",
-    blocks: "@/components/blocks",
-    templates: "@/components/templates",
+    components: "@/components/ui",
+    ui: "@/components/ui",
     utils: "@/lib/utils",
     lib: "@/lib",
     hooks: "@/hooks",

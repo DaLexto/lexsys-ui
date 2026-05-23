@@ -39,5 +39,5 @@ export const dialogRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Dialog",
+  target: "src/components/ui/Dialog",
 }

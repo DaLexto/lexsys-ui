@@ -39,5 +39,5 @@ export const toastRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Toast",
+  target: "src/components/ui/Toast",
 }

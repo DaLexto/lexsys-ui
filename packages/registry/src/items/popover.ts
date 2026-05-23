@@ -39,5 +39,5 @@ export const popoverRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Popover",
+  target: "src/components/ui/Popover",
 }

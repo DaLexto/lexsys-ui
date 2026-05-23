@@ -33,5 +33,5 @@ export const badgeRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Badge",
+  target: "src/components/ui/Badge",
 }

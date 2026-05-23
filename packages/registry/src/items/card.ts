@@ -33,5 +33,5 @@ export const cardRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Card",
+  target: "src/components/ui/Card",
 }

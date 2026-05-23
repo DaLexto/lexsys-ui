@@ -38,5 +38,5 @@ export const toggleGroupRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/ToggleGroup",
+  target: "src/components/ui/ToggleGroup",
 }

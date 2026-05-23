@@ -38,5 +38,5 @@ export const toggleRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Toggle",
+  target: "src/components/ui/Toggle",
 }

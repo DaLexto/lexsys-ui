@@ -39,7 +39,7 @@ const item: RegistryItem = {
   registryDependencies: [],
   utilities: [],
   styles: [],
-  target: "src/components/primitives/Button",
+  target: "src/components/ui/Button",
 }
 
 describe("runRegistry", () => {

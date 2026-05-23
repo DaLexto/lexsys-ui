@@ -39,5 +39,5 @@ export const drawerRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Drawer",
+  target: "src/components/ui/Drawer",
 }

@@ -22,5 +22,5 @@ export const dashboardShellRegistryItem: RegistryItem = {
   registryDependencies: ["sidebar"],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/templates/DashboardShell",
+  target: "src/components/ui/DashboardShell",
 }

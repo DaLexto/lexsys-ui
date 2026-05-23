@@ -210,7 +210,7 @@ const createRegistryItemSource = async ({
   itemVariableName,
   templateRoot,
   templatePrefix = "primitives",
-  targetPrefix = "src/components/primitives",
+  targetPrefix = "src/components/ui",
 }) => {
   const componentRoot = resolve(templateRoot, componentName)
   const files = (await collectFiles(componentRoot))
@@ -346,7 +346,7 @@ export const syncRegistryItems = async ({
   sourceComponentNames,
   templateRoot,
   templatePrefix = "primitives",
-  targetPrefix = "src/components/primitives",
+  targetPrefix = "src/components/ui",
 }) => {
   const componentNames =
     sourceComponentNames ?? (await listComponentNames(templateRoot))

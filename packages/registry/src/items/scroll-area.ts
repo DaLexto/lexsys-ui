@@ -38,5 +38,5 @@ export const scrollAreaRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/ScrollArea",
+  target: "src/components/ui/ScrollArea",
 }

@@ -39,5 +39,5 @@ export const menuRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Menu",
+  target: "src/components/ui/Menu",
 }

@@ -68,10 +68,7 @@ describe("runUninstall", () => {
     await runUninstall(["button"])
 
     await expect(
-      readFile(
-        join(tempDir, "src/components/primitives/Button/Button.tsx"),
-        "utf-8",
-      ),
+      readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
     ).rejects.toThrow()
 
     const config = JSON.parse(
@@ -90,10 +87,7 @@ describe("runUninstall", () => {
     await runUninstall(["button", "--dry-run"])
 
     await expect(
-      readFile(
-        join(tempDir, "src/components/primitives/Button/Button.tsx"),
-        "utf-8",
-      ),
+      readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
     ).resolves.toContain("export { Button }")
 
     const config = JSON.parse(
@@ -108,10 +102,7 @@ describe("runUninstall", () => {
     await writeConsumerProject(tempDir)
     await runAdd(["button"])
 
-    const buttonPath = join(
-      tempDir,
-      "src/components/primitives/Button/Button.tsx",
-    )
+    const buttonPath = join(tempDir, "src/components/ui/Button/Button.tsx")
     await writeFile(buttonPath, "user modified", "utf-8")
 
     await runUninstall(["button"])
@@ -179,10 +170,7 @@ describe("runUninstall", () => {
     await runUninstall(["button", "--dry-run"])
 
     await expect(
-      readFile(
-        join(tempDir, "src/components/primitives/Button/Button.tsx"),
-        "utf-8",
-      ),
+      readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
     ).resolves.toContain("export { Button }")
     expect(await fileExists(join(tempDir, "styles/tokens.css"))).toBe(true)
     expect(await fileExists(join(tempDir, "src/lib/utils.ts"))).toBe(true)

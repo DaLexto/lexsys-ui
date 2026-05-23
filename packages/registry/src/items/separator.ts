@@ -38,5 +38,5 @@ export const separatorRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Separator",
+  target: "src/components/ui/Separator",
 }

@@ -35,7 +35,7 @@ const item: RegistryItem = {
   registryDependencies: [],
   utilities: [],
   styles: [],
-  target: "src/components/primitives/Button",
+  target: "src/components/ui/Button",
 }
 
 const consoleOutput = (): string => {
@@ -68,11 +68,7 @@ describe("CLI diagnostic commands", () => {
 
   test("runDoctor reports project paths and registry summary", async () => {
     await writeJson(join(tempDir, "package.json"), { name: "demo" })
-    await mkdir(join(tempDir, defaultConfig.paths.primitives), {
-      recursive: true,
-    })
-    await mkdir(join(tempDir, defaultConfig.paths.blocks), { recursive: true })
-    await mkdir(join(tempDir, defaultConfig.paths.templates), {
+    await mkdir(join(tempDir, defaultConfig.paths.components), {
       recursive: true,
     })
     await mkdir(join(tempDir, defaultConfig.paths.utilities), {
@@ -109,7 +105,7 @@ describe("CLI diagnostic commands", () => {
       ...defaultConfig,
       installed: { button: "0.0.1" },
     })
-    await mkdir(join(tempDir, "src/components/primitives/Button"), {
+    await mkdir(join(tempDir, "src/components/ui/Button"), {
       recursive: true,
     })
 

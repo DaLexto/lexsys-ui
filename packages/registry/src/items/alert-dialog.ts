@@ -39,5 +39,5 @@ export const alertDialogRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/AlertDialog",
+  target: "src/components/ui/AlertDialog",
 }

@@ -38,5 +38,5 @@ export const checkboxRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Checkbox",
+  target: "src/components/ui/Checkbox",
 }

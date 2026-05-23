@@ -38,5 +38,5 @@ export const tabsRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Tabs",
+  target: "src/components/ui/Tabs",
 }

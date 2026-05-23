@@ -3,6 +3,7 @@ import { getInstallLayer } from "@neurex/registry"
 import { getCwd } from "../core/context.js"
 import { loadConfig } from "../core/config.js"
 import { fileExists } from "../core/fs.js"
+import { resolveItemInstallTarget } from "../core/install-target.js"
 import { getRegistryProviderResult } from "../core/registry-provider.js"
 import { findItem } from "../core/registry-resolver.js"
 
@@ -24,16 +25,8 @@ export const runDoctor = async (
       path: join(getCwd(), "package.json"),
     },
     {
-      label: config.paths.primitives,
-      path: join(getCwd(), config.paths.primitives),
-    },
-    {
-      label: config.paths.blocks,
-      path: join(getCwd(), config.paths.blocks),
-    },
-    {
-      label: config.paths.templates,
-      path: join(getCwd(), config.paths.templates),
+      label: config.paths.components,
+      path: join(getCwd(), config.paths.components),
     },
     {
       label: config.paths.utilities,
@@ -89,7 +82,10 @@ export const runDoctor = async (
         continue
       }
 
-      const componentPath = join(getCwd(), item.target)
+      const componentPath = join(
+        getCwd(),
+        resolveItemInstallTarget(config, item),
+      )
       const exists = await fileExists(componentPath)
       const layer = getInstallLayer(item) ?? "unknown"
 

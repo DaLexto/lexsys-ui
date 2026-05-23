@@ -38,5 +38,5 @@ export const radioGroupRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/RadioGroup",
+  target: "src/components/ui/RadioGroup",
 }

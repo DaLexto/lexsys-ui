@@ -38,5 +38,5 @@ export const avatarRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Avatar",
+  target: "src/components/ui/Avatar",
 }

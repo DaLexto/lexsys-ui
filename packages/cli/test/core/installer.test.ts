@@ -13,16 +13,13 @@ import {
 const config: NeurexConfig = {
   style: "default",
   paths: {
-    primitives: "src/components/primitives",
-    blocks: "src/components/blocks",
-    templates: "src/components/templates",
+    components: "src/components/ui",
     utilities: "src/lib",
     styles: "styles",
   },
   aliases: {
-    primitives: "@/components/primitives",
-    blocks: "@/components/blocks",
-    templates: "@/components/templates",
+    components: "@/components/ui",
+    ui: "@/components/ui",
     utils: "@/lib/utils",
     lib: "@/lib",
     hooks: "@/hooks",
@@ -52,13 +49,13 @@ describe("installItemFiles", () => {
   })
 
   test("reports conflicts without overwriting user-modified files", async () => {
-    const targetDir = join(tempDir, "src/components/primitives/Button")
+    const targetDir = join(tempDir, "src/components/ui/Button")
     const targetPath = join(targetDir, "Button.tsx")
 
     await mkdir(targetDir, { recursive: true })
     await writeFile(targetPath, "user modified", "utf-8")
 
-    const result = await installItemFiles(buttonRegistryItem)
+    const result = await installItemFiles(buttonRegistryItem, config)
 
     await expect(readFile(targetPath, "utf-8")).resolves.toBe("user modified")
     expect(result.conflicted).toContain(targetPath)

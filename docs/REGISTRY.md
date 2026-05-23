@@ -43,16 +43,15 @@ Every installable item MUST declare all of the following fields:
 Layer model: [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
 
 - Template paths MUST start with `primitives/<CanonicalName>/`
-- `target` MUST be `src/components/primitives/<CanonicalName>`
+- `target` MUST be `src/components/ui/<CanonicalName>`
 - `registryDependencies` MUST be `[]`
-- MUST NOT declare `atomicLayer` (field removed — use `type` + `target` only)
 
 ### Blocks (`type: "block"`, install layer: blocks)
 
-Composed UI patterns. Same `type` for all blocks; install folder is always `blocks/`.
+Composed UI patterns. Layer is registry metadata; consumer install path is flat `ui/`.
 
 - Template paths MUST start with `blocks/<CanonicalName>/`
-- `target` MUST be `src/components/blocks/<CanonicalName>`
+- `target` MUST be `src/components/ui/<CanonicalName>`
 - `category` MUST be `blocks`
 - `registryDependencies` MAY reference primitives and other blocks (not templates)
 
@@ -61,17 +60,17 @@ Composed UI patterns. Same `type` for all blocks; install folder is always `bloc
 Page/layout shells.
 
 - Template paths MUST start with `templates/<CanonicalName>/`
-- `target` MUST be `src/components/templates/<CanonicalName>`
+- `target` MUST be `src/components/ui/<CanonicalName>`
 - `category` MUST be `blocks` (CLI grouping) or `layout` when added
 - `registryDependencies` MAY reference primitives, blocks, and other templates
 
 **Composition (`registryDependencies`)** — enforced by `validateRegistryComposition` at `pnpm registry:check`:
 
-| Install layer (from `target`) | MAY depend on                           |
-| ----------------------------- | --------------------------------------- |
-| `…/primitives/`               | _(none — `registryDependencies` empty)_ |
-| `…/blocks/`                   | primitives + blocks                     |
-| `…/templates/`                | primitives + blocks + templates         |
+| Install layer (from template prefix) | MAY depend on                           |
+| ------------------------------------ | --------------------------------------- |
+| `primitives/`                        | _(none — `registryDependencies` empty)_ |
+| `blocks/`                            | primitives + blocks                     |
+| `templates/`                         | primitives + blocks + templates         |
 
 Rules:
 

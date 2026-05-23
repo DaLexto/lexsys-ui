@@ -39,5 +39,5 @@ export const collapsibleRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Collapsible",
+  target: "src/components/ui/Collapsible",
 }

@@ -122,7 +122,7 @@ const syncComponentTemplates = async () => {
     sourceComponentNames,
     templateRoot: targetRoot,
     templatePrefix: "primitives",
-    targetPrefix: "src/components/primitives",
+    targetPrefix: "src/components/ui",
   })
 
   if (checkOnly) {

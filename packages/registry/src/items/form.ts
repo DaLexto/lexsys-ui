@@ -38,5 +38,5 @@ export const formRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Form",
+  target: "src/components/ui/Form",
 }

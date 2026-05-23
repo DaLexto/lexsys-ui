@@ -38,5 +38,5 @@ export const fieldRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Field",
+  target: "src/components/ui/Field",
 }

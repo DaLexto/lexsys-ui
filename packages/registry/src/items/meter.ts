@@ -38,5 +38,5 @@ export const meterRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/primitives/Meter",
+  target: "src/components/ui/Meter",
 }
