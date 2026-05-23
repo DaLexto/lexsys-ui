@@ -17,8 +17,8 @@ that are not yet done.
 
 | Phase   | Focus                                                    | Status      |
 | ------- | -------------------------------------------------------- | ----------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                            | in progress |
-| M1      | Infra and DX (filter, CI, turbo, docs)                   | pending     |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                            | done        |
+| M1      | Infra and DX (filter, CI, turbo, docs)                   | shipped     |
 | M2      | Quality (Tier 2 tests, playground CI, sandbox checklist) | pending     |
 | M5      | Advanced CI (path filters, registry:check on UI PRs)     | pending     |
 | M6      | Dependency hygiene (Dependabot, lockfile policy)         | pending     |

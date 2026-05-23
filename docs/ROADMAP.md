@@ -130,7 +130,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 
 | Phase | Name                     | Status  | Outcome (summary)                                                                 | Primary docs                          |
 | ----- | ------------------------ | ------- | --------------------------------------------------------------------------------- | ------------------------------------- |
-| M1    | Infra and DX             | planned | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment    | SCRIPTS.md, DEPLOY.md                 |
+| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment    | SCRIPTS.md, DEPLOY.md                 |
 | M2    | Quality and verification | planned | Tier 2 tests, playground build CI, consumer sandbox checklist                     | TESTING.md, AGENTS.md                 |
 | M3    | Product and architecture | planned | UI render expansion, scaffolds, remote registry, tokens backlog                   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
 | M4    | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
@@ -140,7 +140,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 
 ### M1 — Infra and DX
 
-Status: planned
+Status: shipped
 
 #### M1.1 — Fix pnpm filter collision
 

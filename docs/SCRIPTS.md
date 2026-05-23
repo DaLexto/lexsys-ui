@@ -216,7 +216,20 @@ Test coverage details and per-file test inventory: [TESTING.md](./TESTING.md).
 
 ## CI reference
 
-[`.github/workflows/tokens-governance.yml`](../.github/workflows/tokens-governance.yml) runs on token PRs:
+### Monorepo check (all PRs)
+
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs on every pull request and on push to `dev`/`main`:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm check
+```
+
+Node 24, pnpm cache enabled.
+
+### Token governance (token-path PRs)
+
+[`.github/workflows/tokens-governance.yml`](../.github/workflows/tokens-governance.yml) runs when `packages/tokens/**` changes:
 
 ```sh
 pnpm tokens:governance:report

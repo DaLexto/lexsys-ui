@@ -63,7 +63,9 @@ pnpm check
 
 See [SCRIPTS.md](./SCRIPTS.md) for per-package build and verify commands.
 
-If `lint` or `test` are still placeholders, record that explicitly in the release notes or PR.
+CI runs `pnpm check` on pull requests and pushes to `dev`/`main` via
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) (Node 24, frozen lockfile).
+Token-path PRs also run [tokens-governance](../.github/workflows/tokens-governance.yml).
 
 ---
 
