@@ -15,6 +15,7 @@ export const SHADOW_BOX_SHADOW_LEAF_KEY = "boxShadow"
 const SHADOW_BRANCH_SEGMENT = "shadow"
 
 const SHADOW_BOX_SHADOW_SLOT_ORDER = [
+  "inset",
   "offsetX",
   "offsetY",
   "blur",
