@@ -27,13 +27,20 @@ export const toastViewportVariants = cva(
   },
 )
 
+const toastTypeSurfaceClasses = [
+  "border-(--nx-toast-border-color) bg-(--nx-toast-background) text-(--nx-toast-foreground)",
+  "data-[type=success]:border-(--nx-toast-success-border-color) data-[type=success]:bg-(--nx-toast-success-background) data-[type=success]:text-(--nx-toast-success-foreground)",
+  "data-[type=info]:border-(--nx-toast-info-border-color) data-[type=info]:bg-(--nx-toast-info-background) data-[type=info]:text-(--nx-toast-info-foreground)",
+  "data-[type=destructive]:border-(--nx-toast-danger-border-color) data-[type=destructive]:bg-(--nx-toast-danger-background) data-[type=destructive]:text-(--nx-toast-danger-foreground)",
+].join(" ")
+
 export const toastVariants = cva(
   [
-    "relative grid gap-(--nx-toast-gap) rounded-(--nx-toast-radius) border bg-(--nx-toast-background) p-(--nx-toast-padding) pr-(--nx-toast-padding-end) text-(--nx-toast-foreground) shadow-(--nx-toast-shadow) outline-none",
+    "relative grid gap-(--nx-toast-gap) rounded-(--nx-toast-radius) border p-(--nx-toast-padding) pr-(--nx-toast-padding-end) shadow-(--nx-toast-shadow) outline-none",
+    toastTypeSurfaceClasses,
     "transition-[opacity,transform] duration-(--nx-toast-transition-duration) ease-(--nx-toast-transition-easing)",
     "data-[starting-style]:translate-y-(--nx-toast-motion-offset-y) data-[starting-style]:opacity-0 data-[ending-style]:translate-y-(--nx-toast-motion-offset-y) data-[ending-style]:opacity-0 data-[swiping]:transition-none",
     "translate-x-[var(--toast-swipe-movement-x,0px)] translate-y-[var(--toast-swipe-movement-y,0px)]",
-    "border-(--nx-toast-border-color) data-[type=success]:border-(--nx-toast-success-border-color) data-[type=destructive]:border-(--nx-toast-danger-border-color)",
   ].join(" "),
 )
 
@@ -46,15 +53,21 @@ export const toastPositionerVariants = cva(
 )
 
 export const toastArrowVariants = cva(
-  "size-(--nx-toast-arrow-size) rotate-45 border border-(--nx-toast-border-color) bg-(--nx-toast-background)",
+  [
+    "size-(--nx-toast-arrow-size) rotate-45 border",
+    toastTypeSurfaceClasses,
+  ].join(" "),
 )
 
 export const toastTitleVariants = cva(
-  "text-(length:--nx-toast-title-font-size) font-(--nx-toast-title-font-weight) leading-(--nx-toast-title-font-line-height) text-(--nx-toast-title-foreground)",
+  "text-(length:--nx-toast-title-font-size) font-(--nx-toast-title-font-weight) leading-(--nx-toast-title-font-line-height)",
 )
 
 export const toastDescriptionVariants = cva(
-  "text-(length:--nx-toast-description-font-size) font-(--nx-toast-description-font-weight) leading-(--nx-toast-description-font-line-height) text-(--nx-toast-description-foreground)",
+  [
+    "text-(length:--nx-toast-description-font-size) font-(--nx-toast-description-font-weight) leading-(--nx-toast-description-font-line-height)",
+    "text-(--nx-toast-description-foreground) data-[type=success]:text-(--nx-toast-success-foreground) data-[type=info]:text-(--nx-toast-info-foreground) data-[type=destructive]:text-(--nx-toast-danger-foreground)",
+  ].join(" "),
 )
 
 export const toastActionVariants = cva(

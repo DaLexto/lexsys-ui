@@ -46,6 +46,17 @@ import {
 import { mergeClassName } from "../../utils/merge-class-name"
 import { overlayPositionerSideOffset } from "../../utils/cn"
 
+const horizontalMenuSides = new Set<NonNullable<MenuPositionerProps["side"]>>([
+  "left",
+  "right",
+  "inline-start",
+  "inline-end",
+])
+
+const popupCollisionAvoidance = {
+  fallbackAxisSide: "end",
+} as const
+
 const Menu = <Payload = unknown,>(props: MenuProps<Payload>) => {
   return <BaseMenu.Root {...props} />
 }
@@ -86,12 +97,22 @@ const MenuPositioner = ({
   ref,
   className,
   sideOffset = overlayPositionerSideOffset,
+  side,
+  collisionAvoidance,
   ...props
 }: MenuPositionerProps) => {
+  const resolvedCollisionAvoidance =
+    collisionAvoidance ??
+    (side && horizontalMenuSides.has(side)
+      ? popupCollisionAvoidance
+      : undefined)
+
   return (
     <BaseMenu.Positioner
       ref={ref}
       sideOffset={sideOffset}
+      side={side}
+      collisionAvoidance={resolvedCollisionAvoidance}
       className={mergeClassName(menuPositionerVariants(), className)}
       {...props}
     />

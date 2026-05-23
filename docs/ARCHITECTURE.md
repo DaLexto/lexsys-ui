@@ -72,6 +72,18 @@ Base UI is an implementation detail — it MUST NOT define the public API shape.
 See [STYLEGUIDE.md](STYLEGUIDE.md) and [STYLE.md](STYLE.md) for naming and
 coding conventions.
 
+### UI composition layers (Atomic Design)
+
+Neurex UI evolves along Atomic Design layers. **Atoms** (registry components,
+tokens, utilities) are shipped today. **Molecules, organisms, and templates** are
+planned as optional registry blocks; **pages** remain consumer-owned. Higher blocks
+compose lower blocks and atoms only — scalable upward, no layer skipping. CLI
+`neurex add` resolves `registryDependencies` transitively (blocks + atoms + shared
+resources).
+
+Full layer mapping, compositional rules, dependency install contract, ownership, and
+sequencing: [ATOMIC_DESIGN.md](ATOMIC_DESIGN.md).
+
 ---
 
 ## Design token system

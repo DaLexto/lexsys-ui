@@ -86,12 +86,15 @@ When the underlying library owns state, style via attribute selectors. Do **not*
 
 **Toast** is the reference:
 
-- Base UI sets `data-type` from toast manager API (`success`, `destructive`, …)
-- Neurex tokens use `danger` naming (`--nx-toast-danger-border-color`)
-- CSS keeps `data-[type=destructive]:…` because Base UI owns the string
-- Document the mapping in component inventory; do not rename Base UI's `type` values
+- Base UI sets `data-type` from toast manager API
+- Supported `toastManager.add({ type })` values: **`success`**, **`info`**, **`destructive`** (default / omitted = neutral surface)
+- Neurex tokens use `danger` naming (`--nx-toast-danger-*`) while Base UI keeps `destructive`
+- Typed toasts apply full semantic **background + foreground + border** via `data-[type=*]` selectors (not border-only)
+- Do not add a parallel public `variant` prop on Toast
 
 Other examples: `data-[swiping]`, `data-[behind]`, `data-[invalid]`, `aria-busy`.
+
+**Menu** horizontal flyouts (`side` = `left`, `right`, `inline-start`, `inline-end`): `MenuPositioner` defaults to popup-style collision avoidance (`fallbackAxisSide: "end"`) so sidebar flyouts flip instead of clipping off-screen. Pass `collisionAvoidance` to override.
 
 ---
 

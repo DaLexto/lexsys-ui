@@ -1351,7 +1351,14 @@
   --nx-toast-foreground: var(--nx-color-text-primary);
   --nx-toast-border-color: var(--nx-border-default);
   --nx-toast-shadow: var(--nx-elevation-shadow-raised-box-shadow);
+  --nx-toast-success-background: var(--nx-color-feedback-success-background);
+  --nx-toast-success-foreground: var(--nx-color-feedback-success-foreground);
   --nx-toast-success-border-color: var(--nx-color-feedback-success-foreground);
+  --nx-toast-info-background: var(--nx-color-feedback-info-background);
+  --nx-toast-info-foreground: var(--nx-color-feedback-info-foreground);
+  --nx-toast-info-border-color: var(--nx-color-feedback-info-foreground);
+  --nx-toast-danger-background: var(--nx-color-feedback-danger-background);
+  --nx-toast-danger-foreground: var(--nx-color-feedback-danger-foreground);
   --nx-toast-danger-border-color: var(--nx-color-feedback-danger-foreground);
   --nx-toast-radius: var(--nx-radius-surface);
   --nx-toast-padding: var(--nx-space-surface-md);
