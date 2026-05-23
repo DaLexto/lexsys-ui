@@ -50,6 +50,26 @@ Do not blur responsibilities between packages.
 
 ---
 
+## Real-world consumer sandbox
+
+Outside this monorepo, a **100% CLI-installed consumer project** is used for integration testing:
+
+| | Monorepo `apps/playground` | Consumer sandbox |
+| --- | --- | --- |
+| Model | Workspace `@neurex/ui` + package CSS | `neurex add` → user-owned `src/components/ui/` |
+| CSS | Workspace token build | Installed `styles/tokens.css` + `styles/theme.css` |
+| Best for | Reference exports, component panels, turbo checks | Install/update flow, real layouts, theme/brand UX |
+
+**Local path:** `D:\PLAYGROUND\sandbox-neurex`  
+**Agent contract:** `D:\PLAYGROUND\sandbox-neurex\AGENTS.md`
+
+Use the sandbox when validating **consumer behavior** (CLI, conflicts, `update --styles`, dashboard-style apps).  
+Use `apps/playground` when validating **reference package wiring** inside the monorepo.
+
+After monorepo changes to UI, registry, tokens, or CLI, verify in the sandbox when the task affects what users install — not only in playground.
+
+---
+
 ## Architectural Contract
 
 ### Registry-first model
