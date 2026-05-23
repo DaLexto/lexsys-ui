@@ -1,0 +1,3 @@
+# Label governance — require maintainer review before taxonomy changes apply.
+/.github/labels.yml @DaLexto
+/.github/workflows/labels-sync.yml @DaLexto
