@@ -107,6 +107,7 @@ const collectUnusedSemanticIssues = (
     .map((path) => {
       return {
         kind: "unused-semantic" as const,
+        severity: "warning" as const,
         path,
         message: `Semantic token "${path}" is not referenced by components, themes, or other semantics.`,
       }
@@ -131,6 +132,7 @@ const collectComponentIntentIssues = (
       if (branchName in groupTree) {
         issues.push({
           kind: "component-intent",
+          severity: "error",
           path: `${groupName}.${branchName}`,
           message: `Semantic branch "${groupName}.${branchName}" uses a component-specific name.`,
         })
@@ -162,6 +164,7 @@ const collectThemePathMismatchIssues = (
 
       issues.push({
         kind: "theme-path-mismatch",
+        severity: "error",
         path: `color.${groupName}`,
         themeName: theme.name,
         message: `Theme override "${theme.name}" nests "${groupName}" under "color". Use top-level "${groupName}.*" to match semantics.`,

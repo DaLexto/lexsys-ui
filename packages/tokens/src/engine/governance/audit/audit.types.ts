@@ -12,8 +12,11 @@ export type SemanticAuditIssueKind =
   | "component-intent"
   | "theme-path-mismatch"
 
+export type SemanticAuditIssueSeverity = "error" | "warning"
+
 export interface SemanticAuditIssue {
   kind: SemanticAuditIssueKind
+  severity: SemanticAuditIssueSeverity
   path: string
   message: string
   themeName?: string
