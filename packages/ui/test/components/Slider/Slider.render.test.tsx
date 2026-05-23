@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Slider } from "../../../src/components/Slider/Slider.js"
+import { Slider } from "../../../src/components/primitives/Slider/Slider.js"
 
 describe("Slider render", () => {
   it("renders slider with custom className", () => {

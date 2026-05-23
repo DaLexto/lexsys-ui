@@ -8,7 +8,7 @@ import {
   DialogPortal,
   DialogTitle,
   DialogViewport,
-} from "../../../src/components/Dialog/Dialog.js"
+} from "../../../src/components/primitives/Dialog/Dialog.js"
 
 describe("Dialog render", () => {
   it("renders dialog title and description when defaultOpen", () => {

@@ -209,11 +209,13 @@ const createRegistryItemSource = async ({
   itemName,
   itemVariableName,
   templateRoot,
+  templatePrefix = "primitives",
+  targetPrefix = "src/components/ui",
 }) => {
   const componentRoot = resolve(templateRoot, componentName)
   const files = (await collectFiles(componentRoot))
     .map((file) => {
-      return `components/${relative(templateRoot, file).replaceAll("\\", "/")}`
+      return `${templatePrefix}/${relative(templateRoot, file).replaceAll("\\", "/")}`
     })
     .sort((a, b) => {
       const orderDifference =
@@ -228,7 +230,10 @@ const createRegistryItemSource = async ({
     })
   const templateContent = await getTemplateContent(
     files.map((file) =>
-      resolve(templateRoot, file.replace(/^components\//, "")),
+      resolve(
+        templateRoot,
+        file.replace(new RegExp(`^${templatePrefix}/`), ""),
+      ),
     ),
   )
   const dependencies = getDependencies(templateContent)
@@ -255,7 +260,7 @@ export const ${itemVariableName}: RegistryItem = {
   registryDependencies: [],
   utilities: ${formatStringArray(utilities)},
   styles: ["theme"],
-  target: "src/components/ui/${componentName}",
+  target: "${targetPrefix}/${componentName}",
 }
 `
 }
@@ -340,6 +345,8 @@ export const syncRegistryItems = async ({
   registryRoot,
   sourceComponentNames,
   templateRoot,
+  templatePrefix = "primitives",
+  targetPrefix = "src/components/ui",
 }) => {
   const componentNames =
     sourceComponentNames ?? (await listComponentNames(templateRoot))
@@ -371,6 +378,8 @@ export const syncRegistryItems = async ({
       itemName,
       itemVariableName,
       templateRoot,
+      templatePrefix,
+      targetPrefix,
     })
 
     await mkdir(dirname(itemPath), { recursive: true })

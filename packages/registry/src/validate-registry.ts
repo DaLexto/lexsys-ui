@@ -4,6 +4,7 @@ import type {
   RegistryUtility,
 } from "./registry.types.js"
 import { validateRegistryItem } from "./validate-registry-item.js"
+import { validateRegistryComposition } from "./validate-registry-composition.js"
 
 interface ValidateRegistryOptions {
   styles?: RegistryStyle[]
@@ -295,6 +296,10 @@ export const validateRegistry = (
         }
       }
     }
+  }
+
+  for (const compositionError of validateRegistryComposition(items)) {
+    addError(compositionError)
   }
 
   // --- FINAL THROW ---

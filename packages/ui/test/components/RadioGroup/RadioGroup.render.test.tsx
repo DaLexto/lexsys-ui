@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest"
 import {
   RadioGroup,
   RadioGroupItem,
-} from "../../../src/components/RadioGroup/RadioGroup.js"
+} from "../../../src/components/primitives/RadioGroup/RadioGroup.js"
 
 describe("RadioGroup render", () => {
   it("renders radio group with custom className", () => {

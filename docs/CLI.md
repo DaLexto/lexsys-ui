@@ -374,13 +374,15 @@ load — missing fields fall back to defaults without error.
 ```ts
 interface NeurexConfig {
   style: "default"
-  componentsPath: string
-  utilitiesPath: string
-  stylesPath: string
+  paths: {
+    components: string
+    utilities: string
+    styles: string
+  }
   aliases: {
     components: string
-    utils: string
     ui: string
+    utils: string
     lib: string
     hooks: string
   }
@@ -388,28 +390,32 @@ interface NeurexConfig {
     version: "v4"
     css: string
   }
-  installed?: Record<string, string> // name → installed version
+  installed?: Record<string, string>
   registryUrl?: string | null
 }
 ```
 
+All installable items (primitives, blocks, templates) copy into
+`paths.components/<CanonicalName>/`. The CLI rewrites cross-layer template
+imports to sibling paths on install (for example `../Button/Button`).
+
 ### Defaults
 
-| Field                | Default                        |
-| -------------------- | ------------------------------ |
-| `style`              | `"default"` (only valid value) |
-| `componentsPath`     | `"src/components/ui"`          |
-| `utilitiesPath`      | `"src/lib"`                    |
-| `stylesPath`         | `"styles"`                     |
-| `aliases.components` | `"@/components"`               |
-| `aliases.utils`      | `"@/lib/utils"`                |
-| `aliases.ui`         | `"@/components/ui"`            |
-| `aliases.lib`        | `"@/lib"`                      |
-| `aliases.hooks`      | `"@/hooks"`                    |
-| `tailwind.version`   | `"v4"` (only valid value)      |
-| `tailwind.css`       | `"src/style.css"`              |
-| `installed`          | `{}`                           |
-| `registryUrl`        | `null`                         |
+| Field                | Default               |
+| -------------------- | --------------------- |
+| `style`              | `"default"`           |
+| `paths.components`   | `"src/components/ui"` |
+| `paths.utilities`    | `"src/lib"`           |
+| `paths.styles`       | `"styles"`            |
+| `aliases.components` | `"@/components/ui"`   |
+| `aliases.ui`         | `"@/components/ui"`   |
+| `aliases.utils`      | `"@/lib/utils"`       |
+| `aliases.lib`        | `"@/lib"`             |
+| `aliases.hooks`      | `"@/hooks"`           |
+| `tailwind.version`   | `"v4"`                |
+| `tailwind.css`       | `"src/style.css"`     |
+| `installed`          | `{}`                  |
+| `registryUrl`        | `null`                |
 
 `tailwind.version` is a type literal locked to `"v4"`. Tailwind v3 is not
 supported.

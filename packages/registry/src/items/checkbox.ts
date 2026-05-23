@@ -14,19 +14,19 @@ export const checkboxRegistryItem: RegistryItem = {
   category: "forms",
   aliases: ["check"],
   files: [
-    "components/Checkbox/Checkbox.tsx",
-    "components/Checkbox/Checkbox.types.ts",
-    "components/Checkbox/Checkbox.variants.ts",
+    "primitives/Checkbox/Checkbox.tsx",
+    "primitives/Checkbox/Checkbox.types.ts",
+    "primitives/Checkbox/Checkbox.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Checkbox/Checkbox.tsx",
+      path: "primitives/Checkbox/Checkbox.tsx",
     },
     {
-      path: "components/Checkbox/Checkbox.types.ts",
+      path: "primitives/Checkbox/Checkbox.types.ts",
     },
     {
-      path: "components/Checkbox/Checkbox.variants.ts",
+      path: "primitives/Checkbox/Checkbox.variants.ts",
     },
   ],
   dependencies: [

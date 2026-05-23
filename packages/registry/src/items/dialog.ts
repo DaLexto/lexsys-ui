@@ -14,19 +14,19 @@ export const dialogRegistryItem: RegistryItem = {
   category: "overlays",
   aliases: [],
   files: [
-    "components/Dialog/Dialog.tsx",
-    "components/Dialog/Dialog.types.ts",
-    "components/Dialog/Dialog.variants.ts",
+    "primitives/Dialog/Dialog.tsx",
+    "primitives/Dialog/Dialog.types.ts",
+    "primitives/Dialog/Dialog.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Dialog/Dialog.tsx",
+      path: "primitives/Dialog/Dialog.tsx",
     },
     {
-      path: "components/Dialog/Dialog.types.ts",
+      path: "primitives/Dialog/Dialog.types.ts",
     },
     {
-      path: "components/Dialog/Dialog.variants.ts",
+      path: "primitives/Dialog/Dialog.variants.ts",
     },
   ],
   dependencies: [

@@ -6,7 +6,7 @@ import {
   NumberFieldGroup,
   NumberFieldIncrement,
   NumberFieldInput,
-} from "../../../src/components/NumberField/NumberField.js"
+} from "../../../src/components/primitives/NumberField/NumberField.js"
 
 describe("NumberField render", () => {
   it("renders number input with custom className", () => {

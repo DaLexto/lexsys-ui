@@ -7,7 +7,7 @@ import {
   MenuPortal,
   MenuPositioner,
   MenuTrigger,
-} from "../../../src/components/Menu/Menu.js"
+} from "../../../src/components/primitives/Menu/Menu.js"
 
 describe("Menu render", () => {
   it("renders menu item when defaultOpen", () => {

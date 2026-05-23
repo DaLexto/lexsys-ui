@@ -14,19 +14,19 @@ export const alertDialogRegistryItem: RegistryItem = {
   category: "overlays",
   aliases: [],
   files: [
-    "components/AlertDialog/AlertDialog.tsx",
-    "components/AlertDialog/AlertDialog.types.ts",
-    "components/AlertDialog/AlertDialog.variants.ts",
+    "primitives/AlertDialog/AlertDialog.tsx",
+    "primitives/AlertDialog/AlertDialog.types.ts",
+    "primitives/AlertDialog/AlertDialog.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/AlertDialog/AlertDialog.tsx",
+      path: "primitives/AlertDialog/AlertDialog.tsx",
     },
     {
-      path: "components/AlertDialog/AlertDialog.types.ts",
+      path: "primitives/AlertDialog/AlertDialog.types.ts",
     },
     {
-      path: "components/AlertDialog/AlertDialog.variants.ts",
+      path: "primitives/AlertDialog/AlertDialog.variants.ts",
     },
   ],
   dependencies: [

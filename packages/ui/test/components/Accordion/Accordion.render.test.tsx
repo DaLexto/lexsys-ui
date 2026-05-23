@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionPanel,
   AccordionTrigger,
-} from "../../../src/components/Accordion/Accordion.js"
+} from "../../../src/components/primitives/Accordion/Accordion.js"
 
 describe("Accordion render", () => {
   it("renders trigger and panel when defaultOpen", () => {

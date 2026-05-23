@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Meter } from "../../../src/components/Meter/Meter.js"
+import { Meter } from "../../../src/components/primitives/Meter/Meter.js"
 
 describe("Meter render", () => {
   it("renders meter label with custom className", () => {

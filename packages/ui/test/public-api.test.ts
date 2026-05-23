@@ -3,12 +3,39 @@ import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { describe, expect, test } from "vitest"
 
-const componentRoot = join(process.cwd(), "src/components")
+const layerRoots = [
+  join(process.cwd(), "src/components/primitives"),
+  join(process.cwd(), "src/components/blocks"),
+  join(process.cwd(), "src/components/templates"),
+] as const
+
 const publicEntry = readFileSync(join(process.cwd(), "src/index.ts"), "utf-8")
 
-const getComponentExports = (componentName: string): string[] => {
+const getLayerEntries = (): Array<{ layer: string; name: string }> => {
+  return layerRoots.flatMap((layerRoot) => {
+    const layer = layerRoot.split(/[\\/]/u).at(-1) ?? "components"
+
+    return readdirSync(layerRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => ({
+        layer,
+        name: entry.name,
+      }))
+  })
+}
+
+const getComponentExports = (
+  layer: string,
+  componentName: string,
+): string[] => {
   const componentEntry = readFileSync(
-    join(componentRoot, componentName, `${componentName}.tsx`),
+    join(
+      process.cwd(),
+      "src/components",
+      layer,
+      componentName,
+      `${componentName}.tsx`,
+    ),
     "utf-8",
   )
   const exportBlock = componentEntry.match(/export\s*\{(?<exports>[^}]+)\}/)
@@ -25,15 +52,17 @@ const isNonComponentExport = (exportName: string): boolean => {
   return exportName.startsWith("use") || exportName.startsWith("create")
 }
 
-const componentNames = readdirSync(componentRoot, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name)
-  .toSorted()
+const layerEntries = getLayerEntries()
 
 describe("@neurex/ui public API", () => {
   test("keeps every component in the standard three-file shape", () => {
-    for (const componentName of componentNames) {
-      const componentPath = join(componentRoot, componentName)
+    for (const { layer, name: componentName } of layerEntries) {
+      const componentPath = join(
+        process.cwd(),
+        "src/components",
+        layer,
+        componentName,
+      )
 
       expect(existsSync(join(componentPath, `${componentName}.tsx`))).toBe(true)
       expect(existsSync(join(componentPath, `${componentName}.types.ts`))).toBe(
@@ -45,30 +74,44 @@ describe("@neurex/ui public API", () => {
     }
   })
 
-  test("exports every component implementation from the package root", () => {
-    for (const componentName of componentNames) {
+  test("exports every primitive implementation from the package root", () => {
+    for (const { layer, name: componentName } of layerEntries) {
+      if (layer !== "primitives") {
+        continue
+      }
+
       expect(publicEntry).toContain(
-        `export * from "./components/${componentName}/${componentName}"`,
+        `export * from "./components/${layer}/${componentName}/${componentName}"`,
       )
     }
   })
 
-  test("exports every component prop type module from the package root", () => {
-    for (const componentName of componentNames) {
+  test("exports every primitive prop type module from the package root", () => {
+    for (const { layer, name: componentName } of layerEntries) {
+      if (layer !== "primitives") {
+        continue
+      }
+
       expect(publicEntry).toContain(
-        `export type * from "./components/${componentName}/${componentName}.types"`,
+        `export type * from "./components/${layer}/${componentName}/${componentName}.types"`,
       )
     }
   })
 
   test("keeps a named props type for every exported component", () => {
-    for (const componentName of componentNames) {
+    for (const { layer, name: componentName } of layerEntries) {
       const typeEntry = readFileSync(
-        join(componentRoot, componentName, `${componentName}.types.ts`),
+        join(
+          process.cwd(),
+          "src/components",
+          layer,
+          componentName,
+          `${componentName}.types.ts`,
+        ),
         "utf-8",
       )
 
-      for (const exportName of getComponentExports(componentName)) {
+      for (const exportName of getComponentExports(layer, componentName)) {
         if (isNonComponentExport(exportName)) {
           continue
         }

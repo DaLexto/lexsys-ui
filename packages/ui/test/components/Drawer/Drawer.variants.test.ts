@@ -4,7 +4,7 @@ import {
   drawerPopupVariants,
   drawerSwipeAreaVariants,
   drawerViewportVariants,
-} from "../../../src/components/Drawer/Drawer.variants.js"
+} from "../../../src/components/primitives/Drawer/Drawer.variants.js"
 
 describe("drawerVariants", () => {
   it("includes token-backed side, size, swipe, and transition classes", () => {

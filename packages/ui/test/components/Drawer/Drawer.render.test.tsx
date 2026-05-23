@@ -8,7 +8,7 @@ import {
   DrawerPortal,
   DrawerTitle,
   DrawerViewport,
-} from "../../../src/components/Drawer/Drawer.js"
+} from "../../../src/components/primitives/Drawer/Drawer.js"
 
 describe("Drawer render", () => {
   it("renders drawer title when defaultOpen", () => {

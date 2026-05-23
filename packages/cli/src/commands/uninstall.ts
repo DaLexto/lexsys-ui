@@ -15,6 +15,8 @@ import {
   resolveRegistryStyles,
   resolveRegistryUtilities,
 } from "../core/registry-resolver.js"
+import { findOrphanInstalledItems } from "../core/registry-closure.js"
+import { getRegistryItems } from "../core/registry-provider.js"
 import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
@@ -63,11 +65,25 @@ const collectOrphanedSharedResources = (
   }
 }
 
+const removeInstalledKey = (
+  installed: Record<string, string>,
+  itemName: string,
+): void => {
+  const installedKey = Object.keys(installed).find((key) => {
+    return normalizeInstalledKey(key) === normalizeInstalledKey(itemName)
+  })
+
+  if (installedKey) {
+    delete installed[installedKey]
+  }
+}
+
 export const runUninstall = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run")
+  const withDeps = hasFlag(args, "--with-deps")
   const noFallback = hasFlag(args, "--no-fallback")
   const targetArgs = removeFlagsWithValues(
-    removeFlags(args, ["--dry-run", "--no-fallback"]),
+    removeFlags(args, ["--dry-run", "--with-deps", "--no-fallback"]),
     ["--cwd"],
   )
 
@@ -113,14 +129,30 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   const remainingInstalled = { ...installed }
 
   for (const item of resolvedTargets) {
-    const installedKey = Object.keys(remainingInstalled).find((key) => {
-      return normalizeInstalledKey(key) === normalizeInstalledKey(item.name)
-    })
-
-    if (installedKey) {
-      delete remainingInstalled[installedKey]
-    }
+    removeInstalledKey(remainingInstalled, item.name)
   }
+
+  const allItems = await getRegistryItems({ fallback: !noFallback })
+  const orphanItems = withDeps
+    ? findOrphanInstalledItems(
+        resolvedTargets.map((item) => item.name),
+        remainingInstalled,
+        allItems,
+      )
+    : findOrphanInstalledItems(
+        resolvedTargets.map((item) => item.name),
+        remainingInstalled,
+        allItems,
+      )
+
+  const orphanHints = withDeps ? [] : orphanItems
+
+  const allRemovalTargets = [
+    ...resolvedTargets,
+    ...(withDeps ? orphanItems : []),
+  ].filter((item, index, array) => {
+    return array.findIndex((entry) => entry.name === item.name) === index
+  })
 
   if (dryRun) {
     console.log("Dry run: no files will be removed.\n")
@@ -132,13 +164,36 @@ export const runUninstall = async (args: string[]): Promise<void> => {
       )
     }
 
-    const dryRunRemainingItems = await resolveInstalledItems(remainingInstalled)
+    if (withDeps && orphanItems.length) {
+      console.log("\nOrphan registry items (--with-deps):")
+      for (const item of orphanItems) {
+        console.log(`- ${item.canonicalName}`)
+      }
+    }
+
+    if (!withDeps && orphanHints.length) {
+      console.log(
+        "\nPossible orphan registry items (use --with-deps to remove):",
+      )
+      for (const item of orphanHints) {
+        console.log(`- ${item.canonicalName}`)
+      }
+    }
+
+    const postOrphanRemaining = { ...remainingInstalled }
+
+    for (const item of withDeps ? orphanItems : []) {
+      removeInstalledKey(postOrphanRemaining, item.name)
+    }
+
     const dryRunOrphans = collectOrphanedSharedResources(
-      resolvedTargets,
-      dryRunRemainingItems,
+      allRemovalTargets,
+      await resolveInstalledItems(postOrphanRemaining),
     )
 
-    console.log("\nDependencies (not removed automatically):")
+    console.log(
+      "\nDependencies (npm packages are never removed automatically):",
+    )
     for (const dependency of collectDependencies(resolvedTargets)) {
       console.log(`- ${dependency}`)
     }
@@ -157,7 +212,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   const itemResults = []
   const successfullyUninstalled: RegistryItem[] = []
 
-  for (const item of resolvedTargets) {
+  for (const item of allRemovalTargets) {
     const itemResult = await uninstallItemFiles(item, config)
     itemResults.push(itemResult)
 
@@ -175,13 +230,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   const postUninstallInstalled = { ...installed }
 
   for (const item of successfullyUninstalled) {
-    const installedKey = Object.keys(postUninstallInstalled).find((key) => {
-      return normalizeInstalledKey(key) === normalizeInstalledKey(item.name)
-    })
-
-    if (installedKey) {
-      delete postUninstallInstalled[installedKey]
-    }
+    removeInstalledKey(postUninstallInstalled, item.name)
   }
 
   const remainingItems = await resolveInstalledItems(postUninstallInstalled)
@@ -213,13 +262,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   }
 
   for (const item of successfullyUninstalled) {
-    const installedKey = Object.keys(updatedInstalled).find((key) => {
-      return normalizeInstalledKey(key) === normalizeInstalledKey(item.name)
-    })
-
-    if (installedKey) {
-      delete updatedInstalled[installedKey]
-    }
+    removeInstalledKey(updatedInstalled, item.name)
   }
 
   await saveConfig({
@@ -234,7 +277,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   printUninstallSummary("components", itemSummary)
   printUninstallSummary("shared resources", sharedSummary)
   console.log(
-    `- untracked components: ${successfullyUninstalled.length}/${resolvedTargets.length}`,
+    `- untracked components: ${successfullyUninstalled.length}/${allRemovalTargets.length}`,
   )
 
   if (

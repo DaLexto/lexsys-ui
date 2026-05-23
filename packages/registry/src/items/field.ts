@@ -14,19 +14,19 @@ export const fieldRegistryItem: RegistryItem = {
   category: "forms",
   aliases: [],
   files: [
-    "components/Field/Field.tsx",
-    "components/Field/Field.types.ts",
-    "components/Field/Field.variants.ts",
+    "primitives/Field/Field.tsx",
+    "primitives/Field/Field.types.ts",
+    "primitives/Field/Field.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Field/Field.tsx",
+      path: "primitives/Field/Field.tsx",
     },
     {
-      path: "components/Field/Field.types.ts",
+      path: "primitives/Field/Field.types.ts",
     },
     {
-      path: "components/Field/Field.variants.ts",
+      path: "primitives/Field/Field.variants.ts",
     },
   ],
   dependencies: [

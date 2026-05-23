@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Form } from "../../../src/components/Form/Form.js"
+import { Form } from "../../../src/components/primitives/Form/Form.js"
 import {
   Field,
   FieldControl,
   FieldLabel,
-} from "../../../src/components/Field/Field.js"
+} from "../../../src/components/primitives/Field/Field.js"
 
 describe("Form render", () => {
   it("renders form field with custom className", () => {

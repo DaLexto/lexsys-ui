@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { scrollAreaScrollbarVariants } from "../../../src/components/ScrollArea/ScrollArea.variants.js"
+import { scrollAreaScrollbarVariants } from "../../../src/components/primitives/ScrollArea/ScrollArea.variants.js"
 
 describe("scrollAreaScrollbarVariants", () => {
   it("supports vertical and horizontal orientations", () => {

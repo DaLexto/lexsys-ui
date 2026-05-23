@@ -4,7 +4,7 @@ import {
   ToastPortal,
   ToastProvider,
   ToastViewport,
-} from "../../../src/components/Toast/Toast.js"
+} from "../../../src/components/primitives/Toast/Toast.js"
 
 describe("Toast render", () => {
   it("renders provider and viewport in the document", () => {

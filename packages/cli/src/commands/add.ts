@@ -126,9 +126,9 @@ export const runAdd = async (args: string[]): Promise<void> => {
     }
 
     console.log("\nInstall paths:")
-    console.log(`- components: ${config.componentsPath}`)
-    console.log(`- utilities: ${config.utilitiesPath}`)
-    console.log(`- styles: ${config.stylesPath}`)
+    console.log(`- components: ${config.paths.components}`)
+    console.log(`- utilities: ${config.paths.utilities}`)
+    console.log(`- styles: ${config.paths.styles}`)
     console.log(`- tailwind css: ${config.tailwind.css}`)
 
     return

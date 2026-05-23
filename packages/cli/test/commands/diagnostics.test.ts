@@ -30,7 +30,7 @@ const item: RegistryItem = {
   type: "component",
   category: "actions",
   aliases: ["btn"],
-  files: ["components/ui/Button/Button.tsx"],
+  files: ["primitives/Button/Button.tsx"],
   dependencies: [],
   registryDependencies: [],
   utilities: [],
@@ -68,11 +68,13 @@ describe("CLI diagnostic commands", () => {
 
   test("runDoctor reports project paths and registry summary", async () => {
     await writeJson(join(tempDir, "package.json"), { name: "demo" })
-    await mkdir(join(tempDir, defaultConfig.componentsPath), {
+    await mkdir(join(tempDir, defaultConfig.paths.components), {
       recursive: true,
     })
-    await mkdir(join(tempDir, defaultConfig.utilitiesPath), { recursive: true })
-    await mkdir(join(tempDir, defaultConfig.stylesPath), { recursive: true })
+    await mkdir(join(tempDir, defaultConfig.paths.utilities), {
+      recursive: true,
+    })
+    await mkdir(join(tempDir, defaultConfig.paths.styles), { recursive: true })
     await writeFile(join(tempDir, defaultConfig.tailwind.css), ":root {}\n")
 
     mocks.getRegistryProviderResult.mockResolvedValue({
@@ -103,7 +105,7 @@ describe("CLI diagnostic commands", () => {
       ...defaultConfig,
       installed: { button: "0.0.1" },
     })
-    await mkdir(join(tempDir, defaultConfig.componentsPath, "Button"), {
+    await mkdir(join(tempDir, "src/components/ui/Button"), {
       recursive: true,
     })
 
@@ -126,7 +128,8 @@ describe("CLI diagnostic commands", () => {
 
     await runList()
 
-    expect(consoleOutput()).toContain("Available Neurex components:")
+    expect(consoleOutput()).toContain("Available Neurex registry items:")
+    expect(consoleOutput()).toContain("Primitives:")
     expect(consoleOutput()).toContain("- Button v0.0.1 (actions)")
   })
 

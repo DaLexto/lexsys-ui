@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { badgeVariants } from "../../../src/components/Badge/Badge.variants.js"
+import { badgeVariants } from "../../../src/components/primitives/Badge/Badge.variants.js"
 
 describe("badgeVariants", () => {
   test("uses token-backed classes for visual styling", () => {

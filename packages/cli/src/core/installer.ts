@@ -11,6 +11,8 @@ import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import type { RegistryItem } from "@neurex/registry"
 import type { NeurexConfig } from "./config.js"
+import { prepareInstalledFileContent } from "./import-rewriter.js"
+import { resolveItemInstallTarget } from "./install-target.js"
 import { createBackupFile } from "./backup.js"
 import { fileExists, filesAreEqual } from "./fs.js"
 import { getCwd } from "./context.js"
@@ -49,9 +51,9 @@ const isGeneratedNeurexStyle = (content: string): boolean => {
 export const ensureProjectStructure = async (
   config: NeurexConfig,
 ): Promise<void> => {
-  await mkdir(join(getCwd(), config.componentsPath), { recursive: true })
-  await mkdir(join(getCwd(), config.utilitiesPath), { recursive: true })
-  await mkdir(join(getCwd(), config.stylesPath), { recursive: true })
+  await mkdir(join(getCwd(), config.paths.components), { recursive: true })
+  await mkdir(join(getCwd(), config.paths.utilities), { recursive: true })
+  await mkdir(join(getCwd(), config.paths.styles), { recursive: true })
 }
 
 export const installUtilities = async (
@@ -62,7 +64,7 @@ export const installUtilities = async (
 
   for (const utility of utilities) {
     const sourcePath = getRegistryTemplatePath(utility.path)
-    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
+    const targetPath = join(getCwd(), config.paths.utilities, utility.target)
 
     await mkdir(dirname(targetPath), { recursive: true })
 
@@ -97,7 +99,7 @@ export const updateUtilities = async (
 
   for (const utility of utilities) {
     const sourcePath = getRegistryTemplatePath(utility.path)
-    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
+    const targetPath = join(getCwd(), config.paths.utilities, utility.target)
 
     await mkdir(dirname(targetPath), { recursive: true })
 
@@ -148,7 +150,7 @@ export const installStyles = async (
 
     for (const file of style.files) {
       const sourcePath = getRegistryTemplatePath(file.path)
-      const targetPath = join(getCwd(), config.stylesPath, file.target)
+      const targetPath = join(getCwd(), config.paths.styles, file.target)
 
       await mkdir(dirname(targetPath), { recursive: true })
 
@@ -208,7 +210,7 @@ const toCssImportPath = (
 ): string => {
   const importPath = relative(
     dirname(cssPath),
-    join(config.stylesPath, styleTarget),
+    join(config.paths.styles, styleTarget),
   ).replaceAll("\\", "/")
 
   return importPath.startsWith(".") ? importPath : `./${importPath}`
@@ -275,11 +277,23 @@ const installStyleEntrypointImports = async (
   }
 }
 
+const readPreparedTemplateContent = async (
+  item: RegistryItem,
+  file: string,
+  remoteContent?: string,
+): Promise<string> => {
+  const rawContent =
+    remoteContent ?? (await readFile(getRegistryTemplatePath(file), "utf-8"))
+
+  return prepareInstalledFileContent(rawContent, item)
+}
+
 export const installItemFiles = async (
   item: RegistryItem,
   config: NeurexConfig,
 ): Promise<InstallResourceResult> => {
   const result = createInstallResourceResult()
+  const installTarget = resolveItemInstallTarget(config, item)
 
   console.log(`Installing ${item.canonicalName}...\n`)
 
@@ -290,19 +304,13 @@ export const installItemFiles = async (
       (registryFile) => registryFile.path === file && registryFile.remoteUrl,
     )
 
-    const sourcePath = getRegistryTemplatePath(file)
     const fileName = file.split("/").at(-1)
 
     if (!fileName) {
       throw new Error(`Invalid registry file path: ${file}`)
     }
 
-    const targetPath = join(
-      getCwd(),
-      config.componentsPath,
-      item.canonicalName,
-      fileName,
-    )
+    const targetPath = join(getCwd(), installTarget, fileName)
 
     await mkdir(dirname(targetPath), { recursive: true })
 
@@ -310,11 +318,16 @@ export const installItemFiles = async (
       console.log(`Fetching remote file: ${remoteFile.remoteUrl}`)
 
       const remoteContent = await fetchRemoteFile(remoteFile.remoteUrl)
+      const preparedContent = await readPreparedTemplateContent(
+        item,
+        file,
+        remoteContent,
+      )
 
       if (await fileExists(targetPath)) {
         const targetContent = await readFile(targetPath, "utf-8")
 
-        if (hashesAreEqual(remoteContent, targetContent)) {
+        if (hashesAreEqual(preparedContent, targetContent)) {
           console.log(`Skipped identical file: ${targetPath}`)
           result.skipped.push(targetPath)
           continue
@@ -325,16 +338,18 @@ export const installItemFiles = async (
         continue
       }
 
-      await writeFile(targetPath, remoteContent, "utf-8")
+      await writeFile(targetPath, preparedContent, "utf-8")
       console.log(`Created: ${targetPath}`)
       result.created.push(targetPath)
       continue
     }
 
-    if (await fileExists(targetPath)) {
-      const isSameFile = await filesAreEqual(sourcePath, targetPath)
+    const preparedContent = await readPreparedTemplateContent(item, file)
 
-      if (isSameFile) {
+    if (await fileExists(targetPath)) {
+      const targetContent = await readFile(targetPath, "utf-8")
+
+      if (hashesAreEqual(preparedContent, targetContent)) {
         console.log(`Skipped identical file: ${targetPath}`)
         result.skipped.push(targetPath)
         continue
@@ -345,7 +360,7 @@ export const installItemFiles = async (
       continue
     }
 
-    await copyFile(sourcePath, targetPath)
+    await writeFile(targetPath, preparedContent, "utf-8")
     console.log(`Created: ${targetPath}`)
     result.created.push(targetPath)
   }
@@ -444,17 +459,12 @@ export const uninstallItemFiles = async (
 
   const componentDirectory = join(
     getCwd(),
-    config.componentsPath,
-    item.canonicalName,
+    resolveItemInstallTarget(config, item),
   )
 
-  const plannedRemovals: Array<{
-    sourcePath: string
-    targetPath: string
-  }> = []
+  const plannedRemovals: string[] = []
 
   for (const file of item.files) {
-    const sourcePath = getRegistryTemplatePath(file)
     const fileName = file.split("/").at(-1)
 
     if (!fileName) {
@@ -469,9 +479,10 @@ export const uninstallItemFiles = async (
       continue
     }
 
-    const isSameFile = await filesAreEqual(sourcePath, targetPath)
+    const preparedContent = await readPreparedTemplateContent(item, file)
+    const targetContent = await readFile(targetPath, "utf-8")
 
-    if (!isSameFile) {
+    if (!hashesAreEqual(preparedContent, targetContent)) {
       console.log(
         `Conflict: file differs from registry template: ${targetPath}`,
       )
@@ -479,7 +490,7 @@ export const uninstallItemFiles = async (
       continue
     }
 
-    plannedRemovals.push({ sourcePath, targetPath })
+    plannedRemovals.push(targetPath)
   }
 
   if (result.conflicted.length > 0) {
@@ -490,10 +501,10 @@ export const uninstallItemFiles = async (
     return result
   }
 
-  for (const removal of plannedRemovals) {
-    await unlink(removal.targetPath)
-    console.log(`Removed: ${removal.targetPath}`)
-    result.removed.push(removal.targetPath)
+  for (const targetPath of plannedRemovals) {
+    await unlink(targetPath)
+    console.log(`Removed: ${targetPath}`)
+    result.removed.push(targetPath)
   }
 
   await tryRemoveEmptyDirectory(componentDirectory)
@@ -511,7 +522,7 @@ export const uninstallUtilities = async (
 
   for (const utility of utilities) {
     const sourcePath = getRegistryTemplatePath(utility.path)
-    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
+    const targetPath = join(getCwd(), config.paths.utilities, utility.target)
 
     await removeFileIfMatchesTemplate(sourcePath, targetPath, result)
   }
@@ -530,7 +541,7 @@ export const uninstallStyles = async (
 
     for (const file of style.files) {
       const sourcePath = getRegistryTemplatePath(file.path)
-      const targetPath = join(getCwd(), config.stylesPath, file.target)
+      const targetPath = join(getCwd(), config.paths.styles, file.target)
 
       await removeGeneratedStyleIfMatchesTemplate(
         sourcePath,

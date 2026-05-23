@@ -3,7 +3,7 @@ import {
   alertDescriptionClassName,
   alertTitleClassName,
   alertVariants,
-} from "../../../src/components/Alert/Alert.variants.js"
+} from "../../../src/components/primitives/Alert/Alert.variants.js"
 
 describe("alertVariants", () => {
   test("uses token-backed classes for visual styling", () => {

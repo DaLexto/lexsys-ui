@@ -12,22 +12,24 @@ import {
 
 const config: NeurexConfig = {
   style: "default",
+  paths: {
+    components: "src/components/ui",
+    utilities: "src/lib",
+    styles: "styles",
+  },
   aliases: {
-    components: "@/components",
-    hooks: "@/hooks",
-    lib: "@/lib",
+    components: "@/components/ui",
     ui: "@/components/ui",
     utils: "@/lib/utils",
+    lib: "@/lib",
+    hooks: "@/hooks",
   },
-  componentsPath: "src/components/ui",
-  installed: {},
-  registryUrl: null,
-  stylesPath: "styles",
   tailwind: {
     version: "v4",
     css: "src/style.css",
   },
-  utilitiesPath: "src/lib",
+  installed: {},
+  registryUrl: null,
 }
 
 describe("installItemFiles", () => {
@@ -61,7 +63,7 @@ describe("installItemFiles", () => {
   })
 
   test("resolves registry templates through package exports", async () => {
-    const templatePath = getRegistryTemplatePath("components/Button/Button.tsx")
+    const templatePath = getRegistryTemplatePath("primitives/Button/Button.tsx")
 
     await expect(readFile(templatePath, "utf-8")).resolves.toContain(
       "export { Button }",

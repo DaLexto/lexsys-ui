@@ -6,7 +6,7 @@ import {
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaViewport,
-} from "../../../src/components/ScrollArea/ScrollArea.js"
+} from "../../../src/components/primitives/ScrollArea/ScrollArea.js"
 
 describe("ScrollArea render", () => {
   it("renders scrollable content and merges root className", () => {

@@ -1,7 +1,9 @@
 import { join } from "node:path"
+import { getInstallLayer } from "@neurex/registry"
 import { getCwd } from "../core/context.js"
 import { loadConfig } from "../core/config.js"
 import { fileExists } from "../core/fs.js"
+import { resolveItemInstallTarget } from "../core/install-target.js"
 import { getRegistryProviderResult } from "../core/registry-provider.js"
 import { findItem } from "../core/registry-resolver.js"
 
@@ -23,16 +25,16 @@ export const runDoctor = async (
       path: join(getCwd(), "package.json"),
     },
     {
-      label: config.componentsPath,
-      path: join(getCwd(), config.componentsPath),
+      label: config.paths.components,
+      path: join(getCwd(), config.paths.components),
     },
     {
-      label: config.utilitiesPath,
-      path: join(getCwd(), config.utilitiesPath),
+      label: config.paths.utilities,
+      path: join(getCwd(), config.paths.utilities),
     },
     {
-      label: config.stylesPath,
-      path: join(getCwd(), config.stylesPath),
+      label: config.paths.styles,
+      path: join(getCwd(), config.paths.styles),
     },
     {
       label: config.tailwind.css,
@@ -82,13 +84,14 @@ export const runDoctor = async (
 
       const componentPath = join(
         getCwd(),
-        config.componentsPath,
-        item.canonicalName,
+        resolveItemInstallTarget(config, item),
       )
-
       const exists = await fileExists(componentPath)
+      const layer = getInstallLayer(item) ?? "unknown"
 
-      console.log(`${exists ? "✓" : "×"} ${item.canonicalName} v${version}`)
+      console.log(
+        `${exists ? "✓" : "×"} ${item.canonicalName} v${version} (${layer})`,
+      )
     }
   }
 }

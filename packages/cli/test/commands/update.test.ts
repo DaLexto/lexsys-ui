@@ -58,9 +58,18 @@ describe("runUpdate", () => {
   test("updates generated token and theme styles without requiring a component install", async () => {
     await writeJson(join(tempDir, "neurex.config.json"), {
       style: "default",
-      componentsPath: "src/components/ui",
-      utilitiesPath: "src/lib",
-      stylesPath: "styles",
+      paths: {
+        components: "src/components/ui",
+        utilities: "src/lib",
+        styles: "styles",
+      },
+      aliases: {
+        components: "@/components/ui",
+        ui: "@/components/ui",
+        utils: "@/lib/utils",
+        lib: "@/lib",
+        hooks: "@/hooks",
+      },
       tailwind: {
         version: "v4",
         css: "src/style.css",

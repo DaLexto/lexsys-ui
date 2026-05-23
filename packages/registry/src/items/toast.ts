@@ -14,19 +14,19 @@ export const toastRegistryItem: RegistryItem = {
   category: "feedback",
   aliases: [],
   files: [
-    "components/Toast/Toast.tsx",
-    "components/Toast/Toast.types.ts",
-    "components/Toast/Toast.variants.ts",
+    "primitives/Toast/Toast.tsx",
+    "primitives/Toast/Toast.types.ts",
+    "primitives/Toast/Toast.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Toast/Toast.tsx",
+      path: "primitives/Toast/Toast.tsx",
     },
     {
-      path: "components/Toast/Toast.types.ts",
+      path: "primitives/Toast/Toast.types.ts",
     },
     {
-      path: "components/Toast/Toast.variants.ts",
+      path: "primitives/Toast/Toast.variants.ts",
     },
   ],
   dependencies: [

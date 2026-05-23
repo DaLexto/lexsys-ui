@@ -23,20 +23,101 @@ about what to install, and templates to copy.
 
 Every installable item MUST declare all of the following fields:
 
-| Field                  | Type                                  | Contract                                                     |
-| ---------------------- | ------------------------------------- | ------------------------------------------------------------ |
-| `name`                 | `string`                              | Lowercase lookup key; unique across the registry             |
-| `canonicalName`        | `string`                              | PascalCase display name; matches component folder name       |
-| `version`              | `string`                              | Semver string; used by `status` and `update` to detect drift |
-| `type`                 | `"component" \| "utility" \| "style"` | Determines install behavior                                  |
-| `category`             | `RegistryItemCategory`                | Groups items in `list` output                                |
-| `aliases`              | `string[]`                            | Alternative lookup names; MAY be empty                       |
-| `files`                | `string[]`                            | Template-relative paths of files to copy                     |
-| `dependencies`         | `string[]`                            | npm packages the CLI MUST install                            |
-| `registryDependencies` | `string[]`                            | Other registry items that MUST be installed first            |
-| `utilities`            | `string[]`                            | Shared utility names the CLI MUST resolve and install        |
-| `styles`               | `string[]`                            | Style names the CLI MUST resolve and install                 |
-| `target`               | `string`                              | Default consumer project install path                        |
+| Field                  | Type                                             | Contract                                                     |
+| ---------------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| `name`                 | `string`                                         | Lowercase lookup key; unique across the registry             |
+| `canonicalName`        | `string`                                         | PascalCase display name; matches component folder name       |
+| `version`              | `string`                                         | Semver string; used by `status` and `update` to detect drift |
+| `type`                 | `"component" \| "block" \| "utility" \| "style"` | Determines install behavior and path conventions             |
+| `category`             | `RegistryItemCategory`                           | Groups items in `list` output                                |
+| `aliases`              | `string[]`                                       | Alternative lookup names; MAY be empty                       |
+| `files`                | `string[]`                                       | Template-relative paths of files to copy                     |
+| `dependencies`         | `string[]`                                       | npm packages the CLI MUST install                            |
+| `registryDependencies` | `string[]`                                       | Other registry items that MUST be installed first            |
+| `utilities`            | `string[]`                                       | Shared utility names the CLI MUST resolve and install        |
+| `styles`               | `string[]`                                       | Style names the CLI MUST resolve and install                 |
+| `target`               | `string`                                         | Default consumer project install path                        |
+
+### Primitives (`type: "component"`)
+
+Layer model: [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
+
+- Template paths MUST start with `primitives/<CanonicalName>/`
+- `target` MUST be `src/components/ui/<CanonicalName>`
+- `registryDependencies` MUST be `[]`
+
+### Blocks (`type: "block"`, install layer: blocks)
+
+Composed UI patterns. Layer is registry metadata; consumer install path is flat `ui/`.
+
+- Template paths MUST start with `blocks/<CanonicalName>/`
+- `target` MUST be `src/components/ui/<CanonicalName>`
+- `category` MUST be `blocks`
+- `registryDependencies` MAY reference primitives and other blocks (not templates)
+
+### Templates (`type: "block"`, install layer: templates)
+
+Page/layout shells.
+
+- Template paths MUST start with `templates/<CanonicalName>/`
+- `target` MUST be `src/components/ui/<CanonicalName>`
+- `category` MUST be `blocks` (CLI grouping) or `layout` when added
+- `registryDependencies` MAY reference primitives, blocks, and other templates
+
+**Composition (`registryDependencies`)** — enforced by `validateRegistryComposition` at `pnpm registry:check`:
+
+| Install layer (from template prefix) | MAY depend on                           |
+| ------------------------------------ | --------------------------------------- |
+| `primitives/`                        | _(none — `registryDependencies` empty)_ |
+| `blocks/`                            | primitives + blocks                     |
+| `templates/`                         | primitives + blocks + templates         |
+
+Rules:
+
+- Declare **direct** imports only — CLI installs the transitive closure
+- No circular `registryDependencies`
+- Blocks MUST NOT depend on templates
+
+Example block metadata:
+
+```typescript
+export const sidebarRegistryItem: RegistryItem = {
+  name: "sidebar",
+  canonicalName: "Sidebar",
+  version: "0.0.1",
+  type: "block",
+  category: "blocks",
+  aliases: [],
+  files: ["blocks/Sidebar/Sidebar.tsx", "blocks/Sidebar/Sidebar.types.ts"],
+  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  registryDependencies: ["drawer", "menu", "scroll-area"],
+  utilities: ["cn"],
+  styles: ["theme"],
+  target: "src/components/blocks/Sidebar",
+}
+```
+
+Example template metadata:
+
+```typescript
+export const dashboardTemplateRegistryItem: RegistryItem = {
+  name: "dashboard-template",
+  canonicalName: "DashboardTemplate",
+  version: "0.0.1",
+  type: "block",
+  category: "blocks",
+  aliases: [],
+  files: ["templates/DashboardTemplate/DashboardTemplate.tsx"],
+  dependencies: [],
+  registryDependencies: ["sidebar"],
+  utilities: ["cn"],
+  styles: ["theme"],
+  target: "src/components/templates/DashboardTemplate",
+}
+```
+
+Block/primitive templates live under `packages/registry/templates/{primitives,blocks,templates}/`.
+Reference source: `packages/ui/src/components/{primitives,blocks,templates}/`.
 
 If the CLI needs any knowledge not declared in the registry item, the item is
 incomplete.
@@ -56,7 +137,9 @@ Templates are the files copied into consumer projects. They live under
 
 ```
 templates/
-  components/<ComponentName>/   ← component files
+  primitives/<ComponentName>/   ← primitive templates
+  blocks/<BlockName>/           ← block templates
+  templates/<TemplateName>/     ← template-layer templates
   shared/utils/                 ← shared utilities (cn.ts)
   styles/                       ← tokens.css, theme.css
 ```
@@ -109,16 +192,17 @@ The CLI MUST NOT require format differences between local and remote sources.
 
 Valid `RegistryItemCategory` values:
 
-| Category       | Description                                  |
-| -------------- | -------------------------------------------- |
-| `actions`      | Buttons, toggles, interactive triggers       |
-| `forms`        | Inputs, checkboxes, selects, form primitives |
-| `overlays`     | Dialogs, drawers, popovers, tooltips         |
-| `navigation`   | Menus, tabs, pagination                      |
-| `feedback`     | Alerts, toasts, progress, meters             |
-| `layout`       | Separators, containers, layout helpers       |
-| `data-display` | Avatars, badges, cards, data visualization   |
-| `utilities`    | Shared utility code                          |
+| Category       | Description                                         |
+| -------------- | --------------------------------------------------- |
+| `actions`      | Buttons, toggles, interactive triggers              |
+| `forms`        | Inputs, checkboxes, selects, form primitives        |
+| `overlays`     | Dialogs, drawers, popovers, tooltips                |
+| `navigation`   | Menus, tabs, pagination                             |
+| `feedback`     | Alerts, toasts, progress, meters                    |
+| `layout`       | Separators, containers, layout helpers              |
+| `data-display` | Avatars, badges, cards, data visualization          |
+| `utilities`    | Shared utility code                                 |
+| `blocks`       | Composed patterns (molecules, organisms, templates) |
 
 ---
 

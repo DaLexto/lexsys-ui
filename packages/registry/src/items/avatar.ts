@@ -14,19 +14,19 @@ export const avatarRegistryItem: RegistryItem = {
   category: "data-display",
   aliases: [],
   files: [
-    "components/Avatar/Avatar.tsx",
-    "components/Avatar/Avatar.types.ts",
-    "components/Avatar/Avatar.variants.ts",
+    "primitives/Avatar/Avatar.tsx",
+    "primitives/Avatar/Avatar.types.ts",
+    "primitives/Avatar/Avatar.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Avatar/Avatar.tsx",
+      path: "primitives/Avatar/Avatar.tsx",
     },
     {
-      path: "components/Avatar/Avatar.types.ts",
+      path: "primitives/Avatar/Avatar.types.ts",
     },
     {
-      path: "components/Avatar/Avatar.variants.ts",
+      path: "primitives/Avatar/Avatar.variants.ts",
     },
   ],
   dependencies: [

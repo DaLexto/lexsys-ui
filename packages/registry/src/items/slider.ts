@@ -14,19 +14,19 @@ export const sliderRegistryItem: RegistryItem = {
   category: "forms",
   aliases: ["range"],
   files: [
-    "components/Slider/Slider.tsx",
-    "components/Slider/Slider.types.ts",
-    "components/Slider/Slider.variants.ts",
+    "primitives/Slider/Slider.tsx",
+    "primitives/Slider/Slider.types.ts",
+    "primitives/Slider/Slider.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Slider/Slider.tsx",
+      path: "primitives/Slider/Slider.tsx",
     },
     {
-      path: "components/Slider/Slider.types.ts",
+      path: "primitives/Slider/Slider.types.ts",
     },
     {
-      path: "components/Slider/Slider.variants.ts",
+      path: "primitives/Slider/Slider.variants.ts",
     },
   ],
   dependencies: [

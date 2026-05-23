@@ -5,7 +5,7 @@ import {
   TabsList,
   TabsPanel,
   TabsTab,
-} from "../../../src/components/Tabs/Tabs.js"
+} from "../../../src/components/primitives/Tabs/Tabs.js"
 
 describe("Tabs render", () => {
   it("renders tab list and active panel", () => {

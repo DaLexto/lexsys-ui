@@ -7,7 +7,7 @@ import {
   PopoverPositioner,
   PopoverTitle,
   PopoverTrigger,
-} from "../../../src/components/Popover/Popover.js"
+} from "../../../src/components/primitives/Popover/Popover.js"
 
 describe("Popover render", () => {
   it("renders popover title when defaultOpen", () => {

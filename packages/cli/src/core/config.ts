@@ -3,23 +3,27 @@ import { join } from "node:path"
 import { fileExists } from "./fs.js"
 import { getCwd } from "./context.js"
 
-export interface NeurexConfig {
-  style: "default"
-  componentsPath: string
-  utilitiesPath: string
-  stylesPath: string
-  aliases: NeurexAliasesConfig
-  tailwind: NeurexTailwindConfig
-  installed?: Record<string, string>
-  registryUrl?: string | null
+export interface NeurexPathsConfig {
+  components: string
+  utilities: string
+  styles: string
 }
 
 export interface NeurexAliasesConfig {
   components: string
-  utils: string
   ui: string
+  utils: string
   lib: string
   hooks: string
+}
+
+export interface NeurexConfig {
+  style: "default"
+  paths: NeurexPathsConfig
+  aliases: NeurexAliasesConfig
+  tailwind: NeurexTailwindConfig
+  installed?: Record<string, string>
+  registryUrl?: string | null
 }
 
 export interface NeurexTailwindConfig {
@@ -27,10 +31,16 @@ export interface NeurexTailwindConfig {
   css: string
 }
 
+const defaultPathsConfig: NeurexPathsConfig = {
+  components: "src/components/ui",
+  utilities: "src/lib",
+  styles: "styles",
+}
+
 const defaultAliasesConfig: NeurexAliasesConfig = {
-  components: "@/components",
-  utils: "@/lib/utils",
+  components: "@/components/ui",
   ui: "@/components/ui",
+  utils: "@/lib/utils",
   lib: "@/lib",
   hooks: "@/hooks",
 }
@@ -42,9 +52,7 @@ const defaultTailwindConfig: NeurexTailwindConfig = {
 
 export const defaultConfig: NeurexConfig = {
   style: "default",
-  componentsPath: "src/components/ui",
-  utilitiesPath: "src/lib",
-  stylesPath: "styles",
+  paths: defaultPathsConfig,
   aliases: defaultAliasesConfig,
   tailwind: defaultTailwindConfig,
   installed: {},
@@ -68,6 +76,10 @@ export const loadConfig = async (): Promise<NeurexConfig> => {
   return {
     ...defaultConfig,
     ...parsed,
+    paths: {
+      ...defaultPathsConfig,
+      ...parsed.paths,
+    },
     aliases: {
       ...defaultAliasesConfig,
       ...parsed.aliases,

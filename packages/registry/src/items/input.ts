@@ -14,19 +14,19 @@ export const inputRegistryItem: RegistryItem = {
   category: "forms",
   aliases: ["ipt"],
   files: [
-    "components/Input/Input.tsx",
-    "components/Input/Input.types.ts",
-    "components/Input/Input.variants.ts",
+    "primitives/Input/Input.tsx",
+    "primitives/Input/Input.types.ts",
+    "primitives/Input/Input.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Input/Input.tsx",
+      path: "primitives/Input/Input.tsx",
     },
     {
-      path: "components/Input/Input.types.ts",
+      path: "primitives/Input/Input.types.ts",
     },
     {
-      path: "components/Input/Input.variants.ts",
+      path: "primitives/Input/Input.variants.ts",
     },
   ],
   dependencies: [

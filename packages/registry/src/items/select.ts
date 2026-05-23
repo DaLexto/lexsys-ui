@@ -14,19 +14,19 @@ export const selectRegistryItem: RegistryItem = {
   category: "forms",
   aliases: [],
   files: [
-    "components/Select/Select.tsx",
-    "components/Select/Select.types.ts",
-    "components/Select/Select.variants.ts",
+    "primitives/Select/Select.tsx",
+    "primitives/Select/Select.types.ts",
+    "primitives/Select/Select.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Select/Select.tsx",
+      path: "primitives/Select/Select.tsx",
     },
     {
-      path: "components/Select/Select.types.ts",
+      path: "primitives/Select/Select.types.ts",
     },
     {
-      path: "components/Select/Select.variants.ts",
+      path: "primitives/Select/Select.variants.ts",
     },
   ],
   dependencies: [

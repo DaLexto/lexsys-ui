@@ -14,19 +14,19 @@ export const switchRegistryItem: RegistryItem = {
   category: "forms",
   aliases: ["toggle-switch"],
   files: [
-    "components/Switch/Switch.tsx",
-    "components/Switch/Switch.types.ts",
-    "components/Switch/Switch.variants.ts",
+    "primitives/Switch/Switch.tsx",
+    "primitives/Switch/Switch.types.ts",
+    "primitives/Switch/Switch.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Switch/Switch.tsx",
+      path: "primitives/Switch/Switch.tsx",
     },
     {
-      path: "components/Switch/Switch.types.ts",
+      path: "primitives/Switch/Switch.types.ts",
     },
     {
-      path: "components/Switch/Switch.variants.ts",
+      path: "primitives/Switch/Switch.variants.ts",
     },
   ],
   dependencies: [

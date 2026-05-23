@@ -6,7 +6,7 @@ import {
   fieldItemVariants,
   fieldLabelVariants,
   fieldVariants,
-} from "../../../src/components/Field/Field.variants.js"
+} from "../../../src/components/primitives/Field/Field.variants.js"
 
 describe("field variants", () => {
   test("uses token-backed classes for field parts", () => {

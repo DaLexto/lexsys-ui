@@ -3,7 +3,7 @@ import {
   menuItemVariants,
   menuPopupVariants,
   menuTriggerVariants,
-} from "../../../src/components/Menu/Menu.variants"
+} from "../../../src/components/primitives/Menu/Menu.variants"
 
 describe("Menu variants", () => {
   it("uses token-backed trigger styling", () => {
