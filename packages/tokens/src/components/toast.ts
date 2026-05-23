@@ -89,4 +89,7 @@ export const toastComponentTokens = componentTokens("toast", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
+  motion: {
+    offsetY: { $value: "{motion.offset.entry.y}" },
+  },
 })

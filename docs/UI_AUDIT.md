@@ -92,10 +92,11 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
 ## Resolution tracking
 
-**Status:** Resolved — PR #24 merged to `dev` (`c619a85`, 2026-05-22).
+**Status:** Resolved — PR #24 + overlay token sweep on `dev` (2026-05-22).
 
 - Unified `variant` / `appearance` API; `danger` vocabulary; semantic opacity tokens
 - Shared state helpers in installed `utils.ts`; viewport inset tokens for overlays
-- `pnpm ui:audit` automation; [CHANGELOG.md](../packages/ui/CHANGELOG.md) breaking notes
+- Overlay semantics (`size.overlay.*`, `spacing.overlay.sideOffset`, `elevation.behind.*`)
+- **`pnpm ui:audit` blocking** in `pnpm ui:check`; all 32 component variants token-compliant
 
 Run `pnpm ui:audit` after future variant edits to catch literal drift.

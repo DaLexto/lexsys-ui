@@ -107,6 +107,7 @@ export const menuComponentTokens = componentTokens("menu", {
   backdrop: {
     $type: "color",
     background: { $value: "{color.text.primary}" },
+    opacity: { $value: 0.2 },
     zIndex: { $value: "{elevation.backdrop.zIndex}" },
   },
   focus: {

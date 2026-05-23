@@ -16,6 +16,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
     $type: "dimension",
     padding: { $value: "{spacing.surface.sm}" },
     inset: { $value: "{spacing.surface.sm}" },
+    maxHeight: { $value: "{size.overlay.viewport.maxHeight}" },
     zIndex: { $value: "{elevation.layer.zIndex}" },
   },
   popup: {

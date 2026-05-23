@@ -56,14 +56,14 @@ Presets are configuration. They are not a layer in this chain.
   | `color`      | Nested surface/text/feedback roles: `background.*`, `text.*`, `feedback.*`                           |
   | `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled              |
   | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                                  |
-  | `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow`     |
-  | `motion`     | Duration and easing roles: `control`, `surface`                                                      |
-  | `radius`     | Border-radius roles: `control`, `selection`, `surface`, `pill`                                       |
-  | `size`       | Reusable sizing roles: `control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb` |
-  | `spacing`    | Spacing roles: `control.gap`, `control.x`, `control.y`, `surface.*`                                  |
-  | `typography` | Font family, body, label, heading, code composite roles                                              |
-  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                               |
-  | `layout`     | Viewport (`sm`–`2xl`) and `aspectRatio` roles (square, standard, photo, portrait, video, ultrawide)  |
+  | `elevation`  | Overlay stacking and shadow roles: `behind`, `backdrop`, `handle`, `layer`, `floating`, `toast`, `tooltip`, `shadow` |
+  | `motion`     | Duration, easing, and entry offset roles: `control`, `surface`, `offset.entry.*`                                       |
+  | `radius`     | Border-radius roles: `control`, `selection`, `surface`, `pill`                                                       |
+  | `size`       | Reusable sizing roles: `control`, `selectionControl`, `area`, `panel`, `overlay.*`                                   |
+  | `spacing`    | Spacing roles: `control.*`, `surface.*`, `overlay.sideOffset`                                                        |
+  | `typography` | Font family, body, label, heading, code composite roles                                                              |
+  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                                               |
+  | `layout`     | Viewport (`sm`–`2xl`, `full`) and `aspectRatio` roles                                                                |
 
 - `color`, `action`, `border`, `elevation`, `outline`, and `layout` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
 - `outline.*` supplies component `focus.ringWidth` / `focus.ringOffset` decisions. Do not hardcode Tailwind `ring-2` / `ring-offset-2` in component variants.
@@ -79,6 +79,20 @@ Presets are configuration. They are not a layer in this chain.
 6. **File layout** — one group per file minimum; optional subfolder when a group has distinct sub-roles (see `semantics/color/`).
 7. **Forbidden in semantics** — component names, one-off variant names, slot-specific decisions.
 8. **Component-specific dimensions** belong in component tokens. Reusable size and spacing roles belong in semantic `size.*` and `spacing.*` groups first.
+
+#### Overlay stacking and sizing (`size.overlay.*`, `spacing.overlay.*`, `elevation.behind.*`)
+
+Shared roles for floating surfaces (Select, Menu, Popover, Tooltip, Drawer, Toast):
+
+| Semantic path | Typical component mapping | Purpose |
+|---------------|---------------------------|---------|
+| `size.overlay.list.maxHeight` | `select.popup.maxHeight`, `menu.viewport.maxHeight` | Scroll-cap for list-like overlays |
+| `size.overlay.viewport.maxHeight` | `toast.viewport.maxHeight`, `drawer.viewport.maxHeight` | Full dynamic viewport height (`layout.viewport.full` → `100dvh`) |
+| `spacing.overlay.sideOffset` | `*.positioner.sideOffset` | Default trigger-to-popup gap |
+| `elevation.behind.zIndex` | `drawer.indent.zIndex` | Decorative layer behind content (`z-index.behind`: `-10`) |
+| `elevation.handle.zIndex` | `drawer.handle.zIndex` | Local handle stacking (`z-index.local`: `30`) |
+
+Generated CSS uses `--nx-size-overlay-*`, `--nx-space-overlay-side-offset` (spacing group maps to `space` in CSS output), and `--nx-elevation-behind-z-index`.
 
 ### Components
 

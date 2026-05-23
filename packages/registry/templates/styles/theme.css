@@ -97,6 +97,7 @@
   --duration-nx-surface: var(--nx-duration-surface);
   --ease-nx-control: var(--nx-easing-control);
   --ease-nx-surface: var(--nx-easing-surface);
+  --nx-motion-offset-entry-y: var(--nx-motion-offset-entry-y);
   --text-nx-family-sans: var(--nx-typography-family-sans);
   --text-nx-family-serif: var(--nx-typography-family-serif);
   --text-nx-family-mono: var(--nx-typography-family-mono);

@@ -43,7 +43,7 @@ export const selectIconVariants = cva(
 )
 
 export const selectBackdropVariants = cva(
-  "fixed inset-0 z-(--nx-select-backdrop-z-index) bg-(--nx-select-backdrop-background) opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+  "fixed inset-0 z-(--nx-select-backdrop-z-index) bg-(--nx-select-backdrop-background) opacity-(--nx-select-backdrop-opacity) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
 )
 
 export const selectPositionerVariants = cva(

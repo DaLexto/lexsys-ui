@@ -19,7 +19,7 @@ export const menuTriggerVariants = cva(
 )
 
 export const menuBackdropVariants = cva(
-  "fixed inset-0 z-(--nx-menu-backdrop-z-index) bg-(--nx-menu-backdrop-background) opacity-20 data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+  "fixed inset-0 z-(--nx-menu-backdrop-z-index) bg-(--nx-menu-backdrop-background) opacity-(--nx-menu-backdrop-opacity) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
 )
 
 export const menuPositionerVariants = cva("z-(--nx-menu-positioner-z-index)")

@@ -258,6 +258,7 @@
   --nx-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
   --nx-easing-control: var(--nx-easing-standard);
   --nx-easing-surface: var(--nx-easing-standard);
+  --nx-motion-offset-entry-y: var(--nx-space-2);
   --nx-aspect-ratio-1-1: 1;
   --nx-aspect-ratio-4-3: 1.333333;
   --nx-aspect-ratio-3-2: 1.5;
@@ -853,6 +854,7 @@
   --nx-drawer-indent-z-index: var(--nx-elevation-behind-z-index);
   --nx-drawer-viewport-padding: var(--nx-space-surface-sm);
   --nx-drawer-viewport-inset: var(--nx-space-surface-sm);
+  --nx-drawer-viewport-max-height: var(--nx-size-overlay-viewport-max-height);
   --nx-drawer-viewport-z-index: var(--nx-elevation-layer-z-index);
   --nx-drawer-popup-background: var(--nx-color-background-base);
   --nx-drawer-popup-foreground: var(--nx-color-text-primary);
@@ -1040,6 +1042,7 @@
   --nx-menu-separator-margin-y: var(--nx-space-control-y-xs);
   --nx-menu-arrow-size: var(--nx-size-selection-indicator-md);
   --nx-menu-backdrop-background: var(--nx-color-text-primary);
+  --nx-menu-backdrop-opacity: 0.2;
   --nx-menu-backdrop-z-index: var(--nx-elevation-backdrop-z-index);
   --nx-menu-focus-border-color: var(--nx-border-focus);
   --nx-menu-focus-ring-color: var(--nx-border-focus);
@@ -1231,6 +1234,7 @@
   --nx-select-arrow-size: var(--nx-size-selection-indicator-md);
   --nx-select-scroll-arrow-height: var(--nx-size-control-xs);
   --nx-select-backdrop-background: var(--nx-color-text-primary);
+  --nx-select-backdrop-opacity: 0.2;
   --nx-select-backdrop-z-index: var(--nx-elevation-backdrop-z-index);
   --nx-select-focus-border-color: var(--nx-border-focus);
   --nx-select-focus-ring-color: var(--nx-border-focus);
@@ -1382,6 +1386,7 @@
   --nx-toast-focus-ring-width: var(--nx-outline-width-inset);
   --nx-toast-transition-duration: var(--nx-duration-control);
   --nx-toast-transition-easing: var(--nx-easing-control);
+  --nx-toast-motion-offset-y: var(--nx-motion-offset-entry-y);
   --nx-toggle-background: var(--nx-color-background-base);
   --nx-toggle-foreground: var(--nx-color-text-primary);
   --nx-toggle-border-color: var(--nx-border-default);
