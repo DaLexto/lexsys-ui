@@ -11,6 +11,7 @@ import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import type { RegistryItem } from "@neurex/registry"
 import type { NeurexConfig } from "./config.js"
+import { createBackupFile } from "./backup.js"
 import { fileExists, filesAreEqual } from "./fs.js"
 import { getCwd } from "./context.js"
 import { fetchRemoteFile } from "./remote-files.js"
@@ -82,6 +83,54 @@ export const installUtilities = async (
     await copyFile(sourcePath, targetPath)
     console.log(`Created utility: ${targetPath}`)
     result.created.push(targetPath)
+  }
+
+  return result
+}
+
+export const updateUtilities = async (
+  utilities: ResolvedRegistryUtility[],
+  config: NeurexConfig,
+  force: boolean,
+): Promise<InstallResourceResult> => {
+  const result = createInstallResourceResult()
+
+  for (const utility of utilities) {
+    const sourcePath = getRegistryTemplatePath(utility.path)
+    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
+
+    await mkdir(dirname(targetPath), { recursive: true })
+
+    if (!(await fileExists(targetPath))) {
+      await copyFile(sourcePath, targetPath)
+      console.log(`Created utility: ${targetPath}`)
+      result.created.push(targetPath)
+      continue
+    }
+
+    const isSameFile = await filesAreEqual(sourcePath, targetPath)
+
+    if (isSameFile) {
+      console.log(`Skipped identical utility: ${targetPath}`)
+      result.skipped.push(targetPath)
+      continue
+    }
+
+    if (force) {
+      const backupPath = await createBackupFile(targetPath)
+
+      if (backupPath) {
+        console.log(`- backup created: ${backupPath}`)
+      }
+
+      await copyFile(sourcePath, targetPath)
+      console.log(`Updated utility: ${targetPath}`)
+      result.updated.push(targetPath)
+      continue
+    }
+
+    console.log(`Conflict: utility already exists and differs: ${targetPath}`)
+    result.conflicted.push(targetPath)
   }
 
   return result

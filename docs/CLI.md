@@ -154,15 +154,20 @@ neurex update button
 neurex update button dialog
 neurex update --all
 neurex update --styles
+neurex update --utilities
+neurex update --all --sync --utilities --styles
 neurex update button --dry-run
 neurex update --all --force
+neurex update --all --sync --force
 neurex update --all --yes
 ```
 
 | Flag            | Description                                                               |
 | --------------- | ------------------------------------------------------------------------- |
 | `--all`         | Update all components tracked in `neurex.config.json`                     |
-| `--styles`      | Update token/theme CSS files only (skips component files)                 |
+| `--styles`      | Update token/theme CSS files (generated output auto-updates when stale)   |
+| `--utilities`   | Update shared utility files such as `utils.ts` from installed components  |
+| `--sync`        | Refresh tracked component templates even when installed version matches   |
 | `--dry-run`     | Preview what would change; no writes; reports conflict/identical per file |
 | `--force`       | Write conflicted files after creating `.bak` timestamped backups          |
 | `--yes`         | Auto-confirm safe prompts                                                 |
@@ -170,6 +175,9 @@ neurex update --all --yes
 
 **Version check:** an update is available when the registry item version is
 semver-greater than the installed version recorded in `neurex.config.json`.
+Use **`--sync`** when the installed version already matches but registry
+templates changed (for example after a Neurex patch that did not bump item
+versions).
 
 **Per-file update logic:**
 
@@ -182,6 +190,17 @@ Components that complete without conflicts have their version updated in config.
 
 **`--styles`** updates token/theme CSS files (the `theme` style manifest) using
 the same generated-file auto-update path as `add`.
+
+**`--utilities`** collects utilities referenced by installed components (for
+example `cn` → `utilitiesPath/utils.ts`) and applies the same safe-update
+rules as component files. Use **`--force`** to overwrite user-modified utility
+files after creating backups.
+
+**Combined refresh** (common after upgrading Neurex in a consumer project):
+
+```bash
+neurex update --all --sync --utilities --styles
+```
 
 ---
 

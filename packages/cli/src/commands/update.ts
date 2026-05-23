@@ -1,10 +1,14 @@
 import { loadConfig, saveConfig } from "../core/config.js"
-import { findItem } from "../core/registry-resolver.js"
-import { resolveRegistryStyles } from "../core/registry-resolver.js"
+import {
+  collectUtilities,
+  findItem,
+  resolveRegistryStyles,
+  resolveRegistryUtilities,
+} from "../core/registry-resolver.js"
 import { checkItemUpdate } from "../core/update-engine.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
 import { getRegistryProviderResult } from "../core/registry-provider.js"
-import { installStyles } from "../core/installer.js"
+import { installStyles, updateUtilities } from "../core/installer.js"
 import {
   hasInstallConflicts,
   printResourceSummary,
@@ -61,14 +65,102 @@ const runStylesUpdate = async (
   }
 }
 
-export const runUpdate = async (args: string[]): Promise<void> => {
+const runUtilitiesUpdate = async (
+  config: NeurexConfig,
+  installed: Record<string, string>,
+  dryRun: boolean,
+  force: boolean,
+): Promise<void> => {
+  const installedItems = (
+    await Promise.all(
+      Object.keys(installed).map(async (name) => findItem(name)),
+    )
+  ).filter((item): item is NonNullable<typeof item> => Boolean(item))
+
+  const utilityNames = collectUtilities(installedItems)
+
+  if (!utilityNames.length) {
+    console.log("No shared utilities are tracked for installed components.")
+    return
+  }
+
+  const utilities = resolveRegistryUtilities(utilityNames)
+
+  if (dryRun) {
+    console.log("Dry run: no utility files will be changed.\n")
+    console.log("Utilities:")
+    for (const utility of utilities) {
+      console.log(`- ${utility.name}`)
+      console.log(`  ~ ${config.utilitiesPath}/${utility.target}`)
+    }
+    return
+  }
+
+  const result = await updateUtilities(utilities, config, force)
+
+  console.log("Utility update summary:")
+  printResourceSummary("utilities", result)
+
+  if (hasInstallConflicts(result)) {
+    console.log(
+      "Utility conflicts were left untouched. Re-run with --force to overwrite after creating backups.",
+    )
+  }
+}
+
+const runComponentUpdates = async (
+  config: NeurexConfig,
+  installed: Record<string, string>,
+  targetNames: string[],
+  dryRun: boolean,
+  force: boolean,
+  sync: boolean,
+): Promise<boolean> => {
   let changed = false
 
+  if (!Object.keys(installed).length) {
+    console.log("No Neurex components are currently tracked.")
+    return false
+  }
+
+  console.log("Checking installed Neurex components:\n")
+
+  for (const name of targetNames) {
+    const version = installed[name]
+
+    if (!version) {
+      continue
+    }
+
+    const didUpdate = await checkItemUpdate(
+      name,
+      version,
+      dryRun,
+      config.componentsPath,
+      force,
+      sync,
+    )
+
+    const item = await findItem(name)
+
+    if (didUpdate && item) {
+      installed[name] = item.version
+      changed = true
+    }
+  }
+
+  return changed
+}
+
+export const runUpdate = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run")
   const force = hasFlag(args, "--force")
   const yes = hasFlag(args, "--yes")
   const noFallback = hasFlag(args, "--no-fallback")
-  const stylesOnly = hasFlag(args, "--styles") || args.includes("styles")
+  const sync = hasFlag(args, "--sync")
+  const stylesFlag = hasFlag(args, "--styles") || args.includes("styles")
+  const utilitiesFlag = hasFlag(args, "--utilities")
+  const updateAll = args.includes("--all")
 
   const targetArgs = removeFlags(removeFlagsWithValues(args, ["--cwd"]), [
     "--dry-run",
@@ -77,12 +169,14 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     "--no-fallback",
     "--styles",
     "styles",
+    "--sync",
+    "--utilities",
+    "--all",
   ])
 
   const config = await loadConfig()
-  const installed = config.installed ?? {}
+  const installed = { ...(config.installed ?? {}) }
 
-  // 🔥 registry strict check (no-fallback support)
   try {
     await getRegistryProviderResult({
       fallback: !noFallback,
@@ -98,72 +192,71 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     console.log("Auto-confirm mode is enabled.")
   }
 
-  if (stylesOnly) {
-    await runStylesUpdate(config, dryRun)
-    return
-  }
+  const shouldUpdateComponents = updateAll || targetArgs.length > 0
+  const resourcesOnly =
+    (stylesFlag || utilitiesFlag) && !shouldUpdateComponents
 
-  if (!Object.keys(installed).length) {
-    console.log("No Neurex components are currently tracked.")
-    return
-  }
-
-  if (args.includes("--all")) {
-    console.log("Checking installed Neurex components:\n")
-
-    for (const [name, version] of Object.entries(installed)) {
-      const didUpdate = await checkItemUpdate(
-        name,
-        version,
-        dryRun,
-        config.componentsPath,
-        force,
-      )
-
-      const item = await findItem(name)
-
-      if (didUpdate && item) {
-        installed[name] = item.version
-        changed = true
-      }
+  if (resourcesOnly) {
+    if (stylesFlag) {
+      await runStylesUpdate(config, dryRun)
     }
 
-    if (changed) {
-      await saveConfig({
-        ...config,
-        installed,
-      })
+    if (utilitiesFlag) {
+      await runUtilitiesUpdate(config, installed, dryRun, force)
     }
 
     return
   }
 
-  if (!targetArgs.length) {
+  if (!shouldUpdateComponents && !stylesFlag && !utilitiesFlag) {
     console.log("Please specify components to update or use --all.")
     return
   }
 
-  for (const name of targetArgs) {
-    const installedKey = await resolveInstalledKey(name, installed)
+  if (stylesFlag) {
+    await runStylesUpdate(config, dryRun)
+  }
 
-    if (!installedKey) {
-      console.log(`Component "${name}" is not tracked as installed.`)
-      continue
-    }
+  if (utilitiesFlag) {
+    await runUtilitiesUpdate(config, installed, dryRun, force)
+  }
 
-    const didUpdate = await checkItemUpdate(
-      installedKey,
-      installed[installedKey],
+  if (!shouldUpdateComponents) {
+    return
+  }
+
+  let changed = false
+
+  if (updateAll) {
+    changed = await runComponentUpdates(
+      config,
+      installed,
+      Object.keys(installed),
       dryRun,
-      config.componentsPath,
       force,
+      sync,
     )
+  } else {
+    for (const name of targetArgs) {
+      const installedKey = await resolveInstalledKey(name, installed)
 
-    const item = await findItem(installedKey)
+      if (!installedKey) {
+        console.log(`Component "${name}" is not tracked as installed.`)
+        continue
+      }
 
-    if (didUpdate && item) {
-      installed[installedKey] = item.version
-      changed = true
+      const didUpdateOne = await runComponentUpdates(
+        config,
+        installed,
+        [installedKey],
+        dryRun,
+        force,
+        sync,
+      )
+
+      if (didUpdateOne) {
+        changed = true
+      }
     }
   }
 
