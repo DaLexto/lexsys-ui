@@ -3,16 +3,24 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig*.json", "tsup.config.ts"],
       "outputs": ["dist/**"]
     },
     "check": {
       "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "eslint.config.mjs",
+        "vitest.config.ts",
+        "test/**"
+      ],
       "outputs": []
     },
     "dev": {
       "cache": false
     },
     "lint": {
+      "inputs": ["$TURBO_DEFAULT$", "eslint.config.mjs"],
       "outputs": []
     },
     "lint:fix": {
@@ -20,10 +28,17 @@
     },
     "test": {
       "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "eslint.config.mjs",
+        "vitest.config.ts",
+        "test/**"
+      ],
       "outputs": []
     },
     "typecheck": {
       "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig*.json"],
       "outputs": []
     }
   }
