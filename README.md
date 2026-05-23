@@ -9,18 +9,20 @@ requiring you to import black-box runtime components.
 
 ## Current MVP
 
-The current implementation focuses on the first supported path:
+The current implementation focuses on supported consumer starters:
 
 - Vite React setup through `neurex init vite`
-- Tailwind v4 wiring for Vite consumers
+- Next.js App Router setup through `neurex init next` (pinned Next.js 15.3.3)
+- Tailwind v4 wiring for Vite and Next.js consumers
 - token and theme CSS installation
 - a growing Base UI-backed component catalog, including actions, forms,
   overlays, feedback, and layout primitives
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification
 
-Additional framework starters, remote registry flows, and richer update
-automation are planned but not complete yet.
+Additional framework starters, remote registry trust policy (signatures /
+allowlists), and richer migration tooling are planned but not complete yet.
+Remote registry manifest fetch over HTTPS is supported with local fallback.
 
 ## Quick Start
 
@@ -28,6 +30,13 @@ Create a new Vite consumer:
 
 ```bash
 neurex init vite my-app
+cd my-app
+```
+
+Or a new Next.js App Router consumer:
+
+```bash
+neurex init next my-app
 cd my-app
 ```
 
@@ -146,6 +155,7 @@ Common commands:
 ```bash
 neurex init
 neurex init vite [directory]
+neurex init next [directory]
 neurex add [components...]
 neurex update [components...] | --all
 neurex list [--json]
@@ -163,10 +173,11 @@ See [docs/CLI.md](./docs/CLI.md) for the full command reference.
 
 Stable enough to build against in the MVP:
 
-- `neurex init vite [directory]`
+- `neurex init vite [directory]` and `neurex init next [directory]`
 - `neurex init` inside supported Vite apps
 - `neurex add <component>` for bundled local registry items
-- `neurex update` and `neurex update --all` for tracked components
+- `neurex update`, `neurex update --all`, and `neurex update --sync` /
+  `--utilities` / `--styles` for tracked components and shared resources
 - default config paths and aliases
 - Tailwind v4 CSS entrypoint wiring
 - installed component ownership under `src/components/ui`
@@ -182,9 +193,9 @@ Internal or still evolving:
 
 Planned but not current API:
 
-- Next.js and other framework starters
-- predefined theme/style preset selection
-- richer update and migration workflows
+- additional framework starters beyond Vite and Next.js App Router
+- predefined theme/style preset selection beyond `default` / `neurex`
+- richer migration workflows and remote registry trust policy
 
 ## Maintainers
 
@@ -223,8 +234,9 @@ For CLI/registry install verification, use an external consumer sandbox — see 
 
 ## Status
 
-Neurex is not production-ready yet. The first Vite install flow is working and
-the project is expanding the Base UI-backed component foundation.
+Neurex is not production-ready yet. Vite and Next.js install flows are working
+and the project is expanding the Base UI-backed component foundation (32 bundled
+components).
 
 ## Inspiration
 

@@ -225,7 +225,7 @@ Default paths after `neurex init` and component installs:
 project/
 ├── src/
 │   ├── components/ui/<ComponentName>/   ← installed components
-│   └── lib/                             ← shared utilities (cn.ts)
+│   └── lib/                             ← shared utilities (installed as utils.ts)
 ├── styles/
 │   ├── tokens.css                       ← generated token variables
 │   └── theme.css                        ← generated theme overrides

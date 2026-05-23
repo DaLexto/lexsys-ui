@@ -158,7 +158,7 @@ and customization depth differ.
 | Kind          | Location                                | Notes                                                   |
 | ------------- | --------------------------------------- | ------------------------------------------------------- |
 | Design tokens | `styles/tokens.css`, `styles/theme.css` | Generated from `@neurex/tokens`; `--nx-*` CSS variables |
-| Utilities     | `src/lib/cn.ts` (installed)             | `cn`, CVA state helpers                                 |
+| Utilities     | `src/lib/utils.ts` (installed)          | `cn`, CVA state helpers                                 |
 | UI primitives | 32 registry components                  | `Button`, `Menu`, `Field`, `Dialog`, `Toast`, …         |
 
 Each atom follows the component file contract (`ComponentName.tsx`, `.types.ts`,

@@ -2,8 +2,8 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M7 **planned** — not
-current implementation contract  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; M4
+release readiness **planned** — see phase table below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout

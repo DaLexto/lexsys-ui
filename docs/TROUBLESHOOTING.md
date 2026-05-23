@@ -99,8 +99,8 @@ returns an invalid response.
 **Fix:**
 
 ```sh
-neurex registry --source   # check which source is active
-neurex config --set-registry-url ""  # clear the URL to force local
+neurex registry --source              # check which source is active
+neurex config --clear-registry-url    # clear the URL to force local fallback
 ```
 
 ---
