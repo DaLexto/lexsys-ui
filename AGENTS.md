@@ -250,12 +250,27 @@ For non-trivial refactors, edits, updates, or patches (multi-file changes, behav
 1. **Branch** — create a feature branch off **`dev`** before code changes. Never commit directly to **`main`**.
 2. **Implement** — complete planned code and test changes on that branch; use scoped commits per concern.
 3. **Docs alignment** — update docs, cross-refs, README, rules, and `.agent/CONTINUITY.md` when behavior or maintainer contracts change. Link to canonical sections — do not duplicate.
-4. **Verify** — run `pnpm check` and scoped checks ([docs/TESTING.md](./docs/TESTING.md), [docs/SCRIPTS.md](./docs/SCRIPTS.md)).
+4. **Verify** — run `pnpm check` and scoped checks ([docs/TESTING.md](./docs/TESTING.md), [docs/SCRIPTS.md](./docs/SCRIPTS.md)). Do not start dev servers — see [§ Agent operations](#agent-operations).
 5. **PR last** — open the PR **to `dev` only** when the branch is complete. Do not target **`main`** unless the user explicitly requests it. No WIP PR unless the user asks.
 
 **Branch policy:** `dev` is the integration branch (branch off `dev`, PR to `dev`). Do not touch **`main`** — no commits, merges, fast-forwards, or PRs targeting `main` — unless the user explicitly requests it. Do not infer `main` from GitHub default branch or `origin/HEAD`.
 
 Trivial one-line fixes with no contract impact may skip the docs pass; still branch off `dev`.
+
+---
+
+## Agent operations
+
+**Do not start dev servers.** Agents must not run long-lived local dev processes unless the user **explicitly** requests it. This includes:
+
+- `pnpm playground:dev`
+- `vite` / `vite dev`
+- `next dev`
+- any equivalent `*:dev` app server in this monorepo or consumer projects
+
+Use non-interactive verification instead: `pnpm check`, scoped `pnpm *:check`, `pnpm playground:build`, unit tests, and sandbox build smoke when applicable.
+
+Do not suggest starting a dev server as a default next step. The user runs visual dev locally when they choose.
 
 ---
 

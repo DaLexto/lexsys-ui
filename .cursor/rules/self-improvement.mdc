@@ -76,5 +76,6 @@ alwaysApply: true
 - Update references to external docs
 - Maintain links between related rules
 - Document breaking changes
+- Repo-specific agent contracts belong in [AGENTS.md](../../AGENTS.md) (e.g. never start dev servers — see AGENTS § Agent operations)
 
 Follow [cursor-rules.mdc](./cursor-rules.mdc) for proper rule formatting and structure.
