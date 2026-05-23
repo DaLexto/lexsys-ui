@@ -372,7 +372,7 @@ Original per-phase sketch (reference if splitting future work):
 - `docs/DEPLOY.md` owns release and build contract.
 - `docs/UI_VARIANTS.md` owns the canonical UI variant prop contract and CVA rules.
 - `docs/UI_AUDIT.md` owns the per-component compliance inventory.
-- `docs/ATOMIC_DESIGN.md` owns the UI layer model (primitives → blocks → templates → pages).
+- `docs/UI_COMPOSITION.md` owns the UI composition model (primitives → blocks → templates → pages).
 
 ## UI polish track (post-M3)
 
@@ -396,7 +396,7 @@ Neurex uses a **three-layer** install model (not Atomic Design atoms/molecules/o
 | Pages      | Consumer-owned                          | Always consumer-owned                     |
 
 Canonical mapping, composition rules, folder layout, and CLI contract:
-[ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
+[UI_COMPOSITION.md](./UI_COMPOSITION.md).
 
 ### UI composition track
 

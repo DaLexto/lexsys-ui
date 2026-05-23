@@ -40,7 +40,7 @@ Every installable item MUST declare all of the following fields:
 
 ### Primitives (`type: "component"`)
 
-Layer model: [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
+Layer model: [UI_COMPOSITION.md](./UI_COMPOSITION.md).
 
 - Template paths MUST start with `primitives/<CanonicalName>/`
 - `target` MUST be `src/components/ui/<CanonicalName>`

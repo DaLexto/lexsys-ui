@@ -66,7 +66,7 @@ The P0 and P1 implementation passes are complete:
 - Per-package `vitest.config.ts` for Vitest VS Code extension discovery (Vitest 4; no root workspace file)
 - UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 - Post–PR #24 ship (PR #25, `af729d5`): CLI `--sync` / `--utilities`, overlay token semantics, blocking `ui:audit`, full variant token sweep ([UI_VARIANTS.md](./UI_VARIANTS.md), [CLI.md](./CLI.md))
-- Sandbox atom QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md) composition track
+- Sandbox primitive QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [UI_COMPOSITION.md](./UI_COMPOSITION.md) composition track
 - Consumer sandbox verify (PR #26 artifacts): `neurex update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 
 The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
@@ -79,7 +79,7 @@ Known gaps below.
 
 ### UI composition (primitives / blocks / templates)
 
-Canonical layer model: [docs/ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md). Roadmap sequencing:
+Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Roadmap sequencing:
 [ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--three-layers-in-progress).
 
 **Today:** 32 primitives shipped (legacy install path `src/components/ui/`). Consumer sandbox verified PR #26 install artifacts. Blocks and templates are still composed manually in consumer apps.

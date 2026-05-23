@@ -58,7 +58,7 @@ ESLint, Prettier. See [DEPLOY.md](DEPLOY.md) for build and publish rules.
 Reference components in `packages/ui/src/components/` and install templates in
 `packages/registry/templates/` follow this layout. Monorepo folders use three
 layers (`primitives/`, `blocks/`, `templates/`); consumer installs flatten to
-`src/components/ui/<CanonicalName>/`. See [ATOMIC_DESIGN.md](ATOMIC_DESIGN.md).
+`src/components/ui/<CanonicalName>/`. See [UI_COMPOSITION.md](UI_COMPOSITION.md).
 
 ```txt
 ComponentName/
@@ -92,7 +92,7 @@ cross-layer imports at install time so consumer projects do not mirror monorepo
 folder depth. `registryDependencies` resolve transitively.
 
 Full layer rules, composition validator, and optimization backlog:
-[ATOMIC_DESIGN.md](ATOMIC_DESIGN.md), [REGISTRY.md](REGISTRY.md),
+[UI_COMPOSITION.md](UI_COMPOSITION.md), [REGISTRY.md](REGISTRY.md),
 [REVIEW_TODO.md § Blocks/templates optimization backlog](REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 ---
@@ -316,5 +316,5 @@ invocation.
 | [STYLEGUIDE.md](STYLEGUIDE.md)                 | Component naming, file layout, CSS class conventions          |
 | [STYLE.md](STYLE.md)                           | Coding style, TypeScript, React, import/export rules          |
 | [DEPLOY.md](DEPLOY.md)                         | Build pipeline, publish-readiness, artifact contract          |
-| [ATOMIC_DESIGN.md](ATOMIC_DESIGN.md)           | UI layer model, composition rules, monorepo vs consumer paths |
+| [UI_COMPOSITION.md](UI_COMPOSITION.md)         | UI composition model, layer rules, monorepo vs consumer paths |
 | [AGENTS.md](../AGENTS.md)                      | Package contracts, architectural invariants, agent guidance   |
