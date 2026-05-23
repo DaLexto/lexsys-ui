@@ -211,7 +211,7 @@ Import from `packages/tokens/src/engine/` (or `./engine` within the package). No
 
 ### Accessibility contrast guard (`engine/validator/contrast/`)
 
-WCAG AA report on registered semantic foreground/background pairs (11 pairs in
+WCAG AA report on registered semantic foreground/background pairs (15 pairs in
 `contrast.pairs.ts`). CI enforcement via `contrast.policy.ts` and
 `evaluateContrastPolicy` (default `ci` tier; local override
 `NEUREX_CONTRAST_POLICY=report`).

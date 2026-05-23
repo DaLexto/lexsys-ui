@@ -13,13 +13,15 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M7** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). Delivered in **one consolidated PR** (`chore/monorepo-optimization` → `dev`); M3–M4 remain planned.
+**Monorepo optimization M1–M7** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3 and M5–M7 shipped; **M4 release readiness** remains planned.
 
 | Phase   | Focus                                                    | Status  |
 | ------- | -------------------------------------------------------- | ------- |
 | Phase 0 | ROADMAP + REVIEW_TODO publish                            | done    |
 | M1      | Infra and DX (filter, CI, turbo, docs)                   | shipped |
 | M2      | Quality (Tier 2 tests, playground CI, sandbox checklist) | shipped |
+| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
+| M4      | Release readiness (CHANGELOG, publish audit, sequence)   | planned |
 | M5      | Advanced CI (path filters, registry:check on UI PRs)     | shipped |
 | M6      | Dependency hygiene (Dependabot, lockfile policy)         | shipped |
 | M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)    | shipped |
@@ -64,6 +66,7 @@ The P0 and P1 implementation passes are complete:
 - Per-package `vitest.config.ts` for Vitest VS Code extension discovery (Vitest 4; no root workspace file)
 - UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 - Post–PR #24 ship (PR #25, `af729d5`): CLI `--sync` / `--utilities`, overlay token semantics, blocking `ui:audit`, full variant token sweep ([UI_VARIANTS.md](./UI_VARIANTS.md), [CLI.md](./CLI.md))
+- Sandbox atom QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md) composition track
 
 The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
 
@@ -95,9 +98,6 @@ closure** (smaller blocks + atoms + npm deps + utilities + styles) via `registry
 | AD.5 | Pages     | n/a     | Document: pages stay consumer-owned; examples only in sandbox/docs                          |
 | AD.6 | CLI       | planned | `list` / `add` UX for blocks category; docs in CLI.md                                       |
 | AD.7 | CLI       | planned | Transitive install smoke tests (block → molecules → atoms); registry dep-graph validator    |
-
-**In flight (atom layer, pre-M5):** Menu collision fix + Toast type surfaces on branch
-`fix/sandbox-menu-toast-qa` — sandbox QA, not block delivery.
 
 ---
 
