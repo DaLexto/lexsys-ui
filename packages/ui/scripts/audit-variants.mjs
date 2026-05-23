@@ -85,7 +85,11 @@ for (const filePath of variantFiles) {
 
   for (const rule of rules) {
     if (rule.pattern.test(source)) {
-      findings.push({ file: relativePath, rule: rule.id, message: rule.message })
+      findings.push({
+        file: relativePath,
+        rule: rule.id,
+        message: rule.message,
+      })
     }
   }
 }

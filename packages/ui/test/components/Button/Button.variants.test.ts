@@ -29,6 +29,8 @@ describe("buttonVariants", () => {
 
     expect(className).toContain("bg-(--nx-button-danger-background)")
     expect(className).toContain("text-(--nx-button-danger-foreground)")
-    expect(className).toContain("hover:bg-(--nx-button-danger-hover-background)")
+    expect(className).toContain(
+      "hover:bg-(--nx-button-danger-hover-background)",
+    )
   })
 })

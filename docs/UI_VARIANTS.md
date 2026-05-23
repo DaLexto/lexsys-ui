@@ -17,11 +17,11 @@ now to establish a stable long-term surface before publish.
 
 ## Public prop axes
 
-| Prop | Purpose | Used by |
-|------|---------|---------|
-| **`variant`** | Semantic visual intent (color/role or chrome mode) | Components with color or chrome options |
-| **`size`** | Control scale | Interactive and compact display components |
-| **`appearance`** | Fill style when color × fill is two-dimensional | **Badge only** (`solid` \| `outline`) |
+| Prop             | Purpose                                            | Used by                                    |
+| ---------------- | -------------------------------------------------- | ------------------------------------------ |
+| **`variant`**    | Semantic visual intent (color/role or chrome mode) | Components with color or chrome options    |
+| **`size`**       | Control scale                                      | Interactive and compact display components |
+| **`appearance`** | Fill style when color × fill is two-dimensional    | **Badge only** (`solid` \| `outline`)      |
 
 **Rule:** No public prop named `tone` after PR1.
 
@@ -29,11 +29,11 @@ now to establish a stable long-term surface before publish.
 
 ## Vocabulary taxonomy
 
-| Term | Meaning | Example |
-|------|---------|---------|
-| **`danger`** | Semantic color variant | `variant="danger"` on Alert, Badge, Button |
-| **`invalid`** | Control state via attributes | `aria-invalid`, `data-[invalid]` — not a variant enum |
-| **`error`** | Form message slot only | `Field.Error`, `field.error.*` tokens — not a color variant |
+| Term          | Meaning                      | Example                                                     |
+| ------------- | ---------------------------- | ----------------------------------------------------------- |
+| **`danger`**  | Semantic color variant       | `variant="danger"` on Alert, Badge, Button                  |
+| **`invalid`** | Control state via attributes | `aria-invalid`, `data-[invalid]` — not a variant enum       |
+| **`error`**   | Form message slot only       | `Field.Error`, `field.error.*` tokens — not a color variant |
 
 Do **not** introduce a public `error` variant. It duplicates `danger` with no visual distinction.
 
@@ -41,11 +41,11 @@ Do **not** introduce a public `error` variant. It duplicates `danger` with no vi
 
 ## Breaking renames (PR1)
 
-| Component | Before | After |
-|-----------|--------|-------|
-| **Alert** | `tone?: neutral \| primary \| destructive` | `variant?: neutral \| primary \| danger` |
-| **Badge** | `tone` + `variant` (solid/outline) | `variant?: neutral \| primary \| danger` + `appearance?: solid \| outline` |
-| **Button** | `variant?: primary \| secondary` | add **`danger`** |
+| Component  | Before                                     | After                                                                      |
+| ---------- | ------------------------------------------ | -------------------------------------------------------------------------- |
+| **Alert**  | `tone?: neutral \| primary \| destructive` | `variant?: neutral \| primary \| danger`                                   |
+| **Badge**  | `tone` + `variant` (solid/outline)         | `variant?: neutral \| primary \| danger` + `appearance?: solid \| outline` |
+| **Button** | `variant?: primary \| secondary`           | add **`danger`**                                                           |
 
 Token branches rename `*.destructive.*` → `*.danger.*` with aligned `--nx-*-danger-*` CSS vars.
 Semantic source remains **`action.danger`**.
@@ -110,14 +110,14 @@ Other examples: `data-[swiping]`, `data-[behind]`, `data-[invalid]`, `aria-busy`
 
 ## Variant vocabulary by category
 
-| Category | `variant` values | `size` | Notes |
-|----------|------------------|--------|-------|
-| **Actions** | Button: `primary`, `secondary`, `danger`; Input/Textarea/Field: `default`, `ghost` | sm–lg (+ Button xs, xl) | |
-| **Feedback** | Alert: `neutral`, `primary`, `danger` | — | |
-| **Display** | Badge: `neutral`, `primary`, `danger` + `appearance` | sm, md | |
-| **Surfaces** | Card, Fieldset, Collapsible: `surface`, `muted` / `plain` | — | per-component enums |
-| **Overlays** | slot-level tokens; placement/size on Drawer | per-component | Toast: data-attribute |
-| **Controls** | Toggle, ToggleGroup: **size only** | sm, md, lg | no variant axis |
+| Category     | `variant` values                                                                   | `size`                  | Notes                 |
+| ------------ | ---------------------------------------------------------------------------------- | ----------------------- | --------------------- |
+| **Actions**  | Button: `primary`, `secondary`, `danger`; Input/Textarea/Field: `default`, `ghost` | sm–lg (+ Button xs, xl) |                       |
+| **Feedback** | Alert: `neutral`, `primary`, `danger`                                              | —                       |                       |
+| **Display**  | Badge: `neutral`, `primary`, `danger` + `appearance`                               | sm, md                  |                       |
+| **Surfaces** | Card, Fieldset, Collapsible: `surface`, `muted` / `plain`                          | —                       | per-component enums   |
+| **Overlays** | slot-level tokens; placement/size on Drawer                                        | per-component           | Toast: data-attribute |
+| **Controls** | Toggle, ToggleGroup: **size only**                                                 | sm, md, lg              | no variant axis       |
 
 Per-component allowed enums live in [UI_AUDIT.md](./UI_AUDIT.md). Force **consistent prop names and CVA structure**, not identical values across unrelated components.
 
@@ -125,9 +125,9 @@ Per-component allowed enums live in [UI_AUDIT.md](./UI_AUDIT.md). Force **consis
 
 ## Token consumption
 
-| Layer | Rule | Enforcement |
-|-------|------|-------------|
-| **Authoring** | Component tokens reference semantics only | `pnpm tokens:check` |
+| Layer           | Rule                                                | Enforcement                          |
+| --------------- | --------------------------------------------------- | ------------------------------------ |
+| **Authoring**   | Component tokens reference semantics only           | `pnpm tokens:check`                  |
 | **Consumption** | `*.variants.ts` uses `--nx-*`; minimal raw literals | Variant tests, `pnpm ui:audit` (PR4) |
 
 Shared semantic tokens (PR1+):
