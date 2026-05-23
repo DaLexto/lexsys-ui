@@ -13,6 +13,8 @@ export type {
   RegistryStyleFile,
   RegistryUtility,
 } from "./registry.types.js"
+export { getInstallLayer } from "./install-layer.js"
+export type { InstallLayer } from "./install-layer.js"
 import type { RegistryStyle, RegistryUtility } from "./registry.types.js"
 
 export * from "./items/index.js"

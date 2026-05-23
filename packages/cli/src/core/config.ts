@@ -3,23 +3,30 @@ import { join } from "node:path"
 import { fileExists } from "./fs.js"
 import { getCwd } from "./context.js"
 
+export interface NeurexPathsConfig {
+  primitives: string
+  blocks: string
+  templates: string
+  utilities: string
+  styles: string
+}
+
+export interface NeurexAliasesConfig {
+  primitives: string
+  blocks: string
+  templates: string
+  utils: string
+  lib: string
+  hooks: string
+}
+
 export interface NeurexConfig {
   style: "default"
-  componentsPath: string
-  utilitiesPath: string
-  stylesPath: string
+  paths: NeurexPathsConfig
   aliases: NeurexAliasesConfig
   tailwind: NeurexTailwindConfig
   installed?: Record<string, string>
   registryUrl?: string | null
-}
-
-export interface NeurexAliasesConfig {
-  components: string
-  utils: string
-  ui: string
-  lib: string
-  hooks: string
 }
 
 export interface NeurexTailwindConfig {
@@ -27,10 +34,19 @@ export interface NeurexTailwindConfig {
   css: string
 }
 
+const defaultPathsConfig: NeurexPathsConfig = {
+  primitives: "src/components/primitives",
+  blocks: "src/components/blocks",
+  templates: "src/components/templates",
+  utilities: "src/lib",
+  styles: "styles",
+}
+
 const defaultAliasesConfig: NeurexAliasesConfig = {
-  components: "@/components",
+  primitives: "@/components/primitives",
+  blocks: "@/components/blocks",
+  templates: "@/components/templates",
   utils: "@/lib/utils",
-  ui: "@/components/ui",
   lib: "@/lib",
   hooks: "@/hooks",
 }
@@ -42,13 +58,68 @@ const defaultTailwindConfig: NeurexTailwindConfig = {
 
 export const defaultConfig: NeurexConfig = {
   style: "default",
-  componentsPath: "src/components/ui",
-  utilitiesPath: "src/lib",
-  stylesPath: "styles",
+  paths: defaultPathsConfig,
   aliases: defaultAliasesConfig,
   tailwind: defaultTailwindConfig,
   installed: {},
   registryUrl: null,
+}
+
+const migrateLegacyConfig = (
+  parsed: Record<string, unknown>,
+): Partial<NeurexConfig> => {
+  const legacyComponentsPath =
+    typeof parsed.componentsPath === "string"
+      ? parsed.componentsPath
+      : undefined
+  const legacyUtilitiesPath =
+    typeof parsed.utilitiesPath === "string" ? parsed.utilitiesPath : undefined
+  const legacyStylesPath =
+    typeof parsed.stylesPath === "string" ? parsed.stylesPath : undefined
+  const legacyAliases =
+    typeof parsed.aliases === "object" && parsed.aliases !== null
+      ? (parsed.aliases as Record<string, string>)
+      : undefined
+  const parsedPaths =
+    typeof parsed.paths === "object" && parsed.paths !== null
+      ? (parsed.paths as Partial<NeurexPathsConfig>)
+      : undefined
+
+  const paths: NeurexPathsConfig = {
+    ...defaultPathsConfig,
+    ...parsedPaths,
+  }
+
+  if (legacyComponentsPath && !parsedPaths?.primitives) {
+    paths.primitives = legacyComponentsPath.replace(/\/ui\/?$/u, "/primitives")
+  }
+
+  if (legacyUtilitiesPath && !parsedPaths?.utilities) {
+    paths.utilities = legacyUtilitiesPath
+  }
+
+  if (legacyStylesPath && !parsedPaths?.styles) {
+    paths.styles = legacyStylesPath
+  }
+
+  const aliases: NeurexAliasesConfig = {
+    ...defaultAliasesConfig,
+    ...(legacyAliases?.components
+      ? { primitives: `${legacyAliases.components}/primitives` }
+      : {}),
+    ...(legacyAliases?.ui
+      ? { primitives: legacyAliases.ui.replace(/\/ui\/?$/u, "/primitives") }
+      : {}),
+    ...(typeof parsed.aliases === "object" && parsed.aliases !== null
+      ? (parsed.aliases as Partial<NeurexAliasesConfig>)
+      : {}),
+  }
+
+  return {
+    ...(parsed as Partial<NeurexConfig>),
+    aliases,
+    paths,
+  }
 }
 
 export const getConfigPath = (): string => {
@@ -63,18 +134,23 @@ export const loadConfig = async (): Promise<NeurexConfig> => {
   }
 
   const content = await readFile(configPath, "utf-8")
-  const parsed = JSON.parse(content) as Partial<NeurexConfig>
+  const parsed = JSON.parse(content) as Record<string, unknown>
+  const migrated = migrateLegacyConfig(parsed)
 
   return {
     ...defaultConfig,
-    ...parsed,
+    ...migrated,
+    paths: {
+      ...defaultPathsConfig,
+      ...migrated.paths,
+    },
     aliases: {
       ...defaultAliasesConfig,
-      ...parsed.aliases,
+      ...migrated.aliases,
     },
     tailwind: {
       ...defaultTailwindConfig,
-      ...parsed.tailwind,
+      ...migrated.tailwind,
     },
   }
 }

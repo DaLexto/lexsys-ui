@@ -4,7 +4,7 @@
  * Shared registry metadata types.
  */
 
-export type RegistryItemType = "component" | "utility" | "style"
+export type RegistryItemType = "component" | "block" | "utility" | "style"
 
 export interface RegistryFile {
   path: string
@@ -37,6 +37,7 @@ export type RegistryItemCategory =
   | "layout"
   | "data-display"
   | "utilities"
+  | "blocks"
 
 export interface RegistryItem {
   name: string

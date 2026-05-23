@@ -14,19 +14,19 @@ export const scrollAreaRegistryItem: RegistryItem = {
   category: "layout",
   aliases: ["scroll"],
   files: [
-    "components/ScrollArea/ScrollArea.tsx",
-    "components/ScrollArea/ScrollArea.types.ts",
-    "components/ScrollArea/ScrollArea.variants.ts",
+    "primitives/ScrollArea/ScrollArea.tsx",
+    "primitives/ScrollArea/ScrollArea.types.ts",
+    "primitives/ScrollArea/ScrollArea.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/ScrollArea/ScrollArea.tsx",
+      path: "primitives/ScrollArea/ScrollArea.tsx",
     },
     {
-      path: "components/ScrollArea/ScrollArea.types.ts",
+      path: "primitives/ScrollArea/ScrollArea.types.ts",
     },
     {
-      path: "components/ScrollArea/ScrollArea.variants.ts",
+      path: "primitives/ScrollArea/ScrollArea.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const scrollAreaRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/ScrollArea",
+  target: "src/components/primitives/ScrollArea",
 }

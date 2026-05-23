@@ -14,19 +14,19 @@ export const buttonRegistryItem: RegistryItem = {
   category: "actions",
   aliases: ["btn"],
   files: [
-    "components/Button/Button.tsx",
-    "components/Button/Button.types.ts",
-    "components/Button/Button.variants.ts",
+    "primitives/Button/Button.tsx",
+    "primitives/Button/Button.types.ts",
+    "primitives/Button/Button.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Button/Button.tsx",
+      path: "primitives/Button/Button.tsx",
     },
     {
-      path: "components/Button/Button.types.ts",
+      path: "primitives/Button/Button.types.ts",
     },
     {
-      path: "components/Button/Button.variants.ts",
+      path: "primitives/Button/Button.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const buttonRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Button",
+  target: "src/components/primitives/Button",
 }

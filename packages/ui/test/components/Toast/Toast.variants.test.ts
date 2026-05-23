@@ -4,7 +4,7 @@ import {
   toastDescriptionVariants,
   toastVariants,
   toastViewportVariants,
-} from "../../../src/components/Toast/Toast.variants.js"
+} from "../../../src/components/primitives/Toast/Toast.variants.js"
 
 describe("toastVariants", () => {
   it("includes token-backed placement, status, swipe, and action classes", () => {

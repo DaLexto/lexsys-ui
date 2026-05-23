@@ -14,19 +14,19 @@ export const fieldsetRegistryItem: RegistryItem = {
   category: "forms",
   aliases: [],
   files: [
-    "components/Fieldset/Fieldset.tsx",
-    "components/Fieldset/Fieldset.types.ts",
-    "components/Fieldset/Fieldset.variants.ts",
+    "primitives/Fieldset/Fieldset.tsx",
+    "primitives/Fieldset/Fieldset.types.ts",
+    "primitives/Fieldset/Fieldset.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Fieldset/Fieldset.tsx",
+      path: "primitives/Fieldset/Fieldset.tsx",
     },
     {
-      path: "components/Fieldset/Fieldset.types.ts",
+      path: "primitives/Fieldset/Fieldset.types.ts",
     },
     {
-      path: "components/Fieldset/Fieldset.variants.ts",
+      path: "primitives/Fieldset/Fieldset.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const fieldsetRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Fieldset",
+  target: "src/components/primitives/Fieldset",
 }

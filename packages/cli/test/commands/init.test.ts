@@ -116,7 +116,7 @@ describe("runInit", () => {
     ).resolves.toContain('"style": "default"')
     await expect(
       readFile(join(appDir, "neurex.config.json"), "utf-8"),
-    ).resolves.toContain('"componentsPath": "src/components/ui"')
+    ).resolves.toContain('"primitives": "src/components/primitives"')
     await expect(
       readFile(join(appDir, "neurex.config.json"), "utf-8"),
     ).resolves.toContain('"utils": "@/lib/utils"')
@@ -259,7 +259,7 @@ describe("runInit", () => {
     ).resolves.toContain('@import "tailwindcss";')
     await expect(
       readFile(join(appDir, "neurex.config.json"), "utf-8"),
-    ).resolves.toContain('"componentsPath": "src/components/ui"')
+    ).resolves.toContain('"primitives": "src/components/primitives"')
     await expect(
       readFile(join(appDir, "neurex.config.json"), "utf-8"),
     ).resolves.toContain('"css": "app/globals.css"')

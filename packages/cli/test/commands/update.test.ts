@@ -58,9 +58,21 @@ describe("runUpdate", () => {
   test("updates generated token and theme styles without requiring a component install", async () => {
     await writeJson(join(tempDir, "neurex.config.json"), {
       style: "default",
-      componentsPath: "src/components/ui",
-      utilitiesPath: "src/lib",
-      stylesPath: "styles",
+      paths: {
+        primitives: "src/components/primitives",
+        blocks: "src/components/blocks",
+        templates: "src/components/templates",
+        utilities: "src/lib",
+        styles: "styles",
+      },
+      aliases: {
+        primitives: "@/components/primitives",
+        blocks: "@/components/blocks",
+        templates: "@/components/templates",
+        utils: "@/lib/utils",
+        lib: "@/lib",
+        hooks: "@/hooks",
+      },
       tailwind: {
         version: "v4",
         css: "src/style.css",
@@ -104,7 +116,10 @@ describe("runUpdate", () => {
     await runInit()
     await runAdd(["button"])
 
-    const buttonPath = join(tempDir, "src/components/ui/Button/Button.tsx")
+    const buttonPath = join(
+      tempDir,
+      "src/components/primitives/Button/Button.tsx",
+    )
 
     await writeFile(
       buttonPath,

@@ -8,7 +8,7 @@ import {
   AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogViewport,
-} from "../../../src/components/AlertDialog/AlertDialog.js"
+} from "../../../src/components/primitives/AlertDialog/AlertDialog.js"
 
 describe("AlertDialog render", () => {
   it("renders alert dialog title when defaultOpen", () => {

@@ -3,7 +3,7 @@ import {
   selectItemVariants,
   selectPopupVariants,
   selectTriggerVariants,
-} from "../../../src/components/Select/Select.variants"
+} from "../../../src/components/primitives/Select/Select.variants"
 
 describe("Select variants", () => {
   it("uses token-backed trigger sizing", () => {

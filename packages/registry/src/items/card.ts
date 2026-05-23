@@ -14,24 +14,24 @@ export const cardRegistryItem: RegistryItem = {
   category: "layout",
   aliases: ["panel", "surface"],
   files: [
-    "components/Card/Card.tsx",
-    "components/Card/Card.types.ts",
-    "components/Card/Card.variants.ts",
+    "primitives/Card/Card.tsx",
+    "primitives/Card/Card.types.ts",
+    "primitives/Card/Card.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Card/Card.tsx",
+      path: "primitives/Card/Card.tsx",
     },
     {
-      path: "components/Card/Card.types.ts",
+      path: "primitives/Card/Card.types.ts",
     },
     {
-      path: "components/Card/Card.variants.ts",
+      path: "primitives/Card/Card.variants.ts",
     },
   ],
   dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Card",
+  target: "src/components/primitives/Card",
 }

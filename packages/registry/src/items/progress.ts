@@ -14,19 +14,19 @@ export const progressRegistryItem: RegistryItem = {
   category: "feedback",
   aliases: ["progress-bar"],
   files: [
-    "components/Progress/Progress.tsx",
-    "components/Progress/Progress.types.ts",
-    "components/Progress/Progress.variants.ts",
+    "primitives/Progress/Progress.tsx",
+    "primitives/Progress/Progress.types.ts",
+    "primitives/Progress/Progress.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Progress/Progress.tsx",
+      path: "primitives/Progress/Progress.tsx",
     },
     {
-      path: "components/Progress/Progress.types.ts",
+      path: "primitives/Progress/Progress.types.ts",
     },
     {
-      path: "components/Progress/Progress.variants.ts",
+      path: "primitives/Progress/Progress.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const progressRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Progress",
+  target: "src/components/primitives/Progress",
 }

@@ -14,19 +14,19 @@ export const menuRegistryItem: RegistryItem = {
   category: "overlays",
   aliases: [],
   files: [
-    "components/Menu/Menu.tsx",
-    "components/Menu/Menu.types.ts",
-    "components/Menu/Menu.variants.ts",
+    "primitives/Menu/Menu.tsx",
+    "primitives/Menu/Menu.types.ts",
+    "primitives/Menu/Menu.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Menu/Menu.tsx",
+      path: "primitives/Menu/Menu.tsx",
     },
     {
-      path: "components/Menu/Menu.types.ts",
+      path: "primitives/Menu/Menu.types.ts",
     },
     {
-      path: "components/Menu/Menu.variants.ts",
+      path: "primitives/Menu/Menu.variants.ts",
     },
   ],
   dependencies: [
@@ -39,5 +39,5 @@ export const menuRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Menu",
+  target: "src/components/primitives/Menu",
 }

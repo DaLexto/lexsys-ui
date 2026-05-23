@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
   sliderThumbVariants,
   sliderTrackVariants,
-} from "../../../src/components/Slider/Slider.variants.js"
+} from "../../../src/components/primitives/Slider/Slider.variants.js"
 
 describe("sliderVariants", () => {
   it("styles the track and thumb", () => {

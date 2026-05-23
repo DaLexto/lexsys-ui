@@ -14,19 +14,19 @@ export const tooltipRegistryItem: RegistryItem = {
   category: "overlays",
   aliases: ["hint"],
   files: [
-    "components/Tooltip/Tooltip.tsx",
-    "components/Tooltip/Tooltip.types.ts",
-    "components/Tooltip/Tooltip.variants.ts",
+    "primitives/Tooltip/Tooltip.tsx",
+    "primitives/Tooltip/Tooltip.types.ts",
+    "primitives/Tooltip/Tooltip.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Tooltip/Tooltip.tsx",
+      path: "primitives/Tooltip/Tooltip.tsx",
     },
     {
-      path: "components/Tooltip/Tooltip.types.ts",
+      path: "primitives/Tooltip/Tooltip.types.ts",
     },
     {
-      path: "components/Tooltip/Tooltip.variants.ts",
+      path: "primitives/Tooltip/Tooltip.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const tooltipRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Tooltip",
+  target: "src/components/primitives/Tooltip",
 }

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
   progressIndicatorVariants,
   progressTrackVariants,
-} from "../../../src/components/Progress/Progress.variants.js"
+} from "../../../src/components/primitives/Progress/Progress.variants.js"
 
 describe("progressVariants", () => {
   it("styles track sizes and indeterminate state", () => {

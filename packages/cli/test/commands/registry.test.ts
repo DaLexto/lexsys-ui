@@ -34,12 +34,12 @@ const item: RegistryItem = {
   type: "component",
   category: "actions",
   aliases: ["btn"],
-  files: ["components/ui/Button/Button.tsx"],
+  files: ["primitives/Button/Button.tsx"],
   dependencies: [],
   registryDependencies: [],
   utilities: [],
   styles: [],
-  target: "src/components/ui/Button",
+  target: "src/components/primitives/Button",
 }
 
 describe("runRegistry", () => {

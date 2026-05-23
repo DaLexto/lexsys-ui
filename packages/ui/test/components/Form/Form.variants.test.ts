@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { formVariants } from "../../../src/components/Form/Form.variants.js"
+import { formVariants } from "../../../src/components/primitives/Form/Form.variants.js"
 
 describe("form variants", () => {
   test("uses token-backed classes", () => {

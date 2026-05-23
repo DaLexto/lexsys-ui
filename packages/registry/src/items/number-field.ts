@@ -14,19 +14,19 @@ export const numberFieldRegistryItem: RegistryItem = {
   category: "forms",
   aliases: [],
   files: [
-    "components/NumberField/NumberField.tsx",
-    "components/NumberField/NumberField.types.ts",
-    "components/NumberField/NumberField.variants.ts",
+    "primitives/NumberField/NumberField.tsx",
+    "primitives/NumberField/NumberField.types.ts",
+    "primitives/NumberField/NumberField.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/NumberField/NumberField.tsx",
+      path: "primitives/NumberField/NumberField.tsx",
     },
     {
-      path: "components/NumberField/NumberField.types.ts",
+      path: "primitives/NumberField/NumberField.types.ts",
     },
     {
-      path: "components/NumberField/NumberField.variants.ts",
+      path: "primitives/NumberField/NumberField.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const numberFieldRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/NumberField",
+  target: "src/components/primitives/NumberField",
 }

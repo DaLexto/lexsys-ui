@@ -31,6 +31,9 @@ import { toggleGroupRegistryItem } from "./toggle-group.js"
 import { toggleRegistryItem } from "./toggle.js"
 import { tooltipRegistryItem } from "./tooltip.js"
 import { scrollAreaRegistryItem } from "./scroll-area.js"
+import { dashboardShellRegistryItem } from "./dashboard-shell.js"
+import { formFieldRegistryItem } from "./form-field.js"
+import { sidebarRegistryItem } from "./sidebar.js"
 
 export { accordionRegistryItem } from "./accordion.js"
 export { alertDialogRegistryItem } from "./alert-dialog.js"
@@ -63,6 +66,9 @@ export { toastRegistryItem } from "./toast.js"
 export { toggleGroupRegistryItem } from "./toggle-group.js"
 export { toggleRegistryItem } from "./toggle.js"
 export { tooltipRegistryItem } from "./tooltip.js"
+export { dashboardShellRegistryItem } from "./dashboard-shell.js"
+export { formFieldRegistryItem } from "./form-field.js"
+export { sidebarRegistryItem } from "./sidebar.js"
 export { scrollAreaRegistryItem } from "./scroll-area.js"
 
 export const registryItems: RegistryItem[] = [
@@ -98,4 +104,7 @@ export const registryItems: RegistryItem[] = [
   toggleRegistryItem,
   tooltipRegistryItem,
   scrollAreaRegistryItem,
+  formFieldRegistryItem,
+  sidebarRegistryItem,
+  dashboardShellRegistryItem,
 ]

@@ -109,39 +109,51 @@ describe("install flow smoke", () => {
     ).resolves.toContain("twMerge")
     await expect(
       readFile(
-        join(tempDir, "src/components/ui/Button/Button.variants.ts"),
+        join(tempDir, "src/components/primitives/Button/Button.variants.ts"),
         "utf-8",
       ),
     ).resolves.toContain("bg-(--nx-button-primary-background)")
     await expect(
-      readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
+      readFile(
+        join(tempDir, "src/components/primitives/Button/Button.tsx"),
+        "utf-8",
+      ),
     ).resolves.toContain("@/lib/utils")
     await expect(
       readFile(
-        join(tempDir, "src/components/ui/Card/Card.variants.ts"),
+        join(tempDir, "src/components/primitives/Card/Card.variants.ts"),
         "utf-8",
       ),
     ).resolves.toContain("bg-(--nx-card-background)")
     await expect(
-      readFile(join(tempDir, "src/components/ui/Card/Card.tsx"), "utf-8"),
+      readFile(
+        join(tempDir, "src/components/primitives/Card/Card.tsx"),
+        "utf-8",
+      ),
     ).resolves.toContain("@/lib/utils")
     await expect(
       readFile(
-        join(tempDir, "src/components/ui/Badge/Badge.variants.ts"),
+        join(tempDir, "src/components/primitives/Badge/Badge.variants.ts"),
         "utf-8",
       ),
     ).resolves.toContain("bg-(--nx-badge-neutral-background)")
     await expect(
-      readFile(join(tempDir, "src/components/ui/Badge/Badge.tsx"), "utf-8"),
+      readFile(
+        join(tempDir, "src/components/primitives/Badge/Badge.tsx"),
+        "utf-8",
+      ),
     ).resolves.toContain("@/lib/utils")
     await expect(
       readFile(
-        join(tempDir, "src/components/ui/Alert/Alert.variants.ts"),
+        join(tempDir, "src/components/primitives/Alert/Alert.variants.ts"),
         "utf-8",
       ),
     ).resolves.toContain("bg-(--nx-alert-neutral-background)")
     await expect(
-      readFile(join(tempDir, "src/components/ui/Alert/Alert.tsx"), "utf-8"),
+      readFile(
+        join(tempDir, "src/components/primitives/Alert/Alert.tsx"),
+        "utf-8",
+      ),
     ).resolves.toContain("@/lib/utils")
 
     const config = JSON.parse(
@@ -175,7 +187,7 @@ describe("install flow smoke", () => {
       for (const file of item.files) {
         const targetPath = join(
           tempDir,
-          "src/components/ui",
+          "src/components/primitives",
           item.canonicalName,
           getTemplateFileName(file),
         )
@@ -233,7 +245,7 @@ describe("install flow smoke", () => {
       for (const file of item.files) {
         const targetPath = join(
           tempDir,
-          "src/components/ui",
+          "src/components/primitives",
           item.canonicalName,
           getTemplateFileName(file),
         )
@@ -247,7 +259,7 @@ describe("install flow smoke", () => {
         readFile(
           join(
             tempDir,
-            `src/components/ui/${item.canonicalName}/${item.canonicalName}.tsx`,
+            `src/components/primitives/${item.canonicalName}/${item.canonicalName}.tsx`,
           ),
           "utf-8",
         ),
@@ -256,7 +268,7 @@ describe("install flow smoke", () => {
         readFile(
           join(
             tempDir,
-            `src/components/ui/${item.canonicalName}/${item.canonicalName}.variants.ts`,
+            `src/components/primitives/${item.canonicalName}/${item.canonicalName}.variants.ts`,
           ),
           "utf-8",
         ),
@@ -297,7 +309,10 @@ describe("install flow smoke", () => {
     await runUninstall(["button", "card"])
 
     await expect(
-      readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
+      readFile(
+        join(tempDir, "src/components/primitives/Button/Button.tsx"),
+        "utf-8",
+      ),
     ).rejects.toThrow()
 
     const config = JSON.parse(

@@ -14,19 +14,19 @@ export const separatorRegistryItem: RegistryItem = {
   category: "layout",
   aliases: ["divider"],
   files: [
-    "components/Separator/Separator.tsx",
-    "components/Separator/Separator.types.ts",
-    "components/Separator/Separator.variants.ts",
+    "primitives/Separator/Separator.tsx",
+    "primitives/Separator/Separator.types.ts",
+    "primitives/Separator/Separator.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Separator/Separator.tsx",
+      path: "primitives/Separator/Separator.tsx",
     },
     {
-      path: "components/Separator/Separator.types.ts",
+      path: "primitives/Separator/Separator.types.ts",
     },
     {
-      path: "components/Separator/Separator.variants.ts",
+      path: "primitives/Separator/Separator.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const separatorRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Separator",
+  target: "src/components/primitives/Separator",
 }

@@ -1,4 +1,5 @@
 import { join } from "node:path"
+import { getInstallLayer } from "@neurex/registry"
 import { getCwd } from "../core/context.js"
 import { loadConfig } from "../core/config.js"
 import { fileExists } from "../core/fs.js"
@@ -23,16 +24,24 @@ export const runDoctor = async (
       path: join(getCwd(), "package.json"),
     },
     {
-      label: config.componentsPath,
-      path: join(getCwd(), config.componentsPath),
+      label: config.paths.primitives,
+      path: join(getCwd(), config.paths.primitives),
     },
     {
-      label: config.utilitiesPath,
-      path: join(getCwd(), config.utilitiesPath),
+      label: config.paths.blocks,
+      path: join(getCwd(), config.paths.blocks),
     },
     {
-      label: config.stylesPath,
-      path: join(getCwd(), config.stylesPath),
+      label: config.paths.templates,
+      path: join(getCwd(), config.paths.templates),
+    },
+    {
+      label: config.paths.utilities,
+      path: join(getCwd(), config.paths.utilities),
+    },
+    {
+      label: config.paths.styles,
+      path: join(getCwd(), config.paths.styles),
     },
     {
       label: config.tailwind.css,
@@ -80,15 +89,13 @@ export const runDoctor = async (
         continue
       }
 
-      const componentPath = join(
-        getCwd(),
-        config.componentsPath,
-        item.canonicalName,
-      )
-
+      const componentPath = join(getCwd(), item.target)
       const exists = await fileExists(componentPath)
+      const layer = getInstallLayer(item) ?? "unknown"
 
-      console.log(`${exists ? "✓" : "×"} ${item.canonicalName} v${version}`)
+      console.log(
+        `${exists ? "✓" : "×"} ${item.canonicalName} v${version} (${layer})`,
+      )
     }
   }
 }

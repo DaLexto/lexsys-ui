@@ -6,7 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../../src/components/Card/Card.js"
+} from "../../../src/components/primitives/Card/Card.js"
 
 describe("Card render", () => {
   it("renders card title and content with custom className", () => {

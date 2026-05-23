@@ -49,9 +49,11 @@ const isGeneratedNeurexStyle = (content: string): boolean => {
 export const ensureProjectStructure = async (
   config: NeurexConfig,
 ): Promise<void> => {
-  await mkdir(join(getCwd(), config.componentsPath), { recursive: true })
-  await mkdir(join(getCwd(), config.utilitiesPath), { recursive: true })
-  await mkdir(join(getCwd(), config.stylesPath), { recursive: true })
+  await mkdir(join(getCwd(), config.paths.primitives), { recursive: true })
+  await mkdir(join(getCwd(), config.paths.blocks), { recursive: true })
+  await mkdir(join(getCwd(), config.paths.templates), { recursive: true })
+  await mkdir(join(getCwd(), config.paths.utilities), { recursive: true })
+  await mkdir(join(getCwd(), config.paths.styles), { recursive: true })
 }
 
 export const installUtilities = async (
@@ -62,7 +64,7 @@ export const installUtilities = async (
 
   for (const utility of utilities) {
     const sourcePath = getRegistryTemplatePath(utility.path)
-    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
+    const targetPath = join(getCwd(), config.paths.utilities, utility.target)
 
     await mkdir(dirname(targetPath), { recursive: true })
 
@@ -97,7 +99,7 @@ export const updateUtilities = async (
 
   for (const utility of utilities) {
     const sourcePath = getRegistryTemplatePath(utility.path)
-    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
+    const targetPath = join(getCwd(), config.paths.utilities, utility.target)
 
     await mkdir(dirname(targetPath), { recursive: true })
 
@@ -148,7 +150,7 @@ export const installStyles = async (
 
     for (const file of style.files) {
       const sourcePath = getRegistryTemplatePath(file.path)
-      const targetPath = join(getCwd(), config.stylesPath, file.target)
+      const targetPath = join(getCwd(), config.paths.styles, file.target)
 
       await mkdir(dirname(targetPath), { recursive: true })
 
@@ -208,7 +210,7 @@ const toCssImportPath = (
 ): string => {
   const importPath = relative(
     dirname(cssPath),
-    join(config.stylesPath, styleTarget),
+    join(config.paths.styles, styleTarget),
   ).replaceAll("\\", "/")
 
   return importPath.startsWith(".") ? importPath : `./${importPath}`
@@ -277,7 +279,6 @@ const installStyleEntrypointImports = async (
 
 export const installItemFiles = async (
   item: RegistryItem,
-  config: NeurexConfig,
 ): Promise<InstallResourceResult> => {
   const result = createInstallResourceResult()
 
@@ -297,12 +298,7 @@ export const installItemFiles = async (
       throw new Error(`Invalid registry file path: ${file}`)
     }
 
-    const targetPath = join(
-      getCwd(),
-      config.componentsPath,
-      item.canonicalName,
-      fileName,
-    )
+    const targetPath = join(getCwd(), item.target, fileName)
 
     await mkdir(dirname(targetPath), { recursive: true })
 
@@ -434,7 +430,6 @@ const tryRemoveEmptyDirectory = async (
 
 export const uninstallItemFiles = async (
   item: RegistryItem,
-  config: NeurexConfig,
 ): Promise<UninstallResourceResult> => {
   const result = createUninstallResourceResult()
 
@@ -442,11 +437,7 @@ export const uninstallItemFiles = async (
 
   await validateTemplateFiles(item)
 
-  const componentDirectory = join(
-    getCwd(),
-    config.componentsPath,
-    item.canonicalName,
-  )
+  const componentDirectory = join(getCwd(), item.target)
 
   const plannedRemovals: Array<{
     sourcePath: string
@@ -511,7 +502,7 @@ export const uninstallUtilities = async (
 
   for (const utility of utilities) {
     const sourcePath = getRegistryTemplatePath(utility.path)
-    const targetPath = join(getCwd(), config.utilitiesPath, utility.target)
+    const targetPath = join(getCwd(), config.paths.utilities, utility.target)
 
     await removeFileIfMatchesTemplate(sourcePath, targetPath, result)
   }
@@ -530,7 +521,7 @@ export const uninstallStyles = async (
 
     for (const file of style.files) {
       const sourcePath = getRegistryTemplatePath(file.path)
-      const targetPath = join(getCwd(), config.stylesPath, file.target)
+      const targetPath = join(getCwd(), config.paths.styles, file.target)
 
       await removeGeneratedStyleIfMatchesTemplate(
         sourcePath,

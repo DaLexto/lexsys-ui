@@ -4,7 +4,7 @@ import {
   Field,
   FieldControl,
   FieldLabel,
-} from "../../../src/components/Field/Field.js"
+} from "../../../src/components/primitives/Field/Field.js"
 
 describe("Field render", () => {
   it("renders label and control", () => {

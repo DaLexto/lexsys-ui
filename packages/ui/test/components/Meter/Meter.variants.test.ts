@@ -3,7 +3,7 @@ import {
   meterIndicatorVariants,
   meterTrackVariants,
   meterVariants,
-} from "../../../src/components/Meter/Meter.variants.js"
+} from "../../../src/components/primitives/Meter/Meter.variants.js"
 
 describe("meterVariants", () => {
   it("includes token-backed root, track, and indicator classes", () => {

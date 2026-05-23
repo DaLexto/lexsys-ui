@@ -126,9 +126,11 @@ export const runAdd = async (args: string[]): Promise<void> => {
     }
 
     console.log("\nInstall paths:")
-    console.log(`- components: ${config.componentsPath}`)
-    console.log(`- utilities: ${config.utilitiesPath}`)
-    console.log(`- styles: ${config.stylesPath}`)
+    console.log(`- primitives: ${config.paths.primitives}`)
+    console.log(`- blocks: ${config.paths.blocks}`)
+    console.log(`- templates: ${config.paths.templates}`)
+    console.log(`- utilities: ${config.paths.utilities}`)
+    console.log(`- styles: ${config.paths.styles}`)
     console.log(`- tailwind css: ${config.tailwind.css}`)
 
     return
@@ -143,7 +145,7 @@ export const runAdd = async (args: string[]): Promise<void> => {
   const itemResults: InstallResourceResult[] = []
 
   for (const item of resolvedItems) {
-    const itemResult = await installItemFiles(item, config)
+    const itemResult = await installItemFiles(item)
     itemResults.push(itemResult)
 
     if (hasInstallConflicts(itemResult)) {

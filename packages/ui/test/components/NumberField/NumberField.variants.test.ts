@@ -6,7 +6,7 @@ import {
   numberFieldScrubAreaCursorVariants,
   numberFieldScrubAreaVariants,
   numberFieldVariants,
-} from "../../../src/components/NumberField/NumberField.variants.js"
+} from "../../../src/components/primitives/NumberField/NumberField.variants.js"
 
 describe("number field variants", () => {
   test("uses token-backed classes for root, group, and input", () => {

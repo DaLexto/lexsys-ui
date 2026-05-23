@@ -14,19 +14,19 @@ export const drawerRegistryItem: RegistryItem = {
   category: "overlays",
   aliases: [],
   files: [
-    "components/Drawer/Drawer.tsx",
-    "components/Drawer/Drawer.types.ts",
-    "components/Drawer/Drawer.variants.ts",
+    "primitives/Drawer/Drawer.tsx",
+    "primitives/Drawer/Drawer.types.ts",
+    "primitives/Drawer/Drawer.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Drawer/Drawer.tsx",
+      path: "primitives/Drawer/Drawer.tsx",
     },
     {
-      path: "components/Drawer/Drawer.types.ts",
+      path: "primitives/Drawer/Drawer.types.ts",
     },
     {
-      path: "components/Drawer/Drawer.variants.ts",
+      path: "primitives/Drawer/Drawer.variants.ts",
     },
   ],
   dependencies: [
@@ -39,5 +39,5 @@ export const drawerRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Drawer",
+  target: "src/components/primitives/Drawer",
 }

@@ -14,19 +14,19 @@ export const accordionRegistryItem: RegistryItem = {
   category: "data-display",
   aliases: ["collapse"],
   files: [
-    "components/Accordion/Accordion.tsx",
-    "components/Accordion/Accordion.types.ts",
-    "components/Accordion/Accordion.variants.ts",
+    "primitives/Accordion/Accordion.tsx",
+    "primitives/Accordion/Accordion.types.ts",
+    "primitives/Accordion/Accordion.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Accordion/Accordion.tsx",
+      path: "primitives/Accordion/Accordion.tsx",
     },
     {
-      path: "components/Accordion/Accordion.types.ts",
+      path: "primitives/Accordion/Accordion.types.ts",
     },
     {
-      path: "components/Accordion/Accordion.variants.ts",
+      path: "primitives/Accordion/Accordion.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const accordionRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Accordion",
+  target: "src/components/primitives/Accordion",
 }

@@ -374,13 +374,18 @@ load — missing fields fall back to defaults without error.
 ```ts
 interface NeurexConfig {
   style: "default"
-  componentsPath: string
-  utilitiesPath: string
-  stylesPath: string
+  paths: {
+    primitives: string
+    blocks: string
+    templates: string
+    utilities: string
+    styles: string
+  }
   aliases: {
-    components: string
+    primitives: string
+    blocks: string
+    templates: string
     utils: string
-    ui: string
     lib: string
     hooks: string
   }
@@ -388,28 +393,33 @@ interface NeurexConfig {
     version: "v4"
     css: string
   }
-  installed?: Record<string, string> // name → installed version
+  installed?: Record<string, string>
   registryUrl?: string | null
 }
 ```
 
+Legacy configs with `componentsPath` / `aliases.ui` are merged into `paths.primitives` on load.
+
 ### Defaults
 
-| Field                | Default                        |
-| -------------------- | ------------------------------ |
-| `style`              | `"default"` (only valid value) |
-| `componentsPath`     | `"src/components/ui"`          |
-| `utilitiesPath`      | `"src/lib"`                    |
-| `stylesPath`         | `"styles"`                     |
-| `aliases.components` | `"@/components"`               |
-| `aliases.utils`      | `"@/lib/utils"`                |
-| `aliases.ui`         | `"@/components/ui"`            |
-| `aliases.lib`        | `"@/lib"`                      |
-| `aliases.hooks`      | `"@/hooks"`                    |
-| `tailwind.version`   | `"v4"` (only valid value)      |
-| `tailwind.css`       | `"src/style.css"`              |
-| `installed`          | `{}`                           |
-| `registryUrl`        | `null`                         |
+| Field                | Default                       |
+| -------------------- | ----------------------------- |
+| `style`              | `"default"`                   |
+| `paths.primitives`   | `"src/components/primitives"` |
+| `paths.blocks`       | `"src/components/blocks"`     |
+| `paths.templates`    | `"src/components/templates"`  |
+| `paths.utilities`    | `"src/lib"`                   |
+| `paths.styles`       | `"styles"`                    |
+| `aliases.primitives` | `"@/components/primitives"`   |
+| `aliases.blocks`     | `"@/components/blocks"`       |
+| `aliases.templates`  | `"@/components/templates"`    |
+| `aliases.utils`      | `"@/lib/utils"`               |
+| `aliases.lib`        | `"@/lib"`                     |
+| `aliases.hooks`      | `"@/hooks"`                   |
+| `tailwind.version`   | `"v4"`                        |
+| `tailwind.css`       | `"src/style.css"`             |
+| `installed`          | `{}`                          |
+| `registryUrl`        | `null`                        |
 
 `tailwind.version` is a type literal locked to `"v4"`. Tailwind v3 is not
 supported.

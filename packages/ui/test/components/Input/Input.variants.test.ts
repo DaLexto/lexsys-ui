@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { inputVariants } from "../../../src/components/Input/Input.variants.js"
+import { inputVariants } from "../../../src/components/primitives/Input/Input.variants.js"
 
 describe("inputVariants", () => {
   test("uses token-backed classes for base styling", () => {

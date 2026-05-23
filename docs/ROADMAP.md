@@ -372,7 +372,7 @@ Original per-phase sketch (reference if splitting future work):
 - `docs/DEPLOY.md` owns release and build contract.
 - `docs/UI_VARIANTS.md` owns the canonical UI variant prop contract and CVA rules.
 - `docs/UI_AUDIT.md` owns the per-component compliance inventory.
-- `docs/ATOMIC_DESIGN.md` owns the UI composition layer model (atoms → pages).
+- `docs/ATOMIC_DESIGN.md` owns the UI layer model (primitives → blocks → templates → pages).
 
 ## UI polish track (post-M3)
 
@@ -382,37 +382,34 @@ and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes
 
 ---
 
-## UI composition — Atomic Design (planned)
+## UI composition — three layers (in progress)
 
-**Status:** planned — atoms shipped; higher layers are roadmap, not current contract.
+**Status:** in progress — 32 primitives shipped under legacy `ui/` path; migration to `primitives/blocks/templates` folders is active on `feat/ui-layers-primitives-blocks-templates`.
 
-Neurex UI follows [Atomic Design](https://atomicdesign.bradfrost.com/) layers:
+Neurex uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
-| Layer     | Neurex today                            | Target                                              |
-| --------- | --------------------------------------- | --------------------------------------------------- |
-| Atoms     | Shipped (32 components + tokens + `cn`) | Maintain and extend                                 |
-| Molecules | Consumer composes manually              | Optional registry blocks                            |
-| Organisms | Consumer composes manually              | Optional registry blocks (e.g. sidebar, form shell) |
-| Templates | Consumer layout CSS                     | Optional layout shells via registry                 |
-| Pages     | Consumer-owned                          | Always consumer-owned                               |
+| Layer      | Neurex today                            | Target                                    |
+| ---------- | --------------------------------------- | ----------------------------------------- |
+| Primitives | Shipped (32 components + tokens + `cn`) | `src/components/primitives/`              |
+| Blocks     | Consumer composes manually              | Registry blocks (Sidebar, FormField, …)   |
+| Templates  | Consumer layout CSS                     | Registry templates (DashboardTemplate, …) |
+| Pages      | Consumer-owned                          | Always consumer-owned                     |
 
-Canonical mapping, compositional rules (blocks compose lower blocks), package boundaries,
-and dual consumer paths: [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
+Canonical mapping, composition rules, folder layout, and CLI contract:
+[ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
 
-### UI composition track (Atomic Design)
+### UI composition track
 
-Status: **planned** — after current atom polish and sandbox QA fixes land on `dev`.
+Status: **in progress** — sandbox primitive QA verified (PR #26). **Active:** UC.1 path contract + registry validators; then `ui/` → `primitives/` migration and CLI `item.target` install.
 
-| Sub-item | Outcome                                                                               |
-| -------- | ------------------------------------------------------------------------------------- |
-| UC.1     | Block registry conventions, metadata shape, **compositional rules** (layer-only deps) |
-| UC.2     | Pilot molecules (2–3 composed patterns)                                               |
-| UC.3     | Pilot organism (sidebar or settings panel from sandbox)                               |
-| UC.4     | Template shell + sandbox migration                                                    |
-| UC.5     | CLI/docs UX for `neurex add` blocks                                                   |
-| UC.6     | Transitive dependency install tests + registry dep-graph validation                   |
+| Sub-item | Outcome                                                                       |
+| -------- | ----------------------------------------------------------------------------- |
+| UC.1     | Layer docs + registry path/compose validators (`primitives/blocks/templates`) |
+| UC.2     | Pilot blocks (FormField, Sidebar)                                             |
+| UC.3     | Template shell (DashboardTemplate) + sandbox migration                        |
+| UC.4     | CLI `list` by layer, `--with-deps` uninstall, transitive install tests        |
 
-Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-atomic-design).
+Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 
 ---
 

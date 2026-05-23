@@ -14,19 +14,19 @@ export const meterRegistryItem: RegistryItem = {
   category: "data-display",
   aliases: [],
   files: [
-    "components/Meter/Meter.tsx",
-    "components/Meter/Meter.types.ts",
-    "components/Meter/Meter.variants.ts",
+    "primitives/Meter/Meter.tsx",
+    "primitives/Meter/Meter.types.ts",
+    "primitives/Meter/Meter.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Meter/Meter.tsx",
+      path: "primitives/Meter/Meter.tsx",
     },
     {
-      path: "components/Meter/Meter.types.ts",
+      path: "primitives/Meter/Meter.types.ts",
     },
     {
-      path: "components/Meter/Meter.variants.ts",
+      path: "primitives/Meter/Meter.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const meterRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Meter",
+  target: "src/components/primitives/Meter",
 }

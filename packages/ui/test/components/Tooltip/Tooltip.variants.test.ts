@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
   tooltipArrowVariants,
   tooltipPopupVariants,
-} from "../../../src/components/Tooltip/Tooltip.variants.js"
+} from "../../../src/components/primitives/Tooltip/Tooltip.variants.js"
 
 describe("tooltipVariants", () => {
   it("styles popup and arrow", () => {

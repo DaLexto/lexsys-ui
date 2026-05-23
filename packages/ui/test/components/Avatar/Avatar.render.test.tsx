@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest"
 import {
   Avatar,
   AvatarFallback,
-} from "../../../src/components/Avatar/Avatar.js"
+} from "../../../src/components/primitives/Avatar/Avatar.js"
 
 describe("Avatar render", () => {
   it("renders fallback initials with custom className", () => {

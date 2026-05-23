@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest"
 import {
   Fieldset,
   FieldsetLegend,
-} from "../../../src/components/Fieldset/Fieldset.js"
+} from "../../../src/components/primitives/Fieldset/Fieldset.js"
 
 describe("Fieldset render", () => {
   it("renders legend with custom className", () => {

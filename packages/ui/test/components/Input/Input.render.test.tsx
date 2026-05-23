@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Input } from "../../../src/components/Input/Input.js"
+import { Input } from "../../../src/components/primitives/Input/Input.js"
 
 describe("Input render", () => {
   it("renders input with accessible name and custom className", () => {

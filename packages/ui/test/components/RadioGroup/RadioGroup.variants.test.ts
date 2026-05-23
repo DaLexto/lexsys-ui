@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
   radioGroupItemVariants,
   radioGroupVariants,
-} from "../../../src/components/RadioGroup/RadioGroup.variants.js"
+} from "../../../src/components/primitives/RadioGroup/RadioGroup.variants.js"
 
 describe("radioGroupVariants", () => {
   it("styles group direction and item checked state", () => {

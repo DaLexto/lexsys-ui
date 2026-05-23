@@ -14,19 +14,19 @@ export const tabsRegistryItem: RegistryItem = {
   category: "navigation",
   aliases: ["tab"],
   files: [
-    "components/Tabs/Tabs.tsx",
-    "components/Tabs/Tabs.types.ts",
-    "components/Tabs/Tabs.variants.ts",
+    "primitives/Tabs/Tabs.tsx",
+    "primitives/Tabs/Tabs.types.ts",
+    "primitives/Tabs/Tabs.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Tabs/Tabs.tsx",
+      path: "primitives/Tabs/Tabs.tsx",
     },
     {
-      path: "components/Tabs/Tabs.types.ts",
+      path: "primitives/Tabs/Tabs.types.ts",
     },
     {
-      path: "components/Tabs/Tabs.variants.ts",
+      path: "primitives/Tabs/Tabs.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const tabsRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Tabs",
+  target: "src/components/primitives/Tabs",
 }

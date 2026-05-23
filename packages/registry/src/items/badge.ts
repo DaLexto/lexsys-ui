@@ -14,24 +14,24 @@ export const badgeRegistryItem: RegistryItem = {
   category: "data-display",
   aliases: ["tag", "label"],
   files: [
-    "components/Badge/Badge.tsx",
-    "components/Badge/Badge.types.ts",
-    "components/Badge/Badge.variants.ts",
+    "primitives/Badge/Badge.tsx",
+    "primitives/Badge/Badge.types.ts",
+    "primitives/Badge/Badge.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Badge/Badge.tsx",
+      path: "primitives/Badge/Badge.tsx",
     },
     {
-      path: "components/Badge/Badge.types.ts",
+      path: "primitives/Badge/Badge.types.ts",
     },
     {
-      path: "components/Badge/Badge.variants.ts",
+      path: "primitives/Badge/Badge.variants.ts",
     },
   ],
   dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Badge",
+  target: "src/components/primitives/Badge",
 }

@@ -14,19 +14,19 @@ export const formRegistryItem: RegistryItem = {
   category: "forms",
   aliases: [],
   files: [
-    "components/Form/Form.tsx",
-    "components/Form/Form.types.ts",
-    "components/Form/Form.variants.ts",
+    "primitives/Form/Form.tsx",
+    "primitives/Form/Form.types.ts",
+    "primitives/Form/Form.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Form/Form.tsx",
+      path: "primitives/Form/Form.tsx",
     },
     {
-      path: "components/Form/Form.types.ts",
+      path: "primitives/Form/Form.types.ts",
     },
     {
-      path: "components/Form/Form.variants.ts",
+      path: "primitives/Form/Form.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const formRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Form",
+  target: "src/components/primitives/Form",
 }

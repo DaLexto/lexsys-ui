@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Switch } from "../../../src/components/Switch/Switch.js"
+import { Switch } from "../../../src/components/primitives/Switch/Switch.js"
 
 describe("Switch render", () => {
   it("renders switch with custom className", () => {

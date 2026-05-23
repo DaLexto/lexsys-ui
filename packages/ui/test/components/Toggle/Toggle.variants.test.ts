@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { toggleVariants } from "../../../src/components/Toggle/Toggle.variants.js"
+import { toggleVariants } from "../../../src/components/primitives/Toggle/Toggle.variants.js"
 
 describe("toggleVariants", () => {
   it("includes pressed state styling", () => {

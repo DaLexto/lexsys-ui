@@ -14,19 +14,19 @@ export const collapsibleRegistryItem: RegistryItem = {
   category: "layout",
   aliases: [],
   files: [
-    "components/Collapsible/Collapsible.tsx",
-    "components/Collapsible/Collapsible.types.ts",
-    "components/Collapsible/Collapsible.variants.ts",
+    "primitives/Collapsible/Collapsible.tsx",
+    "primitives/Collapsible/Collapsible.types.ts",
+    "primitives/Collapsible/Collapsible.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Collapsible/Collapsible.tsx",
+      path: "primitives/Collapsible/Collapsible.tsx",
     },
     {
-      path: "components/Collapsible/Collapsible.types.ts",
+      path: "primitives/Collapsible/Collapsible.types.ts",
     },
     {
-      path: "components/Collapsible/Collapsible.variants.ts",
+      path: "primitives/Collapsible/Collapsible.variants.ts",
     },
   ],
   dependencies: [
@@ -39,5 +39,5 @@ export const collapsibleRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Collapsible",
+  target: "src/components/primitives/Collapsible",
 }

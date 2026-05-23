@@ -6,7 +6,7 @@ import {
   TooltipPortal,
   TooltipPositioner,
   TooltipTrigger,
-} from "../../../src/components/Tooltip/Tooltip.js"
+} from "../../../src/components/primitives/Tooltip/Tooltip.js"
 
 describe("Tooltip render", () => {
   it("renders tooltip content when defaultOpen", () => {

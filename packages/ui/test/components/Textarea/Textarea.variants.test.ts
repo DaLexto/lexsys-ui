@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest"
-import { textareaVariants } from "../../../src/components/Textarea/Textarea.variants.js"
+import { textareaVariants } from "../../../src/components/primitives/Textarea/Textarea.variants.js"
 
 describe("textareaVariants", () => {
   test("uses token-backed classes for base styling", () => {

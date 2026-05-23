@@ -6,14 +6,14 @@ import { syncRegistryItems } from "./registry-item-generator.mjs"
 
 const registryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const repoRoot = resolve(registryRoot, "../..")
-const sourceRoot = resolve(repoRoot, "packages/ui/src/components")
-const targetRoot = resolve(registryRoot, "templates/components")
+const sourceRoot = resolve(repoRoot, "packages/ui/src/components/primitives")
+const targetRoot = resolve(registryRoot, "templates/primitives")
 
-const componentSourceImport = 'import { cn } from "../../utils/cn"'
+const componentSourceImport = 'import { cn } from "../../../utils/cn"'
 const componentTemplateImport = 'import { cn } from "@/lib/utils"'
 
 const mergeClassNameSourceImport =
-  'import { mergeClassName } from "../../utils/merge-class-name"'
+  'import { mergeClassName } from "../../../utils/merge-class-name"'
 const mergeClassNameTemplateImport =
   'import { mergeClassName } from "@/lib/utils"'
 
@@ -54,8 +54,8 @@ const toRegistryTemplate = (source) => {
   return source
     .replaceAll(componentSourceImport, componentTemplateImport)
     .replaceAll(mergeClassNameSourceImport, mergeClassNameTemplateImport)
-    .replaceAll('from "../../utils/cn"', 'from "@/lib/utils"')
-    .replaceAll('from "../../utils/variant-states"', 'from "@/lib/utils"')
+    .replaceAll('from "../../../utils/cn"', 'from "@/lib/utils"')
+    .replaceAll('from "../../../utils/variant-states"', 'from "@/lib/utils"')
 }
 
 const readExistingTemplate = async (path) => {
@@ -98,7 +98,7 @@ const syncComponentTemplates = async () => {
       const existingTemplate = await readExistingTemplate(targetPath)
 
       if (existingTemplate !== template) {
-        outOfSyncFiles.push(relativePath.replaceAll("\\", "/"))
+        outOfSyncFiles.push(`primitives/${relativePath.replaceAll("\\", "/")}`)
       }
 
       continue
@@ -121,6 +121,8 @@ const syncComponentTemplates = async () => {
     registryRoot,
     sourceComponentNames,
     templateRoot: targetRoot,
+    templatePrefix: "primitives",
+    targetPrefix: "src/components/primitives",
   })
 
   if (checkOnly) {

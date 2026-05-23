@@ -46,7 +46,7 @@ const runStylesUpdate = async (
     for (const style of styles) {
       console.log(`- ${style.name} v${style.version}`)
       for (const file of style.files) {
-        console.log(`  ~ ${config.stylesPath}/${file.target}`)
+        console.log(`  ~ ${config.paths.styles}/${file.target}`)
       }
     }
     console.log(`\nTailwind CSS entrypoint: ${config.tailwind.css}`)
@@ -91,7 +91,7 @@ const runUtilitiesUpdate = async (
     console.log("Utilities:")
     for (const utility of utilities) {
       console.log(`- ${utility.name}`)
-      console.log(`  ~ ${config.utilitiesPath}/${utility.target}`)
+      console.log(`  ~ ${config.paths.utilities}/${utility.target}`)
     }
     return
   }
@@ -132,14 +132,7 @@ const runComponentUpdates = async (
       continue
     }
 
-    const didUpdate = await checkItemUpdate(
-      name,
-      version,
-      dryRun,
-      config.componentsPath,
-      force,
-      sync,
-    )
+    const didUpdate = await checkItemUpdate(name, version, dryRun, force, sync)
 
     const item = await findItem(name)
 

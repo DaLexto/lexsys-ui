@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Checkbox } from "../../../src/components/Checkbox/Checkbox.js"
+import { Checkbox } from "../../../src/components/primitives/Checkbox/Checkbox.js"
 
 describe("Checkbox render", () => {
   it("renders checkbox with label and custom className", () => {

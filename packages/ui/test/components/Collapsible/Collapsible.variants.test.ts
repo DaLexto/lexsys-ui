@@ -3,7 +3,7 @@ import {
   collapsiblePanelVariants,
   collapsibleTriggerVariants,
   collapsibleVariants,
-} from "../../../src/components/Collapsible/Collapsible.variants.js"
+} from "../../../src/components/primitives/Collapsible/Collapsible.variants.js"
 
 describe("collapsibleVariants", () => {
   it("includes token-backed surface, trigger, and panel classes", () => {

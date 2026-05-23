@@ -12,22 +12,27 @@ import {
 
 const config: NeurexConfig = {
   style: "default",
-  aliases: {
-    components: "@/components",
-    hooks: "@/hooks",
-    lib: "@/lib",
-    ui: "@/components/ui",
-    utils: "@/lib/utils",
+  paths: {
+    primitives: "src/components/primitives",
+    blocks: "src/components/blocks",
+    templates: "src/components/templates",
+    utilities: "src/lib",
+    styles: "styles",
   },
-  componentsPath: "src/components/ui",
-  installed: {},
-  registryUrl: null,
-  stylesPath: "styles",
+  aliases: {
+    primitives: "@/components/primitives",
+    blocks: "@/components/blocks",
+    templates: "@/components/templates",
+    utils: "@/lib/utils",
+    lib: "@/lib",
+    hooks: "@/hooks",
+  },
   tailwind: {
     version: "v4",
     css: "src/style.css",
   },
-  utilitiesPath: "src/lib",
+  installed: {},
+  registryUrl: null,
 }
 
 describe("installItemFiles", () => {
@@ -47,13 +52,13 @@ describe("installItemFiles", () => {
   })
 
   test("reports conflicts without overwriting user-modified files", async () => {
-    const targetDir = join(tempDir, "src/components/ui/Button")
+    const targetDir = join(tempDir, "src/components/primitives/Button")
     const targetPath = join(targetDir, "Button.tsx")
 
     await mkdir(targetDir, { recursive: true })
     await writeFile(targetPath, "user modified", "utf-8")
 
-    const result = await installItemFiles(buttonRegistryItem, config)
+    const result = await installItemFiles(buttonRegistryItem)
 
     await expect(readFile(targetPath, "utf-8")).resolves.toBe("user modified")
     expect(result.conflicted).toContain(targetPath)
@@ -61,7 +66,7 @@ describe("installItemFiles", () => {
   })
 
   test("resolves registry templates through package exports", async () => {
-    const templatePath = getRegistryTemplatePath("components/Button/Button.tsx")
+    const templatePath = getRegistryTemplatePath("primitives/Button/Button.tsx")
 
     await expect(readFile(templatePath, "utf-8")).resolves.toContain(
       "export { Button }",

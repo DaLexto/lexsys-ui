@@ -6,7 +6,7 @@ import {
   cardHeaderClassName,
   cardTitleClassName,
   cardVariants,
-} from "../../../src/components/Card/Card.variants.js"
+} from "../../../src/components/primitives/Card/Card.variants.js"
 
 describe("cardVariants", () => {
   test("uses token-backed classes for visual styling", () => {

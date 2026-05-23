@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest"
 import {
   fieldsetLegendVariants,
   fieldsetVariants,
-} from "../../../src/components/Fieldset/Fieldset.variants.js"
+} from "../../../src/components/primitives/Fieldset/Fieldset.variants.js"
 
 describe("fieldset variants", () => {
   test("uses token-backed classes for fieldset parts", () => {

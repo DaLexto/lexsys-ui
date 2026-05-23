@@ -3,7 +3,7 @@ import {
   alertDialogBackdropVariants,
   alertDialogPopupVariants,
   alertDialogTriggerVariants,
-} from "../../../src/components/AlertDialog/AlertDialog.variants"
+} from "../../../src/components/primitives/AlertDialog/AlertDialog.variants"
 
 describe("AlertDialog variants", () => {
   it("uses token-backed trigger and popup styling", () => {

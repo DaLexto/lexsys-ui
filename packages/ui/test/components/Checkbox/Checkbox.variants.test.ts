@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { checkboxVariants } from "../../../src/components/Checkbox/Checkbox.variants.js"
+import { checkboxVariants } from "../../../src/components/primitives/Checkbox/Checkbox.variants.js"
 
 describe("checkboxVariants", () => {
   it("includes Neurex checkbox states", () => {

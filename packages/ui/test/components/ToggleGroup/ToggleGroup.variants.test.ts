@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { toggleGroupVariants } from "../../../src/components/ToggleGroup/ToggleGroup.variants.js"
+import { toggleGroupVariants } from "../../../src/components/primitives/ToggleGroup/ToggleGroup.variants.js"
 
 describe("toggleGroupVariants", () => {
   it("includes token-backed orientation and size classes", () => {

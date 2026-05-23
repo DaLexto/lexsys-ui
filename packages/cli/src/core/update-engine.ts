@@ -7,10 +7,7 @@ import { getRegistryTemplatePath } from "./installer.js"
 import { findItem } from "./registry-resolver.js"
 import { isUpdateAvailable } from "./version.js"
 
-export const checkItemFiles = async (
-  name: string,
-  componentsPath: string,
-): Promise<void> => {
+export const checkItemFiles = async (name: string): Promise<void> => {
   const item = await findItem(name)
 
   if (!item) {
@@ -29,12 +26,7 @@ export const checkItemFiles = async (
       continue
     }
 
-    const targetPath = join(
-      getCwd(),
-      componentsPath,
-      item.canonicalName,
-      fileName,
-    )
+    const targetPath = join(getCwd(), item.target, fileName)
 
     if (!(await fileExists(targetPath))) {
       console.log(`- missing: ${targetPath}`)
@@ -54,7 +46,6 @@ export const checkItemFiles = async (
 
 const applySafeItemUpdate = async (
   name: string,
-  componentsPath: string,
   force: boolean,
 ): Promise<boolean> => {
   const item = await findItem(name)
@@ -78,12 +69,7 @@ const applySafeItemUpdate = async (
       continue
     }
 
-    const targetPath = join(
-      getCwd(),
-      componentsPath,
-      item.canonicalName,
-      fileName,
-    )
+    const targetPath = join(getCwd(), item.target, fileName)
 
     await mkdir(dirname(targetPath), { recursive: true })
 
@@ -133,7 +119,6 @@ export const checkItemUpdate = async (
   name: string,
   installedVersion: string,
   dryRun: boolean,
-  componentsPath: string,
   force: boolean,
   sync = false,
 ): Promise<boolean> => {
@@ -188,10 +173,10 @@ export const checkItemUpdate = async (
     console.log("- Report conflicts before writing changes")
     console.log("- Never overwrite user-modified files silently")
 
-    await checkItemFiles(name, componentsPath)
+    await checkItemFiles(name)
 
     return false
   }
 
-  return await applySafeItemUpdate(name, componentsPath, force)
+  return await applySafeItemUpdate(name, force)
 }

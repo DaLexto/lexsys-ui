@@ -3,7 +3,7 @@ import {
   dialogBackdropVariants,
   dialogPopupVariants,
   dialogTriggerVariants,
-} from "../../../src/components/Dialog/Dialog.variants"
+} from "../../../src/components/primitives/Dialog/Dialog.variants"
 
 describe("Dialog variants", () => {
   it("uses token-backed trigger and popup styling", () => {

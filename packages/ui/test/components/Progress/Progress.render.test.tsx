@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Progress } from "../../../src/components/Progress/Progress.js"
+import { Progress } from "../../../src/components/primitives/Progress/Progress.js"
 
 describe("Progress render", () => {
   it("renders progress label with custom className", () => {

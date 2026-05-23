@@ -14,19 +14,19 @@ export const toggleGroupRegistryItem: RegistryItem = {
   category: "actions",
   aliases: [],
   files: [
-    "components/ToggleGroup/ToggleGroup.tsx",
-    "components/ToggleGroup/ToggleGroup.types.ts",
-    "components/ToggleGroup/ToggleGroup.variants.ts",
+    "primitives/ToggleGroup/ToggleGroup.tsx",
+    "primitives/ToggleGroup/ToggleGroup.types.ts",
+    "primitives/ToggleGroup/ToggleGroup.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/ToggleGroup/ToggleGroup.tsx",
+      path: "primitives/ToggleGroup/ToggleGroup.tsx",
     },
     {
-      path: "components/ToggleGroup/ToggleGroup.types.ts",
+      path: "primitives/ToggleGroup/ToggleGroup.types.ts",
     },
     {
-      path: "components/ToggleGroup/ToggleGroup.variants.ts",
+      path: "primitives/ToggleGroup/ToggleGroup.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const toggleGroupRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/ToggleGroup",
+  target: "src/components/primitives/ToggleGroup",
 }

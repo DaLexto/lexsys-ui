@@ -14,19 +14,19 @@ export const popoverRegistryItem: RegistryItem = {
   category: "overlays",
   aliases: [],
   files: [
-    "components/Popover/Popover.tsx",
-    "components/Popover/Popover.types.ts",
-    "components/Popover/Popover.variants.ts",
+    "primitives/Popover/Popover.tsx",
+    "primitives/Popover/Popover.types.ts",
+    "primitives/Popover/Popover.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Popover/Popover.tsx",
+      path: "primitives/Popover/Popover.tsx",
     },
     {
-      path: "components/Popover/Popover.types.ts",
+      path: "primitives/Popover/Popover.types.ts",
     },
     {
-      path: "components/Popover/Popover.variants.ts",
+      path: "primitives/Popover/Popover.variants.ts",
     },
   ],
   dependencies: [
@@ -39,5 +39,5 @@ export const popoverRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Popover",
+  target: "src/components/primitives/Popover",
 }

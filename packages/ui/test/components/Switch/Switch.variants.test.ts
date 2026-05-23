@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
   switchThumbVariants,
   switchVariants,
-} from "../../../src/components/Switch/Switch.variants.js"
+} from "../../../src/components/primitives/Switch/Switch.variants.js"
 
 describe("switchVariants", () => {
   it("includes Neurex switch states", () => {

@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest"
 import {
   popoverPopupVariants,
   popoverTriggerVariants,
-} from "../../../src/components/Popover/Popover.variants"
+} from "../../../src/components/primitives/Popover/Popover.variants"
 
 describe("Popover variants", () => {
   test("uses component token variables for the trigger", () => {

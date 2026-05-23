@@ -45,7 +45,7 @@ const rules = [
   },
   {
     id: "bare-100dvh",
-    pattern: /100dvh/,
+    pattern: /(?<!-)100dvh/,
     message: "Replace bare 100dvh with --nx-* viewport max-height tokens",
   },
   {
@@ -97,19 +97,21 @@ const rules = [
   },
 ]
 
-const variantFiles = readdirSync(componentRoot, { withFileTypes: true })
-  .flatMap((entry) => {
-    if (!entry.isDirectory()) {
-      return []
-    }
+const layerRoots = [
+  join(componentRoot, "primitives"),
+  join(componentRoot, "blocks"),
+  join(componentRoot, "templates"),
+]
 
-    const variantsPath = join(
-      componentRoot,
-      entry.name,
-      `${entry.name}.variants.ts`,
-    )
+const variantFiles = layerRoots
+  .flatMap((layerRoot) => {
+    return readdirSync(layerRoot, { withFileTypes: true }).flatMap((entry) => {
+      if (!entry.isDirectory()) {
+        return []
+      }
 
-    return [variantsPath]
+      return [join(layerRoot, entry.name, `${entry.name}.variants.ts`)]
+    })
   })
   .toSorted()
 

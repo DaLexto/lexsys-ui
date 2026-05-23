@@ -33,11 +33,11 @@ const collectTemplateFiles = (root: string, current = root): string[] => {
 }
 
 const templateRoot = join(process.cwd(), "templates")
-const uiSourceRoot = join(process.cwd(), "../ui/src")
-const componentSourceImport = 'import { cn } from "../../utils/cn"'
+const uiSourceRoot = join(process.cwd(), "../ui/src/components")
+const componentSourceImport = 'import { cn } from "../../../utils/cn"'
 const componentTemplateImport = 'import { cn } from "@/lib/utils"'
 const mergeClassNameSourceImport =
-  'import { mergeClassName } from "../../utils/merge-class-name"'
+  'import { mergeClassName } from "../../../utils/merge-class-name"'
 const mergeClassNameTemplateImport =
   'import { mergeClassName } from "@/lib/utils"'
 
@@ -49,8 +49,8 @@ const toRegistryTemplate = (source: string): string => {
   return source
     .replaceAll(componentSourceImport, componentTemplateImport)
     .replaceAll(mergeClassNameSourceImport, mergeClassNameTemplateImport)
-    .replaceAll('from "../../utils/cn"', 'from "@/lib/utils"')
-    .replaceAll('from "../../utils/variant-states"', 'from "@/lib/utils"')
+    .replaceAll('from "../../../utils/cn"', 'from "@/lib/utils"')
+    .replaceAll('from "../../../utils/variant-states"', 'from "@/lib/utils"')
 }
 
 // Mock podaci za testiranje
@@ -61,17 +61,17 @@ const item: RegistryItem = {
   type: "component",
   category: "actions",
   aliases: ["btn"],
-  files: ["components/Button/Button.tsx", "components/Button/Button.types.ts"],
+  files: ["primitives/Button/Button.tsx", "primitives/Button/Button.types.ts"],
   remoteFiles: [
     {
-      path: "components/Button/Button.tsx",
+      path: "primitives/Button/Button.tsx",
     },
   ],
   dependencies: ["@base-ui/react"],
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Button",
+  target: "src/components/primitives/Button",
 }
 
 const style: RegistryStyle = {
@@ -127,14 +127,16 @@ describe("validateRegistry", () => {
             "tailwind-merge",
           ]),
           styles: ["theme"],
-          target: expect.stringMatching(/^src\/components\/ui\//),
+          target: expect.stringMatching(/^src\/components\/primitives\//),
           type: "component",
           utilities: ["cn"],
         }),
       )
       expect(item?.files).toHaveLength(3)
       expect(item?.remoteFiles).toHaveLength(3)
-      expect(item?.target).toBe(`src/components/ui/${item.canonicalName}`)
+      expect(item?.target).toBe(
+        `src/components/primitives/${item.canonicalName}`,
+      )
       expect(item?.remoteFiles?.map((file) => file.path).sort()).toEqual(
         item.files.toSorted(),
       )
@@ -172,8 +174,8 @@ describe("validateRegistry", () => {
           name: "input",
           canonicalName: "Input",
           aliases: ["button"],
-          files: ["components/Input/Input.tsx"],
-          target: "src/components/ui/Input",
+          files: ["primitives/Input/Input.tsx"],
+          target: "src/components/primitives/Input",
         },
       ]),
     ).toThrow(/is used by both "button" and "input"/)
@@ -282,6 +284,202 @@ describe("validateRegistry", () => {
         templateFiles: [...item.files],
       }),
     ).toThrow(/references missing template file: shared\/utils\/cn.ts/)
+  })
+
+  test("accepts valid block metadata with compositional registryDependencies", () => {
+    const field: RegistryItem = {
+      ...item,
+      name: "field",
+      canonicalName: "Field",
+      aliases: [],
+      files: ["primitives/Field/Field.tsx"],
+      remoteFiles: [{ path: "primitives/Field/Field.tsx" }],
+      target: "src/components/primitives/Field",
+    }
+
+    const input: RegistryItem = {
+      ...item,
+      name: "input",
+      canonicalName: "Input",
+      aliases: [],
+      files: ["primitives/Input/Input.tsx"],
+      remoteFiles: [{ path: "primitives/Input/Input.tsx" }],
+      target: "src/components/primitives/Input",
+    }
+
+    const drawer: RegistryItem = {
+      ...item,
+      name: "drawer",
+      canonicalName: "Drawer",
+      aliases: [],
+      files: ["primitives/Drawer/Drawer.tsx"],
+      remoteFiles: [{ path: "primitives/Drawer/Drawer.tsx" }],
+      target: "src/components/primitives/Drawer",
+    }
+
+    const menu: RegistryItem = {
+      ...item,
+      name: "menu",
+      canonicalName: "Menu",
+      aliases: [],
+      files: ["primitives/Menu/Menu.tsx"],
+      remoteFiles: [{ path: "primitives/Menu/Menu.tsx" }],
+      target: "src/components/primitives/Menu",
+    }
+
+    const formField: RegistryItem = {
+      name: "form-field",
+      canonicalName: "FormField",
+      version: "0.0.1",
+      type: "block",
+      category: "blocks",
+      aliases: [],
+      files: ["blocks/FormField/FormField.tsx"],
+      dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+      registryDependencies: ["field", "input"],
+      utilities: ["cn"],
+      styles: ["theme"],
+      target: "src/components/blocks/FormField",
+    }
+
+    const sidebar: RegistryItem = {
+      name: "sidebar",
+      canonicalName: "Sidebar",
+      version: "0.0.1",
+      type: "block",
+      category: "blocks",
+      aliases: [],
+      files: ["blocks/Sidebar/Sidebar.tsx"],
+      dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+      registryDependencies: ["button", "drawer", "menu"],
+      utilities: ["cn"],
+      styles: ["theme"],
+      target: "src/components/blocks/Sidebar",
+    }
+
+    expect(() =>
+      validateRegistry([item, field, input, drawer, menu, formField, sidebar], {
+        styles: [style],
+        utilities: [utility],
+      }),
+    ).not.toThrow()
+  })
+
+  test("rejects primitives with registryDependencies", () => {
+    expect(() =>
+      validateRegistry([
+        {
+          ...item,
+          registryDependencies: ["input"],
+        },
+      ]),
+    ).toThrow(/MUST NOT declare registryDependencies/)
+  })
+
+  test("rejects block layer violations in registryDependencies", () => {
+    const dashboardShell: RegistryItem = {
+      name: "dashboard-shell",
+      canonicalName: "DashboardShell",
+      version: "0.0.1",
+      type: "block",
+      category: "layout",
+      aliases: [],
+      files: ["templates/DashboardShell/DashboardShell.tsx"],
+      dependencies: [],
+      registryDependencies: ["sidebar"],
+      utilities: ["cn"],
+      styles: ["theme"],
+      target: "src/components/templates/DashboardShell",
+    }
+
+    const sidebarBlock: RegistryItem = {
+      name: "sidebar",
+      canonicalName: "Sidebar",
+      version: "0.0.1",
+      type: "block",
+      category: "blocks",
+      aliases: [],
+      files: ["blocks/Sidebar/Sidebar.tsx"],
+      dependencies: [],
+      registryDependencies: ["dashboard-shell"],
+      utilities: ["cn"],
+      styles: ["theme"],
+      target: "src/components/blocks/Sidebar",
+    }
+
+    expect(() => validateRegistry([dashboardShell, sidebarBlock])).toThrow(
+      /MUST NOT depend on template/,
+    )
+  })
+
+  test("rejects blocks that depend on templates", () => {
+    const sidebarBlock: RegistryItem = {
+      name: "sidebar",
+      canonicalName: "Sidebar",
+      version: "0.0.1",
+      type: "block",
+      category: "blocks",
+      aliases: [],
+      files: ["blocks/Sidebar/Sidebar.tsx"],
+      dependencies: [],
+      registryDependencies: ["dashboard-shell"],
+      utilities: ["cn"],
+      styles: ["theme"],
+      target: "src/components/blocks/Sidebar",
+    }
+
+    const dashboardShell: RegistryItem = {
+      name: "dashboard-shell",
+      canonicalName: "DashboardShell",
+      version: "0.0.1",
+      type: "block",
+      category: "layout",
+      aliases: [],
+      files: ["templates/DashboardShell/DashboardShell.tsx"],
+      dependencies: [],
+      registryDependencies: [],
+      utilities: ["cn"],
+      styles: ["theme"],
+      target: "src/components/templates/DashboardShell",
+    }
+
+    expect(() =>
+      validateRegistry([item, sidebarBlock, dashboardShell]),
+    ).toThrow(/MUST NOT depend on template/)
+  })
+
+  test("rejects circular registryDependencies", () => {
+    const blockA: RegistryItem = {
+      name: "block-a",
+      canonicalName: "BlockA",
+      version: "0.0.1",
+      type: "block",
+      category: "blocks",
+      aliases: [],
+      files: ["blocks/BlockA/BlockA.tsx"],
+      dependencies: [],
+      registryDependencies: ["block-b"],
+      utilities: ["cn"],
+      styles: ["theme"],
+      target: "src/components/blocks/BlockA",
+    }
+
+    const blockB: RegistryItem = {
+      name: "block-b",
+      canonicalName: "BlockB",
+      version: "0.0.1",
+      type: "block",
+      category: "blocks",
+      aliases: [],
+      files: ["blocks/BlockB/BlockB.tsx"],
+      dependencies: [],
+      registryDependencies: ["block-a"],
+      utilities: ["cn"],
+      styles: ["theme"],
+      target: "src/components/blocks/BlockB",
+    }
+
+    expect(() => validateRegistry([blockA, blockB])).toThrow(/dependency cycle/)
   })
 
   test("collects and displays multiple errors at once", () => {

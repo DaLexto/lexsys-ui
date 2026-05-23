@@ -12,22 +12,27 @@ import {
 
 const config: NeurexConfig = {
   style: "default",
-  aliases: {
-    components: "@/components",
-    hooks: "@/hooks",
-    lib: "@/lib",
-    ui: "@/components/ui",
-    utils: "@/lib/utils",
+  paths: {
+    primitives: "src/components/primitives",
+    blocks: "src/components/blocks",
+    templates: "src/components/templates",
+    utilities: "src/lib",
+    styles: "styles",
   },
-  componentsPath: "src/components/ui",
-  installed: {},
-  registryUrl: null,
-  stylesPath: "styles",
+  aliases: {
+    primitives: "@/components/primitives",
+    blocks: "@/components/blocks",
+    templates: "@/components/templates",
+    utils: "@/lib/utils",
+    lib: "@/lib",
+    hooks: "@/hooks",
+  },
   tailwind: {
     version: "v4",
     css: "src/style.css",
   },
-  utilitiesPath: "src/lib",
+  installed: {},
+  registryUrl: null,
 }
 
 describe("tailwind setup", () => {

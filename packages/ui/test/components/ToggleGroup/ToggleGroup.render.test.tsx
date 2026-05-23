@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Toggle } from "../../../src/components/Toggle/Toggle.js"
-import { ToggleGroup } from "../../../src/components/ToggleGroup/ToggleGroup.js"
+import { Toggle } from "../../../src/components/primitives/Toggle/Toggle.js"
+import { ToggleGroup } from "../../../src/components/primitives/ToggleGroup/ToggleGroup.js"
 
 describe("ToggleGroup render", () => {
   it("renders toggle group with custom className", () => {

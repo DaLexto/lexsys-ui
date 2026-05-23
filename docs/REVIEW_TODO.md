@@ -67,6 +67,7 @@ The P0 and P1 implementation passes are complete:
 - UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 - Post–PR #24 ship (PR #25, `af729d5`): CLI `--sync` / `--utilities`, overlay token semantics, blocking `ui:audit`, full variant token sweep ([UI_VARIANTS.md](./UI_VARIANTS.md), [CLI.md](./CLI.md))
 - Sandbox atom QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md) composition track
+- Consumer sandbox verify (PR #26 artifacts): `neurex update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 
 The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
 
@@ -76,28 +77,24 @@ Known gaps below.
 
 ## P2 — Product and DX
 
-### UI composition (Atomic Design)
+### UI composition (primitives / blocks / templates)
 
 Canonical layer model: [docs/ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md). Roadmap sequencing:
-[ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--atomic-design-planned).
+[ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--three-layers-in-progress).
 
-**Today:** atoms shipped (32 registry components + token CSS). Molecules, organisms,
-and templates are composed manually in consumer apps (sandbox proves the gap).
+**Today:** 32 primitives shipped (legacy install path `src/components/ui/`). Consumer sandbox verified PR #26 install artifacts. Blocks and templates are still composed manually in consumer apps.
 
-**Target:** optional registry **blocks** so consumers can `neurex add` composed patterns
-or still compose atoms only. **Higher blocks compose lower blocks** — atoms → molecules →
-organisms → templates; no layer skipping. **`neurex add <block>` installs the full transitive
-closure** (smaller blocks + atoms + npm deps + utilities + styles) via `registryDependencies`.
+**Target:** optional registry **blocks** and **templates** so consumers can `neurex add` composed patterns
+or still compose primitives only. **`neurex add <name>`** installs the transitive closure via `registryDependencies`; install path comes from `item.target` (`primitives/`, `blocks/`, or `templates/`).
 
-| Item | Layer     | Status  | Notes                                                                                       |
-| ---- | --------- | ------- | ------------------------------------------------------------------------------------------- |
-| AD.1 | All       | planned | Block metadata + compositional rules; direct `registryDependencies`; CLI transitive install |
-| AD.2 | Molecules | planned | Pilot 2–3 items (e.g. form field row, menu trigger row)                                     |
-| AD.3 | Organisms | planned | Pilot sidebar nav or settings panel from sandbox learnings                                  |
-| AD.4 | Templates | planned | Dashboard layout shell; migrate sandbox layout CSS where appropriate                        |
-| AD.5 | Pages     | n/a     | Document: pages stay consumer-owned; examples only in sandbox/docs                          |
-| AD.6 | CLI       | planned | `list` / `add` UX for blocks category; docs in CLI.md                                       |
-| AD.7 | CLI       | planned | Transitive install smoke tests (block → molecules → atoms); registry dep-graph validator    |
+| Item | Layer     | Status      | Notes                                                                            |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------- |
+| UC.1 | All       | in progress | Layer docs + validators; drop `atomicLayer`; paths `primitives/blocks/templates` |
+| UC.2 | Blocks    | planned     | Pilot FormField, Sidebar                                                         |
+| UC.3 | Templates | planned     | DashboardTemplate; migrate sandbox layout where appropriate                      |
+| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                        |
+| UC.5 | CLI       | planned     | `paths` config, `item.target` install, `list` by layer, `--with-deps` uninstall  |
+| UC.6 | Tests     | planned     | Transitive install smoke tests; registry composition validator                   |
 
 ---
 
@@ -125,12 +122,10 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
 - ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 
-## Known Gaps (no active item yet)
+## Known Gaps
 
-| Gap                                      | Notes                                                                                                                                                       |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CVA state helpers in consumer `utils.ts` | Shipped on installed `utils.ts` including `overlayPositionerSideOffset`. Refresh via `neurex update --utilities --sync`.                                    |
-| Select popup overlap / scroll chrome     | Fixed in PR #25: `alignItemWithTrigger={false}` default, anchor-width popup, shared `size.overlay.list.maxHeight`, scroll arrows documented in UI_VARIANTS. |
-| CLI diagnostic command tests             | Covered in `diagnostics.test.ts`.                                                                                                                           |
-| Install-flow round-trip                  | Covered in `install-flow.test.ts`.                                                                                                                          |
-| Remote registry signatures / allowlist   | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                         |
+| Gap                                    | Notes                                                                               |
+| -------------------------------------- | ----------------------------------------------------------------------------------- |
+| Remote registry signatures / allowlist | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet. |
+
+Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.

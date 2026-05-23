@@ -14,19 +14,19 @@ export const textareaRegistryItem: RegistryItem = {
   category: "forms",
   aliases: [],
   files: [
-    "components/Textarea/Textarea.tsx",
-    "components/Textarea/Textarea.types.ts",
-    "components/Textarea/Textarea.variants.ts",
+    "primitives/Textarea/Textarea.tsx",
+    "primitives/Textarea/Textarea.types.ts",
+    "primitives/Textarea/Textarea.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/Textarea/Textarea.tsx",
+      path: "primitives/Textarea/Textarea.tsx",
     },
     {
-      path: "components/Textarea/Textarea.types.ts",
+      path: "primitives/Textarea/Textarea.types.ts",
     },
     {
-      path: "components/Textarea/Textarea.variants.ts",
+      path: "primitives/Textarea/Textarea.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const textareaRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/Textarea",
+  target: "src/components/primitives/Textarea",
 }

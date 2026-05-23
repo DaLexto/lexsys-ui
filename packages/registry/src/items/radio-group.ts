@@ -14,19 +14,19 @@ export const radioGroupRegistryItem: RegistryItem = {
   category: "forms",
   aliases: ["radio"],
   files: [
-    "components/RadioGroup/RadioGroup.tsx",
-    "components/RadioGroup/RadioGroup.types.ts",
-    "components/RadioGroup/RadioGroup.variants.ts",
+    "primitives/RadioGroup/RadioGroup.tsx",
+    "primitives/RadioGroup/RadioGroup.types.ts",
+    "primitives/RadioGroup/RadioGroup.variants.ts",
   ],
   remoteFiles: [
     {
-      path: "components/RadioGroup/RadioGroup.tsx",
+      path: "primitives/RadioGroup/RadioGroup.tsx",
     },
     {
-      path: "components/RadioGroup/RadioGroup.types.ts",
+      path: "primitives/RadioGroup/RadioGroup.types.ts",
     },
     {
-      path: "components/RadioGroup/RadioGroup.variants.ts",
+      path: "primitives/RadioGroup/RadioGroup.variants.ts",
     },
   ],
   dependencies: [
@@ -38,5 +38,5 @@ export const radioGroupRegistryItem: RegistryItem = {
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
-  target: "src/components/ui/RadioGroup",
+  target: "src/components/primitives/RadioGroup",
 }

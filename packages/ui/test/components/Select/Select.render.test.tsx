@@ -10,7 +10,7 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValue,
-} from "../../../src/components/Select/Select.js"
+} from "../../../src/components/primitives/Select/Select.js"
 
 describe("Select render", () => {
   it("renders trigger with accessible name", () => {

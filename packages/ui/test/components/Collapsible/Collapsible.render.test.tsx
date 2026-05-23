@@ -4,7 +4,7 @@ import {
   Collapsible,
   CollapsiblePanel,
   CollapsibleTrigger,
-} from "../../../src/components/Collapsible/Collapsible.js"
+} from "../../../src/components/primitives/Collapsible/Collapsible.js"
 
 describe("Collapsible render", () => {
   it("renders trigger and panel when defaultOpen", () => {

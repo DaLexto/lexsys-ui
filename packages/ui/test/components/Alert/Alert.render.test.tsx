@@ -4,7 +4,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "../../../src/components/Alert/Alert.js"
+} from "../../../src/components/primitives/Alert/Alert.js"
 
 describe("Alert render", () => {
   it("renders title and description with alert role", () => {

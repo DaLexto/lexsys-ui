@@ -3,7 +3,7 @@ import {
   avatarFallbackVariants,
   avatarImageVariants,
   avatarVariants,
-} from "../../../src/components/Avatar/Avatar.variants.js"
+} from "../../../src/components/primitives/Avatar/Avatar.variants.js"
 
 describe("avatarVariants", () => {
   it("includes token-backed size, shape, image, and fallback classes", () => {
