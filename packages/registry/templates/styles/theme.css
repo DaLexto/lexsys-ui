@@ -270,12 +270,14 @@
   --nx-elevation-toast-z-index: var(--nx-elevation-toast-z-index);
   --nx-elevation-tooltip-z-index: var(--nx-elevation-tooltip-z-index);
   --nx-elevation-shadow-floating-color: var(--nx-elevation-shadow-floating-color);
+  --nx-elevation-shadow-floating-inset: var(--nx-elevation-shadow-floating-inset);
   --nx-elevation-shadow-floating-offset-x: var(--nx-elevation-shadow-floating-offset-x);
   --nx-elevation-shadow-floating-offset-y: var(--nx-elevation-shadow-floating-offset-y);
   --nx-elevation-shadow-floating-blur: var(--nx-elevation-shadow-floating-blur);
   --nx-elevation-shadow-floating-spread: var(--nx-elevation-shadow-floating-spread);
   --nx-elevation-shadow-floating-box-shadow: var(--nx-elevation-shadow-floating-box-shadow);
   --nx-elevation-shadow-raised-color: var(--nx-elevation-shadow-raised-color);
+  --nx-elevation-shadow-raised-inset: var(--nx-elevation-shadow-raised-inset);
   --nx-elevation-shadow-raised-offset-x: var(--nx-elevation-shadow-raised-offset-x);
   --nx-elevation-shadow-raised-offset-y: var(--nx-elevation-shadow-raised-offset-y);
   --nx-elevation-shadow-raised-blur: var(--nx-elevation-shadow-raised-blur);
