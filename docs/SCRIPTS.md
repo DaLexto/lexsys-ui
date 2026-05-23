@@ -160,14 +160,14 @@ For tests only (registry already built): `pnpm --filter ./packages/cli test`.
 
 ## `@neurex/playground`
 
-| Root alias                  | Package script | When to run                                 |
-| --------------------------- | -------------- | ------------------------------------------- |
-| `pnpm playground:dev`       | `dev`          | Local visual verification                   |
-| `pnpm playground:build`     | `build`        | Production build (builds tokens + UI first) |
-| `pnpm playground:check`     | `check`        | Lint + typecheck playground                 |
-| `pnpm playground:lint`      | `lint`         | Lint only                                   |
-| `pnpm playground:lint:fix`  | `lint:fix`     | Auto-fix playground lint                    |
-| `pnpm playground:typecheck` | `typecheck`    | Types only (builds tokens + UI first)       |
+| Root alias                  | Package script | When to run                                                    |
+| --------------------------- | -------------- | -------------------------------------------------------------- |
+| `pnpm playground:dev`       | `dev`          | Optional monorepo smoke (maintenance-only; not consumer truth) |
+| `pnpm playground:build`     | `build`        | Production build (builds tokens + UI first)                    |
+| `pnpm playground:check`     | `check`        | Lint + typecheck playground                                    |
+| `pnpm playground:lint`      | `lint`         | Lint only                                                      |
+| `pnpm playground:lint:fix`  | `lint:fix`     | Auto-fix playground lint                                       |
+| `pnpm playground:typecheck` | `typecheck`    | Types only (builds tokens + UI first)                          |
 
 Playground has no Vitest tests today; `check` = lint + typecheck.
 

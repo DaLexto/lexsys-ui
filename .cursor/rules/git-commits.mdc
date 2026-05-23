@@ -154,6 +154,18 @@ When unsure, use `full.md`.
 
 GitHub's repository default may still be `main`; do not infer the PR base from `gh repo view` or `origin/HEAD` alone. When the user does not specify a base, use `--base dev`.
 
+**Do not touch `main`** — no commits, merges, fast-forwards, or PRs targeting `main` unless the user explicitly requests it.
+
+### Branch and PR order
+
+For non-trivial work, follow [AGENTS.md § Change workflow](../../AGENTS.md#change-workflow):
+
+```txt
+branch off dev → implement → docs alignment → PR to dev (last)
+```
+
+Open the PR only when the branch is complete. See [AGENTS.md](../../AGENTS.md) for branch policy and verification surfaces.
+
 ### Before opening a PR
 
 Run in parallel:
