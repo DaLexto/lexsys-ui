@@ -87,14 +87,34 @@ Canonical layer model: [docs/ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md). Roadmap sequ
 **Target:** optional registry **blocks** and **templates** so consumers can `neurex add` composed patterns
 or still compose primitives only. **`neurex add <name>`** installs the transitive closure via `registryDependencies`; install path comes from `item.target` (`primitives/`, `blocks/`, or `templates/`).
 
-| Item | Layer     | Status      | Notes                                                                            |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------- |
-| UC.1 | All       | in progress | Layer docs + validators; drop `atomicLayer`; paths `primitives/blocks/templates` |
-| UC.2 | Blocks    | planned     | Pilot FormField, Sidebar                                                         |
-| UC.3 | Templates | planned     | DashboardTemplate; migrate sandbox layout where appropriate                      |
-| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                        |
-| UC.5 | CLI       | planned     | `paths` config, `item.target` install, `list` by layer, `--with-deps` uninstall  |
-| UC.6 | Tests     | planned     | Transitive install smoke tests; registry composition validator                   |
+| Item | Layer     | Status      | Notes                                                                                                                                             |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UC.1 | All       | in progress | Layer docs + validators; drop `atomicLayer`; paths `primitives/blocks/templates`                                                                  |
+| UC.2 | Blocks    | in progress | Pilot FormField, Sidebar — **sandbox QA found gaps** (see [Blocks/templates optimization backlog](#blocks--templates-optimization-backlog) below) |
+| UC.3 | Templates | in progress | DashboardShell pilot — mobile/responsive gaps; migrate sandbox layout where appropriate                                                           |
+| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                                                                                         |
+| UC.5 | CLI       | planned     | `paths` config, `item.target` install, `list` by layer, `--with-deps` uninstall                                                                   |
+| UC.6 | Tests     | planned     | Transitive install smoke tests; registry composition validator                                                                                    |
+
+### Blocks / templates optimization backlog
+
+**Context:** Consumer sandbox (PulseDesk SaaS demo, `feat/ui-layers-primitives-blocks-templates`) exposed that **blocks/templates are not “organization-only” quality**. Primitives were assumed production-ready when composing blocks; that assumption is **not validated** for composed/mobile flows.
+
+**Do not ship blocks/templates as stable until this pass completes** (or items below are explicitly waived).
+
+| ID   | Area              | Issue                                       | Notes                                                                                                                                                                                                                               |
+| ---- | ----------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| BO.1 | Sidebar (mobile)  | Drawer opens but nav list layout broken     | Empty vertical space; menu items overlap/cluster (Settings, Notifications, etc. stacked). Likely **Menu primitive used as static nav** + DrawerClose/render composition — needs dedicated mobile nav pattern.                       |
+| BO.2 | Sidebar (mobile)  | Drawer composition incomplete vs playground | Partial fix landed (Backdrop + Viewport + `render` on Trigger); drawer shell still needs visual/structure QA against [playground overlays panel](../apps/playground/src/overlays-panel.tsx) reference.                              |
+| BO.3 | DashboardShell    | Responsive layout                           | Early fix: `flex-col md:flex-row` + full-width mobile trigger bar. Header/toolbar stacking in consumer apps still ad hoc — template may need mobile header slot or documented consumer pattern.                                     |
+| BO.4 | Blocks QA process | No block-level validation gate              | `pnpm ui:audit` scans variant literals only — **does not verify CSS var exists**, responsive behavior, or primitive composition correctness. Blocks shipped with phantom tokens (`--nx-color-border-subtle`) in first pilot commit. |
+| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Invalid without integration QA.** 32 primitives pass render/variant tests on desktop; blocks/templates need sandbox checklist: mobile drawer, hover/active states, token contrast, install + import rewrite.                      |
+| BO.6 | Sidebar (design)  | Menu vs nav list                            | Long-term: Sidebar nav should probably **not** use Menu primitive for static sidebar links — plain `<button>` / `<a>` list is simpler and avoids roving-focus/highlight semantics. Track before calling Sidebar stable.             |
+| BO.7 | FormField         | Untested in sandbox                         | Pilot block not exercised in consumer SaaS demo yet.                                                                                                                                                                                |
+
+**Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `neurex add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
+
+**Related fixes already landed (same branch, not optimization-complete):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring.
 
 ---
 
@@ -124,8 +144,9 @@ Optional follow-ups after Phases 1–10 (detail in
 
 ## Known Gaps
 
-| Gap                                    | Notes                                                                               |
-| -------------------------------------- | ----------------------------------------------------------------------------------- |
-| Remote registry signatures / allowlist | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet. |
+| Gap                                      | Notes                                                                                                                                                                                    |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blocks/templates mobile & composition QA | Sidebar mobile drawer nav overlap; blocks assumed primitives-ready — see [REVIEW_TODO § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog). |
+| Remote registry signatures / allowlist   | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                      |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.

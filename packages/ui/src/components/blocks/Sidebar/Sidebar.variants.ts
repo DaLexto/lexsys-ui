@@ -5,7 +5,7 @@
  */
 
 export const sidebarRootVariants = (): string => {
-  return "nx-sidebar"
+  return "nx-sidebar w-full shrink-0 md:h-full md:w-auto"
 }
 
 export const sidebarDesktopVariants = (): string => {
@@ -13,7 +13,7 @@ export const sidebarDesktopVariants = (): string => {
 }
 
 export const sidebarMobileTriggerVariants = (): string => {
-  return "nx-sidebar__mobile-trigger md:hidden"
+  return "nx-sidebar__mobile-trigger border-b border-[var(--nx-border-default)] p-[var(--nx-space-2)] md:hidden"
 }
 
 export const sidebarBrandVariants = (): string => {

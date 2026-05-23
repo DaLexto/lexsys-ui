@@ -409,6 +409,8 @@ Status: **in progress** — sandbox primitive QA verified (PR #26). **Active:** 
 | UC.3     | Template shell (DashboardTemplate) + sandbox migration                        |
 | UC.4     | CLI `list` by layer, `--with-deps` uninstall, transitive install tests        |
 
+**Optimization pass (deferred):** sandbox QA on `feat/ui-layers-primitives-blocks-templates` found mobile Sidebar drawer nav overlap and invalid “primitives-ready → blocks-ready” assumption. Tracked as BO.1–BO.7 in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
+
 Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 
 ---

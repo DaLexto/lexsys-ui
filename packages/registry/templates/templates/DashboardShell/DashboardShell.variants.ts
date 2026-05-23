@@ -5,7 +5,7 @@
  */
 
 export const dashboardShellVariants = (): string => {
-  return "nx-dashboard-shell flex min-h-full bg-[var(--nx-color-background-base)] text-[var(--nx-color-text-primary)]"
+  return "nx-dashboard-shell flex min-h-full flex-col bg-[var(--nx-color-background-base)] text-[var(--nx-color-text-primary)] md:flex-row"
 }
 
 export const dashboardShellMainVariants = (): string => {
