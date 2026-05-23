@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest"
 
 import { createStyleTokenInput } from "../src/generators/inputs/input.source"
-import { createSemanticAuditReport } from "../src/engine/governance"
+import {
+  createSemanticAuditReport,
+  evaluateSemanticAuditPolicy,
+  resolveGovernancePolicy,
+  shouldFailOnGovernancePolicy,
+} from "../src/engine/governance"
 
 describe("createSemanticAuditReport", () => {
   it("reports a clean audit after semantic organization fixes", () => {
@@ -129,5 +134,57 @@ describe("createSemanticAuditReport", () => {
         }),
       ]),
     )
+  })
+
+  it("treats component-intent and theme-path-mismatch as policy errors", () => {
+    const input = createStyleTokenInput()
+
+    const report = createSemanticAuditReport({
+      primitiveTokens: input.primitiveTokens,
+      brandTokens: input.brandTokens,
+      semanticTokens: {
+        ...input.semanticTokens,
+        size: {
+          ...(input.semanticTokens.size as object),
+          dialog: {
+            maxWidth: { $value: "{size.128}" },
+          },
+        },
+      },
+      componentTokens: input.componentTokens,
+      foundationTokens: input.foundationTokens,
+      themeTokens: [
+        {
+          name: "light",
+          tokens: {
+            color: {
+              border: {
+                default: { $value: "{color.neutral.200}" },
+              },
+            },
+          },
+        },
+      ],
+    })
+
+    const evaluation = evaluateSemanticAuditPolicy(report)
+
+    expect(evaluation.passes).toBe(false)
+    expect(evaluation.failures).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          kind: "component-intent",
+          severity: "error",
+        }),
+        expect.objectContaining({
+          kind: "theme-path-mismatch",
+          severity: "error",
+        }),
+      ]),
+    )
+    expect(shouldFailOnGovernancePolicy(resolveGovernancePolicy())).toBe(true)
+    expect(
+      shouldFailOnGovernancePolicy(resolveGovernancePolicy({ tier: "report" })),
+    ).toBe(false)
   })
 })
