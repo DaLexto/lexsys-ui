@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      base-ui:
+        patterns:
+          - "@base-ui/*"
+      tailwind:
+        patterns:
+          - "tailwind*"
+          - "@tailwindcss/*"
+      typescript-eslint:
+        patterns:
+          - "typescript"
+          - "typescript-eslint"
+          - "@types/*"
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+    open-pull-requests-limit: 10

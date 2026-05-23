@@ -218,14 +218,24 @@ Test coverage details and per-file test inventory: [TESTING.md](./TESTING.md).
 
 ### Monorepo check (all PRs)
 
-[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs on every pull request and on push to `dev`/`main`:
+[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs on every pull request and on push to `dev`/`main`.
 
-```sh
-pnpm install --frozen-lockfile
-pnpm check
-```
+**Pull requests** — path-filtered jobs (via `dorny/paths-filter`):
 
-Node 24, pnpm cache enabled.
+| Filter | Command |
+| ------ | ------- |
+| `packages/tokens/**` | `pnpm tokens:check` |
+| `packages/ui/**` | `pnpm ui:check` |
+| `packages/ui/**` or `packages/registry/**` | `pnpm registry:check` (template drift on UI PRs) |
+| `packages/cli/**` | `pnpm --filter ./packages/cli check` |
+| `apps/playground/**` (+ tokens/ui deps) | `pnpm playground:build` |
+| Root config/docs | `pnpm format:check` + `pnpm lint:root` |
+
+**Push to `dev`/`main`** — additionally runs full `pnpm check`.
+
+**Audit** — non-blocking `pnpm audit --audit-level=high` on all workflow runs.
+
+Setup: Node 24, `pnpm install --frozen-lockfile`, pnpm cache enabled.
 
 ### Token governance (token-path PRs)
 
