@@ -68,7 +68,9 @@ describe("CLI diagnostic commands", () => {
 
   test("runDoctor reports project paths and registry summary", async () => {
     await writeJson(join(tempDir, "package.json"), { name: "demo" })
-    await mkdir(join(tempDir, defaultConfig.componentsPath), { recursive: true })
+    await mkdir(join(tempDir, defaultConfig.componentsPath), {
+      recursive: true,
+    })
     await mkdir(join(tempDir, defaultConfig.utilitiesPath), { recursive: true })
     await mkdir(join(tempDir, defaultConfig.stylesPath), { recursive: true })
     await writeFile(join(tempDir, defaultConfig.tailwind.css), ":root {}\n")
@@ -101,10 +103,9 @@ describe("CLI diagnostic commands", () => {
       ...defaultConfig,
       installed: { button: "0.0.1" },
     })
-    await mkdir(
-      join(tempDir, defaultConfig.componentsPath, "Button"),
-      { recursive: true },
-    )
+    await mkdir(join(tempDir, defaultConfig.componentsPath, "Button"), {
+      recursive: true,
+    })
 
     mocks.getRegistryProviderResult.mockResolvedValue({
       items: [item],
