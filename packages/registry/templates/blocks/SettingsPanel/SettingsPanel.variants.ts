@@ -1,0 +1,9 @@
+/**
+ * SettingsPanel.variants.ts
+ *
+ * Variant classes for the SettingsPanel block.
+ */
+
+export const settingsPanelVariants = (): string => {
+  return "lsys-settings-panel w-full"
+}

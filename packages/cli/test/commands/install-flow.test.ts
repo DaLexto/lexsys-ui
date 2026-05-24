@@ -478,6 +478,23 @@ describe("install flow smoke", () => {
     expect(config.installed?.menu).toBeUndefined()
   })
 
+  test("settings-panel solo install pulls card primitive", async () => {
+    await writeViteConsumerFiles(tempDir)
+
+    await runInit()
+    await runAdd(["settings-panel"])
+
+    await expect(
+      readFile(
+        join(tempDir, "src/components/ui/SettingsPanel/SettingsPanel.tsx"),
+        "utf-8",
+      ),
+    ).resolves.toContain('from "../Card/Card"')
+
+    const config = await readInstalledConfig(tempDir)
+    expectRegistryClosureInstalled(config.installed, ["settings-panel"])
+  })
+
   test("form-field solo install pulls field and input primitives", async () => {
     await writeViteConsumerFiles(tempDir)
 

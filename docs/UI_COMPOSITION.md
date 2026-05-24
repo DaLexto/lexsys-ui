@@ -46,7 +46,7 @@ Do not use atoms/molecules/organisms in Lexsys docs or CLI copy — those names 
 
 ```txt
 primitives/     ← 41 shipped primitives
-blocks/         ← FormField, Sidebar (pilot)
+blocks/         ← FormField, SettingsPanel, Sidebar (pilot)
 templates/      ← DashboardShell (pilot)
 ```
 
@@ -129,8 +129,8 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 | Block          | Status  | Depends on                  |
 | -------------- | ------- | --------------------------- |
 | FormField      | pilot   | field, input                |
+| SettingsPanel  | pilot   | card                        |
 | Sidebar        | pilot   | button, drawer, scroll-area |
-| SettingsPanel  | planned | —                           |
 | AuthForm       | planned | —                           |
 | CommandPalette | planned | —                           |
 
@@ -197,7 +197,7 @@ Each follows the three-file contract (`.tsx`, `.types.ts`, `.variants.ts`). Toke
 
 ### Blocks — pilot shipped
 
-FormField, Sidebar — registry + CLI installable; sandbox QA in progress.
+FormField, SettingsPanel, Sidebar — registry + CLI installable; sandbox QA in progress.
 
 ### Templates — pilot shipped
 

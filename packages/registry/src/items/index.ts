@@ -38,6 +38,7 @@ import { tooltipRegistryItem } from "./tooltip.js"
 import { scrollAreaRegistryItem } from "./scroll-area.js"
 import { dashboardShellRegistryItem } from "./dashboard-shell.js"
 import { formFieldRegistryItem } from "./form-field.js"
+import { settingsPanelRegistryItem } from "./settings-panel.js"
 import { sidebarRegistryItem } from "./sidebar.js"
 import { autocompleteRegistryItem } from "./autocomplete.js"
 import { checkboxGroupRegistryItem } from "./checkbox-group.js"
@@ -82,6 +83,7 @@ export { toolbarRegistryItem } from "./toolbar.js"
 export { tooltipRegistryItem } from "./tooltip.js"
 export { dashboardShellRegistryItem } from "./dashboard-shell.js"
 export { formFieldRegistryItem } from "./form-field.js"
+export { settingsPanelRegistryItem } from "./settings-panel.js"
 export { sidebarRegistryItem } from "./sidebar.js"
 export { scrollAreaRegistryItem } from "./scroll-area.js"
 
@@ -128,6 +130,7 @@ export const registryItems: RegistryItem[] = [
   tooltipRegistryItem,
   scrollAreaRegistryItem,
   formFieldRegistryItem,
+  settingsPanelRegistryItem,
   sidebarRegistryItem,
   dashboardShellRegistryItem,
   autocompleteRegistryItem,
