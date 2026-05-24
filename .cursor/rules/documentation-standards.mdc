@@ -1,6 +1,8 @@
 ---
 description: Neutral documentation governance rules for writing, reviewing, and maintaining project docs.
-globs: **/*.md,**/*.mdx
+globs:
+  - "**/*.md"
+  - "**/*.mdx"
 alwaysApply: false
 ---
 
