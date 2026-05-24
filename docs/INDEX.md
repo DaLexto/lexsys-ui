@@ -7,17 +7,21 @@
 Use this index to find the canonical document. Do not duplicate domain rules in
 [AGENTS.md](../AGENTS.md) or Cursor rules — link here instead.
 
+**Doc types:** routing hub · domain specification · catalog / inventory · workflow · vision / backlog
+
 ---
 
 ## Start here
 
-| Question                                       | Read                                  |
-| ---------------------------------------------- | ------------------------------------- |
-| What is Lexsys and how does install flow work? | [ARCHITECTURE.md](./ARCHITECTURE.md)  |
-| What should I work on next?                    | [REVIEW_TODO.md](./REVIEW_TODO.md)    |
-| Long-term direction and M-phases               | [ROADMAP.md](./ROADMAP.md)            |
-| Agent routing and always-on guardrails         | [AGENTS.md](../AGENTS.md)             |
-| Human contributor workflow                     | [CONTRIBUTING.md](../CONTRIBUTING.md) |
+| Question                                       | Read                                                                        |
+| ---------------------------------------------- | --------------------------------------------------------------------------- |
+| What is Lexsys and how does install flow work? | [ARCHITECTURE.md](./ARCHITECTURE.md)                                        |
+| What is installable — compound vs leaf?        | [UI_CATALOG.md](./UI_CATALOG.md)                                            |
+| What should I work on next?                    | [REVIEW_TODO.md](./REVIEW_TODO.md)                                          |
+| Long-term direction and M-phases               | [ROADMAP.md](./ROADMAP.md)                                                  |
+| Agent routing and always-on guardrails         | [AGENTS.md](../AGENTS.md)                                                   |
+| Human contributor workflow                     | [CONTRIBUTING.md](../CONTRIBUTING.md)                                       |
+| Document layout and authoring standards        | [documentation-standards.mdc](../.cursor/rules/documentation-standards.mdc) |
 
 ---
 
@@ -30,12 +34,24 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 | [CLI.md](./CLI.md)                       | `lexsys` commands, flags, config, install behavior               |
 | [UI.md](./UI.md)                         | Reference component contract, file structure, Base UI boundaries |
 | [UI_VARIANTS.md](./UI_VARIANTS.md)       | Public variant props, CVA rules, styling taxonomy                |
-| [UI_COMPOSITION.md](./UI_COMPOSITION.md) | Primitives → blocks → templates; monorepo vs consumer paths      |
-| [UI_AUDIT.md](./UI_AUDIT.md)             | Per-component variant compliance inventory                       |
+| [UI_COMPOSITION.md](./UI_COMPOSITION.md) | Primitives → blocks → templates; compound-first composition      |
 | [STYLE.md](./STYLE.md)                   | TypeScript, React, import/export coding style                    |
 | [STYLEGUIDE.md](./STYLEGUIDE.md)         | Component naming, `lsys-` classes, Tailwind patterns             |
-| [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)   | Token authoring guide and design system overview                 |
+| [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)   | Conceptual token/design overview — canonical rules in TOKENS.md  |
 | [DEPLOY.md](./DEPLOY.md)                 | Build pipeline, npm publish (M10 shipped), artifact contract     |
+
+---
+
+## Catalog and inventory
+
+Machine-verifiable or tabular inventories — link domain specs for rules, do not duplicate them here.
+
+| Document                         | Owns                                                                                |
+| -------------------------------- | ----------------------------------------------------------------------------------- |
+| [UI_CATALOG.md](./UI_CATALOG.md) | Installable surface — compound vs leaf, named exports, registry version (47 items)  |
+| [UI_AUDIT.md](./UI_AUDIT.md)     | **Variant / CVA compliance only** — not compound-first; composition → UI_CATALOG.md |
+
+Drift check: `pnpm ui:audit:catalog:check` — see [UI_CATALOG.md § Generation](./UI_CATALOG.md#generation-and-drift-checks).
 
 ---
 
@@ -52,13 +68,13 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 
 ## Vision and backlog
 
-| Document                           | Owns                                                            |
-| ---------------------------------- | --------------------------------------------------------------- |
-| [ROADMAP.md](./ROADMAP.md)         | Tokens phases, monorepo M1–M10 sequencing, UI composition track |
-| [REVIEW_TODO.md](./REVIEW_TODO.md) | Active execution queue, known gaps, BO backlog                  |
+| Document                           | Owns                                                                |
+| ---------------------------------- | ------------------------------------------------------------------- |
+| [ROADMAP.md](./ROADMAP.md)         | Tokens phases, monorepo **M1–M11** sequencing, UI composition track |
+| [REVIEW_TODO.md](./REVIEW_TODO.md) | Active execution queue, known gaps, BO backlog                      |
 
 Roadmap and REVIEW_TODO entries are **future or in-progress work** unless marked
-shipped. Current implementation contracts live in domain specs above.
+shipped. Current implementation contracts live in domain specs and catalogs above.
 
 ---
 
@@ -71,9 +87,9 @@ Task-specific procedures live in [`.agents/skills/`](../.agents/skills/). See
 
 ## Package READMEs
 
-| Path                                                          | Purpose                               |
-| ------------------------------------------------------------- | ------------------------------------- |
-| [packages/ui/README.md](../packages/ui/README.md)             | UI package role and primitive list    |
-| [packages/tokens/README.md](../packages/tokens/README.md)     | Tokens package internals (if present) |
-| [packages/registry/README.md](../packages/registry/README.md) | Registry package internals            |
-| [packages/cli/README.md](../packages/cli/README.md)           | CLI package internals                 |
+| Path                                                          | Purpose                                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| [packages/ui/README.md](../packages/ui/README.md)             | UI package role — compound/leaf detail → [UI_CATALOG.md](./UI_CATALOG.md) |
+| [packages/tokens/README.md](../packages/tokens/README.md)     | Tokens package internals                                                  |
+| [packages/registry/README.md](../packages/registry/README.md) | Registry package internals                                                |
+| [packages/cli/README.md](../packages/cli/README.md)           | CLI package internals                                                     |

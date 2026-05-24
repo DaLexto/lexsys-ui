@@ -62,6 +62,7 @@ The manifest is synced in **strict** mode: labels not listed in `.github/labels.
 ## Documentation
 
 - **Routing hub:** [docs/INDEX.md](./docs/INDEX.md)
+- **Document layout and authoring:** [.cursor/rules/documentation-standards.mdc](./.cursor/rules/documentation-standards.mdc) (§ Document layout contract)
 - Roadmap and phase sequencing: [docs/ROADMAP.md](./docs/ROADMAP.md)
 - Active backlog: [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)
 - Script names (do not duplicate elsewhere): [docs/SCRIPTS.md](./docs/SCRIPTS.md)

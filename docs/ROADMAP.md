@@ -448,7 +448,7 @@ Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composit
 
 ## M11 — Compound-first API
 
-**Status:** shipped (`feat/compound-first-api` → PR to `dev`)
+**Status:** shipped on `dev` (merged [PR #34](https://github.com/DaLexto/lexsys/pull/34), 2026-05-24)
 
 **Goal:** 100% compound-first installable API — named slot parts, no config blobs
 (`items[]`, `mode`-driven auto-fields), full Base UI part re-exports where
@@ -468,8 +468,8 @@ Canonical contract: [UI_COMPOSITION.md § Compound-first contract](./UI_COMPOSIT
 | 6     | Sandbox migration (compound-only pages)                        | shipped |
 | 7     | Tests, registry sync, version bumps to `0.0.2`, docs alignment | shipped |
 
-**Workflow:** one feature branch from `dev`, one commit per phase, one PR to `dev`
-when all phases + verification complete. See [UI_COMPOSITION.md § Compound-first](./UI_COMPOSITION.md#compound-first-contract).
+**Delivered:** compound-first installable API on `dev` — branch `feat/compound-first-api`
+merged via PR #34. See [UI_CATALOG.md](./UI_CATALOG.md) for the post-M11 inventory.
 
 ---
 

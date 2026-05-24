@@ -29,6 +29,8 @@
     "ui:build": "pnpm --filter @lexsys/ui build",
     "ui:check": "pnpm --filter @lexsys/ui check",
     "ui:audit": "pnpm --filter @lexsys/ui run audit",
+    "ui:audit:catalog:check": "pnpm --filter @lexsys/ui run audit:catalog:check",
+    "ui:audit:catalog:write": "pnpm --filter @lexsys/ui run audit:catalog:write",
     "ui:lint:fix": "pnpm --filter @lexsys/ui lint:fix",
     "ui:typecheck": "pnpm --filter @lexsys/ui typecheck",
     "registry:build": "pnpm --filter @lexsys/registry build",

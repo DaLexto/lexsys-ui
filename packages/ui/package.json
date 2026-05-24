@@ -23,7 +23,9 @@
     "lint": "eslint src test --max-warnings=0",
     "lint:fix": "eslint src test --fix",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",
-    "audit": "node scripts/audit-variants.mjs",
+    "audit": "node scripts/audit-variants.mjs && node scripts/audit-compound-exports.mjs check",
+    "audit:catalog:check": "node scripts/audit-compound-exports.mjs check",
+    "audit:catalog:write": "node scripts/audit-compound-exports.mjs write",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "peerDependencies": {

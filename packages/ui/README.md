@@ -2,8 +2,10 @@
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Package README
-**Source of truth for:** Package role, component list, file structure, public exports
+**Source of truth for:** Package role, primitive categories, file structure, public exports  
 **Verified against:** `packages/ui/src/`
+
+Compound vs leaf, named exports, and registry versions: [docs/UI_CATALOG.md](../../docs/UI_CATALOG.md).
 
 ---
 
@@ -31,7 +33,10 @@ independent implementations.
 
 ---
 
-## Components (41)
+## Primitives by category (41)
+
+Category grouping for reference UI only. Compound vs leaf, exports, and registry
+version: [docs/UI_CATALOG.md](../../docs/UI_CATALOG.md).
 
 | Component        | Category     |
 | ---------------- | ------------ |

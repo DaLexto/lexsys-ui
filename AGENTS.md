@@ -43,12 +43,13 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 | Component structure, Base UI boundaries        | [docs/UI.md](./docs/UI.md)                                                   |
 | Variant props and CVA rules                    | [docs/UI_VARIANTS.md](./docs/UI_VARIANTS.md)                                 |
 | Primitives / blocks / templates layers         | [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)                           |
+| Installable inventory (compound vs leaf)       | [docs/UI_CATALOG.md](./docs/UI_CATALOG.md)                                   |
 | Verification surfaces and test coverage        | [docs/TESTING.md](./docs/TESTING.md)                                         |
 | `pnpm` scripts and sync workflows              | [docs/SCRIPTS.md](./docs/SCRIPTS.md)                                         |
 | Style and naming                               | [docs/STYLE.md](./docs/STYLE.md), [docs/STYLEGUIDE.md](./docs/STYLEGUIDE.md) |
 | Build and publish contract                     | [docs/DEPLOY.md](./docs/DEPLOY.md)                                           |
 | Active backlog and execution queue             | [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)                                 |
-| Long-term roadmap (M1–M10, tokens phases)      | [docs/ROADMAP.md](./docs/ROADMAP.md)                                         |
+| Long-term roadmap (M1–M11, tokens phases)      | [docs/ROADMAP.md](./docs/ROADMAP.md)                                         |
 
 ---
 
