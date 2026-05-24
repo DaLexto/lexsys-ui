@@ -69,7 +69,7 @@ Test files in `packages/tokens/test/`:
 | `types-authoring.test.ts`  | Factory authoring shape and generator input behavior for migrated source groups                                                   |
 | `generator.test.ts`        | Full generator pipeline — `createStyleTokenInput`, CSS output, DTCG JSON output, theme token inputs, preset coverage              |
 | `css-generator.test.ts`    | CSS variable generation — variable naming, `:root` blocks, `@theme` blocks, group name overrides (`spacing→space`, etc.)          |
-| `contrast.test.ts`         | WCAG contrast math, overlay compositing, policy tiers (`NEUREX_CONTRAST_POLICY`), `RESOLVE_FAILED` / `UNPARSEABLE_COLOR` codes    |
+| `contrast.test.ts`         | WCAG contrast math, overlay compositing, policy tiers (`LEXSYS_CONTRAST_POLICY`), `RESOLVE_FAILED` / `UNPARSEABLE_COLOR` codes    |
 
 Run:
 

@@ -158,8 +158,8 @@ Themes override semantic values per mode. They are not a fifth token layer.
 
 | Theme              | Selector | Brand    |
 | ------------------ | -------- | -------- |
-| `neurexLightTheme` | `:root`  | `lexsys` |
-| `neurexDarkTheme`  | `.dark`  | `lexsys` |
+| `lexsysLightTheme` | `:root`  | `lexsys` |
+| `lexsysDarkTheme`  | `.dark`  | `lexsys` |
 
 Theme files reference brand tokens for brand-specific values and primitive
 tokens for neutrals and non-brand values. Themes MUST NOT reference component

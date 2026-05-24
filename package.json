@@ -41,6 +41,7 @@
     "cli:check": "pnpm turbo run check --filter=./packages/cli",
     "cli:lint:fix": "pnpm --filter ./packages/cli lint:fix",
     "cli:typecheck": "pnpm --filter ./packages/cli typecheck",
+    "publish:pack-audit": "node scripts/publish/pack-audit.mjs",
     "playground:build": "pnpm tokens:build && pnpm ui:build && pnpm --filter @lexsys/playground build",
     "playground:check": "pnpm --filter @lexsys/playground check",
     "playground:dev": "pnpm --filter @lexsys/playground dev",

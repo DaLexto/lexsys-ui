@@ -85,10 +85,10 @@ Summary only — do not duplicate detail here.
 
 **Recently shipped (post–Phase 10 queue):**
 
-- Build-failing contrast in `validateStyleTokenInput` (unless `NEUREX_CONTRAST_POLICY=report`)
+- Build-failing contrast in `validateStyleTokenInput` (unless `LEXSYS_CONTRAST_POLICY=report`)
 - Full primitive shadow scale migration (`shadow.0`–`shadow.6` branch+slot) with CSS compose
 - `shadow.inner` inset slot model (branch+slot with `inset: true`; CSS compose prepends `inset`)
-- Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`NEUREX_GOVERNANCE_POLICY=ci`; override with `report`)
+- Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`LEXSYS_GOVERNANCE_POLICY=ci`; override with `report`)
 - Broad UI render coverage (41/41 primitives; M3 baseline was 32/32)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
@@ -227,7 +227,7 @@ Status: shipped
 
 #### M3.4 — Governance build promotion
 
-- `NEUREX_GOVERNANCE_POLICY` tier (`report` / `ci`); semantic audit **`error`-severity** issues fail `pnpm tokens:governance:report` in CI.
+- `LEXSYS_GOVERNANCE_POLICY` tier (`report` / `ci`); semantic audit **`error`-severity** issues fail `pnpm tokens:governance:report` in CI.
 
 #### M3.5 — Token engine items
 

@@ -36,7 +36,6 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 | [STYLEGUIDE.md](./STYLEGUIDE.md)         | Component naming, `lsys-` classes, Tailwind patterns             |
 | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)   | Token authoring guide and design system overview                 |
 | [DEPLOY.md](./DEPLOY.md)                 | Build pipeline, publish-readiness (M10), artifact contract       |
-| [REBRAND.md](./REBRAND.md)               | Lexsys rename map, rebrand scripts (R0)                          |
 
 ---
 

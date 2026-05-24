@@ -1,6 +1,6 @@
 import { themeTokens } from "../../types/authoring"
 
-export const neurexLightTheme = themeTokens(
+export const lexsysLightTheme = themeTokens(
   {
     name: "light",
     selector: ":root",

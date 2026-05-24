@@ -22,5 +22,5 @@ jobs:
 
       - name: Run governance report
         env:
-          NEUREX_CONTRAST_POLICY: ci
+          LEXSYS_CONTRAST_POLICY: ci
         run: pnpm tokens:governance:report

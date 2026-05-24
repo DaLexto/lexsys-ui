@@ -35,7 +35,7 @@ export const DEFAULT_CONTRAST_POLICY: ContrastPolicy = {
   ],
 }
 
-const CONTRAST_POLICY_ENV = "NEUREX_CONTRAST_POLICY"
+const CONTRAST_POLICY_ENV = "LEXSYS_CONTRAST_POLICY"
 
 export const resolveContrastPolicyTier = (): ContrastPolicyTier => {
   const raw = process.env[CONTRAST_POLICY_ENV]?.trim().toLowerCase()

@@ -20,7 +20,7 @@ export const DEFAULT_GOVERNANCE_POLICY: GovernancePolicy = {
   tier: "ci",
 }
 
-const GOVERNANCE_POLICY_ENV = "NEUREX_GOVERNANCE_POLICY"
+const GOVERNANCE_POLICY_ENV = "LEXSYS_GOVERNANCE_POLICY"
 
 export const resolveGovernancePolicyTier = (): GovernancePolicyTier => {
   const raw = process.env[GOVERNANCE_POLICY_ENV]?.trim().toLowerCase()

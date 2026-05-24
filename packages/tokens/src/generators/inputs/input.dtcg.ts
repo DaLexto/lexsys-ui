@@ -2,7 +2,7 @@ import type { TokenTree } from "../../types"
 import type { BrandId, ThemeDefinition, ThemeModeId } from "../../types"
 import { isTokenValue } from "../shared"
 import {
-  DTCG_NEUREX_EXTENSION_KEY,
+  DTCG_LEXSYS_EXTENSION_KEY,
   type DtcgLexsysMetadata,
   type DtcgThemeMetadata,
   type DtcgTokenDocument,
@@ -156,23 +156,23 @@ const readLexsysMetadata = (
     throw new Error('DTCG token document is missing root "$extensions".')
   }
 
-  const metadata = extensions[DTCG_NEUREX_EXTENSION_KEY]
+  const metadata = extensions[DTCG_LEXSYS_EXTENSION_KEY]
 
   if (!isRecord(metadata)) {
     throw new Error(
-      `DTCG token document is missing "$extensions.${DTCG_NEUREX_EXTENSION_KEY}".`,
+      `DTCG token document is missing "$extensions.${DTCG_LEXSYS_EXTENSION_KEY}".`,
     )
   }
 
   if (typeof metadata.generatedBy !== "string") {
     throw new Error(
-      `DTCG token document extension "${DTCG_NEUREX_EXTENSION_KEY}" is missing "generatedBy".`,
+      `DTCG token document extension "${DTCG_LEXSYS_EXTENSION_KEY}" is missing "generatedBy".`,
     )
   }
 
   if (!isStringArray(metadata.tokenSetOrder)) {
     throw new Error(
-      `DTCG token document extension "${DTCG_NEUREX_EXTENSION_KEY}" is missing "tokenSetOrder".`,
+      `DTCG token document extension "${DTCG_LEXSYS_EXTENSION_KEY}" is missing "tokenSetOrder".`,
     )
   }
 
@@ -290,7 +290,7 @@ export const createDtcgThemeTokenInput = (
 
   if (themeMetadata === undefined) {
     throw new Error(
-      `DTCG theme document extension "${DTCG_NEUREX_EXTENSION_KEY}" is missing "themes".`,
+      `DTCG theme document extension "${DTCG_LEXSYS_EXTENSION_KEY}" is missing "themes".`,
     )
   }
 

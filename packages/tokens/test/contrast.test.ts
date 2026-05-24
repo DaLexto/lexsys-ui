@@ -301,22 +301,22 @@ describe("contrast.policy", () => {
     ).toBe(true)
   })
 
-  it("parses NEUREX_CONTRAST_POLICY for report, ci, and build tiers", () => {
-    vi.stubEnv("NEUREX_CONTRAST_POLICY", "report")
+  it("parses LEXSYS_CONTRAST_POLICY for report, ci, and build tiers", () => {
+    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "report")
     expect(resolveContrastPolicyTier()).toBe("report")
     expect(shouldEnforceContrastInStyleValidation()).toBe(false)
 
-    vi.stubEnv("NEUREX_CONTRAST_POLICY", "ci")
+    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "ci")
     expect(resolveContrastPolicyTier()).toBe("ci")
     expect(shouldEnforceContrastInStyleValidation()).toBe(true)
 
-    vi.stubEnv("NEUREX_CONTRAST_POLICY", "build")
+    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "build")
     expect(resolveContrastPolicyTier()).toBe("build")
     expect(shouldEnforceContrastInStyleValidation()).toBe(true)
   })
 
   it("falls back to the default ci tier for invalid policy env values", () => {
-    vi.stubEnv("NEUREX_CONTRAST_POLICY", "invalid-tier")
+    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "invalid-tier")
     expect(resolveContrastPolicyTier()).toBe("ci")
   })
 

@@ -216,7 +216,7 @@ and enforcement tiers live in `contrast.policy.ts`.
 | `createContrastValidationReport(input)`   | Resolve themed fg/bg pairs and compare contrast ratios       |
 | `formatContrastValidationReport(report)`  | CLI-friendly report text                                     |
 | `evaluateContrastPolicy(report, policy?)` | Returns pass/fail for CI/build tiers                         |
-| `resolveContrastPolicy()`                 | Reads `NEUREX_CONTRAST_POLICY` (`report` \| `ci` \| `build`) |
+| `resolveContrastPolicy()`                 | Reads `LEXSYS_CONTRAST_POLICY` (`report` \| `ci` \| `build`) |
 | `SEMANTIC_CONTRAST_PAIRS`                 | Registered semantic foreground/background paths              |
 
 Each pair is evaluated per theme mode using `resolveLeafValueForTheme`. Resolved
@@ -241,7 +241,7 @@ pnpm tokens:governance:report
 
 - **`ci` tier (default in CI):** contrast policy failures exit with code 1 — the
   `tokens-governance` workflow fails when registered pairs do not pass.
-- **`report` tier:** set `NEUREX_CONTRAST_POLICY=report` locally to skip CI/build
+- **`report` tier:** set `LEXSYS_CONTRAST_POLICY=report` locally to skip CI/build
   enforcement (report-only).
 - **`build` tier:** `validateContrastPolicyStrict` runs inside `validateStyleTokenInput`
   (CSS/DTCG generation) unless tier is `report`. Uses the same pair registry and
@@ -382,7 +382,7 @@ at build time and will throw, preventing CSS output from being generated:
 Layer validation is implemented in `packages/tokens/src/engine/validator/layers/layers.validator.ts`
 and runs before reference resolution during `validateStyleTokenInput`. Contrast policy
 validation runs after reference resolution via `validateContrastPolicyStrict` unless
-`NEUREX_CONTRAST_POLICY=report`.
+`LEXSYS_CONTRAST_POLICY=report`.
 
 ### Governance tooling
 
@@ -400,11 +400,11 @@ but do not change CSS or DTCG output unless dead-primitive stripping is explicit
 
 | Env var                    | Tier values                    | Effect                                                                                            |
 | -------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------- |
-| `NEUREX_CONTRAST_POLICY`   | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on contrast pair failures when `ci`                         |
-| `NEUREX_GOVERNANCE_POLICY` | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on semantic audit issues with `severity: "error"` when `ci` |
+| `LEXSYS_CONTRAST_POLICY`   | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on contrast pair failures when `ci`                         |
+| `LEXSYS_GOVERNANCE_POLICY` | `ci` (default in CI), `report` | Fails `pnpm tokens:governance:report` on semantic audit issues with `severity: "error"` when `ci` |
 
 Build-time contrast enforcement is also active in `validateStyleTokenInput` unless
-`NEUREX_CONTRAST_POLICY=report`.
+`LEXSYS_CONTRAST_POLICY=report`.
 
 **Optional output change (opt-in):** `createStyleOutputs({ stripDeadPrimitives: true })` or
 `node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached

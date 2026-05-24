@@ -40,7 +40,7 @@ import {
 export const DTCG_SCHEMA_URL =
   "https://www.designtokens.org/schemas/2025.10/format.json"
 
-export const DTCG_NEUREX_EXTENSION_KEY = "org.lexsys"
+export const DTCG_LEXSYS_EXTENSION_KEY = "org.lexsys"
 
 const DTCG_JSON_KEY_ORDER = [
   "$schema",

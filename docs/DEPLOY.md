@@ -222,8 +222,8 @@ Use this when cutting the **first** npm release. Repeat phases 2–5 for later
 ### Phase 0 — Repo prerequisites (M10 PRs merged to `main`)
 
 - [ ] Publish scope documented (only `@lexsys/cli` + `@lexsys/registry`)
-- [ ] Package metadata: `private: false`, `repository`, `license`, `files`, `exports`
-- [ ] Root `CHANGELOG.md` with `[0.0.1]` section
+- [ ] Root `LICENSE` (MIT) and `CHANGELOG.md` with `[0.0.1]` section
+- [ ] Package metadata: `repository`, `license`, `files`, `exports` (no `private: true`)
 - [ ] Changesets: fixed group `@lexsys/cli` + `@lexsys/registry`
 - [ ] Publish CI workflow on `main`
 - [ ] `pnpm publish:pack-audit` passes locally

@@ -1,14 +1,35 @@
 {
   "name": "@lexsys/cli",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Registry-first CLI that installs Lexsys React UI components into your project",
   "type": "module",
+  "license": "MIT",
+  "author": "DaLexto",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaLexto/lexsys.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/DaLexto/lexsys/issues"
+  },
+  "homepage": "https://github.com/DaLexto/lexsys#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "lexsys": "./dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.json --emitDeclarationOnly --outDir dist",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test",

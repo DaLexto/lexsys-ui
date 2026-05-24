@@ -29,7 +29,7 @@ import type {
 
 import {
   createDefaultDtcgGeneratorOptions,
-  DTCG_NEUREX_EXTENSION_KEY,
+  DTCG_LEXSYS_EXTENSION_KEY,
   stringifyDtcgJson,
   toDtcgTokenTree,
 } from "./dtcg.utils"
@@ -50,7 +50,7 @@ export const generateJsonTokens = (
   const json: DtcgTokenDocument = {
     $schema: generatorOptions.schemaUrl,
     $extensions: {
-      [DTCG_NEUREX_EXTENSION_KEY]: generatorOptions.metadata,
+      [DTCG_LEXSYS_EXTENSION_KEY]: generatorOptions.metadata,
     },
     ...tokenTree,
   }

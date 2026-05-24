@@ -82,7 +82,7 @@ const main = (): void => {
     )
     console.error("")
     console.error(
-      `Governance policy (${governancePolicy.tier}) failed with ${semanticAuditEvaluation.failures.length} semantic audit error(s). Set ${"NEUREX_GOVERNANCE_POLICY=report"} to report-only locally.`,
+      `Governance policy (${governancePolicy.tier}) failed with ${semanticAuditEvaluation.failures.length} semantic audit error(s). Set ${"LEXSYS_GOVERNANCE_POLICY=report"} to report-only locally.`,
     )
     process.exit(1)
   }
@@ -107,7 +107,7 @@ const main = (): void => {
   ) {
     console.error("")
     console.error(
-      `Contrast policy (${contrastPolicy.tier}) failed with ${contrastEvaluation.failures.length} issue(s). Set ${"NEUREX_CONTRAST_POLICY=report"} to report-only locally.`,
+      `Contrast policy (${contrastPolicy.tier}) failed with ${contrastEvaluation.failures.length} issue(s). Set ${"LEXSYS_CONTRAST_POLICY=report"} to report-only locally.`,
     )
     process.exit(1)
   }

@@ -1,13 +1,28 @@
 {
   "name": "@lexsys/registry",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Install metadata and templates for the Lexsys registry-first UI framework",
   "type": "module",
+  "license": "MIT",
+  "author": "DaLexto",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaLexto/lexsys.git",
+    "directory": "packages/registry"
+  },
+  "bugs": {
+    "url": "https://github.com/DaLexto/lexsys/issues"
+  },
+  "homepage": "https://github.com/DaLexto/lexsys#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "README.md"
   ],
   "exports": {
     ".": {
@@ -15,6 +30,9 @@
       "import": "./dist/index.js"
     },
     "./templates/*": "./templates/*"
+  },
+  "engines": {
+    "node": ">=24 <25"
   },
   "scripts": {
     "build": "tsup && tsc -p tsconfig.json --emitDeclarationOnly --outDir dist",

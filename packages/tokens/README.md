@@ -214,7 +214,7 @@ Import from `packages/tokens/src/engine/` (or `./engine` within the package). No
 WCAG AA report on registered semantic foreground/background pairs (15 pairs in
 `contrast.pairs.ts`). CI enforcement via `contrast.policy.ts` and
 `evaluateContrastPolicy` (default `ci` tier; local override
-`NEUREX_CONTRAST_POLICY=report`).
+`LEXSYS_CONTRAST_POLICY=report`).
 
 | Export                                    | Purpose                                          |
 | ----------------------------------------- | ------------------------------------------------ |
@@ -230,7 +230,7 @@ checks. Color strings are parsed via `engine/shared/color-string.parse.ts`
 Runs as part of `pnpm tokens:governance:report`. Failures exit
 with code 1 in CI (`tokens-governance` workflow). Also enforced in
 `validateStyleTokenInput` via `validateContrastPolicyStrict` unless
-`NEUREX_CONTRAST_POLICY=report`.
+`LEXSYS_CONTRAST_POLICY=report`.
 
 ---
 

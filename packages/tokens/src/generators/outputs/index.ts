@@ -15,7 +15,7 @@ export {
   generateCssVariables,
   toCustomProperty,
 } from "./css"
-export { DTCG_NEUREX_EXTENSION_KEY, generateJsonTokens } from "./dtcg"
+export { DTCG_LEXSYS_EXTENSION_KEY, generateJsonTokens } from "./dtcg"
 
 export type {
   CssVariableEntry,

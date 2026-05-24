@@ -11,35 +11,36 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 
 ## Quick reference (root)
 
-| Script                          | Purpose                                                                               |
-| ------------------------------- | ------------------------------------------------------------------------------------- |
-| `pnpm check`                    | Full gate: Prettier + root ESLint + turbo `check` in all packages                     |
-| `pnpm build`                    | Build all packages (turbo)                                                            |
-| `pnpm dev`                      | Start dev servers (turbo)                                                             |
-| `pnpm test`                     | Run all package tests (turbo)                                                         |
-| `pnpm typecheck`                | Typecheck all packages (turbo)                                                        |
-| `pnpm lint`                     | Root config ESLint + lint all packages (turbo)                                        |
-| `pnpm lint:fix`                 | Auto-fix lint across root + packages                                                  |
-| `pnpm format`                   | Format repo with Prettier                                                             |
-| `pnpm format:check`             | Check Prettier formatting                                                             |
-| `pnpm sync:templates`           | Sync UI components → registry templates                                               |
-| `pnpm sync:styles`              | Regenerate token CSS in dist + registry style templates                               |
-| `pnpm sync:all`                 | `sync:templates` then `sync:styles` — follow with `registry:check`                    |
-| `pnpm tokens:check`             | Lint + typecheck + test `@lexsys/tokens`                                              |
-| `pnpm tokens:build`             | Build `@lexsys/tokens`                                                                |
-| `pnpm tokens:generate:styles`   | Write dist + registry style CSS                                                       |
-| `pnpm tokens:governance:report` | Token governance + contrast audit report                                              |
-| `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                |
-| `pnpm ui:check`                 | Lint + typecheck + test `@lexsys/ui`                                                  |
-| `pnpm ui:audit`                 | Scan `*.variants.ts` for forbidden styling literals                                   |
-| `pnpm ui:build`                 | Build `@lexsys/ui`                                                                    |
-| `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                  |
-| `pnpm registry:sync`            | Sync UI source → registry component templates                                         |
-| `pnpm registry:styles:sync`     | Alias for `tokens:generate:styles` via registry                                       |
-| `pnpm cli:check`                | Turbo `check` for CLI (builds `@lexsys/registry` first, then lint + typecheck + test) |
-| `pnpm playground:dev`           | Start local playground (Vite)                                                         |
-| `pnpm playground:check`         | Lint + typecheck playground                                                           |
-| `pnpm playground:build`         | Build tokens + UI, then playground                                                    |
+| Script                          | Purpose                                                                                 |
+| ------------------------------- | --------------------------------------------------------------------------------------- |
+| `pnpm check`                    | Full gate: Prettier + root ESLint + turbo `check` in all packages                       |
+| `pnpm build`                    | Build all packages (turbo)                                                              |
+| `pnpm dev`                      | Start dev servers (turbo)                                                               |
+| `pnpm test`                     | Run all package tests (turbo)                                                           |
+| `pnpm typecheck`                | Typecheck all packages (turbo)                                                          |
+| `pnpm lint`                     | Root config ESLint + lint all packages (turbo)                                          |
+| `pnpm lint:fix`                 | Auto-fix lint across root + packages                                                    |
+| `pnpm format`                   | Format repo with Prettier                                                               |
+| `pnpm format:check`             | Check Prettier formatting                                                               |
+| `pnpm sync:templates`           | Sync UI components → registry templates                                                 |
+| `pnpm sync:styles`              | Regenerate token CSS in dist + registry style templates                                 |
+| `pnpm sync:all`                 | `sync:templates` then `sync:styles` — follow with `registry:check`                      |
+| `pnpm tokens:check`             | Lint + typecheck + test `@lexsys/tokens`                                                |
+| `pnpm tokens:build`             | Build `@lexsys/tokens`                                                                  |
+| `pnpm tokens:generate:styles`   | Write dist + registry style CSS                                                         |
+| `pnpm tokens:governance:report` | Token governance + contrast audit report                                                |
+| `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                  |
+| `pnpm ui:check`                 | Lint + typecheck + test `@lexsys/ui`                                                    |
+| `pnpm ui:audit`                 | Scan `*.variants.ts` for forbidden styling literals                                     |
+| `pnpm ui:build`                 | Build `@lexsys/ui`                                                                      |
+| `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                    |
+| `pnpm registry:sync`            | Sync UI source → registry component templates                                           |
+| `pnpm registry:styles:sync`     | Alias for `tokens:generate:styles` via registry                                         |
+| `pnpm cli:check`                | Turbo `check` for CLI (builds `@lexsys/registry` first, then lint + typecheck + test)   |
+| `pnpm publish:pack-audit`       | M10 publish gate: metadata audit + `pnpm pack` for `@lexsys/cli` and `@lexsys/registry` |
+| `pnpm playground:dev`           | Start local playground (Vite)                                                           |
+| `pnpm playground:check`         | Lint + typecheck playground                                                             |
+| `pnpm playground:build`         | Build tokens + UI, then playground                                                      |
 
 Per-package `*:lint:fix`, `*:typecheck`, and `*:build` aliases follow the same `{package}:{action}` pattern. See sections below.
 
@@ -254,7 +255,7 @@ pnpm tokens:governance:report
 # equivalent: pnpm --filter @lexsys/tokens governance:report
 ```
 
-With `NEUREX_CONTRAST_POLICY=ci` in CI.
+With `LEXSYS_CONTRAST_POLICY=ci` in CI.
 
 ### GitHub label sync (manifest changes)
 
@@ -287,6 +288,23 @@ Taxonomy and usage: [CONTRIBUTING.md](../CONTRIBUTING.md) § GitHub labels.
 | `pnpm --filter ./packages/cli test`          | CLI tests only (not the full check gate; registry must be built) |
 
 Prefer root aliases in docs and commit messages when they exist. Use `--filter` when documenting the underlying package script or when no root alias exists (e.g. `templates:check-sync`).
+
+---
+
+## Publish (`M10`)
+
+### `pnpm publish:pack-audit`
+
+Pre-publish gate for `@lexsys/cli` and `@lexsys/registry`:
+
+```sh
+pnpm build
+pnpm sync:all
+pnpm check
+pnpm publish:pack-audit
+```
+
+Validates root `LICENSE` and `CHANGELOG.md`, publish `package.json` fields, builds are present, and runs `pnpm pack` into `.tmp/pack-audit/`. Full release flow: [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next).
 
 ---
 

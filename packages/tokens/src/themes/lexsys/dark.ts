@@ -1,6 +1,6 @@
 import { themeTokens } from "../../types/authoring"
 
-export const neurexDarkTheme = themeTokens(
+export const lexsysDarkTheme = themeTokens(
   {
     name: "dark",
     brand: "lexsys",

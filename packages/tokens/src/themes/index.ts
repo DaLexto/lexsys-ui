@@ -1,8 +1,8 @@
 import type { ThemeDefinition } from "../types"
-import { neurexDarkTheme } from "./lexsys/dark"
-import { neurexLightTheme } from "./lexsys/light"
+import { lexsysDarkTheme } from "./lexsys/dark"
+import { lexsysLightTheme } from "./lexsys/light"
 
-export { neurexDarkTheme as darkTheme } from "./lexsys/dark"
-export { neurexLightTheme as lightTheme } from "./lexsys/light"
+export { lexsysDarkTheme as darkTheme } from "./lexsys/dark"
+export { lexsysLightTheme as lightTheme } from "./lexsys/light"
 
-export const themes: ThemeDefinition[] = [neurexLightTheme, neurexDarkTheme]
+export const themes: ThemeDefinition[] = [lexsysLightTheme, lexsysDarkTheme]

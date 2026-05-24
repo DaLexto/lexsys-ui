@@ -13,46 +13,24 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3 and M5–M7 shipped; **M4 reserved** (scope TBD); **R0 Lexsys rebrand** in progress (blocks M10); **M10 release readiness** planned after R0 merges.
+**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3, M5–M7, and **R0** shipped; **M4 reserved** (scope TBD); **M10 release readiness** is active.
 
-| Phase   | Focus                                                               | Status      |
-| ------- | ------------------------------------------------------------------- | ----------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done        |
-| R0      | Neurex → Lexsys rebrand (blocks M10)                                | in progress |
-| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped     |
-| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped     |
-| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped     |
-| M4      | (TBD — scope to be defined)                                         | planned     |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped     |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped     |
-| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped     |
-| M10     | Release readiness — first npm `0.0.1` @ `next`                      | planned     |
-| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped     |
-| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped     |
+| Phase   | Focus                                                               | Status  |
+| ------- | ------------------------------------------------------------------- | ------- |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done    |
+| R0      | Lexsys product naming + publish surface (blocks M10)                | shipped |
+| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped |
+| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped |
+| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
+| M4      | (TBD — scope to be defined)                                         | planned |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
+| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
+| M10     | Release readiness — first npm `0.0.1` @ `next`                      | planned |
+| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
+| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
-
----
-
-## R0 — Lexsys rebrand
-
-**Goal:** Rename Neurex → Lexsys across the monorepo before first npm publish.
-No legacy consumer migration (pre-publish dev phase).
-
-**Canonical reference:** [REBRAND.md](./REBRAND.md)
-
-| ID   | Deliverable                                     | Status                  |
-| ---- | ----------------------------------------------- | ----------------------- |
-| R0.1 | `scripts/rebrand/` + `REBRAND.md`               | done                    |
-| R0.2 | `apply-rebrand --write` + `verify-rebrand` pass | done                    |
-| R0.3 | `@lexsys/cli` publish surface (DEPLOY, README)  | done                    |
-| R0.4 | Legacy `neurex.config.json` fallback            | skipped                 |
-| R0.5 | Regenerate token CSS + `registry:sync`          | done                    |
-| R0.6 | Token test expectations (`lsys` / `twix`)       | done                    |
-| R0.7 | Docs + REVIEW_TODO R0 track                     | done                    |
-| R0.8 | `pnpm check` green + PR to `dev`                | check green; PR pending |
-
-**Branch:** `feat/r0-lexsys-rebrand` → PR to `dev` before M10 work lands.
 
 ---
 
@@ -101,7 +79,7 @@ The P0 and P1 implementation passes are complete:
 - Broad UI render coverage: all 41 bundled primitives have render smoke tests
 - Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
-- Governance CI promotion: semantic audit **`error`-severity** fails `pnpm tokens:governance:report` (`NEUREX_GOVERNANCE_POLICY`)
+- Governance CI promotion: semantic audit **`error`-severity** fails `pnpm tokens:governance:report` (`LEXSYS_GOVERNANCE_POLICY`)
 - `shadow.inner` inset slot model (branch+slot with `inset: true`)
 - Style installation (token CSS wired into consumer project on `lexsys init` / `lexsys add`)
 - Tailwind v4 + Vite or Next.js init sequence
@@ -177,13 +155,13 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~Extend composite registry beyond typography~~ — shadow/border schemas; elevation shadow pilot; `border.control` group
 - ~~Contrast policy CI gate~~ — `contrast.policy.ts`; `governance:report` exits 1 on failures in CI
 - ~~Overlay background compositing + overlay contrast pair~~ — compositing over `color.background.base`; `text-primary-on-overlay` pair
-- ~~Build-failing contrast~~ — `validateContrastPolicyStrict` in `validateStyleTokenInput` (unless `NEUREX_CONTRAST_POLICY=report`)
+- ~~Build-failing contrast~~ — `validateContrastPolicyStrict` in `validateStyleTokenInput` (unless `LEXSYS_CONTRAST_POLICY=report`)
 - ~~Contrast pair expansion (partial)~~ — danger/secondary action + large-text heading pairs (15 pairs)
 - ~~Full primitive shadow migration~~ — `shadow.0`–`shadow.6` branch+slot; elevation refs; CSS compose for primitive + semantic paths
 - ~~Broad UI render coverage~~ — 32/32 components (M3.1)
 - ~~Next.js scaffold~~ — `lexsys init next` App Router minimal (M3.2)
 - ~~Remote registry contract~~ — manifest parser + validation (M3.3)
-- ~~Governance promotion (semantic audit errors)~~ — `NEUREX_GOVERNANCE_POLICY` (M3.4)
+- ~~Governance promotion (semantic audit errors)~~ — `LEXSYS_GOVERNANCE_POLICY` (M3.4)
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
 - ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 
