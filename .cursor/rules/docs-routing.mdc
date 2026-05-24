@@ -1,0 +1,34 @@
+---
+description: When editing docs/ — which file owns each topic; link to docs/INDEX.md instead of duplicating contracts
+globs: docs/**/*
+alwaysApply: false
+---
+# Documentation routing (Neurex)
+
+Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance: [documentation-standards.mdc](./documentation-standards.mdc).
+
+## Before editing
+
+1. Confirm the **owning document** in INDEX — edit there, not in AGENTS.md or rules.
+2. **Current implementation** wins over roadmap, comments, or memory.
+3. **Script inventory** lives only in [SCRIPTS.md](../../docs/SCRIPTS.md) — link, do not copy tables.
+4. After count or phase changes, run **`$docs-alignment`** skill.
+
+## Quick ownership
+
+| Editing… | Canonical doc |
+| -------- | ------------- |
+| Token layers / validation | `TOKENS.md` |
+| Registry items / sync | `REGISTRY.md` |
+| `neurex` CLI | `CLI.md` |
+| UI components / variants | `UI.md`, `UI_VARIANTS.md` |
+| Composition layers | `UI_COMPOSITION.md` |
+| Verification / sandbox | `TESTING.md` |
+| Backlog / BO / M-phases | `REVIEW_TODO.md`, `ROADMAP.md` |
+| System shape (hub only) | `ARCHITECTURE.md` |
+
+## AGENTS.md and rules
+
+- **AGENTS.md** — routing and guardrails only; no full domain rule copies.
+- **`.cursor/rules/`** — Cursor editing behavior; not architecture contracts.
+- **`.agents/skills/`** — multi-step verification procedures.

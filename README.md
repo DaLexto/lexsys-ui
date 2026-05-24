@@ -216,15 +216,19 @@ Planned but not current API:
 
 ## Maintainers
 
+Start at [docs/INDEX.md](./docs/INDEX.md) for the full documentation map.
+
 | Doc                                                | Purpose                                                      |
 | -------------------------------------------------- | ------------------------------------------------------------ |
+| [docs/INDEX.md](./docs/INDEX.md)                   | Documentation routing hub                                    |
 | [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) | Primitives → blocks → templates install model                |
 | [docs/ROADMAP.md](./docs/ROADMAP.md)               | Long-term direction and monorepo optimization phases (M1–M10) |
 | [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)       | Active execution queue and known gaps                        |
 | [docs/SCRIPTS.md](./docs/SCRIPTS.md)               | Monorepo `pnpm` script names and CI reference                |
 | [docs/TESTING.md](./docs/TESTING.md)               | Test coverage and verification workflows                     |
 | [CONTRIBUTING.md](./CONTRIBUTING.md)               | Branch, check, and commit expectations                       |
-| [.agent/CONTINUITY.md](./.agent/CONTINUITY.md)     | Short-form agent/maintainer state                            |
+| [AGENTS.md](./AGENTS.md)                           | Agent routing and repo skills index                          |
+| [docs/CONTINUITY.example.md](./docs/CONTINUITY.example.md) | Template for local `.agent/CONTINUITY.md` (gitignored) |
 
 ## Development
 

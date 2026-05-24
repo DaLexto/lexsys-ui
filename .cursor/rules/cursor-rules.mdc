@@ -1,72 +1,75 @@
 ---
-description: How to add or edit Cursor rules in our project
-globs: 
+description: How to add or edit Cursor rules in a project
+globs: .cursor/rules/**/*
 alwaysApply: false
 ---
 # Cursor Rules Location
 
-How to add new cursor rules to the project
+How to add new cursor rules to a project.
 
-1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-    ```
-    .cursor/rules/
-    ├── your-rule-name.mdc
-    ├── another-rule.mdc
-    └── ...
-    ```
+## Placement
 
-2. Follow the naming convention:
-    - Use kebab-case for filenames
-    - Always use .mdc extension
-    - Make names descriptive of the rule's purpose
+1. Always place rule files in `PROJECT_ROOT/.cursor/rules/`:
 
-3. Directory structure:
-    ```
-    PROJECT_ROOT/
-    ├── .cursor/
-    │   └── rules/
-    │       ├── your-rule-name.mdc
-    │       └── ...
-    └── ...
-    ```
-
-4. Never place rule files:
-    - In the project root
-    - In subdirectories outside .cursor/rules
-    - In any other location
-
-5. Cursor rules have the following structure:
-
+```txt
+.cursor/rules/
+├── your-rule-name.mdc
+├── another-rule.mdc
+└── ...
 ```
+
+2. **Naming:** kebab-case filename, `.mdc` extension, descriptive purpose.
+
+3. **Never** place rule files in the project root or in subdirectories outside `.cursor/rules/`.
+
+## Directory structure
+
+```txt
+PROJECT_ROOT/
+├── .cursor/
+│   └── rules/
+│       ├── your-rule-name.mdc
+│       └── ...
+└── ...
+```
+
+## Frontmatter
+
+Every rule file starts with YAML frontmatter:
+
+```yaml
 ---
-description: Short description of the rule's purpose
+description: Short description of the rule's purpose (required)
 globs: optional/path/pattern/**/*
 alwaysApply: false
 ---
-# Rule Title
+```
 
-Main content explaining the rule with markdown formatting.
+| Field | Purpose |
+| ----- | ------- |
+| `description` | Shown in rule pickers; keep it specific |
+| `globs` | Limit when the rule applies (path patterns) |
+| `alwaysApply` | `true` only for small, always-relevant rules |
 
-1. Deatiled Step-by-step instructions
-2. Code examples
-3. Detailed Guidelines
+## Rule body
 
-Example:
+1. Clear title and purpose
+2. Detailed step-by-step instructions
+3. Code examples (good vs bad when helpful)
+4. Guidelines agents can follow while editing
+
+## Example
 
 ```typescript
-// Good example
+// Good example — follows project conventions
 function goodExample() {
   // Implementation following guidelines
 }
 
-// Bad example
+// Bad example — avoid this pattern
 function badExample() {
   // Implementation not following guidelines
 }
 ```
 
-
-
-
-
-
+Follow [self-improvement.mdc](./self-improvement.mdc) for when to add or update rules.

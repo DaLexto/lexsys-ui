@@ -7,7 +7,7 @@ alwaysApply: false
 
 Authoritative dependency map from root and workspace `package.json` files, plus registry-declared consumer dependencies. Do not add packages outside the correct layer.
 
-Related: `project-directory-structure.mdc`, `docs/STYLE.md`, `docs/TOKENS.md`, `AGENTS.md`.
+Related: [project-structure.mdc](./project-structure.mdc), [docs/STYLE.md](../../docs/STYLE.md), [docs/TOKENS.md](../../docs/TOKENS.md), [AGENTS.md](../../AGENTS.md).
 
 ---
 

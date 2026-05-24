@@ -1,287 +1,94 @@
 ---
-description: Neurex monorepo directory layout, package boundaries, and where to find source vs generated artifacts
+description: Neurex monorepo layout — where source lives and where to edit (links to docs/ for contracts)
 globs:
 alwaysApply: true
 ---
 # Neurex Project Directory Structure
 
-Registry-first React UI monorepo (pnpm + Turborepo). Install flow:
+Registry-first React UI monorepo (pnpm + Turborepo).
 
-`packages/registry` → `packages/cli` → consumer project (user-owned code).
+```txt
+packages/registry → packages/cli → consumer project (user-owned code)
+```
 
-Do not blur package responsibilities. Public APIs live in `package.json` `exports` only; `dist/` is publish output; never deep-import `src/` or `dist/` from outside a package.
+**Contracts and rules:** [docs/INDEX.md](../../docs/INDEX.md) — not duplicated here.  
+**Agent routing:** [AGENTS.md](../../AGENTS.md).
+
+Public APIs: `package.json` `exports` only. Never deep-import another package's `src/` or `dist/`.
 
 ---
 
-## Repository Root
+## Repository root
 
-```
+```txt
 neurex/
-├── .agent/                 # Agent continuity/state (see AGENTS.md → CONTINUITY.md)
-├── .cursor/rules/          # Cursor rules (*.mdc)
-├── apps/                   # Workspace apps
-├── docs/                   # Architecture and workflow documentation
-├── packages/               # Publishable workspace packages
-├── AGENTS.md               # Repo-specific agent contract (always applied)
-├── README.md
-├── package.json            # Root scripts (turbo orchestration)
-├── pnpm-workspace.yaml     # apps/*, packages/*
-├── turbo.json
-├── tsconfig.json / tsconfig.base.json
-├── eslint.config.mjs
-└── prettier.config.mjs
+├── .agents/skills/     # Repo-local agent skills (procedures)
+├── .agent/             # Local continuity state (gitignored)
+├── .cursor/rules/      # Cursor editing behavior (*.mdc)
+├── apps/               # playground (smoke), docs (placeholder)
+├── docs/               # Architecture and domain specs — source of truth
+├── packages/           # tokens, ui, registry, cli
+├── AGENTS.md           # Always-loaded agent routing
+├── CONTRIBUTING.md
+└── package.json        # Root turbo / pnpm scripts
 ```
 
 **Ignore for source work:** `node_modules/`, `dist/`, `.turbo/`, `.pnpm-store/`, `.tmp/`
 
 ---
 
-## Documentation (`docs/`)
+## Packages (where to edit)
 
-| File | Purpose |
-|------|---------|
-| `ARCHITECTURE.md` | Core system design and package contracts |
-| `SCRIPTS.md` | Monorepo `pnpm` scripts, sync workflows, check commands |
-| `TOKENS.md` | Token layers, resolution, validation rules |
-| `CLI.md` | CLI commands and consumer setup |
-| `STYLE.md` / `STYLEGUIDE.md` | Naming, file layout, CSS class conventions |
-| `DESIGN_SYSTEM.md` | Design system overview |
-| `DEPLOY.md` | Build and distribution |
-| `ROADMAP.md` | Long-term tokens platform direction (future work) |
-| `UI_COMPOSITION.md` | UI composition model (primitives → blocks → templates) |
-| `RESOLVER_EVOLUTION.md` | Token resolver roadmap |
-| `REVIEW_TODO.md` | Review backlog |
+| Package | Path | Output |
+| ------- | ---- | ------ |
+| Tokens | `packages/tokens/src/` | `dist/` + generated CSS |
+| UI reference | `packages/ui/src/components/{primitives,blocks,templates}/` | `dist/` |
+| Registry | `packages/registry/src/items/` + `templates/` | `dist/` + bundled templates |
+| CLI | `packages/cli/src/` | `dist/` (`neurex` bin) |
+
+| App | Path | Role |
+| --- | ---- | ---- |
+| Playground | `apps/playground/` | Maintenance-only monorepo smoke — [TESTING.md](../../docs/TESTING.md#verification-surfaces) |
+| Docs site | `apps/docs/` | Placeholder |
 
 ---
 
-## Apps (`apps/`)
+## Where to change what
 
-| Path | Status | Role |
-|------|--------|------|
-| `apps/playground/` | Active | Monorepo smoke — workspace `@neurex/ui`; maintenance-only. See [docs/TESTING.md](../../docs/TESTING.md#verification-surfaces) and [AGENTS.md](../../AGENTS.md#change-workflow) |
-| `apps/docs/` | Placeholder | Reserved in workspace; no source files yet |
+| Task | Primary location | Doc |
+| ---- | ---------------- | --- |
+| Token values / layers | `packages/tokens/src/` | [TOKENS.md](../../docs/TOKENS.md) |
+| Component behavior | `packages/ui/src/components/…` | [UI.md](../../docs/UI.md), [UI_COMPOSITION.md](../../docs/UI_COMPOSITION.md) |
+| Install metadata / templates | `packages/registry/` | [REGISTRY.md](../../docs/REGISTRY.md) |
+| CLI install behavior | `packages/cli/src/` | [CLI.md](../../docs/CLI.md) |
+| After UI edits → templates | run `pnpm registry:sync` | `$registry-sync` skill |
+| Verification | sandbox + `pnpm *:check` | [TESTING.md](../../docs/TESTING.md) |
+| Script names | — | [SCRIPTS.md](../../docs/SCRIPTS.md) only |
 
-**Playground source (`apps/playground/src/`):**
+Component file shape (all layers):
 
-- `main.tsx` — shell, sticky category nav, theme toggle
-- `examples.tsx` — shared example wiring
-- `*-panel.tsx` — `brand-panel`, `layout-panel`, `actions-panel`, `forms-panel`, `overlays-panel`, `surfaces-panel`, `interactions-panel`
-- `styles.css` — playground layout (not shipped to consumers)
-- `README.md` — maintenance-only role and category anchors
-
----
-
-## Packages Overview
-
-| Package | NPM name | Source | Output | Role |
-|---------|----------|--------|--------|------|
-| `packages/tokens` | `@neurex/tokens` | `src/` | `dist/` (+ generated CSS) | Design token source of truth, resolver, CSS/DTCG generators |
-| `packages/ui` | `@neurex/ui` | `src/` | `dist/` | Reference React components (not what CLI ships to users) |
-| `packages/registry` | `@neurex/registry` | `src/` + `templates/` | `dist/` + bundled templates | Install metadata + copyable templates for CLI |
-| `packages/cli` | `neurex` | `src/` | `dist/` | CLI binary; reads registry, installs into consumer projects |
-
----
-
-## `packages/tokens`
-
-Token dependency chain: **primitives → brand → semantics → component tokens**; **themes** override semantics per mode; **presets** are config only.
-
-**Active semantic groups (11):** `color`, `action`, `border`, `elevation`, `radius`, `spacing`, `size`, `motion`, `typography`, `outline`, `layout`. Authoring for `color` lives under `semantics/color/` (merged into one `color` namespace). Canonical rules: `docs/TOKENS.md`.
-
-```
-packages/tokens/
-├── src/
-│   ├── primitives/       # Raw values only (color, spacing, radius, motion, z-index, shadow, …)
-│   ├── brand/            # Brand palette (references primitives)
-│   ├── semantics/        # Usage intent (references brand/primitives)
-│   │   └── color/        # Optional subfolder; merges into top-level color.* paths
-│   ├── components/       # Per-component tokens (semantic references only)
-│   ├── themes/           # Mode overrides — same paths as semantics (border.*, action.*, color.*)
-│   ├── presets/          # Preset config (not a token layer)
-│   ├── engine/           # Token engine: read/transform, validate, report
-│   │   ├── resolver/     # reference + graph traversal
-│   │   │   ├── reference/
-│   │   │   ├── graph/
-│   │   │   └── shared/
-│   │   ├── validator/    # build-failing layer contracts
-│   │   │   └── layers/
-│   │   └── governance/   # non-blocking reports
-│   │       ├── report/
-│   │       └── audit/
-│   ├── generators/
-│   │   ├── inputs/       # Source inputs for generation
-│   │   ├── outputs/css/  # CSS generator
-│   │   ├── outputs/dtcg/ # DTCG JSON generator
-│   │   └── shared/       # Shared generator utilities
-│   ├── types/            # Token/type definitions + authoring factories
-│   └── index.ts          # Package entry
-├── scripts/              # CLI entrypoints (parallel to src/, not inside src/)
-│   ├── write-style-outputs.ts
-│   ├── governance-report.ts
-│   └── clean-imports.ts
-├── vitest.config.ts      # Vitest project config (node)
-└── test/                 # resolver, validator, generator, governance, semantic-audit
-```
-
-**Exports:** `.`, `./tokens.css`, `./theme.css` (generated; do not hand-write CSS).
-
-**Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component slot tokens → UI `z-(--nx-*)` / `shadow-(--nx-*)` in `*.variants.ts`.
-
----
-
-## `packages/ui`
-
-Reference implementations organized in three composition layers. Each item is a
-**PascalCase folder** with:
-
-- `ComponentName.tsx`
-- `ComponentName.types.ts`
-- `ComponentName.variants.ts`
-
-```
-packages/ui/
-├── src/
-│   ├── index.ts              # Public API — 41 primitives exported today
-│   ├── utils/                # Shared UI utilities
-│   └── components/
-│       ├── primitives/       # 41 bundled primitives
-│       ├── blocks/           # Pilot: FormField, Sidebar
-│       └── templates/        # Pilot: DashboardShell
-├── vitest.config.ts          # Vitest project config (jsdom)
-└── test/
-    ├── public-api.test.ts
-    └── components/<Name>/    # Variant + render tests (primitives only)
-```
-
-**Primitives:** Accordion, Alert, AlertDialog, Autocomplete, Avatar, Badge, Button, Card, Checkbox, CheckboxGroup, Collapsible, Combobox, ContextMenu, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Menubar, Meter, NavigationMenu, NumberField, OtpField, Popover, PreviewCard, Progress, RadioGroup, ScrollArea, Select, Separator, Slider, Switch, Tabs, Textarea, Toast, Toggle, ToggleGroup, Toolbar, Tooltip.
-
-**Pilot blocks/templates:** FormField, Sidebar, DashboardShell — registry + CLI installable; sandbox QA in progress. See [UI_COMPOSITION.md](../../docs/UI_COMPOSITION.md).
-
-Base UI (`@base-ui/react`) is internal; preserve accessibility when editing.
-
----
-
-## `packages/registry`
-
-Source of truth for what the CLI installs. **No install logic outside registry metadata.**
-
-```
-packages/registry/
-├── src/
-│   ├── index.ts
-│   ├── registry.types.ts
-│   ├── validate-registry.ts
-│   ├── validate-registry-item.ts
-│   ├── items/            # One file per installable item (metadata)
-│   ├── styles/           # Registry style entries (e.g. theme.ts)
-│   └── utilities/        # Shared utility metadata (e.g. cn.ts)
-├── templates/
-│   ├── primitives/<Name>/   # Primitive install templates
-│   ├── blocks/<Name>/       # Block install templates
-│   ├── templates/<Name>/    # Template install templates
-│   ├── shared/utils/        # e.g. cn.ts
-│   └── styles/              # tokens.css, theme.css templates
-├── scripts/
-│   ├── sync-component-templates.mjs   # Sync ui primitives → templates
-│   ├── sync-block-templates.mjs       # Sync ui blocks/templates → templates
-│   ├── sync-all-templates.mjs         # Run both sync scripts
-│   ├── check-registry-styles-sync.mjs # Verify style templates vs token output
-│   ├── lib/registry-styles-sync.mjs   # Shared compare helpers for style sync
-│   └── registry-item-generator.mjs
-├── vitest.config.ts
-└── test/
-    ├── validate-registry.test.ts
-    └── registry-styles-sync.test.ts
-```
-
-**Exports:** `.`, `./templates/*` (templates ship with the package).
-
-Every registry item must declare: files, dependencies, utilities, styles, target paths.
-
----
-
-## `packages/cli`
-
-Metadata-driven installer; depends on `@neurex/registry`.
-
-```
-packages/cli/
-├── src/
-│   ├── index.ts          # CLI entry (bin: neurex)
-│   ├── commands/
-│   │   ├── add.ts
-│   │   ├── config.ts
-│   │   ├── doctor.ts
-│   │   ├── help.ts
-│   │   ├── init.ts
-│   │   ├── list.ts
-│   │   ├── registry.ts
-│   │   ├── status.ts
-│   │   ├── uninstall.ts
-│   │   ├── update.ts
-│   │   └── version.ts
-│   └── core/             # Installer, config, registry resolution, Tailwind/Vite setup, …
-│       ├── installer.ts
-│       ├── config.ts
-│       ├── registry-provider.ts
-│       ├── registry-resolver.ts
-│       ├── tailwind-setup.ts
-│       ├── vite-scaffold.ts
-│       └── …
-├── vitest.config.ts
-└── test/
-    ├── commands/         # add, init, install-flow, registry, update
-    └── core/             # installer, package-manager, tailwind-setup
-```
-
-Rules: idempotent installs, no silent overwrites, clear conflict reporting.
-
----
-
-## Cursor Rules (`.cursor/rules/`)
-
-| Rule | Purpose |
-|------|---------|
-| `cursor-rules.mdc` | How to add/edit rules |
-| `project-structure.mdc` | This file |
-| `git-commit-rules.mdc` | How to author reusable Git commit `.mdc` rules (meta) |
-| `git-commits.mdc` | Conventional commits and monorepo scopes |
-| `neurex-testing.mdc` | Vitest conventions per package (`test/` layout, mocks, commands) |
-| `git-commits-basic.mdc` | Generic Conventional Commits spec (reference) |
-| `tech-stack.mdc` | Dependencies and toolchain |
-| `vitest-unit-testing-rules.mdc` | Generic Vitest unit-test patterns |
-| `project-commenting-and-docs-standards.mdc` | JSDoc and comment standards |
-| `self-improvement.mdc` | When to evolve rules |
-
----
-
-## Where to Change What
-
-| Task | Primary location |
-|------|------------------|
-| Token values / layers | `packages/tokens/src/` |
-| Semantic organization / audit | `packages/tokens/src/engine/governance/`, `docs/TOKENS.md` |
-| Generated CSS | Build pipeline only (`packages/tokens` build) |
-| Component behavior (reference) | `packages/ui/src/components/{primitives,blocks,templates}/` |
-| What gets installed / paths | `packages/registry/src/items/` + `templates/`; consumer flat `paths.components` |
-| Install/init/update behavior | `packages/cli/src/` |
-| Visual verification (monorepo smoke) | `apps/playground/` — maintenance-only; consumer truth in external sandbox ([TESTING.md](../../docs/TESTING.md#verification-surfaces)) |
-| Maintainer workflow | `AGENTS.md` § Change workflow; branch off `dev`, PR to `dev` last |
-| Architecture contracts | `docs/` + `AGENTS.md` |
-
-After editing `packages/ui` components, run `pnpm registry:sync` to refresh registry templates when templates should match UI (primitives + blocks/templates).
-
-After editing overlay `*.variants.ts` stacking/shadow classes or component elevation tokens, sync registry templates and run `pnpm tokens:check`.
-
----
-
-## Component File Convention (UI + registry templates)
-
-```
+```txt
 ComponentName/
 ├── ComponentName.tsx
 ├── ComponentName.types.ts
 └── ComponentName.variants.ts
 ```
 
-Styling: Tailwind user-facing; semantic classes use `nx-` prefix (see `docs/STYLE.md`).
+---
+
+## Cursor rules (`.cursor/rules/`)
+
+| Rule | Purpose |
+| ---- | ------- |
+| `cursor-rules.mdc` | How to add/edit rules |
+| `project-structure.mdc` | This file — layout and edit map |
+| `docs-routing.mdc` | Doc ownership when editing `docs/**` |
+| `documentation-standards.mdc` | Doc governance (`docs/`, README, CONTRIBUTING) |
+| `code-commenting.mdc` | JSDoc and comments in `src/` |
+| `git-commits.mdc` | Commits, scopes, PR workflow |
+| `git-commit-rules.mdc` | Meta: authoring commit rules |
+| `neurex-testing.mdc` | Vitest layout and commands per package |
+| `tech-stack.mdc` | Dependencies and toolchain |
+| `self-improvement.mdc` | When to evolve rules |
+
+Repo skills: [`.agents/skills/`](../../.agents/skills/).

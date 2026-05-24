@@ -6,13 +6,12 @@ alwaysApply: false
 
 # Documentation Standards
 
-Use this rule to plan, write, review, and maintain project documentation in any
-codebase. Documentation must be current-first, code-verified, purpose-driven,
-and easy for future maintainers or agents to update without guessing.
+Use this rule when writing or reviewing **markdown documentation** in this repo:
+`docs/**`, root `README.md`, `CONTRIBUTING.md`, `AGENTS.md`, and package READMEs.
 
-The goal is not only to write docs, but to create a maintainable documentation
-system where each document has a clear audience, type, ownership boundary,
-freshness marker, and source of truth.
+**Not in scope:** TypeScript source comments — see [code-commenting.mdc](./code-commenting.mdc).
+
+**Hub:** [docs/INDEX.md](../../docs/INDEX.md) — routing table for document ownership.
 
 ## Documentation Taxonomy
 

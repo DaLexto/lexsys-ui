@@ -45,8 +45,9 @@ Core invariants:
 
 Consumer validation (CLI install path, real layouts, brand/theme UX) happens outside the monorepo — sandbox or SaaS — not in playground.
 
-Package boundaries MUST be respected. See [AGENTS.md](../AGENTS.md) for package
-contracts and `package.json` exports for each package's public API.
+Package boundaries MUST be respected. Domain contracts live in this document
+and linked specs in [INDEX.md](INDEX.md). [AGENTS.md](../AGENTS.md) is the
+agent routing layer — not a duplicate of token/UI/registry rules.
 
 Build toolchain: pnpm workspaces, Turborepo, tsup, TypeScript 6, Vitest,
 ESLint, Prettier. See [DEPLOY.md](DEPLOY.md) for build and publish rules.
@@ -310,6 +311,7 @@ invocation.
 
 | Document                                       | Owns                                                          |
 | ---------------------------------------------- | ------------------------------------------------------------- |
+| [INDEX.md](INDEX.md)                           | Documentation routing hub — which doc owns which topic        |
 | [TOKENS.md](TOKENS.md)                         | Token layer rules, resolver, CSS generation, validation       |
 | [RESOLVER_EVOLUTION.md](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work   |
 | [CLI.md](CLI.md)                               | Full CLI command reference, flags, config options             |
@@ -317,4 +319,4 @@ invocation.
 | [STYLE.md](STYLE.md)                           | Coding style, TypeScript, React, import/export rules          |
 | [DEPLOY.md](DEPLOY.md)                         | Build pipeline, publish-readiness, artifact contract          |
 | [UI_COMPOSITION.md](UI_COMPOSITION.md)         | UI composition model, layer rules, monorepo vs consumer paths |
-| [AGENTS.md](../AGENTS.md)                      | Package contracts, architectural invariants, agent guidance   |
+| [AGENTS.md](../AGENTS.md)                      | Agent routing, guardrails, skills index (not domain specs)    |

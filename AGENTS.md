@@ -2,296 +2,158 @@
 
 ## Purpose
 
-This file defines repository-specific guidance for `neurex`.
+Repository-specific **routing layer** for `neurex`. Global user and tool rules
+apply by default. This file adds Neurex identity, guardrails, and pointers to
+canonical docs — not duplicated domain contracts.
 
-Use global rules as the default contract.  
-This file adds only rules specific to this repository.
+Full doc map: [docs/INDEX.md](./docs/INDEX.md).
 
 ---
 
-## Project Context
+## Project identity
 
 Neurex is a **registry-first React UI framework**.
 
-Core architecture is defined in:
-
-- `docs/ARCHITECTURE.md`
-
-Core principles:
-
-- components are installed via CLI, not imported as black-box dependencies
-- installed code becomes user-owned
-- CLI behavior must be metadata-driven and idempotent
-- packages must remain cleanly separated and publish-ready
-
----
-
-## Repo Structure
-
-This monorepo contains the following packages:
-
-- `packages/tokens`
-  - design token source of truth
-  - token resolution and theme generation
-
-- `packages/ui`
-  - source/reference implementations (primitives, blocks, templates)
-  - not the final distributed form
-
-- `packages/registry`
-  - installable templates and metadata
-  - defines what CLI installs
-
-- `packages/cli`
-  - installs components into consumer projects
-  - orchestrates dependency and file management
-
-Do not blur responsibilities between packages.
-
----
-
-## Verification surfaces
-
-Canonical policy: [docs/TESTING.md § Verification surfaces](./docs/TESTING.md#verification-surfaces).
-
-| Surface                   | Model                                          | Policy                              | Maintainer focus                                                |
-| ------------------------- | ---------------------------------------------- | ----------------------------------- | --------------------------------------------------------------- |
-| `apps/playground`         | Workspace `@neurex/ui` primitives + token CSS  | **Maintenance-only** monorepo smoke | **~10–20%** — optional wiring check                             |
-| External consumer sandbox | `neurex add` → flat `paths.components/<Name>/` | **Consumer truth**                  | **~80–90%** — CLI, install UX, blocks/templates design sign-off |
-| Your SaaS (future)        | CLI-installed consumer app                     | Primary product surface             | Replaces sandbox for UX; sandbox stays minimal CLI regression   |
-
-**Local sandbox path (example):** `D:\PLAYGROUND\sandbox-neurex`  
-**Agent contract:** `D:\PLAYGROUND\sandbox-neurex\AGENTS.md`
-
-Do not expand playground product UX unless explicitly editing `apps/playground/**`. After changes that affect what users install — especially **blocks/templates** — verify in the sandbox, including narrow-viewport flows. See [docs/TESTING.md § Blocks/templates checklist](./docs/TESTING.md#consumer-sandbox-verification).
-
-Sandbox checklist: [docs/TESTING.md § Consumer sandbox verification](./docs/TESTING.md#consumer-sandbox-verification).
-
----
-
-## Architectural Contract
-
-### Registry-first model
-
-The CLI installs components into the user project:
-
-registry → CLI → user project → user-owned code
-
-Rules:
-
-- CLI must never hardcode install logic
-- CLI must read registry metadata
-- install process must be idempotent
-- user code must never be overwritten silently
-
----
-
-## Package Boundaries
-
-Treat each package as publish-ready.
-
-Rules:
-
-- public API is defined only via `exports`
-- `src/` is source-only
-- `dist/` is the only distributable output
-- no deep imports into `src/` or `dist/`
-- no accidental exposure of internal files
-
----
-
-## Tokens Workflow
-
-Detailed token rules are defined in `docs/TOKENS.md`.
-
-`packages/tokens` follows this dependency model:
-
-    primitives -> brand -> semantics -> component tokens
-
-Rules:
-
-- primitives contain raw values only
-- brand tokens reference primitive tokens
-- brand tokens hold brand-level palette decisions, not usage intent
-- semantic tokens reference brand tokens for brand-specific values
-- semantic tokens may reference primitive tokens for non-brand values such as neutrals, feedback, and foundation scales
-- semantic tokens must never reference component tokens
-- component tokens reference semantic tokens only
-- component tokens must never reference primitives, brand tokens, or theme tokens directly
-- themes override semantic values per mode
-- themes are not a fifth token layer
-- themes must never reference component tokens
-- presets are configuration, not token layers
-- presets never participate in token resolution
-- CSS must be generated, never handwritten
-
-Current build-failing validation covers missing references, circular references,
-missing preset-required theme modes, invalid DTCG token leaf shape, and token
-layer contract violations (component-to-primitive, component-to-brand,
-component-to-theme, semantic-to-component, theme-to-component, and brand tokens
-with component-specific intent). Layer validation runs in
-`validateStyleTokenInput` via `validateTokenLayerContractsStrict`.
-
-Target capabilities not yet build-failing include color math, contrast
-validation, composite token expansion, and expression evaluation. See
-`docs/RESOLVER_EVOLUTION.md`.
-
----
-
-## UI Workflow
-
-`packages/ui` is the reference implementation layer.
-
-Composition model: [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) — monorepo
-folders `primitives/`, `blocks/`, `templates/`; consumer flat install under
-`paths.components`.
-
-Rules:
-
-- components must follow the defined structure under the correct layer folder:
-
 ```txt
-primitives|blocks|templates/ComponentName/
-ComponentName.tsx
-ComponentName.types.ts
-ComponentName.variants.ts
+packages/registry → packages/cli → consumer project → user-owned code
 ```
 
-- components must support:
-  - variants
-  - className overrides
+| Package | Role |
+| ------- | ---- |
+| `packages/tokens` | Design token source of truth; resolver; generated CSS |
+| `packages/ui` | Reference primitives, blocks, templates — not what CLI ships as a library |
+| `packages/registry` | Install metadata + templates; source of truth for CLI install behavior |
+| `packages/cli` | `neurex` binary; metadata-driven installer |
 
-- complex components must support:
-  - simple usage
-  - compound composition
+Core principles: installed code is user-owned; CLI is idempotent and
+metadata-driven; packages stay publish-ready and separated.
 
-- Base UI is internal only
-- accessibility must be preserved
-
----
-
-## Registry Workflow
-
-`packages/registry` defines installable items.
-
-Rules:
-
-- every item must declare:
-  - files
-  - dependencies
-  - utilities
-  - styles
-  - target paths (`item.target` → flat `paths.components/<CanonicalName>/`)
-  - layer type and `registryDependencies` for blocks/templates
-
-- registry is the source of truth for CLI behavior
-- no install logic may exist outside registry metadata
-- run `pnpm registry:sync` after UI edits (primitives + blocks; templates sync via registry scripts)
+System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 ---
 
-## CLI Workflow
+## Source-of-truth map
 
-`packages/cli` is responsible for:
-
-- installing components (flat `paths.components` with import rewrite for blocks/templates)
-- installing dependencies
-- patching shared resources
-- detecting project environment
-
-Rules:
-
-- must be idempotent
-- must not overwrite user changes silently
-- must show conflicts clearly
-- must support batch operations
-
----
-
-## Styling and Naming
-
-Use:
-
-- `docs/STYLE.md`
-- `docs/STYLEGUIDE.md`
-
-Core conventions:
-
-- PascalCase component folders and files
-- colocated `.types.ts` and `.variants.ts`
-- `nx-` prefix for semantic CSS classes
-- Tailwind is the user-facing styling layer
+| If you need… | Read |
+| ------------ | ---- |
+| System shape, install flow, package boundaries | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) |
+| Token layers, validation, CSS generation | [docs/TOKENS.md](./docs/TOKENS.md) |
+| Registry items, template sync, validation | [docs/REGISTRY.md](./docs/REGISTRY.md) |
+| `neurex` commands, config, install behavior | [docs/CLI.md](./docs/CLI.md) |
+| Component structure, Base UI boundaries | [docs/UI.md](./docs/UI.md) |
+| Variant props and CVA rules | [docs/UI_VARIANTS.md](./docs/UI_VARIANTS.md) |
+| Primitives / blocks / templates layers | [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) |
+| Verification surfaces and test coverage | [docs/TESTING.md](./docs/TESTING.md) |
+| `pnpm` scripts and sync workflows | [docs/SCRIPTS.md](./docs/SCRIPTS.md) |
+| Style and naming | [docs/STYLE.md](./docs/STYLE.md), [docs/STYLEGUIDE.md](./docs/STYLEGUIDE.md) |
+| Build and publish contract | [docs/DEPLOY.md](./docs/DEPLOY.md) |
+| Active backlog and execution queue | [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md) |
+| Long-term roadmap (M1–M10, tokens phases) | [docs/ROADMAP.md](./docs/ROADMAP.md) |
 
 ---
 
-## Build and Distribution
+## Always-on guardrails
 
-Use:
-
-- `docs/DEPLOY.md`
-
-Rules:
-
-- `dist/` is the only published output
-- token CSS is generated
-- exports must be explicit
-- sideEffects must be accurate (especially for CSS)
+- **Package boundaries:** public API via `package.json` `exports` only; `src/`
+  is source-only; `dist/` is publish output; no deep imports into another
+  package's `src/` or `dist/`.
+- **Registry-first CLI:** no hardcoded per-component install logic; read registry
+  metadata; idempotent installs; no silent overwrites — [docs/CLI.md](./docs/CLI.md).
+- **Generated CSS:** token CSS is build output — never hand-write. See
+  [docs/TOKENS.md](./docs/TOKENS.md).
+- **UI → registry:** after `packages/ui` edits that affect install artifacts,
+  run **`pnpm registry:sync`** — use **`$registry-sync`** skill.
+- **Playground:** maintenance-only monorepo smoke (~10–20%). Consumer truth is
+  the external sandbox (~80–90%) — [docs/TESTING.md § Verification surfaces](./docs/TESTING.md#verification-surfaces).
+- **Branch policy:** branch off **`dev`**; PR to **`dev`**; do not touch
+  **`main`** unless the user explicitly requests it.
+- **Prefer links over duplication** when a rule already lives in `docs/`.
 
 ---
 
-## Working State
+## Verification routing
 
-Read:
+Default gate: **`pnpm check`** — [docs/SCRIPTS.md](./docs/SCRIPTS.md).
 
-- `.agent/CONTINUITY.md`
+| Touch area | Minimum checks |
+| ---------- | -------------- |
+| `packages/tokens` | `pnpm tokens:check` |
+| `packages/ui` | `pnpm ui:check`; then `$registry-sync` if templates should change |
+| `packages/registry` | `pnpm registry:check` |
+| `packages/cli` | `pnpm cli:check` |
+| CLI / registry / templates / blocks | `$consumer-sandbox-verify` before PR |
 
-This is the canonical short-form state file.
+Use **`$monorepo-check-gate`** for scoped verification by touched paths.
 
-Update it intentionally when state changes.
+Do **not** start dev servers unless the user explicitly asks — see
+[§ Agent operations](#agent-operations).
+
+**Example sandbox path:** `D:\PLAYGROUND\sandbox-neurex` (local; optional
+`AGENTS.md` in sandbox for consumer-specific notes).
+
+---
+
+## Repo skills
+
+Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures.
+
+| Skill | When |
+| ----- | ---- |
+| `$registry-sync` | UI source changed → sync registry templates |
+| `$consumer-sandbox-verify` | CLI/registry/template/blocks PR gate |
+| `$monorepo-check-gate` | Pre-commit / pre-PR scoped `pnpm` checks |
+| `$ui-component-change` | New or edited primitive/block/template in UI |
+| `$docs-alignment` | Behavior or counts changed → cross-ref docs |
+| `$token-change-verify` | Token layers, generator, or governance touched |
+
+Cursor git/PR details: [.cursor/rules/git-commits.mdc](./.cursor/rules/git-commits.mdc).
+
+---
+
+## Working state
+
+Short-form maintainer state: **`.agent/CONTINUITY.md`** (local, gitignored).
+
+Optional template: [docs/CONTINUITY.example.md](./docs/CONTINUITY.example.md).
+
+Update intentionally when phase or branch context changes.
 
 ---
 
 ## Change workflow
 
-For non-trivial refactors, edits, updates, or patches (multi-file changes, behavior changes, playground shell work, CLI/registry/template changes, or any task with an agreed plan):
+For non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans):
 
-1. **Branch** — create a feature branch off **`dev`** before code changes. Never commit directly to **`main`**.
-2. **Implement** — complete planned code and test changes on that branch; use scoped commits per concern.
-3. **Docs alignment** — update docs, cross-refs, README, rules, and `.agent/CONTINUITY.md` when behavior or maintainer contracts change. Link to canonical sections — do not duplicate.
-4. **Verify** — run `pnpm check` and scoped checks ([docs/TESTING.md](./docs/TESTING.md), [docs/SCRIPTS.md](./docs/SCRIPTS.md)). Do not start dev servers — see [§ Agent operations](#agent-operations).
-5. **PR last** — open the PR **to `dev` only** when the branch is complete. Do not target **`main`** unless the user explicitly requests it. No WIP PR unless the user asks.
+1. **Branch** off **`dev`** — never commit directly to **`main`**.
+2. **Implement** on the branch; scoped commits per concern.
+3. **Docs alignment** — **`$docs-alignment`** when contracts or counts change;
+   link to [docs/INDEX.md](./docs/INDEX.md); update `.agent/CONTINUITY.md` locally.
+4. **Verify** — **`$monorepo-check-gate`**; sandbox when install artifacts change.
+5. **PR last** to **`dev`** only when the branch is complete.
 
-**Branch policy:** `dev` is the integration branch (branch off `dev`, PR to `dev`). Do not touch **`main`** — no commits, merges, fast-forwards, or PRs targeting `main` — unless the user explicitly requests it. Do not infer `main` from GitHub default branch or `origin/HEAD`.
+Human-oriented steps: [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-Trivial one-line fixes with no contract impact may skip the docs pass; still branch off `dev`.
+Trivial one-line fixes with no contract impact may skip the docs pass; still
+branch off `dev`.
 
 ---
 
 ## Agent operations
 
-**Do not start dev servers.** Agents must not run long-lived local dev processes unless the user **explicitly** requests it. This includes:
+**Do not start dev servers** unless the user explicitly requests it:
 
-- `pnpm playground:dev`
-- `vite` / `vite dev`
-- `next dev`
-- any equivalent `*:dev` app server in this monorepo or consumer projects
+- `pnpm playground:dev`, `vite dev`, `next dev`, or equivalent `*:dev`
 
-Use non-interactive verification instead: `pnpm check`, scoped `pnpm *:check`, `pnpm playground:build`, unit tests, and sandbox build smoke when applicable.
+Use non-interactive verification: `pnpm check`, scoped `*:check`,
+`pnpm playground:build`, unit tests, sandbox build smoke.
 
-Do not suggest starting a dev server as a default next step. The user runs visual dev locally when they choose.
+Do not suggest starting a dev server as a default next step.
 
 ---
 
-## Task Guidance
+## Task guidance
 
-When working in this repository:
-
-- prefer small, reviewable diffs
-- respect package boundaries
-- do not introduce shortcuts that break architecture
-- avoid hardcoded logic where metadata should be used
-- do not expand public API unintentionally
-
-When unsure:
-
-prefer long-term architecture over short-term convenience
+- Prefer small, reviewable diffs.
+- Respect package boundaries and registry metadata.
+- Avoid hardcoded install logic and accidental public API expansion.
+- When unsure, prefer long-term architecture over short-term convenience.

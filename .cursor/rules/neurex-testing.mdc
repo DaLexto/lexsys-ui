@@ -1,0 +1,43 @@
+---
+description: Neurex Vitest conventions — test/ layout, per-package configs, and pnpm test commands
+globs: packages/**/test/**/*,packages/**/vitest.config.ts,apps/**/test/**/*
+alwaysApply: false
+---
+# Neurex testing (Vitest)
+
+Canonical coverage map: [docs/TESTING.md](../../docs/TESTING.md). Commands: [docs/SCRIPTS.md](../../docs/SCRIPTS.md).
+
+## Layout
+
+| Package | Config | Environment | Test root |
+| ------- | ------ | ----------- | --------- |
+| `@neurex/tokens` | `packages/tokens/vitest.config.ts` | node | `packages/tokens/test/` |
+| `@neurex/ui` | `packages/ui/vitest.config.ts` | jsdom | `packages/ui/test/components/<Name>/` |
+| `@neurex/registry` | `packages/registry/vitest.config.ts` | node | `packages/registry/test/` |
+| `neurex` (cli) | `packages/cli/vitest.config.ts` | node | `packages/cli/test/commands/`, `test/core/` |
+
+No root workspace `vitest.config.ts` — per-package configs for VS Code discovery (Vitest 4).
+
+## UI tests
+
+- `*.variants.test.ts` — CVA class output for primitives.
+- `*.render.test.tsx` — DOM smoke, className merge, key a11y roles.
+- **Blocks/templates** — no render suite yet; use sandbox ([TESTING.md § Consumer sandbox verification](../../docs/TESTING.md#consumer-sandbox-verification)).
+
+## Commands
+
+```sh
+pnpm check                    # full gate
+pnpm tokens:check
+pnpm ui:check                 # includes ui:audit
+pnpm registry:check
+pnpm --filter ./packages/cli check
+```
+
+Use **`$monorepo-check-gate`** skill to pick scoped checks by touched paths.
+
+## Conventions
+
+- Prefer behavior assertions over snapshots.
+- Mock filesystem/network at CLI test boundaries; use temp dirs for install-flow tests.
+- After UI variant changes, run `pnpm ui:audit` — token literals in `*.variants.ts` only.

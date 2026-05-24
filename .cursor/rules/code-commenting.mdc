@@ -1,0 +1,31 @@
+---
+description: JSDoc and inline comment standards for Neurex src/ and test/ code
+globs: packages/**/src/**/*,packages/**/test/**/*,apps/**/src/**/*
+alwaysApply: false
+---
+# Code commenting standards
+
+Scope: **source and test code** — not `docs/*.md` (see [documentation-standards.mdc](./documentation-standards.mdc)).
+
+## JSDoc (exported symbols)
+
+All exported functions, classes, and public methods MUST have JSDoc:
+
+- `@param` with type and purpose
+- `@returns` when not void
+- `@throws` when applicable
+- Brief description of behavior (not a restatement of the name)
+
+## Inline comments
+
+- Explain **why**, not what the code already says.
+- Use `// TODO:`, `// NOTE:`, `// FIXME:` for coordination — include ticket or context when known.
+- Avoid redundant comments (`// increment i`).
+
+## ESLint
+
+Public exports should satisfy documentation lint rules. Do not disable ESLint for missing docs unless there is a documented exception.
+
+## AI role
+
+When generating or refactoring exported APIs, add or update JSDoc in the same change.
