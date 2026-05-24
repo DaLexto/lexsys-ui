@@ -105,6 +105,7 @@ Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures.
 | `$ui-component-change` | New or edited primitive/block/template in UI |
 | `$docs-alignment` | Behavior or counts changed → cross-ref docs |
 | `$token-change-verify` | Token layers, generator, or governance touched |
+| `$project-next-steps` | What to work on next, backlog triage, project status |
 
 Cursor git/PR details: [.cursor/rules/git-commits.mdc](./.cursor/rules/git-commits.mdc).
 
