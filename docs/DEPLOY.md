@@ -200,13 +200,13 @@ decision and DEPLOY.md is updated.
 
 ## M10 implementation track (shipped 2026-05-24)
 
-| Step  | Deliverable                                                       | Status   |
-| ----- | ----------------------------------------------------------------- | -------- |
-| M10.0 | Publish surface + version lane docs (this section)                | shipped  |
-| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                            | shipped  |
-| M10.2 | Package metadata audit; `pnpm publish:pack-audit`                 | shipped  |
-| M10.3 | Changesets (fixed `@lexsys/cli` + `@lexsys/registry`); publish CI | shipped  |
-| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke               | shipped  |
+| Step  | Deliverable                                                       | Status  |
+| ----- | ----------------------------------------------------------------- | ------- |
+| M10.0 | Publish surface + version lane docs (this section)                | shipped |
+| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                            | shipped |
+| M10.2 | Package metadata audit; `pnpm publish:pack-audit`                 | shipped |
+| M10.3 | Changesets (fixed `@lexsys/cli` + `@lexsys/registry`); publish CI | shipped |
+| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke               | shipped |
 
 Track record: [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24).
 
