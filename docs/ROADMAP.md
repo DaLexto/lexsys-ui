@@ -3,8 +3,9 @@
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
-composition pilots **shipped** (PR #28); M10 release readiness **planned**; M4
-**reserved** (scope TBD); blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
+composition pilots **shipped** (PR #28); M10 release readiness **planned**
+(`0.0.1` @ `next`); M4 **reserved** (scope TBD); blocks/templates optimization
+**shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -141,7 +142,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                  | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                       | DEPLOY.md                             |
 | M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agents/skills/`          |
-| M10   | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                      | DEPLOY.md                             |
+| M10   | Release readiness        | planned | First npm `0.0.1` @ `next`; Changesets + publish CI; `0.1.0` @ `latest` later       | DEPLOY.md                             |
 
 ### M1 — Infra and DX
 
@@ -303,7 +304,17 @@ Status: shipped
 
 ### M10 — Release readiness
 
-Status: planned — when approaching first npm publish (`0.1.0`).
+Status: planned — first npm publish **`0.0.1`** on dist-tag **`next`**; **`0.1.0`**
+on **`latest`** when declaring public MVP stable.
+
+**Publish-day checklist (canonical):** [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next)
+
+**Execution track:** [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness)
+
+#### M10.0 — Publish scope and version lane
+
+- npm packages: `neurex` + `@neurex/registry` only (not `@neurex/ui`, not `@neurex/tokens`)
+- Version lane: `0.0.x` @ `next` → `0.1.0` @ `latest`
 
 #### M10.1 — CHANGELOG
 
@@ -312,12 +323,19 @@ Status: planned — when approaching first npm publish (`0.1.0`).
 #### M10.2 — Publish audit
 
 - Align package versions, `exports`, and `files` fields.
+- `pnpm publish:pack-audit` (pack tarball smoke).
 
-#### M10.3 — Publish sequence
+#### M10.3 — Publish automation
 
-- Documented release sequence in DEPLOY.md.
+- Changesets fixed group (`neurex` + `@neurex/registry`).
+- GitHub Actions publish workflow; `NPM_TOKEN`; dist-tag **`next`**.
 
-**Phase PR:** `chore(m10): release readiness`
+#### M10.4 — First publish
+
+- Follow [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next).
+- Post-publish: `npx neurex@next init vite` smoke.
+
+**Phase PR:** `chore(m10): release readiness` (may split into M10.0–M10.3 PRs)
 
 ### Explicitly deferred
 

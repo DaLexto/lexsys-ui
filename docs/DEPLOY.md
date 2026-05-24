@@ -160,21 +160,185 @@ If there is no consumer-facing impact, say that explicitly.
 
 ---
 
+## Publish surface (npm)
+
+Neurex is **registry-first**: consumers install via the `neurex` CLI; they do
+not import `@neurex/ui` as a runtime library.
+
+| Package              | npm name           | Publish? | Role                                      |
+| -------------------- | ------------------ | -------- | ----------------------------------------- |
+| `packages/cli`       | `neurex`           | **Yes**  | CLI binary; primary consumer entry        |
+| `packages/registry`  | `@neurex/registry` | **Yes**  | Runtime dep of CLI; templates + metadata  |
+| `packages/ui`        | `@neurex/ui`       | **No**   | Monorepo reference; copies ship via registry |
+| `packages/tokens`    | `@neurex/tokens`   | **No**   | Token CSS ships in registry style templates |
+| Root workspace       | `neurex`           | **No**   | Monorepo orchestrator only                |
+
+Token CSS reaches consumers through registry style templates
+(`templates/styles/tokens.css`, `theme.css`), not through a separate npm install
+of `@neurex/tokens`.
+
+---
+
+## Version lane
+
+| Milestone        | Version   | npm dist-tag | Meaning                                      |
+| ---------------- | --------- | ------------ | -------------------------------------------- |
+| First npm        | `0.0.1`   | `next`       | Early preview; breaking changes still likely |
+| Iterations       | `0.0.x`   | `next`       | Changesets patch/minor on the 0.0 line       |
+| MVP stable       | `0.1.0`   | `latest`     | Public MVP commitment — future milestone     |
+
+Install for early preview:
+
+```bash
+npx neurex@next init vite my-app
+```
+
+Do not publish `@neurex/ui` or `@neurex/tokens` until there is an explicit product
+decision and DEPLOY.md is updated.
+
+---
+
+## M10 implementation track (before first publish)
+
+Land on `dev` (then ff `main`) before running the first publish checklist:
+
+| Step | Deliverable                                              | Owner doc   |
+| ---- | -------------------------------------------------------- | ----------- |
+| M10.0 | Publish surface + version lane docs (this section)      | DEPLOY.md   |
+| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                  | CHANGELOG.md |
+| M10.2 | Package metadata audit; `pnpm publish:pack-audit`       | SCRIPTS.md  |
+| M10.3 | Changesets (fixed `neurex` + `@neurex/registry`); publish CI | `.github/workflows/` |
+| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke     | This checklist |
+
+Track status in [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness).
+
+---
+
+## First release checklist (`0.0.1` @ `next`)
+
+Use this when cutting the **first** npm release. Repeat phases 2–5 for later
+`0.0.x` bumps; skip phase 0 once M10 tooling is shipped.
+
+### Phase 0 — Repo prerequisites (M10 PRs merged to `main`)
+
+- [ ] Publish scope documented (only `neurex` + `@neurex/registry`)
+- [ ] Package metadata: `private: false`, `repository`, `license`, `files`, `exports`
+- [ ] Root `CHANGELOG.md` with `[0.0.1]` section
+- [ ] Changesets: fixed group `neurex` + `@neurex/registry`
+- [ ] Publish CI workflow on `main`
+- [ ] `pnpm publish:pack-audit` passes locally
+- [ ] `pnpm check` green on `main`
+- [ ] `pnpm sync:all && pnpm registry:check` before pack
+
+### Phase 1 — npm / GitHub setup (one-time)
+
+- [ ] npm org `@neurex` and unscoped `neurex` publish access
+- [ ] GitHub secret `NPM_TOKEN` (Automation token)
+- [ ] Dist-tag policy: **`next`** for `0.0.x` (not `latest`)
+
+### Phase 2 — Pre-publish smoke (local, no monorepo link)
+
+```bash
+pnpm build
+pnpm sync:all
+pnpm check
+pnpm publish:pack-audit
+```
+
+In a clean temp directory:
+
+```bash
+npm install /path/to/neurex-0.0.1.tgz
+npx neurex --version
+npx neurex init vite smoke-pack
+cd smoke-pack
+npx neurex add button
+pnpm build
+```
+
+- [ ] `init vite` works
+- [ ] `add button` works
+- [ ] Production build passes
+- [ ] (Optional) `add dashboard-shell` + build
+
+### Phase 3 — Changesets → version `0.0.1`
+
+- [ ] Add changeset for first release (fixed bump both packages)
+- [ ] Merge to `dev` → ff `main` per [AGENTS.md § Change workflow](../AGENTS.md#change-workflow)
+- [ ] Merge Changesets **Version Packages** PR on `main`
+- [ ] Version PR bumps **both** `neurex` and `@neurex/registry` to `0.0.1`
+
+### Phase 4 — Publish
+
+- [ ] CI publish job on `main` succeeds
+- [ ] npm shows `neurex@0.0.1` and `@neurex/registry@0.0.1` tagged **`next`**
+- [ ] (Optional) Git tag `v0.0.1` on publish commit
+
+### Phase 5 — Post-publish smoke (real consumer)
+
+In a **new** temp directory (no local monorepo):
+
+```bash
+npx neurex@next init vite smoke-npm
+cd smoke-npm
+npx neurex@next add button
+pnpm build
+```
+
+- [ ] `npx neurex@next` works from npm (not pack tarball)
+- [ ] README Quick Start matches `@next` install path
+
+**Recommended (non-blocking for 0.0.1):** consumer sandbox narrow-viewport pass —
+see [TESTING.md § Consumer sandbox verification](./TESTING.md#consumer-sandbox-verification).
+
+### Phase 6 — Docs and backlog
+
+- [ ] CHANGELOG `[0.0.1]` date filled
+- [ ] README states early preview + `@next`
+- [ ] REVIEW_TODO / ROADMAP: M10 partial shipped (`0.0.1` @ `next`); `0.1.0` → `latest` remains future
+
+### Ready to publish?
+
+All three must be **yes**:
+
+1. `pnpm publish:pack-audit` passes
+2. Fresh install from **pack tarball** (not link) works
+3. Changesets + publish CI merged on `main`
+
+### Explicitly out of scope for `0.0.1`
+
+- npm provenance
+- Remote registry signatures / allowlist ([REVIEW_TODO Known Gaps](./REVIEW_TODO.md#known-gaps))
+- Publishing `@neurex/ui` or `@neurex/tokens`
+- `apps/docs` public site
+- Moving to dist-tag **`latest`** (that is the **`0.1.0`** milestone)
+
+---
+
+## Transition to `0.1.0` (`latest`)
+
+When declaring public MVP stable:
+
+1. Changeset minor bump → `0.1.0`
+2. Publish with dist-tag **`latest`** (update publish CI / Changesets config)
+3. README: `npx neurex` without `@next`
+4. Mark M10 **shipped** in [ROADMAP.md](./ROADMAP.md) and [REVIEW_TODO.md](./REVIEW_TODO.md)
+
+---
+
 ## Future Work
 
-This guide should be expanded when the repository adds:
+Still deferred after first `0.0.1` @ `next`:
 
-- a formal package publish flow (M10 — see [ROADMAP.md](./ROADMAP.md))
-- root `CHANGELOG.md` and documented release sequence
-- npm provenance and publish audit checklist
+- npm provenance
+- Remote registry trust (signatures, allowlist) — post-M10
+- Optional npm package for `@neurex/tokens`
+- `apps/docs` public site — post-`0.1.0` / post-M10
 
 Registry validation (`pnpm registry:check`), generated token CSS
 (`styles/tokens.css`, `styles/theme.css`), and `neurex update` with `--sync` /
 `--utilities` / `--styles` are **shipped** — see [CLI.md](./CLI.md) and
 [SCRIPTS.md](./SCRIPTS.md).
-
-Until M10 publish flow lands, use this document as the minimum build-and-release
-contract.
 
 ---
 

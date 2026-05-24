@@ -25,11 +25,30 @@ that are not yet done.
 | M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
-| M10     | Release readiness (CHANGELOG, publish audit, sequence)              | planned |
+| M10     | Release readiness — first npm `0.0.1` @ `next`                      | planned |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
+
+---
+
+## M10 — Release readiness
+
+**Goal:** First npm release `neurex@0.0.1` and `@neurex/registry@0.0.1` on dist-tag
+**`next`**. Stable MVP **`0.1.0`** on **`latest`** is a later milestone.
+
+**Canonical publish-day checklist:** [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next)
+
+| ID    | Deliverable                                              | Status  |
+| ----- | -------------------------------------------------------- | ------- |
+| M10.0 | Publish surface + version lane (DEPLOY, ROADMAP, README) | planned |
+| M10.1 | Root `CHANGELOG.md`                                      | planned |
+| M10.2 | Package metadata audit + `pnpm publish:pack-audit`       | planned |
+| M10.3 | Changesets + publish CI (`next` tag)                     | planned |
+| M10.4 | First publish + post-publish `npx neurex@next` smoke     | planned |
+
+Detail: [ROADMAP.md § M10](./ROADMAP.md#m10--release-readiness).
 
 ---
 
