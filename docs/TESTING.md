@@ -224,10 +224,13 @@ Maintainers SHOULD verify CLI and registry changes against an external consumer 
 Checklist after CLI or registry changes:
 
 1. Link or install the CLI from the monorepo branch under test.
-2. **Vite regression:** from sandbox root — `lexsys add <component>` (or re-run `lexsys init` if scaffolding changed); `lexsys update --styles`; run build.
-3. **Next.js smoke:** fresh directory — `lexsys init next`; `lexsys add button`; run build.
+2. **Vite regression:** from sandbox root — `lexsys add <component>` (or re-run `lexsys init` if scaffolding changed); `lexsys update --styles`; production build (`pnpm build`, `npm run build`, or `yarn build` — match the consumer lockfile).
+3. **Next.js smoke:** fresh directory — `lexsys init next`; `lexsys add button`; same build command as above.
 4. Spot-check installed paths under `paths.components`, `lexsys.config.json` (`paths.*` schema), and token CSS imports.
 5. If templates or styles changed: confirm `styles/tokens.css` and `styles/theme.css` update as expected.
+
+**Post-publish npm smoke** (`npx @lexsys/cli@next init vite …`): CLI scaffolds with
+**npm** — use **`npm run build`** only ([DEPLOY.md § Phase 5](./DEPLOY.md#phase-5--post-publish-smoke-real-consumer)).
 
 **Blocks/templates checklist** (when FormField, Sidebar, or DashboardShell change):
 

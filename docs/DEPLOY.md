@@ -255,8 +255,11 @@ npx lexsys --version
 npx lexsys init vite smoke-pack
 cd smoke-pack
 npx lexsys add button
-pnpm build
+npm run build
 ```
+
+(`lexsys init vite` via `npx` scaffolds with **npm** — use `npm run build`, not `pnpm
+build`.)
 
 - [x] `init vite` works
 - [x] `add button` works
@@ -283,8 +286,13 @@ In a **new** temp directory (no local monorepo):
 npx --yes @lexsys/cli@next init vite smoke-npm
 cd smoke-npm
 npx --yes @lexsys/cli@next add button
-pnpm build
+npm run build
 ```
+
+`npx @lexsys/cli@next` installs deps with **npm** (`package-lock.json`,
+`packageManager` in `package.json`). Use **`npm run build`** — there is no
+`pnpm-lock.yaml` in this flow. Monorepo-linked sandboxes that use pnpm keep
+`pnpm build` ([TESTING.md § Consumer sandbox verification](./TESTING.md#consumer-sandbox-verification)).
 
 - [x] `npx @lexsys/cli@next` resolves from npm (`npm view @lexsys/cli dist-tags`)
 - [x] README Quick Start matches `@next` install path
