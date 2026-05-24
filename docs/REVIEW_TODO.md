@@ -112,6 +112,19 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 | UC.4 | Pages     | n/a     | Pages stay consumer-owned                                                                                         |
 | UC.5 | CLI       | shipped | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28) |
 | UC.6 | Tests     | shipped | Block install smoke, render tests, registry template-import audit; closure/import-rewrite unit tests              |
+| UC.7 | Compound  | in progress | Compound-first API (M11): flat named exports, variant propagation, blocks/templates compound-only — [ROADMAP § M11](./ROADMAP.md#m11--compound-first-api) |
+
+**UC.7 execution queue (compound-first):**
+
+- [ ] Phase 0 — governance docs + CHANGELOG breaking stub
+- [ ] Phase 1A — unbundle Switch, Slider, Progress, Checkbox
+- [ ] Phase 1B — Autocomplete/Combobox/Menu/Drawer export gaps
+- [ ] Phase 2 — FormField + AuthForm compound
+- [ ] Phase 3 — Sidebar compound
+- [ ] Phase 4 — CommandPalette compound
+- [ ] Phase 5 — SettingsPanel + DashboardShell compound
+- [ ] Phase 6 — sandbox migration
+- [ ] Phase 7 — tests, registry sync, `0.0.2` version bumps, docs alignment
 
 ### Blocks / templates optimization backlog
 

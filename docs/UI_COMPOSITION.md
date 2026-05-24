@@ -173,6 +173,110 @@ Composition rules are build-validated via `validateRegistryComposition` at
 
 ---
 
+## Compound-first contract
+
+Every installable surface uses **named compound parts** that compose like LEGO.
+Consumers assemble Lexsys parts only — not raw `div` / `label` / `onChange` soup
+when a Lexsys part exists.
+
+### Architecture rules
+
+1. **Primitive with Base UI parts** → flat named sibling exports + `displayName`
+   on each part ([UI.md](./UI.md) wrapper checklist).
+2. **Lexsys-only layout primitive** (Card, Alert) → same named-export pattern.
+3. **True atom** (single DOM node, no slots) → leaf OK: `Button`, `Input`,
+   `Badge`, `Separator`, `Form`, `Toggle`, `Menubar`.
+4. **Block** → exports **2+ named parts**; composes primitives/blocks only;
+   **no raw `<label>`** when `FieldLabel` exists; **no raw nav list markup**
+   when the block exports `SidebarItem`.
+5. **Template** → layout slots (`DashboardShellSidebar`, `DashboardShellMain`);
+   no data arrays.
+6. **Page (consumer)** → blocks + compounds only; zero form field markup.
+
+### Naming convention
+
+Flat named exports (not Base UI dot notation):
+
+```tsx
+import {
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarGroup,
+  SidebarItem,
+} from "@/components/ui/Sidebar/Sidebar"
+```
+
+| Base UI part | Lexsys export |
+| ------------ | ------------- |
+| `NavigationMenu.Root` | `NavigationMenu` |
+| `NavigationMenu.List` | `NavigationMenuList` |
+| `NavigationMenu.Item` | `NavigationMenuItem` |
+
+### Custom Lexsys parts
+
+When Base UI has no part, create a Lexsys compound part from existing Lexsys
+primitives/leafs (`Button`, `Field`, `Card`, `ScrollArea`, `Separator`). Raw HTML
+is allowed only as an **internal implementation detail** of a Lexsys part — never
+as the consumer-facing composition API.
+
+### Variant propagation
+
+Compound parents expose shared defaults via React context. Child parts may
+override explicitly; resolved props pass to the Lexsys primitive they compose.
+
+```txt
+child explicit prop > parent context default > primitive default
+```
+
+```tsx
+<NavigationBar itemVariant="ghost" itemSize="sm">
+  <NavigationBarItem>Dashboard</NavigationBarItem>
+  <NavigationBarItem variant="secondary">Settings</NavigationBarItem>
+</NavigationBar>
+```
+
+Rules:
+
+- Parent compounds may expose defaults (`itemVariant`, `itemSize`, `density`, …).
+- Child props always win over parent context.
+- Use typed context hooks — no React children introspection/cloning as primary mechanism.
+
+### Good vs bad (consumer)
+
+```tsx
+// Good — compound LEGO
+<Sidebar>
+  <SidebarHeader />
+  <SidebarContent>
+    <SidebarGroup>
+      <SidebarItemLink href="/">Dashboard</SidebarItemLink>
+    </SidebarGroup>
+  </SidebarContent>
+</Sidebar>
+
+// Bad — config blob + raw markup
+<Sidebar items={[{ id: "1", label: "Dashboard", href: "/" }]} />
+<div><label htmlFor="email">Email</label><Input onChange={…} /></div>
+```
+
+### Breaking migration (compound-first track)
+
+Tracked in [ROADMAP.md § M11](./ROADMAP.md#m11--compound-first-api). After
+implementation, touched registry items bump to **`0.0.2`**.
+
+| Old API | New API |
+| ------- | ------- |
+| `<Sidebar items={[…]} />` | `<Sidebar><SidebarContent><SidebarGroup>…</SidebarGroup></SidebarContent></Sidebar>` |
+| `<CommandPalette items={[…]} onSelect={…} />` | compound `CommandPaletteItem` children |
+| `<AuthForm mode="login" onSubmit={…} />` | `<AuthForm><AuthFormHeader>…</AuthFormHeader><Field>…</Field></AuthForm>` |
+| `<FormField label="Email" … />` | `<FormField><FormFieldLabel>…</FormFieldLabel><FormFieldControl /></FormField>` |
+| `<DashboardShell sidebarItems={[…]} />` | `<DashboardShell><DashboardShellSidebar><Sidebar>…</Sidebar></DashboardShellSidebar>…` |
+
+Execution queue: [REVIEW_TODO.md § UC.7](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
+
+---
+
 ## Registry vs consumer config
 
 | Concern                  | Where                                            |
