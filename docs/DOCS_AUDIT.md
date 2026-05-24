@@ -40,38 +40,38 @@ Surfaces audited:
 
 ## Root surfaces
 
-| Surface                               | Type                 | Audience               | Canonical owner | Status       | Layout    | Action                                                                                     |
-| ------------------------------------- | -------------------- | ---------------------- | --------------- | ------------ | --------- | ------------------------------------------------------------------------------------------ |
-| [README.md](../README.md)             | Project overview     | Evaluators, users      | Self (entry)    | `duplicated` | `partial` | D3 — link component counts to `UI_CATALOG.md`; add slim **Audience** metadata              |
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | Contributor workflow | Contributors           | Self            | `current`    | `partial` | D3 — add `---` after metadata; layout link already added (D-Format)                        |
-| [AGENTS.md](../AGENTS.md)             | Agent routing        | Agents                 | Self            | `current`    | `partial` | D5 — add `UI_CATALOG.md` row to source-of-truth map; slim **Audience** + **Type** metadata |
-| [CHANGELOG.md](../CHANGELOG.md)       | Release history      | Maintainers, consumers | Self            | `current`    | `N`       | Exempt (Keep a Changelog format); link only                                                |
+| Surface                               | Type                 | Audience               | Canonical owner | Status    | Layout    | Action                                          |
+| ------------------------------------- | -------------------- | ---------------------- | --------------- | --------- | --------- | ----------------------------------------------- |
+| [README.md](../README.md)             | Project overview     | Evaluators, users      | Self (entry)    | `current` | `partial` | Optional: slim **Audience** metadata            |
+| [CONTRIBUTING.md](../CONTRIBUTING.md) | Contributor workflow | Contributors           | Self            | `current` | `partial` | Optional: add `---` after metadata              |
+| [AGENTS.md](../AGENTS.md)             | Agent routing        | Agents                 | Self            | `current` | `partial` | Optional: slim **Audience** + **Type** metadata |
+| [CHANGELOG.md](../CHANGELOG.md)       | Release history      | Maintainers, consumers | Self            | `current` | `N`       | Exempt (Keep a Changelog format); link only     |
 
 ---
 
 ## docs/ — routing and vision
 
-| Surface                              | Type                  | Audience            | Canonical owner | Status               | Layout    | Action                                                                                 |
-| ------------------------------------ | --------------------- | ------------------- | --------------- | -------------------- | --------- | -------------------------------------------------------------------------------------- |
-| [INDEX.md](./INDEX.md)               | Routing hub           | Maintainers, agents | Self            | `current`            | `Y`       | —                                                                                      |
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | Architecture overview | Maintainers         | Self            | `current`            | `partial` | D3 — optional H2 rename toward contract (“System shape”); keep as hub                  |
-| [ROADMAP.md](./ROADMAP.md)           | Vision / roadmap      | Maintainers         | Self            | `outdated`           | `partial` | D3 — M11 status: remove `feat/compound-first-api → PR to dev`; mark **shipped on dev** |
-| [REVIEW_TODO.md](./REVIEW_TODO.md)   | Roadmap / backlog     | Maintainers         | Self            | `needs verification` | `partial` | D3 — align M11 / UC.7 rows with merged state                                           |
+| Surface                              | Type                  | Audience            | Canonical owner | Status               | Layout    | Action                                                                |
+| ------------------------------------ | --------------------- | ------------------- | --------------- | -------------------- | --------- | --------------------------------------------------------------------- |
+| [INDEX.md](./INDEX.md)               | Routing hub           | Maintainers, agents | Self            | `current`            | `Y`       | —                                                                     |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | Architecture overview | Maintainers         | Self            | `current`            | `partial` | D3 — optional H2 rename toward contract (“System shape”); keep as hub |
+| [ROADMAP.md](./ROADMAP.md)           | Vision / roadmap      | Maintainers         | Self            | `current`            | `partial` | —                                                                     |
+| [REVIEW_TODO.md](./REVIEW_TODO.md)   | Roadmap / backlog     | Maintainers         | Self            | `needs verification` | `partial` | Optional: align M11 / UC.7 rows with merged state                     |
 
 ---
 
 ## docs/ — domain specifications
 
-| Surface                                          | Type                 | Audience               | Canonical owner                                  | Status       | Layout    | Action                                                                                                |
-| ------------------------------------------------ | -------------------- | ---------------------- | ------------------------------------------------ | ------------ | --------- | ----------------------------------------------------------------------------------------------------- |
-| [TOKENS.md](./TOKENS.md)                         | Domain specification | Token owners           | Self                                             | `current`    | `Y`       | Align on rewrite only if token contract changes                                                       |
-| [REGISTRY.md](./REGISTRY.md)                     | Domain specification | Maintainers, agents    | Self                                             | `current`    | `Y`       | Exemplar for metadata block                                                                           |
-| [CLI.md](./CLI.md)                               | CLI/API reference    | Users, maintainers     | Self                                             | `current`    | `Y`       | —                                                                                                     |
-| [UI.md](./UI.md)                                 | Domain specification | Maintainers, agents    | Self                                             | `current`    | `partial` | D3 — link full inventory to `UI_CATALOG.md`; keep intentional-leaf decision tree                      |
-| [UI_VARIANTS.md](./UI_VARIANTS.md)               | Domain specification | Maintainers, agents    | Self                                             | `current`    | `partial` | Optional H2 “What it is” rename from “Purpose”                                                        |
-| [UI_COMPOSITION.md](./UI_COMPOSITION.md)         | Domain specification | Maintainers, consumers | Self                                             | `duplicated` | `partial` | D3 — replace § Current state lists with link to `UI_CATALOG.md`; trim extra **Status** line into body |
-| [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)           | Conceptual model     | Maintainers            | Self (concept); [TOKENS.md](./TOKENS.md) (rules) | `current`    | `partial` | D2 — INDEX note: conceptual overview; canonical rules in TOKENS                                       |
-| [RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md) | Vision / plan        | Maintainers            | Self                                             | `current`    | `partial` | D7 → `reference/tokens/`; no rewrite this pass                                                        |
+| Surface                                          | Type                 | Audience               | Canonical owner                                  | Status    | Layout    | Action                                                          |
+| ------------------------------------------------ | -------------------- | ---------------------- | ------------------------------------------------ | --------- | --------- | --------------------------------------------------------------- |
+| [TOKENS.md](./TOKENS.md)                         | Domain specification | Token owners           | Self                                             | `current` | `Y`       | Align on rewrite only if token contract changes                 |
+| [REGISTRY.md](./REGISTRY.md)                     | Domain specification | Maintainers, agents    | Self                                             | `current` | `Y`       | Exemplar for metadata block                                     |
+| [CLI.md](./CLI.md)                               | CLI/API reference    | Users, maintainers     | Self                                             | `current` | `Y`       | —                                                               |
+| [UI.md](./UI.md)                                 | Domain specification | Maintainers, agents    | Self                                             | `current` | `partial` | —                                                               |
+| [UI_VARIANTS.md](./UI_VARIANTS.md)               | Domain specification | Maintainers, agents    | Self                                             | `current` | `partial` | Optional H2 “What it is” rename from “Purpose”                  |
+| [UI_COMPOSITION.md](./UI_COMPOSITION.md)         | Domain specification | Maintainers, consumers | Self                                             | `current` | `partial` | —                                                               |
+| [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)           | Conceptual model     | Maintainers            | Self (concept); [TOKENS.md](./TOKENS.md) (rules) | `current` | `partial` | D2 — INDEX note: conceptual overview; canonical rules in TOKENS |
+| [RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md) | Vision / plan        | Maintainers            | Self                                             | `current` | `partial` | D7 → `reference/tokens/`; no rewrite this pass                  |
 
 ---
 
@@ -113,13 +113,13 @@ Surfaces audited:
 
 ## Package and app READMEs
 
-| Surface                                                       | Type                | Audience            | Canonical owner                             | Status       | Layout    | Action                                                            |
-| ------------------------------------------------------------- | ------------------- | ------------------- | ------------------------------------------- | ------------ | --------- | ----------------------------------------------------------------- |
-| [packages/ui/README.md](../packages/ui/README.md)             | Package reference   | Maintainers, agents | Self; domain → [UI.md](./UI.md)             | `duplicated` | `Y`       | D3 — category table stays; compound/leaf detail → `UI_CATALOG.md` |
-| [packages/tokens/README.md](../packages/tokens/README.md)     | Package reference   | Maintainers         | Self; domain → [TOKENS.md](./TOKENS.md)     | `current`    | `partial` | Add slim **Audience** + **Type** metadata                         |
-| [packages/registry/README.md](../packages/registry/README.md) | Package reference   | Maintainers         | Self; domain → [REGISTRY.md](./REGISTRY.md) | `current`    | `Y`       | —                                                                 |
-| [packages/cli/README.md](../packages/cli/README.md)           | Package reference   | Maintainers         | Self; domain → [CLI.md](./CLI.md)           | `current`    | `Y`       | —                                                                 |
-| [apps/playground/README.md](../apps/playground/README.md)     | App smoke reference | Maintainers         | [TESTING.md](./TESTING.md)                  | `current`    | `partial` | Optional: align **Role** → **Audience** metadata                  |
+| Surface                                                       | Type                | Audience            | Canonical owner                             | Status    | Layout    | Action                                           |
+| ------------------------------------------------------------- | ------------------- | ------------------- | ------------------------------------------- | --------- | --------- | ------------------------------------------------ |
+| [packages/ui/README.md](../packages/ui/README.md)             | Package reference   | Maintainers, agents | Self; domain → [UI.md](./UI.md)             | `current` | `Y`       | —                                                |
+| [packages/tokens/README.md](../packages/tokens/README.md)     | Package reference   | Maintainers         | Self; domain → [TOKENS.md](./TOKENS.md)     | `current` | `partial` | Add slim **Audience** + **Type** metadata        |
+| [packages/registry/README.md](../packages/registry/README.md) | Package reference   | Maintainers         | Self; domain → [REGISTRY.md](./REGISTRY.md) | `current` | `Y`       | —                                                |
+| [packages/cli/README.md](../packages/cli/README.md)           | Package reference   | Maintainers         | Self; domain → [CLI.md](./CLI.md)           | `current` | `Y`       | —                                                |
+| [apps/playground/README.md](../apps/playground/README.md)     | App smoke reference | Maintainers         | [TESTING.md](./TESTING.md)                  | `current` | `partial` | Optional: align **Role** → **Audience** metadata |
 
 ---
 
@@ -144,7 +144,7 @@ Surfaces audited:
 | D0       | This audit matrix                                | D0          | yes  |
 | D1       | UI_CATALOG.md + audit script                     | D1          | yes  |
 | D2       | INDEX refresh (M11, catalog row)                 | D2          | yes  |
-| D3       | Dedup README, UI_COMPOSITION, UI.md, ROADMAP M11 | D3          | —    |
+| D3       | Dedup README, UI_COMPOSITION, UI.md, ROADMAP M11 | D3          | yes  |
 | D4       | UI_AUDIT scope + stale rows                      | D4          | —    |
 | D5       | docs-alignment skill + SCRIPTS catalog check     | D5          | —    |
 | D6       | format:check + catalog:check                     | D6          | —    |

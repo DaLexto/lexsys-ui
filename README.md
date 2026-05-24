@@ -15,9 +15,8 @@ The current implementation focuses on supported consumer starters:
 - Next.js App Router setup through `lexsys init next` (pinned Next.js 15.3.3)
 - Tailwind v4 wiring for Vite and Next.js consumers
 - token and theme CSS installation
-- a growing Base UI-backed component catalog: **41 primitives** plus pilot
-  **blocks** (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette) and
-  **template** (DashboardShell) — see [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)
+- a growing Base UI-backed installable catalog — **47 items** (41 primitives, 5
+  blocks, 1 template) — see [docs/UI_CATALOG.md](./docs/UI_CATALOG.md)
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification
 
@@ -226,16 +225,17 @@ Planned but not current API:
 
 Start at [docs/INDEX.md](./docs/INDEX.md) for the full documentation map.
 
-| Doc                                                | Purpose                                                       |
-| -------------------------------------------------- | ------------------------------------------------------------- |
-| [docs/INDEX.md](./docs/INDEX.md)                   | Documentation routing hub                                     |
-| [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) | Primitives → blocks → templates install model                 |
-| [docs/ROADMAP.md](./docs/ROADMAP.md)               | Long-term direction and monorepo optimization phases (M1–M10) |
-| [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)       | Active execution queue and known gaps                         |
-| [docs/SCRIPTS.md](./docs/SCRIPTS.md)               | Monorepo `pnpm` script names and CI reference                 |
-| [docs/TESTING.md](./docs/TESTING.md)               | Test coverage and verification workflows                      |
-| [CONTRIBUTING.md](./CONTRIBUTING.md)               | Branch, check, and commit expectations                        |
-| [AGENTS.md](./AGENTS.md)                           | Agent routing and repo skills index                           |
+| Doc                                                | Purpose                                                             |
+| -------------------------------------------------- | ------------------------------------------------------------------- |
+| [docs/INDEX.md](./docs/INDEX.md)                   | Documentation routing hub                                           |
+| [docs/UI_CATALOG.md](./docs/UI_CATALOG.md)         | Installable inventory — compound vs leaf, exports, registry version |
+| [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) | Composition rules and install layers                                |
+| [docs/ROADMAP.md](./docs/ROADMAP.md)               | Long-term direction and monorepo optimization phases (M1–M11)       |
+| [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)       | Active execution queue and known gaps                               |
+| [docs/SCRIPTS.md](./docs/SCRIPTS.md)               | Monorepo `pnpm` script names and CI reference                       |
+| [docs/TESTING.md](./docs/TESTING.md)               | Test coverage and verification workflows                            |
+| [CONTRIBUTING.md](./CONTRIBUTING.md)               | Branch, check, and commit expectations                              |
+| [AGENTS.md](./AGENTS.md)                           | Agent routing and repo skills index                                 |
 
 ## Development
 
@@ -264,9 +264,9 @@ For CLI/registry install verification, use an external consumer sandbox — see 
 ## Status
 
 Lexsys is not production-ready yet. Vite and Next.js install flows are working;
-the catalog includes 41 bundled primitives plus pilot blocks and templates
-(FormField, Sidebar, DashboardShell). Blocks/templates are installable but not
-yet marked stable — see [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md).
+the installable catalog is documented in [docs/UI_CATALOG.md](./docs/UI_CATALOG.md).
+Blocks/templates are installable but not yet marked stable — see
+[docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md).
 
 ## Inspiration
 

@@ -2,12 +2,12 @@
 
 **Audience:** Maintainers and consumers  
 **Type:** Domain specification  
-**Status:** Primitives shipped (41); pilot blocks (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette) and template (DashboardShell) shipped — optimization pass largely complete (sandbox QA ongoing)  
 **Source of truth for:** Install layers, composition rules, monorepo vs consumer layout  
 **Verified against:** `packages/ui`, `packages/registry`, `packages/cli`, consumer sandbox
 
 **Related docs:**
 
+- [UI_CATALOG.md](./UI_CATALOG.md) — installable inventory (compound/leaf, exports, versions)
 - [REGISTRY.md](./REGISTRY.md) — item metadata contract
 - [CLI.md](./CLI.md) — install, config, uninstall
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — package boundaries
@@ -293,23 +293,13 @@ No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
 
 ## Current state
 
-### Primitives — shipped
+Installable inventory (47 items — compound vs leaf, named exports, registry
+version): **[UI_CATALOG.md](./UI_CATALOG.md)**.
 
-All 41 registry primitives (`type: "component"`) — Button, Input, Dialog, Drawer, Menu, Autocomplete, Combobox, NavigationMenu, …
+Pilot blocks and templates remain installable; stability and sandbox QA gaps are
+tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
-Each follows the three-file contract (`.tsx`, `.types.ts`, `.variants.ts`). Token-backed styling only (`--lsys-*`).
-
-### Blocks — pilot shipped
-
-FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette — registry + CLI installable; sandbox QA in progress.
-
-### Templates — pilot shipped
-
-DashboardShell — registry + CLI installable; sandbox QA in progress.
-
-### Pages — consumer only
-
-Routing, data, and product copy stay in the consumer project.
+**Pages** — routing, data, and product copy stay in the consumer project only.
 
 ---
 

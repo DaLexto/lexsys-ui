@@ -5,6 +5,7 @@
 **Source of truth for:** Component contract rules, file structure, Base UI boundaries, variant and token usage
 **Verified against:** `packages/ui/src/`
 **Related docs:** [UI_COMPOSITION.md](./UI_COMPOSITION.md) (install layers),
+[UI_CATALOG.md](./UI_CATALOG.md) (full installable inventory),
 [UI_VARIANTS.md](./UI_VARIANTS.md), [UI_AUDIT.md](./UI_AUDIT.md),
 [REGISTRY.md](./REGISTRY.md), `docs/STYLEGUIDE.md` (practical patterns),
 `docs/DESIGN_SYSTEM.md` (token system), `packages/ui/README.md` (package internals)
@@ -129,7 +130,8 @@ Base UI dot notation (`Dialog.Trigger`) in consumer imports.
 
 **Intentional leaves (documented):** `Button`, `Input`, `Badge`, `Separator`,
 `Form`, `Toggle`, `ToggleGroup`, `CheckboxGroup`, `Menubar` (composes Menu
-parts), `Textarea` (Field.Control render pattern).
+parts), `Textarea` (Field.Control render pattern). Full inventory with export
+lists: [UI_CATALOG.md](./UI_CATALOG.md).
 
 See [UI_COMPOSITION.md § Compound-first contract](./UI_COMPOSITION.md#compound-first-contract).
 
