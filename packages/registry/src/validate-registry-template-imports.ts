@@ -8,9 +8,7 @@ export const toRegistryItemName = (canonicalName: string): string => {
   return canonicalName.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
 }
 
-export const extractRegistryCompositionImports = (
-  source: string,
-): string[] => {
+export const extractRegistryCompositionImports = (source: string): string[] => {
   const names = new Set<string>()
 
   for (const match of source.matchAll(COMPOSITION_IMPORT_RE)) {
@@ -51,9 +49,7 @@ export const validateRegistryTemplateImports = (
         }
 
         const dependency = itemsByName.get(importedName)
-        const dependencyLayer = dependency
-          ? getInstallLayer(dependency)
-          : null
+        const dependencyLayer = dependency ? getInstallLayer(dependency) : null
 
         if (layer === "block" && dependencyLayer === "template") {
           errors.push(
