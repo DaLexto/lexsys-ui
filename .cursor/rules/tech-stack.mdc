@@ -1,9 +1,9 @@
 ---
-description: Neurex tech stack by layer (Infrastructure, UI, Tokens, CLI) with dependency versions and Tailwind v4 / TypeScript practices
+description: Lexsys tech stack by layer (Infrastructure, UI, Tokens, CLI) with dependency versions and Tailwind v4 / TypeScript practices
 globs:
 alwaysApply: false
 ---
-# Neurex Tech Stack
+# Lexsys Tech Stack
 
 Authoritative dependency map from root and workspace `package.json` files, plus registry-declared consumer dependencies. Do not add packages outside the correct layer.
 
@@ -38,7 +38,7 @@ Related: [project-structure.mdc](./project-structure.mdc), [docs/STYLE.md](../..
 | **prompts** | root + cli | ^2.4.2 | Interactive CLI prompts |
 | **@types/node** | root dev / cli / registry / playground | ^25.9.1 | Node.js type definitions |
 
-**Workspace packages (no npm publish yet):** `@neurex/tokens`, `@neurex/ui`, `@neurex/registry`, CLI package name `neurex`.
+**Workspace packages (no npm publish yet):** `@lexsys/tokens`, `@lexsys/ui`, `@lexsys/registry`, CLI package name `lexsys`.
 
 ---
 
@@ -75,15 +75,15 @@ Prefer scoped checks before full CI:
 
 ---
 
-## UI (`@neurex/ui` + consumer-installed stack)
+## UI (`@lexsys/ui` + consumer-installed stack)
 
-Reference components in `packages/ui`. Consumers receive **copies** from `packages/registry/templates`, not a runtime `@neurex/ui` dependency.
+Reference components in `packages/ui`. Consumers receive **copies** from `packages/registry/templates`, not a runtime `@lexsys/ui` dependency.
 
 ### Direct dependencies (`packages/ui/package.json`)
 
 | Dependency | Purpose |
 |------------|---------|
-| `@neurex/tokens` | Token CSS variables and design contract |
+| `@lexsys/tokens` | Token CSS variables and design contract |
 | `@base-ui/react` | Accessible headless behavior — **stable 1.x API** |
 | `class-variance-authority` | `cva()` variant maps in `*.variants.ts` |
 | `clsx` | Class list composition |
@@ -112,15 +112,15 @@ tailwind-merge
 ### Styling stack
 
 - **Tailwind CSS v4** — user-facing utility classes in `*.variants.ts`
-- **Generated CSS variables** — `--nx-*` from `@neurex/tokens` / installed `tokens.css` + `theme.css`
-- **Semantic classes** — `nx-` prefix where defined (see `docs/STYLE.md`)
+- **Generated CSS variables** — `--lsys-*` from `@lexsys/tokens` / installed `tokens.css` + `theme.css`
+- **Semantic classes** — `lsys-` prefix where defined (see `docs/STYLE.md`)
 
 ### UI best practices
 
 - Keep the file split: `Component.tsx`, `Component.types.ts`, `Component.variants.ts`
 - Compose classes with shared `cn()` (installed as `src/lib/utils.ts` in consumers)
 - Use `cva()` for variants; avoid long inline class strings in JSX
-- Do not import `@neurex/ui` in consumer apps after CLI install — edit owned files under `paths.components` (default `src/components/ui/`)
+- Do not import `@lexsys/ui` in consumer apps after CLI install — edit owned files under `paths.components` (default `src/components/ui/`)
 - Preserve Base UI accessibility props and structure when wrapping primitives — the 1.x stable API is the contract
 - Export public symbols in one block at the bottom of `Component.tsx`
 - Current components use `forwardRef`; React 19 supports `ref` as a regular prop (no `forwardRef` needed) — do not refactor existing components but prefer the React 19 pattern for new ones
@@ -128,7 +128,7 @@ tailwind-merge
 
 ---
 
-## Tokens (`@neurex/tokens`)
+## Tokens (`@lexsys/tokens`)
 
 Zero runtime npm dependencies. Token logic is TypeScript-only; CSS is **generated**, never hand-maintained in source trees.
 
@@ -171,13 +171,13 @@ presets = config only (no resolution)
 - Run `pnpm tokens:governance:report` for metadata, deprecation, and semantic audit output
 - Use `pnpm imports:clean` (`tsx src/scripts/clean-imports.ts`) when maintaining imports
 - Consumers import installed `styles/tokens.css` and `styles/theme.css` — do not edit generated files
-- Overlay variants: use `z-(--nx-<component>-backdrop-z-index)` and `shadow-(--nx-<component>-popup-shadow)` — not hardcoded `z-40` / `shadow-lg`
+- Overlay variants: use `z-(--lsys-<component>-backdrop-z-index)` and `shadow-(--lsys-<component>-popup-shadow)` — not hardcoded `z-40` / `shadow-lg`
 
 ---
 
-## CLI (`neurex` package)
+## CLI (`lexsys` package)
 
-Installs registry metadata into consumer projects. Depends on **`@neurex/registry`** and **`prompts`** only.
+Installs registry metadata into consumer projects. Depends on **`@lexsys/registry`** and **`prompts`** only.
 
 ### CLI responsibilities
 
@@ -186,7 +186,7 @@ Installs registry metadata into consumer projects. Depends on **`@neurex/registr
 - Wire Tailwind v4 + Vite (supported MVP path)
 - Idempotent writes; surface conflicts; never silent overwrite
 
-### `neurex init` / `neurex init vite` installs
+### `lexsys init` / `lexsys init vite` installs
 
 **Dev dependencies (Tailwind + Vite path):**
 
@@ -203,14 +203,14 @@ react, react-dom
 @vitejs/plugin-react, vite, typescript, prettier
 ```
 
-### Per-component installs (`neurex add`)
+### Per-component installs (`lexsys add`)
 
 Dependencies come from each `packages/registry/src/items/*.ts` `dependencies` array (see UI section). Shared utility **`cn`** and styles **`theme`** / token CSS are patched via installer, not duplicated in every item file.
 
 ### CLI best practices
 
 - New install behavior → registry metadata first, then generic CLI handling
-- Tailwind entrypoint path comes from `neurex.config.json` → `tailwind.css` (default applied by `ensureTailwindCssImport`)
+- Tailwind entrypoint path comes from `lexsys.config.json` → `tailwind.css` (default applied by `ensureTailwindCssImport`)
 - Use `pnpm` in docs and examples; respect consumer `packageManager` when detecting projects
 - Test changes under `packages/cli/test` (commands + core installer/tailwind)
 
@@ -218,7 +218,7 @@ Dependencies come from each `packages/registry/src/items/*.ts` `dependencies` ar
 
 ## Tailwind CSS v4
 
-Neurex standardizes on **v4 CSS-first** setup (no `tailwind.config.js` required for the default Vite path).
+Lexsys standardizes on **v4 CSS-first** setup (no `tailwind.config.js` required for the default Vite path).
 
 ### Required consumer / playground setup
 
@@ -247,7 +247,7 @@ export default defineConfig({
 @import "./styles/theme.css";
 ```
 
-(Paths relative to consumer `paths.styles`; playground uses package imports `@neurex/tokens/tokens.css`.)
+(Paths relative to consumer `paths.styles`; playground uses package imports `@lexsys/tokens/tokens.css`.)
 
 **4. Monorepo / library scanning** — when components live outside the app tree, use `@source`:
 
@@ -270,7 +270,7 @@ Without `@source`, Tailwind v4 will not see classes in linked packages.
 | Use `tailwind-merge` in `cn()` | Concatenate conflicting utilities manually |
 | Run Prettier with Tailwind plugin on class strings | Rely on random class order in reviews |
 
-- Prefer **CSS variables** (`var(--nx-*)`) for token-driven values in custom CSS
+- Prefer **CSS variables** (`var(--lsys-*)`) for token-driven values in custom CSS
 - Overlay stacking and shadow in `*.variants.ts` must use component token CSS vars, not Tailwind z/shadow scale literals
 - Keep **playground** as the visual contract check after token or variant changes
 - CLI pins **`tailwindcss`** and **`@tailwindcss/vite`** together on init — keep versions aligned (currently 4.3.x)
@@ -309,7 +309,7 @@ The repo targets **modern strict TypeScript**. Root resolves **6.0.x** (declared
 
 ### Avoid
 
-- Deep imports into `@neurex/*/src` or foreign `dist` internals
+- Deep imports into `@lexsys/*/src` or foreign `dist` internals
 - `// @ts-ignore` without a one-line justification
 - CommonJS interop in new package code
 - Duplicating consumer `tsconfig` paths — CLI adds `"@/*": ["./src/*"]` via `ensureTypeScriptSrcAlias`
@@ -318,7 +318,7 @@ The repo targets **modern strict TypeScript**. Root resolves **6.0.x** (declared
 
 ```bash
 pnpm typecheck          # turbo, all packages
-pnpm --filter @neurex/ui typecheck
+pnpm --filter @lexsys/ui typecheck
 pnpm playground:typecheck   # requires tokens + ui build first
 ```
 
@@ -336,18 +336,18 @@ flowchart LR
     vitest[Vitest]
   end
   subgraph tokens [Tokens]
-    tok["@neurex/tokens"]
+    tok["@lexsys/tokens"]
   end
   subgraph ui [UI]
-    u["@neurex/ui"]
+    u["@lexsys/ui"]
     base["@base-ui/react"]
     cva[CVA / clsx / merge]
   end
   subgraph reg [Registry]
-    r["@neurex/registry"]
+    r["@lexsys/registry"]
   end
   subgraph cli [CLI]
-    c[neurex CLI]
+    c[lexsys CLI]
   end
   subgraph consumer [Consumer app]
     app[Vite + React + Tailwind v4]

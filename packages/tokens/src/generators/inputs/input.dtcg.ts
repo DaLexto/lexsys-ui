@@ -3,7 +3,7 @@ import type { BrandId, ThemeDefinition, ThemeModeId } from "../../types"
 import { isTokenValue } from "../shared"
 import {
   DTCG_NEUREX_EXTENSION_KEY,
-  type DtcgNeurexMetadata,
+  type DtcgLexsysMetadata,
   type DtcgThemeMetadata,
   type DtcgTokenDocument,
 } from "../outputs/dtcg"
@@ -18,13 +18,13 @@ const TOKEN_METADATA_KEYS = new Set([
 ])
 
 export interface DtcgTokenInput {
-  metadata: DtcgNeurexMetadata
+  metadata: DtcgLexsysMetadata
   tokenTree: TokenTree
   semanticTokenTree?: TokenTree
 }
 
 export interface DtcgThemeTokenInput {
-  metadata: DtcgNeurexMetadata
+  metadata: DtcgLexsysMetadata
   themes: ThemeTokenInput[]
 }
 
@@ -147,9 +147,9 @@ const validateDtcgTokenTree = (tree: TokenTree): void => {
   validateDtcgTokenNode(tree, [])
 }
 
-const readNeurexMetadata = (
+const readLexsysMetadata = (
   document: DtcgTokenDocument,
-): DtcgNeurexMetadata => {
+): DtcgLexsysMetadata => {
   const extensions = document.$extensions
 
   if (!isRecord(extensions)) {
@@ -253,7 +253,7 @@ const createRuntimeTokenTree = (documentTokenTree: TokenTree): TokenTree => {
 export const createDtcgTokenInput = (
   document: DtcgTokenDocument,
 ): DtcgTokenInput => {
-  const metadata = readNeurexMetadata(document)
+  const metadata = readLexsysMetadata(document)
   const documentTokenTree = getDocumentTokenTree(document)
   validateDtcgTokenTree(documentTokenTree)
   const tokenTree = createRuntimeTokenTree(documentTokenTree)
@@ -285,7 +285,7 @@ export const createDtcgTokenInputFromJson = (
 export const createDtcgThemeTokenInput = (
   document: DtcgTokenDocument,
 ): DtcgThemeTokenInput => {
-  const metadata = readNeurexMetadata(document)
+  const metadata = readLexsysMetadata(document)
   const themeMetadata = metadata.themes
 
   if (themeMetadata === undefined) {

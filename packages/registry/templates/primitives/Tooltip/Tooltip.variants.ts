@@ -9,16 +9,16 @@ import { cva } from "class-variance-authority"
 export const tooltipTriggerVariants = cva("inline-flex")
 
 export const tooltipPositionerVariants = cva(
-  "z-(--nx-tooltip-positioner-z-index)",
+  "z-(--lsys-tooltip-positioner-z-index)",
 )
 
 export const tooltipPopupVariants = cva(
   [
-    "rounded-(--nx-tooltip-radius) border border-(--nx-tooltip-border-color) bg-(--nx-tooltip-background) px-(--nx-tooltip-padding-x) py-(--nx-tooltip-padding-y) text-(--nx-tooltip-foreground) shadow-(--nx-tooltip-shadow)",
-    "text-(length:--nx-tooltip-font-size) font-(--nx-tooltip-font-weight) leading-(--nx-tooltip-font-line-height)",
+    "rounded-(--lsys-tooltip-radius) border border-(--lsys-tooltip-border-color) bg-(--lsys-tooltip-background) px-(--lsys-tooltip-padding-x) py-(--lsys-tooltip-padding-y) text-(--lsys-tooltip-foreground) shadow-(--lsys-tooltip-shadow)",
+    "text-(length:--lsys-tooltip-font-size) font-(--lsys-tooltip-font-weight) leading-(--lsys-tooltip-font-line-height)",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-    "transition-opacity duration-(--nx-tooltip-transition-duration) ease-(--nx-tooltip-transition-easing)",
+    "transition-opacity duration-(--lsys-tooltip-transition-duration) ease-(--lsys-tooltip-transition-easing)",
   ].join(" "),
 )
 
-export const tooltipArrowVariants = cva("fill-(--nx-tooltip-background)")
+export const tooltipArrowVariants = cva("fill-(--lsys-tooltip-background)")

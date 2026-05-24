@@ -30,7 +30,7 @@ describe("installDependencies", () => {
     execFileSyncMock.mockReset()
     const testRoot = join(process.cwd(), ".tmp")
     await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "neurex-cli-pm-"))
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-pm-"))
     setCwd(tempDir)
   })
 

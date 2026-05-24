@@ -4,10 +4,10 @@ import { separatorVariants } from "../../../src/components/primitives/Separator/
 describe("separatorVariants", () => {
   it("supports both orientations", () => {
     expect(separatorVariants({ orientation: "horizontal" })).toContain(
-      "h-(--nx-separator-thickness)",
+      "h-(--lsys-separator-thickness)",
     )
     expect(separatorVariants({ orientation: "vertical" })).toContain(
-      "w-(--nx-separator-thickness)",
+      "w-(--lsys-separator-thickness)",
     )
   })
 })

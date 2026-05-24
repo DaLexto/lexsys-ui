@@ -5,7 +5,7 @@ import {
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaViewport,
-} from "@neurex/ui"
+} from "@lexsys/ui"
 
 const scrollAreaLines = [
   "Primitives hold raw values only.",
@@ -37,20 +37,20 @@ const scrollAreaRows = [
 ] as const
 
 const viewportTokens = [
-  { label: "Mobile (sm)", token: "--nx-layout-viewport-sm" },
-  { label: "Tablet (md)", token: "--nx-layout-viewport-md" },
-  { label: "Desktop (lg)", token: "--nx-layout-viewport-lg" },
-  { label: "Wide (xl)", token: "--nx-layout-viewport-xl" },
-  { label: "Ultrawide (2xl)", token: "--nx-layout-viewport-2xl" },
+  { label: "Mobile (sm)", token: "--lsys-layout-viewport-sm" },
+  { label: "Tablet (md)", token: "--lsys-layout-viewport-md" },
+  { label: "Desktop (lg)", token: "--lsys-layout-viewport-lg" },
+  { label: "Wide (xl)", token: "--lsys-layout-viewport-xl" },
+  { label: "Ultrawide (2xl)", token: "--lsys-layout-viewport-2xl" },
 ] as const
 
 const aspectRatioTokens = [
-  { label: "Square", token: "--nx-layout-aspect-ratio-square" },
-  { label: "Standard", token: "--nx-layout-aspect-ratio-standard" },
-  { label: "Photo", token: "--nx-layout-aspect-ratio-photo" },
-  { label: "Portrait", token: "--nx-layout-aspect-ratio-portrait" },
-  { label: "Video", token: "--nx-layout-aspect-ratio-video" },
-  { label: "Ultrawide", token: "--nx-layout-aspect-ratio-ultrawide" },
+  { label: "Square", token: "--lsys-layout-aspect-ratio-square" },
+  { label: "Standard", token: "--lsys-layout-aspect-ratio-standard" },
+  { label: "Photo", token: "--lsys-layout-aspect-ratio-photo" },
+  { label: "Portrait", token: "--lsys-layout-aspect-ratio-portrait" },
+  { label: "Video", token: "--lsys-layout-aspect-ratio-video" },
+  { label: "Ultrawide", token: "--lsys-layout-aspect-ratio-ultrawide" },
 ] as const
 
 export const LayoutPanel = () => {

@@ -1,4 +1,4 @@
-# Neurex CLI Reference
+# Lexsys CLI Reference
 
 **Audience:** Users and maintainers  
 **Type:** CLI/API reference  
@@ -10,10 +10,10 @@
 ## Usage
 
 ```bash
-neurex <command> [options]
+lexsys <command> [options]
 ```
 
-The binary is `neurex`. It reads `neurex.config.json` from the working directory
+The binary is `lexsys`. It reads `lexsys.config.json` from the working directory
 or applies built-in defaults when the file is absent.
 
 ### Global options
@@ -32,28 +32,28 @@ or applies built-in defaults when the file is absent.
 
 ### `init`
 
-Initialize Neurex in a project or scaffold a new Vite+React or Next.js App Router app.
+Initialize Lexsys in a project or scaffold a new Vite+React or Next.js App Router app.
 
 ```bash
-neurex init
-neurex init vite
-neurex init vite my-app
-neurex init next
-neurex init next my-app
+lexsys init
+lexsys init vite
+lexsys init vite my-app
+lexsys init next
+lexsys init next my-app
 ```
 
-**`neurex init` (no arguments)**
+**`lexsys init` (no arguments)**
 
 Detects whether a supported project scaffold exists in the working directory.
 
 - **Vite** — `vite.config.ts|.mts|.js|.mjs` or `vite` in `package.json` dependencies.
 - **Next.js** — `next.config.ts|.mjs|.js` or `next` in `package.json` dependencies.
 
-- **Scaffold detected:** runs the Neurex init sequence (see below).
+- **Scaffold detected:** runs the Lexsys init sequence (see below).
 - **No scaffold detected:** prompts to create a Vite+React or Next.js App Router starter.
-  Declining prints guidance to run `neurex init vite` or `neurex init next`.
+  Declining prints guidance to run `lexsys init vite` or `lexsys init next`.
 
-**Neurex init sequence** (runs after scaffold detection or scaffold command):
+**Lexsys init sequence** (runs after scaffold detection or scaffold command):
 
 1. Creates `paths.components`, `paths.utilities`, and `paths.styles` directories.
 2. Installs Tailwind v4 dependencies (Vite: `tailwindcss`, `@tailwindcss/vite`; Next: `tailwindcss`, `@tailwindcss/postcss`).
@@ -61,12 +61,12 @@ Detects whether a supported project scaffold exists in the working directory.
 4. **Vite only:** ensures `tailwindcss()` plugin and `"@": fileURLToPath(...)` resolve alias in `vite.config.*`.
 5. **Next only:** ensures `postcss.config.mjs` with `@tailwindcss/postcss` when missing.
 6. Ensures `"@/*": ["./src/*"]` in `tsconfig.app.json` or `tsconfig.json`.
-7. Writes `neurex.config.json` with default values (Next sets `tailwind.css` to `app/globals.css`).
+7. Writes `lexsys.config.json` with default values (Next sets `tailwind.css` to `app/globals.css`).
 
-**`neurex init vite [directory]`**
+**`lexsys init vite [directory]`**
 
 Scaffolds a full Vite+React+TypeScript project at `directory` (defaults to
-current directory), then runs the Neurex init sequence above.
+current directory), then runs the Lexsys init sequence above.
 
 Installs:
 
@@ -74,10 +74,10 @@ Installs:
 - `@types/react`, `@types/react-dom`, `@types/node`, `@vitejs/plugin-react`,
   `prettier`, `typescript`, `vite` (dev)
 
-**`neurex init next [directory]`**
+**`lexsys init next [directory]`**
 
 Scaffolds a minimal Next.js App Router + TypeScript project at `directory`
-(defaults to current directory), then runs the Neurex init sequence above.
+(defaults to current directory), then runs the Lexsys init sequence above.
 
 Installs:
 
@@ -97,11 +97,11 @@ Install one or more registry components, their shared utilities, token/theme
 CSS, and npm dependencies.
 
 ```bash
-neurex add <component...>
-neurex add button dialog input
-neurex add button --dry-run
-neurex add button --cwd ./apps/web
-neurex add                          # interactive multiselect
+lexsys add <component...>
+lexsys add button dialog input
+lexsys add button --dry-run
+lexsys add button --cwd ./apps/web
+lexsys add                          # interactive multiselect
 ```
 
 | Flag            | Description                                                                        |
@@ -122,10 +122,10 @@ available registry items (format: `CanonicalName (category)`).
 4. Install missing npm dependencies.
 5. Install utilities to `paths.utilities` (skip if identical; conflict if differs).
 6. Install style files to `paths.styles` (skip if identical; auto-update if both
-   source and target are generated Neurex files; conflict otherwise).
+   source and target are generated Lexsys files; conflict otherwise).
 7. Wire style `@import` statements into the Tailwind CSS entrypoint.
 8. Copy template files to `paths.components/<CanonicalName>/` (all layers — primitives, blocks, templates). Rewrite cross-layer imports to sibling paths on install.
-9. Track successfully installed items (no conflicts) in `neurex.config.json`.
+9. Track successfully installed items (no conflicts) in `lexsys.config.json`.
 10. Print install summary.
 
 **Component install states:**
@@ -150,21 +150,21 @@ before writing.
 Check and apply updates to tracked components or token/theme CSS files.
 
 ```bash
-neurex update button
-neurex update button dialog
-neurex update --all
-neurex update --styles
-neurex update --utilities
-neurex update --all --sync --utilities --styles
-neurex update button --dry-run
-neurex update --all --force
-neurex update --all --sync --force
-neurex update --all --yes
+lexsys update button
+lexsys update button dialog
+lexsys update --all
+lexsys update --styles
+lexsys update --utilities
+lexsys update --all --sync --utilities --styles
+lexsys update button --dry-run
+lexsys update --all --force
+lexsys update --all --sync --force
+lexsys update --all --yes
 ```
 
 | Flag            | Description                                                               |
 | --------------- | ------------------------------------------------------------------------- |
-| `--all`         | Update all components tracked in `neurex.config.json`                     |
+| `--all`         | Update all components tracked in `lexsys.config.json`                     |
 | `--styles`      | Update token/theme CSS files (generated output auto-updates when stale)   |
 | `--utilities`   | Update shared utility files such as `utils.ts` from installed components  |
 | `--sync`        | Refresh tracked component templates even when installed version matches   |
@@ -174,9 +174,9 @@ neurex update --all --yes
 | `--no-fallback` | Fail if remote registry unavailable                                       |
 
 **Version check:** an update is available when the registry item version is
-semver-greater than the installed version recorded in `neurex.config.json`.
+semver-greater than the installed version recorded in `lexsys.config.json`.
 Use **`--sync`** when the installed version already matches but registry
-templates changed (for example after a Neurex patch that did not bump item
+templates changed (for example after a Lexsys patch that did not bump item
 versions).
 
 **Per-file update logic:**
@@ -196,10 +196,10 @@ example `cn` → `paths.utilities/utils.ts`) and applies the same safe-update
 rules as component files. Use **`--force`** to overwrite user-modified utility
 files after creating backups.
 
-**Combined refresh** (common after upgrading Neurex in a consumer project):
+**Combined refresh** (common after upgrading Lexsys in a consumer project):
 
 ```bash
-neurex update --all --sync --utilities --styles
+lexsys update --all --sync --utilities --styles
 ```
 
 ---
@@ -209,8 +209,8 @@ neurex update --all --sync --utilities --styles
 List available registry items from the resolved registry source.
 
 ```bash
-neurex list
-neurex list --json
+lexsys list
+lexsys list --json
 ```
 
 | Flag            | Description                                                                       |
@@ -221,7 +221,7 @@ neurex list --json
 Default output groups items by install layer (`Primitives`, `Blocks`, `Templates`):
 
 ```txt
-Available Neurex registry items:
+Available Lexsys registry items:
 
 Primitives:
 - Button v… (actions)
@@ -239,10 +239,10 @@ Blocks:
 Show installed component versions and update availability.
 
 ```bash
-neurex status
+lexsys status
 ```
 
-Reads the `installed` map from `neurex.config.json` and compares each recorded
+Reads the `installed` map from `lexsys.config.json` and compares each recorded
 version against the active registry. Output per component:
 
 ```txt
@@ -251,7 +251,7 @@ version against the active registry. Output per component:
 - Input v0.0.1 (missing from registry)
 ```
 
-If no components are tracked: `"No Neurex components are currently tracked."`
+If no components are tracked: `"No Lexsys components are currently tracked."`
 
 ---
 
@@ -260,8 +260,8 @@ If no components are tracked: `"No Neurex components are currently tracked."`
 Check project health against the current config.
 
 ```bash
-neurex doctor
-neurex doctor --no-fallback
+lexsys doctor
+lexsys doctor --no-fallback
 ```
 
 | Flag            | Description                         |
@@ -283,19 +283,19 @@ Checks and prints `✓` / `×` for:
 
 ### `config`
 
-Print or modify `neurex.config.json`.
+Print or modify `lexsys.config.json`.
 
 ```bash
-neurex config                                           # print full config as JSON
-neurex config --path                                    # print config file path
-neurex config --exists                                  # print "Config exists." or "Config does not exist."
-neurex config --set-registry-url https://example.com/registry.json
-neurex config --clear-registry-url
+lexsys config                                           # print full config as JSON
+lexsys config --path                                    # print config file path
+lexsys config --exists                                  # print "Config exists." or "Config does not exist."
+lexsys config --set-registry-url https://example.com/registry.json
+lexsys config --clear-registry-url
 ```
 
 | Flag                       | Description                                     |
 | -------------------------- | ----------------------------------------------- |
-| `--path`, `-p`             | Print the resolved path to `neurex.config.json` |
+| `--path`, `-p`             | Print the resolved path to `lexsys.config.json` |
 | `--exists`, `-e`           | Print whether the config file is present        |
 | `--set-registry-url <url>` | Persist a remote registry URL                   |
 | `--clear-registry-url`     | Set `registryUrl` to `null`                     |
@@ -309,21 +309,21 @@ With no flags: reads config (merging defaults) and prints as indented JSON.
 Inspect the registry source and manifest.
 
 ```bash
-neurex registry                      # JSON manifest from resolved source
-neurex registry --summary            # human-readable: source, item count, per-item details
-neurex registry --source             # print active registry source string
-neurex registry --local              # inspect the bundled local registry
-neurex registry --local --summary
-neurex registry --remote             # inspect the configured remote registry
-neurex registry --remote --source
-neurex registry --no-fallback
+lexsys registry                      # JSON manifest from resolved source
+lexsys registry --summary            # human-readable: source, item count, per-item details
+lexsys registry --source             # print active registry source string
+lexsys registry --local              # inspect the bundled local registry
+lexsys registry --local --summary
+lexsys registry --remote             # inspect the configured remote registry
+lexsys registry --remote --source
+lexsys registry --no-fallback
 ```
 
 | Flag            | Description                                                                                 |
 | --------------- | ------------------------------------------------------------------------------------------- |
 | `--summary`     | Human-readable output (source, fallback, items with type/category/remote file count)        |
 | `--source`      | Print the effective source string (includes `(fallback: local)` note when fallback is used) |
-| `--local`       | Read only the bundled `@neurex/registry` package; ignore remote URL                         |
+| `--local`       | Read only the bundled `@lexsys/registry` package; ignore remote URL                         |
 | `--remote`      | Read only the remote URL from config; error if none configured                              |
 | `--no-fallback` | Disable local fallback for the default resolution path                                      |
 
@@ -334,11 +334,11 @@ neurex registry --no-fallback
 Removes registry-owned component files when they still match install templates.
 Shared utilities and styles are removed only when no remaining installed
 component still references them. Modified files are left in place and reported
-as conflicts; the component stays tracked in `neurex.config.json`.
+as conflicts; the component stays tracked in `lexsys.config.json`.
 
 ```bash
-neurex uninstall button
-neurex uninstall button --dry-run
+lexsys uninstall button
+lexsys uninstall button --dry-run
 ```
 
 **Behavior:**
@@ -356,9 +356,9 @@ neurex uninstall button --dry-run
 Print the CLI version read from the installed package's `package.json`.
 
 ```bash
-neurex version
-neurex -v
-neurex --version
+lexsys version
+lexsys -v
+lexsys --version
 ```
 
 ---
@@ -368,23 +368,23 @@ neurex --version
 Print the full usage message.
 
 ```bash
-neurex help
-neurex -h
-neurex --help
+lexsys help
+lexsys -h
+lexsys --help
 ```
 
 ---
 
 ## Configuration
 
-`neurex.config.json` in the project root. Created by `init`; read and updated
+`lexsys.config.json` in the project root. Created by `init`; read and updated
 by all commands. The CLI merges persisted values with built-in defaults on every
 load — missing fields fall back to defaults without error.
 
 ### Schema
 
 ```ts
-interface NeurexConfig {
+interface LexsysConfig {
   style: "default"
   paths: {
     components: string
@@ -440,7 +440,7 @@ The CLI resolves registry items from one of two sources:
 
 | Source     | When active                                                                       |
 | ---------- | --------------------------------------------------------------------------------- |
-| **Local**  | `registryUrl` is `null` or absent; uses `@neurex/registry` bundled with the CLI   |
+| **Local**  | `registryUrl` is `null` or absent; uses `@lexsys/registry` bundled with the CLI   |
 | **Remote** | `registryUrl` is a URL string; fetches the manifest JSON, validates, then uses it |
 
 When a remote URL is configured and the fetch fails, the CLI falls back to the
@@ -505,7 +505,7 @@ is printed.
 - The CLI MUST NOT overwrite user-modified files silently.
 - Conflicts are reported and left untouched unless `--force` is specified.
 - `--force` MUST create a timestamped `.bak` backup before overwriting.
-- Style files starting with `/* Generated by @neurex/tokens. Do not edit directly. */`
+- Style files starting with `/* Generated by @lexsys/tokens. Do not edit directly. */`
   are auto-updated without conflict because they are not user-owned.
 - Items with any conflict during `add` are not recorded in the installed map.
 - Items with conflicts during `update` do not have their version bumped.

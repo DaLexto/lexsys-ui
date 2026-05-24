@@ -9,20 +9,20 @@ import { disabledStateClasses } from "@/lib/utils"
 
 export const toggleVariants = cva(
   [
-    "inline-flex items-center justify-center rounded-(--nx-toggle-radius) border",
-    "border-(--nx-toggle-border-color) bg-(--nx-toggle-background) text-(--nx-toggle-foreground)",
-    "font-(family-name:--nx-toggle-font-family) font-(--nx-toggle-font-weight) leading-(--nx-toggle-font-line-height) tracking-(--nx-toggle-font-letter-spacing)",
-    "transition-colors duration-(--nx-toggle-transition-duration) ease-(--nx-toggle-transition-easing)",
-    "outline-none hover:bg-(--nx-toggle-hover-background) data-[pressed]:border-(--nx-toggle-pressed-border-color) data-[pressed]:bg-(--nx-toggle-pressed-background) data-[pressed]:text-(--nx-toggle-pressed-foreground)",
-    "focus-visible:ring-(length:--nx-toggle-focus-ring-width) focus-visible:ring-(--nx-toggle-focus-ring-color) focus-visible:ring-offset-(length:--nx-toggle-focus-ring-offset) focus-visible:ring-offset-(--nx-toggle-focus-ring-offset-color)",
+    "inline-flex items-center justify-center rounded-(--lsys-toggle-radius) border",
+    "border-(--lsys-toggle-border-color) bg-(--lsys-toggle-background) text-(--lsys-toggle-foreground)",
+    "font-(family-name:--lsys-toggle-font-family) font-(--lsys-toggle-font-weight) leading-(--lsys-toggle-font-line-height) tracking-(--lsys-toggle-font-letter-spacing)",
+    "transition-colors duration-(--lsys-toggle-transition-duration) ease-(--lsys-toggle-transition-easing)",
+    "outline-none hover:bg-(--lsys-toggle-hover-background) data-[pressed]:border-(--lsys-toggle-pressed-border-color) data-[pressed]:bg-(--lsys-toggle-pressed-background) data-[pressed]:text-(--lsys-toggle-pressed-foreground)",
+    "focus-visible:ring-(length:--lsys-toggle-focus-ring-width) focus-visible:ring-(--lsys-toggle-focus-ring-color) focus-visible:ring-offset-(length:--lsys-toggle-focus-ring-offset) focus-visible:ring-offset-(--lsys-toggle-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "h-(--nx-toggle-height-sm) px-(--nx-toggle-padding-x-sm) text-(length:--nx-toggle-font-size-sm)",
-        md: "h-(--nx-toggle-height-md) px-(--nx-toggle-padding-x-md) text-(length:--nx-toggle-font-size-md)",
-        lg: "h-(--nx-toggle-height-lg) px-(--nx-toggle-padding-x-lg) text-(length:--nx-toggle-font-size-lg)",
+        sm: "h-(--lsys-toggle-height-sm) px-(--lsys-toggle-padding-x-sm) text-(length:--lsys-toggle-font-size-sm)",
+        md: "h-(--lsys-toggle-height-md) px-(--lsys-toggle-padding-x-md) text-(length:--lsys-toggle-font-size-md)",
+        lg: "h-(--lsys-toggle-height-lg) px-(--lsys-toggle-padding-x-lg) text-(length:--lsys-toggle-font-size-lg)",
       },
     },
     defaultVariants: {

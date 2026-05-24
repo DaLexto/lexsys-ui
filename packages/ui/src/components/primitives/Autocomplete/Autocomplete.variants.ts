@@ -9,20 +9,20 @@ import { disabledStateClasses } from "../../../utils/cn"
 
 export const autocompleteTriggerVariants = cva(
   [
-    "inline-flex w-full min-w-0 items-center justify-between gap-(--nx-select-trigger-gap) rounded-(--nx-select-radius) border",
-    "border-(--nx-select-border-color) bg-(--nx-select-background) text-(--nx-select-foreground)",
-    "font-(family-name:--nx-select-font-family) font-(--nx-select-font-weight) leading-(--nx-select-font-line-height) tracking-(--nx-select-font-letter-spacing)",
-    "transition-colors duration-(--nx-select-transition-duration) ease-(--nx-select-transition-easing)",
-    "outline-none data-[focused]:border-(--nx-select-focus-border-color) data-[focused]:ring-(length:--nx-select-focus-ring-width) data-[focused]:ring-(--nx-select-focus-ring-color) data-[focused]:ring-offset-(length:--nx-select-focus-ring-offset) data-[focused]:ring-offset-(--nx-select-focus-ring-offset-color)",
-    "data-[invalid]:border-(--nx-select-invalid-border-color) data-[invalid]:ring-(length:--nx-select-invalid-ring-width) data-[invalid]:ring-(--nx-select-invalid-ring-color)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    "inline-flex w-full min-w-0 items-center justify-between gap-(--lsys-select-trigger-gap) rounded-(--lsys-select-radius) border",
+    "border-(--lsys-select-border-color) bg-(--lsys-select-background) text-(--lsys-select-foreground)",
+    "font-(family-name:--lsys-select-font-family) font-(--lsys-select-font-weight) leading-(--lsys-select-font-line-height) tracking-(--lsys-select-font-letter-spacing)",
+    "transition-colors duration-(--lsys-select-transition-duration) ease-(--lsys-select-transition-easing)",
+    "outline-none data-[focused]:border-(--lsys-select-focus-border-color) data-[focused]:ring-(length:--lsys-select-focus-ring-width) data-[focused]:ring-(--lsys-select-focus-ring-color) data-[focused]:ring-offset-(length:--lsys-select-focus-ring-offset) data-[focused]:ring-offset-(--lsys-select-focus-ring-offset-color)",
+    "data-[invalid]:border-(--lsys-select-invalid-border-color) data-[invalid]:ring-(length:--lsys-select-invalid-ring-width) data-[invalid]:ring-(--lsys-select-invalid-ring-color)",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lsys-opacity-disabled)",
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "h-(--nx-select-height-sm) px-(--nx-select-padding-x-sm) text-(length:--nx-select-font-size-sm)",
-        md: "h-(--nx-select-height-md) px-(--nx-select-padding-x-md) text-(length:--nx-select-font-size-md)",
-        lg: "h-(--nx-select-height-lg) px-(--nx-select-padding-x-lg) text-(length:--nx-select-font-size-lg)",
+        sm: "h-(--lsys-select-height-sm) px-(--lsys-select-padding-x-sm) text-(length:--lsys-select-font-size-sm)",
+        md: "h-(--lsys-select-height-md) px-(--lsys-select-padding-x-md) text-(length:--lsys-select-font-size-md)",
+        lg: "h-(--lsys-select-height-lg) px-(--lsys-select-padding-x-lg) text-(length:--lsys-select-font-size-lg)",
       },
     },
     defaultVariants: {
@@ -33,20 +33,20 @@ export const autocompleteTriggerVariants = cva(
 
 export const autocompleteInputGroupVariants = cva(
   [
-    "inline-flex w-full min-w-0 items-center gap-(--nx-select-trigger-gap) rounded-(--nx-select-radius) border",
-    "border-(--nx-select-border-color) bg-(--nx-select-background) text-(--nx-select-foreground)",
-    "font-(family-name:--nx-select-font-family) font-(--nx-select-font-weight) leading-(--nx-select-font-line-height) tracking-(--nx-select-font-letter-spacing)",
-    "transition-colors duration-(--nx-select-transition-duration) ease-(--nx-select-transition-easing)",
-    "outline-none data-[focused]:border-(--nx-select-focus-border-color) data-[focused]:ring-(length:--nx-select-focus-ring-width) data-[focused]:ring-(--nx-select-focus-ring-color) data-[focused]:ring-offset-(length:--nx-select-focus-ring-offset) data-[focused]:ring-offset-(--nx-select-focus-ring-offset-color)",
-    "data-[invalid]:border-(--nx-select-invalid-border-color) data-[invalid]:ring-(length:--nx-select-invalid-ring-width) data-[invalid]:ring-(--nx-select-invalid-ring-color)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    "inline-flex w-full min-w-0 items-center gap-(--lsys-select-trigger-gap) rounded-(--lsys-select-radius) border",
+    "border-(--lsys-select-border-color) bg-(--lsys-select-background) text-(--lsys-select-foreground)",
+    "font-(family-name:--lsys-select-font-family) font-(--lsys-select-font-weight) leading-(--lsys-select-font-line-height) tracking-(--lsys-select-font-letter-spacing)",
+    "transition-colors duration-(--lsys-select-transition-duration) ease-(--lsys-select-transition-easing)",
+    "outline-none data-[focused]:border-(--lsys-select-focus-border-color) data-[focused]:ring-(length:--lsys-select-focus-ring-width) data-[focused]:ring-(--lsys-select-focus-ring-color) data-[focused]:ring-offset-(length:--lsys-select-focus-ring-offset) data-[focused]:ring-offset-(--lsys-select-focus-ring-offset-color)",
+    "data-[invalid]:border-(--lsys-select-invalid-border-color) data-[invalid]:ring-(length:--lsys-select-invalid-ring-width) data-[invalid]:ring-(--lsys-select-invalid-ring-color)",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lsys-opacity-disabled)",
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "h-(--nx-select-height-sm) px-(--nx-select-padding-x-sm) text-(length:--nx-select-font-size-sm)",
-        md: "h-(--nx-select-height-md) px-(--nx-select-padding-x-md) text-(length:--nx-select-font-size-md)",
-        lg: "h-(--nx-select-height-lg) px-(--nx-select-padding-x-lg) text-(length:--nx-select-font-size-lg)",
+        sm: "h-(--lsys-select-height-sm) px-(--lsys-select-padding-x-sm) text-(length:--lsys-select-font-size-sm)",
+        md: "h-(--lsys-select-height-md) px-(--lsys-select-padding-x-md) text-(length:--lsys-select-font-size-md)",
+        lg: "h-(--lsys-select-height-lg) px-(--lsys-select-padding-x-lg) text-(length:--lsys-select-font-size-lg)",
       },
     },
     defaultVariants: {
@@ -57,18 +57,18 @@ export const autocompleteInputGroupVariants = cva(
 
 export const autocompleteInputVariants = cva(
   [
-    "min-w-0 flex-1 border-0 bg-transparent text-(--nx-select-foreground) outline-none",
-    "font-(family-name:--nx-select-font-family) font-(--nx-select-font-weight) leading-(--nx-select-font-line-height) tracking-(--nx-select-font-letter-spacing)",
-    "placeholder:text-(--nx-select-placeholder-color)",
+    "min-w-0 flex-1 border-0 bg-transparent text-(--lsys-select-foreground) outline-none",
+    "font-(family-name:--lsys-select-font-family) font-(--lsys-select-font-weight) leading-(--lsys-select-font-line-height) tracking-(--lsys-select-font-letter-spacing)",
+    "placeholder:text-(--lsys-select-placeholder-color)",
     "disabled:cursor-not-allowed",
     disabledStateClasses,
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "text-(length:--nx-select-font-size-sm)",
-        md: "text-(length:--nx-select-font-size-md)",
-        lg: "text-(length:--nx-select-font-size-lg)",
+        sm: "text-(length:--lsys-select-font-size-sm)",
+        md: "text-(length:--lsys-select-font-size-md)",
+        lg: "text-(length:--lsys-select-font-size-lg)",
       },
     },
     defaultVariants: {
@@ -78,69 +78,71 @@ export const autocompleteInputVariants = cva(
 )
 
 export const autocompleteValueVariants = cva(
-  "min-w-0 flex-1 truncate text-left data-[placeholder]:text-(--nx-select-placeholder-color)",
+  "min-w-0 flex-1 truncate text-left data-[placeholder]:text-(--lsys-select-placeholder-color)",
 )
 
 export const autocompleteIconVariants = cva(
-  "inline-flex size-(--nx-select-icon-size) shrink-0 items-center justify-center text-(--nx-select-icon-foreground) transition-transform duration-(--nx-select-transition-duration) ease-(--nx-select-transition-easing) data-[open]:rotate-180",
+  "inline-flex size-(--lsys-select-icon-size) shrink-0 items-center justify-center text-(--lsys-select-icon-foreground) transition-transform duration-(--lsys-select-transition-duration) ease-(--lsys-select-transition-easing) data-[open]:rotate-180",
 )
 
 export const autocompleteClearVariants = cva(
   [
-    "inline-flex size-(--nx-select-icon-size) shrink-0 items-center justify-center rounded-(--nx-select-item-radius) text-(--nx-select-icon-foreground)",
-    "transition-colors duration-(--nx-select-transition-duration) ease-(--nx-select-transition-easing)",
-    "hover:bg-(--nx-select-item-highlight-background) hover:text-(--nx-select-item-highlight-foreground)",
-    "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--nx-opacity-disabled)",
+    "inline-flex size-(--lsys-select-icon-size) shrink-0 items-center justify-center rounded-(--lsys-select-item-radius) text-(--lsys-select-icon-foreground)",
+    "transition-colors duration-(--lsys-select-transition-duration) ease-(--lsys-select-transition-easing)",
+    "hover:bg-(--lsys-select-item-highlight-background) hover:text-(--lsys-select-item-highlight-foreground)",
+    "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lsys-opacity-disabled)",
   ].join(" "),
 )
 
 export const autocompleteBackdropVariants = cva(
-  "fixed inset-0 z-(--nx-select-backdrop-z-index) bg-(--nx-select-backdrop-background) opacity-(--nx-select-backdrop-opacity) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+  "fixed inset-0 z-(--lsys-select-backdrop-z-index) bg-(--lsys-select-backdrop-background) opacity-(--lsys-select-backdrop-opacity) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
 )
 
 export const autocompletePositionerVariants = cva(
-  "z-(--nx-select-positioner-z-index)",
+  "z-(--lsys-select-positioner-z-index)",
 )
 
 export const autocompletePopupVariants = cva(
   [
-    "min-w-[var(--anchor-width)] overflow-hidden rounded-(--nx-select-radius) border",
-    "border-(--nx-select-popup-border-color) bg-(--nx-select-popup-background) text-(--nx-select-popup-foreground) shadow-(--nx-select-popup-shadow)",
+    "min-w-[var(--anchor-width)] overflow-hidden rounded-(--lsys-select-radius) border",
+    "border-(--lsys-select-popup-border-color) bg-(--lsys-select-popup-background) text-(--lsys-select-popup-foreground) shadow-(--lsys-select-popup-shadow)",
     "data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
-    "origin-[var(--transform-origin)] transition-[opacity,transform] duration-(--nx-select-transition-duration) ease-(--nx-select-transition-easing)",
+    "origin-[var(--transform-origin)] transition-[opacity,transform] duration-(--lsys-select-transition-duration) ease-(--lsys-select-transition-easing)",
   ].join(" "),
 )
 
 export const autocompleteListVariants = cva(
-  "grid max-h-(--nx-select-popup-max-height) gap-(--nx-select-list-gap) overflow-y-auto p-(--nx-select-list-padding)",
+  "grid max-h-(--lsys-select-popup-max-height) gap-(--lsys-select-list-gap) overflow-y-auto p-(--lsys-select-list-padding)",
 )
 
 export const autocompleteItemVariants = cva(
   [
-    "relative flex min-w-0 cursor-default select-none items-center gap-(--nx-select-item-gap) rounded-(--nx-select-item-radius) px-(--nx-select-item-padding-x) py-(--nx-select-item-padding-y)",
-    "text-(length:--nx-select-item-font-size) font-(--nx-select-item-font-weight) leading-(--nx-select-item-font-line-height) text-(--nx-select-item-foreground) outline-none",
-    "data-[highlighted]:bg-(--nx-select-item-highlight-background) data-[highlighted]:text-(--nx-select-item-highlight-foreground)",
-    "data-[selected]:bg-(--nx-select-item-selected-background) data-[selected]:text-(--nx-select-item-selected-foreground)",
-    "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--nx-opacity-disabled)",
+    "relative flex min-w-0 cursor-default select-none items-center gap-(--lsys-select-item-gap) rounded-(--lsys-select-item-radius) px-(--lsys-select-item-padding-x) py-(--lsys-select-item-padding-y)",
+    "text-(length:--lsys-select-item-font-size) font-(--lsys-select-item-font-weight) leading-(--lsys-select-item-font-line-height) text-(--lsys-select-item-foreground) outline-none",
+    "data-[highlighted]:bg-(--lsys-select-item-highlight-background) data-[highlighted]:text-(--lsys-select-item-highlight-foreground)",
+    "data-[selected]:bg-(--lsys-select-item-selected-background) data-[selected]:text-(--lsys-select-item-selected-foreground)",
+    "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lsys-opacity-disabled)",
   ].join(" "),
 )
 
 export const autocompleteArrowVariants = cva(
-  "size-(--nx-select-arrow-size) rotate-45 border border-(--nx-select-popup-border-color) bg-(--nx-select-popup-background)",
+  "size-(--lsys-select-arrow-size) rotate-45 border border-(--lsys-select-popup-border-color) bg-(--lsys-select-popup-background)",
 )
 
-export const autocompleteGroupVariants = cva("grid gap-(--nx-select-group-gap)")
+export const autocompleteGroupVariants = cva(
+  "grid gap-(--lsys-select-group-gap)",
+)
 
 export const autocompleteGroupLabelVariants = cva(
-  "px-(--nx-select-item-padding-x) py-(--nx-select-group-label-padding-y) text-(length:--nx-select-group-label-font-size) font-(--nx-select-group-label-font-weight) leading-(--nx-select-group-label-font-line-height) text-(--nx-select-group-label-foreground)",
+  "px-(--lsys-select-item-padding-x) py-(--lsys-select-group-label-padding-y) text-(length:--lsys-select-group-label-font-size) font-(--lsys-select-group-label-font-weight) leading-(--lsys-select-group-label-font-line-height) text-(--lsys-select-group-label-foreground)",
 )
 
 export const autocompleteEmptyVariants = cva(
-  "px-(--nx-select-item-padding-x) py-(--nx-select-item-padding-y) text-(length:--nx-select-item-font-size) text-(--nx-select-placeholder-color)",
+  "px-(--lsys-select-item-padding-x) py-(--lsys-select-item-padding-y) text-(length:--lsys-select-item-font-size) text-(--lsys-select-placeholder-color)",
 )
 
 export const autocompleteStatusVariants = cva(
-  "px-(--nx-select-item-padding-x) py-(--nx-select-item-padding-y) text-(length:--nx-select-item-font-size) text-(--nx-select-placeholder-color)",
+  "px-(--lsys-select-item-padding-x) py-(--lsys-select-item-padding-y) text-(length:--lsys-select-item-font-size) text-(--lsys-select-placeholder-color)",
 )
 
 export const autocompleteRowVariants = cva("flex min-w-0 items-center")

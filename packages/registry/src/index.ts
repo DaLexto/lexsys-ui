@@ -1,7 +1,7 @@
 /**
- * Public entry point for @neurex/registry.
+ * Public entry point for @lexsys/registry.
  *
- * This package contains registry metadata used by the Neurex CLI.
+ * This package contains registry metadata used by the Lexsys CLI.
  */
 
 export type {

@@ -1,7 +1,7 @@
 ---
 name: project-next-steps
 description: >
-  Analyze Neurex monorepo maturity and suggest realistic next steps from
+  Analyze Lexsys monorepo maturity and suggest realistic next steps from
   REVIEW_TODO execution queue, ROADMAP phase status, and domain docs. Use when
   asked what to work on next, project status, backlog triage, stale plans,
   unfinished foundations, or implementation vs planned vs deferred architecture.

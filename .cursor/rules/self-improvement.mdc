@@ -41,7 +41,7 @@ alwaysApply: true
   // packages/ui/src/components/primitives/Button/Button.tsx — changed
   // packages/registry/templates/ — stale until sync
 
-  // Consider documenting in neurex-testing.mdc or $registry-sync skill:
+  // Consider documenting in lexsys-testing.mdc or $registry-sync skill:
   // - pnpm registry:sync after UI edits
   // - pnpm registry:check before commit
   ```

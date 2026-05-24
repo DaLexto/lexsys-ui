@@ -1,4 +1,4 @@
-# Neurex Style Guide
+# Lexsys Style Guide
 
 **Audience:** Contributors and agents
 **Type:** Contributor style guide
@@ -113,11 +113,11 @@ export const buttonVariants = cva("base classes here", {
 })
 ```
 
-All variant classes in `.variants.ts` reference `--nx-*` CSS variables, not
+All variant classes in `.variants.ts` reference `--lsys-*` CSS variables, not
 hardcoded color or spacing values:
 
 ```ts
-"bg-(--nx-button-primary-background) text-(--nx-button-primary-foreground)"
+"bg-(--lsys-button-primary-background) text-(--lsys-button-primary-foreground)"
 ```
 
 ---
@@ -127,7 +127,7 @@ hardcoded color or spacing values:
 Generated CSS variable names follow this pattern:
 
 ```
---nx-{token-path-with-dots-as-dashes}
+--lsys-{token-path-with-dots-as-dashes}
 ```
 
 The `nx` prefix is defined in `generator.config.ts` (`cssVarPrefix`). Token path
@@ -135,28 +135,28 @@ segments are joined with `-`.
 
 **Group name overrides** are applied during generation:
 
-| Token group         | CSS name          |
-| ------------------- | ----------------- |
-| `spacing.*`         | `--nx-space-*`    |
-| `motion.duration.*` | `--nx-duration-*` |
-| `motion.easing.*`   | `--nx-easing-*`   |
+| Token group         | CSS name            |
+| ------------------- | ------------------- |
+| `spacing.*`         | `--lsys-space-*`    |
+| `motion.duration.*` | `--lsys-duration-*` |
+| `motion.easing.*`   | `--lsys-easing-*`   |
 
 All other groups use their source name unchanged.
 
 **Examples:**
 
-| Token path                  | CSS variable                     |
-| --------------------------- | -------------------------------- |
-| `button.primary.background` | `--nx-button-primary-background` |
-| `button.radius`             | `--nx-button-radius`             |
-| `button.focus.ringColor`    | `--nx-button-focus-ring-color`   |
-| `spacing.control.x.sm`      | `--nx-space-control-x-sm`        |
-| `motion.duration.control`   | `--nx-duration-control`          |
-| `color.background.base`     | `--nx-color-background-base`     |
+| Token path                  | CSS variable                       |
+| --------------------------- | ---------------------------------- |
+| `button.primary.background` | `--lsys-button-primary-background` |
+| `button.radius`             | `--lsys-button-radius`             |
+| `button.focus.ringColor`    | `--lsys-button-focus-ring-color`   |
+| `spacing.control.x.sm`      | `--lsys-space-control-x-sm`        |
+| `motion.duration.control`   | `--lsys-duration-control`          |
+| `color.background.base`     | `--lsys-color-background-base`     |
 
 Do not invent CSS variable names by hand. They are generated outputs. Reference
 them in components via Tailwind v4 canonical CSS variable syntax:
-`bg-(--nx-button-primary-background)`.
+`bg-(--lsys-button-primary-background)`.
 
 ---
 
@@ -182,7 +182,7 @@ them in components via Tailwind v4 canonical CSS variable syntax:
 | Variant export       | camelCase + `Variants` suffix (`buttonVariants`)              |
 | Registry item export | camelCase + `RegistryItem` suffix (`buttonRegistryItem`)      |
 | Token group export   | camelCase + layer + `s` (`primitiveTokens`, `semanticTokens`) |
-| CSS custom property  | `--nx-` prefix, kebab-case (`--nx-button-radius`)             |
+| CSS custom property  | `--lsys-` prefix, kebab-case (`--lsys-button-radius`)         |
 
 ### Component naming alignment
 
@@ -288,7 +288,7 @@ not from hardcoded per-component branches.
 The install flow is:
 
 ```
-load config (neurex.config.json)
+load config (lexsys.config.json)
   → resolve registry items
     → collect files, dependencies, utilities, styles
       → check current project state (hash comparison)
@@ -300,7 +300,7 @@ Rules:
 
 - Install steps MUST be idempotent.
 - MUST NOT overwrite user files silently — use conflict detection (hash comparison).
-- Conflict detection compares file content hashes. Generated style files (with Neurex header) are updated without conflict.
+- Conflict detection compares file content hashes. Generated style files (with Lexsys header) are updated without conflict.
 - MUST show clear per-file status (created, updated, skipped, conflicted).
 - MUST support batched dependency installation per package manager.
 
@@ -322,10 +322,10 @@ Each layer has one file per logical group:
 
 ```
 src/primitives/color.ts        ← raw color palette
-src/brand/neurex.brand.ts      ← brand palette (references primitives)
+src/brand/lexsys.brand.ts      ← brand palette (references primitives)
 src/semantics/action.ts        ← action state colors (references brand)
 src/components/button.ts       ← button slot/property decisions (references semantics)
-src/themes/neurex/light.ts     ← light mode overrides (references brand/primitives)
+src/themes/lexsys/light.ts     ← light mode overrides (references brand/primitives)
 ```
 
 ### Token group shape
@@ -368,8 +368,8 @@ primary: {
 
 ### CSS variable output
 
-Token source files do not use the `--nx-` prefix. The prefix is applied by the
-generator. Do not write `--nx-` anywhere in `packages/tokens/src/`.
+Token source files do not use the `--lsys-` prefix. The prefix is applied by the
+generator. Do not write `--lsys-` anywhere in `packages/tokens/src/`.
 
 Generated CSS output paths:
 
@@ -391,7 +391,7 @@ them as such until the package export contract is finalized.
 
 ## 10. Consumer Project Layout
 
-The default consumer project paths (from `neurex.config.json` defaults) are:
+The default consumer project paths (from `lexsys.config.json` defaults) are:
 
 | Config key         | Default path        | Contents                                           |
 | ------------------ | ------------------- | -------------------------------------------------- |
@@ -415,10 +415,10 @@ Each package exposes a public API through `package.json` `exports` only.
 
 Good:
 
-- `@neurex/registry` exports registry metadata
-- CLI reads that metadata via `@neurex/registry`
-- Templates are resolved via `@neurex/registry/templates/*`
-- `@neurex/tokens` exports CSS files and source API
+- `@lexsys/registry` exports registry metadata
+- CLI reads that metadata via `@lexsys/registry`
+- Templates are resolved via `@lexsys/registry/templates/*`
+- `@lexsys/tokens` exports CSS files and source API
 
 Bad:
 
@@ -448,6 +448,6 @@ Before merging, verify:
 - [ ] Public API surface unchanged or intentionally expanded
 - [ ] Component naming aligned across `ui`, `registry`, and templates
 - [ ] New component tokens reference semantics (not primitives or brand tokens directly) — enforced at build time via layer validation; run `pnpm tokens:check` after token edits
-- [ ] New CSS classes use `--nx-*` variables, not hardcoded values
+- [ ] New CSS classes use `--lsys-*` variables, not hardcoded values
 - [ ] Templates synced (`pnpm registry:sync` run if UI components changed)
 - [ ] `pnpm check` passes (format + lint + typecheck + test)

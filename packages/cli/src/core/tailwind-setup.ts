@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join } from "node:path"
-import type { NeurexConfig } from "./config.js"
+import type { LexsysConfig } from "./config.js"
 import { getCwd } from "./context.js"
 import { fileExists } from "./fs.js"
 
@@ -17,7 +17,7 @@ const viteSrcAlias = `"@": fileURLToPath(new URL("./src", import.meta.url))`
 const tsSrcAlias = `"@/*": ["./src/*"]`
 
 export const ensureTailwindCssImport = async (
-  config: NeurexConfig,
+  config: LexsysConfig,
 ): Promise<void> => {
   const cssPath = join(getCwd(), config.tailwind.css)
 

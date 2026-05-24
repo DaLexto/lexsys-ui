@@ -2,8 +2,8 @@
 
 ## Purpose
 
-Repository-specific **routing layer** for `neurex`. Global user and tool rules
-apply by default. This file adds Neurex identity, guardrails, and pointers to
+Repository-specific **routing layer** for `lexsys`. Global user and tool rules
+apply by default. This file adds Lexsys identity, guardrails, and pointers to
 canonical docs — not duplicated domain contracts.
 
 Full doc map: [docs/INDEX.md](./docs/INDEX.md).
@@ -12,7 +12,7 @@ Full doc map: [docs/INDEX.md](./docs/INDEX.md).
 
 ## Project identity
 
-Neurex is a **registry-first React UI framework**.
+Lexsys is a **registry-first React UI framework**.
 
 ```txt
 packages/registry → packages/cli → consumer project → user-owned code
@@ -23,7 +23,7 @@ packages/registry → packages/cli → consumer project → user-owned code
 | `packages/tokens`   | Design token source of truth; resolver; generated CSS                     |
 | `packages/ui`       | Reference primitives, blocks, templates — not what CLI ships as a library |
 | `packages/registry` | Install metadata + templates; source of truth for CLI install behavior    |
-| `packages/cli`      | `neurex` binary; metadata-driven installer                                |
+| `packages/cli`      | `lexsys` binary; metadata-driven installer                                |
 
 Core principles: installed code is user-owned; CLI is idempotent and
 metadata-driven; packages stay publish-ready and separated.
@@ -39,7 +39,7 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 | System shape, install flow, package boundaries | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)                               |
 | Token layers, validation, CSS generation       | [docs/TOKENS.md](./docs/TOKENS.md)                                           |
 | Registry items, template sync, validation      | [docs/REGISTRY.md](./docs/REGISTRY.md)                                       |
-| `neurex` commands, config, install behavior    | [docs/CLI.md](./docs/CLI.md)                                                 |
+| `lexsys` commands, config, install behavior    | [docs/CLI.md](./docs/CLI.md)                                                 |
 | Component structure, Base UI boundaries        | [docs/UI.md](./docs/UI.md)                                                   |
 | Variant props and CVA rules                    | [docs/UI_VARIANTS.md](./docs/UI_VARIANTS.md)                                 |
 | Primitives / blocks / templates layers         | [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)                           |
@@ -88,7 +88,7 @@ Use **`$monorepo-check-gate`** for scoped verification by touched paths.
 Do **not** start dev servers unless the user explicitly asks — see
 [§ Agent operations](#agent-operations).
 
-**Example sandbox path:** `D:\PLAYGROUND\sandbox-neurex` (local; optional
+**Example sandbox path:** `D:\PLAYGROUND\sandbox-lexsys` (local; optional
 `AGENTS.md` in sandbox for consumer-specific notes).
 
 ---

@@ -26,7 +26,7 @@ import {
 
 import type {
   DtcgGeneratorOptions,
-  DtcgNeurexMetadata,
+  DtcgLexsysMetadata,
   DtcgTokenLeaf,
   DtcgTokenTree,
   DtcgTokenType,
@@ -40,7 +40,7 @@ import {
 export const DTCG_SCHEMA_URL =
   "https://www.designtokens.org/schemas/2025.10/format.json"
 
-export const DTCG_NEUREX_EXTENSION_KEY = "org.neurex"
+export const DTCG_NEUREX_EXTENSION_KEY = "org.lexsys"
 
 const DTCG_JSON_KEY_ORDER = [
   "$schema",
@@ -59,8 +59,8 @@ const DTCG_METADATA_KEYS = new Set([
   "$deprecated",
 ])
 
-const DEFAULT_DTCG_METADATA: DtcgNeurexMetadata = {
-  generatedBy: "@neurex/tokens",
+const DEFAULT_DTCG_METADATA: DtcgLexsysMetadata = {
+  generatedBy: "@lexsys/tokens",
   tokenSetOrder: ["primitives", "brand", "semantics", "components"],
 }
 

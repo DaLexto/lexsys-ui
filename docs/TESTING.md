@@ -1,4 +1,4 @@
-# Neurex Testing
+# Lexsys Testing
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Verification workflow reference
@@ -11,25 +11,25 @@ Command names and sync workflows: [SCRIPTS.md](./SCRIPTS.md).
 
 ## Verification surfaces
 
-Neurex has two complementary manual verification surfaces. Invest maintainer time **asymmetrically** — most effort on the consumer path, not the playground.
+Lexsys has two complementary manual verification surfaces. Invest maintainer time **asymmetrically** — most effort on the consumer path, not the playground.
 
 | Surface                                 | Model                                               | CSS source                                         | Validates                                                                             | Does not validate                                                                | Focus                                                      | Commands                                       |
 | --------------------------------------- | --------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------- |
-| [`apps/playground`](../apps/playground) | Workspace `@neurex/ui` primitives + built token CSS | `@neurex/tokens` build output                      | Reference primitive exports, category panel demos, light/dark theme wiring            | CLI install path, blocks/templates, user-owned layouts, mobile composition flows | **~10–20%** — optional monorepo smoke                      | `pnpm playground:dev`, `pnpm playground:check` |
-| External consumer sandbox               | `neurex add` → flat `paths.components/<Name>/`      | Installed `styles/tokens.css` + `styles/theme.css` | Install/update/uninstall, import rewrite, conflicts, installed CSS, block/template UX | Workspace `@neurex/ui` dist wiring inside the monorepo                           | **~80–90%** — consumer truth (especially blocks/templates) | Manual checklist below                         |
+| [`apps/playground`](../apps/playground) | Workspace `@lexsys/ui` primitives + built token CSS | `@lexsys/tokens` build output                      | Reference primitive exports, category panel demos, light/dark theme wiring            | CLI install path, blocks/templates, user-owned layouts, mobile composition flows | **~10–20%** — optional monorepo smoke                      | `pnpm playground:dev`, `pnpm playground:check` |
+| External consumer sandbox               | `lexsys add` → flat `paths.components/<Name>/`      | Installed `styles/tokens.css` + `styles/theme.css` | Install/update/uninstall, import rewrite, conflicts, installed CSS, block/template UX | Workspace `@lexsys/ui` dist wiring inside the monorepo                           | **~80–90%** — consumer truth (especially blocks/templates) | Manual checklist below                         |
 | Your SaaS (future)                      | Same as sandbox — CLI-installed consumer            | Installed styles in your app                       | Primary product UX and design sign-off                                                | Monorepo reference wiring                                                        | Replaces sandbox as main UX surface over time              | Your app build + deploy                        |
 
 **Policy:** `apps/playground` is **maintenance-only**. Keep existing panels compiling; do not expand playground product UX unless the PR explicitly targets `apps/playground/**`. Consumer UX belongs in sandbox or SaaS.
 
 ### `apps/playground`
 
-- Imports `@neurex/ui` from workspace `dist/` — rebuild UI after variant changes.
+- Imports `@lexsys/ui` from workspace `dist/` — rebuild UI after variant changes.
 - Sticky category nav: Brand, Layout, Actions, Forms, Overlays, Surfaces, Interactions (see [apps/playground/README.md](../apps/playground/README.md)).
 - Optional after UI/token changes; CI runs `playground:build` when `apps/playground/**` changes (M2.4).
 
 ### Consumer sandbox
 
-External project outside this monorepo (example: `D:\PLAYGROUND\sandbox-neurex`). Manual verification — not CI.
+External project outside this monorepo (example: `D:\PLAYGROUND\sandbox-lexsys`). Manual verification — not CI.
 
 **Primary manual gate** before PRs that touch CLI, registry, templates, blocks/templates, or install artifacts.
 
@@ -56,7 +56,7 @@ Per-package test commands are listed in each section below.
 
 ## Test Coverage by Package
 
-### `@neurex/tokens`
+### `@lexsys/tokens`
 
 Test files in `packages/tokens/test/`:
 
@@ -75,31 +75,31 @@ Run:
 
 ```sh
 pnpm tokens:check             # from repo root
-pnpm --filter @neurex/tokens test
+pnpm --filter @lexsys/tokens test
 ```
 
-### `@neurex/ui`
+### `@lexsys/ui`
 
 Test files in `packages/ui/test/`:
 
 | File                                             | What it tests                                                                               |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`        |
+| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@lexsys/ui`        |
 | `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**41 primitives**) |
 | `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**41/41 primitives**)     |
 
 Pilot blocks and templates (FormField, Sidebar, DashboardShell) live under
 `packages/ui/src/components/blocks/` and `templates/` but do **not** yet have
-render/variant tests in `@neurex/ui` — verify in the consumer sandbox instead.
+render/variant tests in `@lexsys/ui` — verify in the consumer sandbox instead.
 
 Run:
 
 ```sh
 pnpm ui:check                 # from repo root
-pnpm --filter @neurex/ui test
+pnpm --filter @lexsys/ui test
 ```
 
-### `@neurex/registry`
+### `@lexsys/registry`
 
 Test files in `packages/registry/test/`:
 
@@ -114,20 +114,20 @@ Run:
 
 ```sh
 pnpm registry:check           # from repo root (includes template sync check)
-pnpm --filter @neurex/registry test
+pnpm --filter @lexsys/registry test
 ```
 
-### `neurex` (CLI)
+### `lexsys` (CLI)
 
 Test files in `packages/cli/test/`:
 
 | File                            | What it tests                                                                                                                                               |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `commands/add.test.ts`          | `neurex add` — file creation, skipping unchanged files, conflict detection, utilities/styles install                                                        |
-| `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                                                                            |
-| `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                                                                               |
-| `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                                                                               |
-| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior, orphaned shared utilities/styles cleanup                               |
+| `commands/add.test.ts`          | `lexsys add` — file creation, skipping unchanged files, conflict detection, utilities/styles install                                                        |
+| `commands/init.test.ts`         | `lexsys init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                                                                            |
+| `commands/update.test.ts`       | `lexsys update` — file update when registry changes, skipping unchanged files                                                                               |
+| `commands/registry.test.ts`     | `lexsys registry` — local/remote source selection, `--local`/`--remote` flags                                                                               |
+| `commands/uninstall.test.ts`    | `lexsys uninstall` — file removal, dry-run, conflict preservation, untrack behavior, orphaned shared utilities/styles cleanup                               |
 | `commands/diagnostics.test.ts`  | `doctor`, `status`, `list`, `config` — path checks, registry output, config mutations                                                                       |
 | `commands/install-flow.test.ts` | Full install smoke — idempotency, all **primitive** components, all **block** items (solo + bulk), flat import rewrite, add → update → uninstall round-trip |
 | `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection                                                       |
@@ -156,8 +156,8 @@ pnpm --filter ./packages/cli test
 | After editing CLI commands or core modules       | `pnpm cli:check`                                                    |
 | After syncing templates                          | `pnpm registry:check`                                               |
 | After editing blocks/templates in UI or registry | `pnpm ui:check` + `pnpm registry:check` + sandbox checklist (below) |
-| After editing CLI install path or import rewrite | `pnpm cli:check` + sandbox `neurex add dashboard-shell` smoke       |
-| After changing `neurex.config.json` schema       | `pnpm cli:check`                                                    |
+| After editing CLI install path or import rewrite | `pnpm cli:check` + sandbox `lexsys add dashboard-shell` smoke       |
+| After changing `lexsys.config.json` schema       | `pnpm cli:check`                                                    |
 
 ---
 
@@ -219,22 +219,22 @@ DashboardShell) have render smoke tests using `@testing-library/react` with Vite
 
 Policy and surface roles: [§ Verification surfaces](#verification-surfaces) above.
 
-Maintainers SHOULD verify CLI and registry changes against an external consumer project outside this monorepo (for example `D:\PLAYGROUND\sandbox-neurex`).
+Maintainers SHOULD verify CLI and registry changes against an external consumer project outside this monorepo (for example `D:\PLAYGROUND\sandbox-lexsys`).
 
 Checklist after CLI or registry changes:
 
 1. Link or install the CLI from the monorepo branch under test.
-2. **Vite regression:** from sandbox root — `neurex add <component>` (or re-run `neurex init` if scaffolding changed); `neurex update --styles`; run build.
-3. **Next.js smoke:** fresh directory — `neurex init next`; `neurex add button`; run build.
-4. Spot-check installed paths under `paths.components`, `neurex.config.json` (`paths.*` schema), and token CSS imports.
+2. **Vite regression:** from sandbox root — `lexsys add <component>` (or re-run `lexsys init` if scaffolding changed); `lexsys update --styles`; run build.
+3. **Next.js smoke:** fresh directory — `lexsys init next`; `lexsys add button`; run build.
+4. Spot-check installed paths under `paths.components`, `lexsys.config.json` (`paths.*` schema), and token CSS imports.
 5. If templates or styles changed: confirm `styles/tokens.css` and `styles/theme.css` update as expected.
 
 **Blocks/templates checklist** (when FormField, Sidebar, or DashboardShell change):
 
-1. Fresh or updated install: `neurex add dashboard-shell` (transitive closure — Sidebar + primitives).
+1. Fresh or updated install: `lexsys add dashboard-shell` (transitive closure — Sidebar + primitives).
 2. Confirm flat layout: `src/components/ui/DashboardShell/`, `src/components/ui/Sidebar/`, sibling import paths (no `blocks/` or `templates/` folders in consumer tree).
 3. Narrow viewport (`< md`): mobile drawer opens; nav list items stack vertically (plain nav + `DrawerClose appearance="inline"` — see BO.2 in [REVIEW_TODO.md](./REVIEW_TODO.md)).
-4. `neurex uninstall dashboard-shell --dry-run` then `--with-deps --dry-run` — orphan hints look correct.
+4. `lexsys uninstall dashboard-shell --dry-run` then `--with-deps --dry-run` — orphan hints look correct.
 5. Compare drawer shell to [playground overlays panel](../apps/playground/src/overlays-panel.tsx) when changing Sidebar/Drawer composition.
 
 Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monorepo CI on sandbox path availability.

@@ -1,4 +1,4 @@
-import { neurexPreset } from "./neurex.preset"
+import { lexsysPreset } from "./lexsys.preset"
 
-export { neurexPreset, defaultPresetId } from "./neurex.preset"
-export const presets = [neurexPreset]
+export { lexsysPreset, defaultPresetId } from "./lexsys.preset"
+export const presets = [lexsysPreset]

@@ -85,7 +85,7 @@ const layoutTsx = `import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Neurex Next App",
+  title: "Lexsys Next App",
 }
 
 export default function RootLayout({
@@ -104,7 +104,7 @@ export default function RootLayout({
 const pageTsx = `export default function Home() {
   return (
     <main>
-      <h1>Neurex + Next.js</h1>
+      <h1>Lexsys + Next.js</h1>
     </main>
   )
 }
@@ -142,7 +142,7 @@ const sanitizePackageName = (name: string): string => {
     .replace(/[^a-z0-9._-]+/gu, "-")
     .replace(/^-+|-+$/gu, "")
 
-  return normalized || "neurex-next-app"
+  return normalized || "lexsys-next-app"
 }
 
 const getPackageManagerFromUserAgent = (): string | undefined => {

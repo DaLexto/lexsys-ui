@@ -1,4 +1,4 @@
-# Neurex GitHub label manifest (strict sync via github-label-sync).
+# Lexsys GitHub label manifest (strict sync via github-label-sync).
 # Namespaces: type/* (Conventional Commits), area/* (monorepo scope),
 # priority/*, status/*, meta/*, automation/*.
 # Legacy GitHub defaults migrate through aliases; unlisted labels are deleted.

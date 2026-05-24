@@ -7,8 +7,8 @@
 
 import type { TokenTree } from "./token.types"
 
-export type PresetId = "neurex" | (string & {})
-export type BrandId = "neurex" | (string & {})
+export type PresetId = "lexsys" | (string & {})
+export type BrandId = "lexsys" | (string & {})
 
 export type ThemeModeId = "light" | "dark"
 

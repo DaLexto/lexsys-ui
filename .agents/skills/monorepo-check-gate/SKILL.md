@@ -1,7 +1,7 @@
 ---
 name: monorepo-check-gate
 description: >
-  Pick and run scoped pnpm check commands by touched paths in the Neurex
+  Pick and run scoped pnpm check commands by touched paths in the Lexsys
   monorepo. Use before commit, pre-PR verify, pnpm check, tokens:check,
   ui:check, registry:check, or cli:check.
 ---
@@ -43,5 +43,5 @@ Prefer: `pnpm playground:build`, unit tests, sandbox production build.
 ## Related
 
 - [docs/TESTING.md](../../docs/TESTING.md)
-- [neurex-testing.mdc](../../.cursor/rules/neurex-testing.mdc)
+- [lexsys-testing.mdc](../../.cursor/rules/lexsys-testing.mdc)
 - `$registry-sync`, `$consumer-sandbox-verify`

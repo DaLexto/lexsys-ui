@@ -1,5 +1,5 @@
 ---
-description: JSDoc and inline comment standards for Neurex src/ and test/ code
+description: JSDoc and inline comment standards for Lexsys src/ and test/ code
 globs: packages/**/src/**/*,packages/**/test/**/*,apps/**/src/**/*
 alwaysApply: false
 ---

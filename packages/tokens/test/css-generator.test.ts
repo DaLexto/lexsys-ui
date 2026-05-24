@@ -9,7 +9,7 @@ import {
 import type { TokenTree } from "../src/types"
 
 const generatorOptions = {
-  cssVarPrefix: "nx",
+  cssVarPrefix: "lsys",
   groupNameOverrides: {
     spacing: "space",
     "motion-duration": "duration",
@@ -57,12 +57,12 @@ describe("css vars generator", () => {
 
     expect(entries).toContainEqual({
       name: "radius-control",
-      value: "var(--nx-radius-md)",
+      value: "var(--lsys-radius-md)",
     })
 
     expect(entries).toContainEqual({
       name: "button-radius",
-      value: "var(--nx-radius-control)",
+      value: "var(--lsys-radius-control)",
     })
   })
 
@@ -139,7 +139,7 @@ describe("css vars generator", () => {
 
     expect(entries).toContainEqual({
       name: "duration-control",
-      value: "var(--nx-duration-fast)",
+      value: "var(--lsys-duration-fast)",
     })
 
     expect(entries).toContainEqual({
@@ -202,7 +202,7 @@ describe("css vars generator", () => {
     expect(entries).toContainEqual({
       name: "elevation-shadow-floating-box-shadow",
       value:
-        "var(--nx-elevation-shadow-floating-inset) var(--nx-elevation-shadow-floating-offset-x) var(--nx-elevation-shadow-floating-offset-y) var(--nx-elevation-shadow-floating-blur) var(--nx-elevation-shadow-floating-spread) var(--nx-elevation-shadow-floating-color)",
+        "var(--lsys-elevation-shadow-floating-inset) var(--lsys-elevation-shadow-floating-offset-x) var(--lsys-elevation-shadow-floating-offset-y) var(--lsys-elevation-shadow-floating-blur) var(--lsys-elevation-shadow-floating-spread) var(--lsys-elevation-shadow-floating-color)",
     })
   })
 
@@ -233,7 +233,7 @@ describe("css vars generator", () => {
     expect(entries).toContainEqual({
       name: "shadow-4-box-shadow",
       value:
-        "var(--nx-shadow-4-inset) var(--nx-shadow-4-offset-x) var(--nx-shadow-4-offset-y) var(--nx-shadow-4-blur) var(--nx-shadow-4-spread) var(--nx-shadow-4-color)",
+        "var(--lsys-shadow-4-inset) var(--lsys-shadow-4-offset-x) var(--lsys-shadow-4-offset-y) var(--lsys-shadow-4-blur) var(--lsys-shadow-4-spread) var(--lsys-shadow-4-color)",
     })
   })
 
@@ -264,7 +264,7 @@ describe("css vars generator", () => {
     expect(entries).toContainEqual({
       name: "shadow-inner-box-shadow",
       value:
-        "var(--nx-shadow-inner-inset) var(--nx-shadow-inner-offset-x) var(--nx-shadow-inner-offset-y) var(--nx-shadow-inner-blur) var(--nx-shadow-inner-spread) var(--nx-shadow-inner-color)",
+        "var(--lsys-shadow-inner-inset) var(--lsys-shadow-inner-offset-x) var(--lsys-shadow-inner-offset-y) var(--lsys-shadow-inner-blur) var(--lsys-shadow-inner-spread) var(--lsys-shadow-inner-color)",
     })
   })
 
@@ -321,11 +321,11 @@ describe("css vars generator", () => {
         },
         {
           name: "radius-control",
-          value: "var(--nx-radius-md)",
+          value: "var(--lsys-radius-md)",
         },
       ],
       {
-        cssVarPrefix: "nx",
+        cssVarPrefix: "lsys",
         groupNameOverrides: {},
         metadataKeys: new Set(),
       },
@@ -334,8 +334,8 @@ describe("css vars generator", () => {
     expect(css).toBe(
       [
         ":root {",
-        "  --nx-color-white: oklch(1 0 0);",
-        "  --nx-radius-control: var(--nx-radius-md);",
+        "  --lsys-color-white: oklch(1 0 0);",
+        "  --lsys-radius-control: var(--lsys-radius-md);",
         "}",
       ].join("\n"),
     )
@@ -358,7 +358,7 @@ describe("css vars generator", () => {
     ])
 
     expect(result.css).toBe(
-      [":root {", "  --nx-color-white: oklch(1 0 0);", "}"].join("\n"),
+      [":root {", "  --lsys-color-white: oklch(1 0 0);", "}"].join("\n"),
     )
   })
 
@@ -400,23 +400,23 @@ describe("css vars generator", () => {
 
     expect(entries).toContainEqual({
       name: "typography-control-md-font-family",
-      value: "var(--nx-typography-family-sans)",
+      value: "var(--lsys-typography-family-sans)",
     })
     expect(entries).toContainEqual({
       name: "typography-control-md-font-size",
-      value: "var(--nx-font-size-sm)",
+      value: "var(--lsys-font-size-sm)",
     })
     expect(entries).toContainEqual({
       name: "typography-control-md-font-weight",
-      value: "var(--nx-font-weight-medium)",
+      value: "var(--lsys-font-weight-medium)",
     })
     expect(entries).toContainEqual({
       name: "typography-control-md-line-height",
-      value: "var(--nx-line-height-tight)",
+      value: "var(--lsys-line-height-tight)",
     })
     expect(entries).toContainEqual({
       name: "typography-control-md-letter-spacing",
-      value: "var(--nx-letter-spacing-normal)",
+      value: "var(--lsys-letter-spacing-normal)",
     })
   })
 })

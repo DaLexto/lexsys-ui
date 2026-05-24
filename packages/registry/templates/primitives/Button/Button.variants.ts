@@ -10,50 +10,50 @@ import { busyStateClasses, disabledStateClasses } from "@/lib/utils"
 export const buttonVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap border border-transparent",
-    "rounded-(--nx-button-radius) font-(family-name:--nx-button-font-family) font-(--nx-button-font-weight)",
-    "transition-colors duration-(--nx-button-transition-duration) ease-(--nx-button-transition-easing)",
-    "outline-none focus-visible:ring-(length:--nx-button-focus-ring-width) focus-visible:ring-(--nx-button-focus-ring-color) focus-visible:ring-offset-(length:--nx-button-focus-ring-offset) focus-visible:ring-offset-(--nx-button-focus-ring-offset-color)",
+    "rounded-(--lsys-button-radius) font-(family-name:--lsys-button-font-family) font-(--lsys-button-font-weight)",
+    "transition-colors duration-(--lsys-button-transition-duration) ease-(--lsys-button-transition-easing)",
+    "outline-none focus-visible:ring-(length:--lsys-button-focus-ring-width) focus-visible:ring-(--lsys-button-focus-ring-color) focus-visible:ring-offset-(length:--lsys-button-focus-ring-offset) focus-visible:ring-offset-(--lsys-button-focus-ring-offset-color)",
     disabledStateClasses,
     busyStateClasses,
-    "text-(length:--nx-button-font-size-md)",
-    "leading-(--nx-button-font-line-height)",
-    "tracking-(--nx-button-font-letter-spacing)",
+    "text-(length:--lsys-button-font-size-md)",
+    "leading-(--lsys-button-font-line-height)",
+    "tracking-(--lsys-button-font-letter-spacing)",
   ].join(" "),
   {
     variants: {
       variant: {
         primary:
-          "border-(--nx-button-primary-border-color) bg-(--nx-button-primary-background) text-(--nx-button-primary-foreground) hover:bg-(--nx-button-primary-hover-background)",
+          "border-(--lsys-button-primary-border-color) bg-(--lsys-button-primary-background) text-(--lsys-button-primary-foreground) hover:bg-(--lsys-button-primary-hover-background)",
         secondary:
-          "border-(--nx-button-secondary-border-color) bg-(--nx-button-secondary-background) text-(--nx-button-secondary-foreground) hover:bg-(--nx-button-secondary-hover-background)",
+          "border-(--lsys-button-secondary-border-color) bg-(--lsys-button-secondary-background) text-(--lsys-button-secondary-foreground) hover:bg-(--lsys-button-secondary-hover-background)",
         danger:
-          "border-(--nx-button-danger-border-color) bg-(--nx-button-danger-background) text-(--nx-button-danger-foreground) hover:bg-(--nx-button-danger-hover-background)",
+          "border-(--lsys-button-danger-border-color) bg-(--lsys-button-danger-background) text-(--lsys-button-danger-foreground) hover:bg-(--lsys-button-danger-hover-background)",
       },
       size: {
         xs: [
-          "h-(--nx-button-height-xs)",
-          "px-(--nx-button-padding-x-xs)",
-          "text-(length:--nx-button-font-size-xs)",
+          "h-(--lsys-button-height-xs)",
+          "px-(--lsys-button-padding-x-xs)",
+          "text-(length:--lsys-button-font-size-xs)",
         ],
         sm: [
-          "h-(--nx-button-height-sm)",
-          "px-(--nx-button-padding-x-sm)",
-          "text-(length:--nx-button-font-size-sm)",
+          "h-(--lsys-button-height-sm)",
+          "px-(--lsys-button-padding-x-sm)",
+          "text-(length:--lsys-button-font-size-sm)",
         ],
         md: [
-          "h-(--nx-button-height-md)",
-          "px-(--nx-button-padding-x-md)",
-          "text-(length:--nx-button-font-size-md)",
+          "h-(--lsys-button-height-md)",
+          "px-(--lsys-button-padding-x-md)",
+          "text-(length:--lsys-button-font-size-md)",
         ],
         lg: [
-          "h-(--nx-button-height-lg)",
-          "px-(--nx-button-padding-x-lg)",
-          "text-(length:--nx-button-font-size-lg)",
+          "h-(--lsys-button-height-lg)",
+          "px-(--lsys-button-padding-x-lg)",
+          "text-(length:--lsys-button-font-size-lg)",
         ],
         xl: [
-          "h-(--nx-button-height-xl)",
-          "px-(--nx-button-padding-x-xl)",
-          "text-(length:--nx-button-font-size-xl)",
+          "h-(--lsys-button-height-xl)",
+          "px-(--lsys-button-padding-x-xl)",
+          "text-(length:--lsys-button-font-size-xl)",
         ],
       },
     },

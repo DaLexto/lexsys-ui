@@ -1,4 +1,4 @@
-# Neurex Backlog
+# Lexsys Backlog
 
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
@@ -13,40 +13,63 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3 and M5–M7 shipped; **M4 reserved** (scope TBD); **M10 release readiness** remains planned.
+**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3 and M5–M7 shipped; **M4 reserved** (scope TBD); **R0 Lexsys rebrand** in progress (blocks M10); **M10 release readiness** planned after R0 merges.
 
-| Phase   | Focus                                                               | Status  |
-| ------- | ------------------------------------------------------------------- | ------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done    |
-| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped |
-| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped |
-| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
-| M4      | (TBD — scope to be defined)                                         | planned |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
-| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
-| M10     | Release readiness — first npm `0.0.1` @ `next`                      | planned |
-| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
-| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
+| Phase   | Focus                                                               | Status      |
+| ------- | ------------------------------------------------------------------- | ----------- |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done        |
+| R0      | Neurex → Lexsys rebrand (blocks M10)                                | in progress |
+| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped     |
+| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped     |
+| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped     |
+| M4      | (TBD — scope to be defined)                                         | planned     |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped     |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped     |
+| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped     |
+| M10     | Release readiness — first npm `0.0.1` @ `next`                      | planned     |
+| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped     |
+| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped     |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 ---
 
+## R0 — Lexsys rebrand
+
+**Goal:** Rename Neurex → Lexsys across the monorepo before first npm publish.
+No legacy consumer migration (pre-publish dev phase).
+
+**Canonical reference:** [REBRAND.md](./REBRAND.md)
+
+| ID   | Deliverable                                     | Status                  |
+| ---- | ----------------------------------------------- | ----------------------- |
+| R0.1 | `scripts/rebrand/` + `REBRAND.md`               | done                    |
+| R0.2 | `apply-rebrand --write` + `verify-rebrand` pass | done                    |
+| R0.3 | `@lexsys/cli` publish surface (DEPLOY, README)  | done                    |
+| R0.4 | Legacy `neurex.config.json` fallback            | skipped                 |
+| R0.5 | Regenerate token CSS + `registry:sync`          | done                    |
+| R0.6 | Token test expectations (`lsys` / `twix`)       | done                    |
+| R0.7 | Docs + REVIEW_TODO R0 track                     | done                    |
+| R0.8 | `pnpm check` green + PR to `dev`                | check green; PR pending |
+
+**Branch:** `feat/r0-lexsys-rebrand` → PR to `dev` before M10 work lands.
+
+---
+
 ## M10 — Release readiness
 
-**Goal:** First npm release `neurex@0.0.1` and `@neurex/registry@0.0.1` on dist-tag
+**Goal:** First npm release `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on dist-tag
 **`next`**. Stable MVP **`0.1.0`** on **`latest`** is a later milestone.
 
 **Canonical publish-day checklist:** [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next)
 
-| ID    | Deliverable                                              | Status  |
-| ----- | -------------------------------------------------------- | ------- |
-| M10.0 | Publish surface + version lane (DEPLOY, ROADMAP, README) | planned |
-| M10.1 | Root `CHANGELOG.md`                                      | planned |
-| M10.2 | Package metadata audit + `pnpm publish:pack-audit`       | planned |
-| M10.3 | Changesets + publish CI (`next` tag)                     | planned |
-| M10.4 | First publish + post-publish `npx neurex@next` smoke     | planned |
+| ID    | Deliverable                                               | Status       |
+| ----- | --------------------------------------------------------- | ------------ |
+| M10.0 | Publish surface + version lane (DEPLOY, ROADMAP, README)  | partial (R0) |
+| M10.1 | Root `CHANGELOG.md`                                       | planned      |
+| M10.2 | Package metadata audit + `pnpm publish:pack-audit`        | planned      |
+| M10.3 | Changesets + publish CI (`next` tag)                      | planned      |
+| M10.4 | First publish + post-publish `npx @lexsys/cli@next` smoke | planned      |
 
 Detail: [ROADMAP.md § M10](./ROADMAP.md#m10--release-readiness).
 
@@ -73,14 +96,14 @@ The P0 and P1 implementation passes are complete:
 - Token engine: resolved value pipeline, composite typography + shadow/border registry, governance graph, WCAG contrast report + CI policy (`docs/RESOLVER_EVOLUTION.md`)
 - Post–Phase 10 hardening: contrast pair registry (15 pairs); background compositing; `rgb()` / `hsl()` parsing; build-failing contrast in CSS build; primitive shadow scale `0`–`6` on branch+slot with CSS compose; elevation shadows reference primitive slots
 - ScrollArea component (UI, tokens, registry, playground) merged via PR #14 (`884e3eb`)
-- `neurex uninstall` removes registry-owned files with dry-run and conflict reporting
+- `lexsys uninstall` removes registry-owned files with dry-run and conflict reporting
 - UI render test pilot: ScrollArea, Collapsible, Dialog (`@testing-library/react` + Vitest jsdom)
 - Broad UI render coverage: all 41 bundled primitives have render smoke tests
-- Next.js App Router minimal scaffold (`neurex init next`; pinned Next.js 15.3.3)
+- Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Governance CI promotion: semantic audit **`error`-severity** fails `pnpm tokens:governance:report` (`NEUREX_GOVERNANCE_POLICY`)
 - `shadow.inner` inset slot model (branch+slot with `inset: true`)
-- Style installation (token CSS wired into consumer project on `neurex init` / `neurex add`)
+- Style installation (token CSS wired into consumer project on `lexsys init` / `lexsys add`)
 - Tailwind v4 + Vite or Next.js init sequence
 - Registry validation and publish-safe template resolution
 - Documentation alignment with current token/UI contracts (`docs/TOKENS.md`, design system, architecture, CLI, package READMEs)
@@ -89,10 +112,10 @@ The P0 and P1 implementation passes are complete:
 - UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 - Post–PR #24 ship (PR #25, `af729d5`): CLI `--sync` / `--utilities`, overlay token semantics, blocking `ui:audit`, full variant token sweep ([UI_VARIANTS.md](./UI_VARIANTS.md), [CLI.md](./CLI.md))
 - Sandbox primitive QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [UI_COMPOSITION.md](./UI_COMPOSITION.md) composition track
-- Consumer sandbox verify (PR #26 artifacts): `neurex update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
+- Consumer sandbox verify (PR #26 artifacts): `lexsys update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 41 bundled primitives, and pilot blocks/templates (FormField, Sidebar, DashboardShell).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, all 41 bundled primitives, and pilot blocks/templates (FormField, Sidebar, DashboardShell).
 
 Known gaps below.
 
@@ -105,9 +128,9 @@ Known gaps below.
 Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Roadmap sequencing:
 [ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--three-layers-pilots-shipped).
 
-**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `neurex add`-installable. BO.1–BO.7 fixed (CI install smoke, render tests, registry template-import audit); pilots marked stable. Narrow-viewport sandbox QA remains manual per [TESTING.md § Blocks/templates checklist](./TESTING.md#consumer-sandbox-verification).
+**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `lexsys add`-installable. BO.1–BO.7 fixed (CI install smoke, render tests, registry template-import audit); pilots marked stable. Narrow-viewport sandbox QA remains manual per [TESTING.md § Blocks/templates checklist](./TESTING.md#consumer-sandbox-verification).
 
-**Target:** expand registry **blocks** and **templates** beyond the pilot set. **`neurex add <name>`** installs the transitive closure via `registryDependencies`; `item.target` resolves to the flat components root (monorepo templates still live under `primitives/`, `blocks/`, or `templates/` source folders).
+**Target:** expand registry **blocks** and **templates** beyond the pilot set. **`lexsys add <name>`** installs the transitive closure via `registryDependencies`; `item.target` resolves to the flat components root (monorepo templates still live under `primitives/`, `blocks/`, or `templates/` source folders).
 
 | Item | Layer     | Status  | Notes                                                                                                             |
 | ---- | --------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -130,11 +153,11 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 | BO.2 | Sidebar (mobile)  | Drawer composition incomplete vs playground | **Fixed** — `swipeDirection="left"`, DrawerViewport side left, `DrawerClose appearance="inline"` on nav select (avoids absolute icon stacking). Sandbox manual QA at `< md` still recommended. |
 | BO.3 | DashboardShell    | Responsive layout                           | **Fixed** — sticky mobile trigger bar; page header in main (not squeezed beside trigger). Sidebar `mobileHeader` remains optional for compact slots only.                                      |
 | BO.4 | Blocks QA process | No block-level validation gate              | **Fixed** — `install-flow.test.ts` covers all registry blocks (solo + bulk idempotency, flat import paths, transitive closure).                                                                |
-| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Fixed** — pilot block/template render smoke in `@neurex/ui`; registry template-import audit in `registry:check`. Narrow viewport remains manual sandbox.                                     |
+| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Fixed** — pilot block/template render smoke in `@lexsys/ui`; registry template-import audit in `registry:check`. Narrow viewport remains manual sandbox.                                     |
 | BO.6 | Sidebar (design)  | Menu vs nav list                            | **Fixed** — plain `<a>` / `<button>` nav list.                                                                                                                                                 |
-| BO.7 | FormField         | Untested in sandbox                         | **Fixed** — `neurex add form-field` + SettingsPage uses FormField in PulseDesk sandbox.                                                                                                        |
+| BO.7 | FormField         | Untested in sandbox                         | **Fixed** — `lexsys add form-field` + SettingsPage uses FormField in PulseDesk sandbox.                                                                                                        |
 
-**Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `neurex add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
+**Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `lexsys add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 
 **Related fixes already landed (PR #28):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring. Post–PR #30 + `ef65072`: plain nav, mobile drawer, FormField sandbox, `DrawerClose` inline appearance, DashboardShell mobile layout.
 
@@ -158,7 +181,7 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~Contrast pair expansion (partial)~~ — danger/secondary action + large-text heading pairs (15 pairs)
 - ~~Full primitive shadow migration~~ — `shadow.0`–`shadow.6` branch+slot; elevation refs; CSS compose for primitive + semantic paths
 - ~~Broad UI render coverage~~ — 32/32 components (M3.1)
-- ~~Next.js scaffold~~ — `neurex init next` App Router minimal (M3.2)
+- ~~Next.js scaffold~~ — `lexsys init next` App Router minimal (M3.2)
 - ~~Remote registry contract~~ — manifest parser + validation (M3.3)
 - ~~Governance promotion (semantic audit errors)~~ — `NEUREX_GOVERNANCE_POLICY` (M3.4)
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)

@@ -1,4 +1,4 @@
-# Neurex Token Rules
+# Lexsys Token Rules
 
 **Audience:** Maintainers and token domain owners
 **Type:** Domain specification
@@ -67,7 +67,7 @@ Presets are configuration. They are not a layer in this chain.
 
 - `color`, `action`, `border`, `elevation`, `outline`, and `layout` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
 - `outline.*` supplies component `focus.ringWidth` / `focus.ringOffset` decisions. Do not hardcode Tailwind `ring-2` / `ring-offset-2` in component variants.
-- `layout.*` maps from primitive `breakpoint.*` and `aspect-ratio.*`. Consumers use generated `--nx-layout-*` CSS variables directly; layout is not remapped into Tailwind `breakpoint` or `aspect` namespaces.
+- `layout.*` maps from primitive `breakpoint.*` and `aspect-ratio.*`. Consumers use generated `--lsys-layout-*` CSS variables directly; layout is not remapped into Tailwind `breakpoint` or `aspect` namespaces.
 
 #### Semantic organization rules
 
@@ -92,7 +92,7 @@ Shared roles for floating surfaces (Select, Menu, Popover, Tooltip, Drawer, Toas
 | `elevation.behind.zIndex`         | `drawer.indent.zIndex`                                  | Decorative layer behind content (`z-index.behind`: `-10`)        |
 | `elevation.handle.zIndex`         | `drawer.handle.zIndex`                                  | Local handle stacking (`z-index.local`: `30`)                    |
 
-Generated CSS uses `--nx-size-overlay-*`, `--nx-space-overlay-side-offset` (spacing group maps to `space` in CSS output), and `--nx-elevation-behind-z-index`.
+Generated CSS uses `--lsys-size-overlay-*`, `--lsys-space-overlay-side-offset` (spacing group maps to `space` in CSS output), and `--lsys-elevation-behind-z-index`.
 
 ### Components
 
@@ -113,7 +113,7 @@ Generated CSS uses `--nx-size-overlay-*`, `--nx-space-overlay-side-offset` (spac
 - MUST NOT reference component tokens.
 - MUST NOT introduce component-specific intent.
 - Use one folder per brand and one file per mode.
-- Currently active: `neurex/light` and `neurex/dark`.
+- Currently active: `lexsys/light` and `lexsys/dark`.
 
 ### Presets
 
@@ -122,7 +122,7 @@ Generated CSS uses `--nx-size-overlay-*`, `--nx-space-overlay-side-offset` (spac
 - Describe which brand, theme modes, and selector/color-scheme combinations to build.
 - Consumed by the generator to filter theme inputs.
 - Never participate in the token reference resolution chain.
-- Currently active preset: `neurex` (default).
+- Currently active preset: `lexsys` (default).
 
 ---
 
@@ -294,7 +294,7 @@ These keys are allowed on branch nodes (non-leaf objects):
 | `$type`        | Inherited type hint for all leaves in this branch     |
 | `$description` | Human-readable description of the branch              |
 | `$deprecated`  | Deprecation flag or message                           |
-| `$extensions`  | Tool-specific extensions (Neurex uses `x-neurex` key) |
+| `$extensions`  | Tool-specific extensions (Lexsys uses `x-lexsys` key) |
 
 No other `$`-prefixed keys are valid on branches.
 
@@ -354,7 +354,7 @@ paths such as `border.default` remain unchanged.
 
 **Deferred:** DTCG composite **object** `$value` on a single leaf (spec-native
 structured shadow/border) requires a separate engine phase (`TokenValue`, resolver
-alias grammar, generator explode). Neurex authoring stays branch + slot; optional
+alias grammar, generator explode). Lexsys authoring stays branch + slot; optional
 DTCG object export may follow. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
 
 ---
@@ -431,7 +431,7 @@ Key named exports from `.`:
 | `semanticTokens`                               | Flat array of all semantic token groups             |
 | `componentTokens`                              | Flat array of all component token groups            |
 | `themes`                                       | Array of all theme definitions                      |
-| `presets` / `neurexPreset` / `defaultPresetId` | Preset definitions and default ID                   |
+| `presets` / `lexsysPreset` / `defaultPresetId` | Preset definitions and default ID                   |
 | `createStyleOutputs`                           | Run the full CSS generator pipeline                 |
 | `createTokensCssFromDtcgJson`                  | Generate base token CSS from DTCG JSON input        |
 | `createThemeCssFromDtcgJson`                   | Generate theme CSS from DTCG JSON input             |
@@ -461,12 +461,12 @@ pnpm tokens:governance:report -- --json
 From the repo root:
 
 ```sh
-pnpm --filter @neurex/tokens build            # generate dist CSS + DTCG JSON (--package)
+pnpm --filter @lexsys/tokens build            # generate dist CSS + DTCG JSON (--package)
 pnpm tokens:generate:styles  # dist + registry template CSS sync (--package --registry)
-pnpm --filter @neurex/tokens test             # run resolver and generator tests
+pnpm --filter @lexsys/tokens test             # run resolver and generator tests
 pnpm tokens:governance:report
 # Optional: omit dead primitives from generated CSS/DTCG after build (breaking output change)
-pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
+pnpm --filter @lexsys/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
 
 Use `generate:styles` after token generator changes that affect `packages/registry/templates/styles/`.

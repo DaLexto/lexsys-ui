@@ -7,13 +7,13 @@ import {
 describe("ContextMenu variants", () => {
   it("reuses menu popup styling", () => {
     expect(contextMenuPopupVariants()).toContain(
-      "bg-(--nx-menu-popup-background)",
+      "bg-(--lsys-menu-popup-background)",
     )
   })
 
   it("reuses menu item highlight states", () => {
     expect(contextMenuItemVariants()).toContain(
-      "data-[highlighted]:bg-(--nx-menu-item-highlight-background)",
+      "data-[highlighted]:bg-(--lsys-menu-item-highlight-background)",
     )
   })
 })

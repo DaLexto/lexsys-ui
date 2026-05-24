@@ -1,8 +1,8 @@
-# Neurex Playground
+# Lexsys Playground
 
 **Role:** Monorepo smoke app — not the consumer install path.
 
-The playground imports `@neurex/ui` from the workspace and built token CSS. Use it for a quick wiring check after UI or token changes. Consumer truth (CLI install, templates, real layouts) lives in an external sandbox — see [docs/TESTING.md § Verification surfaces](../../docs/TESTING.md#verification-surfaces).
+The playground imports `@lexsys/ui` from the workspace and built token CSS. Use it for a quick wiring check after UI or token changes. Consumer truth (CLI install, templates, real layouts) lives in an external sandbox — see [docs/TESTING.md § Verification surfaces](../../docs/TESTING.md#verification-surfaces).
 
 **Policy:** maintenance-only. Do not add product UX or new demos here unless the change explicitly targets `apps/playground/**`.
 

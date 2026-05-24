@@ -1,11 +1,11 @@
-# Neurex Scripts Handbook
+# Lexsys Scripts Handbook
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Commands reference (monorepo `pnpm` scripts)
 **Source of truth for:** Root and package script names, sync workflows, when to run checks
 **Verified against:** Root and workspace `package.json` files, `turbo.json`
 
-Run commands from the **repository root** unless noted. For consumer-facing CLI commands (`neurex init`, `neurex add`, …), see [CLI.md](./CLI.md).
+Run commands from the **repository root** unless noted. For consumer-facing CLI commands (`lexsys init`, `lexsys add`, …), see [CLI.md](./CLI.md).
 
 ---
 
@@ -25,18 +25,18 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm sync:templates`           | Sync UI components → registry templates                                               |
 | `pnpm sync:styles`              | Regenerate token CSS in dist + registry style templates                               |
 | `pnpm sync:all`                 | `sync:templates` then `sync:styles` — follow with `registry:check`                    |
-| `pnpm tokens:check`             | Lint + typecheck + test `@neurex/tokens`                                              |
-| `pnpm tokens:build`             | Build `@neurex/tokens`                                                                |
+| `pnpm tokens:check`             | Lint + typecheck + test `@lexsys/tokens`                                              |
+| `pnpm tokens:build`             | Build `@lexsys/tokens`                                                                |
 | `pnpm tokens:generate:styles`   | Write dist + registry style CSS                                                       |
 | `pnpm tokens:governance:report` | Token governance + contrast audit report                                              |
 | `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                |
-| `pnpm ui:check`                 | Lint + typecheck + test `@neurex/ui`                                                  |
+| `pnpm ui:check`                 | Lint + typecheck + test `@lexsys/ui`                                                  |
 | `pnpm ui:audit`                 | Scan `*.variants.ts` for forbidden styling literals                                   |
-| `pnpm ui:build`                 | Build `@neurex/ui`                                                                    |
+| `pnpm ui:build`                 | Build `@lexsys/ui`                                                                    |
 | `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                  |
 | `pnpm registry:sync`            | Sync UI source → registry component templates                                         |
 | `pnpm registry:styles:sync`     | Alias for `tokens:generate:styles` via registry                                       |
-| `pnpm cli:check`                | Turbo `check` for CLI (builds `@neurex/registry` first, then lint + typecheck + test) |
+| `pnpm cli:check`                | Turbo `check` for CLI (builds `@lexsys/registry` first, then lint + typecheck + test) |
 | `pnpm playground:dev`           | Start local playground (Vite)                                                         |
 | `pnpm playground:check`         | Lint + typecheck playground                                                           |
 | `pnpm playground:build`         | Build tokens + UI, then playground                                                    |
@@ -70,7 +70,7 @@ Use when you only need one layer:
 
 ---
 
-## `@neurex/tokens`
+## `@lexsys/tokens`
 
 | Root alias                      | Package script      | When to run                                                                            |
 | ------------------------------- | ------------------- | -------------------------------------------------------------------------------------- |
@@ -85,12 +85,12 @@ Use when you only need one layer:
 Filter equivalent:
 
 ```sh
-pnpm --filter @neurex/tokens <script>
+pnpm --filter @lexsys/tokens <script>
 ```
 
 ---
 
-## `@neurex/ui`
+## `@lexsys/ui`
 
 | Root alias          | Package script | When to run                                 |
 | ------------------- | -------------- | ------------------------------------------- |
@@ -102,14 +102,14 @@ pnpm --filter @neurex/tokens <script>
 Filter equivalent:
 
 ```sh
-pnpm --filter @neurex/ui <script>
+pnpm --filter @lexsys/ui <script>
 ```
 
 After UI component edits, also run `pnpm registry:sync` and `pnpm registry:check`. See [Sync workflows](#sync-workflows).
 
 ---
 
-## `@neurex/registry`
+## `@lexsys/registry`
 
 | Root alias                  | Package script   | When to run                                                               |
 | --------------------------- | ---------------- | ------------------------------------------------------------------------- |
@@ -130,12 +130,12 @@ Package-only scripts (no root alias):
 Filter equivalent:
 
 ```sh
-pnpm --filter @neurex/registry <script>
+pnpm --filter @lexsys/registry <script>
 ```
 
 ---
 
-## `neurex` (CLI)
+## `lexsys` (CLI)
 
 | Root alias           | Package script | When to run                            |
 | -------------------- | -------------- | -------------------------------------- |
@@ -145,11 +145,11 @@ pnpm --filter @neurex/registry <script>
 | `pnpm cli:typecheck` | `typecheck`    | Types only                             |
 
 `pnpm cli:check` runs `pnpm turbo run check --filter=./packages/cli`, so workspace
-dependencies (notably `@neurex/registry`) are built before lint and typecheck.
+dependencies (notably `@lexsys/registry`) are built before lint and typecheck.
 Do not substitute `pnpm --filter ./packages/cli check` for the full gate — that
 skips the turbo `^build` graph and ESLint can fail on unresolved registry types.
 
-Filter equivalent for other CLI scripts (use path filter — root package is also named `neurex`):
+Filter equivalent for other CLI scripts (use path filter — root package is also named `lexsys`):
 
 ```sh
 pnpm --filter ./packages/cli <script>
@@ -159,7 +159,7 @@ For tests only (registry already built): `pnpm --filter ./packages/cli test`.
 
 ---
 
-## `@neurex/playground`
+## `@lexsys/playground`
 
 | Root alias                  | Package script | When to run                                                    |
 | --------------------------- | -------------- | -------------------------------------------------------------- |
@@ -175,7 +175,7 @@ Playground has no Vitest tests today; `check` = lint + typecheck.
 Filter equivalent:
 
 ```sh
-pnpm --filter @neurex/playground <script>
+pnpm --filter @lexsys/playground <script>
 ```
 
 ---
@@ -251,7 +251,7 @@ Setup: Node 24, `pnpm install --frozen-lockfile`, pnpm cache enabled.
 
 ```sh
 pnpm tokens:governance:report
-# equivalent: pnpm --filter @neurex/tokens governance:report
+# equivalent: pnpm --filter @lexsys/tokens governance:report
 ```
 
 With `NEUREX_CONTRAST_POLICY=ci` in CI.
@@ -263,13 +263,13 @@ With `NEUREX_CONTRAST_POLICY=ci` in CI.
 | Trigger                                       | Behavior                                  |
 | --------------------------------------------- | ----------------------------------------- |
 | Pull request touching `.github/labels.yml`    | Dry-run only — diff in job log, no writes |
-| Push to `dev` / `main` (manifest or workflow) | Apply sync to `DaLexto/neurex`            |
+| Push to `dev` / `main` (manifest or workflow) | Apply sync to `DaLexto/lexsys`            |
 | `workflow_dispatch`                           | Manual re-sync                            |
 
 Local preview (requires a PAT with `repo` scope):
 
 ```sh
-npx github-label-sync@3 --access-token <token> --labels .github/labels.yml --dry-run DaLexto/neurex
+npx github-label-sync@3 --access-token <token> --labels .github/labels.yml --dry-run DaLexto/lexsys
 ```
 
 Taxonomy and usage: [CONTRIBUTING.md](../CONTRIBUTING.md) § GitHub labels.
@@ -283,7 +283,7 @@ Taxonomy and usage: [CONTRIBUTING.md](../CONTRIBUTING.md) § GitHub labels.
 | `pnpm check`, `pnpm build`, `pnpm test`      | Run across all workspace packages via turbo                      |
 | `pnpm tokens:check`, `pnpm registry:sync`, … | Daily maintainer shortcuts from repo root                        |
 | `pnpm cli:check`                             | CLI gate via turbo (`^build` then lint + typecheck + test)       |
-| `pnpm --filter @neurex/tokens test`          | Running a single package script without a root alias, or from CI |
+| `pnpm --filter @lexsys/tokens test`          | Running a single package script without a root alias, or from CI |
 | `pnpm --filter ./packages/cli test`          | CLI tests only (not the full check gate; registry must be built) |
 
 Prefer root aliases in docs and commit messages when they exist. Use `--filter` when documenting the underlying package script or when no root alias exists (e.g. `templates:check-sync`).
@@ -295,6 +295,6 @@ Prefer root aliases in docs and commit messages when they exist. Use `--filter` 
 | Document                                   | Owns                                                                       |
 | ------------------------------------------ | -------------------------------------------------------------------------- |
 | [TESTING.md](./TESTING.md)                 | Test file inventory, Vitest config, IDE extension, render-test conventions |
-| [CLI.md](./CLI.md)                         | Consumer `neurex` CLI commands (not monorepo scripts)                      |
+| [CLI.md](./CLI.md)                         | Consumer `lexsys` CLI commands (not monorepo scripts)                      |
 | [DEPLOY.md](./DEPLOY.md)                   | Release and publish contract                                               |
 | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common failure fixes (links here for command names)                        |

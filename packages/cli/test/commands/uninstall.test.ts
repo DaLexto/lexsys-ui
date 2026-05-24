@@ -49,7 +49,7 @@ describe("runUninstall", () => {
   beforeEach(async () => {
     const testRoot = join(process.cwd(), ".tmp")
     await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "neurex-cli-uninstall-"))
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-uninstall-"))
     setCwd(tempDir)
     vi.spyOn(console, "log").mockImplementation(() => undefined)
   })
@@ -72,7 +72,7 @@ describe("runUninstall", () => {
     ).rejects.toThrow()
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({})
@@ -91,7 +91,7 @@ describe("runUninstall", () => {
     ).resolves.toContain("export { Button }")
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({ button: "0.0.1" })
@@ -110,7 +110,7 @@ describe("runUninstall", () => {
     await expect(readFile(buttonPath, "utf-8")).resolves.toBe("user modified")
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({ button: "0.0.1" })
@@ -139,7 +139,7 @@ describe("runUninstall", () => {
     ).resolves.toContain("mergeClassName")
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({ input: "0.0.1" })
@@ -156,7 +156,7 @@ describe("runUninstall", () => {
     expect(await fileExists(join(tempDir, "styles/theme.css"))).toBe(false)
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({})
@@ -176,7 +176,7 @@ describe("runUninstall", () => {
     expect(await fileExists(join(tempDir, "src/lib/utils.ts"))).toBe(true)
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({ button: "0.0.1" })
@@ -197,7 +197,7 @@ describe("runUninstall", () => {
     await expect(readFile(utilsPath, "utf-8")).resolves.toBe("user modified cn")
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({})

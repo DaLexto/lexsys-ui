@@ -1,4 +1,4 @@
-# Contributing to Neurex
+# Contributing to Lexsys
 
 **Audience:** Maintainers and contributors
 

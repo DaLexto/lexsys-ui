@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@neurex/registry"
+import type { RegistryItem } from "@lexsys/registry"
 
 export const computeRegistryClosure = (
   rootNames: string[],

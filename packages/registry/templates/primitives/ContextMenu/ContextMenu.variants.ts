@@ -35,5 +35,5 @@ export const contextMenuSubmenuTriggerIconVariants =
   menuSubmenuTriggerIconVariants
 
 export const contextMenuTriggerVariants = cva(
-  "outline-none focus-visible:ring-(length:--nx-menu-focus-ring-width) focus-visible:ring-(--nx-menu-focus-ring-color)",
+  "outline-none focus-visible:ring-(length:--lsys-menu-focus-ring-width) focus-visible:ring-(--lsys-menu-focus-ring-color)",
 )

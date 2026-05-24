@@ -147,7 +147,7 @@ export const isTokenBranch = (value: unknown): value is TokenTree => {
 }
 
 /**
- * Flattens a Neurex token tree into output-generator entries.
+ * Flattens a Lexsys token tree into output-generator entries.
  *
  * DEFAULT is treated as the current path so component/default token branches
  * do not create unnecessary output names.

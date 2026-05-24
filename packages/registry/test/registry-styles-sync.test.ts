@@ -21,8 +21,8 @@ describe("registry style sync helpers", () => {
   it("reports no drift when registry templates match generated outputs", async () => {
     tempDir = await createTempRegistryDir()
     const outputs = {
-      tokensCss: ":root {\n  --nx-token: true;\n}\n",
-      themeCss: "@theme inline {\n  --nx-theme: true;\n}\n",
+      tokensCss: ":root {\n  --lsys-token: true;\n}\n",
+      themeCss: "@theme inline {\n  --lsys-theme: true;\n}\n",
     }
 
     await writeFile(join(tempDir, "tokens.css"), outputs.tokensCss, "utf-8")
@@ -40,8 +40,8 @@ describe("registry style sync helpers", () => {
   it("reports stale registry templates when content differs", async () => {
     tempDir = await createTempRegistryDir()
     const outputs = {
-      tokensCss: ":root {\n  --nx-token: true;\n}\n",
-      themeCss: "@theme inline {\n  --nx-theme: true;\n}\n",
+      tokensCss: ":root {\n  --lsys-token: true;\n}\n",
+      themeCss: "@theme inline {\n  --lsys-theme: true;\n}\n",
     }
 
     await writeFile(join(tempDir, "tokens.css"), ":root {}\n", "utf-8")

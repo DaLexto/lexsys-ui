@@ -1,4 +1,4 @@
-# Neurex Resolver Evolution
+# Lexsys Resolver Evolution
 
 **Audience:** Maintainers
 **Type:** Vision / implementation plan
@@ -13,7 +13,7 @@ Platform phase history lives in [docs/ROADMAP.md](./ROADMAP.md).
 
 ## Overview
 
-Neurex token validation and analysis split across three cooperating areas:
+Lexsys token validation and analysis split across three cooperating areas:
 
 | Area               | Location                                                  | Role                                                          |
 | ------------------ | --------------------------------------------------------- | ------------------------------------------------------------- |
@@ -140,7 +140,7 @@ Promotion to build-failing checks (zero dead primitives, zero deprecated-with-de
 
 - `packages/tokens/src/engine/composite/` — composite type registry, slot schemas, branch detection, atomic path collection
 - `packages/tokens/src/generators/outputs/dtcg/` — normalizes composite branches and resolves slot leaf types from schema
-- CSS output — typography slot leaves already flatten to atomic `--nx-*` vars via `flattenTokenTree` (regression-tested)
+- CSS output — typography slot leaves already flatten to atomic `--lsys-*` vars via `flattenTokenTree` (regression-tested)
 
 Typography composite groups (`body`, `heading`, `control`, `label`, `display`, `code`) are authored as **branch + slot leaves** (for example `{typography.control.md.fontSize}`). Phase 8 formalizes that model:
 
@@ -180,7 +180,7 @@ Default is **on** (no opt-in flag). CSS/Tailwind output is unchanged; DTCG gains
 ### Shipped behavior
 
 - Typography composite role groups declare `$type: "typography"` and fixed slot keys
-- CSS generator continues to emit atomic custom properties per slot leaf (for example `--nx-typography-control-md-font-size`)
+- CSS generator continues to emit atomic custom properties per slot leaf (for example `--lsys-typography-control-md-font-size`)
 - DTCG generator normalizes composite branches and resolves slot leaf `$type` from the composite schema instead of path heuristics alone
 - `collectCompositeAtomicPaths`, `normalizeCompositeBranches`, and `resolveCompositeSlotType` are exported from the engine for Phase 9
 
@@ -216,12 +216,12 @@ Components keep slot references such as `{typography.control.md.fontSize}`. Comp
 | `resolveTokenTree` / `validateStyleTokenInput` | Build-time validation; full-tree clone with inlined `$value` | Used before CSS/DTCG generation                      |
 | `resolveLeafValue` / `resolveLeafValues`       | On-demand lookup for governance, contrast, and tooling       | Single leaf or batch; preserves refs in source trees |
 
-Default generator behavior is **unchanged**: CSS keeps `var(--nx-*)` references; DTCG preserves alias strings.
+Default generator behavior is **unchanged**: CSS keeps `var(--lsys-*)` references; DTCG preserves alias strings.
 
 ### Non-goals (still deferred)
 
 - Replacing CSS/DTCG reference preservation with hardcoded literals
-- Exporting the full engine API from the `@neurex/tokens` package root entrypoint (engine remains internal to the tokens package today)
+- Exporting the full engine API from the `@lexsys/tokens` package root entrypoint (engine remains internal to the tokens package today)
 
 ---
 
@@ -277,21 +277,21 @@ engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
 
 ### Deferred (explicit non-goals for now)
 
-| Capability                                                            | Reason deferred                                                                                                        |
-| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| AST expression evaluator (`({space.md} * 2) + 4px`)                   | Requires a new tokenizer/parser/evaluator subsystem; string-match alias resolution cannot grow into this incrementally |
-| OKLCH modify / color math (`oklch-modify(...)`, `%` lightness shifts) | Depends on AST + structured color math, not alias walking                                                              |
-| Unit arithmetic across `rem` / `px` / `%`                             | Depends on AST + base-font context; out of scope for reference resolver                                                |
-| Automatic contrast pair discovery                                     | Semantic usage pairs are product decisions; registry must stay explicit                                                |
-| Runtime a11y checks in consumer apps                                  | Tokens package validates design-time semantics only                                                                    |
-| DTCG Resolver Module JSON documents                                   | Neurex uses its own merge + alias model; no interchange requirement today                                              |
-| Replacing CSS `var(--nx-*)` with resolved literals in default output  | Breaks Neurex consumer model and DTCG alias preservation by design                                                     |
+| Capability                                                             | Reason deferred                                                                                                        |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| AST expression evaluator (`({space.md} * 2) + 4px`)                    | Requires a new tokenizer/parser/evaluator subsystem; string-match alias resolution cannot grow into this incrementally |
+| OKLCH modify / color math (`oklch-modify(...)`, `%` lightness shifts)  | Depends on AST + structured color math, not alias walking                                                              |
+| Unit arithmetic across `rem` / `px` / `%`                              | Depends on AST + base-font context; out of scope for reference resolver                                                |
+| Automatic contrast pair discovery                                      | Semantic usage pairs are product decisions; registry must stay explicit                                                |
+| Runtime a11y checks in consumer apps                                   | Tokens package validates design-time semantics only                                                                    |
+| DTCG Resolver Module JSON documents                                    | Lexsys uses its own merge + alias model; no interchange requirement today                                              |
+| Replacing CSS `var(--lsys-*)` with resolved literals in default output | Breaks Lexsys consumer model and DTCG alias preservation by design                                                     |
 
 ### Known gaps (current state, not bugs)
 
 - **Contrast policy tiers** — `evaluateContrastPolicy` fails `governance:report` in CI (`ci` tier) and CSS build fails via `validateContrastPolicyStrict` unless `NEUREX_CONTRAST_POLICY=report`.
 - **Governance policy tiers** — semantic audit issues with `severity: "error"` fail `pnpm tokens:governance:report` when tier is `ci` (default in CI). Override locally with `NEUREX_GOVERNANCE_POLICY=report`. Dead-token and deprecation reports remain informational.
-- **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@neurex/tokens` root export today.
+- **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@lexsys/tokens` root export today.
 - **Composite object `$value` leaves** — authoring uses branch + slot leaves (typography, shadow, border); DTCG-native single-leaf composite objects remain a deferred engine phase.
 - **`shadow.inner`** — inset shadow uses branch+slot leaves (`color`, offsets, blur, `inset: true`); CSS compose prepends `inset` in composed `box-shadow`.
 

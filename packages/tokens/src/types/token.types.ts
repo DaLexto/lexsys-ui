@@ -43,7 +43,7 @@ export type TokenReference = `{${string}}`
  * ------------------------------------------------------------------------------------------------- */
 
 /**
- * Standard scalar token type names supported by the Neurex DTCG-shaped token model.
+ * Standard scalar token type names supported by the Lexsys DTCG-shaped token model.
  *
  * Scalar tokens represent individual values that can usually be emitted as a
  * single CSS custom property after output-specific serialization.
@@ -71,24 +71,24 @@ export type StandardScalarTokenType =
   | "string"
 
 /**
- * Neurex authoring aliases for typography-related scalar values.
+ * Lexsys authoring aliases for typography-related scalar values.
  *
  * These aliases are useful in source files and generators, but interchange
  * outputs may serialize them as standard dimension or number values where
  * required.
  */
-export type NeurexScalarTokenType =
+export type LexsysScalarTokenType =
   /** Font size values, typically emitted as dimensions. */
   | "fontSize"
-  /** Vertical spacing between lines, usually unitless in Neurex. */
+  /** Vertical spacing between lines, usually unitless in Lexsys. */
   | "lineHeight"
   /** Horizontal spacing between characters such as 0em or -0.01em. */
   | "letterSpacing"
 
 /**
- * Scalar token type names supported by Neurex.
+ * Scalar token type names supported by Lexsys.
  */
-export type ScalarTokenType = StandardScalarTokenType | NeurexScalarTokenType
+export type ScalarTokenType = StandardScalarTokenType | LexsysScalarTokenType
 
 /**
  * Composite token type names reserved for structured object values.
@@ -111,7 +111,7 @@ export type CompositeTokenType =
   | "gradient"
 
 /**
- * Design token type names supported by the Neurex token model.
+ * Design token type names supported by the Lexsys token model.
  */
 export type TokenType = ScalarTokenType | CompositeTokenType
 
@@ -120,9 +120,9 @@ export type TokenType = ScalarTokenType | CompositeTokenType
  * ------------------------------------------------------------------------------------------------- */
 
 /**
- * Scalar values supported by Neurex token leaves.
+ * Scalar values supported by Lexsys token leaves.
  *
- * Neurex intentionally excludes boolean and null token values from the next
+ * Lexsys intentionally excludes boolean and null token values from the next
  * token authoring model.
  */
 export type TokenScalarValue = string | number
@@ -153,12 +153,12 @@ export interface TokenColorValue {
 }
 
 /**
- * Structured token values supported by the Neurex token model.
+ * Structured token values supported by the Lexsys token model.
  */
 export type TokenStructuredValue = TokenUnitValue | TokenColorValue
 
 /**
- * Token values supported by the Neurex DTCG-shaped authoring model.
+ * Token values supported by the Lexsys DTCG-shaped authoring model.
  *
  * Composite DTCG values such as shadow, border, transition, and typography can
  * be added when their generators and validators are implemented.

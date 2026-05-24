@@ -17,10 +17,10 @@ const ensureTokensBuilt = async () => {
     await access(tokensDistIndex)
     return
   } catch {
-    console.log("Building @neurex/tokens for registry style sync check...")
+    console.log("Building @lexsys/tokens for registry style sync check...")
   }
 
-  const result = spawnSync("pnpm", ["--filter", "@neurex/tokens", "build"], {
+  const result = spawnSync("pnpm", ["--filter", "@lexsys/tokens", "build"], {
     cwd: repoRoot,
     stdio: "inherit",
     shell: true,

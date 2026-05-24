@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { Button, Input } from "@neurex/ui"
+import { Button, Input } from "@lexsys/ui"
 import { buttonExamples, inputExamples } from "./examples"
 
 export const ActionsPanel = () => {
-  const [inputValue, setInputValue] = useState("Neurex Input")
+  const [inputValue, setInputValue] = useState("Lexsys Input")
 
   return (
     <>
@@ -61,9 +61,9 @@ export const ActionsPanel = () => {
               defaultValue="Focus or edit me"
               className={(state: { dirty?: boolean; focused?: boolean }) =>
                 state.focused
-                  ? "border-(--nx-input-focus-border-color) ring-(length:--nx-input-focus-ring-width) ring-(--nx-input-focus-ring-color) ring-offset-(length:--nx-input-focus-ring-offset) ring-offset-(--nx-input-focus-ring-offset-color)"
+                  ? "border-(--lsys-input-focus-border-color) ring-(length:--lsys-input-focus-ring-width) ring-(--lsys-input-focus-ring-color) ring-offset-(length:--lsys-input-focus-ring-offset) ring-offset-(--lsys-input-focus-ring-offset-color)"
                   : state.dirty
-                    ? "border-(--nx-brand-color-accent-base)"
+                    ? "border-(--lsys-brand-color-accent-base)"
                     : undefined
               }
             />
@@ -78,7 +78,7 @@ export const ActionsPanel = () => {
               render={<input data-render-mode="custom" />}
               className="font-mono"
             />
-            <p>Neurex classes merge into Base UI render output.</p>
+            <p>Lexsys classes merge into Base UI render output.</p>
           </article>
         </div>
       </section>

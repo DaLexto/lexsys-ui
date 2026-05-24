@@ -1,4 +1,4 @@
-# @neurex/ui
+# @lexsys/ui
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Package README
@@ -9,7 +9,7 @@
 
 ## Package Role
 
-`packages/ui` is the reference implementation layer for Neurex components.
+`packages/ui` is the reference implementation layer for Lexsys components.
 
 This package owns:
 
@@ -20,10 +20,10 @@ This package owns:
 
 This package does not own:
 
-- what gets installed into consumer projects (owned by `@neurex/registry`)
+- what gets installed into consumer projects (owned by `@lexsys/registry`)
 - CLI install behavior (owned by `packages/cli`)
-- design token source or generated CSS (owned by `@neurex/tokens`)
-- registry item metadata (owned by `@neurex/registry`)
+- design token source or generated CSS (owned by `@lexsys/tokens`)
+- registry item metadata (owned by `@lexsys/registry`)
 
 Components in this package are the source of truth for component behavior,
 variants, and types. Registry templates are synced copies — they are not
@@ -102,11 +102,11 @@ components/
 All component symbols and their prop types are re-exported from `src/index.ts`:
 
 ```ts
-import { Button } from "@neurex/ui"
-import type { ButtonProps } from "@neurex/ui"
+import { Button } from "@lexsys/ui"
+import type { ButtonProps } from "@lexsys/ui"
 ```
 
-Do not import directly from `@neurex/ui/src/` or `@neurex/ui/dist/`.
+Do not import directly from `@lexsys/ui/src/` or `@lexsys/ui/dist/`.
 
 ---
 
@@ -129,11 +129,11 @@ surface.
 Component styles use:
 
 - Tailwind v4 utility classes for layout and states
-- `--nx-*` CSS custom properties for token-driven values (color, spacing, radius, typography)
+- `--lsys-*` CSS custom properties for token-driven values (color, spacing, radius, typography)
 - `cn()` from `src/utils/cn.ts` for class merging
 
 Do not hardcode color, spacing, or radius values in component files. Reference
-the appropriate `--nx-{component}-{property}` variable.
+the appropriate `--lsys-{component}-{property}` variable.
 
 ---
 
@@ -143,9 +143,9 @@ Component variant tests live in `test/components/<Name>/`.
 Public API surface test lives in `test/public-api.test.ts`.
 
 ```sh
-pnpm --filter @neurex/ui test
-pnpm --filter @neurex/ui audit
-pnpm --filter @neurex/ui typecheck
+pnpm --filter @lexsys/ui test
+pnpm --filter @lexsys/ui audit
+pnpm --filter @lexsys/ui typecheck
 ```
 
 ---

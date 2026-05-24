@@ -1,5 +1,5 @@
 /**
- * Public entry point for @neurex/tokens.
+ * Public entry point for @lexsys/tokens.
  *
  * The tokens package is the design-system source of truth.
  */
@@ -11,7 +11,7 @@ export {
 export { primitiveTokens } from "./primitives"
 export { semanticTokens } from "./semantics"
 export { componentTokens } from "./components"
-export { neurexPreset, defaultPresetId, presets } from "./presets"
+export { lexsysPreset, defaultPresetId, presets } from "./presets"
 export { themes } from "./themes"
 export {
   createTokenGovernanceReport,

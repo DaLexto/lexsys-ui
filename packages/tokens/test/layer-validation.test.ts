@@ -30,7 +30,7 @@ const createFixtureInput = (
 }
 
 describe("validateTokenLayerContracts", () => {
-  it("passes for the current Neurex token source graph", () => {
+  it("passes for the current Lexsys token source graph", () => {
     const input = createStyleTokenInput()
 
     expect(validateTokenLayerContracts(input).violations).toEqual([])
@@ -123,7 +123,7 @@ describe("validateTokenLayerContracts", () => {
       themeTokens: [
         {
           name: "light",
-          brand: "neurex",
+          brand: "lexsys",
           selector: ":root",
           colorScheme: "light",
           tokens: {
@@ -195,7 +195,7 @@ describe("validateTokenLayerContracts", () => {
       themeTokens: [
         {
           name: "light",
-          brand: "neurex",
+          brand: "lexsys",
           selector: ":root",
           colorScheme: "light",
           tokens: {

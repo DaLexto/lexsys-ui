@@ -1,7 +1,7 @@
 import { brandTokens } from "../types/authoring"
 
-export const neurexBrand = brandTokens("brand", {
-  $description: "Brand tokens for Neurex.",
+export const lexsysBrand = brandTokens("brand", {
+  $description: "Brand tokens for Lexsys.",
 
   color: {
     $type: "color",
@@ -13,7 +13,7 @@ export const neurexBrand = brandTokens("brand", {
     },
 
     accent: {
-      $description: "Space indigo secondary accent for Neurex.",
+      $description: "Space indigo secondary accent for Lexsys.",
       base: { $value: "{color.spaceIndigo.500}" },
       hover: { $value: "{color.spaceIndigo.700}" },
       active: { $value: "{color.spaceIndigo.900}" },

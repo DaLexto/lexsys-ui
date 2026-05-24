@@ -21,9 +21,9 @@ import type { TokenType, TokenValue } from "../../../types"
 import type { FlattenedTokenEntry } from "../../shared"
 
 /**
- * Supported DTCG-compatible token types for Neurex JSON export.
+ * Supported DTCG-compatible token types for Lexsys JSON export.
  *
- * Keep this list intentionally limited to token types Neurex currently needs.
+ * Keep this list intentionally limited to token types Lexsys currently needs.
  */
 export type DtcgTokenType = TokenType | "string"
 
@@ -58,7 +58,7 @@ export interface DtcgTokenTree extends DtcgTokenMetadata {
 }
 
 /**
- * Theme metadata used by Neurex when a DTCG document contains theme override
+ * Theme metadata used by Lexsys when a DTCG document contains theme override
  * token sets.
  */
 export interface DtcgThemeMetadata {
@@ -69,13 +69,13 @@ export interface DtcgThemeMetadata {
 }
 
 /**
- * Neurex metadata attached to the root DTCG token document.
+ * Lexsys metadata attached to the root DTCG token document.
  *
  * This is stored under a vendor key in root `$extensions`, which is the DTCG
  * mechanism for proprietary metadata. Keep tool-specific metadata in adapter
  * outputs such as Tokens Studio.
  */
-export interface DtcgNeurexMetadata {
+export interface DtcgLexsysMetadata {
   generatedBy: string
   presetId?: string
   presetName?: string
@@ -87,11 +87,11 @@ export interface DtcgNeurexMetadata {
  * Root DTCG document extensions.
  */
 export type DtcgDocumentExtensions = Record<string, unknown> & {
-  "org.neurex": DtcgNeurexMetadata
+  "org.lexsys": DtcgLexsysMetadata
 }
 
 /**
- * Root DTCG JSON document emitted by Neurex.
+ * Root DTCG JSON document emitted by Lexsys.
  */
 export interface DtcgTokenDocument {
   $schema: string
@@ -123,9 +123,9 @@ export interface DtcgGeneratorOptions {
   schemaUrl?: string
 
   /**
-   * Neurex root document metadata stored under `$extensions["org.neurex"]`.
+   * Lexsys root document metadata stored under `$extensions["org.lexsys"]`.
    */
-  metadata?: DtcgNeurexMetadata
+  metadata?: DtcgLexsysMetadata
 
   /**
    * Optional group/type mapping.

@@ -7,19 +7,19 @@ import {
 
 describe("Menu variants", () => {
   it("uses token-backed trigger styling", () => {
-    expect(menuTriggerVariants()).toContain("h-(--nx-menu-trigger-height)")
+    expect(menuTriggerVariants()).toContain("h-(--lsys-menu-trigger-height)")
     expect(menuTriggerVariants()).toContain(
-      "data-[popup-open]:bg-(--nx-menu-trigger-open-background)",
+      "data-[popup-open]:bg-(--lsys-menu-trigger-open-background)",
     )
   })
 
   it("uses token-backed popup and item states", () => {
-    expect(menuPopupVariants()).toContain("bg-(--nx-menu-popup-background)")
+    expect(menuPopupVariants()).toContain("bg-(--lsys-menu-popup-background)")
     expect(menuItemVariants()).toContain(
-      "data-[highlighted]:bg-(--nx-menu-item-highlight-background)",
+      "data-[highlighted]:bg-(--lsys-menu-item-highlight-background)",
     )
     expect(menuItemVariants()).toContain(
-      "data-[checked]:bg-(--nx-menu-item-checked-background)",
+      "data-[checked]:bg-(--lsys-menu-item-checked-background)",
     )
   })
 })

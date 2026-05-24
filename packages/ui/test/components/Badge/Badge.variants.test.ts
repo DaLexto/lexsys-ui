@@ -5,10 +5,10 @@ describe("badgeVariants", () => {
   test("uses token-backed classes for visual styling", () => {
     const className = badgeVariants()
 
-    expect(className).toContain("rounded-(--nx-badge-radius)")
-    expect(className).toContain("bg-(--nx-badge-neutral-background)")
-    expect(className).toContain("text-(--nx-badge-neutral-foreground)")
-    expect(className).toContain("border-(--nx-badge-neutral-border-color)")
+    expect(className).toContain("rounded-(--lsys-badge-radius)")
+    expect(className).toContain("bg-(--lsys-badge-neutral-background)")
+    expect(className).toContain("text-(--lsys-badge-neutral-foreground)")
+    expect(className).toContain("border-(--lsys-badge-neutral-border-color)")
   })
 
   test("maps variant, appearance, and size through component tokens", () => {
@@ -18,11 +18,13 @@ describe("badgeVariants", () => {
       size: "sm",
     })
 
-    expect(solidClassName).toContain("bg-(--nx-badge-primary-background)")
-    expect(solidClassName).toContain("text-(--nx-badge-primary-foreground)")
-    expect(solidClassName).toContain("border-(--nx-badge-primary-border-color)")
-    expect(solidClassName).toContain("h-(--nx-badge-height-sm)")
-    expect(solidClassName).toContain("text-(length:--nx-badge-font-size-sm)")
+    expect(solidClassName).toContain("bg-(--lsys-badge-primary-background)")
+    expect(solidClassName).toContain("text-(--lsys-badge-primary-foreground)")
+    expect(solidClassName).toContain(
+      "border-(--lsys-badge-primary-border-color)",
+    )
+    expect(solidClassName).toContain("h-(--lsys-badge-height-sm)")
+    expect(solidClassName).toContain("text-(length:--lsys-badge-font-size-sm)")
 
     const outlineClassName = badgeVariants({
       variant: "primary",
@@ -30,10 +32,12 @@ describe("badgeVariants", () => {
       size: "sm",
     })
 
-    expect(outlineClassName).toContain("bg-(--nx-badge-outline-background)")
-    expect(outlineClassName).toContain("text-(--nx-badge-primary-border-color)")
+    expect(outlineClassName).toContain("bg-(--lsys-badge-outline-background)")
+    expect(outlineClassName).toContain(
+      "text-(--lsys-badge-primary-border-color)",
+    )
     expect(outlineClassName).not.toContain(
-      "text-(--nx-badge-primary-foreground)",
+      "text-(--lsys-badge-primary-foreground)",
     )
   })
 })

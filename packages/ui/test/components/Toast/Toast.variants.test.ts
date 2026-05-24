@@ -11,29 +11,31 @@ describe("toastVariants", () => {
     expect(toastViewportVariants({ placement: "top-left" })).toContain(
       "left-0 top-0",
     )
-    expect(toastViewportVariants()).toContain("var(--nx-toast-viewport-width)")
+    expect(toastViewportVariants()).toContain(
+      "var(--lsys-toast-viewport-width)",
+    )
     expect(toastVariants()).toContain("data-[type=destructive]")
-    expect(toastVariants()).toContain("--nx-toast-danger-background")
+    expect(toastVariants()).toContain("--lsys-toast-danger-background")
     expect(toastVariants()).toContain("data-[type=success]")
-    expect(toastVariants()).toContain("--nx-toast-success-background")
+    expect(toastVariants()).toContain("--lsys-toast-success-background")
     expect(toastVariants()).toContain("data-[type=info]")
-    expect(toastVariants()).toContain("--nx-toast-info-background")
-    expect(toastViewportVariants()).toContain("--nx-toast-viewport-inset")
+    expect(toastVariants()).toContain("--lsys-toast-info-background")
+    expect(toastViewportVariants()).toContain("--lsys-toast-viewport-inset")
     expect(toastVariants()).toContain("var(--toast-swipe-movement-x,0px)")
     expect(toastActionVariants()).toContain(
-      "bg-(--nx-toast-action-hover-background)",
+      "bg-(--lsys-toast-action-hover-background)",
     )
   })
 
   it("maps typed toast descriptions to semantic foreground tokens", () => {
     expect(toastDescriptionVariants()).toContain(
-      "data-[type=success]:text-(--nx-toast-success-foreground)",
+      "data-[type=success]:text-(--lsys-toast-success-foreground)",
     )
     expect(toastDescriptionVariants()).toContain(
-      "data-[type=info]:text-(--nx-toast-info-foreground)",
+      "data-[type=info]:text-(--lsys-toast-info-foreground)",
     )
     expect(toastDescriptionVariants()).toContain(
-      "data-[type=destructive]:text-(--nx-toast-danger-foreground)",
+      "data-[type=destructive]:text-(--lsys-toast-danger-foreground)",
     )
   })
 })

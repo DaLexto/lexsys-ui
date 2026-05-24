@@ -12,7 +12,7 @@
  * @notes
  * - This file is CSS-output-specific.
  * - It must not resolve references to final primitive values.
- * - It maps token references like {color.blue.600} to var(--nx-color-blue-600).
+ * - It maps token references like {color.blue.600} to var(--lsys-color-blue-600).
  */
 
 import type {

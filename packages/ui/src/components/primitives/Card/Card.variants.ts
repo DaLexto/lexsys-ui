@@ -8,15 +8,15 @@ import { cva } from "class-variance-authority"
 
 export const cardVariants = cva(
   [
-    "rounded-(--nx-card-radius) border border-(--nx-card-border-color)",
-    "bg-(--nx-card-background) text-(--nx-card-foreground) transition-colors",
-    "duration-(--nx-card-transition-duration) ease-(--nx-card-transition-easing)",
+    "rounded-(--lsys-card-radius) border border-(--lsys-card-border-color)",
+    "bg-(--lsys-card-background) text-(--lsys-card-foreground) transition-colors",
+    "duration-(--lsys-card-transition-duration) ease-(--lsys-card-transition-easing)",
   ].join(" "),
   {
     variants: {
       variant: {
         surface: "",
-        muted: "bg-(--nx-card-muted-background)",
+        muted: "bg-(--lsys-card-muted-background)",
       },
     },
     defaultVariants: {
@@ -26,16 +26,16 @@ export const cardVariants = cva(
 )
 
 export const cardHeaderClassName =
-  "grid gap-(--nx-card-gap-sm) p-(--nx-card-padding) pb-(--nx-card-header-padding-bottom)"
+  "grid gap-(--lsys-card-gap-sm) p-(--lsys-card-padding) pb-(--lsys-card-header-padding-bottom)"
 
 export const cardTitleClassName =
-  "text-(length:--nx-card-title-font-size) font-(--nx-card-title-font-weight) leading-(--nx-card-title-font-line-height) tracking-(--nx-card-title-font-letter-spacing) text-(--nx-card-title-foreground)"
+  "text-(length:--lsys-card-title-font-size) font-(--lsys-card-title-font-weight) leading-(--lsys-card-title-font-line-height) tracking-(--lsys-card-title-font-letter-spacing) text-(--lsys-card-title-foreground)"
 
 export const cardDescriptionClassName =
-  "text-(length:--nx-card-description-font-size) leading-(--nx-card-description-font-line-height) text-(--nx-card-description-foreground)"
+  "text-(length:--lsys-card-description-font-size) leading-(--lsys-card-description-font-line-height) text-(--lsys-card-description-foreground)"
 
 export const cardContentClassName =
-  "p-(--nx-card-padding) pt-(--nx-card-content-padding-top) text-(length:--nx-card-content-font-size) leading-(--nx-card-content-font-line-height)"
+  "p-(--lsys-card-padding) pt-(--lsys-card-content-padding-top) text-(length:--lsys-card-content-font-size) leading-(--lsys-card-content-font-line-height)"
 
 export const cardFooterClassName =
-  "flex items-center gap-(--nx-card-gap-md) p-(--nx-card-padding) pt-(--nx-card-footer-padding-top)"
+  "flex items-center gap-(--lsys-card-gap-md) p-(--lsys-card-padding) pt-(--lsys-card-footer-padding-top)"

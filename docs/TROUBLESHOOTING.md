@@ -1,4 +1,4 @@
-# Neurex Troubleshooting
+# Lexsys Troubleshooting
 
 **Audience:** Maintainers, contributors, and users
 **Type:** Troubleshooting reference
@@ -11,7 +11,7 @@ Each entry includes a symptom, cause, and fix verified against the source.
 
 ## CLI
 
-### `neurex: command not found`
+### `lexsys: command not found`
 
 **Cause:** The CLI binary is not installed or not in PATH.
 
@@ -19,10 +19,10 @@ Each entry includes a symptom, cause, and fix verified against the source.
 
 ```sh
 # Install globally
-npm install -g neurex
+npm install -g lexsys
 
 # Or run via pnpm exec in the consumer project
-pnpm exec neurex init
+pnpm exec lexsys init
 ```
 
 ---
@@ -31,27 +31,27 @@ pnpm exec neurex init
 
 **Cause:** The command is not recognized. Possible typo or unsupported command.
 
-**Fix:** Run `neurex help` to see the current command list. Supported commands:
+**Fix:** Run `lexsys help` to see the current command list. Supported commands:
 `init`, `add`, `update`, `list`, `status`, `doctor`, `config`, `registry`,
 `uninstall`, `version`, `help`.
 
 ---
 
-### `neurex init` fails with missing `neurex.config.json`
+### `lexsys init` fails with missing `lexsys.config.json`
 
 **Cause:** `init` has not been run yet, or was run in a different directory.
 
 **Fix:**
 
 ```sh
-neurex init          # run in the consumer project root
+lexsys init          # run in the consumer project root
 # or
-neurex --cwd /path/to/project init
+lexsys --cwd /path/to/project init
 ```
 
 ---
 
-### `neurex add` reports all files as conflicted
+### `lexsys add` reports all files as conflicted
 
 **Cause:** The files already exist in the consumer project with content that
 does not match the current registry template. The CLI detected user edits.
@@ -59,31 +59,31 @@ does not match the current registry template. The CLI detected user edits.
 **Fix:** Review the conflict. If you want to overwrite with the latest template:
 
 ```sh
-neurex update <component>
+lexsys update <component>
 ```
 
 If you want to keep your edits, the conflict is intentional — no action needed.
 
 ---
 
-### `neurex add` silently skips a component
+### `lexsys add` silently skips a component
 
 **Cause:** The installed version matches the registry template exactly. The CLI
 correctly skipped the unchanged files.
 
-**Fix:** Run `neurex status` to confirm the installed version. If you expect an
-update, run `neurex update <component>`.
+**Fix:** Run `lexsys status` to confirm the installed version. If you expect an
+update, run `lexsys update <component>`.
 
 ---
 
-### `neurex init` does not wire Tailwind CSS
+### `lexsys init` does not wire Tailwind CSS
 
-**Cause:** The CLI looks for the `tailwind.css` path from `neurex.config.json`
+**Cause:** The CLI looks for the `tailwind.css` path from `lexsys.config.json`
 (default: `src/style.css`). If the file does not exist, the Tailwind import is
 not injected.
 
-**Fix:** Create the CSS entrypoint file before running `neurex init`, or set
-the correct path in `neurex.config.json`:
+**Fix:** Create the CSS entrypoint file before running `lexsys init`, or set
+the correct path in `lexsys.config.json`:
 
 ```json
 { "tailwind": { "css": "src/styles/globals.css" } }
@@ -93,14 +93,14 @@ the correct path in `neurex.config.json`:
 
 ### Registry source falls back to local when remote is set
 
-**Cause:** The remote registry URL in `neurex.config.json` is unreachable or
+**Cause:** The remote registry URL in `lexsys.config.json` is unreachable or
 returns an invalid response.
 
 **Fix:**
 
 ```sh
-neurex registry --source              # check which source is active
-neurex config --clear-registry-url    # clear the URL to force local fallback
+lexsys registry --source              # check which source is active
+lexsys config --clear-registry-url    # clear the URL to force local fallback
 ```
 
 ---
@@ -225,7 +225,7 @@ failing token reference.
 
 ### Playground fails to build after token changes
 
-**Cause:** The playground depends on the built token CSS. If `@neurex/tokens`
+**Cause:** The playground depends on the built token CSS. If `@lexsys/tokens`
 has not been rebuilt after token source changes, the playground uses stale output.
 
 **Fix:**

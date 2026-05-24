@@ -1,7 +1,7 @@
 ---
 name: docs-alignment
 description: >
-  Cross-reference and freshness pass after Neurex behavior or catalog changes.
+  Cross-reference and freshness pass after Lexsys behavior or catalog changes.
   Use when updating docs, fixing stale primitive counts, M-phase status, BO
   backlog, or AGENTS vs docs duplication.
 ---

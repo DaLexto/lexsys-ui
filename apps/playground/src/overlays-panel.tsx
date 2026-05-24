@@ -71,7 +71,7 @@ import {
   ToastTitle,
   ToastViewport,
   useToastManager,
-} from "@neurex/ui"
+} from "@lexsys/ui"
 
 const ToastDemo = () => {
   const toastManager = useToastManager<{ source: "playground" }>()
@@ -156,7 +156,7 @@ export const OverlaysPanel = () => {
                 <DialogTitle>Publish registry item</DialogTitle>
                 <DialogDescription>
                   Base UI owns focus trap, escape key, aria wiring, and modal
-                  behavior. Neurex owns the tokenized surface.
+                  behavior. Lexsys owns the tokenized surface.
                 </DialogDescription>
                 <div className="field-submit-row">
                   <DialogClose
@@ -181,7 +181,7 @@ export const OverlaysPanel = () => {
                 <PopoverTitle>Theme intent</PopoverTitle>
                 <PopoverDescription>
                   Popover keeps positioning, focus return, escape key, and
-                  outside press behavior in Base UI while Neurex owns styling.
+                  outside press behavior in Base UI while Lexsys owns styling.
                 </PopoverDescription>
                 <div className="field-submit-row">
                   <Button size="sm" variant="secondary">
@@ -208,7 +208,7 @@ export const OverlaysPanel = () => {
                 <AlertDialogTitle>Delete registry item?</AlertDialogTitle>
                 <AlertDialogDescription>
                   AlertDialog keeps the confirmation flow modal and prevents
-                  casual outside-click dismissal while Neurex owns the
+                  casual outside-click dismissal while Lexsys owns the
                   destructive visual intent.
                 </AlertDialogDescription>
                 <div className="field-submit-row">
@@ -219,7 +219,7 @@ export const OverlaysPanel = () => {
                   </AlertDialogClose>
                   <Button
                     size="sm"
-                    className="bg-(--nx-alert-dialog-trigger-background) text-(--nx-alert-dialog-trigger-foreground) hover:bg-(--nx-alert-dialog-trigger-hover-background)"
+                    className="bg-(--lsys-alert-dialog-trigger-background) text-(--lsys-alert-dialog-trigger-foreground) hover:bg-(--lsys-alert-dialog-trigger-hover-background)"
                   >
                     Delete
                   </Button>
@@ -260,7 +260,7 @@ export const OverlaysPanel = () => {
 
         <DrawerProvider>
           <DrawerIndentBackground />
-          <DrawerIndent className="rounded-(--nx-card-radius) border border-(--nx-card-border-color) bg-(--nx-card-background) p-(--nx-card-padding)">
+          <DrawerIndent className="rounded-(--lsys-card-radius) border border-(--lsys-card-border-color) bg-(--lsys-card-background) p-(--lsys-card-padding)">
             <Drawer swipeDirection="right">
               <DrawerTrigger>Open inspector</DrawerTrigger>
               <DrawerPortal>

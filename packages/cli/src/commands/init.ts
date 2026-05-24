@@ -114,8 +114,8 @@ const hasSupportedScaffold = async (): Promise<boolean> => {
   return (await hasViteScaffold()) || (await hasNextScaffold())
 }
 
-const runNeurexInit = async (): Promise<void> => {
-  console.log("Initializing Neurex...\n")
+const runLexsysInit = async (): Promise<void> => {
+  console.log("Initializing Lexsys...\n")
 
   const config = await loadConfig()
   const usesNext = await hasNextScaffold()
@@ -146,7 +146,7 @@ const runNeurexInit = async (): Promise<void> => {
 
 const runViteInit = async (args: string[]): Promise<void> => {
   if (args.length > 1) {
-    throw new CliError("Usage: neurex init vite [directory]")
+    throw new CliError("Usage: lexsys init vite [directory]")
   }
 
   const targetDirectory = resolve(getCwd(), args[0] ?? ".")
@@ -158,12 +158,12 @@ const runViteInit = async (args: string[]): Promise<void> => {
   await scaffoldViteProject(targetDirectory)
   await installDependencies(viteDependencies)
   await installDependencies(viteDevDependencies, { dev: true })
-  await runNeurexInit()
+  await runLexsysInit()
 }
 
 const runNextInit = async (args: string[]): Promise<void> => {
   if (args.length > 1) {
-    throw new CliError("Usage: neurex init next [directory]")
+    throw new CliError("Usage: lexsys init next [directory]")
   }
 
   const targetDirectory = resolve(getCwd(), args[0] ?? ".")
@@ -175,7 +175,7 @@ const runNextInit = async (args: string[]): Promise<void> => {
   await scaffoldNextProject(targetDirectory)
   await installDependencies(nextDependencies)
   await installDependencies(nextDevDependencies, { dev: true })
-  await runNeurexInit()
+  await runLexsysInit()
 }
 
 const promptFrameworkInit = async (): Promise<void> => {
@@ -211,7 +211,7 @@ const promptFrameworkInit = async (): Promise<void> => {
 
   console.log("No project scaffold selected. Nothing changed.")
   console.log(
-    "Run `neurex init vite` or `neurex init next` to create a starter.",
+    "Run `lexsys init vite` or `lexsys init next` to create a starter.",
   )
 }
 
@@ -225,7 +225,7 @@ export const runInit = async (args: string[] = []): Promise<void> => {
       return
     }
 
-    await runNeurexInit()
+    await runLexsysInit()
     return
   }
 

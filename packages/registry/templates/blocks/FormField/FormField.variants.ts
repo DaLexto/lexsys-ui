@@ -5,5 +5,5 @@
  */
 
 export const formFieldVariants = (): string => {
-  return "nx-form-field flex flex-col gap-[var(--nx-space-2)]"
+  return "lsys-form-field flex flex-col gap-[var(--lsys-space-2)]"
 }

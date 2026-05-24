@@ -1,8 +1,8 @@
-# Neurex Deploy Guide
+# Lexsys Deploy Guide
 
 ## Purpose
 
-This document defines the current build and release expectations for the `neurex` monorepo.
+This document defines the current build and release expectations for the `lexsys` monorepo.
 
 The repository is still early-stage, so this guide focuses on build artifacts and publish-readiness rules more than on a finalized release pipeline.
 
@@ -115,7 +115,7 @@ Pull requests use path-filtered jobs; pushes to `dev`/`main` also run a full
 
 ## Registry and Template Release Rules
 
-Because Neurex is registry-first, release quality is not just about compiled code.
+Because Lexsys is registry-first, release quality is not just about compiled code.
 
 Registry templates are validated as synced install artifacts. They should remain
 in sync with `packages/ui` through the registry sync check, not through
@@ -162,38 +162,38 @@ If there is no consumer-facing impact, say that explicitly.
 
 ## Publish surface (npm)
 
-Neurex is **registry-first**: consumers install via the `neurex` CLI; they do
-not import `@neurex/ui` as a runtime library.
+Lexsys is **registry-first**: consumers install via the `@lexsys/cli` package
+(`lexsys` binary); they do not import `@lexsys/ui` as a runtime library.
 
-| Package              | npm name           | Publish? | Role                                      |
-| -------------------- | ------------------ | -------- | ----------------------------------------- |
-| `packages/cli`       | `neurex`           | **Yes**  | CLI binary; primary consumer entry        |
-| `packages/registry`  | `@neurex/registry` | **Yes**  | Runtime dep of CLI; templates + metadata  |
-| `packages/ui`        | `@neurex/ui`       | **No**   | Monorepo reference; copies ship via registry |
-| `packages/tokens`    | `@neurex/tokens`   | **No**   | Token CSS ships in registry style templates |
-| Root workspace       | `neurex`           | **No**   | Monorepo orchestrator only                |
+| Package             | npm name           | Publish? | Role                                          |
+| ------------------- | ------------------ | -------- | --------------------------------------------- |
+| `packages/cli`      | `@lexsys/cli`      | **Yes**  | CLI binary (`lexsys`); primary consumer entry |
+| `packages/registry` | `@lexsys/registry` | **Yes**  | Runtime dep of CLI; templates + metadata      |
+| `packages/ui`       | `@lexsys/ui`       | **No**   | Monorepo reference; copies ship via registry  |
+| `packages/tokens`   | `@lexsys/tokens`   | **No**   | Token CSS ships in registry style templates   |
+| Root workspace      | `lexsys`           | **No**   | Monorepo orchestrator only                    |
 
 Token CSS reaches consumers through registry style templates
 (`templates/styles/tokens.css`, `theme.css`), not through a separate npm install
-of `@neurex/tokens`.
+of `@lexsys/tokens`.
 
 ---
 
 ## Version lane
 
-| Milestone        | Version   | npm dist-tag | Meaning                                      |
-| ---------------- | --------- | ------------ | -------------------------------------------- |
-| First npm        | `0.0.1`   | `next`       | Early preview; breaking changes still likely |
-| Iterations       | `0.0.x`   | `next`       | Changesets patch/minor on the 0.0 line       |
-| MVP stable       | `0.1.0`   | `latest`     | Public MVP commitment — future milestone     |
+| Milestone  | Version | npm dist-tag | Meaning                                      |
+| ---------- | ------- | ------------ | -------------------------------------------- |
+| First npm  | `0.0.1` | `next`       | Early preview; breaking changes still likely |
+| Iterations | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line       |
+| MVP stable | `0.1.0` | `latest`     | Public MVP commitment — future milestone     |
 
 Install for early preview:
 
 ```bash
-npx neurex@next init vite my-app
+npx @lexsys/cli@next init vite my-app
 ```
 
-Do not publish `@neurex/ui` or `@neurex/tokens` until there is an explicit product
+Do not publish `@lexsys/ui` or `@lexsys/tokens` until there is an explicit product
 decision and DEPLOY.md is updated.
 
 ---
@@ -202,13 +202,13 @@ decision and DEPLOY.md is updated.
 
 Land on `dev` (then ff `main`) before running the first publish checklist:
 
-| Step | Deliverable                                              | Owner doc   |
-| ---- | -------------------------------------------------------- | ----------- |
-| M10.0 | Publish surface + version lane docs (this section)      | DEPLOY.md   |
-| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                  | CHANGELOG.md |
-| M10.2 | Package metadata audit; `pnpm publish:pack-audit`       | SCRIPTS.md  |
-| M10.3 | Changesets (fixed `neurex` + `@neurex/registry`); publish CI | `.github/workflows/` |
-| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke     | This checklist |
+| Step  | Deliverable                                                       | Owner doc            |
+| ----- | ----------------------------------------------------------------- | -------------------- |
+| M10.0 | Publish surface + version lane docs (this section)                | DEPLOY.md            |
+| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                            | CHANGELOG.md         |
+| M10.2 | Package metadata audit; `pnpm publish:pack-audit`                 | SCRIPTS.md           |
+| M10.3 | Changesets (fixed `@lexsys/cli` + `@lexsys/registry`); publish CI | `.github/workflows/` |
+| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke               | This checklist       |
 
 Track status in [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness).
 
@@ -221,10 +221,10 @@ Use this when cutting the **first** npm release. Repeat phases 2–5 for later
 
 ### Phase 0 — Repo prerequisites (M10 PRs merged to `main`)
 
-- [ ] Publish scope documented (only `neurex` + `@neurex/registry`)
+- [ ] Publish scope documented (only `@lexsys/cli` + `@lexsys/registry`)
 - [ ] Package metadata: `private: false`, `repository`, `license`, `files`, `exports`
 - [ ] Root `CHANGELOG.md` with `[0.0.1]` section
-- [ ] Changesets: fixed group `neurex` + `@neurex/registry`
+- [ ] Changesets: fixed group `@lexsys/cli` + `@lexsys/registry`
 - [ ] Publish CI workflow on `main`
 - [ ] `pnpm publish:pack-audit` passes locally
 - [ ] `pnpm check` green on `main`
@@ -232,7 +232,7 @@ Use this when cutting the **first** npm release. Repeat phases 2–5 for later
 
 ### Phase 1 — npm / GitHub setup (one-time)
 
-- [ ] npm org `@neurex` and unscoped `neurex` publish access
+- [ ] npm org `@lexsys` with publish access for `@lexsys/cli` and `@lexsys/registry`
 - [ ] GitHub secret `NPM_TOKEN` (Automation token)
 - [ ] Dist-tag policy: **`next`** for `0.0.x` (not `latest`)
 
@@ -248,11 +248,11 @@ pnpm publish:pack-audit
 In a clean temp directory:
 
 ```bash
-npm install /path/to/neurex-0.0.1.tgz
-npx neurex --version
-npx neurex init vite smoke-pack
+npm install /path/to/lexsys-cli-0.0.1.tgz
+npx lexsys --version
+npx lexsys init vite smoke-pack
 cd smoke-pack
-npx neurex add button
+npx lexsys add button
 pnpm build
 ```
 
@@ -266,12 +266,12 @@ pnpm build
 - [ ] Add changeset for first release (fixed bump both packages)
 - [ ] Merge to `dev` → ff `main` per [AGENTS.md § Change workflow](../AGENTS.md#change-workflow)
 - [ ] Merge Changesets **Version Packages** PR on `main`
-- [ ] Version PR bumps **both** `neurex` and `@neurex/registry` to `0.0.1`
+- [ ] Version PR bumps **both** `@lexsys/cli` and `@lexsys/registry` to `0.0.1`
 
 ### Phase 4 — Publish
 
 - [ ] CI publish job on `main` succeeds
-- [ ] npm shows `neurex@0.0.1` and `@neurex/registry@0.0.1` tagged **`next`**
+- [ ] npm shows `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` tagged **`next`**
 - [ ] (Optional) Git tag `v0.0.1` on publish commit
 
 ### Phase 5 — Post-publish smoke (real consumer)
@@ -279,13 +279,13 @@ pnpm build
 In a **new** temp directory (no local monorepo):
 
 ```bash
-npx neurex@next init vite smoke-npm
+npx @lexsys/cli@next init vite smoke-npm
 cd smoke-npm
-npx neurex@next add button
+npx @lexsys/cli@next add button
 pnpm build
 ```
 
-- [ ] `npx neurex@next` works from npm (not pack tarball)
+- [ ] `npx @lexsys/cli@next` works from npm (not pack tarball)
 - [ ] README Quick Start matches `@next` install path
 
 **Recommended (non-blocking for 0.0.1):** consumer sandbox narrow-viewport pass —
@@ -309,7 +309,7 @@ All three must be **yes**:
 
 - npm provenance
 - Remote registry signatures / allowlist ([REVIEW_TODO Known Gaps](./REVIEW_TODO.md#known-gaps))
-- Publishing `@neurex/ui` or `@neurex/tokens`
+- Publishing `@lexsys/ui` or `@lexsys/tokens`
 - `apps/docs` public site
 - Moving to dist-tag **`latest`** (that is the **`0.1.0`** milestone)
 
@@ -321,7 +321,7 @@ When declaring public MVP stable:
 
 1. Changeset minor bump → `0.1.0`
 2. Publish with dist-tag **`latest`** (update publish CI / Changesets config)
-3. README: `npx neurex` without `@next`
+3. README: `npx @lexsys/cli` without `@next`
 4. Mark M10 **shipped** in [ROADMAP.md](./ROADMAP.md) and [REVIEW_TODO.md](./REVIEW_TODO.md)
 
 ---
@@ -332,11 +332,11 @@ Still deferred after first `0.0.1` @ `next`:
 
 - npm provenance
 - Remote registry trust (signatures, allowlist) — post-M10
-- Optional npm package for `@neurex/tokens`
+- Optional npm package for `@lexsys/tokens`
 - `apps/docs` public site — post-`0.1.0` / post-M10
 
 Registry validation (`pnpm registry:check`), generated token CSS
-(`styles/tokens.css`, `styles/theme.css`), and `neurex update` with `--sync` /
+(`styles/tokens.css`, `styles/theme.css`), and `lexsys update` with `--sync` /
 `--utilities` / `--styles` are **shipped** — see [CLI.md](./CLI.md) and
 [SCRIPTS.md](./SCRIPTS.md).
 

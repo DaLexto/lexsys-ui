@@ -13,7 +13,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@neurex/ui"
+} from "@lexsys/ui"
 
 export const SurfacesPanel = () => {
   return (
@@ -96,7 +96,7 @@ export const SurfacesPanel = () => {
           <Avatar size="sm">
             <AvatarImage
               src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=96&q=80"
-              alt="Neurex profile"
+              alt="Lexsys profile"
             />
             <AvatarFallback>NX</AvatarFallback>
           </Avatar>

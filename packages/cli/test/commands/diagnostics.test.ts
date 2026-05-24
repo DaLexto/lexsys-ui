@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@neurex/registry"
+import type { RegistryItem } from "@lexsys/registry"
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
@@ -55,7 +55,7 @@ describe("CLI diagnostic commands", () => {
 
     const testRoot = join(process.cwd(), ".tmp")
     await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "neurex-cli-diagnostics-"))
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-diagnostics-"))
     setCwd(tempDir)
   })
 
@@ -86,7 +86,7 @@ describe("CLI diagnostic commands", () => {
 
     await runDoctor()
 
-    expect(consoleOutput()).toContain("Neurex doctor")
+    expect(consoleOutput()).toContain("Lexsys doctor")
     expect(consoleOutput()).toContain("✓ package.json")
     expect(consoleOutput()).toContain("✓ source: local")
     expect(consoleOutput()).toContain("✓ items: 1")
@@ -96,12 +96,12 @@ describe("CLI diagnostic commands", () => {
     await runStatus()
 
     expect(consoleOutput()).toContain(
-      "No Neurex components are currently tracked.",
+      "No Lexsys components are currently tracked.",
     )
   })
 
   test("runStatus reports installed component versions", async () => {
-    await writeJson(join(tempDir, "neurex.config.json"), {
+    await writeJson(join(tempDir, "lexsys.config.json"), {
       ...defaultConfig,
       installed: { button: "0.0.1" },
     })
@@ -119,7 +119,7 @@ describe("CLI diagnostic commands", () => {
 
     await runStatus()
 
-    expect(consoleOutput()).toContain("Installed Neurex components:")
+    expect(consoleOutput()).toContain("Installed Lexsys components:")
     expect(consoleOutput()).toContain("- Button v0.0.1 (up to date)")
   })
 
@@ -128,7 +128,7 @@ describe("CLI diagnostic commands", () => {
 
     await runList()
 
-    expect(consoleOutput()).toContain("Available Neurex registry items:")
+    expect(consoleOutput()).toContain("Available Lexsys registry items:")
     expect(consoleOutput()).toContain("Primitives:")
     expect(consoleOutput()).toContain("- Button v0.0.1 (actions)")
   })
@@ -144,7 +144,7 @@ describe("CLI diagnostic commands", () => {
   test("runConfig prints config path", async () => {
     await runConfig({ path: true })
 
-    expect(consoleOutput()).toContain("neurex.config.json")
+    expect(consoleOutput()).toContain("lexsys.config.json")
   })
 
   test("runConfig reports missing config file", async () => {
@@ -154,7 +154,7 @@ describe("CLI diagnostic commands", () => {
   })
 
   test("runConfig sets and clears registry URL", async () => {
-    await writeJson(join(tempDir, "neurex.config.json"), defaultConfig)
+    await writeJson(join(tempDir, "lexsys.config.json"), defaultConfig)
 
     await runConfig({ setRegistryUrl: "https://example.test/registry.json" })
     expect(consoleOutput()).toContain(

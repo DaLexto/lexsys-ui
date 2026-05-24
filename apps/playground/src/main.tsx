@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
-import { Button } from "@neurex/ui"
+import { Button } from "@lexsys/ui"
 import { BrandPanel } from "./brand-panel"
 import { LayoutPanel } from "./layout-panel"
 import { ActionsPanel } from "./actions-panel"
@@ -65,7 +65,7 @@ const App = () => {
       <header className="playground-top">
         <section className="playground-header">
           <div>
-            <p className="playground-label">Neurex playground</p>
+            <p className="playground-label">Lexsys playground</p>
             <h1>Component smoke</h1>
             <p className="playground-subtitle">
               Monorepo reference — not the CLI install path

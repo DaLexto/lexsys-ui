@@ -1,4 +1,4 @@
-# Neurex Git Commits and Pull Requests
+# Lexsys Git Commits and Pull Requests
 
 **Canonical workflow policy** for the [`$git-commit`](./SKILL.md) skill.
 
@@ -81,7 +81,7 @@ Optional nested doc scopes when one doc area dominates: `docs(tokens)`, `docs(cl
 
 Mark with `!` or `BREAKING CHANGE:` footer when:
 
-- `neurex.config.json` shape or default paths change
+- `lexsys.config.json` shape or default paths change
 - Package `exports` or public entrypoints change
 - Token rules become build-failing and invalidate consumer CSS
 - Bundled registry item files or `target` paths change

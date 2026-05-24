@@ -57,10 +57,10 @@ importers:
 
   apps/playground:
     dependencies:
-      '@neurex/tokens':
+      '@lexsys/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
-      '@neurex/ui':
+      '@lexsys/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tailwindcss/vite':
@@ -94,7 +94,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@neurex/registry':
+      '@lexsys/registry':
         specifier: workspace:*
         version: link:../registry
       prompts:
@@ -121,7 +121,7 @@ importers:
       '@base-ui/react':
         specifier: ^1.5.0
         version: 1.5.0(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@neurex/tokens':
+      '@lexsys/tokens':
         specifier: workspace:*
         version: link:../tokens
       class-variance-authority:

@@ -7,23 +7,23 @@
 import { cva } from "class-variance-authority"
 import { disabledStateClasses } from "../../../utils/cn"
 
-export const tabsRootVariants = cva("grid gap-(--nx-tabs-gap)")
+export const tabsRootVariants = cva("grid gap-(--lsys-tabs-gap)")
 
 export const tabsListVariants = cva(
-  "inline-flex w-fit items-center rounded-(--nx-tabs-list-radius) bg-(--nx-tabs-list-background) p-(--nx-tabs-list-padding)",
+  "inline-flex w-fit items-center rounded-(--lsys-tabs-list-radius) bg-(--lsys-tabs-list-background) p-(--lsys-tabs-list-padding)",
 )
 
 export const tabsTabVariants = cva(
   [
-    "inline-flex items-center justify-center rounded-(--nx-tabs-tab-radius) px-(--nx-tabs-tab-padding-x) py-(--nx-tabs-tab-padding-y)",
-    "text-(length:--nx-tabs-tab-font-size) font-(--nx-tabs-tab-font-weight) leading-(--nx-tabs-tab-font-line-height) text-(--nx-tabs-tab-foreground)",
-    "transition-colors duration-(--nx-tabs-transition-duration) ease-(--nx-tabs-transition-easing)",
-    "outline-none data-[active]:bg-(--nx-tabs-tab-active-background) data-[active]:text-(--nx-tabs-tab-active-foreground) data-[active]:shadow-sm",
-    "focus-visible:ring-(length:--nx-tabs-focus-ring-width) focus-visible:ring-(--nx-tabs-focus-ring-color)",
+    "inline-flex items-center justify-center rounded-(--lsys-tabs-tab-radius) px-(--lsys-tabs-tab-padding-x) py-(--lsys-tabs-tab-padding-y)",
+    "text-(length:--lsys-tabs-tab-font-size) font-(--lsys-tabs-tab-font-weight) leading-(--lsys-tabs-tab-font-line-height) text-(--lsys-tabs-tab-foreground)",
+    "transition-colors duration-(--lsys-tabs-transition-duration) ease-(--lsys-tabs-transition-easing)",
+    "outline-none data-[active]:bg-(--lsys-tabs-tab-active-background) data-[active]:text-(--lsys-tabs-tab-active-foreground) data-[active]:shadow-sm",
+    "focus-visible:ring-(length:--lsys-tabs-focus-ring-width) focus-visible:ring-(--lsys-tabs-focus-ring-color)",
     disabledStateClasses,
   ].join(" "),
 )
 
 export const tabsPanelVariants = cva(
-  "text-(length:--nx-tabs-panel-font-size) leading-(--nx-tabs-panel-font-line-height) text-(--nx-tabs-panel-foreground) outline-none focus-visible:ring-(length:--nx-tabs-focus-ring-width) focus-visible:ring-(--nx-tabs-focus-ring-color)",
+  "text-(length:--lsys-tabs-panel-font-size) leading-(--lsys-tabs-panel-font-line-height) text-(--lsys-tabs-panel-foreground) outline-none focus-visible:ring-(length:--lsys-tabs-focus-ring-width) focus-visible:ring-(--lsys-tabs-focus-ring-color)",
 )

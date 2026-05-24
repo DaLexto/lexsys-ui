@@ -1,5 +1,5 @@
 import { join } from "node:path"
-import { getInstallLayer } from "@neurex/registry"
+import { getInstallLayer } from "@lexsys/registry"
 import { getCwd } from "../core/context.js"
 import { loadConfig } from "../core/config.js"
 import { fileExists } from "../core/fs.js"
@@ -14,7 +14,7 @@ interface RunDoctorOptions {
 export const runDoctor = async (
   options: RunDoctorOptions = {},
 ): Promise<void> => {
-  console.log("Neurex doctor\n")
+  console.log("Lexsys doctor\n")
 
   const config = await loadConfig()
   let registryFailed = false

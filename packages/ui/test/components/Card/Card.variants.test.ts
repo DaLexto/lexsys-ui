@@ -12,19 +12,21 @@ describe("cardVariants", () => {
   test("uses token-backed classes for visual styling", () => {
     const className = cardVariants()
 
-    expect(className).toContain("rounded-(--nx-card-radius)")
-    expect(className).toContain("border-(--nx-card-border-color)")
-    expect(className).toContain("bg-(--nx-card-background)")
-    expect(className).toContain("text-(--nx-card-foreground)")
+    expect(className).toContain("rounded-(--lsys-card-radius)")
+    expect(className).toContain("border-(--lsys-card-border-color)")
+    expect(className).toContain("bg-(--lsys-card-background)")
+    expect(className).toContain("text-(--lsys-card-foreground)")
   })
 
   test("defines token-backed slot spacing and text roles", () => {
-    expect(cardHeaderClassName).toContain("p-(--nx-card-padding)")
-    expect(cardTitleClassName).toContain("text-(--nx-card-title-foreground)")
+    expect(cardHeaderClassName).toContain("p-(--lsys-card-padding)")
+    expect(cardTitleClassName).toContain("text-(--lsys-card-title-foreground)")
     expect(cardDescriptionClassName).toContain(
-      "text-(--nx-card-description-foreground)",
+      "text-(--lsys-card-description-foreground)",
     )
-    expect(cardContentClassName).toContain("pt-(--nx-card-content-padding-top)")
-    expect(cardFooterClassName).toContain("gap-(--nx-card-gap-md)")
+    expect(cardContentClassName).toContain(
+      "pt-(--lsys-card-content-padding-top)",
+    )
+    expect(cardFooterClassName).toContain("gap-(--lsys-card-gap-md)")
   })
 })

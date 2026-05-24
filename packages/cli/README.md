@@ -1,4 +1,4 @@
-# neurex CLI
+# lexsys CLI
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Package README
@@ -11,33 +11,33 @@
 ## Package Role
 
 `packages/cli` is the command-line installer. It reads registry metadata from
-`@neurex/registry` and installs components, utilities, and styles into consumer
+`@lexsys/registry` and installs components, utilities, and styles into consumer
 projects.
 
 This package owns:
 
-- the `neurex` binary entry point
+- the `lexsys` binary entry point
 - all CLI commands and their argument parsing
 - consumer project detection (Vite, Tailwind, package manager)
 - idempotent file installation and conflict reporting
-- `neurex.config.json` read/write lifecycle
+- `lexsys.config.json` read/write lifecycle
 
 This package does not own:
 
-- registry item metadata (owned by `@neurex/registry`)
-- install templates (owned by `@neurex/registry/templates`)
-- design token source (owned by `@neurex/tokens`)
-- component implementations (owned by `@neurex/ui`)
+- registry item metadata (owned by `@lexsys/registry`)
+- install templates (owned by `@lexsys/registry/templates`)
+- design token source (owned by `@lexsys/tokens`)
+- component implementations (owned by `@lexsys/ui`)
 
 ---
 
 ## Binary
 
 ```
-neurex
+lexsys
 ```
 
-Installed via `npm install -g neurex` or run directly with `pnpm exec neurex`.
+Installed via `npm install -g lexsys` or run directly with `pnpm exec lexsys`.
 
 ---
 
@@ -45,19 +45,19 @@ Installed via `npm install -g neurex` or run directly with `pnpm exec neurex`.
 
 | Command                        | Purpose                                                                     |
 | ------------------------------ | --------------------------------------------------------------------------- |
-| `neurex init`                  | Initialize inside an existing supported Vite app                            |
-| `neurex init vite [directory]` | Scaffold a new Vite + React consumer                                        |
-| `neurex init next [directory]` | Scaffold a new Next.js App Router consumer (pinned Next.js 15.3.3)          |
-| `neurex add <component>`       | Install one or more components into the consumer project                    |
-| `neurex update [component]`    | Update installed components; `--sync`, `--utilities`, `--styles`, `--force` |
-| `neurex list`                  | List available registry components                                          |
-| `neurex status`                | Show installed component versions vs registry versions                      |
-| `neurex doctor`                | Check project health and config validity                                    |
-| `neurex config`                | Read or modify `neurex.config.json`                                         |
-| `neurex registry`              | Inspect the active registry source                                          |
-| `neurex uninstall <component>` | Remove installed component files when they match registry templates         |
-| `neurex version`               | Print CLI version                                                           |
-| `neurex help`                  | Print command list                                                          |
+| `lexsys init`                  | Initialize inside an existing supported Vite app                            |
+| `lexsys init vite [directory]` | Scaffold a new Vite + React consumer                                        |
+| `lexsys init next [directory]` | Scaffold a new Next.js App Router consumer (pinned Next.js 15.3.3)          |
+| `lexsys add <component>`       | Install one or more components into the consumer project                    |
+| `lexsys update [component]`    | Update installed components; `--sync`, `--utilities`, `--styles`, `--force` |
+| `lexsys list`                  | List available registry components                                          |
+| `lexsys status`                | Show installed component versions vs registry versions                      |
+| `lexsys doctor`                | Check project health and config validity                                    |
+| `lexsys config`                | Read or modify `lexsys.config.json`                                         |
+| `lexsys registry`              | Inspect the active registry source                                          |
+| `lexsys uninstall <component>` | Remove installed component files when they match registry templates         |
+| `lexsys version`               | Print CLI version                                                           |
+| `lexsys help`                  | Print command list                                                          |
 
 ### Global flags
 
@@ -73,7 +73,7 @@ Installed via `npm install -g neurex` or run directly with `pnpm exec neurex`.
 
 | Module                      | Role                                                                        |
 | --------------------------- | --------------------------------------------------------------------------- |
-| `core/config.ts`            | Read/write `neurex.config.json`; defines `NeurexConfig` schema and defaults |
+| `core/config.ts`            | Read/write `lexsys.config.json`; defines `LexsysConfig` schema and defaults |
 | `core/installer.ts`         | File copy, conflict detection, idempotent installs                          |
 | `core/registry-provider.ts` | Selects local vs remote registry source                                     |
 | `core/registry-resolver.ts` | Resolves registry items, utilities, and styles from active registry         |
@@ -88,7 +88,7 @@ Installed via `npm install -g neurex` or run directly with `pnpm exec neurex`.
 
 ## Config Schema and Install Behavior
 
-Full `neurex.config.json` schema (all fields, defaults, aliases) and install idempotency rules (created / updated / skipped / conflicted states, conflict detection, backup behavior): [docs/CLI.md](../../docs/CLI.md).
+Full `lexsys.config.json` schema (all fields, defaults, aliases) and install idempotency rules (created / updated / skipped / conflicted states, conflict detection, backup behavior): [docs/CLI.md](../../docs/CLI.md).
 
 ---
 
@@ -106,5 +106,5 @@ pnpm cli:check
 
 ## Dependencies
 
-- `@neurex/registry` — registry metadata and templates
+- `@lexsys/registry` — registry metadata and templates
 - `prompts` — interactive CLI prompts

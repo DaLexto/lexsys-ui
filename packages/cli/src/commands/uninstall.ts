@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@neurex/registry"
+import type { RegistryItem } from "@lexsys/registry"
 import { loadConfig, saveConfig } from "../core/config.js"
 import {
   uninstallItemFiles,

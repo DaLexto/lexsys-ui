@@ -1,38 +1,38 @@
 import type { ComponentProps, ReactNode } from "react"
-import type { Button, Input } from "@neurex/ui"
+import type { Button, Input } from "@lexsys/ui"
 
 export const brandSwatches = [
   {
     label: "Primary base",
-    token: "--nx-action-primary-base",
+    token: "--lsys-action-primary-base",
   },
   {
     label: "Primary hover",
-    token: "--nx-action-primary-hover",
+    token: "--lsys-action-primary-hover",
   },
   {
     label: "Primary active",
-    token: "--nx-action-primary-active",
+    token: "--lsys-action-primary-active",
   },
   {
     label: "Accent base",
-    token: "--nx-brand-color-accent-base",
+    token: "--lsys-brand-color-accent-base",
   },
   {
     label: "Accent hover",
-    token: "--nx-brand-color-accent-hover",
+    token: "--lsys-brand-color-accent-hover",
   },
   {
     label: "Accent active",
-    token: "--nx-brand-color-accent-active",
+    token: "--lsys-brand-color-accent-active",
   },
   {
     label: "Focus ring",
-    token: "--nx-border-focus",
+    token: "--lsys-border-focus",
   },
   {
     label: "Link text",
-    token: "--nx-color-text-link",
+    token: "--lsys-color-text-link",
   },
 ] as const
 
@@ -54,7 +54,7 @@ export const semanticColorExamples: Array<{
   {
     label: "Accent link",
     className: "brand-demo-link",
-    content: "Read the Neurex token contract",
+    content: "Read the Lexsys token contract",
   },
   {
     label: "Accent border",
