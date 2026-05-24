@@ -223,9 +223,9 @@ Use this when cutting the **first** npm release. Repeat phases 2–5 for later
 
 - [ ] Publish scope documented (only `@lexsys/cli` + `@lexsys/registry`)
 - [ ] Root `LICENSE` (MIT) and `CHANGELOG.md` with `[0.0.1]` section
-- [ ] Package metadata: `repository`, `license`, `files`, `exports` (no `private: true`)
-- [ ] Changesets: fixed group `@lexsys/cli` + `@lexsys/registry`
-- [ ] Publish CI workflow on `main`
+- [x] Package metadata: `repository`, `license`, `files`, `exports` (no `private: true`)
+- [x] Changesets: fixed group `@lexsys/cli` + `@lexsys/registry` (`.changeset/config.json`)
+- [x] Publish CI workflow on `main` (`.github/workflows/release.yml`)
 - [ ] `pnpm publish:pack-audit` passes locally
 - [ ] `pnpm check` green on `main`
 - [ ] `pnpm sync:all && pnpm registry:check` before pack

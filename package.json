@@ -42,6 +42,9 @@
     "cli:lint:fix": "pnpm --filter ./packages/cli lint:fix",
     "cli:typecheck": "pnpm --filter ./packages/cli typecheck",
     "publish:pack-audit": "node scripts/publish/pack-audit.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm install --lockfile-only",
+    "publish:release": "pnpm --filter @lexsys/registry build && pnpm --filter @lexsys/cli build && changeset publish --tag next",
     "playground:build": "pnpm tokens:build && pnpm ui:build && pnpm --filter @lexsys/playground build",
     "playground:check": "pnpm --filter @lexsys/playground check",
     "playground:dev": "pnpm --filter @lexsys/playground dev",
@@ -50,6 +53,8 @@
     "playground:typecheck": "pnpm tokens:build && pnpm ui:build && pnpm --filter @lexsys/playground typecheck"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.5",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/cli": "^4.3.0",
     "@types/node": "^25.9.1",

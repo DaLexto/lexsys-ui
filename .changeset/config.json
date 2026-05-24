@@ -1,0 +1,11 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "DaLexto/lexsys" }],
+  "commit": false,
+  "fixed": [["@lexsys/cli", "@lexsys/registry"]],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["lexsys", "@lexsys/tokens", "@lexsys/ui", "@lexsys/playground"]
+}

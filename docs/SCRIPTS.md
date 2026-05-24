@@ -38,6 +38,7 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm registry:styles:sync`     | Alias for `tokens:generate:styles` via registry                                         |
 | `pnpm cli:check`                | Turbo `check` for CLI (builds `@lexsys/registry` first, then lint + typecheck + test)   |
 | `pnpm publish:pack-audit`       | M10 publish gate: metadata audit + `pnpm pack` for `@lexsys/cli` and `@lexsys/registry` |
+| `pnpm changeset`                | Add a changeset for publish-package changes                                             |
 | `pnpm playground:dev`           | Start local playground (Vite)                                                           |
 | `pnpm playground:check`         | Lint + typecheck playground                                                             |
 | `pnpm playground:build`         | Build tokens + UI, then playground                                                      |
@@ -305,6 +306,28 @@ pnpm publish:pack-audit
 ```
 
 Validates root `LICENSE` and `CHANGELOG.md`, publish `package.json` fields, builds are present, and runs `pnpm pack` into `.tmp/pack-audit/`. Full release flow: [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next).
+
+### `pnpm changeset`
+
+Add a changeset when `@lexsys/cli` or `@lexsys/registry` publish behavior changes:
+
+```sh
+pnpm changeset
+```
+
+Commit the generated file under `.changeset/`. The [Release workflow](../.github/workflows/release.yml) on `main` opens a **Version packages** PR; after merge it publishes to npm dist-tag **`next`**.
+
+### `pnpm version-packages`
+
+Maintainer / CI only — applies pending changesets (bumps versions + changelog):
+
+```sh
+pnpm version-packages
+```
+
+### `pnpm publish:release`
+
+Builds publish packages and runs `changeset publish --tag next`. Used by Release CI; requires `NPM_TOKEN` locally for manual publish.
 
 ---
 

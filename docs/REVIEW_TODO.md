@@ -41,13 +41,13 @@ Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 **Canonical publish-day checklist:** [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next)
 
-| ID    | Deliverable                                               | Status       |
-| ----- | --------------------------------------------------------- | ------------ |
-| M10.0 | Publish surface + version lane (DEPLOY, ROADMAP, README)  | partial (R0) |
-| M10.1 | Root `CHANGELOG.md`                                       | planned      |
-| M10.2 | Package metadata audit + `pnpm publish:pack-audit`        | planned      |
-| M10.3 | Changesets + publish CI (`next` tag)                      | planned      |
-| M10.4 | First publish + post-publish `npx @lexsys/cli@next` smoke | planned      |
+| ID    | Deliverable                                               | Status  |
+| ----- | --------------------------------------------------------- | ------- |
+| M10.0 | Publish surface + version lane (DEPLOY, ROADMAP, README)  | done    |
+| M10.1 | Root `CHANGELOG.md`                                       | done    |
+| M10.2 | Package metadata audit + `pnpm publish:pack-audit`        | done    |
+| M10.3 | Changesets + publish CI (`next` tag)                      | done    |
+| M10.4 | First publish + post-publish `npx @lexsys/cli@next` smoke | planned |
 
 Detail: [ROADMAP.md § M10](./ROADMAP.md#m10--release-readiness).
 
