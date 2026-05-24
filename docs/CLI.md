@@ -55,7 +55,7 @@ Detects whether a supported project scaffold exists in the working directory.
 
 **Neurex init sequence** (runs after scaffold detection or scaffold command):
 
-1. Creates `componentsPath`, `utilitiesPath`, `stylesPath` directories.
+1. Creates `paths.components`, `paths.utilities`, and `paths.styles` directories.
 2. Installs Tailwind v4 dependencies (Vite: `tailwindcss`, `@tailwindcss/vite`; Next: `tailwindcss`, `@tailwindcss/postcss`).
 3. Ensures `@import "tailwindcss";` at the top of the Tailwind CSS entrypoint (`src/style.css` for Vite; `app/globals.css` for Next).
 4. **Vite only:** ensures `tailwindcss()` plugin and `"@": fileURLToPath(...)` resolve alias in `vite.config.*`.
@@ -120,11 +120,11 @@ available registry items (format: `CanonicalName (category)`).
 2. Collect transitive `registryDependencies` (deduped).
 3. Collect npm `dependencies`, `utilities`, and `styles` across all items.
 4. Install missing npm dependencies.
-5. Install utilities to `utilitiesPath` (skip if identical; conflict if differs).
-6. Install style files to `stylesPath` (skip if identical; auto-update if both
+5. Install utilities to `paths.utilities` (skip if identical; conflict if differs).
+6. Install style files to `paths.styles` (skip if identical; auto-update if both
    source and target are generated Neurex files; conflict otherwise).
 7. Wire style `@import` statements into the Tailwind CSS entrypoint.
-8. Copy component template files to `componentsPath/<CanonicalName>/`.
+8. Copy template files to `paths.components/<CanonicalName>/` (all layers — primitives, blocks, templates). Rewrite cross-layer imports to sibling paths on install.
 9. Track successfully installed items (no conflicts) in `neurex.config.json`.
 10. Print install summary.
 
@@ -192,7 +192,7 @@ Components that complete without conflicts have their version updated in config.
 the same generated-file auto-update path as `add`.
 
 **`--utilities`** collects utilities referenced by installed components (for
-example `cn` → `utilitiesPath/utils.ts`) and applies the same safe-update
+example `cn` → `paths.utilities/utils.ts`) and applies the same safe-update
 rules as component files. Use **`--force`** to overwrite user-modified utility
 files after creating backups.
 
@@ -213,12 +213,24 @@ neurex list
 neurex list --json
 ```
 
-| Flag            | Description                                                              |
-| --------------- | ------------------------------------------------------------------------ |
-| `--json`        | Output as JSON array with `name`, `canonicalName`, `version`, `category` |
-| `--no-fallback` | Fail if remote registry unavailable                                      |
+| Flag            | Description                                                                       |
+| --------------- | --------------------------------------------------------------------------------- |
+| `--json`        | Output as JSON array with `name`, `canonicalName`, `version`, `category`, `layer` |
+| `--no-fallback` | Fail if remote registry unavailable                                               |
 
-Default output format: `- CanonicalName vX.X.X (category)` per line.
+Default output groups items by install layer (`Primitives`, `Blocks`, `Templates`):
+
+```txt
+Available Neurex registry items:
+
+Primitives:
+- Button v… (actions)
+…
+
+Blocks:
+- Sidebar v… (blocks)
+…
+```
 
 ---
 
@@ -259,9 +271,9 @@ neurex doctor --no-fallback
 Checks and prints `✓` / `×` for:
 
 - `package.json` — present in working directory
-- `componentsPath` — directory exists
-- `utilitiesPath` — directory exists
-- `stylesPath` — directory exists
+- `paths.components` — directory exists
+- `paths.utilities` — directory exists
+- `paths.styles` — directory exists
 - `tailwind.css` — entrypoint file exists
 - Registry connectivity — source URL, fallback used, item count
 - Each tracked component — directory exists; reports `missing from registry` if

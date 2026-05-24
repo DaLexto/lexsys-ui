@@ -393,11 +393,16 @@ them as such until the package export contract is finalized.
 
 The default consumer project paths (from `neurex.config.json` defaults) are:
 
-| Config key       | Default path        | Contents                                        |
-| ---------------- | ------------------- | ----------------------------------------------- |
-| `componentsPath` | `src/components/ui` | Installed component files                       |
-| `utilitiesPath`  | `src/lib`           | Shared utilities (e.g. `utils.ts`)              |
-| `stylesPath`     | `styles`            | Installed CSS files (`tokens.css`, `theme.css`) |
+| Config key         | Default path        | Contents                                           |
+| ------------------ | ------------------- | -------------------------------------------------- |
+| `paths.components` | `src/components/ui` | Installed primitives, blocks, and templates (flat) |
+| `paths.utilities`  | `src/lib`           | Shared utilities (e.g. `utils.ts`)                 |
+| `paths.styles`     | `styles`            | Installed CSS files (`tokens.css`, `theme.css`)    |
+
+All install layers copy into `paths.components/<CanonicalName>/`. The CLI rewrites
+cross-layer imports at install time — consumers do not mirror monorepo
+`primitives/`, `blocks/`, or `templates/` folder depth. See
+[UI_COMPOSITION.md](./UI_COMPOSITION.md).
 
 Do not install component files outside these paths without explicit config
 override. Do not duplicate shared utilities inside each component folder.
