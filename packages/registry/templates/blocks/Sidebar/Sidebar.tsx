@@ -61,7 +61,10 @@ const SidebarNavLink = ({
     }
 
     return (
-      <DrawerClose render={<a href={item.href} className={className} />}>
+      <DrawerClose
+        appearance="inline"
+        render={<a href={item.href} className={className} />}
+      >
         {item.label}
       </DrawerClose>
     )
@@ -77,6 +80,7 @@ const SidebarNavLink = ({
 
   return (
     <DrawerClose
+      appearance="inline"
       render={
         <button type="button" className={className} onClick={item.onSelect} />
       }

@@ -165,3 +165,11 @@ export const drawerCloseVariants = cva(
     disabledStateClasses,
   ].join(" "),
 )
+
+export const drawerCloseInlineVariants = cva(
+  [
+    "relative inline-flex w-auto items-center outline-none",
+    "focus-visible:ring-(length:--nx-drawer-focus-ring-width) focus-visible:ring-(--nx-drawer-focus-ring-color) focus-visible:ring-offset-(length:--nx-drawer-focus-ring-offset) focus-visible:ring-offset-(--nx-drawer-focus-ring-offset-color)",
+    disabledStateClasses,
+  ].join(" "),
+)

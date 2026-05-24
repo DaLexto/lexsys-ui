@@ -70,4 +70,8 @@ export interface DrawerTitleProps extends Omit<
 
 export type DrawerDescriptionProps = BaseDrawer.Description.Props
 
-export type DrawerCloseProps = BaseDrawer.Close.Props
+export type DrawerCloseAppearance = "icon" | "inline"
+
+export interface DrawerCloseProps extends BaseDrawer.Close.Props {
+  appearance?: DrawerCloseAppearance
+}

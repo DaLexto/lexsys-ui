@@ -13,7 +13,7 @@ export const dashboardShellMainVariants = (): string => {
 }
 
 export const dashboardShellHeaderVariants = (): string => {
-  return "nx-dashboard-shell__header hidden border-b border-[var(--nx-border-default)] bg-[var(--nx-color-background-base)] px-[var(--nx-space-4)] py-[var(--nx-space-3)] md:block"
+  return "nx-dashboard-shell__header border-b border-[var(--nx-border-default)] bg-[var(--nx-color-background-base)] px-[var(--nx-space-4)] py-[var(--nx-space-3)]"
 }
 
 export const dashboardShellContentVariants = (): string => {

@@ -13,7 +13,7 @@ export const sidebarDesktopVariants = (): string => {
 }
 
 export const sidebarMobileTriggerVariants = (): string => {
-  return "nx-sidebar__mobile-trigger flex items-center gap-[var(--nx-space-2)] border-b border-[var(--nx-border-default)] p-[var(--nx-space-2)] md:hidden"
+  return "nx-sidebar__mobile-trigger sticky top-0 z-(--nx-z-index-local) border-b border-[var(--nx-border-default)] bg-[var(--nx-color-background-base)] p-[var(--nx-space-2)] md:hidden"
 }
 
 export const sidebarMobileHeaderVariants = (): string => {

@@ -26,6 +26,7 @@ import type {
 import {
   drawerBackdropVariants,
   drawerCloseVariants,
+  drawerCloseInlineVariants,
   drawerContentVariants,
   drawerDescriptionVariants,
   drawerHandleVariants,
@@ -219,6 +220,7 @@ DrawerDescription.displayName = "DrawerDescription"
 
 const DrawerClose = ({
   ref,
+  appearance = "icon",
   className,
   children,
   ...props
@@ -226,10 +228,15 @@ const DrawerClose = ({
   return (
     <BaseDrawer.Close
       ref={ref}
-      className={mergeClassName(drawerCloseVariants(), className)}
+      className={mergeClassName(
+        appearance === "inline"
+          ? drawerCloseInlineVariants()
+          : drawerCloseVariants(),
+        className,
+      )}
       {...props}
     >
-      {children ?? <X aria-hidden="true" size={16} />}
+      {children ?? (appearance === "icon" ? <X aria-hidden="true" size={16} /> : null)}
     </BaseDrawer.Close>
   )
 }

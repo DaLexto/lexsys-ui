@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest"
 import {
   drawerBackdropVariants,
+  drawerCloseInlineVariants,
+  drawerCloseVariants,
   drawerPopupVariants,
   drawerSwipeAreaVariants,
   drawerViewportVariants,
@@ -21,5 +23,11 @@ describe("drawerVariants", () => {
     expect(drawerBackdropVariants()).toContain(
       "bg-(--nx-drawer-backdrop-background)",
     )
+  })
+
+  it("keeps icon and inline close variants separate", () => {
+    expect(drawerCloseVariants()).toContain("absolute")
+    expect(drawerCloseInlineVariants()).not.toContain("absolute")
+    expect(drawerCloseInlineVariants()).toContain("relative")
   })
 })
