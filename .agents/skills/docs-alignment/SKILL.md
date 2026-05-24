@@ -19,6 +19,7 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md).
 
 ## Procedure
 
+0. **Layout** — edited files match [documentation-standards.mdc § Document layout contract](../../.cursor/rules/documentation-standards.mdc) (metadata block, H2 order for declared type).
 1. **Identify owner** — each rule lives in one canonical doc (INDEX table).
 2. **Edit owner only** — replace duplicates elsewhere with links.
 3. **Verify claims** against code (`packages/*/src`, registry item count, tests).

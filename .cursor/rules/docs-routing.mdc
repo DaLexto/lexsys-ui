@@ -5,14 +5,15 @@ alwaysApply: false
 ---
 # Documentation routing (Lexsys)
 
-Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance: [documentation-standards.mdc](./documentation-standards.mdc).
+Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance and **document layout**: [documentation-standards.mdc](./documentation-standards.mdc) (§ Document layout contract).
 
 ## Before editing
 
 1. Confirm the **owning document** in INDEX — edit there, not in AGENTS.md or rules.
-2. **Current implementation** wins over roadmap, comments, or memory.
-3. **Script inventory** lives only in [SCRIPTS.md](../../docs/SCRIPTS.md) — link, do not copy tables.
-4. After count or phase changes, run **`$docs-alignment`** skill.
+2. Apply the **Document layout contract** — metadata block + H2 order for the doc type.
+3. **Current implementation** wins over roadmap, comments, or memory.
+4. **Script inventory** lives only in [SCRIPTS.md](../../docs/SCRIPTS.md) — link, do not copy tables.
+5. After count or phase changes, run **`$docs-alignment`** skill.
 
 ## Quick ownership
 
@@ -23,6 +24,7 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance: [documentation-standards.
 | `lexsys` CLI | `CLI.md` |
 | UI components / variants | `UI.md`, `UI_VARIANTS.md` |
 | Composition layers | `UI_COMPOSITION.md` |
+| Installable inventory (when present) | `UI_CATALOG.md` |
 | Verification / sandbox | `TESTING.md` |
 | Backlog / BO / M-phases | `REVIEW_TODO.md`, `ROADMAP.md` |
 | System shape (hub only) | `ARCHITECTURE.md` |

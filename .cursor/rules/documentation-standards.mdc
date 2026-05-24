@@ -15,13 +15,17 @@ Use this rule when writing or reviewing **markdown documentation** in this repo:
 
 **Hub:** [docs/INDEX.md](../../docs/INDEX.md) — routing table for document ownership.
 
+**Layout vs routing:** INDEX tells you *which* doc owns a topic. This rule tells you *how* to structure any markdown doc (metadata, headings, section modes). Do not invent per-file layouts.
+
 ## Documentation Taxonomy
 
 | Document Type                  | Primary Audience                    | Purpose                                                                                            |
 | :----------------------------- | :---------------------------------- | :------------------------------------------------------------------------------------------------- |
+| Routing hub                    | Maintainers, contributors, agents   | Index tables that route to owning docs — not domain rules themselves.                              |
 | Project overview / quick start | Users, evaluators, new contributors | Explain what the project is, how to start, current status, and where to go next.                   |
 | Architecture overview          | Maintainers                         | Explain system shape, boundaries, major flows, and links to deeper documents.                      |
 | Domain specification           | Maintainers and domain owners       | Define canonical rules for a core domain such as tokens, API, data model, auth, rendering, deploy. |
+| Catalog / inventory            | Maintainers and agents              | Machine-verifiable or tabular inventory (exports, versions, compliance rows) — link specs for rules. |
 | Package/module reference       | Maintainers of a package/module     | Explain public API, exports, inputs/outputs, commands, and implementation boundaries.              |
 | Conceptual model               | Maintainers and contributors        | Explain why the system works the way it does and how major concepts relate.                        |
 | CLI/API reference              | Users and maintainers               | Document current commands, options, config, request/response shapes, and safety behavior.          |
@@ -29,6 +33,160 @@ Use this rule when writing or reviewing **markdown documentation** in this repo:
 | Contributor style guide        | Contributors and agents             | Define coding, naming, testing, documentation, and review conventions.                             |
 | Roadmap/backlog                | Maintainers                         | Track future work, TODOs, known gaps, and completed review outcomes.                               |
 | Vision/strategy document       | Maintainers                         | Capture long-term direction; never treat as current implementation contract.                       |
+| Troubleshooting / diagnostics  | Maintainers and contributors        | Common failure modes, symptoms, and fix paths — link to owning specs.                              |
+
+## Document layout contract
+
+Every markdown doc in scope MUST follow this skeleton unless a **slim variant** below applies.
+
+### Required metadata block (Option A — bold)
+
+Place immediately after the H1, before the first horizontal rule. Use bold labels on their own lines. No YAML frontmatter until a `docs:lint` tool exists.
+
+```markdown
+# Document Title
+
+**Audience:** …
+**Type:** … (one row from Documentation Taxonomy)
+**Source of truth for:** … (one sentence — what this file owns)
+
+**Verified against:** `path/` (domain specs and references — optional but recommended)
+**Related docs:** `docs/…` (optional cross-links)
+
+---
+```
+
+**Slim variants** (same bold style; omit optional fields):
+
+| Surface | Required fields | Notes |
+| ------- | --------------- | ----- |
+| `docs/*.md` | Audience, Type, Source of truth for | Full block preferred for domain specs |
+| `AGENTS.md` | Audience, Type | Routing only — no domain rule bodies |
+| Root `README.md` | Audience | Type MAY be "Project overview" inline or omitted |
+| `CONTRIBUTING.md` | Audience | Link to this rule for layout details |
+| Package `README.md` | Audience, Type | Link to INDEX + owning domain spec |
+
+### Formatting rules
+
+| Element | Rule |
+| ------- | ---- |
+| H1 | Exactly one — matches document title |
+| Metadata | Bold block → blank line → `---` → blank line → first H2 |
+| H2 / H3 | Sentence case; do not skip levels (H1 → H2 → H3) |
+| Normative specs | Use `MUST` / `SHOULD` / `MAY` in domain specs and catalogs |
+| Backlog / roadmap | Do **not** use `MUST` for unshipped work — use *planned*, *target*, *TBD* |
+| Tables | Prefer tables for inventories, routing, and field contracts |
+| Code | Fenced blocks with language tag when not plain prose |
+| Links | Prefer relative links within repo; link to INDEX owner instead of duplicating rules |
+| See also | Optional final H2 for cross-links — never duplicate full rule bodies there |
+
+### Section modes (Diátaxis-inspired)
+
+Each H2 section SHOULD serve **one** primary mode. Do not mix modes in the same section.
+
+| Mode | Purpose | Typical doc types |
+| ---- | ------- | ----------------- |
+| **Explanation** | Why the system works this way | Architecture, conceptual model, vision |
+| **Reference** | Precise contracts, fields, APIs | Domain spec, CLI/API, catalog, scripts |
+| **How-to** | Steps to accomplish a task | Testing, deploy, troubleshooting, workflow |
+| **Orientation** | Where to go next | Routing hub, README, AGENTS |
+
+**Anti-patterns:** tutorial steps inside a MUST table; roadmap bullets inside a domain spec without a "Planned" label; duplicating SCRIPTS.md command tables; inventing a new header order per file.
+
+### H2 section order by type
+
+Use these H2 names or clear equivalents — order matters for scanning.
+
+**Routing hub** (`INDEX.md`):
+
+1. Start here
+2. Domain specifications (or Catalog / inventory when present)
+3. Workflow and reference
+4. Vision and backlog
+5. Repo-local agent skills / package READMEs (if listed)
+
+**Domain specification** (`TOKENS.md`, `REGISTRY.md`, `UI.md`, …):
+
+1. What it is (explanation — one screen max)
+2. Contract / rules / layers (reference — normative)
+3. Workflows or validation (how-to — commands link to `SCRIPTS.md`)
+4. Related docs or See also
+
+**Catalog / inventory** (`UI_CATALOG.md`, `UI_AUDIT.md`):
+
+1. Purpose and scope
+2. Inventory table(s) (reference)
+3. Generation / drift checks (how-to — script names link to `SCRIPTS.md`)
+4. Related docs (link composition rules — do not duplicate)
+
+**CLI/API reference** (`CLI.md`):
+
+1. Usage / command surface
+2. Per-command or per-resource sections (reference)
+3. Config / errors / safety
+4. See also
+
+**Scripts / commands reference** (`SCRIPTS.md`):
+
+1. Overview
+2. Script groups by package or concern (reference tables)
+3. Sync workflows (how-to)
+4. See also
+
+**Architecture overview** (`ARCHITECTURE.md`):
+
+1. System shape (explanation)
+2. Package boundaries / flows (reference-lite — link domain specs for MUST rules)
+3. Install or data flow (how-to diagram or steps)
+4. See also
+
+**Roadmap / backlog** (`ROADMAP.md`, `REVIEW_TODO.md`):
+
+1. Context (link vision doc if separate)
+2. Active queue / phases (status tables — no `MUST` for unshipped items)
+3. Deferred / completed pointers (optional — prefer git history for done work)
+4. See also
+
+**Contributor style guide** (`STYLE.md`, `STYLEGUIDE.md`):
+
+1. Scope
+2. Rules by topic (reference)
+3. Examples
+4. See also
+
+**Troubleshooting** (`TROUBLESHOOTING.md`):
+
+1. Scope
+2. Symptoms → cause → fix (how-to)
+3. See also
+
+### Good vs bad metadata
+
+**Good** (domain spec — matches [`REGISTRY.md`](../../docs/REGISTRY.md)):
+
+```markdown
+# Lexsys Registry
+
+**Audience:** Maintainers and agents
+**Type:** Domain specification
+**Source of truth for:** Registry item contract, template sync, validation
+
+---
+```
+
+**Bad** (invented layout, missing type, backlog tone in spec):
+
+```markdown
+# Registry stuff
+
+Maintainers only.
+
+## MUST ship v2 templates next sprint
+```
+
+### Path scope
+
+Applies to flat `docs/*.md` today. After a future folder migration (D7), paths become `docs/**/*.md` — **metadata and H2 order stay the same**; only link paths change.
 
 ## Governance Rules
 
@@ -122,7 +280,8 @@ Use this rule when writing or reviewing **markdown documentation** in this repo:
 For each edited document:
 
 - Clear audience.
-- Clear document type.
+- Clear document type (matches Taxonomy row).
+- **Layout contract:** metadata block present; H2 order matches declared type (see Document layout contract).
 - Current vs target state separated.
 - Normative language matches enforcement level.
 - No unverified implementation claims.

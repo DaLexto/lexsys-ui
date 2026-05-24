@@ -18,6 +18,7 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 | Long-term direction and M-phases               | [ROADMAP.md](./ROADMAP.md)            |
 | Agent routing and always-on guardrails         | [AGENTS.md](../AGENTS.md)             |
 | Human contributor workflow                     | [CONTRIBUTING.md](../CONTRIBUTING.md) |
+| Document layout and authoring standards        | [documentation-standards.mdc](../.cursor/rules/documentation-standards.mdc) |
 
 ---
 
