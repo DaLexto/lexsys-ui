@@ -77,17 +77,10 @@ Surfaces audited:
 
 ## docs/ — catalogs and audits
 
-| Surface                          | Type                | Audience            | Canonical owner                                             | Status     | Layout    | Action                                                                                                                           |
-| -------------------------------- | ------------------- | ------------------- | ----------------------------------------------------------- | ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [UI_AUDIT.md](./UI_AUDIT.md)     | Catalog / inventory | Maintainers         | Self (variants); [UI_VARIANTS.md](./UI_VARIANTS.md) (rules) | `outdated` | `partial` | D4 — scope header: **variants only**; refresh M11 rows (Checkbox exports, Progress root `size`); link composition → `UI_CATALOG` |
-| [UI_CATALOG.md](./UI_CATALOG.md) | Catalog / inventory | Maintainers, agents | Self                                                        | `current`  | `Y`       | —                                                                                                                                |
-
-**Known UI_AUDIT drift (verify in D4):**
-
-- **Checkbox** row lists `checkboxLabelVariants` — code exports `Checkbox`, `CheckboxIndicator` only (M11).
-- **Progress** row lists root `size` — compound parts export without root size prop pattern (M11).
-- **Switch / Slider** — export sets changed M11; variant rows need re-verify.
-- Doc title implies full component audit; actual scope is **CVA/variant compliance** (composition belongs in `UI_CATALOG`).
+| Surface                          | Type                | Audience            | Canonical owner                                             | Status    | Layout    | Action |
+| -------------------------------- | ------------------- | ------------------- | ----------------------------------------------------------- | --------- | --------- | ------ |
+| [UI_AUDIT.md](./UI_AUDIT.md)     | Catalog / inventory | Maintainers         | Self (variants); [UI_VARIANTS.md](./UI_VARIANTS.md) (rules) | `current` | `partial` | —      |
+| [UI_CATALOG.md](./UI_CATALOG.md) | Catalog / inventory | Maintainers, agents | Self                                                        | `current` | `Y`       | —      |
 
 ---
 
@@ -145,7 +138,7 @@ Surfaces audited:
 | D1       | UI_CATALOG.md + audit script                     | D1          | yes  |
 | D2       | INDEX refresh (M11, catalog row)                 | D2          | yes  |
 | D3       | Dedup README, UI_COMPOSITION, UI.md, ROADMAP M11 | D3          | yes  |
-| D4       | UI_AUDIT scope + stale rows                      | D4          | —    |
+| D4       | UI_AUDIT scope + stale rows                      | D4          | yes  |
 | D5       | docs-alignment skill + SCRIPTS catalog check     | D5          | —    |
 | D6       | format:check + catalog:check                     | D6          | —    |
 | D7       | Folder migration (reference-by-package)          | Later       | —    |
