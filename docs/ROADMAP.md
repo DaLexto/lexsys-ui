@@ -4,7 +4,7 @@
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
 composition pilots **shipped** (PR #28); M10 release readiness **planned**; M4
-**reserved** (scope TBD); blocks/templates optimization **in progress** (BO.4–BO.5 partial) — see phase tables below for current vs future work  
+**reserved** (scope TBD); blocks/templates optimization **in progress** (BO.5 partial) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -122,26 +122,26 @@ advanced CI → M6 deps → M7 maintainer tooling → … → M10 release**.
 
 ### Execution discipline
 
-| Granularity       | Rule                                                                                                                     |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Sub-item (`Mx.y`) | One conventional commit when done                                                                                        |
+| Granularity        | Rule                                                                                                                     |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Sub-item (`Mx.y`)  | One conventional commit when done                                                                                        |
 | Phase (`M1`–`M10`) | One implementation PR when all sub-items on the phase branch pass verification                                           |
-| Post-phase        | Docs sync PR after merge if ROADMAP/REVIEW_TODO/handbooks lag (see [TESTING.md](./TESTING.md), [DEPLOY.md](./DEPLOY.md)) |
+| Post-phase         | Docs sync PR after merge if ROADMAP/REVIEW_TODO/handbooks lag (see [TESTING.md](./TESTING.md), [DEPLOY.md](./DEPLOY.md)) |
 
 Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementation detail in git history, not in this section body.
 
 ### Phase overview
 
-| Phase | Name                     | Status  | Outcome (summary)                                                                 | Primary docs                          |
-| ----- | ------------------------ | ------- | --------------------------------------------------------------------------------- | ------------------------------------- |
-| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment    | SCRIPTS.md, DEPLOY.md                 |
-| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                     | TESTING.md, AGENTS.md                 |
-| M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
-| M4    | (TBD)                    | planned | Reserved slot — scope to be defined                                               | —                                     |
-| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`               | SCRIPTS.md, `.github/workflows/`      |
-| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                    | DEPLOY.md                             |
-| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agents/skills/` |
-| M10   | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
+| Phase | Name                     | Status  | Outcome (summary)                                                                    | Primary docs                          |
+| ----- | ------------------------ | ------- | ------------------------------------------------------------------------------------ | ------------------------------------- |
+| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment       | SCRIPTS.md, DEPLOY.md                 |
+| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                        | TESTING.md, AGENTS.md                 |
+| M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner      | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
+| M4    | (TBD)                    | planned | Reserved slot — scope to be defined                                                  | —                                     |
+| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                  | SCRIPTS.md, `.github/workflows/`      |
+| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                       | DEPLOY.md                             |
+| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agents/skills/`          |
+| M10   | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                      | DEPLOY.md                             |
 
 ### M1 — Infra and DX
 
@@ -345,16 +345,16 @@ separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.
 
 Original per-phase sketch (reference if splitting future work):
 
-| PR    | Phase   | Title sketch                                            |
-| ----- | ------- | ------------------------------------------------------- |
+| PR    | Phase   | Title sketch                                             |
+| ----- | ------- | -------------------------------------------------------- |
 | 0     | Phase 0 | `docs(roadmap): add monorepo optimization phases M1–M10` |
-| 1a    | M1      | `chore(m1): infra and DX`                               |
-| 1b    | M1      | `docs(roadmap): mark M1 shipped` (if needed)            |
-| 2a    | M2      | `test(m2): quality and verification`                    |
-| 2b    | M2      | `docs(testing): sync M2 coverage` (if needed)           |
-| 5a–5b | M5      | Advanced CI + docs sync                                 |
-| 6a–6b | M6      | Dependency hygiene + docs sync                          |
-| 7a–7b | M7      | Maintainer tooling + docs sync                          |
+| 1a    | M1      | `chore(m1): infra and DX`                                |
+| 1b    | M1      | `docs(roadmap): mark M1 shipped` (if needed)             |
+| 2a    | M2      | `test(m2): quality and verification`                     |
+| 2b    | M2      | `docs(testing): sync M2 coverage` (if needed)            |
+| 5a–5b | M5      | Advanced CI + docs sync                                  |
+| 6a–6b | M6      | Dependency hygiene + docs sync                           |
+| 7a–7b | M7      | Maintainer tooling + docs sync                           |
 
 ### Verification gates
 
@@ -395,7 +395,7 @@ and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes
 `primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
 `paths.components` (`src/components/ui/<CanonicalName>/` with import rewrite).
 Pilot blocks (FormField, Sidebar) and template (DashboardShell) are registry +
-CLI installable — **optimization pass largely complete** (BO.1–BO.3, BO.6–BO.7 fixed; BO.4–BO.5 partial; PR #30, `ef65072`).
+CLI installable — **optimization pass largely complete** (BO.1–BO.4, BO.6–BO.7 fixed; BO.5 partial; PR #30, `ef65072`).
 
 Neurex uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
@@ -422,7 +422,7 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
-testing. BO.1–BO.3, BO.6–BO.7 fixed (PR #30, `ef65072`); BO.4–BO.5 CI gate still open.
+testing. BO.1–BO.4, BO.6–BO.7 fixed; BO.5 assumption audit still open.
 Tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).

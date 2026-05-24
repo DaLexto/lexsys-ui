@@ -121,20 +121,20 @@ pnpm --filter @neurex/registry test
 
 Test files in `packages/cli/test/`:
 
-| File                            | What it tests                                                                                                                 |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `commands/add.test.ts`          | `neurex add` — file creation, skipping unchanged files, conflict detection, utilities/styles install                          |
-| `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                                              |
-| `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                                                 |
-| `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                                                 |
-| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior, orphaned shared utilities/styles cleanup |
-| `commands/diagnostics.test.ts`  | `doctor`, `status`, `list`, `config` — path checks, registry output, config mutations                                         |
-| `commands/install-flow.test.ts` | Full install smoke — idempotency, all **primitive** components, add → update → uninstall round-trip                           |
-| `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection                         |
-| `core/install-target.test.ts`   | Flat `paths.components` targets + import rewrite for blocks/templates at install time                                         |
-| `core/registry-closure.test.ts` | Transitive `registryDependencies` closure + orphan detection for `--with-deps` uninstall                                      |
-| `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                                                      |
-| `core/tailwind-setup.test.ts`   | Tailwind CSS wiring — idempotent `@import` injection, entrypoint detection                                                    |
+| File                            | What it tests                                                                                                                                               |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `commands/add.test.ts`          | `neurex add` — file creation, skipping unchanged files, conflict detection, utilities/styles install                                                        |
+| `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                                                                            |
+| `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                                                                               |
+| `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                                                                               |
+| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior, orphaned shared utilities/styles cleanup                               |
+| `commands/diagnostics.test.ts`  | `doctor`, `status`, `list`, `config` — path checks, registry output, config mutations                                                                       |
+| `commands/install-flow.test.ts` | Full install smoke — idempotency, all **primitive** components, all **block** items (solo + bulk), flat import rewrite, add → update → uninstall round-trip |
+| `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection                                                       |
+| `core/install-target.test.ts`   | Flat `paths.components` targets + import rewrite for blocks/templates at install time                                                                       |
+| `core/registry-closure.test.ts` | Transitive `registryDependencies` closure + orphan detection for `--with-deps` uninstall                                                                    |
+| `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                                                                                    |
+| `core/tailwind-setup.test.ts`   | Tailwind CSS wiring — idempotent `@import` injection, entrypoint detection                                                                                  |
 
 Run:
 

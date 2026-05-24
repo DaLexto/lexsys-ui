@@ -15,18 +15,18 @@ that are not yet done.
 
 **Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3 and M5–M7 shipped; **M4 reserved** (scope TBD); **M10 release readiness** remains planned.
 
-| Phase   | Focus                                                               | Status  |
-| ------- | ------------------------------------------------------------------- | ------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done    |
-| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped |
-| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped |
-| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
-| M4      | (TBD — scope to be defined)                                         | planned |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
-| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
-| M10     | Release readiness (CHANGELOG, publish audit, sequence)              | planned |
-| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
+| Phase   | Focus                                                               | Status      |
+| ------- | ------------------------------------------------------------------- | ----------- |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done        |
+| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped     |
+| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped     |
+| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped     |
+| M4      | (TBD — scope to be defined)                                         | planned     |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped     |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped     |
+| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped     |
+| M10     | Release readiness (CHANGELOG, publish audit, sequence)              | planned     |
+| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped     |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | in progress |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
@@ -86,34 +86,34 @@ Known gaps below.
 Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Roadmap sequencing:
 [ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--three-layers-pilots-shipped).
 
-**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `neurex add`-installable. BO pass largely complete (BO.1–BO.3, BO.6–BO.7 fixed; BO.4–BO.5 partial); pilots not yet marked stable.
+**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `neurex add`-installable. BO pass largely complete (BO.1–BO.4, BO.6–BO.7 fixed; BO.5 partial); pilots not yet marked stable.
 
 **Target:** expand registry **blocks** and **templates** beyond the pilot set; mark pilots stable after optimization pass. **`neurex add <name>`** installs the transitive closure via `registryDependencies`; `item.target` resolves to the flat components root (monorepo templates still live under `primitives/`, `blocks/`, or `templates/` source folders).
 
-| Item | Layer     | Status      | Notes                                                                                                                     |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
-| UC.1 | All       | shipped     | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`           |
-| UC.2 | Blocks    | in progress | Pilot FormField, Sidebar shipped — BO pass landed (plain nav, mobile drawer, FormField in sandbox); not yet marked stable |
+| Item | Layer     | Status      | Notes                                                                                                                                                                     |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UC.1 | All       | shipped     | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`                                                           |
+| UC.2 | Blocks    | in progress | Pilot FormField, Sidebar shipped — BO pass landed (plain nav, mobile drawer, FormField in sandbox); not yet marked stable                                                 |
 | UC.3 | Templates | in progress | DashboardShell mobile layout fixed — sticky nav trigger bar; page header stays in main column on all breakpoints; optional Sidebar `mobileHeader` for compact chrome only |
-| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                                                                 |
-| UC.5 | CLI       | shipped     | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)         |
-| UC.6 | Tests     | in progress | Closure, import-rewrite, install-target unit tests shipped; `dashboard-shell` install smoke added                         |
+| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                                                                                                                 |
+| UC.5 | CLI       | shipped     | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)                                                         |
+| UC.6 | Tests     | in progress | Closure, import-rewrite, install-target unit tests shipped; block install smoke in `install-flow.test.ts` (all registry blocks, solo + bulk)                              |
 
 ### Blocks / templates optimization backlog
 
 **Context:** Consumer sandbox (PulseDesk SaaS demo) QA during PR #28 exposed that **blocks/templates are not “organization-only” quality**. Primitives were assumed production-ready when composing blocks; that assumption is **not validated** for composed/mobile flows.
 
-**Do not ship blocks/templates as stable until BO.4–BO.5 close** (or items below are explicitly waived). BO.1–BO.3 and BO.6–BO.7 are fixed; see status column.
+**Do not ship blocks/templates as stable until BO.5 closes** (or items below are explicitly waived). BO.1–BO.4 and BO.6–BO.7 are fixed; see status column.
 
-| ID   | Area              | Issue                                       | Status / notes                                                                                                                           |
-| ---- | ----------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| BO.1 | Sidebar (mobile)  | Drawer opens but nav list layout broken     | **Fixed** — plain `<nav>` list; Menu removed from Sidebar deps.                                                                          |
+| ID   | Area              | Issue                                       | Status / notes                                                                                                                                                                                 |
+| ---- | ----------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| BO.1 | Sidebar (mobile)  | Drawer opens but nav list layout broken     | **Fixed** — plain `<nav>` list; Menu removed from Sidebar deps.                                                                                                                                |
 | BO.2 | Sidebar (mobile)  | Drawer composition incomplete vs playground | **Fixed** — `swipeDirection="left"`, DrawerViewport side left, `DrawerClose appearance="inline"` on nav select (avoids absolute icon stacking). Sandbox manual QA at `< md` still recommended. |
 | BO.3 | DashboardShell    | Responsive layout                           | **Fixed** — sticky mobile trigger bar; page header in main (not squeezed beside trigger). Sidebar `mobileHeader` remains optional for compact slots only.                                      |
-| BO.4 | Blocks QA process | No block-level validation gate              | **Partial** — `dashboard-shell` CLI install smoke added; full block-level CI gate still open.                                            |
-| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Partial** — sandbox FormField + blocks checklist exercised; not CI-blocking yet.                                                       |
-| BO.6 | Sidebar (design)  | Menu vs nav list                            | **Fixed** — plain `<a>` / `<button>` nav list.                                                                                           |
-| BO.7 | FormField         | Untested in sandbox                         | **Fixed** — `neurex add form-field` + SettingsPage uses FormField in PulseDesk sandbox.                                                  |
+| BO.4 | Blocks QA process | No block-level validation gate              | **Fixed** — `install-flow.test.ts` covers all registry blocks (solo + bulk idempotency, flat import paths, transitive closure).                                                                |
+| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Partial** — sandbox FormField + blocks checklist exercised; not CI-blocking yet.                                                                                                             |
+| BO.6 | Sidebar (design)  | Menu vs nav list                            | **Fixed** — plain `<a>` / `<button>` nav list.                                                                                                                                                 |
+| BO.7 | FormField         | Untested in sandbox                         | **Fixed** — `neurex add form-field` + SettingsPage uses FormField in PulseDesk sandbox.                                                                                                        |
 
 **Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `neurex add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 
@@ -147,9 +147,9 @@ Optional follow-ups after Phases 1–10 (detail in
 
 ## Known Gaps
 
-| Gap                                      | Notes                                                                                                                                                                                    |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blocks/templates mobile & composition QA | Partial — BO.1–BO.3/BO.6/BO.7 fixed; BO.4/BO.5 CI gate still open. See [REVIEW_TODO § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog). |
-| Remote registry signatures / allowlist   | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                     |
+| Gap                                      | Notes                                                                                                                                                                                                 |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blocks/templates mobile & composition QA | Partial — BO.1–BO.4/BO.6/BO.7 fixed; BO.5 sandbox/CI assumption audit still open. See [REVIEW_TODO § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog). |
+| Remote registry signatures / allowlist   | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                                  |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.
