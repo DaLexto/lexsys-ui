@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Registry item contract, template sync rules, validation requirements, local/remote resolution
 **Verified against:** `packages/registry/src/`
-**Related docs:** `docs/CLI.md` (install behavior), `docs/ARCHITECTURE.md` (package boundaries), `packages/registry/README.md` (package internals)
+**Related docs:** `docs/reference/cli/CLI.md` (install behavior), `docs/ARCHITECTURE.md` (package boundaries), `packages/registry/README.md` (package internals)
 
 ---
 
@@ -40,7 +40,7 @@ Every installable item MUST declare all of the following fields:
 
 ### Primitives (`type: "component"`)
 
-Layer model: [UI_COMPOSITION.md](./UI_COMPOSITION.md).
+Layer model: [UI_COMPOSITION.md](../ui/UI_COMPOSITION.md).
 
 - Template paths MUST start with `primitives/<CanonicalName>/`
 - `target` MUST be `src/components/ui/<CanonicalName>`
@@ -137,7 +137,7 @@ mirror that layout under `packages/registry/templates/{primitives,blocks,templat
 `src/components/ui/<CanonicalName>/` regardless of registry layer. The CLI
 rewrites cross-layer imports in block/template files at install time
 (`../../primitives/` → `../`, etc.) so consumers do not mirror monorepo folder
-depth. See [CLI.md](./CLI.md) and `packages/cli/src/core/import-rewriter.ts`.
+depth. See [CLI.md](../cli/CLI.md) and `packages/cli/src/core/import-rewriter.ts`.
 
 If the CLI needs any knowledge not declared in the registry item, the item is
 incomplete.
@@ -198,10 +198,10 @@ Two validators are exported from the package:
 
 These are run in `test/validate-registry.test.ts`. Style template sync helpers
 are covered in `test/registry-styles-sync.test.ts`. Full inventory:
-[TESTING.md](./TESTING.md). Registry checks MUST pass before publishing the
+[TESTING.md](../operations/TESTING.md). Registry checks MUST pass before publishing the
 registry package.
 
-Sync commands: [SCRIPTS.md](./SCRIPTS.md) (`registry:sync`, `registry:check`).
+Sync commands: [SCRIPTS.md](../operations/SCRIPTS.md) (`registry:sync`, `registry:check`).
 
 ---
 

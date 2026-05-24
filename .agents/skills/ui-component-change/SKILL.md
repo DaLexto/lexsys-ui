@@ -10,7 +10,7 @@ description: >
 
 Reference layer: `packages/ui/src/components/{primitives,blocks,templates}/`.
 
-Contracts: [docs/UI.md](../../docs/UI.md), [docs/UI_VARIANTS.md](../../docs/UI_VARIANTS.md), [docs/UI_COMPOSITION.md](../../docs/UI_COMPOSITION.md).
+Contracts: [docs/reference/ui/UI.md](../../docs/reference/ui/UI.md), [docs/reference/ui/UI_VARIANTS.md](../../docs/reference/ui/UI_VARIANTS.md), [docs/reference/ui/UI_COMPOSITION.md](../../docs/reference/ui/UI_COMPOSITION.md).
 
 ## File contract
 
@@ -55,4 +55,4 @@ pnpm registry:check
 
 - `$registry-sync`
 - `$monorepo-check-gate`
-- [docs/UI_AUDIT.md](../../docs/UI_AUDIT.md)
+- [docs/reference/ui/UI_AUDIT.md](../../docs/reference/ui/UI_AUDIT.md)

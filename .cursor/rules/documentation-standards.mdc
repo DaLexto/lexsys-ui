@@ -9,7 +9,7 @@ alwaysApply: false
 # Documentation Standards
 
 Use this rule when writing or reviewing **markdown documentation** in this repo:
-`docs/**`, root `README.md`, `CONTRIBUTING.md`, `AGENTS.md`, and package READMEs.
+`docs/**`, root `README.md`, `docs/contributors/CONTRIBUTING.md`, `AGENTS.md`, and package READMEs.
 
 **Not in scope:** TypeScript source comments — see [code-commenting.mdc](./code-commenting.mdc).
 
@@ -63,7 +63,8 @@ Place immediately after the H1, before the first horizontal rule. Use bold label
 | `docs/*.md` | Audience, Type, Source of truth for | Full block preferred for domain specs |
 | `AGENTS.md` | Audience, Type | Routing only — no domain rule bodies |
 | Root `README.md` | Audience | Type MAY be "Project overview" inline or omitted |
-| `CONTRIBUTING.md` | Audience | Link to this rule for layout details |
+| Root `CONTRIBUTING.md` | — | Stub only — link to `docs/contributors/CONTRIBUTING.md` |
+| `docs/contributors/CONTRIBUTING.md` | Audience | Link to this rule for layout details |
 | Package `README.md` | Audience, Type | Link to INDEX + owning domain spec |
 
 ### Formatting rules
@@ -162,7 +163,7 @@ Use these H2 names or clear equivalents — order matters for scanning.
 
 ### Good vs bad metadata
 
-**Good** (domain spec — matches [`REGISTRY.md`](../../docs/REGISTRY.md)):
+**Good** (domain spec — matches [`REGISTRY.md`](../../docs/reference/registry/REGISTRY.md)):
 
 ```markdown
 # Lexsys Registry
@@ -186,7 +187,7 @@ Maintainers only.
 
 ### Path scope
 
-Applies to flat `docs/*.md` today. After a future folder migration (D7), paths become `docs/**/*.md` — **metadata and H2 order stay the same**; only link paths change.
+Applies to `docs/**/*.md`, root `README.md`, root `CONTRIBUTING.md` (stub), `AGENTS.md`, and package READMEs. Hub docs stay at `docs/` root (`INDEX.md`, `ARCHITECTURE.md`, `ROADMAP.md`, `REVIEW_TODO.md`); domain specs live under `docs/reference/{tokens,ui,registry,cli}/`; operations under `docs/operations/`; contributor guides under `docs/contributors/`. **Metadata and H2 order stay the same** across moves — only link paths change.
 
 ## Governance Rules
 
@@ -196,12 +197,12 @@ Applies to flat `docs/*.md` today. After a future folder migration (D7), paths b
 - Current implementation wins over old docs, comments, memory, or intention.
 - Detailed rules live exactly once. Other documents link to the owning document
   instead of duplicating the rule.
-- Monorepo script names and sync workflows MUST be documented in `docs/SCRIPTS.md`
+- Monorepo script names and sync workflows MUST be documented in `docs/operations/SCRIPTS.md`
   only. Other docs link to SCRIPTS.md instead of duplicating full script inventories.
 - Split with related docs:
-  - `docs/TESTING.md` — test coverage and when-to-run scenarios (links to SCRIPTS.md for command names).
-  - `docs/CLI.md` — consumer-facing `lexsys` CLI (not monorepo `pnpm` scripts).
-  - `docs/DEPLOY.md` — release/build contract (links to SCRIPTS.md for day-to-day commands).
+  - `docs/operations/TESTING.md` — test coverage and when-to-run scenarios (links to SCRIPTS.md for command names).
+  - `docs/reference/cli/CLI.md` — consumer-facing `lexsys` CLI (not monorepo `pnpm` scripts).
+  - `docs/operations/DEPLOY.md` — release/build contract (links to SCRIPTS.md for day-to-day commands).
 - Architecture overview documents should be compact hubs, not copies of every
   detailed spec.
 - Roadmap and vision content must be clearly labeled as future work.

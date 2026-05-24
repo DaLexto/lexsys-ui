@@ -5,7 +5,7 @@ alwaysApply: false
 ---
 # Lexsys testing (Vitest)
 
-Canonical coverage map: [docs/TESTING.md](../../docs/TESTING.md). Commands: [docs/SCRIPTS.md](../../docs/SCRIPTS.md).
+Canonical coverage map: [docs/operations/TESTING.md](../../docs/operations/TESTING.md). Commands: [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md).
 
 ## Layout
 
@@ -22,7 +22,7 @@ No root workspace `vitest.config.ts` — per-package configs for VS Code discove
 
 - `*.variants.test.ts` — CVA class output for primitives.
 - `*.render.test.tsx` — DOM smoke, className merge, key a11y roles.
-- **Blocks/templates** — block install smoke in `packages/cli/test/commands/install-flow.test.ts`; render smoke for FormField, Sidebar, DashboardShell in `@lexsys/ui`; narrow viewport remains manual sandbox ([TESTING.md § Consumer sandbox verification](../../docs/TESTING.md#consumer-sandbox-verification)).
+- **Blocks/templates** — block install smoke in `packages/cli/test/commands/install-flow.test.ts`; render smoke for FormField, Sidebar, DashboardShell in `@lexsys/ui`; narrow viewport remains manual sandbox ([TESTING.md § Consumer sandbox verification](../../docs/operations/TESTING.md#consumer-sandbox-verification)).
 
 ## Commands
 

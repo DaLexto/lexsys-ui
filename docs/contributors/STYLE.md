@@ -3,10 +3,10 @@
 **Audience:** Contributors and agents
 **Type:** Contributor style guide
 **Source of truth for:** Coding rules and conventions across all packages
-**Related docs:** `docs/STYLEGUIDE.md` (practical patterns and examples), `docs/ARCHITECTURE.md` (package boundaries)
+**Related docs:** `docs/contributors/STYLEGUIDE.md` (practical patterns and examples), `docs/ARCHITECTURE.md` (package boundaries)
 
 If there is a conflict between this document and `docs/ARCHITECTURE.md`, architecture wins.
-For examples and practical patterns, see `docs/STYLEGUIDE.md`.
+For examples and practical patterns, see `docs/contributors/STYLEGUIDE.md`.
 
 ---
 
@@ -62,7 +62,7 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 
 - Tailwind v4 is the user-facing styling layer.
 - Define all visual variants with `cva` from `class-variance-authority` in `.variants.ts`.
-- Canonical variant contract: [UI_VARIANTS.md](./UI_VARIANTS.md). Per-component audit: [UI_AUDIT.md](./UI_AUDIT.md).
+- Canonical variant contract: [UI_VARIANTS.md](../reference/ui/UI_VARIANTS.md). Per-component audit: [UI_AUDIT.md](../reference/ui/UI_AUDIT.md).
 - Use `cn()` (clsx + tailwind-merge) for all class composition. Do not concatenate strings manually.
 - Variant classes MUST reference `--lsys-*` CSS custom properties, not hardcoded Tailwind palette values:
   ```ts
@@ -80,7 +80,7 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 - Primitives hold raw values only — no references.
 - Components reference semantics only.
 - Do not write `--lsys-*` prefixes in token source files — the prefix is applied by the generator.
-- Full token layer rules: `docs/TOKENS.md`.
+- Full token layer rules: `docs/reference/tokens/TOKENS.md`.
 
 ---
 
@@ -123,6 +123,6 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 
 ## Testing and Verification
 
-Run `pnpm check` before merging. Full script reference: [docs/SCRIPTS.md](./SCRIPTS.md).
+Run `pnpm check` before merging. Full script reference: [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md).
 
-For the full test command reference, per-package scripts, and when to run targeted vs full checks: `docs/TESTING.md`.
+For the full test command reference, per-package scripts, and when to run targeted vs full checks: `docs/operations/TESTING.md`.

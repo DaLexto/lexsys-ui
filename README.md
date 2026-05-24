@@ -16,7 +16,7 @@ The current implementation focuses on supported consumer starters:
 - Tailwind v4 wiring for Vite and Next.js consumers
 - token and theme CSS installation
 - a growing Base UI-backed installable catalog — **47 items** (41 primitives, 5
-  blocks, 1 template) — see [docs/UI_CATALOG.md](./docs/UI_CATALOG.md)
+  blocks, 1 template) — see [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md)
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification
 
@@ -164,10 +164,10 @@ Package responsibilities:
 - `packages/ui` — reference primitives, blocks, and templates (not what the CLI ships to users)
 - `packages/registry` — installable templates and metadata
 - `packages/cli` — installs registry items into user projects
-- `apps/playground` — optional monorepo smoke (maintenance-only); consumer validation uses external sandbox — see [docs/TESTING.md](docs/TESTING.md#verification-surfaces)
+- `apps/playground` — optional monorepo smoke (maintenance-only); consumer validation uses external sandbox — see [docs/operations/TESTING.md](docs/operations/TESTING.md#verification-surfaces)
 
 See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) and
-[docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) for the full system design.
+[docs/reference/ui/UI_COMPOSITION.md](./docs/reference/ui/UI_COMPOSITION.md) for the full system design.
 
 ## CLI
 
@@ -188,7 +188,7 @@ lexsys config [--path | --exists | --set-registry-url <url> | --clear-registry-u
 lexsys version
 ```
 
-See [docs/CLI.md](./docs/CLI.md) for the full command reference.
+See [docs/reference/cli/CLI.md](./docs/reference/cli/CLI.md) for the full command reference.
 
 ## Stability
 
@@ -211,7 +211,7 @@ Internal or still evolving:
 - token authoring internals in `packages/tokens`
 - registry item generation internals
 - update conflict resolution and migration tooling
-- blocks/templates pilot quality and mobile composition QA — see [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)
+- blocks/templates pilot quality and mobile composition QA — see [docs/REVIEW_TODO.md](../REVIEW_TODO.md)
 - remote registry hosting and version policy
 - additional CLI style aliases or token presets beyond `default` / `lexsys`
 
@@ -223,19 +223,19 @@ Planned but not current API:
 
 ## Maintainers
 
-Start at [docs/INDEX.md](./docs/INDEX.md) for the full documentation map.
+Start at [docs/INDEX.md](../INDEX.md) for the full documentation map.
 
-| Doc                                                | Purpose                                                             |
-| -------------------------------------------------- | ------------------------------------------------------------------- |
-| [docs/INDEX.md](./docs/INDEX.md)                   | Documentation routing hub                                           |
-| [docs/UI_CATALOG.md](./docs/UI_CATALOG.md)         | Installable inventory — compound vs leaf, exports, registry version |
-| [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) | Composition rules and install layers                                |
-| [docs/ROADMAP.md](./docs/ROADMAP.md)               | Long-term direction and monorepo optimization phases (M1–M11)       |
-| [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)       | Active execution queue and known gaps                               |
-| [docs/SCRIPTS.md](./docs/SCRIPTS.md)               | Monorepo `pnpm` script names and CI reference                       |
-| [docs/TESTING.md](./docs/TESTING.md)               | Test coverage and verification workflows                            |
-| [CONTRIBUTING.md](./CONTRIBUTING.md)               | Branch, check, and commit expectations                              |
-| [AGENTS.md](./AGENTS.md)                           | Agent routing and repo skills index                                 |
+| Doc                                                                          | Purpose                                                             |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| [docs/INDEX.md](../INDEX.md)                                                 | Documentation routing hub                                           |
+| [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md)         | Installable inventory — compound vs leaf, exports, registry version |
+| [docs/reference/ui/UI_COMPOSITION.md](./docs/reference/ui/UI_COMPOSITION.md) | Composition rules and install layers                                |
+| [docs/ROADMAP.md](../ROADMAP.md)                                             | Long-term direction and monorepo optimization phases (M1–M11)       |
+| [docs/REVIEW_TODO.md](../REVIEW_TODO.md)                                     | Active execution queue and known gaps                               |
+| [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md)                       | Monorepo `pnpm` script names and CI reference                       |
+| [docs/operations/TESTING.md](../operations/TESTING.md)                       | Test coverage and verification workflows                            |
+| [docs/contributors/CONTRIBUTING.md](./docs/contributors/CONTRIBUTING.md)     | Branch, check, and commit expectations                              |
+| [AGENTS.md](../../AGENTS.md)                                                 | Agent routing and repo skills index                                 |
 
 ## Development
 
@@ -251,7 +251,7 @@ Run the main gate before merging:
 pnpm check
 ```
 
-For the full script reference (per-package shortcuts, sync workflows, CI), see [docs/SCRIPTS.md](docs/SCRIPTS.md).
+For the full script reference (per-package shortcuts, sync workflows, CI), see [docs/operations/SCRIPTS.md](docs/operations/SCRIPTS.md).
 
 Run the playground (optional monorepo smoke — category nav for quick component scans):
 
@@ -259,14 +259,14 @@ Run the playground (optional monorepo smoke — category nav for quick component
 pnpm playground:dev
 ```
 
-For CLI/registry install verification, use an external consumer sandbox — see [docs/TESTING.md](docs/TESTING.md#verification-surfaces).
+For CLI/registry install verification, use an external consumer sandbox — see [docs/operations/TESTING.md](docs/operations/TESTING.md#verification-surfaces).
 
 ## Status
 
 Lexsys is not production-ready yet. Vite and Next.js install flows are working;
-the installable catalog is documented in [docs/UI_CATALOG.md](./docs/UI_CATALOG.md).
+the installable catalog is documented in [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md).
 Blocks/templates are installable but not yet marked stable — see
-[docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md).
+[docs/REVIEW_TODO.md](../REVIEW_TODO.md).
 
 ## Inspiration
 

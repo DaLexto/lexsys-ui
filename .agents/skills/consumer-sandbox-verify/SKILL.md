@@ -10,7 +10,7 @@ description: >
 
 External project outside the monorepo — example: `D:\PLAYGROUND\sandbox-lexsys`.
 
-Policy: [docs/TESTING.md § Verification surfaces](../../docs/TESTING.md#verification-surfaces).
+Policy: [docs/operations/TESTING.md § Verification surfaces](../../docs/operations/TESTING.md#verification-surfaces).
 
 ## When required
 

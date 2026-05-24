@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Token layer rules, reference rules, resolution behavior, validation status, package exports
 **Verified against:** `packages/tokens/src/` (all layers, resolver, generator inputs)
-**Related docs:** `docs/DESIGN_SYSTEM.md` (token authoring guide, CSS output), `docs/ARCHITECTURE.md`
+**Related docs:** `docs/reference/tokens/DESIGN_SYSTEM.md` (token authoring guide, CSS output), `docs/ARCHITECTURE.md`
 
 If there is a conflict between this document and other documentation for any
 token-system decision, this document wins.
@@ -231,7 +231,7 @@ before contrast math (overlay pairs). Foreground alpha compositing uses the same
 
 **Two-layer accessibility model:** token-time contrast (explicit pairs + WCAG math
 here) complements runtime checks in consumer apps (axe-core, manual a11y review).
-See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+See [docs/reference/tokens/RESOLVER_EVOLUTION.md](../tokens/RESOLVER_EVOLUTION.md).
 
 Report and enforcement:
 
@@ -355,7 +355,7 @@ paths such as `border.default` remain unchanged.
 **Deferred:** DTCG composite **object** `$value` on a single leaf (spec-native
 structured shadow/border) requires a separate engine phase (`TokenValue`, resolver
 alias grammar, generator explode). Lexsys authoring stays branch + slot; optional
-DTCG object export may follow. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+DTCG object export may follow. See [docs/reference/tokens/RESOLVER_EVOLUTION.md](../tokens/RESOLVER_EVOLUTION.md).
 
 ---
 
@@ -409,7 +409,7 @@ Build-time contrast enforcement is also active in `validateStyleTokenInput` unle
 **Optional output change (opt-in):** `createStyleOutputs({ stripDeadPrimitives: true })` or
 `node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
 primitive leaves from CSS/DTCG after full-graph validation. Default is off. Speculative
-AST/color math is deferred. See [docs/RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md).
+AST/color math is deferred. See [docs/reference/tokens/RESOLVER_EVOLUTION.md](../tokens/RESOLVER_EVOLUTION.md).
 
 ---
 

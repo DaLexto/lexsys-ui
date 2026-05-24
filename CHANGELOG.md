@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Dist-tag policy: **`0.0.x`** releases publish to npm **`next`**; **`0.1.0`**
-and later stable cuts target **`latest`**. See [docs/DEPLOY.md](./docs/DEPLOY.md).
+and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../operations/DEPLOY.md).
 
 ---
 
@@ -21,13 +21,13 @@ and later stable cuts target **`latest`**. See [docs/DEPLOY.md](./docs/DEPLOY.md
 
 - Pilot blocks **SettingsPanel**, **AuthForm**, **CommandPalette** (registry + CLI installable)
 - Primitive variant expansion: Button `ghost`/`outline`, Badge `success`/`warning`, Card `outlined`/`elevated`/`ghost`, Input `read-only` styling
-- Wrapper standardization contract in [docs/UI.md](./docs/UI.md) (Base UI behavior / Lexsys styling split)
+- Wrapper standardization contract in [docs/reference/ui/UI.md](./docs/reference/ui/UI.md) (Base UI behavior / Lexsys styling split)
 
 ### Changed
 
 - **Compound-first API (M11):** blocks and templates migrate to named compound parts
   only; config blobs (`items[]`, `mode`-driven auto-fields) removed. Migration table:
-  [UI_COMPOSITION.md § Compound-first contract](./docs/UI_COMPOSITION.md#compound-first-contract).
+  [UI_COMPOSITION.md § Compound-first contract](./docs/reference/ui/UI_COMPOSITION.md#compound-first-contract).
 
 ### Breaking (compound-first — registry items at `0.0.2`)
 

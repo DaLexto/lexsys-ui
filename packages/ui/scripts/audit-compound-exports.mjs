@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Parses UI component named exports and registry versions; validates or updates
- * docs/UI_CATALOG.md generated region.
+ * docs/reference/ui/UI_CATALOG.md generated region.
  *
  * Usage (from packages/ui):
  *   node scripts/audit-compound-exports.mjs check
@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url"
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const uiRoot = join(__dirname, "..")
 const repoRoot = join(uiRoot, "../..")
-const catalogPath = join(repoRoot, "docs/UI_CATALOG.md")
+const catalogPath = join(repoRoot, "docs/reference/ui/UI_CATALOG.md")
 const registryItemsDir = join(repoRoot, "packages/registry/src/items")
 
 const INTENTIONAL_LEAVES = new Set([
@@ -361,7 +361,7 @@ if (mode === "write") {
 
 if (!existsSync(catalogPath)) {
   console.error(
-    "ui:audit:catalog — docs/UI_CATALOG.md missing; run with write first",
+    "ui:audit:catalog — docs/reference/ui/UI_CATALOG.md missing; run with write first",
   )
   process.exit(1)
 }
@@ -375,7 +375,7 @@ if (extractGeneratedSection(content) === null) {
 
 if (!signaturesMatch(rows, content)) {
   console.error(
-    "ui:audit:catalog — docs/UI_CATALOG.md drifted from packages/ui exports or registry versions",
+    "ui:audit:catalog — docs/reference/ui/UI_CATALOG.md drifted from packages/ui exports or registry versions",
   )
   console.error("Run: pnpm ui:audit:catalog:write")
   process.exit(1)

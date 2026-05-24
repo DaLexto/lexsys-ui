@@ -3,7 +3,7 @@
 **Audience:** Maintainers, contributors, and agents
 **Type:** Package README
 **Source of truth for:** Package role, command surface, core module boundaries
-**Full CLI reference:** [docs/CLI.md](../../docs/CLI.md)
+**Full CLI reference:** [docs/reference/cli/CLI.md](../../docs/reference/cli/CLI.md)
 **Verified against:** `packages/cli/src/`
 
 ---
@@ -88,13 +88,13 @@ Installed via `npm install -g lexsys` or run directly with `pnpm exec lexsys`.
 
 ## Config Schema and Install Behavior
 
-Full `lexsys.config.json` schema (all fields, defaults, aliases) and install idempotency rules (created / updated / skipped / conflicted states, conflict detection, backup behavior): [docs/CLI.md](../../docs/CLI.md).
+Full `lexsys.config.json` schema (all fields, defaults, aliases) and install idempotency rules (created / updated / skipped / conflicted states, conflict detection, backup behavior): [docs/reference/cli/CLI.md](../../docs/reference/cli/CLI.md).
 
 ---
 
 ## Development
 
-Root aliases (full list: [docs/SCRIPTS.md](../../docs/SCRIPTS.md)):
+Root aliases (full list: [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md)):
 
 ```sh
 pnpm cli:build

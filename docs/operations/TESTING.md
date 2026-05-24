@@ -5,7 +5,7 @@
 **Source of truth for:** Verification surfaces (playground vs sandbox), test coverage by package, when to run which checks
 **Verified against:** `packages/*/test/`, `packages/*/vitest.config.ts`, `package.json` scripts
 
-Command names and sync workflows: [SCRIPTS.md](./SCRIPTS.md).
+Command names and sync workflows: [SCRIPTS.md](../operations/SCRIPTS.md).
 
 ---
 
@@ -48,7 +48,7 @@ For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, C
 
 ## Quick Reference
 
-Primary gate: `pnpm check` (see [SCRIPTS.md](./SCRIPTS.md) for full inventory).
+Primary gate: `pnpm check` (see [SCRIPTS.md](../operations/SCRIPTS.md) for full inventory).
 
 Per-package test commands are listed in each section below.
 
@@ -229,7 +229,7 @@ Checklist after CLI or registry changes:
 5. If templates or styles changed: confirm `styles/tokens.css` and `styles/theme.css` update as expected.
 
 **Post-publish npm smoke** (`npx @lexsys/cli@next init vite …`): CLI scaffolds with
-**npm** — use **`npm run build`** only ([DEPLOY.md § Phase 5](./DEPLOY.md#phase-5--post-publish-smoke-real-consumer)).
+**npm** — use **`npm run build`** only ([DEPLOY.md § Phase 5](../operations/DEPLOY.md#phase-5--post-publish-smoke-real-consumer)).
 
 **Blocks/templates checklist** (when FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, or DashboardShell change):
 

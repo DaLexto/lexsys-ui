@@ -4,7 +4,7 @@
 **Type:** Catalog / inventory  
 **Source of truth for:** Installable surface inventory — compound vs leaf, named exports, registry version  
 **Verified against:** `packages/ui/src/components/`, `packages/registry/src/items/`  
-**Related docs:** [UI.md](./UI.md) (leaf decision tree), [UI_COMPOSITION.md](./UI_COMPOSITION.md) (composition rules), [UI_AUDIT.md](./UI_AUDIT.md) (variant compliance), [REGISTRY.md](./REGISTRY.md) (item contract)
+**Related docs:** [UI.md](../ui/UI.md) (leaf decision tree), [UI_COMPOSITION.md](../ui/UI_COMPOSITION.md) (composition rules), [UI_AUDIT.md](../ui/UI_AUDIT.md) (variant compliance), [REGISTRY.md](../registry/REGISTRY.md) (item contract)
 
 ---
 
@@ -12,9 +12,9 @@
 
 This catalog answers: **what is installable, compound or leaf, what exports exist, and what registry version ships.**
 
-- **Rules** (when to use compound vs leaf) → [UI.md](./UI.md), [UI_COMPOSITION.md](./UI_COMPOSITION.md)
-- **Variant compliance** → [UI_AUDIT.md](./UI_AUDIT.md)
-- **Registry item fields** → [REGISTRY.md](./REGISTRY.md)
+- **Rules** (when to use compound vs leaf) → [UI.md](../ui/UI.md), [UI_COMPOSITION.md](../ui/UI_COMPOSITION.md)
+- **Variant compliance** → [UI_AUDIT.md](../ui/UI_AUDIT.md)
+- **Registry item fields** → [REGISTRY.md](../registry/REGISTRY.md)
 
 Out of scope here: page-level consumer code, playground-only demos, unpublished internal utilities.
 
@@ -88,7 +88,7 @@ _Generated 2026-05-24 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | ------------------ | -------- | --------------------------------------------------------------------- | ----------------- | ------- |
 | **DashboardShell** | compound | `DashboardShell, DashboardShellSidebar, DashboardShellHeader, … (+2)` | `dashboard-shell` | 0.0.2   |
 
-**Leaf policy:** only components listed in [UI.md § Intentional leaves](./UI.md#compound-vs-leaf-decision-tree) with a single part export. All blocks and templates are compound-only.
+**Leaf policy:** only components listed in [UI.md § Intentional leaves](../ui/UI.md#compound-vs-leaf-decision-tree) with a single part export. All blocks and templates are compound-only.
 
 <!-- CATALOG:END -->
 
@@ -120,5 +120,5 @@ pnpm ui:audit:catalog:write   # refresh generated tables in this file
 ## Related docs
 
 - [INDEX.md](./INDEX.md) — documentation routing
-- [UI.md § Compound vs leaf decision tree](./UI.md#compound-vs-leaf-decision-tree)
-- [UI_COMPOSITION.md § Compound-first contract](./UI_COMPOSITION.md#compound-first-contract)
+- [UI.md § Compound vs leaf decision tree](../ui/UI.md#compound-vs-leaf-decision-tree)
+- [UI_COMPOSITION.md § Compound-first contract](../ui/UI_COMPOSITION.md#compound-first-contract)

@@ -82,7 +82,7 @@ export const BORDER_COMPOSITE_DEFINITION: CompositeTypeDefinition = {
 /**
  * Composite types with generator/engine support.
  *
- * DTCG composite object `$value` leaves (option B) remain deferred — see docs/RESOLVER_EVOLUTION.md.
+ * DTCG composite object `$value` leaves (option B) remain deferred — see docs/reference/tokens/RESOLVER_EVOLUTION.md.
  */
 export const COMPOSITE_TYPE_REGISTRY: Readonly<
   Partial<Record<CompositeTokenType, CompositeTypeDefinition>>

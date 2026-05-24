@@ -64,7 +64,7 @@ Probe only layers tied to candidate next steps.
 
 - `pnpm tokens:check`
 - `pnpm tokens:governance:report` when governance is relevant
-- Rules: [docs/TOKENS.md](../../docs/TOKENS.md)
+- Rules: [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md)
 
 ### UI + registry
 
@@ -76,7 +76,7 @@ Probe only layers tied to candidate next steps.
 
 - `pnpm cli:check`
 - Tests under `packages/cli/test/`
-- Sandbox checklist: [docs/TESTING.md](../../docs/TESTING.md)
+- Sandbox checklist: [docs/operations/TESTING.md](../../docs/operations/TESTING.md)
 
 ### Composition (blocks / templates)
 
@@ -108,4 +108,4 @@ Probe only layers tied to candidate next steps.
 5. **Planned** rows with defined scope in REVIEW_TODO/ROADMAP (skip reserved/TBD slots)
 6. **Deferred / speculative** only when user explicitly wants R&D
 
-When release is approaching, weight items that map to [DEPLOY.md](../../docs/DEPLOY.md) and ROADMAP release-readiness phases — read current phase name from ROADMAP, do not assume a fixed M-number.
+When release is approaching, weight items that map to [DEPLOY.md](../../docs/operations/DEPLOY.md) and ROADMAP release-readiness phases — read current phase name from ROADMAP, do not assume a fixed M-number.
