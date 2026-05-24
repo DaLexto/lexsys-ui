@@ -205,13 +205,13 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-All **41 bundled primitives** have render smoke tests using `@testing-library/react`
-with Vitest `jsdom` (`packages/ui/vitest.config.ts`). Pilot blocks and templates
-do not yet have matching render suites — treat sandbox QA as the gate for those layers.
+All **41 bundled primitives** and **pilot blocks/templates** (FormField, Sidebar,
+DashboardShell) have render smoke tests using `@testing-library/react` with Vitest
+`jsdom` (`packages/ui/vitest.config.ts`).
 
 - Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.
 - Variant class output remains covered by `*.variants.test.ts` files for primitives.
-- `pnpm ui:audit` scans variant token literals only — it does **not** validate block/template composition, responsive layout, or mobile drawer behavior.
+- `pnpm ui:audit` scans variant token literals only — it does **not** validate responsive layout or mobile drawer behavior (sandbox checklist below).
 
 ---
 
@@ -243,6 +243,5 @@ Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monore
 
 ## Known Gaps
 
-- No automated end-to-end install tests against a real external consumer project (temp-directory smoke tests cover primitive CLI flow; see [§ Verification surfaces](#verification-surfaces) and Consumer sandbox verification above).
-- No `install-flow` coverage for block/template items (`dashboard-shell` transitive install) — only unit tests for install targets, import rewrite, and registry closure.
-- No render/variant tests for pilot blocks/templates in `@neurex/ui` — mobile and composition QA remain manual (BO.1–BO.7 in [REVIEW_TODO.md](./REVIEW_TODO.md)).
+- Narrow-viewport block/template UX (mobile drawer stacking, `< md` layout) — manual consumer sandbox checklist only; not CI ([§ Blocks/templates checklist](#consumer-sandbox-verification)).
+- No automated end-to-end install tests against a real external consumer project (temp-directory `install-flow` smoke covers primitives and all registry blocks).

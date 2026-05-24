@@ -4,7 +4,7 @@
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
 composition pilots **shipped** (PR #28); M10 release readiness **planned**; M4
-**reserved** (scope TBD); blocks/templates optimization **in progress** (BO.5 partial) — see phase tables below for current vs future work  
+**reserved** (scope TBD); blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -395,7 +395,7 @@ and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes
 `primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
 `paths.components` (`src/components/ui/<CanonicalName>/` with import rewrite).
 Pilot blocks (FormField, Sidebar) and template (DashboardShell) are registry +
-CLI installable — **optimization pass largely complete** (BO.1–BO.4, BO.6–BO.7 fixed; BO.5 partial; PR #30, `ef65072`).
+CLI installable — **optimization pass complete** (BO.1–BO.7; CI install smoke, render tests, registry template-import audit).
 
 Neurex uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
@@ -415,8 +415,8 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 | ---- | ---------------------------------------------------------------------------------------------- | ----------------- |
 | 1    | Layer docs + registry composition validators                                                   | **shipped**       |
 | 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite) | **shipped** (#28) |
-| 3    | Pilot blocks + template + sandbox verify                                                       | **in progress**   |
-| 4    | Blocks/templates optimization (BO.1–BO.7)                                                      | **in progress**   |
+| 3    | Pilot blocks + template + CI verify (install smoke, render tests)                              | **shipped**       |
+| 4    | Blocks/templates optimization (BO.1–BO.7)                                                      | **shipped**       |
 | 5    | Additional blocks/templates beyond pilot set                                                   | planned           |
 | 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                       | **shipped** (#30) |
 
