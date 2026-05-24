@@ -422,7 +422,7 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
-testing. BO.1–BO.4, BO.6–BO.7 fixed; BO.5 assumption audit still open.
+testing. BO.1–BO.7 fixed; narrow-viewport sandbox checklist remains manual ([TESTING.md](./TESTING.md)).
 Tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
