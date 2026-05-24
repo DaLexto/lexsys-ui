@@ -1,48 +1,41 @@
-import { fireEvent, render, screen } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { useState } from "react"
-import { CommandPalette } from "../../../src/components/blocks/CommandPalette/CommandPalette.js"
-import type { CommandPaletteItem } from "../../../src/components/blocks/CommandPalette/CommandPalette.types.js"
-
-const items: CommandPaletteItem[] = [
-  {
-    id: "dashboard",
-    label: "Go to dashboard",
-    description: "Open the main dashboard",
-    group: "Navigation",
-  },
-  {
-    id: "settings",
-    label: "Open settings",
-    group: "Navigation",
-  },
-]
-
-const CommandPaletteHarness = () => {
-  const [open, setOpen] = useState(true)
-
-  return (
-    <CommandPalette
-      open={open}
-      onOpenChange={setOpen}
-      items={items}
-      onSelect={() => setOpen(false)}
-    />
-  )
-}
+import {
+  CommandPalette,
+  CommandPaletteContent,
+  CommandPaletteGroup,
+  CommandPaletteGroupLabel,
+  CommandPaletteInput,
+  CommandPaletteItem,
+  CommandPaletteList,
+  CommandPaletteSeparator,
+  CommandPaletteTitle,
+} from "../../../src/components/blocks/CommandPalette/CommandPalette.js"
 
 describe("CommandPalette render", () => {
-  it("filters commands by search query", () => {
-    render(<CommandPaletteHarness />)
+  it("renders compound command palette dialog", () => {
+    render(
+      <CommandPalette open onOpenChange={() => undefined}>
+        <CommandPaletteContent>
+          <CommandPaletteTitle>Command palette</CommandPaletteTitle>
+          <CommandPaletteInput placeholder="Search commands…" />
+          <CommandPaletteSeparator />
+          <CommandPaletteList>
+            <CommandPaletteGroup>
+              <CommandPaletteGroupLabel>Navigation</CommandPaletteGroupLabel>
+              <CommandPaletteItem description="Open the main dashboard">
+                Go to dashboard
+              </CommandPaletteItem>
+              <CommandPaletteItem>Open settings</CommandPaletteItem>
+            </CommandPaletteGroup>
+          </CommandPaletteList>
+        </CommandPaletteContent>
+      </CommandPalette>,
+    )
 
     expect(screen.getByRole("dialog")).toBeInTheDocument()
     expect(screen.getByText("Go to dashboard")).toBeInTheDocument()
-
-    fireEvent.change(screen.getByLabelText("Search commands"), {
-      target: { value: "settings" },
-    })
-
-    expect(screen.queryByText("Go to dashboard")).not.toBeInTheDocument()
     expect(screen.getByText("Open settings")).toBeInTheDocument()
+    expect(screen.getByLabelText("Search commands")).toBeInTheDocument()
   })
 })

@@ -1,7 +1,7 @@
 /**
  * SettingsPanel.tsx
  *
- * Reference SettingsPanel block — composes Card primitives into a settings section.
+ * Reference SettingsPanel block — compound Card settings section.
  */
 
 import {
@@ -12,23 +12,22 @@ import {
   CardHeader,
   CardTitle,
 } from "../../primitives/Card/Card"
-import type { SettingsPanelProps } from "./SettingsPanel.types"
+import type {
+  SettingsPanelContentProps,
+  SettingsPanelDescriptionProps,
+  SettingsPanelFooterProps,
+  SettingsPanelHeaderProps,
+  SettingsPanelProps,
+  SettingsPanelTitleProps,
+} from "./SettingsPanel.types"
 import { settingsPanelVariants } from "./SettingsPanel.variants"
 import { cn } from "../../../utils/cn"
 
 const SettingsPanel = ({
   ref,
-  title,
-  description,
-  footer,
-  children,
   variant,
   className,
-  headerClassName,
-  titleClassName,
-  descriptionClassName,
-  contentClassName,
-  footerClassName,
+  children,
   ...cardProps
 }: SettingsPanelProps) => {
   return (
@@ -38,24 +37,68 @@ const SettingsPanel = ({
       className={cn(settingsPanelVariants(), className)}
       {...cardProps}
     >
-      <CardHeader className={headerClassName}>
-        <CardTitle className={titleClassName}>{title}</CardTitle>
-        {description ? (
-          <CardDescription className={descriptionClassName}>
-            {description}
-          </CardDescription>
-        ) : null}
-      </CardHeader>
-      {children ? (
-        <CardContent className={contentClassName}>{children}</CardContent>
-      ) : null}
-      {footer ? (
-        <CardFooter className={footerClassName}>{footer}</CardFooter>
-      ) : null}
+      {children}
     </Card>
   )
 }
 
 SettingsPanel.displayName = "SettingsPanel"
 
-export { SettingsPanel }
+const SettingsPanelHeader = ({
+  ref,
+  className,
+  ...props
+}: SettingsPanelHeaderProps) => {
+  return <CardHeader ref={ref} className={className} {...props} />
+}
+
+SettingsPanelHeader.displayName = "SettingsPanelHeader"
+
+const SettingsPanelTitle = ({
+  ref,
+  className,
+  ...props
+}: SettingsPanelTitleProps) => {
+  return <CardTitle ref={ref} className={className} {...props} />
+}
+
+SettingsPanelTitle.displayName = "SettingsPanelTitle"
+
+const SettingsPanelDescription = ({
+  ref,
+  className,
+  ...props
+}: SettingsPanelDescriptionProps) => {
+  return <CardDescription ref={ref} className={className} {...props} />
+}
+
+SettingsPanelDescription.displayName = "SettingsPanelDescription"
+
+const SettingsPanelContent = ({
+  ref,
+  className,
+  ...props
+}: SettingsPanelContentProps) => {
+  return <CardContent ref={ref} className={className} {...props} />
+}
+
+SettingsPanelContent.displayName = "SettingsPanelContent"
+
+const SettingsPanelFooter = ({
+  ref,
+  className,
+  ...props
+}: SettingsPanelFooterProps) => {
+  return <CardFooter ref={ref} className={className} {...props} />
+}
+
+SettingsPanelFooter.displayName = "SettingsPanelFooter"
+
+export {
+  SettingsPanel,
+  SettingsPanelHeader,
+  SettingsPanelTitle,
+  SettingsPanelDescription,
+  SettingsPanelContent,
+  SettingsPanelFooter,
+}

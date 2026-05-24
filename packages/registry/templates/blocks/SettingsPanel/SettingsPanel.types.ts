@@ -5,17 +5,27 @@
  */
 
 import type { ReactNode, Ref } from "react"
-import type { CardProps } from "../../primitives/Card/Card.types"
+import type {
+  CardContentProps,
+  CardDescriptionProps,
+  CardFooterProps,
+  CardHeaderProps,
+  CardProps,
+  CardTitleProps,
+} from "../../primitives/Card/Card.types"
 
 export interface SettingsPanelProps extends Omit<CardProps, "children"> {
   ref?: Ref<HTMLDivElement>
-  title: string
-  description?: string
-  footer?: ReactNode
+  className?: CardProps["className"]
   children?: ReactNode
-  headerClassName?: string
-  titleClassName?: string
-  descriptionClassName?: string
-  contentClassName?: string
-  footerClassName?: string
 }
+
+export type SettingsPanelHeaderProps = CardHeaderProps
+
+export type SettingsPanelTitleProps = CardTitleProps
+
+export type SettingsPanelDescriptionProps = CardDescriptionProps
+
+export type SettingsPanelContentProps = CardContentProps
+
+export type SettingsPanelFooterProps = CardFooterProps

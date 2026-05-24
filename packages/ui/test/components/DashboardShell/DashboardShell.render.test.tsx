@@ -1,19 +1,43 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { DashboardShell } from "../../../src/components/templates/DashboardShell/DashboardShell.js"
-
-const navItems = [{ id: "home", label: "Home", href: "#home", active: true }]
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarItem,
+  SidebarItemLink,
+  SidebarList,
+} from "../../../src/components/blocks/Sidebar/Sidebar.js"
+import {
+  DashboardShell,
+  DashboardShellBody,
+  DashboardShellHeader,
+  DashboardShellMain,
+  DashboardShellSidebar,
+} from "../../../src/components/templates/DashboardShell/DashboardShell.js"
 
 describe("DashboardShell render", () => {
   it("composes Sidebar block with header and main content", () => {
     render(
-      <DashboardShell
-        brand="PulseDesk"
-        sidebarItems={navItems}
-        header="Dashboard"
-        className="custom-shell"
-      >
-        Page content
+      <DashboardShell className="custom-shell">
+        <DashboardShellSidebar>
+          <Sidebar>
+            <SidebarHeader>PulseDesk</SidebarHeader>
+            <SidebarContent>
+              <SidebarList>
+                <SidebarItem>
+                  <SidebarItemLink href="#home" active>
+                    Home
+                  </SidebarItemLink>
+                </SidebarItem>
+              </SidebarList>
+            </SidebarContent>
+          </Sidebar>
+        </DashboardShellSidebar>
+        <DashboardShellBody>
+          <DashboardShellHeader>Dashboard</DashboardShellHeader>
+          <DashboardShellMain>Page content</DashboardShellMain>
+        </DashboardShellBody>
       </DashboardShell>,
     )
 

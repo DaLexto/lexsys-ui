@@ -5,24 +5,30 @@
  */
 
 import type { FormEventHandler, ReactNode, Ref } from "react"
+import type { CardProps } from "../../primitives/Card/Card.types"
+import type { ButtonProps } from "../../primitives/Button/Button.types"
+import type {
+  CardContentProps,
+  CardFooterProps,
+  CardHeaderProps,
+} from "../../primitives/Card/Card.types"
 
-export type AuthFormMode = "login" | "register"
-
-export interface AuthFormSubmitData {
-  email: string
-  password: string
-  name?: string
+export interface AuthFormProps extends Omit<
+  CardProps,
+  "children" | "ref" | "onSubmit"
+> {
+  ref?: Ref<HTMLFormElement>
+  className?: CardProps["className"]
+  onSubmit?: FormEventHandler<HTMLFormElement>
+  children?: ReactNode
 }
 
-export interface AuthFormProps {
-  ref?: Ref<HTMLFormElement>
-  mode?: AuthFormMode
-  title?: string
-  description?: string
-  submitLabel?: string
+export type AuthFormHeaderProps = CardHeaderProps
+
+export type AuthFormContentProps = CardContentProps
+
+export type AuthFormFooterProps = CardFooterProps
+
+export interface AuthFormSubmitProps extends Omit<ButtonProps, "type"> {
   isLoading?: boolean
-  footer?: ReactNode
-  className?: string
-  onSubmit?: (data: AuthFormSubmitData) => void
-  onSubmitNative?: FormEventHandler<HTMLFormElement>
 }

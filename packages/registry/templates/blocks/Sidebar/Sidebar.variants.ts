@@ -66,3 +66,19 @@ export const sidebarMainVariants = (): string => {
 export const sidebarDrawerFooterVariants = (): string => {
   return "lsys-sidebar__drawer-footer border-t border-[var(--lsys-border-default)] p-[var(--lsys-space-2)]"
 }
+
+export const sidebarFooterVariants = (): string => {
+  return "lsys-sidebar__footer border-t border-[var(--lsys-border-default)] p-[var(--lsys-space-2)]"
+}
+
+export const sidebarGroupVariants = (): string => {
+  return "lsys-sidebar__group flex flex-col gap-[var(--lsys-space-1)]"
+}
+
+export const sidebarGroupLabelVariants = (): string => {
+  return "lsys-sidebar__group-label px-[var(--lsys-space-3)] py-[var(--lsys-space-1)] text-(length:--lsys-menu-group-label-font-size) font-(--lsys-menu-group-label-font-weight) leading-(--lsys-menu-group-label-font-line-height) text-(--lsys-menu-group-label-foreground)"
+}
+
+export const sidebarGroupContentVariants = (): string => {
+  return "lsys-sidebar__group-content flex flex-col gap-[var(--lsys-space-1)]"
+}
