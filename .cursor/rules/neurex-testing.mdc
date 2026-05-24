@@ -22,7 +22,7 @@ No root workspace `vitest.config.ts` — per-package configs for VS Code discove
 
 - `*.variants.test.ts` — CVA class output for primitives.
 - `*.render.test.tsx` — DOM smoke, className merge, key a11y roles.
-- **Blocks/templates** — no render suite yet; use sandbox ([TESTING.md § Consumer sandbox verification](../../docs/TESTING.md#consumer-sandbox-verification)).
+- **Blocks/templates** — block install smoke in `packages/cli/test/commands/install-flow.test.ts`; render smoke for FormField, Sidebar, DashboardShell in `@neurex/ui`; narrow viewport remains manual sandbox ([TESTING.md § Consumer sandbox verification](../../docs/TESTING.md#consumer-sandbox-verification)).
 
 ## Commands
 

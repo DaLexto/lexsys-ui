@@ -18,12 +18,12 @@ Neurex is a **registry-first React UI framework**.
 packages/registry → packages/cli → consumer project → user-owned code
 ```
 
-| Package | Role |
-| ------- | ---- |
-| `packages/tokens` | Design token source of truth; resolver; generated CSS |
-| `packages/ui` | Reference primitives, blocks, templates — not what CLI ships as a library |
-| `packages/registry` | Install metadata + templates; source of truth for CLI install behavior |
-| `packages/cli` | `neurex` binary; metadata-driven installer |
+| Package             | Role                                                                      |
+| ------------------- | ------------------------------------------------------------------------- |
+| `packages/tokens`   | Design token source of truth; resolver; generated CSS                     |
+| `packages/ui`       | Reference primitives, blocks, templates — not what CLI ships as a library |
+| `packages/registry` | Install metadata + templates; source of truth for CLI install behavior    |
+| `packages/cli`      | `neurex` binary; metadata-driven installer                                |
 
 Core principles: installed code is user-owned; CLI is idempotent and
 metadata-driven; packages stay publish-ready and separated.
@@ -34,21 +34,21 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 ## Source-of-truth map
 
-| If you need… | Read |
-| ------------ | ---- |
-| System shape, install flow, package boundaries | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) |
-| Token layers, validation, CSS generation | [docs/TOKENS.md](./docs/TOKENS.md) |
-| Registry items, template sync, validation | [docs/REGISTRY.md](./docs/REGISTRY.md) |
-| `neurex` commands, config, install behavior | [docs/CLI.md](./docs/CLI.md) |
-| Component structure, Base UI boundaries | [docs/UI.md](./docs/UI.md) |
-| Variant props and CVA rules | [docs/UI_VARIANTS.md](./docs/UI_VARIANTS.md) |
-| Primitives / blocks / templates layers | [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) |
-| Verification surfaces and test coverage | [docs/TESTING.md](./docs/TESTING.md) |
-| `pnpm` scripts and sync workflows | [docs/SCRIPTS.md](./docs/SCRIPTS.md) |
-| Style and naming | [docs/STYLE.md](./docs/STYLE.md), [docs/STYLEGUIDE.md](./docs/STYLEGUIDE.md) |
-| Build and publish contract | [docs/DEPLOY.md](./docs/DEPLOY.md) |
-| Active backlog and execution queue | [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md) |
-| Long-term roadmap (M1–M10, tokens phases) | [docs/ROADMAP.md](./docs/ROADMAP.md) |
+| If you need…                                   | Read                                                                         |
+| ---------------------------------------------- | ---------------------------------------------------------------------------- |
+| System shape, install flow, package boundaries | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)                               |
+| Token layers, validation, CSS generation       | [docs/TOKENS.md](./docs/TOKENS.md)                                           |
+| Registry items, template sync, validation      | [docs/REGISTRY.md](./docs/REGISTRY.md)                                       |
+| `neurex` commands, config, install behavior    | [docs/CLI.md](./docs/CLI.md)                                                 |
+| Component structure, Base UI boundaries        | [docs/UI.md](./docs/UI.md)                                                   |
+| Variant props and CVA rules                    | [docs/UI_VARIANTS.md](./docs/UI_VARIANTS.md)                                 |
+| Primitives / blocks / templates layers         | [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)                           |
+| Verification surfaces and test coverage        | [docs/TESTING.md](./docs/TESTING.md)                                         |
+| `pnpm` scripts and sync workflows              | [docs/SCRIPTS.md](./docs/SCRIPTS.md)                                         |
+| Style and naming                               | [docs/STYLE.md](./docs/STYLE.md), [docs/STYLEGUIDE.md](./docs/STYLEGUIDE.md) |
+| Build and publish contract                     | [docs/DEPLOY.md](./docs/DEPLOY.md)                                           |
+| Active backlog and execution queue             | [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)                                 |
+| Long-term roadmap (M1–M10, tokens phases)      | [docs/ROADMAP.md](./docs/ROADMAP.md)                                         |
 
 ---
 
@@ -75,13 +75,13 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 Default gate: **`pnpm check`** — [docs/SCRIPTS.md](./docs/SCRIPTS.md).
 
-| Touch area | Minimum checks |
-| ---------- | -------------- |
-| `packages/tokens` | `pnpm tokens:check` |
-| `packages/ui` | `pnpm ui:check`; then `$registry-sync` if templates should change |
-| `packages/registry` | `pnpm registry:check` |
-| `packages/cli` | `pnpm cli:check` |
-| CLI / registry / templates / blocks | `$consumer-sandbox-verify` before PR |
+| Touch area                          | Minimum checks                                                    |
+| ----------------------------------- | ----------------------------------------------------------------- |
+| `packages/tokens`                   | `pnpm tokens:check`                                               |
+| `packages/ui`                       | `pnpm ui:check`; then `$registry-sync` if templates should change |
+| `packages/registry`                 | `pnpm registry:check`                                             |
+| `packages/cli`                      | `pnpm cli:check`                                                  |
+| CLI / registry / templates / blocks | `$consumer-sandbox-verify` before PR                              |
 
 Use **`$monorepo-check-gate`** for scoped verification by touched paths.
 
@@ -97,17 +97,16 @@ Do **not** start dev servers unless the user explicitly asks — see
 
 Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures.
 
-| Skill | When |
-| ----- | ---- |
-| `$registry-sync` | UI source changed → sync registry templates |
-| `$consumer-sandbox-verify` | CLI/registry/template/blocks PR gate |
-| `$monorepo-check-gate` | Pre-commit / pre-PR scoped `pnpm` checks |
-| `$ui-component-change` | New or edited primitive/block/template in UI |
-| `$docs-alignment` | Behavior or counts changed → cross-ref docs |
-| `$token-change-verify` | Token layers, generator, or governance touched |
-| `$project-next-steps` | What to work on next, backlog triage, project status |
-
-Cursor git/PR details: [.cursor/rules/git-commits.mdc](./.cursor/rules/git-commits.mdc).
+| Skill                      | When                                                            |
+| -------------------------- | --------------------------------------------------------------- |
+| `$registry-sync`           | UI source changed → sync registry templates                     |
+| `$consumer-sandbox-verify` | CLI/registry/template/blocks PR gate                            |
+| `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks                        |
+| `$ui-component-change`     | New or edited primitive/block/template in UI                    |
+| `$docs-alignment`          | Behavior or counts changed → cross-ref docs                     |
+| `$token-change-verify`     | Token layers, generator, or governance touched                  |
+| `$project-next-steps`      | What to work on next, backlog triage, project status            |
+| `$git-commit`              | Commit, push, or PR to dev — Conventional Commits + gh workflow |
 
 ---
 
@@ -123,7 +122,7 @@ For non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans
 3. **Docs alignment** — **`$docs-alignment`** when contracts or counts change;
    link to [docs/INDEX.md](./docs/INDEX.md).
 4. **Verify** — **`$monorepo-check-gate`**; sandbox when install artifacts change.
-5. **PR last** to **`dev`** only when the branch is complete.
+5. **PR last** to **`dev`** only when the branch is complete — **`$git-commit`**.
 
 Human-oriented steps: [CONTRIBUTING.md](./CONTRIBUTING.md).
 

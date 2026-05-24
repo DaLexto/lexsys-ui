@@ -14,16 +14,16 @@ Run scoped checks first when the change set is narrow.
 
 ## Map paths → commands
 
-| Touched paths | Run |
-| ------------- | --- |
-| `packages/tokens/**` | `pnpm tokens:check` |
-| `packages/ui/**` | `pnpm ui:check` |
-| `packages/registry/**` | `pnpm registry:check` |
-| `packages/cli/**` | `pnpm --filter ./packages/cli check` |
-| `apps/playground/**` | `pnpm playground:check` |
-| Root config, turbo, eslint, multiple packages | `pnpm check` |
-| UI + registry templates | `pnpm ui:check` → `$registry-sync` → `pnpm registry:check` |
-| Token CSS + registry styles | `pnpm tokens:check` → `pnpm sync:all` → `pnpm registry:check` |
+| Touched paths                                 | Run                                                           |
+| --------------------------------------------- | ------------------------------------------------------------- |
+| `packages/tokens/**`                          | `pnpm tokens:check`                                           |
+| `packages/ui/**`                              | `pnpm ui:check`                                               |
+| `packages/registry/**`                        | `pnpm registry:check`                                         |
+| `packages/cli/**`                             | `pnpm --filter ./packages/cli check`                          |
+| `apps/playground/**`                          | `pnpm playground:check`                                       |
+| Root config, turbo, eslint, multiple packages | `pnpm check`                                                  |
+| UI + registry templates                       | `pnpm ui:check` → `$registry-sync` → `pnpm registry:check`    |
+| Token CSS + registry styles                   | `pnpm tokens:check` → `pnpm sync:all` → `pnpm registry:check` |
 
 ## Pre-commit (when user requests commit)
 

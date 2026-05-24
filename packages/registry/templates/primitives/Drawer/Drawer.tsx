@@ -236,7 +236,8 @@ const DrawerClose = ({
       )}
       {...props}
     >
-      {children ?? (appearance === "icon" ? <X aria-hidden="true" size={16} /> : null)}
+      {children ??
+        (appearance === "icon" ? <X aria-hidden="true" size={16} /> : null)}
     </BaseDrawer.Close>
   )
 }

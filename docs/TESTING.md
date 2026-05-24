@@ -121,20 +121,20 @@ pnpm --filter @neurex/registry test
 
 Test files in `packages/cli/test/`:
 
-| File                            | What it tests                                                                                                                 |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `commands/add.test.ts`          | `neurex add` — file creation, skipping unchanged files, conflict detection, utilities/styles install                          |
-| `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                                              |
-| `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                                                 |
-| `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                                                 |
-| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior, orphaned shared utilities/styles cleanup |
-| `commands/diagnostics.test.ts`  | `doctor`, `status`, `list`, `config` — path checks, registry output, config mutations                                         |
-| `commands/install-flow.test.ts` | Full install smoke — idempotency, all **primitive** components, add → update → uninstall round-trip                           |
-| `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection                         |
-| `core/install-target.test.ts`   | Flat `paths.components` targets + import rewrite for blocks/templates at install time                                         |
-| `core/registry-closure.test.ts` | Transitive `registryDependencies` closure + orphan detection for `--with-deps` uninstall                                      |
-| `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                                                      |
-| `core/tailwind-setup.test.ts`   | Tailwind CSS wiring — idempotent `@import` injection, entrypoint detection                                                    |
+| File                            | What it tests                                                                                                                                               |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `commands/add.test.ts`          | `neurex add` — file creation, skipping unchanged files, conflict detection, utilities/styles install                                                        |
+| `commands/init.test.ts`         | `neurex init` — config creation, Tailwind setup, Vite plugin wiring, idempotency                                                                            |
+| `commands/update.test.ts`       | `neurex update` — file update when registry changes, skipping unchanged files                                                                               |
+| `commands/registry.test.ts`     | `neurex registry` — local/remote source selection, `--local`/`--remote` flags                                                                               |
+| `commands/uninstall.test.ts`    | `neurex uninstall` — file removal, dry-run, conflict preservation, untrack behavior, orphaned shared utilities/styles cleanup                               |
+| `commands/diagnostics.test.ts`  | `doctor`, `status`, `list`, `config` — path checks, registry output, config mutations                                                                       |
+| `commands/install-flow.test.ts` | Full install smoke — idempotency, all **primitive** components, all **block** items (solo + bulk), flat import rewrite, add → update → uninstall round-trip |
+| `core/installer.test.ts`        | Installer core — hash comparison, created/updated/skipped/conflicted states, generated file detection                                                       |
+| `core/install-target.test.ts`   | Flat `paths.components` targets + import rewrite for blocks/templates at install time                                                                       |
+| `core/registry-closure.test.ts` | Transitive `registryDependencies` closure + orphan detection for `--with-deps` uninstall                                                                    |
+| `core/package-manager.test.ts`  | Package manager detection — npm/pnpm/yarn detection, cwd-scoped installs                                                                                    |
+| `core/tailwind-setup.test.ts`   | Tailwind CSS wiring — idempotent `@import` injection, entrypoint detection                                                                                  |
 
 Run:
 
@@ -205,13 +205,13 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-All **41 bundled primitives** have render smoke tests using `@testing-library/react`
-with Vitest `jsdom` (`packages/ui/vitest.config.ts`). Pilot blocks and templates
-do not yet have matching render suites — treat sandbox QA as the gate for those layers.
+All **41 bundled primitives** and **pilot blocks/templates** (FormField, Sidebar,
+DashboardShell) have render smoke tests using `@testing-library/react` with Vitest
+`jsdom` (`packages/ui/vitest.config.ts`).
 
 - Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.
 - Variant class output remains covered by `*.variants.test.ts` files for primitives.
-- `pnpm ui:audit` scans variant token literals only — it does **not** validate block/template composition, responsive layout, or mobile drawer behavior.
+- `pnpm ui:audit` scans variant token literals only — it does **not** validate responsive layout or mobile drawer behavior (sandbox checklist below).
 
 ---
 
@@ -243,6 +243,5 @@ Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monore
 
 ## Known Gaps
 
-- No automated end-to-end install tests against a real external consumer project (temp-directory smoke tests cover primitive CLI flow; see [§ Verification surfaces](#verification-surfaces) and Consumer sandbox verification above).
-- No `install-flow` coverage for block/template items (`dashboard-shell` transitive install) — only unit tests for install targets, import rewrite, and registry closure.
-- No render/variant tests for pilot blocks/templates in `@neurex/ui` — mobile and composition QA remain manual (BO.1–BO.7 in [REVIEW_TODO.md](./REVIEW_TODO.md)).
+- Narrow-viewport block/template UX (mobile drawer stacking, `< md` layout) — manual consumer sandbox checklist only; not CI ([§ Blocks/templates checklist](#consumer-sandbox-verification)).
+- No automated end-to-end install tests against a real external consumer project (temp-directory `install-flow` smoke covers primitives and all registry blocks).

@@ -5,11 +5,13 @@ import type {
 } from "./registry.types.js"
 import { validateRegistryItem } from "./validate-registry-item.js"
 import { validateRegistryComposition } from "./validate-registry-composition.js"
+import { validateRegistryTemplateImports } from "./validate-registry-template-imports.js"
 
 interface ValidateRegistryOptions {
   styles?: RegistryStyle[]
   utilities?: RegistryUtility[]
   templateFiles?: string[]
+  readTemplateFile?: (templatePath: string) => string
 }
 
 const isEmpty = (value: string): boolean => {
@@ -300,6 +302,15 @@ export const validateRegistry = (
 
   for (const compositionError of validateRegistryComposition(items)) {
     addError(compositionError)
+  }
+
+  if (options.readTemplateFile) {
+    for (const importError of validateRegistryTemplateImports(
+      items,
+      options.readTemplateFile,
+    )) {
+      addError(importError)
+    }
   }
 
   // --- FINAL THROW ---

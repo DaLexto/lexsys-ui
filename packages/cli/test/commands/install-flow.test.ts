@@ -7,6 +7,7 @@ import { runAdd } from "../../src/commands/add.js"
 import { runInit } from "../../src/commands/init.js"
 import { runUninstall } from "../../src/commands/uninstall.js"
 import { runUpdate } from "../../src/commands/update.js"
+import { computeRegistryClosure } from "../../src/core/registry-closure.js"
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
   await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
@@ -39,6 +40,42 @@ const getVariantsTokenPrefix = (canonicalName: string): string => {
 const componentRegistryItems = registryItems.filter((item) => {
   return item.type === "component"
 })
+
+const blockRegistryItems = registryItems.filter((item) => {
+  return item.type === "block"
+})
+
+const assertFlatConsumerImportPaths = (content: string): void => {
+  expect(content).not.toMatch(/\.\.\/\.\.\/(blocks|templates|primitives)\//)
+  expect(content).not.toContain("blocks/")
+  expect(content).not.toContain("templates/")
+  expect(content).not.toContain("primitives/")
+}
+
+const readInstalledConfig = async (
+  root: string,
+): Promise<{ installed?: Record<string, string> }> => {
+  return JSON.parse(
+    await readFile(join(root, "neurex.config.json"), "utf-8"),
+  ) as { installed?: Record<string, string> }
+}
+
+const expectRegistryClosureInstalled = (
+  installed: Record<string, string> | undefined,
+  rootNames: string[],
+): void => {
+  const closure = computeRegistryClosure(rootNames, registryItems)
+
+  for (const name of closure) {
+    const item = registryItems.find((entry) => entry.name === name)
+
+    if (!item) {
+      throw new Error(`Missing registry item for closure member: ${name}`)
+    }
+
+    expect(installed?.[name]).toBe(item.version)
+  }
+}
 
 const getTemplateFileName = (file: string): string => {
   const fileName = file.split("/").at(-1)
@@ -298,7 +335,126 @@ describe("install flow smoke", () => {
     )
   })
 
-  test("installs dashboard-shell with transitive deps and flat import paths", async () => {
+  test("installs every bundled registry block idempotently", async () => {
+    const blockNames = blockRegistryItems.map((item) => item.name)
+    const installedFileSnapshots = new Map<string, string>()
+
+    await writeViteConsumerFiles(tempDir)
+
+    await runInit()
+    await runAdd(blockNames)
+
+    for (const item of blockRegistryItems) {
+      for (const file of item.files) {
+        const targetPath = join(
+          tempDir,
+          "src/components/ui",
+          item.canonicalName,
+          getTemplateFileName(file),
+        )
+        const content = await readFile(targetPath, "utf-8")
+
+        assertFlatConsumerImportPaths(content)
+        installedFileSnapshots.set(targetPath, content)
+      }
+    }
+
+    await runInit()
+    await runAdd(blockNames)
+
+    for (const item of blockRegistryItems) {
+      for (const file of item.files) {
+        const targetPath = join(
+          tempDir,
+          "src/components/ui",
+          item.canonicalName,
+          getTemplateFileName(file),
+        )
+
+        await expect(readFile(targetPath, "utf-8")).resolves.toBe(
+          installedFileSnapshots.get(targetPath),
+        )
+      }
+
+      await expect(
+        readFile(
+          join(
+            tempDir,
+            `src/components/ui/${item.canonicalName}/${item.canonicalName}.tsx`,
+          ),
+          "utf-8",
+        ),
+      ).resolves.toContain("@/lib/utils")
+      await expect(
+        readFile(
+          join(
+            tempDir,
+            `src/components/ui/${item.canonicalName}/${item.canonicalName}.variants.ts`,
+          ),
+          "utf-8",
+        ),
+      ).resolves.toMatch(/nx-|--nx-/)
+    }
+
+    const config = await readInstalledConfig(tempDir)
+    const expectedInstalled = Object.fromEntries(
+      [...computeRegistryClosure(blockNames, registryItems)].map((name) => {
+        const registryItem = registryItems.find((entry) => entry.name === name)
+
+        if (!registryItem) {
+          throw new Error(`Missing registry item for closure member: ${name}`)
+        }
+
+        return [name, registryItem.version]
+      }),
+    )
+
+    expect(config.installed).toEqual(expectedInstalled)
+  })
+
+  test.each(blockRegistryItems.map((item) => [item.name, item] as const))(
+    "installs %s solo with transitive deps and flat consumer import paths",
+    async (_name, item) => {
+      await writeViteConsumerFiles(tempDir)
+
+      await runInit()
+      await runAdd([item.name])
+
+      for (const file of item.files) {
+        const content = await readFile(
+          join(
+            tempDir,
+            "src/components/ui",
+            item.canonicalName,
+            getTemplateFileName(file),
+          ),
+          "utf-8",
+        )
+
+        assertFlatConsumerImportPaths(content)
+      }
+
+      const config = await readInstalledConfig(tempDir)
+      expectRegistryClosureInstalled(config.installed, [item.name])
+    },
+  )
+
+  test("sidebar solo install rewrites block imports to flat sibling paths", async () => {
+    await writeViteConsumerFiles(tempDir)
+
+    await runInit()
+    await runAdd(["sidebar"])
+
+    await expect(
+      readFile(join(tempDir, "src/components/ui/Sidebar/Sidebar.tsx"), "utf-8"),
+    ).resolves.toContain('import { Button } from "../Button/Button"')
+
+    const config = await readInstalledConfig(tempDir)
+
+    expect(config.installed?.menu).toBeUndefined()
+  })
+
+  test("dashboard-shell solo install pulls sidebar block with flat template import", async () => {
     await writeViteConsumerFiles(tempDir)
 
     await runInit()
@@ -315,22 +471,26 @@ describe("install flow smoke", () => {
       readFile(join(tempDir, "src/components/ui/Sidebar/Sidebar.tsx"), "utf-8"),
     ).resolves.toContain('import { Button } from "../Button/Button"')
 
-    await expect(
-      readFile(join(tempDir, "src/components/ui/Sidebar/Sidebar.tsx"), "utf-8"),
-    ).resolves.not.toContain("blocks/Sidebar")
-
-    const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
-
-    expect(config.installed).toMatchObject({
-      "dashboard-shell": "0.0.1",
-      sidebar: "0.0.1",
-      button: "0.0.1",
-      drawer: "0.0.1",
-      "scroll-area": "0.0.1",
-    })
+    const config = await readInstalledConfig(tempDir)
+    expectRegistryClosureInstalled(config.installed, ["dashboard-shell"])
     expect(config.installed?.menu).toBeUndefined()
+  })
+
+  test("form-field solo install pulls field and input primitives", async () => {
+    await writeViteConsumerFiles(tempDir)
+
+    await runInit()
+    await runAdd(["form-field"])
+
+    await expect(
+      readFile(
+        join(tempDir, "src/components/ui/FormField/FormField.tsx"),
+        "utf-8",
+      ),
+    ).resolves.toContain('import { Input } from "../Input/Input"')
+
+    const config = await readInstalledConfig(tempDir)
+    expectRegistryClosureInstalled(config.installed, ["form-field"])
   })
 
   test("add, update styles, and uninstall round-trip in temp consumer", async () => {

@@ -84,10 +84,9 @@ ComponentName/
 | `docs-routing.mdc` | Doc ownership when editing `docs/**` |
 | `documentation-standards.mdc` | Doc governance (`docs/`, README, CONTRIBUTING) |
 | `code-commenting.mdc` | JSDoc and comments in `src/` |
-| `git-commits.mdc` | Commits, scopes, PR workflow |
 | `git-commit-rules.mdc` | Meta: authoring commit rules |
 | `neurex-testing.mdc` | Vitest layout and commands per package |
 | `tech-stack.mdc` | Dependencies and toolchain |
 | `self-improvement.mdc` | When to evolve rules |
 
-Repo skills: [`.agents/skills/`](../../.agents/skills/).
+Repo skills: [`.agents/skills/`](../../.agents/skills/). Git commit/PR policy: [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → [git-commits.mdc](../../.agents/skills/git-commit/git-commits.mdc).

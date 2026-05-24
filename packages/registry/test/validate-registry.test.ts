@@ -107,6 +107,7 @@ describe("validateRegistry", () => {
         styles: registryStyles,
         utilities: registryUtilities,
         templateFiles: collectTemplateFiles(templateRoot),
+        readTemplateFile: readTemplateFile,
       }),
     ).not.toThrow()
   })
@@ -478,6 +479,37 @@ describe("validateRegistry", () => {
     }
 
     expect(() => validateRegistry([blockA, blockB])).toThrow(/dependency cycle/)
+  })
+
+  test("rejects block templates that import undeclared registry items", () => {
+    const field: RegistryItem = {
+      ...item,
+      name: "field",
+      canonicalName: "Field",
+      aliases: [],
+      files: ["primitives/Field/Field.tsx"],
+      remoteFiles: [{ path: "primitives/Field/Field.tsx" }],
+      target: "src/components/ui/Field",
+    }
+
+    const formField: RegistryItem = {
+      ...item,
+      name: "form-field",
+      canonicalName: "FormField",
+      type: "block",
+      category: "blocks",
+      aliases: [],
+      files: ["blocks/FormField/FormField.tsx"],
+      remoteFiles: [{ path: "blocks/FormField/FormField.tsx" }],
+      registryDependencies: [],
+      target: "src/components/ui/FormField",
+    }
+
+    expect(() =>
+      validateRegistry([field, formField], {
+        readTemplateFile: readTemplateFile,
+      }),
+    ).toThrow(/registryDependencies omits it/)
   })
 
   test("collects and displays multiple errors at once", () => {

@@ -217,7 +217,7 @@ Use **relative** Markdown links only — files in the same repo, same rule folde
 |-------------|---------|
 | Rule authoring | [cursor-rules.mdc](cursor-rules.mdc) |
 | This meta-guide | [git-commit-rules.mdc](git-commit-rules.mdc) |
-| Project commit policy | [git-commits.mdc](git-commits.mdc) *(if present)* |
+| Project commit policy | [git-commits.mdc](../../.agents/skills/git-commit/git-commits.mdc) *(Neurex; may live under `.cursor/rules/` in other repos)* |
 
 Do not use `mdc:` URLs or absolute paths to another developer’s machine.
 
@@ -227,7 +227,7 @@ External specs: full URL once (Conventional Commits, optional Conventional Branc
 
 ## Checklist: creating `git-commits.mdc` for a repository
 
-1. Create `.cursor/rules/git-commits.mdc` per [cursor-rules.mdc](cursor-rules.mdc).
+1. Create project commit policy per [cursor-rules.mdc](cursor-rules.mdc) — typically `.cursor/rules/git-commits.mdc`, or co-locate with a repo skill (e.g. `.agents/skills/git-commit/git-commits.mdc`).
 2. Write neutral `description` and `alwaysApply: false`.
 3. Add **authorization** section (commit / push / amend / destructive).
 4. Add compact **Conventional Commits** section (format + types table + breaking note).
