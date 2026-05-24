@@ -16,7 +16,9 @@ describe("Combobox variants", () => {
   })
 
   it("uses token-backed popup, input group, and item states", () => {
-    expect(comboboxPopupVariants()).toContain("bg-(--nx-select-popup-background)")
+    expect(comboboxPopupVariants()).toContain(
+      "bg-(--nx-select-popup-background)",
+    )
     expect(comboboxPopupVariants()).toContain("min-w-[var(--anchor-width)]")
     expect(comboboxInputGroupVariants()).toContain(
       "border-(--nx-select-border-color)",

@@ -19,4 +19,6 @@ export const previewCardPopupVariants = popoverPopupVariants
 export const previewCardArrowVariants = popoverArrowVariants
 export const previewCardViewportVariants = popoverViewportVariants
 
-export const previewCardTriggerVariants = cva("inline-flex outline-none")
+export const previewCardTriggerVariants = cva(
+  "inline-flex outline-none focus-visible:ring-(length:--nx-popover-focus-ring-width) focus-visible:ring-(--nx-popover-focus-ring-color)",
+)

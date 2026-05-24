@@ -39,7 +39,12 @@ const dataDisplayComponentNames = new Set(["Avatar", "Meter"])
 
 const layoutComponentNames = new Set(["Collapsible", "ScrollArea"])
 
-const actionComponentNames = new Set(["Button", "Toggle", "ToggleGroup", "Toolbar"])
+const actionComponentNames = new Set([
+  "Button",
+  "Toggle",
+  "ToggleGroup",
+  "Toolbar",
+])
 
 const getExtension = (path) => {
   const lastDot = path.lastIndexOf(".")

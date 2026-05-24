@@ -24,11 +24,7 @@ const DashboardShell = ({
 }: DashboardShellProps) => {
   return (
     <div ref={ref} className={cn(dashboardShellVariants(), className)}>
-      <Sidebar
-        brand={brand}
-        items={sidebarItems}
-        mobileHeader={header}
-      />
+      <Sidebar brand={brand} items={sidebarItems} mobileHeader={header} />
       <div className={dashboardShellMainVariants()}>
         {header ? (
           <header className={dashboardShellHeaderVariants()}>{header}</header>

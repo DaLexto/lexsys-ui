@@ -31,6 +31,9 @@ export const contextMenuGroupVariants = menuGroupVariants
 export const contextMenuGroupLabelVariants = menuGroupLabelVariants
 export const contextMenuSeparatorVariants = menuSeparatorVariants
 export const contextMenuSubmenuTriggerVariants = menuTriggerVariants
-export const contextMenuSubmenuTriggerIconVariants = menuSubmenuTriggerIconVariants
+export const contextMenuSubmenuTriggerIconVariants =
+  menuSubmenuTriggerIconVariants
 
-export const contextMenuTriggerVariants = cva("outline-none")
+export const contextMenuTriggerVariants = cva(
+  "outline-none focus-visible:ring-(length:--nx-menu-focus-ring-width) focus-visible:ring-(--nx-menu-focus-ring-color)",
+)

@@ -28,8 +28,10 @@ export type ContextMenuGroupProps = BaseContextMenu.Group.Props
 
 export type ContextMenuGroupLabelProps = BaseContextMenu.GroupLabel.Props
 
-export interface ContextMenuItemProps
-  extends Omit<BaseContextMenu.Item.Props, "className"> {
+export interface ContextMenuItemProps extends Omit<
+  BaseContextMenu.Item.Props,
+  "className"
+> {
   className?: BaseContextMenu.Item.Props["className"]
 }
 

@@ -125,7 +125,11 @@ const ContextMenuPositioner = ({
 
 ContextMenuPositioner.displayName = "ContextMenuPositioner"
 
-const ContextMenuPopup = ({ ref, className, ...props }: ContextMenuPopupProps) => {
+const ContextMenuPopup = ({
+  ref,
+  className,
+  ...props
+}: ContextMenuPopupProps) => {
   return (
     <BaseContextMenu.Popup
       ref={ref}
@@ -137,7 +141,11 @@ const ContextMenuPopup = ({ ref, className, ...props }: ContextMenuPopupProps) =
 
 ContextMenuPopup.displayName = "ContextMenuPopup"
 
-const ContextMenuArrow = ({ ref, className, ...props }: ContextMenuArrowProps) => {
+const ContextMenuArrow = ({
+  ref,
+  className,
+  ...props
+}: ContextMenuArrowProps) => {
   return (
     <BaseContextMenu.Arrow
       ref={ref}
@@ -149,7 +157,11 @@ const ContextMenuArrow = ({ ref, className, ...props }: ContextMenuArrowProps) =
 
 ContextMenuArrow.displayName = "ContextMenuArrow"
 
-const ContextMenuItem = ({ ref, className, ...props }: ContextMenuItemProps) => {
+const ContextMenuItem = ({
+  ref,
+  className,
+  ...props
+}: ContextMenuItemProps) => {
   return (
     <BaseContextMenu.Item
       ref={ref}
@@ -210,7 +222,8 @@ const ContextMenuCheckboxItemIndicator = ({
   )
 }
 
-ContextMenuCheckboxItemIndicator.displayName = "ContextMenuCheckboxItemIndicator"
+ContextMenuCheckboxItemIndicator.displayName =
+  "ContextMenuCheckboxItemIndicator"
 
 const ContextMenuRadioGroup = ({
   ref,
@@ -263,7 +276,11 @@ const ContextMenuRadioItemIndicator = ({
 
 ContextMenuRadioItemIndicator.displayName = "ContextMenuRadioItemIndicator"
 
-const ContextMenuGroup = ({ ref, className, ...props }: ContextMenuGroupProps) => {
+const ContextMenuGroup = ({
+  ref,
+  className,
+  ...props
+}: ContextMenuGroupProps) => {
   return (
     <BaseContextMenu.Group
       ref={ref}

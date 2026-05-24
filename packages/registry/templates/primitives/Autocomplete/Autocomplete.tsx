@@ -212,7 +212,11 @@ const AutocompletePopup = ({
 
 AutocompletePopup.displayName = "AutocompletePopup"
 
-const AutocompleteList = ({ ref, className, ...props }: AutocompleteListProps) => {
+const AutocompleteList = ({
+  ref,
+  className,
+  ...props
+}: AutocompleteListProps) => {
   return (
     <BaseAutocomplete.List
       ref={ref}
@@ -320,7 +324,11 @@ const AutocompleteStatus = ({
 
 AutocompleteStatus.displayName = "AutocompleteStatus"
 
-const AutocompleteRow = ({ ref, className, ...props }: AutocompleteRowProps) => {
+const AutocompleteRow = ({
+  ref,
+  className,
+  ...props
+}: AutocompleteRowProps) => {
   return (
     <BaseAutocomplete.Row
       ref={ref}

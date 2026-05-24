@@ -26,9 +26,7 @@ import {
 import { mergeClassName } from "@/lib/utils"
 import { overlayPositionerSideOffset } from "@/lib/utils"
 
-const PreviewCard = <Payload = unknown,>(
-  props: PreviewCardProps<Payload>,
-) => {
+const PreviewCard = <Payload = unknown,>(props: PreviewCardProps<Payload>) => {
   return <BasePreviewCard.Root {...props} />
 }
 
@@ -74,7 +72,11 @@ const PreviewCardPositioner = ({
 
 PreviewCardPositioner.displayName = "PreviewCardPositioner"
 
-const PreviewCardPopup = ({ ref, className, ...props }: PreviewCardPopupProps) => {
+const PreviewCardPopup = ({
+  ref,
+  className,
+  ...props
+}: PreviewCardPopupProps) => {
   return (
     <BasePreviewCard.Popup
       ref={ref}
@@ -86,7 +88,11 @@ const PreviewCardPopup = ({ ref, className, ...props }: PreviewCardPopupProps) =
 
 PreviewCardPopup.displayName = "PreviewCardPopup"
 
-const PreviewCardArrow = ({ ref, className, ...props }: PreviewCardArrowProps) => {
+const PreviewCardArrow = ({
+  ref,
+  className,
+  ...props
+}: PreviewCardArrowProps) => {
   return (
     <BasePreviewCard.Arrow
       ref={ref}

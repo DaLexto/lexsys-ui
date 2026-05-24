@@ -39,11 +39,7 @@ const Toolbar = ({ ref, className, orientation, ...props }: ToolbarProps) => {
 
 Toolbar.displayName = "Toolbar"
 
-const ToolbarGroup = ({
-  ref,
-  className,
-  ...props
-}: ToolbarGroupProps) => {
+const ToolbarGroup = ({ ref, className, ...props }: ToolbarGroupProps) => {
   return (
     <BaseToolbar.Group
       ref={ref}
@@ -55,11 +51,7 @@ const ToolbarGroup = ({
 
 ToolbarGroup.displayName = "ToolbarGroup"
 
-const ToolbarButton = ({
-  ref,
-  className,
-  ...props
-}: ToolbarButtonProps) => {
+const ToolbarButton = ({ ref, className, ...props }: ToolbarButtonProps) => {
   return (
     <BaseToolbar.Button
       ref={ref}

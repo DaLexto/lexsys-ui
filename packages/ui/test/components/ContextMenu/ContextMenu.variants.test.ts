@@ -6,7 +6,9 @@ import {
 
 describe("ContextMenu variants", () => {
   it("reuses menu popup styling", () => {
-    expect(contextMenuPopupVariants()).toContain("bg-(--nx-menu-popup-background)")
+    expect(contextMenuPopupVariants()).toContain(
+      "bg-(--nx-menu-popup-background)",
+    )
   })
 
   it("reuses menu item highlight states", () => {

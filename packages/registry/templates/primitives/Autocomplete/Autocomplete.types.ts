@@ -10,9 +10,7 @@ import type { Autocomplete as BaseAutocomplete } from "@base-ui/react/autocomple
 
 export type AutocompleteSize = "sm" | "md" | "lg"
 
-export type AutocompleteProps = ComponentProps<
-  typeof BaseAutocomplete.Root
->
+export type AutocompleteProps = ComponentProps<typeof BaseAutocomplete.Root>
 
 export interface AutocompleteTriggerProps extends Omit<
   BaseAutocomplete.Trigger.Props,
