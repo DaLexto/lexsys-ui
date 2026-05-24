@@ -8,6 +8,10 @@ export const dashboardShellVariants = (): string => {
   return "lsys-dashboard-shell flex min-h-full flex-col bg-[var(--lsys-color-background-base)] text-[var(--lsys-color-text-primary)] md:flex-row"
 }
 
+export const dashboardShellSidebarVariants = (): string => {
+  return "lsys-dashboard-shell__sidebar shrink-0"
+}
+
 export const dashboardShellMainVariants = (): string => {
   return "lsys-dashboard-shell__main flex min-h-full flex-1 flex-col bg-[var(--lsys-color-background-base)]"
 }

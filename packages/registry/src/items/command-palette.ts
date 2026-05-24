@@ -9,7 +9,7 @@ import type { RegistryItem } from "../registry.types.js"
 export const commandPaletteRegistryItem: RegistryItem = {
   name: "command-palette",
   canonicalName: "CommandPalette",
-  version: "0.0.1",
+  version: "0.0.2",
   type: "block",
   category: "blocks",
   aliases: ["command-menu", "kbar"],

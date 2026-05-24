@@ -9,6 +9,8 @@ import type { Menu as BaseMenu } from "@base-ui/react/menu"
 
 export type MenuProps<Payload = unknown> = BaseMenu.Root.Props<Payload>
 
+export type MenuHandle<Payload = unknown> = BaseMenu.Handle<Payload>
+
 export type MenuTriggerProps<Payload = unknown> =
   BaseMenu.Trigger.Props<Payload> & {
     ref?: Ref<HTMLButtonElement>

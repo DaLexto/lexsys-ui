@@ -9,8 +9,3 @@ export const authFormVariants = (): string => {
 }
 
 export const authFormFieldsClassName = "flex flex-col gap-(--lsys-space-4)"
-
-export const authFormFieldClassName = "flex flex-col gap-(--lsys-space-2)"
-
-export const authFormLabelClassName =
-  "text-(length:--lsys-typography-label-sm-font-size) font-(--lsys-typography-label-sm-font-weight) text-(--lsys-color-text-primary)"

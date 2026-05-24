@@ -415,6 +415,9 @@ const ComboboxSeparator = ({
 
 ComboboxSeparator.displayName = "ComboboxSeparator"
 
+const useComboboxFilter = BaseCombobox.useFilter
+const useComboboxFilteredItems = BaseCombobox.useFilteredItems
+
 export {
   Combobox,
   ComboboxLabel,
@@ -442,4 +445,6 @@ export {
   ComboboxRow,
   ComboboxCollection,
   ComboboxSeparator,
+  useComboboxFilter,
+  useComboboxFilteredItems,
 }

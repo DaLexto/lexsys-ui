@@ -1,10 +1,9 @@
 /**
  * CommandPalette.tsx
  *
- * Reference CommandPalette block — composes Dialog, Input, ScrollArea, and Separator primitives.
+ * Reference CommandPalette block — compound Dialog command surface.
  */
 
-import { useMemo, useState } from "react"
 import {
   Dialog,
   DialogBackdrop,
@@ -22,8 +21,16 @@ import {
   ScrollAreaViewport,
 } from "../../primitives/ScrollArea/ScrollArea"
 import type {
-  CommandPaletteItem,
+  CommandPaletteContentProps,
+  CommandPaletteDescriptionProps,
+  CommandPaletteEmptyProps,
+  CommandPaletteGroupLabelProps,
+  CommandPaletteGroupProps,
+  CommandPaletteInputProps,
+  CommandPaletteItemProps,
+  CommandPaletteListProps,
   CommandPaletteProps,
+  CommandPaletteTitleProps,
 } from "./CommandPalette.types"
 import {
   commandPaletteEmptyClassName,
@@ -36,136 +43,203 @@ import {
 } from "./CommandPalette.variants"
 import { cn } from "@/lib/utils"
 
-const matchesQuery = (item: CommandPaletteItem, query: string): boolean => {
-  const normalized = query.trim().toLowerCase()
-  if (!normalized) return true
-
-  const haystack = [
-    item.label,
-    item.description,
-    item.group,
-    ...(item.keywords ?? []),
-  ]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase()
-
-  return haystack.includes(normalized)
-}
-
-const groupItems = (
-  items: CommandPaletteItem[],
-): Array<{ group: string; items: CommandPaletteItem[] }> => {
-  const groups = new Map<string, CommandPaletteItem[]>()
-
-  for (const item of items) {
-    const group = item.group ?? "Results"
-    const current = groups.get(group) ?? []
-    current.push(item)
-    groups.set(group, current)
-  }
-
-  return Array.from(groups.entries()).map(([group, groupedItems]) => ({
-    group,
-    items: groupedItems,
-  }))
-}
-
-const CommandPalette = ({
-  open,
-  onOpenChange,
-  items,
-  onSelect,
-  placeholder = "Search commands…",
-  emptyMessage = "No commands found.",
-  title = "Command palette",
-  description = "Search and run commands.",
-}: CommandPaletteProps) => {
-  const [query, setQuery] = useState("")
-
-  const filteredItems = useMemo(
-    () => items.filter((item) => matchesQuery(item, query)),
-    [items, query],
-  )
-
-  const groupedItems = useMemo(() => groupItems(filteredItems), [filteredItems])
-
-  const handleSelect = (item: CommandPaletteItem) => {
-    onSelect(item)
-    onOpenChange(false)
-    setQuery("")
-  }
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogPortal>
-        <DialogBackdrop />
-        <DialogViewport>
-          <DialogPopup className={cn(commandPaletteRootVariants())}>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogDescription className="sr-only">
-              {description}
-            </DialogDescription>
-
-            <Input
-              autoFocus
-              placeholder={placeholder}
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              className={commandPaletteInputClassName}
-              aria-label="Search commands"
-            />
-
-            <Separator />
-
-            <ScrollArea className={commandPaletteListClassName}>
-              <ScrollAreaViewport>
-                <ScrollAreaContent>
-                  {groupedItems.length === 0 ? (
-                    <p className={commandPaletteEmptyClassName}>
-                      {emptyMessage}
-                    </p>
-                  ) : (
-                    groupedItems.map(({ group, items: groupItemsList }) => (
-                      <section key={group}>
-                        <h3 className={commandPaletteGroupLabelClassName}>
-                          {group}
-                        </h3>
-                        <ul className="m-0 list-none p-0">
-                          {groupItemsList.map((item) => (
-                            <li key={item.id}>
-                              <button
-                                type="button"
-                                className={commandPaletteItemClassName}
-                                onClick={() => handleSelect(item)}
-                              >
-                                <span>{item.label}</span>
-                                {item.description ? (
-                                  <span
-                                    className={
-                                      commandPaletteItemDescriptionClassName
-                                    }
-                                  >
-                                    {item.description}
-                                  </span>
-                                ) : null}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      </section>
-                    ))
-                  )}
-                </ScrollAreaContent>
-              </ScrollAreaViewport>
-            </ScrollArea>
-          </DialogPopup>
-        </DialogViewport>
-      </DialogPortal>
-    </Dialog>
-  )
+const CommandPalette = ({ children, ...props }: CommandPaletteProps) => {
+  return <Dialog {...props}>{children}</Dialog>
 }
 
 CommandPalette.displayName = "CommandPalette"
 
-export { CommandPalette }
+const CommandPaletteContent = ({
+  ref,
+  className,
+  children,
+  ...props
+}: CommandPaletteContentProps) => {
+  return (
+    <DialogPortal>
+      <DialogBackdrop />
+      <DialogViewport>
+        <DialogPopup
+          ref={ref}
+          className={cn(commandPaletteRootVariants(), className)}
+          {...props}
+        >
+          {children}
+        </DialogPopup>
+      </DialogViewport>
+    </DialogPortal>
+  )
+}
+
+CommandPaletteContent.displayName = "CommandPaletteContent"
+
+const CommandPaletteTitle = ({
+  ref,
+  className,
+  children,
+  ...props
+}: CommandPaletteTitleProps) => {
+  return (
+    <DialogTitle ref={ref} className={className} {...props}>
+      {children}
+    </DialogTitle>
+  )
+}
+
+CommandPaletteTitle.displayName = "CommandPaletteTitle"
+
+const CommandPaletteDescription = ({
+  ref,
+  className,
+  children,
+  ...props
+}: CommandPaletteDescriptionProps) => {
+  return (
+    <DialogDescription
+      ref={ref}
+      className={cn("sr-only", className)}
+      {...props}
+    >
+      {children}
+    </DialogDescription>
+  )
+}
+
+CommandPaletteDescription.displayName = "CommandPaletteDescription"
+
+const CommandPaletteInput = ({
+  ref,
+  className,
+  ...props
+}: CommandPaletteInputProps) => {
+  return (
+    <Input
+      ref={ref}
+      autoFocus
+      className={cn(commandPaletteInputClassName, className)}
+      aria-label="Search commands"
+      {...props}
+    />
+  )
+}
+
+CommandPaletteInput.displayName = "CommandPaletteInput"
+
+const CommandPaletteSeparator = () => {
+  return <Separator />
+}
+
+CommandPaletteSeparator.displayName = "CommandPaletteSeparator"
+
+const CommandPaletteList = ({
+  ref,
+  className,
+  children,
+  ...props
+}: CommandPaletteListProps) => {
+  return (
+    <ScrollArea className={cn(commandPaletteListClassName, className)}>
+      <ScrollAreaViewport>
+        <ScrollAreaContent ref={ref} {...props}>
+          {children}
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+    </ScrollArea>
+  )
+}
+
+CommandPaletteList.displayName = "CommandPaletteList"
+
+const CommandPaletteGroup = ({
+  ref,
+  className,
+  children,
+  ...props
+}: CommandPaletteGroupProps) => {
+  return (
+    <section ref={ref} className={className} {...props}>
+      {children}
+    </section>
+  )
+}
+
+CommandPaletteGroup.displayName = "CommandPaletteGroup"
+
+const CommandPaletteGroupLabel = ({
+  ref,
+  className,
+  children,
+  ...props
+}: CommandPaletteGroupLabelProps) => {
+  return (
+    <h3
+      ref={ref}
+      className={cn(commandPaletteGroupLabelClassName, className)}
+      {...props}
+    >
+      {children}
+    </h3>
+  )
+}
+
+CommandPaletteGroupLabel.displayName = "CommandPaletteGroupLabel"
+
+const CommandPaletteItem = ({
+  ref,
+  description,
+  className,
+  children,
+  type = "button",
+  ...props
+}: CommandPaletteItemProps) => {
+  return (
+    <button
+      ref={ref}
+      type={type}
+      className={cn(commandPaletteItemClassName, className)}
+      {...props}
+    >
+      <span>{children}</span>
+      {description ? (
+        <span className={commandPaletteItemDescriptionClassName}>
+          {description}
+        </span>
+      ) : null}
+    </button>
+  )
+}
+
+CommandPaletteItem.displayName = "CommandPaletteItem"
+
+const CommandPaletteEmpty = ({
+  ref,
+  className,
+  children = "No commands found.",
+  ...props
+}: CommandPaletteEmptyProps) => {
+  return (
+    <p
+      ref={ref}
+      className={cn(commandPaletteEmptyClassName, className)}
+      {...props}
+    >
+      {children}
+    </p>
+  )
+}
+
+CommandPaletteEmpty.displayName = "CommandPaletteEmpty"
+
+export {
+  CommandPalette,
+  CommandPaletteContent,
+  CommandPaletteTitle,
+  CommandPaletteDescription,
+  CommandPaletteInput,
+  CommandPaletteSeparator,
+  CommandPaletteList,
+  CommandPaletteGroup,
+  CommandPaletteGroupLabel,
+  CommandPaletteItem,
+  CommandPaletteEmpty,
+}

@@ -1,15 +1,21 @@
 /**
  * DashboardShell.tsx
  *
- * Reference DashboardShell template — composes Sidebar block + layout shell.
+ * Reference DashboardShell template — compound layout shell.
  */
 
-import { Sidebar } from "../../blocks/Sidebar/Sidebar"
-import type { DashboardShellProps } from "./DashboardShell.types"
+import type {
+  DashboardShellHeaderProps,
+  DashboardShellMainProps,
+  DashboardShellProps,
+  DashboardShellSidebarProps,
+  DashboardShellBodyProps,
+} from "./DashboardShell.types"
 import {
   dashboardShellContentVariants,
   dashboardShellHeaderVariants,
   dashboardShellMainVariants,
+  dashboardShellSidebarVariants,
   dashboardShellVariants,
 } from "./DashboardShell.variants"
 import { cn } from "../../../utils/cn"
@@ -17,24 +23,102 @@ import { cn } from "../../../utils/cn"
 const DashboardShell = ({
   ref,
   className,
-  brand,
-  sidebarItems,
-  header,
   children,
+  ...props
 }: DashboardShellProps) => {
   return (
-    <div ref={ref} className={cn(dashboardShellVariants(), className)}>
-      <Sidebar brand={brand} items={sidebarItems} />
-      <div className={dashboardShellMainVariants()}>
-        {header ? (
-          <header className={dashboardShellHeaderVariants()}>{header}</header>
-        ) : null}
-        <main className={dashboardShellContentVariants()}>{children}</main>
-      </div>
+    <div
+      ref={ref}
+      className={cn(dashboardShellVariants(), className)}
+      {...props}
+    >
+      {children}
     </div>
   )
 }
 
 DashboardShell.displayName = "DashboardShell"
 
-export { DashboardShell }
+const DashboardShellSidebar = ({
+  ref,
+  className,
+  children,
+  ...props
+}: DashboardShellSidebarProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(dashboardShellSidebarVariants(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+DashboardShellSidebar.displayName = "DashboardShellSidebar"
+
+const DashboardShellHeader = ({
+  ref,
+  className,
+  children,
+  ...props
+}: DashboardShellHeaderProps) => {
+  return (
+    <header
+      ref={ref}
+      className={cn(dashboardShellHeaderVariants(), className)}
+      {...props}
+    >
+      {children}
+    </header>
+  )
+}
+
+DashboardShellHeader.displayName = "DashboardShellHeader"
+
+const DashboardShellMain = ({
+  ref,
+  className,
+  children,
+  ...props
+}: DashboardShellMainProps) => {
+  return (
+    <main
+      ref={ref}
+      className={cn(dashboardShellContentVariants(), className)}
+      {...props}
+    >
+      {children}
+    </main>
+  )
+}
+
+DashboardShellMain.displayName = "DashboardShellMain"
+
+const DashboardShellBody = ({
+  ref,
+  className,
+  children,
+  ...props
+}: DashboardShellBodyProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(dashboardShellMainVariants(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+DashboardShellBody.displayName = "DashboardShellBody"
+
+export {
+  DashboardShell,
+  DashboardShellSidebar,
+  DashboardShellHeader,
+  DashboardShellMain,
+  DashboardShellBody,
+}

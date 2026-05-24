@@ -1,15 +1,39 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Sidebar } from "../../../src/components/blocks/Sidebar/Sidebar.js"
-
-const navItems = [
-  { id: "overview", label: "Overview", href: "#overview", active: true },
-  { id: "settings", label: "Settings", href: "#settings" },
-]
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarItem,
+  SidebarItemLink,
+  SidebarList,
+} from "../../../src/components/blocks/Sidebar/Sidebar.js"
 
 describe("Sidebar render", () => {
-  it("composes Drawer, ScrollArea, and Button with desktop navigation", () => {
-    render(<Sidebar brand="PulseDesk" items={navItems} />)
+  it("composes compound navigation with desktop and mobile trigger", () => {
+    render(
+      <Sidebar>
+        <SidebarHeader>PulseDesk</SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarList>
+                <SidebarItem>
+                  <SidebarItemLink href="#overview" active>
+                    Overview
+                  </SidebarItemLink>
+                </SidebarItem>
+                <SidebarItem>
+                  <SidebarItemLink href="#settings">Settings</SidebarItemLink>
+                </SidebarItem>
+              </SidebarList>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>,
+    )
 
     expect(
       screen.getByRole("navigation", { name: "Application navigation" }),
@@ -23,7 +47,16 @@ describe("Sidebar render", () => {
 
   it("merges custom className on root", () => {
     const { container } = render(
-      <Sidebar brand="PulseDesk" items={navItems} className="custom-sidebar" />,
+      <Sidebar className="custom-sidebar">
+        <SidebarHeader>PulseDesk</SidebarHeader>
+        <SidebarContent>
+          <SidebarList>
+            <SidebarItem>
+              <SidebarItemLink href="#overview">Overview</SidebarItemLink>
+            </SidebarItem>
+          </SidebarList>
+        </SidebarContent>
+      </Sidebar>,
     )
 
     expect(container.querySelector("aside")).toHaveClass("custom-sidebar")

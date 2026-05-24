@@ -1,9 +1,10 @@
 /**
  * Sidebar.tsx
  *
- * Reference Sidebar block — composes Drawer, ScrollArea, and Button primitives.
+ * Reference Sidebar block — compound navigation shell with desktop and mobile drawer.
  */
 
+import { createContext, useContext } from "react"
 import { Button } from "../../primitives/Button/Button"
 import {
   Drawer,
@@ -22,11 +23,31 @@ import {
   ScrollAreaContent,
   ScrollAreaViewport,
 } from "../../primitives/ScrollArea/ScrollArea"
-import type { SidebarNavItem, SidebarProps } from "./Sidebar.types"
+import type {
+  SidebarContentProps,
+  SidebarFooterProps,
+  SidebarGroupContentProps,
+  SidebarGroupLabelProps,
+  SidebarGroupProps,
+  SidebarHeaderProps,
+  SidebarItemButtonProps,
+  SidebarItemLinkProps,
+  SidebarItemProps,
+  SidebarItemSize,
+  SidebarItemVariant,
+  SidebarListProps,
+  SidebarMobileHeaderProps,
+  SidebarProps,
+  SidebarTriggerProps,
+} from "./Sidebar.types"
 import {
   sidebarBrandVariants,
   sidebarDesktopVariants,
   sidebarDrawerFooterVariants,
+  sidebarFooterVariants,
+  sidebarGroupContentVariants,
+  sidebarGroupLabelVariants,
+  sidebarGroupVariants,
   sidebarMainVariants,
   sidebarMobileHeaderVariants,
   sidebarMobileTriggerVariants,
@@ -37,43 +58,327 @@ import {
 } from "./Sidebar.variants"
 import { cn } from "@/lib/utils"
 
-interface SidebarNavListProps {
-  items: SidebarNavItem[]
-  closeOnSelect?: boolean
+interface SidebarContextValue {
+  itemVariant: SidebarItemVariant
+  itemSize: SidebarItemSize
 }
 
-const SidebarNavLink = ({
-  item,
-  closeOnSelect,
-}: {
-  item: SidebarNavItem
+interface SidebarMobileContextValue {
   closeOnSelect: boolean
-}) => {
-  const className = sidebarNavItemVariants(item.active)
+}
 
-  if (item.href) {
-    if (!closeOnSelect) {
-      return (
-        <a href={item.href} className={className}>
-          {item.label}
-        </a>
-      )
-    }
+const SidebarContext = createContext<SidebarContextValue>({
+  itemVariant: "ghost",
+  itemSize: "sm",
+})
 
-    return (
-      <DrawerClose
-        appearance="inline"
-        render={<a href={item.href} className={className} />}
+const SidebarMobileContext = createContext<SidebarMobileContextValue>({
+  closeOnSelect: false,
+})
+
+const useSidebarMobileContext = () => useContext(SidebarMobileContext)
+
+const Sidebar = ({
+  ref,
+  className,
+  itemVariant = "ghost",
+  itemSize = "sm",
+  children,
+  ...props
+}: SidebarProps) => {
+  const sidebarBody = (
+    <SidebarMobileContext.Provider value={{ closeOnSelect: false }}>
+      {children}
+    </SidebarMobileContext.Provider>
+  )
+
+  const drawerBody = (
+    <SidebarMobileContext.Provider value={{ closeOnSelect: true }}>
+      {children}
+      <div className={sidebarDrawerFooterVariants()}>
+        <DrawerClose render={<Button variant="secondary" size="sm" />}>
+          Close
+        </DrawerClose>
+      </div>
+    </SidebarMobileContext.Provider>
+  )
+
+  return (
+    <SidebarContext.Provider value={{ itemVariant, itemSize }}>
+      <aside
+        ref={ref}
+        className={cn(sidebarRootVariants(), className)}
+        {...props}
       >
-        {item.label}
-      </DrawerClose>
-    )
-  }
+        <div className={sidebarDesktopVariants()}>{sidebarBody}</div>
+
+        <div className={sidebarMobileTriggerVariants()}>
+          <Drawer swipeDirection="left">
+            <DrawerTrigger render={<Button variant="secondary" size="sm" />}>
+              Open navigation
+            </DrawerTrigger>
+            <DrawerPortal>
+              <DrawerBackdrop />
+              <DrawerViewport side="left">
+                <DrawerPopup side="left" size="sm">
+                  <DrawerClose aria-label="Close navigation" />
+                  <DrawerContent className={sidebarMainVariants()}>
+                    <DrawerTitle className="sr-only">Navigation</DrawerTitle>
+                    <DrawerDescription className="sr-only">
+                      Application navigation links
+                    </DrawerDescription>
+                    {drawerBody}
+                  </DrawerContent>
+                </DrawerPopup>
+              </DrawerViewport>
+            </DrawerPortal>
+          </Drawer>
+        </div>
+      </aside>
+    </SidebarContext.Provider>
+  )
+}
+
+Sidebar.displayName = "Sidebar"
+
+const SidebarHeader = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarHeaderProps) => {
+  return (
+    <div ref={ref} className={cn(sidebarBrandVariants(), className)} {...props}>
+      {children}
+    </div>
+  )
+}
+
+SidebarHeader.displayName = "SidebarHeader"
+
+const SidebarContent = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarContentProps) => {
+  return (
+    <ScrollArea className={sidebarNavVariants()}>
+      <ScrollAreaViewport>
+        <ScrollAreaContent>
+          <nav
+            ref={ref}
+            aria-label="Application navigation"
+            className={className}
+            {...props}
+          >
+            {children}
+          </nav>
+        </ScrollAreaContent>
+      </ScrollAreaViewport>
+    </ScrollArea>
+  )
+}
+
+SidebarContent.displayName = "SidebarContent"
+
+const SidebarFooter = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarFooterProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(sidebarFooterVariants(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+SidebarFooter.displayName = "SidebarFooter"
+
+const SidebarTrigger = ({
+  ref,
+  children = "Open navigation",
+  variant = "secondary",
+  size = "sm",
+  className,
+  ...props
+}: SidebarTriggerProps) => {
+  return (
+    <DrawerTrigger
+      render={
+        <Button
+          ref={ref}
+          variant={variant}
+          size={size}
+          className={className}
+          {...props}
+        />
+      }
+    >
+      {children}
+    </DrawerTrigger>
+  )
+}
+
+SidebarTrigger.displayName = "SidebarTrigger"
+
+const SidebarMobileHeader = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarMobileHeaderProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(sidebarMobileHeaderVariants(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+SidebarMobileHeader.displayName = "SidebarMobileHeader"
+
+const SidebarGroup = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarGroupProps) => {
+  return (
+    <div ref={ref} className={cn(sidebarGroupVariants(), className)} {...props}>
+      {children}
+    </div>
+  )
+}
+
+SidebarGroup.displayName = "SidebarGroup"
+
+const SidebarGroupLabel = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarGroupLabelProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(sidebarGroupLabelVariants(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+SidebarGroupLabel.displayName = "SidebarGroupLabel"
+
+const SidebarGroupContent = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarGroupContentProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(sidebarGroupContentVariants(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+SidebarGroupContent.displayName = "SidebarGroupContent"
+
+const SidebarList = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarListProps) => {
+  return (
+    <ul
+      ref={ref}
+      className={cn(sidebarNavListVariants(), className)}
+      {...props}
+    >
+      {children}
+    </ul>
+  )
+}
+
+SidebarList.displayName = "SidebarList"
+
+const SidebarItem = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemProps) => {
+  return (
+    <li ref={ref} className={className} {...props}>
+      {children}
+    </li>
+  )
+}
+
+SidebarItem.displayName = "SidebarItem"
+
+const SidebarItemLink = ({
+  ref,
+  active,
+  className,
+  children,
+  ...props
+}: SidebarItemLinkProps) => {
+  const { closeOnSelect } = useSidebarMobileContext()
+  const linkClassName = cn(sidebarNavItemVariants(active), className)
 
   if (!closeOnSelect) {
     return (
-      <button type="button" className={className} onClick={item.onSelect}>
-        {item.label}
+      <a ref={ref} className={linkClassName} {...props}>
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <DrawerClose
+      appearance="inline"
+      render={<a ref={ref} className={linkClassName} {...props} />}
+    >
+      {children}
+    </DrawerClose>
+  )
+}
+
+SidebarItemLink.displayName = "SidebarItemLink"
+
+const SidebarItemButton = ({
+  ref,
+  active,
+  className,
+  children,
+  type = "button",
+  ...props
+}: SidebarItemButtonProps) => {
+  const { closeOnSelect } = useSidebarMobileContext()
+  const buttonClassName = cn(sidebarNavItemVariants(active), className)
+
+  if (!closeOnSelect) {
+    return (
+      <button ref={ref} type={type} className={buttonClassName} {...props}>
+        {children}
       </button>
     )
   }
@@ -82,97 +387,28 @@ const SidebarNavLink = ({
     <DrawerClose
       appearance="inline"
       render={
-        <button type="button" className={className} onClick={item.onSelect} />
+        <button ref={ref} type={type} className={buttonClassName} {...props} />
       }
     >
-      {item.label}
+      {children}
     </DrawerClose>
   )
 }
 
-const SidebarNavList = ({
-  items,
-  closeOnSelect = false,
-}: SidebarNavListProps) => {
-  return (
-    <nav aria-label="Application navigation">
-      <ul className={sidebarNavListVariants()}>
-        {items.map((item) => (
-          <li key={item.id}>
-            <SidebarNavLink item={item} closeOnSelect={closeOnSelect} />
-          </li>
-        ))}
-      </ul>
-    </nav>
-  )
+SidebarItemButton.displayName = "SidebarItemButton"
+
+export {
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarList,
+  SidebarItem,
+  SidebarItemLink,
+  SidebarItemButton,
+  SidebarTrigger,
+  SidebarMobileHeader,
 }
-
-const Sidebar = ({
-  ref,
-  className,
-  brand,
-  items,
-  mobileTriggerLabel = "Open navigation",
-  mobileHeader,
-}: SidebarProps) => {
-  return (
-    <aside ref={ref} className={cn(sidebarRootVariants(), className)}>
-      <div className={sidebarDesktopVariants()}>
-        {brand ? <div className={sidebarBrandVariants()}>{brand}</div> : null}
-        <ScrollArea className={sidebarNavVariants()}>
-          <ScrollAreaViewport>
-            <ScrollAreaContent>
-              <SidebarNavList items={items} />
-            </ScrollAreaContent>
-          </ScrollAreaViewport>
-        </ScrollArea>
-      </div>
-
-      <div className={sidebarMobileTriggerVariants()}>
-        <Drawer swipeDirection="left">
-          <DrawerTrigger render={<Button variant="secondary" size="sm" />}>
-            {mobileTriggerLabel}
-          </DrawerTrigger>
-          <DrawerPortal>
-            <DrawerBackdrop />
-            <DrawerViewport side="left">
-              <DrawerPopup side="left" size="sm">
-                <DrawerClose aria-label="Close navigation" />
-                <DrawerContent className={sidebarMainVariants()}>
-                  <DrawerTitle className="sr-only">Navigation</DrawerTitle>
-                  <DrawerDescription className="sr-only">
-                    Application navigation links
-                  </DrawerDescription>
-                  {brand ? (
-                    <div className={sidebarBrandVariants()}>{brand}</div>
-                  ) : null}
-                  <ScrollArea className={sidebarNavVariants()}>
-                    <ScrollAreaViewport>
-                      <ScrollAreaContent>
-                        <SidebarNavList items={items} closeOnSelect />
-                      </ScrollAreaContent>
-                    </ScrollAreaViewport>
-                  </ScrollArea>
-                  <div className={sidebarDrawerFooterVariants()}>
-                    <DrawerClose
-                      render={<Button variant="secondary" size="sm" />}
-                    >
-                      Close
-                    </DrawerClose>
-                  </div>
-                </DrawerContent>
-              </DrawerPopup>
-            </DrawerViewport>
-          </DrawerPortal>
-        </Drawer>
-        {mobileHeader ? (
-          <div className={sidebarMobileHeaderVariants()}>{mobileHeader}</div>
-        ) : null}
-      </div>
-    </aside>
-  )
-}
-
-Sidebar.displayName = "Sidebar"
-
-export { Sidebar }

@@ -4,34 +4,58 @@
  * Reference Switch component implementation.
  */
 
+import { createContext, useContext } from "react"
 import { Switch as BaseSwitch } from "@base-ui/react/switch"
-import type { SwitchProps } from "./Switch.types"
+import type { SwitchProps, SwitchSize, SwitchThumbProps } from "./Switch.types"
 import { switchThumbVariants, switchVariants } from "./Switch.variants"
 import { mergeClassName } from "@/lib/utils"
 
+interface SwitchContextValue {
+  size: SwitchSize
+}
+
+const SwitchContext = createContext<SwitchContextValue>({ size: "md" })
+
+const useSwitchContext = () => useContext(SwitchContext)
+
 const Switch = ({
   ref,
-  size,
+  size = "md",
   className,
-  thumbClassName,
+  children,
   ...props
 }: SwitchProps) => {
   return (
-    <BaseSwitch.Root
-      ref={ref}
-      className={mergeClassName(switchVariants({ size }), className)}
-      {...props}
-    >
-      <BaseSwitch.Thumb
-        className={mergeClassName(
-          switchThumbVariants({ size }),
-          thumbClassName,
-        )}
-      />
-    </BaseSwitch.Root>
+    <SwitchContext.Provider value={{ size }}>
+      <BaseSwitch.Root
+        ref={ref}
+        className={mergeClassName(switchVariants({ size }), className)}
+        {...props}
+      >
+        {children}
+      </BaseSwitch.Root>
+    </SwitchContext.Provider>
   )
 }
 
 Switch.displayName = "Switch"
 
-export { Switch }
+const SwitchThumb = ({ ref, size, className, ...props }: SwitchThumbProps) => {
+  const context = useSwitchContext()
+  const resolvedSize = size ?? context.size
+
+  return (
+    <BaseSwitch.Thumb
+      ref={ref}
+      className={mergeClassName(
+        switchThumbVariants({ size: resolvedSize }),
+        className,
+      )}
+      {...props}
+    />
+  )
+}
+
+SwitchThumb.displayName = "SwitchThumb"
+
+export { Switch, SwitchThumb }

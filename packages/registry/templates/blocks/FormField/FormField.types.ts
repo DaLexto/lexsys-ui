@@ -4,16 +4,23 @@
  * Public types for the FormField block.
  */
 
-import type { Ref } from "react"
-import type { InputProps } from "../../primitives/Input/Input.types"
+import type {
+  FieldControlProps,
+  FieldDescriptionProps,
+  FieldErrorProps,
+  FieldItemProps,
+  FieldLabelProps,
+  FieldProps,
+} from "../../primitives/Field/Field.types"
 
-export interface FormFieldProps extends Omit<InputProps, "ref"> {
-  ref?: Ref<HTMLInputElement>
-  label: string
-  description?: string
-  errorMessage?: string
-  fieldClassName?: string
-  labelClassName?: string
-  descriptionClassName?: string
-  errorClassName?: string
-}
+export type FormFieldProps = FieldProps
+
+export type FormFieldItemProps = FieldItemProps
+
+export type FormFieldLabelProps = FieldLabelProps
+
+export type FormFieldControlProps = FieldControlProps
+
+export type FormFieldDescriptionProps = FieldDescriptionProps
+
+export type FormFieldErrorProps = FieldErrorProps

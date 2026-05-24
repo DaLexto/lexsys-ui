@@ -5,7 +5,6 @@ import type { Ref } from "react"
  * Public and internal types for Checkbox component.
  */
 
-import type { ReactNode } from "react"
 import type { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox"
 
 export type CheckboxSize = "sm" | "md" | "lg"
@@ -16,8 +15,14 @@ export interface CheckboxProps extends Omit<
 > {
   ref?: Ref<HTMLElement>
   size?: CheckboxSize
-  children?: ReactNode
   className?: BaseCheckbox.Root.Props["className"]
-  indicatorClassName?: BaseCheckbox.Indicator.Props["className"]
-  labelClassName?: string
+  children?: BaseCheckbox.Root.Props["children"]
+}
+
+export interface CheckboxIndicatorProps extends Omit<
+  BaseCheckbox.Indicator.Props,
+  "className" | "children"
+> {
+  className?: BaseCheckbox.Indicator.Props["className"]
+  children?: BaseCheckbox.Indicator.Props["children"]
 }

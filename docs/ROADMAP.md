@@ -446,6 +446,33 @@ Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composit
 
 ---
 
+## M11 — Compound-first API
+
+**Status:** shipped (`feat/compound-first-api` → PR to `dev`)
+
+**Goal:** 100% compound-first installable API — named slot parts, no config blobs
+(`items[]`, `mode`-driven auto-fields), full Base UI part re-exports where
+applicable, blocks compose primitives/blocks only.
+
+Canonical contract: [UI_COMPOSITION.md § Compound-first contract](./UI_COMPOSITION.md#compound-first-contract).
+
+| Phase | Outcome                                                        | Status  |
+| ----- | -------------------------------------------------------------- | ------- |
+| 0     | Governance docs, CHANGELOG breaking stub, REVIEW_TODO UC.7     | shipped |
+| 1A    | Unbundle Switch, Slider, Progress, Checkbox sub-parts          | shipped |
+| 1B    | Autocomplete/Combobox/Menu/Drawer Base UI export gaps          | shipped |
+| 2     | FormField + AuthForm compound; FieldControl fix                | shipped |
+| 3     | Sidebar full compound API                                      | shipped |
+| 4     | CommandPalette compound parts                                  | shipped |
+| 5     | SettingsPanel + DashboardShell compound                        | shipped |
+| 6     | Sandbox migration (compound-only pages)                        | shipped |
+| 7     | Tests, registry sync, version bumps to `0.0.2`, docs alignment | shipped |
+
+**Workflow:** one feature branch from `dev`, one commit per phase, one PR to `dev`
+when all phases + verification complete. See [UI_COMPOSITION.md § Compound-first](./UI_COMPOSITION.md#compound-first-contract).
+
+---
+
 ## Maintenance Workflow
 
 - Update `docs/ROADMAP.md` when future direction or sequencing changes.

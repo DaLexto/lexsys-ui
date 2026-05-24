@@ -244,6 +244,8 @@ const DrawerClose = ({
 
 DrawerClose.displayName = "DrawerClose"
 
+const createDrawerHandle = BaseDrawer.createHandle
+
 export {
   Drawer,
   DrawerProvider,
@@ -260,4 +262,5 @@ export {
   DrawerTitle,
   DrawerDescription,
   DrawerClose,
+  createDrawerHandle,
 }

@@ -9,7 +9,7 @@ import type { RegistryItem } from "../registry.types.js"
 export const drawerRegistryItem: RegistryItem = {
   name: "drawer",
   canonicalName: "Drawer",
-  version: "0.0.1",
+  version: "0.0.2",
   type: "component",
   category: "overlays",
   aliases: [],

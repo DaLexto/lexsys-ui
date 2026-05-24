@@ -9,7 +9,7 @@ import type { RegistryItem } from "../registry.types.js"
 export const checkboxRegistryItem: RegistryItem = {
   name: "checkbox",
   canonicalName: "Checkbox",
-  version: "0.0.1",
+  version: "0.0.2",
   type: "component",
   category: "forms",
   aliases: ["check"],

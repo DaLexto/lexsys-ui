@@ -23,6 +23,31 @@ and later stable cuts target **`latest`**. See [docs/DEPLOY.md](./docs/DEPLOY.md
 - Primitive variant expansion: Button `ghost`/`outline`, Badge `success`/`warning`, Card `outlined`/`elevated`/`ghost`, Input `read-only` styling
 - Wrapper standardization contract in [docs/UI.md](./docs/UI.md) (Base UI behavior / Lexsys styling split)
 
+### Changed
+
+- **Compound-first API (M11):** blocks and templates migrate to named compound parts
+  only; config blobs (`items[]`, `mode`-driven auto-fields) removed. Migration table:
+  [UI_COMPOSITION.md § Compound-first contract](./docs/UI_COMPOSITION.md#compound-first-contract).
+
+### Breaking (compound-first — registry items at `0.0.2`)
+
+- **Sidebar** — `items[]` removed; use `Sidebar`, `SidebarContent`, `SidebarGroup`,
+  `SidebarItem`, … compound parts.
+- **CommandPalette** — `items[]` / `onSelect` removed; use compound
+  `CommandPaletteItem` children.
+- **AuthForm** — `mode` and internal field state removed; use compound shell +
+  `Field` / `FormField` parts.
+- **FormField** — `label="…"` config removed; use `FormFieldLabel` +
+  `FormFieldControl` compound parts.
+- **SettingsPanel** — `title` / `description` / `footer` props removed; use
+  compound header/content/footer parts.
+- **DashboardShell** — `sidebarItems[]` removed; use `DashboardShellSidebar` slot
+  with compound `Sidebar`.
+- **Switch, Slider, Progress, Checkbox** — sub-parts exported as named compounds;
+  bundled convenience APIs removed where applicable.
+- **Autocomplete, Combobox, Menu, Drawer** — additional Base UI sub-parts and
+  helpers exported (`AutocompleteSeparator`, filter hooks, handle creators).
+
 ### Planned
 
 - Stable **`0.1.0`** on dist-tag **`latest`**

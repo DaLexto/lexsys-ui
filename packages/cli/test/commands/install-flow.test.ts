@@ -456,7 +456,7 @@ describe("install flow smoke", () => {
     expect(config.installed?.menu).toBeUndefined()
   })
 
-  test("dashboard-shell solo install pulls sidebar block with flat template import", async () => {
+  test("dashboard-shell solo install writes compound layout template", async () => {
     await writeViteConsumerFiles(tempDir)
 
     await runInit()
@@ -467,15 +467,11 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/DashboardShell/DashboardShell.tsx"),
         "utf-8",
       ),
-    ).resolves.toContain('import { Sidebar } from "../Sidebar/Sidebar"')
-
-    await expect(
-      readFile(join(tempDir, "src/components/ui/Sidebar/Sidebar.tsx"), "utf-8"),
-    ).resolves.toContain('import { Button } from "../Button/Button"')
+    ).resolves.toContain("DashboardShellSidebar")
 
     const config = await readInstalledConfig(tempDir)
     expectRegistryClosureInstalled(config.installed, ["dashboard-shell"])
-    expect(config.installed?.menu).toBeUndefined()
+    expect(config.installed?.sidebar).toBeUndefined()
   })
 
   test("settings-panel solo install pulls card primitive", async () => {
@@ -495,7 +491,7 @@ describe("install flow smoke", () => {
     expectRegistryClosureInstalled(config.installed, ["settings-panel"])
   })
 
-  test("form-field solo install pulls field and input primitives", async () => {
+  test("form-field solo install pulls field primitive compound", async () => {
     await writeViteConsumerFiles(tempDir)
 
     await runInit()
@@ -506,13 +502,20 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/FormField/FormField.tsx"),
         "utf-8",
       ),
-    ).resolves.toContain('import { Input } from "../Input/Input"')
+    ).resolves.toContain('from "../Field/Field"')
+    await expect(
+      readFile(
+        join(tempDir, "src/components/ui/FormField/FormField.tsx"),
+        "utf-8",
+      ),
+    ).resolves.toContain("FieldControl")
 
     const config = await readInstalledConfig(tempDir)
     expectRegistryClosureInstalled(config.installed, ["form-field"])
+    expect(config.installed?.input).toBeUndefined()
   })
 
-  test("auth-form solo install pulls card, input, button, and separator", async () => {
+  test("auth-form solo install pulls card, button, field, and form-field", async () => {
     await writeViteConsumerFiles(tempDir)
 
     await runInit()

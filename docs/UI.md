@@ -115,6 +115,24 @@ Every primitive wrapper MUST satisfy:
 | Defaults      | Sensible `defaultVariants` in CVA                | Same                               |
 | `displayName` | Root + every compound sub-part                   | Same                               |
 
+### Compound vs leaf decision tree
+
+| Condition                            | Export style                                   | Examples                                                             |
+| ------------------------------------ | ---------------------------------------------- | -------------------------------------------------------------------- |
+| Base UI exposes sub-parts            | Flat named sibling exports for every part      | `Dialog`, `DialogTrigger`, `Field`, `FieldLabel`                     |
+| Lexsys layout primitive (no Base UI) | Same flat compound pattern                     | `Card`, `CardHeader`, `Alert`, `AlertTitle`                          |
+| Single DOM node, no slots            | Leaf export OK                                 | `Button`, `Input`, `Badge`, `Separator`, `Form`, `Toggle`, `Menubar` |
+| Block / template                     | 2+ named parts; compose primitives/blocks only | `Sidebar`, `SidebarContent`, `AuthForm`, `AuthFormHeader`            |
+
+**Naming:** `ComponentName` = root; `ComponentNamePart` = sub-part. Do not use
+Base UI dot notation (`Dialog.Trigger`) in consumer imports.
+
+**Intentional leaves (documented):** `Button`, `Input`, `Badge`, `Separator`,
+`Form`, `Toggle`, `ToggleGroup`, `CheckboxGroup`, `Menubar` (composes Menu
+parts), `Textarea` (Field.Control render pattern).
+
+See [UI_COMPOSITION.md § Compound-first contract](./UI_COMPOSITION.md#compound-first-contract).
+
 ---
 
 ## `className` Contract
