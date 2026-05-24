@@ -176,7 +176,7 @@ The CLI resolves registry items from:
    local if the fetch fails (unless `--no-fallback` is used).
 
 **Trust model:** remote manifests are trusted as configured — no signature,
-checksum, or host allowlist enforcement yet. See [CLI.md](./CLI.md) § Remote
+checksum, or host allowlist enforcement yet. See [CLI.md](./reference/cli/CLI.md) § Remote
 registry manifest contract.
 
 ### Install idempotency

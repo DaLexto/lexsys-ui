@@ -23,7 +23,7 @@ apps/*
 packages/*
 ```
 
-Root scripts (full reference: [SCRIPTS.md](./SCRIPTS.md)):
+Root scripts (full reference: [SCRIPTS.md](../operations/SCRIPTS.md)):
 
 - `pnpm build`
 - `pnpm check`
@@ -61,7 +61,7 @@ Before any release or publish attempt, run:
 pnpm check
 ```
 
-See [SCRIPTS.md](./SCRIPTS.md) for per-package build and verify commands.
+See [SCRIPTS.md](../operations/SCRIPTS.md) for per-package build and verify commands.
 
 CI runs `pnpm check` on pull requests and pushes to `dev`/`main` via
 [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) (Node 24, frozen lockfile).
@@ -292,13 +292,13 @@ npm run build
 `npx @lexsys/cli@next` installs deps with **npm** (`package-lock.json`,
 `packageManager` in `package.json`). Use **`npm run build`** — there is no
 `pnpm-lock.yaml` in this flow. Monorepo-linked sandboxes that use pnpm keep
-`pnpm build` ([TESTING.md § Consumer sandbox verification](./TESTING.md#consumer-sandbox-verification)).
+`pnpm build` ([TESTING.md § Consumer sandbox verification](../operations/TESTING.md#consumer-sandbox-verification)).
 
 - [x] `npx @lexsys/cli@next` resolves from npm (`npm view @lexsys/cli dist-tags`)
 - [x] README Quick Start matches `@next` install path
 
 **Recommended (non-blocking for 0.0.1):** consumer sandbox narrow-viewport pass —
-see [TESTING.md § Consumer sandbox verification](./TESTING.md#consumer-sandbox-verification).
+see [TESTING.md § Consumer sandbox verification](../operations/TESTING.md#consumer-sandbox-verification).
 
 ### Phase 6 — Docs and backlog
 
@@ -349,8 +349,8 @@ Still deferred after first `0.0.1` @ `next`:
 
 Registry validation (`pnpm registry:check`), generated token CSS
 (`styles/tokens.css`, `styles/theme.css`), and `lexsys update` with `--sync` /
-`--utilities` / `--styles` are **shipped** — see [CLI.md](./CLI.md) and
-[SCRIPTS.md](./SCRIPTS.md).
+`--utilities` / `--styles` are **shipped** — see [CLI.md](../reference/cli/CLI.md) and
+[SCRIPTS.md](../operations/SCRIPTS.md).
 
 ---
 

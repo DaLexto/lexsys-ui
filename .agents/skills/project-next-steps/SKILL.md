@@ -169,4 +169,4 @@ Offer **2–4** concrete next steps max unless user asks for full backlog dump.
 - `$monorepo-check-gate` — before recommending "merge-ready"
 - `$consumer-sandbox-verify` — when next step touches CLI/registry/blocks
 - `$ui-component-change` — when next step is new primitive/block/template
-- [docs/TESTING.md § Verification surfaces](../../docs/TESTING.md#verification-surfaces)
+- [docs/operations/TESTING.md § Verification surfaces](../../docs/operations/TESTING.md#verification-surfaces)

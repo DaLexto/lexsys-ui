@@ -8,7 +8,7 @@ description: >
 
 # Monorepo check gate
 
-Default full gate: **`pnpm check`** ([docs/SCRIPTS.md](../../docs/SCRIPTS.md)).
+Default full gate: **`pnpm check`** ([docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md)).
 
 Run scoped checks first when the change set is narrow.
 
@@ -42,6 +42,6 @@ Prefer: `pnpm playground:build`, unit tests, sandbox production build.
 
 ## Related
 
-- [docs/TESTING.md](../../docs/TESTING.md)
+- [docs/operations/TESTING.md](../../docs/operations/TESTING.md)
 - [lexsys-testing.mdc](../../.cursor/rules/lexsys-testing.mdc)
 - `$registry-sync`, `$consumer-sandbox-verify`

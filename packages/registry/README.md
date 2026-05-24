@@ -57,7 +57,7 @@ import.meta.resolve("@lexsys/registry/templates/components/Button/Button.tsx")
 
 ## Registry Item Structure
 
-Each item in `src/items/` declares the full install contract (required fields, optional `remoteFiles`, category values, and what makes an item complete). Full contract: [docs/REGISTRY.md](../../docs/REGISTRY.md).
+Each item in `src/items/` declares the full install contract (required fields, optional `remoteFiles`, category values, and what makes an item complete). Full contract: [docs/reference/registry/REGISTRY.md](../../docs/reference/registry/REGISTRY.md).
 
 ---
 
@@ -65,7 +65,7 @@ Each item in `src/items/` declares the full install contract (required fields, o
 
 Installable templates live under `packages/registry/templates/` — component files, shared utilities, and token CSS styles. Component templates are synced from `packages/ui/src/components`; style templates from `@lexsys/tokens` via `generate:styles`. Templates MUST NOT be manually edited.
 
-Template sync rules, the `cn` import transform, and drift validation: [docs/REGISTRY.md](../../docs/REGISTRY.md).
+Template sync rules, the `cn` import transform, and drift validation: [docs/reference/registry/REGISTRY.md](../../docs/reference/registry/REGISTRY.md).
 
 ---
 
@@ -81,7 +81,7 @@ Tests live in `packages/registry/test/`:
 - `validate-registry.test.ts` — manifest and template validation
 - `registry-styles-sync.test.ts` — style template drift compare helpers
 
-Full inventory: [docs/TESTING.md](../../docs/TESTING.md).
+Full inventory: [docs/operations/TESTING.md](../../docs/operations/TESTING.md).
 
 ---
 
@@ -94,4 +94,4 @@ pnpm registry:sync
 pnpm tokens:generate:styles
 ```
 
-Full script reference: [docs/SCRIPTS.md](../../docs/SCRIPTS.md).
+Full script reference: [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md).

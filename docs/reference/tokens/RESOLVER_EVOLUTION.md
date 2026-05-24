@@ -6,8 +6,8 @@
 **Source of truth for:** Resolver and governance evolution sequencing after the initial platform pass
 **Verified against:** `packages/tokens/src/engine/`, `packages/tokens/src/generators/`
 
-Current enforced rules and build-failing validation live in [docs/TOKENS.md](./TOKENS.md).
-Platform phase history lives in [docs/ROADMAP.md](./ROADMAP.md).
+Current enforced rules and build-failing validation live in [docs/reference/tokens/TOKENS.md](../tokens/TOKENS.md).
+Platform phase history lives in [docs/ROADMAP.md](../../ROADMAP.md).
 
 ---
 
@@ -57,7 +57,7 @@ flowchart TB
 ## Shipped Baseline
 
 These capabilities are implemented and enforced today. For build-failing vs
-non-blocking behavior, see [docs/TOKENS.md — Validation Status](./TOKENS.md#validation-status).
+non-blocking behavior, see [docs/reference/tokens/TOKENS.md — Validation Status](../tokens/TOKENS.md#validation-status).
 
 ### Reference resolver
 
@@ -260,7 +260,7 @@ Eleven semantic foreground/background pairs in `contrast.pairs.ts` (text-on-base
 
 Phases 1–10 delivered the token engine baseline. The items below are the
 recommended next evolution track. High-level platform summary lives in
-[docs/ROADMAP.md](./ROADMAP.md). Actionable backlog items belong in
+[docs/ROADMAP.md](../../ROADMAP.md). Actionable backlog items belong in
 [docs/REVIEW_TODO.md](./REVIEW_TODO.md).
 
 ### Planned (likely next, no phase number yet)
@@ -325,9 +325,9 @@ layer — not a blocker for the planned tracks above.
 
 ## Document Ownership
 
-- **Current enforced rules:** [docs/TOKENS.md](./TOKENS.md)
-- **Platform phase history:** [docs/ROADMAP.md](./ROADMAP.md)
+- **Current enforced rules:** [docs/reference/tokens/TOKENS.md](../tokens/TOKENS.md)
+- **Platform phase history:** [docs/ROADMAP.md](../../ROADMAP.md)
 - **Actionable backlog:** [docs/REVIEW_TODO.md](./REVIEW_TODO.md)
 - **This document:** resolver/governance/generator evolution sequencing only
 
-When a phase ships, update [docs/TOKENS.md](./TOKENS.md) for new build-failing or governance behavior, update [docs/ROADMAP.md](./ROADMAP.md) phase status, and record implementation detail in git history — not by expanding this document with completed checklists.
+When a phase ships, update [docs/reference/tokens/TOKENS.md](../tokens/TOKENS.md) for new build-failing or governance behavior, update [docs/ROADMAP.md](../../ROADMAP.md) phase status, and record implementation detail in git history — not by expanding this document with completed checklists.

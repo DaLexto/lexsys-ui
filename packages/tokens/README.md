@@ -16,11 +16,11 @@ This package owns the token system implementation. It does not own component ren
 - generating DTCG-compatible token JSON
 - preparing style outputs consumed by the registry and CLI
 
-Canonical token architecture rules are defined in [docs/TOKENS.md](../../docs/TOKENS.md).
+Canonical token architecture rules are defined in [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md).
 
-Design-system flow is defined in [docs/DESIGN_SYSTEM.md](../../docs/DESIGN_SYSTEM.md).
+Design-system flow is defined in [docs/reference/tokens/DESIGN_SYSTEM.md](../../docs/reference/tokens/DESIGN_SYSTEM.md).
 
-If this package README conflicts with the root token rules, [docs/TOKENS.md](../../docs/TOKENS.md) wins.
+If this package README conflicts with the root token rules, [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md) wins.
 
 ---
 
@@ -54,7 +54,7 @@ primitives -> brand -> semantics -> components
 
 Themes are not a fifth token layer. Presets are configuration, not token layers.
 
-Full layer rules, reference rules, and resolution behavior: [docs/TOKENS.md](../../docs/TOKENS.md).
+Full layer rules, reference rules, and resolution behavior: [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md).
 
 ---
 
@@ -118,7 +118,7 @@ Do not treat generated CSS or JSON as editable source.
 
 ## Authoring Rules
 
-Token authoring follows the canonical rules in [docs/TOKENS.md](../../docs/TOKENS.md). That document is the source of truth. If this README conflicts with it, TOKENS.md wins.
+Token authoring follows the canonical rules in [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md). That document is the source of truth. If this README conflicts with it, TOKENS.md wins.
 
 Key package-level constraints: use `$value` leaves (DTCG shape), primitives hold raw values only, components reference semantic tokens only.
 
@@ -190,7 +190,7 @@ Expected rules:
 
 ## Validation, Resolver, and Generator Rules
 
-Current build-failing validation, target violations, resolver error codes, and generator behavior are documented in [docs/TOKENS.md](../../docs/TOKENS.md) and [docs/DESIGN_SYSTEM.md](../../docs/DESIGN_SYSTEM.md).
+Current build-failing validation, target violations, resolver error codes, and generator behavior are documented in [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md) and [docs/reference/tokens/DESIGN_SYSTEM.md](../../docs/reference/tokens/DESIGN_SYSTEM.md).
 
 ### Resolved value pipeline (`engine/resolver/values/`)
 
@@ -270,7 +270,7 @@ Consumers and sibling packages should only use supported entrypoints.
 
 Common commands should be run from the repository root unless a package-specific script is intentionally provided.
 
-Useful commands (full reference: [docs/SCRIPTS.md](../../docs/SCRIPTS.md)):
+Useful commands (full reference: [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md)):
 
 ```bash
 pnpm tokens:build
@@ -313,11 +313,11 @@ Do not change source tokens and generated outputs without validating the pipelin
 
 ## Related Documentation
 
-- [docs/TOKENS.md](../../docs/TOKENS.md)
-- [docs/DESIGN_SYSTEM.md](../../docs/DESIGN_SYSTEM.md)
+- [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md)
+- [docs/reference/tokens/DESIGN_SYSTEM.md](../../docs/reference/tokens/DESIGN_SYSTEM.md)
 - [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md)
-- [docs/STYLEGUIDE.md](../../docs/STYLEGUIDE.md)
-- [docs/DEPLOY.md](../../docs/DEPLOY.md)
+- [docs/contributors/STYLEGUIDE.md](../../docs/contributors/STYLEGUIDE.md)
+- [docs/operations/DEPLOY.md](../../docs/operations/DEPLOY.md)
 - [AGENTS.md](../../AGENTS.md)
 
 ## Status

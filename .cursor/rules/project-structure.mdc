@@ -25,10 +25,13 @@ lexsys/
 ├── .agents/            # Agent workspace — skills/ (tracked)
 ├── .cursor/rules/      # Cursor editing behavior (*.mdc)
 ├── apps/               # playground (smoke), docs (placeholder)
-├── docs/               # Architecture and domain specs — source of truth
+├── docs/               # Hub + reference / operations / contributors
+│   ├── reference/      # tokens, ui, registry, cli domain specs
+│   ├── operations/     # SCRIPTS, TESTING, DEPLOY, TROUBLESHOOTING
+│   └── contributors/   # CONTRIBUTING, STYLE, STYLEGUIDE
 ├── packages/           # tokens, ui, registry, cli
 ├── AGENTS.md           # Always-loaded agent routing
-├── CONTRIBUTING.md
+├── CONTRIBUTING.md     # Stub → docs/contributors/CONTRIBUTING.md
 └── package.json        # Root turbo / pnpm scripts
 ```
 
@@ -47,7 +50,7 @@ lexsys/
 
 | App | Path | Role |
 | --- | ---- | ---- |
-| Playground | `apps/playground/` | Maintenance-only monorepo smoke — [TESTING.md](../../docs/TESTING.md#verification-surfaces) |
+| Playground | `apps/playground/` | Maintenance-only monorepo smoke — [TESTING.md](../../docs/operations/TESTING.md#verification-surfaces) |
 | Docs site | `apps/docs/` | Placeholder |
 
 ---
@@ -56,13 +59,13 @@ lexsys/
 
 | Task | Primary location | Doc |
 | ---- | ---------------- | --- |
-| Token values / layers | `packages/tokens/src/` | [TOKENS.md](../../docs/TOKENS.md) |
-| Component behavior | `packages/ui/src/components/…` | [UI.md](../../docs/UI.md), [UI_COMPOSITION.md](../../docs/UI_COMPOSITION.md) |
-| Install metadata / templates | `packages/registry/` | [REGISTRY.md](../../docs/REGISTRY.md) |
-| CLI install behavior | `packages/cli/src/` | [CLI.md](../../docs/CLI.md) |
+| Token values / layers | `packages/tokens/src/` | [TOKENS.md](../../docs/reference/tokens/TOKENS.md) |
+| Component behavior | `packages/ui/src/components/…` | [UI.md](../../docs/reference/ui/UI.md), [UI_COMPOSITION.md](../../docs/reference/ui/UI_COMPOSITION.md) |
+| Install metadata / templates | `packages/registry/` | [REGISTRY.md](../../docs/reference/registry/REGISTRY.md) |
+| CLI install behavior | `packages/cli/src/` | [CLI.md](../../docs/reference/cli/CLI.md) |
 | After UI edits → templates | run `pnpm registry:sync` | `$registry-sync` skill |
-| Verification | sandbox + `pnpm *:check` | [TESTING.md](../../docs/TESTING.md) |
-| Script names | — | [SCRIPTS.md](../../docs/SCRIPTS.md) only |
+| Verification | sandbox + `pnpm *:check` | [TESTING.md](../../docs/operations/TESTING.md) |
+| Script names | — | [SCRIPTS.md](../../docs/operations/SCRIPTS.md) only |
 
 Component file shape (all layers):
 

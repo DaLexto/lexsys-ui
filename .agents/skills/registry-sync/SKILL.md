@@ -66,7 +66,7 @@ See [git-commits.mdc](../git-commit/git-commits.mdc).
 
 ## Related
 
-- [docs/REGISTRY.md](../../docs/REGISTRY.md)
-- [docs/SCRIPTS.md](../../docs/SCRIPTS.md)
+- [docs/reference/registry/REGISTRY.md](../../docs/reference/registry/REGISTRY.md)
+- [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md)
 - `$ui-component-change`
 - `$monorepo-check-gate`

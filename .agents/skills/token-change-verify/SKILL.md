@@ -8,7 +8,7 @@ description: >
 
 # Token change verify
 
-Canonical rules: [docs/TOKENS.md](../../docs/TOKENS.md).
+Canonical rules: [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md).
 
 ## When to use
 
@@ -57,6 +57,6 @@ pnpm ui:check
 
 ## Related
 
-- [docs/RESOLVER_EVOLUTION.md](../../docs/RESOLVER_EVOLUTION.md) — deferred capabilities
+- [docs/reference/tokens/RESOLVER_EVOLUTION.md](../../docs/reference/tokens/RESOLVER_EVOLUTION.md) — deferred capabilities
 - `$registry-sync` / `pnpm sync:all` when style templates change
 - `$monorepo-check-gate`

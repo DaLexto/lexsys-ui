@@ -7,12 +7,12 @@
 
 **Related docs:**
 
-- [UI_CATALOG.md](./UI_CATALOG.md) — installable inventory (compound/leaf, exports, versions)
-- [REGISTRY.md](./REGISTRY.md) — item metadata contract
-- [CLI.md](./CLI.md) — install, config, uninstall
+- [UI_CATALOG.md](../ui/UI_CATALOG.md) — installable inventory (compound/leaf, exports, versions)
+- [REGISTRY.md](../registry/REGISTRY.md) — item metadata contract
+- [CLI.md](../cli/CLI.md) — install, config, uninstall
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — package boundaries
 - [ROADMAP.md](./ROADMAP.md) — sequencing
-- [TESTING.md](./TESTING.md) — verification surfaces
+- [TESTING.md](../operations/TESTING.md) — verification surfaces
 - [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog) — known gaps
 
 ---
@@ -64,7 +64,7 @@ styles/theme.css
 
 The CLI installs from `item.target` (flat `ui/`) and rewrites cross-layer
 imports at install time so consumers do not mirror monorepo folder depth. See
-[REGISTRY.md](./REGISTRY.md) and [CLI.md](./CLI.md).
+[REGISTRY.md](../registry/REGISTRY.md) and [CLI.md](../cli/CLI.md).
 
 Foundation (not UI layers): token CSS, `cn` utility, npm dependencies.
 
@@ -169,7 +169,7 @@ lexsys add dashboard-shell
 **Base UI** is internal (`@base-ui/react`). Primitives wrap Base UI packages — Lexsys does not reimplement Base UI behavior.
 
 Composition rules are build-validated via `validateRegistryComposition` at
-`pnpm registry:check`. See [REGISTRY.md](./REGISTRY.md).
+`pnpm registry:check`. See [REGISTRY.md](../registry/REGISTRY.md).
 
 ---
 
@@ -182,7 +182,7 @@ when a Lexsys part exists.
 ### Architecture rules
 
 1. **Primitive with Base UI parts** → flat named sibling exports + `displayName`
-   on each part ([UI.md](./UI.md) wrapper checklist).
+   on each part ([UI.md](../ui/UI.md) wrapper checklist).
 2. **Lexsys-only layout primitive** (Card, Alert) → same named-export pattern.
 3. **True atom** (single DOM node, no slots) → leaf OK: `Button`, `Input`,
    `Badge`, `Separator`, `Form`, `Toggle`, `Menubar`.
@@ -287,14 +287,14 @@ Execution queue: [REVIEW_TODO.md § UC.7](./REVIEW_TODO.md#ui-composition-primit
 | Components root override | `paths.components` in `lexsys.config.json`       |
 
 No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
-`installed` keys (see [CLI.md § uninstall](./CLI.md)).
+`installed` keys (see [CLI.md § uninstall](../cli/CLI.md)).
 
 ---
 
 ## Current state
 
 Installable inventory (47 items — compound vs leaf, named exports, registry
-version): **[UI_CATALOG.md](./UI_CATALOG.md)**.
+version): **[UI_CATALOG.md](../ui/UI_CATALOG.md)**.
 
 Pilot blocks and templates remain installable; stability and sandbox QA gaps are
 tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
@@ -317,7 +317,7 @@ lexsys uninstall sidebar --with-deps --dry-run
 - **`--with-deps`** — removes registry items no longer needed by any remaining `installed` entry
 - **npm packages** — never auto-removed
 
-See [CLI.md](./CLI.md) for `lexsys.config.json` (`paths.components`, aliases).
+See [CLI.md](../cli/CLI.md) for `lexsys.config.json` (`paths.components`, aliases).
 
 ---
 

@@ -7,7 +7,7 @@ alwaysApply: false
 
 Authoritative dependency map from root and workspace `package.json` files, plus registry-declared consumer dependencies. Do not add packages outside the correct layer.
 
-Related: [project-structure.mdc](./project-structure.mdc), [docs/STYLE.md](../../docs/STYLE.md), [docs/TOKENS.md](../../docs/TOKENS.md), [AGENTS.md](../../AGENTS.md).
+Related: [project-structure.mdc](./project-structure.mdc), [docs/contributors/STYLE.md](../../docs/contributors/STYLE.md), [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md), [AGENTS.md](../../AGENTS.md).
 
 ---
 
@@ -56,7 +56,7 @@ Monorepo tooling shared at the root. Packages inherit via hoisting; only add roo
 
 ### Quality
 
-- **Vitest** — per-package `vitest.config.ts` (`defineProject`, `root: import.meta.dirname`); run via `vitest run test --pool threads`; Vitest VS Code extension auto-discovers configs (see `docs/TESTING.md`)
+- **Vitest** — per-package `vitest.config.ts` (`defineProject`, `root: import.meta.dirname`); run via `vitest run test --pool threads`; Vitest VS Code extension auto-discovers configs (see `docs/operations/TESTING.md`)
 - **ESLint** — zero warnings policy (`--max-warnings=0`)
 - **Prettier** — repo-wide; use `prettier-plugin-tailwindcss` for class lists in components
 
@@ -113,7 +113,7 @@ tailwind-merge
 
 - **Tailwind CSS v4** — user-facing utility classes in `*.variants.ts`
 - **Generated CSS variables** — `--lsys-*` from `@lexsys/tokens` / installed `tokens.css` + `theme.css`
-- **Semantic classes** — `lsys-` prefix where defined (see `docs/STYLE.md`)
+- **Semantic classes** — `lsys-` prefix where defined (see `docs/contributors/STYLE.md`)
 
 ### UI best practices
 

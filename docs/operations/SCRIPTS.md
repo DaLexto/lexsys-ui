@@ -5,7 +5,7 @@
 **Source of truth for:** Root and package script names, sync workflows, when to run checks
 **Verified against:** Root and workspace `package.json` files, `turbo.json`
 
-Run commands from the **repository root** unless noted. For consumer-facing CLI commands (`lexsys init`, `lexsys add`, …), see [CLI.md](./CLI.md).
+Run commands from the **repository root** unless noted. For consumer-facing CLI commands (`lexsys init`, `lexsys add`, …), see [CLI.md](../reference/cli/CLI.md).
 
 ---
 
@@ -33,7 +33,7 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm ui:check`                 | Lint + typecheck + test `@lexsys/ui`                                                    |
 | `pnpm ui:audit`                 | Variant literal scan **and** `UI_CATALOG.md` drift check                                |
 | `pnpm ui:audit:catalog:check`   | Fail if catalog region drifted from UI exports / registry versions                      |
-| `pnpm ui:audit:catalog:write`   | Regenerate catalog tables in [UI_CATALOG.md](./UI_CATALOG.md)                           |
+| `pnpm ui:audit:catalog:write`   | Regenerate catalog tables in [UI_CATALOG.md](../reference/ui/UI_CATALOG.md)             |
 | `pnpm ui:build`                 | Build `@lexsys/ui`                                                                      |
 | `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                    |
 | `pnpm registry:sync`            | Sync UI source → registry component templates                                           |
@@ -96,23 +96,23 @@ pnpm --filter @lexsys/tokens <script>
 
 ## `@lexsys/ui`
 
-| Root alias                    | Package script        | When to run                                                      |
-| ----------------------------- | --------------------- | ---------------------------------------------------------------- |
-| `pnpm ui:build`               | `build`               | Build reference components                                       |
-| `pnpm ui:check`               | `check`               | After component, variant, or export changes (includes `audit`)   |
-| `pnpm ui:audit`               | `audit`               | Variant literals + catalog drift (blocking subset of `ui:check`) |
-| `pnpm ui:audit:catalog:check` | `audit:catalog:check` | Catalog-only drift check                                         |
-| `pnpm ui:audit:catalog:write` | `audit:catalog:write` | Refresh [UI_CATALOG.md](./UI_CATALOG.md) generated region        |
-| `pnpm ui:lint:fix`            | `lint:fix`            | Auto-fix UI package lint                                         |
-| `pnpm ui:typecheck`           | `typecheck`           | Types only                                                       |
+| Root alias                    | Package script        | When to run                                                             |
+| ----------------------------- | --------------------- | ----------------------------------------------------------------------- |
+| `pnpm ui:build`               | `build`               | Build reference components                                              |
+| `pnpm ui:check`               | `check`               | After component, variant, or export changes (includes `audit`)          |
+| `pnpm ui:audit`               | `audit`               | Variant literals + catalog drift (blocking subset of `ui:check`)        |
+| `pnpm ui:audit:catalog:check` | `audit:catalog:check` | Catalog-only drift check                                                |
+| `pnpm ui:audit:catalog:write` | `audit:catalog:write` | Refresh [UI_CATALOG.md](../reference/ui/UI_CATALOG.md) generated region |
+| `pnpm ui:lint:fix`            | `lint:fix`            | Auto-fix UI package lint                                                |
+| `pnpm ui:typecheck`           | `typecheck`           | Types only                                                              |
 
 Package-only scripts (no root alias):
 
-| Script                | Purpose                                                          |
-| --------------------- | ---------------------------------------------------------------- |
-| `audit`               | `audit-variants.mjs` + `audit-compound-exports.mjs check`        |
-| `audit:catalog:check` | Compare `docs/UI_CATALOG.md` to UI exports and registry versions |
-| `audit:catalog:write` | Update `docs/UI_CATALOG.md` between `CATALOG:BEGIN/END` markers  |
+| Script                | Purpose                                                                       |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `audit`               | `audit-variants.mjs` + `audit-compound-exports.mjs check`                     |
+| `audit:catalog:check` | Compare `docs/reference/ui/UI_CATALOG.md` to UI exports and registry versions |
+| `audit:catalog:write` | Update `docs/reference/ui/UI_CATALOG.md` between `CATALOG:BEGIN/END` markers  |
 
 Filter equivalent:
 
@@ -120,7 +120,7 @@ Filter equivalent:
 pnpm --filter @lexsys/ui <script>
 ```
 
-After UI component edits, also run `pnpm registry:sync` and `pnpm registry:check`. When named exports or registry item versions change, run `pnpm ui:audit:catalog:write` then commit [UI_CATALOG.md](./UI_CATALOG.md). See [Sync workflows](#sync-workflows).
+After UI component edits, also run `pnpm registry:sync` and `pnpm registry:check`. When named exports or registry item versions change, run `pnpm ui:audit:catalog:write` then commit [UI_CATALOG.md](../reference/ui/UI_CATALOG.md). See [Sync workflows](#sync-workflows).
 
 ---
 
@@ -233,7 +233,7 @@ Component templates MUST NOT be edited manually under `packages/registry/templat
 | CLI commands or installer           | `pnpm cli:check`                                                                                      |
 | Playground-only changes             | `pnpm playground:check`                                                                               |
 
-Test coverage details and per-file test inventory: [TESTING.md](./TESTING.md).
+Test coverage details and per-file test inventory: [TESTING.md](../operations/TESTING.md).
 
 ---
 
@@ -287,7 +287,7 @@ Local preview (requires a PAT with `repo` scope):
 npx github-label-sync@3 --access-token <token> --labels .github/labels.yml --dry-run DaLexto/lexsys
 ```
 
-Taxonomy and usage: [CONTRIBUTING.md](../CONTRIBUTING.md) § GitHub labels.
+Taxonomy and usage: [docs/contributors/CONTRIBUTING.md](../contributors/CONTRIBUTING.md) § GitHub labels.
 
 ---
 
@@ -318,7 +318,7 @@ pnpm check
 pnpm publish:pack-audit
 ```
 
-Validates root `LICENSE` and `CHANGELOG.md`, publish `package.json` fields, builds are present, and runs `pnpm pack` into `.tmp/pack-audit/`. Full release flow: [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next).
+Validates root `LICENSE` and `CHANGELOG.md`, publish `package.json` fields, builds are present, and runs `pnpm pack` into `.tmp/pack-audit/`. Full release flow: [DEPLOY.md § First release checklist](../operations/DEPLOY.md#first-release-checklist-001-next).
 
 ### `pnpm changeset`
 
@@ -346,9 +346,9 @@ Builds publish packages and runs `changeset publish --tag next`. Used by Release
 
 ## Related docs
 
-| Document                                   | Owns                                                                       |
-| ------------------------------------------ | -------------------------------------------------------------------------- |
-| [TESTING.md](./TESTING.md)                 | Test file inventory, Vitest config, IDE extension, render-test conventions |
-| [CLI.md](./CLI.md)                         | Consumer `lexsys` CLI commands (not monorepo scripts)                      |
-| [DEPLOY.md](./DEPLOY.md)                   | Release and publish contract                                               |
-| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common failure fixes (links here for command names)                        |
+| Document                                               | Owns                                                                       |
+| ------------------------------------------------------ | -------------------------------------------------------------------------- |
+| [TESTING.md](../operations/TESTING.md)                 | Test file inventory, Vitest config, IDE extension, render-test conventions |
+| [CLI.md](../reference/cli/CLI.md)                      | Consumer `lexsys` CLI commands (not monorepo scripts)                      |
+| [DEPLOY.md](../operations/DEPLOY.md)                   | Release and publish contract                                               |
+| [TROUBLESHOOTING.md](../operations/TROUBLESHOOTING.md) | Common failure fixes (links here for command names)                        |

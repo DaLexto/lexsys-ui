@@ -12,23 +12,23 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance and **document layout**: [
 1. Confirm the **owning document** in INDEX — edit there, not in AGENTS.md or rules.
 2. Apply the **Document layout contract** — metadata block + H2 order for the doc type.
 3. **Current implementation** wins over roadmap, comments, or memory.
-4. **Script inventory** lives only in [SCRIPTS.md](../../docs/SCRIPTS.md) — link, do not copy tables.
+4. **Script inventory** lives only in [SCRIPTS.md](../../docs/operations/SCRIPTS.md) — link, do not copy tables.
 5. After count, export, or registry version changes, run **`$docs-alignment`** skill and `pnpm ui:audit:catalog:check` when UI exports changed.
 
 ## Quick ownership
 
 | Editing… | Canonical doc |
 | -------- | ------------- |
-| Token layers / validation | `TOKENS.md` |
-| Registry items / sync | `REGISTRY.md` |
-| `lexsys` CLI | `CLI.md` |
-| UI components / variants | `UI.md`, `UI_VARIANTS.md` |
-| Composition rules (not inventory) | `UI_COMPOSITION.md` |
-| Installable inventory (compound/leaf, exports) | `UI_CATALOG.md` |
-| Variant / CVA compliance rows | `UI_AUDIT.md` |
-| Verification / sandbox | `TESTING.md` |
-| Backlog / BO / M-phases | `REVIEW_TODO.md`, `ROADMAP.md` |
-| System shape (hub only) | `ARCHITECTURE.md` |
+| Token layers / validation | `docs/reference/tokens/TOKENS.md` |
+| Registry items / sync | `docs/reference/registry/REGISTRY.md` |
+| `lexsys` CLI | `docs/reference/cli/CLI.md` |
+| UI components / variants | `docs/reference/ui/UI.md`, `docs/reference/ui/UI_VARIANTS.md` |
+| Composition rules (not inventory) | `docs/reference/ui/UI_COMPOSITION.md` |
+| Installable inventory (compound/leaf, exports) | `docs/reference/ui/UI_CATALOG.md` |
+| Variant / CVA compliance rows | `docs/reference/ui/UI_AUDIT.md` |
+| Verification / sandbox | `docs/operations/TESTING.md` |
+| Backlog / BO / M-phases | `docs/REVIEW_TODO.md`, `docs/ROADMAP.md` |
+| System shape (hub only) | `docs/ARCHITECTURE.md` |
 
 ## AGENTS.md and rules
 

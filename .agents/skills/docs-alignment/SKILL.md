@@ -26,7 +26,7 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md).
 4. **Catalog / exports** — after UI export or registry version changes:
    - Run `pnpm ui:audit:catalog:check` (or full `pnpm ui:audit`).
    - Refresh generated tables: `pnpm ui:audit:catalog:write` when exports or versions changed.
-   - Compound/leaf questions → [UI_CATALOG.md](../../docs/UI_CATALOG.md), not UI_COMPOSITION body lists.
+   - Compound/leaf questions → [UI_CATALOG.md](../../docs/reference/ui/UI_CATALOG.md), not UI_COMPOSITION body lists.
 5. **Cross-links:** ARCHITECTURE ↔ domain specs ↔ INDEX; README maintainer table → INDEX.
 6. **Counts grep** (examples):
 
@@ -40,16 +40,16 @@ rg "FormField, SettingsPanel|41 primitives" docs README.md packages/ui/README.md
 
 ## Layer rules
 
-| Content                           | Belongs in               |
-| --------------------------------- | ------------------------ |
-| Token layer rules                 | `docs/TOKENS.md`         |
-| Installable inventory             | `docs/UI_CATALOG.md`     |
-| Variant / CVA compliance rows     | `docs/UI_AUDIT.md`       |
-| Composition rules (not inventory) | `docs/UI_COMPOSITION.md` |
-| Agent routing                     | `AGENTS.md` (short)      |
-| Cursor edit behavior              | `.cursor/rules/`         |
-| Multi-step verify                 | `.agents/skills/`        |
-| Script inventory                  | `docs/SCRIPTS.md` only   |
+| Content                           | Belongs in                            |
+| --------------------------------- | ------------------------------------- |
+| Token layer rules                 | `docs/reference/tokens/TOKENS.md`     |
+| Installable inventory             | `docs/reference/ui/UI_CATALOG.md`     |
+| Variant / CVA compliance rows     | `docs/reference/ui/UI_AUDIT.md`       |
+| Composition rules (not inventory) | `docs/reference/ui/UI_COMPOSITION.md` |
+| Agent routing                     | `AGENTS.md` (short)                   |
+| Cursor edit behavior              | `.cursor/rules/`                      |
+| Multi-step verify                 | `.agents/skills/`                     |
+| Script inventory                  | `docs/operations/SCRIPTS.md` only     |
 
 ## Do not
 

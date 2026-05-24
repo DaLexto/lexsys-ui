@@ -6,7 +6,7 @@ Repository-specific **routing layer** for `lexsys`. Global user and tool rules
 apply by default. This file adds Lexsys identity, guardrails, and pointers to
 canonical docs — not duplicated domain contracts.
 
-Full doc map: [docs/INDEX.md](./docs/INDEX.md).
+Full doc map: [docs/INDEX.md](../INDEX.md).
 
 ---
 
@@ -34,22 +34,22 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 ## Source-of-truth map
 
-| If you need…                                   | Read                                                                         |
-| ---------------------------------------------- | ---------------------------------------------------------------------------- |
-| System shape, install flow, package boundaries | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)                               |
-| Token layers, validation, CSS generation       | [docs/TOKENS.md](./docs/TOKENS.md)                                           |
-| Registry items, template sync, validation      | [docs/REGISTRY.md](./docs/REGISTRY.md)                                       |
-| `lexsys` commands, config, install behavior    | [docs/CLI.md](./docs/CLI.md)                                                 |
-| Component structure, Base UI boundaries        | [docs/UI.md](./docs/UI.md)                                                   |
-| Variant props and CVA rules                    | [docs/UI_VARIANTS.md](./docs/UI_VARIANTS.md)                                 |
-| Primitives / blocks / templates layers         | [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)                           |
-| Installable inventory (compound vs leaf)       | [docs/UI_CATALOG.md](./docs/UI_CATALOG.md)                                   |
-| Verification surfaces and test coverage        | [docs/TESTING.md](./docs/TESTING.md)                                         |
-| `pnpm` scripts and sync workflows              | [docs/SCRIPTS.md](./docs/SCRIPTS.md)                                         |
-| Style and naming                               | [docs/STYLE.md](./docs/STYLE.md), [docs/STYLEGUIDE.md](./docs/STYLEGUIDE.md) |
-| Build and publish contract                     | [docs/DEPLOY.md](./docs/DEPLOY.md)                                           |
-| Active backlog and execution queue             | [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)                                 |
-| Long-term roadmap (M1–M11, tokens phases)      | [docs/ROADMAP.md](./docs/ROADMAP.md)                                         |
+| If you need…                                   | Read                                                                                                                             |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| System shape, install flow, package boundaries | [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)                                                                                   |
+| Token layers, validation, CSS generation       | [docs/reference/tokens/TOKENS.md](./docs/reference/tokens/TOKENS.md)                                                             |
+| Registry items, template sync, validation      | [docs/reference/registry/REGISTRY.md](./docs/reference/registry/REGISTRY.md)                                                     |
+| `lexsys` commands, config, install behavior    | [docs/reference/cli/CLI.md](./docs/reference/cli/CLI.md)                                                                         |
+| Component structure, Base UI boundaries        | [docs/reference/ui/UI.md](./docs/reference/ui/UI.md)                                                                             |
+| Variant props and CVA rules                    | [docs/reference/ui/UI_VARIANTS.md](./docs/reference/ui/UI_VARIANTS.md)                                                           |
+| Primitives / blocks / templates layers         | [docs/reference/ui/UI_COMPOSITION.md](./docs/reference/ui/UI_COMPOSITION.md)                                                     |
+| Installable inventory (compound vs leaf)       | [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md)                                                             |
+| Verification surfaces and test coverage        | [docs/operations/TESTING.md](../operations/TESTING.md)                                                                           |
+| `pnpm` scripts and sync workflows              | [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md)                                                                           |
+| Style and naming                               | [docs/contributors/STYLE.md](./docs/contributors/STYLE.md), [docs/contributors/STYLEGUIDE.md](./docs/contributors/STYLEGUIDE.md) |
+| Build and publish contract                     | [docs/operations/DEPLOY.md](../operations/DEPLOY.md)                                                                             |
+| Active backlog and execution queue             | [docs/REVIEW_TODO.md](../REVIEW_TODO.md)                                                                                         |
+| Long-term roadmap (M1–M11, tokens phases)      | [docs/ROADMAP.md](../ROADMAP.md)                                                                                                 |
 
 ---
 
@@ -59,13 +59,13 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
   is source-only; `dist/` is publish output; no deep imports into another
   package's `src/` or `dist/`.
 - **Registry-first CLI:** no hardcoded per-component install logic; read registry
-  metadata; idempotent installs; no silent overwrites — [docs/CLI.md](./docs/CLI.md).
+  metadata; idempotent installs; no silent overwrites — [docs/reference/cli/CLI.md](./docs/reference/cli/CLI.md).
 - **Generated CSS:** token CSS is build output — never hand-write. See
-  [docs/TOKENS.md](./docs/TOKENS.md).
+  [docs/reference/tokens/TOKENS.md](./docs/reference/tokens/TOKENS.md).
 - **UI → registry:** after `packages/ui` edits that affect install artifacts,
   run **`pnpm registry:sync`** — use **`$registry-sync`** skill.
 - **Playground:** maintenance-only monorepo smoke (~10–20%). Consumer truth is
-  the external sandbox (~80–90%) — [docs/TESTING.md § Verification surfaces](./docs/TESTING.md#verification-surfaces).
+  the external sandbox (~80–90%) — [docs/operations/TESTING.md § Verification surfaces](../operations/TESTING.md#verification-surfaces).
 - **Branch policy:** branch off **`dev`**; PR to **`dev`**; do not touch
   **`main`** unless the user explicitly requests it.
 - **Prefer links over duplication** when a rule already lives in `docs/`.
@@ -74,7 +74,7 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
 
 ## Verification routing
 
-Default gate: **`pnpm check`** — [docs/SCRIPTS.md](./docs/SCRIPTS.md).
+Default gate: **`pnpm check`** — [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md).
 
 | Touch area                          | Minimum checks                                                    |
 | ----------------------------------- | ----------------------------------------------------------------- |
@@ -113,7 +113,7 @@ Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures.
 
 ## Change workflow
 
-Session state lives in **git + [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)**; do not
+Session state lives in **git + [docs/REVIEW_TODO.md](../REVIEW_TODO.md)**; do not
 maintain a local continuity file.
 
 For non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans):
@@ -121,11 +121,11 @@ For non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans
 1. **Branch** off **`dev`** — never commit directly to **`main`**.
 2. **Implement** on the branch; scoped commits per concern.
 3. **Docs alignment** — **`$docs-alignment`** when contracts or counts change;
-   link to [docs/INDEX.md](./docs/INDEX.md).
+   link to [docs/INDEX.md](../INDEX.md).
 4. **Verify** — **`$monorepo-check-gate`**; sandbox when install artifacts change.
 5. **PR last** to **`dev`** only when the branch is complete — **`$git-commit`**.
 
-Human-oriented steps: [CONTRIBUTING.md](./CONTRIBUTING.md).
+Human-oriented steps: [docs/contributors/CONTRIBUTING.md](./docs/contributors/CONTRIBUTING.md).
 
 Trivial one-line fixes with no contract impact may skip the docs pass; still
 branch off `dev`.

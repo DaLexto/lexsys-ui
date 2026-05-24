@@ -12,12 +12,12 @@ monorepo optimization sequencing
 
 **Related docs:**
 
-- `docs/TOKENS.md` - canonical current token rules and layer/reference contract
+- `docs/reference/tokens/TOKENS.md` - canonical current token rules and layer/reference contract
 - `docs/REVIEW_TODO.md` - active actionable backlog and known gaps
-- `docs/RESOLVER_EVOLUTION.md` - resolver-specific planned evolution
-- `docs/SCRIPTS.md` - monorepo `pnpm` script names and sync workflows
-- `docs/TESTING.md` - test coverage tiers and when-to-run checks
-- `docs/DEPLOY.md` - release and build contract
+- `docs/reference/tokens/RESOLVER_EVOLUTION.md` - resolver-specific planned evolution
+- `docs/operations/SCRIPTS.md` - monorepo `pnpm` script names and sync workflows
+- `docs/operations/TESTING.md` - test coverage tiers and when-to-run checks
+- `docs/operations/DEPLOY.md` - release and build contract
 
 ---
 
@@ -45,7 +45,7 @@ Current implementation:
   leaves; `elevation.shadow.*` references primitive slots; CSS `boxShadow`
   composition for primitive and semantic shadow paths.
 
-Canonical current rules and enforcement details live in `docs/TOKENS.md`.
+Canonical current rules and enforcement details live in `docs/reference/tokens/TOKENS.md`.
 
 ---
 
@@ -76,7 +76,7 @@ The items below are planned work, not current contracts.
 ### Token engine — next direction
 
 Planned hardening and deferred speculative work are documented in
-[docs/RESOLVER_EVOLUTION.md — After Phase 10](./RESOLVER_EVOLUTION.md#after-phase-10).
+[docs/reference/tokens/RESOLVER_EVOLUTION.md — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10).
 Summary only — do not duplicate detail here.
 
 **Planned (likely next):**
@@ -116,18 +116,18 @@ Active backlog items live in `docs/REVIEW_TODO.md`.
 
 Status: **planned** — not current implementation contract.  
 Active execution queue: [`docs/REVIEW_TODO.md`](./REVIEW_TODO.md)  
-Command details: [`docs/SCRIPTS.md`](./SCRIPTS.md) (link only — no script inventory here)
+Command details: [`docs/operations/SCRIPTS.md`](../operations/SCRIPTS.md) (link only — no script inventory here)
 
 Balanced sequencing: **M1 infra → M2 quality → M3 product → M4 (TBD) → M5
 advanced CI → M6 deps → M7 maintainer tooling → … → M10 release**.
 
 ### Execution discipline
 
-| Granularity        | Rule                                                                                                                     |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| Sub-item (`Mx.y`)  | One conventional commit when done                                                                                        |
-| Phase (`M1`–`M10`) | One implementation PR when all sub-items on the phase branch pass verification                                           |
-| Post-phase         | Docs sync PR after merge if ROADMAP/REVIEW_TODO/handbooks lag (see [TESTING.md](./TESTING.md), [DEPLOY.md](./DEPLOY.md)) |
+| Granularity        | Rule                                                                                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Sub-item (`Mx.y`)  | One conventional commit when done                                                                                                                |
+| Phase (`M1`–`M10`) | One implementation PR when all sub-items on the phase branch pass verification                                                                   |
+| Post-phase         | Docs sync PR after merge if ROADMAP/REVIEW_TODO/handbooks lag (see [TESTING.md](../operations/TESTING.md), [DEPLOY.md](../operations/DEPLOY.md)) |
 
 Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementation detail in git history, not in this section body.
 
@@ -185,7 +185,7 @@ Status: shipped
 #### M2.1 — Tier 2 CLI diagnostic tests
 
 - **Target:** Tests for `doctor`, `status`, `list`, and `config` in `packages/cli/test/commands/`.
-- **Verification:** `pnpm --filter ./packages/cli check` — see [TESTING.md](./TESTING.md).
+- **Verification:** `pnpm --filter ./packages/cli check` — see [TESTING.md](../operations/TESTING.md).
 
 #### M2.2 — Install round-trip smoke
 
@@ -285,7 +285,7 @@ Status: shipped
 
 #### M7.2 — Contributor onboarding
 
-- README maintainer block; optional CONTRIBUTING.md linking git-commits rules.
+- README maintainer block; optional docs/contributors/CONTRIBUTING.md linking git-commits rules.
 
 #### M7.3 — ESLint / TypeScript gaps
 
@@ -306,7 +306,7 @@ Status: shipped
 Status: **shipped** (2026-05-24) — `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on npm
 dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later milestone.
 
-**Publish-day checklist (canonical):** [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next)
+**Publish-day checklist (canonical):** [DEPLOY.md § First release checklist](../operations/DEPLOY.md#first-release-checklist-001-next)
 
 **Execution track:** [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24)
 
@@ -331,21 +331,21 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 
 #### M10.4 — First publish
 
-- Follow [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next).
+- Follow [DEPLOY.md § First release checklist](../operations/DEPLOY.md#first-release-checklist-001-next).
 - Post-publish: `npx @lexsys/cli@next init vite` smoke.
 
 **Phase PR:** `chore(m10): release readiness` (may split into M10.0–M10.3 PRs)
 
 ### Explicitly deferred
 
-| Item                              | Why deferred                                                                                                                                                                 |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M10                                                                                              |
-| Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([TESTING.md § Verification surfaces](./TESTING.md#verification-surfaces)) |
-| `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                             |
-| Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                |
-| Changesets / npm provenance       | Changesets **shipped** (M10); npm provenance deferred                                                                                                                        |
-| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                                                                                             |
+| Item                              | Why deferred                                                                                                                                                                             |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M10                                                                                                          |
+| Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([TESTING.md § Verification surfaces](../operations/TESTING.md#verification-surfaces)) |
+| `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                                         |
+| Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                            |
+| Changesets / npm provenance       | Changesets **shipped** (M10); npm provenance deferred                                                                                                                                    |
+| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                                                                                                         |
 
 ### PR sequence
 
@@ -387,22 +387,22 @@ Original per-phase sketch (reference if splitting future work):
 
 - `docs/ROADMAP.md` owns long-term direction after the initial platform pass and
   monorepo optimization sequencing (M1–M10 section above).
-- `docs/TOKENS.md` owns current token rules, layer definitions, and generated
+- `docs/reference/tokens/TOKENS.md` owns current token rules, layer definitions, and generated
   output contracts.
 - `docs/REVIEW_TODO.md` owns actionable active work and known gaps.
-- `docs/RESOLVER_EVOLUTION.md` owns resolver-specific target architecture.
-- `docs/SCRIPTS.md` owns monorepo script names and sync workflows.
-- `docs/TESTING.md` owns test coverage tiers and when-to-run checks.
-- `docs/DEPLOY.md` owns release and build contract.
-- `docs/UI_VARIANTS.md` owns the canonical UI variant prop contract and CVA rules.
-- `docs/UI_AUDIT.md` owns the per-component compliance inventory.
-- `docs/UI_COMPOSITION.md` owns the UI composition model (primitives → blocks → templates → pages).
+- `docs/reference/tokens/RESOLVER_EVOLUTION.md` owns resolver-specific target architecture.
+- `docs/operations/SCRIPTS.md` owns monorepo script names and sync workflows.
+- `docs/operations/TESTING.md` owns test coverage tiers and when-to-run checks.
+- `docs/operations/DEPLOY.md` owns release and build contract.
+- `docs/reference/ui/UI_VARIANTS.md` owns the canonical UI variant prop contract and CVA rules.
+- `docs/reference/ui/UI_AUDIT.md` owns the per-component compliance inventory.
+- `docs/reference/ui/UI_COMPOSITION.md` owns the UI composition model (primitives → blocks → templates → pages).
 
 ## UI polish track (post-M3)
 
 Pre-0.1.0 hardening: unified `variant` / `size` / `appearance` API, `danger` vocabulary,
-semantic opacity tokens, and `pnpm ui:audit` automation. See [UI_VARIANTS.md](./UI_VARIANTS.md)
-and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes acceptable pre-publish.
+semantic opacity tokens, and `pnpm ui:audit` automation. See [UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md)
+and [UI_AUDIT.md](./reference/ui/UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes acceptable pre-publish.
 
 ---
 
@@ -424,7 +424,7 @@ Lexsys uses a **three-layer** install model (not Atomic Design atoms/molecules/o
 | Pages      | —                                                                   | Always consumer-owned                         |
 
 Canonical mapping, composition rules, folder layout, and CLI contract:
-[UI_COMPOSITION.md](./UI_COMPOSITION.md).
+[UI_COMPOSITION.md](./reference/ui/UI_COMPOSITION.md).
 
 ### UI composition track
 
@@ -439,7 +439,7 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
-testing. BO.1–BO.7 fixed; narrow-viewport sandbox checklist remains manual ([TESTING.md](./TESTING.md)).
+testing. BO.1–BO.7 fixed; narrow-viewport sandbox checklist remains manual ([TESTING.md](../operations/TESTING.md)).
 Tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
@@ -454,7 +454,7 @@ Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composit
 (`items[]`, `mode`-driven auto-fields), full Base UI part re-exports where
 applicable, blocks compose primitives/blocks only.
 
-Canonical contract: [UI_COMPOSITION.md § Compound-first contract](./UI_COMPOSITION.md#compound-first-contract).
+Canonical contract: [UI_COMPOSITION.md § Compound-first contract](./reference/ui/UI_COMPOSITION.md#compound-first-contract).
 
 | Phase | Outcome                                                        | Status  |
 | ----- | -------------------------------------------------------------- | ------- |
@@ -469,7 +469,7 @@ Canonical contract: [UI_COMPOSITION.md § Compound-first contract](./UI_COMPOSIT
 | 7     | Tests, registry sync, version bumps to `0.0.2`, docs alignment | shipped |
 
 **Delivered:** compound-first installable API on `dev` — branch `feat/compound-first-api`
-merged via PR #34. See [UI_CATALOG.md](./UI_CATALOG.md) for the post-M11 inventory.
+merged via PR #34. See [UI_CATALOG.md](./reference/ui/UI_CATALOG.md) for the post-M11 inventory.
 
 ---
 
@@ -481,6 +481,6 @@ merged via PR #34. See [UI_CATALOG.md](./UI_CATALOG.md) for the post-M11 invento
 - Execution rhythm: one commit per `Mx.y` → one PR per phase → post-merge docs
   PR if ROADMAP/REVIEW_TODO/handbooks lag.
 - Sync `docs/REVIEW_TODO.md` when M-phases start or finish.
-- Update `docs/TOKENS.md` when current token behavior or enforced rules change.
+- Update `docs/reference/tokens/TOKENS.md` when current token behavior or enforced rules change.
 - Record completed implementation details in git history, not in this roadmap
   body.

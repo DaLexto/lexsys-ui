@@ -7,12 +7,12 @@
 
 **Related docs:**
 
-- `docs/STYLE.md` — concise rule checklist for all packages
-- `docs/TOKENS.md` — token layer rules and validation contracts
-- `docs/UI_VARIANTS.md` — canonical variant prop contract and CVA rules
-- `docs/CLI.md` — CLI command reference and install behavior
+- `docs/contributors/STYLE.md` — concise rule checklist for all packages
+- `docs/reference/tokens/TOKENS.md` — token layer rules and validation contracts
+- `docs/reference/ui/UI_VARIANTS.md` — canonical variant prop contract and CVA rules
+- `docs/reference/cli/CLI.md` — CLI command reference and install behavior
 
-If a rule conflicts between this document and `docs/STYLE.md`, `docs/STYLE.md` wins for rule decisions. This document provides practical patterns and examples.
+If a rule conflicts between this document and `docs/contributors/STYLE.md`, `docs/contributors/STYLE.md` wins for rule decisions. This document provides practical patterns and examples.
 
 ---
 
@@ -94,7 +94,7 @@ strings manually.
 
 ### CVA in `.variants.ts`
 
-Canonical rules and vocabulary: [UI_VARIANTS.md](./UI_VARIANTS.md).
+Canonical rules and vocabulary: [UI_VARIANTS.md](../reference/ui/UI_VARIANTS.md).
 
 Define all visual variants using `cva` from `class-variance-authority`:
 
@@ -266,7 +266,7 @@ export type * from "./components/Button/Button.types"
 
 Every item in `packages/registry/src/items/` declares the full install contract: files, dependencies, utilities, styles, target path, and category. The CLI reads this contract — if it needs knowledge not declared here, the item is incomplete.
 
-Full field contract, category values, and validation rules: [docs/REGISTRY.md](REGISTRY.md).
+Full field contract, category values, and validation rules: [docs/reference/registry/REGISTRY.md](REGISTRY.md).
 
 ---
 
@@ -276,7 +276,7 @@ Templates in `packages/registry/templates/components/` are synced from `packages
 
 The only transform the sync script applies is the `cn` import path rewrite. Any additional transform goes in the sync script, not the template file.
 
-Full template rules and sync contract: [docs/REGISTRY.md](REGISTRY.md).
+Full template rules and sync contract: [docs/reference/registry/REGISTRY.md](REGISTRY.md).
 
 ---
 
@@ -314,7 +314,7 @@ Avoid:
 
 ## 9. Token Authoring Conventions
 
-Detailed rules are in `docs/TOKENS.md`. This section covers practical authoring patterns.
+Detailed rules are in `docs/reference/tokens/TOKENS.md`. This section covers practical authoring patterns.
 
 ### Token source file structure
 
@@ -402,7 +402,7 @@ The default consumer project paths (from `lexsys.config.json` defaults) are:
 All install layers copy into `paths.components/<CanonicalName>/`. The CLI rewrites
 cross-layer imports at install time — consumers do not mirror monorepo
 `primitives/`, `blocks/`, or `templates/` folder depth. See
-[UI_COMPOSITION.md](./UI_COMPOSITION.md).
+[UI_COMPOSITION.md](../reference/ui/UI_COMPOSITION.md).
 
 Do not install component files outside these paths without explicit config
 override. Do not duplicate shared utilities inside each component folder.
@@ -431,7 +431,7 @@ Bad:
 
 ## 12. Build and Check Commands
 
-Monorepo script names, sync workflows, and per-package aliases live in [SCRIPTS.md](./SCRIPTS.md).
+Monorepo script names, sync workflows, and per-package aliases live in [SCRIPTS.md](../operations/SCRIPTS.md).
 
 Before merging: `pnpm check`. After UI edits: `pnpm registry:sync` then `pnpm registry:check`.
 

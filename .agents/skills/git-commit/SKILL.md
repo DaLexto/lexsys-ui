@@ -88,4 +88,4 @@ git checkout dev
 - `$monorepo-check-gate` — pre-commit / pre-PR checks
 - `$docs-alignment` — before commit when contracts or counts changed
 - `$registry-sync` — before/at registry commit after UI template changes
-- [CONTRIBUTING.md](../../CONTRIBUTING.md) — human-oriented overview
+- [docs/contributors/CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md) — human-oriented overview

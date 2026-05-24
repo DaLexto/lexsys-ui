@@ -215,7 +215,7 @@ Return the PR URL when done. Do not push unless the user explicitly requests it.
 
 ### GitHub labels (required after PR create)
 
-After `gh pr create` succeeds, **always apply labels** with `gh pr edit`. Taxonomy: [CONTRIBUTING.md](../../CONTRIBUTING.md) § GitHub labels, manifest [`.github/labels.yml`](../../.github/labels.yml).
+After `gh pr create` succeeds, **always apply labels** with `gh pr edit`. Taxonomy: [docs/contributors/CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md) § GitHub labels, manifest [`.github/labels.yml`](../../.github/labels.yml).
 
 **Always apply when opening a PR:**
 

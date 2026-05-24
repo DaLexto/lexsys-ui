@@ -5,7 +5,7 @@
 **Source of truth for:** Package role, primitive categories, file structure, public exports  
 **Verified against:** `packages/ui/src/`
 
-Compound vs leaf, named exports, and registry versions: [docs/UI_CATALOG.md](../../docs/UI_CATALOG.md).
+Compound vs leaf, named exports, and registry versions: [docs/reference/ui/UI_CATALOG.md](../../docs/reference/ui/UI_CATALOG.md).
 
 ---
 
@@ -36,7 +36,7 @@ independent implementations.
 ## Primitives by category (41)
 
 Category grouping for reference UI only. Compound vs leaf, exports, and registry
-version: [docs/UI_CATALOG.md](../../docs/UI_CATALOG.md).
+version: [docs/reference/ui/UI_CATALOG.md](../../docs/reference/ui/UI_CATALOG.md).
 
 | Component        | Category     |
 | ---------------- | ------------ |
@@ -86,7 +86,7 @@ version: [docs/UI_CATALOG.md](../../docs/UI_CATALOG.md).
 
 ## Breaking changes (pre-0.1.0)
 
-See [CHANGELOG.md](./CHANGELOG.md). Canonical variant rules: [docs/UI_VARIANTS.md](../../docs/UI_VARIANTS.md).
+See [CHANGELOG.md](./CHANGELOG.md). Canonical variant rules: [docs/reference/ui/UI_VARIANTS.md](../../docs/reference/ui/UI_VARIANTS.md).
 
 ---
 
@@ -164,4 +164,4 @@ pnpm ui:build
 ```
 
 After editing component files, run `pnpm registry:sync` then `pnpm registry:check`.
-Monorepo scripts: [docs/SCRIPTS.md](../../docs/SCRIPTS.md).
+Monorepo scripts: [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md).
