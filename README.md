@@ -219,7 +219,7 @@ Planned but not current API:
 | Doc                                                | Purpose                                                      |
 | -------------------------------------------------- | ------------------------------------------------------------ |
 | [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) | Primitives → blocks → templates install model                |
-| [docs/ROADMAP.md](./docs/ROADMAP.md)               | Long-term direction and monorepo optimization phases (M1–M7) |
+| [docs/ROADMAP.md](./docs/ROADMAP.md)               | Long-term direction and monorepo optimization phases (M1–M10) |
 | [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)       | Active execution queue and known gaps                        |
 | [docs/SCRIPTS.md](./docs/SCRIPTS.md)               | Monorepo `pnpm` script names and CI reference                |
 | [docs/TESTING.md](./docs/TESTING.md)               | Test coverage and verification workflows                     |

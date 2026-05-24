@@ -13,7 +13,7 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M7** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3 and M5–M7 shipped; **M4 release readiness** remains planned.
+**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3 and M5–M7 shipped; **M4 reserved** (scope TBD); **M10 release readiness** remains planned.
 
 | Phase   | Focus                                                               | Status  |
 | ------- | ------------------------------------------------------------------- | ------- |
@@ -21,10 +21,11 @@ that are not yet done.
 | M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped |
 | M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped |
 | M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
-| M4      | Release readiness (CHANGELOG, publish audit, sequence)              | planned |
+| M4      | (TBD — scope to be defined)                                         | planned |
 | M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)               | shipped |
+| M10     | Release readiness (CHANGELOG, publish audit, sequence)              | planned |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | in progress |
 
@@ -149,6 +150,6 @@ Optional follow-ups after Phases 1–10 (detail in
 | Gap                                      | Notes                                                                                                                                                                                    |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Blocks/templates mobile & composition QA | Partial — BO.1–BO.3/BO.6/BO.7 fixed; BO.4/BO.5 CI gate still open. See [REVIEW_TODO § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog). |
-| Remote registry signatures / allowlist   | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                      |
+| Remote registry signatures / allowlist   | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                     |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.

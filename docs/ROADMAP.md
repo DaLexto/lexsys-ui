@@ -3,8 +3,8 @@
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
-composition pilots **shipped** (PR #28); M4 release readiness **planned**; blocks/templates
-optimization **in progress** (BO.4–BO.5 partial) — see phase tables below for current vs future work  
+composition pilots **shipped** (PR #28); M10 release readiness **planned**; M4
+**reserved** (scope TBD); blocks/templates optimization **in progress** (BO.4–BO.5 partial) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -117,15 +117,15 @@ Status: **planned** — not current implementation contract.
 Active execution queue: [`docs/REVIEW_TODO.md`](./REVIEW_TODO.md)  
 Command details: [`docs/SCRIPTS.md`](./SCRIPTS.md) (link only — no script inventory here)
 
-Balanced sequencing: **M1 infra → M2 quality → M3 product → M4 release → M5
-advanced CI → M6 deps → M7 maintainer tooling**.
+Balanced sequencing: **M1 infra → M2 quality → M3 product → M4 (TBD) → M5
+advanced CI → M6 deps → M7 maintainer tooling → … → M10 release**.
 
 ### Execution discipline
 
 | Granularity       | Rule                                                                                                                     |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | Sub-item (`Mx.y`) | One conventional commit when done                                                                                        |
-| Phase (`M1`–`M7`) | One implementation PR when all sub-items on the phase branch pass verification                                           |
+| Phase (`M1`–`M10`) | One implementation PR when all sub-items on the phase branch pass verification                                           |
 | Post-phase        | Docs sync PR after merge if ROADMAP/REVIEW_TODO/handbooks lag (see [TESTING.md](./TESTING.md), [DEPLOY.md](./DEPLOY.md)) |
 
 Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementation detail in git history, not in this section body.
@@ -137,10 +137,11 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment    | SCRIPTS.md, DEPLOY.md                 |
 | M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                     | TESTING.md, AGENTS.md                 |
 | M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
-| M4    | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
+| M4    | (TBD)                    | planned | Reserved slot — scope to be defined                                               | —                                     |
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`               | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                    | DEPLOY.md                             |
 | M7    | Maintainer and tooling   | shipped | CONTINUITY/README/CONTRIBUTING, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agent/CONTINUITY.md`     |
+| M10   | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
 
 ### M1 — Infra and DX
 
@@ -234,23 +235,9 @@ Status: shipped
 
 **Phase PR:** `chore(m3): product and architecture backlog`
 
-### M4 — Release readiness
+### M4 — (TBD)
 
-Status: planned — when approaching first npm publish (`0.1.0`).
-
-#### M4.1 — CHANGELOG
-
-- Root `CHANGELOG.md` (Keep a Changelog) + pointer in DEPLOY.md.
-
-#### M4.2 — Publish audit
-
-- Align package versions, `exports`, and `files` fields.
-
-#### M4.3 — Publish sequence
-
-- Documented release sequence in DEPLOY.md.
-
-**Phase PR:** `chore(m4): release readiness`
+Status: planned — reserved slot; scope to be defined before implementation starts.
 
 ### M5 — Advanced CI
 
@@ -314,34 +301,53 @@ Status: shipped
 
 - Strict namespaced label manifest (`.github/labels.yml`) synced via `github-label-sync` and [`.github/workflows/labels-sync.yml`](../.github/workflows/labels-sync.yml).
 
+### M10 — Release readiness
+
+Status: planned — when approaching first npm publish (`0.1.0`).
+
+#### M10.1 — CHANGELOG
+
+- Root `CHANGELOG.md` (Keep a Changelog) + pointer in DEPLOY.md.
+
+#### M10.2 — Publish audit
+
+- Align package versions, `exports`, and `files` fields.
+
+#### M10.3 — Publish sequence
+
+- Documented release sequence in DEPLOY.md.
+
+**Phase PR:** `chore(m10): release readiness`
+
 ### Explicitly deferred
 
 | Item                              | Why deferred                                                                                                                                                                 |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M4                                                                                               |
+| `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M10                                                                                              |
 | Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([TESTING.md § Verification surfaces](./TESTING.md#verification-surfaces)) |
 | `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                             |
 | Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                |
-| Changesets / npm provenance       | M4 release phase                                                                                                                                                             |
+| Changesets / npm provenance       | M10 release phase                                                                                                                                                            |
 | Next.js scaffold, remote registry | **Shipped in M3** — `neurex init next`; remote manifest contract                                                                                                             |
 
 ### PR sequence
 
 **Delivered (2026-05-22):** Phase 0 + **M1, M2, M5, M6, M7** shipped in one consolidated PR
 [#18](https://github.com/DaLexto/neurex/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
-separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. M4 remains planned.
+separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. M4 and M10 remain planned.
 
-| PR    | Phase | Title sketch                                        | Delivery                              |
-| ----- | ----- | --------------------------------------------------- | ------------------------------------- |
-| 0–7   | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **PR #18** — single PR                |
-| 3a–3b | M3    | Product slices + docs sync                          | **shipped** (consolidated PR → `dev`) |
-| 4a–4b | M4    | Release readiness + docs sync                       | planned                               |
+| PR      | Phase | Title sketch                                        | Delivery                              |
+| ------- | ----- | --------------------------------------------------- | ------------------------------------- |
+| 0–7     | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **PR #18** — single PR                |
+| 3a–3b   | M3    | Product slices + docs sync                          | **shipped** (consolidated PR → `dev`) |
+| 4a–4b   | M4    | (TBD) + docs sync                                   | planned                               |
+| 10a–10b | M10   | Release readiness + docs sync                       | planned                               |
 
 Original per-phase sketch (reference if splitting future work):
 
 | PR    | Phase   | Title sketch                                            |
 | ----- | ------- | ------------------------------------------------------- |
-| 0     | Phase 0 | `docs(roadmap): add monorepo optimization phases M1–M7` |
+| 0     | Phase 0 | `docs(roadmap): add monorepo optimization phases M1–M10` |
 | 1a    | M1      | `chore(m1): infra and DX`                               |
 | 1b    | M1      | `docs(roadmap): mark M1 shipped` (if needed)            |
 | 2a    | M2      | `test(m2): quality and verification`                    |
@@ -363,7 +369,7 @@ Original per-phase sketch (reference if splitting future work):
 ## Document Ownership
 
 - `docs/ROADMAP.md` owns long-term direction after the initial platform pass and
-  monorepo optimization sequencing (M1–M7 section above).
+  monorepo optimization sequencing (M1–M10 section above).
 - `docs/TOKENS.md` owns current token rules, layer definitions, and generated
   output contracts.
 - `docs/REVIEW_TODO.md` owns actionable active work and known gaps.

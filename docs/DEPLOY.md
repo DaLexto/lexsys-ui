@@ -164,7 +164,7 @@ If there is no consumer-facing impact, say that explicitly.
 
 This guide should be expanded when the repository adds:
 
-- a formal package publish flow (M4 — see [ROADMAP.md](./ROADMAP.md))
+- a formal package publish flow (M10 — see [ROADMAP.md](./ROADMAP.md))
 - root `CHANGELOG.md` and documented release sequence
 - npm provenance and publish audit checklist
 
@@ -173,7 +173,7 @@ Registry validation (`pnpm registry:check`), generated token CSS
 `--utilities` / `--styles` are **shipped** — see [CLI.md](./CLI.md) and
 [SCRIPTS.md](./SCRIPTS.md).
 
-Until M4 publish flow lands, use this document as the minimum build-and-release
+Until M10 publish flow lands, use this document as the minimum build-and-release
 contract.
 
 ---
