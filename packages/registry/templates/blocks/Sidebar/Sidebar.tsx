@@ -1,7 +1,7 @@
 /**
  * Sidebar.tsx
  *
- * Reference Sidebar block — composes Drawer, Menu, ScrollArea, and Button primitives.
+ * Reference Sidebar block — composes Drawer, ScrollArea, and Button primitives.
  */
 
 import { Button } from "../../primitives/Button/Button"
@@ -18,12 +18,6 @@ import {
   DrawerViewport,
 } from "../../primitives/Drawer/Drawer"
 import {
-  Menu,
-  MenuGroup,
-  MenuItem,
-  MenuLinkItem,
-} from "../../primitives/Menu/Menu"
-import {
   ScrollArea,
   ScrollAreaContent,
   ScrollAreaViewport,
@@ -32,9 +26,11 @@ import type { SidebarNavItem, SidebarProps } from "./Sidebar.types"
 import {
   sidebarBrandVariants,
   sidebarDesktopVariants,
+  sidebarDrawerFooterVariants,
   sidebarMainVariants,
-  sidebarMenuItemVariants,
   sidebarMobileTriggerVariants,
+  sidebarNavItemVariants,
+  sidebarNavListVariants,
   sidebarNavVariants,
   sidebarRootVariants,
 } from "./Sidebar.variants"
@@ -45,75 +41,63 @@ interface SidebarNavListProps {
   closeOnSelect?: boolean
 }
 
+const SidebarNavLink = ({
+  item,
+  closeOnSelect,
+}: {
+  item: SidebarNavItem
+  closeOnSelect: boolean
+}) => {
+  const className = sidebarNavItemVariants(item.active)
+
+  if (item.href) {
+    if (!closeOnSelect) {
+      return (
+        <a href={item.href} className={className}>
+          {item.label}
+        </a>
+      )
+    }
+
+    return (
+      <DrawerClose render={<a href={item.href} className={className} />}>
+        {item.label}
+      </DrawerClose>
+    )
+  }
+
+  if (!closeOnSelect) {
+    return (
+      <button type="button" className={className} onClick={item.onSelect}>
+        {item.label}
+      </button>
+    )
+  }
+
+  return (
+    <DrawerClose
+      render={
+        <button type="button" className={className} onClick={item.onSelect} />
+      }
+    >
+      {item.label}
+    </DrawerClose>
+  )
+}
+
 const SidebarNavList = ({
   items,
   closeOnSelect = false,
 }: SidebarNavListProps) => {
   return (
-    <nav className="flex flex-col gap-[var(--nx-space-1)]">
-      <Menu>
-        <MenuGroup>
-          {items.map((item) => {
-            if (item.href) {
-              const linkItem = (
-                <MenuLinkItem
-                  key={item.id}
-                  href={item.href}
-                  className={sidebarMenuItemVariants(item.active)}
-                >
-                  {item.label}
-                </MenuLinkItem>
-              )
-
-              if (!closeOnSelect) {
-                return linkItem
-              }
-
-              return (
-                <DrawerClose
-                  key={item.id}
-                  render={
-                    <MenuLinkItem
-                      href={item.href}
-                      className={sidebarMenuItemVariants(item.active)}
-                    />
-                  }
-                >
-                  {item.label}
-                </DrawerClose>
-              )
-            }
-
-            const menuItem = (
-              <MenuItem
-                key={item.id}
-                className={sidebarMenuItemVariants(item.active)}
-                onClick={item.onSelect}
-              >
-                {item.label}
-              </MenuItem>
-            )
-
-            if (!closeOnSelect) {
-              return menuItem
-            }
-
-            return (
-              <DrawerClose
-                key={item.id}
-                render={
-                  <MenuItem
-                    className={sidebarMenuItemVariants(item.active)}
-                    onClick={item.onSelect}
-                  />
-                }
-              >
-                {item.label}
-              </DrawerClose>
-            )
-          })}
-        </MenuGroup>
-      </Menu>
+    <nav aria-label="Application navigation">
+      <ul className={sidebarNavListVariants()}>
+        {items.map((item) => (
+          <li key={item.id}>
+            <SidebarNavLink item={item} closeOnSelect={closeOnSelect} />
+          </li>
+        ))}
+      </ul>
     </nav>
   )
 }
@@ -139,7 +123,7 @@ const Sidebar = ({
       </div>
 
       <div className={sidebarMobileTriggerVariants()}>
-        <Drawer>
+        <Drawer swipeDirection="left">
           <DrawerTrigger render={<Button variant="secondary" size="sm" />}>
             {mobileTriggerLabel}
           </DrawerTrigger>
@@ -163,11 +147,13 @@ const Sidebar = ({
                       </ScrollAreaContent>
                     </ScrollAreaViewport>
                   </ScrollArea>
-                  <DrawerClose
-                    render={<Button variant="secondary" size="sm" />}
-                  >
-                    Close
-                  </DrawerClose>
+                  <div className={sidebarDrawerFooterVariants()}>
+                    <DrawerClose
+                      render={<Button variant="secondary" size="sm" />}
+                    >
+                      Close
+                    </DrawerClose>
+                  </div>
                 </DrawerContent>
               </DrawerPopup>
             </DrawerViewport>
