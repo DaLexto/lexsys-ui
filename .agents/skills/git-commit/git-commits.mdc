@@ -1,11 +1,10 @@
----
-description: Neurex conventional commits, monorepo scopes, commit/push authorization, and pull request workflow using repository PR templates
-globs:
-alwaysApply: false
----
 # Neurex Git Commits and Pull Requests
 
-Operational policy for commits and pull requests in this repository. Format follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Authoring guide: [git-commit-rules.mdc](git-commit-rules.mdc). Layout: [project-structure.mdc](project-structure.mdc).
+**Canonical workflow policy** for the [`$git-commit`](./SKILL.md) skill.
+
+Format follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+Authoring guide: [git-commit-rules.mdc](../../../.cursor/rules/git-commit-rules.mdc).
+Layout: [project-structure.mdc](../../../.cursor/rules/project-structure.mdc).
 
 ```
 <type>(<scope>): <description>
@@ -29,8 +28,9 @@ Imperative mood, lowercase subject, no trailing period. Prefer ≤ 72 characters
 | `git commit --amend` | User rules allow (unpushed HEAD, hook fixed files, user said amend) |
 | `push --force`, `reset --hard`, etc. | User explicitly requests and understands impact |
 | `git config` | Never |
+| Touch `main` | Only when user **explicitly** requests (commit, PR base, ff) |
 
-If intent is unclear (“save this”, “finish up”, “ship it”), confirm whether the user wants file changes only, a commit, push, or a PR. Stage only paths for the current task unless the user approves a broader commit.
+If intent is unclear ("save this", "finish up", "ship it"), confirm whether the user wants file changes only, a commit, push, or a PR. Stage only paths for the current task unless the user approves a broader commit.
 
 ---
 
@@ -73,7 +73,7 @@ Optional nested doc scopes when one doc area dominates: `docs(tokens)`, `docs(cl
 
 **Avoid as scope:** component names (`button`, `dialog`), vague `tests` — use `test(<package>)` instead.
 
-**Multi-package workflow:** prefer separate commits (`feat(ui)` → `feat(registry)` → `feat(tokens)`). After `packages/ui` changes that affect install templates, run **`pnpm registry:sync`** (see [`.agents/skills/registry-sync/SKILL.md`](../../.agents/skills/registry-sync/SKILL.md)) before or note it in the registry commit body. After token generator changes, note `pnpm tokens:generate:styles` when registry style outputs depend on it.
+**Multi-package workflow:** prefer separate commits (`feat(ui)` → `feat(registry)` → `feat(tokens)`). After `packages/ui` changes that affect install templates, run **`pnpm registry:sync`** (see [`$registry-sync`](../registry-sync/SKILL.md)) before or note it in the registry commit body. After token generator changes, note `pnpm tokens:generate:styles` when registry style outputs depend on it.
 
 ---
 
@@ -96,7 +96,7 @@ Details: [Conventional Commits — breaking change](https://www.conventionalcomm
 2. `git log -5 --oneline` for message style
 3. **`pnpm format:check`** — required before every commit. If it fails, run `pnpm format`, re-check, then commit. CI `root-check` runs the same gate.
 4. Exclude unrelated files, `.env`, credentials, accidental `dist/` unless intentional
-5. Match scope to [project-structure.mdc](project-structure.mdc) ownership
+5. Match scope to [project-structure.mdc](../../../.cursor/rules/project-structure.mdc) ownership
 6. Do not use `git add -A` unless the user wants everything
 7. No `--no-verify` unless the user explicitly requests it
 8. No interactive git (`-i`)
@@ -127,7 +127,11 @@ EOF
 )"
 ```
 
-On PowerShell, use a quoted multi-line `-m` or equivalent the shell supports.
+On PowerShell, use multiple `-m` flags or equivalent the shell supports:
+
+```powershell
+git commit -m "type(scope): short summary" -m "Optional body."
+```
 
 ---
 
@@ -200,7 +204,7 @@ Use `gh` after the user explicitly requests a PR:
 
 ```bash
 git push -u origin HEAD
-gh pr create --base dev --title "short pr title" --body-file .github/PULL_REQUEST_TEMPLATE/lite.md
+gh pr create --base dev --title "short pr title" --body-file path/to/filled-body.md
 ```
 
 For a filled body, write the completed template to a temporary file or pass a HEREDOC/`--body` string — do not open a PR with unfilled `<!-- -->` placeholders or empty required sections.
@@ -235,6 +239,7 @@ After `gh pr create` succeeds, **always apply labels** with `gh pr edit`. Taxono
 | `area:playground` | `apps/playground/**` |
 | `area:docs` | `docs/**`, `AGENTS.md`, package READMEs when docs-heavy |
 | `area:repo` | Root tooling, `turbo.json`, workspace scripts, `.github/**` |
+| `area:agents` | `.agents/skills/**`, agent workflow policy in this skill |
 
 Pick **all areas** that match the diff — cross-package PRs get multiple `area:*` labels.
 
@@ -247,6 +252,7 @@ Pick **all areas** that match the diff — cross-package PRs get multiple `area:
 | UI polish + tokens + docs + playground (breaking) | `type:feat`, `area:ui`, `area:tokens`, `area:registry`, `area:docs`, `area:playground`, `meta:breaking-change`, `status:ready-for-review` |
 | Docs-only | `type:docs`, `area:docs`, `status:ready-for-review` |
 | CI workflow | `type:ci`, `area:repo`, `status:ready-for-review` |
+| Git skill / agent workflow | `type:docs`, `area:agents`, `status:ready-for-review` |
 
 #### Command
 
@@ -271,6 +277,7 @@ docs(tokens): document semantic size and spacing roles
 docs(tokens): record dtcg output paths
 chore(repo): add scoped package check scripts
 feat(playground): add overlays QA panel
+feat(agents): add git-commit skill with workflow policy
 ```
 
 ## Avoid

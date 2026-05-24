@@ -62,7 +62,7 @@ pnpm sync:all && pnpm registry:check
 ## Commit guidance
 
 Prefer separate commits: `feat(ui)` then `feat(registry)` with sync in between.
-See [.cursor/rules/git-commits.mdc](../../.cursor/rules/git-commits.mdc).
+See [git-commits.mdc](../git-commit/git-commits.mdc).
 
 ## Related
 

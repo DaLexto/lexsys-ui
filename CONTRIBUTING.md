@@ -42,7 +42,7 @@ pnpm sync:all && pnpm registry:check
 
 ## Commits
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) with monorepo scopes (`tokens`, `ui`, `registry`, `cli`, `docs`, `ci`, …). See `.cursor/rules/git-commits.mdc` for repository conventions.
+Use [Conventional Commits](https://www.conventionalcommits.org/) with monorepo scopes (`tokens`, `ui`, `registry`, `cli`, `docs`, `ci`, …). See [`.agents/skills/git-commit/git-commits.mdc`](./.agents/skills/git-commit/git-commits.mdc) for repository conventions.
 
 ## GitHub labels
 
