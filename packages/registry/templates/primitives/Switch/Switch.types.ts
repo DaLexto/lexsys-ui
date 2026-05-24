@@ -16,5 +16,14 @@ export interface SwitchProps extends Omit<
   ref?: Ref<HTMLElement>
   size?: SwitchSize
   className?: BaseSwitch.Root.Props["className"]
-  thumbClassName?: BaseSwitch.Thumb.Props["className"]
+  children?: BaseSwitch.Root.Props["children"]
+}
+
+export interface SwitchThumbProps extends Omit<
+  BaseSwitch.Thumb.Props,
+  "className"
+> {
+  ref?: Ref<HTMLElement>
+  size?: SwitchSize
+  className?: BaseSwitch.Thumb.Props["className"]
 }

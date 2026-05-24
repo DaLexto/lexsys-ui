@@ -28,3 +28,11 @@ export const sliderThumbVariants = cva(
     "data-[disabled]:cursor-not-allowed",
   ].join(" "),
 )
+
+export const sliderLabelVariants = cva(
+  "font-(--lsys-meter-label-font-weight) text-(length:--lsys-meter-label-font-size) leading-(--lsys-meter-label-font-line-height) text-(--lsys-meter-label-foreground)",
+)
+
+export const sliderValueVariants = cva(
+  "font-(--lsys-meter-value-font-weight) text-(--lsys-meter-value-foreground)",
+)

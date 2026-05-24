@@ -33,3 +33,7 @@ export const checkboxVariants = cva(
 export const checkboxLabelVariants = cva(
   "inline-flex items-center gap-(--lsys-checkbox-label-gap) text-(length:--lsys-checkbox-label-font-size) font-(--lsys-checkbox-label-font-weight) leading-(--lsys-checkbox-label-font-line-height) text-(--lsys-checkbox-label-foreground)",
 )
+
+export const checkboxIndicatorVariants = cva(
+  "leading-(--lsys-checkbox-label-font-line-height)",
+)

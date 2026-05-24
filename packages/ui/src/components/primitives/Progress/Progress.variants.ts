@@ -29,3 +29,11 @@ export const progressTrackVariants = cva(
 export const progressIndicatorVariants = cva(
   "h-full bg-(--lsys-progress-indicator-background) transition-transform duration-(--lsys-progress-transition-duration) ease-(--lsys-progress-transition-easing) data-[indeterminate]:animate-pulse",
 )
+
+export const progressLabelVariants = cva(
+  "text-(--lsys-progress-label-foreground)",
+)
+
+export const progressValueVariants = cva(
+  "font-(--lsys-meter-value-font-weight) text-(--lsys-meter-value-foreground)",
+)
