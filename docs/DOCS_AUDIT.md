@@ -2,10 +2,10 @@
 
 **Audience:** Maintainers and agents  
 **Type:** Audit / inventory (temporary)  
-**Source of truth for:** Markdown surface classification during enterprise docs pass (D0–D6)  
+**Source of truth for:** Enterprise docs pass (D0–D6) — **closed 2026-05-24**  
 **Related docs:** [INDEX.md](./INDEX.md), [documentation-standards.mdc](../.cursor/rules/documentation-standards.mdc) (§ Document layout contract)
 
-This is a **read-only working doc**. Classify and route fixes — do not rewrite source docs from this file. Archive or delete after D6 closes the pass.
+Snapshot from the enterprise docs organization pass. **Pass closed in D6.** Optional: archive or delete before D7 folder migration; deferred layout items remain in tables below.
 
 ---
 
@@ -140,8 +140,22 @@ Surfaces audited:
 | D3       | Dedup README, UI_COMPOSITION, UI.md, ROADMAP M11 | D3          | yes  |
 | D4       | UI_AUDIT scope + stale rows                      | D4          | yes  |
 | D5       | docs-alignment skill + SCRIPTS catalog check     | D5          | yes  |
-| D6       | format:check + catalog:check                     | D6          | —    |
+| D6       | format:check + catalog:check                     | D6          | yes  |
 | D7       | Folder migration (reference-by-package)          | Later       | —    |
+
+---
+
+## D6 verification (2026-05-24)
+
+| Gate                                                  | Result                    |
+| ----------------------------------------------------- | ------------------------- |
+| `pnpm format:check`                                   | pass                      |
+| `pnpm ui:audit:catalog:check`                         | pass (47 components)      |
+| `pnpm ui:audit`                                       | pass (variants + catalog) |
+| INDEX → UI_CATALOG, UI_AUDIT, layout rule             | links present             |
+| Stale grep (M11 PR branch, duplicate lists in README) | no hits                   |
+
+**Deferred (non-blocking):** `DEPLOY.md` metadata block; optional layout polish on `partial` rows; D7 folder migration.
 
 ---
 
