@@ -17,6 +17,11 @@ export const cardVariants = cva(
       variant: {
         surface: "",
         muted: "bg-(--lsys-card-muted-background)",
+        default: "",
+        outlined: "border-(--lsys-border-strong)",
+        elevated:
+          "border-transparent shadow-(--lsys-elevation-shadow-raised-box-shadow)",
+        ghost: "border-transparent bg-transparent shadow-none",
       },
     },
     defaultVariants: {

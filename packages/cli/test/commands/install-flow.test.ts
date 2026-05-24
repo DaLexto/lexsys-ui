@@ -512,6 +512,23 @@ describe("install flow smoke", () => {
     expectRegistryClosureInstalled(config.installed, ["form-field"])
   })
 
+  test("auth-form solo install pulls card, input, button, and separator", async () => {
+    await writeViteConsumerFiles(tempDir)
+
+    await runInit()
+    await runAdd(["auth-form"])
+
+    await expect(
+      readFile(
+        join(tempDir, "src/components/ui/AuthForm/AuthForm.tsx"),
+        "utf-8",
+      ),
+    ).resolves.toContain('from "../Button/Button"')
+
+    const config = await readInstalledConfig(tempDir)
+    expectRegistryClosureInstalled(config.installed, ["auth-form"])
+  })
+
   test("add, update styles, and uninstall round-trip in temp consumer", async () => {
     await writeViteConsumerFiles(tempDir)
 

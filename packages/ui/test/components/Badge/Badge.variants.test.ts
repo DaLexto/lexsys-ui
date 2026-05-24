@@ -40,4 +40,27 @@ describe("badgeVariants", () => {
       "text-(--lsys-badge-primary-foreground)",
     )
   })
+
+  test("maps success and warning variants through feedback tokens", () => {
+    const successClassName = badgeVariants({
+      variant: "success",
+      appearance: "solid",
+    })
+
+    expect(successClassName).toContain(
+      "bg-(--lsys-color-feedback-success-background)",
+    )
+    expect(successClassName).toContain(
+      "text-(--lsys-color-feedback-success-foreground)",
+    )
+
+    const warningClassName = badgeVariants({
+      variant: "warning",
+      appearance: "outline",
+    })
+
+    expect(warningClassName).toContain(
+      "text-(--lsys-color-feedback-warning-foreground)",
+    )
+  })
 })

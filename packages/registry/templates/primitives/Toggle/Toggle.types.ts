@@ -7,11 +7,13 @@ import type { Ref } from "react"
 
 import type { Toggle as BaseToggle } from "@base-ui/react/toggle"
 
+export type ToggleSize = "sm" | "md" | "lg"
+
 export interface ToggleProps extends Omit<
   BaseToggle.Props,
   "className" | "size"
 > {
   ref?: Ref<HTMLButtonElement>
-  size?: "sm" | "md" | "lg"
+  size?: ToggleSize
   className?: BaseToggle.Props["className"]
 }

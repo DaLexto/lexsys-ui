@@ -27,7 +27,7 @@ const Checkbox = ({
         {...props}
       >
         <BaseCheckbox.Indicator
-          className={cn("leading-none", indicatorClassName)}
+          className={mergeClassName("leading-none", indicatorClassName)}
         >
           {props.indeterminate ? "-" : "✓"}
         </BaseCheckbox.Indicator>

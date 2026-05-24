@@ -40,7 +40,7 @@ the correct layer directory:
 ```txt
 packages/ui/src/components/
   primitives/ComponentName/     ← 41 bundled primitives
-  blocks/ComponentName/         ← pilot: FormField, Sidebar
+  blocks/ComponentName/         ← pilot: FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette
   templates/ComponentName/      ← pilot: DashboardShell
 ```
 
@@ -89,27 +89,41 @@ const Badge = ({ ref, ...props }: BadgeProps) => {
 Base UI (`@base-ui/react`) provides headless accessibility primitives. It is an
 internal implementation detail.
 
+**Principle:** Base UI owns **behavior** (a11y, keyboard navigation, focus
+management, state machines, ARIA roles). Lexsys owns **everything else**
+(token-backed styling, CVA variants, TypeScript DX, sensible defaults).
+
 Rules:
 
 - Base UI components MUST be imported directly (e.g. `@base-ui/react/button`).
+- Lexsys MUST NOT reimplement behavior Base UI already provides.
+- Lexsys MUST NOT override Base UI a11y or interaction semantics.
 - Base UI types MAY be re-exported in `.types.ts` when they form part of the
   public prop surface (e.g. extending `Button.Props`).
 - Base UI types MUST NOT be exposed unintentionally through re-exports.
 - Do not add Base UI to the public `@lexsys/ui` API surface beyond the prop types that users need.
 
+### Wrapper checklist
+
+Every primitive wrapper MUST satisfy:
+
+| Check         | Base UI wrapper                                  | Lexsys-only HTML                   |
+| ------------- | ------------------------------------------------ | ---------------------------------- |
+| `className`   | `mergeClassName(base, className)`                | `cn(base, className)`              |
+| Prop `Omit`   | Only keys Lexsys replaces (e.g. `size`)          | Standard HTML attrs pass through   |
+| Helper types  | Export `ComponentVariant`, `ComponentSize`, etc. | Export variant unions when present |
+| Defaults      | Sensible `defaultVariants` in CVA                | Same                               |
+| `displayName` | Root + every compound sub-part                   | Same                               |
+
 ---
 
 ## `className` Contract
 
-Components that wrap Base UI primitives MUST handle `className` as a Base UI
-state function or plain string:
+Components that wrap Base UI primitives MUST use `mergeClassName` so consumers
+can pass `className` as a Base UI state function or plain string:
 
 ```tsx
-const buttonClassName: ButtonProps["className"] = (state) => {
-  const userClassName =
-    typeof className === "function" ? className(state) : className
-  return cn(buttonVariants({ variant, size }), userClassName)
-}
+className={mergeClassName(buttonVariants({ variant, size }), className)}
 ```
 
 Components that render plain HTML elements MAY merge `className` directly:
@@ -157,6 +171,8 @@ Use direct component token utilities instead (see `Badge.variants.ts`).
 
 - Component prop interfaces SHOULD extend the relevant Base UI Props type.
 - Custom props (e.g. `variant`, `size`, `isLoading`) MUST be added to the interface.
+- Export helper types for variant axes (e.g. `ButtonVariant`, `InputSize`) from
+  `.types.ts` for consumer DX.
 - `className` MUST be typed as `BaseComponent.Props["className"]` for Base UI wrappers,
   or as `string | undefined` for HTML element wrappers.
 

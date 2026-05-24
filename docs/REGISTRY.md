@@ -224,17 +224,17 @@ The CLI MUST NOT require format differences between local and remote sources.
 
 Valid `RegistryItemCategory` values:
 
-| Category       | Description                                           |
-| -------------- | ----------------------------------------------------- |
-| `actions`      | Buttons, toggles, interactive triggers                |
-| `forms`        | Inputs, checkboxes, selects, form primitives          |
-| `overlays`     | Dialogs, drawers, popovers, tooltips                  |
-| `navigation`   | Menus, tabs, pagination                               |
-| `feedback`     | Alerts, toasts, progress, meters                      |
-| `layout`       | Separators, containers, layout helpers                |
-| `data-display` | Avatars, badges, cards, data visualization            |
-| `utilities`    | Shared utility code                                   |
-| `blocks`       | Composed patterns (Sidebar, FormField, layout shells) |
+| Category       | Description                                                                                    |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| `actions`      | Buttons, toggles, interactive triggers                                                         |
+| `forms`        | Inputs, checkboxes, selects, form primitives                                                   |
+| `overlays`     | Dialogs, drawers, popovers, tooltips                                                           |
+| `navigation`   | Menus, tabs, pagination                                                                        |
+| `feedback`     | Alerts, toasts, progress, meters                                                               |
+| `layout`       | Separators, containers, layout helpers                                                         |
+| `data-display` | Avatars, badges, cards, data visualization                                                     |
+| `utilities`    | Shared utility code                                                                            |
+| `blocks`       | Composed patterns (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, layout shells) |
 
 ---
 

@@ -16,6 +16,7 @@ export const inputVariants = cva(
     "transition-colors duration-(--lsys-input-transition-duration) ease-(--lsys-input-transition-easing)",
     "outline-none focus-visible:border-(--lsys-input-focus-border-color) focus-visible:ring-(length:--lsys-input-focus-ring-width) focus-visible:ring-(--lsys-input-focus-ring-color) focus-visible:ring-offset-(length:--lsys-input-focus-ring-offset) focus-visible:ring-offset-(--lsys-input-focus-ring-offset-color)",
     "disabled:cursor-not-allowed",
+    "read-only:cursor-default read-only:bg-(--lsys-color-background-subtle) read-only:text-(--lsys-color-text-secondary)",
     disabledStateClasses,
     invalidStateClasses,
   ].join(" "),

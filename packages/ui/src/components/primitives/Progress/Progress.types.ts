@@ -8,12 +8,14 @@ import type { Ref } from "react"
 import type { ReactNode } from "react"
 import type { Progress as BaseProgress } from "@base-ui/react/progress"
 
+export type ProgressSize = "sm" | "md" | "lg"
+
 export interface ProgressProps extends Omit<
   BaseProgress.Root.Props,
   "className" | "children"
 > {
   ref?: Ref<HTMLDivElement>
-  size?: "sm" | "md" | "lg"
+  size?: ProgressSize
   label?: ReactNode
   className?: BaseProgress.Root.Props["className"]
   trackClassName?: BaseProgress.Track.Props["className"]

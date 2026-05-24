@@ -33,7 +33,7 @@ External project outside this monorepo (example: `D:\PLAYGROUND\sandbox-lexsys`)
 
 **Primary manual gate** before PRs that touch CLI, registry, templates, blocks/templates, or install artifacts.
 
-For **blocks/templates** changes (FormField, Sidebar, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
+For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 ### Practical workflow
 
@@ -88,7 +88,7 @@ Test files in `packages/ui/test/`:
 | `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**41 primitives**) |
 | `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**41/41 primitives**)     |
 
-Pilot blocks and templates (FormField, Sidebar, DashboardShell) live under
+Pilot blocks and templates (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell) live under
 `packages/ui/src/components/blocks/` and `templates/` but do **not** yet have
 render/variant tests in `@lexsys/ui` — verify in the consumer sandbox instead.
 
@@ -108,7 +108,7 @@ Test files in `packages/registry/test/`:
 | `validate-registry.test.ts`    | Registry manifest validation — required fields, template files, layer composition rules, block/template dependency constraints |
 | `registry-styles-sync.test.ts` | Registry style sync helpers — in-sync templates, stale content, missing template files                                         |
 
-Bundled registry: **44 installable UI items** (41 primitives + 3 pilot blocks/templates). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`.
+Bundled registry: **47 installable UI items** (41 primitives + 6 pilot blocks/templates). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`.
 
 Run:
 
@@ -205,8 +205,7 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-All **41 bundled primitives** and **pilot blocks/templates** (FormField, Sidebar,
-DashboardShell) have render smoke tests using `@testing-library/react` with Vitest
+All **41 bundled primitives** and **pilot blocks/templates** (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell) have render smoke tests using `@testing-library/react` with Vitest
 `jsdom` (`packages/ui/vitest.config.ts`).
 
 - Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.
@@ -232,7 +231,7 @@ Checklist after CLI or registry changes:
 **Post-publish npm smoke** (`npx @lexsys/cli@next init vite …`): CLI scaffolds with
 **npm** — use **`npm run build`** only ([DEPLOY.md § Phase 5](./DEPLOY.md#phase-5--post-publish-smoke-real-consumer)).
 
-**Blocks/templates checklist** (when FormField, Sidebar, or DashboardShell change):
+**Blocks/templates checklist** (when FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, or DashboardShell change):
 
 1. Fresh or updated install: `lexsys add dashboard-shell` (transitive closure — Sidebar + primitives).
 2. Confirm flat layout: `src/components/ui/DashboardShell/`, `src/components/ui/Sidebar/`, sibling import paths (no `blocks/` or `templates/` folders in consumer tree).

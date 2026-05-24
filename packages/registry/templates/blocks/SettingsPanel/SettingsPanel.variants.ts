@@ -5,5 +5,5 @@
  */
 
 export const settingsPanelVariants = (): string => {
-  return "lsys-settings-panel w-full"
+  return "lsys-settings-panel w-full text-(--lsys-color-text-primary)"
 }

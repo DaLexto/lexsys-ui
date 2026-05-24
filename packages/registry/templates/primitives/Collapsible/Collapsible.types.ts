@@ -7,12 +7,14 @@ import type { Ref } from "react"
 
 import type { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
 
+export type CollapsibleVariant = "surface" | "plain"
+
 export interface CollapsibleProps extends Omit<
   BaseCollapsible.Root.Props,
   "className"
 > {
   ref?: Ref<HTMLDivElement>
-  variant?: "surface" | "plain"
+  variant?: CollapsibleVariant
   className?: BaseCollapsible.Root.Props["className"]
 }
 

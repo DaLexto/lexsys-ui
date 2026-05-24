@@ -17,6 +17,12 @@ and later stable cuts target **`latest`**. See [docs/DEPLOY.md](./docs/DEPLOY.md
 
 ## [Unreleased]
 
+### Added
+
+- Pilot blocks **SettingsPanel**, **AuthForm**, **CommandPalette** (registry + CLI installable)
+- Primitive variant expansion: Button `ghost`/`outline`, Badge `success`/`warning`, Card `outlined`/`elevated`/`ghost`, Input `read-only` styling
+- Wrapper standardization contract in [docs/UI.md](./docs/UI.md) (Base UI behavior / Lexsys styling split)
+
 ### Planned
 
 - Stable **`0.1.0`** on dist-tag **`latest`**

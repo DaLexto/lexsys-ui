@@ -29,4 +29,14 @@ describe("cardVariants", () => {
     )
     expect(cardFooterClassName).toContain("gap-(--lsys-card-gap-md)")
   })
+
+  test("supports outlined, elevated, and ghost variants", () => {
+    expect(cardVariants({ variant: "outlined" })).toContain(
+      "border-(--lsys-border-strong)",
+    )
+    expect(cardVariants({ variant: "elevated" })).toContain(
+      "shadow-(--lsys-elevation-shadow-raised-box-shadow)",
+    )
+    expect(cardVariants({ variant: "ghost" })).toContain("bg-transparent")
+  })
 })

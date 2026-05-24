@@ -7,12 +7,14 @@ import type { Ref } from "react"
 
 import type { Switch as BaseSwitch } from "@base-ui/react/switch"
 
+export type SwitchSize = "sm" | "md" | "lg"
+
 export interface SwitchProps extends Omit<
   BaseSwitch.Root.Props,
   "className" | "children"
 > {
   ref?: Ref<HTMLElement>
-  size?: "sm" | "md" | "lg"
+  size?: SwitchSize
   className?: BaseSwitch.Root.Props["className"]
   thumbClassName?: BaseSwitch.Thumb.Props["className"]
 }

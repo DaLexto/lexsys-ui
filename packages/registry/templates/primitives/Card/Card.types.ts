@@ -7,12 +7,20 @@ import type { Ref } from "react"
 
 import type { HTMLAttributes } from "react"
 
+export type CardVariant =
+  | "surface"
+  | "muted"
+  | "default"
+  | "outlined"
+  | "elevated"
+  | "ghost"
+
 export interface CardProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "className"
 > {
   ref?: Ref<HTMLDivElement>
-  variant?: "surface" | "muted"
+  variant?: CardVariant
   className?: string
 }
 

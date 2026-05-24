@@ -26,6 +26,10 @@ export const buttonVariants = cva(
           "border-(--lsys-button-primary-border-color) bg-(--lsys-button-primary-background) text-(--lsys-button-primary-foreground) hover:bg-(--lsys-button-primary-hover-background)",
         secondary:
           "border-(--lsys-button-secondary-border-color) bg-(--lsys-button-secondary-background) text-(--lsys-button-secondary-foreground) hover:bg-(--lsys-button-secondary-hover-background)",
+        ghost:
+          "border-transparent bg-transparent text-(--lsys-button-secondary-foreground) hover:bg-(--lsys-button-secondary-hover-background)",
+        outline:
+          "border-(--lsys-button-secondary-border-color) bg-transparent text-(--lsys-button-secondary-foreground) hover:bg-(--lsys-button-secondary-hover-background)",
         danger:
           "border-(--lsys-button-danger-border-color) bg-(--lsys-button-danger-background) text-(--lsys-button-danger-foreground) hover:bg-(--lsys-button-danger-hover-background)",
       },

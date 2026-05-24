@@ -14,12 +14,16 @@ export interface FieldProps extends Omit<BaseField.Root.Props, "className"> {
 
 export type FieldLabelProps = BaseField.Label.Props
 
+export type FieldControlVariant = "default" | "ghost"
+
+export type FieldControlSize = "sm" | "md" | "lg"
+
 export interface FieldControlProps extends Omit<
   BaseField.Control.Props,
   "aria-invalid" | "className" | "size"
 > {
-  variant?: "default" | "ghost"
-  size?: "sm" | "md" | "lg"
+  variant?: FieldControlVariant
+  size?: FieldControlSize
   isInvalid?: boolean
   "aria-invalid"?: boolean | "true" | "false" | "grammar" | "spelling"
   className?: BaseField.Control.Props["className"]

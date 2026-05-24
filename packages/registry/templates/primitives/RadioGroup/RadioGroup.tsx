@@ -50,7 +50,7 @@ const RadioGroupItem = ({
         {...props}
       >
         <Radio.Indicator
-          className={cn(
+          className={mergeClassName(
             radioGroupIndicatorVariants({ size }),
             indicatorClassName,
           )}

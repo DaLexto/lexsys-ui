@@ -16,8 +16,8 @@ The current implementation focuses on supported consumer starters:
 - Tailwind v4 wiring for Vite and Next.js consumers
 - token and theme CSS installation
 - a growing Base UI-backed component catalog: **41 primitives** plus pilot
-  **blocks** (FormField, Sidebar) and **template** (DashboardShell) — see
-  [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)
+  **blocks** (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette) and
+  **template** (DashboardShell) — see [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification
 

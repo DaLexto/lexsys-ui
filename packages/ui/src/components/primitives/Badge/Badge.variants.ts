@@ -24,6 +24,18 @@ const dangerSolid =
 const dangerOutline =
   "border-(--lsys-badge-danger-border-color) bg-(--lsys-badge-outline-background) text-(--lsys-badge-danger-border-color)"
 
+const successSolid =
+  "border-(--lsys-color-feedback-success-foreground) bg-(--lsys-color-feedback-success-background) text-(--lsys-color-feedback-success-foreground)"
+
+const successOutline =
+  "border-(--lsys-color-feedback-success-foreground) bg-(--lsys-badge-outline-background) text-(--lsys-color-feedback-success-foreground)"
+
+const warningSolid =
+  "border-(--lsys-color-feedback-warning-foreground) bg-(--lsys-color-feedback-warning-background) text-(--lsys-color-feedback-warning-foreground)"
+
+const warningOutline =
+  "border-(--lsys-color-feedback-warning-foreground) bg-(--lsys-badge-outline-background) text-(--lsys-color-feedback-warning-foreground)"
+
 export const badgeVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap border",
@@ -35,6 +47,8 @@ export const badgeVariants = cva(
       variant: {
         neutral: "",
         primary: "",
+        success: "",
+        warning: "",
         danger: "",
       },
       appearance: {
@@ -51,6 +65,10 @@ export const badgeVariants = cva(
       { variant: "neutral", appearance: "outline", class: neutralOutline },
       { variant: "primary", appearance: "solid", class: primarySolid },
       { variant: "primary", appearance: "outline", class: primaryOutline },
+      { variant: "success", appearance: "solid", class: successSolid },
+      { variant: "success", appearance: "outline", class: successOutline },
+      { variant: "warning", appearance: "solid", class: warningSolid },
+      { variant: "warning", appearance: "outline", class: warningOutline },
       { variant: "danger", appearance: "solid", class: dangerSolid },
       { variant: "danger", appearance: "outline", class: dangerOutline },
     ],

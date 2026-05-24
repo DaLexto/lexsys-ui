@@ -2,7 +2,7 @@
 
 **Audience:** Maintainers and consumers  
 **Type:** Domain specification  
-**Status:** Primitives shipped (41); pilot blocks (FormField, Sidebar) and template (DashboardShell) shipped — optimization pass largely complete (sandbox QA ongoing)  
+**Status:** Primitives shipped (41); pilot blocks (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette) and template (DashboardShell) shipped — optimization pass largely complete (sandbox QA ongoing)  
 **Source of truth for:** Install layers, composition rules, monorepo vs consumer layout  
 **Verified against:** `packages/ui`, `packages/registry`, `packages/cli`, consumer sandbox
 
@@ -46,7 +46,7 @@ Do not use atoms/molecules/organisms in Lexsys docs or CLI copy — those names 
 
 ```txt
 primitives/     ← 41 shipped primitives
-blocks/         ← FormField, SettingsPanel, Sidebar (pilot)
+blocks/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette (pilot)
 templates/      ← DashboardShell (pilot)
 ```
 
@@ -126,13 +126,13 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 
 ## Block catalog
 
-| Block          | Status  | Depends on                  |
-| -------------- | ------- | --------------------------- |
-| FormField      | pilot   | field, input                |
-| SettingsPanel  | pilot   | card                        |
-| Sidebar        | pilot   | button, drawer, scroll-area |
-| AuthForm       | planned | —                           |
-| CommandPalette | planned | —                           |
+| Block          | Status | Depends on                            |
+| -------------- | ------ | ------------------------------------- |
+| FormField      | pilot  | field, input                          |
+| SettingsPanel  | pilot  | card                                  |
+| Sidebar        | pilot  | button, drawer, scroll-area           |
+| AuthForm       | pilot  | card, input, button, separator        |
+| CommandPalette | pilot  | dialog, input, scroll-area, separator |
 
 ## Template catalog
 
@@ -197,7 +197,7 @@ Each follows the three-file contract (`.tsx`, `.types.ts`, `.variants.ts`). Toke
 
 ### Blocks — pilot shipped
 
-FormField, SettingsPanel, Sidebar — registry + CLI installable; sandbox QA in progress.
+FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette — registry + CLI installable; sandbox QA in progress.
 
 ### Templates — pilot shipped
 

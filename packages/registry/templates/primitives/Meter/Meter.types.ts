@@ -8,12 +8,14 @@ import type { Ref } from "react"
 import type { ReactNode } from "react"
 import type { Meter as BaseMeter } from "@base-ui/react/meter"
 
+export type MeterSize = "sm" | "md" | "lg"
+
 export interface MeterProps extends Omit<
   BaseMeter.Root.Props,
   "className" | "size"
 > {
   ref?: Ref<HTMLDivElement>
-  size?: "sm" | "md" | "lg"
+  size?: MeterSize
   label?: ReactNode
   showValue?: boolean
   className?: BaseMeter.Root.Props["className"]
@@ -27,7 +29,7 @@ export interface MeterTrackProps extends Omit<
   BaseMeter.Track.Props,
   "className" | "size"
 > {
-  size?: "sm" | "md" | "lg"
+  size?: MeterSize
   className?: BaseMeter.Track.Props["className"]
 }
 

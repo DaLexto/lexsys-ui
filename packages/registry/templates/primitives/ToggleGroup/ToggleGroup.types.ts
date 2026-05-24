@@ -7,11 +7,13 @@ import type { Ref } from "react"
 
 import type { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group"
 
+export type ToggleGroupSize = "sm" | "md" | "lg"
+
 export interface ToggleGroupProps<Value extends string = string> extends Omit<
   BaseToggleGroup.Props<Value>,
   "className" | "size"
 > {
   ref?: Ref<HTMLDivElement>
-  size?: "sm" | "md" | "lg"
+  size?: ToggleGroupSize
   className?: BaseToggleGroup.Props<Value>["className"]
 }

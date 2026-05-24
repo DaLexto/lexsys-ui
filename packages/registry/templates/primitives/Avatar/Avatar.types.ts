@@ -7,13 +7,17 @@ import type { Ref } from "react"
 
 import type { Avatar as BaseAvatar } from "@base-ui/react/avatar"
 
+export type AvatarSize = "sm" | "md" | "lg"
+
+export type AvatarShape = "circle" | "square"
+
 export interface AvatarProps extends Omit<
   BaseAvatar.Root.Props,
   "className" | "size"
 > {
   ref?: Ref<HTMLSpanElement>
-  size?: "sm" | "md" | "lg"
-  shape?: "circle" | "square"
+  size?: AvatarSize
+  shape?: AvatarShape
   className?: BaseAvatar.Root.Props["className"]
 }
 

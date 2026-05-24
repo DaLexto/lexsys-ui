@@ -24,6 +24,20 @@ describe("buttonVariants", () => {
     expect(className).toContain("h-(--lsys-button-height-lg)")
   })
 
+  test("maps ghost and outline variants through component tokens", () => {
+    const ghostClassName = buttonVariants({ variant: "ghost" })
+    expect(ghostClassName).toContain("bg-transparent")
+    expect(ghostClassName).toContain(
+      "text-(--lsys-button-secondary-foreground)",
+    )
+
+    const outlineClassName = buttonVariants({ variant: "outline" })
+    expect(outlineClassName).toContain(
+      "border-(--lsys-button-secondary-border-color)",
+    )
+    expect(outlineClassName).toContain("bg-transparent")
+  })
+
   test("maps danger variant through component tokens", () => {
     const className = buttonVariants({ variant: "danger" })
 

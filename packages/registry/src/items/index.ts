@@ -43,6 +43,8 @@ import { sidebarRegistryItem } from "./sidebar.js"
 import { autocompleteRegistryItem } from "./autocomplete.js"
 import { checkboxGroupRegistryItem } from "./checkbox-group.js"
 import { comboboxRegistryItem } from "./combobox.js"
+import { authFormRegistryItem } from "./auth-form.js"
+import { commandPaletteRegistryItem } from "./command-palette.js"
 import { otpFieldRegistryItem } from "./otp-field.js"
 
 export { accordionRegistryItem } from "./accordion.js"
@@ -90,6 +92,8 @@ export { scrollAreaRegistryItem } from "./scroll-area.js"
 export { autocompleteRegistryItem } from "./autocomplete.js"
 export { checkboxGroupRegistryItem } from "./checkbox-group.js"
 export { comboboxRegistryItem } from "./combobox.js"
+export { authFormRegistryItem } from "./auth-form.js"
+export { commandPaletteRegistryItem } from "./command-palette.js"
 export { otpFieldRegistryItem } from "./otp-field.js"
 export const registryItems: RegistryItem[] = [
   accordionRegistryItem,
@@ -130,6 +134,8 @@ export const registryItems: RegistryItem[] = [
   tooltipRegistryItem,
   scrollAreaRegistryItem,
   formFieldRegistryItem,
+  authFormRegistryItem,
+  commandPaletteRegistryItem,
   settingsPanelRegistryItem,
   sidebarRegistryItem,
   dashboardShellRegistryItem,

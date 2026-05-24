@@ -15,9 +15,7 @@ describe("SettingsPanel render", () => {
     )
 
     expect(screen.getByRole("heading", { name: "Profile" })).toBeInTheDocument()
-    expect(
-      screen.getByText("Update your account details."),
-    ).toBeInTheDocument()
+    expect(screen.getByText("Update your account details.")).toBeInTheDocument()
     expect(screen.getByText("Form content")).toBeInTheDocument()
 
     const panel = screen.getByText("Form content").closest(".custom-panel")
@@ -26,7 +24,10 @@ describe("SettingsPanel render", () => {
 
   it("renders optional footer actions", () => {
     render(
-      <SettingsPanel title="Notifications" footer={<button type="button">Save</button>}>
+      <SettingsPanel
+        title="Notifications"
+        footer={<button type="button">Save</button>}
+      >
         Toggle settings
       </SettingsPanel>,
     )

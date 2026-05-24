@@ -7,12 +7,14 @@ import type { Ref } from "react"
 
 import type { Fieldset as BaseFieldset } from "@base-ui/react/fieldset"
 
+export type FieldsetVariant = "surface" | "plain"
+
 export interface FieldsetProps extends Omit<
   BaseFieldset.Root.Props,
   "className"
 > {
   ref?: Ref<HTMLFieldSetElement>
-  variant?: "surface" | "plain"
+  variant?: FieldsetVariant
   className?: BaseFieldset.Root.Props["className"]
 }
 
