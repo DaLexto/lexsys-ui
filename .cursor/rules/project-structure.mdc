@@ -48,8 +48,9 @@ neurex/
 | `DESIGN_SYSTEM.md` | Design system overview |
 | `DEPLOY.md` | Build and distribution |
 | `ROADMAP.md` | Long-term tokens platform direction (future work) |
+| `UI_COMPOSITION.md` | UI composition model (primitives → blocks → templates) |
 | `RESOLVER_EVOLUTION.md` | Token resolver roadmap |
-| `docs/REVIEW_TODO.md` | Review backlog |
+| `REVIEW_TODO.md` | Review backlog |
 
 ---
 
@@ -130,7 +131,8 @@ packages/tokens/
 
 ## `packages/ui`
 
-Reference implementations. Each component is a **PascalCase folder** with:
+Reference implementations organized in three composition layers. Each item is a
+**PascalCase folder** with:
 
 - `ComponentName.tsx`
 - `ComponentName.types.ts`
@@ -139,16 +141,21 @@ Reference implementations. Each component is a **PascalCase folder** with:
 ```
 packages/ui/
 ├── src/
-│   ├── index.ts
-│   ├── utils/            # Shared UI utilities
-│   └── components/       # 32 component folders (see list below)
-├── vitest.config.ts      # Vitest project config (jsdom)
+│   ├── index.ts              # Public API — 32 primitives exported today
+│   ├── utils/                # Shared UI utilities
+│   └── components/
+│       ├── primitives/       # 32 bundled primitives
+│       ├── blocks/           # Pilot: FormField, Sidebar
+│       └── templates/        # Pilot: DashboardShell
+├── vitest.config.ts          # Vitest project config (jsdom)
 └── test/
     ├── public-api.test.ts
-    └── components/<Name>/   # Variant tests per component
+    └── components/<Name>/    # Variant + render tests (primitives only)
 ```
 
-**Components:** Accordion, Alert, AlertDialog, Avatar, Badge, Button, Card, Checkbox, Collapsible, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Meter, NumberField, Popover, Progress, RadioGroup, ScrollArea, Select, Separator, Slider, Switch, Tabs, Textarea, Toast, Toggle, ToggleGroup, Tooltip.
+**Primitives:** Accordion, Alert, AlertDialog, Avatar, Badge, Button, Card, Checkbox, Collapsible, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Meter, NumberField, Popover, Progress, RadioGroup, ScrollArea, Select, Separator, Slider, Switch, Tabs, Textarea, Toast, Toggle, ToggleGroup, Tooltip.
+
+**Pilot blocks/templates:** FormField, Sidebar, DashboardShell — registry + CLI installable; sandbox QA in progress. See [UI_COMPOSITION.md](../../docs/UI_COMPOSITION.md).
 
 Base UI (`@base-ui/react`) is internal; preserve accessibility when editing.
 
@@ -169,11 +176,15 @@ packages/registry/
 │   ├── styles/           # Registry style entries (e.g. theme.ts)
 │   └── utilities/        # Shared utility metadata (e.g. cn.ts)
 ├── templates/
-│   ├── components/<Name>/   # Files copied into user projects (mirrors ui layout)
-│   ├── shared/utils/          # e.g. cn.ts
-│   └── styles/                # tokens.css, theme.css templates
+│   ├── primitives/<Name>/   # Primitive install templates
+│   ├── blocks/<Name>/       # Block install templates
+│   ├── templates/<Name>/    # Template install templates
+│   ├── shared/utils/        # e.g. cn.ts
+│   └── styles/              # tokens.css, theme.css templates
 ├── scripts/
-│   ├── sync-component-templates.mjs   # Sync ui → templates
+│   ├── sync-component-templates.mjs   # Sync ui primitives → templates
+│   ├── sync-block-templates.mjs       # Sync ui blocks/templates → templates
+│   ├── sync-all-templates.mjs         # Run both sync scripts
 │   ├── check-registry-styles-sync.mjs # Verify style templates vs token output
 │   ├── lib/registry-styles-sync.mjs   # Shared compare helpers for style sync
 │   └── registry-item-generator.mjs
@@ -251,14 +262,14 @@ Rules: idempotent installs, no silent overwrites, clear conflict reporting.
 | Token values / layers | `packages/tokens/src/` |
 | Semantic organization / audit | `packages/tokens/src/engine/governance/`, `docs/TOKENS.md` |
 | Generated CSS | Build pipeline only (`packages/tokens` build) |
-| Component behavior (reference) | `packages/ui/src/components/` |
-| What gets installed / paths | `packages/registry/src/items/` + `templates/` |
+| Component behavior (reference) | `packages/ui/src/components/{primitives,blocks,templates}/` |
+| What gets installed / paths | `packages/registry/src/items/` + `templates/`; consumer flat `paths.components` |
 | Install/init/update behavior | `packages/cli/src/` |
 | Visual verification (monorepo smoke) | `apps/playground/` — maintenance-only; consumer truth in external sandbox ([TESTING.md](../../docs/TESTING.md#verification-surfaces)) |
 | Maintainer workflow | `AGENTS.md` § Change workflow; branch off `dev`, PR to `dev` last |
 | Architecture contracts | `docs/` + `AGENTS.md` |
 
-After editing `packages/ui` components, run `pnpm registry:sync` to refresh registry templates when templates should match UI.
+After editing `packages/ui` components, run `pnpm registry:sync` to refresh registry templates when templates should match UI (primitives + blocks/templates).
 
 After editing overlay `*.variants.ts` stacking/shadow classes or component elevation tokens, sync registry templates and run `pnpm tokens:check`.
 

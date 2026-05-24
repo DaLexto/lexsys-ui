@@ -2,8 +2,9 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; M4
-release readiness **planned** — see phase table below for current vs future work  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
+composition pilots **shipped** (PR #28); M4 release readiness **planned**; blocks/templates
+optimization **planned** — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -372,7 +373,7 @@ Original per-phase sketch (reference if splitting future work):
 - `docs/DEPLOY.md` owns release and build contract.
 - `docs/UI_VARIANTS.md` owns the canonical UI variant prop contract and CVA rules.
 - `docs/UI_AUDIT.md` owns the per-component compliance inventory.
-- `docs/ATOMIC_DESIGN.md` owns the UI layer model (primitives → blocks → templates → pages).
+- `docs/UI_COMPOSITION.md` owns the UI composition model (primitives → blocks → templates → pages).
 
 ## UI polish track (post-M3)
 
@@ -382,34 +383,39 @@ and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes
 
 ---
 
-## UI composition — three layers (in progress)
+## UI composition — three layers (pilots shipped)
 
-**Status:** in progress — 32 primitives shipped under legacy `ui/` path; migration to `primitives/blocks/templates` folders is active on `feat/ui-layers-primitives-blocks-templates`.
+**Status:** **PR #28** merged to `dev`. Monorepo reference layout uses
+`primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
+`paths.components` (`src/components/ui/<CanonicalName>/` with import rewrite).
+Pilot blocks (FormField, Sidebar) and template (DashboardShell) are registry +
+CLI installable — **optimization pass open** (BO.1–BO.7).
 
 Neurex uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
-| Layer      | Neurex today                            | Target                                    |
-| ---------- | --------------------------------------- | ----------------------------------------- |
-| Primitives | Shipped (32 components + tokens + `cn`) | `src/components/primitives/`              |
-| Blocks     | Consumer composes manually              | Registry blocks (Sidebar, FormField, …)   |
-| Templates  | Consumer layout CSS                     | Registry templates (DashboardTemplate, …) |
-| Pages      | Consumer-owned                          | Always consumer-owned                     |
+| Layer      | Monorepo reference                      | Consumer install (`neurex add`)               |
+| ---------- | --------------------------------------- | --------------------------------------------- |
+| Primitives | Shipped (32 components + tokens + `cn`) | `src/components/ui/<CanonicalName>/`          |
+| Blocks     | Pilot (FormField, Sidebar)              | Same flat path; cross-layer imports rewritten |
+| Templates  | Pilot (DashboardShell)                  | Same flat path                                |
+| Pages      | —                                       | Always consumer-owned                         |
 
 Canonical mapping, composition rules, folder layout, and CLI contract:
-[ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md).
+[UI_COMPOSITION.md](./UI_COMPOSITION.md).
 
 ### UI composition track
 
-Status: **in progress** — sandbox primitive QA verified (PR #26). **Active:** UC.1 path contract + registry validators; then `ui/` → `primitives/` migration and CLI `item.target` install.
+| Step | Outcome                                                                                        | Status            |
+| ---- | ---------------------------------------------------------------------------------------------- | ----------------- |
+| 1    | Layer docs + registry composition validators                                                   | **shipped**       |
+| 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite) | **shipped** (#28) |
+| 3    | Pilot blocks + template + sandbox verify                                                       | **in progress**   |
+| 4    | Blocks/templates optimization (BO.1–BO.7)                                                      | planned           |
+| 5    | Additional blocks/templates beyond pilot set                                                   | planned           |
 
-| Sub-item | Outcome                                                                       |
-| -------- | ----------------------------------------------------------------------------- |
-| UC.1     | Layer docs + registry path/compose validators (`primitives/blocks/templates`) |
-| UC.2     | Pilot blocks (FormField, Sidebar)                                             |
-| UC.3     | Template shell (DashboardTemplate) + sandbox migration                        |
-| UC.4     | CLI `list` by layer, `--with-deps` uninstall, transitive install tests        |
-
-**Optimization pass (deferred):** sandbox QA on `feat/ui-layers-primitives-blocks-templates` found mobile Sidebar drawer nav overlap and invalid “primitives-ready → blocks-ready” assumption. Tracked as BO.1–BO.7 in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
+**Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
+layout issues and invalidated “primitives-ready → blocks-ready” without integration
+testing. Tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 

@@ -15,8 +15,9 @@ The current implementation focuses on supported consumer starters:
 - Next.js App Router setup through `neurex init next` (pinned Next.js 15.3.3)
 - Tailwind v4 wiring for Vite and Next.js consumers
 - token and theme CSS installation
-- a growing Base UI-backed component catalog, including actions, forms,
-  overlays, feedback, and layout primitives
+- a growing Base UI-backed component catalog: **32 primitives** plus pilot
+  **blocks** (FormField, Sidebar) and **template** (DashboardShell) — see
+  [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification
 
@@ -55,7 +56,12 @@ neurex add input
 neurex add card
 neurex add select
 neurex add dialog
+neurex add dashboard-shell   # template + transitive deps (Sidebar, primitives, …)
+neurex list                  # grouped by layer: Primitives, Blocks, Templates
 ```
+
+All layers install flat under `paths.components` (default `src/components/ui/`).
+The CLI rewrites cross-layer imports to sibling paths on install.
 
 Component files are installed as editable source code. Shared utilities go
 under `src/lib` and token/theme CSS goes under `styles`:
@@ -66,33 +72,40 @@ src/components/ui/Button/
 ├── Button.types.ts
 └── Button.variants.ts
 
+src/components/ui/Sidebar/          ← block (same flat root as primitives)
+src/components/ui/DashboardShell/   ← template
+
 src/lib/utils.ts
 styles/tokens.css
 styles/theme.css
 neurex.config.json
 ```
 
-The generated config tracks paths, aliases, Tailwind v4 entrypoint, selected
+The generated config tracks `paths`, aliases, Tailwind v4 entrypoint, selected
 CLI style alias, installed component versions, and an optional remote registry
 URL:
 
 ```json
 {
   "style": "default",
-  "componentsPath": "src/components/ui",
-  "utilitiesPath": "src/lib",
-  "stylesPath": "styles",
+  "paths": {
+    "components": "src/components/ui",
+    "utilities": "src/lib",
+    "styles": "styles"
+  },
   "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
+    "components": "@/components/ui",
     "ui": "@/components/ui",
+    "utils": "@/lib/utils",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
   "tailwind": {
     "version": "v4",
     "css": "src/style.css"
-  }
+  },
+  "installed": {},
+  "registryUrl": null
 }
 ```
 
@@ -131,22 +144,23 @@ The install flow is:
 
 ```txt
 packages/tokens   →  generated CSS (tokens.css, theme.css)
-packages/ui       →  source/reference components
+packages/ui       →  reference primitives, blocks, templates
 packages/registry →  installable templates + metadata
 packages/cli      →  reads registry, installs into consumer project
                            ↓
-                   consumer project (user-owned code)
+                   consumer project (user-owned code, flat ui/ install)
 ```
 
 Package responsibilities:
 
 - `packages/tokens` — token source, generated CSS outputs, and DTCG artifacts
-- `packages/ui` — source/reference components (not what the CLI ships to users)
+- `packages/ui` — reference primitives, blocks, and templates (not what the CLI ships to users)
 - `packages/registry` — installable templates and metadata
 - `packages/cli` — installs registry items into user projects
 - `apps/playground` — optional monorepo smoke (maintenance-only); consumer validation uses external sandbox — see [docs/TESTING.md](docs/TESTING.md#verification-surfaces)
 
-See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) for the full system design.
+See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) and
+[docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) for the full system design.
 
 ## CLI
 
@@ -161,7 +175,7 @@ neurex update [components...] | --all
 neurex list [--json]
 neurex status
 neurex doctor
-neurex uninstall [components...]
+neurex uninstall [components...] [--with-deps]
 neurex registry [--summary | --source | --local | --remote]
 neurex config [--path | --exists | --set-registry-url <url> | --clear-registry-url]
 neurex version
@@ -175,12 +189,14 @@ Stable enough to build against in the MVP:
 
 - `neurex init vite [directory]` and `neurex init next [directory]`
 - `neurex init` inside supported Vite apps
-- `neurex add <component>` for bundled local registry items
+- `neurex add <component>` for bundled local registry items (primitives, pilot blocks/templates)
+- `neurex list` grouped by install layer (Primitives, Blocks, Templates)
+- `neurex uninstall --with-deps` to remove registry orphans after uninstall
 - `neurex update`, `neurex update --all`, and `neurex update --sync` /
   `--utilities` / `--styles` for tracked components and shared resources
 - default config paths and aliases
 - Tailwind v4 CSS entrypoint wiring
-- installed component ownership under `src/components/ui`
+- installed component ownership under `paths.components` (default `src/components/ui`)
 - token/theme CSS install under `styles/tokens.css` and `styles/theme.css`
 
 Internal or still evolving:
@@ -188,6 +204,7 @@ Internal or still evolving:
 - token authoring internals in `packages/tokens`
 - registry item generation internals
 - update conflict resolution and migration tooling
+- blocks/templates pilot quality and mobile composition QA — see [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)
 - remote registry hosting and version policy
 - additional CLI style aliases or token presets beyond `default` / `neurex`
 
@@ -199,14 +216,15 @@ Planned but not current API:
 
 ## Maintainers
 
-| Doc                                            | Purpose                                                      |
-| ---------------------------------------------- | ------------------------------------------------------------ |
-| [docs/ROADMAP.md](./docs/ROADMAP.md)           | Long-term direction and monorepo optimization phases (M1–M7) |
-| [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)   | Active execution queue and known gaps                        |
-| [docs/SCRIPTS.md](./docs/SCRIPTS.md)           | Monorepo `pnpm` script names and CI reference                |
-| [docs/TESTING.md](./docs/TESTING.md)           | Test coverage and verification workflows                     |
-| [CONTRIBUTING.md](./CONTRIBUTING.md)           | Branch, check, and commit expectations                       |
-| [.agent/CONTINUITY.md](./.agent/CONTINUITY.md) | Short-form agent/maintainer state                            |
+| Doc                                                | Purpose                                                      |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) | Primitives → blocks → templates install model                |
+| [docs/ROADMAP.md](./docs/ROADMAP.md)               | Long-term direction and monorepo optimization phases (M1–M7) |
+| [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)       | Active execution queue and known gaps                        |
+| [docs/SCRIPTS.md](./docs/SCRIPTS.md)               | Monorepo `pnpm` script names and CI reference                |
+| [docs/TESTING.md](./docs/TESTING.md)               | Test coverage and verification workflows                     |
+| [CONTRIBUTING.md](./CONTRIBUTING.md)               | Branch, check, and commit expectations                       |
+| [.agent/CONTINUITY.md](./.agent/CONTINUITY.md)     | Short-form agent/maintainer state                            |
 
 ## Development
 
@@ -234,9 +252,10 @@ For CLI/registry install verification, use an external consumer sandbox — see 
 
 ## Status
 
-Neurex is not production-ready yet. Vite and Next.js install flows are working
-and the project is expanding the Base UI-backed component foundation (32 bundled
-components).
+Neurex is not production-ready yet. Vite and Next.js install flows are working;
+the catalog includes 32 bundled primitives plus pilot blocks and templates
+(FormField, Sidebar, DashboardShell). Blocks/templates are installable but not
+yet marked stable — see [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md).
 
 ## Inspiration
 

@@ -25,6 +25,8 @@ that are not yet done.
 | M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)               | shipped |
+| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
+| BO      | Blocks/templates optimization (BO.1–BO.7)                           | planned |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
@@ -66,10 +68,11 @@ The P0 and P1 implementation passes are complete:
 - Per-package `vitest.config.ts` for Vitest VS Code extension discovery (Vitest 4; no root workspace file)
 - UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI_VARIANTS.md](./UI_VARIANTS.md))
 - Post–PR #24 ship (PR #25, `af729d5`): CLI `--sync` / `--utilities`, overlay token semantics, blocking `ui:audit`, full variant token sweep ([UI_VARIANTS.md](./UI_VARIANTS.md), [CLI.md](./CLI.md))
-- Sandbox atom QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md) composition track
+- Sandbox primitive QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [UI_COMPOSITION.md](./UI_COMPOSITION.md) composition track
 - Consumer sandbox verify (PR #26 artifacts): `neurex update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
+- UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled components.
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled primitives, and pilot blocks/templates (FormField, Sidebar, DashboardShell).
 
 Known gaps below.
 
@@ -79,26 +82,25 @@ Known gaps below.
 
 ### UI composition (primitives / blocks / templates)
 
-Canonical layer model: [docs/ATOMIC_DESIGN.md](./ATOMIC_DESIGN.md). Roadmap sequencing:
-[ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--three-layers-in-progress).
+Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Roadmap sequencing:
+[ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--three-layers-pilots-shipped).
 
-**Today:** 32 primitives shipped (legacy install path `src/components/ui/`). Consumer sandbox verified PR #26 install artifacts. Blocks and templates are still composed manually in consumer apps.
+**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `neurex add`-installable. Sandbox QA and optimization pass open (BO.1–BO.7).
 
-**Target:** optional registry **blocks** and **templates** so consumers can `neurex add` composed patterns
-or still compose primitives only. **`neurex add <name>`** installs the transitive closure via `registryDependencies`; install path comes from `item.target` (`primitives/`, `blocks/`, or `templates/`).
+**Target:** expand registry **blocks** and **templates** beyond the pilot set; mark pilots stable after optimization pass. **`neurex add <name>`** installs the transitive closure via `registryDependencies`; `item.target` resolves to the flat components root (monorepo templates still live under `primitives/`, `blocks/`, or `templates/` source folders).
 
-| Item | Layer     | Status      | Notes                                                                                                                                             |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UC.1 | All       | in progress | Layer docs + validators; drop `atomicLayer`; paths `primitives/blocks/templates`                                                                  |
-| UC.2 | Blocks    | in progress | Pilot FormField, Sidebar — **sandbox QA found gaps** (see [Blocks/templates optimization backlog](#blocks--templates-optimization-backlog) below) |
-| UC.3 | Templates | in progress | DashboardShell pilot — mobile/responsive gaps; migrate sandbox layout where appropriate                                                           |
-| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                                                                                         |
-| UC.5 | CLI       | planned     | `paths` config, `item.target` install, `list` by layer, `--with-deps` uninstall                                                                   |
-| UC.6 | Tests     | planned     | Transitive install smoke tests; registry composition validator                                                                                    |
+| Item | Layer     | Status      | Notes                                                                                                                                                     |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UC.1 | All       | shipped     | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`                                           |
+| UC.2 | Blocks    | in progress | Pilot FormField, Sidebar shipped — **sandbox QA found gaps** (see [Blocks/templates optimization backlog](#blocks--templates-optimization-backlog) below) |
+| UC.3 | Templates | in progress | DashboardShell pilot shipped — mobile/responsive gaps; migrate sandbox layout where appropriate                                                           |
+| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                                                                                                 |
+| UC.5 | CLI       | shipped     | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)                                         |
+| UC.6 | Tests     | in progress | Closure, import-rewrite, and install-target unit tests shipped; block/template install e2e smoke still thin                                               |
 
 ### Blocks / templates optimization backlog
 
-**Context:** Consumer sandbox (PulseDesk SaaS demo, `feat/ui-layers-primitives-blocks-templates`) exposed that **blocks/templates are not “organization-only” quality**. Primitives were assumed production-ready when composing blocks; that assumption is **not validated** for composed/mobile flows.
+**Context:** Consumer sandbox (PulseDesk SaaS demo) QA during PR #28 exposed that **blocks/templates are not “organization-only” quality**. Primitives were assumed production-ready when composing blocks; that assumption is **not validated** for composed/mobile flows.
 
 **Do not ship blocks/templates as stable until this pass completes** (or items below are explicitly waived).
 
@@ -114,7 +116,7 @@ or still compose primitives only. **`neurex add <name>`** installs the transitiv
 
 **Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `neurex add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 
-**Related fixes already landed (same branch, not optimization-complete):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring.
+**Related fixes already landed (PR #28, optimization incomplete):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring.
 
 ---
 

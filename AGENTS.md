@@ -35,7 +35,7 @@ This monorepo contains the following packages:
   - token resolution and theme generation
 
 - `packages/ui`
-  - source/reference component implementations
+  - source/reference implementations (primitives, blocks, templates)
   - not the final distributed form
 
 - `packages/registry`
@@ -54,16 +54,16 @@ Do not blur responsibilities between packages.
 
 Canonical policy: [docs/TESTING.md § Verification surfaces](./docs/TESTING.md#verification-surfaces).
 
-| Surface                   | Model                                    | Policy                              | Maintainer focus                                              |
-| ------------------------- | ---------------------------------------- | ----------------------------------- | ------------------------------------------------------------- |
-| `apps/playground`         | Workspace `@neurex/ui` + built token CSS | **Maintenance-only** monorepo smoke | **~10–20%** — optional wiring check                           |
-| External consumer sandbox | `neurex add` → user-owned templates/CSS  | **Consumer truth**                  | **~80–90%** — CLI, install UX, design sign-off                |
-| Your SaaS (future)        | CLI-installed consumer app               | Primary product surface             | Replaces sandbox for UX; sandbox stays minimal CLI regression |
+| Surface                   | Model                                          | Policy                              | Maintainer focus                                                |
+| ------------------------- | ---------------------------------------------- | ----------------------------------- | --------------------------------------------------------------- |
+| `apps/playground`         | Workspace `@neurex/ui` primitives + token CSS  | **Maintenance-only** monorepo smoke | **~10–20%** — optional wiring check                             |
+| External consumer sandbox | `neurex add` → flat `paths.components/<Name>/` | **Consumer truth**                  | **~80–90%** — CLI, install UX, blocks/templates design sign-off |
+| Your SaaS (future)        | CLI-installed consumer app                     | Primary product surface             | Replaces sandbox for UX; sandbox stays minimal CLI regression   |
 
 **Local sandbox path (example):** `D:\PLAYGROUND\sandbox-neurex`  
 **Agent contract:** `D:\PLAYGROUND\sandbox-neurex\AGENTS.md`
 
-Do not expand playground product UX unless explicitly editing `apps/playground/**`. After changes that affect what users install, verify in the sandbox — not only in playground.
+Do not expand playground product UX unless explicitly editing `apps/playground/**`. After changes that affect what users install — especially **blocks/templates** — verify in the sandbox, including narrow-viewport flows. See [docs/TESTING.md § Blocks/templates checklist](./docs/TESTING.md#consumer-sandbox-verification).
 
 Sandbox checklist: [docs/TESTING.md § Consumer sandbox verification](./docs/TESTING.md#consumer-sandbox-verification).
 
@@ -142,14 +142,20 @@ validation, composite token expansion, and expression evaluation. See
 
 `packages/ui` is the reference implementation layer.
 
+Composition model: [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md) — monorepo
+folders `primitives/`, `blocks/`, `templates/`; consumer flat install under
+`paths.components`.
+
 Rules:
 
-- components must follow the defined structure:
+- components must follow the defined structure under the correct layer folder:
 
-ComponentName/
+```txt
+primitives|blocks|templates/ComponentName/
 ComponentName.tsx
 ComponentName.types.ts
 ComponentName.variants.ts
+```
 
 - components must support:
   - variants
@@ -175,10 +181,12 @@ Rules:
   - dependencies
   - utilities
   - styles
-  - target paths
+  - target paths (`item.target` → flat `paths.components/<CanonicalName>/`)
+  - layer type and `registryDependencies` for blocks/templates
 
 - registry is the source of truth for CLI behavior
 - no install logic may exist outside registry metadata
+- run `pnpm registry:sync` after UI edits (primitives + blocks; templates sync via registry scripts)
 
 ---
 
@@ -186,7 +194,7 @@ Rules:
 
 `packages/cli` is responsible for:
 
-- installing components
+- installing components (flat `paths.components` with import rewrite for blocks/templates)
 - installing dependencies
 - patching shared resources
 - detecting project environment
