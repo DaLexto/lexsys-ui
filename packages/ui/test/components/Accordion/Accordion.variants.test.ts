@@ -7,10 +7,10 @@ import {
 describe("accordionVariants", () => {
   it("styles trigger and panel text", () => {
     expect(accordionTriggerVariants()).toContain(
-      "hover:bg-(--nx-accordion-trigger-background-hover)",
+      "hover:bg-(--lsys-accordion-trigger-background-hover)",
     )
     expect(accordionPanelVariants()).toContain(
-      "text-(--nx-accordion-panel-foreground)",
+      "text-(--lsys-accordion-panel-foreground)",
     )
   })
 })

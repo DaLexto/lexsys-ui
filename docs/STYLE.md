@@ -1,4 +1,4 @@
-# Neurex Style Rules
+# Lexsys Style Rules
 
 **Audience:** Contributors and agents
 **Type:** Contributor style guide
@@ -64,13 +64,13 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 - Define all visual variants with `cva` from `class-variance-authority` in `.variants.ts`.
 - Canonical variant contract: [UI_VARIANTS.md](./UI_VARIANTS.md). Per-component audit: [UI_AUDIT.md](./UI_AUDIT.md).
 - Use `cn()` (clsx + tailwind-merge) for all class composition. Do not concatenate strings manually.
-- Variant classes MUST reference `--nx-*` CSS custom properties, not hardcoded Tailwind palette values:
+- Variant classes MUST reference `--lsys-*` CSS custom properties, not hardcoded Tailwind palette values:
   ```ts
-  "bg-(--nx-button-primary-background)" // correct — Tailwind v4 canonical CSS var syntax
+  "bg-(--lsys-button-primary-background)" // correct — Tailwind v4 canonical CSS var syntax
   "bg-orange-500" // incorrect
   ```
 - Do not duplicate shared styling helpers across components.
-- Do not handwrite `--nx-*` variables in component files — they are generated output.
+- Do not handwrite `--lsys-*` variables in component files — they are generated output.
 
 ---
 
@@ -79,7 +79,7 @@ For examples and practical patterns, see `docs/STYLEGUIDE.md`.
 - Token source files use DTCG-shaped `$value` leaves. Do not use legacy `value` leaves.
 - Primitives hold raw values only — no references.
 - Components reference semantics only.
-- Do not write `--nx-*` prefixes in token source files — the prefix is applied by the generator.
+- Do not write `--lsys-*` prefixes in token source files — the prefix is applied by the generator.
 - Full token layer rules: `docs/TOKENS.md`.
 
 ---

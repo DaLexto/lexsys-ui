@@ -1,12 +1,12 @@
-# @neurex/tokens
+# @lexsys/tokens
 
-Design token source, validation, resolution, and generated style output package for Neurex.
+Design token source, validation, resolution, and generated style output package for Lexsys.
 
 This package owns the token system implementation. It does not own component rendering, CLI install behavior, or registry metadata.
 
 ## Purpose
 
-`@neurex/tokens` is responsible for:
+`@lexsys/tokens` is responsible for:
 
 - defining token authoring files
 - validating token structure and references
@@ -26,7 +26,7 @@ If this package README conflicts with the root token rules, [docs/TOKENS.md](../
 
 ## Package Role
 
-This package is the source package for Neurex design tokens.
+This package is the source package for Lexsys design tokens.
 
 It provides:
 
@@ -104,11 +104,11 @@ test/
 
 **Staged stubs only (not registered in token collections):** `primitives/asset.ts`.
 
-**Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component tokens → CSS vars (`--nx-*`).
+**Elevation chain:** primitive `z-index.*` / `shadow.*` → semantic `elevation.*` → component tokens → CSS vars (`--lsys-*`).
 
-**Outline chain:** primitive `outline.width.*` / `outline.offset.*` → semantic `outline.*` → component `focus.ringWidth` / `focus.ringOffset` → CSS vars (`--nx-*-focus-ring-width`, `--nx-*-focus-ring-offset`).
+**Outline chain:** primitive `outline.width.*` / `outline.offset.*` → semantic `outline.*` → component `focus.ringWidth` / `focus.ringOffset` → CSS vars (`--lsys-*-focus-ring-width`, `--lsys-*-focus-ring-offset`).
 
-**Layout chain:** primitive `breakpoint.*` / `aspect-ratio.*` → semantic `layout.*` → CSS vars (`--nx-layout-viewport-*`, `--nx-layout-aspect-ratio-*`). Consumers reference semantic layout vars directly; layout is not mapped into Tailwind `@theme` namespaces.
+**Layout chain:** primitive `breakpoint.*` / `aspect-ratio.*` → semantic `layout.*` → CSS vars (`--lsys-layout-viewport-*`, `--lsys-layout-aspect-ratio-*`). Consumers reference semantic layout vars directly; layout is not mapped into Tailwind `@theme` namespaces.
 
 The exact internal structure may evolve, but package boundaries must remain clear.
 
@@ -162,10 +162,10 @@ styles/theme.css
 
 CSS output should be deterministic and generated from token source.
 
-CSS variables should use the configured Neurex prefix:
+CSS variables should use the configured Lexsys prefix:
 
 ```text
---nx-*
+--lsys-*
 ```
 
 Generated CSS must remain compatible with Tailwind-first consumer styling.
@@ -279,7 +279,7 @@ pnpm tokens:generate:styles
 pnpm tokens:governance:report
 pnpm tokens:imports:clean
 # Optional dead-primitive stripping (omits unreached primitives from CSS/DTCG):
-pnpm --filter @neurex/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
+pnpm --filter @lexsys/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
 
 Repository-level checks:

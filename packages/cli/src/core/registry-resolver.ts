@@ -1,10 +1,10 @@
 import { CliError } from "./cli-error.js"
-import type { RegistryItem } from "@neurex/registry"
+import type { RegistryItem } from "@lexsys/registry"
 import {
   registryUtilities as registryUtilityDefinitions,
   registryStyles as registryStyleDefinitions,
   validateRegistryItem,
-} from "@neurex/registry"
+} from "@lexsys/registry"
 import { getRegistryItems } from "./registry-provider.js"
 import type {
   ResolvedRegistryStyle,

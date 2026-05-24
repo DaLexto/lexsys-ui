@@ -10,7 +10,7 @@ describe("radioGroupVariants", () => {
       "grid-flow-col",
     )
     expect(radioGroupItemVariants({ size: "md" })).toContain(
-      "data-[checked]:border-(--nx-radio-group-item-checked-border-color)",
+      "data-[checked]:border-(--lsys-radio-group-item-checked-border-color)",
     )
   })
 })

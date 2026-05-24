@@ -13,7 +13,7 @@ export const runStatus = async (
   const installed = config.installed ?? {}
 
   if (!Object.keys(installed).length) {
-    console.log("No Neurex components are currently tracked.")
+    console.log("No Lexsys components are currently tracked.")
     return
   }
 
@@ -28,7 +28,7 @@ export const runStatus = async (
     return
   }
 
-  console.log("Installed Neurex components:\n")
+  console.log("Installed Lexsys components:\n")
 
   for (const [name, installedVersion] of Object.entries(installed)) {
     const item = await findItem(name)

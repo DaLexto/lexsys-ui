@@ -1,4 +1,4 @@
-# Neurex UI — Composition Model
+# Lexsys UI — Composition Model
 
 **Audience:** Maintainers and consumers  
 **Type:** Domain specification  
@@ -17,7 +17,7 @@
 
 ---
 
-## Neurex model (three layers)
+## Lexsys model (three layers)
 
 ```txt
 Primitive  →  Block  →  Template  →  Page (consumer-owned)
@@ -25,7 +25,7 @@ Primitive  →  Block  →  Template  →  Page (consumer-owned)
 
 | Layer         | Definition                                                                          | Monorepo folder               | Consumer install path               |
 | ------------- | ----------------------------------------------------------------------------------- | ----------------------------- | ----------------------------------- |
-| **Primitive** | One reusable foundation piece. Installs independently. No Neurex component imports. | `packages/ui/.../primitives/` | `src/components/ui/<Name>/`         |
+| **Primitive** | One reusable foundation piece. Installs independently. No Lexsys component imports. | `packages/ui/.../primitives/` | `src/components/ui/<Name>/`         |
 | **Block**     | Reusable composition of primitives and/or other blocks.                             | `packages/ui/.../blocks/`     | `src/components/ui/<Name>/`         |
 | **Template**  | Reusable page/layout structure without app data or routing.                         | `packages/ui/.../templates/`  | `src/components/ui/<Name>/`         |
 | **Page**      | Full screen with data and routing. **Not** a registry item.                         | —                             | Consumer app (`src/pages/`, routes) |
@@ -36,7 +36,7 @@ Primitive  →  Block  →  Template  →  Page (consumer-owned)
 - **Block** = reusable composition of lower layers
 - **Template** = reusable page/layout shell
 
-Do not use atoms/molecules/organisms in Neurex docs or CLI copy — those names are not part of this model.
+Do not use atoms/molecules/organisms in Lexsys docs or CLI copy — those names are not part of this model.
 
 ---
 
@@ -53,7 +53,7 @@ templates/      ← DashboardShell (pilot)
 **Registry templates** mirror the same three folders under
 `packages/registry/templates/`.
 
-**Consumer project** (after `neurex add`):
+**Consumer project** (after `lexsys add`):
 
 ```txt
 src/components/ui/<CanonicalName>/   ← flat install for all layers
@@ -74,9 +74,9 @@ Foundation (not UI layers): token CSS, `cn` utility, npm dependencies.
 
 New Base UI wraps ship as **primitives** (`registryDependencies: []`).
 
-**Status:** `shipped` = in registry + CLI; `planned` = in [Base UI docs](https://base-ui.com/react/components) but not yet a Neurex primitive.
+**Status:** `shipped` = in registry + CLI; `planned` = in [Base UI docs](https://base-ui.com/react/components) but not yet a Lexsys primitive.
 
-| Base UI module                         | Neurex primitive                    | Status  |
+| Base UI module                         | Lexsys primitive                    | Status  |
 | -------------------------------------- | ----------------------------------- | ------- |
 | `@base-ui/react/accordion`             | Accordion                           | shipped |
 | `@base-ui/react/alert-dialog`          | AlertDialog                         | shipped |
@@ -116,7 +116,7 @@ New Base UI wraps ship as **primitives** (`registryDependencies: []`).
 | `@base-ui/react/preview-card`          | PreviewCard                         | shipped |
 | `@base-ui/react/toolbar`               | Toolbar                             | shipped |
 
-Neurex-only primitives (no dedicated Base UI module): Alert, Badge, Card.
+Lexsys-only primitives (no dedicated Base UI module): Alert, Badge, Card.
 
 **Planned primitive sequencing (completed):** Autocomplete + Combobox → OtpField → NavigationMenu → ContextMenu + Toolbar → CheckboxGroup → Menubar + PreviewCard.
 
@@ -150,23 +150,23 @@ optimization backlog in [REVIEW_TODO.md](./REVIEW_TODO.md).
 ## Composition rules
 
 ```txt
-Primitive   → imports nothing from Neurex components/
+Primitive   → imports nothing from Lexsys components/
 Block       → imports primitives/ and/or blocks/ (monorepo paths)
 Template    → imports primitives/, blocks/, and/or templates/
 Page        → consumer composes any installed layer + app code
 ```
 
-**Registry metadata** declares **direct** `registryDependencies` only. CLI installs the **transitive closure** on `neurex add`.
+**Registry metadata** declares **direct** `registryDependencies` only. CLI installs the **transitive closure** on `lexsys add`.
 
 ```txt
-neurex add dashboard-shell
+lexsys add dashboard-shell
   → resolves dashboard-shell.registryDependencies (sidebar, …)
   → installs templates/DashboardShell + blocks/Sidebar + primitives/…
   → copies to src/components/ui/<Name>/ with import rewrite
   → npm deps, cn, theme (deduped)
 ```
 
-**Base UI** is internal (`@base-ui/react`). Primitives wrap Base UI packages — Neurex does not reimplement Base UI behavior.
+**Base UI** is internal (`@base-ui/react`). Primitives wrap Base UI packages — Lexsys does not reimplement Base UI behavior.
 
 Composition rules are build-validated via `validateRegistryComposition` at
 `pnpm registry:check`. See [REGISTRY.md](./REGISTRY.md).
@@ -178,9 +178,9 @@ Composition rules are build-validated via `validateRegistryComposition` at
 | Concern                  | Where                                            |
 | ------------------------ | ------------------------------------------------ |
 | Layer dependencies       | `registryDependencies` in registry item metadata |
-| What is installed        | `installed` map in `neurex.config.json`          |
+| What is installed        | `installed` map in `lexsys.config.json`          |
 | Install path per item    | `target` → `src/components/ui/<CanonicalName>`   |
-| Components root override | `paths.components` in `neurex.config.json`       |
+| Components root override | `paths.components` in `lexsys.config.json`       |
 
 No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
 `installed` keys (see [CLI.md § uninstall](./CLI.md)).
@@ -193,7 +193,7 @@ No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
 
 All 41 registry primitives (`type: "component"`) — Button, Input, Dialog, Drawer, Menu, Autocomplete, Combobox, NavigationMenu, …
 
-Each follows the three-file contract (`.tsx`, `.types.ts`, `.variants.ts`). Token-backed styling only (`--nx-*`).
+Each follows the three-file contract (`.tsx`, `.types.ts`, `.variants.ts`). Token-backed styling only (`--lsys-*`).
 
 ### Blocks — pilot shipped
 
@@ -212,18 +212,18 @@ Routing, data, and product copy stay in the consumer project.
 ## Install and uninstall (consumer)
 
 ```bash
-neurex add button
-neurex add dashboard-shell --dry-run
-neurex uninstall sidebar
-neurex uninstall sidebar --with-deps --dry-run
+lexsys add button
+lexsys add dashboard-shell --dry-run
+lexsys uninstall sidebar
+lexsys uninstall sidebar --with-deps --dry-run
 ```
 
-- **`neurex add <name>`** — one command for all layers; path from `item.target`
+- **`lexsys add <name>`** — one command for all layers; path from `item.target`
 - **Default uninstall** — removes only the named item; prints orphan hints
 - **`--with-deps`** — removes registry items no longer needed by any remaining `installed` entry
 - **npm packages** — never auto-removed
 
-See [CLI.md](./CLI.md) for `neurex.config.json` (`paths.components`, aliases).
+See [CLI.md](./CLI.md) for `lexsys.config.json` (`paths.components`, aliases).
 
 ---
 
@@ -234,7 +234,7 @@ See [CLI.md](./CLI.md) for `neurex.config.json` (`paths.components`, aliases).
 | Primitives         | Monorepo playground (~20%) |
 | Blocks + templates | Consumer sandbox (~80%)    |
 
-Workflow: edit `packages/ui` → `pnpm registry:sync` → `neurex update` in sandbox — never hand-edit registry templates or installed consumer source.
+Workflow: edit `packages/ui` → `pnpm registry:sync` → `lexsys update` in sandbox — never hand-edit registry templates or installed consumer source.
 
 ---
 

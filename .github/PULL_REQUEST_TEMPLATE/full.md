@@ -51,7 +51,7 @@ Focus on user-visible behavior, architecture impact, or maintenance value.
 
 <!--
 Explain the chosen approach and any important alternatives rejected.
-Call out existing Neurex patterns this PR follows.
+Call out existing Lexsys patterns this PR follows.
 -->
 
 -
@@ -73,7 +73,7 @@ Target / planned:
 
 ## Package Boundary Check
 
-<!-- Confirm this PR respects Neurex package ownership. -->
+<!-- Confirm this PR respects Lexsys package ownership. -->
 
 - [ ] `packages/tokens` owns token source, resolver, generators, CSS, and DTCG outputs.
 - [ ] `packages/ui` owns reference component implementations and public component APIs.
@@ -130,8 +130,8 @@ Target / planned:
 <!--
 Add exact commands you ran. Leave unrelated checks blank or delete those rows.
 Examples:
-- `pnpm --filter @neurex/ui check`
-- `pnpm --filter @neurex/tokens check`
+- `pnpm --filter @lexsys/ui check`
+- `pnpm --filter @lexsys/tokens check`
 - `pnpm exec prettier --check <changed-files>`
 -->
 

@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@neurex/registry"
+import type { RegistryItem } from "@lexsys/registry"
 import { fileExists } from "./fs.js"
 import { getRegistryTemplatePath } from "./installer.js"
 

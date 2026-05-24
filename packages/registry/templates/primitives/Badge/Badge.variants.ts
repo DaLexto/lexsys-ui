@@ -7,28 +7,28 @@
 import { cva } from "class-variance-authority"
 
 const neutralSolid =
-  "border-(--nx-badge-neutral-border-color) bg-(--nx-badge-neutral-background) text-(--nx-badge-neutral-foreground)"
+  "border-(--lsys-badge-neutral-border-color) bg-(--lsys-badge-neutral-background) text-(--lsys-badge-neutral-foreground)"
 
 const neutralOutline =
-  "border-(--nx-badge-neutral-border-color) bg-(--nx-badge-outline-background) text-(--nx-badge-neutral-foreground)"
+  "border-(--lsys-badge-neutral-border-color) bg-(--lsys-badge-outline-background) text-(--lsys-badge-neutral-foreground)"
 
 const primarySolid =
-  "border-(--nx-badge-primary-border-color) bg-(--nx-badge-primary-background) text-(--nx-badge-primary-foreground)"
+  "border-(--lsys-badge-primary-border-color) bg-(--lsys-badge-primary-background) text-(--lsys-badge-primary-foreground)"
 
 const primaryOutline =
-  "border-(--nx-badge-primary-border-color) bg-(--nx-badge-outline-background) text-(--nx-badge-primary-border-color)"
+  "border-(--lsys-badge-primary-border-color) bg-(--lsys-badge-outline-background) text-(--lsys-badge-primary-border-color)"
 
 const dangerSolid =
-  "border-(--nx-badge-danger-border-color) bg-(--nx-badge-danger-background) text-(--nx-badge-danger-foreground)"
+  "border-(--lsys-badge-danger-border-color) bg-(--lsys-badge-danger-background) text-(--lsys-badge-danger-foreground)"
 
 const dangerOutline =
-  "border-(--nx-badge-danger-border-color) bg-(--nx-badge-outline-background) text-(--nx-badge-danger-border-color)"
+  "border-(--lsys-badge-danger-border-color) bg-(--lsys-badge-outline-background) text-(--lsys-badge-danger-border-color)"
 
 export const badgeVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap border",
-    "rounded-(--nx-badge-radius) font-(--nx-badge-font-weight) leading-(--nx-badge-font-line-height)",
-    "transition-colors duration-(--nx-badge-transition-duration) ease-(--nx-badge-transition-easing)",
+    "rounded-(--lsys-badge-radius) font-(--lsys-badge-font-weight) leading-(--lsys-badge-font-line-height)",
+    "transition-colors duration-(--lsys-badge-transition-duration) ease-(--lsys-badge-transition-easing)",
   ].join(" "),
   {
     variants: {
@@ -42,8 +42,8 @@ export const badgeVariants = cva(
         outline: "",
       },
       size: {
-        sm: "h-(--nx-badge-height-sm) px-(--nx-badge-padding-x-sm) text-(length:--nx-badge-font-size-sm)",
-        md: "h-(--nx-badge-height-md) px-(--nx-badge-padding-x-md) text-(length:--nx-badge-font-size-md)",
+        sm: "h-(--lsys-badge-height-sm) px-(--lsys-badge-padding-x-sm) text-(length:--lsys-badge-font-size-sm)",
+        md: "h-(--lsys-badge-height-md) px-(--lsys-badge-padding-x-md) text-(length:--lsys-badge-font-size-md)",
       },
     },
     compoundVariants: [

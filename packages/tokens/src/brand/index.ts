@@ -5,8 +5,8 @@
  * @description Brand token exports.
  */
 
-import { neurexBrand } from "./neurex.brand"
+import { lexsysBrand } from "./lexsys.brand"
 
-export { neurexBrand }
+export { lexsysBrand }
 
-export const brandTokens = [neurexBrand]
+export const brandTokens = [lexsysBrand]

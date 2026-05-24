@@ -25,18 +25,18 @@ export const mergeClassName = <State>(
  * Shared CVA state fragments backed by semantic opacity tokens.
  */
 export const disabledStateClasses = [
-  "disabled:pointer-events-none disabled:opacity-(--nx-opacity-disabled)",
-  "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--nx-opacity-disabled)",
+  "disabled:pointer-events-none disabled:opacity-(--lsys-opacity-disabled)",
+  "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lsys-opacity-disabled)",
 ].join(" ")
 
 export const busyStateClasses =
-  "aria-busy:cursor-wait aria-busy:opacity-(--nx-opacity-busy)"
+  "aria-busy:cursor-wait aria-busy:opacity-(--lsys-opacity-busy)"
 
 export const invalidStateClasses = [
-  "aria-invalid:border-(--nx-input-invalid-border-color)",
-  "aria-invalid:ring-(--nx-input-invalid-ring-color)",
-  "data-[invalid]:border-(--nx-input-invalid-border-color)",
-  "data-[invalid]:ring-(--nx-input-invalid-ring-color)",
+  "aria-invalid:border-(--lsys-input-invalid-border-color)",
+  "aria-invalid:ring-(--lsys-input-invalid-ring-color)",
+  "data-[invalid]:border-(--lsys-input-invalid-border-color)",
+  "data-[invalid]:ring-(--lsys-input-invalid-ring-color)",
 ].join(" ")
 
 /**

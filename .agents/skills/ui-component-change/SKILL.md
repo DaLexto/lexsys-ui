@@ -1,7 +1,7 @@
 ---
 name: ui-component-change
 description: >
-  Workflow for editing Neurex UI primitives, blocks, or templates — ui:check,
+  Workflow for editing Lexsys UI primitives, blocks, or templates — ui:check,
   ui:audit, registry sync, variant tokens. Use when changing packages/ui
   components, CVA variants, or Base UI wrappers.
 ---
@@ -25,7 +25,7 @@ ComponentName/
 
 1. Edit under the correct layer folder (`primitives/`, `blocks/`, `templates/`).
 2. Preserve accessibility; Base UI stays internal.
-3. Variants use `--nx-*` tokens — no raw Tailwind palette in `*.variants.ts`.
+3. Variants use `--lsys-*` tokens — no raw Tailwind palette in `*.variants.ts`.
 4. Run:
 
 ```sh

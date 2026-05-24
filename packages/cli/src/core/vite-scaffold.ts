@@ -104,7 +104,7 @@ const indexHtml = `<!doctype html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neurex Vite App</title>
+    <title>Lexsys Vite App</title>
   </head>
   <body>
     <div id="root"></div>
@@ -128,7 +128,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 const appTsx = `export const App = () => {
   return (
     <main>
-      <h1>Neurex + Vite</h1>
+      <h1>Lexsys + Vite</h1>
     </main>
   )
 }
@@ -166,7 +166,7 @@ const sanitizePackageName = (name: string): string => {
     .replace(/[^a-z0-9._-]+/gu, "-")
     .replace(/^-+|-+$/gu, "")
 
-  return normalized || "neurex-vite-app"
+  return normalized || "lexsys-vite-app"
 }
 
 const getPackageManagerFromUserAgent = (): string | undefined => {

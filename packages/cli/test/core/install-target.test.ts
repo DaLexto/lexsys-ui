@@ -1,13 +1,13 @@
 import { describe, expect, test } from "vitest"
-import { buttonRegistryItem, sidebarRegistryItem } from "@neurex/registry"
-import type { NeurexConfig } from "../../src/core/config.js"
+import { buttonRegistryItem, sidebarRegistryItem } from "@lexsys/registry"
+import type { LexsysConfig } from "../../src/core/config.js"
 import {
   prepareInstalledFileContent,
   rewriteCrossLayerImports,
 } from "../../src/core/import-rewriter.js"
 import { resolveItemInstallTarget } from "../../src/core/install-target.js"
 
-const config: NeurexConfig = {
+const config: LexsysConfig = {
   style: "default",
   paths: {
     components: "src/components/ui",

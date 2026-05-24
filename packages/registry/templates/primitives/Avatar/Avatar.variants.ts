@@ -8,20 +8,20 @@ import { cva } from "class-variance-authority"
 
 export const avatarVariants = cva(
   [
-    "inline-flex shrink-0 items-center justify-center overflow-hidden border border-(--nx-avatar-border-color)",
-    "bg-(--nx-avatar-background) text-(--nx-avatar-foreground)",
-    "font-(--nx-avatar-font-weight) leading-(--nx-avatar-font-line-height)",
+    "inline-flex shrink-0 items-center justify-center overflow-hidden border border-(--lsys-avatar-border-color)",
+    "bg-(--lsys-avatar-background) text-(--lsys-avatar-foreground)",
+    "font-(--lsys-avatar-font-weight) leading-(--lsys-avatar-font-line-height)",
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "size-(--nx-avatar-size-sm) text-(length:--nx-avatar-font-size-sm)",
-        md: "size-(--nx-avatar-size-md) text-(length:--nx-avatar-font-size-md)",
-        lg: "size-(--nx-avatar-size-lg) text-(length:--nx-avatar-font-size-lg)",
+        sm: "size-(--lsys-avatar-size-sm) text-(length:--lsys-avatar-font-size-sm)",
+        md: "size-(--lsys-avatar-size-md) text-(length:--lsys-avatar-font-size-md)",
+        lg: "size-(--lsys-avatar-size-lg) text-(length:--lsys-avatar-font-size-lg)",
       },
       shape: {
-        circle: "rounded-(--nx-avatar-radius-circle)",
-        square: "rounded-(--nx-avatar-radius-square)",
+        circle: "rounded-(--lsys-avatar-radius-circle)",
+        square: "rounded-(--lsys-avatar-radius-square)",
       },
     },
     defaultVariants: {
@@ -32,9 +32,9 @@ export const avatarVariants = cva(
 )
 
 export const avatarImageVariants = cva(
-  "size-full object-cover transition-opacity duration-(--nx-avatar-transition-duration) ease-(--nx-avatar-transition-easing) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+  "size-full object-cover transition-opacity duration-(--lsys-avatar-transition-duration) ease-(--lsys-avatar-transition-easing) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
 )
 
 export const avatarFallbackVariants = cva(
-  "flex size-full items-center justify-center bg-(--nx-avatar-fallback-background) text-(--nx-avatar-fallback-foreground)",
+  "flex size-full items-center justify-center bg-(--lsys-avatar-fallback-background) text-(--lsys-avatar-fallback-foreground)",
 )

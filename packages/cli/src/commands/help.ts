@@ -1,21 +1,21 @@
 export const runHelp = (): void => {
   console.log(`
-Neurex CLI
+Lexsys CLI
 
 Usage
-  neurex <command> [options]
-  neurex init vite [directory]
-  neurex init next [directory]
-  neurex add <component...>
+  lexsys <command> [options]
+  lexsys init vite [directory]
+  lexsys init next [directory]
+  lexsys add <component...>
 
 Commands
-  init                         Initialize Neurex or a framework starter
+  init                         Initialize Lexsys or a framework starter
   add <component...>           Install components, utilities, styles, and deps
   update <component...>        Check or update tracked components
   list                         List available registry items
   status                       Show installed component status
   doctor                       Check local project setup
-  config                       Print or update Neurex config
+  config                       Print or update Lexsys config
   registry                     Inspect registry source and manifest output
   uninstall <component...>     Show uninstall status for tracked components
   version                      Print CLI version
@@ -30,8 +30,8 @@ Global Options
 
 Command Options
   init
-    vite [directory]           Scaffold a Vite React app and initialize Neurex
-    next [directory]           Scaffold a Next.js App Router app and initialize Neurex
+    vite [directory]           Scaffold a Vite React app and initialize Lexsys
+    next [directory]           Scaffold a Next.js App Router app and initialize Lexsys
                                Plain init offers a starter when no app is detected
 
   add
@@ -69,22 +69,22 @@ Command Options
     --dry-run                  Preview uninstall without removing files
 
 Examples
-  neurex init
-  neurex init vite
-  neurex init vite my-app
-  neurex init next
-  neurex init next my-app
-  neurex add button
-  neurex add button --dry-run
-  neurex add button --cwd ./apps/web
-  neurex update button --dry-run
-  neurex update --all
-  neurex update --styles
-  neurex update --utilities
-  neurex update --all --sync --utilities --styles
-  neurex list --json
-  neurex config --set-registry-url https://example.com/registry.json
-  neurex registry --summary
-  neurex registry --remote --source
+  lexsys init
+  lexsys init vite
+  lexsys init vite my-app
+  lexsys init next
+  lexsys init next my-app
+  lexsys add button
+  lexsys add button --dry-run
+  lexsys add button --cwd ./apps/web
+  lexsys update button --dry-run
+  lexsys update --all
+  lexsys update --styles
+  lexsys update --utilities
+  lexsys update --all --sync --utilities --styles
+  lexsys list --json
+  lexsys config --set-registry-url https://example.com/registry.json
+  lexsys registry --summary
+  lexsys registry --remote --source
 `)
 }

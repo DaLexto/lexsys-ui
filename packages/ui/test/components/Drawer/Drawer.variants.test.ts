@@ -12,16 +12,16 @@ describe("drawerVariants", () => {
   it("includes token-backed side, size, swipe, and transition classes", () => {
     expect(drawerViewportVariants({ side: "right" })).toContain("justify-end")
     expect(drawerPopupVariants({ side: "right", size: "lg" })).toContain(
-      "w-(--nx-drawer-popup-width-lg)",
+      "w-(--lsys-drawer-popup-width-lg)",
     )
     expect(drawerPopupVariants({ side: "bottom", size: "md" })).toContain(
       "var(--drawer-swipe-movement-y,0px)",
     )
     expect(drawerSwipeAreaVariants({ side: "bottom" })).toContain(
-      "h-(--nx-drawer-swipe-area-size)",
+      "h-(--lsys-drawer-swipe-area-size)",
     )
     expect(drawerBackdropVariants()).toContain(
-      "bg-(--nx-drawer-backdrop-background)",
+      "bg-(--lsys-drawer-backdrop-background)",
     )
   })
 

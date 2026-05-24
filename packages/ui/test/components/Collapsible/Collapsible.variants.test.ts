@@ -8,13 +8,13 @@ import {
 describe("collapsibleVariants", () => {
   it("includes token-backed surface, trigger, and panel classes", () => {
     expect(collapsibleVariants({ variant: "surface" })).toContain(
-      "border-(--nx-collapsible-border-color)",
+      "border-(--lsys-collapsible-border-color)",
     )
     expect(collapsibleTriggerVariants()).toContain(
       "data-[panel-open]:[&>svg]:rotate-45",
     )
     expect(collapsiblePanelVariants()).toContain(
-      "pb-(--nx-collapsible-panel-padding-bottom)",
+      "pb-(--lsys-collapsible-panel-padding-bottom)",
     )
   })
 })

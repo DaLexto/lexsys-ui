@@ -3,7 +3,7 @@ description: When editing docs/ — which file owns each topic; link to docs/IND
 globs: docs/**/*
 alwaysApply: false
 ---
-# Documentation routing (Neurex)
+# Documentation routing (Lexsys)
 
 Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance: [documentation-standards.mdc](./documentation-standards.mdc).
 
@@ -20,7 +20,7 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance: [documentation-standards.
 | -------- | ------------- |
 | Token layers / validation | `TOKENS.md` |
 | Registry items / sync | `REGISTRY.md` |
-| `neurex` CLI | `CLI.md` |
+| `lexsys` CLI | `CLI.md` |
 | UI components / variants | `UI.md`, `UI_VARIANTS.md` |
 | Composition layers | `UI_COMPOSITION.md` |
 | Verification / sandbox | `TESTING.md` |

@@ -2,13 +2,13 @@
 name: consumer-sandbox-verify
 description: >
   Manual consumer sandbox checklist for CLI, registry, template, and
-  blocks/templates PRs. Use for neurex add, dashboard-shell, Sidebar mobile,
+  blocks/templates PRs. Use for lexsys add, dashboard-shell, Sidebar mobile,
   PulseDesk sandbox, install smoke, or pre-PR consumer verification.
 ---
 
 # Consumer sandbox verification
 
-External project outside the monorepo — example: `D:\PLAYGROUND\sandbox-neurex`.
+External project outside the monorepo — example: `D:\PLAYGROUND\sandbox-lexsys`.
 
 Policy: [docs/TESTING.md § Verification surfaces](../../docs/TESTING.md#verification-surfaces).
 
@@ -23,7 +23,7 @@ Policy: [docs/TESTING.md § Verification surfaces](../../docs/TESTING.md#verific
 - Built CLI/registry from branch under test:
 
 ```sh
-pnpm --filter @neurex/registry build && pnpm --filter neurex build
+pnpm --filter @lexsys/registry build && pnpm --filter @lexsys/cli build
 ```
 
 - Link or install CLI into sandbox per your local workflow.
@@ -31,19 +31,19 @@ pnpm --filter @neurex/registry build && pnpm --filter neurex build
 ## Base checklist
 
 1. Link or install CLI from monorepo branch.
-2. **Vite regression:** `neurex add <component>` (or re-init if scaffold changed); `neurex update --styles`; production build.
-3. **Next.js smoke:** fresh dir — `neurex init next`; `neurex add button`; build.
-4. Spot-check `paths.components`, `neurex.config.json`, token CSS imports.
+2. **Vite regression:** `lexsys add <component>` (or re-init if scaffold changed); `lexsys update --styles`; production build.
+3. **Next.js smoke:** fresh dir — `lexsys init next`; `lexsys add button`; build.
+4. Spot-check `paths.components`, `lexsys.config.json`, token CSS imports.
 5. If styles changed: confirm `styles/tokens.css` and `styles/theme.css` update.
 
 ## Blocks/templates checklist
 
 When FormField, Sidebar, or DashboardShell change:
 
-1. Fresh or updated: `neurex add dashboard-shell` (transitive closure).
+1. Fresh or updated: `lexsys add dashboard-shell` (transitive closure).
 2. Flat layout: `src/components/ui/DashboardShell/`, `Sidebar/` — no `blocks/` or `templates/` in consumer tree.
 3. Narrow viewport (`< md`): drawer opens; nav items stack vertically (`DrawerClose appearance="inline"`).
-4. `neurex uninstall dashboard-shell --dry-run` and `--with-deps --dry-run` — orphan hints sane.
+4. `lexsys uninstall dashboard-shell --dry-run` and `--with-deps --dry-run` — orphan hints sane.
 5. Compare drawer to playground overlays panel if Sidebar/Drawer composition changed.
 
 ## Refresh after conflicts
@@ -51,7 +51,7 @@ When FormField, Sidebar, or DashboardShell change:
 Delete installed component folders, then re-add:
 
 ```sh
-neurex add drawer sidebar dashboard-shell
+lexsys add drawer sidebar dashboard-shell
 ```
 
 ## Record failures

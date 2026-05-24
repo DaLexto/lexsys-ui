@@ -9,27 +9,27 @@ import { disabledStateClasses } from "../../../utils/cn"
 
 export const fieldVariants = cva(
   [
-    "grid gap-(--nx-field-gap) text-(--nx-field-foreground)",
-    "data-[disabled]:opacity-(--nx-opacity-disabled)",
+    "grid gap-(--lsys-field-gap) text-(--lsys-field-foreground)",
+    "data-[disabled]:opacity-(--lsys-opacity-disabled)",
   ].join(" "),
 )
 
 export const fieldLabelVariants = cva(
   [
-    "w-fit text-(length:--nx-field-label-font-size) font-(--nx-field-label-font-weight) leading-(--nx-field-label-font-line-height) tracking-(--nx-field-label-font-letter-spacing)",
-    "text-(--nx-field-label-foreground) data-[invalid]:text-(--nx-field-label-invalid-foreground) data-[disabled]:cursor-not-allowed",
+    "w-fit text-(length:--lsys-field-label-font-size) font-(--lsys-field-label-font-weight) leading-(--lsys-field-label-font-line-height) tracking-(--lsys-field-label-font-letter-spacing)",
+    "text-(--lsys-field-label-foreground) data-[invalid]:text-(--lsys-field-label-invalid-foreground) data-[disabled]:cursor-not-allowed",
   ].join(" "),
 )
 
 export const fieldControlVariants = cva(
   [
-    "flex w-full min-w-0 border bg-(--nx-field-control-background) text-(--nx-field-control-foreground)",
-    "rounded-(--nx-field-control-radius) border-(--nx-field-control-border-color)",
-    "font-(family-name:--nx-field-control-font-family) font-(--nx-field-control-font-weight) leading-(--nx-field-control-font-line-height) tracking-(--nx-field-control-font-letter-spacing)",
-    "placeholder:text-(--nx-field-control-placeholder-color)",
-    "transition-colors duration-(--nx-field-transition-duration) ease-(--nx-field-transition-easing)",
-    "outline-none focus-visible:border-(--nx-field-control-focus-border-color) focus-visible:ring-(length:--nx-field-control-focus-ring-width) focus-visible:ring-(--nx-field-control-focus-ring-color) focus-visible:ring-offset-(length:--nx-field-control-focus-ring-offset) focus-visible:ring-offset-(--nx-field-control-focus-ring-offset-color)",
-    "data-[invalid]:border-(--nx-field-control-invalid-border-color) data-[invalid]:ring-(--nx-field-control-invalid-ring-color) aria-invalid:border-(--nx-field-control-invalid-border-color) aria-invalid:ring-(--nx-field-control-invalid-ring-color)",
+    "flex w-full min-w-0 border bg-(--lsys-field-control-background) text-(--lsys-field-control-foreground)",
+    "rounded-(--lsys-field-control-radius) border-(--lsys-field-control-border-color)",
+    "font-(family-name:--lsys-field-control-font-family) font-(--lsys-field-control-font-weight) leading-(--lsys-field-control-font-line-height) tracking-(--lsys-field-control-font-letter-spacing)",
+    "placeholder:text-(--lsys-field-control-placeholder-color)",
+    "transition-colors duration-(--lsys-field-transition-duration) ease-(--lsys-field-transition-easing)",
+    "outline-none focus-visible:border-(--lsys-field-control-focus-border-color) focus-visible:ring-(length:--lsys-field-control-focus-ring-width) focus-visible:ring-(--lsys-field-control-focus-ring-color) focus-visible:ring-offset-(length:--lsys-field-control-focus-ring-offset) focus-visible:ring-offset-(--lsys-field-control-focus-ring-offset-color)",
+    "data-[invalid]:border-(--lsys-field-control-invalid-border-color) data-[invalid]:ring-(--lsys-field-control-invalid-ring-color) aria-invalid:border-(--lsys-field-control-invalid-border-color) aria-invalid:ring-(--lsys-field-control-invalid-ring-color)",
     "disabled:cursor-not-allowed",
     disabledStateClasses,
   ].join(" "),
@@ -38,12 +38,12 @@ export const fieldControlVariants = cva(
       variant: {
         default: "",
         ghost:
-          "border-transparent bg-transparent focus-visible:bg-(--nx-field-control-background)",
+          "border-transparent bg-transparent focus-visible:bg-(--lsys-field-control-background)",
       },
       size: {
-        sm: "h-(--nx-field-control-height-sm) px-(--nx-field-control-padding-x-sm) text-(length:--nx-field-control-font-size-sm)",
-        md: "h-(--nx-field-control-height-md) px-(--nx-field-control-padding-x-md) text-(length:--nx-field-control-font-size-md)",
-        lg: "h-(--nx-field-control-height-lg) px-(--nx-field-control-padding-x-lg) text-(length:--nx-field-control-font-size-lg)",
+        sm: "h-(--lsys-field-control-height-sm) px-(--lsys-field-control-padding-x-sm) text-(length:--lsys-field-control-font-size-sm)",
+        md: "h-(--lsys-field-control-height-md) px-(--lsys-field-control-padding-x-md) text-(length:--lsys-field-control-font-size-md)",
+        lg: "h-(--lsys-field-control-height-lg) px-(--lsys-field-control-padding-x-lg) text-(length:--lsys-field-control-font-size-lg)",
       },
     },
     defaultVariants: {
@@ -55,23 +55,23 @@ export const fieldControlVariants = cva(
 
 export const fieldDescriptionVariants = cva(
   [
-    "m-0 text-(length:--nx-field-description-font-size) font-(--nx-field-description-font-weight) leading-(--nx-field-description-font-line-height) tracking-(--nx-field-description-font-letter-spacing)",
-    "text-(--nx-field-description-foreground) data-[disabled]:opacity-(--nx-opacity-disabled)",
+    "m-0 text-(length:--lsys-field-description-font-size) font-(--lsys-field-description-font-weight) leading-(--lsys-field-description-font-line-height) tracking-(--lsys-field-description-font-letter-spacing)",
+    "text-(--lsys-field-description-foreground) data-[disabled]:opacity-(--lsys-opacity-disabled)",
   ].join(" "),
 )
 
 export const fieldItemVariants = cva(
   [
-    "grid gap-(--nx-field-item-gap)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--nx-opacity-disabled)",
+    "grid gap-(--lsys-field-item-gap)",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lsys-opacity-disabled)",
   ].join(" "),
 )
 
 export const fieldErrorVariants = cva(
   [
-    "m-0 text-(length:--nx-field-error-font-size) font-(--nx-field-error-font-weight) leading-(--nx-field-error-font-line-height) tracking-(--nx-field-error-font-letter-spacing)",
-    "text-(--nx-field-error-foreground) data-[disabled]:opacity-(--nx-opacity-disabled)",
+    "m-0 text-(length:--lsys-field-error-font-size) font-(--lsys-field-error-font-weight) leading-(--lsys-field-error-font-line-height) tracking-(--lsys-field-error-font-letter-spacing)",
+    "text-(--lsys-field-error-foreground) data-[disabled]:opacity-(--lsys-opacity-disabled)",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-    "transition-opacity duration-(--nx-field-transition-duration) ease-(--nx-field-transition-easing)",
+    "transition-opacity duration-(--lsys-field-transition-duration) ease-(--lsys-field-transition-easing)",
   ].join(" "),
 )

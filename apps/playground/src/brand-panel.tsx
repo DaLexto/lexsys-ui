@@ -1,4 +1,4 @@
-import { Badge, Button } from "@neurex/ui"
+import { Badge, Button } from "@lexsys/ui"
 import { brandSwatches, semanticColorExamples } from "./examples"
 
 export const BrandPanel = () => {
@@ -43,7 +43,7 @@ export const BrandPanel = () => {
         </Badge>
         <Badge
           appearance="outline"
-          className="border-(--nx-border-accent) text-(--nx-color-text-accent)"
+          className="border-(--lsys-border-accent) text-(--lsys-color-text-accent)"
         >
           Accent outline
         </Badge>

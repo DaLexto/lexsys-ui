@@ -3,7 +3,7 @@ import { themeTokens } from "../../types/authoring"
 export const neurexDarkTheme = themeTokens(
   {
     name: "dark",
-    brand: "neurex",
+    brand: "lexsys",
     selector: ".dark",
     colorScheme: "dark",
   },

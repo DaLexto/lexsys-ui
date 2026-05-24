@@ -1,7 +1,7 @@
 ---
 name: git-commit
 description: >
-  Neurex git commit, push, and PR workflow with Conventional Commits scopes.
+  Lexsys git commit, push, and PR workflow with Conventional Commits scopes.
   Use when the user asks to commit, push, open a PR, ff main, /commit , or
   mentions git-commits.mdc, branch off dev, or gh pr create.
   Supports: (1) Inspecting git status and diff before deciding, (2) Auto-detecting commit type and scope from actual changes, (3) Generating Conventional Commit messages with optional user overrides, (4) Staging only files clearly related to the requested task.

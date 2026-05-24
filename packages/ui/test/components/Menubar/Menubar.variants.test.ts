@@ -3,9 +3,9 @@ import { menubarVariants } from "../../../src/components/primitives/Menubar/Menu
 
 describe("Menubar variants", () => {
   it("uses token-backed menu styling", () => {
-    expect(menubarVariants()).toContain("bg-(--nx-menu-trigger-background)")
+    expect(menubarVariants()).toContain("bg-(--lsys-menu-trigger-background)")
     expect(menubarVariants()).toContain(
-      "border-(--nx-menu-trigger-border-color)",
+      "border-(--lsys-menu-trigger-border-color)",
     )
   })
 })

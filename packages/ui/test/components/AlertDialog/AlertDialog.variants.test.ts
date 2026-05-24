@@ -8,19 +8,19 @@ import {
 describe("AlertDialog variants", () => {
   it("uses token-backed trigger and popup styling", () => {
     expect(alertDialogTriggerVariants()).toContain(
-      "bg-(--nx-alert-dialog-trigger-background)",
+      "bg-(--lsys-alert-dialog-trigger-background)",
     )
     expect(alertDialogPopupVariants()).toContain(
-      "bg-(--nx-alert-dialog-popup-background)",
+      "bg-(--lsys-alert-dialog-popup-background)",
     )
   })
 
   it("uses token-backed backdrop transition styling", () => {
     expect(alertDialogBackdropVariants()).toContain(
-      "bg-(--nx-alert-dialog-backdrop-background)",
+      "bg-(--lsys-alert-dialog-backdrop-background)",
     )
     expect(alertDialogBackdropVariants()).toContain(
-      "duration-(--nx-alert-dialog-transition-duration)",
+      "duration-(--lsys-alert-dialog-transition-duration)",
     )
   })
 })

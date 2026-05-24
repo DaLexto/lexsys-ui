@@ -1,17 +1,17 @@
-import type { RegistryItem } from "@neurex/registry"
+import type { RegistryItem } from "@lexsys/registry"
 import { join } from "node:path"
-import type { NeurexConfig } from "./config.js"
+import type { LexsysConfig } from "./config.js"
 
 const toPosixPath = (value: string): string => {
   return value.replace(/\\/g, "/")
 }
 
-export const resolveComponentsRoot = (config: NeurexConfig): string => {
+export const resolveComponentsRoot = (config: LexsysConfig): string => {
   return config.paths.components
 }
 
 export const resolveItemInstallTarget = (
-  config: NeurexConfig,
+  config: LexsysConfig,
   item: RegistryItem,
 ): string => {
   return toPosixPath(join(config.paths.components, item.canonicalName))

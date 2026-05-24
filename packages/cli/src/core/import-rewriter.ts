@@ -1,5 +1,5 @@
-import { getInstallLayer } from "@neurex/registry"
-import type { RegistryItem } from "@neurex/registry"
+import { getInstallLayer } from "@lexsys/registry"
+import type { RegistryItem } from "@lexsys/registry"
 
 const crossLayerImportPatterns = [
   /\.\.\/\.\.\/primitives\//g,

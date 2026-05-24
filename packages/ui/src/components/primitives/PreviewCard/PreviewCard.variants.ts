@@ -20,5 +20,5 @@ export const previewCardArrowVariants = popoverArrowVariants
 export const previewCardViewportVariants = popoverViewportVariants
 
 export const previewCardTriggerVariants = cva(
-  "inline-flex outline-none focus-visible:ring-(length:--nx-popover-focus-ring-width) focus-visible:ring-(--nx-popover-focus-ring-color)",
+  "inline-flex outline-none focus-visible:ring-(length:--lsys-popover-focus-ring-width) focus-visible:ring-(--lsys-popover-focus-ring-color)",
 )

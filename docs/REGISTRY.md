@@ -1,4 +1,4 @@
-# Neurex Registry
+# Lexsys Registry
 
 **Audience:** Maintainers and agents
 **Type:** Domain specification
@@ -10,7 +10,7 @@
 
 ## What the Registry Is
 
-The registry is the install contract layer between Neurex components and consumer
+The registry is the install contract layer between Lexsys components and consumer
 projects. It defines everything the CLI needs to install a component safely and
 completely.
 
@@ -170,7 +170,7 @@ Rules:
   `packages/ui/src/components/{primitives,blocks,templates}/` via
   `pnpm registry:sync` (`sync-all-templates.mjs`).
 - Style templates (`tokens.css`, `theme.css`) are generated copies of
-  `@neurex/tokens` output.
+  `@lexsys/tokens` output.
 - Templates MUST NOT be hand-edited. Overwrite via sync scripts only.
 - **Sync transforms (registry templates):**
   - `cn` / `mergeClassName` import paths → `@/lib/utils`
@@ -209,11 +209,11 @@ Sync commands: [SCRIPTS.md](./SCRIPTS.md) (`registry:sync`, `registry:check`).
 
 The CLI resolves registry sources in this order:
 
-1. If `registryUrl` is set in `neurex.config.json`, use the remote registry.
-2. Otherwise, use the local `@neurex/registry` package (installed as a dependency).
+1. If `registryUrl` is set in `lexsys.config.json`, use the remote registry.
+2. Otherwise, use the local `@lexsys/registry` package (installed as a dependency).
 3. If `--no-fallback` is passed, only the explicitly selected source is used.
 
-The `neurex registry --source` flag reports which source is active.
+The `lexsys registry --source` flag reports which source is active.
 
 The remote registry MUST expose the same shape as the local registry manifest.
 The CLI MUST NOT require format differences between local and remote sources.
@@ -246,7 +246,7 @@ Valid `RegistryItemCategory` values:
 | Install templates (files to copy)  | `packages/registry/templates/` |
 | Install behavior (how to install)  | `packages/cli/src/`            |
 | Component implementations          | `packages/ui/src/components/`  |
-| Token CSS artifacts                | `@neurex/tokens` build output  |
+| Token CSS artifacts                | `@lexsys/tokens` build output  |
 
 Do not add install logic to registry metadata. Do not add registry metadata
 rules to CLI code. Do not manually maintain templates.

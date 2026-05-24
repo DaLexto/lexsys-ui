@@ -1,5 +1,5 @@
 {
-  "name": "@neurex/registry",
+  "name": "@lexsys/registry",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -22,7 +22,7 @@
     "lint": "eslint src test --max-warnings=0",
     "lint:fix": "eslint src test --fix",
     "styles:check-sync": "node scripts/check-registry-styles-sync.mjs",
-    "styles:sync": "pnpm --filter @neurex/tokens generate:styles",
+    "styles:sync": "pnpm --filter @lexsys/tokens generate:styles",
     "templates:check-sync": "node scripts/sync-all-templates.mjs --check",
     "templates:sync": "node scripts/sync-all-templates.mjs",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",

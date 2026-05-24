@@ -1,4 +1,4 @@
-import { getInstallLayer } from "@neurex/registry"
+import { getInstallLayer } from "@lexsys/registry"
 import { getRegistryItems } from "../core/registry-provider.js"
 
 interface RunListOptions {
@@ -40,7 +40,7 @@ export const runList = async (options: RunListOptions = {}): Promise<void> => {
       grouped.set(layer, current)
     }
 
-    console.log("Available Neurex registry items:\n")
+    console.log("Available Lexsys registry items:\n")
 
     for (const layer of ["primitive", "block", "template"] as const) {
       const items = grouped.get(layer)

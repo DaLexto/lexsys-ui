@@ -101,7 +101,7 @@ const createTokenDocument = (
   return generateJsonTokens(tokenTree, {
     metadataKeys: new Set(),
     metadata: {
-      generatedBy: "@neurex/tokens",
+      generatedBy: "@lexsys/tokens",
       presetId: input.preset.id,
       presetName: input.preset.name,
       tokenSetOrder,
@@ -185,7 +185,7 @@ const createThemeTokenDocument = (
   return generateJsonTokens(theme.tokens, {
     metadataKeys: new Set(),
     metadata: {
-      generatedBy: "@neurex/tokens",
+      generatedBy: "@lexsys/tokens",
       presetId: input.preset.id,
       presetName: input.preset.name,
       tokenSetOrder: ["themes"],
@@ -252,7 +252,7 @@ const createThemesJson = (input: StyleTokenInput): string => {
   return generateJsonTokens(createThemeDocumentTree(input), {
     metadataKeys: new Set(),
     metadata: {
-      generatedBy: "@neurex/tokens",
+      generatedBy: "@lexsys/tokens",
       presetId: input.preset.id,
       presetName: input.preset.name,
       tokenSetOrder: ["themes"],

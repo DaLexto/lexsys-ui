@@ -5,64 +5,64 @@
  */
 
 export const sidebarRootVariants = (): string => {
-  return "nx-sidebar w-full shrink-0 md:h-full md:w-auto"
+  return "lsys-sidebar w-full shrink-0 md:h-full md:w-auto"
 }
 
 export const sidebarDesktopVariants = (): string => {
-  return "nx-sidebar__desktop hidden h-full w-[var(--nx-size-sidebar-width,16rem)] shrink-0 border-r border-[var(--nx-border-default)] bg-[var(--nx-color-background-subtle)] md:flex md:flex-col"
+  return "lsys-sidebar__desktop hidden h-full w-[var(--lsys-size-sidebar-width,16rem)] shrink-0 border-r border-[var(--lsys-border-default)] bg-[var(--lsys-color-background-subtle)] md:flex md:flex-col"
 }
 
 export const sidebarMobileTriggerVariants = (): string => {
-  return "nx-sidebar__mobile-trigger sticky top-0 z-(--nx-z-index-local) border-b border-[var(--nx-border-default)] bg-[var(--nx-color-background-base)] p-[var(--nx-space-2)] md:hidden"
+  return "lsys-sidebar__mobile-trigger sticky top-0 z-(--lsys-z-index-local) border-b border-[var(--lsys-border-default)] bg-[var(--lsys-color-background-base)] p-[var(--lsys-space-2)] md:hidden"
 }
 
 export const sidebarMobileHeaderVariants = (): string => {
-  return "nx-sidebar__mobile-header min-w-0 flex-1"
+  return "lsys-sidebar__mobile-header min-w-0 flex-1"
 }
 
 export const sidebarBrandVariants = (): string => {
-  return "nx-sidebar__brand border-b border-[var(--nx-border-default)] px-[var(--nx-space-4)] py-[var(--nx-space-3)]"
+  return "lsys-sidebar__brand border-b border-[var(--lsys-border-default)] px-[var(--lsys-space-4)] py-[var(--lsys-space-3)]"
 }
 
 export const sidebarNavVariants = (): string => {
-  return "nx-sidebar__nav min-h-0 flex-1 p-[var(--nx-space-2)]"
+  return "lsys-sidebar__nav min-h-0 flex-1 p-[var(--lsys-space-2)]"
 }
 
 export const sidebarNavListVariants = (): string => {
-  return "nx-sidebar__list m-0 flex list-none flex-col gap-[var(--nx-space-1)] p-0"
+  return "lsys-sidebar__list m-0 flex list-none flex-col gap-[var(--lsys-space-1)] p-0"
 }
 
 export const sidebarNavItemVariants = (active?: boolean): string => {
   const base = [
-    "nx-sidebar__item",
-    "flex w-full items-center rounded-(--nx-menu-item-radius)",
-    "px-(--nx-menu-item-padding-x) py-(--nx-menu-item-padding-y)",
-    "text-(length:--nx-menu-item-font-size) font-(--nx-menu-item-font-weight)",
-    "leading-(--nx-menu-item-font-line-height) text-(--nx-menu-item-foreground)",
+    "lsys-sidebar__item",
+    "flex w-full items-center rounded-(--lsys-menu-item-radius)",
+    "px-(--lsys-menu-item-padding-x) py-(--lsys-menu-item-padding-y)",
+    "text-(length:--lsys-menu-item-font-size) font-(--lsys-menu-item-font-weight)",
+    "leading-(--lsys-menu-item-font-line-height) text-(--lsys-menu-item-foreground)",
     "no-underline outline-none transition-colors",
-    "focus-visible:ring-(length:--nx-menu-item-focus-ring-width) focus-visible:ring-(--nx-menu-item-focus-ring-color)",
-    "focus-visible:ring-offset-(length:--nx-menu-item-focus-ring-offset) focus-visible:ring-offset-(--nx-menu-item-focus-ring-offset-color)",
+    "focus-visible:ring-(length:--lsys-menu-item-focus-ring-width) focus-visible:ring-(--lsys-menu-item-focus-ring-color)",
+    "focus-visible:ring-offset-(length:--lsys-menu-item-focus-ring-offset) focus-visible:ring-offset-(--lsys-menu-item-focus-ring-offset-color)",
   ].join(" ")
 
   if (active) {
     return [
       base,
-      "nx-sidebar__item--active",
-      "bg-(--nx-menu-item-checked-background) text-(--nx-menu-item-checked-foreground)",
-      "hover:bg-(--nx-action-primary-hover) hover:text-(--nx-menu-item-checked-foreground)",
+      "lsys-sidebar__item--active",
+      "bg-(--lsys-menu-item-checked-background) text-(--lsys-menu-item-checked-foreground)",
+      "hover:bg-(--lsys-action-primary-hover) hover:text-(--lsys-menu-item-checked-foreground)",
     ].join(" ")
   }
 
   return [
     base,
-    "hover:bg-(--nx-action-secondary-hover) hover:text-(--nx-color-text-primary)",
+    "hover:bg-(--lsys-action-secondary-hover) hover:text-(--lsys-color-text-primary)",
   ].join(" ")
 }
 
 export const sidebarMainVariants = (): string => {
-  return "nx-sidebar__drawer-content flex h-full min-h-0 flex-col"
+  return "lsys-sidebar__drawer-content flex h-full min-h-0 flex-col"
 }
 
 export const sidebarDrawerFooterVariants = (): string => {
-  return "nx-sidebar__drawer-footer border-t border-[var(--nx-border-default)] p-[var(--nx-space-2)]"
+  return "lsys-sidebar__drawer-footer border-t border-[var(--lsys-border-default)] p-[var(--lsys-space-2)]"
 }

@@ -5,12 +5,12 @@ import {
 } from "../../../src/components/primitives/Switch/Switch.variants.js"
 
 describe("switchVariants", () => {
-  it("includes Neurex switch states", () => {
+  it("includes Lexsys switch states", () => {
     expect(switchVariants({ size: "md" })).toContain(
-      "data-[checked]:bg-(--nx-switch-checked-background)",
+      "data-[checked]:bg-(--lsys-switch-checked-background)",
     )
     expect(switchThumbVariants({ size: "md" })).toContain(
-      "data-[checked]:translate-x-(--nx-switch-thumb-translate-md)",
+      "data-[checked]:translate-x-(--lsys-switch-thumb-translate-md)",
     )
   })
 })

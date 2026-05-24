@@ -20,7 +20,7 @@ describe("token authoring factories", () => {
     const theme = themeTokens(
       {
         name: "light",
-        brand: "neurex",
+        brand: "lexsys",
         selector: ":root",
         colorScheme: "light",
       },
@@ -47,7 +47,7 @@ describe("token authoring factories", () => {
     })
     expect(theme).toMatchObject({
       name: "light",
-      brand: "neurex",
+      brand: "lexsys",
       selector: ":root",
       colorScheme: "light",
       tokens: {
@@ -82,8 +82,8 @@ describe("token authoring factories", () => {
 
   test("constrains preset defaultTheme to declared themeModes", () => {
     const validPreset = {
-      id: "neurex",
-      name: "Neurex Default",
+      id: "lexsys",
+      name: "Lexsys Default",
       description: "Valid preset fixture.",
       themeModes: ["light", "dark"] as const,
       defaultTheme: "light",

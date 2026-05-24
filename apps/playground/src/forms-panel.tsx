@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
-} from "@neurex/ui"
+} from "@lexsys/ui"
 
 interface FormsPanelProps {
   submittedFormValues: string
@@ -70,7 +70,7 @@ export const FormsPanel = ({
           }}
         >
           <FieldLabel>Workspace name</FieldLabel>
-          <FieldControl required defaultValue="Neurex" />
+          <FieldControl required defaultValue="Lexsys" />
           <FieldDescription>
             Shown in generated project metadata.
           </FieldDescription>
@@ -122,7 +122,7 @@ export const FormsPanel = ({
 
                       <SelectItem value="default">
                         <SelectItemIndicator />
-                        <SelectItemText>Neurex Default</SelectItemText>
+                        <SelectItemText>Lexsys Default</SelectItemText>
                       </SelectItem>
 
                       <SelectItem value="graphite">

@@ -4,7 +4,7 @@ export const neurexLightTheme = themeTokens(
   {
     name: "light",
     selector: ":root",
-    brand: "neurex",
+    brand: "lexsys",
     colorScheme: "light",
   },
   {

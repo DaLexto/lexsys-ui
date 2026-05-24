@@ -2,7 +2,7 @@
  * index.ts
  *
  * @layer types
- * @description Public type exports for the Neurex token system.
+ * @description Public type exports for the Lexsys token system.
  */
 
 /* Token values and tree */

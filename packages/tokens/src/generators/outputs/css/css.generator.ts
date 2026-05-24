@@ -2,16 +2,16 @@
  * css-vars.generator.ts
  *
  * @layer generators
- * @description CSS custom property generator for Neurex token trees.
+ * @description CSS custom property generator for Lexsys token trees.
  *
  * @responsibility
- * - Generate CSS variable entries from Neurex token trees
+ * - Generate CSS variable entries from Lexsys token trees
  * - Serialize CSS custom properties into selector blocks
  * - Preserve CSS variable reference chains
  *
  * @notes
  * - This generator is CSS-output-specific.
- * - It maps {token.path} references to var(--nx-token-path).
+ * - It maps {token.path} references to var(--lsys-token-path).
  * - It does not resolve references to final primitive values.
  */
 

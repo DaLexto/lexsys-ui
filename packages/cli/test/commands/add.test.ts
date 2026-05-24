@@ -18,7 +18,7 @@ describe("runAdd", () => {
   beforeEach(async () => {
     const testRoot = join(process.cwd(), ".tmp")
     await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "neurex-cli-add-"))
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-add-"))
     setCwd(tempDir)
     vi.spyOn(console, "log").mockImplementation(() => undefined)
   })
@@ -48,7 +48,7 @@ describe("runAdd", () => {
     await runAdd(["button"])
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({})
@@ -73,7 +73,7 @@ describe("runAdd", () => {
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--nx-button-radius")
+    ).resolves.toContain("--lsys-button-radius")
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
     ).resolves.toContain("@theme inline")
@@ -86,7 +86,7 @@ describe("runAdd", () => {
     )
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string>; tailwind?: { css?: string } }
 
     expect(config.installed).toEqual({ button: "0.0.1" })
@@ -110,7 +110,7 @@ describe("runAdd", () => {
     await runAdd(["button"])
 
     const config = JSON.parse(
-      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+      await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as { installed?: Record<string, string> }
 
     expect(config.installed).toEqual({ button: "0.0.1" })

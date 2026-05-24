@@ -8,19 +8,19 @@ import {
 describe("Autocomplete variants", () => {
   it("uses token-backed trigger sizing", () => {
     expect(autocompleteTriggerVariants({ size: "sm" })).toContain(
-      "h-(--nx-select-height-sm)",
+      "h-(--lsys-select-height-sm)",
     )
     expect(autocompleteTriggerVariants({ size: "lg" })).toContain(
-      "h-(--nx-select-height-lg)",
+      "h-(--lsys-select-height-lg)",
     )
   })
 
   it("uses token-backed popup and input styling", () => {
     expect(autocompletePopupVariants()).toContain(
-      "bg-(--nx-select-popup-background)",
+      "bg-(--lsys-select-popup-background)",
     )
     expect(autocompleteInputVariants()).toContain(
-      "placeholder:text-(--nx-select-placeholder-color)",
+      "placeholder:text-(--lsys-select-placeholder-color)",
     )
   })
 })

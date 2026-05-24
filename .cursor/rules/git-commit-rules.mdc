@@ -217,7 +217,7 @@ Use **relative** Markdown links only — files in the same repo, same rule folde
 |-------------|---------|
 | Rule authoring | [cursor-rules.mdc](cursor-rules.mdc) |
 | This meta-guide | [git-commit-rules.mdc](git-commit-rules.mdc) |
-| Project commit policy | [git-commits.mdc](../../.agents/skills/git-commit/git-commits.mdc) *(Neurex; may live under `.cursor/rules/` in other repos)* |
+| Project commit policy | [git-commits.mdc](../../.agents/skills/git-commit/git-commits.mdc) *(Lexsys; may live under `.cursor/rules/` in other repos)* |
 
 Do not use `mdc:` URLs or absolute paths to another developer’s machine.
 

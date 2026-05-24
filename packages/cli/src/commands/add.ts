@@ -1,5 +1,5 @@
 import prompts from "prompts"
-import { registryItems } from "@neurex/registry"
+import { registryItems } from "@lexsys/registry"
 
 import { loadConfig, saveConfig } from "../core/config.js"
 import {

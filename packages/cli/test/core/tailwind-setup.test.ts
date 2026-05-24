@@ -1,7 +1,7 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test } from "vitest"
-import type { NeurexConfig } from "../../src/core/config.js"
+import type { LexsysConfig } from "../../src/core/config.js"
 import { setCwd } from "../../src/core/context.js"
 import {
   ensureTailwindCssImport,
@@ -10,7 +10,7 @@ import {
   ensureViteTailwindPlugin,
 } from "../../src/core/tailwind-setup.js"
 
-const config: NeurexConfig = {
+const config: LexsysConfig = {
   style: "default",
   paths: {
     components: "src/components/ui",
@@ -38,7 +38,7 @@ describe("tailwind setup", () => {
   beforeEach(async () => {
     const testRoot = join(process.cwd(), ".tmp")
     await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "neurex-cli-tailwind-"))
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-tailwind-"))
     setCwd(tempDir)
   })
 

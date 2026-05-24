@@ -1,4 +1,4 @@
-# Neurex Documentation Index
+# Lexsys Documentation Index
 
 **Audience:** Maintainers, contributors, and agents  
 **Type:** Routing hub  
@@ -13,7 +13,7 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 
 | Question                                       | Read                                  |
 | ---------------------------------------------- | ------------------------------------- |
-| What is Neurex and how does install flow work? | [ARCHITECTURE.md](./ARCHITECTURE.md)  |
+| What is Lexsys and how does install flow work? | [ARCHITECTURE.md](./ARCHITECTURE.md)  |
 | What should I work on next?                    | [REVIEW_TODO.md](./REVIEW_TODO.md)    |
 | Long-term direction and M-phases               | [ROADMAP.md](./ROADMAP.md)            |
 | Agent routing and always-on guardrails         | [AGENTS.md](../AGENTS.md)             |
@@ -27,15 +27,16 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 | ---------------------------------------- | ---------------------------------------------------------------- |
 | [TOKENS.md](./TOKENS.md)                 | Token layers, references, resolution, validation, CSS generation |
 | [REGISTRY.md](./REGISTRY.md)             | Registry items, templates, sync, validation, remote contract     |
-| [CLI.md](./CLI.md)                       | `neurex` commands, flags, config, install behavior               |
+| [CLI.md](./CLI.md)                       | `lexsys` commands, flags, config, install behavior               |
 | [UI.md](./UI.md)                         | Reference component contract, file structure, Base UI boundaries |
 | [UI_VARIANTS.md](./UI_VARIANTS.md)       | Public variant props, CVA rules, styling taxonomy                |
 | [UI_COMPOSITION.md](./UI_COMPOSITION.md) | Primitives → blocks → templates; monorepo vs consumer paths      |
 | [UI_AUDIT.md](./UI_AUDIT.md)             | Per-component variant compliance inventory                       |
 | [STYLE.md](./STYLE.md)                   | TypeScript, React, import/export coding style                    |
-| [STYLEGUIDE.md](./STYLEGUIDE.md)         | Component naming, `nx-` classes, Tailwind patterns               |
+| [STYLEGUIDE.md](./STYLEGUIDE.md)         | Component naming, `lsys-` classes, Tailwind patterns             |
 | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md)   | Token authoring guide and design system overview                 |
 | [DEPLOY.md](./DEPLOY.md)                 | Build pipeline, publish-readiness (M10), artifact contract       |
+| [REBRAND.md](./REBRAND.md)               | Lexsys rename map, rebrand scripts (R0)                          |
 
 ---
 

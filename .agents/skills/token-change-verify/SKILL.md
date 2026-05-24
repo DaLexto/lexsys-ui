@@ -1,7 +1,7 @@
 ---
 name: token-change-verify
 description: >
-  Verify Neurex token layer edits — tokens:check, governance report, style
+  Verify Lexsys token layer edits — tokens:check, governance report, style
   generation, registry style sync. Use when editing packages/tokens, TOKENS.md
   validation, themes, semantics, or component token files.
 ---
@@ -43,7 +43,7 @@ pnpm registry:check
 pnpm tokens:governance:report
 ```
 
-5. If UI variants reference new/changed `--nx-*` variables, ensure UI still passes:
+5. If UI variants reference new/changed `--lsys-*` variables, ensure UI still passes:
 
 ```sh
 pnpm ui:check

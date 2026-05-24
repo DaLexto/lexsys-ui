@@ -1,4 +1,4 @@
-# Neurex Roadmap
+# Lexsys Roadmap
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
@@ -91,8 +91,8 @@ Summary only — do not duplicate detail here.
 - Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`NEUREX_GOVERNANCE_POLICY=ci`; override with `report`)
 - Broad UI render coverage (41/41 primitives; M3 baseline was 32/32)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
-- Next.js App Router minimal scaffold (`neurex init next`; pinned Next.js 15.3.3)
-- `neurex uninstall` metadata-driven removal with dry-run and conflict reporting
+- Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
+- `lexsys uninstall` metadata-driven removal with dry-run and conflict reporting
 - UI render test pilot (`ScrollArea`, `Collapsible`, `Dialog`)
 
 **Deferred (explicit non-goals for now):**
@@ -101,12 +101,12 @@ Summary only — do not duplicate detail here.
 - AST expression evaluator and color/unit math (requires new subsystem — see RESOLVER_EVOLUTION)
 - Automatic contrast pair discovery without an explicit registry
 - Runtime accessibility checks in consumer apps
-- Default CSS/DTCG output switching from `var(--nx-*)` refs to hardcoded literals
+- Default CSS/DTCG output switching from `var(--lsys-*)` refs to hardcoded literals
 
 ### Semantic and product gaps
 
 - Stronger governance workflows around token ownership and change review
-- Additional presets or CLI style aliases beyond `default` / `neurex`
+- Additional presets or CLI style aliases beyond `default` / `lexsys`
 
 Active backlog items live in `docs/REVIEW_TODO.md`.
 
@@ -142,7 +142,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                  | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                       | DEPLOY.md                             |
 | M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agents/skills/`          |
-| M10   | Release readiness        | planned | First npm `0.0.1` @ `next`; Changesets + publish CI; `0.1.0` @ `latest` later       | DEPLOY.md                             |
+| M10   | Release readiness        | planned | First npm `0.0.1` @ `next`; Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
 
 ### M1 — Infra and DX
 
@@ -150,9 +150,8 @@ Status: shipped
 
 #### M1.1 — Fix pnpm filter collision
 
-- **Problem:** Root and `packages/cli` are both named `neurex`; `pnpm --filter neurex` matches both packages.
-- **Target:** Standardize CLI root aliases to `pnpm --filter ./packages/cli …` in root `package.json`; update SCRIPTS.md and TESTING.md.
-- **Verification:** `pnpm --filter ./packages/cli check` runs CLI package only — see [TESTING.md](./TESTING.md).
+- **Problem:** Root workspace and CLI package shared the name `lexsys`; `pnpm --filter lexsys` matched both.
+- **Status (R0):** CLI npm name is `@lexsys/cli`; root stays `lexsys`. Root scripts use `pnpm --filter ./packages/cli …`.
 
 #### M1.2 — Add primary CI workflow
 
@@ -168,7 +167,7 @@ Status: shipped
 #### M1.4 — Trim redundant CLI check work
 
 - **Problem:** Turbo `check` already has `dependsOn: ["^build"]`, but CLI `check` also runs inline registry build.
-- **Target:** Remove inline `@neurex/registry build` from CLI `check`; rely on turbo graph.
+- **Target:** Remove inline `@lexsys/registry build` from CLI `check`; rely on turbo graph.
 - **Verification:** `pnpm --filter ./packages/cli check`.
 
 #### M1.5 — Docs and deploy contract cleanup
@@ -220,7 +219,7 @@ Status: shipped
 
 #### M3.2 — Next.js scaffold
 
-- Minimal App Router starter via `neurex init next [directory]`; pinned Next.js 15.3.3; Tailwind v4 via PostCSS.
+- Minimal App Router starter via `lexsys init next [directory]`; pinned Next.js 15.3.3; Tailwind v4 via PostCSS.
 
 #### M3.3 — Remote registry contract
 
@@ -313,7 +312,7 @@ on **`latest`** when declaring public MVP stable.
 
 #### M10.0 — Publish scope and version lane
 
-- npm packages: `neurex` + `@neurex/registry` only (not `@neurex/ui`, not `@neurex/tokens`)
+- npm packages: `@lexsys/cli` + `@lexsys/registry` only (not `@lexsys/ui`, not `@lexsys/tokens`)
 - Version lane: `0.0.x` @ `next` → `0.1.0` @ `latest`
 
 #### M10.1 — CHANGELOG
@@ -327,13 +326,13 @@ on **`latest`** when declaring public MVP stable.
 
 #### M10.3 — Publish automation
 
-- Changesets fixed group (`neurex` + `@neurex/registry`).
+- Changesets fixed group (`@lexsys/cli` + `@lexsys/registry`).
 - GitHub Actions publish workflow; `NPM_TOKEN`; dist-tag **`next`**.
 
 #### M10.4 — First publish
 
 - Follow [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next).
-- Post-publish: `npx neurex@next init vite` smoke.
+- Post-publish: `npx @lexsys/cli@next init vite` smoke.
 
 **Phase PR:** `chore(m10): release readiness` (may split into M10.0–M10.3 PRs)
 
@@ -346,12 +345,12 @@ on **`latest`** when declaring public MVP stable.
 | `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                             |
 | Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                |
 | Changesets / npm provenance       | M10 release phase                                                                                                                                                            |
-| Next.js scaffold, remote registry | **Shipped in M3** — `neurex init next`; remote manifest contract                                                                                                             |
+| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                                                                                             |
 
 ### PR sequence
 
 **Delivered (2026-05-22):** Phase 0 + **M1, M2, M5, M6, M7** shipped in one consolidated PR
-[#18](https://github.com/DaLexto/neurex/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
+[#18](https://github.com/DaLexto/lexsys/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
 separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. M4 and M10 remain planned.
 
 | PR      | Phase | Title sketch                                        | Delivery                              |
@@ -415,9 +414,9 @@ and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes
 Pilot blocks (FormField, Sidebar) and template (DashboardShell) are registry +
 CLI installable — **optimization pass complete** (BO.1–BO.7; CI install smoke, render tests, registry template-import audit).
 
-Neurex uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
+Lexsys uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
-| Layer      | Monorepo reference                      | Consumer install (`neurex add`)               |
+| Layer      | Monorepo reference                      | Consumer install (`lexsys add`)               |
 | ---------- | --------------------------------------- | --------------------------------------------- |
 | Primitives | Shipped (41 components + tokens + `cn`) | `src/components/ui/<CanonicalName>/`          |
 | Blocks     | Pilot (FormField, Sidebar)              | Same flat path; cross-layer imports rewritten |

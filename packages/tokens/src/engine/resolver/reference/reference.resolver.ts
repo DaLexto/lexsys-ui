@@ -2,7 +2,7 @@
  * reference.resolver.ts
  *
  * @layer resolver
- * @description Token reference resolver for Neurex token trees.
+ * @description Token reference resolver for Lexsys token trees.
  */
 
 import type {

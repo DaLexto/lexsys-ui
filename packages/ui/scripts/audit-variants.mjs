@@ -13,55 +13,56 @@ const rules = [
     id: "opacity-20",
     pattern: /opacity-20\b/,
     message:
-      "Use opacity-(--nx-*-backdrop-opacity) or a semantic opacity token",
+      "Use opacity-(--lsys-*-backdrop-opacity) or a semantic opacity token",
   },
   {
     id: "opacity-50",
     pattern: /opacity-50\b/,
     message:
-      "Use opacity-(--nx-opacity-disabled) or disabledStateClasses from utils",
+      "Use opacity-(--lsys-opacity-disabled) or disabledStateClasses from utils",
   },
   {
     id: "opacity-60",
     pattern: /opacity-60\b/,
-    message: "Use opacity-(--nx-opacity-disabled)",
+    message: "Use opacity-(--lsys-opacity-disabled)",
   },
   {
     id: "opacity-80",
     pattern: /opacity-80\b/,
-    message: "Use opacity-(--nx-opacity-busy)",
+    message: "Use opacity-(--lsys-opacity-busy)",
   },
   {
     id: "max-h-dvh",
     pattern: /max-h-dvh\b/,
     message:
-      "Use max-h-(--nx-*-viewport-max-height) from overlay viewport tokens",
+      "Use max-h-(--lsys-*-viewport-max-height) from overlay viewport tokens",
   },
   {
     id: "min-h-dvh",
     pattern: /min-h-dvh\b/,
     message:
-      "Use min-h-(--nx-*-viewport-max-height) from overlay viewport tokens",
+      "Use min-h-(--lsys-*-viewport-max-height) from overlay viewport tokens",
   },
   {
     id: "bare-100dvh",
     pattern: /(?<!-)100dvh/,
-    message: "Replace bare 100dvh with --nx-* viewport max-height tokens",
+    message: "Replace bare 100dvh with --lsys-* viewport max-height tokens",
   },
   {
     id: "raw-viewport-calc",
     pattern: /100vw-2rem/,
-    message: "Tokenize viewport inset (calc with --nx-*-viewport-inset)",
+    message: "Tokenize viewport inset (calc with --lsys-*-viewport-inset)",
   },
   {
     id: "raw-z-index",
     pattern: /(?:^|[\s"'])z-\d+\b|-z-\d+\b/,
-    message: "Use token-backed z-index (--nx-*-z-index)",
+    message: "Use token-backed z-index (--lsys-*-z-index)",
   },
   {
     id: "raw-translate-offset",
     pattern: /translate-[xy]-\d+(?!\/)\b/,
-    message: "Use motion offset tokens (translate-*-(--nx-*-motion-offset-*))",
+    message:
+      "Use motion offset tokens (translate-*-(--lsys-*-motion-offset-*))",
   },
   {
     id: "leading-none",
@@ -80,8 +81,8 @@ const rules = [
   },
   {
     id: "destructive-token",
-    pattern: /--nx-[a-z-]*destructive/,
-    message: "Use danger vocabulary in Neurex token names",
+    pattern: /--lsys-[a-z-]*destructive/,
+    message: "Use danger vocabulary in Lexsys token names",
   },
   {
     id: "public-tone",
@@ -91,7 +92,7 @@ const rules = [
   {
     id: "inline-disabled-state",
     pattern:
-      /disabled:(?:pointer-events-none|cursor-not-allowed) disabled:opacity-\(--nx-opacity-disabled\)/,
+      /disabled:(?:pointer-events-none|cursor-not-allowed) disabled:opacity-\(--lsys-opacity-disabled\)/,
     message:
       "Use disabledStateClasses from @/lib/utils (or ../../utils/cn in reference UI)",
   },

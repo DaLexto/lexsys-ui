@@ -25,7 +25,7 @@ const createFixtureInput = (
 }
 
 describe("createTokenGovernanceReport", () => {
-  it("builds a report for the current Neurex token graph without changing outputs", () => {
+  it("builds a report for the current Lexsys token graph without changing outputs", () => {
     const input = createStyleTokenInput()
     const report = createTokenGovernanceReport(input)
 

@@ -37,7 +37,7 @@ describe("runInit", () => {
 
     const testRoot = join(process.cwd(), ".tmp")
     await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "neurex-cli-init-"))
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-init-"))
     setCwd(tempDir)
   })
 
@@ -50,7 +50,7 @@ describe("runInit", () => {
     }
   })
 
-  test("scaffolds a Vite app in the provided directory and initializes Neurex", async () => {
+  test("scaffolds a Vite app in the provided directory and initializes Lexsys", async () => {
     const { runInit } = await import("../../src/commands/init.js")
 
     await runInit(["vite", "my-app"])
@@ -112,13 +112,13 @@ describe("runInit", () => {
       readFile(join(appDir, "src", "style.css"), "utf-8"),
     ).resolves.toContain('@import "tailwindcss";')
     await expect(
-      readFile(join(appDir, "neurex.config.json"), "utf-8"),
+      readFile(join(appDir, "lexsys.config.json"), "utf-8"),
     ).resolves.toContain('"style": "default"')
     await expect(
-      readFile(join(appDir, "neurex.config.json"), "utf-8"),
+      readFile(join(appDir, "lexsys.config.json"), "utf-8"),
     ).resolves.toContain('"components": "src/components/ui"')
     await expect(
-      readFile(join(appDir, "neurex.config.json"), "utf-8"),
+      readFile(join(appDir, "lexsys.config.json"), "utf-8"),
     ).resolves.toContain('"utils": "@/lib/utils"')
 
     expect(execFileSyncMock).toHaveBeenCalledWith(
@@ -172,7 +172,7 @@ describe("runInit", () => {
     ).resolves.toContain('"name":')
     await expect(
       readFile(join(tempDir, "src", "App.tsx"), "utf-8"),
-    ).resolves.toContain("Neurex + Vite")
+    ).resolves.toContain("Lexsys + Vite")
   })
 
   test("prompts to create a starter scaffold when plain init has no supported app scaffold", async () => {
@@ -222,10 +222,10 @@ describe("runInit", () => {
     ).resolves.toContain('"name":')
     await expect(
       readFile(join(tempDir, "app", "page.tsx"), "utf-8"),
-    ).resolves.toContain("Neurex + Next.js")
+    ).resolves.toContain("Lexsys + Next.js")
   })
 
-  test("scaffolds a Next.js app in the provided directory and initializes Neurex", async () => {
+  test("scaffolds a Next.js app in the provided directory and initializes Lexsys", async () => {
     const { runInit } = await import("../../src/commands/init.js")
 
     await runInit(["next", "my-next-app"])
@@ -258,10 +258,10 @@ describe("runInit", () => {
       readFile(join(appDir, "app", "globals.css"), "utf-8"),
     ).resolves.toContain('@import "tailwindcss";')
     await expect(
-      readFile(join(appDir, "neurex.config.json"), "utf-8"),
+      readFile(join(appDir, "lexsys.config.json"), "utf-8"),
     ).resolves.toContain('"components": "src/components/ui"')
     await expect(
-      readFile(join(appDir, "neurex.config.json"), "utf-8"),
+      readFile(join(appDir, "lexsys.config.json"), "utf-8"),
     ).resolves.toContain('"css": "app/globals.css"')
 
     expect(execFileSyncMock).toHaveBeenCalledWith(

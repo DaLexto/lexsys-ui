@@ -8,8 +8,8 @@ import { cva } from "class-variance-authority"
 
 export const toggleGroupVariants = cva(
   [
-    "inline-flex rounded-(--nx-toggle-group-radius) border border-(--nx-toggle-group-border-color)",
-    "bg-(--nx-toggle-group-background) p-(--nx-toggle-group-padding)",
+    "inline-flex rounded-(--lsys-toggle-group-radius) border border-(--lsys-toggle-group-border-color)",
+    "bg-(--lsys-toggle-group-background) p-(--lsys-toggle-group-padding)",
     "[&_[data-toggle]]:border-0 [&_[data-toggle]]:shadow-none",
   ].join(" "),
   {
@@ -19,9 +19,9 @@ export const toggleGroupVariants = cva(
         vertical: "flex-col",
       },
       size: {
-        sm: "gap-(--nx-toggle-group-gap-sm)",
-        md: "gap-(--nx-toggle-group-gap-md)",
-        lg: "gap-(--nx-toggle-group-gap-lg)",
+        sm: "gap-(--lsys-toggle-group-gap-sm)",
+        md: "gap-(--lsys-toggle-group-gap-md)",
+        lg: "gap-(--lsys-toggle-group-gap-lg)",
       },
     },
     defaultVariants: {

@@ -1,9 +1,9 @@
 ---
-description: Neurex monorepo layout — where source lives and where to edit (links to docs/ for contracts)
+description: Lexsys monorepo layout — where source lives and where to edit (links to docs/ for contracts)
 globs:
 alwaysApply: true
 ---
-# Neurex Project Directory Structure
+# Lexsys Project Directory Structure
 
 Registry-first React UI monorepo (pnpm + Turborepo).
 
@@ -21,7 +21,7 @@ Public APIs: `package.json` `exports` only. Never deep-import another package's 
 ## Repository root
 
 ```txt
-neurex/
+lexsys/
 ├── .agents/            # Agent workspace — skills/ (tracked)
 ├── .cursor/rules/      # Cursor editing behavior (*.mdc)
 ├── apps/               # playground (smoke), docs (placeholder)
@@ -43,7 +43,7 @@ neurex/
 | Tokens | `packages/tokens/src/` | `dist/` + generated CSS |
 | UI reference | `packages/ui/src/components/{primitives,blocks,templates}/` | `dist/` |
 | Registry | `packages/registry/src/items/` + `templates/` | `dist/` + bundled templates |
-| CLI | `packages/cli/src/` | `dist/` (`neurex` bin) |
+| CLI | `packages/cli/src/` | `dist/` (`lexsys` bin) |
 
 | App | Path | Role |
 | --- | ---- | ---- |
@@ -85,7 +85,7 @@ ComponentName/
 | `documentation-standards.mdc` | Doc governance (`docs/`, README, CONTRIBUTING) |
 | `code-commenting.mdc` | JSDoc and comments in `src/` |
 | `git-commit-rules.mdc` | Meta: authoring commit rules |
-| `neurex-testing.mdc` | Vitest layout and commands per package |
+| `lexsys-testing.mdc` | Vitest layout and commands per package |
 | `tech-stack.mdc` | Dependencies and toolchain |
 | `self-improvement.mdc` | When to evolve rules |
 

@@ -30,7 +30,7 @@ jobs:
           --access-token "${{ secrets.GITHUB_TOKEN }}"
           --labels .github/labels.yml
           --dry-run
-          DaLexto/neurex
+          DaLexto/lexsys
 
   sync:
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -43,4 +43,4 @@ jobs:
           npx github-label-sync@3
           --access-token "${{ secrets.GITHUB_TOKEN }}"
           --labels .github/labels.yml
-          DaLexto/neurex
+          DaLexto/lexsys

@@ -4,10 +4,10 @@ import { scrollAreaScrollbarVariants } from "../../../src/components/primitives/
 describe("scrollAreaScrollbarVariants", () => {
   it("supports vertical and horizontal orientations", () => {
     expect(scrollAreaScrollbarVariants({ orientation: "vertical" })).toContain(
-      "w-(--nx-scroll-area-scrollbar-size)",
+      "w-(--lsys-scroll-area-scrollbar-size)",
     )
     expect(
       scrollAreaScrollbarVariants({ orientation: "horizontal" }),
-    ).toContain("h-(--nx-scroll-area-scrollbar-size)")
+    ).toContain("h-(--lsys-scroll-area-scrollbar-size)")
   })
 })

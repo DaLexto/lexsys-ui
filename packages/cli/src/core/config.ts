@@ -3,13 +3,13 @@ import { join } from "node:path"
 import { fileExists } from "./fs.js"
 import { getCwd } from "./context.js"
 
-export interface NeurexPathsConfig {
+export interface LexsysPathsConfig {
   components: string
   utilities: string
   styles: string
 }
 
-export interface NeurexAliasesConfig {
+export interface LexsysAliasesConfig {
   components: string
   ui: string
   utils: string
@@ -17,27 +17,27 @@ export interface NeurexAliasesConfig {
   hooks: string
 }
 
-export interface NeurexConfig {
+export interface LexsysConfig {
   style: "default"
-  paths: NeurexPathsConfig
-  aliases: NeurexAliasesConfig
-  tailwind: NeurexTailwindConfig
+  paths: LexsysPathsConfig
+  aliases: LexsysAliasesConfig
+  tailwind: LexsysTailwindConfig
   installed?: Record<string, string>
   registryUrl?: string | null
 }
 
-export interface NeurexTailwindConfig {
+export interface LexsysTailwindConfig {
   version: "v4"
   css: string
 }
 
-const defaultPathsConfig: NeurexPathsConfig = {
+const defaultPathsConfig: LexsysPathsConfig = {
   components: "src/components/ui",
   utilities: "src/lib",
   styles: "styles",
 }
 
-const defaultAliasesConfig: NeurexAliasesConfig = {
+const defaultAliasesConfig: LexsysAliasesConfig = {
   components: "@/components/ui",
   ui: "@/components/ui",
   utils: "@/lib/utils",
@@ -45,12 +45,12 @@ const defaultAliasesConfig: NeurexAliasesConfig = {
   hooks: "@/hooks",
 }
 
-const defaultTailwindConfig: NeurexTailwindConfig = {
+const defaultTailwindConfig: LexsysTailwindConfig = {
   version: "v4",
   css: "src/style.css",
 }
 
-export const defaultConfig: NeurexConfig = {
+export const defaultConfig: LexsysConfig = {
   style: "default",
   paths: defaultPathsConfig,
   aliases: defaultAliasesConfig,
@@ -60,10 +60,10 @@ export const defaultConfig: NeurexConfig = {
 }
 
 export const getConfigPath = (): string => {
-  return join(getCwd(), "neurex.config.json")
+  return join(getCwd(), "lexsys.config.json")
 }
 
-export const loadConfig = async (): Promise<NeurexConfig> => {
+export const loadConfig = async (): Promise<LexsysConfig> => {
   const configPath = getConfigPath()
 
   if (!(await fileExists(configPath))) {
@@ -71,7 +71,7 @@ export const loadConfig = async (): Promise<NeurexConfig> => {
   }
 
   const content = await readFile(configPath, "utf-8")
-  const parsed = JSON.parse(content) as Partial<NeurexConfig>
+  const parsed = JSON.parse(content) as Partial<LexsysConfig>
 
   return {
     ...defaultConfig,
@@ -91,7 +91,7 @@ export const loadConfig = async (): Promise<NeurexConfig> => {
   }
 }
 
-export const saveConfig = async (config: NeurexConfig): Promise<void> => {
+export const saveConfig = async (config: LexsysConfig): Promise<void> => {
   const configPath = getConfigPath()
 
   await writeFile(configPath, JSON.stringify(config, null, 2) + "\n", "utf-8")

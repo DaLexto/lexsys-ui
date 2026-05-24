@@ -13,7 +13,7 @@ import {
   hasInstallConflicts,
   printResourceSummary,
 } from "../core/install-results.js"
-import type { NeurexConfig } from "../core/config.js"
+import type { LexsysConfig } from "../core/config.js"
 
 const styleUpdateNames = ["theme"]
 
@@ -35,7 +35,7 @@ const resolveInstalledKey = async (
 }
 
 const runStylesUpdate = async (
-  config: NeurexConfig,
+  config: LexsysConfig,
   dryRun: boolean,
 ): Promise<void> => {
   const styles = resolveRegistryStyles(styleUpdateNames)
@@ -66,7 +66,7 @@ const runStylesUpdate = async (
 }
 
 const runUtilitiesUpdate = async (
-  config: NeurexConfig,
+  config: LexsysConfig,
   installed: Record<string, string>,
   dryRun: boolean,
   force: boolean,
@@ -109,7 +109,7 @@ const runUtilitiesUpdate = async (
 }
 
 const runComponentUpdates = async (
-  config: NeurexConfig,
+  config: LexsysConfig,
   installed: Record<string, string>,
   targetNames: string[],
   dryRun: boolean,
@@ -119,11 +119,11 @@ const runComponentUpdates = async (
   let changed = false
 
   if (!Object.keys(installed).length) {
-    console.log("No Neurex components are currently tracked.")
+    console.log("No Lexsys components are currently tracked.")
     return false
   }
 
-  console.log("Checking installed Neurex components:\n")
+  console.log("Checking installed Lexsys components:\n")
 
   for (const name of targetNames) {
     const version = installed[name]

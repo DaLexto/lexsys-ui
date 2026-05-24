@@ -5,7 +5,7 @@
  * @description Generates DTCG-compatible JSON token output.
  *
  * @responsibility
- * - Generate DTCG JSON token trees from Neurex token trees
+ * - Generate DTCG JSON token trees from Lexsys token trees
  * - Preserve token references instead of resolving them
  * - Preserve DTCG-style branch and leaf metadata
  * - Serialize generated JSON deterministically

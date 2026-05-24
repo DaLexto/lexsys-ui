@@ -7,18 +7,18 @@
 import { cva } from "class-variance-authority"
 
 const neutralVariant =
-  "border-(--nx-alert-neutral-border-color) bg-(--nx-alert-neutral-background) text-(--nx-alert-neutral-foreground)"
+  "border-(--lsys-alert-neutral-border-color) bg-(--lsys-alert-neutral-background) text-(--lsys-alert-neutral-foreground)"
 
 const primaryVariant =
-  "border-(--nx-alert-primary-border-color) bg-(--nx-alert-primary-background) text-(--nx-alert-primary-foreground)"
+  "border-(--lsys-alert-primary-border-color) bg-(--lsys-alert-primary-background) text-(--lsys-alert-primary-foreground)"
 
 const dangerVariant =
-  "border-(--nx-alert-danger-border-color) bg-(--nx-alert-danger-background) text-(--nx-alert-danger-foreground)"
+  "border-(--lsys-alert-danger-border-color) bg-(--lsys-alert-danger-background) text-(--lsys-alert-danger-foreground)"
 
 export const alertVariants = cva(
   [
-    "grid gap-(--nx-alert-gap) rounded-(--nx-alert-radius) border p-(--nx-alert-padding)",
-    "transition-colors duration-(--nx-alert-transition-duration) ease-(--nx-alert-transition-easing)",
+    "grid gap-(--lsys-alert-gap) rounded-(--lsys-alert-radius) border p-(--lsys-alert-padding)",
+    "transition-colors duration-(--lsys-alert-transition-duration) ease-(--lsys-alert-transition-easing)",
   ].join(" "),
   {
     variants: {
@@ -35,7 +35,7 @@ export const alertVariants = cva(
 )
 
 export const alertTitleClassName =
-  "text-(length:--nx-alert-title-font-size) font-(--nx-alert-title-font-weight) leading-(--nx-alert-title-font-line-height)"
+  "text-(length:--lsys-alert-title-font-size) font-(--lsys-alert-title-font-weight) leading-(--lsys-alert-title-font-line-height)"
 
 export const alertDescriptionClassName =
-  "text-(length:--nx-alert-description-font-size) leading-(--nx-alert-description-font-line-height) text-(--nx-alert-description-foreground)"
+  "text-(length:--lsys-alert-description-font-size) leading-(--lsys-alert-description-font-line-height) text-(--lsys-alert-description-foreground)"

@@ -6,13 +6,13 @@ import {
 
 describe("OtpField variants", () => {
   it("uses token-backed root and input sizing", () => {
-    expect(otpFieldVariants()).toContain("text-(--nx-field-foreground)")
+    expect(otpFieldVariants()).toContain("text-(--lsys-field-foreground)")
     expect(otpFieldInputVariants({ size: "sm" })).toContain(
-      "size-(--nx-input-height-sm)",
+      "size-(--lsys-input-height-sm)",
     )
     expect(otpFieldInputVariants({ size: "lg" })).toContain(
-      "size-(--nx-input-height-lg)",
+      "size-(--lsys-input-height-lg)",
     )
-    expect(otpFieldInputVariants()).toContain("bg-(--nx-input-background)")
+    expect(otpFieldInputVariants()).toContain("bg-(--lsys-input-background)")
   })
 })

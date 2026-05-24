@@ -1,8 +1,8 @@
 /**
- * Public entry point for @neurex/ui.
+ * Public entry point for @lexsys/ui.
  *
  * This package contains the source/reference implementation
- * for Neurex components.
+ * for Lexsys components.
  */
 
 export * from "./components/primitives/Accordion/Accordion"

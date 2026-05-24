@@ -42,7 +42,7 @@ Use this rule when writing or reviewing **markdown documentation** in this repo:
   only. Other docs link to SCRIPTS.md instead of duplicating full script inventories.
 - Split with related docs:
   - `docs/TESTING.md` — test coverage and when-to-run scenarios (links to SCRIPTS.md for command names).
-  - `docs/CLI.md` — consumer-facing `neurex` CLI (not monorepo `pnpm` scripts).
+  - `docs/CLI.md` — consumer-facing `lexsys` CLI (not monorepo `pnpm` scripts).
   - `docs/DEPLOY.md` — release/build contract (links to SCRIPTS.md for day-to-day commands).
 - Architecture overview documents should be compact hubs, not copies of every
   detailed spec.

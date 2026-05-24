@@ -1,4 +1,4 @@
-# Neurex — Architecture
+# Lexsys — Architecture
 
 **Audience:** Maintainers  
 **Type:** Architecture overview  
@@ -10,7 +10,7 @@ Domain specifications own their canonical rules. This document links to them.
 
 ## System model
 
-Neurex is a **registry-first UI framework**. Components are not imported as
+Lexsys is a **registry-first UI framework**. Components are not imported as
 library dependencies — they are installed as user-owned source files.
 
 Install flow:
@@ -35,13 +35,13 @@ Core invariants:
 
 ## Monorepo packages
 
-| Package             | npm name             | Role                                                                                                                           |
-| ------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `packages/tokens`   | `@neurex/tokens`     | Design token source of truth; resolver; CSS + DTCG generators                                                                  |
-| `packages/ui`       | `@neurex/ui`         | Source/reference React components (not the final distributed form)                                                             |
-| `packages/registry` | `@neurex/registry`   | Registry items, templates, utilities, styles, and metadata validator                                                           |
-| `packages/cli`      | `neurex` (bin)       | CLI installer; reads `@neurex/registry`; orchestrates install into consumer projects                                           |
-| `apps/playground`   | `@neurex/playground` | Monorepo smoke app — workspace `@neurex/ui`; not the consumer install path. See [TESTING.md](TESTING.md#verification-surfaces) |
+| Package             | npm name                     | Role                                                                                                                           |
+| ------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `packages/tokens`   | `@lexsys/tokens`             | Design token source of truth; resolver; CSS + DTCG generators                                                                  |
+| `packages/ui`       | `@lexsys/ui`                 | Source/reference React components (not the final distributed form)                                                             |
+| `packages/registry` | `@lexsys/registry`           | Registry items, templates, utilities, styles, and metadata validator                                                           |
+| `packages/cli`      | `@lexsys/cli` (`lexsys` bin) | CLI installer; reads `@lexsys/registry`; orchestrates install into consumer projects                                           |
+| `apps/playground`   | `@lexsys/playground`         | Monorepo smoke app — workspace `@lexsys/ui`; not the consumer install path. See [TESTING.md](TESTING.md#verification-surfaces) |
 
 Consumer validation (CLI install path, real layouts, brand/theme UX) happens outside the monorepo — sandbox or SaaS — not in playground.
 
@@ -77,7 +77,7 @@ coding conventions.
 
 ### UI composition layers
 
-Neurex uses a **three-layer** reference model in the monorepo:
+Lexsys uses a **three-layer** reference model in the monorepo:
 
 | Layer      | Monorepo path                            | Consumer install path       |
 | ---------- | ---------------------------------------- | --------------------------- |
@@ -109,13 +109,13 @@ primitives → brand → semantics → component tokens
            presets are configuration, not a token layer
 ```
 
-CSS output uses generated CSS variables as `--nx-<token-path>`. Component
+CSS output uses generated CSS variables as `--lsys-<token-path>`. Component
 variants in `*.variants.ts` reference them through Tailwind v4 canonical syntax
-(for example `bg-(--nx-button-primary-background)`,
-`ring-(length:--nx-button-focus-ring-width)`). They MUST NOT use raw Tailwind
-palette values or the legacy `[var(--nx-*)]` arbitrary form.
+(for example `bg-(--lsys-button-primary-background)`,
+`ring-(length:--lsys-button-focus-ring-width)`). They MUST NOT use raw Tailwind
+palette values or the legacy `[var(--lsys-*)]` arbitrary form.
 
-The current preset is `neurex` (`Neurex Default`), brand `neurex`, with
+The current preset is `lexsys` (`Lexsys Default`), brand `lexsys`, with
 `light` (`:root`) and `dark` (`.dark`) theme modes.
 
 Tailwind v4 is the user-facing styling layer. No runtime theme provider is
@@ -133,7 +133,7 @@ Every installable item is declared as a `RegistryItem` in
 | Field                    | Purpose                                                                                 |
 | ------------------------ | --------------------------------------------------------------------------------------- |
 | `name` / `canonicalName` | Registry key + PascalCase folder name                                                   |
-| `version`                | Item version (tracked in `neurex.config.json` after install)                            |
+| `version`                | Item version (tracked in `lexsys.config.json` after install)                            |
 | `type` / `category`      | `component`, `block`, `utility`, or `style`; category includes `blocks`, `layout`, etc. |
 | `files`                  | Template paths relative to `packages/registry/templates/`                               |
 | `dependencies`           | npm packages the CLI installs into the consumer project                                 |
@@ -154,24 +154,24 @@ build time.
 
 | Command                             | Description                                                                           |
 | ----------------------------------- | ------------------------------------------------------------------------------------- |
-| `neurex init`                       | Initialize Neurex in an existing project or scaffold Vite+React or Next.js App Router |
-| `neurex add [items...]`             | Install one or more registry items; interactive multiselect when no args              |
-| `neurex update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes`                   |
-| `neurex update styles`              | Update theme/token CSS files only                                                     |
-| `neurex list [--json]`              | List available registry items                                                         |
-| `neurex status`                     | Show installed component versions                                                     |
-| `neurex doctor`                     | Check project health (config, paths, registry connectivity)                           |
-| `neurex uninstall [items...]`       | Remove tracked components from config                                                 |
-| `neurex registry`                   | Inspect the active registry source                                                    |
-| `neurex version`                    | Print CLI version                                                                     |
-| `neurex help`                       | Show usage                                                                            |
+| `lexsys init`                       | Initialize Lexsys in an existing project or scaffold Vite+React or Next.js App Router |
+| `lexsys add [items...]`             | Install one or more registry items; interactive multiselect when no args              |
+| `lexsys update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes`                   |
+| `lexsys update styles`              | Update theme/token CSS files only                                                     |
+| `lexsys list [--json]`              | List available registry items                                                         |
+| `lexsys status`                     | Show installed component versions                                                     |
+| `lexsys doctor`                     | Check project health (config, paths, registry connectivity)                           |
+| `lexsys uninstall [items...]`       | Remove tracked components from config                                                 |
+| `lexsys registry`                   | Inspect the active registry source                                                    |
+| `lexsys version`                    | Print CLI version                                                                     |
+| `lexsys help`                       | Show usage                                                                            |
 
 ### Registry source
 
 The CLI resolves registry items from:
 
-1. **Local** (`@neurex/registry` bundled with the CLI) — default when
-   `registryUrl` is `null` in `neurex.config.json`.
+1. **Local** (`@lexsys/registry` bundled with the CLI) — default when
+   `registryUrl` is `null` in `lexsys.config.json`.
 2. **Remote** — when `registryUrl` is set, the CLI fetches a remote manifest
    JSON over HTTPS, validates item (and optional style) shape, and falls back to
    local if the fetch fails (unless `--no-fallback` is used).
@@ -208,7 +208,7 @@ project and wires Tailwind v4 accordingly.
 - `@/*` TypeScript path alias in `tsconfig.app.json` or `tsconfig.json`
 - Matching Vite runtime alias
 
-Scaffolding a new Vite+React app: `neurex init vite [app-name]`.
+Scaffolding a new Vite+React app: `lexsys init vite [app-name]`.
 
 **Next.js App Router** detection wires:
 
@@ -216,7 +216,7 @@ Scaffolding a new Vite+React app: `neurex init vite [app-name]`.
 - `@tailwindcss/postcss` in `postcss.config.mjs` when missing
 - `@/*` TypeScript path alias in `tsconfig.json`
 
-Scaffolding a new Next.js App Router app: `neurex init next [app-name]` (pinned
+Scaffolding a new Next.js App Router app: `lexsys init next [app-name]` (pinned
 Next.js 15.3.3).
 
 > **Note:** Pages Router, middleware presets, and additional framework scaffolds
@@ -231,7 +231,7 @@ See [CLI.md](CLI.md) for the full command reference.
 
 ## Consumer project layout
 
-Default paths after `neurex init` and component installs:
+Default paths after `lexsys init` and component installs:
 
 ```txt
 project/
@@ -241,10 +241,10 @@ project/
 ├── styles/
 │   ├── tokens.css                       ← generated token variables
 │   └── theme.css                        ← generated theme overrides
-└── neurex.config.json                   ← Neurex project config
+└── lexsys.config.json                   ← Lexsys project config
 ```
 
-Paths are configurable via `neurex.config.json` (`paths.components`,
+Paths are configurable via `lexsys.config.json` (`paths.components`,
 `paths.utilities`, `paths.styles`). Import aliases default to `@/components/ui`,
 `@/lib/utils`, `@/lib`, `@/hooks`.
 
@@ -252,7 +252,7 @@ Paths are configurable via `neurex.config.json` (`paths.components`,
 
 ## Configuration
 
-`neurex.config.json` is read and written by the CLI. Shape:
+`lexsys.config.json` is read and written by the CLI. Shape:
 
 ```json
 {
@@ -282,8 +282,8 @@ If the file is missing, the CLI falls back to built-in defaults.
 ## End-to-end install flow
 
 ```txt
-neurex add button
-  1. Load neurex.config.json (or apply defaults)
+lexsys add button
+  1. Load lexsys.config.json (or apply defaults)
   2. Detect registry source (local | remote URL)
   3. Resolve "button" to Button registry item (by name, alias, or case-insensitive match)
   4. Collect transitive registryDependencies, utilities, styles

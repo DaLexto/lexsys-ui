@@ -27,7 +27,7 @@ import {
   TooltipPortal,
   TooltipPositioner,
   TooltipTrigger,
-} from "@neurex/ui"
+} from "@lexsys/ui"
 
 export const InteractionsPanel = () => {
   return (
@@ -100,7 +100,7 @@ export const InteractionsPanel = () => {
               Base UI owns keyboard and selection behavior.
             </TabsPanel>
             <TabsPanel value="style">
-              Neurex owns tokens, variants, and Tailwind classes.
+              Lexsys owns tokens, variants, and Tailwind classes.
             </TabsPanel>
           </Tabs>
         </article>
@@ -121,7 +121,7 @@ export const InteractionsPanel = () => {
                 <AccordionTrigger>Design layer</AccordionTrigger>
               </AccordionHeader>
               <AccordionPanel>
-                Neurex keeps the visual contract token-driven.
+                Lexsys keeps the visual contract token-driven.
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
@@ -148,7 +148,7 @@ export const InteractionsPanel = () => {
               <TooltipPortal>
                 <TooltipPositioner side="top">
                   <TooltipPopup>
-                    Neurex tooltip, Base UI positioning.
+                    Lexsys tooltip, Base UI positioning.
                     <TooltipArrow />
                   </TooltipPopup>
                 </TooltipPositioner>

@@ -171,7 +171,7 @@ describe("createContrastValidationReport", () => {
     )
   })
 
-  it("passes all registered semantic contrast pairs for the Neurex token graph", () => {
+  it("passes all registered semantic contrast pairs for the Lexsys token graph", () => {
     const input = createStyleTokenInput()
     const report = createContrastValidationReport({
       foundationTokens: input.foundationTokens,
@@ -408,7 +408,7 @@ describe("overlay background compositing", () => {
 })
 
 describe("validateContrastPolicyStrict", () => {
-  it("passes for the Neurex token graph", () => {
+  it("passes for the Lexsys token graph", () => {
     const input = createStyleTokenInput()
 
     expect(() => {
