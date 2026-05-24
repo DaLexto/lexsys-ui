@@ -13,7 +13,7 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3, M5–M7, and **R0** shipped; **M4 reserved** (scope TBD); **M10 release readiness** is active.
+**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3, M5–M7, **R0**, and **M10** shipped; **M4 reserved** (scope TBD).
 
 | Phase   | Focus                                                               | Status  |
 | ------- | ------------------------------------------------------------------- | ------- |
@@ -26,7 +26,7 @@ that are not yet done.
 | M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
-| M10     | Release readiness — first npm `0.0.1` @ `next`                      | planned |
+| M10     | Release readiness — first npm `0.0.1` @ `next`                      | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 
@@ -34,20 +34,14 @@ Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 ---
 
-## M10 — Release readiness
+## M10 — Release readiness (shipped 2026-05-24)
 
-**Goal:** First npm release `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on dist-tag
-**`next`**. Stable MVP **`0.1.0`** on **`latest`** is a later milestone.
+**Shipped:** `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on npm dist-tag **`next`**
+via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
+[CHANGELOG.md](../CHANGELOG.md#001---2026-05-24).
 
-**Canonical publish-day checklist:** [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next)
-
-| ID    | Deliverable                                               | Status  |
-| ----- | --------------------------------------------------------- | ------- |
-| M10.0 | Publish surface + version lane (DEPLOY, ROADMAP, README)  | done    |
-| M10.1 | Root `CHANGELOG.md`                                       | done    |
-| M10.2 | Package metadata audit + `pnpm publish:pack-audit`        | done    |
-| M10.3 | Changesets + publish CI (`next` tag)                      | done    |
-| M10.4 | First publish + post-publish `npx @lexsys/cli@next` smoke | planned |
+**Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [DEPLOY.md § Transition to
+0.1.0](./DEPLOY.md#transition-to-010-latest).
 
 Detail: [ROADMAP.md § M10](./ROADMAP.md#m10--release-readiness).
 

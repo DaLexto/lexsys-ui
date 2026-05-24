@@ -38,7 +38,7 @@ Related: [project-structure.mdc](./project-structure.mdc), [docs/STYLE.md](../..
 | **prompts** | root + cli | ^2.4.2 | Interactive CLI prompts |
 | **@types/node** | root dev / cli / registry / playground | ^25.9.1 | Node.js type definitions |
 
-**Workspace packages (no npm publish yet):** `@lexsys/tokens`, `@lexsys/ui`, `@lexsys/registry`, CLI package name `lexsys`.
+**Published on npm (`@next`):** `@lexsys/cli`, `@lexsys/registry`. **Not published:** `@lexsys/tokens`, `@lexsys/ui` (reference-only). Root workspace name: `lexsys` (`private: true`).
 
 ---
 

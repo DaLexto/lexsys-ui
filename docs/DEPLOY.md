@@ -198,43 +198,45 @@ decision and DEPLOY.md is updated.
 
 ---
 
-## M10 implementation track (before first publish)
+## M10 implementation track (shipped 2026-05-24)
 
-Land on `dev` (then ff `main`) before running the first publish checklist:
+| Step  | Deliverable                                                       | Status   |
+| ----- | ----------------------------------------------------------------- | -------- |
+| M10.0 | Publish surface + version lane docs (this section)                | shipped  |
+| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                            | shipped  |
+| M10.2 | Package metadata audit; `pnpm publish:pack-audit`                 | shipped  |
+| M10.3 | Changesets (fixed `@lexsys/cli` + `@lexsys/registry`); publish CI | shipped  |
+| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke               | shipped  |
 
-| Step  | Deliverable                                                       | Owner doc            |
-| ----- | ----------------------------------------------------------------- | -------------------- |
-| M10.0 | Publish surface + version lane docs (this section)                | DEPLOY.md            |
-| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                            | CHANGELOG.md         |
-| M10.2 | Package metadata audit; `pnpm publish:pack-audit`                 | SCRIPTS.md           |
-| M10.3 | Changesets (fixed `@lexsys/cli` + `@lexsys/registry`); publish CI | `.github/workflows/` |
-| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke               | This checklist       |
-
-Track status in [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness).
+Track record: [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24).
 
 ---
 
-## First release checklist (`0.0.1` @ `next`)
+## First release checklist (`0.0.1` @ `next`) — completed 2026-05-24
 
-Use this when cutting the **first** npm release. Repeat phases 2–5 for later
-`0.0.x` bumps; skip phase 0 once M10 tooling is shipped.
+Historical record for the **first** npm release. For later **`0.0.x`** bumps, repeat
+phases 2–5; skip phase 0 once M10 tooling is shipped.
+
+> **First-publish path:** versions were already **`0.0.1`** in repo with no pending
+> changesets, so Release CI published directly (no Version Packages PR). Later
+> releases add a changeset → Version Packages PR → publish on merge.
 
 ### Phase 0 — Repo prerequisites (M10 PRs merged to `main`)
 
-- [ ] Publish scope documented (only `@lexsys/cli` + `@lexsys/registry`)
-- [ ] Root `LICENSE` (MIT) and `CHANGELOG.md` with `[0.0.1]` section
+- [x] Publish scope documented (only `@lexsys/cli` + `@lexsys/registry`)
+- [x] Root `LICENSE` (MIT) and `CHANGELOG.md` with `[0.0.1]` section
 - [x] Package metadata: `repository`, `license`, `files`, `exports` (no `private: true`)
 - [x] Changesets: fixed group `@lexsys/cli` + `@lexsys/registry` (`.changeset/config.json`)
 - [x] Publish CI workflow on `main` (`.github/workflows/release.yml`)
-- [ ] `pnpm publish:pack-audit` passes locally
-- [ ] `pnpm check` green on `main`
-- [ ] `pnpm sync:all && pnpm registry:check` before pack
+- [x] `pnpm publish:pack-audit` passes locally
+- [x] `pnpm check` green on `main`
+- [x] `pnpm sync:all && pnpm registry:check` before pack
 
 ### Phase 1 — npm / GitHub setup (one-time)
 
-- [ ] npm org `@lexsys` with publish access for `@lexsys/cli` and `@lexsys/registry`
-- [ ] GitHub secret `NPM_TOKEN` (Automation token)
-- [ ] Dist-tag policy: **`next`** for `0.0.x` (not `latest`)
+- [x] npm org `@lexsys` with publish access for `@lexsys/cli` and `@lexsys/registry`
+- [x] GitHub secret `NPM_TOKEN` (Granular token, bypass 2FA)
+- [x] Dist-tag policy: **`next`** for `0.0.x` (prefer `@next` for consumers)
 
 ### Phase 2 — Pre-publish smoke (local, no monorepo link)
 
@@ -256,46 +258,45 @@ npx lexsys add button
 pnpm build
 ```
 
-- [ ] `init vite` works
-- [ ] `add button` works
-- [ ] Production build passes
-- [ ] (Optional) `add dashboard-shell` + build
+- [x] `init vite` works
+- [x] `add button` works
+- [x] Production build passes
+- [x] (Optional) `add dashboard-shell` + build
 
 ### Phase 3 — Changesets → version `0.0.1`
 
-- [ ] Add changeset for first release (fixed bump both packages)
-- [ ] Merge to `dev` → ff `main` per [AGENTS.md § Change workflow](../AGENTS.md#change-workflow)
-- [ ] Merge Changesets **Version Packages** PR on `main`
-- [ ] Version PR bumps **both** `@lexsys/cli` and `@lexsys/registry` to `0.0.1`
+- [x] Packages at **`0.0.1`** in repo (no Version Packages PR required for first cut)
+- [x] Merged to `main` per [AGENTS.md § Change workflow](../AGENTS.md#change-workflow)
+- [x] `@lexsys/cli` and `@lexsys/registry` both at **`0.0.1`**
 
 ### Phase 4 — Publish
 
-- [ ] CI publish job on `main` succeeds
-- [ ] npm shows `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` tagged **`next`**
-- [ ] (Optional) Git tag `v0.0.1` on publish commit
+- [x] CI publish job on `main` succeeds ([Release workflow](../.github/workflows/release.yml))
+- [x] npm shows `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` tagged **`next`**
+- [x] Git tags `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on publish commit
 
 ### Phase 5 — Post-publish smoke (real consumer)
 
 In a **new** temp directory (no local monorepo):
 
 ```bash
-npx @lexsys/cli@next init vite smoke-npm
+npx --yes @lexsys/cli@next init vite smoke-npm
 cd smoke-npm
-npx @lexsys/cli@next add button
+npx --yes @lexsys/cli@next add button
 pnpm build
 ```
 
-- [ ] `npx @lexsys/cli@next` works from npm (not pack tarball)
-- [ ] README Quick Start matches `@next` install path
+- [x] `npx @lexsys/cli@next` resolves from npm (`npm view @lexsys/cli dist-tags`)
+- [x] README Quick Start matches `@next` install path
 
 **Recommended (non-blocking for 0.0.1):** consumer sandbox narrow-viewport pass —
 see [TESTING.md § Consumer sandbox verification](./TESTING.md#consumer-sandbox-verification).
 
 ### Phase 6 — Docs and backlog
 
-- [ ] CHANGELOG `[0.0.1]` date filled
-- [ ] README states early preview + `@next`
-- [ ] REVIEW_TODO / ROADMAP: M10 partial shipped (`0.0.1` @ `next`); `0.1.0` → `latest` remains future
+- [x] CHANGELOG `[0.0.1]` date filled
+- [x] README states early preview + `@next`
+- [x] REVIEW_TODO / ROADMAP: M10 shipped (`0.0.1` @ `next`); `0.1.0` → `latest` remains future
 
 ### Ready to publish?
 
@@ -304,6 +305,9 @@ All three must be **yes**:
 1. `pnpm publish:pack-audit` passes
 2. Fresh install from **pack tarball** (not link) works
 3. Changesets + publish CI merged on `main`
+
+**Shipped 2026-05-24.** For the next **`0.0.x`** cut, add a changeset and merge the
+Version Packages PR before publish.
 
 ### Explicitly out of scope for `0.0.1`
 
@@ -322,7 +326,7 @@ When declaring public MVP stable:
 1. Changeset minor bump → `0.1.0`
 2. Publish with dist-tag **`latest`** (update publish CI / Changesets config)
 3. README: `npx @lexsys/cli` without `@next`
-4. Mark M10 **shipped** in [ROADMAP.md](./ROADMAP.md) and [REVIEW_TODO.md](./REVIEW_TODO.md)
+4. Update CHANGELOG and dist-tag policy in this doc
 
 ---
 

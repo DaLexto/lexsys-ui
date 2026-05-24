@@ -3,8 +3,8 @@
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
-composition pilots **shipped** (PR #28); M10 release readiness **planned**
-(`0.0.1` @ `next`); M4 **reserved** (scope TBD); blocks/templates optimization
+composition pilots **shipped** (PR #28); M10 release readiness **shipped**
+(`0.0.1` @ `next`, 2026-05-24); M4 **reserved** (scope TBD); blocks/templates optimization
 **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
@@ -142,7 +142,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                  | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                       | DEPLOY.md                             |
 | M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agents/skills/`          |
-| M10   | Release readiness        | planned | First npm `0.0.1` @ `next`; Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
+| M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later | DEPLOY.md                             |
 
 ### M1 — Infra and DX
 
@@ -303,12 +303,12 @@ Status: shipped
 
 ### M10 — Release readiness
 
-Status: planned — first npm publish **`0.0.1`** on dist-tag **`next`**; **`0.1.0`**
-on **`latest`** when declaring public MVP stable.
+Status: **shipped** (2026-05-24) — `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on npm
+dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later milestone.
 
 **Publish-day checklist (canonical):** [DEPLOY.md § First release checklist](./DEPLOY.md#first-release-checklist-001-next)
 
-**Execution track:** [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness)
+**Execution track:** [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24)
 
 #### M10.0 — Publish scope and version lane
 
@@ -344,21 +344,21 @@ on **`latest`** when declaring public MVP stable.
 | Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([TESTING.md § Verification surfaces](./TESTING.md#verification-surfaces)) |
 | `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                             |
 | Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                |
-| Changesets / npm provenance       | M10 release phase                                                                                                                                                            |
+| Changesets / npm provenance       | Changesets **shipped** (M10); npm provenance deferred                                                                                                                        |
 | Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                                                                                             |
 
 ### PR sequence
 
 **Delivered (2026-05-22):** Phase 0 + **M1, M2, M5, M6, M7** shipped in one consolidated PR
 [#18](https://github.com/DaLexto/lexsys/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
-separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. M4 and M10 remain planned.
+separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. **M10 shipped** (2026-05-24). M4 remains planned.
 
 | PR      | Phase | Title sketch                                        | Delivery                              |
 | ------- | ----- | --------------------------------------------------- | ------------------------------------- |
 | 0–7     | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **PR #18** — single PR                |
 | 3a–3b   | M3    | Product slices + docs sync                          | **shipped** (consolidated PR → `dev`) |
 | 4a–4b   | M4    | (TBD) + docs sync                                   | planned                               |
-| 10a–10b | M10   | Release readiness + docs sync                       | planned                               |
+| 10a–10b | M10   | Release readiness + docs sync                       | **shipped** (2026-05-24)              |
 
 Original per-phase sketch (reference if splitting future work):
 

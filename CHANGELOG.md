@@ -19,14 +19,13 @@ and later stable cuts target **`latest`**. See [docs/DEPLOY.md](./docs/DEPLOY.md
 
 ### Planned
 
-- Changesets publish automation (M10.3)
 - Stable **`0.1.0`** on dist-tag **`latest`**
 
 ---
 
-## [0.0.1] - TBD
+## [0.0.1] - 2026-05-24
 
-First early-preview npm release on dist-tag **`@next`**.
+First early-preview npm release on dist-tag **`next`** (`npx @lexsys/cli@next`).
 
 ### Added
 
@@ -49,6 +48,8 @@ First early-preview npm release on dist-tag **`@next`**.
 - Early preview: breaking changes remain likely until **`0.1.0`** @ **`latest`**
 - `@lexsys/ui` and `@lexsys/tokens` are not published in this release
 - Remote registry signatures and host allowlists are deferred post-M10
+- npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
+  for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys/compare/v0.0.1...HEAD
-[0.0.1]: https://github.com/DaLexto/lexsys/releases/tag/v0.0.1
+[Unreleased]: https://github.com/DaLexto/lexsys/compare/@lexsys/cli@0.0.1...HEAD
+[0.0.1]: https://www.npmjs.com/package/@lexsys/cli/v/0.0.1
