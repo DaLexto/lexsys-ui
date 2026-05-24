@@ -26,7 +26,7 @@ that are not yet done.
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)               | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
-| BO      | Blocks/templates optimization (BO.1–BO.7)                           | planned |
+| BO      | Blocks/templates optimization (BO.1–BO.7)                           | in progress |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
@@ -55,7 +55,7 @@ The P0 and P1 implementation passes are complete:
 - ScrollArea component (UI, tokens, registry, playground) merged via PR #14 (`884e3eb`)
 - `neurex uninstall` removes registry-owned files with dry-run and conflict reporting
 - UI render test pilot: ScrollArea, Collapsible, Dialog (`@testing-library/react` + Vitest jsdom)
-- Broad UI render coverage: all 32 bundled components have render smoke tests
+- Broad UI render coverage: all 41 bundled primitives have render smoke tests
 - Next.js App Router minimal scaffold (`neurex init next`; pinned Next.js 15.3.3)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Governance CI promotion: semantic audit **`error`-severity** fails `pnpm tokens:governance:report` (`NEUREX_GOVERNANCE_POLICY`)
@@ -72,7 +72,7 @@ The P0 and P1 implementation passes are complete:
 - Consumer sandbox verify (PR #26 artifacts): `neurex update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 42 bundled primitives, and pilot blocks/templates (FormField, Sidebar, DashboardShell).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 41 bundled primitives, and pilot blocks/templates (FormField, Sidebar, DashboardShell).
 
 Known gaps below.
 
@@ -85,7 +85,7 @@ Known gaps below.
 Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Roadmap sequencing:
 [ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--three-layers-pilots-shipped).
 
-**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `neurex add`-installable. Sandbox QA and optimization pass open (BO.1–BO.7).
+**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `neurex add`-installable. BO pass largely complete (BO.1–BO.3, BO.6–BO.7 fixed; BO.4–BO.5 partial); pilots not yet marked stable.
 
 **Target:** expand registry **blocks** and **templates** beyond the pilot set; mark pilots stable after optimization pass. **`neurex add <name>`** installs the transitive closure via `registryDependencies`; `item.target` resolves to the flat components root (monorepo templates still live under `primitives/`, `blocks/`, or `templates/` source folders).
 
@@ -102,7 +102,7 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 
 **Context:** Consumer sandbox (PulseDesk SaaS demo) QA during PR #28 exposed that **blocks/templates are not “organization-only” quality**. Primitives were assumed production-ready when composing blocks; that assumption is **not validated** for composed/mobile flows.
 
-**Do not ship blocks/templates as stable until this pass completes** (or items below are explicitly waived).
+**Do not ship blocks/templates as stable until BO.4–BO.5 close** (or items below are explicitly waived). BO.1–BO.3 and BO.6–BO.7 are fixed; see status column.
 
 | ID   | Area              | Issue                                       | Status / notes                                                                                                                           |
 | ---- | ----------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -116,7 +116,7 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 
 **Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `neurex add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 
-**Related fixes already landed (PR #28, optimization incomplete):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring. Post–PR #30: `DrawerClose` inline appearance for drawer nav links; DashboardShell mobile header layout (`ef65072`).
+**Related fixes already landed (PR #28):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring. Post–PR #30 + `ef65072`: plain nav, mobile drawer, FormField sandbox, `DrawerClose` inline appearance, DashboardShell mobile layout.
 
 ---
 

@@ -22,7 +22,7 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
 ---
 
-## Inventory (32 components)
+## Inventory (41 primitives)
 
 | Component       | Public props                              | Styling pattern       | Slot exports                                                                                                                  | Token flags                                                                             | Tests             | Batch   |
 | --------------- | ----------------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ----------------- | ------- |
@@ -58,6 +58,8 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 | **Toggle**      | **`size` only**                           | CVA prop              | `toggleVariants`                                                                                                              | `opacity-50`, no variant axis (by design)                                               | variants + render | PR1     |
 | **ToggleGroup** | **`size` only**                           | CVA prop              | `toggleGroupVariants`                                                                                                         | inherits Toggle                                                                         | variants + render | PR1     |
 | **Tooltip**     | —                                         | CVA slots             | 4 slot variants                                                                                                               | —                                                                                       | variants + render | PR3     |
+
+**Shipped PR #30 (audit rows pending):** Autocomplete, CheckboxGroup, Combobox, ContextMenu, Menubar, NavigationMenu, OtpField, PreviewCard, Toolbar.
 
 ---
 
@@ -97,6 +99,6 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 - Unified `variant` / `appearance` API; `danger` vocabulary; semantic opacity tokens
 - Shared state helpers in installed `utils.ts`; viewport inset tokens for overlays
 - Overlay semantics (`size.overlay.*`, `spacing.overlay.sideOffset`, `elevation.behind.*`)
-- **`pnpm ui:audit` blocking** in `pnpm ui:check`; all 32 component variants token-compliant
+- **`pnpm ui:audit` blocking** in `pnpm ui:check`; all audited primitive variants token-compliant (41 shipped; 9 PR #30 modules pending audit table rows)
 
 Run `pnpm ui:audit` after future variant edits to catch literal drift.

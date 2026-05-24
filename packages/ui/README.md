@@ -31,42 +31,51 @@ independent implementations.
 
 ---
 
-## Components (32)
+## Components (41)
 
-| Component     | Category     |
-| ------------- | ------------ |
-| `Accordion`   | surfaces     |
-| `Alert`       | feedback     |
-| `AlertDialog` | overlays     |
-| `Avatar`      | data-display |
-| `Badge`       | data-display |
-| `Button`      | actions      |
-| `Card`        | surfaces     |
-| `Checkbox`    | forms        |
-| `Collapsible` | surfaces     |
-| `Dialog`      | overlays     |
-| `Drawer`      | overlays     |
-| `Field`       | forms        |
-| `Fieldset`    | forms        |
-| `Form`        | forms        |
-| `Input`       | forms        |
-| `Menu`        | navigation   |
-| `Meter`       | feedback     |
-| `NumberField` | forms        |
-| `Popover`     | overlays     |
-| `Progress`    | feedback     |
-| `RadioGroup`  | forms        |
-| `ScrollArea`  | layout       |
-| `Select`      | forms        |
-| `Separator`   | layout       |
-| `Slider`      | forms        |
-| `Switch`      | forms        |
-| `Tabs`        | navigation   |
-| `Textarea`    | forms        |
-| `Toast`       | feedback     |
-| `Toggle`      | actions      |
-| `ToggleGroup` | actions      |
-| `Tooltip`     | overlays     |
+| Component        | Category     |
+| ---------------- | ------------ |
+| `Accordion`      | surfaces     |
+| `Alert`          | feedback     |
+| `AlertDialog`    | overlays     |
+| `Autocomplete`   | forms        |
+| `Avatar`         | data-display |
+| `Badge`          | data-display |
+| `Button`         | actions      |
+| `Card`           | surfaces     |
+| `Checkbox`       | forms        |
+| `CheckboxGroup`  | forms        |
+| `Collapsible`    | surfaces     |
+| `Combobox`       | forms        |
+| `ContextMenu`    | navigation   |
+| `Dialog`         | overlays     |
+| `Drawer`         | overlays     |
+| `Field`          | forms        |
+| `Fieldset`       | forms        |
+| `Form`           | forms        |
+| `Input`          | forms        |
+| `Menu`           | navigation   |
+| `Menubar`        | navigation   |
+| `Meter`          | feedback     |
+| `NavigationMenu` | navigation   |
+| `NumberField`    | forms        |
+| `OtpField`       | forms        |
+| `Popover`        | overlays     |
+| `PreviewCard`    | overlays     |
+| `Progress`       | feedback     |
+| `RadioGroup`     | forms        |
+| `ScrollArea`     | layout       |
+| `Select`         | forms        |
+| `Separator`      | layout       |
+| `Slider`         | forms        |
+| `Switch`         | forms        |
+| `Tabs`           | navigation   |
+| `Textarea`       | forms        |
+| `Toast`          | feedback     |
+| `Toggle`         | actions      |
+| `ToggleGroup`    | actions      |
+| `Toolbar`        | navigation   |
+| `Tooltip`        | overlays     |
 
 ---
 

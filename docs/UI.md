@@ -18,7 +18,7 @@ source components that:
 
 - define the correct component API, variants, and accessibility behavior
 - are synced into registry templates when ready to be installed into consumer projects
-- export a stable public API (`@neurex/ui`) for use in the playground (**32 primitives** today)
+- export a stable public API (`@neurex/ui`) for use in the playground (**41 primitives** today)
 
 Monorepo source is organized in three composition layers under
 `packages/ui/src/components/` — `primitives/`, `blocks/`, `templates/`. See
@@ -39,7 +39,7 @@ the correct layer directory:
 
 ```txt
 packages/ui/src/components/
-  primitives/ComponentName/     ← 32 bundled primitives
+  primitives/ComponentName/     ← 41 bundled primitives
   blocks/ComponentName/         ← pilot: FormField, Sidebar
   templates/ComponentName/      ← pilot: DashboardShell
 ```

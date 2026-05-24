@@ -4,7 +4,7 @@
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
 composition pilots **shipped** (PR #28); M4 release readiness **planned**; blocks/templates
-optimization **planned** — see phase tables below for current vs future work  
+optimization **in progress** (BO.4–BO.5 partial) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -88,7 +88,7 @@ Summary only — do not duplicate detail here.
 - Full primitive shadow scale migration (`shadow.0`–`shadow.6` branch+slot) with CSS compose
 - `shadow.inner` inset slot model (branch+slot with `inset: true`; CSS compose prepends `inset`)
 - Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`NEUREX_GOVERNANCE_POLICY=ci`; override with `report`)
-- Broad UI render coverage (32/32 components)
+- Broad UI render coverage (41/41 primitives; M3 baseline was 32/32)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Next.js App Router minimal scaffold (`neurex init next`; pinned Next.js 15.3.3)
 - `neurex uninstall` metadata-driven removal with dry-run and conflict reporting
@@ -389,13 +389,13 @@ and [UI_AUDIT.md](./UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes
 `primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
 `paths.components` (`src/components/ui/<CanonicalName>/` with import rewrite).
 Pilot blocks (FormField, Sidebar) and template (DashboardShell) are registry +
-CLI installable — **optimization pass open** (BO.1–BO.7).
+CLI installable — **optimization pass largely complete** (BO.1–BO.3, BO.6–BO.7 fixed; BO.4–BO.5 partial; PR #30, `ef65072`).
 
 Neurex uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
 | Layer      | Monorepo reference                      | Consumer install (`neurex add`)               |
 | ---------- | --------------------------------------- | --------------------------------------------- |
-| Primitives | Shipped (42 components + tokens + `cn`) | `src/components/ui/<CanonicalName>/`          |
+| Primitives | Shipped (41 components + tokens + `cn`) | `src/components/ui/<CanonicalName>/`          |
 | Blocks     | Pilot (FormField, Sidebar)              | Same flat path; cross-layer imports rewritten |
 | Templates  | Pilot (DashboardShell)                  | Same flat path                                |
 | Pages      | —                                       | Always consumer-owned                         |
@@ -410,12 +410,14 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 | 1    | Layer docs + registry composition validators                                                   | **shipped**       |
 | 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite) | **shipped** (#28) |
 | 3    | Pilot blocks + template + sandbox verify                                                       | **in progress**   |
-| 4    | Blocks/templates optimization (BO.1–BO.7)                                                      | planned           |
+| 4    | Blocks/templates optimization (BO.1–BO.7)                                                      | **in progress**   |
 | 5    | Additional blocks/templates beyond pilot set                                                   | planned           |
+| 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                       | **shipped** (#30) |
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
-testing. Tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
+testing. BO.1–BO.3, BO.6–BO.7 fixed (PR #30, `ef65072`); BO.4–BO.5 CI gate still open.
+Tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 

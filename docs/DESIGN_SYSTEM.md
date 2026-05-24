@@ -130,7 +130,7 @@ Semantic source: `packages/tokens/src/semantics/`.
 Component tokens reference semantic tokens and describe per-component slot
 decisions.
 
-**32 active component token files:**
+**32 dedicated component token files** (41 primitives total — newer Base UI modules inherit semantic tokens until dedicated component slots land):
 
 Accordion, Alert, AlertDialog, Avatar, Badge, Button, Card, Checkbox,
 Collapsible, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Meter,

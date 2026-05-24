@@ -10,7 +10,7 @@
 
 ## Purpose
 
-Pre-0.1.0 contract for all 32 reference components. Breaking API changes are acceptable
+Pre-0.1.0 contract for all 41 reference primitives. Breaking API changes are acceptable
 now to establish a stable long-term surface before publish.
 
 ---

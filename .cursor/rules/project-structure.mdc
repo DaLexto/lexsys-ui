@@ -141,10 +141,10 @@ Reference implementations organized in three composition layers. Each item is a
 ```
 packages/ui/
 ├── src/
-│   ├── index.ts              # Public API — 32 primitives exported today
+│   ├── index.ts              # Public API — 41 primitives exported today
 │   ├── utils/                # Shared UI utilities
 │   └── components/
-│       ├── primitives/       # 32 bundled primitives
+│       ├── primitives/       # 41 bundled primitives
 │       ├── blocks/           # Pilot: FormField, Sidebar
 │       └── templates/        # Pilot: DashboardShell
 ├── vitest.config.ts          # Vitest project config (jsdom)
@@ -153,7 +153,7 @@ packages/ui/
     └── components/<Name>/    # Variant + render tests (primitives only)
 ```
 
-**Primitives:** Accordion, Alert, AlertDialog, Avatar, Badge, Button, Card, Checkbox, Collapsible, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Meter, NumberField, Popover, Progress, RadioGroup, ScrollArea, Select, Separator, Slider, Switch, Tabs, Textarea, Toast, Toggle, ToggleGroup, Tooltip.
+**Primitives:** Accordion, Alert, AlertDialog, Autocomplete, Avatar, Badge, Button, Card, Checkbox, CheckboxGroup, Collapsible, Combobox, ContextMenu, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Menubar, Meter, NavigationMenu, NumberField, OtpField, Popover, PreviewCard, Progress, RadioGroup, ScrollArea, Select, Separator, Slider, Switch, Tabs, Textarea, Toast, Toggle, ToggleGroup, Toolbar, Tooltip.
 
 **Pilot blocks/templates:** FormField, Sidebar, DashboardShell — registry + CLI installable; sandbox QA in progress. See [UI_COMPOSITION.md](../../docs/UI_COMPOSITION.md).
 

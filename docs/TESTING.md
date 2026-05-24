@@ -85,8 +85,8 @@ Test files in `packages/ui/test/`:
 | File                                             | What it tests                                                                               |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------- |
 | `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@neurex/ui`        |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**32 primitives**) |
-| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**32/32 primitives**)     |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**41 primitives**) |
+| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**41/41 primitives**)     |
 
 Pilot blocks and templates (FormField, Sidebar, DashboardShell) live under
 `packages/ui/src/components/blocks/` and `templates/` but do **not** yet have
@@ -108,7 +108,7 @@ Test files in `packages/registry/test/`:
 | `validate-registry.test.ts`    | Registry manifest validation — required fields, template files, layer composition rules, block/template dependency constraints |
 | `registry-styles-sync.test.ts` | Registry style sync helpers — in-sync templates, stale content, missing template files                                         |
 
-Bundled registry: **35 installable UI items** (32 primitives + 3 pilot blocks/templates). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`.
+Bundled registry: **44 installable UI items** (41 primitives + 3 pilot blocks/templates). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`.
 
 Run:
 
@@ -205,7 +205,7 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-All **32 bundled primitives** have render smoke tests using `@testing-library/react`
+All **41 bundled primitives** have render smoke tests using `@testing-library/react`
 with Vitest `jsdom` (`packages/ui/vitest.config.ts`). Pilot blocks and templates
 do not yet have matching render suites — treat sandbox QA as the gate for those layers.
 

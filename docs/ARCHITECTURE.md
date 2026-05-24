@@ -84,7 +84,7 @@ Neurex uses a **three-layer** reference model in the monorepo:
 | Blocks     | `packages/ui/src/components/blocks/`     | `src/components/ui/<Name>/` |
 | Templates  | `packages/ui/src/components/templates/`  | `src/components/ui/<Name>/` |
 
-**Shipped today:** 32 primitives, pilot blocks (FormField, Sidebar), pilot
+**Shipped today:** 41 primitives, pilot blocks (FormField, Sidebar), pilot
 template (DashboardShell). **Pages** remain consumer-owned.
 
 The CLI installs from `item.target` (flat `src/components/ui/`) and rewrites

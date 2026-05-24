@@ -2,7 +2,7 @@
 
 **Audience:** Maintainers and consumers  
 **Type:** Domain specification  
-**Status:** Primitives shipped (42); pilot blocks (FormField, Sidebar) and template (DashboardShell) shipped — optimization pass largely complete (sandbox QA ongoing)  
+**Status:** Primitives shipped (41); pilot blocks (FormField, Sidebar) and template (DashboardShell) shipped — optimization pass largely complete (sandbox QA ongoing)  
 **Source of truth for:** Install layers, composition rules, monorepo vs consumer layout  
 **Verified against:** `packages/ui`, `packages/registry`, `packages/cli`, consumer sandbox
 
@@ -45,7 +45,7 @@ Do not use atoms/molecules/organisms in Neurex docs or CLI copy — those names 
 **Monorepo reference** (`packages/ui/src/components/`):
 
 ```txt
-primitives/     ← 42 shipped primitives
+primitives/     ← 41 shipped primitives
 blocks/         ← FormField, Sidebar (pilot)
 templates/      ← DashboardShell (pilot)
 ```
@@ -191,7 +191,7 @@ No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
 
 ### Primitives — shipped
 
-All 32 registry components (`type: "component"`) — Button, Input, Dialog, Drawer, Menu, Field, Select, Toast, Tabs, …
+All 41 registry primitives (`type: "component"`) — Button, Input, Dialog, Drawer, Menu, Autocomplete, Combobox, NavigationMenu, …
 
 Each follows the three-file contract (`.tsx`, `.types.ts`, `.variants.ts`). Token-backed styling only (`--nx-*`).
 
@@ -258,9 +258,9 @@ Workflow: edit `packages/ui` → `pnpm registry:sync` → `neurex update` in san
 | 1    | Layer docs + registry validators                          | shipped     |
 | 2    | Monorepo `primitives/blocks/templates` + flat CLI install | shipped     |
 | 3    | Pilot blocks + template + sandbox verify                  | in progress |
-| 4    | Blocks/templates optimization pass (BO.1–BO.7)            | planned     |
+| 4    | Blocks/templates optimization pass (BO.1–BO.7)            | in progress |
 | 5    | Additional blocks/templates beyond pilot set              | planned     |
-| 6    | Base UI primitive expansion (10 planned modules above)    | planned     |
+| 6    | Base UI primitive expansion (9 modules above)             | shipped     |
 
 Tracked in [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 
