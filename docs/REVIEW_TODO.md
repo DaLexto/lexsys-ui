@@ -93,7 +93,7 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 | ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
 | UC.1 | All       | shipped     | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`           |
 | UC.2 | Blocks    | in progress | Pilot FormField, Sidebar shipped — BO pass landed (plain nav, mobile drawer, FormField in sandbox); not yet marked stable |
-| UC.3 | Templates | in progress | DashboardShell mobile header slot landed; sandbox refresh recommended                                                     |
+| UC.3 | Templates | in progress | DashboardShell mobile layout fixed — sticky nav trigger bar; page header stays in main column on all breakpoints; optional Sidebar `mobileHeader` for compact chrome only |
 | UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                                                                 |
 | UC.5 | CLI       | shipped     | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)         |
 | UC.6 | Tests     | in progress | Closure, import-rewrite, install-target unit tests shipped; `dashboard-shell` install smoke added                         |
@@ -107,8 +107,8 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 | ID   | Area              | Issue                                       | Status / notes                                                                                                                           |
 | ---- | ----------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | BO.1 | Sidebar (mobile)  | Drawer opens but nav list layout broken     | **Fixed** — plain `<nav>` list; Menu removed from Sidebar deps.                                                                          |
-| BO.2 | Sidebar (mobile)  | Drawer composition incomplete vs playground | **Fixed** — `swipeDirection="left"`, DrawerViewport side left, DrawerClose on nav select. Sandbox manual QA at `< md` still recommended. |
-| BO.3 | DashboardShell    | Responsive layout                           | **Fixed** — `mobileHeader` slot on Sidebar; desktop header hidden on mobile.                                                             |
+| BO.2 | Sidebar (mobile)  | Drawer composition incomplete vs playground | **Fixed** — `swipeDirection="left"`, DrawerViewport side left, `DrawerClose appearance="inline"` on nav select (avoids absolute icon stacking). Sandbox manual QA at `< md` still recommended. |
+| BO.3 | DashboardShell    | Responsive layout                           | **Fixed** — sticky mobile trigger bar; page header in main (not squeezed beside trigger). Sidebar `mobileHeader` remains optional for compact slots only.                                      |
 | BO.4 | Blocks QA process | No block-level validation gate              | **Partial** — `dashboard-shell` CLI install smoke added; full block-level CI gate still open.                                            |
 | BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Partial** — sandbox FormField + blocks checklist exercised; not CI-blocking yet.                                                       |
 | BO.6 | Sidebar (design)  | Menu vs nav list                            | **Fixed** — plain `<a>` / `<button>` nav list.                                                                                           |
@@ -116,7 +116,7 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 
 **Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `neurex add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 
-**Related fixes already landed (PR #28, optimization incomplete):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring.
+**Related fixes already landed (PR #28, optimization incomplete):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring. Post–PR #30: `DrawerClose` inline appearance for drawer nav links; DashboardShell mobile header layout (`ef65072`).
 
 ---
 
@@ -148,7 +148,7 @@ Optional follow-ups after Phases 1–10 (detail in
 
 | Gap                                      | Notes                                                                                                                                                                                    |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blocks/templates mobile & composition QA | Sidebar mobile drawer nav overlap; blocks assumed primitives-ready — see [REVIEW_TODO § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog). |
+| Blocks/templates mobile & composition QA | Partial — BO.1–BO.3/BO.6/BO.7 fixed; BO.4/BO.5 CI gate still open. See [REVIEW_TODO § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog). |
 | Remote registry signatures / allowlist   | Deferred post-M4 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                      |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.

@@ -233,7 +233,7 @@ Checklist after CLI or registry changes:
 
 1. Fresh or updated install: `neurex add dashboard-shell` (transitive closure — Sidebar + primitives).
 2. Confirm flat layout: `src/components/ui/DashboardShell/`, `src/components/ui/Sidebar/`, sibling import paths (no `blocks/` or `templates/` folders in consumer tree).
-3. Narrow viewport (`< md`): mobile drawer opens; nav list layout readable (see BO.1 in [REVIEW_TODO.md](./REVIEW_TODO.md)).
+3. Narrow viewport (`< md`): mobile drawer opens; nav list items stack vertically (plain nav + `DrawerClose appearance="inline"` — see BO.2 in [REVIEW_TODO.md](./REVIEW_TODO.md)).
 4. `neurex uninstall dashboard-shell --dry-run` then `--with-deps --dry-run` — orphan hints look correct.
 5. Compare drawer shell to [playground overlays panel](../apps/playground/src/overlays-panel.tsx) when changing Sidebar/Drawer composition.
 

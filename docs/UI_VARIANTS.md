@@ -96,6 +96,8 @@ Other examples: `data-[swiping]`, `data-[behind]`, `data-[invalid]`, `aria-busy`
 
 **Menu** horizontal flyouts (`side` = `left`, `right`, `inline-start`, `inline-end`): `MenuPositioner` defaults to popup-style collision avoidance (`fallbackAxisSide: "end"`) so sidebar flyouts flip instead of clipping off-screen. Pass `collisionAvoidance` to override.
 
+**Drawer** `DrawerClose`: default `appearance="icon"` (absolute corner dismiss control). Use `appearance="inline"` when composing list rows or custom triggers inside drawer content — e.g. Sidebar mobile nav links — so close controls are not forced to the popup corner.
+
 ---
 
 ## CVA implementation rules

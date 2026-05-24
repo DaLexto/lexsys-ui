@@ -15,7 +15,7 @@ The current implementation focuses on supported consumer starters:
 - Next.js App Router setup through `neurex init next` (pinned Next.js 15.3.3)
 - Tailwind v4 wiring for Vite and Next.js consumers
 - token and theme CSS installation
-- a growing Base UI-backed component catalog: **32 primitives** plus pilot
+- a growing Base UI-backed component catalog: **42 primitives** plus pilot
   **blocks** (FormField, Sidebar) and **template** (DashboardShell) — see
   [docs/UI_COMPOSITION.md](./docs/UI_COMPOSITION.md)
 - conflict-aware installs with no silent overwrites
@@ -253,7 +253,7 @@ For CLI/registry install verification, use an external consumer sandbox — see 
 ## Status
 
 Neurex is not production-ready yet. Vite and Next.js install flows are working;
-the catalog includes 32 bundled primitives plus pilot blocks and templates
+the catalog includes 42 bundled primitives plus pilot blocks and templates
 (FormField, Sidebar, DashboardShell). Blocks/templates are installable but not
 yet marked stable — see [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md).
 
