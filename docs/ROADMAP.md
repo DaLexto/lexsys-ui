@@ -395,7 +395,7 @@ Neurex uses a **three-layer** install model (not Atomic Design atoms/molecules/o
 
 | Layer      | Monorepo reference                      | Consumer install (`neurex add`)               |
 | ---------- | --------------------------------------- | --------------------------------------------- |
-| Primitives | Shipped (32 components + tokens + `cn`) | `src/components/ui/<CanonicalName>/`          |
+| Primitives | Shipped (42 components + tokens + `cn`) | `src/components/ui/<CanonicalName>/`          |
 | Blocks     | Pilot (FormField, Sidebar)              | Same flat path; cross-layer imports rewritten |
 | Templates  | Pilot (DashboardShell)                  | Same flat path                                |
 | Pages      | —                                       | Always consumer-owned                         |

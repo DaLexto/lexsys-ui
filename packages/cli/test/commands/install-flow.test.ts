@@ -20,6 +20,22 @@ const toTokenPrefix = (folder: string): string => {
   return folder.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
 }
 
+const getVariantsTokenPrefix = (canonicalName: string): string => {
+  const reusedPrefixes: Record<string, string> = {
+    Autocomplete: "select",
+    CheckboxGroup: "checkbox",
+    Combobox: "select",
+    ContextMenu: "menu",
+    Menubar: "menu",
+    NavigationMenu: "menu",
+    OtpField: "input",
+    PreviewCard: "popover",
+    Toolbar: "button",
+  }
+
+  return reusedPrefixes[canonicalName] ?? toTokenPrefix(canonicalName)
+}
+
 const componentRegistryItems = registryItems.filter((item) => {
   return item.type === "component"
 })
@@ -260,7 +276,7 @@ describe("install flow smoke", () => {
           ),
           "utf-8",
         ),
-      ).resolves.toContain(`--nx-${toTokenPrefix(item.canonicalName)}`)
+      ).resolves.toContain(`--nx-${getVariantsTokenPrefix(item.canonicalName)}`)
     }
 
     const config = JSON.parse(
@@ -280,6 +296,41 @@ describe("install flow smoke", () => {
         }),
       ),
     )
+  })
+
+  test("installs dashboard-shell with transitive deps and flat import paths", async () => {
+    await writeViteConsumerFiles(tempDir)
+
+    await runInit()
+    await runAdd(["dashboard-shell"])
+
+    await expect(
+      readFile(
+        join(tempDir, "src/components/ui/DashboardShell/DashboardShell.tsx"),
+        "utf-8",
+      ),
+    ).resolves.toContain('import { Sidebar } from "../Sidebar/Sidebar"')
+
+    await expect(
+      readFile(join(tempDir, "src/components/ui/Sidebar/Sidebar.tsx"), "utf-8"),
+    ).resolves.toContain('import { Button } from "../Button/Button"')
+
+    await expect(
+      readFile(join(tempDir, "src/components/ui/Sidebar/Sidebar.tsx"), "utf-8"),
+    ).resolves.not.toContain("blocks/Sidebar")
+
+    const config = JSON.parse(
+      await readFile(join(tempDir, "neurex.config.json"), "utf-8"),
+    ) as { installed?: Record<string, string> }
+
+    expect(config.installed).toMatchObject({
+      "dashboard-shell": "0.0.1",
+      sidebar: "0.0.1",
+      button: "0.0.1",
+      drawer: "0.0.1",
+      "scroll-area": "0.0.1",
+    })
+    expect(config.installed?.menu).toBeUndefined()
   })
 
   test("add, update styles, and uninstall round-trip in temp consumer", async () => {

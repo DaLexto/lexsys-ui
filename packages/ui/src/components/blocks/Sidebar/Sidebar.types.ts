@@ -20,4 +20,6 @@ export interface SidebarProps {
   brand?: ReactNode
   items: SidebarNavItem[]
   mobileTriggerLabel?: string
+  /** Renders beside the mobile drawer trigger in the top bar (e.g. page header). */
+  mobileHeader?: ReactNode
 }

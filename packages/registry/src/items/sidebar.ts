@@ -24,7 +24,7 @@ export const sidebarRegistryItem: RegistryItem = {
     "lucide-react",
     "tailwind-merge",
   ],
-  registryDependencies: ["button", "drawer", "menu", "scroll-area"],
+  registryDependencies: ["button", "drawer", "scroll-area"],
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Sidebar",

@@ -2,7 +2,7 @@
 
 **Audience:** Maintainers and consumers  
 **Type:** Domain specification  
-**Status:** Primitives shipped (32); pilot blocks (FormField, Sidebar) and template (DashboardShell) shipped — optimization pass open  
+**Status:** Primitives shipped (42); pilot blocks (FormField, Sidebar) and template (DashboardShell) shipped — optimization pass largely complete (sandbox QA ongoing)  
 **Source of truth for:** Install layers, composition rules, monorepo vs consumer layout  
 **Verified against:** `packages/ui`, `packages/registry`, `packages/cli`, consumer sandbox
 
@@ -45,7 +45,7 @@ Do not use atoms/molecules/organisms in Neurex docs or CLI copy — those names 
 **Monorepo reference** (`packages/ui/src/components/`):
 
 ```txt
-primitives/     ← 32 shipped primitives
+primitives/     ← 42 shipped primitives
 blocks/         ← FormField, Sidebar (pilot)
 templates/      ← DashboardShell (pilot)
 ```
@@ -106,19 +106,19 @@ New Base UI wraps ship as **primitives** (`registryDependencies: []`).
 | `@base-ui/react/toggle`                | Toggle                              | shipped |
 | `@base-ui/react/toggle-group`          | ToggleGroup                         | shipped |
 | `@base-ui/react/tooltip`               | Tooltip                             | shipped |
-| `@base-ui/react/autocomplete`          | Autocomplete                        | planned |
-| `@base-ui/react/checkbox-group`        | CheckboxGroup                       | planned |
-| `@base-ui/react/combobox`              | Combobox                            | planned |
-| `@base-ui/react/context-menu`          | ContextMenu                         | planned |
-| `@base-ui/react/menubar`               | Menubar                             | planned |
-| `@base-ui/react/navigation-menu`       | NavigationMenu                      | planned |
-| `@base-ui/react/otp-field`             | OtpField                            | planned |
-| `@base-ui/react/preview-card`          | PreviewCard                         | planned |
-| `@base-ui/react/toolbar`               | Toolbar                             | planned |
+| `@base-ui/react/autocomplete`          | Autocomplete                        | shipped |
+| `@base-ui/react/checkbox-group`        | CheckboxGroup                       | shipped |
+| `@base-ui/react/combobox`              | Combobox                            | shipped |
+| `@base-ui/react/context-menu`          | ContextMenu                         | shipped |
+| `@base-ui/react/menubar`               | Menubar                             | shipped |
+| `@base-ui/react/navigation-menu`       | NavigationMenu                      | shipped |
+| `@base-ui/react/otp-field`             | OtpField                            | shipped |
+| `@base-ui/react/preview-card`          | PreviewCard                         | shipped |
+| `@base-ui/react/toolbar`               | Toolbar                             | shipped |
 
 Neurex-only primitives (no dedicated Base UI module): Alert, Badge, Card.
 
-**Planned primitive sequencing (suggested):** Autocomplete + Combobox → OtpField → NavigationMenu → ContextMenu + Toolbar → CheckboxGroup → Menubar + PreviewCard (lower priority until product need).
+**Planned primitive sequencing (completed):** Autocomplete + Combobox → OtpField → NavigationMenu → ContextMenu + Toolbar → CheckboxGroup → Menubar + PreviewCard.
 
 Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRender`) stay internal — not registry primitives.
 
@@ -126,13 +126,13 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 
 ## Block catalog
 
-| Block          | Status  | Depends on                        |
-| -------------- | ------- | --------------------------------- |
-| FormField      | pilot   | field, input                      |
-| Sidebar        | pilot   | button, drawer, menu, scroll-area |
-| SettingsPanel  | planned | —                                 |
-| AuthForm       | planned | —                                 |
-| CommandPalette | planned | —                                 |
+| Block          | Status  | Depends on                  |
+| -------------- | ------- | --------------------------- |
+| FormField      | pilot   | field, input                |
+| Sidebar        | pilot   | button, drawer, scroll-area |
+| SettingsPanel  | planned | —                           |
+| AuthForm       | planned | —                           |
+| CommandPalette | planned | —                           |
 
 ## Template catalog
 

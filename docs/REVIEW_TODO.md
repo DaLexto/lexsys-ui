@@ -72,7 +72,7 @@ The P0 and P1 implementation passes are complete:
 - Consumer sandbox verify (PR #26 artifacts): `neurex update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 32 bundled primitives, and pilot blocks/templates (FormField, Sidebar, DashboardShell).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `neurex init`, `neurex add`, `neurex update`, all 42 bundled primitives, and pilot blocks/templates (FormField, Sidebar, DashboardShell).
 
 Known gaps below.
 
@@ -89,14 +89,14 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 
 **Target:** expand registry **blocks** and **templates** beyond the pilot set; mark pilots stable after optimization pass. **`neurex add <name>`** installs the transitive closure via `registryDependencies`; `item.target` resolves to the flat components root (monorepo templates still live under `primitives/`, `blocks/`, or `templates/` source folders).
 
-| Item | Layer     | Status      | Notes                                                                                                                                                     |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UC.1 | All       | shipped     | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`                                           |
-| UC.2 | Blocks    | in progress | Pilot FormField, Sidebar shipped — **sandbox QA found gaps** (see [Blocks/templates optimization backlog](#blocks--templates-optimization-backlog) below) |
-| UC.3 | Templates | in progress | DashboardShell pilot shipped — mobile/responsive gaps; migrate sandbox layout where appropriate                                                           |
-| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                                                                                                 |
-| UC.5 | CLI       | shipped     | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)                                         |
-| UC.6 | Tests     | in progress | Closure, import-rewrite, and install-target unit tests shipped; block/template install e2e smoke still thin                                               |
+| Item | Layer     | Status      | Notes                                                                                                                     |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
+| UC.1 | All       | shipped     | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`           |
+| UC.2 | Blocks    | in progress | Pilot FormField, Sidebar shipped — BO pass landed (plain nav, mobile drawer, FormField in sandbox); not yet marked stable |
+| UC.3 | Templates | in progress | DashboardShell mobile header slot landed; sandbox refresh recommended                                                     |
+| UC.4 | Pages     | n/a         | Pages stay consumer-owned                                                                                                 |
+| UC.5 | CLI       | shipped     | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)         |
+| UC.6 | Tests     | in progress | Closure, import-rewrite, install-target unit tests shipped; `dashboard-shell` install smoke added                         |
 
 ### Blocks / templates optimization backlog
 
@@ -104,15 +104,15 @@ Canonical composition model: [docs/UI_COMPOSITION.md](./UI_COMPOSITION.md). Road
 
 **Do not ship blocks/templates as stable until this pass completes** (or items below are explicitly waived).
 
-| ID   | Area              | Issue                                       | Notes                                                                                                                                                                                                                               |
-| ---- | ----------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| BO.1 | Sidebar (mobile)  | Drawer opens but nav list layout broken     | Empty vertical space; menu items overlap/cluster (Settings, Notifications, etc. stacked). Likely **Menu primitive used as static nav** + DrawerClose/render composition — needs dedicated mobile nav pattern.                       |
-| BO.2 | Sidebar (mobile)  | Drawer composition incomplete vs playground | Partial fix landed (Backdrop + Viewport + `render` on Trigger); drawer shell still needs visual/structure QA against [playground overlays panel](../apps/playground/src/overlays-panel.tsx) reference.                              |
-| BO.3 | DashboardShell    | Responsive layout                           | Early fix: `flex-col md:flex-row` + full-width mobile trigger bar. Header/toolbar stacking in consumer apps still ad hoc — template may need mobile header slot or documented consumer pattern.                                     |
-| BO.4 | Blocks QA process | No block-level validation gate              | `pnpm ui:audit` scans variant literals only — **does not verify CSS var exists**, responsive behavior, or primitive composition correctness. Blocks shipped with phantom tokens (`--nx-color-border-subtle`) in first pilot commit. |
-| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Invalid without integration QA.** 32 primitives pass render/variant tests on desktop; blocks/templates need sandbox checklist: mobile drawer, hover/active states, token contrast, install + import rewrite.                      |
-| BO.6 | Sidebar (design)  | Menu vs nav list                            | Long-term: Sidebar nav should probably **not** use Menu primitive for static sidebar links — plain `<button>` / `<a>` list is simpler and avoids roving-focus/highlight semantics. Track before calling Sidebar stable.             |
-| BO.7 | FormField         | Untested in sandbox                         | Pilot block not exercised in consumer SaaS demo yet.                                                                                                                                                                                |
+| ID   | Area              | Issue                                       | Status / notes                                                                                                                           |
+| ---- | ----------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| BO.1 | Sidebar (mobile)  | Drawer opens but nav list layout broken     | **Fixed** — plain `<nav>` list; Menu removed from Sidebar deps.                                                                          |
+| BO.2 | Sidebar (mobile)  | Drawer composition incomplete vs playground | **Fixed** — `swipeDirection="left"`, DrawerViewport side left, DrawerClose on nav select. Sandbox manual QA at `< md` still recommended. |
+| BO.3 | DashboardShell    | Responsive layout                           | **Fixed** — `mobileHeader` slot on Sidebar; desktop header hidden on mobile.                                                             |
+| BO.4 | Blocks QA process | No block-level validation gate              | **Partial** — `dashboard-shell` CLI install smoke added; full block-level CI gate still open.                                            |
+| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Partial** — sandbox FormField + blocks checklist exercised; not CI-blocking yet.                                                       |
+| BO.6 | Sidebar (design)  | Menu vs nav list                            | **Fixed** — plain `<a>` / `<button>` nav list.                                                                                           |
+| BO.7 | FormField         | Untested in sandbox                         | **Fixed** — `neurex add form-field` + SettingsPage uses FormField in PulseDesk sandbox.                                                  |
 
 **Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `neurex add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 

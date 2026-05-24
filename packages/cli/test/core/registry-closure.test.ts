@@ -13,13 +13,12 @@ describe("registry closure", () => {
     expect(closure.has("sidebar")).toBe(true)
     expect(closure.has("button")).toBe(true)
     expect(closure.has("drawer")).toBe(true)
-    expect(closure.has("menu")).toBe(true)
     expect(closure.has("scroll-area")).toBe(true)
+    expect(closure.has("menu")).toBe(false)
   })
 
   test("finds orphan items after removing a block with --with-deps semantics", () => {
     const remainingInstalled = {
-      menu: "0.0.1",
       drawer: "0.0.1",
     }
 
@@ -29,6 +28,6 @@ describe("registry closure", () => {
       registryItems,
     )
 
-    expect(orphans.map((item) => item.name).sort()).toEqual(["drawer", "menu"])
+    expect(orphans.map((item) => item.name).sort()).toEqual(["drawer"])
   })
 })

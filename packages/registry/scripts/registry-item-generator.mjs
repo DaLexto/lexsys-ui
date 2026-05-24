@@ -4,12 +4,16 @@ import { dirname, relative, resolve } from "node:path"
 const syncableExtensions = new Set([".ts", ".tsx"])
 
 const formComponentNames = new Set([
+  "Autocomplete",
   "Checkbox",
+  "CheckboxGroup",
+  "Combobox",
   "Field",
   "Fieldset",
   "Form",
   "Input",
   "NumberField",
+  "OtpField",
   "Radio",
   "RadioGroup",
   "Select",
@@ -20,10 +24,14 @@ const formComponentNames = new Set([
 
 const overlayComponentNames = new Set([
   "AlertDialog",
+  "ContextMenu",
   "Dialog",
   "Drawer",
   "Menu",
+  "Menubar",
+  "NavigationMenu",
   "Popover",
+  "PreviewCard",
   "Tooltip",
 ])
 
@@ -31,7 +39,12 @@ const dataDisplayComponentNames = new Set(["Avatar", "Meter"])
 
 const layoutComponentNames = new Set(["Collapsible", "ScrollArea"])
 
-const actionComponentNames = new Set(["Button", "Toggle", "ToggleGroup"])
+const actionComponentNames = new Set([
+  "Button",
+  "Toggle",
+  "ToggleGroup",
+  "Toolbar",
+])
 
 const getExtension = (path) => {
   const lastDot = path.lastIndexOf(".")
