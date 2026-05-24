@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["lexsys", "@lexsys/tokens", "@lexsys/ui", "@lexsys/playground"]
+  "ignore": ["@lexsys/tokens", "@lexsys/ui", "@lexsys/playground"]
 }
