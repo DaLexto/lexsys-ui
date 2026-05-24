@@ -120,7 +120,7 @@ tailwind-merge
 - Keep the file split: `Component.tsx`, `Component.types.ts`, `Component.variants.ts`
 - Compose classes with shared `cn()` (installed as `src/lib/utils.ts` in consumers)
 - Use `cva()` for variants; avoid long inline class strings in JSX
-- Do not import `@neurex/ui` in consumer apps after CLI install — edit owned files under `componentsPath`
+- Do not import `@neurex/ui` in consumer apps after CLI install — edit owned files under `paths.components` (default `src/components/ui/`)
 - Preserve Base UI accessibility props and structure when wrapping primitives — the 1.x stable API is the contract
 - Export public symbols in one block at the bottom of `Component.tsx`
 - Current components use `forwardRef`; React 19 supports `ref` as a regular prop (no `forwardRef` needed) — do not refactor existing components but prefer the React 19 pattern for new ones
@@ -247,7 +247,7 @@ export default defineConfig({
 @import "./styles/theme.css";
 ```
 
-(Paths relative to consumer `stylesPath`; playground uses package imports `@neurex/tokens/tokens.css`.)
+(Paths relative to consumer `paths.styles`; playground uses package imports `@neurex/tokens/tokens.css`.)
 
 **4. Monorepo / library scanning** — when components live outside the app tree, use `@source`:
 
