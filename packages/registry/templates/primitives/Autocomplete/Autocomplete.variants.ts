@@ -148,3 +148,7 @@ export const autocompleteStatusVariants = cva(
 export const autocompleteRowVariants = cva("flex min-w-0 items-center")
 
 export const autocompleteCollectionVariants = cva("contents")
+
+export const autocompleteSeparatorVariants = cva(
+  "mx-(--lsys-select-item-padding-x) my-(--lsys-select-group-label-padding-y) h-(--lsys-separator-thickness) bg-(--lsys-separator-color)",
+)

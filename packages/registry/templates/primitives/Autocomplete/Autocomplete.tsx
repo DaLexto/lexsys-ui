@@ -24,6 +24,7 @@ import type {
   AutocompletePositionerProps,
   AutocompleteProps,
   AutocompleteRowProps,
+  AutocompleteSeparatorProps,
   AutocompleteStatusProps,
   AutocompleteTriggerProps,
   AutocompleteValueProps,
@@ -43,6 +44,7 @@ import {
   autocompletePopupVariants,
   autocompletePositionerVariants,
   autocompleteRowVariants,
+  autocompleteSeparatorVariants,
   autocompleteStatusVariants,
   autocompleteTriggerVariants,
 } from "./Autocomplete.variants"
@@ -346,6 +348,25 @@ const AutocompleteCollection = (props: AutocompleteCollectionProps) => {
 
 AutocompleteCollection.displayName = "AutocompleteCollection"
 
+const AutocompleteSeparator = ({
+  ref,
+  className,
+  ...props
+}: AutocompleteSeparatorProps) => {
+  return (
+    <BaseAutocomplete.Separator
+      ref={ref}
+      className={mergeClassName(autocompleteSeparatorVariants(), className)}
+      {...props}
+    />
+  )
+}
+
+AutocompleteSeparator.displayName = "AutocompleteSeparator"
+
+const useAutocompleteFilter = BaseAutocomplete.useFilter
+const useAutocompleteFilteredItems = BaseAutocomplete.useFilteredItems
+
 export {
   Autocomplete,
   AutocompleteTrigger,
@@ -367,4 +388,7 @@ export {
   AutocompleteStatus,
   AutocompleteRow,
   AutocompleteCollection,
+  AutocompleteSeparator,
+  useAutocompleteFilter,
+  useAutocompleteFilteredItems,
 }

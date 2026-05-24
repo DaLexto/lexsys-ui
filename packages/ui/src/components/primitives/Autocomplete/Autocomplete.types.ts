@@ -76,3 +76,7 @@ export type AutocompleteStatusProps = BaseAutocomplete.Status.Props
 export type AutocompleteRowProps = BaseAutocomplete.Row.Props
 
 export type AutocompleteCollectionProps = BaseAutocomplete.Collection.Props
+
+export type AutocompleteSeparatorProps = ComponentProps<
+  typeof BaseAutocomplete.Separator
+>

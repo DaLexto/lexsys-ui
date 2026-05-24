@@ -323,6 +323,8 @@ const MenuSubmenuTrigger = ({
 
 MenuSubmenuTrigger.displayName = "MenuSubmenuTrigger"
 
+const createMenuHandle = BaseMenu.createHandle
+
 export {
   Menu,
   MenuTrigger,
@@ -344,4 +346,7 @@ export {
   MenuSeparator,
   MenuSubmenuRoot,
   MenuSubmenuTrigger,
+  createMenuHandle,
 }
+
+export type { MenuHandle } from "./Menu.types"
