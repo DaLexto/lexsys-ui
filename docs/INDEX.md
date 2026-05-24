@@ -63,7 +63,6 @@ Drift check: `pnpm ui:audit:catalog:check` — see [UI_CATALOG.md § Generation]
 | [TESTING.md](./TESTING.md)                       | Verification surfaces, test coverage by package, sandbox checklist                                |
 | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)       | Common failure modes and diagnostics                                                              |
 | [RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction (target / deferred work)                                         |
-| [DOCS_AUDIT.md](./DOCS_AUDIT.md)                 | Enterprise docs pass snapshot (D0–D6 closed)                                                      |
 
 ---
 
