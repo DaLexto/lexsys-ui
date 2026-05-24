@@ -74,6 +74,8 @@ Foundation (not UI layers): token CSS, `cn` utility, npm dependencies.
 
 New Base UI wraps ship as **primitives** (`registryDependencies: []`).
 
+**Status:** `shipped` = in registry + CLI; `planned` = in [Base UI docs](https://base-ui.com/react/components) but not yet a Neurex primitive.
+
 | Base UI module                         | Neurex primitive                    | Status  |
 | -------------------------------------- | ----------------------------------- | ------- |
 | `@base-ui/react/accordion`             | Accordion                           | shipped |
@@ -104,11 +106,21 @@ New Base UI wraps ship as **primitives** (`registryDependencies: []`).
 | `@base-ui/react/toggle`                | Toggle                              | shipped |
 | `@base-ui/react/toggle-group`          | ToggleGroup                         | shipped |
 | `@base-ui/react/tooltip`               | Tooltip                             | shipped |
-| `@base-ui/react/menubar`               | —                                   | missing |
-| `@base-ui/react/navigation-menu`       | —                                   | missing |
-| `@base-ui/react/toolbar`               | —                                   | missing |
+| `@base-ui/react/autocomplete`          | Autocomplete                        | planned |
+| `@base-ui/react/checkbox-group`        | CheckboxGroup                       | planned |
+| `@base-ui/react/combobox`              | Combobox                            | planned |
+| `@base-ui/react/context-menu`          | ContextMenu                         | planned |
+| `@base-ui/react/menubar`               | Menubar                             | planned |
+| `@base-ui/react/navigation-menu`       | NavigationMenu                      | planned |
+| `@base-ui/react/otp-field`             | OtpField                            | planned |
+| `@base-ui/react/preview-card`          | PreviewCard                         | planned |
+| `@base-ui/react/toolbar`               | Toolbar                             | planned |
 
 Neurex-only primitives (no dedicated Base UI module): Alert, Badge, Card.
+
+**Planned primitive sequencing (suggested):** Autocomplete + Combobox → OtpField → NavigationMenu → ContextMenu + Toolbar → CheckboxGroup → Menubar + PreviewCard (lower priority until product need).
+
+Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRender`) stay internal — not registry primitives.
 
 ---
 
@@ -248,6 +260,7 @@ Workflow: edit `packages/ui` → `pnpm registry:sync` → `neurex update` in san
 | 3    | Pilot blocks + template + sandbox verify                  | in progress |
 | 4    | Blocks/templates optimization pass (BO.1–BO.7)            | planned     |
 | 5    | Additional blocks/templates beyond pilot set              | planned     |
+| 6    | Base UI primitive expansion (10 planned modules above)    | planned     |
 
 Tracked in [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 
