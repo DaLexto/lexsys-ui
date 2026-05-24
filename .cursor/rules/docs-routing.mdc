@@ -13,7 +13,7 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance and **document layout**: [
 2. Apply the **Document layout contract** — metadata block + H2 order for the doc type.
 3. **Current implementation** wins over roadmap, comments, or memory.
 4. **Script inventory** lives only in [SCRIPTS.md](../../docs/SCRIPTS.md) — link, do not copy tables.
-5. After count or phase changes, run **`$docs-alignment`** skill.
+5. After count, export, or registry version changes, run **`$docs-alignment`** skill and `pnpm ui:audit:catalog:check` when UI exports changed.
 
 ## Quick ownership
 
@@ -23,8 +23,9 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance and **document layout**: [
 | Registry items / sync | `REGISTRY.md` |
 | `lexsys` CLI | `CLI.md` |
 | UI components / variants | `UI.md`, `UI_VARIANTS.md` |
-| Composition layers | `UI_COMPOSITION.md` |
-| Installable inventory (when present) | `UI_CATALOG.md` |
+| Composition rules (not inventory) | `UI_COMPOSITION.md` |
+| Installable inventory (compound/leaf, exports) | `UI_CATALOG.md` |
+| Variant / CVA compliance rows | `UI_AUDIT.md` |
 | Verification / sandbox | `TESTING.md` |
 | Backlog / BO / M-phases | `REVIEW_TODO.md`, `ROADMAP.md` |
 | System shape (hub only) | `ARCHITECTURE.md` |

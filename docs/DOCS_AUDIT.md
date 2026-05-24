@@ -88,7 +88,7 @@ Surfaces audited:
 
 | Surface                                    | Type                  | Audience                  | Canonical owner | Status    | Layout    | Action                                                   |
 | ------------------------------------------ | --------------------- | ------------------------- | --------------- | --------- | --------- | -------------------------------------------------------- |
-| [SCRIPTS.md](./SCRIPTS.md)                 | Scripts reference     | Maintainers, agents       | Self            | `current` | `partial` | D5 — add `docs:catalog:check` when script exists         |
+| [SCRIPTS.md](./SCRIPTS.md)                 | Scripts reference     | Maintainers, agents       | Self            | `current` | `Y`       | —                                                        |
 | [TESTING.md](./TESTING.md)                 | How-to / verification | Maintainers, agents       | Self            | `current` | `partial` | —                                                        |
 | [DEPLOY.md](./DEPLOY.md)                   | Domain spec (release) | Maintainers               | Self            | `current` | `N`       | D3 — add bold metadata block; map H2s to layout contract |
 | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Troubleshooting       | Maintainers, contributors | Self            | `current` | `partial` | D7 → `operations/`                                       |
@@ -139,7 +139,7 @@ Surfaces audited:
 | D2       | INDEX refresh (M11, catalog row)                 | D2          | yes  |
 | D3       | Dedup README, UI_COMPOSITION, UI.md, ROADMAP M11 | D3          | yes  |
 | D4       | UI_AUDIT scope + stale rows                      | D4          | yes  |
-| D5       | docs-alignment skill + SCRIPTS catalog check     | D5          | —    |
+| D5       | docs-alignment skill + SCRIPTS catalog check     | D5          | yes  |
 | D6       | format:check + catalog:check                     | D6          | —    |
 | D7       | Folder migration (reference-by-package)          | Later       | —    |
 

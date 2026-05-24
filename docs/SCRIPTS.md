@@ -31,7 +31,9 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm tokens:governance:report` | Token governance + contrast audit report                                                |
 | `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                  |
 | `pnpm ui:check`                 | Lint + typecheck + test `@lexsys/ui`                                                    |
-| `pnpm ui:audit`                 | Scan `*.variants.ts` for forbidden styling literals                                     |
+| `pnpm ui:audit`                 | Variant literal scan **and** `UI_CATALOG.md` drift check                                |
+| `pnpm ui:audit:catalog:check`   | Fail if catalog region drifted from UI exports / registry versions                      |
+| `pnpm ui:audit:catalog:write`   | Regenerate catalog tables in [UI_CATALOG.md](./UI_CATALOG.md)                           |
 | `pnpm ui:build`                 | Build `@lexsys/ui`                                                                      |
 | `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                    |
 | `pnpm registry:sync`            | Sync UI source → registry component templates                                           |
@@ -94,12 +96,23 @@ pnpm --filter @lexsys/tokens <script>
 
 ## `@lexsys/ui`
 
-| Root alias          | Package script | When to run                                 |
-| ------------------- | -------------- | ------------------------------------------- |
-| `pnpm ui:build`     | `build`        | Build reference components                  |
-| `pnpm ui:check`     | `check`        | After component, variant, or export changes |
-| `pnpm ui:lint:fix`  | `lint:fix`     | Auto-fix UI package lint                    |
-| `pnpm ui:typecheck` | `typecheck`    | Types only                                  |
+| Root alias                    | Package script        | When to run                                                      |
+| ----------------------------- | --------------------- | ---------------------------------------------------------------- |
+| `pnpm ui:build`               | `build`               | Build reference components                                       |
+| `pnpm ui:check`               | `check`               | After component, variant, or export changes (includes `audit`)   |
+| `pnpm ui:audit`               | `audit`               | Variant literals + catalog drift (blocking subset of `ui:check`) |
+| `pnpm ui:audit:catalog:check` | `audit:catalog:check` | Catalog-only drift check                                         |
+| `pnpm ui:audit:catalog:write` | `audit:catalog:write` | Refresh [UI_CATALOG.md](./UI_CATALOG.md) generated region        |
+| `pnpm ui:lint:fix`            | `lint:fix`            | Auto-fix UI package lint                                         |
+| `pnpm ui:typecheck`           | `typecheck`           | Types only                                                       |
+
+Package-only scripts (no root alias):
+
+| Script                | Purpose                                                          |
+| --------------------- | ---------------------------------------------------------------- |
+| `audit`               | `audit-variants.mjs` + `audit-compound-exports.mjs check`        |
+| `audit:catalog:check` | Compare `docs/UI_CATALOG.md` to UI exports and registry versions |
+| `audit:catalog:write` | Update `docs/UI_CATALOG.md` between `CATALOG:BEGIN/END` markers  |
 
 Filter equivalent:
 
@@ -107,7 +120,7 @@ Filter equivalent:
 pnpm --filter @lexsys/ui <script>
 ```
 
-After UI component edits, also run `pnpm registry:sync` and `pnpm registry:check`. See [Sync workflows](#sync-workflows).
+After UI component edits, also run `pnpm registry:sync` and `pnpm registry:check`. When named exports or registry item versions change, run `pnpm ui:audit:catalog:write` then commit [UI_CATALOG.md](./UI_CATALOG.md). See [Sync workflows](#sync-workflows).
 
 ---
 
@@ -211,14 +224,14 @@ Component templates MUST NOT be edited manually under `packages/registry/templat
 
 ## Before merge
 
-| Scenario                            | Minimum commands                        |
-| ----------------------------------- | --------------------------------------- |
-| Any PR                              | `pnpm check`                            |
-| Token source / resolver / generator | `pnpm tokens:check`                     |
-| UI components                       | `pnpm ui:check` + `pnpm registry:check` |
-| Registry items or templates         | `pnpm registry:check`                   |
-| CLI commands or installer           | `pnpm cli:check`                        |
-| Playground-only changes             | `pnpm playground:check`                 |
+| Scenario                            | Minimum commands                                                                                      |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Any PR                              | `pnpm check`                                                                                          |
+| Token source / resolver / generator | `pnpm tokens:check`                                                                                   |
+| UI components                       | `pnpm ui:check` + `pnpm registry:check` (+ `pnpm ui:audit:catalog:write` if exports/versions changed) |
+| Registry items or templates         | `pnpm registry:check`                                                                                 |
+| CLI commands or installer           | `pnpm cli:check`                                                                                      |
+| Playground-only changes             | `pnpm playground:check`                                                                               |
 
 Test coverage details and per-file test inventory: [TESTING.md](./TESTING.md).
 
