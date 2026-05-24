@@ -40,12 +40,7 @@ const Switch = ({
 
 Switch.displayName = "Switch"
 
-const SwitchThumb = ({
-  ref,
-  size,
-  className,
-  ...props
-}: SwitchThumbProps) => {
+const SwitchThumb = ({ ref, size, className, ...props }: SwitchThumbProps) => {
   const context = useSwitchContext()
   const resolvedSize = size ?? context.size
 

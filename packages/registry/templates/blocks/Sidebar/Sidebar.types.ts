@@ -4,7 +4,14 @@
  * Public types for the Sidebar block.
  */
 
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, HTMLAttributes, LiHTMLAttributes, ReactNode, Ref } from "react"
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  HTMLAttributes,
+  LiHTMLAttributes,
+  ReactNode,
+  Ref,
+} from "react"
 import type { ButtonProps } from "../../primitives/Button/Button.types"
 
 export type SidebarItemVariant = ButtonProps["variant"]

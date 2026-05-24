@@ -5,16 +5,25 @@ import {
   AccordionPanel,
   AccordionTrigger,
   Checkbox,
+  CheckboxIndicator,
   Collapsible,
   CollapsiblePanel,
   CollapsibleTrigger,
   Meter,
   Progress,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressTrack,
   RadioGroup,
   RadioGroupItem,
   Separator,
   Slider,
+  SliderControl,
+  SliderIndicator,
+  SliderThumb,
+  SliderTrack,
   Switch,
+  SwitchThumb,
   Tabs,
   TabsList,
   TabsPanel,
@@ -44,9 +53,12 @@ export const InteractionsPanel = () => {
           <h3>Form controls</h3>
           <div className="control-stack">
             <Checkbox defaultChecked size="lg">
+              <CheckboxIndicator />
               Accept terms
             </Checkbox>
-            <Switch defaultChecked size="lg" aria-label="Enable sync" />
+            <Switch defaultChecked size="lg" aria-label="Enable sync">
+              <SwitchThumb />
+            </Switch>
             <Toggle defaultPressed size="sm">
               Pressed toggle
             </Toggle>
@@ -83,9 +95,21 @@ export const InteractionsPanel = () => {
         <article className="interaction-section">
           <h3>Progress and slider</h3>
           <div className="control-stack">
-            <Progress size="lg" value={64} label="Build confidence" />
+            <Progress value={64}>
+              <ProgressLabel>Build confidence</ProgressLabel>
+              <ProgressTrack size="lg">
+                <ProgressIndicator />
+              </ProgressTrack>
+            </Progress>
             <Meter size="md" value={82} label="Registry coverage" showValue />
-            <Slider defaultValue={42} aria-label="Density" />
+            <Slider defaultValue={42} aria-label="Density">
+              <SliderControl>
+                <SliderTrack>
+                  <SliderIndicator />
+                </SliderTrack>
+                <SliderThumb />
+              </SliderControl>
+            </Slider>
           </div>
         </article>
 

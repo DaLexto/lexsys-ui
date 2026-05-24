@@ -69,10 +69,7 @@ const SliderTrack = ({ className, children, ...props }: SliderTrackProps) => {
 
 SliderTrack.displayName = "SliderTrack"
 
-const SliderIndicator = ({
-  className,
-  ...props
-}: SliderIndicatorProps) => {
+const SliderIndicator = ({ className, ...props }: SliderIndicatorProps) => {
   return (
     <BaseSlider.Indicator
       className={mergeClassName(sliderIndicatorVariants(), className)}

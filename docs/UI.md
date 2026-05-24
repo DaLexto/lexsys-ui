@@ -117,12 +117,12 @@ Every primitive wrapper MUST satisfy:
 
 ### Compound vs leaf decision tree
 
-| Condition | Export style | Examples |
-| --------- | ------------ | -------- |
-| Base UI exposes sub-parts | Flat named sibling exports for every part | `Dialog`, `DialogTrigger`, `Field`, `FieldLabel` |
-| Lexsys layout primitive (no Base UI) | Same flat compound pattern | `Card`, `CardHeader`, `Alert`, `AlertTitle` |
-| Single DOM node, no slots | Leaf export OK | `Button`, `Input`, `Badge`, `Separator`, `Form`, `Toggle`, `Menubar` |
-| Block / template | 2+ named parts; compose primitives/blocks only | `Sidebar`, `SidebarContent`, `AuthForm`, `AuthFormHeader` |
+| Condition                            | Export style                                   | Examples                                                             |
+| ------------------------------------ | ---------------------------------------------- | -------------------------------------------------------------------- |
+| Base UI exposes sub-parts            | Flat named sibling exports for every part      | `Dialog`, `DialogTrigger`, `Field`, `FieldLabel`                     |
+| Lexsys layout primitive (no Base UI) | Same flat compound pattern                     | `Card`, `CardHeader`, `Alert`, `AlertTitle`                          |
+| Single DOM node, no slots            | Leaf export OK                                 | `Button`, `Input`, `Badge`, `Separator`, `Form`, `Toggle`, `Menubar` |
+| Block / template                     | 2+ named parts; compose primitives/blocks only | `Sidebar`, `SidebarContent`, `AuthForm`, `AuthFormHeader`            |
 
 **Naming:** `ComponentName` = root; `ComponentNamePart` = sub-part. Do not use
 Base UI dot notation (`Dialog.Trigger`) in consumer imports.

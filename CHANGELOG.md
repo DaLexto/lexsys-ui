@@ -29,7 +29,7 @@ and later stable cuts target **`latest`**. See [docs/DEPLOY.md](./docs/DEPLOY.md
   only; config blobs (`items[]`, `mode`-driven auto-fields) removed. Migration table:
   [UI_COMPOSITION.md § Compound-first contract](./docs/UI_COMPOSITION.md#compound-first-contract).
 
-### Breaking (compound-first — registry items bump to `0.0.2` when shipped)
+### Breaking (compound-first — registry items at `0.0.2`)
 
 - **Sidebar** — `items[]` removed; use `Sidebar`, `SidebarContent`, `SidebarGroup`,
   `SidebarItem`, … compound parts.
@@ -45,6 +45,8 @@ and later stable cuts target **`latest`**. See [docs/DEPLOY.md](./docs/DEPLOY.md
   with compound `Sidebar`.
 - **Switch, Slider, Progress, Checkbox** — sub-parts exported as named compounds;
   bundled convenience APIs removed where applicable.
+- **Autocomplete, Combobox, Menu, Drawer** — additional Base UI sub-parts and
+  helpers exported (`AutocompleteSeparator`, filter hooks, handle creators).
 
 ### Planned
 

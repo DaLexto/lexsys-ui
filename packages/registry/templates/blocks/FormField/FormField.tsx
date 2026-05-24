@@ -41,11 +41,7 @@ const FormFieldItem = ({ ref, className, ...props }: FormFieldItemProps) => {
 
 FormFieldItem.displayName = "FormFieldItem"
 
-const FormFieldLabel = ({
-  ref,
-  className,
-  ...props
-}: FormFieldLabelProps) => {
+const FormFieldLabel = ({ ref, className, ...props }: FormFieldLabelProps) => {
   return <FieldLabel ref={ref} className={className} {...props} />
 }
 

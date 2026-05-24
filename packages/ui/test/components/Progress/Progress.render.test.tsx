@@ -10,7 +10,11 @@ import {
 describe("Progress render", () => {
   it("renders progress compound with custom className", () => {
     render(
-      <Progress value={40} aria-label="Upload progress" className="custom-progress">
+      <Progress
+        value={40}
+        aria-label="Upload progress"
+        className="custom-progress"
+      >
         <ProgressLabel>Uploading</ProgressLabel>
         <ProgressTrack>
           <ProgressIndicator />

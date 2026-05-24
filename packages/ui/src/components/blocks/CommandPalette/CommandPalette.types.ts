@@ -4,7 +4,12 @@
  * Public types for the CommandPalette block.
  */
 
-import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode, Ref } from "react"
+import type {
+  ButtonHTMLAttributes,
+  HTMLAttributes,
+  ReactNode,
+  Ref,
+} from "react"
 import type { DialogProps } from "../../primitives/Dialog/Dialog.types"
 import type { InputProps } from "../../primitives/Input/Input.types"
 

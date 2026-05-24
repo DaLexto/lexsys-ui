@@ -64,10 +64,7 @@ const ProgressTrack = ({
 
 ProgressTrack.displayName = "ProgressTrack"
 
-const ProgressIndicator = ({
-  className,
-  ...props
-}: ProgressIndicatorProps) => {
+const ProgressIndicator = ({ className, ...props }: ProgressIndicatorProps) => {
   return (
     <BaseProgress.Indicator
       className={mergeClassName(progressIndicatorVariants(), className)}

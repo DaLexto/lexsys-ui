@@ -105,7 +105,11 @@ const Sidebar = ({
 
   return (
     <SidebarContext.Provider value={{ itemVariant, itemSize }}>
-      <aside ref={ref} className={cn(sidebarRootVariants(), className)} {...props}>
+      <aside
+        ref={ref}
+        className={cn(sidebarRootVariants(), className)}
+        {...props}
+      >
         <div className={sidebarDesktopVariants()}>{sidebarBody}</div>
 
         <div className={sidebarMobileTriggerVariants()}>
@@ -144,11 +148,7 @@ const SidebarHeader = ({
   ...props
 }: SidebarHeaderProps) => {
   return (
-    <div
-      ref={ref}
-      className={cn(sidebarBrandVariants(), className)}
-      {...props}
-    >
+    <div ref={ref} className={cn(sidebarBrandVariants(), className)} {...props}>
       {children}
     </div>
   )
@@ -247,7 +247,12 @@ const SidebarMobileHeader = ({
 
 SidebarMobileHeader.displayName = "SidebarMobileHeader"
 
-const SidebarGroup = ({ ref, className, children, ...props }: SidebarGroupProps) => {
+const SidebarGroup = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarGroupProps) => {
   return (
     <div ref={ref} className={cn(sidebarGroupVariants(), className)} {...props}>
       {children}
@@ -295,7 +300,12 @@ const SidebarGroupContent = ({
 
 SidebarGroupContent.displayName = "SidebarGroupContent"
 
-const SidebarList = ({ ref, className, children, ...props }: SidebarListProps) => {
+const SidebarList = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarListProps) => {
   return (
     <ul
       ref={ref}
@@ -309,7 +319,12 @@ const SidebarList = ({ ref, className, children, ...props }: SidebarListProps) =
 
 SidebarList.displayName = "SidebarList"
 
-const SidebarItem = ({ ref, className, children, ...props }: SidebarItemProps) => {
+const SidebarItem = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemProps) => {
   return (
     <li ref={ref} className={className} {...props}>
       {children}

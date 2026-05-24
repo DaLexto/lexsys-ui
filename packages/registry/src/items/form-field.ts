@@ -9,7 +9,7 @@ import type { RegistryItem } from "../registry.types.js"
 export const formFieldRegistryItem: RegistryItem = {
   name: "form-field",
   canonicalName: "FormField",
-  version: "0.0.1",
+  version: "0.0.2",
   type: "block",
   category: "blocks",
   aliases: [],
@@ -19,7 +19,7 @@ export const formFieldRegistryItem: RegistryItem = {
     "blocks/FormField/FormField.variants.ts",
   ],
   dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
-  registryDependencies: ["field", "input"],
+  registryDependencies: ["field"],
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/FormField",

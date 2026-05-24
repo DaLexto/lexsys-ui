@@ -95,7 +95,11 @@ const CommandPaletteDescription = ({
   ...props
 }: CommandPaletteDescriptionProps) => {
   return (
-    <DialogDescription ref={ref} className={cn("sr-only", className)} {...props}>
+    <DialogDescription
+      ref={ref}
+      className={cn("sr-only", className)}
+      {...props}
+    >
       {children}
     </DialogDescription>
   )

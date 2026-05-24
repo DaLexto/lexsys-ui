@@ -9,7 +9,7 @@ import type { RegistryItem } from "../registry.types.js"
 export const dashboardShellRegistryItem: RegistryItem = {
   name: "dashboard-shell",
   canonicalName: "DashboardShell",
-  version: "0.0.1",
+  version: "0.0.2",
   type: "block",
   category: "layout",
   aliases: ["dashboard-template"],
@@ -19,7 +19,7 @@ export const dashboardShellRegistryItem: RegistryItem = {
     "templates/DashboardShell/DashboardShell.variants.ts",
   ],
   dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
-  registryDependencies: ["sidebar"],
+  registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/DashboardShell",

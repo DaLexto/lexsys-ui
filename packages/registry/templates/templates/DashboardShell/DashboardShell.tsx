@@ -27,7 +27,11 @@ const DashboardShell = ({
   ...props
 }: DashboardShellProps) => {
   return (
-    <div ref={ref} className={cn(dashboardShellVariants(), className)} {...props}>
+    <div
+      ref={ref}
+      className={cn(dashboardShellVariants(), className)}
+      {...props}
+    >
       {children}
     </div>
   )

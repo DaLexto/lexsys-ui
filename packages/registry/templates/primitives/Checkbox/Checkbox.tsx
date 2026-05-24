@@ -11,7 +11,10 @@ import type {
   CheckboxProps,
   CheckboxSize,
 } from "./Checkbox.types"
-import { checkboxIndicatorVariants, checkboxVariants } from "./Checkbox.variants"
+import {
+  checkboxIndicatorVariants,
+  checkboxVariants,
+} from "./Checkbox.variants"
 import { mergeClassName } from "@/lib/utils"
 
 interface CheckboxContextValue {

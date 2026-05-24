@@ -207,9 +207,9 @@ import {
 } from "@/components/ui/Sidebar/Sidebar"
 ```
 
-| Base UI part | Lexsys export |
-| ------------ | ------------- |
-| `NavigationMenu.Root` | `NavigationMenu` |
+| Base UI part          | Lexsys export        |
+| --------------------- | -------------------- |
+| `NavigationMenu.Root` | `NavigationMenu`     |
 | `NavigationMenu.List` | `NavigationMenuList` |
 | `NavigationMenu.Item` | `NavigationMenuItem` |
 
@@ -265,13 +265,13 @@ Rules:
 Tracked in [ROADMAP.md § M11](./ROADMAP.md#m11--compound-first-api). After
 implementation, touched registry items bump to **`0.0.2`**.
 
-| Old API | New API |
-| ------- | ------- |
-| `<Sidebar items={[…]} />` | `<Sidebar><SidebarContent><SidebarGroup>…</SidebarGroup></SidebarContent></Sidebar>` |
-| `<CommandPalette items={[…]} onSelect={…} />` | compound `CommandPaletteItem` children |
-| `<AuthForm mode="login" onSubmit={…} />` | `<AuthForm><AuthFormHeader>…</AuthFormHeader><Field>…</Field></AuthForm>` |
-| `<FormField label="Email" … />` | `<FormField><FormFieldLabel>…</FormFieldLabel><FormFieldControl /></FormField>` |
-| `<DashboardShell sidebarItems={[…]} />` | `<DashboardShell><DashboardShellSidebar><Sidebar>…</Sidebar></DashboardShellSidebar>…` |
+| Old API                                       | New API                                                                                |
+| --------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `<Sidebar items={[…]} />`                     | `<Sidebar><SidebarContent><SidebarGroup>…</SidebarGroup></SidebarContent></Sidebar>`   |
+| `<CommandPalette items={[…]} onSelect={…} />` | compound `CommandPaletteItem` children                                                 |
+| `<AuthForm mode="login" onSubmit={…} />`      | `<AuthForm><AuthFormHeader>…</AuthFormHeader><Field>…</Field></AuthForm>`              |
+| `<FormField label="Email" … />`               | `<FormField><FormFieldLabel>…</FormFieldLabel><FormFieldControl /></FormField>`        |
+| `<DashboardShell sidebarItems={[…]} />`       | `<DashboardShell><DashboardShellSidebar><Sidebar>…</Sidebar></DashboardShellSidebar>…` |
 
 Execution queue: [REVIEW_TODO.md § UC.7](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 

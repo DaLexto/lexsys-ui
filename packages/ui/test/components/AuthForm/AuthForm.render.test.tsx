@@ -13,7 +13,10 @@ import {
   FormFieldItem,
   FormFieldLabel,
 } from "../../../src/components/blocks/FormField/FormField.js"
-import { CardDescription, CardTitle } from "../../../src/components/primitives/Card/Card.js"
+import {
+  CardDescription,
+  CardTitle,
+} from "../../../src/components/primitives/Card/Card.js"
 
 describe("AuthForm render", () => {
   it("renders compound auth shell with fields and submit", () => {
@@ -33,7 +36,10 @@ describe("AuthForm render", () => {
           <FormField>
             <FormFieldItem>
               <FormFieldLabel>Password</FormFieldLabel>
-              <FormFieldControl type="password" autoComplete="current-password" />
+              <FormFieldControl
+                type="password"
+                autoComplete="current-password"
+              />
             </FormFieldItem>
           </FormField>
         </AuthFormContent>
