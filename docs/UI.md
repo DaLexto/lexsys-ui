@@ -4,7 +4,10 @@
 **Type:** Domain specification
 **Source of truth for:** Component contract rules, file structure, Base UI boundaries, variant and token usage
 **Verified against:** `packages/ui/src/`
-**Related docs:** `docs/STYLEGUIDE.md` (practical patterns and examples), `docs/DESIGN_SYSTEM.md` (token system), `packages/ui/README.md` (package internals)
+**Related docs:** [UI_COMPOSITION.md](./UI_COMPOSITION.md) (install layers),
+[UI_VARIANTS.md](./UI_VARIANTS.md), [UI_AUDIT.md](./UI_AUDIT.md),
+[REGISTRY.md](./REGISTRY.md), `docs/STYLEGUIDE.md` (practical patterns),
+`docs/DESIGN_SYSTEM.md` (token system), `packages/ui/README.md` (package internals)
 
 ---
 
@@ -15,7 +18,13 @@ source components that:
 
 - define the correct component API, variants, and accessibility behavior
 - are synced into registry templates when ready to be installed into consumer projects
-- export a stable public API (`@neurex/ui`) for use in the playground
+- export a stable public API (`@neurex/ui`) for use in the playground (**32 primitives** today)
+
+Monorepo source is organized in three composition layers under
+`packages/ui/src/components/` — `primitives/`, `blocks/`, `templates/`. See
+[UI_COMPOSITION.md](./UI_COMPOSITION.md). Consumer projects receive a **flat**
+install under `paths.components` regardless of layer; the CLI rewrites
+cross-layer imports at install time.
 
 Components in this package are the source of truth. Registry templates MUST NOT
 diverge from `packages/ui` source except for the `cn` import path rewrite applied
@@ -25,14 +34,21 @@ during `pnpm registry:sync`.
 
 ## Component File Structure
 
-Every component MUST use a three-file split:
+Every component MUST use a three-file split. In the monorepo, place folders under
+the correct layer directory:
 
+```txt
+packages/ui/src/components/
+  primitives/ComponentName/     ← 32 bundled primitives
+  blocks/ComponentName/         ← pilot: FormField, Sidebar
+  templates/ComponentName/      ← pilot: DashboardShell
 ```
-components/
-  ComponentName/
-    ComponentName.tsx          ← rendering, ref prop composition
-    ComponentName.types.ts     ← public props, Base UI type extension, ref type
-    ComponentName.variants.ts  ← CVA variants and class composition
+
+```txt
+ComponentName/
+  ComponentName.tsx          ← rendering, ref prop composition
+  ComponentName.types.ts     ← public props, Base UI type extension, ref type
+  ComponentName.variants.ts  ← CVA variants and class composition
 ```
 
 Rules:
@@ -148,11 +164,14 @@ Use direct component token utilities instead (see `Badge.variants.ts`).
 
 ## Public API Rules
 
-All public exports MUST go through `packages/ui/src/index.ts`:
+All public exports MUST go through `packages/ui/src/index.ts`. Today the package
+root exports **primitives only** (playground smoke). Pilot blocks and templates
+are registry + CLI installable but not yet part of the `@neurex/ui` public export
+surface:
 
 ```ts
-export * from "./components/Button/Button"
-export type * from "./components/Button/Button.types"
+export * from "./components/primitives/Button/Button"
+export type * from "./components/primitives/Button/Button.types"
 ```
 
 Rules:
@@ -167,7 +186,9 @@ Rules:
 
 ## Registry Sync Rules
 
-After editing any component, run `pnpm registry:sync` and verify with `pnpm registry:check` before merging. Do not manually edit registry templates.
+After editing any component, run `pnpm registry:sync` (primitives + blocks) and
+verify with `pnpm registry:check` before merging. Do not manually edit registry
+templates.
 
 Full template sync contract (transform rules, drift validation, manual vs. generated distinction): [docs/REGISTRY.md](REGISTRY.md).
 
@@ -175,13 +196,13 @@ Full template sync contract (transform rules, drift validation, manual vs. gener
 
 ## Ownership Boundaries
 
-| Concern                           | Owner                                     |
-| --------------------------------- | ----------------------------------------- |
-| Component API, behavior, variants | `packages/ui/src/components/`             |
-| Install templates                 | `packages/registry/templates/components/` |
-| Registry item metadata            | `packages/registry/src/items/`            |
-| Token CSS variables               | `@neurex/tokens` (via build)              |
-| CLI install logic                 | `packages/cli/src/`                       |
+| Concern                           | Owner                                                        |
+| --------------------------------- | ------------------------------------------------------------ |
+| Component API, behavior, variants | `packages/ui/src/components/{primitives,blocks,templates}/`  |
+| Install templates                 | `packages/registry/templates/{primitives,blocks,templates}/` |
+| Registry item metadata            | `packages/registry/src/items/`                               |
+| Token CSS variables               | `@neurex/tokens` (via build)                                 |
+| CLI install logic                 | `packages/cli/src/`                                          |
 
 `packages/ui` MUST NOT contain:
 
