@@ -28,6 +28,7 @@ import {
   sidebarDesktopVariants,
   sidebarDrawerFooterVariants,
   sidebarMainVariants,
+  sidebarMobileHeaderVariants,
   sidebarMobileTriggerVariants,
   sidebarNavItemVariants,
   sidebarNavListVariants,
@@ -108,6 +109,7 @@ const Sidebar = ({
   brand,
   items,
   mobileTriggerLabel = "Open navigation",
+  mobileHeader,
 }: SidebarProps) => {
   return (
     <aside ref={ref} className={cn(sidebarRootVariants(), className)}>
@@ -159,6 +161,9 @@ const Sidebar = ({
             </DrawerViewport>
           </DrawerPortal>
         </Drawer>
+        {mobileHeader ? (
+          <div className={sidebarMobileHeaderVariants()}>{mobileHeader}</div>
+        ) : null}
       </div>
     </aside>
   )
