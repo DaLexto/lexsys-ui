@@ -35,13 +35,13 @@ This skill owns **how to analyze** — do not copy queue rows into the skill fil
 
 ## Step 1 — Read active state (in order)
 
-| Order | Source | Extract |
-| ----- | ------ | ------- |
-| 1 | `git status`, `git branch --show-current`, `git log -5 --oneline` | In-flight work, recent merges |
-| 2 | [docs/REVIEW_TODO.md](../../docs/REVIEW_TODO.md) | Execution queue, **in progress** / **partial** rows, Known Gaps, open P-sections |
-| 3 | [docs/ROADMAP.md](../../docs/ROADMAP.md) header + phase tables | Phase status; **Explicitly deferred** |
-| 4 | Domain doc for the active track only | Owner from REVIEW_TODO link or [docs/INDEX.md](../../docs/INDEX.md) |
-| 5 | [docs/INDEX.md](../../docs/INDEX.md) | Confirm canonical owner before deep-reading specs |
+| Order | Source                                                            | Extract                                                                          |
+| ----- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1     | `git status`, `git branch --show-current`, `git log -5 --oneline` | In-flight work, recent merges                                                    |
+| 2     | [docs/REVIEW_TODO.md](../../docs/REVIEW_TODO.md)                  | Execution queue, **in progress** / **partial** rows, Known Gaps, open P-sections |
+| 3     | [docs/ROADMAP.md](../../docs/ROADMAP.md) header + phase tables    | Phase status; **Explicitly deferred**                                            |
+| 4     | Domain doc for the active track only                              | Owner from REVIEW_TODO link or [docs/INDEX.md](../../docs/INDEX.md)              |
+| 5     | [docs/INDEX.md](../../docs/INDEX.md)                              | Confirm canonical owner before deep-reading specs                                |
 
 Do **not** treat ROADMAP "Current State" or REVIEW_TODO "Current State" bullet
 lists as backlog — they describe **what already shipped**.
@@ -54,13 +54,13 @@ Mechanics: [analysis-mechanics.md](./analysis-mechanics.md).
 
 Label every candidate item with **one** category:
 
-| Category | Meaning | Source signals |
-| -------- | ------- | -------------- |
-| **Current** | Shipped and enforced in code/CI | REVIEW_TODO Current State, ROADMAP `shipped`, tests green |
-| **In progress** | Active queue item | REVIEW_TODO `in progress`, `partial`, open branch |
-| **Planned** | Committed backlog, not started | REVIEW_TODO / ROADMAP `planned` rows without implementation |
-| **Deferred** | Explicitly postponed | ROADMAP § Explicitly deferred; REVIEW_TODO deferred notes |
-| **Speculative** | Vision without schedule | Target doc says deferred / not scheduled (e.g. RESOLVER_EVOLUTION) |
+| Category        | Meaning                         | Source signals                                                     |
+| --------------- | ------------------------------- | ------------------------------------------------------------------ |
+| **Current**     | Shipped and enforced in code/CI | REVIEW_TODO Current State, ROADMAP `shipped`, tests green          |
+| **In progress** | Active queue item               | REVIEW_TODO `in progress`, `partial`, open branch                  |
+| **Planned**     | Committed backlog, not started  | REVIEW_TODO / ROADMAP `planned` rows without implementation        |
+| **Deferred**    | Explicitly postponed            | ROADMAP § Explicitly deferred; REVIEW_TODO deferred notes          |
+| **Speculative** | Vision without schedule         | Target doc says deferred / not scheduled (e.g. RESOLVER_EVOLUTION) |
 
 If docs disagree with code, flag **doc drift** and prefer **`$docs-alignment`**
 before recommending feature work.
@@ -119,25 +119,30 @@ Deliver a concise report:
 
 ```markdown
 ## Project snapshot
+
 - Branch: …
 - Active queue: … (from REVIEW_TODO execution table — cite row names)
 - Phase: … (from ROADMAP / REVIEW_TODO status columns)
 
 ## Maturity (by layer)
+
 | Layer | Status | Evidence |
 | tokens | … | … |
 | ui / registry / cli | … | … |
 | composition / other active track | … | REVIEW_TODO row refs |
 
 ## Doc health
+
 - Drift found: yes/no — …
 
 ## Recommended next steps (ordered)
+
 1. **[In progress | Planned]** … — why high leverage; owner doc link
 2. …
 3. …
 
 ## Explicitly not now
+
 - Deferred: …
 - Speculative: …
 - Already shipped (do not re-suggest): …

@@ -8,15 +8,15 @@ do not duplicate queue items here.
 
 ## Document read map
 
-| Question | Primary doc | Secondary |
-| -------- | ----------- | --------- |
-| What to do next? | REVIEW_TODO § Execution Queue, Known Gaps, open P-sections | ROADMAP phase tables |
-| Long-term sequencing? | ROADMAP | REVIEW_TODO cross-links |
-| Token platform done vs future? | ROADMAP § Tokens | RESOLVER_EVOLUTION § After Phase 10 |
-| Install/CLI behavior? | CLI.md | registry README, `packages/cli/test/` |
-| Component catalog? | UI_COMPOSITION.md, packages/ui/README.md | registry item count |
-| Verification expectations? | TESTING.md | SCRIPTS.md |
-| Publish readiness? | DEPLOY.md | ROADMAP planned release phases |
+| Question                       | Primary doc                                                | Secondary                             |
+| ------------------------------ | ---------------------------------------------------------- | ------------------------------------- |
+| What to do next?               | REVIEW_TODO § Execution Queue, Known Gaps, open P-sections | ROADMAP phase tables                  |
+| Long-term sequencing?          | ROADMAP                                                    | REVIEW_TODO cross-links               |
+| Token platform done vs future? | ROADMAP § Tokens                                           | RESOLVER_EVOLUTION § After Phase 10   |
+| Install/CLI behavior?          | CLI.md                                                     | registry README, `packages/cli/test/` |
+| Component catalog?             | UI_COMPOSITION.md, packages/ui/README.md                   | registry item count                   |
+| Verification expectations?     | TESTING.md                                                 | SCRIPTS.md                            |
+| Publish readiness?             | DEPLOY.md                                                  | ROADMAP planned release phases        |
 
 ---
 
@@ -24,12 +24,12 @@ do not duplicate queue items here.
 
 Read these sections every analysis — content changes as work ships:
 
-| Section | Use for |
-| ------- | ------- |
-| Execution Queue table | Rows with `in progress` or `planned` |
+| Section                    | Use for                                           |
+| -------------------------- | ------------------------------------------------- |
+| Execution Queue table      | Rows with `in progress` or `planned`              |
 | Track tables (e.g. BO, UC) | `partial`, `in progress`, "not yet marked stable" |
-| Known Gaps | High-priority open gaps |
-| P2 / P3 open bullets | Product and architecture follow-ups |
+| Known Gaps                 | High-priority open gaps                           |
+| P2 / P3 open bullets       | Product and architecture follow-ups               |
 
 Cross-check ROADMAP **Explicitly deferred** before recommending deferred-looking items.
 
@@ -88,14 +88,14 @@ Probe only layers tied to candidate next steps.
 
 ## Maturity labels (quick reference)
 
-| Label | Use when |
-| ----- | -------- |
-| **Stable** | Shipped + verification gate + docs aligned |
-| **Pilot** | Shipped but REVIEW_TODO says not yet stable or track still partial |
-| **Partial** | Status column or table says partial |
-| **Planned** | REVIEW_TODO or ROADMAP row with no implementation yet |
-| **Deferred** | ROADMAP § Explicitly deferred or REVIEW_TODO deferred note |
-| **Speculative** | Target doc marks work as deferred / not scheduled |
+| Label           | Use when                                                           |
+| --------------- | ------------------------------------------------------------------ |
+| **Stable**      | Shipped + verification gate + docs aligned                         |
+| **Pilot**       | Shipped but REVIEW_TODO says not yet stable or track still partial |
+| **Partial**     | Status column or table says partial                                |
+| **Planned**     | REVIEW_TODO or ROADMAP row with no implementation yet              |
+| **Deferred**    | ROADMAP § Explicitly deferred or REVIEW_TODO deferred note         |
+| **Speculative** | Target doc marks work as deferred / not scheduled                  |
 
 ---
 

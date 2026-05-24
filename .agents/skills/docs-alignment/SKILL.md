@@ -34,13 +34,13 @@ rg "\b32\b primitives|\b42\b primitive|M4 release" docs README.md AGENTS.md
 
 ## Layer rules
 
-| Content | Belongs in |
-| ------- | ---------- |
-| Token layer rules | `docs/TOKENS.md` |
-| Agent routing | `AGENTS.md` (short) |
-| Cursor edit behavior | `.cursor/rules/` |
-| Multi-step verify | `.agents/skills/` |
-| Script inventory | `docs/SCRIPTS.md` only |
+| Content              | Belongs in             |
+| -------------------- | ---------------------- |
+| Token layer rules    | `docs/TOKENS.md`       |
+| Agent routing        | `AGENTS.md` (short)    |
+| Cursor edit behavior | `.cursor/rules/`       |
+| Multi-step verify    | `.agents/skills/`      |
+| Script inventory     | `docs/SCRIPTS.md` only |
 
 ## Do not
 
