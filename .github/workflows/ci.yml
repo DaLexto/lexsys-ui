@@ -54,7 +54,7 @@ jobs:
               - '.github/**'
               - 'AGENTS.md'
               - 'README.md'
-              - '.agent/**'
+              - '.agents/**'
 
   tokens-check:
     needs: changes

@@ -228,7 +228,6 @@ Start at [docs/INDEX.md](./docs/INDEX.md) for the full documentation map.
 | [docs/TESTING.md](./docs/TESTING.md)               | Test coverage and verification workflows                     |
 | [CONTRIBUTING.md](./CONTRIBUTING.md)               | Branch, check, and commit expectations                       |
 | [AGENTS.md](./AGENTS.md)                           | Agent routing and repo skills index                          |
-| [docs/CONTINUITY.example.md](./docs/CONTINUITY.example.md) | Template for local `.agent/CONTINUITY.md` (gitignored) |
 
 ## Development
 

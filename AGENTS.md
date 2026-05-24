@@ -110,24 +110,17 @@ Cursor git/PR details: [.cursor/rules/git-commits.mdc](./.cursor/rules/git-commi
 
 ---
 
-## Working state
-
-Short-form maintainer state: **`.agent/CONTINUITY.md`** (local, gitignored).
-
-Optional template: [docs/CONTINUITY.example.md](./docs/CONTINUITY.example.md).
-
-Update intentionally when phase or branch context changes.
-
----
-
 ## Change workflow
+
+Session state lives in **git + [docs/REVIEW_TODO.md](./docs/REVIEW_TODO.md)**; do not
+maintain a local continuity file.
 
 For non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans):
 
 1. **Branch** off **`dev`** — never commit directly to **`main`**.
 2. **Implement** on the branch; scoped commits per concern.
 3. **Docs alignment** — **`$docs-alignment`** when contracts or counts change;
-   link to [docs/INDEX.md](./docs/INDEX.md); update `.agent/CONTINUITY.md` locally.
+   link to [docs/INDEX.md](./docs/INDEX.md).
 4. **Verify** — **`$monorepo-check-gate`**; sandbox when install artifacts change.
 5. **PR last** to **`dev`** only when the branch is complete.
 

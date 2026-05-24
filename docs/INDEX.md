@@ -46,7 +46,6 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 | [SCRIPTS.md](./SCRIPTS.md) | Monorepo `pnpm` script names, sync workflows, CI gates (**only** place for full script inventory) |
 | [TESTING.md](./TESTING.md) | Verification surfaces, test coverage by package, sandbox checklist |
 | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Common failure modes and diagnostics |
-| [CONTINUITY.example.md](./CONTINUITY.example.md) | Template for local `.agent/CONTINUITY.md` (gitignored) |
 | [RESOLVER_EVOLUTION.md](./RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction (target / deferred work) |
 
 ---

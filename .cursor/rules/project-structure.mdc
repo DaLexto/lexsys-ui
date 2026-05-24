@@ -22,8 +22,7 @@ Public APIs: `package.json` `exports` only. Never deep-import another package's 
 
 ```txt
 neurex/
-├── .agents/skills/     # Repo-local agent skills (procedures)
-├── .agent/             # Local continuity state (gitignored)
+├── .agents/            # Agent workspace — skills/ (tracked)
 ├── .cursor/rules/      # Cursor editing behavior (*.mdc)
 ├── apps/               # playground (smoke), docs (placeholder)
 ├── docs/               # Architecture and domain specs — source of truth

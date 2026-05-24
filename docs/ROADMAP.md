@@ -140,7 +140,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M4    | (TBD)                    | planned | Reserved slot — scope to be defined                                               | —                                     |
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`               | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                    | DEPLOY.md                             |
-| M7    | Maintainer and tooling   | shipped | CONTINUITY/README/CONTRIBUTING, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agent/CONTINUITY.md`     |
+| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache | AGENTS.md, `.agents/skills/` |
 | M10   | Release readiness        | planned | CHANGELOG, versioning, publish flow (pre-0.1.0)                                   | DEPLOY.md                             |
 
 ### M1 — Infra and DX
@@ -279,9 +279,9 @@ Status: shipped
 
 Status: shipped
 
-#### M7.1 — Agent continuity workflow
+#### M7.1 — Agent and backlog handoff
 
-- Refresh CONTINUITY PLAN/PROGRESS when M-phases ship; point to ROADMAP for phase status.
+- Session state via git + [REVIEW_TODO.md](./REVIEW_TODO.md); point to ROADMAP for phase status.
 
 #### M7.2 — Contributor onboarding
 

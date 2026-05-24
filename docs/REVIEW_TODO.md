@@ -24,7 +24,7 @@ that are not yet done.
 | M4      | (TBD — scope to be defined)                                         | planned |
 | M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
-| M7      | Maintainer tooling (CONTINUITY, README, CONTRIBUTING)               | shipped |
+| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
 | M10     | Release readiness (CHANGELOG, publish audit, sequence)              | planned |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | in progress |
