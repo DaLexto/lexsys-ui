@@ -273,14 +273,6 @@ the installable catalog is documented in [docs/reference/ui/UI_CATALOG.md](./doc
 Blocks/templates are installable but not yet marked stable — see
 [docs/REVIEW_TODO.md](../REVIEW_TODO.md).
 
-## Inspiration
-
-- shadcn/ui
-- Base UI
-- Radix UI
-- Material UI
-- modern design-system architectures
-
 ## License
 
 MIT
