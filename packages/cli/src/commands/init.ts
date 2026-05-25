@@ -1,22 +1,22 @@
 import { resolve } from "node:path"
 import { readFile } from "node:fs/promises"
 import prompts from "prompts"
-import { loadConfig, saveConfig } from "../core/config.js"
+import { loadConfig, saveConfig } from "../config/config.js"
 import { getCwd, setCwd } from "../core/context.js"
 import { CliError } from "../core/cli-error.js"
 import { removeFlagsWithValues } from "../core/flags.js"
 import { fileExists } from "../core/fs.js"
-import { ensureProjectStructure } from "../core/installer.js"
-import { installDependencies } from "../core/package-manager.js"
-import { NEXT_VERSION, scaffoldNextProject } from "../core/next-scaffold.js"
+import { ensureProjectStructure } from "../install/installer.js"
+import { installDependencies } from "../utils/package-manager.js"
+import { NEXT_VERSION, scaffoldNextProject } from "../scaffold/next.js"
 import {
   ensureNextPostCssConfig,
   ensureTailwindCssImport,
   ensureTypeScriptSrcAlias,
   ensureViteSrcAlias,
   ensureViteTailwindPlugin,
-} from "../core/tailwind-setup.js"
-import { scaffoldViteProject } from "../core/vite-scaffold.js"
+} from "../scaffold/tailwind.js"
+import { scaffoldViteProject } from "../scaffold/vite.js"
 
 const tailwindViteDependencies = ["tailwindcss", "@tailwindcss/vite"]
 const tailwindNextDependencies = ["tailwindcss", "@tailwindcss/postcss"]

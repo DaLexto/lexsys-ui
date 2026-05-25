@@ -1,6 +1,6 @@
 import type { RegistryItem } from "@lexsys/registry"
 import { join } from "node:path"
-import type { LexsysConfig } from "./config.js"
+import type { LexsysConfig } from "../config/config.js"
 
 const toPosixPath = (value: string): string => {
   return value.replace(/\\/g, "/")

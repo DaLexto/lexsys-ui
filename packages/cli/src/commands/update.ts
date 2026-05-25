@@ -1,19 +1,19 @@
-import { loadConfig, saveConfig } from "../core/config.js"
+import { loadConfig, saveConfig } from "../config/config.js"
 import {
   collectUtilities,
   findItem,
   resolveRegistryStyles,
   resolveRegistryUtilities,
-} from "../core/registry-resolver.js"
-import { checkItemUpdate } from "../core/update-engine.js"
+} from "../registry/resolver.js"
+import { checkItemUpdate } from "../install/update-engine.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
-import { getRegistryProviderResult } from "../core/registry-provider.js"
-import { installStyles, updateUtilities } from "../core/installer.js"
+import { getRegistryProviderResult } from "../registry/provider.js"
+import { installStyles, updateUtilities } from "../install/installer.js"
 import {
   hasInstallConflicts,
   printResourceSummary,
-} from "../core/install-results.js"
-import type { LexsysConfig } from "../core/config.js"
+} from "../install/results.js"
+import type { LexsysConfig } from "../config/config.js"
 
 const styleUpdateNames = ["theme"]
 

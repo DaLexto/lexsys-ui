@@ -1,10 +1,10 @@
 import type { RegistryItem } from "@lexsys/registry"
-import { loadConfig, saveConfig } from "../core/config.js"
+import { loadConfig, saveConfig } from "../config/config.js"
 import {
   uninstallItemFiles,
   uninstallStyles,
   uninstallUtilities,
-} from "../core/installer.js"
+} from "../install/installer.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
 import {
   collectDependencies,
@@ -14,18 +14,18 @@ import {
   resolveRegistryItems,
   resolveRegistryStyles,
   resolveRegistryUtilities,
-} from "../core/registry-resolver.js"
-import { findOrphanInstalledItems } from "../core/registry-closure.js"
-import { getRegistryItems } from "../core/registry-provider.js"
+} from "../registry/resolver.js"
+import { findOrphanInstalledItems } from "../registry/closure.js"
+import { getRegistryItems } from "../registry/provider.js"
 import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
-} from "../core/registry-types.js"
+} from "../registry/types.js"
 import {
   hasUninstallConflicts,
   mergeUninstallResults,
   printUninstallSummary,
-} from "../core/uninstall-results.js"
+} from "../install/uninstall-results.js"
 
 const normalizeInstalledKey = (name: string): string => {
   return name.toLowerCase()

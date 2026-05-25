@@ -5,8 +5,8 @@ import {
 } from "@lexsys/registry"
 import type { RegistryItem } from "@lexsys/registry"
 import { validateRegistry } from "@lexsys/registry"
-import { fetchRemoteRegistry } from "./remote-registry.js"
-import { getRegistrySource } from "./registry-source.js"
+import { fetchRemoteRegistry } from "./remote.js"
+import { getRegistrySource } from "./source.js"
 
 export interface RegistryProviderResult {
   items: RegistryItem[]

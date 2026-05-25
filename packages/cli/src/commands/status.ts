@@ -1,6 +1,6 @@
-import { loadConfig } from "../core/config.js"
-import { findItem } from "../core/registry-resolver.js"
-import { getRegistryProviderResult } from "../core/registry-provider.js"
+import { loadConfig } from "../config/config.js"
+import { findItem } from "../registry/resolver.js"
+import { getRegistryProviderResult } from "../registry/provider.js"
 
 interface RunStatusOptions {
   noFallback?: boolean

@@ -1,20 +1,20 @@
 import prompts from "prompts"
 import { registryItems } from "@lexsys/registry"
 
-import { loadConfig, saveConfig } from "../core/config.js"
+import { loadConfig, saveConfig } from "../config/config.js"
 import {
   ensureProjectStructure,
   installItemFiles,
   installStyles,
   installUtilities,
-} from "../core/installer.js"
+} from "../install/installer.js"
 import {
   hasInstallConflicts,
   mergeInstallResults,
   printResourceSummary,
-} from "../core/install-results.js"
-import type { InstallResourceResult } from "../core/install-results.js"
-import { installDependencies } from "../core/package-manager.js"
+} from "../install/results.js"
+import type { InstallResourceResult } from "../install/results.js"
+import { installDependencies } from "../utils/package-manager.js"
 import {
   collectDependencies,
   collectStyles,
@@ -22,11 +22,11 @@ import {
   resolveRegistryStyles,
   resolveRegistryUtilities,
   resolveRegistryItems,
-} from "../core/registry-resolver.js"
+} from "../registry/resolver.js"
 import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
-} from "../core/registry-types.js"
+} from "../registry/types.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
 
 const promptSelectItems = async (): Promise<string[]> => {

@@ -1,83 +1,13 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, join } from "node:path"
-import { fileExists } from "./fs.js"
+import { fileExists } from "../core/fs.js"
 
-const viteConfig = `import { fileURLToPath, URL } from "node:url"
-import { defineConfig } from "vite"
-import react from "@vitejs/plugin-react"
-
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
-})
-`
-
-const tsConfig = `{
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
-}
-`
-
-const tsConfigApp = `{
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-    "types": ["vite/client"],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["src"]
-}
-`
-
-const tsConfigNode = `{
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "ES2022",
-    "lib": ["ES2023"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["vite.config.ts"]
-}
-`
+export const NEXT_VERSION = "15.3.3"
 
 const gitIgnore = `node_modules
+.next
+out
 dist
-dist-ssr
 *.local
 .env
 .env.*
@@ -85,8 +15,9 @@ dist-ssr
 `
 
 const prettierIgnore = `node_modules
+.next
+out
 dist
-dist-ssr
 coverage
 pnpm-lock.yaml
 package-lock.json
@@ -99,42 +30,87 @@ const prettierConfig = `{
 }
 `
 
-const indexHtml = `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lexsys Vite App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+const nextConfig = `import type { NextConfig } from "next"
+
+const nextConfig: NextConfig = {}
+
+export default nextConfig
 `
 
-const mainTsx = `import React from "react"
-import ReactDOM from "react-dom/client"
-import "./style.css"
-import { App } from "./App"
+const postcssConfig = `const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+}
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+export default config
 `
 
-const appTsx = `export const App = () => {
+const tsConfig = `{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+`
+
+const nextEnvDts = `/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+`
+
+const globalDts = `declare module "*.css" {
+  const content: Record<string, string>
+  export default content
+}
+`
+
+const layoutTsx = `import type { Metadata } from "next"
+import "./globals.css"
+
+export const metadata: Metadata = {
+  title: "Lexsys Next App",
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+`
+
+const pageTsx = `export default function Home() {
   return (
     <main>
-      <h1>Lexsys + Vite</h1>
+      <h1>Lexsys + Next.js</h1>
     </main>
   )
 }
 `
 
-const styleCss = `@import "tailwindcss";
+const globalsCss = `@import "tailwindcss";
 
 :root {
   font-family:
@@ -166,7 +142,7 @@ const sanitizePackageName = (name: string): string => {
     .replace(/[^a-z0-9._-]+/gu, "-")
     .replace(/^-+|-+$/gu, "")
 
-  return normalized || "lexsys-vite-app"
+  return normalized || "lexsys-next-app"
 }
 
 const getPackageManagerFromUserAgent = (): string | undefined => {
@@ -186,14 +162,13 @@ const getPackageJson = (targetDirectory: string): string => {
     name: sanitizePackageName(basename(targetDirectory)),
     private: true,
     version: "0.0.0",
-    type: "module",
     scripts: {
-      dev: "vite",
-      build: "tsc -b && vite build",
-      typecheck: "tsc -b",
+      dev: "next dev",
+      build: "next build",
+      start: "next start",
+      typecheck: "tsc --noEmit",
       format: "prettier --write .",
       "format:check": "prettier --check .",
-      preview: "vite preview",
     },
   }
 
@@ -230,17 +205,13 @@ const mergePackageJson = (
       typeof existingPackageJson.version === "string"
         ? existingPackageJson.version
         : "0.0.0",
-    type:
-      typeof existingPackageJson.type === "string"
-        ? existingPackageJson.type
-        : "module",
     scripts: {
-      dev: "vite",
-      build: "tsc -b && vite build",
-      typecheck: "tsc -b",
+      dev: "next dev",
+      build: "next build",
+      start: "next start",
+      typecheck: "tsc --noEmit",
       format: "prettier --write .",
       "format:check": "prettier --check .",
-      preview: "vite preview",
       ...existingScripts,
     },
   }
@@ -312,7 +283,7 @@ const writeScaffoldFile = async (
   console.log(`Created scaffold file: ${targetPath}`)
 }
 
-export const scaffoldViteProject = async (
+export const scaffoldNextProject = async (
   targetDirectory: string,
 ): Promise<void> => {
   await mkdir(targetDirectory, { recursive: true })
@@ -335,22 +306,32 @@ export const scaffoldViteProject = async (
       allowExisting: true,
     },
   )
-  await writeScaffoldFile(join(targetDirectory, "index.html"), indexHtml)
-  await writeScaffoldFile(join(targetDirectory, "tsconfig.json"), tsConfig)
-  await writeScaffoldFile(
-    join(targetDirectory, "tsconfig.app.json"),
-    tsConfigApp,
-  )
-  await writeScaffoldFile(
-    join(targetDirectory, "tsconfig.node.json"),
-    tsConfigNode,
-  )
-  await writeScaffoldFile(join(targetDirectory, "vite.config.ts"), viteConfig, {
+  await writeScaffoldFile(join(targetDirectory, "next.config.ts"), nextConfig, {
     allowExisting: true,
   })
-  await writeScaffoldFile(join(targetDirectory, "src", "main.tsx"), mainTsx)
-  await writeScaffoldFile(join(targetDirectory, "src", "App.tsx"), appTsx)
-  await writeScaffoldFile(join(targetDirectory, "src", "style.css"), styleCss, {
+  await writeScaffoldFile(
+    join(targetDirectory, "postcss.config.mjs"),
+    postcssConfig,
+    {
+      allowExisting: true,
+    },
+  )
+  await writeScaffoldFile(join(targetDirectory, "tsconfig.json"), tsConfig, {
     allowExisting: true,
   })
+  await writeScaffoldFile(join(targetDirectory, "next-env.d.ts"), nextEnvDts, {
+    allowExisting: true,
+  })
+  await writeScaffoldFile(join(targetDirectory, "global.d.ts"), globalDts, {
+    allowExisting: true,
+  })
+  await writeScaffoldFile(join(targetDirectory, "app", "layout.tsx"), layoutTsx)
+  await writeScaffoldFile(join(targetDirectory, "app", "page.tsx"), pageTsx)
+  await writeScaffoldFile(
+    join(targetDirectory, "app", "globals.css"),
+    globalsCss,
+    {
+      allowExisting: true,
+    },
+  )
 }

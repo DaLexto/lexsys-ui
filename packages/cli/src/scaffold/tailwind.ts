@@ -1,8 +1,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join } from "node:path"
-import type { LexsysConfig } from "./config.js"
-import { getCwd } from "./context.js"
-import { fileExists } from "./fs.js"
+import type { LexsysConfig } from "../config/config.js"
+import { getCwd } from "../core/context.js"
+import { fileExists } from "../core/fs.js"
 
 const tailwindImport = '@import "tailwindcss";'
 const viteConfigFiles = [

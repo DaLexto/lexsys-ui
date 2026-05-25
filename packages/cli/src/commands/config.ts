@@ -1,4 +1,4 @@
-import { getConfigPath, loadConfig, saveConfig } from "../core/config.js"
+import { getConfigPath, loadConfig, saveConfig } from "../config/config.js"
 import { fileExists } from "../core/fs.js"
 
 interface RunConfigOptions {

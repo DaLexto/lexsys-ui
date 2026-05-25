@@ -4,9 +4,9 @@ import {
   validateRegistry,
 } from "@lexsys/registry"
 import type { RegistryItem } from "@lexsys/registry"
-import { getRegistryProviderResult } from "../core/registry-provider.js"
-import { fetchRemoteRegistry } from "../core/remote-registry.js"
-import { getRegistrySource } from "../core/registry-source.js"
+import { getRegistryProviderResult } from "../registry/provider.js"
+import { fetchRemoteRegistry } from "../registry/remote.js"
+import { getRegistrySource } from "../registry/source.js"
 
 interface RunRegistryOptions {
   summary?: boolean
