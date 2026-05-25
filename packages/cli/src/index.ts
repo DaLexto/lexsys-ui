@@ -4,7 +4,7 @@ import { CliError, handleCliError } from "./core/cli-error.js"
 import { runAdd } from "./commands/add.js"
 import { runConfig } from "./commands/config.js"
 import { runDoctor } from "./commands/doctor.js"
-import { runHelp } from "./commands/help.js"
+import { runHelp, runHelpFor } from "./commands/help.js"
 import { runInit } from "./commands/init.js"
 import { runList } from "./commands/list.js"
 import { runRegistry } from "./commands/registry.js"
@@ -13,11 +13,11 @@ import { runUninstall } from "./commands/uninstall.js"
 import { runUpdate } from "./commands/update.js"
 import { runVersion } from "./commands/version.js"
 import { setCwd } from "./core/context.js"
-import { getFlagValue } from "./core/flags.js"
+import { getFlagValue, hasFlag } from "./core/flags.js"
 
 const [, , command, ...args] = process.argv
 
-const cwd = getFlagValue(args, "--cwd")
+const cwd = getFlagValue(args, "--cwd", "-C")
 
 if (cwd) {
   setCwd(cwd)
@@ -38,55 +38,87 @@ try {
     process.exit(0)
   }
 
-  if (command === "list") {
+  if (command === "list" || command === "ls") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("list")
+      process.exit(0)
+    }
     await runList({
-      json: args.includes("--json"),
+      json: hasFlag(args, "--json", "-j"),
       noFallback: args.includes("--no-fallback"),
     })
     process.exit(0)
   }
 
-  if (command === "doctor") {
+  if (command === "doctor" || command === "dr") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("doctor")
+      process.exit(0)
+    }
     await runDoctor({
       noFallback: args.includes("--no-fallback"),
     })
     process.exit(0)
   }
 
-  if (command === "init") {
+  if (command === "init" || command === "create") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("init")
+      process.exit(0)
+    }
     await runInit(args)
     process.exit(0)
   }
 
-  if (command === "add") {
+  if (command === "add" || command === "a") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("add")
+      process.exit(0)
+    }
     await runAdd(args)
     process.exit(0)
   }
 
-  if (command === "update") {
+  if (command === "update" || command === "up") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("update")
+      process.exit(0)
+    }
     await runUpdate(args)
     process.exit(0)
   }
 
-  if (command === "status") {
+  if (command === "status" || command === "st") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("status")
+      process.exit(0)
+    }
     await runStatus({
       noFallback: args.includes("--no-fallback"),
     })
     process.exit(0)
   }
 
-  if (command === "registry") {
+  if (command === "registry" || command === "reg") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("registry")
+      process.exit(0)
+    }
     await runRegistry({
-      summary: args.includes("--summary"),
+      summary: hasFlag(args, "--summary", "-s"),
       source: args.includes("--source"),
-      local: args.includes("--local"),
-      remote: args.includes("--remote"),
+      local: hasFlag(args, "--local", "-l"),
+      remote: hasFlag(args, "--remote", "-r"),
       noFallback: args.includes("--no-fallback"),
     })
     process.exit(0)
   }
 
-  if (command === "config") {
+  if (command === "config" || command === "cfg") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("config")
+      process.exit(0)
+    }
     await runConfig({
       path: args.includes("--path") || args.includes("-p"),
       exists: args.includes("--exists") || args.includes("-e"),
@@ -96,7 +128,11 @@ try {
     process.exit(0)
   }
 
-  if (command === "uninstall") {
+  if (command === "uninstall" || command === "rm") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("uninstall")
+      process.exit(0)
+    }
     await runUninstall(args)
     process.exit(0)
   }

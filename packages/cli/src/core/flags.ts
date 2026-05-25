@@ -1,5 +1,5 @@
-export const hasFlag = (args: string[], flag: string): boolean => {
-  return args.includes(flag)
+export const hasFlag = (args: string[], ...flags: string[]): boolean => {
+  return flags.some((f) => args.includes(f))
 }
 
 export const removeFlags = (args: string[], flags: string[]): string[] => {
@@ -8,15 +8,13 @@ export const removeFlags = (args: string[], flags: string[]): string[] => {
 
 export const getFlagValue = (
   args: string[],
-  flag: string,
+  ...flags: string[]
 ): string | undefined => {
-  const index = args.indexOf(flag)
-
-  if (index === -1) {
-    return undefined
+  for (const flag of flags) {
+    const index = args.indexOf(flag)
+    if (index !== -1) return args[index + 1]
   }
-
-  return args[index + 1]
+  return undefined
 }
 
 export const removeFlagsWithValues = (

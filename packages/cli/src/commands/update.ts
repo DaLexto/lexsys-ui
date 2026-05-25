@@ -1,3 +1,4 @@
+import prompts from "prompts"
 import { loadConfig, saveConfig } from "../config/config.js"
 import {
   collectUtilities,
@@ -146,25 +147,30 @@ const runComponentUpdates = async (
 }
 
 export const runUpdate = async (args: string[]): Promise<void> => {
-  const dryRun = hasFlag(args, "--dry-run")
-  const force = hasFlag(args, "--force")
-  const yes = hasFlag(args, "--yes")
+  const dryRun = hasFlag(args, "--dry-run", "-d")
+  const force = hasFlag(args, "--force", "-f")
+  const yes = hasFlag(args, "--yes", "-y")
   const noFallback = hasFlag(args, "--no-fallback")
   const sync = hasFlag(args, "--sync")
-  const stylesFlag = hasFlag(args, "--styles") || args.includes("styles")
-  const utilitiesFlag = hasFlag(args, "--utilities")
-  const updateAll = args.includes("--all")
+  const stylesFlag = hasFlag(args, "--styles", "-S")
+  const utilitiesFlag = hasFlag(args, "--utilities", "-u")
+  const updateAll = hasFlag(args, "--all", "-a")
 
-  const targetArgs = removeFlags(removeFlagsWithValues(args, ["--cwd"]), [
+  const targetArgs = removeFlags(removeFlagsWithValues(args, ["--cwd", "-C"]), [
     "--dry-run",
+    "-d",
     "--force",
+    "-f",
     "--yes",
+    "-y",
     "--no-fallback",
     "--styles",
-    "styles",
+    "-S",
     "--sync",
     "--utilities",
+    "-u",
     "--all",
+    "-a",
   ])
 
   const config = await loadConfig()
@@ -185,6 +191,31 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     console.log("Auto-confirm mode is enabled.")
   }
 
+  if (!updateAll && !stylesFlag && !utilitiesFlag && targetArgs.length === 0) {
+    const installedNames = Object.keys(installed)
+
+    if (installedNames.length === 0) {
+      console.log("No components installed. Run `lexsys add <component>` first.")
+      return
+    }
+
+    const response: unknown = await prompts({
+      type: "multiselect",
+      name: "components",
+      message: "Select components to update",
+      choices: installedNames.map((name) => ({ title: name, value: name })),
+      min: 1,
+    })
+
+    const selected = (response as { components?: unknown }).components
+
+    if (!Array.isArray(selected) || !selected.length) return
+
+    targetArgs.push(
+      ...selected.filter((c): c is string => typeof c === "string"),
+    )
+  }
+
   const shouldUpdateComponents = updateAll || targetArgs.length > 0
   const resourcesOnly = (stylesFlag || utilitiesFlag) && !shouldUpdateComponents
 
@@ -197,11 +228,6 @@ export const runUpdate = async (args: string[]): Promise<void> => {
       await runUtilitiesUpdate(config, installed, dryRun, force)
     }
 
-    return
-  }
-
-  if (!shouldUpdateComponents && !stylesFlag && !utilitiesFlag) {
-    console.log("Please specify components to update or use --all.")
     return
   }
 

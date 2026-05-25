@@ -1,21 +1,24 @@
 export class CliError extends Error {
-  constructor(message: string) {
+  suggestion?: string
+
+  constructor(message: string, suggestion?: string) {
     super(message)
     this.name = "CliError"
+    this.suggestion = suggestion
   }
 }
 
-export const handleCliError = (error: unknown): void => {
+export const handleCliError = (error: unknown): never => {
   if (error instanceof CliError) {
-    console.error(`\nError: ${error.message}\n`)
-    process.exit(1)
+    console.error(`\n✗  ${error.message}`)
+    if (error.suggestion) {
+      console.error(`   ${error.suggestion}`)
+    }
+    console.error(`   Run \`lexsys --help\` to see available commands.\n`)
+  } else if (error instanceof Error) {
+    console.error(`\n✗  ${error.message}\n`)
+  } else {
+    console.error(`\n✗  An unexpected error occurred.\n`)
   }
-
-  if (error instanceof Error) {
-    console.error(`\nUnexpected error:\n${error.message}\n`)
-    process.exit(1)
-  }
-
-  console.error("\nUnknown error occurred\n")
   process.exit(1)
 }

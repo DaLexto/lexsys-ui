@@ -54,12 +54,12 @@ const promptSelectItems = async (): Promise<string[]> => {
 }
 
 export const runAdd = async (args: string[]): Promise<void> => {
-  const dryRun = hasFlag(args, "--dry-run")
-  const yes = hasFlag(args, "--yes")
+  const dryRun = hasFlag(args, "--dry-run", "-d")
+  const yes = hasFlag(args, "--yes", "-y")
   const noFallback = hasFlag(args, "--no-fallback")
 
-  let items = removeFlagsWithValues(args, ["--cwd"])
-  items = removeFlags(items, ["--dry-run", "--yes", "--no-fallback"])
+  let items = removeFlagsWithValues(args, ["--cwd", "-C"])
+  items = removeFlags(items, ["--dry-run", "-d", "--yes", "-y", "--no-fallback"])
 
   void yes
 
