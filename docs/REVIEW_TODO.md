@@ -13,24 +13,46 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3, M5–M7, **R0**, and **M10** shipped; **M4 reserved** (scope TBD).
+**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3, M5–M7, **R0**, and **M10** shipped; **M4 in progress** (entry + CLI DX — branch `feat/m4-cli-entry-dx`).
 
-| Phase   | Focus                                                               | Status  |
-| ------- | ------------------------------------------------------------------- | ------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done    |
-| R0      | Lexsys product naming + publish surface (blocks M10)                | shipped |
-| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped |
-| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped |
-| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
-| M4      | (TBD — scope to be defined)                                         | planned |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
-| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
-| M10     | Release readiness — first npm `0.0.1` @ `next`                      | shipped |
-| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
-| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
+| Phase   | Focus                                                               | Status      |
+| ------- | ------------------------------------------------------------------- | ----------- |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done        |
+| R0      | Lexsys product naming + publish surface (blocks M10)                | shipped     |
+| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped     |
+| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped     |
+| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped     |
+| M4      | Entry + CLI DX                                                      | in progress |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped     |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped     |
+| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped     |
+| M10     | Release readiness — first npm `0.0.1` @ `next`                      | shipped     |
+| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped     |
+| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped     |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
+
+---
+
+## M4 — Entry + CLI DX (in progress)
+
+Branch: `feat/m4-cli-entry-dx`. Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview).
+
+| Item  | Description                                                                                     | Status      |
+| ----- | ----------------------------------------------------------------------------------------------- | ----------- |
+| M4.1  | `packages/entry` — `lexsys` npm package, thin shim → `@lexsys/cli`                              | in progress |
+| M4.2  | Root `package.json` rename → `lexsys-monorepo`                                                  | planned     |
+| M4.3  | Changesets `fixed[]` — `lexsys` + `@lexsys/cli` same version                                    | planned     |
+| M4.4  | CLI command aliases (`create`, `a`, `up`, `ls`, `st`, `rm`, `dr`, `reg`, `cfg`)                 | planned     |
+| M4.5  | CLI flag short aliases (`-d`, `-y`, `-f`, `-a`, `-S`, `-u`, `-j`, `-s`, `-l`, `-r`, `-w`, `-C`) | planned     |
+| M4.6  | `flags.ts` varargs refactor — `hasFlag(args, '--dry-run', '-d')`                                | planned     |
+| M4.7  | Guided modes — `create`, `up`, `rm` without args → interactive picker                           | planned     |
+| M4.8  | Per-command `--help` + `help.ts` redesign (grouped sections)                                    | planned     |
+| M4.9  | Error output standardization — consistent prefix + actionable hints                             | planned     |
+| M4.10 | `src/core/` reorganization → `registry/`, `install/`, `scaffold/`, `utils/`, `config/`          | planned     |
+| M4.11 | `packages/cli/CHANGELOG.md`                                                                     | planned     |
+| M4.12 | `publish:release` + root scripts updated for entry package                                      | planned     |
+| M4.13 | Docs update — README, CLI.md, DEPLOY.md                                                         | planned     |
 
 ---
 
