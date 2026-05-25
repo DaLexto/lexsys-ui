@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
 import { setCwd } from "../../src/core/context.js"
-import { defaultConfig } from "../../src/core/config.js"
+import { defaultConfig } from "../../src/config/config.js"
 import { runConfig } from "../../src/commands/config.js"
 import { runDoctor } from "../../src/commands/doctor.js"
 import { runList } from "../../src/commands/list.js"
@@ -16,7 +16,7 @@ const mocks = vi.hoisted(() => {
   }
 })
 
-vi.mock("../../src/core/registry-provider.js", () => {
+vi.mock("../../src/registry/provider.js", () => {
   return {
     getRegistryItems: mocks.getRegistryItems,
     getRegistryProviderResult: mocks.getRegistryProviderResult,

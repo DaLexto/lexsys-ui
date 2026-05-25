@@ -1,16 +1,13 @@
-import { CliError } from "./cli-error.js"
+import { CliError } from "../core/cli-error.js"
 import type { RegistryItem } from "@lexsys/registry"
 import {
   registryUtilities as registryUtilityDefinitions,
   registryStyles as registryStyleDefinitions,
   validateRegistryItem,
 } from "@lexsys/registry"
-import { getRegistryItems } from "./registry-provider.js"
-import type {
-  ResolvedRegistryStyle,
-  ResolvedRegistryUtility,
-} from "./registry-types.js"
-import { findClosestValue } from "./suggestions.js"
+import { getRegistryItems } from "./provider.js"
+import type { ResolvedRegistryStyle, ResolvedRegistryUtility } from "./types.js"
+import { findClosestValue } from "../utils/suggestions.js"
 
 const registryStyles =
   registryStyleDefinitions as unknown as readonly ResolvedRegistryStyle[]

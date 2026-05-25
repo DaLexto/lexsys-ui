@@ -1,6 +1,6 @@
 import type { RegistryItem } from "@lexsys/registry"
-import { fileExists } from "./fs.js"
-import { getRegistryTemplatePath } from "./installer.js"
+import { fileExists } from "../core/fs.js"
+import { getRegistryTemplatePath } from "../install/installer.js"
 
 export const validateTemplateFiles = async (
   item: RegistryItem,

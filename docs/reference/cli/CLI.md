@@ -11,20 +11,43 @@
 
 ```bash
 lexsys <command> [options]
+# or via npx (early preview dist-tag):
+npx lexsys@next <command> [options]
 ```
 
 The binary is `lexsys`. It reads `lexsys.config.json` from the working directory
 or applies built-in defaults when the file is absent.
 
+Every command accepts `--help` / `-h` for per-command usage:
+
+```bash
+lexsys add --help
+lexsys update --help
+```
+
+### Command aliases
+
+| Full command | Alias    |
+| ------------ | -------- |
+| `init`       | `create` |
+| `add`        | `a`      |
+| `update`     | `up`     |
+| `list`       | `ls`     |
+| `status`     | `st`     |
+| `doctor`     | `dr`     |
+| `uninstall`  | `rm`     |
+| `registry`   | `reg`    |
+| `config`     | `cfg`    |
+
 ### Global options
 
-| Flag              | Description                                               |
-| ----------------- | --------------------------------------------------------- |
-| `--cwd <path>`    | Run from a different directory instead of `process.cwd()` |
-| `--yes`           | Auto-confirm safe prompts where supported                 |
-| `--no-fallback`   | Disable local registry fallback where supported           |
-| `--help`, `-h`    | Print help message                                        |
-| `--version`, `-v` | Print CLI version                                         |
+| Flag            | Alias | Description                                               |
+| --------------- | ----- | --------------------------------------------------------- |
+| `--cwd <path>`  | `-C`  | Run from a different directory instead of `process.cwd()` |
+| `--yes`         |       | Auto-confirm safe prompts where supported                 |
+| `--no-fallback` |       | Disable local registry fallback where supported           |
+| `--help`        | `-h`  | Print help message                                        |
+| `--version`     | `-v`  | Print CLI version                                         |
 
 ---
 
@@ -104,10 +127,10 @@ lexsys add button --cwd ./apps/web
 lexsys add                          # interactive multiselect
 ```
 
-| Flag            | Description                                                                        |
-| --------------- | ---------------------------------------------------------------------------------- |
-| `--dry-run`     | Preview components, dependencies, utilities, styles, and install paths — no writes |
-| `--no-fallback` | Fail if remote registry is configured and unavailable (no local fallback)          |
+| Flag            | Alias | Description                                                                        |
+| --------------- | ----- | ---------------------------------------------------------------------------------- |
+| `--dry-run`     | `-d`  | Preview components, dependencies, utilities, styles, and install paths — no writes |
+| `--no-fallback` |       | Fail if remote registry is configured and unavailable (no local fallback)          |
 
 **Without component arguments**, shows an interactive multiselect of all
 available registry items (format: `CanonicalName (category)`).
@@ -162,16 +185,16 @@ lexsys update --all --sync --force
 lexsys update --all --yes
 ```
 
-| Flag            | Description                                                               |
-| --------------- | ------------------------------------------------------------------------- |
-| `--all`         | Update all components tracked in `lexsys.config.json`                     |
-| `--styles`      | Update token/theme CSS files (generated output auto-updates when stale)   |
-| `--utilities`   | Update shared utility files such as `utils.ts` from installed components  |
-| `--sync`        | Refresh tracked component templates even when installed version matches   |
-| `--dry-run`     | Preview what would change; no writes; reports conflict/identical per file |
-| `--force`       | Write conflicted files after creating `.bak` timestamped backups          |
-| `--yes`         | Auto-confirm safe prompts                                                 |
-| `--no-fallback` | Fail if remote registry unavailable                                       |
+| Flag            | Alias | Description                                                               |
+| --------------- | ----- | ------------------------------------------------------------------------- |
+| `--all`         |       | Update all components tracked in `lexsys.config.json`                     |
+| `--styles`      |       | Update token/theme CSS files (generated output auto-updates when stale)   |
+| `--utilities`   |       | Update shared utility files such as `utils.ts` from installed components  |
+| `--sync`        |       | Refresh tracked component templates even when installed version matches   |
+| `--dry-run`     | `-d`  | Preview what would change; no writes; reports conflict/identical per file |
+| `--force`       |       | Write conflicted files after creating `.bak` timestamped backups          |
+| `--yes`         |       | Auto-confirm safe prompts                                                 |
+| `--no-fallback` |       | Fail if remote registry unavailable                                       |
 
 **Version check:** an update is available when the registry item version is
 semver-greater than the installed version recorded in `lexsys.config.json`.
@@ -213,10 +236,10 @@ lexsys list
 lexsys list --json
 ```
 
-| Flag            | Description                                                                       |
-| --------------- | --------------------------------------------------------------------------------- |
-| `--json`        | Output as JSON array with `name`, `canonicalName`, `version`, `category`, `layer` |
-| `--no-fallback` | Fail if remote registry unavailable                                               |
+| Flag            | Alias | Description                                                                       |
+| --------------- | ----- | --------------------------------------------------------------------------------- |
+| `--json`        | `-j`  | Output as JSON array with `name`, `canonicalName`, `version`, `category`, `layer` |
+| `--no-fallback` |       | Fail if remote registry unavailable                                               |
 
 Default output groups items by install layer (`Primitives`, `Blocks`, `Templates`):
 
@@ -293,12 +316,12 @@ lexsys config --set-registry-url https://example.com/registry.json
 lexsys config --clear-registry-url
 ```
 
-| Flag                       | Description                                     |
-| -------------------------- | ----------------------------------------------- |
-| `--path`, `-p`             | Print the resolved path to `lexsys.config.json` |
-| `--exists`, `-e`           | Print whether the config file is present        |
-| `--set-registry-url <url>` | Persist a remote registry URL                   |
-| `--clear-registry-url`     | Set `registryUrl` to `null`                     |
+| Flag                       | Alias | Description                                     |
+| -------------------------- | ----- | ----------------------------------------------- |
+| `--path`                   | `-p`  | Print the resolved path to `lexsys.config.json` |
+| `--exists`                 | `-e`  | Print whether the config file is present        |
+| `--set-registry-url <url>` |       | Persist a remote registry URL                   |
+| `--clear-registry-url`     |       | Set `registryUrl` to `null`                     |
 
 With no flags: reads config (merging defaults) and prints as indented JSON.
 
@@ -319,13 +342,13 @@ lexsys registry --remote --source
 lexsys registry --no-fallback
 ```
 
-| Flag            | Description                                                                                 |
-| --------------- | ------------------------------------------------------------------------------------------- |
-| `--summary`     | Human-readable output (source, fallback, items with type/category/remote file count)        |
-| `--source`      | Print the effective source string (includes `(fallback: local)` note when fallback is used) |
-| `--local`       | Read only the bundled `@lexsys/registry` package; ignore remote URL                         |
-| `--remote`      | Read only the remote URL from config; error if none configured                              |
-| `--no-fallback` | Disable local fallback for the default resolution path                                      |
+| Flag            | Alias | Description                                                                                 |
+| --------------- | ----- | ------------------------------------------------------------------------------------------- |
+| `--summary`     | `-s`  | Human-readable output (source, fallback, items with type/category/remote file count)        |
+| `--source`      |       | Print the effective source string (includes `(fallback: local)` note when fallback is used) |
+| `--local`       | `-l`  | Read only the bundled `@lexsys/registry` package; ignore remote URL                         |
+| `--remote`      | `-r`  | Read only the remote URL from config; error if none configured                              |
+| `--no-fallback` |       | Disable local fallback for the default resolution path                                      |
 
 ---
 
@@ -343,7 +366,7 @@ lexsys uninstall button --dry-run
 
 **Behavior:**
 
-- `--dry-run` — print targets without deleting files or updating config
+- `--dry-run` / `-d` — print targets without deleting files or updating config
 - Removes component files only when content matches the registry template
 - Skips the whole component when any file differs (atomic per component)
 - Orphaned utilities/styles removed only after successful component uninstall
@@ -493,10 +516,18 @@ Only missing dependencies are installed — packages already present in
 
 ## Error handling
 
-`CliError` messages are printed as `Error: <message>` and exit with code 1.
+`CliError` messages are printed as:
+
+```
+✗ <message>
+  → <suggestion>      (when available)
+
+Run `lexsys <command> --help` for usage.
+```
+
 Unexpected errors print `Unexpected error: <message>` and exit with code 1.
 Unknown commands throw `CliError: Unknown command: <name>` and the help message
-is printed.
+is printed. All errors exit with code 1.
 
 ---
 

@@ -1,5 +1,5 @@
 import { getInstallLayer } from "@lexsys/registry"
-import { getRegistryItems } from "../core/registry-provider.js"
+import { getRegistryItems } from "../registry/provider.js"
 
 interface RunListOptions {
   json?: boolean

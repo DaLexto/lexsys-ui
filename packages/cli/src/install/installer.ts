@@ -10,24 +10,21 @@ import {
 import { dirname, join, relative } from "node:path"
 import { fileURLToPath } from "node:url"
 import type { RegistryItem } from "@lexsys/registry"
-import type { LexsysConfig } from "./config.js"
+import type { LexsysConfig } from "../config/config.js"
 import { prepareInstalledFileContent } from "./import-rewriter.js"
-import { resolveItemInstallTarget } from "./install-target.js"
-import { createBackupFile } from "./backup.js"
-import { fileExists, filesAreEqual } from "./fs.js"
-import { getCwd } from "./context.js"
-import { fetchRemoteFile } from "./remote-files.js"
-import { hashesAreEqual } from "./hash.js"
+import { resolveItemInstallTarget } from "./target.js"
+import { createBackupFile } from "../core/backup.js"
+import { fileExists, filesAreEqual } from "../core/fs.js"
+import { getCwd } from "../core/context.js"
+import { fetchRemoteFile } from "../registry/remote-files.js"
+import { hashesAreEqual } from "../core/hash.js"
 import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
-} from "./registry-types.js"
-import { validateTemplateFiles } from "./template-validator.js"
-import {
-  createInstallResourceResult,
-  hasInstallConflicts,
-} from "./install-results.js"
-import type { InstallResourceResult } from "./install-results.js"
+} from "../registry/types.js"
+import { validateTemplateFiles } from "../scaffold/template-validator.js"
+import { createInstallResourceResult, hasInstallConflicts } from "./results.js"
+import type { InstallResourceResult } from "./results.js"
 import {
   createUninstallResourceResult,
   type UninstallResourceResult,

@@ -2,13 +2,13 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test } from "vitest"
 import { buttonRegistryItem, themeRegistryStyle } from "@lexsys/registry"
-import type { LexsysConfig } from "../../src/core/config.js"
+import type { LexsysConfig } from "../../src/config/config.js"
 import { setCwd } from "../../src/core/context.js"
 import {
   getRegistryTemplatePath,
   installItemFiles,
   installStyles,
-} from "../../src/core/installer.js"
+} from "../../src/install/installer.js"
 
 const config: LexsysConfig = {
   style: "default",

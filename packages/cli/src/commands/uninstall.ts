@@ -1,10 +1,11 @@
+import prompts from "prompts"
 import type { RegistryItem } from "@lexsys/registry"
-import { loadConfig, saveConfig } from "../core/config.js"
+import { loadConfig, saveConfig } from "../config/config.js"
 import {
   uninstallItemFiles,
   uninstallStyles,
   uninstallUtilities,
-} from "../core/installer.js"
+} from "../install/installer.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
 import {
   collectDependencies,
@@ -14,18 +15,18 @@ import {
   resolveRegistryItems,
   resolveRegistryStyles,
   resolveRegistryUtilities,
-} from "../core/registry-resolver.js"
-import { findOrphanInstalledItems } from "../core/registry-closure.js"
-import { getRegistryItems } from "../core/registry-provider.js"
+} from "../registry/resolver.js"
+import { findOrphanInstalledItems } from "../registry/closure.js"
+import { getRegistryItems } from "../registry/provider.js"
 import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
-} from "../core/registry-types.js"
+} from "../registry/types.js"
 import {
   hasUninstallConflicts,
   mergeUninstallResults,
   printUninstallSummary,
-} from "../core/uninstall-results.js"
+} from "../install/uninstall-results.js"
 
 const normalizeInstalledKey = (name: string): string => {
   return name.toLowerCase()
@@ -79,17 +80,44 @@ const removeInstalledKey = (
 }
 
 export const runUninstall = async (args: string[]): Promise<void> => {
-  const dryRun = hasFlag(args, "--dry-run")
-  const withDeps = hasFlag(args, "--with-deps")
+  const dryRun = hasFlag(args, "--dry-run", "-d")
+  const withDeps = hasFlag(args, "--with-deps", "-w")
   const noFallback = hasFlag(args, "--no-fallback")
   const targetArgs = removeFlagsWithValues(
-    removeFlags(args, ["--dry-run", "--with-deps", "--no-fallback"]),
-    ["--cwd"],
+    removeFlags(args, [
+      "--dry-run",
+      "-d",
+      "--with-deps",
+      "-w",
+      "--no-fallback",
+    ]),
+    ["--cwd", "-C"],
   )
 
   if (!targetArgs.length) {
-    console.log("Please specify components to uninstall.")
-    return
+    const preConfig = await loadConfig()
+    const installedNames = Object.keys(preConfig.installed ?? {})
+
+    if (installedNames.length === 0) {
+      console.log("No components installed.")
+      return
+    }
+
+    const response: unknown = await prompts({
+      type: "multiselect",
+      name: "components",
+      message: "Select components to uninstall",
+      choices: installedNames.map((name) => ({ title: name, value: name })),
+      min: 1,
+    })
+
+    const selected = (response as { components?: unknown }).components
+
+    if (!Array.isArray(selected) || !selected.length) return
+
+    targetArgs.push(
+      ...selected.filter((c): c is string => typeof c === "string"),
+    )
   }
 
   const config = await loadConfig()

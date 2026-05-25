@@ -1,14 +1,14 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test } from "vitest"
-import type { LexsysConfig } from "../../src/core/config.js"
+import type { LexsysConfig } from "../../src/config/config.js"
 import { setCwd } from "../../src/core/context.js"
 import {
   ensureTailwindCssImport,
   ensureTypeScriptSrcAlias,
   ensureViteSrcAlias,
   ensureViteTailwindPlugin,
-} from "../../src/core/tailwind-setup.js"
+} from "../../src/scaffold/tailwind.js"
 
 const config: LexsysConfig = {
   style: "default",

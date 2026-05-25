@@ -1,8 +1,8 @@
 import { execFileSync } from "node:child_process"
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
-import { fileExists } from "./fs.js"
-import { getCwd } from "./context.js"
+import { fileExists } from "../core/fs.js"
+import { getCwd } from "../core/context.js"
 
 type PackageManager = "npm" | "pnpm" | "yarn"
 

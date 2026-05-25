@@ -1,22 +1,22 @@
 import { resolve } from "node:path"
 import { readFile } from "node:fs/promises"
 import prompts from "prompts"
-import { loadConfig, saveConfig } from "../core/config.js"
+import { loadConfig, saveConfig } from "../config/config.js"
 import { getCwd, setCwd } from "../core/context.js"
 import { CliError } from "../core/cli-error.js"
 import { removeFlagsWithValues } from "../core/flags.js"
 import { fileExists } from "../core/fs.js"
-import { ensureProjectStructure } from "../core/installer.js"
-import { installDependencies } from "../core/package-manager.js"
-import { NEXT_VERSION, scaffoldNextProject } from "../core/next-scaffold.js"
+import { ensureProjectStructure } from "../install/installer.js"
+import { installDependencies } from "../utils/package-manager.js"
+import { NEXT_VERSION, scaffoldNextProject } from "../scaffold/next.js"
 import {
   ensureNextPostCssConfig,
   ensureTailwindCssImport,
   ensureTypeScriptSrcAlias,
   ensureViteSrcAlias,
   ensureViteTailwindPlugin,
-} from "../core/tailwind-setup.js"
-import { scaffoldViteProject } from "../core/vite-scaffold.js"
+} from "../scaffold/tailwind.js"
+import { scaffoldViteProject } from "../scaffold/vite.js"
 
 const tailwindViteDependencies = ["tailwindcss", "@tailwindcss/vite"]
 const tailwindNextDependencies = ["tailwindcss", "@tailwindcss/postcss"]
@@ -43,13 +43,6 @@ const nextDevDependencies = [
   "typescript",
 ]
 
-const viteConfigFiles = [
-  "vite.config.ts",
-  "vite.config.mts",
-  "vite.config.js",
-  "vite.config.mjs",
-]
-
 const nextConfigFiles = ["next.config.ts", "next.config.mjs", "next.config.js"]
 
 const packageJsonHasDependency = (
@@ -70,26 +63,6 @@ const packageJsonHasDependency = (
   return dependencyName in dependencies || dependencyName in devDependencies
 }
 
-const hasViteScaffold = async (): Promise<boolean> => {
-  for (const configFile of viteConfigFiles) {
-    if (await fileExists(resolve(getCwd(), configFile))) {
-      return true
-    }
-  }
-
-  const packageJsonPath = resolve(getCwd(), "package.json")
-
-  if (!(await fileExists(packageJsonPath))) {
-    return false
-  }
-
-  const packageJson = JSON.parse(
-    await readFile(packageJsonPath, "utf-8"),
-  ) as Record<string, unknown>
-
-  return packageJsonHasDependency(packageJson, "vite")
-}
-
 const hasNextScaffold = async (): Promise<boolean> => {
   for (const configFile of nextConfigFiles) {
     if (await fileExists(resolve(getCwd(), configFile))) {
@@ -108,10 +81,6 @@ const hasNextScaffold = async (): Promise<boolean> => {
   ) as Record<string, unknown>
 
   return packageJsonHasDependency(packageJson, "next")
-}
-
-const hasSupportedScaffold = async (): Promise<boolean> => {
-  return (await hasViteScaffold()) || (await hasNextScaffold())
 }
 
 const runLexsysInit = async (): Promise<void> => {
@@ -179,40 +148,60 @@ const runNextInit = async (args: string[]): Promise<void> => {
 }
 
 const promptFrameworkInit = async (): Promise<void> => {
-  const response: unknown = await prompts({
-    type: "select",
-    name: "framework",
-    message:
-      "No supported app scaffold was detected. Create a starter project:",
-    choices: [
-      { title: "Vite + React", value: "vite" },
-      { title: "Next.js App Router", value: "next" },
-    ],
-    initial: 0,
-  })
+  const response: unknown = await prompts([
+    {
+      type: "select",
+      name: "framework",
+      message: "What would you like to create?",
+      choices: [
+        { title: "Vite React app", value: "vite" },
+        { title: "Next.js App Router app", value: "next" },
+      ],
+    },
+    {
+      type: "text",
+      name: "dir",
+      message: "Project name",
+      initial: "my-app",
+    },
+  ])
+
+  if (typeof response !== "object" || response === null) {
+    return
+  }
 
   const framework =
-    typeof response === "object" &&
-    response !== null &&
-    "framework" in response &&
-    typeof response.framework === "string"
+    "framework" in response && typeof response.framework === "string"
       ? response.framework
       : undefined
 
+  if (!framework) return
+
+  const dir =
+    "dir" in response && typeof response.dir === "string" && response.dir
+      ? [response.dir]
+      : []
+
   if (framework === "vite") {
-    await runViteInit([])
+    await runViteInit(dir)
     return
   }
 
   if (framework === "next") {
-    await runNextInit([])
+    await runNextInit(dir)
     return
   }
+}
 
-  console.log("No project scaffold selected. Nothing changed.")
-  console.log(
-    "Run `lexsys init vite` or `lexsys init next` to create a starter.",
-  )
+const hasViteScaffold = async (): Promise<boolean> => {
+  for (const configFile of [
+    "vite.config.ts",
+    "vite.config.js",
+    "vite.config.mts",
+  ]) {
+    if (await fileExists(resolve(getCwd(), configFile))) return true
+  }
+  return false
 }
 
 export const runInit = async (args: string[] = []): Promise<void> => {
@@ -220,12 +209,12 @@ export const runInit = async (args: string[] = []): Promise<void> => {
   const [framework, ...frameworkArgs] = positionalArgs
 
   if (!framework) {
-    if (!(await hasSupportedScaffold())) {
-      await promptFrameworkInit()
+    // If an existing scaffold is detected, just run Lexsys init on it
+    if ((await hasNextScaffold()) || (await hasViteScaffold())) {
+      await runLexsysInit()
       return
     }
-
-    await runLexsysInit()
+    await promptFrameworkInit()
     return
   }
 

@@ -1,15 +1,15 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join } from "node:path"
-import { createBackupFile } from "./backup.js"
-import { loadConfig } from "./config.js"
-import { getCwd } from "./context.js"
-import { fileExists } from "./fs.js"
-import { hashesAreEqual } from "./hash.js"
+import { createBackupFile } from "../core/backup.js"
+import { loadConfig } from "../config/config.js"
+import { getCwd } from "../core/context.js"
+import { fileExists } from "../core/fs.js"
+import { hashesAreEqual } from "../core/hash.js"
 import { prepareInstalledFileContent } from "./import-rewriter.js"
-import { resolveItemInstallTarget } from "./install-target.js"
+import { resolveItemInstallTarget } from "./target.js"
 import { getRegistryTemplatePath } from "./installer.js"
-import { findItem } from "./registry-resolver.js"
-import { isUpdateAvailable } from "./version.js"
+import { findItem } from "../registry/resolver.js"
+import { isUpdateAvailable } from "../utils/version.js"
 
 export const checkItemFiles = async (name: string): Promise<void> => {
   const item = await findItem(name)

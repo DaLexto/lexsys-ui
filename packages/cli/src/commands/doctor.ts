@@ -1,11 +1,11 @@
 import { join } from "node:path"
 import { getInstallLayer } from "@lexsys/registry"
 import { getCwd } from "../core/context.js"
-import { loadConfig } from "../core/config.js"
+import { loadConfig } from "../config/config.js"
 import { fileExists } from "../core/fs.js"
-import { resolveItemInstallTarget } from "../core/install-target.js"
-import { getRegistryProviderResult } from "../core/registry-provider.js"
-import { findItem } from "../core/registry-resolver.js"
+import { resolveItemInstallTarget } from "../install/target.js"
+import { getRegistryProviderResult } from "../registry/provider.js"
+import { findItem } from "../registry/resolver.js"
 
 interface RunDoctorOptions {
   noFallback?: boolean

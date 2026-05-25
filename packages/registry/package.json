@@ -1,6 +1,6 @@
 {
   "name": "@lexsys/registry",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Install metadata and templates for the Lexsys registry-first UI framework",
   "type": "module",
   "license": "MIT",
