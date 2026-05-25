@@ -1,0 +1,33 @@
+{
+  "name": "lexsys",
+  "version": "0.0.1",
+  "description": "Registry-first React UI framework — run `npx lexsys@latest init` to get started",
+  "type": "module",
+  "license": "MIT",
+  "author": "DaLexto",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaLexto/lexsys.git",
+    "directory": "packages/entry"
+  },
+  "bugs": {
+    "url": "https://github.com/DaLexto/lexsys/issues"
+  },
+  "homepage": "https://github.com/DaLexto/lexsys#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "lexsys": "./bin.js"
+  },
+  "files": [
+    "bin.js",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "dependencies": {
+    "@lexsys/cli": "workspace:*"
+  }
+}

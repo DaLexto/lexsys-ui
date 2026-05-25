@@ -114,6 +114,12 @@ importers:
         specifier: ^2.4.9
         version: 2.4.9
 
+  packages/entry:
+    dependencies:
+      '@lexsys/cli':
+        specifier: workspace:*
+        version: link:../cli
+
   packages/registry:
     devDependencies:
       '@types/node':
