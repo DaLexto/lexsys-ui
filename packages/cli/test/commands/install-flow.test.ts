@@ -7,7 +7,7 @@ import { runAdd } from "../../src/commands/add.js"
 import { runInit } from "../../src/commands/init.js"
 import { runUninstall } from "../../src/commands/uninstall.js"
 import { runUpdate } from "../../src/commands/update.js"
-import { computeRegistryClosure } from "../../src/core/registry-closure.js"
+import { computeRegistryClosure } from "../../src/registry/closure.js"
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
   await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")

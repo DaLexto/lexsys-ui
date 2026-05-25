@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
 import { setCwd } from "../../src/core/context.js"
-import { getPackageManagerInvocation } from "../../src/core/package-manager.js"
+import { getPackageManagerInvocation } from "../../src/utils/package-manager.js"
 
 const execFileSyncMock = vi.hoisted(() => vi.fn())
 const promptsMock = vi.hoisted(() => vi.fn())
@@ -181,17 +181,23 @@ describe("runInit", () => {
 
     await runInit()
 
-    expect(promptsMock).toHaveBeenCalledWith({
-      type: "select",
-      name: "framework",
-      message:
-        "No supported app scaffold was detected. Create a starter project:",
-      choices: [
-        { title: "Vite + React", value: "vite" },
-        { title: "Next.js App Router", value: "next" },
-      ],
-      initial: 0,
-    })
+    expect(promptsMock).toHaveBeenCalledWith([
+      {
+        type: "select",
+        name: "framework",
+        message: "What would you like to create?",
+        choices: [
+          { title: "Vite React app", value: "vite" },
+          { title: "Next.js App Router app", value: "next" },
+        ],
+      },
+      {
+        type: "text",
+        name: "dir",
+        message: "Project name",
+        initial: "my-app",
+      },
+    ])
     await expect(
       readFile(join(tempDir, "package.json"), "utf-8"),
     ).resolves.toContain('"name":')

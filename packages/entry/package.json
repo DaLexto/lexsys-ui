@@ -1,6 +1,6 @@
 {
   "name": "lexsys",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Registry-first React UI framework — run `npx lexsys@latest init` to get started",
   "type": "module",
   "license": "MIT",

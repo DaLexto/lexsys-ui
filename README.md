@@ -29,22 +29,22 @@ Remote registry manifest fetch over HTTPS is supported with local fallback.
 Early preview install from npm (`@next` dist-tag):
 
 ```bash
-npx @lexsys/cli@next init vite my-app
+npx lexsys@next init vite my-app
 cd my-app
 ```
 
 Or a new Next.js App Router consumer:
 
 ```bash
-npx @lexsys/cli@next init next my-app
+npx lexsys@next init next my-app
 cd my-app
 ```
 
 Or initialize Lexsys inside an existing supported Vite app from that app's
-root:
+root (auto-detects scaffold):
 
 ```bash
-npx @lexsys/cli@next init
+npx lexsys@next init
 ```
 
 Monorepo development (after `pnpm cli:build` from this repository) uses the
@@ -66,6 +66,11 @@ lexsys add dialog
 lexsys add dashboard-shell   # template + transitive deps (Sidebar, primitives, …)
 lexsys list                  # grouped by layer: Primitives, Blocks, Templates
 ```
+
+Most commands have short aliases: `a` (add), `up` (update), `ls` (list),
+`st` (status), `dr` (doctor), `rm` (uninstall), `reg` (registry), `cfg`
+(config), `create` (init). Run any command with `--help` for per-command
+usage.
 
 All layers install flat under `paths.components` (default `src/components/ui/`).
 The CLI rewrites cross-layer imports to sibling paths on install.

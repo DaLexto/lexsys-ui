@@ -40,19 +40,19 @@ npx lexsys@latest --help
 
 ## All commands
 
-| Command | Alias | Description |
-| ------- | ----- | ----------- |
-| `init` | `create` | Initialize Lexsys or scaffold a framework starter |
-| `add` | `a` | Install components into your project |
-| `update` | `up` | Update installed components |
-| `list` | `ls` | List available registry items |
-| `status` | `st` | Show installed component status |
-| `uninstall` | `rm` | Remove installed components |
-| `doctor` | `dr` | Check local project setup |
-| `registry` | `reg` | Inspect registry source and manifest |
-| `config` | `cfg` | Print or update Lexsys config |
-| `version` | | Print CLI version |
-| `help` | | Show help |
+| Command     | Alias    | Description                                       |
+| ----------- | -------- | ------------------------------------------------- |
+| `init`      | `create` | Initialize Lexsys or scaffold a framework starter |
+| `add`       | `a`      | Install components into your project              |
+| `update`    | `up`     | Update installed components                       |
+| `list`      | `ls`     | List available registry items                     |
+| `status`    | `st`     | Show installed component status                   |
+| `uninstall` | `rm`     | Remove installed components                       |
+| `doctor`    | `dr`     | Check local project setup                         |
+| `registry`  | `reg`    | Inspect registry source and manifest              |
+| `config`    | `cfg`    | Print or update Lexsys config                     |
+| `version`   |          | Print CLI version                                 |
+| `help`      |          | Show help                                         |
 
 ---
 

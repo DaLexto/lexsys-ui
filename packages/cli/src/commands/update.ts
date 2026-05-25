@@ -195,7 +195,9 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     const installedNames = Object.keys(installed)
 
     if (installedNames.length === 0) {
-      console.log("No components installed. Run `lexsys add <component>` first.")
+      console.log(
+        "No components installed. Run `lexsys add <component>` first.",
+      )
       return
     }
 

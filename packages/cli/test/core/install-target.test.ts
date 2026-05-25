@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest"
 import { buttonRegistryItem, sidebarRegistryItem } from "@lexsys/registry"
-import type { LexsysConfig } from "../../src/core/config.js"
+import type { LexsysConfig } from "../../src/config/config.js"
 import {
   prepareInstalledFileContent,
   rewriteCrossLayerImports,
-} from "../../src/core/import-rewriter.js"
-import { resolveItemInstallTarget } from "../../src/core/install-target.js"
+} from "../../src/install/import-rewriter.js"
+import { resolveItemInstallTarget } from "../../src/install/target.js"
 
 const config: LexsysConfig = {
   style: "default",

@@ -84,7 +84,13 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   const withDeps = hasFlag(args, "--with-deps", "-w")
   const noFallback = hasFlag(args, "--no-fallback")
   const targetArgs = removeFlagsWithValues(
-    removeFlags(args, ["--dry-run", "-d", "--with-deps", "-w", "--no-fallback"]),
+    removeFlags(args, [
+      "--dry-run",
+      "-d",
+      "--with-deps",
+      "-w",
+      "--no-fallback",
+    ]),
     ["--cwd", "-C"],
   )
 

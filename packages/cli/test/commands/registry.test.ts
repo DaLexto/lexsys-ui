@@ -9,19 +9,19 @@ const mocks = vi.hoisted(() => {
   }
 })
 
-vi.mock("../../src/core/registry-provider.js", () => {
+vi.mock("../../src/registry/provider.js", () => {
   return {
     getRegistryProviderResult: mocks.getRegistryProviderResult,
   }
 })
 
-vi.mock("../../src/core/registry-source.js", () => {
+vi.mock("../../src/registry/source.js", () => {
   return {
     getRegistrySource: mocks.getRegistrySource,
   }
 })
 
-vi.mock("../../src/core/remote-registry.js", () => {
+vi.mock("../../src/registry/remote.js", () => {
   return {
     fetchRemoteRegistry: mocks.fetchRemoteRegistry,
   }

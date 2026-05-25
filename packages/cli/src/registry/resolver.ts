@@ -6,10 +6,7 @@ import {
   validateRegistryItem,
 } from "@lexsys/registry"
 import { getRegistryItems } from "./provider.js"
-import type {
-  ResolvedRegistryStyle,
-  ResolvedRegistryUtility,
-} from "./types.js"
+import type { ResolvedRegistryStyle, ResolvedRegistryUtility } from "./types.js"
 import { findClosestValue } from "../utils/suggestions.js"
 
 const registryStyles =

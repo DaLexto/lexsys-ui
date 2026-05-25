@@ -167,7 +167,7 @@ const promptFrameworkInit = async (): Promise<void> => {
   ])
 
   if (typeof response !== "object" || response === null) {
-    process.exit(0)
+    return
   }
 
   const framework =
@@ -175,7 +175,7 @@ const promptFrameworkInit = async (): Promise<void> => {
       ? response.framework
       : undefined
 
-  if (!framework) process.exit(0)
+  if (!framework) return
 
   const dir =
     "dir" in response && typeof response.dir === "string" && response.dir
@@ -193,11 +193,27 @@ const promptFrameworkInit = async (): Promise<void> => {
   }
 }
 
+const hasViteScaffold = async (): Promise<boolean> => {
+  for (const configFile of [
+    "vite.config.ts",
+    "vite.config.js",
+    "vite.config.mts",
+  ]) {
+    if (await fileExists(resolve(getCwd(), configFile))) return true
+  }
+  return false
+}
+
 export const runInit = async (args: string[] = []): Promise<void> => {
   const positionalArgs = removeFlagsWithValues(args, ["--cwd"])
   const [framework, ...frameworkArgs] = positionalArgs
 
   if (!framework) {
+    // If an existing scaffold is detected, just run Lexsys init on it
+    if ((await hasNextScaffold()) || (await hasViteScaffold())) {
+      await runLexsysInit()
+      return
+    }
     await promptFrameworkInit()
     return
   }

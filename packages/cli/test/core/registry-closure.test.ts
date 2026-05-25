@@ -4,7 +4,7 @@ import { registryItems } from "@lexsys/registry"
 import {
   computeRegistryClosure,
   findOrphanInstalledItems,
-} from "../../src/core/registry-closure.js"
+} from "../../src/registry/closure.js"
 
 describe("registry closure", () => {
   test("computes transitive registryDependencies", () => {

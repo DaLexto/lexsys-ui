@@ -23,10 +23,7 @@ import type {
   ResolvedRegistryUtility,
 } from "../registry/types.js"
 import { validateTemplateFiles } from "../scaffold/template-validator.js"
-import {
-  createInstallResourceResult,
-  hasInstallConflicts,
-} from "./results.js"
+import { createInstallResourceResult, hasInstallConflicts } from "./results.js"
 import type { InstallResourceResult } from "./results.js"
 import {
   createUninstallResourceResult,

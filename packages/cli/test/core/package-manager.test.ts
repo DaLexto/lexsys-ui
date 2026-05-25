@@ -10,7 +10,7 @@ vi.mock("node:child_process", () => ({
 }))
 
 const { getPackageManagerInvocation, installDependencies } =
-  await import("../../src/core/package-manager.js")
+  await import("../../src/utils/package-manager.js")
 
 const packageManagerCommand = (packageManager: "npm" | "pnpm" | "yarn") => {
   return getPackageManagerInvocation(packageManager, []).command

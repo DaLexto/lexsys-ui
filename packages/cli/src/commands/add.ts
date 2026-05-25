@@ -59,7 +59,13 @@ export const runAdd = async (args: string[]): Promise<void> => {
   const noFallback = hasFlag(args, "--no-fallback")
 
   let items = removeFlagsWithValues(args, ["--cwd", "-C"])
-  items = removeFlags(items, ["--dry-run", "-d", "--yes", "-y", "--no-fallback"])
+  items = removeFlags(items, [
+    "--dry-run",
+    "-d",
+    "--yes",
+    "-y",
+    "--no-fallback",
+  ])
 
   void yes
 

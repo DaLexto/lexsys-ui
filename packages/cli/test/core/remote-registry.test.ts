@@ -4,7 +4,7 @@ import { describe, expect, test, vi } from "vitest"
 import {
   parseRemoteRegistry,
   type RemoteRegistryManifest,
-} from "../../src/core/remote-registry.js"
+} from "../../src/registry/remote.js"
 
 const item: RegistryItem = {
   name: "button",
@@ -95,8 +95,7 @@ describe("fetchRemoteRegistry", () => {
       }),
     )
 
-    const { fetchRemoteRegistry } =
-      await import("../../src/core/remote-registry.js")
+    const { fetchRemoteRegistry } = await import("../../src/registry/remote.js")
 
     await expect(
       fetchRemoteRegistry("https://example.test/registry.json"),
