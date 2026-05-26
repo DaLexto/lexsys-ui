@@ -57,7 +57,7 @@
     "playground:typecheck": "pnpm tokens:build && pnpm ui:build && pnpm --filter @lexsys/playground typecheck"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/changelog-github": "^0.7.0",
     "@changesets/cli": "^2.29.5",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/cli": "^4.3.0",
