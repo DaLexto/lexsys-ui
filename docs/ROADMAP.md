@@ -2,10 +2,9 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
+**Status:** Tokens phases 1–10 complete; monorepo M1–M8 **shipped**; UI
 composition pilots **shipped** (PR #28); M10 release readiness **shipped**
-(`0.0.1` @ `next`, 2026-05-24); M4 **shipped** (entry + CLI DX); M8 **shipped** (CLI cleanup); blocks/templates optimization
-**shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
+(`0.0.2` @ `next`, 2026-05-25); blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
