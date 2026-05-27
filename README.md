@@ -3,9 +3,9 @@
 Lexsys is an early-stage registry-first React UI framework built on Base UI,
 Tailwind CSS, and a design-token system.
 
-The goal is shadcn-style ownership with a stronger token/theme foundation:
-Lexsys installs editable component source code into your project instead of
-requiring you to import black-box runtime components.
+Lexsys installs editable component source code directly into your project
+instead of requiring you to import black-box runtime components. You own the
+code — edit it, delete it, style it however you want.
 
 ## Current MVP
 
@@ -29,14 +29,14 @@ Remote registry manifest fetch over HTTPS is supported with local fallback.
 Early preview install from npm (`@next` dist-tag):
 
 ```bash
-npx lexsys@next init vite my-app
+npx @dalexto/lexsys@next init vite my-app
 cd my-app
 ```
 
 Or a new Next.js App Router consumer:
 
 ```bash
-npx lexsys@next init next my-app
+npx @dalexto/lexsys@next init next my-app
 cd my-app
 ```
 
@@ -44,7 +44,7 @@ Or initialize Lexsys inside an existing supported Vite app from that app's
 root (auto-detects scaffold):
 
 ```bash
-npx lexsys@next init
+npx @dalexto/lexsys@next init
 ```
 
 Monorepo development (after `pnpm cli:build` from this repository) uses the
