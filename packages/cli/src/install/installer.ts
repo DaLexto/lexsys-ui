@@ -13,11 +13,11 @@ import type { RegistryItem } from "@dalexto/lexsys-registry"
 import type { LexsysConfig } from "../config/config.js"
 import { prepareInstalledFileContent } from "./import-rewriter.js"
 import { resolveItemInstallTarget } from "./target.js"
-import { createBackupFile } from "../core/backup.js"
-import { fileExists, filesAreEqual } from "../core/fs.js"
-import { getCwd } from "../core/context.js"
+import { createBackupFile } from "../utils/backup.js"
+import { fileExists, filesAreEqual } from "../utils/fs.js"
+import { getCwd } from "../utils/context.js"
 import { fetchRemoteFile } from "../registry/remote-files.js"
-import { hashesAreEqual } from "../core/hash.js"
+import { hashesAreEqual } from "../utils/hash.js"
 import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
@@ -28,7 +28,7 @@ import type { InstallResourceResult } from "./results.js"
 import {
   createUninstallResourceResult,
   type UninstallResourceResult,
-} from "./uninstall-results.js"
+} from "./results.js"
 
 export const getRegistryTemplatePath = (templatePath: string): string => {
   const templateUrl = import.meta.resolve(

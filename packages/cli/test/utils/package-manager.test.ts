@@ -1,7 +1,7 @@
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
-import { setCwd } from "../../src/core/context.js"
+import { setCwd } from "../../src/utils/context.js"
 
 const execFileSyncMock = vi.hoisted(() => vi.fn())
 

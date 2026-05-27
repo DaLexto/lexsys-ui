@@ -3,8 +3,10 @@ import {
   registryManifest,
   validateRegistry,
 } from "@dalexto/lexsys-registry"
-import type { RegistryItem } from "@dalexto/lexsys-registry"
-import { getRegistryProviderResult } from "../registry/provider.js"
+import {
+  getRegistryProviderResult,
+  type RegistryProviderResult,
+} from "../registry/provider.js"
 import { fetchRemoteRegistry } from "../registry/remote.js"
 import { getRegistrySource } from "../registry/source.js"
 
@@ -16,21 +18,14 @@ interface RunRegistryOptions {
   noFallback?: boolean
 }
 
-interface RegistryCommandResult {
-  items: RegistryItem[]
-  source: string
-  fallbackUsed: boolean
-  manifestVersion: string
-}
-
-const localRegistryResult: RegistryCommandResult = {
+const localRegistryResult: RegistryProviderResult = {
   items: registryItems,
   source: "local",
   fallbackUsed: false,
   manifestVersion: registryManifest.version,
 }
 
-const printRegistrySummary = (result: RegistryCommandResult): void => {
+const printRegistrySummary = (result: RegistryProviderResult): void => {
   console.log("Lexsys registry summary\n")
   console.log(`Registry source: ${result.source}`)
   console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`)
@@ -45,7 +40,7 @@ const printRegistrySummary = (result: RegistryCommandResult): void => {
   }
 }
 
-const printRegistryJson = (result: RegistryCommandResult): void => {
+const printRegistryJson = (result: RegistryProviderResult): void => {
   console.log(
     JSON.stringify(
       {
@@ -62,7 +57,7 @@ const printRegistryJson = (result: RegistryCommandResult): void => {
 
 const getRemoteRegistryResult = async (
   source: string,
-): Promise<RegistryCommandResult> => {
+): Promise<RegistryProviderResult> => {
   const remote = await fetchRemoteRegistry(source)
   validateRegistry(
     remote.items,

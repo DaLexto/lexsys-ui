@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { CliError, handleCliError } from "./core/cli-error.js"
+import { CliError, handleCliError } from "./utils/cli-error.js"
 import { runAdd } from "./commands/add.js"
 import { runConfig } from "./commands/config.js"
 import { runDoctor } from "./commands/doctor.js"
@@ -12,8 +12,8 @@ import { runStatus } from "./commands/status.js"
 import { runUninstall } from "./commands/uninstall.js"
 import { runUpdate } from "./commands/update.js"
 import { runVersion } from "./commands/version.js"
-import { setCwd } from "./core/context.js"
-import { getFlagValue, hasFlag } from "./core/flags.js"
+import { setCwd } from "./utils/context.js"
+import { getFlagValue, hasFlag } from "./utils/flags.js"
 
 const [, , command, ...args] = process.argv
 
@@ -141,5 +141,3 @@ try {
 } catch (error) {
   handleCliError(error)
 }
-runHelp()
-process.exit(1)

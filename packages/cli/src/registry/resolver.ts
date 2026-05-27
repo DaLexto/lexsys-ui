@@ -1,4 +1,4 @@
-import { CliError } from "../core/cli-error.js"
+import { CliError } from "../utils/cli-error.js"
 import type { RegistryItem } from "@dalexto/lexsys-registry"
 import {
   registryUtilities as registryUtilityDefinitions,

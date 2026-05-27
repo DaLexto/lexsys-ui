@@ -12,7 +12,7 @@
 ```bash
 lexsys <command> [options]
 # or via npx (early preview dist-tag):
-npx lexsys@next <command> [options]
+npx @dalexto/lexsys@next <command> [options]
 ```
 
 The binary is `lexsys`. It reads `lexsys.config.json` from the working directory

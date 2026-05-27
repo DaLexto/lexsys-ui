@@ -1,4 +1,3 @@
-import prompts from "prompts"
 import { registryItems } from "@dalexto/lexsys-registry"
 
 import { loadConfig, saveConfig } from "../config/config.js"
@@ -27,30 +26,17 @@ import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
 } from "../registry/types.js"
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
+import { promptMultiselect } from "../utils/prompt.js"
 
 const promptSelectItems = async (): Promise<string[]> => {
-  const response: unknown = await prompts({
-    type: "multiselect",
-    name: "items",
-    message: "Select components to add",
-    choices: registryItems.map((item) => ({
+  return promptMultiselect(
+    "Select components to add",
+    registryItems.map((item) => ({
       title: `${item.canonicalName} (${item.category})`,
       value: item.name,
     })),
-  })
-
-  if (typeof response !== "object" || response === null) {
-    return []
-  }
-
-  const items = (response as { items?: unknown }).items
-
-  if (!Array.isArray(items)) {
-    return []
-  }
-
-  return items.filter((item): item is string => typeof item === "string")
+  )
 }
 
 export const runAdd = async (args: string[]): Promise<void> => {
@@ -67,9 +53,12 @@ export const runAdd = async (args: string[]): Promise<void> => {
     "--no-fallback",
   ])
 
-  void yes
-
   if (!items.length) {
+    if (yes) {
+      console.log("No components specified. Pass component names to add them.")
+      return
+    }
+
     items = await promptSelectItems()
 
     if (!items.length) {

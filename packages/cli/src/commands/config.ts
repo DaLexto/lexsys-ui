@@ -1,5 +1,5 @@
 import { getConfigPath, loadConfig, saveConfig } from "../config/config.js"
-import { fileExists } from "../core/fs.js"
+import { fileExists } from "../utils/fs.js"
 
 interface RunConfigOptions {
   path?: boolean

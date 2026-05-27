@@ -1,4 +1,4 @@
-# lexsys
+# @dalexto/lexsys
 
 **Audience:** Users and contributors  
 **Type:** Package reference
@@ -10,30 +10,30 @@ Entry point for the [Lexsys](https://github.com/DaLexto/lexsys-ui) CLI — regis
 ## Usage
 
 ```bash
-npx lexsys@latest init
+npx @dalexto/lexsys@latest init
 ```
 
 Scaffold a new project:
 
 ```bash
-npx lexsys@latest create vite my-app
-npx lexsys@latest create next my-app
+npx @dalexto/lexsys@latest create vite my-app
+npx @dalexto/lexsys@latest create next my-app
 
 # or run without arguments for guided setup
-npx lexsys@latest create
+npx @dalexto/lexsys@latest create
 ```
 
 Add components:
 
 ```bash
-npx lexsys@latest add button
-npx lexsys@latest add button dialog toast
+npx @dalexto/lexsys@latest add button
+npx @dalexto/lexsys@latest add button dialog toast
 ```
 
 All commands:
 
 ```bash
-npx lexsys@latest --help
+npx @dalexto/lexsys@latest --help
 ```
 
 ---

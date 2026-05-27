@@ -2,10 +2,9 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
+**Status:** Tokens phases 1–10 complete; monorepo M1–M8 **shipped**; UI
 composition pilots **shipped** (PR #28); M10 release readiness **shipped**
-(`0.0.1` @ `next`, 2026-05-24); M4 **in progress** (entry + CLI DX); blocks/templates optimization
-**shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
+(`0.0.2` @ `next`, 2026-05-25); blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -133,16 +132,17 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 
 ### Phase overview
 
-| Phase | Name                     | Status      | Outcome (summary)                                                                            | Primary docs                          |
-| ----- | ------------------------ | ----------- | -------------------------------------------------------------------------------------------- | ------------------------------------- |
-| M1    | Infra and DX             | shipped     | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment               | SCRIPTS.md, DEPLOY.md                 |
-| M2    | Quality and verification | shipped     | Tier 2 tests, playground build CI, consumer sandbox checklist                                | TESTING.md, AGENTS.md                 |
-| M3    | Product and architecture | shipped     | UI render 32/32, Next init, remote registry contract, governance + shadow.inner              | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
-| M4    | Entry + CLI DX           | in progress | `lexsys` npm entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                     |
-| M5    | Advanced CI              | shipped     | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                          | SCRIPTS.md, `.github/workflows/`      |
-| M6    | Dependency hygiene       | shipped     | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                               | DEPLOY.md                             |
-| M7    | Maintainer and tooling   | shipped     | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache         | AGENTS.md, `.agents/skills/`          |
-| M10   | Release readiness        | shipped     | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later   | DEPLOY.md                             |
+| Phase | Name                     | Status  | Outcome (summary)                                                                                 | Primary docs                          |
+| ----- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment                    | SCRIPTS.md, DEPLOY.md                 |
+| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                                     | TESTING.md, AGENTS.md                 |
+| M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner                   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
+| M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                     |
+| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`      |
+| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                             |
+| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.agents/skills/`          |
+| M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                |
+| M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
 
 ### M1 — Infra and DX
 
@@ -300,6 +300,25 @@ Status: shipped
 #### Post-M7 — GitHub label sync (shipped)
 
 - Strict namespaced label manifest (`.github/labels.yml`) synced via `github-label-sync` and [`.github/workflows/labels-sync.yml`](../.github/workflows/labels-sync.yml).
+
+### M8 — CLI cleanup and deduplication
+
+Status: **shipped**
+
+Dead-code removal and targeted deduplication across `packages/cli/src/`. No behavior changes except proper `--yes` wiring. Sub-items tracked in [REVIEW_TODO.md § M8](../REVIEW_TODO.md#m8--cli-cleanup-and-deduplication-in-progress).
+
+| Item | Focus                                                                          |
+| ---- | ------------------------------------------------------------------------------ |
+| M8.1 | Remove unused exports + unreachable `index.ts` footer                          |
+| M8.2 | Wire `--yes` flag in `add` / `update` commands                                 |
+| M8.3 | Merge `install/results.ts` + `install/uninstall-results.ts`                    |
+| M8.4 | Unify `RegistryCommandResult` / `RegistryProviderResult` + dedupe remote fetch |
+| M8.5 | Extract shared `prompts` multiselect helper to `utils/prompt.ts`               |
+| M8.6 | Extract shared scaffold helpers to `scaffold/scaffold-helpers.ts`              |
+
+**Verification:** `pnpm cli:check` after each sub-item.
+
+---
 
 ### M10 — Release readiness
 

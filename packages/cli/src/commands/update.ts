@@ -1,4 +1,3 @@
-import prompts from "prompts"
 import { loadConfig, saveConfig } from "../config/config.js"
 import {
   collectUtilities,
@@ -7,7 +6,8 @@ import {
   resolveRegistryUtilities,
 } from "../registry/resolver.js"
 import { checkItemUpdate } from "../install/update-engine.js"
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
+import { promptMultiselect } from "../utils/prompt.js"
 import { getRegistryProviderResult } from "../registry/provider.js"
 import { installStyles, updateUtilities } from "../install/installer.js"
 import {
@@ -187,10 +187,6 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     return
   }
 
-  if (yes) {
-    console.log("Auto-confirm mode is enabled.")
-  }
-
   if (!updateAll && !stylesFlag && !utilitiesFlag && targetArgs.length === 0) {
     const installedNames = Object.keys(installed)
 
@@ -201,21 +197,19 @@ export const runUpdate = async (args: string[]): Promise<void> => {
       return
     }
 
-    const response: unknown = await prompts({
-      type: "multiselect",
-      name: "components",
-      message: "Select components to update",
-      choices: installedNames.map((name) => ({ title: name, value: name })),
-      min: 1,
-    })
+    if (yes) {
+      targetArgs.push(...installedNames)
+    } else {
+      const selected = await promptMultiselect(
+        "Select components to update",
+        installedNames.map((name) => ({ title: name, value: name })),
+        { min: 1 },
+      )
 
-    const selected = (response as { components?: unknown }).components
+      if (!selected.length) return
 
-    if (!Array.isArray(selected) || !selected.length) return
-
-    targetArgs.push(
-      ...selected.filter((c): c is string => typeof c === "string"),
-    )
+      targetArgs.push(...selected)
+    }
   }
 
   const shouldUpdateComponents = updateAll || targetArgs.length > 0

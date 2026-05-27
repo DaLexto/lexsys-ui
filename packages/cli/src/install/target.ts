@@ -6,10 +6,6 @@ const toPosixPath = (value: string): string => {
   return value.replace(/\\/g, "/")
 }
 
-export const resolveComponentsRoot = (config: LexsysConfig): string => {
-  return config.paths.components
-}
-
 export const resolveItemInstallTarget = (
   config: LexsysConfig,
   item: RegistryItem,

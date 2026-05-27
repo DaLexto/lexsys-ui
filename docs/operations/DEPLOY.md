@@ -165,14 +165,14 @@ If there is no consumer-facing impact, say that explicitly.
 Lexsys is **registry-first**: consumers install via the `lexsys` entry package
 (`lexsys` binary); they do not import `@dalexto/lexsys-ui` as a runtime library.
 
-| Package             | npm name                   | Publish? | Role                                                  |
-| ------------------- | -------------------------- | -------- | ----------------------------------------------------- |
-| `packages/entry`    | `lexsys`                   | **Yes**  | Thin entry shim — `npx lexsys@next`; delegates to CLI |
-| `packages/cli`      | `@dalexto/lexsys-cli`      | **Yes**  | CLI binary (`lexsys`); all command logic              |
-| `packages/registry` | `@dalexto/lexsys-registry` | **Yes**  | Runtime dep of CLI; templates + metadata              |
-| `packages/ui`       | `@dalexto/lexsys-ui`       | **No**   | Monorepo reference; copies ship via registry          |
-| `packages/tokens`   | `@dalexto/lexsys-tokens`   | **No**   | Token CSS ships in registry style templates           |
-| Root workspace      | `lexsys-monorepo`          | **No**   | Monorepo orchestrator only                            |
+| Package             | npm name                   | Publish? | Role                                                           |
+| ------------------- | -------------------------- | -------- | -------------------------------------------------------------- |
+| `packages/entry`    | `@dalexto/lexsys`          | **Yes**  | Thin entry shim — `npx @dalexto/lexsys@next`; delegates to CLI |
+| `packages/cli`      | `@dalexto/lexsys-cli`      | **Yes**  | CLI binary (`lexsys`); all command logic                       |
+| `packages/registry` | `@dalexto/lexsys-registry` | **Yes**  | Runtime dep of CLI; templates + metadata                       |
+| `packages/ui`       | `@dalexto/lexsys-ui`       | **No**   | Monorepo reference; copies ship via registry                   |
+| `packages/tokens`   | `@dalexto/lexsys-tokens`   | **No**   | Token CSS ships in registry style templates                    |
+| Root workspace      | `lexsys-monorepo`          | **No**   | Monorepo orchestrator only                                     |
 
 All three published packages (`lexsys`, `@dalexto/lexsys-cli`, `@dalexto/lexsys-registry`) are
 version-locked via changesets `fixed` group — they always publish together at
@@ -195,7 +195,7 @@ of `@dalexto/lexsys-tokens`.
 Install for early preview:
 
 ```bash
-npx lexsys@next init vite my-app
+npx @dalexto/lexsys@next init vite my-app
 ```
 
 Do not publish `@dalexto/lexsys-ui` or `@dalexto/lexsys-tokens` until there is an explicit product
@@ -205,17 +205,17 @@ decision and DEPLOY.md is updated.
 
 ## M4 implementation track (in progress)
 
-| Step | Deliverable                                                      | Status  |
-| ---- | ---------------------------------------------------------------- | ------- |
-| M4.1 | `lexsys` entry package (`packages/entry`) — `npx lexsys@next`    | shipped |
-| M4.2 | CLI folder reorganization (`src/core/` → domain subfolders)      | shipped |
-| M4.3 | Command aliases (`create`, `a`, `up`, `ls`, `st`, `dr`, `rm`, …) | shipped |
-| M4.4 | Short flag aliases (`-d`, `-j`, `-s`, `-l`, `-r`, `-C`, …)       | shipped |
-| M4.5 | Per-command `--help` / `-h` + redesigned global help             | shipped |
-| M4.6 | Guided modes — `init`, `update`, `uninstall` without args        | shipped |
-| M4.7 | Standardized error format (`✗ message → suggestion`)             | shipped |
-| M4.8 | `packages/cli/CHANGELOG.md`                                      | shipped |
-| M4.9 | Docs alignment (README, CLI.md, DEPLOY.md)                       | shipped |
+| Step | Deliverable                                                            | Status  |
+| ---- | ---------------------------------------------------------------------- | ------- |
+| M4.1 | `lexsys` entry package (`packages/entry`) — `npx @dalexto/lexsys@next` | shipped |
+| M4.2 | CLI folder reorganization (`src/core/` → domain subfolders)            | shipped |
+| M4.3 | Command aliases (`create`, `a`, `up`, `ls`, `st`, `dr`, `rm`, …)       | shipped |
+| M4.4 | Short flag aliases (`-d`, `-j`, `-s`, `-l`, `-r`, `-C`, …)             | shipped |
+| M4.5 | Per-command `--help` / `-h` + redesigned global help                   | shipped |
+| M4.6 | Guided modes — `init`, `update`, `uninstall` without args              | shipped |
+| M4.7 | Standardized error format (`✗ message → suggestion`)                   | shipped |
+| M4.8 | `packages/cli/CHANGELOG.md`                                            | shipped |
+| M4.9 | Docs alignment (README, CLI.md, DEPLOY.md)                             | shipped |
 
 Track record: [REVIEW_TODO.md § M4](../../docs/REVIEW_TODO.md#m4--entry--cli-dx-in-progress).
 
@@ -306,18 +306,18 @@ build`.)
 In a **new** temp directory (no local monorepo):
 
 ```bash
-npx --yes lexsys@next init vite smoke-npm
+npx --yes @dalexto/lexsys@next init vite smoke-npm
 cd smoke-npm
-npx --yes lexsys@next add button
+npx --yes @dalexto/lexsys@next add button
 npm run build
 ```
 
-`npx lexsys@next` installs deps with **npm** (`package-lock.json`,
+`npx @dalexto/lexsys@next` installs deps with **npm** (`package-lock.json`,
 `packageManager` in `package.json`). Use **`npm run build`** — there is no
 `pnpm-lock.yaml` in this flow. Monorepo-linked sandboxes that use pnpm keep
 `pnpm build` ([TESTING.md § Consumer sandbox verification](../operations/TESTING.md#consumer-sandbox-verification)).
 
-- [x] `npx lexsys@next` resolves from npm (`npm view lexsys dist-tags`)
+- [x] `npx @dalexto/lexsys@next` resolves from npm (`npm view @dalexto/lexsys dist-tags`)
 - [x] README Quick Start matches `@next` install path
 
 **Recommended (non-blocking for 0.0.1):** consumer sandbox narrow-viewport pass —

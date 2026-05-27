@@ -6,7 +6,7 @@ import {
   themeRegistryStyle,
 } from "@dalexto/lexsys-registry"
 import type { LexsysConfig } from "../../src/config/config.js"
-import { setCwd } from "../../src/core/context.js"
+import { setCwd } from "../../src/utils/context.js"
 import {
   getRegistryTemplatePath,
   installItemFiles,
