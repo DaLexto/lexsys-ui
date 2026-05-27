@@ -4,7 +4,7 @@
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
 composition pilots **shipped** (PR #28); M10 release readiness **shipped**
-(`0.0.1` @ `next`, 2026-05-24); M4 **in progress** (entry + CLI DX); blocks/templates optimization
+(`0.0.1` @ `next`, 2026-05-24); M4 **in progress** (mostly shipped; open: M4.5 flag short aliases, M4.10 `src/core/` cleanup); blocks/templates optimization
 **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  

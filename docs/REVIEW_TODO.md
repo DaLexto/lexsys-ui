@@ -13,7 +13,7 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3, M5–M7, **R0**, and **M10** shipped; **M4 in progress** (entry + CLI DX — branch `feat/m4-cli-entry-dx`).
+**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3, M5–M7, **R0**, and **M10** shipped; **M4 mostly shipped** (entry + CLI DX — open: M4.5 flag short aliases, M4.10 `src/core/` cleanup).
 
 | Phase   | Focus                                                               | Status      |
 | ------- | ------------------------------------------------------------------- | ----------- |
@@ -36,23 +36,23 @@ Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 ## M4 — Entry + CLI DX (in progress)
 
-Branch: `feat/m4-cli-entry-dx`. Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview).
+Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview). Most sub-items shipped incrementally on `dev`; remaining open items below.
 
-| Item  | Description                                                                                     | Status      |
-| ----- | ----------------------------------------------------------------------------------------------- | ----------- |
-| M4.1  | `packages/entry` — `lexsys` npm package, thin shim → `@dalexto/lexsys-cli`                      | in progress |
-| M4.2  | Root `package.json` rename → `lexsys-monorepo`                                                  | planned     |
-| M4.3  | Changesets `fixed[]` — `lexsys` + `@dalexto/lexsys-cli` same version                            | planned     |
-| M4.4  | CLI command aliases (`create`, `a`, `up`, `ls`, `st`, `rm`, `dr`, `reg`, `cfg`)                 | planned     |
-| M4.5  | CLI flag short aliases (`-d`, `-y`, `-f`, `-a`, `-S`, `-u`, `-j`, `-s`, `-l`, `-r`, `-w`, `-C`) | planned     |
-| M4.6  | `flags.ts` varargs refactor — `hasFlag(args, '--dry-run', '-d')`                                | planned     |
-| M4.7  | Guided modes — `create`, `up`, `rm` without args → interactive picker                           | planned     |
-| M4.8  | Per-command `--help` + `help.ts` redesign (grouped sections)                                    | planned     |
-| M4.9  | Error output standardization — consistent prefix + actionable hints                             | planned     |
-| M4.10 | `src/core/` reorganization → `registry/`, `install/`, `scaffold/`, `utils/`, `config/`          | planned     |
-| M4.11 | `packages/cli/CHANGELOG.md`                                                                     | planned     |
-| M4.12 | `publish:release` + root scripts updated for entry package                                      | planned     |
-| M4.13 | Docs update — README, CLI.md, DEPLOY.md                                                         | planned     |
+| Item  | Description                                                                                     | Status  |
+| ----- | ----------------------------------------------------------------------------------------------- | ------- |
+| M4.1  | `packages/entry` — `@dalexto/lexsys` npm package, thin shim → `@dalexto/lexsys-cli`             | shipped |
+| M4.2  | Root `package.json` rename → `lexsys-monorepo`                                                  | shipped |
+| M4.3  | Changesets `fixed[]` — `@dalexto/lexsys` + `@dalexto/lexsys-cli` same version                   | shipped |
+| M4.4  | CLI command aliases (`create`, `a`, `up`, `ls`, `st`, `rm`, `dr`, `reg`, `cfg`)                 | shipped |
+| M4.5  | CLI flag short aliases (`-d`, `-y`, `-f`, `-a`, `-S`, `-u`, `-j`, `-s`, `-l`, `-r`, `-w`, `-C`) | planned |
+| M4.6  | `flags.ts` varargs refactor — `hasFlag(args, '--dry-run', '-d')`                                | shipped |
+| M4.7  | Guided modes — `create`, `up`, `rm` without args → interactive picker                           | shipped |
+| M4.8  | Per-command `--help` + `help.ts` redesign (grouped sections)                                    | shipped |
+| M4.9  | Error output standardization — consistent `✗` prefix + `CliError` suggestion hints              | shipped |
+| M4.10 | `src/core/` reorganization → `registry/`, `install/`, `scaffold/`, `utils/`, `config/`          | partial |
+| M4.11 | `packages/cli/CHANGELOG.md`                                                                     | shipped |
+| M4.12 | `publish:release` + root scripts updated for entry package                                      | shipped |
+| M4.13 | Docs update — README, CLI.md, DEPLOY.md                                                         | shipped |
 
 ---
 
