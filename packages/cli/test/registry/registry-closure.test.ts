@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest"
-import { sidebarRegistryItem } from "@lexsys/registry"
-import { registryItems } from "@lexsys/registry"
+import { sidebarRegistryItem } from "@dalexto/lexsys-registry"
+import { registryItems } from "@dalexto/lexsys-registry"
 import {
   computeRegistryClosure,
   findOrphanInstalledItems,

@@ -2,9 +2,9 @@ import {
   registryItems as localRegistry,
   registryStyles,
   registryVersion,
-} from "@lexsys/registry"
-import type { RegistryItem } from "@lexsys/registry"
-import { validateRegistry } from "@lexsys/registry"
+} from "@dalexto/lexsys-registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry"
+import { validateRegistry } from "@dalexto/lexsys-registry"
 import { fetchRemoteRegistry } from "./remote.js"
 import { getRegistrySource } from "./source.js"
 

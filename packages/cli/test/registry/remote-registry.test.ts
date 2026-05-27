@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@lexsys/registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry"
 import { describe, expect, test, vi } from "vitest"
 
 import {

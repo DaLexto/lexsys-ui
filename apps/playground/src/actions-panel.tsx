@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button, Input } from "@lexsys/ui"
+import { Button, Input } from "@dalexto/lexsys-ui"
 import { buttonExamples, inputExamples } from "./examples"
 
 export const ActionsPanel = () => {

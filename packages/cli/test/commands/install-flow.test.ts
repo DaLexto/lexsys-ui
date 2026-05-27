@@ -1,6 +1,6 @@
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { join } from "node:path"
-import { registryItems } from "@lexsys/registry"
+import { registryItems } from "@dalexto/lexsys-registry"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
 import { setCwd } from "../../src/core/context.js"
 import { runAdd } from "../../src/commands/add.js"

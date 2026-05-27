@@ -60,7 +60,7 @@ const DTCG_METADATA_KEYS = new Set([
 ])
 
 const DEFAULT_DTCG_METADATA: DtcgLexsysMetadata = {
-  generatedBy: "@lexsys/tokens",
+  generatedBy: "@dalexto/lexsys-tokens",
   tokenSetOrder: ["primitives", "brand", "semantics", "components"],
 }
 

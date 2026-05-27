@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react"
-import type { Button, Input } from "@lexsys/ui"
+import type { Button, Input } from "@dalexto/lexsys-ui"
 
 export const brandSwatches = [
   {

@@ -23,7 +23,7 @@ Policy: [docs/operations/TESTING.md § Verification surfaces](../../docs/operati
 - Built CLI/registry from branch under test:
 
 ```sh
-pnpm --filter @lexsys/registry build && pnpm --filter @lexsys/cli build
+pnpm --filter @dalexto/lexsys-registry build && pnpm --filter @dalexto/lexsys-cli build
 ```
 
 - Link or install CLI into sandbox per your local workflow.

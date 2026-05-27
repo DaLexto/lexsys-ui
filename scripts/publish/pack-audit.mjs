@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * M10 publish gate: validate publish metadata and pack @lexsys/cli + @lexsys/registry.
+ * M10 publish gate: validate publish metadata and pack @dalexto/lexsys-cli + @dalexto/lexsys-registry.
  * Run after `pnpm build`, `pnpm sync:all`, and `pnpm check` (see DEPLOY.md).
  */
 import { execSync } from "node:child_process"
@@ -15,7 +15,7 @@ const outDir = join(root, ".tmp", "pack-audit")
 const publishPackages = [
   {
     dir: "packages/registry",
-    name: "@lexsys/registry",
+    name: "@dalexto/lexsys-registry",
     requiredInTarball: [
       "package/dist/index.js",
       "package/templates/styles/tokens.css",
@@ -23,7 +23,7 @@ const publishPackages = [
   },
   {
     dir: "packages/cli",
-    name: "@lexsys/cli",
+    name: "@dalexto/lexsys-cli",
     requiredInTarball: ["package/dist/index.js"],
   },
 ]
@@ -93,11 +93,11 @@ const auditMetadata = () => {
       fail(`${name}: "files" must list distributable paths`)
     }
 
-    if (name === "@lexsys/cli" && !pkg.bin?.lexsys) {
+    if (name === "@dalexto/lexsys-cli" && !pkg.bin?.lexsys) {
       fail(`${name}: bin.lexsys is required`)
     }
 
-    if (name === "@lexsys/registry" && !pkg.exports?.["."]) {
+    if (name === "@dalexto/lexsys-registry" && !pkg.exports?.["."]) {
       fail(`${name}: exports["."] is required`)
     }
 

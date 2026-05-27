@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@lexsys/registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry"
 import { fileExists } from "../core/fs.js"
 import { getRegistryTemplatePath } from "../install/installer.js"
 

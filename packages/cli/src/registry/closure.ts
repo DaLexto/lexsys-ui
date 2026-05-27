@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@lexsys/registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry"
 
 export const computeRegistryClosure = (
   rootNames: string[],

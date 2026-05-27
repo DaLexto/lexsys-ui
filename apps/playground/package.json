@@ -1,5 +1,5 @@
 {
-  "name": "@lexsys/playground",
+  "name": "@dalexto/lexsys-playground",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,8 +13,8 @@
     "typecheck": "tsc -b"
   },
   "dependencies": {
-    "@lexsys/tokens": "workspace:*",
-    "@lexsys/ui": "workspace:*",
+    "@dalexto/lexsys-tokens": "workspace:*",
+    "@dalexto/lexsys-ui": "workspace:*",
     "@tailwindcss/vite": "^4.3.0",
     "@vitejs/plugin-react": "^6.0.2",
     "react": "^19.2.6",

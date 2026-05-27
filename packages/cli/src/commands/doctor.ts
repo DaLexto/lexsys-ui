@@ -1,5 +1,5 @@
 import { join } from "node:path"
-import { getInstallLayer } from "@lexsys/registry"
+import { getInstallLayer } from "@dalexto/lexsys-registry"
 import { getCwd } from "../core/context.js"
 import { loadConfig } from "../config/config.js"
 import { fileExists } from "../core/fs.js"

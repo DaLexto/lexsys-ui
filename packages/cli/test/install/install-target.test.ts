@@ -1,5 +1,8 @@
 import { describe, expect, test } from "vitest"
-import { buttonRegistryItem, sidebarRegistryItem } from "@lexsys/registry"
+import {
+  buttonRegistryItem,
+  sidebarRegistryItem,
+} from "@dalexto/lexsys-registry"
 import type { LexsysConfig } from "../../src/config/config.js"
 import {
   prepareInstalledFileContent,

@@ -163,24 +163,24 @@ If there is no consumer-facing impact, say that explicitly.
 ## Publish surface (npm)
 
 Lexsys is **registry-first**: consumers install via the `lexsys` entry package
-(`lexsys` binary); they do not import `@lexsys/ui` as a runtime library.
+(`lexsys` binary); they do not import `@dalexto/lexsys-ui` as a runtime library.
 
-| Package             | npm name           | Publish? | Role                                                  |
-| ------------------- | ------------------ | -------- | ----------------------------------------------------- |
-| `packages/entry`    | `lexsys`           | **Yes**  | Thin entry shim — `npx lexsys@next`; delegates to CLI |
-| `packages/cli`      | `@lexsys/cli`      | **Yes**  | CLI binary (`lexsys`); all command logic              |
-| `packages/registry` | `@lexsys/registry` | **Yes**  | Runtime dep of CLI; templates + metadata              |
-| `packages/ui`       | `@lexsys/ui`       | **No**   | Monorepo reference; copies ship via registry          |
-| `packages/tokens`   | `@lexsys/tokens`   | **No**   | Token CSS ships in registry style templates           |
-| Root workspace      | `lexsys-monorepo`  | **No**   | Monorepo orchestrator only                            |
+| Package             | npm name                   | Publish? | Role                                                  |
+| ------------------- | -------------------------- | -------- | ----------------------------------------------------- |
+| `packages/entry`    | `lexsys`                   | **Yes**  | Thin entry shim — `npx lexsys@next`; delegates to CLI |
+| `packages/cli`      | `@dalexto/lexsys-cli`      | **Yes**  | CLI binary (`lexsys`); all command logic              |
+| `packages/registry` | `@dalexto/lexsys-registry` | **Yes**  | Runtime dep of CLI; templates + metadata              |
+| `packages/ui`       | `@dalexto/lexsys-ui`       | **No**   | Monorepo reference; copies ship via registry          |
+| `packages/tokens`   | `@dalexto/lexsys-tokens`   | **No**   | Token CSS ships in registry style templates           |
+| Root workspace      | `lexsys-monorepo`          | **No**   | Monorepo orchestrator only                            |
 
-All three published packages (`lexsys`, `@lexsys/cli`, `@lexsys/registry`) are
+All three published packages (`lexsys`, `@dalexto/lexsys-cli`, `@dalexto/lexsys-registry`) are
 version-locked via changesets `fixed` group — they always publish together at
 the same version.
 
 Token CSS reaches consumers through registry style templates
 (`templates/styles/tokens.css`, `theme.css`), not through a separate npm install
-of `@lexsys/tokens`.
+of `@dalexto/lexsys-tokens`.
 
 ---
 
@@ -198,7 +198,7 @@ Install for early preview:
 npx lexsys@next init vite my-app
 ```
 
-Do not publish `@lexsys/ui` or `@lexsys/tokens` until there is an explicit product
+Do not publish `@dalexto/lexsys-ui` or `@dalexto/lexsys-tokens` until there is an explicit product
 decision and DEPLOY.md is updated.
 
 ---
@@ -223,13 +223,13 @@ Track record: [REVIEW_TODO.md § M4](../../docs/REVIEW_TODO.md#m4--entry--cli-dx
 
 ## M10 implementation track (shipped 2026-05-24)
 
-| Step  | Deliverable                                                       | Status  |
-| ----- | ----------------------------------------------------------------- | ------- |
-| M10.0 | Publish surface + version lane docs (this section)                | shipped |
-| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                            | shipped |
-| M10.2 | Package metadata audit; `pnpm publish:pack-audit`                 | shipped |
-| M10.3 | Changesets (fixed `@lexsys/cli` + `@lexsys/registry`); publish CI | shipped |
-| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke               | shipped |
+| Step  | Deliverable                                                                       | Status  |
+| ----- | --------------------------------------------------------------------------------- | ------- |
+| M10.0 | Publish surface + version lane docs (this section)                                | shipped |
+| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                                            | shipped |
+| M10.2 | Package metadata audit; `pnpm publish:pack-audit`                                 | shipped |
+| M10.3 | Changesets (fixed `@dalexto/lexsys-cli` + `@dalexto/lexsys-registry`); publish CI | shipped |
+| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke                               | shipped |
 
 Track record: [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24).
 
@@ -246,10 +246,10 @@ phases 2–5; skip phase 0 once M10 tooling is shipped.
 
 ### Phase 0 — Repo prerequisites (M10 PRs merged to `main`)
 
-- [x] Publish scope documented (only `@lexsys/cli` + `@lexsys/registry`)
+- [x] Publish scope documented (only `@dalexto/lexsys-cli` + `@dalexto/lexsys-registry`)
 - [x] Root `LICENSE` (MIT) and `CHANGELOG.md` with `[0.0.1]` section
 - [x] Package metadata: `repository`, `license`, `files`, `exports` (no `private: true`)
-- [x] Changesets: fixed group `@lexsys/cli` + `@lexsys/registry` (`.changeset/config.json`)
+- [x] Changesets: fixed group `@dalexto/lexsys-cli` + `@dalexto/lexsys-registry` (`.changeset/config.json`)
 - [x] Publish CI workflow on `main` (`.github/workflows/release.yml`)
 - [x] `pnpm publish:pack-audit` passes locally
 - [x] `pnpm check` green on `main`
@@ -257,7 +257,7 @@ phases 2–5; skip phase 0 once M10 tooling is shipped.
 
 ### Phase 1 — npm / GitHub setup (one-time)
 
-- [x] npm org `@lexsys` with publish access for `@lexsys/cli` and `@lexsys/registry`
+- [x] npm org `@lexsys` with publish access for `@dalexto/lexsys-cli` and `@dalexto/lexsys-registry`
 - [x] GitHub secret `NPM_TOKEN` (Granular token, bypass 2FA)
 - [x] Dist-tag policy: **`next`** for `0.0.x` (prefer `@next` for consumers)
 
@@ -293,13 +293,13 @@ build`.)
 
 - [x] Packages at **`0.0.1`** in repo (no Version Packages PR required for first cut)
 - [x] Merged to `main` per [AGENTS.md § Change workflow](../AGENTS.md#change-workflow)
-- [x] `@lexsys/cli` and `@lexsys/registry` both at **`0.0.1`**
+- [x] `@dalexto/lexsys-cli` and `@dalexto/lexsys-registry` both at **`0.0.1`**
 
 ### Phase 4 — Publish
 
 - [x] CI publish job on `main` succeeds ([Release workflow](../.github/workflows/release.yml))
-- [x] npm shows `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` tagged **`next`**
-- [x] Git tags `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on publish commit
+- [x] npm shows `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` tagged **`next`**
+- [x] Git tags `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on publish commit
 
 ### Phase 5 — Post-publish smoke (real consumer)
 
@@ -344,7 +344,7 @@ Version Packages PR before publish.
 
 - npm provenance
 - Remote registry signatures / allowlist ([REVIEW_TODO Known Gaps](./REVIEW_TODO.md#known-gaps))
-- Publishing `@lexsys/ui` or `@lexsys/tokens`
+- Publishing `@dalexto/lexsys-ui` or `@dalexto/lexsys-tokens`
 - `apps/docs` public site
 - Moving to dist-tag **`latest`** (that is the **`0.1.0`** milestone)
 
@@ -356,7 +356,7 @@ When declaring public MVP stable:
 
 1. Changeset minor bump → `0.1.0`
 2. Publish with dist-tag **`latest`** (update publish CI / Changesets config)
-3. README: `npx @lexsys/cli` without `@next`
+3. README: `npx @dalexto/lexsys-cli` without `@next`
 4. Update CHANGELOG and dist-tag policy in this doc
 
 ---
@@ -367,7 +367,7 @@ Still deferred after first `0.0.1` @ `next`:
 
 - npm provenance
 - Remote registry trust (signatures, allowlist) — post-M10
-- Optional npm package for `@lexsys/tokens`
+- Optional npm package for `@dalexto/lexsys-tokens`
 - `apps/docs` public site — post-`0.1.0` / post-M10
 
 Registry validation (`pnpm registry:check`), generated token CSS

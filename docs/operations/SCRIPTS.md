@@ -11,39 +11,39 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 
 ## Quick reference (root)
 
-| Script                          | Purpose                                                                                 |
-| ------------------------------- | --------------------------------------------------------------------------------------- |
-| `pnpm check`                    | Full gate: Prettier + root ESLint + turbo `check` in all packages                       |
-| `pnpm build`                    | Build all packages (turbo)                                                              |
-| `pnpm dev`                      | Start dev servers (turbo)                                                               |
-| `pnpm test`                     | Run all package tests (turbo)                                                           |
-| `pnpm typecheck`                | Typecheck all packages (turbo)                                                          |
-| `pnpm lint`                     | Root config ESLint + lint all packages (turbo)                                          |
-| `pnpm lint:fix`                 | Auto-fix lint across root + packages                                                    |
-| `pnpm format`                   | Format repo with Prettier                                                               |
-| `pnpm format:check`             | Check Prettier formatting                                                               |
-| `pnpm sync:templates`           | Sync UI components → registry templates                                                 |
-| `pnpm sync:styles`              | Regenerate token CSS in dist + registry style templates                                 |
-| `pnpm sync:all`                 | `sync:templates` then `sync:styles` — follow with `registry:check`                      |
-| `pnpm tokens:check`             | Lint + typecheck + test `@lexsys/tokens`                                                |
-| `pnpm tokens:build`             | Build `@lexsys/tokens`                                                                  |
-| `pnpm tokens:generate:styles`   | Write dist + registry style CSS                                                         |
-| `pnpm tokens:governance:report` | Token governance + contrast audit report                                                |
-| `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                  |
-| `pnpm ui:check`                 | Lint + typecheck + test `@lexsys/ui`                                                    |
-| `pnpm ui:audit`                 | Variant literal scan **and** `UI_CATALOG.md` drift check                                |
-| `pnpm ui:audit:catalog:check`   | Fail if catalog region drifted from UI exports / registry versions                      |
-| `pnpm ui:audit:catalog:write`   | Regenerate catalog tables in [UI_CATALOG.md](../reference/ui/UI_CATALOG.md)             |
-| `pnpm ui:build`                 | Build `@lexsys/ui`                                                                      |
-| `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                    |
-| `pnpm registry:sync`            | Sync UI source → registry component templates                                           |
-| `pnpm registry:styles:sync`     | Alias for `tokens:generate:styles` via registry                                         |
-| `pnpm cli:check`                | Turbo `check` for CLI (builds `@lexsys/registry` first, then lint + typecheck + test)   |
-| `pnpm publish:pack-audit`       | M10 publish gate: metadata audit + `pnpm pack` for `@lexsys/cli` and `@lexsys/registry` |
-| `pnpm changeset`                | Add a changeset for publish-package changes                                             |
-| `pnpm playground:dev`           | Start local playground (Vite)                                                           |
-| `pnpm playground:check`         | Lint + typecheck playground                                                             |
-| `pnpm playground:build`         | Build tokens + UI, then playground                                                      |
+| Script                          | Purpose                                                                                                 |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `pnpm check`                    | Full gate: Prettier + root ESLint + turbo `check` in all packages                                       |
+| `pnpm build`                    | Build all packages (turbo)                                                                              |
+| `pnpm dev`                      | Start dev servers (turbo)                                                                               |
+| `pnpm test`                     | Run all package tests (turbo)                                                                           |
+| `pnpm typecheck`                | Typecheck all packages (turbo)                                                                          |
+| `pnpm lint`                     | Root config ESLint + lint all packages (turbo)                                                          |
+| `pnpm lint:fix`                 | Auto-fix lint across root + packages                                                                    |
+| `pnpm format`                   | Format repo with Prettier                                                                               |
+| `pnpm format:check`             | Check Prettier formatting                                                                               |
+| `pnpm sync:templates`           | Sync UI components → registry templates                                                                 |
+| `pnpm sync:styles`              | Regenerate token CSS in dist + registry style templates                                                 |
+| `pnpm sync:all`                 | `sync:templates` then `sync:styles` — follow with `registry:check`                                      |
+| `pnpm tokens:check`             | Lint + typecheck + test `@dalexto/lexsys-tokens`                                                        |
+| `pnpm tokens:build`             | Build `@dalexto/lexsys-tokens`                                                                          |
+| `pnpm tokens:generate:styles`   | Write dist + registry style CSS                                                                         |
+| `pnpm tokens:governance:report` | Token governance + contrast audit report                                                                |
+| `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                                  |
+| `pnpm ui:check`                 | Lint + typecheck + test `@dalexto/lexsys-ui`                                                            |
+| `pnpm ui:audit`                 | Variant literal scan **and** `UI_CATALOG.md` drift check                                                |
+| `pnpm ui:audit:catalog:check`   | Fail if catalog region drifted from UI exports / registry versions                                      |
+| `pnpm ui:audit:catalog:write`   | Regenerate catalog tables in [UI_CATALOG.md](../reference/ui/UI_CATALOG.md)                             |
+| `pnpm ui:build`                 | Build `@dalexto/lexsys-ui`                                                                              |
+| `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                                    |
+| `pnpm registry:sync`            | Sync UI source → registry component templates                                                           |
+| `pnpm registry:styles:sync`     | Alias for `tokens:generate:styles` via registry                                                         |
+| `pnpm cli:check`                | Turbo `check` for CLI (builds `@dalexto/lexsys-registry` first, then lint + typecheck + test)           |
+| `pnpm publish:pack-audit`       | M10 publish gate: metadata audit + `pnpm pack` for `@dalexto/lexsys-cli` and `@dalexto/lexsys-registry` |
+| `pnpm changeset`                | Add a changeset for publish-package changes                                                             |
+| `pnpm playground:dev`           | Start local playground (Vite)                                                                           |
+| `pnpm playground:check`         | Lint + typecheck playground                                                                             |
+| `pnpm playground:build`         | Build tokens + UI, then playground                                                                      |
 
 Per-package `*:lint:fix`, `*:typecheck`, and `*:build` aliases follow the same `{package}:{action}` pattern. See sections below.
 
@@ -74,7 +74,7 @@ Use when you only need one layer:
 
 ---
 
-## `@lexsys/tokens`
+## `@dalexto/lexsys-tokens`
 
 | Root alias                      | Package script      | When to run                                                                            |
 | ------------------------------- | ------------------- | -------------------------------------------------------------------------------------- |
@@ -89,12 +89,12 @@ Use when you only need one layer:
 Filter equivalent:
 
 ```sh
-pnpm --filter @lexsys/tokens <script>
+pnpm --filter @dalexto/lexsys-tokens <script>
 ```
 
 ---
 
-## `@lexsys/ui`
+## `@dalexto/lexsys-ui`
 
 | Root alias                    | Package script        | When to run                                                             |
 | ----------------------------- | --------------------- | ----------------------------------------------------------------------- |
@@ -117,14 +117,14 @@ Package-only scripts (no root alias):
 Filter equivalent:
 
 ```sh
-pnpm --filter @lexsys/ui <script>
+pnpm --filter @dalexto/lexsys-ui <script>
 ```
 
 After UI component edits, also run `pnpm registry:sync` and `pnpm registry:check`. When named exports or registry item versions change, run `pnpm ui:audit:catalog:write` then commit [UI_CATALOG.md](../reference/ui/UI_CATALOG.md). See [Sync workflows](#sync-workflows).
 
 ---
 
-## `@lexsys/registry`
+## `@dalexto/lexsys-registry`
 
 | Root alias                  | Package script   | When to run                                                               |
 | --------------------------- | ---------------- | ------------------------------------------------------------------------- |
@@ -145,7 +145,7 @@ Package-only scripts (no root alias):
 Filter equivalent:
 
 ```sh
-pnpm --filter @lexsys/registry <script>
+pnpm --filter @dalexto/lexsys-registry <script>
 ```
 
 ---
@@ -160,7 +160,7 @@ pnpm --filter @lexsys/registry <script>
 | `pnpm cli:typecheck` | `typecheck`    | Types only                             |
 
 `pnpm cli:check` runs `pnpm turbo run check --filter=./packages/cli`, so workspace
-dependencies (notably `@lexsys/registry`) are built before lint and typecheck.
+dependencies (notably `@dalexto/lexsys-registry`) are built before lint and typecheck.
 Do not substitute `pnpm --filter ./packages/cli check` for the full gate — that
 skips the turbo `^build` graph and ESLint can fail on unresolved registry types.
 
@@ -174,7 +174,7 @@ For tests only (registry already built): `pnpm --filter ./packages/cli test`.
 
 ---
 
-## `@lexsys/playground`
+## `@dalexto/lexsys-playground`
 
 | Root alias                  | Package script | When to run                                                    |
 | --------------------------- | -------------- | -------------------------------------------------------------- |
@@ -190,7 +190,7 @@ Playground has no Vitest tests today; `check` = lint + typecheck.
 Filter equivalent:
 
 ```sh
-pnpm --filter @lexsys/playground <script>
+pnpm --filter @dalexto/lexsys-playground <script>
 ```
 
 ---
@@ -266,7 +266,7 @@ Setup: Node 24, `pnpm install --frozen-lockfile`, pnpm cache enabled.
 
 ```sh
 pnpm tokens:governance:report
-# equivalent: pnpm --filter @lexsys/tokens governance:report
+# equivalent: pnpm --filter @dalexto/lexsys-tokens governance:report
 ```
 
 With `LEXSYS_CONTRAST_POLICY=ci` in CI.
@@ -278,7 +278,7 @@ With `LEXSYS_CONTRAST_POLICY=ci` in CI.
 | Trigger                                       | Behavior                                  |
 | --------------------------------------------- | ----------------------------------------- |
 | Pull request touching `.github/labels.yml`    | Dry-run only — diff in job log, no writes |
-| Push to `dev` / `main` (manifest or workflow) | Apply sync to `DaLexto/lexsys`            |
+| Push to `dev` / `main` (manifest or workflow) | Apply sync to `DaLexto/lexsys-ui`         |
 | `workflow_dispatch`                           | Manual re-sync                            |
 
 Local preview (requires a PAT with `repo` scope):
@@ -298,7 +298,7 @@ Taxonomy and usage: [docs/contributors/CONTRIBUTING.md](../contributors/CONTRIBU
 | `pnpm check`, `pnpm build`, `pnpm test`      | Run across all workspace packages via turbo                      |
 | `pnpm tokens:check`, `pnpm registry:sync`, … | Daily maintainer shortcuts from repo root                        |
 | `pnpm cli:check`                             | CLI gate via turbo (`^build` then lint + typecheck + test)       |
-| `pnpm --filter @lexsys/tokens test`          | Running a single package script without a root alias, or from CI |
+| `pnpm --filter @dalexto/lexsys-tokens test`  | Running a single package script without a root alias, or from CI |
 | `pnpm --filter ./packages/cli test`          | CLI tests only (not the full check gate; registry must be built) |
 
 Prefer root aliases in docs and commit messages when they exist. Use `--filter` when documenting the underlying package script or when no root alias exists (e.g. `templates:check-sync`).
@@ -309,7 +309,7 @@ Prefer root aliases in docs and commit messages when they exist. Use `--filter` 
 
 ### `pnpm publish:pack-audit`
 
-Pre-publish gate for `@lexsys/cli` and `@lexsys/registry`:
+Pre-publish gate for `@dalexto/lexsys-cli` and `@dalexto/lexsys-registry`:
 
 ```sh
 pnpm build
@@ -322,7 +322,7 @@ Validates root `LICENSE` and `CHANGELOG.md`, publish `package.json` fields, buil
 
 ### `pnpm changeset`
 
-Add a changeset when `@lexsys/cli` or `@lexsys/registry` publish behavior changes:
+Add a changeset when `@dalexto/lexsys-cli` or `@dalexto/lexsys-registry` publish behavior changes:
 
 ```sh
 pnpm changeset

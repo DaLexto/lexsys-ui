@@ -1,5 +1,5 @@
 {
-  "name": "@lexsys/registry",
+  "name": "@dalexto/lexsys-registry",
   "version": "0.0.2",
   "description": "Install metadata and templates for the Lexsys registry-first UI framework",
   "type": "module",
@@ -7,13 +7,13 @@
   "author": "DaLexto",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DaLexto/lexsys.git",
+    "url": "git+https://github.com/DaLexto/lexsys-ui.git",
     "directory": "packages/registry"
   },
   "bugs": {
-    "url": "https://github.com/DaLexto/lexsys/issues"
+    "url": "https://github.com/DaLexto/lexsys-ui/issues"
   },
-  "homepage": "https://github.com/DaLexto/lexsys#readme",
+  "homepage": "https://github.com/DaLexto/lexsys-ui#readme",
   "publishConfig": {
     "access": "public"
   },
@@ -40,7 +40,7 @@
     "lint": "eslint src test --max-warnings=0",
     "lint:fix": "eslint src test --fix",
     "styles:check-sync": "node scripts/check-registry-styles-sync.mjs",
-    "styles:sync": "pnpm --filter @lexsys/tokens generate:styles",
+    "styles:sync": "pnpm --filter @dalexto/lexsys-tokens generate:styles",
     "templates:check-sync": "node scripts/sync-all-templates.mjs --check",
     "templates:sync": "node scripts/sync-all-templates.mjs",
     "test": "vitest run test --passWithNoTests --pool threads --exclude \"dist/**\"",

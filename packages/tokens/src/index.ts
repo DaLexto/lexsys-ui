@@ -1,5 +1,5 @@
 /**
- * Public entry point for @lexsys/tokens.
+ * Public entry point for @dalexto/lexsys-tokens.
  *
  * The tokens package is the design-system source of truth.
  */

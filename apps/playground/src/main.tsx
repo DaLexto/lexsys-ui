@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
-import { Button } from "@lexsys/ui"
+import { Button } from "@dalexto/lexsys-ui"
 import { BrandPanel } from "./brand-panel"
 import { LayoutPanel } from "./layout-panel"
 import { ActionsPanel } from "./actions-panel"

@@ -35,13 +35,13 @@ Core invariants:
 
 ## Monorepo packages
 
-| Package             | npm name                     | Role                                                                                                                           |
-| ------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `packages/tokens`   | `@lexsys/tokens`             | Design token source of truth; resolver; CSS + DTCG generators                                                                  |
-| `packages/ui`       | `@lexsys/ui`                 | Source/reference React components (not the final distributed form)                                                             |
-| `packages/registry` | `@lexsys/registry`           | Registry items, templates, utilities, styles, and metadata validator                                                           |
-| `packages/cli`      | `@lexsys/cli` (`lexsys` bin) | CLI installer; reads `@lexsys/registry`; orchestrates install into consumer projects                                           |
-| `apps/playground`   | `@lexsys/playground`         | Monorepo smoke app — workspace `@lexsys/ui`; not the consumer install path. See [TESTING.md](TESTING.md#verification-surfaces) |
+| Package             | npm name                             | Role                                                                                                                                   |
+| ------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/tokens`   | `@dalexto/lexsys-tokens`             | Design token source of truth; resolver; CSS + DTCG generators                                                                          |
+| `packages/ui`       | `@dalexto/lexsys-ui`                 | Source/reference React components (not the final distributed form)                                                                     |
+| `packages/registry` | `@dalexto/lexsys-registry`           | Registry items, templates, utilities, styles, and metadata validator                                                                   |
+| `packages/cli`      | `@dalexto/lexsys-cli` (`lexsys` bin) | CLI installer; reads `@dalexto/lexsys-registry`; orchestrates install into consumer projects                                           |
+| `apps/playground`   | `@dalexto/lexsys-playground`         | Monorepo smoke app — workspace `@dalexto/lexsys-ui`; not the consumer install path. See [TESTING.md](TESTING.md#verification-surfaces) |
 
 Consumer validation (CLI install path, real layouts, brand/theme UX) happens outside the monorepo — sandbox or SaaS — not in playground.
 
@@ -169,7 +169,7 @@ build time.
 
 The CLI resolves registry items from:
 
-1. **Local** (`@lexsys/registry` bundled with the CLI) — default when
+1. **Local** (`@dalexto/lexsys-registry` bundled with the CLI) — default when
    `registryUrl` is `null` in `lexsys.config.json`.
 2. **Remote** — when `registryUrl` is set, the CLI fetches a remote manifest
    JSON over HTTPS, validates item (and optional style) shape, and falls back to

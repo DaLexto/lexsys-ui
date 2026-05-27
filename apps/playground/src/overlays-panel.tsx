@@ -71,7 +71,7 @@ import {
   ToastTitle,
   ToastViewport,
   useToastManager,
-} from "@lexsys/ui"
+} from "@dalexto/lexsys-ui"
 
 const ToastDemo = () => {
   const toastManager = useToastManager<{ source: "playground" }>()

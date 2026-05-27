@@ -1,11 +1,20 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "DaLexto/lexsys" }],
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "DaLexto/lexsys-ui" }
+  ],
   "commit": false,
-  "fixed": [["lexsys", "@lexsys/cli", "@lexsys/registry"]],
+  "fixed": [
+    ["@dalexto/lexsys", "@dalexto/lexsys-cli", "@dalexto/lexsys-registry"]
+  ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@lexsys/tokens", "@lexsys/ui", "@lexsys/playground"]
+  "ignore": [
+    "@dalexto/lexsys-tokens",
+    "@dalexto/lexsys-ui",
+    "@dalexto/lexsys-playground"
+  ]
 }

@@ -39,7 +39,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build publish packages
-        run: pnpm --filter @lexsys/registry build && pnpm --filter @lexsys/cli build
+        run: pnpm --filter @dalexto/lexsys-registry build && pnpm --filter @dalexto/lexsys-cli build
 
       - name: Create release PR or publish to npm
         uses: changesets/action@v1
