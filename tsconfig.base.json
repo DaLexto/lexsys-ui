@@ -8,10 +8,12 @@
     "skipLibCheck": true,
     "noEmit": true,
     "paths": {
-      "@lexsys/registry": ["./packages/registry/dist/index.d.ts"],
-      "@lexsys/registry/templates/*": ["./packages/registry/templates/*"],
-      "@lexsys/tokens": ["./packages/tokens/dist/index.d.ts"],
-      "@lexsys/ui": ["./packages/ui/dist/index.d.ts"]
+      "@dalexto/lexsys-registry": ["./packages/registry/dist/index.d.ts"],
+      "@dalexto/lexsys-registry/templates/*": [
+        "./packages/registry/templates/*"
+      ],
+      "@dalexto/lexsys-tokens": ["./packages/tokens/dist/index.d.ts"],
+      "@dalexto/lexsys-ui": ["./packages/ui/dist/index.d.ts"]
     },
     "resolveJsonModule": true,
     "isolatedModules": true,

@@ -1,5 +1,5 @@
 {
-  "name": "@lexsys/cli",
+  "name": "@dalexto/lexsys-cli",
   "version": "0.0.2",
   "description": "Registry-first CLI that installs Lexsys React UI components into your project",
   "type": "module",
@@ -7,13 +7,13 @@
   "author": "DaLexto",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DaLexto/lexsys.git",
+    "url": "git+https://github.com/DaLexto/lexsys-ui.git",
     "directory": "packages/cli"
   },
   "bugs": {
-    "url": "https://github.com/DaLexto/lexsys/issues"
+    "url": "https://github.com/DaLexto/lexsys-ui/issues"
   },
-  "homepage": "https://github.com/DaLexto/lexsys#readme",
+  "homepage": "https://github.com/DaLexto/lexsys-ui#readme",
   "publishConfig": {
     "access": "public"
   },
@@ -39,7 +39,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@lexsys/registry": "workspace:*",
+    "@dalexto/lexsys-registry": "workspace:*",
     "prompts": "^2.4.2"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { getInstallLayer } from "@lexsys/registry"
+import { getInstallLayer } from "@dalexto/lexsys-registry"
 import { getRegistryItems } from "../registry/provider.js"
 
 interface RunListOptions {

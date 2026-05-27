@@ -2,8 +2,8 @@ import {
   registryItems,
   registryManifest,
   validateRegistry,
-} from "@lexsys/registry"
-import type { RegistryItem } from "@lexsys/registry"
+} from "@dalexto/lexsys-registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry"
 import { getRegistryProviderResult } from "../registry/provider.js"
 import { fetchRemoteRegistry } from "../registry/remote.js"
 import { getRegistrySource } from "../registry/source.js"

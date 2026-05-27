@@ -63,10 +63,10 @@ importers:
 
   apps/playground:
     dependencies:
-      '@lexsys/tokens':
+      '@dalexto/lexsys-tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
-      '@lexsys/ui':
+      '@dalexto/lexsys-ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tailwindcss/vite':
@@ -100,7 +100,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@lexsys/registry':
+      '@dalexto/lexsys-registry':
         specifier: workspace:*
         version: link:../registry
       prompts:
@@ -116,7 +116,7 @@ importers:
 
   packages/entry:
     dependencies:
-      '@lexsys/cli':
+      '@dalexto/lexsys-cli':
         specifier: workspace:*
         version: link:../cli
 
@@ -133,7 +133,7 @@ importers:
       '@base-ui/react':
         specifier: ^1.5.0
         version: 1.5.0(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@lexsys/tokens':
+      '@dalexto/lexsys-tokens':
         specifier: workspace:*
         version: link:../tokens
       class-variance-authority:

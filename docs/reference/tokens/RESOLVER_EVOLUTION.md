@@ -221,7 +221,7 @@ Default generator behavior is **unchanged**: CSS keeps `var(--lsys-*)` reference
 ### Non-goals (still deferred)
 
 - Replacing CSS/DTCG reference preservation with hardcoded literals
-- Exporting the full engine API from the `@lexsys/tokens` package root entrypoint (engine remains internal to the tokens package today)
+- Exporting the full engine API from the `@dalexto/lexsys-tokens` package root entrypoint (engine remains internal to the tokens package today)
 
 ---
 
@@ -291,7 +291,7 @@ engine modules (`contrast/`, `composite/`, `governance/`, `values/`).
 
 - **Contrast policy tiers** — `evaluateContrastPolicy` fails `governance:report` in CI (`ci` tier) and CSS build fails via `validateContrastPolicyStrict` unless `LEXSYS_CONTRAST_POLICY=report`.
 - **Governance policy tiers** — semantic audit issues with `severity: "error"` fail `pnpm tokens:governance:report` when tier is `ci` (default in CI). Override locally with `LEXSYS_GOVERNANCE_POLICY=report`. Dead-token and deprecation reports remain informational.
-- **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@lexsys/tokens` root export today.
+- **Engine imports are internal** — `packages/tokens/src/engine/` is for build pipeline, tests, and governance scripts; not a published `@dalexto/lexsys-tokens` root export today.
 - **Composite object `$value` leaves** — authoring uses branch + slot leaves (typography, shadow, border); DTCG-native single-leaf composite objects remain a deferred engine phase.
 - **`shadow.inner`** — inset shadow uses branch+slot leaves (`color`, offsets, blur, `inset: true`); CSS compose prepends `inset` in composed `box-shadow`.
 

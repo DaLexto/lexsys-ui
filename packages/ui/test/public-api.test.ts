@@ -54,7 +54,7 @@ const isNonComponentExport = (exportName: string): boolean => {
 
 const layerEntries = getLayerEntries()
 
-describe("@lexsys/ui public API", () => {
+describe("@dalexto/lexsys-ui public API", () => {
   test("keeps every component in the standard three-file shape", () => {
     for (const { layer, name: componentName } of layerEntries) {
       const componentPath = join(

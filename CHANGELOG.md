@@ -3,8 +3,8 @@
 All notable changes to **published** Lexsys npm packages are documented in this
 file.
 
-Published packages: `@lexsys/cli`, `@lexsys/registry`. Monorepo packages
-`@lexsys/ui` and `@lexsys/tokens` are reference-only and not published in
+Published packages: `@dalexto/lexsys-cli`, `@dalexto/lexsys-registry`. Monorepo packages
+`@dalexto/lexsys-ui` and `@dalexto/lexsys-tokens` are reference-only and not published in
 `0.0.1`.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
@@ -56,14 +56,14 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [0.0.1] - 2026-05-24
 
-First early-preview npm release on dist-tag **`next`** (`npx @lexsys/cli@next`).
+First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli@next`).
 
 ### Added
 
-- **`@lexsys/cli`** — `lexsys` binary: `init`, `add`, `update`, `uninstall`,
+- **`@dalexto/lexsys-cli`** — `lexsys` binary: `init`, `add`, `update`, `uninstall`,
   `list`, `status`, `doctor`, `registry`, and related install flags
   (`--sync`, `--styles`, `--utilities`, `--force`, `--dry-run`, `--with-deps`)
-- **`@lexsys/registry`** — bundled install metadata and templates for **41
+- **`@dalexto/lexsys-registry`** — bundled install metadata and templates for **41
   primitives**, pilot **blocks** (FormField, Sidebar), and **template**
   (DashboardShell)
 - Consumer starters: `lexsys init vite`, `lexsys init next` (Next.js 15.3.3 App
@@ -77,10 +77,10 @@ First early-preview npm release on dist-tag **`next`** (`npx @lexsys/cli@next`).
 ### Notes
 
 - Early preview: breaking changes remain likely until **`0.1.0`** @ **`latest`**
-- `@lexsys/ui` and `@lexsys/tokens` are not published in this release
+- `@dalexto/lexsys-ui` and `@dalexto/lexsys-tokens` are not published in this release
 - Remote registry signatures and host allowlists are deferred post-M10
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys/compare/@lexsys/cli@0.0.1...HEAD
-[0.0.1]: https://www.npmjs.com/package/@lexsys/cli/v/0.0.1
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys-cli@0.0.1...HEAD
+[0.0.1]: https://www.npmjs.com/package/@dalexto/lexsys-cli/v/0.0.1

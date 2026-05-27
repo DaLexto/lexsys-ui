@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@lexsys/registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry"
 import { join } from "node:path"
 import type { LexsysConfig } from "../config/config.js"
 

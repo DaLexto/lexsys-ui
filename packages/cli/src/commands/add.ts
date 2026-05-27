@@ -1,5 +1,5 @@
 import prompts from "prompts"
-import { registryItems } from "@lexsys/registry"
+import { registryItems } from "@dalexto/lexsys-registry"
 
 import { loadConfig, saveConfig } from "../config/config.js"
 import {

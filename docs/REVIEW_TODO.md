@@ -40,9 +40,9 @@ Branch: `feat/m4-cli-entry-dx`. Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-ov
 
 | Item  | Description                                                                                     | Status      |
 | ----- | ----------------------------------------------------------------------------------------------- | ----------- |
-| M4.1  | `packages/entry` — `lexsys` npm package, thin shim → `@lexsys/cli`                              | in progress |
+| M4.1  | `packages/entry` — `lexsys` npm package, thin shim → `@dalexto/lexsys-cli`                      | in progress |
 | M4.2  | Root `package.json` rename → `lexsys-monorepo`                                                  | planned     |
-| M4.3  | Changesets `fixed[]` — `lexsys` + `@lexsys/cli` same version                                    | planned     |
+| M4.3  | Changesets `fixed[]` — `lexsys` + `@dalexto/lexsys-cli` same version                            | planned     |
 | M4.4  | CLI command aliases (`create`, `a`, `up`, `ls`, `st`, `rm`, `dr`, `reg`, `cfg`)                 | planned     |
 | M4.5  | CLI flag short aliases (`-d`, `-y`, `-f`, `-a`, `-S`, `-u`, `-j`, `-s`, `-l`, `-r`, `-w`, `-C`) | planned     |
 | M4.6  | `flags.ts` varargs refactor — `hasFlag(args, '--dry-run', '-d')`                                | planned     |
@@ -58,7 +58,7 @@ Branch: `feat/m4-cli-entry-dx`. Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-ov
 
 ## M10 — Release readiness (shipped 2026-05-24)
 
-**Shipped:** `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on npm dist-tag **`next`**
+**Shipped:** `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm dist-tag **`next`**
 via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
 [CHANGELOG.md](../CHANGELOG.md#001---2026-05-24).
 
@@ -160,7 +160,7 @@ Canonical composition model: [docs/reference/ui/UI_COMPOSITION.md](./reference/u
 | BO.2 | Sidebar (mobile)  | Drawer composition incomplete vs playground | **Fixed** — `swipeDirection="left"`, DrawerViewport side left, `DrawerClose appearance="inline"` on nav select (avoids absolute icon stacking). Sandbox manual QA at `< md` still recommended. |
 | BO.3 | DashboardShell    | Responsive layout                           | **Fixed** — sticky mobile trigger bar; page header in main (not squeezed beside trigger). Sidebar `mobileHeader` remains optional for compact slots only.                                      |
 | BO.4 | Blocks QA process | No block-level validation gate              | **Fixed** — `install-flow.test.ts` covers all registry blocks (solo + bulk idempotency, flat import paths, transitive closure).                                                                |
-| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Fixed** — pilot block/template render smoke in `@lexsys/ui`; registry template-import audit in `registry:check`. Narrow viewport remains manual sandbox.                                     |
+| BO.5 | Assumption audit  | “Primitives good → blocks good”             | **Fixed** — pilot block/template render smoke in `@dalexto/lexsys-ui`; registry template-import audit in `registry:check`. Narrow viewport remains manual sandbox.                             |
 | BO.6 | Sidebar (design)  | Menu vs nav list                            | **Fixed** — plain `<a>` / `<button>` nav list.                                                                                                                                                 |
 | BO.7 | FormField         | Untested in sandbox                         | **Fixed** — `lexsys add form-field` + SettingsPage uses FormField in PulseDesk sandbox.                                                                                                        |
 

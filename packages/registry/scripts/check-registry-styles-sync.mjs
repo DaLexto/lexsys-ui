@@ -17,14 +17,20 @@ const ensureTokensBuilt = async () => {
     await access(tokensDistIndex)
     return
   } catch {
-    console.log("Building @lexsys/tokens for registry style sync check...")
+    console.log(
+      "Building @dalexto/lexsys-tokens for registry style sync check...",
+    )
   }
 
-  const result = spawnSync("pnpm", ["--filter", "@lexsys/tokens", "build"], {
-    cwd: repoRoot,
-    stdio: "inherit",
-    shell: true,
-  })
+  const result = spawnSync(
+    "pnpm",
+    ["--filter", "@dalexto/lexsys-tokens", "build"],
+    {
+      cwd: repoRoot,
+      stdio: "inherit",
+      shell: true,
+    },
+  )
 
   if (result.status !== 0) {
     process.exit(result.status ?? 1)

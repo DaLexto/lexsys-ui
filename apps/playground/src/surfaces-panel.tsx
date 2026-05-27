@@ -13,7 +13,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@lexsys/ui"
+} from "@dalexto/lexsys-ui"
 
 export const SurfacesPanel = () => {
   return (

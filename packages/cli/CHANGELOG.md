@@ -1,11 +1,11 @@
-# Changelog — @lexsys/cli
+# Changelog — @dalexto/lexsys-cli
 
 ## 0.0.2
 
 ### Patch Changes
 
 - M4 — entry package + CLI DX
-  - add `lexsys` npm entry package (`packages/entry`) so consumers use `npx lexsys@next` instead of `npx @lexsys/cli@next`
+  - add `lexsys` npm entry package (`packages/entry`) so consumers use `npx lexsys@next` instead of `npx @dalexto/lexsys-cli@next`
   - reorganize `packages/cli/src/core/` into domain subfolders (`config/`, `registry/`, `install/`, `scaffold/`, `utils/`)
   - add command aliases: `create` (init), `a` (add), `up` (update), `ls` (list), `st` (status), `dr` (doctor), `rm` (uninstall), `reg` (registry), `cfg` (config)
   - add short flag aliases: `-d` (--dry-run), `-j` (--json), `-s` (--summary), `-l` (--local), `-r` (--remote), `-C` (--cwd), `-p` (--path), `-e` (--exists)
@@ -15,7 +15,7 @@
   - restore scaffold detection in `runInit()` so existing Vite/Next projects skip the guided prompt
 
 - Updated dependencies []:
-  - @lexsys/registry@0.0.2
+  - @dalexto/lexsys-registry@0.0.2
 
 Pre-0.1.0 breaking changes and significant improvements to the CLI package.
 
@@ -23,9 +23,9 @@ Pre-0.1.0 breaking changes and significant improvements to the CLI package.
 
 ### New: `lexsys` npm entry package
 
-- Published as `lexsys` on npm — users now run `npx lexsys@latest` instead of `npx @lexsys/cli@latest`.
-- Thin shim in `packages/entry/bin.js`; all logic stays in `@lexsys/cli`.
-- `lexsys` and `@lexsys/cli` are version-locked via Changesets `fixed[]`.
+- Published as `lexsys` on npm — users now run `npx lexsys@latest` instead of `npx @dalexto/lexsys-cli@latest`.
+- Thin shim in `packages/entry/bin.js`; all logic stays in `@dalexto/lexsys-cli`.
+- `lexsys` and `@dalexto/lexsys-cli` are version-locked via Changesets `fixed[]`.
 
 ### Command aliases
 

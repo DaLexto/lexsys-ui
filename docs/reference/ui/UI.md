@@ -19,7 +19,7 @@ source components that:
 
 - define the correct component API, variants, and accessibility behavior
 - are synced into registry templates when ready to be installed into consumer projects
-- export a stable public API (`@lexsys/ui`) for use in the playground (**41 primitives** today)
+- export a stable public API (`@dalexto/lexsys-ui`) for use in the playground (**41 primitives** today)
 
 Monorepo source is organized in three composition layers under
 `packages/ui/src/components/` — `primitives/`, `blocks/`, `templates/`. See
@@ -102,7 +102,7 @@ Rules:
 - Base UI types MAY be re-exported in `.types.ts` when they form part of the
   public prop surface (e.g. extending `Button.Props`).
 - Base UI types MUST NOT be exposed unintentionally through re-exports.
-- Do not add Base UI to the public `@lexsys/ui` API surface beyond the prop types that users need.
+- Do not add Base UI to the public `@dalexto/lexsys-ui` API surface beyond the prop types that users need.
 
 ### Wrapper checklist
 
@@ -202,7 +202,7 @@ Use direct component token utilities instead (see `Badge.variants.ts`).
 
 All public exports MUST go through `packages/ui/src/index.ts`. Today the package
 root exports **primitives only** (playground smoke). Pilot blocks and templates
-are registry + CLI installable but not yet part of the `@lexsys/ui` public export
+are registry + CLI installable but not yet part of the `@dalexto/lexsys-ui` public export
 surface:
 
 ```ts
@@ -215,8 +215,8 @@ Rules:
 - MUST NOT export Base UI internals directly.
 - MUST NOT export `.variants.ts` from the package root (variant functions are
   internal to the component folder).
-- Consumers MUST be able to use `import { Button } from "@lexsys/ui"` and
-  `import type { ButtonProps } from "@lexsys/ui"`.
+- Consumers MUST be able to use `import { Button } from "@dalexto/lexsys-ui"` and
+  `import type { ButtonProps } from "@dalexto/lexsys-ui"`.
 
 ---
 
@@ -237,11 +237,11 @@ Full template sync contract (transform rules, drift validation, manual vs. gener
 | Component API, behavior, variants | `packages/ui/src/components/{primitives,blocks,templates}/`  |
 | Install templates                 | `packages/registry/templates/{primitives,blocks,templates}/` |
 | Registry item metadata            | `packages/registry/src/items/`                               |
-| Token CSS variables               | `@lexsys/tokens` (via build)                                 |
+| Token CSS variables               | `@dalexto/lexsys-tokens` (via build)                         |
 | CLI install logic                 | `packages/cli/src/`                                          |
 
 `packages/ui` MUST NOT contain:
 
 - Registry metadata or install logic
 - CLI configuration or detection logic
-- Generated token CSS (use `@lexsys/tokens` exports instead)
+- Generated token CSS (use `@dalexto/lexsys-tokens` exports instead)

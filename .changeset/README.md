@@ -1,7 +1,7 @@
 # Changesets
 
-Maintainers add a changeset when a publish-facing change lands in `@lexsys/cli` or
-`@lexsys/registry`:
+Maintainers add a changeset when a publish-facing change lands in `@dalexto/lexsys-cli` or
+`@dalexto/lexsys-registry`:
 
 ```bash
 pnpm changeset

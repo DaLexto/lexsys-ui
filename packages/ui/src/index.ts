@@ -1,5 +1,5 @@
 /**
- * Public entry point for @lexsys/ui.
+ * Public entry point for @dalexto/lexsys-ui.
  *
  * This package contains the source/reference implementation
  * for Lexsys components.

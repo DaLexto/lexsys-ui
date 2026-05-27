@@ -13,17 +13,17 @@ Command names and sync workflows: [SCRIPTS.md](../operations/SCRIPTS.md).
 
 Lexsys has two complementary manual verification surfaces. Invest maintainer time **asymmetrically** — most effort on the consumer path, not the playground.
 
-| Surface                                 | Model                                               | CSS source                                         | Validates                                                                             | Does not validate                                                                | Focus                                                      | Commands                                       |
-| --------------------------------------- | --------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------- |
-| [`apps/playground`](../apps/playground) | Workspace `@lexsys/ui` primitives + built token CSS | `@lexsys/tokens` build output                      | Reference primitive exports, category panel demos, light/dark theme wiring            | CLI install path, blocks/templates, user-owned layouts, mobile composition flows | **~10–20%** — optional monorepo smoke                      | `pnpm playground:dev`, `pnpm playground:check` |
-| External consumer sandbox               | `lexsys add` → flat `paths.components/<Name>/`      | Installed `styles/tokens.css` + `styles/theme.css` | Install/update/uninstall, import rewrite, conflicts, installed CSS, block/template UX | Workspace `@lexsys/ui` dist wiring inside the monorepo                           | **~80–90%** — consumer truth (especially blocks/templates) | Manual checklist below                         |
-| Your SaaS (future)                      | Same as sandbox — CLI-installed consumer            | Installed styles in your app                       | Primary product UX and design sign-off                                                | Monorepo reference wiring                                                        | Replaces sandbox as main UX surface over time              | Your app build + deploy                        |
+| Surface                                 | Model                                                       | CSS source                                         | Validates                                                                             | Does not validate                                                                | Focus                                                      | Commands                                       |
+| --------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------- |
+| [`apps/playground`](../apps/playground) | Workspace `@dalexto/lexsys-ui` primitives + built token CSS | `@dalexto/lexsys-tokens` build output              | Reference primitive exports, category panel demos, light/dark theme wiring            | CLI install path, blocks/templates, user-owned layouts, mobile composition flows | **~10–20%** — optional monorepo smoke                      | `pnpm playground:dev`, `pnpm playground:check` |
+| External consumer sandbox               | `lexsys add` → flat `paths.components/<Name>/`              | Installed `styles/tokens.css` + `styles/theme.css` | Install/update/uninstall, import rewrite, conflicts, installed CSS, block/template UX | Workspace `@dalexto/lexsys-ui` dist wiring inside the monorepo                   | **~80–90%** — consumer truth (especially blocks/templates) | Manual checklist below                         |
+| Your SaaS (future)                      | Same as sandbox — CLI-installed consumer                    | Installed styles in your app                       | Primary product UX and design sign-off                                                | Monorepo reference wiring                                                        | Replaces sandbox as main UX surface over time              | Your app build + deploy                        |
 
 **Policy:** `apps/playground` is **maintenance-only**. Keep existing panels compiling; do not expand playground product UX unless the PR explicitly targets `apps/playground/**`. Consumer UX belongs in sandbox or SaaS.
 
 ### `apps/playground`
 
-- Imports `@lexsys/ui` from workspace `dist/` — rebuild UI after variant changes.
+- Imports `@dalexto/lexsys-ui` from workspace `dist/` — rebuild UI after variant changes.
 - Sticky category nav: Brand, Layout, Actions, Forms, Overlays, Surfaces, Interactions (see [apps/playground/README.md](../apps/playground/README.md)).
 - Optional after UI/token changes; CI runs `playground:build` when `apps/playground/**` changes (M2.4).
 
@@ -56,7 +56,7 @@ Per-package test commands are listed in each section below.
 
 ## Test Coverage by Package
 
-### `@lexsys/tokens`
+### `@dalexto/lexsys-tokens`
 
 Test files in `packages/tokens/test/`:
 
@@ -75,31 +75,31 @@ Run:
 
 ```sh
 pnpm tokens:check             # from repo root
-pnpm --filter @lexsys/tokens test
+pnpm --filter @dalexto/lexsys-tokens test
 ```
 
-### `@lexsys/ui`
+### `@dalexto/lexsys-ui`
 
 Test files in `packages/ui/test/`:
 
-| File                                             | What it tests                                                                               |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@lexsys/ui`        |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**41 primitives**) |
-| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**41/41 primitives**)     |
+| File                                             | What it tests                                                                                |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@dalexto/lexsys-ui` |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**41 primitives**)  |
+| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**41/41 primitives**)      |
 
 Pilot blocks and templates (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell) live under
 `packages/ui/src/components/blocks/` and `templates/` but do **not** yet have
-render/variant tests in `@lexsys/ui` — verify in the consumer sandbox instead.
+render/variant tests in `@dalexto/lexsys-ui` — verify in the consumer sandbox instead.
 
 Run:
 
 ```sh
 pnpm ui:check                 # from repo root
-pnpm --filter @lexsys/ui test
+pnpm --filter @dalexto/lexsys-ui test
 ```
 
-### `@lexsys/registry`
+### `@dalexto/lexsys-registry`
 
 Test files in `packages/registry/test/`:
 
@@ -114,7 +114,7 @@ Run:
 
 ```sh
 pnpm registry:check           # from repo root (includes template sync check)
-pnpm --filter @lexsys/registry test
+pnpm --filter @dalexto/lexsys-registry test
 ```
 
 ### `lexsys` (CLI)
@@ -228,7 +228,7 @@ Checklist after CLI or registry changes:
 4. Spot-check installed paths under `paths.components`, `lexsys.config.json` (`paths.*` schema), and token CSS imports.
 5. If templates or styles changed: confirm `styles/tokens.css` and `styles/theme.css` update as expected.
 
-**Post-publish npm smoke** (`npx @lexsys/cli@next init vite …`): CLI scaffolds with
+**Post-publish npm smoke** (`npx @dalexto/lexsys-cli@next init vite …`): CLI scaffolds with
 **npm** — use **`npm run build`** only ([DEPLOY.md § Phase 5](../operations/DEPLOY.md#phase-5--post-publish-smoke-real-consumer)).
 
 **Blocks/templates checklist** (when FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, or DashboardShell change):
