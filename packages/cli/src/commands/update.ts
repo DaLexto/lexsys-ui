@@ -7,7 +7,7 @@ import {
   resolveRegistryUtilities,
 } from "../registry/resolver.js"
 import { checkItemUpdate } from "../install/update-engine.js"
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
 import { getRegistryProviderResult } from "../registry/provider.js"
 import { installStyles, updateUtilities } from "../install/installer.js"
 import {

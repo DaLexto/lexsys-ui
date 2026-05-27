@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
-import { fileExists } from "../core/fs.js"
-import { getCwd } from "../core/context.js"
+import { fileExists } from "../utils/fs.js"
+import { getCwd } from "../utils/context.js"
 
 export interface LexsysPathsConfig {
   components: string

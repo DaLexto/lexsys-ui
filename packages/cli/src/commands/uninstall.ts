@@ -6,7 +6,7 @@ import {
   uninstallStyles,
   uninstallUtilities,
 } from "../install/installer.js"
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
 import {
   collectDependencies,
   collectStyles,

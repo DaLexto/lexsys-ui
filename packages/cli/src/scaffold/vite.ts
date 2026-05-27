@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { basename, dirname, join } from "node:path"
-import { fileExists } from "../core/fs.js"
+import { fileExists } from "../utils/fs.js"
 
 const viteConfig = `import { fileURLToPath, URL } from "node:url"
 import { defineConfig } from "vite"

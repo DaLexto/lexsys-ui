@@ -4,7 +4,7 @@
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M3 and M5–M7 **shipped**; UI
 composition pilots **shipped** (PR #28); M10 release readiness **shipped**
-(`0.0.1` @ `next`, 2026-05-24); M4 **in progress** (mostly shipped; open: M4.5 flag short aliases, M4.10 `src/core/` cleanup); blocks/templates optimization
+(`0.0.1` @ `next`, 2026-05-24); M4 **shipped** (entry + CLI DX — all sub-items complete); blocks/templates optimization
 **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
@@ -133,16 +133,16 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 
 ### Phase overview
 
-| Phase | Name                     | Status      | Outcome (summary)                                                                            | Primary docs                          |
-| ----- | ------------------------ | ----------- | -------------------------------------------------------------------------------------------- | ------------------------------------- |
-| M1    | Infra and DX             | shipped     | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment               | SCRIPTS.md, DEPLOY.md                 |
-| M2    | Quality and verification | shipped     | Tier 2 tests, playground build CI, consumer sandbox checklist                                | TESTING.md, AGENTS.md                 |
-| M3    | Product and architecture | shipped     | UI render 32/32, Next init, remote registry contract, governance + shadow.inner              | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
-| M4    | Entry + CLI DX           | in progress | `lexsys` npm entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                     |
-| M5    | Advanced CI              | shipped     | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                          | SCRIPTS.md, `.github/workflows/`      |
-| M6    | Dependency hygiene       | shipped     | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                               | DEPLOY.md                             |
-| M7    | Maintainer and tooling   | shipped     | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache         | AGENTS.md, `.agents/skills/`          |
-| M10   | Release readiness        | shipped     | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later   | DEPLOY.md                             |
+| Phase | Name                     | Status  | Outcome (summary)                                                                                 | Primary docs                          |
+| ----- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment                    | SCRIPTS.md, DEPLOY.md                 |
+| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                                     | TESTING.md, AGENTS.md                 |
+| M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner                   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
+| M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                     |
+| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`      |
+| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                             |
+| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.agents/skills/`          |
+| M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
 
 ### M1 — Infra and DX
 

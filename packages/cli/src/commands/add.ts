@@ -27,7 +27,7 @@ import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
 } from "../registry/types.js"
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../core/flags.js"
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
 
 const promptSelectItems = async (): Promise<string[]> => {
   const response: unknown = await prompts({

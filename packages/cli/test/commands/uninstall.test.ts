@@ -8,7 +8,7 @@ import {
 } from "node:fs/promises"
 import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
-import { setCwd } from "../../src/core/context.js"
+import { setCwd } from "../../src/utils/context.js"
 import { runAdd } from "../../src/commands/add.js"
 import { runUninstall } from "../../src/commands/uninstall.js"
 
