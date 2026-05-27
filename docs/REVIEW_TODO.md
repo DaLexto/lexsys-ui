@@ -13,7 +13,7 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M3, M5–M7, **R0**, and **M10** shipped; **M4 shipped** (entry + CLI DX — all sub-items complete).
+**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M4, M5–M7, **R0**, and **M10** shipped; **M8 shipped** (CLI cleanup and deduplication — all sub-items complete).
 
 | Phase   | Focus                                                               | Status  |
 | ------- | ------------------------------------------------------------------- | ------- |
@@ -26,6 +26,7 @@ that are not yet done.
 | M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
+| M8      | CLI cleanup and deduplication                                       | shipped |
 | M10     | Release readiness — first npm `0.0.1` @ `next`                      | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
@@ -53,6 +54,21 @@ Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview). Most sub-items shipped 
 | M4.11 | `packages/cli/CHANGELOG.md`                                                                     | shipped |
 | M4.12 | `publish:release` + root scripts updated for entry package                                      | shipped |
 | M4.13 | Docs update — README, CLI.md, DEPLOY.md                                                         | shipped |
+
+---
+
+## M8 — CLI Cleanup and Deduplication (in progress)
+
+Detail: [ROADMAP.md § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
+
+| Item | Description                                                                                         | Status  |
+| ---- | --------------------------------------------------------------------------------------------------- | ------- |
+| M8.1 | Remove dead exports (`writeFileIfMissing`, `resolveComponentsRoot`) + unreachable `index.ts` footer | shipped |
+| M8.2 | Implement `--yes` properly in `add.ts` and `update.ts` (was no-op stub)                             | shipped |
+| M8.3 | Merge `install/results.ts` + `install/uninstall-results.ts` into generic module                     | shipped |
+| M8.4 | Unify `RegistryCommandResult` / `RegistryProviderResult` + dedupe remote fetch logic                | shipped |
+| M8.5 | Extract shared `prompts` multiselect helper to `utils/prompt.ts`                                    | shipped |
+| M8.6 | Extract shared scaffold helpers to `scaffold/scaffold-helpers.ts`                                   | shipped |
 
 ---
 

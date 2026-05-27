@@ -28,7 +28,7 @@ import type { InstallResourceResult } from "./results.js"
 import {
   createUninstallResourceResult,
   type UninstallResourceResult,
-} from "./uninstall-results.js"
+} from "./results.js"
 
 export const getRegistryTemplatePath = (templatePath: string): string => {
   const templateUrl = import.meta.resolve(

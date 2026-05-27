@@ -141,5 +141,3 @@ try {
 } catch (error) {
   handleCliError(error)
 }
-runHelp()
-process.exit(1)

@@ -1,4 +1,3 @@
-import prompts from "prompts"
 import type { RegistryItem } from "@dalexto/lexsys-registry"
 import { loadConfig, saveConfig } from "../config/config.js"
 import {
@@ -7,6 +6,7 @@ import {
   uninstallUtilities,
 } from "../install/installer.js"
 import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
+import { promptMultiselect } from "../utils/prompt.js"
 import {
   collectDependencies,
   collectStyles,
@@ -26,7 +26,7 @@ import {
   hasUninstallConflicts,
   mergeUninstallResults,
   printUninstallSummary,
-} from "../install/uninstall-results.js"
+} from "../install/results.js"
 
 const normalizeInstalledKey = (name: string): string => {
   return name.toLowerCase()
@@ -103,21 +103,15 @@ export const runUninstall = async (args: string[]): Promise<void> => {
       return
     }
 
-    const response: unknown = await prompts({
-      type: "multiselect",
-      name: "components",
-      message: "Select components to uninstall",
-      choices: installedNames.map((name) => ({ title: name, value: name })),
-      min: 1,
-    })
-
-    const selected = (response as { components?: unknown }).components
-
-    if (!Array.isArray(selected) || !selected.length) return
-
-    targetArgs.push(
-      ...selected.filter((c): c is string => typeof c === "string"),
+    const selected = await promptMultiselect(
+      "Select components to uninstall",
+      installedNames.map((name) => ({ title: name, value: name })),
+      { min: 1 },
     )
+
+    if (!selected.length) return
+
+    targetArgs.push(...selected)
   }
 
   const config = await loadConfig()
