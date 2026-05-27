@@ -5,7 +5,7 @@ import {
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaViewport,
-} from "@lexsys/ui"
+} from "@dalexto/lexsys-ui"
 
 const scrollAreaLines = [
   "Primitives hold raw values only.",

@@ -1,4 +1,4 @@
-import type { RegistryItem, RegistryStyle } from "@lexsys/registry"
+import type { RegistryItem, RegistryStyle } from "@dalexto/lexsys-registry"
 
 export interface RemoteRegistryManifest {
   version: string

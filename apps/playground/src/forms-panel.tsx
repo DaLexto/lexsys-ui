@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
-} from "@lexsys/ui"
+} from "@dalexto/lexsys-ui"
 
 interface FormsPanelProps {
   submittedFormValues: string

@@ -11,7 +11,7 @@
 ## Package Role
 
 `packages/cli` is the command-line installer. It reads registry metadata from
-`@lexsys/registry` and installs components, utilities, and styles into consumer
+`@dalexto/lexsys-registry` and installs components, utilities, and styles into consumer
 projects.
 
 This package owns:
@@ -24,10 +24,10 @@ This package owns:
 
 This package does not own:
 
-- registry item metadata (owned by `@lexsys/registry`)
-- install templates (owned by `@lexsys/registry/templates`)
-- design token source (owned by `@lexsys/tokens`)
-- component implementations (owned by `@lexsys/ui`)
+- registry item metadata (owned by `@dalexto/lexsys-registry`)
+- install templates (owned by `@dalexto/lexsys-registry/templates`)
+- design token source (owned by `@dalexto/lexsys-tokens`)
+- component implementations (owned by `@dalexto/lexsys-ui`)
 
 ---
 
@@ -106,5 +106,5 @@ pnpm cli:check
 
 ## Dependencies
 
-- `@lexsys/registry` — registry metadata and templates
+- `@dalexto/lexsys-registry` — registry metadata and templates
 - `prompts` — interactive CLI prompts

@@ -1,4 +1,4 @@
-# Changelog — @lexsys/ui
+# Changelog — @dalexto/lexsys-ui
 
 Pre-0.1.0 breaking changes from the UI package polish pass.
 

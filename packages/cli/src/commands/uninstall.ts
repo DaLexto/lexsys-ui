@@ -1,5 +1,5 @@
 import prompts from "prompts"
-import type { RegistryItem } from "@lexsys/registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry"
 import { loadConfig, saveConfig } from "../config/config.js"
 import {
   uninstallItemFiles,

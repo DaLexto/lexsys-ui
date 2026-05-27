@@ -151,7 +151,7 @@ Status: shipped
 #### M1.1 — Fix pnpm filter collision
 
 - **Problem:** Root workspace and CLI package shared the name `lexsys`; `pnpm --filter lexsys` matched both.
-- **Status (R0):** CLI npm name is `@lexsys/cli`; root stays `lexsys`. Root scripts use `pnpm --filter ./packages/cli …`.
+- **Status (R0):** CLI npm name is `@dalexto/lexsys-cli`; root stays `lexsys`. Root scripts use `pnpm --filter ./packages/cli …`.
 
 #### M1.2 — Add primary CI workflow
 
@@ -167,7 +167,7 @@ Status: shipped
 #### M1.4 — Trim redundant CLI check work
 
 - **Problem:** Turbo `check` already has `dependsOn: ["^build"]`, but CLI `check` also runs inline registry build.
-- **Target:** Remove inline `@lexsys/registry build` from CLI `check`; rely on turbo graph.
+- **Target:** Remove inline `@dalexto/lexsys-registry build` from CLI `check`; rely on turbo graph.
 - **Verification:** `pnpm --filter ./packages/cli check`.
 
 #### M1.5 — Docs and deploy contract cleanup
@@ -303,7 +303,7 @@ Status: shipped
 
 ### M10 — Release readiness
 
-Status: **shipped** (2026-05-24) — `@lexsys/cli@0.0.1` and `@lexsys/registry@0.0.1` on npm
+Status: **shipped** (2026-05-24) — `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm
 dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later milestone.
 
 **Publish-day checklist (canonical):** [DEPLOY.md § First release checklist](../operations/DEPLOY.md#first-release-checklist-001-next)
@@ -312,7 +312,7 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 
 #### M10.0 — Publish scope and version lane
 
-- npm packages: `@lexsys/cli` + `@lexsys/registry` only (not `@lexsys/ui`, not `@lexsys/tokens`)
+- npm packages: `@dalexto/lexsys-cli` + `@dalexto/lexsys-registry` only (not `@dalexto/lexsys-ui`, not `@dalexto/lexsys-tokens`)
 - Version lane: `0.0.x` @ `next` → `0.1.0` @ `latest`
 
 #### M10.1 — CHANGELOG
@@ -326,13 +326,13 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 
 #### M10.3 — Publish automation
 
-- Changesets fixed group (`@lexsys/cli` + `@lexsys/registry`).
+- Changesets fixed group (`@dalexto/lexsys-cli` + `@dalexto/lexsys-registry`).
 - GitHub Actions publish workflow; `NPM_TOKEN`; dist-tag **`next`**.
 
 #### M10.4 — First publish
 
 - Follow [DEPLOY.md § First release checklist](../operations/DEPLOY.md#first-release-checklist-001-next).
-- Post-publish: `npx @lexsys/cli@next init vite` smoke.
+- Post-publish: `npx @dalexto/lexsys-cli@next init vite` smoke.
 
 **Phase PR:** `chore(m10): release readiness` (may split into M10.0–M10.3 PRs)
 
@@ -350,7 +350,7 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 ### PR sequence
 
 **Delivered (2026-05-22):** Phase 0 + **M1, M2, M5, M6, M7** shipped in one consolidated PR
-[#18](https://github.com/DaLexto/lexsys/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
+[#18](https://github.com/DaLexto/lexsys-ui/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
 separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. **M10 shipped** (2026-05-24). M4 remains planned.
 
 | PR      | Phase | Title sketch                                        | Delivery                              |
@@ -448,7 +448,7 @@ Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composit
 
 ## M11 — Compound-first API
 
-**Status:** shipped on `dev` (merged [PR #34](https://github.com/DaLexto/lexsys/pull/34), 2026-05-24)
+**Status:** shipped on `dev` (merged [PR #34](https://github.com/DaLexto/lexsys-ui/pull/34), 2026-05-24)
 
 **Goal:** 100% compound-first installable API — named slot parts, no config blobs
 (`items[]`, `mode`-driven auto-fields), full Base UI part re-exports where

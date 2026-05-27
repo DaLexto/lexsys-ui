@@ -1,4 +1,4 @@
-# @lexsys/ui
+# @dalexto/lexsys-ui
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Package README
@@ -22,10 +22,10 @@ This package owns:
 
 This package does not own:
 
-- what gets installed into consumer projects (owned by `@lexsys/registry`)
+- what gets installed into consumer projects (owned by `@dalexto/lexsys-registry`)
 - CLI install behavior (owned by `packages/cli`)
-- design token source or generated CSS (owned by `@lexsys/tokens`)
-- registry item metadata (owned by `@lexsys/registry`)
+- design token source or generated CSS (owned by `@dalexto/lexsys-tokens`)
+- registry item metadata (owned by `@dalexto/lexsys-registry`)
 
 Components in this package are the source of truth for component behavior,
 variants, and types. Registry templates are synced copies — they are not
@@ -107,11 +107,11 @@ components/
 All component symbols and their prop types are re-exported from `src/index.ts`:
 
 ```ts
-import { Button } from "@lexsys/ui"
-import type { ButtonProps } from "@lexsys/ui"
+import { Button } from "@dalexto/lexsys-ui"
+import type { ButtonProps } from "@dalexto/lexsys-ui"
 ```
 
-Do not import directly from `@lexsys/ui/src/` or `@lexsys/ui/dist/`.
+Do not import directly from `@dalexto/lexsys-ui/src/` or `@dalexto/lexsys-ui/dist/`.
 
 ---
 
@@ -148,9 +148,9 @@ Component variant tests live in `test/components/<Name>/`.
 Public API surface test lives in `test/public-api.test.ts`.
 
 ```sh
-pnpm --filter @lexsys/ui test
-pnpm --filter @lexsys/ui audit
-pnpm --filter @lexsys/ui typecheck
+pnpm --filter @dalexto/lexsys-ui test
+pnpm --filter @dalexto/lexsys-ui audit
+pnpm --filter @dalexto/lexsys-ui typecheck
 ```
 
 ---

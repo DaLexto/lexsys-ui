@@ -1,5 +1,5 @@
 /**
- * Public entry point for @lexsys/registry.
+ * Public entry point for @dalexto/lexsys-registry.
  *
  * This package contains registry metadata used by the Lexsys CLI.
  */

@@ -170,7 +170,7 @@ Rules:
   `packages/ui/src/components/{primitives,blocks,templates}/` via
   `pnpm registry:sync` (`sync-all-templates.mjs`).
 - Style templates (`tokens.css`, `theme.css`) are generated copies of
-  `@lexsys/tokens` output.
+  `@dalexto/lexsys-tokens` output.
 - Templates MUST NOT be hand-edited. Overwrite via sync scripts only.
 - **Sync transforms (registry templates):**
   - `cn` / `mergeClassName` import paths → `@/lib/utils`
@@ -210,7 +210,7 @@ Sync commands: [SCRIPTS.md](../operations/SCRIPTS.md) (`registry:sync`, `registr
 The CLI resolves registry sources in this order:
 
 1. If `registryUrl` is set in `lexsys.config.json`, use the remote registry.
-2. Otherwise, use the local `@lexsys/registry` package (installed as a dependency).
+2. Otherwise, use the local `@dalexto/lexsys-registry` package (installed as a dependency).
 3. If `--no-fallback` is passed, only the explicitly selected source is used.
 
 The `lexsys registry --source` flag reports which source is active.
@@ -240,13 +240,13 @@ Valid `RegistryItemCategory` values:
 
 ## Ownership Boundaries
 
-| Concern                            | Owner                          |
-| ---------------------------------- | ------------------------------ |
-| Install metadata (what to install) | `packages/registry/src/items/` |
-| Install templates (files to copy)  | `packages/registry/templates/` |
-| Install behavior (how to install)  | `packages/cli/src/`            |
-| Component implementations          | `packages/ui/src/components/`  |
-| Token CSS artifacts                | `@lexsys/tokens` build output  |
+| Concern                            | Owner                                 |
+| ---------------------------------- | ------------------------------------- |
+| Install metadata (what to install) | `packages/registry/src/items/`        |
+| Install templates (files to copy)  | `packages/registry/templates/`        |
+| Install behavior (how to install)  | `packages/cli/src/`                   |
+| Component implementations          | `packages/ui/src/components/`         |
+| Token CSS artifacts                | `@dalexto/lexsys-tokens` build output |
 
 Do not add install logic to registry metadata. Do not add registry metadata
 rules to CLI code. Do not manually maintain templates.

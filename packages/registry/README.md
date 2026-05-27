@@ -1,4 +1,4 @@
-# @lexsys/registry
+# @dalexto/lexsys-registry
 
 **Audience:** Maintainers, contributors, and agents
 **Type:** Package README
@@ -21,9 +21,9 @@ This package owns:
 
 This package does not own:
 
-- component reference implementations (owned by `@lexsys/ui`)
+- component reference implementations (owned by `@dalexto/lexsys-ui`)
 - CLI install behavior (owned by `packages/cli`)
-- design token source or generated CSS (owned by `@lexsys/tokens`)
+- design token source or generated CSS (owned by `@dalexto/lexsys-tokens`)
 
 ---
 
@@ -50,7 +50,8 @@ Types exported: `RegistryFile`, `RegistryItem`, `RegistryItemCategory`,
 Templates are resolved via the `./templates/*` export path, not the `.` entry:
 
 ```ts
-import.meta.resolve("@lexsys/registry/templates/components/Button/Button.tsx")
+import.meta
+  .resolve("@dalexto/lexsys-registry/templates/components/Button/Button.tsx")
 ```
 
 ---
@@ -63,7 +64,7 @@ Each item in `src/items/` declares the full install contract (required fields, o
 
 ## Templates
 
-Installable templates live under `packages/registry/templates/` — component files, shared utilities, and token CSS styles. Component templates are synced from `packages/ui/src/components`; style templates from `@lexsys/tokens` via `generate:styles`. Templates MUST NOT be manually edited.
+Installable templates live under `packages/registry/templates/` — component files, shared utilities, and token CSS styles. Component templates are synced from `packages/ui/src/components`; style templates from `@dalexto/lexsys-tokens` via `generate:styles`. Templates MUST NOT be manually edited.
 
 Template sync rules, the `cn` import transform, and drift validation: [docs/reference/registry/REGISTRY.md](../../docs/reference/registry/REGISTRY.md).
 

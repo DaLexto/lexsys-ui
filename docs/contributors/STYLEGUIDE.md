@@ -415,10 +415,10 @@ Each package exposes a public API through `package.json` `exports` only.
 
 Good:
 
-- `@lexsys/registry` exports registry metadata
-- CLI reads that metadata via `@lexsys/registry`
-- Templates are resolved via `@lexsys/registry/templates/*`
-- `@lexsys/tokens` exports CSS files and source API
+- `@dalexto/lexsys-registry` exports registry metadata
+- CLI reads that metadata via `@dalexto/lexsys-registry`
+- Templates are resolved via `@dalexto/lexsys-registry/templates/*`
+- `@dalexto/lexsys-tokens` exports CSS files and source API
 
 Bad:
 

@@ -3,7 +3,7 @@
 **Audience:** Users and contributors  
 **Type:** Package reference
 
-Entry point for the [Lexsys](https://github.com/DaLexto/lexsys) CLI — registry-first React UI framework.
+Entry point for the [Lexsys](https://github.com/DaLexto/lexsys-ui) CLI — registry-first React UI framework.
 
 ---
 
@@ -58,7 +58,7 @@ npx lexsys@latest --help
 
 ## How it works
 
-This package is a thin entry point. All logic lives in [`@lexsys/cli`](../cli/README.md).
+This package is a thin entry point. All logic lives in [`@dalexto/lexsys-cli`](../cli/README.md).
 
 ## Links
 

@@ -1,4 +1,4 @@
-import { Badge, Button } from "@lexsys/ui"
+import { Badge, Button } from "@dalexto/lexsys-ui"
 import { brandSwatches, semanticColorExamples } from "./examples"
 
 export const BrandPanel = () => {

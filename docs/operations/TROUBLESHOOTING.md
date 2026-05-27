@@ -225,7 +225,7 @@ failing token reference.
 
 ### Playground fails to build after token changes
 
-**Cause:** The playground depends on the built token CSS. If `@lexsys/tokens`
+**Cause:** The playground depends on the built token CSS. If `@dalexto/lexsys-tokens`
 has not been rebuilt after token source changes, the playground uses stale output.
 
 **Fix:**

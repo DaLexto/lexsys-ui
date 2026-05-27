@@ -1,4 +1,4 @@
-# @lexsys/tokens
+# @dalexto/lexsys-tokens
 
 Design token source, validation, resolution, and generated style output package for Lexsys.
 
@@ -6,7 +6,7 @@ This package owns the token system implementation. It does not own component ren
 
 ## Purpose
 
-`@lexsys/tokens` is responsible for:
+`@dalexto/lexsys-tokens` is responsible for:
 
 - defining token authoring files
 - validating token structure and references
@@ -279,7 +279,7 @@ pnpm tokens:generate:styles
 pnpm tokens:governance:report
 pnpm tokens:imports:clean
 # Optional dead-primitive stripping (omits unreached primitives from CSS/DTCG):
-pnpm --filter @lexsys/tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
+pnpm --filter @dalexto/lexsys-tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives
 ```
 
 Repository-level checks:

@@ -1,10 +1,10 @@
 import { CliError } from "../core/cli-error.js"
-import type { RegistryItem } from "@lexsys/registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry"
 import {
   registryUtilities as registryUtilityDefinitions,
   registryStyles as registryStyleDefinitions,
   validateRegistryItem,
-} from "@lexsys/registry"
+} from "@dalexto/lexsys-registry"
 import { getRegistryItems } from "./provider.js"
 import type { ResolvedRegistryStyle, ResolvedRegistryUtility } from "./types.js"
 import { findClosestValue } from "../utils/suggestions.js"

@@ -130,8 +130,8 @@ Target / planned:
 <!--
 Add exact commands you ran. Leave unrelated checks blank or delete those rows.
 Examples:
-- `pnpm --filter @lexsys/ui check`
-- `pnpm --filter @lexsys/tokens check`
+- `pnpm --filter @dalexto/lexsys-ui check`
+- `pnpm --filter @dalexto/lexsys-tokens check`
 - `pnpm exec prettier --check <changed-files>`
 -->
 

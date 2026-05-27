@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @source "../../../packages/ui/src";
 @source "../../../packages/ui/dist";
-@import "@lexsys/tokens/tokens.css";
-@import "@lexsys/tokens/theme.css";
+@import "@dalexto/lexsys-tokens/tokens.css";
+@import "@dalexto/lexsys-tokens/theme.css";
 
 :root {
   font-family:
