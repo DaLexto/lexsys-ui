@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 import {
-  selectItemVariants,
-  selectPopupVariants,
+  selectItemClasses,
+  selectPopupClasses,
   selectTriggerVariants,
 } from "../../../src/components/primitives/Select/Select.variants"
 
@@ -16,11 +16,11 @@ describe("Select variants", () => {
   })
 
   it("uses token-backed popup and item states", () => {
-    expect(selectPopupVariants()).toContain(
+    expect(selectPopupClasses).toContain(
       "bg-(--lsys-select-popup-background)",
     )
-    expect(selectPopupVariants()).toContain("min-w-[var(--anchor-width)]")
-    expect(selectItemVariants()).toContain(
+    expect(selectPopupClasses).toContain("min-w-[var(--anchor-width)]")
+    expect(selectItemClasses).toContain(
       "data-[selected]:bg-(--lsys-select-item-selected-background)",
     )
   })
