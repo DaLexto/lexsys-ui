@@ -5,6 +5,7 @@ description: >
   REVIEW_TODO execution queue, ROADMAP phase status, and domain docs. Use when
   asked what to work on next, project status, backlog triage, stale plans,
   unfinished foundations, or implementation vs planned vs deferred architecture.
+  Outputs three categories: nastavak (continuation), cleanup, improvements.
 ---
 
 # Project next steps
@@ -38,15 +39,32 @@ This skill owns **how to analyze** — do not copy queue rows into the skill fil
 | Order | Source                                                            | Extract                                                                          |
 | ----- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | 1     | `git status`, `git branch --show-current`, `git log -5 --oneline` | In-flight work, recent merges                                                    |
-| 2     | [docs/REVIEW_TODO.md](../../docs/REVIEW_TODO.md)                  | Execution queue, **in progress** / **partial** rows, Known Gaps, open P-sections |
+| 2     | [docs/REVIEW_TODO.md](../../docs/REVIEW_TODO.md)                  | Execution queue rows, **Known Gaps** table, open P-sections                      |
 | 3     | [docs/ROADMAP.md](../../docs/ROADMAP.md) header + phase tables    | Phase status; **Explicitly deferred**                                            |
 | 4     | Domain doc for the active track only                              | Owner from REVIEW_TODO link or [docs/INDEX.md](../../docs/INDEX.md)              |
-| 5     | [docs/INDEX.md](../../docs/INDEX.md)                              | Confirm canonical owner before deep-reading specs                                |
 
 Do **not** treat ROADMAP "Current State" or REVIEW_TODO "Current State" bullet
 lists as backlog — they describe **what already shipped**.
 
+**Primary signals to extract from REVIEW_TODO:**
+
+- Execution Queue table — rows with `in progress` or `planned`
+- Known Gaps table — always check; these are open regardless of M-phase status
+- P2 / P3 open bullets — product and architecture follow-ups
+
 Mechanics: [analysis-mechanics.md](./analysis-mechanics.md).
+
+---
+
+## Step 1b — Post-queue scenario (when execution queue is empty)
+
+When all M-phases and execution-queue rows are `shipped`, switch analysis to:
+
+1. **Known Gaps** — REVIEW_TODO Known Gaps table is the primary signal
+2. **Next release milestone** — REVIEW_TODO § M10 "Next milestone" line (e.g. `0.1.0` on `latest`)
+3. **Undefined phases** — ROADMAP phase table rows that are `reserved` / not yet defined
+4. **Catalog expansion** — new blocks/templates beyond the pilot set (see UI_CATALOG.md)
+5. **Cleanup signals** — run probes from [analysis-mechanics.md § Cleanup signal probes](./analysis-mechanics.md#cleanup-signal-probes) to find dead code / duplicates
 
 ---
 
@@ -81,6 +99,7 @@ Also check:
 
 - Catalog counts vs package READMEs and domain docs
 - REVIEW_TODO rows still open but marked shipped elsewhere (strikethrough / git history)
+- Stale version numbers in doc headers (e.g. ROADMAP status line)
 
 ---
 
@@ -115,31 +134,40 @@ Tie-breakers: [analysis-mechanics.md § Prioritization tie-breakers](./analysis-
 
 ## Step 5 — Output format
 
-Deliver a concise report:
+Always deliver output in **three categories**. Aim for 2–3 items per category.
 
 ```markdown
 ## Project snapshot
 
 - Branch: …
-- Active queue: … (from REVIEW_TODO execution table — cite row names)
+- Active queue: … (from REVIEW_TODO execution table — cite row names, or "empty" if all shipped)
 - Phase: … (from ROADMAP / REVIEW_TODO status columns)
+- Doc health: drift found yes/no — …
 
-## Maturity (by layer)
+## Predlozi za nastavak (continuation)
 
-| Layer | Status | Evidence |
-| tokens | … | … |
-| ui / registry / cli | … | … |
-| composition / other active track | … | REVIEW_TODO row refs |
+Items that directly continue the current trajectory — open Known Gaps, next release
+milestone, next undefined phase, or consumer sandbox verification.
 
-## Doc health
-
-- Drift found: yes/no — …
-
-## Recommended next steps (ordered)
-
-1. **[In progress | Planned]** … — why high leverage; owner doc link
+1. **[Category]** … — why high leverage; owner doc link
 2. …
-3. …
+
+## Predlozi za cleanup
+
+Tech debt, dead code, stale docs, inconsistencies. Use cleanup signal probes from
+[analysis-mechanics.md § Cleanup signal probes](./analysis-mechanics.md#cleanup-signal-probes)
+to find candidates.
+
+1. …
+2. …
+
+## Predlozi za improvements
+
+New features, catalog expansion, DX improvements, tooling enhancements — things that
+add value without being required for stability.
+
+1. …
+2. …
 
 ## Explicitly not now
 
@@ -147,8 +175,6 @@ Deliver a concise report:
 - Speculative: …
 - Already shipped (do not re-suggest): …
 ```
-
-Offer **2–4** concrete next steps max unless user asks for full backlog dump.
 
 ---
 
@@ -160,6 +186,7 @@ Offer **2–4** concrete next steps max unless user asks for full backlog dump.
 - Duplicate ROADMAP vision as urgent without REVIEW_TODO backing
 - Start dev servers as a "next step"
 - Create or update a local continuity file — session state is git + REVIEW_TODO
+- Mix all recommendations into one flat list — always use the three-category format
 
 ---
 

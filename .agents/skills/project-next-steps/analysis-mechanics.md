@@ -99,6 +99,36 @@ Probe only layers tied to candidate next steps.
 
 ---
 
+## Cleanup signal probes
+
+Run these when the execution queue is empty or when the user asks for cleanup suggestions.
+Interpret hits in context — not every match is a problem.
+
+```sh
+# Dead exports — symbols exported but never imported elsewhere in src/
+rg "^export const|^export function|^export interface|^export type" packages/cli/src/ --include="*.ts" -l
+
+# Unused imports (TypeScript will catch these too, but useful for quick scan)
+rg "^import.*from" packages/cli/src/ --include="*.ts" | rg "never used" || true
+
+# Stale version numbers in doc headers
+rg "0\.0\.[0-9]" docs/ROADMAP.md docs/REVIEW_TODO.md docs/operations/DEPLOY.md
+
+# In-progress sections that should be closed
+rg "\(in progress\)" docs/REVIEW_TODO.md docs/ROADMAP.md
+
+# Duplicate type names across packages/cli/src/
+rg "^(export )?(interface|type) [A-Z]" packages/cli/src/ --include="*.ts" -h | sort | uniq -d
+
+# Copy-paste patterns — similar function signatures in scaffold files
+rg "^const write|^export const write" packages/cli/src/scaffold/ --include="*.ts"
+
+# TODO / FIXME / HACK comments left in source
+rg "TODO|FIXME|HACK" packages/cli/src/ --include="*.ts"
+```
+
+---
+
 ## Prioritization tie-breakers (timeless)
 
 1. Finish **in progress** execution-queue rows before starting new tracks
