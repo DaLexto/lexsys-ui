@@ -54,6 +54,30 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ---
 
+## [0.0.2] - 2026-05-25
+
+Second early-preview release on dist-tag **`next`**. M4 (entry + CLI DX) and M8 (CLI cleanup) shipped.
+
+### Added
+
+- **`@dalexto/lexsys`** entry package — consumers now run `npx @dalexto/lexsys@next` instead of `npx @dalexto/lexsys-cli@next`
+- Command aliases: `create` (init), `a` (add), `up` (update), `ls` (list), `st` (status), `dr` (doctor), `rm` (uninstall), `reg` (registry), `cfg` (config)
+- Short flag aliases: `-d` (--dry-run), `-y` (--yes), `-f` (--force), `-j` (--json), `-s` (--summary), `-C` (--cwd)
+- Per-command `--help` / `-h` — each command now has its own focused help output
+- Guided interactive mode for `init`, `update`, and `uninstall` when run without arguments
+
+### Changed
+
+- Global help output redesigned — commands grouped by category (Scaffold / Components / Inspect / Meta) with aliases shown inline
+- Error output now uses a consistent `✗ message → suggestion` prefix across all commands; unknown commands include a "Did you mean?" hint
+
+### Notes
+
+- Rebranded npm scope from `lexsys` to `@dalexto/lexsys-*`; all packages re-published under the DaLexto org
+- `@dalexto/lexsys-ui` and `@dalexto/lexsys-tokens` remain reference-only; not published in this release
+
+---
+
 ## [0.0.1] - 2026-05-24
 
 First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli@next`).
@@ -82,5 +106,6 @@ First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys-cli@0.0.1...HEAD
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys-cli@0.0.2...HEAD
+[0.0.2]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys-cli@0.0.1...@dalexto/lexsys-cli@0.0.2
 [0.0.1]: https://www.npmjs.com/package/@dalexto/lexsys-cli/v/0.0.1
