@@ -35,12 +35,12 @@ Core invariants:
 
 ## Monorepo packages
 
-| Package             | npm name                             | Role                                                                                                                                   |
-| ------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `packages/tokens`   | `@dalexto/lexsys-tokens`             | Design token source of truth; resolver; CSS + DTCG generators                                                                          |
-| `packages/ui`       | `@dalexto/lexsys-ui`                 | Source/reference React components (not the final distributed form)                                                                     |
-| `packages/registry` | `@dalexto/lexsys-registry`           | Registry items, templates, utilities, styles, and metadata validator                                                                   |
-| `packages/cli`      | `@dalexto/lexsys-cli` (`lexsys` bin) | CLI installer; reads `@dalexto/lexsys-registry`; orchestrates install into consumer projects                                           |
+| Package             | npm name                             | Role                                                                                                                                     |
+| ------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/tokens`   | `@dalexto/lexsys-tokens`             | Design token source of truth; resolver; CSS + DTCG generators                                                                            |
+| `packages/ui`       | `@dalexto/lexsys-ui`                 | Source/reference React components (not the final distributed form)                                                                       |
+| `packages/registry` | `@dalexto/lexsys-registry`           | Registry items, templates, utilities, styles, and metadata validator                                                                     |
+| `packages/cli`      | `@dalexto/lexsys-cli` (`lexsys` bin) | CLI installer; reads `@dalexto/lexsys-registry`; orchestrates install into consumer projects                                             |
 | `apps/playground`   | `@dalexto/lexsys-playground`         | Monorepo smoke app — workspace `@dalexto/lexsys-ui`; not the consumer install path. See [Testing docs](TESTING.md#verification-surfaces) |
 
 Consumer validation (CLI install path, real layouts, brand/theme UX) happens outside the monorepo — sandbox or SaaS — not in playground.
@@ -308,14 +308,14 @@ invocation.
 
 ## Related documents
 
-| Document                                       | Owns                                                          |
-| ---------------------------------------------- | ------------------------------------------------------------- |
-| [Doc index](INDEX.md)                           | Documentation routing hub — which doc owns which topic        |
-| [Tokens reference](TOKENS.md)                         | Token layer rules, resolver, CSS generation, validation       |
+| Document                                    | Owns                                                          |
+| ------------------------------------------- | ------------------------------------------------------------- |
+| [Doc index](INDEX.md)                       | Documentation routing hub — which doc owns which topic        |
+| [Tokens reference](TOKENS.md)               | Token layer rules, resolver, CSS generation, validation       |
 | [Resolver evolution](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work   |
-| [CLI reference](CLI.md)                               | Full CLI command reference, flags, config options             |
-| [Component style guide](STYLEGUIDE.md)                 | Component naming, file layout, CSS class conventions          |
-| [Style guide](STYLE.md)                           | Coding style, TypeScript, React, import/export rules          |
-| [Deploy guide](DEPLOY.md)                         | Build pipeline, publish-readiness, artifact contract          |
+| [CLI reference](CLI.md)                     | Full CLI command reference, flags, config options             |
+| [Component style guide](STYLEGUIDE.md)      | Component naming, file layout, CSS class conventions          |
+| [Style guide](STYLE.md)                     | Coding style, TypeScript, React, import/export rules          |
+| [Deploy guide](DEPLOY.md)                   | Build pipeline, publish-readiness, artifact contract          |
 | [UI composition](UI_COMPOSITION.md)         | UI composition model, layer rules, monorepo vs consumer paths |
-| [AGENTS.md](../AGENTS.md)                      | Agent routing, guardrails, skills index (not domain specs)    |
+| [AGENTS.md](../AGENTS.md)                   | Agent routing, guardrails, skills index (not domain specs)    |

@@ -34,10 +34,10 @@ Layer folders: `primitives/`, `blocks/`, `templates/`.
 
 ## What's in this skill
 
-| Detail file | Covers |
-| ----------- | ------ |
+| Detail file                    | Covers                                                                                          |
+| ------------------------------ | ----------------------------------------------------------------------------------------------- |
 | [component.md](./component.md) | Create / edit / delete procedure, primitive checklist, block/template checklist, post-edit gate |
-| [tests.md](./tests.md) | Test types, file locations, `testCssVarPrefix`, render + variant test patterns |
+| [tests.md](./tests.md)         | Test types, file locations, `testCssVarPrefix`, render + variant test patterns                  |
 
 ---
 

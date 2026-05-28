@@ -30,9 +30,9 @@ packages/registry/
 
 **`src/items/` rules — primitives vs blocks differ:**
 
-| Layer | `src/items/<name>.ts` created by |
-|-------|----------------------------------|
-| Primitives | `pnpm registry:sync` auto-scaffolds if missing (`type: "component"`, auto-category, `version: "0.0.1"`). Review and adjust after sync. |
+| Layer              | `src/items/<name>.ts` created by                                                                                                                                      |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Primitives         | `pnpm registry:sync` auto-scaffolds if missing (`type: "component"`, auto-category, `version: "0.0.1"`). Review and adjust after sync.                                |
 | Blocks / templates | **Must be written manually.** `pnpm registry:sync` does NOT create block item files. Set `type: "block"`, correct `category`, and all `registryDependencies` by hand. |
 
 ## Do not
