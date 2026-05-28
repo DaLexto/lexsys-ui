@@ -242,7 +242,7 @@ Optional follow-ups after Phases 1–10 (detail in
 
 | Gap                                    | Notes                                                                                                                                         |
 | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [TESTING.md](../operations/TESTING.md). |
+| Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [TESTING.md](./operations/TESTING.md). |
 | Remote registry signatures / allowlist | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                          |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.
