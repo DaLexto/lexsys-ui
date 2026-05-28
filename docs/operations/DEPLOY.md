@@ -186,11 +186,12 @@ of `@dalexto/lexsys-tokens`.
 
 ## Version lane
 
-| Milestone  | Version | npm dist-tag | Meaning                                      |
-| ---------- | ------- | ------------ | -------------------------------------------- |
-| First npm  | `0.0.1` | `next`       | Early preview; breaking changes still likely |
-| Iterations | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line       |
-| MVP stable | `0.1.0` | `latest`     | Public MVP commitment — future milestone     |
+| Milestone     | Version | npm dist-tag | Meaning                                      |
+| ------------- | ------- | ------------ | -------------------------------------------- |
+| First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical      |
+| Current       | `0.0.2` | `next`       | Early preview; breaking changes still likely |
+| Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line       |
+| MVP stable    | `0.1.0` | `latest`     | Public MVP commitment — future milestone     |
 
 Install for early preview:
 
@@ -203,7 +204,7 @@ decision and DEPLOY.md is updated.
 
 ---
 
-## M4 implementation track (in progress)
+## M4 implementation track (shipped)
 
 | Step | Deliverable                                                            | Status  |
 | ---- | ---------------------------------------------------------------------- | ------- |
@@ -257,7 +258,7 @@ phases 2–5; skip phase 0 once M10 tooling is shipped.
 
 ### Phase 1 — npm / GitHub setup (one-time)
 
-- [x] npm org `@lexsys` with publish access for `@dalexto/lexsys-cli` and `@dalexto/lexsys-registry`
+- [x] npm org `@dalexto` with publish access for `@dalexto/lexsys-cli` and `@dalexto/lexsys-registry`
 - [x] GitHub secret `NPM_TOKEN` (Granular token, bypass 2FA)
 - [x] Dist-tag policy: **`next`** for `0.0.x` (prefer `@next` for consumers)
 

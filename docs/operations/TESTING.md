@@ -228,7 +228,7 @@ Checklist after CLI or registry changes:
 4. Spot-check installed paths under `paths.components`, `lexsys.config.json` (`paths.*` schema), and token CSS imports.
 5. If templates or styles changed: confirm `styles/tokens.css` and `styles/theme.css` update as expected.
 
-**Post-publish npm smoke** (`npx @dalexto/lexsys-cli@next init vite …`): CLI scaffolds with
+**Post-publish npm smoke** (`npx @dalexto/lexsys@next init vite …`): CLI scaffolds with
 **npm** — use **`npm run build`** only ([DEPLOY.md § Phase 5](../operations/DEPLOY.md#phase-5--post-publish-smoke-real-consumer)).
 
 **Blocks/templates checklist** (when FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, or DashboardShell change):
