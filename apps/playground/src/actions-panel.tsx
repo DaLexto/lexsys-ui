@@ -1,85 +1,112 @@
-import { useState } from "react"
-import { Button, Input } from "@dalexto/lexsys-ui"
-import { buttonExamples, inputExamples } from "./examples"
+import { Button, Toggle, ToggleGroup } from "@dalexto/lexsys-ui"
+
+const buttonVariants = [
+  "primary",
+  "secondary",
+  "ghost",
+  "outline",
+  "danger",
+] as const
+
+const buttonSizes = ["xs", "sm", "md", "lg", "xl"] as const
 
 export const ActionsPanel = () => {
-  const [inputValue, setInputValue] = useState("Lexsys Input")
-
   return (
     <>
       <section className="component-panel" aria-labelledby="button-title">
         <div className="panel-header">
           <div>
             <p className="playground-label">Button</p>
-            <h2 id="button-title">Variants and states</h2>
+            <h2 id="button-title">Variants × sizes matrix</h2>
           </div>
         </div>
 
-        <div className="button-board">
-          {buttonExamples.map((example) => (
-            <article className="button-row" key={example.label}>
-              <span>{example.label}</span>
-              <Button {...example.props} />
-            </article>
+        <div className="btn-matrix">
+          <div className="btn-matrix-head">
+            <div />
+            {buttonSizes.map((s) => (
+              <div key={s}>
+                <code>{s}</code>
+              </div>
+            ))}
+          </div>
+
+          {buttonVariants.map((v) => (
+            <div className="btn-matrix-row" key={v}>
+              <code className="btn-matrix-label">{v}</code>
+              {buttonSizes.map((s) => (
+                <div key={s} className="btn-matrix-cell">
+                  <Button variant={v} size={s}>
+                    Action
+                  </Button>
+                </div>
+              ))}
+            </div>
           ))}
+
+          <div className="btn-matrix-row">
+            <code className="btn-matrix-label">loading</code>
+            {buttonSizes.map((s) => (
+              <div key={s} className="btn-matrix-cell">
+                <Button size={s} isLoading>
+                  Loading
+                </Button>
+              </div>
+            ))}
+          </div>
+
+          <div className="btn-matrix-row">
+            <code className="btn-matrix-label">disabled</code>
+            {buttonSizes.map((s) => (
+              <div key={s} className="btn-matrix-cell">
+                <Button size={s} disabled>
+                  Disabled
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="component-panel" aria-labelledby="input-title">
+      <section className="component-panel" aria-labelledby="toggle-title">
         <div className="panel-header">
           <div>
-            <p className="playground-label">Input</p>
-            <h2 id="input-title">Sizes and states</h2>
+            <p className="playground-label">Toggle / ToggleGroup</p>
+            <h2 id="toggle-title">Toggle and ToggleGroup sizes</h2>
           </div>
         </div>
 
-        <div className="input-board">
-          {inputExamples.map((example) => (
-            <article className="input-row" key={example.label}>
-              <span>{example.label}</span>
-              <Input {...example.props} />
-            </article>
-          ))}
-        </div>
+        <div className="control-stack">
+          <div className="sizes-control-row">
+            {(["sm", "md", "lg"] as const).map((size) => (
+              <div key={size} className="sizes-control-item">
+                <Toggle size={size} defaultPressed={size === "md"}>
+                  Toggle {size}
+                </Toggle>
+                <code className="sizes-scale-label">{size}</code>
+              </div>
+            ))}
+          </div>
 
-        <div className="input-example-grid">
-          <article className="input-example">
-            <label htmlFor="controlled-input">Controlled</label>
-            <Input
-              id="controlled-input"
-              value={inputValue}
-              onValueChange={setInputValue}
-              placeholder="Type a value"
-            />
-            <p>{inputValue || "Empty value"}</p>
-          </article>
-
-          <article className="input-example">
-            <label htmlFor="state-input">State className</label>
-            <Input
-              id="state-input"
-              defaultValue="Focus or edit me"
-              className={(state: { dirty?: boolean; focused?: boolean }) =>
-                state.focused
-                  ? "border-(--lex-input-focus-border-color) ring-(length:--lex-input-focus-ring-width) ring-(--lex-input-focus-ring-color) ring-offset-(length:--lex-input-focus-ring-offset) ring-offset-(--lex-input-focus-ring-offset-color)"
-                  : state.dirty
-                    ? "border-(--lex-brand-color-accent-base)"
-                    : undefined
-              }
-            />
-            <p>Focus and dirty state flow through Base UI.</p>
-          </article>
-
-          <article className="input-example">
-            <label htmlFor="render-input">Render prop</label>
-            <Input
-              id="render-input"
-              defaultValue="Custom render element"
-              render={<input data-render-mode="custom" />}
-              className="font-mono"
-            />
-            <p>Lexsys classes merge into Base UI render output.</p>
-          </article>
+          <div className="control-stack">
+            {(["sm", "md", "lg"] as const).map((size) => (
+              <ToggleGroup
+                key={size}
+                defaultValue={["preview"]}
+                aria-label={`View mode ${size}`}
+              >
+                <Toggle size={size} value="code">
+                  Code
+                </Toggle>
+                <Toggle size={size} value="preview">
+                  Preview
+                </Toggle>
+                <Toggle size={size} value="docs">
+                  Docs
+                </Toggle>
+              </ToggleGroup>
+            ))}
+          </div>
         </div>
       </section>
     </>

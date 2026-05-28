@@ -52,3 +52,4 @@ export interface CardDescriptionProps extends Omit<
 
 export type CardContentProps = CardSectionProps
 export type CardFooterProps = CardSectionProps
+export type CardActionProps = CardSectionProps

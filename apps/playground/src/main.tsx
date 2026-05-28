@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom/client"
 import { Button } from "@dalexto/lexsys-ui"
 import { BrandPanel } from "./brand-panel"
-import { LayoutPanel } from "./layout-panel"
+import { SizesPanel } from "./sizes-panel"
 import { ActionsPanel } from "./actions-panel"
 import { FormsPanel } from "./forms-panel"
-import { InteractionsPanel } from "./interactions-panel"
 import { OverlaysPanel } from "./overlays-panel"
 import { SurfacesPanel } from "./surfaces-panel"
-import { SizesPanel } from "./sizes-panel"
+import { InteractionsPanel } from "./interactions-panel"
+import { BlocksPanel } from "./blocks-panel"
 import "./styles.css"
 
 type CategoryEntry = {
@@ -19,8 +19,6 @@ type CategoryEntry = {
 
 const App = () => {
   const [themeMode, setThemeMode] = useState<"light" | "dark">("light")
-  const [submittedFormValues, setSubmittedFormValues] =
-    useState("Not submitted")
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", themeMode === "dark")
@@ -29,22 +27,12 @@ const App = () => {
   const categories: CategoryEntry[] = [
     { id: "category-brand", label: "Brand", render: () => <BrandPanel /> },
     { id: "category-sizes", label: "Sizes", render: () => <SizesPanel /> },
-    { id: "category-layout", label: "Layout", render: () => <LayoutPanel /> },
     {
       id: "category-actions",
       label: "Actions",
       render: () => <ActionsPanel />,
     },
-    {
-      id: "category-forms",
-      label: "Forms",
-      render: () => (
-        <FormsPanel
-          submittedFormValues={submittedFormValues}
-          onSubmittedFormValuesChange={setSubmittedFormValues}
-        />
-      ),
-    },
+    { id: "category-forms", label: "Forms", render: () => <FormsPanel /> },
     {
       id: "category-overlays",
       label: "Overlays",
@@ -59,6 +47,11 @@ const App = () => {
       id: "category-interactions",
       label: "Interactions",
       render: () => <InteractionsPanel />,
+    },
+    {
+      id: "category-blocks",
+      label: "Blocks",
+      render: () => <BlocksPanel />,
     },
   ]
 
@@ -79,18 +72,14 @@ const App = () => {
               <Button
                 size="sm"
                 variant={themeMode === "light" ? "primary" : "secondary"}
-                onClick={() => {
-                  setThemeMode("light")
-                }}
+                onClick={() => setThemeMode("light")}
               >
                 Light
               </Button>
               <Button
                 size="sm"
                 variant={themeMode === "dark" ? "primary" : "secondary"}
-                onClick={() => {
-                  setThemeMode("dark")
-                }}
+                onClick={() => setThemeMode("dark")}
               >
                 Dark
               </Button>

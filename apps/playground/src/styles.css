@@ -850,3 +850,140 @@ body {
   background: var(--lex-color-background-surface);
   border: 1px solid var(--lex-color-border-default);
 }
+
+/* ─── Button matrix ────────────────────────────────────────────────────────── */
+
+.btn-matrix {
+  display: grid;
+  border: 1px solid var(--lex-color-border-default);
+  border-radius: var(--lex-radius-surface);
+  overflow: hidden;
+}
+
+.btn-matrix-head {
+  display: grid;
+  grid-template-columns: 90px repeat(5, 1fr);
+  padding: 8px 16px;
+  gap: 8px;
+  border-bottom: 1px solid var(--lex-color-border-default);
+  background: var(--lex-color-background-base);
+}
+
+.btn-matrix-head > * {
+  display: flex;
+  justify-content: center;
+  color: var(--lex-color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.btn-matrix-row {
+  display: grid;
+  grid-template-columns: 90px repeat(5, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--lex-color-border-default);
+  background: var(--lex-color-background-surface);
+}
+
+.btn-matrix-row:last-child {
+  border-bottom: 0;
+}
+
+.btn-matrix-label {
+  color: var(--lex-color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: ui-monospace, "Cascadia Code", "Fira Mono", monospace;
+}
+
+.btn-matrix-cell {
+  display: flex;
+  justify-content: center;
+}
+
+/* ─── Badge matrix ─────────────────────────────────────────────────────────── */
+
+.badge-matrix {
+  display: grid;
+  border: 1px solid var(--lex-color-border-default);
+  border-radius: var(--lex-radius-surface);
+  overflow: hidden;
+}
+
+.badge-matrix-head {
+  display: grid;
+  grid-template-columns: 80px repeat(2, 1fr);
+  padding: 8px 16px;
+  gap: 8px;
+  border-bottom: 1px solid var(--lex-color-border-default);
+  background: var(--lex-color-background-base);
+}
+
+.badge-matrix-head > * {
+  display: flex;
+  justify-content: center;
+  color: var(--lex-color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge-matrix-row {
+  display: grid;
+  grid-template-columns: 80px repeat(2, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--lex-color-border-default);
+  background: var(--lex-color-background-surface);
+}
+
+.badge-matrix-row:last-child {
+  border-bottom: 0;
+}
+
+.badge-matrix-label {
+  color: var(--lex-color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: ui-monospace, "Cascadia Code", "Fira Mono", monospace;
+}
+
+.badge-matrix-cell {
+  display: flex;
+  justify-content: center;
+}
+
+/* ─── Blocks panel ─────────────────────────────────────────────────────────── */
+
+.blocks-panel-frame {
+  height: 420px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--lex-color-border-default);
+  border-radius: var(--lex-radius-surface);
+}
+
+.blocks-panel-label {
+  margin: 0 0 8px;
+  color: var(--lex-color-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+/* ─── Responsive overrides for new layouts ─────────────────────────────────── */
+
+@media (width <= 40rem) {
+  .btn-matrix-head,
+  .btn-matrix-row {
+    grid-template-columns: 70px repeat(5, minmax(0, 1fr));
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .badge-matrix-head,
+  .badge-matrix-row {
+    padding: 6px 10px;
+  }
+}

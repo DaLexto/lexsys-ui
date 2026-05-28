@@ -160,12 +160,15 @@ export const SizesPanel = () => {
               <code className="sizes-scale-label sizes-scale-label--fixed">
                 {key} — {value}
               </code>
-              <div className="sizes-spacing-track">
-                <div
-                  className="sizes-spacing-bar"
-                  style={{ height: `var(--lex-spacing-${key})` }}
-                />
-              </div>
+              <div
+                style={{
+                  width: `calc(var(--lex-spacing-${key}) * 4)`,
+                  height: "16px",
+                  background: "var(--lex-action-primary-base)",
+                  borderRadius: "var(--lex-radius-control)",
+                  flexShrink: 0,
+                }}
+              />
             </div>
           ))}
         </div>

@@ -5,6 +5,7 @@
  */
 
 import type {
+  CardActionProps,
   CardContentProps,
   CardDescriptionProps,
   CardFooterProps,
@@ -13,6 +14,7 @@ import type {
   CardTitleProps,
 } from "./Card.types"
 import {
+  cardActionClassName,
   cardContentClassName,
   cardDescriptionClassName,
   cardFooterClassName,
@@ -82,4 +84,12 @@ const CardFooter = ({ ref, className, ...props }: CardFooterProps) => {
 
 CardFooter.displayName = "CardFooter"
 
-export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
+const CardAction = ({ ref, className, ...props }: CardActionProps) => {
+  return (
+    <div ref={ref} className={cn(cardActionClassName, className)} {...props} />
+  )
+}
+
+CardAction.displayName = "CardAction"
+
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardAction }
