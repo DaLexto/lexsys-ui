@@ -3,6 +3,7 @@ import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
 import { setCwd } from "../../src/utils/context.js"
 import { runAdd } from "../../src/commands/add.js"
+import { testCssVarPrefix as p } from "../config/prefix.js"
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
   await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
@@ -73,7 +74,7 @@ describe("runAdd", () => {
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-button-radius")
+    ).resolves.toContain(`--${p}-button-radius`)
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
     ).resolves.toContain("@theme inline")

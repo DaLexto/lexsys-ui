@@ -20,9 +20,9 @@ export const scrollAreaScrollbarVariants = cva(
     variants: {
       orientation: {
         vertical:
-          "h-full w-(--lsys-scroll-area-scrollbar-size) border-l border-l-transparent p-(--lsys-scroll-area-scrollbar-padding)",
+          "h-full w-(--lex-scroll-area-scrollbar-size) border-l border-l-transparent p-(--lex-scroll-area-scrollbar-padding)",
         horizontal:
-          "h-(--lsys-scroll-area-scrollbar-size) flex-col border-t border-t-transparent p-(--lsys-scroll-area-scrollbar-padding)",
+          "h-(--lex-scroll-area-scrollbar-size) flex-col border-t border-t-transparent p-(--lex-scroll-area-scrollbar-padding)",
       },
     },
     defaultVariants: {
@@ -32,7 +32,7 @@ export const scrollAreaScrollbarVariants = cva(
 )
 
 export const scrollAreaThumbVariants = cva(
-  "relative flex-1 rounded-(--lsys-scroll-area-thumb-radius) bg-(--lsys-scroll-area-thumb-background)",
+  "relative flex-1 rounded-(--lex-scroll-area-thumb-radius) bg-(--lex-scroll-area-thumb-background)",
 )
 
 export const scrollAreaCornerVariants = cva("bg-transparent")

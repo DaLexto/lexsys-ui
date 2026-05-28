@@ -3,15 +3,16 @@ import {
   fieldsetLegendVariants,
   fieldsetVariants,
 } from "../../../src/components/primitives/Fieldset/Fieldset.variants.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("fieldset variants", () => {
   test("uses token-backed classes for fieldset parts", () => {
-    expect(fieldsetVariants()).toContain("gap-(--lsys-fieldset-gap)")
+    expect(fieldsetVariants()).toContain(`gap-(--${p}-fieldset-gap)`)
     expect(fieldsetVariants()).toContain(
-      "border-(--lsys-fieldset-border-color)",
+      `border-(--${p}-fieldset-border-color)`,
     )
     expect(fieldsetLegendVariants()).toContain(
-      "text-(--lsys-fieldset-legend-foreground)",
+      `text-(--${p}-fieldset-legend-foreground)`,
     )
   })
 

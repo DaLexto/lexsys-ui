@@ -8,6 +8,7 @@ import { runInit } from "../../src/commands/init.js"
 import { runUninstall } from "../../src/commands/uninstall.js"
 import { runUpdate } from "../../src/commands/update.js"
 import { computeRegistryClosure } from "../../src/registry/closure.js"
+import { testCssVarPrefix as p } from "../config/prefix.js"
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
   await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
@@ -153,7 +154,7 @@ describe("install flow smoke", () => {
     ).resolves.toContain("plugins: [tailwindcss(), react()]")
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-alert-radius")
+    ).resolves.toContain(`--${p}-alert-radius`)
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
     ).resolves.toContain("--color-twix-background-base")
@@ -165,7 +166,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Button/Button.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-(--lsys-button-primary-background)")
+    ).resolves.toContain(`bg-(--${p}-button-primary-background)`)
     await expect(
       readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
@@ -174,7 +175,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Card/Card.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-(--lsys-card-background)")
+    ).resolves.toContain(`bg-(--${p}-card-background)`)
     await expect(
       readFile(join(tempDir, "src/components/ui/Card/Card.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
@@ -183,7 +184,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Badge/Badge.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-(--lsys-badge-neutral-background)")
+    ).resolves.toContain(`bg-(--${p}-badge-neutral-background)`)
     await expect(
       readFile(join(tempDir, "src/components/ui/Badge/Badge.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
@@ -192,7 +193,7 @@ describe("install flow smoke", () => {
         join(tempDir, "src/components/ui/Alert/Alert.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain("bg-(--lsys-alert-neutral-background)")
+    ).resolves.toContain(`bg-(--${p}-alert-neutral-background)`)
     await expect(
       readFile(join(tempDir, "src/components/ui/Alert/Alert.tsx"), "utf-8"),
     ).resolves.toContain("@/lib/utils")
@@ -250,34 +251,34 @@ describe("install flow smoke", () => {
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-switch-thumb-translate-md")
+    ).resolves.toContain(`--${p}-switch-thumb-translate-md`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-tabs-tab-active-background")
+    ).resolves.toContain(`--${p}-tabs-tab-active-background`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-field-control-background")
+    ).resolves.toContain(`--${p}-field-control-background`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-dialog-popup-background")
+    ).resolves.toContain(`--${p}-dialog-popup-background`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-fieldset-legend-foreground")
+    ).resolves.toContain(`--${p}-fieldset-legend-foreground`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-form-gap")
+    ).resolves.toContain(`--${p}-form-gap`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-textarea-min-height-md")
+    ).resolves.toContain(`--${p}-textarea-min-height-md`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-number-field-stepper-width-md")
+    ).resolves.toContain(`--${p}-number-field-stepper-width-md`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-popover-popup-background")
+    ).resolves.toContain(`--${p}-popover-popup-background`)
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-select-popup-background")
+    ).resolves.toContain(`--${p}-select-popup-background`)
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("twMerge")
@@ -314,7 +315,7 @@ describe("install flow smoke", () => {
           "utf-8",
         ),
       ).resolves.toContain(
-        `--lsys-${getVariantsTokenPrefix(item.canonicalName)}`,
+        `--lex-${getVariantsTokenPrefix(item.canonicalName)}`,
       )
     }
 
@@ -395,7 +396,7 @@ describe("install flow smoke", () => {
           ),
           "utf-8",
         ),
-      ).resolves.toMatch(/--lsys-|--color-twix-/)
+      ).resolves.toMatch(/--lex-|--color-twix-/)
     }
 
     const config = await readInstalledConfig(tempDir)
@@ -542,7 +543,7 @@ describe("install flow smoke", () => {
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-button-primary-background")
+    ).resolves.toContain(`--${p}-button-primary-background`)
 
     await runUninstall(["button", "card"])
 

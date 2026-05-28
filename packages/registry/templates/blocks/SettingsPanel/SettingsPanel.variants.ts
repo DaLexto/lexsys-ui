@@ -5,5 +5,5 @@
  */
 
 export const settingsPanelClasses = (): string => {
-  return "lsys-settings-panel w-full text-(--lsys-color-text-primary)"
+  return "lex-settings-panel w-full text-(--lex-color-text-primary)"
 }

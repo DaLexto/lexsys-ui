@@ -219,7 +219,7 @@ export const OverlaysPanel = () => {
                   </AlertDialogClose>
                   <Button
                     size="sm"
-                    className="bg-(--lsys-alert-dialog-trigger-background) text-(--lsys-alert-dialog-trigger-foreground) hover:bg-(--lsys-alert-dialog-trigger-hover-background)"
+                    className="bg-(--lex-alert-dialog-trigger-background) text-(--lex-alert-dialog-trigger-foreground) hover:bg-(--lex-alert-dialog-trigger-hover-background)"
                   >
                     Delete
                   </Button>
@@ -260,7 +260,7 @@ export const OverlaysPanel = () => {
 
         <DrawerProvider>
           <DrawerIndentBackground />
-          <DrawerIndent className="rounded-(--lsys-card-radius) border border-(--lsys-card-border-color) bg-(--lsys-card-background) p-(--lsys-card-padding)">
+          <DrawerIndent className="rounded-(--lex-card-radius) border border-(--lex-card-border-color) bg-(--lex-card-background) p-(--lex-card-padding)">
             <Drawer swipeDirection="right">
               <DrawerTrigger>Open inspector</DrawerTrigger>
               <DrawerPortal>

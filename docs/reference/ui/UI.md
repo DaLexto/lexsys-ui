@@ -170,17 +170,17 @@ export const componentVariants = cva("base classes", {
 })
 ```
 
-All variant classes MUST reference `--lsys-*` CSS custom properties via Tailwind
+All variant classes MUST reference `--lex-*` CSS custom properties via Tailwind
 v4 canonical CSS variable syntax, not hardcoded colors or spacing:
 
 ```ts
-"bg-(--lsys-button-primary-background)" // correct
-"ring-(length:--lsys-button-focus-ring-width)" // correct — token-backed focus ring
+"bg-(--lex-button-primary-background)" // correct
+"ring-(length:--lex-button-focus-ring-width)" // correct — token-backed focus ring
 "bg-orange-500" // incorrect
 ```
 
-Do not use the legacy `[var(--lsys-*)]` form or CSS variable alias utilities
-such as `(--lsys-a:--lsys-b)` — Tailwind v4 does not emit CSS for that pattern.
+Do not use the legacy `[var(--lex-*)]` form or CSS variable alias utilities
+such as `(--lex-a:--lex-b)` — Tailwind v4 does not emit CSS for that pattern.
 Use direct component token utilities instead (see `Badge.variants.ts`).
 
 ---

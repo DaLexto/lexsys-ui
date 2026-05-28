@@ -6,7 +6,7 @@
 
 import { cva } from "class-variance-authority"
 
-export const radioGroupVariants = cva("grid gap-(--lsys-radio-group-gap)", {
+export const radioGroupVariants = cva("grid gap-(--lex-radio-group-gap)", {
   variants: {
     orientation: {
       horizontal: "grid-flow-col justify-start",
@@ -20,19 +20,19 @@ export const radioGroupVariants = cva("grid gap-(--lsys-radio-group-gap)", {
 
 export const radioGroupItemVariants = cva(
   [
-    "inline-flex shrink-0 items-center justify-center rounded-(--lsys-radio-group-item-radius) border",
-    "border-(--lsys-radio-group-item-border-color) bg-(--lsys-radio-group-item-background) text-(--lsys-radio-group-item-foreground)",
-    "transition-colors duration-(--lsys-radio-group-transition-duration) ease-(--lsys-radio-group-transition-easing)",
-    "outline-none data-[checked]:border-(--lsys-radio-group-item-checked-border-color)",
-    "data-[focused]:ring-(length:--lsys-radio-group-focus-ring-width) data-[focused]:ring-(--lsys-radio-group-focus-ring-color) data-[focused]:ring-offset-(length:--lsys-radio-group-focus-ring-offset) data-[focused]:ring-offset-(--lsys-radio-group-focus-ring-offset-color)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lsys-opacity-disabled)",
+    "inline-flex shrink-0 items-center justify-center rounded-(--lex-radio-group-item-radius) border",
+    "border-(--lex-radio-group-item-border-color) bg-(--lex-radio-group-item-background) text-(--lex-radio-group-item-foreground)",
+    "transition-colors duration-(--lex-radio-group-transition-duration) ease-(--lex-radio-group-transition-easing)",
+    "outline-none data-[checked]:border-(--lex-radio-group-item-checked-border-color)",
+    "data-[focused]:ring-(length:--lex-radio-group-focus-ring-width) data-[focused]:ring-(--lex-radio-group-focus-ring-color) data-[focused]:ring-offset-(length:--lex-radio-group-focus-ring-offset) data-[focused]:ring-offset-(--lex-radio-group-focus-ring-offset-color)",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "size-(--lsys-radio-group-item-size-sm)",
-        md: "size-(--lsys-radio-group-item-size-md)",
-        lg: "size-(--lsys-radio-group-item-size-lg)",
+        sm: "size-(--lex-radio-group-item-size-sm)",
+        md: "size-(--lex-radio-group-item-size-md)",
+        lg: "size-(--lex-radio-group-item-size-lg)",
       },
     },
     defaultVariants: {
@@ -42,15 +42,15 @@ export const radioGroupItemVariants = cva(
 )
 
 export const radioGroupLabelVariants = cva(
-  "inline-flex items-center gap-(--lsys-radio-group-label-gap) text-(length:--lsys-radio-group-label-font-size) font-(--lsys-radio-group-label-font-weight) leading-(--lsys-radio-group-label-font-line-height) text-(--lsys-radio-group-label-foreground)",
+  "inline-flex items-center gap-(--lex-radio-group-label-gap) text-(length:--lex-radio-group-label-font-size) font-(--lex-radio-group-label-font-weight) leading-(--lex-radio-group-label-font-line-height) text-(--lex-radio-group-label-foreground)",
 )
 
 export const radioGroupIndicatorVariants = cva("rounded-full bg-current", {
   variants: {
     size: {
-      sm: "size-(--lsys-radio-group-indicator-size-sm)",
-      md: "size-(--lsys-radio-group-indicator-size-md)",
-      lg: "size-(--lsys-radio-group-indicator-size-lg)",
+      sm: "size-(--lex-radio-group-indicator-size-sm)",
+      md: "size-(--lex-radio-group-indicator-size-md)",
+      lg: "size-(--lex-radio-group-indicator-size-lg)",
     },
   },
   defaultVariants: {

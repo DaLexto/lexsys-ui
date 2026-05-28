@@ -12,6 +12,7 @@ import {
   installItemFiles,
   installStyles,
 } from "../../src/install/installer.js"
+import { testCssVarPrefix as p } from "../config/prefix.js"
 
 const config: LexsysConfig = {
   style: "default",
@@ -97,14 +98,14 @@ describe("installItemFiles", () => {
     await mkdir(targetDir, { recursive: true })
     await writeFile(
       targetPath,
-      `${generatedHeader}\n\n:root {\n  --lsys-button-radius: var(--lsys-radius-md);\n}\n`,
+      `${generatedHeader}\n\n:root {\n  --lex-button-radius: var(--lex-radius-md);\n}\n`,
       "utf-8",
     )
 
     const result = await installStyles([themeRegistryStyle], config)
 
     await expect(readFile(targetPath, "utf-8")).resolves.toContain(
-      "--lsys-badge-radius",
+      `--${p}-badge-radius`,
     )
     expect(result.updated).toContain(targetPath)
     expect(result.created.some((path) => path.endsWith("theme.css"))).toBe(true)

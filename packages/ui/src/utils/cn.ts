@@ -10,18 +10,18 @@ export const cn = (...inputs: ClassValue[]): string => {
  * Installed consumers import these from `@/lib/utils`.
  */
 export const disabledStateClasses = [
-  "disabled:pointer-events-none disabled:opacity-(--lsys-opacity-disabled)",
-  "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lsys-opacity-disabled)",
+  "disabled:pointer-events-none disabled:opacity-(--lex-opacity-disabled)",
+  "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lex-opacity-disabled)",
 ].join(" ")
 
 export const busyStateClasses =
-  "aria-busy:cursor-wait aria-busy:opacity-(--lsys-opacity-busy)"
+  "aria-busy:cursor-wait aria-busy:opacity-(--lex-opacity-busy)"
 
 export const invalidStateClasses = [
-  "aria-invalid:border-(--lsys-input-invalid-border-color)",
-  "aria-invalid:ring-(--lsys-input-invalid-ring-color)",
-  "data-[invalid]:border-(--lsys-input-invalid-border-color)",
-  "data-[invalid]:ring-(--lsys-input-invalid-ring-color)",
+  "aria-invalid:border-(--lex-input-invalid-border-color)",
+  "aria-invalid:ring-(--lex-input-invalid-ring-color)",
+  "data-[invalid]:border-(--lex-input-invalid-border-color)",
+  "data-[invalid]:ring-(--lex-input-invalid-ring-color)",
 ].join(" ")
 
 /**

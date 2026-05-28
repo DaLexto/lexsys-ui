@@ -32,7 +32,7 @@ export interface CssVarsGeneratorOptions {
    *
    * Example:
    * cssVarPrefix: "nx"
-   * --lsys-color-primary
+   * --lex-color-primary
    */
   cssVarPrefix: string
 

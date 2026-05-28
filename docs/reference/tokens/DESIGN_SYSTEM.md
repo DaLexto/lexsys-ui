@@ -230,7 +230,7 @@ References use `{dotted.path}` strings:
 } // primitive token
 ```
 
-The `--lsys-` prefix belongs to output generation only. Never use it in token
+The `--lex-` prefix belongs to output generation only. Never use it in token
 source files.
 
 ### Token types
@@ -254,7 +254,7 @@ and Lexsys aliases `fontSize`, `lineHeight`, `letterSpacing`.
 
 ### Variable naming
 
-CSS variables follow `--lsys-<token-path>` with dots replaced by dashes.
+CSS variables follow `--lex-<token-path>` with dots replaced by dashes.
 Group name overrides apply at generation time:
 
 | Source name       | CSS name segment |
@@ -265,9 +265,9 @@ Group name overrides apply at generation time:
 
 Examples:
 
-- `action.primary.base` → `--lsys-action-primary-base`
-- `radius.control` → `--lsys-radius-control`
-- `spacing.control.x.md` → `--lsys-space-control-x-md`
+- `action.primary.base` → `--lex-action-primary-base`
+- `radius.control` → `--lex-radius-control`
+- `spacing.control.x.md` → `--lex-space-control-x-md`
 
 ### Tailwind `@theme`
 
@@ -289,7 +289,7 @@ Tailwind utilities.
 
 Semantic groups without a mapped namespace (including `layout`, `action`,
 `border`, `elevation`, and `outline`) still appear in `@theme` as
-`--lsys-<token-path>` entries that reference the same `:root` CSS variables.
+`--lex-<token-path>` entries that reference the same `:root` CSS variables.
 They are not remapped into Tailwind namespaces such as `breakpoint` or
 `aspect`.
 
@@ -353,10 +353,10 @@ consumed as CSS variables:
 
 ```typescript
 // packages/ui/src/components/Button/Button.variants.ts
-primary: "bg-(--lsys-button-primary-background) text-(--lsys-button-primary-foreground)"
+primary: "bg-(--lex-button-primary-background) text-(--lex-button-primary-foreground)"
 ```
 
-Variable names for component tokens follow `--lsys-<component>-<property>`, where
+Variable names for component tokens follow `--lex-<component>-<property>`, where
 `<property>` maps from the component token path.
 
 Components MUST NOT use raw Tailwind palette values (e.g. `bg-orange-500`) for
@@ -382,12 +382,12 @@ Users MAY override CSS variables in their own stylesheet:
 ```css
 /* Override the primary action base color */
 :root {
-  --lsys-action-primary-base: #16a34a;
+  --lex-action-primary-base: #16a34a;
 }
 ```
 
 Component token variables cascade from semantic tokens, so overriding a semantic
-variable (`--lsys-action-primary-base`) affects all components that reference it.
+variable (`--lex-action-primary-base`) affects all components that reference it.
 
 ### Base UI
 
@@ -405,7 +405,7 @@ API shape.
 - Token layer model: primitives → brand → semantics → components
 - Active token groups (see tables above)
 - Theme selectors: `:root` (light), `.dark` (dark)
-- CSS variable prefix `--lsys-`
+- CSS variable prefix `--lex-`
 - Generated CSS output paths under `dist/` and `styles/`
 - `lexsys` preset / "Lexsys Default"
 - `default` CLI style alias → `lexsys` preset

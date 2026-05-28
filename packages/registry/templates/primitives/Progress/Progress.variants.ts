@@ -7,17 +7,17 @@
 import { cva } from "class-variance-authority"
 
 export const progressVariants = cva(
-  "grid gap-(--lsys-progress-gap) text-(length:--lsys-progress-label-font-size) leading-(--lsys-progress-label-font-line-height) text-(--lsys-progress-label-foreground)",
+  "grid gap-(--lex-progress-gap) text-(length:--lex-progress-label-font-size) leading-(--lex-progress-label-font-line-height) text-(--lex-progress-label-foreground)",
 )
 
 export const progressTrackVariants = cva(
-  "overflow-hidden rounded-(--lsys-progress-track-radius) bg-(--lsys-progress-track-background)",
+  "overflow-hidden rounded-(--lex-progress-track-radius) bg-(--lex-progress-track-background)",
   {
     variants: {
       size: {
-        sm: "h-(--lsys-progress-track-height-sm)",
-        md: "h-(--lsys-progress-track-height-md)",
-        lg: "h-(--lsys-progress-track-height-lg)",
+        sm: "h-(--lex-progress-track-height-sm)",
+        md: "h-(--lex-progress-track-height-md)",
+        lg: "h-(--lex-progress-track-height-lg)",
       },
     },
     defaultVariants: {
@@ -27,13 +27,13 @@ export const progressTrackVariants = cva(
 )
 
 export const progressIndicatorVariants = cva(
-  "h-full bg-(--lsys-progress-indicator-background) transition-transform duration-(--lsys-progress-transition-duration) ease-(--lsys-progress-transition-easing) data-[indeterminate]:animate-pulse",
+  "h-full bg-(--lex-progress-indicator-background) transition-transform duration-(--lex-progress-transition-duration) ease-(--lex-progress-transition-easing) data-[indeterminate]:animate-pulse",
 )
 
 export const progressLabelVariants = cva(
-  "text-(--lsys-progress-label-foreground)",
+  "text-(--lex-progress-label-foreground)",
 )
 
 export const progressValueVariants = cva(
-  "font-(--lsys-meter-value-font-weight) text-(--lsys-meter-value-foreground)",
+  "font-(--lex-meter-value-font-weight) text-(--lex-meter-value-foreground)",
 )

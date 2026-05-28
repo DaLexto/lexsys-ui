@@ -195,16 +195,16 @@ writing permanent component rules.
 
 Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component-standardization-planned).
 
-| ID   | Area                     | Goal                                                                | Status  |
-| ---- | ------------------------ | ------------------------------------------------------------------- | ------- |
-| CS.1 | Review / Score           | Score primitives, blocks, and templates A/B/C/D; record good vs bad | shipped |
-| CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens   | shipped |
-| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                 | shipped |
-| CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape       | shipped |
-| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                      | shipped |
-| CS.6 | Registry sync            | Sync templates if UI install artifacts change                       | shipped |
-| CS.7 | Prefix transform         | Plan CLI prefix transformation at install time (options documented) | planned |
-| CS.8 | Rule + skill template    | Planned only; create after cleanup standards are stable             | planned |
+| ID   | Area                     | Goal                                                                                                        | Status  |
+| ---- | ------------------------ | ----------------------------------------------------------------------------------------------------------- | ------- |
+| CS.1 | Review / Score           | Score primitives, blocks, and templates A/B/C/D; record good vs bad                                         | shipped |
+| CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens                                           | shipped |
+| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                                                         | shipped |
+| CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape                                               | shipped |
+| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                                                              | shipped |
+| CS.6 | Registry sync            | Sync templates if UI install artifacts change                                                               | shipped |
+| CS.7 | Prefix transform         | Fixed `lex-` prefix; `scripts/rebrand/rename-prefix.mjs` for future rebrand; 50 src + 42 test files updated | shipped |
+| CS.8 | Rule + skill template    | Planned only; create after cleanup standards are stable                                                     | planned |
 
 **CS.8 pre-rule intentional decisions (locked in CS.4):**
 
@@ -237,6 +237,19 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~Governance promotion (semantic audit errors)~~ — `LEXSYS_GOVERNANCE_POLICY` (M3.4)
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
 - ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md))
+
+## SI — Script Improvements
+
+Planned improvements to `scripts/rebrand/rename-prefix.mjs`. Not urgent — revisit
+when the rename workflow is actually exercised for a real rebrand.
+
+| ID   | Description                                                                                                                                                                                                                                                                                                                     | Status  |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| SI.1 | Full post-rename run order: rename → `registry:sync` → `format` (per-package scripts exist) → `pnpm check` (lint + typecheck + tests). Currently stops after `registry:sync` and does not format or run tests.                                                                                                                  | planned |
+| SI.2 | Post-rename format: run `pnpm format` (Prettier, whole repo) after file writes. Currently the script does not format — touched files may drift from style rules. Note: `*:lint:fix` scripts are ESLint-only, not Prettier; there are no per-package Prettier scripts. `pnpm format` on the whole repo is the correct call here. | planned |
+| SI.3 | Post-rename summary: print count of files changed per category (source / docs / test-configs / registry) after all tasks complete.                                                                                                                                                                                              | planned |
+
+---
 
 ## Known Gaps
 

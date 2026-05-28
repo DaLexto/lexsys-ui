@@ -3,6 +3,7 @@ import {
   previewCardPopupVariants,
   previewCardTriggerVariants,
 } from "../../../src/components/primitives/PreviewCard/PreviewCard.variants"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("PreviewCard variants", () => {
   it("uses token-backed trigger styling", () => {
@@ -11,7 +12,7 @@ describe("PreviewCard variants", () => {
 
   it("reuses popover popup styling", () => {
     expect(previewCardPopupVariants()).toContain(
-      "bg-(--lsys-popover-popup-background)",
+      `bg-(--${p}-popover-popup-background)`,
     )
   })
 })

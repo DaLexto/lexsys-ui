@@ -67,7 +67,7 @@ Presets are configuration. They are not a layer in this chain.
 
 - `color`, `action`, `border`, `elevation`, `outline`, and `layout` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
 - `outline.*` supplies component `focus.ringWidth` / `focus.ringOffset` decisions. Do not hardcode Tailwind `ring-2` / `ring-offset-2` in component variants.
-- `layout.*` maps from primitive `breakpoint.*` and `aspect-ratio.*`. Consumers use generated `--lsys-layout-*` CSS variables directly; layout is not remapped into Tailwind `breakpoint` or `aspect` namespaces.
+- `layout.*` maps from primitive `breakpoint.*` and `aspect-ratio.*`. Consumers use generated `--lex-layout-*` CSS variables directly; layout is not remapped into Tailwind `breakpoint` or `aspect` namespaces.
 
 #### Semantic organization rules
 
@@ -92,7 +92,7 @@ Shared roles for floating surfaces (Select, Menu, Popover, Tooltip, Drawer, Toas
 | `elevation.behind.zIndex`         | `drawer.indent.zIndex`                                  | Decorative layer behind content (`z-index.behind`: `-10`)        |
 | `elevation.handle.zIndex`         | `drawer.handle.zIndex`                                  | Local handle stacking (`z-index.local`: `30`)                    |
 
-Generated CSS uses `--lsys-size-overlay-*`, `--lsys-space-overlay-side-offset` (spacing group maps to `space` in CSS output), and `--lsys-elevation-behind-z-index`.
+Generated CSS uses `--lex-size-overlay-*`, `--lex-space-overlay-side-offset` (spacing group maps to `space` in CSS output), and `--lex-elevation-behind-z-index`.
 
 ### Components
 

@@ -73,11 +73,11 @@ Drift check: `pnpm ui:audit:catalog:check` — see [UI_CATALOG.md § Generation]
 
 ## Contributors
 
-| Document                                          | Owns                                                 |
-| ------------------------------------------------- | ---------------------------------------------------- |
-| [CONTRIBUTING.md](./contributors/CONTRIBUTING.md) | Human contributor workflow, PR gates, labels         |
-| [STYLE.md](./contributors/STYLE.md)               | TypeScript, React, import/export coding style        |
-| [STYLEGUIDE.md](./contributors/STYLEGUIDE.md)     | Component naming, `lsys-` classes, Tailwind patterns |
+| Document                                          | Owns                                                |
+| ------------------------------------------------- | --------------------------------------------------- |
+| [CONTRIBUTING.md](./contributors/CONTRIBUTING.md) | Human contributor workflow, PR gates, labels        |
+| [STYLE.md](./contributors/STYLE.md)               | TypeScript, React, import/export coding style       |
+| [STYLEGUIDE.md](./contributors/STYLEGUIDE.md)     | Component naming, `lex-` classes, Tailwind patterns |
 
 ---
 

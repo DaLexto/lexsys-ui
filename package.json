@@ -44,6 +44,7 @@
     "cli:lint:fix": "pnpm --filter ./packages/cli lint:fix",
     "cli:typecheck": "pnpm --filter ./packages/cli typecheck",
     "entry:check": "node packages/entry/bin.js --version",
+    "tokens:re-prefix": "node scripts/rebrand/rename-prefix.mjs",
     "publish:pack-audit": "node scripts/publish/pack-audit.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm install --lockfile-only",

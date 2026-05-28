@@ -4,23 +4,24 @@ import {
   alertDialogPopupVariants,
   alertDialogTriggerVariants,
 } from "../../../src/components/primitives/AlertDialog/AlertDialog.variants"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("AlertDialog variants", () => {
   it("uses token-backed trigger and popup styling", () => {
     expect(alertDialogTriggerVariants()).toContain(
-      "bg-(--lsys-alert-dialog-trigger-background)",
+      `bg-(--${p}-alert-dialog-trigger-background)`,
     )
     expect(alertDialogPopupVariants()).toContain(
-      "bg-(--lsys-alert-dialog-popup-background)",
+      `bg-(--${p}-alert-dialog-popup-background)`,
     )
   })
 
   it("uses token-backed backdrop transition styling", () => {
     expect(alertDialogBackdropVariants()).toContain(
-      "bg-(--lsys-alert-dialog-backdrop-background)",
+      `bg-(--${p}-alert-dialog-backdrop-background)`,
     )
     expect(alertDialogBackdropVariants()).toContain(
-      "duration-(--lsys-alert-dialog-transition-duration)",
+      `duration-(--${p}-alert-dialog-transition-duration)`,
     )
   })
 })

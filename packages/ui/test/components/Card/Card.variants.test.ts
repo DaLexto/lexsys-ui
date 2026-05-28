@@ -7,35 +7,36 @@ import {
   cardTitleClassName,
   cardVariants,
 } from "../../../src/components/primitives/Card/Card.variants.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("cardVariants", () => {
   test("uses token-backed classes for visual styling", () => {
     const className = cardVariants()
 
-    expect(className).toContain("rounded-(--lsys-card-radius)")
-    expect(className).toContain("border-(--lsys-card-border-color)")
-    expect(className).toContain("bg-(--lsys-card-background)")
-    expect(className).toContain("text-(--lsys-card-foreground)")
+    expect(className).toContain(`rounded-(--${p}-card-radius)`)
+    expect(className).toContain(`border-(--${p}-card-border-color)`)
+    expect(className).toContain(`bg-(--${p}-card-background)`)
+    expect(className).toContain(`text-(--${p}-card-foreground)`)
   })
 
   test("defines token-backed slot spacing and text roles", () => {
-    expect(cardHeaderClassName).toContain("p-(--lsys-card-padding)")
-    expect(cardTitleClassName).toContain("text-(--lsys-card-title-foreground)")
+    expect(cardHeaderClassName).toContain(`p-(--${p}-card-padding)`)
+    expect(cardTitleClassName).toContain(`text-(--${p}-card-title-foreground)`)
     expect(cardDescriptionClassName).toContain(
-      "text-(--lsys-card-description-foreground)",
+      `text-(--${p}-card-description-foreground)`,
     )
     expect(cardContentClassName).toContain(
-      "pt-(--lsys-card-content-padding-top)",
+      `pt-(--${p}-card-content-padding-top)`,
     )
-    expect(cardFooterClassName).toContain("gap-(--lsys-card-gap-md)")
+    expect(cardFooterClassName).toContain(`gap-(--${p}-card-gap-md)`)
   })
 
   test("supports outlined, elevated, and ghost variants", () => {
     expect(cardVariants({ variant: "outlined" })).toContain(
-      "border-(--lsys-border-strong)",
+      `border-(--${p}-border-strong)`,
     )
     expect(cardVariants({ variant: "elevated" })).toContain(
-      "shadow-(--lsys-elevation-shadow-raised-box-shadow)",
+      `shadow-(--${p}-elevation-shadow-raised-box-shadow)`,
     )
     expect(cardVariants({ variant: "ghost" })).toContain("bg-transparent")
   })

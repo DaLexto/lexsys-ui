@@ -7,21 +7,22 @@ import {
   drawerSwipeAreaVariants,
   drawerViewportVariants,
 } from "../../../src/components/primitives/Drawer/Drawer.variants.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("drawerVariants", () => {
   it("includes token-backed side, size, swipe, and transition classes", () => {
     expect(drawerViewportVariants({ side: "right" })).toContain("justify-end")
     expect(drawerPopupVariants({ side: "right", size: "lg" })).toContain(
-      "w-(--lsys-drawer-popup-width-lg)",
+      `w-(--${p}-drawer-popup-width-lg)`,
     )
     expect(drawerPopupVariants({ side: "bottom", size: "md" })).toContain(
       "var(--drawer-swipe-movement-y,0px)",
     )
     expect(drawerSwipeAreaVariants({ side: "bottom" })).toContain(
-      "h-(--lsys-drawer-swipe-area-size)",
+      `h-(--${p}-drawer-swipe-area-size)`,
     )
     expect(drawerBackdropVariants()).toContain(
-      "bg-(--lsys-drawer-backdrop-background)",
+      `bg-(--${p}-drawer-backdrop-background)`,
     )
   })
 

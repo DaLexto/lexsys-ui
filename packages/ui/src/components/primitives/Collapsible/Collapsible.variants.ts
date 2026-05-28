@@ -8,12 +8,12 @@ import { cva } from "class-variance-authority"
 import { disabledStateClasses } from "../../../utils/cn"
 
 export const collapsibleVariants = cva(
-  "grid rounded-(--lsys-collapsible-radius) text-(--lsys-collapsible-foreground)",
+  "grid rounded-(--lex-collapsible-radius) text-(--lex-collapsible-foreground)",
   {
     variants: {
       variant: {
         surface:
-          "border border-(--lsys-collapsible-border-color) bg-(--lsys-collapsible-background)",
+          "border border-(--lex-collapsible-border-color) bg-(--lex-collapsible-background)",
         plain: "bg-transparent",
       },
     },
@@ -25,20 +25,20 @@ export const collapsibleVariants = cva(
 
 export const collapsibleTriggerVariants = cva(
   [
-    "flex w-full items-center justify-between gap-(--lsys-collapsible-trigger-gap) px-(--lsys-collapsible-trigger-padding-x) py-(--lsys-collapsible-trigger-padding-y) text-left",
-    "text-(length:--lsys-collapsible-trigger-font-size) font-(--lsys-collapsible-trigger-font-weight) leading-(--lsys-collapsible-trigger-font-line-height)",
-    "transition-colors duration-(--lsys-collapsible-transition-duration) ease-(--lsys-collapsible-transition-easing)",
-    "outline-none hover:bg-(--lsys-collapsible-trigger-background-hover) focus-visible:ring-(length:--lsys-collapsible-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lsys-collapsible-focus-ring-color)",
+    "flex w-full items-center justify-between gap-(--lex-collapsible-trigger-gap) px-(--lex-collapsible-trigger-padding-x) py-(--lex-collapsible-trigger-padding-y) text-left",
+    "text-(length:--lex-collapsible-trigger-font-size) font-(--lex-collapsible-trigger-font-weight) leading-(--lex-collapsible-trigger-font-line-height)",
+    "transition-colors duration-(--lex-collapsible-transition-duration) ease-(--lex-collapsible-transition-easing)",
+    "outline-none hover:bg-(--lex-collapsible-trigger-background-hover) focus-visible:ring-(length:--lex-collapsible-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-collapsible-focus-ring-color)",
     disabledStateClasses,
-    "[&>svg]:size-(--lsys-collapsible-trigger-icon-size) [&>svg]:transition-transform data-[panel-open]:[&>svg]:rotate-45",
+    "[&>svg]:size-(--lex-collapsible-trigger-icon-size) [&>svg]:transition-transform data-[panel-open]:[&>svg]:rotate-45",
   ].join(" "),
 )
 
 export const collapsiblePanelVariants = cva(
   [
-    "overflow-hidden px-(--lsys-collapsible-panel-padding-x) pb-(--lsys-collapsible-panel-padding-bottom)",
-    "text-(length:--lsys-collapsible-panel-font-size) leading-(--lsys-collapsible-panel-font-line-height) text-(--lsys-collapsible-panel-foreground)",
-    "transition-[height,opacity] duration-(--lsys-collapsible-transition-duration) ease-(--lsys-collapsible-transition-easing)",
+    "overflow-hidden px-(--lex-collapsible-panel-padding-x) pb-(--lex-collapsible-panel-padding-bottom)",
+    "text-(length:--lex-collapsible-panel-font-size) leading-(--lex-collapsible-panel-font-line-height) text-(--lex-collapsible-panel-foreground)",
+    "transition-[height,opacity] duration-(--lex-collapsible-transition-duration) ease-(--lex-collapsible-transition-easing)",
     "data-[starting-style]:h-0 data-[starting-style]:opacity-0 data-[ending-style]:h-0 data-[ending-style]:opacity-0",
   ].join(" "),
 )

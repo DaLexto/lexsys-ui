@@ -3,12 +3,13 @@ import {
   sliderThumbClasses,
   sliderTrackClasses,
 } from "../../../src/components/primitives/Slider/Slider.variants.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("sliderVariants", () => {
   it("styles the track and thumb", () => {
-    expect(sliderTrackClasses).toContain("bg-(--lsys-slider-track-background)")
+    expect(sliderTrackClasses).toContain(`bg-(--${p}-slider-track-background)`)
     expect(sliderThumbClasses).toContain(
-      "border-(--lsys-slider-thumb-border-color)",
+      `border-(--${p}-slider-thumb-border-color)`,
     )
   })
 })

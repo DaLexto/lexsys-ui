@@ -37,20 +37,20 @@ const scrollAreaRows = [
 ] as const
 
 const viewportTokens = [
-  { label: "Mobile (sm)", token: "--lsys-layout-viewport-sm" },
-  { label: "Tablet (md)", token: "--lsys-layout-viewport-md" },
-  { label: "Desktop (lg)", token: "--lsys-layout-viewport-lg" },
-  { label: "Wide (xl)", token: "--lsys-layout-viewport-xl" },
-  { label: "Ultrawide (2xl)", token: "--lsys-layout-viewport-2xl" },
+  { label: "Mobile (sm)", token: "--lex-layout-viewport-sm" },
+  { label: "Tablet (md)", token: "--lex-layout-viewport-md" },
+  { label: "Desktop (lg)", token: "--lex-layout-viewport-lg" },
+  { label: "Wide (xl)", token: "--lex-layout-viewport-xl" },
+  { label: "Ultrawide (2xl)", token: "--lex-layout-viewport-2xl" },
 ] as const
 
 const aspectRatioTokens = [
-  { label: "Square", token: "--lsys-layout-aspect-ratio-square" },
-  { label: "Standard", token: "--lsys-layout-aspect-ratio-standard" },
-  { label: "Photo", token: "--lsys-layout-aspect-ratio-photo" },
-  { label: "Portrait", token: "--lsys-layout-aspect-ratio-portrait" },
-  { label: "Video", token: "--lsys-layout-aspect-ratio-video" },
-  { label: "Ultrawide", token: "--lsys-layout-aspect-ratio-ultrawide" },
+  { label: "Square", token: "--lex-layout-aspect-ratio-square" },
+  { label: "Standard", token: "--lex-layout-aspect-ratio-standard" },
+  { label: "Photo", token: "--lex-layout-aspect-ratio-photo" },
+  { label: "Portrait", token: "--lex-layout-aspect-ratio-portrait" },
+  { label: "Video", token: "--lex-layout-aspect-ratio-video" },
+  { label: "Ultrawide", token: "--lex-layout-aspect-ratio-ultrawide" },
 ] as const
 
 export const LayoutPanel = () => {

@@ -4,18 +4,19 @@ import {
   avatarImageVariants,
   avatarVariants,
 } from "../../../src/components/primitives/Avatar/Avatar.variants.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("avatarVariants", () => {
   it("includes token-backed size, shape, image, and fallback classes", () => {
     expect(avatarVariants({ size: "lg", shape: "square" })).toContain(
-      "size-(--lsys-avatar-size-lg)",
+      `size-(--${p}-avatar-size-lg)`,
     )
     expect(avatarVariants({ shape: "square" })).toContain(
-      "rounded-(--lsys-avatar-radius-square)",
+      `rounded-(--${p}-avatar-radius-square)`,
     )
     expect(avatarImageVariants()).toContain("object-cover")
     expect(avatarFallbackVariants()).toContain(
-      "bg-(--lsys-avatar-fallback-background)",
+      `bg-(--${p}-avatar-fallback-background)`,
     )
   })
 })

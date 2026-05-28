@@ -8,7 +8,7 @@ import { cva } from "class-variance-authority"
 import { disabledStateClasses } from "../../../utils/cn"
 
 export const toolbarRootVariants = cva(
-  "flex items-center gap-(--lsys-button-padding-x-sm) rounded-(--lsys-button-radius) border border-(--lsys-button-secondary-border-color) bg-(--lsys-button-secondary-background) p-(--lsys-button-padding-x-sm)",
+  "flex items-center gap-(--lex-button-padding-x-sm) rounded-(--lex-button-radius) border border-(--lex-button-secondary-border-color) bg-(--lex-button-secondary-background) p-(--lex-button-padding-x-sm)",
   {
     variants: {
       orientation: {
@@ -23,7 +23,7 @@ export const toolbarRootVariants = cva(
 )
 
 export const toolbarGroupVariants = cva(
-  "flex items-center gap-(--lsys-space-1)",
+  "flex items-center gap-(--lex-space-1)",
   {
     variants: {
       orientation: {
@@ -39,42 +39,42 @@ export const toolbarGroupVariants = cva(
 
 export const toolbarButtonVariants = cva(
   [
-    "inline-flex h-(--lsys-button-height-sm) items-center justify-center rounded-(--lsys-button-radius) border border-transparent px-(--lsys-button-padding-x-sm)",
-    "text-(length:--lsys-button-font-size-sm) font-(--lsys-button-font-weight) leading-(--lsys-button-font-line-height) text-(--lsys-button-secondary-foreground)",
-    "transition-colors duration-(--lsys-button-transition-duration) ease-(--lsys-button-transition-easing)",
-    "outline-none hover:bg-(--lsys-button-secondary-hover-background) focus-visible:ring-(length:--lsys-button-focus-ring-width) focus-visible:ring-(--lsys-button-focus-ring-color) focus-visible:ring-offset-(length:--lsys-button-focus-ring-offset) focus-visible:ring-offset-(--lsys-button-focus-ring-offset-color)",
+    "inline-flex h-(--lex-button-height-sm) items-center justify-center rounded-(--lex-button-radius) border border-transparent px-(--lex-button-padding-x-sm)",
+    "text-(length:--lex-button-font-size-sm) font-(--lex-button-font-weight) leading-(--lex-button-font-line-height) text-(--lex-button-secondary-foreground)",
+    "transition-colors duration-(--lex-button-transition-duration) ease-(--lex-button-transition-easing)",
+    "outline-none hover:bg-(--lex-button-secondary-hover-background) focus-visible:ring-(length:--lex-button-focus-ring-width) focus-visible:ring-(--lex-button-focus-ring-color) focus-visible:ring-offset-(length:--lex-button-focus-ring-offset) focus-visible:ring-offset-(--lex-button-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
 )
 
 export const toolbarLinkVariants = cva(
   [
-    "inline-flex h-(--lsys-button-height-sm) items-center justify-center rounded-(--lsys-button-radius) px-(--lsys-button-padding-x-sm)",
-    "text-(length:--lsys-button-font-size-sm) font-(--lsys-button-font-weight) leading-(--lsys-button-font-line-height) text-(--lsys-button-secondary-foreground)",
-    "transition-colors duration-(--lsys-button-transition-duration) ease-(--lsys-button-transition-easing)",
-    "outline-none hover:bg-(--lsys-button-secondary-hover-background) focus-visible:ring-(length:--lsys-button-focus-ring-width) focus-visible:ring-(--lsys-button-focus-ring-color) focus-visible:ring-offset-(length:--lsys-button-focus-ring-offset) focus-visible:ring-offset-(--lsys-button-focus-ring-offset-color)",
+    "inline-flex h-(--lex-button-height-sm) items-center justify-center rounded-(--lex-button-radius) px-(--lex-button-padding-x-sm)",
+    "text-(length:--lex-button-font-size-sm) font-(--lex-button-font-weight) leading-(--lex-button-font-line-height) text-(--lex-button-secondary-foreground)",
+    "transition-colors duration-(--lex-button-transition-duration) ease-(--lex-button-transition-easing)",
+    "outline-none hover:bg-(--lex-button-secondary-hover-background) focus-visible:ring-(length:--lex-button-focus-ring-width) focus-visible:ring-(--lex-button-focus-ring-color) focus-visible:ring-offset-(length:--lex-button-focus-ring-offset) focus-visible:ring-offset-(--lex-button-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
 )
 
 export const toolbarInputVariants = cva(
   [
-    "h-(--lsys-input-height-sm) min-w-0 rounded-(--lsys-input-radius) border border-(--lsys-input-border-color) bg-(--lsys-input-background) px-(--lsys-input-padding-x-sm)",
-    "text-(length:--lsys-input-font-size-sm) font-(family-name:--lsys-input-font-family) font-(--lsys-input-font-weight) leading-(--lsys-input-font-line-height) text-(--lsys-input-foreground)",
-    "placeholder:text-(--lsys-input-placeholder-color)",
-    "transition-colors duration-(--lsys-input-transition-duration) ease-(--lsys-input-transition-easing)",
-    "outline-none focus-visible:border-(--lsys-input-focus-border-color) focus-visible:ring-(length:--lsys-input-focus-ring-width) focus-visible:ring-(--lsys-input-focus-ring-color) focus-visible:ring-offset-(length:--lsys-input-focus-ring-offset) focus-visible:ring-offset-(--lsys-input-focus-ring-offset-color)",
+    "h-(--lex-input-height-sm) min-w-0 rounded-(--lex-input-radius) border border-(--lex-input-border-color) bg-(--lex-input-background) px-(--lex-input-padding-x-sm)",
+    "text-(length:--lex-input-font-size-sm) font-(family-name:--lex-input-font-family) font-(--lex-input-font-weight) leading-(--lex-input-font-line-height) text-(--lex-input-foreground)",
+    "placeholder:text-(--lex-input-placeholder-color)",
+    "transition-colors duration-(--lex-input-transition-duration) ease-(--lex-input-transition-easing)",
+    "outline-none focus-visible:border-(--lex-input-focus-border-color) focus-visible:ring-(length:--lex-input-focus-ring-width) focus-visible:ring-(--lex-input-focus-ring-color) focus-visible:ring-offset-(length:--lex-input-focus-ring-offset) focus-visible:ring-offset-(--lex-input-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
 )
 
 export const toolbarSeparatorVariants = cva(
-  "shrink-0 bg-(--lsys-separator-color)",
+  "shrink-0 bg-(--lex-separator-color)",
   {
     variants: {
       orientation: {
-        horizontal: "mx-(--lsys-space-1) h-(--lsys-separator-thickness) w-full",
-        vertical: "my-(--lsys-space-1) h-full w-(--lsys-separator-thickness)",
+        horizontal: "mx-(--lex-space-1) h-(--lex-separator-thickness) w-full",
+        vertical: "my-(--lex-space-1) h-full w-(--lex-separator-thickness)",
       },
     },
     defaultVariants: {
