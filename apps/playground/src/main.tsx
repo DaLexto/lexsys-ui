@@ -23,7 +23,11 @@ const App = () => {
     { id: "actions", label: "Actions", render: () => <ActionsPanel /> },
     { id: "overlays", label: "Overlays", render: () => <OverlaysPanel /> },
     { id: "surfaces", label: "Surfaces", render: () => <SurfacesPanel /> },
-    { id: "interactions", label: "Interactions", render: () => <InteractionsPanel /> },
+    {
+      id: "interactions",
+      label: "Interactions",
+      render: () => <InteractionsPanel />,
+    },
     { id: "blocks", label: "Blocks", render: () => <LayoutPanel /> },
   ]
 
@@ -34,7 +38,9 @@ const App = () => {
           <div>
             <p className="playground-label">Lexsys playground</p>
             <h1>Component smoke</h1>
-            <p className="playground-subtitle">Monorepo reference — not the CLI install path</p>
+            <p className="playground-subtitle">
+              Monorepo reference — not the CLI install path
+            </p>
           </div>
           <div className="playground-toolbar">
             <div className="theme-control" aria-label="Theme mode">
@@ -57,7 +63,11 @@ const App = () => {
         </section>
         <nav className="playground-nav" aria-label="Component categories">
           {panels.map(({ id, label }) => (
-            <a key={id} className="playground-nav-link" href={`#category-${id}`}>
+            <a
+              key={id}
+              className="playground-nav-link"
+              href={`#category-${id}`}
+            >
               {label}
             </a>
           ))}
@@ -66,7 +76,12 @@ const App = () => {
 
       <div className="playground-categories">
         {panels.map(({ id, label, render }) => (
-          <section key={id} id={`category-${id}`} className="playground-category" aria-labelledby={`${id}-title`}>
+          <section
+            key={id}
+            id={`category-${id}`}
+            className="playground-category"
+            aria-labelledby={`${id}-title`}
+          >
             <header className="category-header">
               <p className="playground-label">{label}</p>
               <h2 id={`${id}-title`}>{label}</h2>
