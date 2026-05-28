@@ -1,15 +1,13 @@
 import { describe, expect, it } from "vitest"
 import {
-  sliderThumbVariants,
-  sliderTrackVariants,
+  sliderThumbClasses,
+  sliderTrackClasses,
 } from "../../../src/components/primitives/Slider/Slider.variants.js"
 
 describe("sliderVariants", () => {
   it("styles the track and thumb", () => {
-    expect(sliderTrackVariants()).toContain(
-      "bg-(--lsys-slider-track-background)",
-    )
-    expect(sliderThumbVariants()).toContain(
+    expect(sliderTrackClasses).toContain("bg-(--lsys-slider-track-background)")
+    expect(sliderThumbClasses).toContain(
       "border-(--lsys-slider-thumb-border-color)",
     )
   })

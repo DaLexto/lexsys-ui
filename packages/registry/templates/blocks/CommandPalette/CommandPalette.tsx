@@ -33,13 +33,13 @@ import type {
   CommandPaletteTitleProps,
 } from "./CommandPalette.types"
 import {
-  commandPaletteEmptyClassName,
-  commandPaletteGroupLabelClassName,
-  commandPaletteInputClassName,
-  commandPaletteItemClassName,
-  commandPaletteItemDescriptionClassName,
-  commandPaletteListClassName,
-  commandPaletteRootVariants,
+  commandPaletteEmptyClasses,
+  commandPaletteGroupLabelClasses,
+  commandPaletteInputClasses,
+  commandPaletteItemClasses,
+  commandPaletteItemDescriptionClasses,
+  commandPaletteListClasses,
+  commandPaletteRootClasses,
 } from "./CommandPalette.variants"
 import { cn } from "@/lib/utils"
 
@@ -61,7 +61,7 @@ const CommandPaletteContent = ({
       <DialogViewport>
         <DialogPopup
           ref={ref}
-          className={cn(commandPaletteRootVariants(), className)}
+          className={cn(commandPaletteRootClasses, className)}
           {...props}
         >
           {children}
@@ -116,7 +116,7 @@ const CommandPaletteInput = ({
     <Input
       ref={ref}
       autoFocus
-      className={cn(commandPaletteInputClassName, className)}
+      className={cn(commandPaletteInputClasses, className)}
       aria-label="Search commands"
       {...props}
     />
@@ -138,7 +138,7 @@ const CommandPaletteList = ({
   ...props
 }: CommandPaletteListProps) => {
   return (
-    <ScrollArea className={cn(commandPaletteListClassName, className)}>
+    <ScrollArea className={cn(commandPaletteListClasses, className)}>
       <ScrollAreaViewport>
         <ScrollAreaContent ref={ref} {...props}>
           {children}
@@ -174,7 +174,7 @@ const CommandPaletteGroupLabel = ({
   return (
     <h3
       ref={ref}
-      className={cn(commandPaletteGroupLabelClassName, className)}
+      className={cn(commandPaletteGroupLabelClasses, className)}
       {...props}
     >
       {children}
@@ -196,12 +196,12 @@ const CommandPaletteItem = ({
     <button
       ref={ref}
       type={type}
-      className={cn(commandPaletteItemClassName, className)}
+      className={cn(commandPaletteItemClasses, className)}
       {...props}
     >
       <span>{children}</span>
       {description ? (
-        <span className={commandPaletteItemDescriptionClassName}>
+        <span className={commandPaletteItemDescriptionClasses}>
           {description}
         </span>
       ) : null}
@@ -220,7 +220,7 @@ const CommandPaletteEmpty = ({
   return (
     <p
       ref={ref}
-      className={cn(commandPaletteEmptyClassName, className)}
+      className={cn(commandPaletteEmptyClasses, className)}
       {...props}
     >
       {children}

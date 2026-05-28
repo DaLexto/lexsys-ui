@@ -15,13 +15,13 @@ import type {
   SliderValueProps,
 } from "./Slider.types"
 import {
-  sliderControlVariants,
-  sliderIndicatorVariants,
-  sliderLabelVariants,
-  sliderThumbVariants,
-  sliderTrackVariants,
-  sliderValueVariants,
-  sliderVariants,
+  sliderClasses,
+  sliderControlClasses,
+  sliderIndicatorClasses,
+  sliderLabelClasses,
+  sliderThumbClasses,
+  sliderTrackClasses,
+  sliderValueClasses,
 } from "./Slider.variants"
 import { mergeClassName } from "@/lib/utils"
 
@@ -29,7 +29,7 @@ const Slider = ({ ref, className, children, ...props }: SliderProps) => {
   return (
     <BaseSlider.Root
       ref={ref}
-      className={mergeClassName(sliderVariants(), className)}
+      className={mergeClassName(sliderClasses, className)}
       {...props}
     >
       {children}
@@ -46,7 +46,7 @@ const SliderControl = ({
 }: SliderControlProps) => {
   return (
     <BaseSlider.Control
-      className={mergeClassName(sliderControlVariants(), className)}
+      className={mergeClassName(sliderControlClasses, className)}
       {...props}
     >
       {children}
@@ -59,7 +59,7 @@ SliderControl.displayName = "SliderControl"
 const SliderTrack = ({ className, children, ...props }: SliderTrackProps) => {
   return (
     <BaseSlider.Track
-      className={mergeClassName(sliderTrackVariants(), className)}
+      className={mergeClassName(sliderTrackClasses, className)}
       {...props}
     >
       {children}
@@ -72,7 +72,7 @@ SliderTrack.displayName = "SliderTrack"
 const SliderIndicator = ({ className, ...props }: SliderIndicatorProps) => {
   return (
     <BaseSlider.Indicator
-      className={mergeClassName(sliderIndicatorVariants(), className)}
+      className={mergeClassName(sliderIndicatorClasses, className)}
       {...props}
     />
   )
@@ -83,7 +83,7 @@ SliderIndicator.displayName = "SliderIndicator"
 const SliderThumb = ({ className, ...props }: SliderThumbProps) => {
   return (
     <BaseSlider.Thumb
-      className={mergeClassName(sliderThumbVariants(), className)}
+      className={mergeClassName(sliderThumbClasses, className)}
       {...props}
     />
   )
@@ -94,7 +94,7 @@ SliderThumb.displayName = "SliderThumb"
 const SliderLabel = ({ className, ...props }: SliderLabelProps) => {
   return (
     <BaseSlider.Label
-      className={mergeClassName(sliderLabelVariants(), className)}
+      className={mergeClassName(sliderLabelClasses, className)}
       {...props}
     />
   )
@@ -105,7 +105,7 @@ SliderLabel.displayName = "SliderLabel"
 const SliderValue = ({ className, ...props }: SliderValueProps) => {
   return (
     <BaseSlider.Value
-      className={mergeClassName(sliderValueVariants(), className)}
+      className={mergeClassName(sliderValueClasses, className)}
       {...props}
     />
   )
