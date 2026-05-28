@@ -7,7 +7,9 @@
 3. Variants use CSS vars prefixed with `cssVarPrefix` from
    `packages/tokens/src/generators/generator.config.ts` (currently `lex`,
    e.g. `--lex-button-radius`). No raw Tailwind palette in `*.variants.ts`.
-4. Run the post-edit gate (see below).
+4. **Never edit registry templates directly.** `packages/registry/templates/` is generated
+   output — always edit `packages/ui/src/components/` and run `pnpm registry:sync`.
+5. Run the post-edit gate (see below).
 
 ---
 

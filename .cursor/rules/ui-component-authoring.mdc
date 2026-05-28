@@ -81,11 +81,17 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 - Nav items (`SidebarItemLink`, `SidebarItemButton`) use plain `<a>` / `<button>` — **not** the `Button` primitive. Their styling requirements differ and they own their own appearance.
 - `SidebarTrigger` is composable — place it inside any `<Sidebar>` descendant; `Drawer` context wraps the root `<aside>` so any descendant `DrawerTrigger` auto-wires.
 
+## Registry templates — never edit directly
+
+`packages/registry/templates/` is **generated output**. Always edit
+`packages/ui/src/components/` and run `pnpm registry:sync` to propagate.
+Manual edits to registry templates will be overwritten on the next sync.
+
 ## Post-edit
 
 ```sh
 pnpm ui:check       # lint + typecheck + audit + tests
-pnpm registry:sync  # if install artifacts changed
+pnpm registry:sync  # propagates UI changes to registry templates
 pnpm ui:test        # tests only (fast re-run)
 pnpm format
 ```
