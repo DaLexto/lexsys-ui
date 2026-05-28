@@ -5,9 +5,9 @@
 **Source of truth for:** Design system structure, token layers, CSS output contract, component styling model  
 **Verified against:** `packages/tokens/src/`, `packages/ui/src/`
 
-Canonical token layer rules live in [TOKENS.md](TOKENS.md).  
-CLI install behavior lives in [CLI.md](CLI.md).  
-Full system shape lives in [ARCHITECTURE.md](ARCHITECTURE.md).
+Canonical token layer rules live in [Tokens reference](TOKENS.md).  
+CLI install behavior lives in [CLI reference](CLI.md).  
+Full system shape lives in [Architecture](ARCHITECTURE.md).
 
 ---
 

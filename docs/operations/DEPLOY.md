@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Build and publish contract, version lanes, pre-release gates, npm publish surface
 
-**Related docs:** [SCRIPTS.md](./SCRIPTS.md), [TESTING.md](./TESTING.md), [CHANGELOG.md](../../CHANGELOG.md)
+**Related docs:** [Scripts reference](./SCRIPTS.md), [Testing docs](./TESTING.md), [Changelog](../../CHANGELOG.md)
 
 ---
 
@@ -171,7 +171,7 @@ Additional steps beyond the standard 0.0.x flow:
 
 1. Run pre-release gate: `pnpm format && pnpm build && pnpm sync:all && pnpm check && pnpm publish:pack-audit`
 2. Consumer sandbox QA — `$consumer-sandbox-verify` checklist including narrow
-   viewport (`< md`) pass ([TESTING.md § Consumer sandbox](./TESTING.md#consumer-sandbox-verification))
+   viewport (`< md`) pass ([Testing docs § Consumer sandbox](./TESTING.md#consumer-sandbox-verification))
 3. Add changeset with minor bump → `0.1.0`
 4. Update Changesets config and publish CI to use dist-tag **`latest`**
 5. Merge Version Packages PR to `main` → Release CI publishes
@@ -317,14 +317,14 @@ GitHub Actions secrets if CI duration grows.
 - `npm publish --provenance` requires no additional tokens — it uses the GitHub
   Actions OIDC token automatically when run in CI. Add `--provenance` to the
   release workflow at `0.1.0`.
-- Deferred items tracked in [REVIEW_TODO.md § Known Gaps](../REVIEW_TODO.md#known-gaps).
+- Deferred items tracked in [Backlog § Known Gaps](../REVIEW_TODO.md#known-gaps).
 
 ---
 
 ## Deferred
 
 Known gaps and deferred security/tooling work:
-[REVIEW_TODO.md § Known Gaps](../REVIEW_TODO.md#known-gaps).
+[Backlog § Known Gaps](../REVIEW_TODO.md#known-gaps).
 
 Historical release records (0.0.1 first publish, M4/M10 implementation tracks):
-[CHANGELOG.md](../../CHANGELOG.md) and git history.
+[Changelog](../../CHANGELOG.md) and git history.

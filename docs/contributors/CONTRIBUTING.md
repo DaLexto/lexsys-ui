@@ -26,9 +26,9 @@ Run the merge gate:
 pnpm check
 ```
 
-Use scoped checks when touching one package — see [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md) and [docs/operations/TESTING.md](../operations/TESTING.md).
+Use scoped checks when touching one package — see [Scripts reference](../operations/SCRIPTS.md) and [Testing docs](../operations/TESTING.md).
 
-**Verification split** ([docs/operations/TESTING.md § Verification surfaces](../operations/TESTING.md#verification-surfaces)):
+**Verification split** ([Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces)):
 
 - Package changes → scoped `pnpm *:check`
 - CLI/registry/template changes → external sandbox checklist ([Consumer sandbox verification](../operations/TESTING.md#consumer-sandbox-verification))
@@ -57,17 +57,17 @@ Issues and pull requests use the namespaced label set in [`.github/labels.yml`](
 | `meta:*`       | Cross-cutting flags (`meta:breaking-change`, `meta:good-first-issue`, `meta:help-wanted`)   |
 | `automation:*` | Bot PRs (`automation:dependencies`, `automation:github-actions`)                            |
 
-The manifest is synced in **strict** mode: labels not listed in `.github/labels.yml` are removed on sync. Edit the manifest in a PR; CI runs a dry-run preview. Sync applies on merge to `dev`/`main`. See [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md) § GitHub label sync.
+The manifest is synced in **strict** mode: labels not listed in `.github/labels.yml` are removed on sync. Edit the manifest in a PR; CI runs a dry-run preview. Sync applies on merge to `dev`/`main`. See [Scripts reference](../operations/SCRIPTS.md) § GitHub label sync.
 
 ## Documentation
 
-- **Routing hub:** [docs/INDEX.md](../INDEX.md)
+- **Routing hub:** [Doc index](../INDEX.md)
 - **Document layout and authoring:** [.cursor/rules/documentation-standards.mdc](../../.cursor/rules/documentation-standards.mdc) (§ Document layout contract)
-- Roadmap and phase sequencing: [docs/ROADMAP.md](../ROADMAP.md)
-- Active backlog: [docs/REVIEW_TODO.md](../REVIEW_TODO.md)
-- Script names (do not duplicate elsewhere): [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md)
+- Roadmap and phase sequencing: [Roadmap](../ROADMAP.md)
+- Active backlog: [Backlog](../REVIEW_TODO.md)
+- Script names (do not duplicate elsewhere): [Scripts reference](../operations/SCRIPTS.md)
 - Post-change doc pass: [`.agents/skills/docs-alignment/SKILL.md`](../../.agents/skills/docs-alignment/SKILL.md)
 
 ## Consumer verification
 
-When changing CLI or registry behavior, follow the external sandbox checklist in [docs/operations/TESTING.md](../operations/TESTING.md) § [Consumer sandbox verification](../operations/TESTING.md#consumer-sandbox-verification). Surface roles: [§ Verification surfaces](../operations/TESTING.md#verification-surfaces).
+When changing CLI or registry behavior, follow the external sandbox checklist in [Testing docs](../operations/TESTING.md) § [Consumer sandbox verification](../operations/TESTING.md#consumer-sandbox-verification). Surface roles: [§ Verification surfaces](../operations/TESTING.md#verification-surfaces).

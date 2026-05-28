@@ -75,7 +75,7 @@ The items below are planned work, not current contracts.
 ### Token engine — next direction
 
 Planned hardening and deferred speculative work are documented in
-[docs/reference/tokens/RESOLVER_EVOLUTION.md — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10).
+[Resolver evolution — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10).
 Summary only — do not duplicate detail here.
 
 **Planned (likely next):**
@@ -126,7 +126,7 @@ advanced CI → M6 deps → M7 maintainer tooling → … → M10 release**.
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Sub-item (`Mx.y`)  | One conventional commit when done                                                                                                                |
 | Phase (`M1`–`M10`) | One implementation PR when all sub-items on the phase branch pass verification                                                                   |
-| Post-phase         | Docs sync PR after merge if ROADMAP/REVIEW_TODO/handbooks lag (see [TESTING.md](../operations/TESTING.md), [DEPLOY.md](../operations/DEPLOY.md)) |
+| Post-phase         | Docs sync PR after merge if ROADMAP/REVIEW_TODO/handbooks lag (see [Testing docs](../operations/TESTING.md), [Deploy guide](../operations/DEPLOY.md)) |
 
 Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementation detail in git history, not in this section body.
 
@@ -185,7 +185,7 @@ Status: shipped
 #### M2.1 — Tier 2 CLI diagnostic tests
 
 - **Target:** Tests for `doctor`, `status`, `list`, and `config` in `packages/cli/test/commands/`.
-- **Verification:** `pnpm --filter ./packages/cli check` — see [TESTING.md](../operations/TESTING.md).
+- **Verification:** `pnpm --filter ./packages/cli check` — see [Testing docs](../operations/TESTING.md).
 
 #### M2.2 — Install round-trip smoke
 
@@ -237,7 +237,7 @@ Status: shipped
 
 ### M4 — Entry + CLI DX
 
-Status: **shipped** — see [REVIEW_TODO.md § M4](./REVIEW_TODO.md#m4--entry--cli-dx-shipped) for sub-item detail.
+Status: **shipped** — see [Backlog § M4](./REVIEW_TODO.md#m4--entry--cli-dx-shipped) for sub-item detail.
 
 ### M5 — Advanced CI
 
@@ -281,7 +281,7 @@ Status: shipped
 
 #### M7.1 — Agent and backlog handoff
 
-- Session state via git + [REVIEW_TODO.md](./REVIEW_TODO.md); point to ROADMAP for phase status.
+- Session state via git + [Backlog](./REVIEW_TODO.md); point to ROADMAP for phase status.
 
 #### M7.2 — Contributor onboarding
 
@@ -305,7 +305,7 @@ Status: shipped
 
 Status: **shipped**
 
-Dead-code removal and targeted deduplication across `packages/cli/src/`. No behavior changes except proper `--yes` wiring. Sub-items tracked in [REVIEW_TODO.md § M8](../REVIEW_TODO.md#m8--cli-cleanup-and-deduplication-in-progress).
+Dead-code removal and targeted deduplication across `packages/cli/src/`. No behavior changes except proper `--yes` wiring. Sub-items tracked in [Backlog § M8](./REVIEW_TODO.md#m8--cli-cleanup-and-deduplication-in-progress).
 
 | Item | Focus                                                                          |
 | ---- | ------------------------------------------------------------------------------ |
@@ -325,9 +325,9 @@ Dead-code removal and targeted deduplication across `packages/cli/src/`. No beha
 Status: **shipped** (2026-05-24) — `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm
 dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later milestone.
 
-**Publish-day checklist (canonical):** [DEPLOY.md § First release checklist](../operations/DEPLOY.md#first-release-checklist-001-next)
+**Publish-day checklist (canonical):** [Deploy guide § Pre-release gate](../operations/DEPLOY.md#pre-release-gate)
 
-**Execution track:** [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24)
+**Execution track:** [Backlog § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24)
 
 #### M10.0 — Publish scope and version lane
 
@@ -350,7 +350,7 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 
 #### M10.4 — First publish
 
-- Follow [DEPLOY.md § First release checklist](../operations/DEPLOY.md#first-release-checklist-001-next).
+- Follow [Deploy guide § Pre-release gate](../operations/DEPLOY.md#pre-release-gate).
 - Post-publish: `npx @dalexto/lexsys@next init vite` smoke.
 
 **Phase PR:** `chore(m10): release readiness` (may split into M10.0–M10.3 PRs)
@@ -360,7 +360,7 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 | Item                              | Why deferred                                                                                                                                                                             |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M10                                                                                                          |
-| Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([TESTING.md § Verification surfaces](../operations/TESTING.md#verification-surfaces)) |
+| Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces)) |
 | `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                                         |
 | Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                            |
 | Changesets / npm provenance       | Changesets **shipped** (M10); npm provenance deferred                                                                                                                                    |
@@ -420,8 +420,8 @@ Original per-phase sketch (reference if splitting future work):
 ## UI polish track (post-M3)
 
 Pre-0.1.0 hardening: unified `variant` / `size` / `appearance` API, `danger` vocabulary,
-semantic opacity tokens, and `pnpm ui:audit` automation. See [UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md)
-and [UI_AUDIT.md](./reference/ui/UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes acceptable pre-publish.
+semantic opacity tokens, and `pnpm ui:audit` automation. See [UI variants](./reference/ui/UI_VARIANTS.md)
+and [UI audit](./reference/ui/UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaking changes acceptable pre-publish.
 
 ---
 
@@ -443,7 +443,7 @@ Lexsys uses a **three-layer** install model (not Atomic Design atoms/molecules/o
 | Pages      | —                                                                   | Always consumer-owned                         |
 
 Canonical mapping, composition rules, folder layout, and CLI contract:
-[UI_COMPOSITION.md](./reference/ui/UI_COMPOSITION.md).
+[UI composition](./reference/ui/UI_COMPOSITION.md).
 
 ### UI composition track
 
@@ -458,10 +458,10 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
-testing. BO.1–BO.7 fixed; narrow-viewport sandbox checklist remains manual ([TESTING.md](../operations/TESTING.md)).
-Tracked in [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
+testing. BO.1–BO.7 fixed; narrow-viewport sandbox checklist remains manual ([Testing docs](../operations/TESTING.md)).
+Tracked in [Backlog § Blocks/templates optimization](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
-Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
+Execution queue: [Backlog § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 
 ---
 
@@ -473,7 +473,7 @@ Execution queue: [REVIEW_TODO.md § UI composition](./REVIEW_TODO.md#ui-composit
 (`items[]`, `mode`-driven auto-fields), full Base UI part re-exports where
 applicable, blocks compose primitives/blocks only.
 
-Canonical contract: [UI_COMPOSITION.md § Compound-first contract](./reference/ui/UI_COMPOSITION.md#compound-first-contract).
+Canonical contract: [UI composition § Compound-first contract](./reference/ui/UI_COMPOSITION.md#compound-first-contract).
 
 | Phase | Outcome                                                        | Status  |
 | ----- | -------------------------------------------------------------- | ------- |
@@ -488,7 +488,7 @@ Canonical contract: [UI_COMPOSITION.md § Compound-first contract](./reference/u
 | 7     | Tests, registry sync, version bumps to `0.0.2`, docs alignment | shipped |
 
 **Delivered:** compound-first installable API on `dev` — branch `feat/compound-first-api`
-merged via PR #34. See [UI_CATALOG.md](./reference/ui/UI_CATALOG.md) for the post-M11 inventory.
+merged via PR #34. See [UI catalog](./reference/ui/UI_CATALOG.md) for the post-M11 inventory.
 
 ---
 
@@ -501,12 +501,12 @@ CVA vs `*Classes()`, props/ref/className standards, compound API consistency,
 `lex-` CSS var prefix with rebrand script, `$ui-authoring` hub skill, and
 `ui-component-authoring.mdc` Cursor rule.
 
-Execution queue: [REVIEW_TODO.md § CS — Component Standardization](./REVIEW_TODO.md#cs--component-standardization).
+Execution queue: [Backlog § CS](./REVIEW_TODO.md#cs--component-standardization).
 
 Canonical docs:
-[UI.md](./reference/ui/UI.md),
-[UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md),
-[UI_COMPOSITION.md](./reference/ui/UI_COMPOSITION.md).
+[UI reference](./reference/ui/UI.md),
+[UI variants](./reference/ui/UI_VARIANTS.md),
+[UI composition](./reference/ui/UI_COMPOSITION.md).
 
 ---
 

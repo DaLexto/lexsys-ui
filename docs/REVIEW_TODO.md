@@ -4,7 +4,7 @@
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
 
-Long-term tokens platform direction lives in [docs/ROADMAP.md](./ROADMAP.md).
+Long-term tokens platform direction lives in [Roadmap](./ROADMAP.md).
 
 Completed work is tracked in git history. This document only contains items
 that are not yet done.
@@ -13,7 +13,7 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M10** — see [ROADMAP.md § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M4, M5–M7, **R0**, and **M10** shipped; **M8 shipped** (CLI cleanup and deduplication — all sub-items complete).
+**Monorepo optimization M1–M10** — see [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M4, M5–M7, **R0**, and **M10** shipped; **M8 shipped** (CLI cleanup and deduplication — all sub-items complete).
 
 | Phase   | Focus                                                               | Status  |
 | ------- | ------------------------------------------------------------------- | ------- |
@@ -38,7 +38,7 @@ Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 ## M4 — Entry + CLI DX (shipped)
 
-Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview).
+Detail: [Roadmap § M4](./ROADMAP.md#phase-overview).
 
 | Item  | Description                                                                                     | Status  |
 | ----- | ----------------------------------------------------------------------------------------------- | ------- |
@@ -60,7 +60,7 @@ Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview).
 
 ## M8 — CLI Cleanup and Deduplication (shipped)
 
-Detail: [ROADMAP.md § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
+Detail: [Roadmap § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
 
 | Item | Description                                                                                         | Status  |
 | ---- | --------------------------------------------------------------------------------------------------- | ------- |
@@ -77,24 +77,23 @@ Detail: [ROADMAP.md § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
 
 **First publish (historical):** `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm dist-tag **`next`**
 via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
-[CHANGELOG.md](../CHANGELOG.md#001---2026-05-24).
+[Changelog](../CHANGELOG.md#001---2026-05-24).
 
 **Current preview:** `0.0.2` @ `next` (2026-05-25) — M4 entry + CLI DX + M8 CLI cleanup.
 
-**Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [DEPLOY.md § Transition to
-0.1.0](../operations/DEPLOY.md#transition-to-010-latest).
+**Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [Deploy guide § Transition to 0.1.0](../operations/DEPLOY.md#transition-to-010-latest).
 
-Detail: [ROADMAP.md § M10](./ROADMAP.md#m10--release-readiness).
+Detail: [Roadmap § M10](./ROADMAP.md#m10--release-readiness).
 
 ---
 
 ## Verification policy (maintainer contract)
 
-Canonical detail: [docs/operations/TESTING.md § Verification surfaces](../operations/TESTING.md#verification-surfaces).
+Canonical detail: [Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces).
 
 - **`apps/playground`** — monorepo smoke, **maintenance-only** (~10–20% focus). Optional `pnpm playground:dev`; category nav for quick scans. Do not build product UX here unless the PR explicitly targets `apps/playground/**`.
 - **Consumer sandbox** — **consumer truth** (~80–90% focus) for CLI, registry, template, and install-artifact PRs. Manual checklist — not CI.
-- **Playground dark/brand demos** — deferred; consumer UX belongs in sandbox/SaaS ([ROADMAP.md § Explicitly deferred](./ROADMAP.md#explicitly-deferred)).
+- **Playground dark/brand demos** — deferred; consumer UX belongs in sandbox/SaaS ([Roadmap § Explicitly deferred](./ROADMAP.md#explicitly-deferred)).
 - **Change workflow** — branch off `dev` → implement → docs alignment → PR to `dev` last; **`main` untouched** unless explicitly requested ([AGENTS.md § Change workflow](../AGENTS.md#change-workflow)).
 
 ---
@@ -105,7 +104,7 @@ The P0 and P1 implementation passes are complete:
 
 - CLI install safety (idempotency, conflict detection, `--cwd` scoping, packed template resolution)
 - Token foundation (DTCG-shaped source, CSS + DTCG JSON generation, brand layer, theme modes)
-- Token platform phases 1–10 (factory authoring through accessibility contrast guard; see [docs/ROADMAP.md](./ROADMAP.md))
+- Token platform phases 1–10 (factory authoring through accessibility contrast guard; see [Roadmap](./ROADMAP.md))
 - Token engine: resolved value pipeline, composite typography + shadow/border registry, governance graph, WCAG contrast report + CI policy (`docs/reference/tokens/RESOLVER_EVOLUTION.md`)
 - Post–Phase 10 hardening: contrast pair registry (15 pairs); background compositing; `rgb()` / `hsl()` parsing; build-failing contrast in CSS build; primitive shadow scale `0`–`6` on branch+slot with CSS compose; elevation shadows reference primitive slots
 - ScrollArea component (UI, tokens, registry, playground) merged via PR #14 (`884e3eb`)
@@ -122,9 +121,9 @@ The P0 and P1 implementation passes are complete:
 - Documentation alignment with current token/UI contracts (`docs/reference/tokens/TOKENS.md`, design system, architecture, CLI, package READMEs)
 - Tier 1 test coverage: CLI uninstall orphan cleanup, contrast failure codes + policy tiers, registry style sync helpers (`docs/operations/TESTING.md`)
 - Per-package `vitest.config.ts` for Vitest VS Code extension discovery (Vitest 4; no root workspace file)
-- UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md))
-- Post–PR #24 ship (PR #25, `af729d5`): CLI `--sync` / `--utilities`, overlay token semantics, blocking `ui:audit`, full variant token sweep ([UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md), [CLI.md](./reference/cli/CLI.md))
-- Sandbox primitive QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [UI_COMPOSITION.md](./reference/ui/UI_COMPOSITION.md) composition track
+- UI package polish (PR #24, `c619a85`): unified variant API, `danger` vocabulary, semantic opacity, viewport inset tokens, `pnpm ui:audit` ([UI variants](./reference/ui/UI_VARIANTS.md))
+- Post–PR #24 ship (PR #25, `af729d5`): CLI `--sync` / `--utilities`, overlay token semantics, blocking `ui:audit`, full variant token sweep ([UI variants](./reference/ui/UI_VARIANTS.md), [CLI reference](./reference/cli/CLI.md))
+- Sandbox primitive QA (PR #26, `61c25a6`): Menu horizontal flyout collision avoidance, toast success/info/destructive surfaces, [UI composition](./reference/ui/UI_COMPOSITION.md) composition track
 - Consumer sandbox verify (PR #26 artifacts): `lexsys update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
@@ -138,10 +137,10 @@ Known gaps below.
 
 ### UI composition (primitives / blocks / templates)
 
-Canonical composition model: [docs/reference/ui/UI_COMPOSITION.md](./reference/ui/UI_COMPOSITION.md). Roadmap sequencing:
-[ROADMAP.md § UI composition](./ROADMAP.md#ui-composition--three-layers-pilots-shipped).
+Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md). Roadmap sequencing:
+[Roadmap § UI composition](./ROADMAP.md#ui-composition--three-layers-pilots-shipped).
 
-**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `lexsys add`-installable. BO.1–BO.7 fixed (CI install smoke, render tests, registry template-import audit); pilots marked stable. Narrow-viewport sandbox QA remains manual per [TESTING.md § Blocks/templates checklist](../operations/TESTING.md#consumer-sandbox-verification).
+**Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `lexsys add`-installable. BO.1–BO.7 fixed (CI install smoke, render tests, registry template-import audit); pilots marked stable. Narrow-viewport sandbox QA remains manual per [Testing docs § Blocks/templates checklist](../operations/TESTING.md#consumer-sandbox-verification).
 
 **Target:** expand registry **blocks** and **templates** beyond the pilot set. **`lexsys add <name>`** installs the transitive closure via `registryDependencies`; `item.target` resolves to the flat components root (monorepo templates still live under `primitives/`, `blocks/`, or `templates/` source folders).
 
@@ -171,7 +170,7 @@ Canonical composition model: [docs/reference/ui/UI_COMPOSITION.md](./reference/u
 
 **Context:** Consumer sandbox (PulseDesk SaaS demo) QA during PR #28 exposed that **blocks/templates are not “organization-only” quality**. Primitives were assumed production-ready when composing blocks; that assumption is **not validated** for composed/mobile flows.
 
-**Do not ship new blocks/templates without CI install smoke + render coverage** (see [TESTING.md](../operations/TESTING.md)). BO.1–BO.7 are fixed; see status column.
+**Do not ship new blocks/templates without CI install smoke + render coverage** (see [Testing docs](../operations/TESTING.md)). BO.1–BO.7 are fixed; see status column.
 
 | ID   | Area              | Issue                                       | Status / notes                                                                                                                                                                                 |
 | ---- | ----------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -193,7 +192,7 @@ Canonical composition model: [docs/reference/ui/UI_COMPOSITION.md](./reference/u
 templates, and registry templates before expanding the component catalog or
 writing permanent component rules.
 
-Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component-standardization-planned).
+Roadmap anchor: [Roadmap § Component standardization](./ROADMAP.md#component-standardization-planned).
 
 | ID   | Area                     | Goal                                                                                                        | Status  |
 | ---- | ------------------------ | ----------------------------------------------------------------------------------------------------------- | ------- |
@@ -217,7 +216,7 @@ Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component
 ## P3 — Architecture Planning
 
 Optional follow-ups after Phases 1–10 (detail in
-[docs/reference/tokens/RESOLVER_EVOLUTION.md — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10)):
+[Resolver evolution — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10)):
 
 - Further expand `SEMANTIC_CONTRAST_PAIRS` (design sign-off per pair)
 - DTCG composite object `$value` engine phase (option B — after slot model stable)
@@ -236,7 +235,7 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~Remote registry contract~~ — manifest parser + validation (M3.3)
 - ~~Governance promotion (semantic audit errors)~~ — `LEXSYS_GOVERNANCE_POLICY` (M3.4)
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
-- ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md))
+- ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI variants](./reference/ui/UI_VARIANTS.md))
 
 ## SI — Script Improvements
 
@@ -254,7 +253,7 @@ Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 
 | Gap                                    | Notes                                                                                                                                        |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [TESTING.md](./operations/TESTING.md). |
+| Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md). |
 | Remote registry signatures / allowlist | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                         |
 | `documentation-standards.mdc` revisit | Solid Diátaxis base but lacks: codebase-specific examples, tooling reference (future `docs:lint`), hub+detail split for readability, rule maintenance policy. Revisit post-0.1.0. |
 

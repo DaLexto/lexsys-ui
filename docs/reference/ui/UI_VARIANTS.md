@@ -4,7 +4,7 @@
 **Type:** Domain specification  
 **Source of truth for:** Public variant prop contract, CVA implementation rules, styling pattern taxonomy  
 **Verified against:** `packages/ui/src/components/`  
-**Related docs:** [UI.md](../ui/UI.md), [UI_AUDIT.md](../ui/UI_AUDIT.md), [STYLEGUIDE.md](../../contributors/STYLEGUIDE.md), [STYLE.md](../../contributors/STYLE.md), [TOKENS.md](../tokens/TOKENS.md)
+**Related docs:** [UI reference](../ui/UI.md), [UI audit](../ui/UI_AUDIT.md), [Component style guide](../../contributors/STYLEGUIDE.md), [Style guide](../../contributors/STYLE.md), [Tokens reference](../tokens/TOKENS.md)
 
 ---
 
@@ -124,7 +124,7 @@ Other examples: `data-[swiping]`, `data-[behind]`, `data-[invalid]`, `aria-busy`
 | **Overlays** | slot-level tokens; placement/size on Drawer                                                                      | per-component           | Toast: data-attribute |
 | **Controls** | Toggle, ToggleGroup: **size only**                                                                               | sm, md, lg              | no variant axis       |
 
-Per-component allowed enums live in [UI_AUDIT.md](../ui/UI_AUDIT.md). Force **consistent prop names and CVA structure**, not identical values across unrelated components.
+Per-component allowed enums live in [UI audit](../ui/UI_AUDIT.md). Force **consistent prop names and CVA structure**, not identical values across unrelated components.
 
 ---
 
@@ -189,6 +189,6 @@ For scrollable lists, compose portal → positioner → popup → list (Select) 
 - `pnpm ui:check` — variant + render tests per batch
 - `pnpm registry:check` — templates synced after component edits
 - `pnpm tokens:check` — token layer + CSS generation
-- Consumer smoke via sandbox when registry templates or public props change ([TESTING.md § Verification surfaces](../operations/TESTING.md#verification-surfaces))
+- Consumer smoke via sandbox when registry templates or public props change ([Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces))
 
 Do not start dev servers from agent sessions ([AGENTS.md § Agent operations](../AGENTS.md#agent-operations)).

@@ -3,10 +3,10 @@
 **Audience:** Maintainers  
 **Type:** Catalog / inventory  
 **Source of truth for:** Per-primitive **variant / CVA compliance** status and batch assignment  
-**Canonical standard:** [UI_VARIANTS.md](../ui/UI_VARIANTS.md)  
-**Related docs:** [UI_CATALOG.md](../ui/UI_CATALOG.md) (compound vs leaf, named exports — **not** this doc), [UI.md](../ui/UI.md), [UI_COMPOSITION.md](../ui/UI_COMPOSITION.md)
+**Canonical standard:** [UI variants](../ui/UI_VARIANTS.md)  
+**Related docs:** [UI catalog](../ui/UI_CATALOG.md) (compound vs leaf, named exports — **not** this doc), [UI reference](../ui/UI.md), [UI composition](../ui/UI_COMPOSITION.md)
 
-**Scope:** CVA patterns, public variant props, token literals, and `.variants.ts` exports only. For installable composition (compound parts, registry version), use **[UI_CATALOG.md](../ui/UI_CATALOG.md)**.
+**Scope:** CVA patterns, public variant props, token literals, and `.variants.ts` exports only. For installable composition (compound parts, registry version), use **[UI catalog](../ui/UI_CATALOG.md)**.
 
 Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
@@ -14,13 +14,13 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
 ## Purpose and scope
 
-This inventory tracks **styling and variant-axis compliance** against [UI_VARIANTS.md](../ui/UI_VARIANTS.md). It does **not** define compound-first export rules (M11) — those live in [UI.md](../ui/UI.md) and [UI_CATALOG.md](../ui/UI_CATALOG.md).
+This inventory tracks **styling and variant-axis compliance** against [UI variants](../ui/UI_VARIANTS.md). It does **not** define compound-first export rules (M11) — those live in [UI reference](../ui/UI.md) and [UI catalog](../ui/UI_CATALOG.md).
 
 | Question                                                     | Read                                              |
 | ------------------------------------------------------------ | ------------------------------------------------- |
-| Compound or leaf? Named component exports? Registry version? | [UI_CATALOG.md](../ui/UI_CATALOG.md)              |
-| Variant props, CVA rules, token literals?                    | This doc + [UI_VARIANTS.md](../ui/UI_VARIANTS.md) |
-| Composition layers and install paths?                        | [UI_COMPOSITION.md](../ui/UI_COMPOSITION.md)      |
+| Compound or leaf? Named component exports? Registry version? | [UI catalog](../ui/UI_CATALOG.md)              |
+| Variant props, CVA rules, token literals?                    | This doc + [UI variants](../ui/UI_VARIANTS.md) |
+| Composition layers and install paths?                        | [UI composition](../ui/UI_COMPOSITION.md)      |
 
 ---
 
@@ -73,7 +73,7 @@ This inventory tracks **styling and variant-axis compliance** against [UI_VARIAN
 | **ToggleGroup** | **`size` only**                                       | CVA prop              | `toggleGroupVariants`                                                                                   | catalog                                       | inherits Toggle                                                                         | variants + render | PR1     |
 | **Tooltip**     | —                                                     | CVA slots             | 4 slot variants                                                                                         | catalog                                       | —                                                                                       | variants + render | PR3     |
 
-**Shipped PR #30 (variant rows pending):** Autocomplete, CheckboxGroup, Combobox, ContextMenu, Menubar, NavigationMenu, OtpField, PreviewCard, Toolbar — composition in [UI_CATALOG.md](../ui/UI_CATALOG.md).
+**Shipped PR #30 (variant rows pending):** Autocomplete, CheckboxGroup, Combobox, ContextMenu, Menubar, NavigationMenu, OtpField, PreviewCard, Toolbar — composition in [UI catalog](../ui/UI_CATALOG.md).
 
 **Blocks and templates (compound-only @ registry `0.0.2`):** FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell — variant audit rows not tracked here; render tests in `packages/ui/test/`.
 
@@ -115,7 +115,7 @@ Composition / export inventory drift:
 pnpm ui:audit:catalog:check
 ```
 
-See [UI_CATALOG.md § Generation and drift checks](../ui/UI_CATALOG.md#generation-and-drift-checks).
+See [UI catalog § Generation and drift checks](../ui/UI_CATALOG.md#generation-and-drift-checks).
 
 ---
 
@@ -139,7 +139,7 @@ See [UI_CATALOG.md § Generation and drift checks](../ui/UI_CATALOG.md#generatio
 - Overlay semantics (`size.overlay.*`, `spacing.overlay.sideOffset`, `elevation.behind.*`)
 - **`pnpm ui:audit` blocking** in `pnpm ui:check`; audited primitive variants token-compliant (41 shipped; 9 PR #30 modules pending variant table rows)
 
-**Composition pass (M11):** Shipped on `dev` — export and registry inventory in [UI_CATALOG.md](../ui/UI_CATALOG.md). This doc’s primitive rows were refreshed for M11-touched variant axes only; blocks/templates are out of scope.
+**Composition pass (M11):** Shipped on `dev` — export and registry inventory in [UI catalog](../ui/UI_CATALOG.md). This doc’s primitive rows were refreshed for M11-touched variant axes only; blocks/templates are out of scope.
 
 Run `pnpm ui:audit` after variant edits. Run `pnpm ui:audit:catalog:check` after export or registry version changes.
 
@@ -147,6 +147,6 @@ Run `pnpm ui:audit` after variant edits. Run `pnpm ui:audit:catalog:check` after
 
 ## Related docs
 
-- [UI_CATALOG.md](../ui/UI_CATALOG.md) — installable inventory (canonical for compound vs leaf)
-- [UI_VARIANTS.md](../ui/UI_VARIANTS.md) — variant contract this audit enforces
-- [INDEX.md](./INDEX.md) — documentation routing
+- [UI catalog](../ui/UI_CATALOG.md) — installable inventory (canonical for compound vs leaf)
+- [UI variants](../ui/UI_VARIANTS.md) — variant contract this audit enforces
+- [Doc index](./INDEX.md) — documentation routing

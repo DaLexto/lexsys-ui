@@ -41,16 +41,16 @@ Core invariants:
 | `packages/ui`       | `@dalexto/lexsys-ui`                 | Source/reference React components (not the final distributed form)                                                                     |
 | `packages/registry` | `@dalexto/lexsys-registry`           | Registry items, templates, utilities, styles, and metadata validator                                                                   |
 | `packages/cli`      | `@dalexto/lexsys-cli` (`lexsys` bin) | CLI installer; reads `@dalexto/lexsys-registry`; orchestrates install into consumer projects                                           |
-| `apps/playground`   | `@dalexto/lexsys-playground`         | Monorepo smoke app — workspace `@dalexto/lexsys-ui`; not the consumer install path. See [TESTING.md](TESTING.md#verification-surfaces) |
+| `apps/playground`   | `@dalexto/lexsys-playground`         | Monorepo smoke app — workspace `@dalexto/lexsys-ui`; not the consumer install path. See [Testing docs](TESTING.md#verification-surfaces) |
 
 Consumer validation (CLI install path, real layouts, brand/theme UX) happens outside the monorepo — sandbox or SaaS — not in playground.
 
 Package boundaries MUST be respected. Domain contracts live in this document
-and linked specs in [INDEX.md](INDEX.md). [AGENTS.md](../AGENTS.md) is the
+and linked specs in [Doc index](INDEX.md). [AGENTS.md](../AGENTS.md) is the
 agent routing layer — not a duplicate of token/UI/registry rules.
 
 Build toolchain: pnpm workspaces, Turborepo, tsup, TypeScript 6, Vitest,
-ESLint, Prettier. See [DEPLOY.md](DEPLOY.md) for build and publish rules.
+ESLint, Prettier. See [Deploy guide](DEPLOY.md) for build and publish rules.
 
 ---
 
@@ -59,7 +59,7 @@ ESLint, Prettier. See [DEPLOY.md](DEPLOY.md) for build and publish rules.
 Reference components in `packages/ui/src/components/` and install templates in
 `packages/registry/templates/` follow this layout. Monorepo folders use three
 layers (`primitives/`, `blocks/`, `templates/`); consumer installs flatten to
-`src/components/ui/<CanonicalName>/`. See [UI_COMPOSITION.md](UI_COMPOSITION.md).
+`src/components/ui/<CanonicalName>/`. See [UI composition](UI_COMPOSITION.md).
 
 ```txt
 ComponentName/
@@ -72,7 +72,7 @@ Components support structured `variant` props and `className` overrides.
 Interactive components use `@base-ui/react` primitives internally.
 Base UI is an implementation detail — it MUST NOT define the public API shape.
 
-See [STYLEGUIDE.md](STYLEGUIDE.md) and [STYLE.md](STYLE.md) for naming and
+See [Component style guide](STYLEGUIDE.md) and [Style guide](STYLE.md) for naming and
 coding conventions.
 
 ### UI composition layers
@@ -92,8 +92,8 @@ cross-layer imports at install time so consumer projects do not mirror monorepo
 folder depth. `registryDependencies` resolve transitively.
 
 Full layer rules, composition validator, and optimization backlog:
-[UI_COMPOSITION.md](UI_COMPOSITION.md), [REGISTRY.md](REGISTRY.md),
-[REVIEW_TODO.md § Blocks/templates optimization backlog](REVIEW_TODO.md#blocks--templates-optimization-backlog).
+[UI composition](UI_COMPOSITION.md), [Registry reference](REGISTRY.md),
+[Backlog § Blocks/templates optimization](REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 ---
 
@@ -120,7 +120,7 @@ The current preset is `lexsys` (`Lexsys Default`), brand `lexsys`, with
 Tailwind v4 is the user-facing styling layer. No runtime theme provider is
 required; theme switching is left to the consumer application via class toggling.
 
-Canonical token rules are owned by [TOKENS.md](TOKENS.md).
+Canonical token rules are owned by [Tokens reference](TOKENS.md).
 
 ---
 
@@ -176,7 +176,7 @@ The CLI resolves registry items from:
    local if the fetch fails (unless `--no-fallback` is used).
 
 **Trust model:** remote manifests are trusted as configured — no signature,
-checksum, or host allowlist enforcement yet. See [CLI.md](./reference/cli/CLI.md) § Remote
+checksum, or host allowlist enforcement yet. See [CLI reference](./reference/cli/CLI.md) § Remote
 registry manifest contract.
 
 ### Install idempotency
@@ -224,7 +224,7 @@ Next.js 15.3.3).
 Tailwind v4 is the only supported Tailwind version. The config schema has
 `tailwind.version: "v4"` hardcoded.
 
-See [CLI.md](CLI.md) for the full command reference.
+See [CLI reference](CLI.md) for the full command reference.
 
 ---
 
@@ -310,12 +310,12 @@ invocation.
 
 | Document                                       | Owns                                                          |
 | ---------------------------------------------- | ------------------------------------------------------------- |
-| [INDEX.md](INDEX.md)                           | Documentation routing hub — which doc owns which topic        |
-| [TOKENS.md](TOKENS.md)                         | Token layer rules, resolver, CSS generation, validation       |
-| [RESOLVER_EVOLUTION.md](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work   |
-| [CLI.md](CLI.md)                               | Full CLI command reference, flags, config options             |
-| [STYLEGUIDE.md](STYLEGUIDE.md)                 | Component naming, file layout, CSS class conventions          |
-| [STYLE.md](STYLE.md)                           | Coding style, TypeScript, React, import/export rules          |
-| [DEPLOY.md](DEPLOY.md)                         | Build pipeline, publish-readiness, artifact contract          |
-| [UI_COMPOSITION.md](UI_COMPOSITION.md)         | UI composition model, layer rules, monorepo vs consumer paths |
+| [Doc index](INDEX.md)                           | Documentation routing hub — which doc owns which topic        |
+| [Tokens reference](TOKENS.md)                         | Token layer rules, resolver, CSS generation, validation       |
+| [Resolver evolution](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work   |
+| [CLI reference](CLI.md)                               | Full CLI command reference, flags, config options             |
+| [Component style guide](STYLEGUIDE.md)                 | Component naming, file layout, CSS class conventions          |
+| [Style guide](STYLE.md)                           | Coding style, TypeScript, React, import/export rules          |
+| [Deploy guide](DEPLOY.md)                         | Build pipeline, publish-readiness, artifact contract          |
+| [UI composition](UI_COMPOSITION.md)         | UI composition model, layer rules, monorepo vs consumer paths |
 | [AGENTS.md](../AGENTS.md)                      | Agent routing, guardrails, skills index (not domain specs)    |

@@ -5,7 +5,7 @@
 **Source of truth for:** Verification surfaces (playground vs sandbox), test coverage by package, when to run which checks
 **Verified against:** `packages/*/test/`, `packages/*/vitest.config.ts`, `package.json` scripts
 
-Command names and sync workflows: [SCRIPTS.md](../operations/SCRIPTS.md).
+Command names and sync workflows: [Scripts reference](../operations/SCRIPTS.md).
 
 ---
 
@@ -33,7 +33,7 @@ External project outside this monorepo (example: `D:\PLAYGROUND\sandbox-lexsys`)
 
 **Primary manual gate** before PRs that touch CLI, registry, templates, blocks/templates, or install artifacts.
 
-For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [REVIEW_TODO.md § Blocks/templates optimization backlog](../REVIEW_TODO.md#blocks--templates-optimization-backlog).
+For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [Backlog § Blocks/templates optimization](../REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 ### Practical workflow
 
@@ -48,7 +48,7 @@ For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, C
 
 ## Quick Reference
 
-Primary gate: `pnpm check` (see [SCRIPTS.md](../operations/SCRIPTS.md) for full inventory).
+Primary gate: `pnpm check` (see [Scripts reference](../operations/SCRIPTS.md) for full inventory).
 
 Per-package test commands are listed in each section below.
 
@@ -229,13 +229,13 @@ Checklist after CLI or registry changes:
 5. If templates or styles changed: confirm `styles/tokens.css` and `styles/theme.css` update as expected.
 
 **Post-publish npm smoke** (`npx @dalexto/lexsys@next init vite …`): CLI scaffolds with
-**npm** — use **`npm run build`** only ([DEPLOY.md § Phase 5](../operations/DEPLOY.md#phase-5--post-publish-smoke-real-consumer)).
+**npm** — use **`npm run build`** only ([Deploy guide § Release workflow](./DEPLOY.md#release-workflow)).
 
 **Blocks/templates checklist** (when FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, or DashboardShell change):
 
 1. Fresh or updated install: `lexsys add dashboard-shell` (transitive closure — Sidebar + primitives).
 2. Confirm flat layout: `src/components/ui/DashboardShell/`, `src/components/ui/Sidebar/`, sibling import paths (no `blocks/` or `templates/` folders in consumer tree).
-3. Narrow viewport (`< md`): mobile drawer opens; nav list items stack vertically (plain nav + `DrawerClose appearance="inline"` — see BO.2 in [REVIEW_TODO.md](../REVIEW_TODO.md)).
+3. Narrow viewport (`< md`): mobile drawer opens; nav list items stack vertically (plain nav + `DrawerClose appearance="inline"` — see BO.2 in [Backlog](../REVIEW_TODO.md)).
 4. `lexsys uninstall dashboard-shell --dry-run` then `--with-deps --dry-run` — orphan hints look correct.
 5. Compare drawer shell to [playground overlays panel](../apps/playground/src/overlays-panel.tsx) when changing Sidebar/Drawer composition.
 

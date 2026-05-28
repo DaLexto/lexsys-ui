@@ -4,10 +4,10 @@
 **Type:** Domain specification
 **Source of truth for:** Component contract rules, file structure, Base UI boundaries, variant and token usage
 **Verified against:** `packages/ui/src/`
-**Related docs:** [UI_COMPOSITION.md](../ui/UI_COMPOSITION.md) (install layers),
-[UI_CATALOG.md](../ui/UI_CATALOG.md) (full installable inventory),
-[UI_VARIANTS.md](../ui/UI_VARIANTS.md), [UI_AUDIT.md](../ui/UI_AUDIT.md),
-[REGISTRY.md](../registry/REGISTRY.md), `docs/contributors/STYLEGUIDE.md` (practical patterns),
+**Related docs:** [UI composition](../ui/UI_COMPOSITION.md) (install layers),
+[UI catalog](../ui/UI_CATALOG.md) (full installable inventory),
+[UI variants](../ui/UI_VARIANTS.md), [UI audit](../ui/UI_AUDIT.md),
+[Registry reference](../registry/REGISTRY.md), `docs/contributors/STYLEGUIDE.md` (practical patterns),
 `docs/reference/tokens/DESIGN_SYSTEM.md` (token system), `packages/ui/README.md` (package internals)
 
 ---
@@ -23,7 +23,7 @@ source components that:
 
 Monorepo source is organized in three composition layers under
 `packages/ui/src/components/` — `primitives/`, `blocks/`, `templates/`. See
-[UI_COMPOSITION.md](../ui/UI_COMPOSITION.md). Consumer projects receive a **flat**
+[UI composition](../ui/UI_COMPOSITION.md). Consumer projects receive a **flat**
 install under `paths.components` regardless of layer; the CLI rewrites
 cross-layer imports at install time.
 
@@ -131,9 +131,9 @@ Base UI dot notation (`Dialog.Trigger`) in consumer imports.
 **Intentional leaves (documented):** `Button`, `Input`, `Badge`, `Separator`,
 `Form`, `Toggle`, `ToggleGroup`, `CheckboxGroup`, `Menubar` (composes Menu
 parts), `Textarea` (Field.Control render pattern). Full inventory with export
-lists: [UI_CATALOG.md](../ui/UI_CATALOG.md).
+lists: [UI catalog](../ui/UI_CATALOG.md).
 
-See [UI_COMPOSITION.md § Compound-first contract](../ui/UI_COMPOSITION.md#compound-first-contract).
+See [UI composition § Compound-first contract](../ui/UI_COMPOSITION.md#compound-first-contract).
 
 ---
 
@@ -156,7 +156,7 @@ Components that render plain HTML elements MAY merge `className` directly:
 
 ## Variant Contract
 
-Canonical standard: [UI_VARIANTS.md](../ui/UI_VARIANTS.md). Audit inventory: [UI_AUDIT.md](../ui/UI_AUDIT.md).
+Canonical standard: [UI variants](../ui/UI_VARIANTS.md). Audit inventory: [UI audit](../ui/UI_AUDIT.md).
 
 Every component with visual options MUST define variants in `.variants.ts` using
 `class-variance-authority`:
@@ -226,7 +226,7 @@ After editing any component, run `pnpm registry:sync` (primitives + blocks) and
 verify with `pnpm registry:check` before merging. Do not manually edit registry
 templates.
 
-Full template sync contract (transform rules, drift validation, manual vs. generated distinction): [docs/reference/registry/REGISTRY.md](REGISTRY.md).
+Full template sync contract (transform rules, drift validation, manual vs. generated distinction): [Registry reference](REGISTRY.md).
 
 ---
 

@@ -231,7 +231,7 @@ before contrast math (overlay pairs). Foreground alpha compositing uses the same
 
 **Two-layer accessibility model:** token-time contrast (explicit pairs + WCAG math
 here) complements runtime checks in consumer apps (axe-core, manual a11y review).
-See [docs/reference/tokens/RESOLVER_EVOLUTION.md](../tokens/RESOLVER_EVOLUTION.md).
+See [Resolver evolution](../tokens/RESOLVER_EVOLUTION.md).
 
 Report and enforcement:
 
@@ -355,7 +355,7 @@ paths such as `border.default` remain unchanged.
 **Deferred:** DTCG composite **object** `$value` on a single leaf (spec-native
 structured shadow/border) requires a separate engine phase (`TokenValue`, resolver
 alias grammar, generator explode). Lexsys authoring stays branch + slot; optional
-DTCG object export may follow. See [docs/reference/tokens/RESOLVER_EVOLUTION.md](../tokens/RESOLVER_EVOLUTION.md).
+DTCG object export may follow. See [Resolver evolution](../tokens/RESOLVER_EVOLUTION.md).
 
 ---
 
@@ -409,7 +409,7 @@ Build-time contrast enforcement is also active in `validateStyleTokenInput` unle
 **Optional output change (opt-in):** `createStyleOutputs({ stripDeadPrimitives: true })` or
 `node dist/scripts/write-style-outputs.js --package --strip-dead-primitives` omits unreached
 primitive leaves from CSS/DTCG after full-graph validation. Default is off. Speculative
-AST/color math is deferred. See [docs/reference/tokens/RESOLVER_EVOLUTION.md](../tokens/RESOLVER_EVOLUTION.md).
+AST/color math is deferred. See [Resolver evolution](../tokens/RESOLVER_EVOLUTION.md).
 
 ---
 

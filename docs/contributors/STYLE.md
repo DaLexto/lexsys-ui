@@ -62,7 +62,7 @@ For examples and practical patterns, see `docs/contributors/STYLEGUIDE.md`.
 
 - Tailwind v4 is the user-facing styling layer.
 - Define all visual variants with `cva` from `class-variance-authority` in `.variants.ts`.
-- Canonical variant contract: [UI_VARIANTS.md](../reference/ui/UI_VARIANTS.md). Per-component audit: [UI_AUDIT.md](../reference/ui/UI_AUDIT.md).
+- Canonical variant contract: [UI variants](../reference/ui/UI_VARIANTS.md). Per-component audit: [UI audit](../reference/ui/UI_AUDIT.md).
 - Use `cn()` (clsx + tailwind-merge) for all class composition. Do not concatenate strings manually.
 - Variant classes MUST reference `--lex-*` CSS custom properties, not hardcoded Tailwind palette values:
   ```ts
@@ -123,6 +123,6 @@ For examples and practical patterns, see `docs/contributors/STYLEGUIDE.md`.
 
 ## Testing and Verification
 
-Run `pnpm check` before merging. Full script reference: [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md).
+Run `pnpm check` before merging. Full script reference: [Scripts reference](../operations/SCRIPTS.md).
 
 For the full test command reference, per-package scripts, and when to run targeted vs full checks: `docs/operations/TESTING.md`.
