@@ -246,7 +246,7 @@ when the rename workflow is actually exercised for a real rebrand.
 | ID   | Description | Status |
 | ---- | ----------- | ------ |
 | SI.1 | Full post-rename run order: rename → `registry:sync` → `format` (per-package scripts exist) → `pnpm check` (lint + typecheck + tests). Currently stops after `registry:sync` and does not format or run tests. | planned |
-| SI.2 | Per-package format: use existing `pnpm ui:lint:fix`, `pnpm tokens:lint:fix`, `pnpm registry:lint:fix` on touched packages only instead of full `pnpm format`. | planned |
+| SI.2 | Post-rename format: run `pnpm format` (Prettier, whole repo) after file writes. Currently the script does not format — touched files may drift from style rules. Note: `*:lint:fix` scripts are ESLint-only, not Prettier; there are no per-package Prettier scripts. `pnpm format` on the whole repo is the correct call here. | planned |
 | SI.3 | Post-rename summary: print count of files changed per category (source / docs / test-configs / registry) after all tasks complete. | planned |
 
 ---
