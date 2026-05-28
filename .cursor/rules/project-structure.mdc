@@ -90,6 +90,8 @@ ComponentName/
 | `git-commit-rules.mdc` | Meta: authoring commit rules |
 | `lexsys-testing.mdc` | Vitest layout and commands per package |
 | `tech-stack.mdc` | Dependencies and toolchain |
+| `typescript-conventions.mdc` | TypeScript conventions and patterns |
+| `ui-component-authoring.mdc` | UI component authoring standards (CS.8) |
 | `self-improvement.mdc` | When to evolve rules |
 
 Repo skills: [`.agents/skills/`](../../.agents/skills/). Git commit/PR policy: [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → [git-commits.mdc](../../.agents/skills/git-commit/git-commits.mdc).
