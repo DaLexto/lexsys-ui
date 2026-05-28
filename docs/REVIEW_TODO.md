@@ -197,7 +197,7 @@ Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component
 | ---- | ------------------------ | ------------------------------------------------------------------- | ------- |
 | CS.1 | Review / Score           | Score primitives, blocks, and templates A/B/C/D; record good vs bad | shipped |
 | CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens   | shipped |
-| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                 | planned |
+| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                 | shipped |
 | CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape       | planned |
 | CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                      | planned |
 | CS.6 | Registry sync            | Sync templates if UI install artifacts change                       | planned |
