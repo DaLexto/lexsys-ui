@@ -9,7 +9,7 @@ import type { RegistryItem } from "../registry.types.js"
 export const emptyRegistryItem: RegistryItem = {
   name: "empty",
   canonicalName: "Empty",
-  version: "0.0.3",
+  version: "0.0.1",
   type: "block",
   category: "layout",
   aliases: ["empty-state"],
