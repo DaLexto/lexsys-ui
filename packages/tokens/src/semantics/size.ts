@@ -82,4 +82,14 @@ export const sizeSemantics = semanticTokens("size", {
       maxHeight: { $value: "{layout.viewport.full}" },
     },
   },
+  sidebar: {
+    $type: "dimension",
+    width: { $value: "{size.64}" },
+  },
+  commandPalette: {
+    list: {
+      $type: "dimension",
+      maxHeight: { $value: "{size.64}" },
+    },
+  },
 })

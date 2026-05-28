@@ -71,6 +71,14 @@ export const menuComponentTokens = componentTokens("menu", {
       $type: "dimension",
       size: { $value: "{size.selectionControl.sm}" },
     },
+    focus: {
+      ring: {
+        width: { $value: "{outline.width.focus}" },
+        color: { $value: "{border.focus}" },
+        offset: { $value: "{outline.offset.focus}" },
+        offsetColor: { $value: "{color.background.base}" },
+      },
+    },
   },
   submenu: {
     icon: {

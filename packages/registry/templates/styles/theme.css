@@ -93,6 +93,8 @@
   --spacing-twix-panel-height-lg: var(--lex-size-panel-height-lg);
   --spacing-twix-overlay-list-max-height: var(--lex-size-overlay-list-max-height);
   --spacing-twix-overlay-viewport-max-height: var(--lex-size-overlay-viewport-max-height);
+  --spacing-twix-sidebar-width: var(--lex-size-sidebar-width);
+  --spacing-twix-command-palette-list-max-height: var(--lex-size-command-palette-list-max-height);
   --duration-twix-control: var(--lex-duration-control);
   --duration-twix-surface: var(--lex-duration-surface);
   --ease-twix-control: var(--lex-easing-control);
