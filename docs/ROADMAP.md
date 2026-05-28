@@ -235,9 +235,9 @@ Status: shipped
 
 **Phase PR:** `chore(m3): product and architecture backlog`
 
-### M4 — (TBD)
+### M4 — Entry + CLI DX
 
-Status: planned — reserved slot; scope to be defined before implementation starts.
+Status: **shipped** — see [REVIEW_TODO.md § M4](./REVIEW_TODO.md#m4--entry--cli-dx-shipped) for sub-item detail.
 
 ### M5 — Advanced CI
 
@@ -492,15 +492,14 @@ merged via PR #34. See [UI_CATALOG.md](./reference/ui/UI_CATALOG.md) for the pos
 
 ---
 
-## Component standardization (planned)
+## Component standardization (shipped)
 
-**Status:** planned — not a current implementation contract.
+**Status:** shipped — CS.1–CS.8 all complete.
 
-**Goal:** define and clean canonical UI component authoring patterns before
-expanding the component catalog further.
-
-Scope: primitives, blocks, templates, `.variants.ts` files, props/ref/className
-consistency, compound API consistency, and registry template sync impact.
+**Delivered:** canonical authoring patterns for primitives, blocks, and templates —
+CVA vs `*Classes()`, props/ref/className standards, compound API consistency,
+`lex-` CSS var prefix with rebrand script, `$ui-authoring` hub skill, and
+`ui-component-authoring.mdc` Cursor rule.
 
 Execution queue: [REVIEW_TODO.md § CS — Component Standardization](./REVIEW_TODO.md#cs--component-standardization).
 

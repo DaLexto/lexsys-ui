@@ -31,9 +31,11 @@
  *
  * POST-RENAME
  * -----------
- * After writing files, the script automatically runs:
+ * After writing files, the script automatically runs (in order):
  *   pnpm tokens:generate:styles  — regenerates CSS with the new prefix
  *   pnpm registry:sync           — propagates updated variant templates
+ *   pnpm format                  — formats all touched files (Prettier)
+ *   pnpm check                   — lint + typecheck + tests (full gate)
  *
  * Usage:
  *   node scripts/rebrand/rename-prefix.mjs --to lex
@@ -203,6 +205,18 @@ if (changed.length === 0) {
   process.exit(0)
 }
 
+// SI.3 — categorize changed files for summary
+const categorize = (relPath) => {
+  const p = relPath.replace(/\\/g, "/")
+  if (p.includes("test/config/prefix.ts")) return "test-configs"
+  if (p.endsWith(".md")) return "docs"
+  if (p.includes("/src/")) return "source"
+  return "other"
+}
+
+const counts = { source: 0, docs: 0, "test-configs": 0, other: 0 }
+for (const { relPath } of changed) counts[categorize(relPath)]++
+
 console.log(`Files to modify (${changed.length}):`)
 for (const { relPath } of changed) {
   console.log(`  ${dryRun ? "[dry]" : "✓"} ${relPath}`)
@@ -220,7 +234,7 @@ for (const { filePath, updated } of changed) {
   writeFileSync(filePath, updated, "utf8")
 }
 
-// Post-rename: regenerate CSS and sync registry templates
+// Post-rename: regenerate CSS, sync registry, format, check
 console.log("\nRunning post-rename tasks...")
 
 try {
@@ -230,9 +244,20 @@ try {
   console.log("  → pnpm registry:sync")
   execSync("pnpm registry:sync", { stdio: "inherit", cwd: ROOT })
 
-  console.log(
-    `\nDone. "${from}-" renamed to "${to}-" across ${changed.length} files.\n`,
-  )
+  console.log("  → pnpm format")
+  execSync("pnpm format", { stdio: "inherit", cwd: ROOT })
+
+  console.log("  → pnpm check")
+  execSync("pnpm check", { stdio: "inherit", cwd: ROOT })
+
+  // SI.3 — per-category summary
+  console.log(`\nDone. "${from}-" renamed to "${to}-"`)
+  console.log(`  ${changed.length} files changed:`)
+  if (counts.source) console.log(`    source      ${counts.source}`)
+  if (counts.docs) console.log(`    docs        ${counts.docs}`)
+  if (counts["test-configs"]) console.log(`    test-configs ${counts["test-configs"]}`)
+  if (counts.other) console.log(`    other       ${counts.other}`)
+  console.log()
 } catch (err) {
   console.error("\nPost-rename task failed:", err.message)
   process.exit(1)
