@@ -20,7 +20,7 @@ import type {
   SettingsPanelProps,
   SettingsPanelTitleProps,
 } from "./SettingsPanel.types"
-import { settingsPanelVariants } from "./SettingsPanel.variants"
+import { settingsPanelClasses } from "./SettingsPanel.variants"
 import { cn } from "../../../utils/cn"
 
 const SettingsPanel = ({
@@ -34,7 +34,7 @@ const SettingsPanel = ({
     <Card
       ref={ref}
       variant={variant}
-      className={cn(settingsPanelVariants(), className)}
+      className={cn(settingsPanelClasses(), className)}
       {...cardProps}
     >
       {children}

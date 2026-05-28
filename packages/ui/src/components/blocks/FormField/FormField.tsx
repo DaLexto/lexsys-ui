@@ -20,16 +20,12 @@ import type {
   FormFieldLabelProps,
   FormFieldProps,
 } from "./FormField.types"
-import { formFieldVariants } from "./FormField.variants"
+import { formFieldClasses } from "./FormField.variants"
 import { cn } from "../../../utils/cn"
 
 const FormField = ({ ref, className, ...props }: FormFieldProps) => {
   return (
-    <Field
-      ref={ref}
-      className={cn(formFieldVariants(), className)}
-      {...props}
-    />
+    <Field ref={ref} className={cn(formFieldClasses(), className)} {...props} />
   )
 }
 
