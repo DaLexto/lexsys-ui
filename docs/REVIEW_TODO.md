@@ -256,5 +256,6 @@ Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [TESTING.md](./operations/TESTING.md). |
 | Remote registry signatures / allowlist | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                         |
+| `documentation-standards.mdc` revisit | Solid Diátaxis base but lacks: codebase-specific examples, tooling reference (future `docs:lint`), hub+detail split for readability, rule maintenance policy. Revisit post-0.1.0. |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.

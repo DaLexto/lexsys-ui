@@ -8,159 +8,23 @@
 
 ---
 
-## Monorepo Build Model
-
-The repository uses:
-
-- `pnpm` workspaces
-- `turbo` task orchestration
-- per-package TypeScript builds
-
-Workspace layout:
-
-```txt
-apps/*
-packages/*
+```mermaid
+flowchart LR
+    devBranch[branch off dev] --> pr[PR to dev]
+    pr --> ci["CI: pnpm check"]
+    ci --> mergeDev[merge to dev]
+    mergeDev --> ready{ready to release?}
+    ready --> mainPR["PR dev → main"]
+    mainPR --> releaseCI[Release CI]
+    releaseCI --> versionPR[Changesets Version PR]
+    versionPR --> publish[npm publish]
+    publish --> nextTag["@next — 0.0.x"]
+    publish --> latestTag["@latest — 0.1.0+"]
 ```
 
-Root scripts (full reference: [SCRIPTS.md](../operations/SCRIPTS.md)):
-
-- `pnpm build`
-- `pnpm check`
-- `pnpm typecheck`
-- `pnpm lint`
-- `pnpm test`
-
 ---
 
-## Package Build Contract
-
-Each publish-oriented package should build from `src/` into `dist/`.
-
-Rules:
-
-- `src/` is source only
-- `dist/` is the distributable output
-- package `exports` must point to `dist`
-- publishable files must be explicit in `package.json`
-
-Current package roles:
-
-- `packages/ui` -> reference component package
-- `packages/registry` -> registry metadata and templates
-- `packages/cli` -> executable installer
-- `packages/tokens` -> token source and generated style outputs
-
----
-
-## Required Checks Before Release
-
-Before any release or publish attempt, run:
-
-```bash
-pnpm check
-```
-
-See [SCRIPTS.md](../operations/SCRIPTS.md) for per-package build and verify commands.
-
-CI runs `pnpm check` on pull requests and pushes to `dev`/`main` via
-[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) (Node 24, frozen lockfile).
-Pull requests use path-filtered jobs; pushes to `dev`/`main` also run a full
-`pnpm check`. Token-path PRs also run
-[tokens-governance](../.github/workflows/tokens-governance.yml).
-
-### Lockfile and dependency updates
-
-- CI MUST use `pnpm install --frozen-lockfile` — do not commit hand-edited
-  `pnpm-lock.yaml` without running install locally.
-- Dependabot opens weekly update PRs via
-  [`.github/dependabot.yml`](../.github/dependabot.yml); review grouped bumps
-  before merge.
-- Node version MUST match root `engines` and CI (Node 24).
-- `pnpm audit --audit-level=high` runs as a non-blocking CI job; fix high
-  severity issues before release when practical.
-
----
-
-## Dist Expectations
-
-### UI Package
-
-- compiled JS in `dist`
-- generated type declarations in `dist`
-- explicit exports only
-- accurate `sideEffects` for shipped CSS
-
-### Registry Package
-
-- compiled metadata entrypoints in `dist`
-- templates included in package files
-- no deep-import dependency on repository-only paths at runtime
-
-### CLI Package
-
-- compiled executable entry in `dist`
-- working `bin` mapping
-- runtime access only to publishable package assets
-
-### Tokens Package
-
-- compiled token entrypoints in `dist`
-- generated CSS artifacts in `dist`
-- generated W3C/DTCG token JSON artifacts under `dist/tokens/dtcg`
-- explicit style export paths
-- no public JSON export contract until package metadata intentionally exposes one
-
----
-
-## Registry and Template Release Rules
-
-Because Lexsys is registry-first, release quality is not just about compiled code.
-
-Registry templates are validated as synced install artifacts. They should remain
-in sync with `packages/ui` through the registry sync check, not through
-template-only ambient type shims.
-
-A valid release must keep these in sync:
-
-- registry metadata
-- registry templates
-- CLI install behavior
-- shared utilities
-
-If any of those drift apart, the release is incomplete even if TypeScript builds pass.
-
----
-
-## Publish-Readiness Checklist
-
-Before declaring a package publish-ready, verify:
-
-- package `exports` are explicit
-- `files` includes only intended distributable assets
-- templates needed by the CLI are included where required
-- no package depends on another package's private `src` structure
-- the CLI does not assume repository-only file paths in published usage
-- versioning strategy is intentionally chosen for runtime dependencies
-
----
-
-## Release Notes Expectations
-
-Release notes should call out:
-
-- new installable components
-- new shared utilities
-- CLI behavior changes
-- config format changes
-- breaking template or token changes
-- any manual consumer migration required
-
-If there is no consumer-facing impact, say that explicitly.
-
----
-
-## Publish surface (npm)
+## Publish surface
 
 Lexsys is **registry-first**: consumers install via the `lexsys` entry package
 (`lexsys` binary); they do not import `@dalexto/lexsys-ui` as a runtime library.
@@ -174,13 +38,14 @@ Lexsys is **registry-first**: consumers install via the `lexsys` entry package
 | `packages/tokens`   | `@dalexto/lexsys-tokens`   | **No**   | Token CSS ships in registry style templates                    |
 | Root workspace      | `lexsys-monorepo`          | **No**   | Monorepo orchestrator only                                     |
 
-All three published packages (`lexsys`, `@dalexto/lexsys-cli`, `@dalexto/lexsys-registry`) are
-version-locked via changesets `fixed` group — they always publish together at
-the same version.
+All three published packages are version-locked via Changesets `fixed` group —
+they always publish together at the same version.
 
 Token CSS reaches consumers through registry style templates
-(`templates/styles/tokens.css`, `theme.css`), not through a separate npm install
-of `@dalexto/lexsys-tokens`.
+(`templates/styles/tokens.css`, `theme.css`), not through a separate npm install.
+
+Do not publish `@dalexto/lexsys-ui` or `@dalexto/lexsys-tokens` until there is an
+explicit product decision and this file is updated.
 
 ---
 
@@ -199,70 +64,60 @@ Install for early preview:
 npx @dalexto/lexsys@next init vite my-app
 ```
 
-Do not publish `@dalexto/lexsys-ui` or `@dalexto/lexsys-tokens` until there is an explicit product
-decision and DEPLOY.md is updated.
+---
+
+## Versioning policy
+
+### Stability contract
+
+- **`0.0.x` @ `next`** — no stability guarantee. Breaking changes MAY ship
+  without a major version bump. Consumers on `@next` accept this risk.
+- **`0.1.0+` @ `latest`** — MVP stable. Semver MUST be respected from this
+  point: breaking changes require a major bump.
+
+### What counts as a breaking change
+
+Lexsys is a CLI installer, not a library — the breaking change definition is
+non-obvious:
+
+| Change | Breaking |
+| ------ | -------- |
+| CLI command or flag rename / removal | Yes |
+| Config format change (`lexsys.config.ts`) | Yes |
+| Registry item ID rename | Yes |
+| Template content update | **No** — consumer owns installed code |
+| New CLI commands or flags | No |
+| New registry items | No |
+| Token CSS variable rename (`--lex-*`) | Yes — breaks existing consumer CSS |
+
+### Release notes
+
+Every release MUST call out in CHANGELOG:
+
+- new installable components
+- CLI behavior changes
+- config format changes
+- breaking template or token changes
+- any manual consumer migration required
+
+If there is no consumer-facing impact, state that explicitly.
 
 ---
 
-## M4 implementation track (shipped)
+## Pre-release gate
 
-| Step | Deliverable                                                            | Status  |
-| ---- | ---------------------------------------------------------------------- | ------- |
-| M4.1 | `lexsys` entry package (`packages/entry`) — `npx @dalexto/lexsys@next` | shipped |
-| M4.2 | CLI folder reorganization (`src/core/` → domain subfolders)            | shipped |
-| M4.3 | Command aliases (`create`, `a`, `up`, `ls`, `st`, `dr`, `rm`, …)       | shipped |
-| M4.4 | Short flag aliases (`-d`, `-j`, `-s`, `-l`, `-r`, `-C`, …)             | shipped |
-| M4.5 | Per-command `--help` / `-h` + redesigned global help                   | shipped |
-| M4.6 | Guided modes — `init`, `update`, `uninstall` without args              | shipped |
-| M4.7 | Standardized error format (`✗ message → suggestion`)                   | shipped |
-| M4.8 | `packages/cli/CHANGELOG.md`                                            | shipped |
-| M4.9 | Docs alignment (README, CLI.md, DEPLOY.md)                             | shipped |
+Run before any publish attempt. All steps MUST pass.
 
-Track record: [REVIEW_TODO.md § M4](../../docs/REVIEW_TODO.md#m4--entry--cli-dx-in-progress).
-
----
-
-## M10 implementation track (shipped 2026-05-24)
-
-| Step  | Deliverable                                                                       | Status  |
-| ----- | --------------------------------------------------------------------------------- | ------- |
-| M10.0 | Publish surface + version lane docs (this section)                                | shipped |
-| M10.1 | Root `CHANGELOG.md` (Keep a Changelog)                                            | shipped |
-| M10.2 | Package metadata audit; `pnpm publish:pack-audit`                                 | shipped |
-| M10.3 | Changesets (fixed `@dalexto/lexsys-cli` + `@dalexto/lexsys-registry`); publish CI | shipped |
-| M10.4 | First publish `0.0.1` @ `next` + post-publish smoke                               | shipped |
-
-Track record: [REVIEW_TODO.md § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24).
-
----
-
-## First release checklist (`0.0.1` @ `next`) — completed 2026-05-24
-
-Historical record for the **first** npm release. For later **`0.0.x`** bumps, repeat
-phases 2–5; skip phase 0 once M10 tooling is shipped.
-
-> **First-publish path:** versions were already **`0.0.1`** in repo with no pending
-> changesets, so Release CI published directly (no Version Packages PR). Later
-> releases add a changeset → Version Packages PR → publish on merge.
-
-### Phase 0 — Repo prerequisites (M10 PRs merged to `main`)
-
-- [x] Publish scope documented (only `@dalexto/lexsys-cli` + `@dalexto/lexsys-registry`)
-- [x] Root `LICENSE` (MIT) and `CHANGELOG.md` with `[0.0.1]` section
-- [x] Package metadata: `repository`, `license`, `files`, `exports` (no `private: true`)
-- [x] Changesets: fixed group `@dalexto/lexsys-cli` + `@dalexto/lexsys-registry` (`.changeset/config.json`)
-- [x] Publish CI workflow on `main` (`.github/workflows/release.yml`)
-- [x] `pnpm publish:pack-audit` passes locally
-- [x] `pnpm check` green on `main`
-- [x] `pnpm sync:all && pnpm registry:check` before pack
-
-### Phase 1 — npm / GitHub setup (one-time)
-
-- [x] npm org `@dalexto` with publish access for `@dalexto/lexsys-cli` and `@dalexto/lexsys-registry`
-- [x] GitHub secret `NPM_TOKEN` (Granular token, bypass 2FA)
-- [x] Dist-tag policy: **`next`** for `0.0.x` (prefer `@next` for consumers)
-
-### Phase 2 — Pre-publish smoke (local, no monorepo link)
+```mermaid
+flowchart LR
+    fmt[pnpm format] --> build[pnpm build]
+    build --> sync["pnpm sync:all"]
+    sync --> check[pnpm check]
+    check --> pack[pnpm publish:pack-audit]
+    pack --> changeset[add changeset]
+    changeset --> versionPR[Version Packages PR]
+    versionPR --> publish[npm publish via CI]
+```
 
 ```bash
 pnpm format
@@ -272,120 +127,204 @@ pnpm check
 pnpm publish:pack-audit
 ```
 
-(`pnpm check` includes `pnpm format:check` — run `pnpm format` first so Prettier
+(`pnpm check` includes `format:check` — run `pnpm format` first so Prettier
 violations do not fail the gate.)
 
-In a clean temp directory:
+**Pre-publish checklist:**
+
+- [ ] `pnpm publish:pack-audit` passes locally
+- [ ] package `exports` are explicit in each `package.json`
+- [ ] `files` field includes only intended distributable assets
+- [ ] no package deep-imports another package's `src/` structure
+- [ ] CLI does not assume repository-only file paths in published usage
+- [ ] `pnpm sync:all && pnpm registry:check` passes — registry in sync with UI
+- [ ] CHANGELOG entry drafted for this release
+
+---
+
+## Release workflow
+
+### 0.0.x bump (`@next`)
+
+For any patch or minor release on the `0.0.x` line:
+
+1. Run pre-release gate (see above)
+2. Add a changeset: `pnpm changeset`
+3. Merge the Changesets "Version Packages" PR to `main`
+4. Release CI publishes automatically on merge to `main`
+5. Verify: `npm view @dalexto/lexsys dist-tags` shows updated `next` version
+6. Post-publish smoke in a clean temp directory:
 
 ```bash
-npm install /path/to/lexsys-0.0.1.tgz
-npx lexsys --version
-npx lexsys init vite smoke-pack
-cd smoke-pack
-npx lexsys add button
-npm run build
-```
-
-(`lexsys init vite` via `npx` scaffolds with **npm** — use `npm run build`, not `pnpm
-build`.)
-
-- [x] `init vite` works
-- [x] `add button` works
-- [x] Production build passes
-- [x] (Optional) `add dashboard-shell` + build
-
-### Phase 3 — Changesets → version `0.0.1`
-
-- [x] Packages at **`0.0.1`** in repo (no Version Packages PR required for first cut)
-- [x] Merged to `main` per [AGENTS.md § Change workflow](../AGENTS.md#change-workflow)
-- [x] `@dalexto/lexsys-cli` and `@dalexto/lexsys-registry` both at **`0.0.1`**
-
-### Phase 4 — Publish
-
-- [x] CI publish job on `main` succeeds ([Release workflow](../.github/workflows/release.yml))
-- [x] npm shows `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` tagged **`next`**
-- [x] Git tags `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on publish commit
-
-### Phase 5 — Post-publish smoke (real consumer)
-
-In a **new** temp directory (no local monorepo):
-
-```bash
-npx --yes @dalexto/lexsys@next init vite smoke-npm
-cd smoke-npm
+npx --yes @dalexto/lexsys@next init vite smoke-test
+cd smoke-test
 npx --yes @dalexto/lexsys@next add button
 npm run build
 ```
 
-`npx @dalexto/lexsys@next` installs deps with **npm** (`package-lock.json`,
-`packageManager` in `package.json`). Use **`npm run build`** — there is no
-`pnpm-lock.yaml` in this flow. Monorepo-linked sandboxes that use pnpm keep
-`pnpm build` ([TESTING.md § Consumer sandbox verification](../operations/TESTING.md#consumer-sandbox-verification)).
+(`npx @dalexto/lexsys@next` scaffolds with **npm** — use `npm run build`, not
+`pnpm build`. Monorepo sandboxes linked via pnpm keep `pnpm build`.)
 
-- [x] `npx @dalexto/lexsys@next` resolves from npm (`npm view @dalexto/lexsys dist-tags`)
-- [x] README Quick Start matches `@next` install path
+### 0.1.0 stable (`@latest`)
 
-**Recommended (non-blocking for 0.0.1):** consumer sandbox narrow-viewport pass —
-see [TESTING.md § Consumer sandbox verification](../operations/TESTING.md#consumer-sandbox-verification).
-
-### Phase 6 — Docs and backlog
-
-- [x] CHANGELOG `[0.0.1]` date filled
-- [x] README states early preview + `@next`
-- [x] REVIEW_TODO / ROADMAP: M10 shipped (`0.0.1` @ `next`); `0.1.0` → `latest` remains future
-
-### Ready to publish?
-
-All three must be **yes**:
-
-1. `pnpm publish:pack-audit` passes
-2. Fresh install from **pack tarball** (not link) works
-3. Changesets + publish CI merged on `main`
-
-**Shipped 2026-05-24.** For the next **`0.0.x`** cut, add a changeset and merge the
-Version Packages PR before publish.
-
-### Explicitly out of scope for `0.0.1`
-
-- npm provenance
-- Remote registry signatures / allowlist ([REVIEW_TODO Known Gaps](./REVIEW_TODO.md#known-gaps))
-- Publishing `@dalexto/lexsys-ui` or `@dalexto/lexsys-tokens`
-- `apps/docs` public site
-- Moving to dist-tag **`latest`** (that is the **`0.1.0`** milestone)
-
----
-
-## Transition to `0.1.0` (`latest`)
-
-When declaring public MVP stable:
+Additional steps beyond the standard 0.0.x flow:
 
 1. Run pre-release gate: `pnpm format && pnpm build && pnpm sync:all && pnpm check && pnpm publish:pack-audit`
-2. Changeset minor bump → `0.1.0`
-3. Publish with dist-tag **`latest`** (update publish CI / Changesets config)
-4. README: `npx @dalexto/lexsys-cli` without `@next`
-5. Update CHANGELOG and dist-tag policy in this doc
+2. Consumer sandbox QA — `$consumer-sandbox-verify` checklist including narrow
+   viewport (`< md`) pass ([TESTING.md § Consumer sandbox](./TESTING.md#consumer-sandbox-verification))
+3. Add changeset with minor bump → `0.1.0`
+4. Update Changesets config and publish CI to use dist-tag **`latest`**
+5. Merge Version Packages PR to `main` → Release CI publishes
+6. README: update install command to remove `@next`
+7. Update CHANGELOG `[0.1.0]` entry and dist-tag policy in this file
+8. Add `npm publish --provenance` to the Release CI workflow (see [Supply chain security](#supply-chain-security))
+
+**First-time `@latest` smoke:**
+
+```bash
+npx --yes @dalexto/lexsys init vite smoke-stable
+cd smoke-stable
+npx --yes @dalexto/lexsys add button
+npm run build
+```
 
 ---
 
-## Future Work
+## Rollback and hotfix
 
-Still deferred after first `0.0.1` @ `next`:
+### Bad publish procedure
 
-- npm provenance
-- Remote registry trust (signatures, allowlist) — post-M10
-- Optional npm package for `@dalexto/lexsys-tokens`
-- `apps/docs` public site — post-`0.1.0` / post-M10
+1. **Deprecate the bad version** — preferred over unpublish:
+   ```bash
+   npm deprecate @dalexto/lexsys-cli@0.0.x "known issue — use 0.0.y"
+   npm deprecate @dalexto/lexsys-registry@0.0.x "known issue — use 0.0.y"
+   npm deprecate @dalexto/lexsys@0.0.x "known issue — use 0.0.y"
+   ```
+   Consumers see a deprecation warning on install but the package remains available.
 
-Registry validation (`pnpm registry:check`), generated token CSS
-(`styles/tokens.css`, `styles/theme.css`), and `lexsys update` with `--sync` /
-`--utilities` / `--styles` are **shipped** — see [CLI.md](../reference/cli/CLI.md) and
-[SCRIPTS.md](../operations/SCRIPTS.md).
+2. **Roll back the dist-tag** to a known-good version:
+   ```bash
+   npm dist-tag add @dalexto/lexsys@0.0.y next
+   npm dist-tag add @dalexto/lexsys-cli@0.0.y next
+   npm dist-tag add @dalexto/lexsys-registry@0.0.y next
+   ```
+
+3. **Hotfix flow:** fix on a branch → `0.0.z` patch bump → pass pre-release gate → publish → deprecate the bad version.
+
+### npm unpublish limitations
+
+`npm unpublish` is only available within **72 hours** of publish AND only when
+the package has no dependents. After the window closes, use `npm deprecate`
+instead. Never rely on unpublish as a rollback strategy for production releases.
+
+### Registry-first caveat
+
+A CLI rollback does **not** recall already-installed consumer code. Consumers
+who ran `lexsys add <component>` with a buggy release retain that code in their
+repository — it is user-owned. Rollback only prevents new installs from pulling
+the bad version. Communicate the issue directly when affected consumers need to
+manually update their installed files.
 
 ---
 
-## Optional: Turbo remote cache
+## Package build contract
 
-At current repo size, local turbo cache is sufficient. Maintainers MAY opt into
-[Vercel Remote Cache](https://turbo.build/docs/core-concepts/remote-caching) if
-CI duration grows — configure `TURBO_TOKEN` and `TURBO_TEAM` in GitHub Actions
-secrets and enable remote cache in CI only after measuring baseline job times.
+Each publish-oriented package MUST build from `src/` into `dist/`.
+
+| Requirement | Rule |
+| ----------- | ---- |
+| Source | `src/` is source only — never import from another package's `src/` |
+| Output | `dist/` is the distributable output |
+| Exports | `package.json` `exports` MUST point to `dist` paths only |
+| Files | Publishable files MUST be explicitly declared in `package.json` `files` |
+
+### Per-package dist requirements
+
+**`packages/entry` (`@dalexto/lexsys`)**
+- Compiled shim in `dist/`; working `bin` delegation to `@dalexto/lexsys-cli`
+
+**`packages/cli` (`@dalexto/lexsys-cli`)**
+- Compiled executable entry in `dist/`
+- Working `bin` mapping
+- Runtime access only to publishable package assets — no repository-only paths
+
+**`packages/registry` (`@dalexto/lexsys-registry`)**
+- Compiled metadata entrypoints in `dist/`
+- Templates included in `package.json` `files`
+- No deep-import dependency on repository-only paths at runtime
+
+**`packages/ui` and `packages/tokens`** — not published; see [Publish surface](#publish-surface).
+
+---
+
+## Registry sync rule
+
+Because Lexsys is registry-first, release quality is not only about compiled
+code. Registry templates are generated from `packages/ui` source — they MUST
+remain in sync.
+
+A valid release MUST keep these in sync:
+
+- registry metadata (`packages/registry/src/items/`)
+- registry templates (`packages/registry/templates/`)
+- CLI install behavior
+- shared utilities
+
+If any of these drift, the release is incomplete even if TypeScript builds pass.
+Run `pnpm sync:all && pnpm registry:check` before every publish.
+
+---
+
+## CI policy
+
+CI runs on pull requests and pushes to `dev`/`main` via
+[`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) (Node 24, frozen
+lockfile). Pull requests use path-filtered jobs; pushes to `dev`/`main` run a
+full `pnpm check`. Token-path PRs also run
+[tokens-governance](../../.github/workflows/tokens-governance.yml).
+
+**Lockfile and dependency rules:**
+
+- CI MUST use `pnpm install --frozen-lockfile` — do not commit hand-edited
+  `pnpm-lock.yaml` without running install locally.
+- Node version MUST match root `engines` field and CI (Node 24).
+- Dependabot opens weekly update PRs via
+  [`.github/dependabot.yml`](../../.github/dependabot.yml); review grouped
+  bumps before merge.
+- `pnpm audit --audit-level=high` runs as a non-blocking CI job; fix high
+  severity issues before release when practical.
+
+Turbo remote cache is optional — local cache is sufficient at current repo size.
+Maintainers MAY enable Vercel Remote Cache via `TURBO_TOKEN` / `TURBO_TEAM` in
+GitHub Actions secrets if CI duration grows.
+
+---
+
+## Supply chain security
+
+| Control | Status |
+| ------- | ------ |
+| `--frozen-lockfile` in CI | implemented |
+| Granular NPM_TOKEN (scoped publish permissions per package) | implemented |
+| `npm publish --provenance` (links package to GitHub Actions workflow) | planned — add at `0.1.0` |
+| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC) | deferred |
+| Signed releases (sigstore) | deferred |
+
+**Notes:**
+
+- The Granular NPM_TOKEN scopes publish access to specific packages — this is
+  the primary publish authorization control, not a bypass of security.
+- `npm publish --provenance` requires no additional tokens — it uses the GitHub
+  Actions OIDC token automatically when run in CI. Add `--provenance` to the
+  release workflow at `0.1.0`.
+- Deferred items tracked in [REVIEW_TODO.md § Known Gaps](../REVIEW_TODO.md#known-gaps).
+
+---
+
+## Deferred
+
+Known gaps and deferred security/tooling work:
+[REVIEW_TODO.md § Known Gaps](../REVIEW_TODO.md#known-gaps).
+
+Historical release records (0.0.1 first publish, M4/M10 implementation tracks):
+[CHANGELOG.md](../../CHANGELOG.md) and git history.
