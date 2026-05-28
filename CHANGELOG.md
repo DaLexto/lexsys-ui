@@ -21,6 +21,25 @@ _No unreleased changes yet._
 
 ---
 
+## [0.0.3] - 2026-05-28
+
+Third early-preview release on dist-tag **`next`**. Token bug fixes, CardAction compound part, and new Empty block.
+
+### Added
+
+- **Empty** block — `Empty / EmptyHeader / EmptyMedia / EmptyTitle / EmptyDescription / EmptyContent`; installable via `lexsys add empty`
+- **CardAction** — new `CardHeader` compound part for trailing slot actions (e.g. edit button, badge)
+- `--lex-empty-*` component token namespace for zero-data state styling
+- `--lex-menu-item-focus-ring-*` tokens — focus ring on individual menu items now has dedicated token variables
+- `size.sidebar.width` and `size.commandPalette.list.maxHeight` semantic size tokens
+
+### Fixed
+
+- `meterComponentTokens` was authored but never registered — `--lex-meter-*` CSS variables now generated
+- `meter.ts` used `$value` as a group key (DTCG violation); renamed to `value` — no CSS output change
+
+---
+
 ## [0.0.2] - 2026-05-25
 
 Second early-preview release on dist-tag **`next`**. M4 (entry + CLI DX), M8 (CLI cleanup), and M11 (compound-first API) shipped.
@@ -86,6 +105,7 @@ First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys-cli@0.0.2...HEAD
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.3...HEAD
+[0.0.3]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.2...@dalexto/lexsys@0.0.3
 [0.0.2]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys-cli@0.0.1...@dalexto/lexsys-cli@0.0.2
 [0.0.1]: https://www.npmjs.com/package/@dalexto/lexsys-cli/v/0.0.1
