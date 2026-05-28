@@ -351,7 +351,7 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 #### M10.4 — First publish
 
 - Follow [DEPLOY.md § First release checklist](../operations/DEPLOY.md#first-release-checklist-001-next).
-- Post-publish: `npx @dalexto/lexsys-cli@next init vite` smoke.
+- Post-publish: `npx @dalexto/lexsys@next init vite` smoke.
 
 **Phase PR:** `chore(m10): release readiness` (may split into M10.0–M10.3 PRs)
 

@@ -1,5 +1,7 @@
 # Lexsys
 
+**Audience:** Users, contributors, and evaluators
+
 Lexsys is an early-stage registry-first React UI framework built on Base UI,
 Tailwind CSS, and a design-token system.
 

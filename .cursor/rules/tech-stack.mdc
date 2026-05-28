@@ -38,7 +38,7 @@ Related: [project-structure.mdc](./project-structure.mdc), [docs/contributors/ST
 | **prompts** | root + cli | ^2.4.2 | Interactive CLI prompts |
 | **@types/node** | root dev / cli / registry / playground | ^25.9.1 | Node.js type definitions |
 
-**Published on npm (`@next`):** `@lexsys/cli`, `@lexsys/registry`. **Not published:** `@lexsys/tokens`, `@lexsys/ui` (reference-only). Root workspace name: `lexsys` (`private: true`).
+**Published on npm (`@next`):** `@dalexto/lexsys` (entry), `@dalexto/lexsys-cli`, `@dalexto/lexsys-registry`. **Not published:** `@dalexto/lexsys-tokens`, `@dalexto/lexsys-ui` (reference-only). Root workspace name: `lexsys` (`private: true`).
 
 ---
 
@@ -75,15 +75,15 @@ Prefer scoped checks before full CI:
 
 ---
 
-## UI (`@lexsys/ui` + consumer-installed stack)
+## UI (`@dalexto/lexsys-ui` + consumer-installed stack)
 
-Reference components in `packages/ui`. Consumers receive **copies** from `packages/registry/templates`, not a runtime `@lexsys/ui` dependency.
+Reference components in `packages/ui`. Consumers receive **copies** from `packages/registry/templates`, not a runtime `@dalexto/lexsys-ui` dependency.
 
 ### Direct dependencies (`packages/ui/package.json`)
 
 | Dependency | Purpose |
 |------------|---------|
-| `@lexsys/tokens` | Token CSS variables and design contract |
+| `@dalexto/lexsys-tokens` | Token CSS variables and design contract |
 | `@base-ui/react` | Accessible headless behavior — **stable 1.x API** |
 | `class-variance-authority` | `cva()` variant maps in `*.variants.ts` |
 | `clsx` | Class list composition |
@@ -112,7 +112,7 @@ tailwind-merge
 ### Styling stack
 
 - **Tailwind CSS v4** — user-facing utility classes in `*.variants.ts`
-- **Generated CSS variables** — `--lsys-*` from `@lexsys/tokens` / installed `tokens.css` + `theme.css`
+- **Generated CSS variables** — `--lsys-*` from `@dalexto/lexsys-tokens` / installed `tokens.css` + `theme.css`
 - **Semantic classes** — `lsys-` prefix where defined (see `docs/contributors/STYLE.md`)
 
 ### UI best practices
@@ -120,7 +120,7 @@ tailwind-merge
 - Keep the file split: `Component.tsx`, `Component.types.ts`, `Component.variants.ts`
 - Compose classes with shared `cn()` (installed as `src/lib/utils.ts` in consumers)
 - Use `cva()` for variants; avoid long inline class strings in JSX
-- Do not import `@lexsys/ui` in consumer apps after CLI install — edit owned files under `paths.components` (default `src/components/ui/`)
+- Do not import `@dalexto/lexsys-ui` in consumer apps after CLI install — edit owned files under `paths.components` (default `src/components/ui/`)
 - Preserve Base UI accessibility props and structure when wrapping primitives — the 1.x stable API is the contract
 - Export public symbols in one block at the bottom of `Component.tsx`
 - Current components use `forwardRef`; React 19 supports `ref` as a regular prop (no `forwardRef` needed) — do not refactor existing components but prefer the React 19 pattern for new ones
@@ -128,7 +128,7 @@ tailwind-merge
 
 ---
 
-## Tokens (`@lexsys/tokens`)
+## Tokens (`@dalexto/lexsys-tokens`)
 
 Zero runtime npm dependencies. Token logic is TypeScript-only; CSS is **generated**, never hand-maintained in source trees.
 
@@ -175,9 +175,9 @@ presets = config only (no resolution)
 
 ---
 
-## CLI (`lexsys` package)
+## CLI (`@dalexto/lexsys-cli` package)
 
-Installs registry metadata into consumer projects. Depends on **`@lexsys/registry`** and **`prompts`** only.
+Installs registry metadata into consumer projects. Depends on **`@dalexto/lexsys-registry`** and **`prompts`** only.
 
 ### CLI responsibilities
 
@@ -247,7 +247,7 @@ export default defineConfig({
 @import "./styles/theme.css";
 ```
 
-(Paths relative to consumer `paths.styles`; playground uses package imports `@lexsys/tokens/tokens.css`.)
+(Paths relative to consumer `paths.styles`; playground uses package imports `@dalexto/lexsys-tokens/tokens.css`.)
 
 **4. Monorepo / library scanning** — when components live outside the app tree, use `@source`:
 
@@ -318,7 +318,7 @@ The repo targets **modern strict TypeScript**. Root resolves **6.0.x** (declared
 
 ```bash
 pnpm typecheck          # turbo, all packages
-pnpm --filter @lexsys/ui typecheck
+pnpm --filter @dalexto/lexsys-ui typecheck
 pnpm playground:typecheck   # requires tokens + ui build first
 ```
 
@@ -336,15 +336,15 @@ flowchart LR
     vitest[Vitest]
   end
   subgraph tokens [Tokens]
-    tok["@lexsys/tokens"]
+    tok["@dalexto/lexsys-tokens"]
   end
   subgraph ui [UI]
-    u["@lexsys/ui"]
+    u["@dalexto/lexsys-ui"]
     base["@base-ui/react"]
     cva[CVA / clsx / merge]
   end
   subgraph reg [Registry]
-    r["@lexsys/registry"]
+    r["@dalexto/lexsys-registry"]
   end
   subgraph cli [CLI]
     c[lexsys CLI]

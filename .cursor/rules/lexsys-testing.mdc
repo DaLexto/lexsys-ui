@@ -11,9 +11,9 @@ Canonical coverage map: [docs/operations/TESTING.md](../../docs/operations/TESTI
 
 | Package | Config | Environment | Test root |
 | ------- | ------ | ----------- | --------- |
-| `@lexsys/tokens` | `packages/tokens/vitest.config.ts` | node | `packages/tokens/test/` |
-| `@lexsys/ui` | `packages/ui/vitest.config.ts` | jsdom | `packages/ui/test/components/<Name>/` |
-| `@lexsys/registry` | `packages/registry/vitest.config.ts` | node | `packages/registry/test/` |
+| `@dalexto/lexsys-tokens` | `packages/tokens/vitest.config.ts` | node | `packages/tokens/test/` |
+| `@dalexto/lexsys-ui` | `packages/ui/vitest.config.ts` | jsdom | `packages/ui/test/components/<Name>/` |
+| `@dalexto/lexsys-registry` | `packages/registry/vitest.config.ts` | node | `packages/registry/test/` |
 | `lexsys` (cli) | `packages/cli/vitest.config.ts` | node | `packages/cli/test/commands/`, `test/core/` |
 
 No root workspace `vitest.config.ts` — per-package configs for VS Code discovery (Vitest 4).
@@ -22,7 +22,7 @@ No root workspace `vitest.config.ts` — per-package configs for VS Code discove
 
 - `*.variants.test.ts` — CVA class output for primitives.
 - `*.render.test.tsx` — DOM smoke, className merge, key a11y roles.
-- **Blocks/templates** — block install smoke in `packages/cli/test/commands/install-flow.test.ts`; render smoke for FormField, Sidebar, DashboardShell in `@lexsys/ui`; narrow viewport remains manual sandbox ([TESTING.md § Consumer sandbox verification](../../docs/operations/TESTING.md#consumer-sandbox-verification)).
+- **Blocks/templates** — block install smoke in `packages/cli/test/commands/install-flow.test.ts`; render smoke for FormField, Sidebar, DashboardShell in `@dalexto/lexsys-ui`; narrow viewport remains manual sandbox ([TESTING.md § Consumer sandbox verification](../../docs/operations/TESTING.md#consumer-sandbox-verification)).
 
 ## Commands
 

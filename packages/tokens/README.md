@@ -1,5 +1,9 @@
 # @dalexto/lexsys-tokens
 
+**Audience:** Maintainers and token domain owners
+**Type:** Package README
+**Source of truth for:** Package role, token layer implementation, generator pipeline, public exports
+
 Design token source, validation, resolution, and generated style output package for Lexsys.
 
 This package owns the token system implementation. It does not own component rendering, CLI install behavior, or registry metadata.

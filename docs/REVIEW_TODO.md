@@ -27,7 +27,7 @@ that are not yet done.
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
 | M8      | CLI cleanup and deduplication                                       | shipped |
-| M10     | Release readiness — first npm `0.0.1` @ `next`                      | shipped |
+| M10     | Release readiness — `0.0.2` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 
@@ -35,9 +35,9 @@ Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 ---
 
-## M4 — Entry + CLI DX (in progress)
+## M4 — Entry + CLI DX (shipped)
 
-Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview). Most sub-items shipped incrementally on `dev`; remaining open items below.
+Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview).
 
 | Item  | Description                                                                                     | Status  |
 | ----- | ----------------------------------------------------------------------------------------------- | ------- |
@@ -57,7 +57,7 @@ Detail: [ROADMAP.md § M4](./ROADMAP.md#phase-overview). Most sub-items shipped 
 
 ---
 
-## M8 — CLI Cleanup and Deduplication (in progress)
+## M8 — CLI Cleanup and Deduplication (shipped)
 
 Detail: [ROADMAP.md § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
 
@@ -74,9 +74,11 @@ Detail: [ROADMAP.md § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
 
 ## M10 — Release readiness (shipped 2026-05-24)
 
-**Shipped:** `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm dist-tag **`next`**
+**First publish (historical):** `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm dist-tag **`next`**
 via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
 [CHANGELOG.md](../CHANGELOG.md#001---2026-05-24).
+
+**Current preview:** `0.0.2` @ `next` (2026-05-25) — M4 entry + CLI DX + M8 CLI cleanup.
 
 **Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [DEPLOY.md § Transition to
 0.1.0](../operations/DEPLOY.md#transition-to-010-latest).

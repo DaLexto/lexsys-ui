@@ -1,6 +1,8 @@
 # Lexsys Playground
 
-**Role:** Monorepo smoke app — not the consumer install path.
+**Audience:** Maintainers
+**Type:** Package README
+**Source of truth for:** Playground role and local verification commands
 
 The playground imports `@dalexto/lexsys-ui` from the workspace and built token CSS. Use it for a quick wiring check after UI or token changes. Consumer truth (CLI install, templates, real layouts) lives in an external sandbox — see [docs/operations/TESTING.md § Verification surfaces](../../docs/operations/TESTING.md#verification-surfaces).
 
