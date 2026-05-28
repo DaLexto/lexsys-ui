@@ -9,13 +9,17 @@ import {
   SidebarItem,
   SidebarItemLink,
   SidebarList,
+  SidebarTrigger,
 } from "../../../src/components/blocks/Sidebar/Sidebar.js"
 
 describe("Sidebar render", () => {
-  it("composes compound navigation with desktop and mobile trigger", () => {
+  it("composes compound navigation with consumer-placed trigger", () => {
     render(
       <Sidebar>
-        <SidebarHeader>PulseDesk</SidebarHeader>
+        <SidebarHeader>
+          PulseDesk
+          <SidebarTrigger>Open navigation</SidebarTrigger>
+        </SidebarHeader>
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupContent>
