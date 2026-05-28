@@ -30,6 +30,7 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm tokens:generate:styles`   | Write dist + registry style CSS                                                                         |
 | `pnpm tokens:governance:report` | Token governance + contrast audit report                                                                |
 | `pnpm tokens:imports:clean`     | Clean token import paths (maintenance)                                                                  |
+| `pnpm tokens:re-prefix`         | Rename CSS var + BEM class prefix codebase-wide; regenerates styles + syncs registry (rebrand utility)  |
 | `pnpm ui:check`                 | Lint + typecheck + test `@dalexto/lexsys-ui`                                                            |
 | `pnpm ui:audit`                 | Variant literal scan **and** `UI_CATALOG.md` drift check                                                |
 | `pnpm ui:audit:catalog:check`   | Fail if catalog region drifted from UI exports / registry versions                                      |
@@ -76,15 +77,16 @@ Use when you only need one layer:
 
 ## `@dalexto/lexsys-tokens`
 
-| Root alias                      | Package script      | When to run                                                                            |
-| ------------------------------- | ------------------- | -------------------------------------------------------------------------------------- |
-| `pnpm tokens:build`             | `build`             | After token source changes; produces `dist/` + package CSS                             |
-| `pnpm tokens:check`             | `check`             | After any token/resolver/generator edit                                                |
-| `pnpm tokens:generate:styles`   | `generate:styles`   | After generator changes that affect CSS output; writes dist + registry style templates |
-| `pnpm tokens:governance:report` | `governance:report` | Governance audit, contrast policy (CI on token PRs)                                    |
-| `pnpm tokens:imports:clean`     | `imports:clean`     | Maintenance — normalize token import paths                                             |
-| `pnpm tokens:lint:fix`          | `lint:fix`          | Auto-fix token package lint                                                            |
-| `pnpm tokens:typecheck`         | `typecheck`         | Types only                                                                             |
+| Root alias                      | Package script      | When to run                                                                                                                                                                                                |
+| ------------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm tokens:build`             | `build`             | After token source changes; produces `dist/` + package CSS                                                                                                                                                 |
+| `pnpm tokens:check`             | `check`             | After any token/resolver/generator edit                                                                                                                                                                    |
+| `pnpm tokens:generate:styles`   | `generate:styles`   | After generator changes that affect CSS output; writes dist + registry style templates                                                                                                                     |
+| `pnpm tokens:governance:report` | `governance:report` | Governance audit, contrast policy (CI on token PRs)                                                                                                                                                        |
+| `pnpm tokens:imports:clean`     | `imports:clean`     | Maintenance — normalize token import paths                                                                                                                                                                 |
+| `pnpm tokens:re-prefix`         | `re-prefix`         | Rename CSS var + BEM class prefix across source, docs, test configs; post-rename: regenerates styles + syncs registry. See [`scripts/rebrand/rename-prefix.mjs`](../../scripts/rebrand/rename-prefix.mjs). |
+| `pnpm tokens:lint:fix`          | `lint:fix`          | Auto-fix token package lint                                                                                                                                                                                |
+| `pnpm tokens:typecheck`         | `typecheck`         | Types only                                                                                                                                                                                                 |
 
 Filter equivalent:
 

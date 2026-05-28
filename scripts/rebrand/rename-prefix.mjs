@@ -7,7 +7,7 @@
  * -----------------
  * Source files  — packages/ui/src/**  (variant files, cn.ts, etc.)
  * Token config  — packages/tokens/src/generators/generator.config.ts (cssVarPrefix value)
- * Docs          — docs/**\/*.md (all prefix examples in documentation)
+ * Docs          — docs/**\/*.md + root *.md (README, CONTRIBUTING, AGENTS, etc.)
  * Test configs  — packages/ui/test/config/prefix.ts
  *                 packages/tokens/test/config/prefix.ts
  *                 (single mirrored constants; test assertions use these dynamically)
@@ -128,9 +128,15 @@ const testConfigPaths = [
   join(ROOT, "packages/tokens/test/config/prefix.ts"),
 ].filter(existsSync)
 
+// Root-level markdown files (README, CONTRIBUTING, AGENTS, etc.)
+const rootMdFiles = readdirSync(ROOT)
+  .filter((f) => f.endsWith(".md"))
+  .map((f) => join(ROOT, f))
+
 const filesToScan = [
   ...walk(join(ROOT, "packages/ui/src")),
   ...walkMd(join(ROOT, "docs")),
+  ...rootMdFiles,
   configPath,
   ...testConfigPaths,
 ]
