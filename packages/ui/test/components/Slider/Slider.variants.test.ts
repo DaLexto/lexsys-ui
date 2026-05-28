@@ -6,9 +6,7 @@ import {
 
 describe("sliderVariants", () => {
   it("styles the track and thumb", () => {
-    expect(sliderTrackClasses).toContain(
-      "bg-(--lsys-slider-track-background)",
-    )
+    expect(sliderTrackClasses).toContain("bg-(--lsys-slider-track-background)")
     expect(sliderThumbClasses).toContain(
       "border-(--lsys-slider-thumb-border-color)",
     )

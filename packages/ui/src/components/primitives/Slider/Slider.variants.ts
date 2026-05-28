@@ -12,7 +12,8 @@ export const sliderControlClasses =
 export const sliderTrackClasses =
   "relative h-(--lsys-slider-track-height) w-full overflow-hidden rounded-(--lsys-slider-track-radius) bg-(--lsys-slider-track-background)"
 
-export const sliderIndicatorClasses = "h-full bg-(--lsys-slider-indicator-background)"
+export const sliderIndicatorClasses =
+  "h-full bg-(--lsys-slider-indicator-background)"
 
 export const sliderThumbClasses = [
   "block size-(--lsys-slider-thumb-size) rounded-(--lsys-slider-thumb-radius) border border-(--lsys-slider-thumb-border-color) bg-(--lsys-slider-thumb-background) shadow-sm",
