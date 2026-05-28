@@ -195,5 +195,5 @@ add value without being required for stability.
 - `$docs-alignment` — after finding doc drift; also when closing/shipping backlog rows
 - `$monorepo-check-gate` — before recommending "merge-ready"
 - `$consumer-sandbox-verify` — when next step touches CLI/registry/blocks
-- `$ui-component-change` — when next step is new primitive/block/template
+- `$ui-authoring` — when next step is new primitive/block/template
 - [docs/operations/TESTING.md § Verification surfaces](../../docs/operations/TESTING.md#verification-surfaces)

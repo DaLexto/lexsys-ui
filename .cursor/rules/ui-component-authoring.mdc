@@ -1,0 +1,93 @@
+---
+description: >
+  Component authoring standards for packages/ui — CVA vs *Classes() variant
+  pattern, className/ref typing, CSS token prefix rule, layer export rules,
+  and post-edit verification. Use when creating or editing *.tsx, *.types.ts,
+  *.variants.ts in packages/ui/src/components/.
+globs:
+  - "packages/ui/src/components/**/*"
+alwaysApply: false
+---
+
+# UI component authoring standards
+
+Quick-reference for coding standards when working in `packages/ui/src/components/`.
+For step-by-step create / edit / delete workflows and test patterns, use **`$ui-authoring`**.
+
+---
+
+## Variant pattern
+
+| Layer | Pattern |
+| ----- | ------- |
+| Primitives | `cva()` — `export const xyzClasses = cva("...", { variants: { … } })` |
+| Blocks / templates | Plain function — `export const xyzClasses = (props): string => cn(…)` |
+
+Never use `cva()` in blocks or templates — they have no CVA variant grid to assert.
+
+## Token prefix
+
+Only CSS vars using `cssVarPrefix` from `packages/tokens/src/generators/generator.config.ts`
+(currently `lex`, e.g. `--lex-button-radius`) are allowed in `*.variants.ts`.
+
+```ts
+// Good
+"bg-(--lex-button-primary-background)"
+
+// Bad — raw Tailwind palette
+"bg-blue-500"
+```
+
+`pnpm ui:check` (includes `ui:audit`) enforces this — raw palette literals fail the build.
+
+## className merging
+
+```ts
+// Static class merging — use cn()
+cn("base-class", conditionalClass, props.className)
+
+// Stateful Base UI className callback — use mergeClassName()
+className: mergeClassName("base-class", props.className)
+```
+
+`mergeClassName()` is only for Base UI `className` prop callbacks that receive a state
+object. Use `cn()` everywhere else.
+
+## ref pattern
+
+```ts
+// New components — React 19 ref prop (no forwardRef needed)
+export const Button = ({ ref, ...props }: ButtonProps) => { … }
+
+// Existing components — keep forwardRef; do not refactor unless explicitly requested
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => { … })
+
+// .types.ts — always declare explicit ref type
+export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
+  ref?: React.Ref<HTMLButtonElement>
+}
+```
+
+## Layer export rules
+
+| Layer | Export from `packages/ui/src/index.ts` |
+| ----- | ------------------------------------- |
+| Primitives | Yes — required |
+| Blocks | No — registry-first; consumers install via `lexsys add` |
+| Templates | No — registry-first; consumers install via `lexsys add` |
+
+## Locked decisions (CS.4)
+
+- Nav items (`SidebarItemLink`, `SidebarItemButton`) use plain `<a>` / `<button>` — **not** the `Button` primitive. Their styling requirements differ and they own their own appearance.
+- `SidebarTrigger` is composable — place it inside any `<Sidebar>` descendant; `Drawer` context wraps the root `<aside>` so any descendant `DrawerTrigger` auto-wires.
+
+## Post-edit
+
+```sh
+pnpm ui:check       # lint + typecheck + audit + tests
+pnpm registry:sync  # if install artifacts changed
+pnpm ui:test        # tests only (fast re-run)
+pnpm format
+```
+
+Full checklists and test patterns → **`$ui-authoring`**.

@@ -68,5 +68,5 @@ See [git-commits.mdc](../git-commit/git-commits.mdc).
 
 - [docs/reference/registry/REGISTRY.md](../../docs/reference/registry/REGISTRY.md)
 - [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md)
-- `$ui-component-change`
+- `$ui-authoring`
 - `$monorepo-check-gate`

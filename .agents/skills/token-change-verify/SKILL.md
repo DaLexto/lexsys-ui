@@ -43,7 +43,7 @@ pnpm registry:check
 pnpm tokens:governance:report
 ```
 
-5. If UI variants reference new/changed `--lsys-*` variables, ensure UI still passes:
+5. If UI variants reference new/changed CSS vars (prefixed with `cssVarPrefix` from `packages/tokens/src/generators/generator.config.ts`, currently `lex`), ensure UI still passes:
 
 ```sh
 pnpm ui:check

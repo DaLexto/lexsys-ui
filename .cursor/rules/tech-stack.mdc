@@ -112,8 +112,8 @@ tailwind-merge
 ### Styling stack
 
 - **Tailwind CSS v4** — user-facing utility classes in `*.variants.ts`
-- **Generated CSS variables** — `--lsys-*` from `@dalexto/lexsys-tokens` / installed `tokens.css` + `theme.css`
-- **Semantic classes** — `lsys-` prefix where defined (see `docs/contributors/STYLE.md`)
+- **Generated CSS variables** — prefixed with `cssVarPrefix` from `packages/tokens/src/generators/generator.config.ts` (currently `lex`, e.g. `--lex-button-radius`) — from `@dalexto/lexsys-tokens` / installed `tokens.css` + `theme.css`
+- **Semantic classes** — `{cssVarPrefix}-` BEM prefix where defined (see `docs/contributors/STYLE.md`)
 
 ### UI best practices
 
@@ -171,7 +171,7 @@ presets = config only (no resolution)
 - Run `pnpm tokens:governance:report` for metadata, deprecation, and semantic audit output
 - Use `pnpm imports:clean` (`tsx src/scripts/clean-imports.ts`) when maintaining imports
 - Consumers import installed `styles/tokens.css` and `styles/theme.css` — do not edit generated files
-- Overlay variants: use `z-(--lsys-<component>-backdrop-z-index)` and `shadow-(--lsys-<component>-popup-shadow)` — not hardcoded `z-40` / `shadow-lg`
+- Overlay variants: use `z-(--lex-<component>-backdrop-z-index)` and `shadow-(--lex-<component>-popup-shadow)` — not hardcoded `z-40` / `shadow-lg`. Replace `lex` with the current `cssVarPrefix` from `generator.config.ts` if the prefix ever changes.
 
 ---
 
@@ -270,7 +270,7 @@ Without `@source`, Tailwind v4 will not see classes in linked packages.
 | Use `tailwind-merge` in `cn()` | Concatenate conflicting utilities manually |
 | Run Prettier with Tailwind plugin on class strings | Rely on random class order in reviews |
 
-- Prefer **CSS variables** (`var(--lsys-*)`) for token-driven values in custom CSS
+- Prefer **CSS variables** (`var(--lex-*)`, using the current `cssVarPrefix` from `generator.config.ts`) for token-driven values in custom CSS
 - Overlay stacking and shadow in `*.variants.ts` must use component token CSS vars, not Tailwind z/shadow scale literals
 - Keep **playground** as the visual contract check after token or variant changes
 - CLI pins **`tailwindcss`** and **`@tailwindcss/vite`** together on init — keep versions aligned (currently 4.3.x)

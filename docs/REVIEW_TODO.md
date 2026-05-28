@@ -204,7 +204,7 @@ Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component
 | CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                                                              | shipped |
 | CS.6 | Registry sync            | Sync templates if UI install artifacts change                                                               | shipped |
 | CS.7 | Prefix transform         | Fixed `lex-` prefix; `scripts/rebrand/rename-prefix.mjs` for future rebrand; all packages converted to dynamic `testCssVarPrefix` helpers | shipped |
-| CS.8 | Rule + skill template    | Planned only; create after cleanup standards are stable                                                     | planned |
+| CS.8 | Rule + skill template    | `ui-component-authoring.mdc` rule + `$ui-authoring` hub skill (component.md + tests.md); stale `lsys-` fixed across skills and rules | shipped |
 
 **CS.8 pre-rule intentional decisions (locked in CS.4):**
 

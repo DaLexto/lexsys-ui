@@ -105,7 +105,7 @@ Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures.
 | `$registry-sync`           | UI source changed → sync registry templates                     |
 | `$consumer-sandbox-verify` | CLI/registry/template/blocks PR gate                            |
 | `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks                        |
-| `$ui-component-change`     | New or edited primitive/block/template in UI                    |
+| `$ui-authoring`            | New or edited primitive/block/template in UI; writing component tests |
 | `$docs-alignment`          | Behavior or counts changed → cross-ref docs                     |
 | `$token-change-verify`     | Token layers, generator, or governance touched                  |
 | `$project-next-steps`      | What to work on next, backlog triage, project status            |

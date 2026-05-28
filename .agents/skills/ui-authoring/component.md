@@ -1,0 +1,60 @@
+# Component authoring — create / edit / delete
+
+## Editing an existing component
+
+1. Edit under the correct layer folder (`primitives/`, `blocks/`, `templates/`).
+2. Preserve accessibility — Base UI structure stays internal; do not expose internal subpaths.
+3. Variants use CSS vars prefixed with `cssVarPrefix` from
+   `packages/tokens/src/generators/generator.config.ts` (currently `lex`,
+   e.g. `--lex-button-radius`). No raw Tailwind palette in `*.variants.ts`.
+4. Run the post-edit gate (see below).
+
+---
+
+## New primitive checklist
+
+- Three-file folder under `packages/ui/src/components/primitives/<Name>/`
+- Export from `packages/ui/src/index.ts`
+- Registry item in `packages/registry/src/items/`
+- `pnpm registry:sync` after adding — run `registry-item-generator` if category metadata needed
+- Variant test: `packages/ui/test/components/<Name>/<Name>.variants.test.ts` — **required**
+- Render test: `packages/ui/test/components/<Name>/<Name>.render.test.tsx` — **required**
+
+Test patterns → [tests.md](./tests.md).
+
+---
+
+## New block / template checklist
+
+- Three-file folder under `packages/ui/src/components/blocks/<Name>/` or `templates/<Name>/`
+- **Do NOT export from `packages/ui/src/index.ts`** — registry-first; consumers install via `lexsys add`
+- Registry item in `packages/registry/src/items/` — include `registryDependencies` for every primitive dep
+- Use `*Classes()` helper function (not `cva()`) for variant strings
+- Render test: `packages/ui/test/components/<Name>/<Name>.render.test.tsx` — **required**
+- Variants test: optional for plain `*Classes()` helpers (no `cva()` output to assert)
+- After install-artifact changes: run **`$consumer-sandbox-verify`** (playground does not cover mobile composition)
+
+---
+
+## Delete checklist
+
+- Remove three-file folder from `packages/ui/src/components/{primitives,blocks,templates}/`
+- Remove export from `packages/ui/src/index.ts` (primitives only)
+- Remove registry item from `packages/registry/src/items/`
+- Remove test files from `packages/ui/test/components/<Name>/`
+- Run post-edit gate (see below)
+
+---
+
+## Post-edit gate
+
+Run in order after any create / edit / delete:
+
+```sh
+pnpm ui:check
+pnpm registry:sync
+pnpm ui:test
+pnpm format
+```
+
+`pnpm ui:check` includes `ui:audit` — scans variant files for forbidden raw palette literals.
