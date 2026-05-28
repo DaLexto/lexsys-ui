@@ -202,7 +202,7 @@ Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component
 | CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                 | shipped |
 | CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape       | shipped |
 | CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                      | shipped |
-| CS.6 | Registry sync            | Sync templates if UI install artifacts change                       | planned |
+| CS.6 | Registry sync            | Sync templates if UI install artifacts change                       | shipped |
 | CS.7 | Prefix transform         | Plan CLI prefix transformation at install time (options documented) | planned |
 | CS.8 | Rule + skill template    | Planned only; create after cleanup standards are stable             | planned |
 
