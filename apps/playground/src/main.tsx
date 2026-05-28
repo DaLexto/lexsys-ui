@@ -4,18 +4,11 @@ import { Button } from "@dalexto/lexsys-ui"
 import { BrandPanel } from "./brand-panel"
 import { SizesPanel } from "./sizes-panel"
 import { ActionsPanel } from "./actions-panel"
-import { FormsPanel } from "./forms-panel"
 import { OverlaysPanel } from "./overlays-panel"
 import { SurfacesPanel } from "./surfaces-panel"
 import { InteractionsPanel } from "./interactions-panel"
-import { BlocksPanel } from "./blocks-panel"
+import { LayoutPanel } from "./layout-panel"
 import "./styles.css"
-
-type CategoryEntry = {
-  id: string
-  label: string
-  render: () => React.ReactNode
-}
 
 const App = () => {
   const [themeMode, setThemeMode] = useState<"light" | "dark">("light")
@@ -24,35 +17,14 @@ const App = () => {
     document.documentElement.classList.toggle("dark", themeMode === "dark")
   }, [themeMode])
 
-  const categories: CategoryEntry[] = [
-    { id: "category-brand", label: "Brand", render: () => <BrandPanel /> },
-    { id: "category-sizes", label: "Sizes", render: () => <SizesPanel /> },
-    {
-      id: "category-actions",
-      label: "Actions",
-      render: () => <ActionsPanel />,
-    },
-    { id: "category-forms", label: "Forms", render: () => <FormsPanel /> },
-    {
-      id: "category-overlays",
-      label: "Overlays",
-      render: () => <OverlaysPanel />,
-    },
-    {
-      id: "category-surfaces",
-      label: "Surfaces",
-      render: () => <SurfacesPanel />,
-    },
-    {
-      id: "category-interactions",
-      label: "Interactions",
-      render: () => <InteractionsPanel />,
-    },
-    {
-      id: "category-blocks",
-      label: "Blocks",
-      render: () => <BlocksPanel />,
-    },
+  const panels = [
+    { id: "brand", label: "Brand", render: () => <BrandPanel /> },
+    { id: "sizes", label: "Sizes", render: () => <SizesPanel /> },
+    { id: "actions", label: "Actions", render: () => <ActionsPanel /> },
+    { id: "overlays", label: "Overlays", render: () => <OverlaysPanel /> },
+    { id: "surfaces", label: "Surfaces", render: () => <SurfacesPanel /> },
+    { id: "interactions", label: "Interactions", render: () => <InteractionsPanel /> },
+    { id: "blocks", label: "Blocks", render: () => <LayoutPanel /> },
   ]
 
   return (
@@ -62,11 +34,8 @@ const App = () => {
           <div>
             <p className="playground-label">Lexsys playground</p>
             <h1>Component smoke</h1>
-            <p className="playground-subtitle">
-              Monorepo reference — not the CLI install path
-            </p>
+            <p className="playground-subtitle">Monorepo reference — not the CLI install path</p>
           </div>
-
           <div className="playground-toolbar">
             <div className="theme-control" aria-label="Theme mode">
               <Button
@@ -86,10 +55,9 @@ const App = () => {
             </div>
           </div>
         </section>
-
         <nav className="playground-nav" aria-label="Component categories">
-          {categories.map(({ id, label }) => (
-            <a key={id} className="playground-nav-link" href={`#${id}`}>
+          {panels.map(({ id, label }) => (
+            <a key={id} className="playground-nav-link" href={`#category-${id}`}>
               {label}
             </a>
           ))}
@@ -97,13 +65,8 @@ const App = () => {
       </header>
 
       <div className="playground-categories">
-        {categories.map(({ id, label, render }) => (
-          <section
-            key={id}
-            id={id}
-            className="playground-category"
-            aria-labelledby={`${id}-title`}
-          >
+        {panels.map(({ id, label, render }) => (
+          <section key={id} id={`category-${id}`} className="playground-category" aria-labelledby={`${id}-title`}>
             <header className="category-header">
               <p className="playground-label">{label}</p>
               <h2 id={`${id}-title`}>{label}</h2>
