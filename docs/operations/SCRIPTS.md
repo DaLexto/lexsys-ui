@@ -34,7 +34,7 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm ui:check`                 | Lint + typecheck + test `@dalexto/lexsys-ui`                                                            |
 | `pnpm ui:audit`                 | Variant literal scan **and** `UI_CATALOG.md` drift check                                                |
 | `pnpm ui:audit:catalog:check`   | Fail if catalog region drifted from UI exports / registry versions                                      |
-| `pnpm ui:audit:catalog:write`   | Regenerate catalog tables in [UI catalog](../reference/ui/UI_CATALOG.md)                             |
+| `pnpm ui:audit:catalog:write`   | Regenerate catalog tables in [UI catalog](../reference/ui/UI_CATALOG.md)                                |
 | `pnpm ui:build`                 | Build `@dalexto/lexsys-ui`                                                                              |
 | `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                                    |
 | `pnpm registry:sync`            | Sync UI source → registry component templates                                                           |
@@ -98,15 +98,15 @@ pnpm --filter @dalexto/lexsys-tokens <script>
 
 ## `@dalexto/lexsys-ui`
 
-| Root alias                    | Package script        | When to run                                                             |
-| ----------------------------- | --------------------- | ----------------------------------------------------------------------- |
-| `pnpm ui:build`               | `build`               | Build reference components                                              |
-| `pnpm ui:check`               | `check`               | After component, variant, or export changes (includes `audit`)          |
-| `pnpm ui:audit`               | `audit`               | Variant literals + catalog drift (blocking subset of `ui:check`)        |
-| `pnpm ui:audit:catalog:check` | `audit:catalog:check` | Catalog-only drift check                                                |
+| Root alias                    | Package script        | When to run                                                          |
+| ----------------------------- | --------------------- | -------------------------------------------------------------------- |
+| `pnpm ui:build`               | `build`               | Build reference components                                           |
+| `pnpm ui:check`               | `check`               | After component, variant, or export changes (includes `audit`)       |
+| `pnpm ui:audit`               | `audit`               | Variant literals + catalog drift (blocking subset of `ui:check`)     |
+| `pnpm ui:audit:catalog:check` | `audit:catalog:check` | Catalog-only drift check                                             |
 | `pnpm ui:audit:catalog:write` | `audit:catalog:write` | Refresh [UI catalog](../reference/ui/UI_CATALOG.md) generated region |
-| `pnpm ui:lint:fix`            | `lint:fix`            | Auto-fix UI package lint                                                |
-| `pnpm ui:typecheck`           | `typecheck`           | Types only                                                              |
+| `pnpm ui:lint:fix`            | `lint:fix`            | Auto-fix UI package lint                                             |
+| `pnpm ui:typecheck`           | `typecheck`           | Types only                                                           |
 
 Package-only scripts (no root alias):
 
@@ -348,9 +348,9 @@ Builds publish packages and runs `changeset publish --tag next`. Used by Release
 
 ## Related docs
 
-| Document                                               | Owns                                                                       |
-| ------------------------------------------------------ | -------------------------------------------------------------------------- |
-| [Testing docs](../operations/TESTING.md)                 | Test file inventory, Vitest config, IDE extension, render-test conventions |
-| [CLI reference](../reference/cli/CLI.md)                      | Consumer `lexsys` CLI commands (not monorepo scripts)                      |
-| [Deploy guide](../operations/DEPLOY.md)                   | Release and publish contract                                               |
+| Document                                            | Owns                                                                       |
+| --------------------------------------------------- | -------------------------------------------------------------------------- |
+| [Testing docs](../operations/TESTING.md)            | Test file inventory, Vitest config, IDE extension, render-test conventions |
+| [CLI reference](../reference/cli/CLI.md)            | Consumer `lexsys` CLI commands (not monorepo scripts)                      |
+| [Deploy guide](../operations/DEPLOY.md)             | Release and publish contract                                               |
 | [Troubleshooting](../operations/TROUBLESHOOTING.md) | Common failure fixes (links here for command names)                        |

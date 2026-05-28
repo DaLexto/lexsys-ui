@@ -255,7 +255,8 @@ try {
   console.log(`  ${changed.length} files changed:`)
   if (counts.source) console.log(`    source      ${counts.source}`)
   if (counts.docs) console.log(`    docs        ${counts.docs}`)
-  if (counts["test-configs"]) console.log(`    test-configs ${counts["test-configs"]}`)
+  if (counts["test-configs"])
+    console.log(`    test-configs ${counts["test-configs"]}`)
   if (counts.other) console.log(`    other       ${counts.other}`)
   console.log()
 } catch (err) {

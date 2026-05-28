@@ -17,9 +17,28 @@ templates should match UI source.
 - Before a `registry`-scoped commit that ships template updates
 - After variant/token class changes in `*.variants.ts` that affect installed CSS classes
 
+## Registry two-zone contract
+
+```txt
+packages/registry/
+├── src/items/<name>.ts   ← install metadata (see rules below)
+└── templates/            ← GENERATED OUTPUT — never edit directly
+    ├── primitives/       ← copied from packages/ui/src/components/primitives/
+    ├── blocks/           ← copied from packages/ui/src/components/blocks/
+    └── templates/        ← copied from packages/ui/src/components/templates/
+```
+
+**`src/items/` rules — primitives vs blocks differ:**
+
+| Layer              | `src/items/<name>.ts` created by                                                                                                                                      |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Primitives         | `pnpm registry:sync` auto-scaffolds if missing (`type: "component"`, auto-category, `version: "0.0.1"`). Review and adjust after sync.                                |
+| Blocks / templates | **Must be written manually.** `pnpm registry:sync` does NOT create block item files. Set `type: "block"`, correct `category`, and all `registryDependencies` by hand. |
+
 ## Do not
 
-- Hand-edit `packages/registry/templates/**` when UI source exists — sync from UI.
+- Hand-edit `packages/registry/templates/**` — manual edits are overwritten by the next sync.
+- Forget to write `src/items/<name>.ts` for new blocks/templates — `pnpm registry:sync` won't create it and `lexsys add` cannot install the block without it.
 - Skip sync when only registry metadata (`src/items/`) changed without template file changes.
 
 ## Procedure

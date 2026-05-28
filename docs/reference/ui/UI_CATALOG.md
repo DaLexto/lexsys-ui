@@ -24,7 +24,7 @@ Out of scope here: page-level consumer code, playground-only demos, unpublished 
 
 <!-- CATALOG:BEGIN -->
 
-_Generated 2026-05-24 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
+_Generated 2026-05-28 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
 
 ### Primitives (41)
 
@@ -37,7 +37,7 @@ _Generated 2026-05-24 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **Avatar**         | compound | `Avatar, AvatarImage, AvatarFallback`                                | `avatar`          | 0.0.1   |
 | **Badge**          | leaf     | `Badge`                                                              | `badge`           | 0.0.1   |
 | **Button**         | leaf     | `Button`                                                             | `button`          | 0.0.1   |
-| **Card**           | compound | `Card, CardHeader, CardTitle, … (+3)`                                | `card`            | 0.0.1   |
+| **Card**           | compound | `Card, CardHeader, CardTitle, … (+4)`                                | `card`            | 0.0.1   |
 | **Checkbox**       | compound | `Checkbox, CheckboxIndicator`                                        | `checkbox`        | 0.0.2   |
 | **CheckboxGroup**  | leaf     | `CheckboxGroup`                                                      | `checkbox-group`  | 0.0.1   |
 | **Collapsible**    | compound | `Collapsible, CollapsibleTrigger, CollapsiblePanel`                  | `collapsible`     | 0.0.1   |
@@ -72,12 +72,13 @@ _Generated 2026-05-24 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **Toolbar**        | compound | `Toolbar, ToolbarGroup, ToolbarButton, … (+3)`                       | `toolbar`         | 0.0.1   |
 | **Tooltip**        | compound | `Tooltip, TooltipTrigger, TooltipPortal, … (+3)`                     | `tooltip`         | 0.0.1   |
 
-### Blocks (5)
+### Blocks (6)
 
 | Component          | Style    | Named exports                                                        | Registry          | Version |
 | ------------------ | -------- | -------------------------------------------------------------------- | ----------------- | ------- |
 | **AuthForm**       | compound | `AuthForm, AuthFormHeader, AuthFormContent, … (+2)`                  | `auth-form`       | 0.0.2   |
 | **CommandPalette** | compound | `CommandPalette, CommandPaletteContent, CommandPaletteTitle, … (+8)` | `command-palette` | 0.0.2   |
+| **Empty**          | compound | `Empty, EmptyHeader, EmptyMedia, … (+3)`                             | `empty`           | 0.0.3   |
 | **FormField**      | compound | `FormField, FormFieldItem, FormFieldLabel, … (+3)`                   | `form-field`      | 0.0.2   |
 | **SettingsPanel**  | compound | `SettingsPanel, SettingsPanelHeader, SettingsPanelTitle, … (+3)`     | `settings-panel`  | 0.0.2   |
 | **Sidebar**        | compound | `Sidebar, SidebarHeader, SidebarContent, … (+10)`                    | `sidebar`         | 0.0.2   |
@@ -88,7 +89,7 @@ _Generated 2026-05-24 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | ------------------ | -------- | --------------------------------------------------------------------- | ----------------- | ------- |
 | **DashboardShell** | compound | `DashboardShell, DashboardShellSidebar, DashboardShellHeader, … (+2)` | `dashboard-shell` | 0.0.2   |
 
-**Leaf policy:** only components listed in [UI reference § Intentional leaves](../ui/UI.md#compound-vs-leaf-decision-tree) with a single part export. All blocks and templates are compound-only.
+**Leaf policy:** only components listed in [UI.md § Intentional leaves](./UI.md#compound-vs-leaf-decision-tree) with a single part export. All blocks and templates are compound-only.
 
 <!-- CATALOG:END -->
 
@@ -99,7 +100,7 @@ _Generated 2026-05-24 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | Item                             | Status       | Notes                                         |
 | -------------------------------- | ------------ | --------------------------------------------- |
 | CommandPalette → Combobox wiring | planned      | M11 Phase 4b — block uses internal list today |
-| Creator / export tooling docs    | planned      | See [Roadmap](./ROADMAP.md)                |
+| Creator / export tooling docs    | planned      | See [Roadmap](./ROADMAP.md)                   |
 | Page-level consumer layouts      | out of scope | Sandbox-owned; not registry items             |
 
 ---

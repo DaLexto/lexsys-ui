@@ -6,10 +6,10 @@ Test files live under `packages/ui/test/components/<Name>/`.
 
 ## When each test type is required
 
-| Test file | Required for |
-| --------- | ------------ |
-| `<Name>.variants.test.ts` | All primitives — assert CVA class output contains correct token vars |
-| `<Name>.render.test.tsx` | All primitives AND all blocks/templates — DOM render smoke |
+| Test file                 | Required for                                                                                                                        |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `<Name>.variants.test.ts` | All primitives — assert CVA class output contains correct token vars                                                                |
+| `<Name>.render.test.tsx`  | All primitives AND all blocks/templates — DOM render smoke                                                                          |
 | `<Name>.variants.test.ts` | Blocks/templates: optional (plain `*Classes()` helpers produce simple strings — assert only if there is meaningful branching logic) |
 
 ---

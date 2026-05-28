@@ -45,6 +45,7 @@ export const sizePrimitives = primitiveTokens("size", {
   16: { $value: { value: 4, unit: "rem" } },
   20: { $value: { value: 5, unit: "rem" } },
   48: { $value: { value: 12, unit: "rem" } },
+  64: { $value: { value: 16, unit: "rem" } },
   80: { $value: { value: 20, unit: "rem" } },
   96: { $value: { value: 24, unit: "rem" } },
   128: { $value: { value: 32, unit: "rem" } },

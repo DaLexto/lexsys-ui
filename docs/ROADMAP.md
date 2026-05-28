@@ -122,10 +122,10 @@ advanced CI → M6 deps → M7 maintainer tooling → … → M10 release**.
 
 ### Execution discipline
 
-| Granularity        | Rule                                                                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Sub-item (`Mx.y`)  | One conventional commit when done                                                                                                                |
-| Phase (`M1`–`M10`) | One implementation PR when all sub-items on the phase branch pass verification                                                                   |
+| Granularity        | Rule                                                                                                                                                  |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sub-item (`Mx.y`)  | One conventional commit when done                                                                                                                     |
+| Phase (`M1`–`M10`) | One implementation PR when all sub-items on the phase branch pass verification                                                                        |
 | Post-phase         | Docs sync PR after merge if ROADMAP/REVIEW_TODO/handbooks lag (see [Testing docs](../operations/TESTING.md), [Deploy guide](../operations/DEPLOY.md)) |
 
 Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementation detail in git history, not in this section body.
@@ -357,14 +357,14 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 
 ### Explicitly deferred
 
-| Item                              | Why deferred                                                                                                                                                                             |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M10                                                                                                          |
+| Item                              | Why deferred                                                                                                                                                                               |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M10                                                                                                            |
 | Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces)) |
-| `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                                         |
-| Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                            |
-| Changesets / npm provenance       | Changesets **shipped** (M10); npm provenance deferred                                                                                                                                    |
-| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                                                                                                         |
+| `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                                           |
+| Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                              |
+| Changesets / npm provenance       | Changesets **shipped** (M10); npm provenance deferred                                                                                                                                      |
+| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                                                                                                           |
 
 ### PR sequence
 

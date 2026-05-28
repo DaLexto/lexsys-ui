@@ -102,7 +102,10 @@ export const SizesPanel = () => {
         </div>
         <div className="sizes-control-row">
           {inputSizes.map((size) => (
-            <div key={size} className="sizes-control-item sizes-control-item--wide">
+            <div
+              key={size}
+              className="sizes-control-item sizes-control-item--wide"
+            >
               <Input size={size} defaultValue={`Input ${size}`} readOnly />
               <code className="sizes-scale-label">{size}</code>
             </div>
@@ -110,10 +113,7 @@ export const SizesPanel = () => {
         </div>
       </section>
 
-      <section
-        className="component-panel"
-        aria-labelledby="sizes-radius-title"
-      >
+      <section className="component-panel" aria-labelledby="sizes-radius-title">
         <div className="panel-header">
           <div>
             <p className="playground-label">Border radius</p>
@@ -174,10 +174,7 @@ export const SizesPanel = () => {
         </div>
       </section>
 
-      <section
-        className="component-panel"
-        aria-labelledby="sizes-shadow-title"
-      >
+      <section className="component-panel" aria-labelledby="sizes-shadow-title">
         <div className="panel-header">
           <div>
             <p className="playground-label">Elevation</p>

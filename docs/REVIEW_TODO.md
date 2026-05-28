@@ -194,16 +194,16 @@ writing permanent component rules.
 
 Roadmap anchor: [Roadmap § Component standardization](./ROADMAP.md#component-standardization-planned).
 
-| ID   | Area                     | Goal                                                                                                        | Status  |
-| ---- | ------------------------ | ----------------------------------------------------------------------------------------------------------- | ------- |
-| CS.1 | Review / Score           | Score primitives, blocks, and templates A/B/C/D; record good vs bad                                         | shipped |
-| CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens                                           | shipped |
-| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                                                         | shipped |
-| CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape                                               | shipped |
-| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                                                              | shipped |
-| CS.6 | Registry sync            | Sync templates if UI install artifacts change                                                               | shipped |
+| ID   | Area                     | Goal                                                                                                                                      | Status  |
+| ---- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| CS.1 | Review / Score           | Score primitives, blocks, and templates A/B/C/D; record good vs bad                                                                       | shipped |
+| CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens                                                                         | shipped |
+| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                                                                                       | shipped |
+| CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape                                                                             | shipped |
+| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                                                                                            | shipped |
+| CS.6 | Registry sync            | Sync templates if UI install artifacts change                                                                                             | shipped |
 | CS.7 | Prefix transform         | Fixed `lex-` prefix; `scripts/rebrand/rename-prefix.mjs` for future rebrand; all packages converted to dynamic `testCssVarPrefix` helpers | shipped |
-| CS.8 | Rule + skill template    | `ui-component-authoring.mdc` rule + `$ui-authoring` hub skill (component.md + tests.md); stale `lsys-` fixed across skills and rules | shipped |
+| CS.8 | Rule + skill template    | `ui-component-authoring.mdc` rule + `$ui-authoring` hub skill (component.md + tests.md); stale `lsys-` fixed across skills and rules      | shipped |
 
 **CS.8 pre-rule intentional decisions (locked in CS.4):**
 
@@ -241,20 +241,21 @@ Optional follow-ups after Phases 1–10 (detail in
 
 Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 
-| ID   | Description                                                                                                                                                                                                                                                                                                                     | Status  |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| SI.1 | Full post-rename run order: rename → `registry:sync` → `format` (per-package scripts exist) → `pnpm check` (lint + typecheck + tests). Currently stops after `registry:sync` and does not format or run tests.                                                                                                                  | shipped |
-| SI.2 | Post-rename format: run `pnpm format` (Prettier, whole repo) after file writes. Currently the script does not format — touched files may drift from style rules. Note: `*:lint:fix` scripts are ESLint-only, not Prettier; there are no per-package Prettier scripts. `pnpm format` on the whole repo is the correct call here. | shipped |
-| SI.3 | Post-rename summary: print count of files changed per category (source / docs / test-configs / registry) after all tasks complete.                                                                                                                                                                                              | shipped |
+| ID   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Status  |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| SI.1 | Full post-rename run order: rename → `registry:sync` → `format` (per-package scripts exist) → `pnpm check` (lint + typecheck + tests). Currently stops after `registry:sync` and does not format or run tests.                                                                                                                                                                                                                                                                                                                                                                                       | shipped |
+| SI.2 | Post-rename format: run `pnpm format` (Prettier, whole repo) after file writes. Currently the script does not format — touched files may drift from style rules. Note: `*:lint:fix` scripts are ESLint-only, not Prettier; there are no per-package Prettier scripts. `pnpm format` on the whole repo is the correct call here.                                                                                                                                                                                                                                                                      | shipped |
+| SI.3 | Post-rename summary: print count of files changed per category (source / docs / test-configs / registry) after all tasks complete.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | shipped |
+| SI.4 | Auto-scaffold `src/items/<name>.ts` for blocks/templates in `sync-block-templates.mjs`. Currently `sync-component-templates.mjs` calls `syncRegistryItems` (auto-creates primitive item files if missing), but `sync-block-templates.mjs` does not — block/template item files must be written manually. Extend `syncRegistryItems` or add a parallel helper that scaffolds block items with `type: "block"`, inferred `category`, correct `registryDependencies` stub, and wires `index.ts`. Gate: `registry:check` must catch missing block items the same way it catches missing primitive items. | planned |
 
 ---
 
 ## Known Gaps
 
-| Gap                                    | Notes                                                                                                                                        |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md). |
-| Remote registry signatures / allowlist | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                         |
-| `documentation-standards.mdc` revisit | Solid Diátaxis base but lacks: codebase-specific examples, tooling reference (future `docs:lint`), hub+detail split for readability, rule maintenance policy. Revisit post-0.1.0. |
+| Gap                                    | Notes                                                                                                                                                                             |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md).                                    |
+| Remote registry signatures / allowlist | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                              |
+| `documentation-standards.mdc` revisit  | Solid Diátaxis base but lacks: codebase-specific examples, tooling reference (future `docs:lint`), hub+detail split for readability, rule maintenance policy. Revisit post-0.1.0. |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.

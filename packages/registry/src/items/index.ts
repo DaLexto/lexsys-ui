@@ -46,6 +46,7 @@ import { comboboxRegistryItem } from "./combobox.js"
 import { authFormRegistryItem } from "./auth-form.js"
 import { commandPaletteRegistryItem } from "./command-palette.js"
 import { otpFieldRegistryItem } from "./otp-field.js"
+import { emptyRegistryItem } from "./empty.js"
 
 export { accordionRegistryItem } from "./accordion.js"
 export { alertDialogRegistryItem } from "./alert-dialog.js"
@@ -95,6 +96,7 @@ export { comboboxRegistryItem } from "./combobox.js"
 export { authFormRegistryItem } from "./auth-form.js"
 export { commandPaletteRegistryItem } from "./command-palette.js"
 export { otpFieldRegistryItem } from "./otp-field.js"
+export { emptyRegistryItem } from "./empty.js"
 export const registryItems: RegistryItem[] = [
   accordionRegistryItem,
   alertDialogRegistryItem,
@@ -143,4 +145,5 @@ export const registryItems: RegistryItem[] = [
   checkboxGroupRegistryItem,
   comboboxRegistryItem,
   otpFieldRegistryItem,
+  emptyRegistryItem,
 ]

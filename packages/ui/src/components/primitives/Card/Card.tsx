@@ -92,4 +92,12 @@ const CardAction = ({ ref, className, ...props }: CardActionProps) => {
 
 CardAction.displayName = "CardAction"
 
-export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardAction }
+export {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  CardAction,
+}

@@ -80,15 +80,15 @@ npx @dalexto/lexsys@next init vite my-app
 Lexsys is a CLI installer, not a library — the breaking change definition is
 non-obvious:
 
-| Change | Breaking |
-| ------ | -------- |
-| CLI command or flag rename / removal | Yes |
-| Config format change (`lexsys.config.ts`) | Yes |
-| Registry item ID rename | Yes |
-| Template content update | **No** — consumer owns installed code |
-| New CLI commands or flags | No |
-| New registry items | No |
-| Token CSS variable rename (`--lex-*`) | Yes — breaks existing consumer CSS |
+| Change                                    | Breaking                              |
+| ----------------------------------------- | ------------------------------------- |
+| CLI command or flag rename / removal      | Yes                                   |
+| Config format change (`lexsys.config.ts`) | Yes                                   |
+| Registry item ID rename                   | Yes                                   |
+| Template content update                   | **No** — consumer owns installed code |
+| New CLI commands or flags                 | No                                    |
+| New registry items                        | No                                    |
+| Token CSS variable rename (`--lex-*`)     | Yes — breaks existing consumer CSS    |
 
 ### Release notes
 
@@ -195,14 +195,17 @@ npm run build
 ### Bad publish procedure
 
 1. **Deprecate the bad version** — preferred over unpublish:
+
    ```bash
    npm deprecate @dalexto/lexsys-cli@0.0.x "known issue — use 0.0.y"
    npm deprecate @dalexto/lexsys-registry@0.0.x "known issue — use 0.0.y"
    npm deprecate @dalexto/lexsys@0.0.x "known issue — use 0.0.y"
    ```
+
    Consumers see a deprecation warning on install but the package remains available.
 
 2. **Roll back the dist-tag** to a known-good version:
+
    ```bash
    npm dist-tag add @dalexto/lexsys@0.0.y next
    npm dist-tag add @dalexto/lexsys-cli@0.0.y next
@@ -231,24 +234,27 @@ manually update their installed files.
 
 Each publish-oriented package MUST build from `src/` into `dist/`.
 
-| Requirement | Rule |
-| ----------- | ---- |
-| Source | `src/` is source only — never import from another package's `src/` |
-| Output | `dist/` is the distributable output |
-| Exports | `package.json` `exports` MUST point to `dist` paths only |
-| Files | Publishable files MUST be explicitly declared in `package.json` `files` |
+| Requirement | Rule                                                                    |
+| ----------- | ----------------------------------------------------------------------- |
+| Source      | `src/` is source only — never import from another package's `src/`      |
+| Output      | `dist/` is the distributable output                                     |
+| Exports     | `package.json` `exports` MUST point to `dist` paths only                |
+| Files       | Publishable files MUST be explicitly declared in `package.json` `files` |
 
 ### Per-package dist requirements
 
 **`packages/entry` (`@dalexto/lexsys`)**
+
 - Compiled shim in `dist/`; working `bin` delegation to `@dalexto/lexsys-cli`
 
 **`packages/cli` (`@dalexto/lexsys-cli`)**
+
 - Compiled executable entry in `dist/`
 - Working `bin` mapping
 - Runtime access only to publishable package assets — no repository-only paths
 
 **`packages/registry` (`@dalexto/lexsys-registry`)**
+
 - Compiled metadata entrypoints in `dist/`
 - Templates included in `package.json` `files`
 - No deep-import dependency on repository-only paths at runtime
@@ -302,13 +308,13 @@ GitHub Actions secrets if CI duration grows.
 
 ## Supply chain security
 
-| Control | Status |
-| ------- | ------ |
-| `--frozen-lockfile` in CI | implemented |
-| Granular NPM_TOKEN (scoped publish permissions per package) | implemented |
+| Control                                                               | Status                   |
+| --------------------------------------------------------------------- | ------------------------ |
+| `--frozen-lockfile` in CI                                             | implemented              |
+| Granular NPM_TOKEN (scoped publish permissions per package)           | implemented              |
 | `npm publish --provenance` (links package to GitHub Actions workflow) | planned — add at `0.1.0` |
-| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC) | deferred |
-| Signed releases (sigstore) | deferred |
+| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC)         | deferred                 |
+| Signed releases (sigstore)                                            | deferred                 |
 
 **Notes:**
 

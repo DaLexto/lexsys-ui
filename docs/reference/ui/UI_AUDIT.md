@@ -16,8 +16,8 @@ Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
 This inventory tracks **styling and variant-axis compliance** against [UI variants](../ui/UI_VARIANTS.md). It does **not** define compound-first export rules (M11) — those live in [UI reference](../ui/UI.md) and [UI catalog](../ui/UI_CATALOG.md).
 
-| Question                                                     | Read                                              |
-| ------------------------------------------------------------ | ------------------------------------------------- |
+| Question                                                     | Read                                           |
+| ------------------------------------------------------------ | ---------------------------------------------- |
 | Compound or leaf? Named component exports? Registry version? | [UI catalog](../ui/UI_CATALOG.md)              |
 | Variant props, CVA rules, token literals?                    | This doc + [UI variants](../ui/UI_VARIANTS.md) |
 | Composition layers and install paths?                        | [UI composition](../ui/UI_COMPOSITION.md)      |

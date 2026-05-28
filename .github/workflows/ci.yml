@@ -1,4 +1,4 @@
-name: Monorepo check
+name: CI
 
 on:
   pull_request:
@@ -56,7 +56,7 @@ jobs:
               - 'README.md'
               - '.agents/**'
 
-  tokens-check:
+  tokens:
     needs: changes
     if: needs.changes.outputs.tokens == 'true'
     runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm tokens:check
 
-  ui-check:
+  ui:
     needs: changes
     if: needs.changes.outputs.ui == 'true'
     runs-on: ubuntu-latest
@@ -84,7 +84,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm ui:check
 
-  registry-check:
+  registry:
     needs: changes
     if: needs.changes.outputs.registry == 'true'
     runs-on: ubuntu-latest
@@ -112,7 +112,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run check --filter=./packages/cli
 
-  playground-build:
+  playground:
     needs: changes
     if: needs.changes.outputs.playground == 'true'
     runs-on: ubuntu-latest
@@ -126,7 +126,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm playground:build
 
-  root-check:
+  root:
     needs: changes
     if: needs.changes.outputs.root == 'true'
     runs-on: ubuntu-latest
@@ -141,7 +141,7 @@ jobs:
       - run: pnpm format:check
       - run: pnpm lint:root
 
-  full-check:
+  full:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:

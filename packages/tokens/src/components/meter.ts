@@ -14,7 +14,7 @@ export const meterComponentTokens = componentTokens("meter", {
       lineHeight: { $value: "{typography.label.sm.lineHeight}" },
     },
   },
-  $value: {
+  value: {
     foreground: { $value: "{color.text.primary}" },
     font: {
       weight: { $value: "{typography.label.sm.fontWeight}" },
