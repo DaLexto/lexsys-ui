@@ -11,20 +11,21 @@
  *                 packages/registry/src/**
  * Token config  — packages/tokens/src/generators/generator.config.ts (cssVarPrefix value)
  * Docs          — docs/**\/*.md + root *.md (README, CONTRIBUTING, AGENTS, etc.)
- * Test files    — packages/cli/test/** (assert against real generated output)
- *                 packages/registry/test/** (fixture CSS var names)
+ * Test files    — packages/registry/test/** (fixture CSS var names)
  *                 apps/playground/src/** (live CSS var references)
  * Test configs  — packages/ui/test/config/prefix.ts
  *                 packages/tokens/test/config/prefix.ts
- *                 (single mirrored constants; UI variant test assertions use these dynamically)
+ *                 packages/cli/test/config/prefix.ts
+ *                 (single mirrored constants; test assertions use these dynamically)
  *
  * WHAT DOES NOT GET UPDATED
  * -------------------------
  * packages/tokens/test/css-generator.test.ts — intentionally uses cssVarPrefix: "lsys"
  *   as an explicit test input value (not tracking the current brand prefix). The test
  *   verifies that the generator uses whatever prefix is given; the fixture value is arbitrary.
- * packages/ui/test/components/** — test assertions use testCssVarPrefix dynamically;
- *   they stay correct automatically after this script updates the test config files.
+ * packages/ui/test/components/** and packages/cli/test/** — test assertions use
+ *   testCssVarPrefix dynamically; they stay correct automatically after this script
+ *   updates the test config files above.
  * Package names / import paths — lexsys-* names are intentional and unrelated.
  * Token primitive/semantic values — don't carry the CSS variable prefix.
  *
@@ -135,6 +136,7 @@ const walkMd = (dir) => {
 const testConfigPaths = [
   join(ROOT, "packages/ui/test/config/prefix.ts"),
   join(ROOT, "packages/tokens/test/config/prefix.ts"),
+  join(ROOT, "packages/cli/test/config/prefix.ts"),
 ].filter(existsSync)
 
 // Root-level markdown files (README, CONTRIBUTING, AGENTS, etc.)
@@ -158,8 +160,8 @@ const filesToScan = [
   // Docs — all markdown
   ...walkMd(join(ROOT, "docs")),
   ...rootMdFiles,
-  // Tests — CLI + registry assert against real generated output; playground uses real CSS vars
-  ...walk(join(ROOT, "packages/cli/test")),
+  // Tests — registry fixture vars + playground live CSS var references
+  // (CLI test assertions use testCssVarPrefix dynamically — no bulk scan needed)
   ...walk(join(ROOT, "packages/registry/test")),
   ...walk(join(ROOT, "apps/playground/src"), [".ts", ".tsx", ".css"]),
   // Token config + test config mirrors

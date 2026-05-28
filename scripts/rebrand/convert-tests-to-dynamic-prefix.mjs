@@ -21,7 +21,7 @@
  */
 
 import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs"
-import { join, resolve } from "node:path"
+import { join, resolve, sep as pathSep } from "node:path"
 
 const ROOT = resolve(process.cwd())
 const CURRENT_PREFIX = "lex"
@@ -43,6 +43,7 @@ const walk = (dir, exts = [".ts", ".tsx"]) => {
 
 const UI_TEST_DIR = join(ROOT, "packages/ui/test/components")
 const GENERATOR_TEST = join(ROOT, "packages/tokens/test/generator.test.ts")
+const CLI_TEST_DIR = join(ROOT, "packages/cli/test")
 
 /**
  * Transforms string literals containing `--{prefix}-` into template literals
@@ -126,6 +127,29 @@ if (genContent.includes(`--${CURRENT_PREFIX}-`)) {
       "",
     )
     changed.push({ relPath, filePath: GENERATOR_TEST, updated })
+  }
+}
+
+// --- packages/cli/test/**/*.test.ts ---
+// All CLI test files sit one level below test/ (test/commands/, test/install/, etc.)
+// so the config is always at "../config/prefix.js" relative to each file.
+// Exclude test/config/ itself — those files define testCssVarPrefix, not use it.
+const CLI_IMPORT =
+  'import { testCssVarPrefix as p } from "../config/prefix.js"'
+
+for (const filePath of walk(CLI_TEST_DIR).filter(
+  (f) => !f.includes(`${pathSep}config${pathSep}`),
+)) {
+  const content = readFileSync(filePath, "utf8")
+
+  if (!content.includes(`--${CURRENT_PREFIX}-`)) continue
+
+  let updated = convertStringLiterals(content, CURRENT_PREFIX)
+  updated = addImport(updated, CLI_IMPORT)
+
+  if (updated !== content) {
+    const relPath = filePath.replace(ROOT + "\\", "").replace(ROOT + "/", "")
+    changed.push({ relPath, filePath, updated })
   }
 }
 

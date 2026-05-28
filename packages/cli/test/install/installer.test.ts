@@ -12,6 +12,7 @@ import {
   installItemFiles,
   installStyles,
 } from "../../src/install/installer.js"
+import { testCssVarPrefix as p } from "../config/prefix.js"
 
 const config: LexsysConfig = {
   style: "default",
@@ -104,7 +105,7 @@ describe("installItemFiles", () => {
     const result = await installStyles([themeRegistryStyle], config)
 
     await expect(readFile(targetPath, "utf-8")).resolves.toContain(
-      "--lex-badge-radius",
+      `--${p}-badge-radius`,
     )
     expect(result.updated).toContain(targetPath)
     expect(result.created.some((path) => path.endsWith("theme.css"))).toBe(true)
