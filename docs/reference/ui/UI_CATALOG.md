@@ -78,7 +78,7 @@ _Generated 2026-05-28 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | ------------------ | -------- | -------------------------------------------------------------------- | ----------------- | ------- |
 | **AuthForm**       | compound | `AuthForm, AuthFormHeader, AuthFormContent, … (+2)`                  | `auth-form`       | 0.0.2   |
 | **CommandPalette** | compound | `CommandPalette, CommandPaletteContent, CommandPaletteTitle, … (+8)` | `command-palette` | 0.0.2   |
-| **Empty**          | compound | `Empty, EmptyHeader, EmptyMedia, … (+3)`                             | `empty`           | 0.0.3   |
+| **Empty**          | compound | `Empty, EmptyHeader, EmptyMedia, … (+3)`                             | `empty`           | 0.0.1   |
 | **FormField**      | compound | `FormField, FormFieldItem, FormFieldLabel, … (+3)`                   | `form-field`      | 0.0.2   |
 | **SettingsPanel**  | compound | `SettingsPanel, SettingsPanelHeader, SettingsPanelTitle, … (+3)`     | `settings-panel`  | 0.0.2   |
 | **Sidebar**        | compound | `Sidebar, SidebarHeader, SidebarContent, … (+10)`                    | `sidebar`         | 0.0.2   |

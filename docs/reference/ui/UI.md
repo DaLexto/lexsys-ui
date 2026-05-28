@@ -41,8 +41,8 @@ the correct layer directory:
 ```txt
 packages/ui/src/components/
   primitives/ComponentName/     ← 41 bundled primitives
-  blocks/ComponentName/         ← pilot: FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette
-  templates/ComponentName/      ← pilot: DashboardShell
+  blocks/ComponentName/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty
+  templates/ComponentName/      ← DashboardShell
 ```
 
 ```txt

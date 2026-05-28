@@ -127,7 +127,7 @@ The P0 and P1 implementation passes are complete:
 - Consumer sandbox verify (PR #26 artifacts): `lexsys update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, all 41 bundled primitives, and pilot blocks/templates (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, all 41 bundled primitives, and blocks/templates (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, DashboardShell).
 
 Known gaps below.
 
@@ -147,7 +147,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 | Item | Layer     | Status  | Notes                                                                                                                                                     |
 | ---- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | UC.1 | All       | shipped | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`                                           |
-| UC.2 | Blocks    | shipped | Pilot FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette — BO pass complete; CI render + install smoke                                           |
+| UC.2 | Blocks    | shipped | FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty — BO pass complete; CI render + install smoke                                          |
 | UC.3 | Templates | shipped | DashboardShell mobile layout fixed; CI render + install smoke                                                                                             |
 | UC.4 | Pages     | n/a     | Pages stay consumer-owned                                                                                                                                 |
 | UC.5 | CLI       | shipped | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)                                         |

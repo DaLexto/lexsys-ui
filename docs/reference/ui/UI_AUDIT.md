@@ -75,7 +75,7 @@ This inventory tracks **styling and variant-axis compliance** against [UI varian
 
 **Shipped PR #30 (variant rows pending):** Autocomplete, CheckboxGroup, Combobox, ContextMenu, Menubar, NavigationMenu, OtpField, PreviewCard, Toolbar — composition in [UI catalog](../ui/UI_CATALOG.md).
 
-**Blocks and templates (compound-only @ registry `0.0.2`):** FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell — variant audit rows not tracked here; render tests in `packages/ui/test/`.
+**Blocks and templates (compound-only):** FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette @ `0.0.2`; Empty @ `0.0.1`; DashboardShell @ `0.0.2` — variant audit rows not tracked here; render tests in `packages/ui/test/`.
 
 ---
 

@@ -46,8 +46,8 @@ Do not use atoms/molecules/organisms in Lexsys docs or CLI copy — those names 
 
 ```txt
 primitives/     ← 41 shipped primitives
-blocks/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette (pilot)
-templates/      ← DashboardShell (pilot)
+blocks/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty
+templates/      ← DashboardShell
 ```
 
 **Registry templates** mirror the same three folders under
@@ -293,7 +293,7 @@ No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
 
 ## Current state
 
-Installable inventory (47 items — compound vs leaf, named exports, registry
+Installable inventory (48 items — compound vs leaf, named exports, registry
 version): **[UI catalog](../ui/UI_CATALOG.md)**.
 
 Pilot blocks and templates remain installable; stability and sandbox QA gaps are

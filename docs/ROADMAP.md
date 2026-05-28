@@ -2,9 +2,8 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M8 **shipped**; UI
-composition pilots **shipped** (PR #28); M10 release readiness **shipped**
-(`0.0.2` @ `next`, 2026-05-25); blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M8, M10, M11 **shipped**; UI
+composition pilots **shipped** (PR #28); `0.0.3` @ `next` **shipped** (2026-05-28 — token fixes, CardAction, Empty block); blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -430,17 +429,17 @@ and [UI audit](./reference/ui/UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaki
 **Status:** **PR #28** merged to `dev`. Monorepo reference layout uses
 `primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
 `paths.components` (`src/components/ui/<CanonicalName>/` with import rewrite).
-Pilot blocks (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette) and template (DashboardShell) are registry +
+Blocks (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty) and template (DashboardShell) are registry +
 CLI installable — **optimization pass complete** (BO.1–BO.7; CI install smoke, render tests, registry template-import audit).
 
 Lexsys uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
-| Layer      | Monorepo reference                                                  | Consumer install (`lexsys add`)               |
-| ---------- | ------------------------------------------------------------------- | --------------------------------------------- |
-| Primitives | Shipped (41 components + tokens + `cn`)                             | `src/components/ui/<CanonicalName>/`          |
-| Blocks     | Pilot (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette) | Same flat path; cross-layer imports rewritten |
-| Templates  | Pilot (DashboardShell)                                              | Same flat path                                |
-| Pages      | —                                                                   | Always consumer-owned                         |
+| Layer      | Monorepo reference                                                 | Consumer install (`lexsys add`)               |
+| ---------- | ------------------------------------------------------------------ | --------------------------------------------- |
+| Primitives | Shipped (41 components + tokens + `cn`)                            | `src/components/ui/<CanonicalName>/`          |
+| Blocks     | FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty | Same flat path; cross-layer imports rewritten |
+| Templates  | Pilot (DashboardShell)                                             | Same flat path                                |
+| Pages      | —                                                                  | Always consumer-owned                         |
 
 Canonical mapping, composition rules, folder layout, and CLI contract:
 [UI composition](./reference/ui/UI_COMPOSITION.md).
