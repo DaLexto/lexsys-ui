@@ -4,23 +4,24 @@ import {
   autocompletePopupVariants,
   autocompleteTriggerVariants,
 } from "../../../src/components/primitives/Autocomplete/Autocomplete.variants.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("Autocomplete variants", () => {
   it("uses token-backed trigger sizing", () => {
     expect(autocompleteTriggerVariants({ size: "sm" })).toContain(
-      "h-(--lex-select-height-sm)",
+      `h-(--${p}-select-height-sm)`,
     )
     expect(autocompleteTriggerVariants({ size: "lg" })).toContain(
-      "h-(--lex-select-height-lg)",
+      `h-(--${p}-select-height-lg)`,
     )
   })
 
   it("uses token-backed popup and input styling", () => {
     expect(autocompletePopupVariants()).toContain(
-      "bg-(--lex-select-popup-background)",
+      `bg-(--${p}-select-popup-background)`,
     )
     expect(autocompleteInputVariants()).toContain(
-      "placeholder:text-(--lex-select-placeholder-color)",
+      `placeholder:text-(--${p}-select-placeholder-color)`,
     )
   })
 })

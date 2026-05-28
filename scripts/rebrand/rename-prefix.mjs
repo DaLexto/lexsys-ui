@@ -1,14 +1,42 @@
 #!/usr/bin/env node
 /**
- * Renames the CSS variable and BEM class prefix across packages/ui/src
- * and updates cssVarPrefix in generator.config.ts, then regenerates artifacts.
+ * Renames the CSS variable and BEM class prefix across the codebase and
+ * regenerates all build artifacts.
+ *
+ * WHAT GETS UPDATED
+ * -----------------
+ * Source files  — packages/ui/src/**  (variant files, cn.ts, etc.)
+ * Token config  — packages/tokens/src/generators/generator.config.ts (cssVarPrefix value)
+ * Docs          — docs/**\/*.md (all prefix examples in documentation)
+ * Test configs  — packages/ui/test/config/prefix.ts
+ *                 packages/tokens/test/config/prefix.ts
+ *                 (single mirrored constants; test assertions use these dynamically)
+ *
+ * WHAT DOES NOT GET UPDATED
+ * -------------------------
+ * Test assertions themselves — they import testCssVarPrefix from the test config
+ *   files above, so they stay correct automatically after this script runs.
+ * Package names / import paths — lexsys-* names are intentional and unrelated.
+ * Token source files — primitive/semantic token values don't carry the CSS prefix.
+ *
+ * POST-RENAME
+ * -----------
+ * After writing files, the script automatically runs:
+ *   pnpm tokens:generate:styles  — regenerates CSS with the new prefix
+ *   pnpm registry:sync           — propagates updated variant templates
  *
  * Usage:
  *   node scripts/rebrand/rename-prefix.mjs --to lex
  *   node scripts/rebrand/rename-prefix.mjs --to lex --from lsys --dry-run
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs"
+import {
+  readFileSync,
+  writeFileSync,
+  readdirSync,
+  statSync,
+  existsSync,
+} from "node:fs"
 import { join, resolve } from "node:path"
 import { execSync } from "node:child_process"
 
@@ -31,7 +59,7 @@ if (!to) {
   process.exit(1)
 }
 
-// Read current prefix from generator.config.ts
+// Read current prefix from generator.config.ts (single source of truth)
 const configPath = join(
   ROOT,
   "packages/tokens/src/generators/generator.config.ts",
@@ -79,7 +107,33 @@ const walk = (dir, exts = [".ts", ".tsx"]) => {
   return results
 }
 
-const filesToScan = [...walk(join(ROOT, "packages/ui/src")), configPath]
+const walkMd = (dir) => {
+  const results = []
+  for (const entry of readdirSync(dir)) {
+    const fullPath = join(dir, entry)
+    const stat = statSync(fullPath)
+    if (stat.isDirectory()) {
+      results.push(...walkMd(fullPath))
+    } else if (fullPath.endsWith(".md")) {
+      results.push(fullPath)
+    }
+  }
+  return results
+}
+
+// Test config files — mirrored constants updated by this script so test
+// assertions (which import testCssVarPrefix dynamically) stay correct.
+const testConfigPaths = [
+  join(ROOT, "packages/ui/test/config/prefix.ts"),
+  join(ROOT, "packages/tokens/test/config/prefix.ts"),
+].filter(existsSync)
+
+const filesToScan = [
+  ...walk(join(ROOT, "packages/ui/src")),
+  ...walkMd(join(ROOT, "docs")),
+  configPath,
+  ...testConfigPaths,
+]
 
 const changed = []
 
@@ -88,12 +142,19 @@ for (const filePath of filesToScan) {
   let updated
 
   if (filePath === configPath) {
-    // Target only the cssVarPrefix value — leave everything else intact
+    // Targeted replace — only the cssVarPrefix value, nothing else
     updated = content.replace(
       /cssVarPrefix:\s*"[^"]+"/,
       `cssVarPrefix: "${to}"`,
     )
+  } else if (testConfigPaths.includes(filePath)) {
+    // Targeted replace — only the testCssVarPrefix value
+    updated = content.replace(
+      /export const testCssVarPrefix\s*=\s*"[^"]+"/,
+      `export const testCssVarPrefix = "${to}"`,
+    )
   } else {
+    // Bulk replace of all prefix occurrences (source files + docs)
     updated = content.replaceAll(`${from}-`, `${to}-`)
   }
 

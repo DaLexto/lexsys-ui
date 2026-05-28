@@ -4,22 +4,23 @@ import {
   menuPopupVariants,
   menuTriggerVariants,
 } from "../../../src/components/primitives/Menu/Menu.variants"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("Menu variants", () => {
   it("uses token-backed trigger styling", () => {
-    expect(menuTriggerVariants()).toContain("h-(--lex-menu-trigger-height)")
+    expect(menuTriggerVariants()).toContain(`h-(--${p}-menu-trigger-height)`)
     expect(menuTriggerVariants()).toContain(
-      "data-[popup-open]:bg-(--lex-menu-trigger-open-background)",
+      `data-[popup-open]:bg-(--${p}-menu-trigger-open-background)`,
     )
   })
 
   it("uses token-backed popup and item states", () => {
-    expect(menuPopupVariants()).toContain("bg-(--lex-menu-popup-background)")
+    expect(menuPopupVariants()).toContain(`bg-(--${p}-menu-popup-background)`)
     expect(menuItemVariants()).toContain(
-      "data-[highlighted]:bg-(--lex-menu-item-highlight-background)",
+      `data-[highlighted]:bg-(--${p}-menu-item-highlight-background)`,
     )
     expect(menuItemVariants()).toContain(
-      "data-[checked]:bg-(--lex-menu-item-checked-background)",
+      `data-[checked]:bg-(--${p}-menu-item-checked-background)`,
     )
   })
 })

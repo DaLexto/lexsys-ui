@@ -4,23 +4,24 @@ import {
   dialogPopupVariants,
   dialogTriggerVariants,
 } from "../../../src/components/primitives/Dialog/Dialog.variants"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("Dialog variants", () => {
   it("uses token-backed trigger and popup styling", () => {
     expect(dialogTriggerVariants()).toContain(
-      "bg-(--lex-dialog-trigger-background)",
+      `bg-(--${p}-dialog-trigger-background)`,
     )
     expect(dialogPopupVariants()).toContain(
-      "bg-(--lex-dialog-popup-background)",
+      `bg-(--${p}-dialog-popup-background)`,
     )
   })
 
   it("uses token-backed backdrop transition styling", () => {
     expect(dialogBackdropVariants()).toContain(
-      "bg-(--lex-dialog-backdrop-background)",
+      `bg-(--${p}-dialog-backdrop-background)`,
     )
     expect(dialogBackdropVariants()).toContain(
-      "duration-(--lex-dialog-transition-duration)",
+      `duration-(--${p}-dialog-transition-duration)`,
     )
   })
 })

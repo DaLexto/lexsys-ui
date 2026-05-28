@@ -3,17 +3,18 @@ import {
   toolbarButtonVariants,
   toolbarInputVariants,
 } from "../../../src/components/primitives/Toolbar/Toolbar.variants"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("Toolbar variants", () => {
   it("uses token-backed button styling", () => {
-    expect(toolbarButtonVariants()).toContain("h-(--lex-button-height-sm)")
+    expect(toolbarButtonVariants()).toContain(`h-(--${p}-button-height-sm)`)
     expect(toolbarButtonVariants()).toContain(
-      "text-(--lex-button-secondary-foreground)",
+      `text-(--${p}-button-secondary-foreground)`,
     )
   })
 
   it("uses token-backed input styling", () => {
-    expect(toolbarInputVariants()).toContain("h-(--lex-input-height-sm)")
-    expect(toolbarInputVariants()).toContain("bg-(--lex-input-background)")
+    expect(toolbarInputVariants()).toContain(`h-(--${p}-input-height-sm)`)
+    expect(toolbarInputVariants()).toContain(`bg-(--${p}-input-background)`)
   })
 })

@@ -1,14 +1,15 @@
 import { describe, expect, test } from "vitest"
 import { badgeVariants } from "../../../src/components/primitives/Badge/Badge.variants.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("badgeVariants", () => {
   test("uses token-backed classes for visual styling", () => {
     const className = badgeVariants()
 
-    expect(className).toContain("rounded-(--lex-badge-radius)")
-    expect(className).toContain("bg-(--lex-badge-neutral-background)")
-    expect(className).toContain("text-(--lex-badge-neutral-foreground)")
-    expect(className).toContain("border-(--lex-badge-neutral-border-color)")
+    expect(className).toContain(`rounded-(--${p}-badge-radius)`)
+    expect(className).toContain(`bg-(--${p}-badge-neutral-background)`)
+    expect(className).toContain(`text-(--${p}-badge-neutral-foreground)`)
+    expect(className).toContain(`border-(--${p}-badge-neutral-border-color)`)
   })
 
   test("maps variant, appearance, and size through component tokens", () => {
@@ -18,13 +19,13 @@ describe("badgeVariants", () => {
       size: "sm",
     })
 
-    expect(solidClassName).toContain("bg-(--lex-badge-primary-background)")
-    expect(solidClassName).toContain("text-(--lex-badge-primary-foreground)")
+    expect(solidClassName).toContain(`bg-(--${p}-badge-primary-background)`)
+    expect(solidClassName).toContain(`text-(--${p}-badge-primary-foreground)`)
     expect(solidClassName).toContain(
-      "border-(--lex-badge-primary-border-color)",
+      `border-(--${p}-badge-primary-border-color)`,
     )
-    expect(solidClassName).toContain("h-(--lex-badge-height-sm)")
-    expect(solidClassName).toContain("text-(length:--lex-badge-font-size-sm)")
+    expect(solidClassName).toContain(`h-(--${p}-badge-height-sm)`)
+    expect(solidClassName).toContain(`text-(length:--${p}-badge-font-size-sm)`)
 
     const outlineClassName = badgeVariants({
       variant: "primary",
@@ -32,12 +33,12 @@ describe("badgeVariants", () => {
       size: "sm",
     })
 
-    expect(outlineClassName).toContain("bg-(--lex-badge-outline-background)")
+    expect(outlineClassName).toContain(`bg-(--${p}-badge-outline-background)`)
     expect(outlineClassName).toContain(
-      "text-(--lex-badge-primary-border-color)",
+      `text-(--${p}-badge-primary-border-color)`,
     )
     expect(outlineClassName).not.toContain(
-      "text-(--lex-badge-primary-foreground)",
+      `text-(--${p}-badge-primary-foreground)`,
     )
   })
 
@@ -48,10 +49,10 @@ describe("badgeVariants", () => {
     })
 
     expect(successClassName).toContain(
-      "bg-(--lex-color-feedback-success-background)",
+      `bg-(--${p}-color-feedback-success-background)`,
     )
     expect(successClassName).toContain(
-      "text-(--lex-color-feedback-success-foreground)",
+      `text-(--${p}-color-feedback-success-foreground)`,
     )
 
     const warningClassName = badgeVariants({
@@ -60,7 +61,7 @@ describe("badgeVariants", () => {
     })
 
     expect(warningClassName).toContain(
-      "text-(--lex-color-feedback-warning-foreground)",
+      `text-(--${p}-color-feedback-warning-foreground)`,
     )
   })
 })

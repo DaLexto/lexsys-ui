@@ -4,15 +4,16 @@ import {
   meterTrackVariants,
   meterVariants,
 } from "../../../src/components/primitives/Meter/Meter.variants.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("meterVariants", () => {
   it("includes token-backed root, track, and indicator classes", () => {
-    expect(meterVariants()).toContain("gap-(--lex-meter-gap)")
+    expect(meterVariants()).toContain(`gap-(--${p}-meter-gap)`)
     expect(meterTrackVariants({ size: "lg" })).toContain(
-      "h-(--lex-meter-track-height-lg)",
+      `h-(--${p}-meter-track-height-lg)`,
     )
     expect(meterIndicatorVariants()).toContain(
-      "data-[complete]:bg-(--lex-meter-indicator-background-complete)",
+      `data-[complete]:bg-(--${p}-meter-indicator-background-complete)`,
     )
   })
 })

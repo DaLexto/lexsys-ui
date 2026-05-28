@@ -3,17 +3,18 @@ import {
   popoverPopupVariants,
   popoverTriggerVariants,
 } from "../../../src/components/primitives/Popover/Popover.variants"
+import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("Popover variants", () => {
   test("uses component token variables for the trigger", () => {
     expect(popoverTriggerVariants()).toContain(
-      "bg-(--lex-popover-trigger-background)",
+      `bg-(--${p}-popover-trigger-background)`,
     )
   })
 
   test("uses component token variables for the popup", () => {
     expect(popoverPopupVariants()).toContain(
-      "bg-(--lex-popover-popup-background)",
+      `bg-(--${p}-popover-popup-background)`,
     )
   })
 })
