@@ -1,0 +1,255 @@
+---
+description: TypeScript conventions for Lexsys — import type, no any, catch typing, export style, interface vs type, satisfies. Apply when editing any .ts or .tsx file.
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: false
+---
+
+# TypeScript Conventions
+
+Lexsys targets **strict, modern TypeScript 6.x**. All packages share the same baseline via `tsconfig.base.json` (`strict`, `isolatedModules`, `moduleResolution: Bundler`).
+
+Related: [tech-stack.mdc](./tech-stack.mdc), [docs/contributors/STYLE.md](../../docs/contributors/STYLE.md).
+
+---
+
+## Import style
+
+Use `import type` for type-only symbols. Two valid forms — pick the one that reads cleaner:
+
+```typescript
+// Separate line (prefer when all imports are types)
+import type { ButtonProps } from "./Button.types.js"
+
+// Inline type (prefer when mixing value + type from same module)
+import { clsx, type ClassValue } from "clsx"
+import { createResult, type InstallResourceResult } from "./results.js"
+```
+
+```typescript
+// Bad — imports type as value (wastes bundle space, breaks isolatedModules)
+import { ButtonProps } from "./Button.types.js"
+
+// Bad — two separate import lines from same module
+import { createResult } from "./results.js"
+import type { InstallResourceResult } from "./results.js"
+```
+
+---
+
+## No `any`
+
+Never use `any` — explicit or implicit. At runtime boundaries (JSON parse, config read, CLI args), narrow from `unknown`:
+
+```typescript
+// Good — narrow from unknown
+const parsed = JSON.parse(content) as Record<string, unknown>
+const name = typeof parsed.name === "string" ? parsed.name : undefined
+
+// Good — type guard narrows unknown
+const isError = (value: unknown): value is Error => value instanceof Error
+
+// Bad
+const parsed = JSON.parse(content) as any
+```
+
+`// @ts-ignore` requires a one-line comment explaining why. Prefer `// @ts-expect-error` when the issue is a known upstream bug.
+
+---
+
+## Error handling
+
+Always type the catch variable as `unknown`. Narrow before use:
+
+```typescript
+// Good
+} catch (error: unknown) {
+  const message = error instanceof Error ? error.message : String(error)
+}
+
+// Good — re-throw when no recovery possible
+} catch (error: unknown) {
+  if (isNotFoundError(error)) return false
+  throw error
+}
+
+// Bad — untyped catch (implicit unknown, but explicit is clearer and required by convention)
+} catch (error) {
+  console.log(error.message) // unsafe
+}
+```
+
+Use `CliError` for user-facing CLI failures. Let `handleCliError` in `utils/cli-error.ts` be the single exit point:
+
+```typescript
+throw new CliError("Config not found.", "Run `lexsys init` first.")
+```
+
+---
+
+## `satisfies`
+
+`satisfies` is a **precision tool**, not a default habit. It solves one specific problem: you want type validation on a const literal *without* widening away the inferred type.
+
+Use it when:
+- Defining `export const` objects with a known shape (registry items, token config, preset maps)
+- A string literal must be a valid value of a union type and you need the literal preserved
+
+Do not use it for:
+- Function parameters — use `: Type` annotation
+- Mutable variables — use `: Type` annotation
+- Simple strings where no literal inference is needed
+
+```typescript
+// Good — object shape validated, literal types preserved
+export const buttonItem = {
+  name: "button",
+  type: "component",
+} satisfies RegistryItem
+
+// Good — string literal validated against union
+export const defaultPresetId = "lexsys" satisfies PresetDefinition["id"]
+
+// Bad — overkill, no benefit over : Type here
+const message = "Something went wrong" satisfies string
+const doWork = (config: LexsysConfig satisfies object) => { ... }
+
+// Bad — widens literal type unnecessarily
+const defaultPresetId: PresetDefinition["id"] = "lexsys"
+```
+
+---
+
+## Return types
+
+Annotate return types on all **exported** functions and const arrows. Internal helpers may infer.
+
+```typescript
+// Good — explicit on exports
+export const fileExists = async (path: string): Promise<boolean> => { ... }
+export const handleCliError = (error: unknown): never => { ... }
+
+// Good — inferred on internal helpers is fine
+const sanitizeName = (name: string) => name.toLowerCase().replace(/\s+/g, "-")
+
+// Bad — missing return type on exported function
+export const runAdd = async (args: string[]) => { ... }
+```
+
+UI components may infer their JSX return type — no need for `: JSX.Element`.
+
+---
+
+## `interface` vs `type`
+
+| Use `interface` for | Use `type` for |
+| --- | --- |
+| Object prop shapes that may be extended (`extends`) | Unions (`"a" \| "b"`) |
+| Component props (`ButtonProps extends Omit<...>`) | Mapped / indexed access types |
+| Internal context shapes | Generic aliases (`type Fn<T> = (x: T) => void`) |
+
+```typescript
+// Good
+export interface ButtonProps extends Omit<BaseButton.Root.Props, "className"> {
+  variant?: ButtonVariant
+}
+
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger"
+
+// Bad — union as interface
+export interface ButtonVariant {
+  value: "primary" | "secondary"
+}
+```
+
+---
+
+## No enums
+
+Use string literal unions and `as const` tuples — not TypeScript `enum`.
+
+```typescript
+// Good
+export type RegistryItemType = "component" | "block" | "utility" | "style"
+
+const LAYERS = ["primitive", "block", "template"] as const
+type Layer = (typeof LAYERS)[number]
+
+// Bad
+enum RegistryItemType { Component = "component", Block = "block" }
+```
+
+---
+
+## `export const` style
+
+Always use `export const` arrow functions. Never `export function`.
+
+```typescript
+// Good
+export const resolveItemInstallTarget = (
+  config: LexsysConfig,
+  item: RegistryItem,
+): string => { ... }
+
+// Bad
+export function resolveItemInstallTarget(config, item) { ... }
+```
+
+UI components: define as `const`, attach `displayName`, export in a named block at the bottom:
+
+```typescript
+const Button = ({ ref, variant, ...props }: ButtonProps) => { ... }
+Button.displayName = "Button"
+export { Button }
+```
+
+---
+
+## Type assertions
+
+Prefer type guards over assertions. When assertions are necessary, cast through `unknown` — not directly across unrelated types:
+
+```typescript
+// Good — guard narrows
+const isStyle = (value: unknown): value is RegistryStyle => { ... }
+
+// Acceptable — JSON parse boundary
+const doc = JSON.parse(content) as unknown as DtcgTokenDocument
+
+// Bad — direct cast across unrelated types
+const items = rawItems as ResolvedItems
+```
+
+Never use the non-null `!` operator. Prefer explicit null checks or type guards.
+
+---
+
+## `readonly` and immutability
+
+Use `readonly` on schema/config arrays in tokens and registry where mutation would be a bug:
+
+```typescript
+// Good
+readonly path: readonly string[]
+TThemeModes extends readonly ThemeModeId[]
+```
+
+UI prop interfaces do not require `readonly` — React immutability conventions apply instead.
+
+---
+
+## ESM and module hygiene
+
+- All imports use `import` / `export` — no `require()`
+- Relative imports inside `packages/*/src/` must include `.js` extension (resolves to `.ts` at build time via `moduleResolution: NodeNext` for cli/registry)
+- Never deep-import another package's `src/` or internal `dist/` paths — only `package.json` exports
+
+```typescript
+// Good
+import { loadConfig } from "../config/config.js"
+import type { LexsysConfig } from "@dalexto/lexsys-registry"
+
+// Bad
+import { loadConfig } from "../config/config"       // missing .js
+import { something } from "@dalexto/lexsys-cli/src/utils/flags" // deep import
+```
