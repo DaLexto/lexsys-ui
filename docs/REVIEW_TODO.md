@@ -238,6 +238,19 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
 - ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md))
 
+## SI — Script Improvements
+
+Planned improvements to `scripts/rebrand/rename-prefix.mjs`. Not urgent — revisit
+when the rename workflow is actually exercised for a real rebrand.
+
+| ID   | Description | Status |
+| ---- | ----------- | ------ |
+| SI.1 | Full post-rename run order: rename → `registry:sync` → `format` (per-package scripts exist) → `pnpm check` (lint + typecheck + tests). Currently stops after `registry:sync` and does not format or run tests. | planned |
+| SI.2 | Per-package format: use existing `pnpm ui:lint:fix`, `pnpm tokens:lint:fix`, `pnpm registry:lint:fix` on touched packages only instead of full `pnpm format`. | planned |
+| SI.3 | Post-rename summary: print count of files changed per category (source / docs / test-configs / registry) after all tasks complete. | planned |
+
+---
+
 ## Known Gaps
 
 | Gap                                    | Notes                                                                                                                                        |
