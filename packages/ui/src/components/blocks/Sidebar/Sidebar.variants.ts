@@ -4,35 +4,31 @@
  * Variant classes for the Sidebar block.
  */
 
-export const sidebarRootVariants = (): string => {
+export const sidebarRootClasses = (): string => {
   return "lsys-sidebar w-full shrink-0 md:h-full md:w-auto"
 }
 
-export const sidebarDesktopVariants = (): string => {
+export const sidebarDesktopClasses = (): string => {
   return "lsys-sidebar__desktop hidden h-full w-[var(--lsys-size-sidebar-width,16rem)] shrink-0 border-r border-[var(--lsys-border-default)] bg-[var(--lsys-color-background-subtle)] md:flex md:flex-col"
 }
 
-export const sidebarMobileTriggerVariants = (): string => {
-  return "lsys-sidebar__mobile-trigger sticky top-0 z-(--lsys-z-index-local) border-b border-[var(--lsys-border-default)] bg-[var(--lsys-color-background-base)] p-[var(--lsys-space-2)] md:hidden"
-}
-
-export const sidebarMobileHeaderVariants = (): string => {
+export const sidebarMobileHeaderClasses = (): string => {
   return "lsys-sidebar__mobile-header min-w-0 flex-1"
 }
 
-export const sidebarBrandVariants = (): string => {
+export const sidebarBrandClasses = (): string => {
   return "lsys-sidebar__brand border-b border-[var(--lsys-border-default)] px-[var(--lsys-space-4)] py-[var(--lsys-space-3)]"
 }
 
-export const sidebarNavVariants = (): string => {
+export const sidebarNavClasses = (): string => {
   return "lsys-sidebar__nav min-h-0 flex-1 p-[var(--lsys-space-2)]"
 }
 
-export const sidebarNavListVariants = (): string => {
+export const sidebarNavListClasses = (): string => {
   return "lsys-sidebar__list m-0 flex list-none flex-col gap-[var(--lsys-space-1)] p-0"
 }
 
-export const sidebarNavItemVariants = (active?: boolean): string => {
+export const sidebarNavItemClasses = (active?: boolean): string => {
   const base = [
     "lsys-sidebar__item",
     "flex w-full items-center rounded-(--lsys-menu-item-radius)",
@@ -59,26 +55,26 @@ export const sidebarNavItemVariants = (active?: boolean): string => {
   ].join(" ")
 }
 
-export const sidebarMainVariants = (): string => {
+export const sidebarMainClasses = (): string => {
   return "lsys-sidebar__drawer-content flex h-full min-h-0 flex-col"
 }
 
-export const sidebarDrawerFooterVariants = (): string => {
+export const sidebarDrawerFooterClasses = (): string => {
   return "lsys-sidebar__drawer-footer border-t border-[var(--lsys-border-default)] p-[var(--lsys-space-2)]"
 }
 
-export const sidebarFooterVariants = (): string => {
+export const sidebarFooterClasses = (): string => {
   return "lsys-sidebar__footer border-t border-[var(--lsys-border-default)] p-[var(--lsys-space-2)]"
 }
 
-export const sidebarGroupVariants = (): string => {
+export const sidebarGroupClasses = (): string => {
   return "lsys-sidebar__group flex flex-col gap-[var(--lsys-space-1)]"
 }
 
-export const sidebarGroupLabelVariants = (): string => {
+export const sidebarGroupLabelClasses = (): string => {
   return "lsys-sidebar__group-label px-[var(--lsys-space-3)] py-[var(--lsys-space-1)] text-(length:--lsys-menu-group-label-font-size) font-(--lsys-menu-group-label-font-weight) leading-(--lsys-menu-group-label-font-line-height) text-(--lsys-menu-group-label-foreground)"
 }
 
-export const sidebarGroupContentVariants = (): string => {
+export const sidebarGroupContentClasses = (): string => {
   return "lsys-sidebar__group-content flex flex-col gap-[var(--lsys-space-1)]"
 }

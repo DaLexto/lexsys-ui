@@ -39,19 +39,19 @@ import type {
   SidebarTriggerProps,
 } from "./Sidebar.types"
 import {
-  sidebarBrandVariants,
-  sidebarDesktopVariants,
-  sidebarDrawerFooterVariants,
-  sidebarFooterVariants,
-  sidebarGroupContentVariants,
-  sidebarGroupLabelVariants,
-  sidebarGroupVariants,
-  sidebarMainVariants,
-  sidebarMobileHeaderVariants,
-  sidebarNavItemVariants,
-  sidebarNavListVariants,
-  sidebarNavVariants,
-  sidebarRootVariants,
+  sidebarBrandClasses,
+  sidebarDesktopClasses,
+  sidebarDrawerFooterClasses,
+  sidebarFooterClasses,
+  sidebarGroupContentClasses,
+  sidebarGroupLabelClasses,
+  sidebarGroupClasses,
+  sidebarMainClasses,
+  sidebarMobileHeaderClasses,
+  sidebarNavItemClasses,
+  sidebarNavListClasses,
+  sidebarNavClasses,
+  sidebarRootClasses,
 } from "./Sidebar.variants"
 import { cn } from "../../../utils/cn"
 
@@ -75,7 +75,7 @@ const Sidebar = ({ ref, className, children, ...props }: SidebarProps) => {
   const drawerBody = (
     <SidebarMobileContext.Provider value={{ closeOnSelect: true }}>
       {children}
-      <div className={sidebarDrawerFooterVariants()}>
+      <div className={sidebarDrawerFooterClasses()}>
         <DrawerClose render={<Button variant="secondary" size="sm" />}>
           Close
         </DrawerClose>
@@ -84,19 +84,15 @@ const Sidebar = ({ ref, className, children, ...props }: SidebarProps) => {
   )
 
   return (
-    <aside
-      ref={ref}
-      className={cn(sidebarRootVariants(), className)}
-      {...props}
-    >
+    <aside ref={ref} className={cn(sidebarRootClasses(), className)} {...props}>
       <Drawer swipeDirection="left">
-        <div className={sidebarDesktopVariants()}>{sidebarBody}</div>
+        <div className={sidebarDesktopClasses()}>{sidebarBody}</div>
         <DrawerPortal>
           <DrawerBackdrop />
           <DrawerViewport side="left">
             <DrawerPopup side="left" size="sm">
               <DrawerClose aria-label="Close navigation" />
-              <DrawerContent className={sidebarMainVariants()}>
+              <DrawerContent className={sidebarMainClasses()}>
                 <DrawerTitle className="sr-only">Navigation</DrawerTitle>
                 <DrawerDescription className="sr-only">
                   Application navigation links
@@ -120,7 +116,7 @@ const SidebarHeader = ({
   ...props
 }: SidebarHeaderProps) => {
   return (
-    <div ref={ref} className={cn(sidebarBrandVariants(), className)} {...props}>
+    <div ref={ref} className={cn(sidebarBrandClasses(), className)} {...props}>
       {children}
     </div>
   )
@@ -135,7 +131,7 @@ const SidebarContent = ({
   ...props
 }: SidebarContentProps) => {
   return (
-    <ScrollArea className={sidebarNavVariants()}>
+    <ScrollArea className={sidebarNavClasses()}>
       <ScrollAreaViewport>
         <ScrollAreaContent>
           <nav
@@ -161,11 +157,7 @@ const SidebarFooter = ({
   ...props
 }: SidebarFooterProps) => {
   return (
-    <div
-      ref={ref}
-      className={cn(sidebarFooterVariants(), className)}
-      {...props}
-    >
+    <div ref={ref} className={cn(sidebarFooterClasses(), className)} {...props}>
       {children}
     </div>
   )
@@ -209,7 +201,7 @@ const SidebarMobileHeader = ({
   return (
     <div
       ref={ref}
-      className={cn(sidebarMobileHeaderVariants(), className)}
+      className={cn(sidebarMobileHeaderClasses(), className)}
       {...props}
     >
       {children}
@@ -226,7 +218,7 @@ const SidebarGroup = ({
   ...props
 }: SidebarGroupProps) => {
   return (
-    <div ref={ref} className={cn(sidebarGroupVariants(), className)} {...props}>
+    <div ref={ref} className={cn(sidebarGroupClasses(), className)} {...props}>
       {children}
     </div>
   )
@@ -243,7 +235,7 @@ const SidebarGroupLabel = ({
   return (
     <div
       ref={ref}
-      className={cn(sidebarGroupLabelVariants(), className)}
+      className={cn(sidebarGroupLabelClasses(), className)}
       {...props}
     >
       {children}
@@ -262,7 +254,7 @@ const SidebarGroupContent = ({
   return (
     <div
       ref={ref}
-      className={cn(sidebarGroupContentVariants(), className)}
+      className={cn(sidebarGroupContentClasses(), className)}
       {...props}
     >
       {children}
@@ -279,11 +271,7 @@ const SidebarList = ({
   ...props
 }: SidebarListProps) => {
   return (
-    <ul
-      ref={ref}
-      className={cn(sidebarNavListVariants(), className)}
-      {...props}
-    >
+    <ul ref={ref} className={cn(sidebarNavListClasses(), className)} {...props}>
       {children}
     </ul>
   )
@@ -314,7 +302,7 @@ const SidebarItemLink = ({
   ...props
 }: SidebarItemLinkProps) => {
   const { closeOnSelect } = useSidebarMobileContext()
-  const linkClassName = cn(sidebarNavItemVariants(active), className)
+  const linkClassName = cn(sidebarNavItemClasses(active), className)
 
   if (!closeOnSelect) {
     return (
@@ -345,7 +333,7 @@ const SidebarItemButton = ({
   ...props
 }: SidebarItemButtonProps) => {
   const { closeOnSelect } = useSidebarMobileContext()
-  const buttonClassName = cn(sidebarNavItemVariants(active), className)
+  const buttonClassName = cn(sidebarNavItemClasses(active), className)
 
   if (!closeOnSelect) {
     return (

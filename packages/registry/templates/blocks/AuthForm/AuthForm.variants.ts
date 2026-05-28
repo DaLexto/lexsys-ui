@@ -4,7 +4,7 @@
  * Variant classes for the AuthForm block.
  */
 
-export const authFormVariants = (): string => {
+export const authFormClasses = (): string => {
   return "lsys-auth-form w-full text-(--lsys-color-text-primary)"
 }
 

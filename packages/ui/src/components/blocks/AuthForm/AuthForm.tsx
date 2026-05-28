@@ -19,7 +19,7 @@ import type {
   AuthFormProps,
   AuthFormSubmitProps,
 } from "./AuthForm.types"
-import { authFormFieldsClassName, authFormVariants } from "./AuthForm.variants"
+import { authFormFieldsClassName, authFormClasses } from "./AuthForm.variants"
 import { cn } from "../../../utils/cn"
 
 const AuthForm = ({
@@ -35,7 +35,7 @@ const AuthForm = ({
   }
 
   return (
-    <Card className={cn(authFormVariants(), className)} {...cardProps}>
+    <Card className={cn(authFormClasses(), className)} {...cardProps}>
       <form ref={ref} onSubmit={handleSubmit}>
         {children}
       </form>

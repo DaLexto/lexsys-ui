@@ -4,6 +4,6 @@
  * Variant classes for the SettingsPanel block.
  */
 
-export const settingsPanelVariants = (): string => {
+export const settingsPanelClasses = (): string => {
   return "lsys-settings-panel w-full text-(--lsys-color-text-primary)"
 }

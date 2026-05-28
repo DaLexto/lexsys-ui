@@ -12,11 +12,11 @@ import type {
   DashboardShellBodyProps,
 } from "./DashboardShell.types"
 import {
-  dashboardShellContentVariants,
-  dashboardShellHeaderVariants,
-  dashboardShellMainVariants,
-  dashboardShellSidebarVariants,
-  dashboardShellVariants,
+  dashboardShellContentClasses,
+  dashboardShellHeaderClasses,
+  dashboardShellMainClasses,
+  dashboardShellSidebarClasses,
+  dashboardShellClasses,
 } from "./DashboardShell.variants"
 import { cn } from "@/lib/utils"
 
@@ -29,7 +29,7 @@ const DashboardShell = ({
   return (
     <div
       ref={ref}
-      className={cn(dashboardShellVariants(), className)}
+      className={cn(dashboardShellClasses(), className)}
       {...props}
     >
       {children}
@@ -48,7 +48,7 @@ const DashboardShellSidebar = ({
   return (
     <div
       ref={ref}
-      className={cn(dashboardShellSidebarVariants(), className)}
+      className={cn(dashboardShellSidebarClasses(), className)}
       {...props}
     >
       {children}
@@ -67,7 +67,7 @@ const DashboardShellHeader = ({
   return (
     <header
       ref={ref}
-      className={cn(dashboardShellHeaderVariants(), className)}
+      className={cn(dashboardShellHeaderClasses(), className)}
       {...props}
     >
       {children}
@@ -86,7 +86,7 @@ const DashboardShellMain = ({
   return (
     <main
       ref={ref}
-      className={cn(dashboardShellContentVariants(), className)}
+      className={cn(dashboardShellContentClasses(), className)}
       {...props}
     >
       {children}
@@ -105,7 +105,7 @@ const DashboardShellBody = ({
   return (
     <div
       ref={ref}
-      className={cn(dashboardShellMainVariants(), className)}
+      className={cn(dashboardShellMainClasses(), className)}
       {...props}
     >
       {children}
