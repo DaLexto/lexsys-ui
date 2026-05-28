@@ -36,12 +36,12 @@ This skill owns **how to analyze** — do not copy queue rows into the skill fil
 
 ## Step 1 — Read active state (in order)
 
-| Order | Source                                                            | Extract                                                                          |
-| ----- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| 1     | `git status`, `git branch --show-current`, `git log -5 --oneline` | In-flight work, recent merges                                                    |
-| 2     | [docs/REVIEW_TODO.md](../../docs/REVIEW_TODO.md)                  | Execution queue rows, **Known Gaps** table, open P-sections                      |
-| 3     | [docs/ROADMAP.md](../../docs/ROADMAP.md) header + phase tables    | Phase status; **Explicitly deferred**                                            |
-| 4     | Domain doc for the active track only                              | Owner from REVIEW_TODO link or [docs/INDEX.md](../../docs/INDEX.md)              |
+| Order | Source                                                            | Extract                                                             |
+| ----- | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
+| 1     | `git status`, `git branch --show-current`, `git log -5 --oneline` | In-flight work, recent merges                                       |
+| 2     | [docs/REVIEW_TODO.md](../../docs/REVIEW_TODO.md)                  | Execution queue rows, **Known Gaps** table, open P-sections         |
+| 3     | [docs/ROADMAP.md](../../docs/ROADMAP.md) header + phase tables    | Phase status; **Explicitly deferred**                               |
+| 4     | Domain doc for the active track only                              | Owner from REVIEW_TODO link or [docs/INDEX.md](../../docs/INDEX.md) |
 
 Do **not** treat ROADMAP "Current State" or REVIEW_TODO "Current State" bullet
 lists as backlog — they describe **what already shipped**.

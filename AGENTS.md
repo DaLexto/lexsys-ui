@@ -108,6 +108,7 @@ Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures.
 | `$token-change-verify`     | Token layers, generator, or governance touched                  |
 | `$project-next-steps`      | What to work on next, backlog triage, project status            |
 | `$git-commit`              | Commit, push, or PR to dev — Conventional Commits + gh workflow |
+| `$changelog-update`        | Write or update CHANGELOG entries after a feature or fix merges |
 
 ---
 
