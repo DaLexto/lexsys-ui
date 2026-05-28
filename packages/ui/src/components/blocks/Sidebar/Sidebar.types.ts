@@ -14,14 +14,9 @@ import type {
 } from "react"
 import type { ButtonProps } from "../../primitives/Button/Button.types"
 
-export type SidebarItemVariant = ButtonProps["variant"]
-export type SidebarItemSize = ButtonProps["size"]
-
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
   ref?: Ref<HTMLElement>
   className?: string
-  itemVariant?: SidebarItemVariant
-  itemSize?: SidebarItemSize
   children?: ReactNode
 }
 
@@ -31,8 +26,8 @@ export interface SidebarHeaderProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode
 }
 
-export interface SidebarContentProps extends HTMLAttributes<HTMLDivElement> {
-  ref?: Ref<HTMLDivElement>
+export interface SidebarContentProps extends HTMLAttributes<HTMLElement> {
+  ref?: Ref<HTMLElement>
   className?: string
   children?: ReactNode
 }
