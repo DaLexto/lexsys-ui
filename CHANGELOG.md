@@ -17,46 +17,13 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
-### Added
-
-- Pilot blocks **SettingsPanel**, **AuthForm**, **CommandPalette** (registry + CLI installable)
-- Primitive variant expansion: Button `ghost`/`outline`, Badge `success`/`warning`, Card `outlined`/`elevated`/`ghost`, Input `read-only` styling
-- Wrapper standardization contract in [docs/reference/ui/UI.md](./docs/reference/ui/UI.md) (Base UI behavior / Lexsys styling split)
-
-### Changed
-
-- **Compound-first API (M11):** blocks and templates migrate to named compound parts
-  only; config blobs (`items[]`, `mode`-driven auto-fields) removed. Migration table:
-  [UI_COMPOSITION.md § Compound-first contract](./docs/reference/ui/UI_COMPOSITION.md#compound-first-contract).
-
-### Breaking (compound-first — registry items at `0.0.2`)
-
-- **Sidebar** — `items[]` removed; use `Sidebar`, `SidebarContent`, `SidebarGroup`,
-  `SidebarItem`, … compound parts.
-- **CommandPalette** — `items[]` / `onSelect` removed; use compound
-  `CommandPaletteItem` children.
-- **AuthForm** — `mode` and internal field state removed; use compound shell +
-  `Field` / `FormField` parts.
-- **FormField** — `label="…"` config removed; use `FormFieldLabel` +
-  `FormFieldControl` compound parts.
-- **SettingsPanel** — `title` / `description` / `footer` props removed; use
-  compound header/content/footer parts.
-- **DashboardShell** — `sidebarItems[]` removed; use `DashboardShellSidebar` slot
-  with compound `Sidebar`.
-- **Switch, Slider, Progress, Checkbox** — sub-parts exported as named compounds;
-  bundled convenience APIs removed where applicable.
-- **Autocomplete, Combobox, Menu, Drawer** — additional Base UI sub-parts and
-  helpers exported (`AutocompleteSeparator`, filter hooks, handle creators).
-
-### Planned
-
-- Stable **`0.1.0`** on dist-tag **`latest`**
+_No unreleased changes yet._
 
 ---
 
 ## [0.0.2] - 2026-05-25
 
-Second early-preview release on dist-tag **`next`**. M4 (entry + CLI DX) and M8 (CLI cleanup) shipped.
+Second early-preview release on dist-tag **`next`**. M4 (entry + CLI DX), M8 (CLI cleanup), and M11 (compound-first API) shipped.
 
 ### Added
 
@@ -65,11 +32,24 @@ Second early-preview release on dist-tag **`next`**. M4 (entry + CLI DX) and M8 
 - Short flag aliases: `-d` (--dry-run), `-y` (--yes), `-f` (--force), `-j` (--json), `-s` (--summary), `-C` (--cwd)
 - Per-command `--help` / `-h` — each command now has its own focused help output
 - Guided interactive mode for `init`, `update`, and `uninstall` when run without arguments
+- Pilot blocks **SettingsPanel**, **AuthForm**, **CommandPalette** — registry + CLI installable via `lexsys add`
+- Primitive variant expansion: Button `ghost`/`outline`, Badge `success`/`warning`, Card `outlined`/`elevated`/`ghost`, Input `read-only` styling
 
 ### Changed
 
 - Global help output redesigned — commands grouped by category (Scaffold / Components / Inspect / Meta) with aliases shown inline
 - Error output now uses a consistent `✗ message → suggestion` prefix across all commands; unknown commands include a "Did you mean?" hint
+- **Compound-first API (M11):** all blocks and templates now export named compound parts only; config blob props removed. Migration: [UI_COMPOSITION.md § Compound-first contract](./docs/reference/ui/UI_COMPOSITION.md#compound-first-contract)
+
+### Breaking
+
+- **Sidebar** — `items[]` removed; use `SidebarContent`, `SidebarGroup`, `SidebarItem` compound parts
+- **CommandPalette** — `items[]` / `onSelect` removed; use `CommandPaletteItem` children
+- **AuthForm** — `mode` and internal field state removed; use compound shell + `FormField` parts
+- **FormField** — `label="…"` config removed; use `FormFieldLabel` + `FormFieldControl` compound parts
+- **SettingsPanel** — `title` / `description` / `footer` props removed; use `SettingsPanelHeader`, `SettingsPanelContent`, `SettingsPanelFooter`
+- **DashboardShell** — `sidebarItems[]` removed; use `DashboardShellSidebar` slot with compound `Sidebar`
+- **Switch, Slider, Progress, Checkbox** — sub-parts now exported as named compounds (`SwitchThumb`, `SliderTrack`, `SliderThumb`, `ProgressIndicator`, `CheckboxIndicator`)
 
 ### Notes
 
