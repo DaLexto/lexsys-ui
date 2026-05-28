@@ -81,12 +81,12 @@ describe("runUpdate", () => {
     await writeFile(join(tempDir, "src/style.css"), ":root {}\n", "utf-8")
     await writeFile(
       join(tempDir, "styles/tokens.css"),
-      `${generatedHeader}\n\n:root {\n  --lsys-stale-token: true;\n}\n`,
+      `${generatedHeader}\n\n:root {\n  --lex-stale-token: true;\n}\n`,
       "utf-8",
     )
     await writeFile(
       join(tempDir, "styles/theme.css"),
-      `${generatedHeader}\n\n:root {\n  --lsys-stale-theme: true;\n}\n`,
+      `${generatedHeader}\n\n:root {\n  --lex-stale-theme: true;\n}\n`,
       "utf-8",
     )
 
@@ -94,7 +94,7 @@ describe("runUpdate", () => {
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-toast-viewport-width")
+    ).resolves.toContain("--lex-toast-viewport-width")
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
     ).resolves.toContain("@theme inline")
@@ -169,7 +169,7 @@ describe("runUpdate", () => {
 
     await writeFile(
       join(tempDir, "styles/tokens.css"),
-      `${generatedHeader}\n\n:root {\n  --lsys-stale-token: true;\n}\n`,
+      `${generatedHeader}\n\n:root {\n  --lex-stale-token: true;\n}\n`,
       "utf-8",
     )
     await writeFile(
@@ -182,7 +182,7 @@ describe("runUpdate", () => {
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-button-primary-background")
+    ).resolves.toContain("--lex-button-primary-background")
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toContain("disabledStateClasses")

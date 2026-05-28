@@ -73,7 +73,7 @@ describe("runAdd", () => {
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain("--lsys-button-radius")
+    ).resolves.toContain("--lex-button-radius")
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
     ).resolves.toContain("@theme inline")

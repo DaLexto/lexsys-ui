@@ -6,18 +6,27 @@
  * WHAT GETS UPDATED
  * -----------------
  * Source files  — packages/ui/src/**  (variant files, cn.ts, etc.)
+ *                 packages/tokens/src/generators/outputs/css/** (code comments)
+ *                 packages/cli/src/**
+ *                 packages/registry/src/**
  * Token config  — packages/tokens/src/generators/generator.config.ts (cssVarPrefix value)
  * Docs          — docs/**\/*.md + root *.md (README, CONTRIBUTING, AGENTS, etc.)
+ * Test files    — packages/cli/test/** (assert against real generated output)
+ *                 packages/registry/test/** (fixture CSS var names)
+ *                 apps/playground/src/** (live CSS var references)
  * Test configs  — packages/ui/test/config/prefix.ts
  *                 packages/tokens/test/config/prefix.ts
- *                 (single mirrored constants; test assertions use these dynamically)
+ *                 (single mirrored constants; UI variant test assertions use these dynamically)
  *
  * WHAT DOES NOT GET UPDATED
  * -------------------------
- * Test assertions themselves — they import testCssVarPrefix from the test config
- *   files above, so they stay correct automatically after this script runs.
+ * packages/tokens/test/css-generator.test.ts — intentionally uses cssVarPrefix: "lsys"
+ *   as an explicit test input value (not tracking the current brand prefix). The test
+ *   verifies that the generator uses whatever prefix is given; the fixture value is arbitrary.
+ * packages/ui/test/components/** — test assertions use testCssVarPrefix dynamically;
+ *   they stay correct automatically after this script updates the test config files.
  * Package names / import paths — lexsys-* names are intentional and unrelated.
- * Token source files — primitive/semantic token values don't carry the CSS prefix.
+ * Token primitive/semantic values — don't carry the CSS variable prefix.
  *
  * POST-RENAME
  * -----------
@@ -133,13 +142,30 @@ const rootMdFiles = readdirSync(ROOT)
   .filter((f) => f.endsWith(".md"))
   .map((f) => join(ROOT, f))
 
+// packages/tokens/test/css-generator.test.ts is intentionally excluded —
+// it uses cssVarPrefix: "lsys" as an explicit test fixture, not the brand prefix.
+const CSS_GENERATOR_TEST = join(
+  ROOT,
+  "packages/tokens/test/css-generator.test.ts",
+)
+
 const filesToScan = [
+  // Source — UI variants, CLI, registry, token CSS generator comments
   ...walk(join(ROOT, "packages/ui/src")),
+  ...walk(join(ROOT, "packages/cli/src")),
+  ...walk(join(ROOT, "packages/registry/src")),
+  ...walk(join(ROOT, "packages/tokens/src/generators/outputs/css")),
+  // Docs — all markdown
   ...walkMd(join(ROOT, "docs")),
   ...rootMdFiles,
+  // Tests — CLI + registry assert against real generated output; playground uses real CSS vars
+  ...walk(join(ROOT, "packages/cli/test")),
+  ...walk(join(ROOT, "packages/registry/test")),
+  ...walk(join(ROOT, "apps/playground/src"), [".ts", ".tsx", ".css"]),
+  // Token config + test config mirrors
   configPath,
   ...testConfigPaths,
-]
+].filter((f) => f !== CSS_GENERATOR_TEST)
 
 const changed = []
 

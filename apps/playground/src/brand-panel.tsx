@@ -43,7 +43,7 @@ export const BrandPanel = () => {
         </Badge>
         <Badge
           appearance="outline"
-          className="border-(--lsys-border-accent) text-(--lsys-color-text-accent)"
+          className="border-(--lex-border-accent) text-(--lex-color-text-accent)"
         >
           Accent outline
         </Badge>

@@ -4,35 +4,35 @@ import type { Button, Input } from "@dalexto/lexsys-ui"
 export const brandSwatches = [
   {
     label: "Primary base",
-    token: "--lsys-action-primary-base",
+    token: "--lex-action-primary-base",
   },
   {
     label: "Primary hover",
-    token: "--lsys-action-primary-hover",
+    token: "--lex-action-primary-hover",
   },
   {
     label: "Primary active",
-    token: "--lsys-action-primary-active",
+    token: "--lex-action-primary-active",
   },
   {
     label: "Accent base",
-    token: "--lsys-brand-color-accent-base",
+    token: "--lex-brand-color-accent-base",
   },
   {
     label: "Accent hover",
-    token: "--lsys-brand-color-accent-hover",
+    token: "--lex-brand-color-accent-hover",
   },
   {
     label: "Accent active",
-    token: "--lsys-brand-color-accent-active",
+    token: "--lex-brand-color-accent-active",
   },
   {
     label: "Focus ring",
-    token: "--lsys-border-focus",
+    token: "--lex-border-focus",
   },
   {
     label: "Link text",
-    token: "--lsys-color-text-link",
+    token: "--lex-color-text-link",
   },
 ] as const
 

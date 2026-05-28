@@ -61,9 +61,9 @@ export const ActionsPanel = () => {
               defaultValue="Focus or edit me"
               className={(state: { dirty?: boolean; focused?: boolean }) =>
                 state.focused
-                  ? "border-(--lsys-input-focus-border-color) ring-(length:--lsys-input-focus-ring-width) ring-(--lsys-input-focus-ring-color) ring-offset-(length:--lsys-input-focus-ring-offset) ring-offset-(--lsys-input-focus-ring-offset-color)"
+                  ? "border-(--lex-input-focus-border-color) ring-(length:--lex-input-focus-ring-width) ring-(--lex-input-focus-ring-color) ring-offset-(length:--lex-input-focus-ring-offset) ring-offset-(--lex-input-focus-ring-offset-color)"
                   : state.dirty
-                    ? "border-(--lsys-brand-color-accent-base)"
+                    ? "border-(--lex-brand-color-accent-base)"
                     : undefined
               }
             />

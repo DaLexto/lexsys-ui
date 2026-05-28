@@ -11,7 +11,7 @@
  *
  * @notes
  * - This generator is CSS-output-specific.
- * - It maps {token.path} references to var(--lsys-token-path).
+ * - It maps {token.path} references to var(--lex-token-path).
  * - It does not resolve references to final primitive values.
  */
 
