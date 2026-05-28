@@ -737,3 +737,116 @@ body {
     border-bottom: 0;
   }
 }
+
+/* ─── Sizes panel ──────────────────────────────────────────────────────────── */
+
+.sizes-type-stack {
+  display: grid;
+  gap: 4px;
+}
+
+.sizes-type-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--lex-color-border-default);
+}
+
+.sizes-type-row:last-child {
+  border-bottom: 0;
+}
+
+.sizes-scale-label {
+  flex-shrink: 0;
+  color: var(--lex-color-text-secondary);
+  font-size: 0.75rem;
+  font-family: ui-monospace, "Cascadia Code", "Fira Mono", monospace;
+}
+
+.sizes-scale-label--fixed {
+  min-width: 9rem;
+}
+
+.sizes-control-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sizes-control-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.sizes-control-item--wide {
+  min-width: 180px;
+}
+
+.sizes-swatch-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.sizes-radius-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.sizes-radius-box {
+  width: 56px;
+  height: 56px;
+  background: var(--lex-action-primary-base);
+  border: 2px solid var(--lex-border-accent);
+}
+
+.sizes-radius-box--semantic {
+  background: var(--lex-action-secondary-base);
+  border-color: var(--lex-color-border-default);
+}
+
+.sizes-spacing-stack {
+  display: grid;
+  gap: 6px;
+}
+
+.sizes-spacing-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sizes-spacing-track {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.sizes-spacing-bar {
+  min-height: 2px;
+  width: 100%;
+  background: var(--lex-action-primary-base);
+  border-radius: var(--lex-radius-full);
+}
+
+.sizes-shadow-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.sizes-shadow-box {
+  width: 120px;
+  height: 80px;
+  border-radius: var(--lex-radius-surface);
+  background: var(--lex-color-background-surface);
+  border: 1px solid var(--lex-color-border-default);
+}

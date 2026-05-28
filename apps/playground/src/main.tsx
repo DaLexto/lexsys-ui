@@ -8,6 +8,7 @@ import { FormsPanel } from "./forms-panel"
 import { InteractionsPanel } from "./interactions-panel"
 import { OverlaysPanel } from "./overlays-panel"
 import { SurfacesPanel } from "./surfaces-panel"
+import { SizesPanel } from "./sizes-panel"
 import "./styles.css"
 
 type CategoryEntry = {
@@ -27,6 +28,7 @@ const App = () => {
 
   const categories: CategoryEntry[] = [
     { id: "category-brand", label: "Brand", render: () => <BrandPanel /> },
+    { id: "category-sizes", label: "Sizes", render: () => <SizesPanel /> },
     { id: "category-layout", label: "Layout", render: () => <LayoutPanel /> },
     {
       id: "category-actions",
