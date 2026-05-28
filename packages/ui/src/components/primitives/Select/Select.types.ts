@@ -48,9 +48,8 @@ export type SelectListProps = BaseSelect.List.Props
 
 export interface SelectItemProps extends Omit<
   BaseSelect.Item.Props,
-  "className" | "ref"
+  "className"
 > {
-  ref?: Ref<HTMLDivElement>
   className?: BaseSelect.Item.Props["className"]
 }
 

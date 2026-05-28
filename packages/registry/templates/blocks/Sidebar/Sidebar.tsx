@@ -33,8 +33,6 @@ import type {
   SidebarItemButtonProps,
   SidebarItemLinkProps,
   SidebarItemProps,
-  SidebarItemSize,
-  SidebarItemVariant,
   SidebarListProps,
   SidebarMobileHeaderProps,
   SidebarProps,
@@ -50,7 +48,6 @@ import {
   sidebarGroupVariants,
   sidebarMainVariants,
   sidebarMobileHeaderVariants,
-  sidebarMobileTriggerVariants,
   sidebarNavItemVariants,
   sidebarNavListVariants,
   sidebarNavVariants,
@@ -58,19 +55,9 @@ import {
 } from "./Sidebar.variants"
 import { cn } from "@/lib/utils"
 
-interface SidebarContextValue {
-  itemVariant: SidebarItemVariant
-  itemSize: SidebarItemSize
-}
-
 interface SidebarMobileContextValue {
   closeOnSelect: boolean
 }
-
-const SidebarContext = createContext<SidebarContextValue>({
-  itemVariant: "ghost",
-  itemSize: "sm",
-})
 
 const SidebarMobileContext = createContext<SidebarMobileContextValue>({
   closeOnSelect: false,
@@ -78,14 +65,7 @@ const SidebarMobileContext = createContext<SidebarMobileContextValue>({
 
 const useSidebarMobileContext = () => useContext(SidebarMobileContext)
 
-const Sidebar = ({
-  ref,
-  className,
-  itemVariant = "ghost",
-  itemSize = "sm",
-  children,
-  ...props
-}: SidebarProps) => {
+const Sidebar = ({ ref, className, children, ...props }: SidebarProps) => {
   const sidebarBody = (
     <SidebarMobileContext.Provider value={{ closeOnSelect: false }}>
       {children}
@@ -104,38 +84,30 @@ const Sidebar = ({
   )
 
   return (
-    <SidebarContext.Provider value={{ itemVariant, itemSize }}>
-      <aside
-        ref={ref}
-        className={cn(sidebarRootVariants(), className)}
-        {...props}
-      >
+    <aside
+      ref={ref}
+      className={cn(sidebarRootVariants(), className)}
+      {...props}
+    >
+      <Drawer swipeDirection="left">
         <div className={sidebarDesktopVariants()}>{sidebarBody}</div>
-
-        <div className={sidebarMobileTriggerVariants()}>
-          <Drawer swipeDirection="left">
-            <DrawerTrigger render={<Button variant="secondary" size="sm" />}>
-              Open navigation
-            </DrawerTrigger>
-            <DrawerPortal>
-              <DrawerBackdrop />
-              <DrawerViewport side="left">
-                <DrawerPopup side="left" size="sm">
-                  <DrawerClose aria-label="Close navigation" />
-                  <DrawerContent className={sidebarMainVariants()}>
-                    <DrawerTitle className="sr-only">Navigation</DrawerTitle>
-                    <DrawerDescription className="sr-only">
-                      Application navigation links
-                    </DrawerDescription>
-                    {drawerBody}
-                  </DrawerContent>
-                </DrawerPopup>
-              </DrawerViewport>
-            </DrawerPortal>
-          </Drawer>
-        </div>
-      </aside>
-    </SidebarContext.Provider>
+        <DrawerPortal>
+          <DrawerBackdrop />
+          <DrawerViewport side="left">
+            <DrawerPopup side="left" size="sm">
+              <DrawerClose aria-label="Close navigation" />
+              <DrawerContent className={sidebarMainVariants()}>
+                <DrawerTitle className="sr-only">Navigation</DrawerTitle>
+                <DrawerDescription className="sr-only">
+                  Application navigation links
+                </DrawerDescription>
+                {drawerBody}
+              </DrawerContent>
+            </DrawerPopup>
+          </DrawerViewport>
+        </DrawerPortal>
+      </Drawer>
+    </aside>
   )
 }
 
