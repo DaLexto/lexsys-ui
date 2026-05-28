@@ -134,8 +134,7 @@ if (genContent.includes(`--${CURRENT_PREFIX}-`)) {
 // All CLI test files sit one level below test/ (test/commands/, test/install/, etc.)
 // so the config is always at "../config/prefix.js" relative to each file.
 // Exclude test/config/ itself — those files define testCssVarPrefix, not use it.
-const CLI_IMPORT =
-  'import { testCssVarPrefix as p } from "../config/prefix.js"'
+const CLI_IMPORT = 'import { testCssVarPrefix as p } from "../config/prefix.js"'
 
 for (const filePath of walk(CLI_TEST_DIR).filter(
   (f) => !f.includes(`${pathSep}config${pathSep}`),
