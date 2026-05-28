@@ -9,10 +9,11 @@ import type { Select as BaseSelect } from "@base-ui/react/select"
 
 export type SelectSize = "sm" | "md" | "lg"
 
-export type SelectProps<
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface SelectProps<
   Value = string,
   Multiple extends boolean | undefined = false,
-> = BaseSelect.Root.Props<Value, Multiple>
+> extends BaseSelect.Root.Props<Value, Multiple> {}
 
 export type SelectLabelProps = BaseSelect.Label.Props & {
   ref?: Ref<HTMLDivElement>
