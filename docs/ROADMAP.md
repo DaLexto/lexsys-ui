@@ -492,6 +492,25 @@ merged via PR #34. See [UI_CATALOG.md](./reference/ui/UI_CATALOG.md) for the pos
 
 ---
 
+## Component standardization (planned)
+
+**Status:** planned — not a current implementation contract.
+
+**Goal:** define and clean canonical UI component authoring patterns before
+expanding the component catalog further.
+
+Scope: primitives, blocks, templates, `.variants.ts` files, props/ref/className
+consistency, compound API consistency, and registry template sync impact.
+
+Execution queue: [REVIEW_TODO.md § CS — Component Standardization](./REVIEW_TODO.md#cs--component-standardization).
+
+Canonical docs:
+[UI.md](./reference/ui/UI.md),
+[UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md),
+[UI_COMPOSITION.md](./reference/ui/UI_COMPOSITION.md).
+
+---
+
 ## Maintenance Workflow
 
 - Update `docs/ROADMAP.md` when future direction or sequencing changes.

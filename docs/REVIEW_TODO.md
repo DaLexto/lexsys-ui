@@ -30,6 +30,7 @@ that are not yet done.
 | M10     | Release readiness — first npm `0.0.1` @ `next`                      | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
+| CS      | Component standardization before new component expansion            | planned |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
@@ -183,6 +184,24 @@ Canonical composition model: [docs/reference/ui/UI_COMPOSITION.md](./reference/u
 **Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `lexsys add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 
 **Related fixes already landed (PR #28):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring. Post–PR #30 + `ef65072`: plain nav, mobile drawer, FormField sandbox, `DrawerClose` inline appearance, DashboardShell mobile layout.
+
+### CS — Component Standardization
+
+**Purpose:** Standardize component authoring patterns across primitives, blocks,
+templates, and registry templates before expanding the component catalog or
+writing permanent component rules.
+
+Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component-standardization-planned).
+
+| ID   | Area                     | Goal                                                                | Status  |
+| ---- | ------------------------ | ------------------------------------------------------------------- | ------- |
+| CS.1 | Review / Score           | Score primitives, blocks, and templates A/B/C/D; record good vs bad | planned |
+| CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens   | planned |
+| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                 | planned |
+| CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape       | planned |
+| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                      | planned |
+| CS.6 | Registry sync            | Sync templates if UI install artifacts change                       | planned |
+| CS.7 | Rule + skill template    | Planned only; create after cleanup standards are stable             | planned |
 
 ---
 
