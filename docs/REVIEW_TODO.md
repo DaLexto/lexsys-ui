@@ -201,7 +201,7 @@ Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component
 | CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens   | shipped |
 | CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                 | shipped |
 | CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape       | shipped |
-| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                      | planned |
+| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                      | shipped |
 | CS.6 | Registry sync            | Sync templates if UI install artifacts change                       | planned |
 | CS.7 | Prefix transform         | Plan CLI prefix transformation at install time (options documented) | planned |
 | CS.8 | Rule + skill template    | Planned only; create after cleanup standards are stable             | planned |
@@ -240,9 +240,9 @@ Optional follow-ups after Phases 1–10 (detail in
 
 ## Known Gaps
 
-| Gap                                    | Notes                                                                                                                                         |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Gap                                    | Notes                                                                                                                                        |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [TESTING.md](./operations/TESTING.md). |
-| Remote registry signatures / allowlist | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                          |
+| Remote registry signatures / allowlist | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                         |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.
