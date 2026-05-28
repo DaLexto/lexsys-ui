@@ -1,6 +1,6 @@
 {
   "name": "@dalexto/lexsys-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Registry-first CLI that installs Lexsys React UI components into your project",
   "type": "module",
   "license": "MIT",

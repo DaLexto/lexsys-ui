@@ -1,5 +1,21 @@
 # Changelog — @dalexto/lexsys-cli
 
+## 0.0.3
+
+### Patch Changes
+
+- [`3f80a50`](https://github.com/DaLexto/lexsys-ui/commit/3f80a50b2fefd949d4be97a46c3dddd07aeb3e27) - Token fixes, CardAction compound part, and Empty block.
+  - Register missing `meterComponentTokens`; fix DTCG `$value` key in `meter.ts`
+  - Add `menu.item.focus.ring.*` tokens (fixes `--lex-menu-item-focus-ring-*` references)
+  - Add `size.64` primitive + `sidebar.width` / `commandPalette.list.maxHeight` semantic tokens
+  - Add `empty.*` component token namespace (`--lex-empty-*`)
+  - Ship `CardAction` as a formal `CardHeader` compound part
+  - Add `Empty` block: `Empty / EmptyHeader / EmptyMedia / EmptyTitle / EmptyDescription / EmptyContent`
+  - Add `empty` registry item (`type: block`, `category: layout`, `version: 0.0.3`)
+
+- Updated dependencies [[`3f80a50`](https://github.com/DaLexto/lexsys-ui/commit/3f80a50b2fefd949d4be97a46c3dddd07aeb3e27)]:
+  - @dalexto/lexsys-registry@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
