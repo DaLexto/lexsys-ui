@@ -81,11 +81,28 @@ export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
 - Nav items (`SidebarItemLink`, `SidebarItemButton`) use plain `<a>` / `<button>` — **not** the `Button` primitive. Their styling requirements differ and they own their own appearance.
 - `SidebarTrigger` is composable — place it inside any `<Sidebar>` descendant; `Drawer` context wraps the root `<aside>` so any descendant `DrawerTrigger` auto-wires.
 
-## Registry templates — never edit directly
+## Registry — two-zone contract
 
-`packages/registry/templates/` is **generated output**. Always edit
-`packages/ui/src/components/` and run `pnpm registry:sync` to propagate.
-Manual edits to registry templates will be overwritten on the next sync.
+```txt
+packages/registry/
+├── src/items/<name>.ts   ← MANUALLY AUTHORED — write for every new component
+│                            name, version, type, category, files,
+│                            dependencies, registryDependencies, target
+└── templates/            ← GENERATED OUTPUT — never edit directly
+    ├── primitives/       ← pnpm registry:sync copies from packages/ui/src/components/primitives/
+    ├── blocks/           ← pnpm registry:sync copies from packages/ui/src/components/blocks/
+    └── templates/        ← pnpm registry:sync copies from packages/ui/src/components/templates/
+```
+
+- `src/items/` — install metadata per component.
+  - **Primitives:** `pnpm registry:sync` auto-scaffolds `src/items/<name>.ts` if missing
+    (`type: "component"`, auto-detected category, `version: "0.0.1"`). Review after sync —
+    adjust `registryDependencies`, `version`, `aliases` as needed.
+  - **Blocks/templates:** `pnpm registry:sync` does **not** create item files for blocks.
+    Write `src/items/<name>.ts` manually — set `type: "block"`, correct `category`,
+    and all `registryDependencies`.
+- `templates/` — **never edit directly**. Always edit `packages/ui/src/components/`
+  and run `pnpm registry:sync`. Manual edits are overwritten on the next sync.
 
 ## Post-edit
 

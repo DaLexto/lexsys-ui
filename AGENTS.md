@@ -66,6 +66,11 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
   [docs/reference/tokens/TOKENS.md](./docs/reference/tokens/TOKENS.md).
 - **UI → registry:** after `packages/ui` edits that affect install artifacts,
   run **`pnpm registry:sync`** — use **`$registry-sync`** skill.
+- **Registry two-zone contract — do not confuse:**
+  - `packages/registry/src/items/<name>.ts` — install metadata (`name`, `version`, `type`, `category`, `files`, `dependencies`, `registryDependencies`, `target`).
+    - **Primitives:** `pnpm registry:sync` auto-scaffolds this if missing (`type: "component"`, auto-category, `version: "0.0.1"`). Review and adjust after sync.
+    - **Blocks/templates:** must be **written manually** — `pnpm registry:sync` does NOT create item files for blocks. Set `type: "block"`, correct `category`, and all `registryDependencies` by hand.
+  - `packages/registry/templates/` — **generated output, never edit directly**. Always edit `packages/ui/src/components/` and run `pnpm registry:sync`. Manual edits are overwritten on the next sync.
 - **Playground:** maintenance-only monorepo smoke (~10–20%). Consumer truth is
   the external sandbox (~80–90%) — [docs/operations/TESTING.md § Verification surfaces](./docs/operations/TESTING.md#verification-surfaces).
 - **Branch policy:** branch off **`dev`**; PR to **`dev`**; do not touch
@@ -100,17 +105,17 @@ Do **not** start dev servers unless the user explicitly asks — see
 
 Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures.
 
-| Skill                      | When                                                            |
-| -------------------------- | --------------------------------------------------------------- |
-| `$registry-sync`           | UI source changed → sync registry templates                     |
-| `$consumer-sandbox-verify` | CLI/registry/template/blocks PR gate                            |
-| `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks                        |
+| Skill                      | When                                                                  |
+| -------------------------- | --------------------------------------------------------------------- |
+| `$registry-sync`           | UI source changed → sync registry templates                           |
+| `$consumer-sandbox-verify` | CLI/registry/template/blocks PR gate                                  |
+| `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks                              |
 | `$ui-authoring`            | New or edited primitive/block/template in UI; writing component tests |
-| `$docs-alignment`          | Behavior or counts changed → cross-ref docs                     |
-| `$token-change-verify`     | Token layers, generator, or governance touched                  |
-| `$project-next-steps`      | What to work on next, backlog triage, project status            |
-| `$git-commit`              | Commit, push, or PR to dev — Conventional Commits + gh workflow |
-| `$changelog-update`        | Write or update CHANGELOG entries after a feature or fix merges |
+| `$docs-alignment`          | Behavior or counts changed → cross-ref docs                           |
+| `$token-change-verify`     | Token layers, generator, or governance touched                        |
+| `$project-next-steps`      | What to work on next, backlog triage, project status                  |
+| `$git-commit`              | Commit, push, or PR to dev — Conventional Commits + gh workflow       |
+| `$changelog-update`        | Write or update CHANGELOG entries after a feature or fix merges       |
 
 ---
 
