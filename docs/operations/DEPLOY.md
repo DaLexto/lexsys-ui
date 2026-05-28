@@ -1,10 +1,10 @@
 # Lexsys Deploy Guide
 
-## Purpose
+**Audience:** Maintainers
+**Type:** Domain specification
+**Source of truth for:** Build and publish contract, version lanes, pre-release gates, npm publish surface
 
-This document defines the current build and release expectations for the `lexsys` monorepo.
-
-The repository is still early-stage, so this guide focuses on build artifacts and publish-readiness rules more than on a finalized release pipeline.
+**Related docs:** [SCRIPTS.md](./SCRIPTS.md), [TESTING.md](./TESTING.md), [CHANGELOG.md](../../CHANGELOG.md)
 
 ---
 
@@ -265,11 +265,15 @@ phases 2–5; skip phase 0 once M10 tooling is shipped.
 ### Phase 2 — Pre-publish smoke (local, no monorepo link)
 
 ```bash
+pnpm format
 pnpm build
 pnpm sync:all
 pnpm check
 pnpm publish:pack-audit
 ```
+
+(`pnpm check` includes `pnpm format:check` — run `pnpm format` first so Prettier
+violations do not fail the gate.)
 
 In a clean temp directory:
 
@@ -355,10 +359,11 @@ Version Packages PR before publish.
 
 When declaring public MVP stable:
 
-1. Changeset minor bump → `0.1.0`
-2. Publish with dist-tag **`latest`** (update publish CI / Changesets config)
-3. README: `npx @dalexto/lexsys-cli` without `@next`
-4. Update CHANGELOG and dist-tag policy in this doc
+1. Run pre-release gate: `pnpm format && pnpm build && pnpm sync:all && pnpm check && pnpm publish:pack-audit`
+2. Changeset minor bump → `0.1.0`
+3. Publish with dist-tag **`latest`** (update publish CI / Changesets config)
+4. README: `npx @dalexto/lexsys-cli` without `@next`
+5. Update CHANGELOG and dist-tag policy in this doc
 
 ---
 
