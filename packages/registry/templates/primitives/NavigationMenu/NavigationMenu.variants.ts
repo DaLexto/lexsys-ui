@@ -30,11 +30,11 @@ export const navigationMenuRootVariants = cva(
 )
 
 export const navigationMenuListVariants = cva(
-  "flex flex-1 list-none items-center justify-center gap-(--lsys-menu-list-gap) p-(--lsys-menu-list-padding)",
+  "flex flex-1 list-none items-center justify-center gap-(--lex-menu-list-gap) p-(--lex-menu-list-padding)",
 )
 
 export const navigationMenuItemVariants = cva("relative")
 
 export const navigationMenuContentVariants = cva(
-  "grid gap-(--lsys-menu-list-gap) p-(--lsys-menu-list-padding)",
+  "grid gap-(--lex-menu-list-gap) p-(--lex-menu-list-padding)",
 )

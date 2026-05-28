@@ -7,29 +7,29 @@
 import { cva } from "class-variance-authority"
 
 export const meterVariants = cva(
-  "grid gap-(--lsys-meter-gap) text-(length:--lsys-meter-label-font-size) leading-(--lsys-meter-label-font-line-height) text-(--lsys-meter-label-foreground)",
+  "grid gap-(--lex-meter-gap) text-(length:--lex-meter-label-font-size) leading-(--lex-meter-label-font-line-height) text-(--lex-meter-label-foreground)",
 )
 
 export const meterHeaderVariants = cva(
-  "flex items-center justify-between gap-(--lsys-meter-header-gap)",
+  "flex items-center justify-between gap-(--lex-meter-header-gap)",
 )
 
 export const meterLabelVariants = cva(
-  "font-(--lsys-meter-label-font-weight) text-(--lsys-meter-label-foreground)",
+  "font-(--lex-meter-label-font-weight) text-(--lex-meter-label-foreground)",
 )
 
 export const meterValueVariants = cva(
-  "font-(--lsys-meter-value-font-weight) text-(--lsys-meter-value-foreground)",
+  "font-(--lex-meter-value-font-weight) text-(--lex-meter-value-foreground)",
 )
 
 export const meterTrackVariants = cva(
-  "overflow-hidden rounded-(--lsys-meter-track-radius) bg-(--lsys-meter-track-background)",
+  "overflow-hidden rounded-(--lex-meter-track-radius) bg-(--lex-meter-track-background)",
   {
     variants: {
       size: {
-        sm: "h-(--lsys-meter-track-height-sm)",
-        md: "h-(--lsys-meter-track-height-md)",
-        lg: "h-(--lsys-meter-track-height-lg)",
+        sm: "h-(--lex-meter-track-height-sm)",
+        md: "h-(--lex-meter-track-height-md)",
+        lg: "h-(--lex-meter-track-height-lg)",
       },
     },
     defaultVariants: {
@@ -40,8 +40,8 @@ export const meterTrackVariants = cva(
 
 export const meterIndicatorVariants = cva(
   [
-    "h-full bg-(--lsys-meter-indicator-background) transition-transform",
-    "duration-(--lsys-meter-transition-duration) ease-(--lsys-meter-transition-easing)",
-    "data-[complete]:bg-(--lsys-meter-indicator-background-complete)",
+    "h-full bg-(--lex-meter-indicator-background) transition-transform",
+    "duration-(--lex-meter-transition-duration) ease-(--lex-meter-transition-easing)",
+    "data-[complete]:bg-(--lex-meter-indicator-background-complete)",
   ].join(" "),
 )

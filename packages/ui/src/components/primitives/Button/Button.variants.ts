@@ -10,54 +10,54 @@ import { busyStateClasses, disabledStateClasses } from "../../../utils/cn"
 export const buttonVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap border border-transparent",
-    "rounded-(--lsys-button-radius) font-(family-name:--lsys-button-font-family) font-(--lsys-button-font-weight)",
-    "transition-colors duration-(--lsys-button-transition-duration) ease-(--lsys-button-transition-easing)",
-    "outline-none focus-visible:ring-(length:--lsys-button-focus-ring-width) focus-visible:ring-(--lsys-button-focus-ring-color) focus-visible:ring-offset-(length:--lsys-button-focus-ring-offset) focus-visible:ring-offset-(--lsys-button-focus-ring-offset-color)",
+    "rounded-(--lex-button-radius) font-(family-name:--lex-button-font-family) font-(--lex-button-font-weight)",
+    "transition-colors duration-(--lex-button-transition-duration) ease-(--lex-button-transition-easing)",
+    "outline-none focus-visible:ring-(length:--lex-button-focus-ring-width) focus-visible:ring-(--lex-button-focus-ring-color) focus-visible:ring-offset-(length:--lex-button-focus-ring-offset) focus-visible:ring-offset-(--lex-button-focus-ring-offset-color)",
     disabledStateClasses,
     busyStateClasses,
-    "text-(length:--lsys-button-font-size-md)",
-    "leading-(--lsys-button-font-line-height)",
-    "tracking-(--lsys-button-font-letter-spacing)",
+    "text-(length:--lex-button-font-size-md)",
+    "leading-(--lex-button-font-line-height)",
+    "tracking-(--lex-button-font-letter-spacing)",
   ].join(" "),
   {
     variants: {
       variant: {
         primary:
-          "border-(--lsys-button-primary-border-color) bg-(--lsys-button-primary-background) text-(--lsys-button-primary-foreground) hover:bg-(--lsys-button-primary-hover-background)",
+          "border-(--lex-button-primary-border-color) bg-(--lex-button-primary-background) text-(--lex-button-primary-foreground) hover:bg-(--lex-button-primary-hover-background)",
         secondary:
-          "border-(--lsys-button-secondary-border-color) bg-(--lsys-button-secondary-background) text-(--lsys-button-secondary-foreground) hover:bg-(--lsys-button-secondary-hover-background)",
+          "border-(--lex-button-secondary-border-color) bg-(--lex-button-secondary-background) text-(--lex-button-secondary-foreground) hover:bg-(--lex-button-secondary-hover-background)",
         ghost:
-          "border-transparent bg-transparent text-(--lsys-button-secondary-foreground) hover:bg-(--lsys-button-secondary-hover-background)",
+          "border-transparent bg-transparent text-(--lex-button-secondary-foreground) hover:bg-(--lex-button-secondary-hover-background)",
         outline:
-          "border-(--lsys-button-secondary-border-color) bg-transparent text-(--lsys-button-secondary-foreground) hover:bg-(--lsys-button-secondary-hover-background)",
+          "border-(--lex-button-secondary-border-color) bg-transparent text-(--lex-button-secondary-foreground) hover:bg-(--lex-button-secondary-hover-background)",
         danger:
-          "border-(--lsys-button-danger-border-color) bg-(--lsys-button-danger-background) text-(--lsys-button-danger-foreground) hover:bg-(--lsys-button-danger-hover-background)",
+          "border-(--lex-button-danger-border-color) bg-(--lex-button-danger-background) text-(--lex-button-danger-foreground) hover:bg-(--lex-button-danger-hover-background)",
       },
       size: {
         xs: [
-          "h-(--lsys-button-height-xs)",
-          "px-(--lsys-button-padding-x-xs)",
-          "text-(length:--lsys-button-font-size-xs)",
+          "h-(--lex-button-height-xs)",
+          "px-(--lex-button-padding-x-xs)",
+          "text-(length:--lex-button-font-size-xs)",
         ],
         sm: [
-          "h-(--lsys-button-height-sm)",
-          "px-(--lsys-button-padding-x-sm)",
-          "text-(length:--lsys-button-font-size-sm)",
+          "h-(--lex-button-height-sm)",
+          "px-(--lex-button-padding-x-sm)",
+          "text-(length:--lex-button-font-size-sm)",
         ],
         md: [
-          "h-(--lsys-button-height-md)",
-          "px-(--lsys-button-padding-x-md)",
-          "text-(length:--lsys-button-font-size-md)",
+          "h-(--lex-button-height-md)",
+          "px-(--lex-button-padding-x-md)",
+          "text-(length:--lex-button-font-size-md)",
         ],
         lg: [
-          "h-(--lsys-button-height-lg)",
-          "px-(--lsys-button-padding-x-lg)",
-          "text-(length:--lsys-button-font-size-lg)",
+          "h-(--lex-button-height-lg)",
+          "px-(--lex-button-padding-x-lg)",
+          "text-(length:--lex-button-font-size-lg)",
         ],
         xl: [
-          "h-(--lsys-button-height-xl)",
-          "px-(--lsys-button-padding-x-xl)",
-          "text-(length:--lsys-button-font-size-xl)",
+          "h-(--lex-button-height-xl)",
+          "px-(--lex-button-padding-x-xl)",
+          "text-(length:--lex-button-font-size-xl)",
         ],
       },
     },

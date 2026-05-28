@@ -195,16 +195,16 @@ writing permanent component rules.
 
 Roadmap anchor: [ROADMAP.md § Component standardization](./ROADMAP.md#component-standardization-planned).
 
-| ID   | Area                     | Goal                                                                | Status  |
-| ---- | ------------------------ | ------------------------------------------------------------------- | ------- |
-| CS.1 | Review / Score           | Score primitives, blocks, and templates A/B/C/D; record good vs bad | shipped |
-| CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens   | shipped |
-| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                 | shipped |
-| CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape       | shipped |
-| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                      | shipped |
-| CS.6 | Registry sync            | Sync templates if UI install artifacts change                       | shipped |
-| CS.7 | Prefix transform         | Plan CLI prefix transformation at install time (options documented) | planned |
-| CS.8 | Rule + skill template    | Planned only; create after cleanup standards are stable             | planned |
+| ID   | Area                     | Goal                                                                                                        | Status  |
+| ---- | ------------------------ | ----------------------------------------------------------------------------------------------------------- | ------- |
+| CS.1 | Review / Score           | Score primitives, blocks, and templates A/B/C/D; record good vs bad                                         | shipped |
+| CS.2 | Variants standardization | Decide `.join(" ")`, CVA vs helpers, `*Variants()` naming, tokens                                           | shipped |
+| CS.3 | Props / ref / className  | Tighten refs, explicit `ref?`, and className typing                                                         | shipped |
+| CS.4 | Compound API consistency | Audit Sidebar context, Select ref asymmetry, and export shape                                               | shipped |
+| CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                                                              | shipped |
+| CS.6 | Registry sync            | Sync templates if UI install artifacts change                                                               | shipped |
+| CS.7 | Prefix transform         | Fixed `lex-` prefix; `scripts/rebrand/rename-prefix.mjs` for future rebrand; 50 src + 42 test files updated | shipped |
+| CS.8 | Rule + skill template    | Planned only; create after cleanup standards are stable                                                     | planned |
 
 **CS.8 pre-rule intentional decisions (locked in CS.4):**
 

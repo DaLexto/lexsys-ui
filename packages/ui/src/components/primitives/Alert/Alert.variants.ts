@@ -7,18 +7,18 @@
 import { cva } from "class-variance-authority"
 
 const neutralVariant =
-  "border-(--lsys-alert-neutral-border-color) bg-(--lsys-alert-neutral-background) text-(--lsys-alert-neutral-foreground)"
+  "border-(--lex-alert-neutral-border-color) bg-(--lex-alert-neutral-background) text-(--lex-alert-neutral-foreground)"
 
 const primaryVariant =
-  "border-(--lsys-alert-primary-border-color) bg-(--lsys-alert-primary-background) text-(--lsys-alert-primary-foreground)"
+  "border-(--lex-alert-primary-border-color) bg-(--lex-alert-primary-background) text-(--lex-alert-primary-foreground)"
 
 const dangerVariant =
-  "border-(--lsys-alert-danger-border-color) bg-(--lsys-alert-danger-background) text-(--lsys-alert-danger-foreground)"
+  "border-(--lex-alert-danger-border-color) bg-(--lex-alert-danger-background) text-(--lex-alert-danger-foreground)"
 
 export const alertVariants = cva(
   [
-    "grid gap-(--lsys-alert-gap) rounded-(--lsys-alert-radius) border p-(--lsys-alert-padding)",
-    "transition-colors duration-(--lsys-alert-transition-duration) ease-(--lsys-alert-transition-easing)",
+    "grid gap-(--lex-alert-gap) rounded-(--lex-alert-radius) border p-(--lex-alert-padding)",
+    "transition-colors duration-(--lex-alert-transition-duration) ease-(--lex-alert-transition-easing)",
   ].join(" "),
   {
     variants: {
@@ -35,7 +35,7 @@ export const alertVariants = cva(
 )
 
 export const alertTitleClassName =
-  "text-(length:--lsys-alert-title-font-size) font-(--lsys-alert-title-font-weight) leading-(--lsys-alert-title-font-line-height)"
+  "text-(length:--lex-alert-title-font-size) font-(--lex-alert-title-font-weight) leading-(--lex-alert-title-font-line-height)"
 
 export const alertDescriptionClassName =
-  "text-(length:--lsys-alert-description-font-size) leading-(--lsys-alert-description-font-line-height) text-(--lsys-alert-description-foreground)"
+  "text-(length:--lex-alert-description-font-size) leading-(--lex-alert-description-font-line-height) text-(--lex-alert-description-foreground)"

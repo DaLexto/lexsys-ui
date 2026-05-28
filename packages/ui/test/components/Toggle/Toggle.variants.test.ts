@@ -6,8 +6,8 @@ describe("toggleVariants", () => {
     const className = toggleVariants({ size: "md" })
 
     expect(className).toContain(
-      "data-[pressed]:bg-(--lsys-toggle-pressed-background)",
+      "data-[pressed]:bg-(--lex-toggle-pressed-background)",
     )
-    expect(className).toContain("h-(--lsys-toggle-height-md)")
+    expect(className).toContain("h-(--lex-toggle-height-md)")
   })
 })

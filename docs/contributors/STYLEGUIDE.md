@@ -113,11 +113,11 @@ export const buttonVariants = cva("base classes here", {
 })
 ```
 
-All variant classes in `.variants.ts` reference `--lsys-*` CSS variables, not
+All variant classes in `.variants.ts` reference `--lex-*` CSS variables, not
 hardcoded color or spacing values:
 
 ```ts
-"bg-(--lsys-button-primary-background) text-(--lsys-button-primary-foreground)"
+"bg-(--lex-button-primary-background) text-(--lex-button-primary-foreground)"
 ```
 
 ---
@@ -127,7 +127,7 @@ hardcoded color or spacing values:
 Generated CSS variable names follow this pattern:
 
 ```
---lsys-{token-path-with-dots-as-dashes}
+--lex-{token-path-with-dots-as-dashes}
 ```
 
 The `nx` prefix is defined in `generator.config.ts` (`cssVarPrefix`). Token path
@@ -135,28 +135,28 @@ segments are joined with `-`.
 
 **Group name overrides** are applied during generation:
 
-| Token group         | CSS name            |
-| ------------------- | ------------------- |
-| `spacing.*`         | `--lsys-space-*`    |
-| `motion.duration.*` | `--lsys-duration-*` |
-| `motion.easing.*`   | `--lsys-easing-*`   |
+| Token group         | CSS name           |
+| ------------------- | ------------------ |
+| `spacing.*`         | `--lex-space-*`    |
+| `motion.duration.*` | `--lex-duration-*` |
+| `motion.easing.*`   | `--lex-easing-*`   |
 
 All other groups use their source name unchanged.
 
 **Examples:**
 
-| Token path                  | CSS variable                       |
-| --------------------------- | ---------------------------------- |
-| `button.primary.background` | `--lsys-button-primary-background` |
-| `button.radius`             | `--lsys-button-radius`             |
-| `button.focus.ringColor`    | `--lsys-button-focus-ring-color`   |
-| `spacing.control.x.sm`      | `--lsys-space-control-x-sm`        |
-| `motion.duration.control`   | `--lsys-duration-control`          |
-| `color.background.base`     | `--lsys-color-background-base`     |
+| Token path                  | CSS variable                      |
+| --------------------------- | --------------------------------- |
+| `button.primary.background` | `--lex-button-primary-background` |
+| `button.radius`             | `--lex-button-radius`             |
+| `button.focus.ringColor`    | `--lex-button-focus-ring-color`   |
+| `spacing.control.x.sm`      | `--lex-space-control-x-sm`        |
+| `motion.duration.control`   | `--lex-duration-control`          |
+| `color.background.base`     | `--lex-color-background-base`     |
 
 Do not invent CSS variable names by hand. They are generated outputs. Reference
 them in components via Tailwind v4 canonical CSS variable syntax:
-`bg-(--lsys-button-primary-background)`.
+`bg-(--lex-button-primary-background)`.
 
 ---
 
@@ -182,7 +182,7 @@ them in components via Tailwind v4 canonical CSS variable syntax:
 | Variant export       | camelCase + `Variants` suffix (`buttonVariants`)              |
 | Registry item export | camelCase + `RegistryItem` suffix (`buttonRegistryItem`)      |
 | Token group export   | camelCase + layer + `s` (`primitiveTokens`, `semanticTokens`) |
-| CSS custom property  | `--lsys-` prefix, kebab-case (`--lsys-button-radius`)         |
+| CSS custom property  | `--lex-` prefix, kebab-case (`--lex-button-radius`)           |
 
 ### Component naming alignment
 
@@ -368,8 +368,8 @@ primary: {
 
 ### CSS variable output
 
-Token source files do not use the `--lsys-` prefix. The prefix is applied by the
-generator. Do not write `--lsys-` anywhere in `packages/tokens/src/`.
+Token source files do not use the `--lex-` prefix. The prefix is applied by the
+generator. Do not write `--lex-` anywhere in `packages/tokens/src/`.
 
 Generated CSS output paths:
 
@@ -448,6 +448,6 @@ Before merging, verify:
 - [ ] Public API surface unchanged or intentionally expanded
 - [ ] Component naming aligned across `ui`, `registry`, and templates
 - [ ] New component tokens reference semantics (not primitives or brand tokens directly) — enforced at build time via layer validation; run `pnpm tokens:check` after token edits
-- [ ] New CSS classes use `--lsys-*` variables, not hardcoded values
+- [ ] New CSS classes use `--lex-*` variables, not hardcoded values
 - [ ] Templates synced (`pnpm registry:sync` run if UI components changed)
 - [ ] `pnpm check` passes (format + lint + typecheck + test)

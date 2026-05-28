@@ -9,7 +9,7 @@ describe("toggleGroupVariants", () => {
     })
 
     expect(className).toContain("flex-col")
-    expect(className).toContain("gap-(--lsys-toggle-group-gap-lg)")
-    expect(className).toContain("bg-(--lsys-toggle-group-background)")
+    expect(className).toContain("gap-(--lex-toggle-group-gap-lg)")
+    expect(className).toContain("bg-(--lex-toggle-group-background)")
   })
 })

@@ -7,13 +7,13 @@ import {
 describe("NavigationMenu variants", () => {
   it("uses token-backed trigger styling", () => {
     expect(navigationMenuTriggerVariants()).toContain(
-      "h-(--lsys-menu-trigger-height)",
+      "h-(--lex-menu-trigger-height)",
     )
   })
 
   it("uses token-backed popup styling", () => {
     expect(navigationMenuPopupVariants()).toContain(
-      "bg-(--lsys-menu-popup-background)",
+      "bg-(--lex-menu-popup-background)",
     )
   })
 })

@@ -5,7 +5,7 @@
  */
 
 export const authFormClasses = (): string => {
-  return "lsys-auth-form w-full text-(--lsys-color-text-primary)"
+  return "lex-auth-form w-full text-(--lex-color-text-primary)"
 }
 
-export const authFormFieldsClassName = "flex flex-col gap-(--lsys-space-4)"
+export const authFormFieldsClassName = "flex flex-col gap-(--lex-space-4)"

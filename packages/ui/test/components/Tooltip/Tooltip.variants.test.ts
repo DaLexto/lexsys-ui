@@ -6,7 +6,7 @@ import {
 
 describe("tooltipVariants", () => {
   it("styles popup and arrow", () => {
-    expect(tooltipPopupVariants()).toContain("bg-(--lsys-tooltip-background)")
-    expect(tooltipArrowVariants()).toContain("fill-(--lsys-tooltip-background)")
+    expect(tooltipPopupVariants()).toContain("bg-(--lex-tooltip-background)")
+    expect(tooltipArrowVariants()).toContain("fill-(--lex-tooltip-background)")
   })
 })

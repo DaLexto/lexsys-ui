@@ -8,19 +8,19 @@ import {
 describe("Dialog variants", () => {
   it("uses token-backed trigger and popup styling", () => {
     expect(dialogTriggerVariants()).toContain(
-      "bg-(--lsys-dialog-trigger-background)",
+      "bg-(--lex-dialog-trigger-background)",
     )
     expect(dialogPopupVariants()).toContain(
-      "bg-(--lsys-dialog-popup-background)",
+      "bg-(--lex-dialog-popup-background)",
     )
   })
 
   it("uses token-backed backdrop transition styling", () => {
     expect(dialogBackdropVariants()).toContain(
-      "bg-(--lsys-dialog-backdrop-background)",
+      "bg-(--lex-dialog-backdrop-background)",
     )
     expect(dialogBackdropVariants()).toContain(
-      "duration-(--lsys-dialog-transition-duration)",
+      "duration-(--lex-dialog-transition-duration)",
     )
   })
 })

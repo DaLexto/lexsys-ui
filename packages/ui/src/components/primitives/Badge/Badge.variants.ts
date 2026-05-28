@@ -7,40 +7,40 @@
 import { cva } from "class-variance-authority"
 
 const neutralSolid =
-  "border-(--lsys-badge-neutral-border-color) bg-(--lsys-badge-neutral-background) text-(--lsys-badge-neutral-foreground)"
+  "border-(--lex-badge-neutral-border-color) bg-(--lex-badge-neutral-background) text-(--lex-badge-neutral-foreground)"
 
 const neutralOutline =
-  "border-(--lsys-badge-neutral-border-color) bg-(--lsys-badge-outline-background) text-(--lsys-badge-neutral-foreground)"
+  "border-(--lex-badge-neutral-border-color) bg-(--lex-badge-outline-background) text-(--lex-badge-neutral-foreground)"
 
 const primarySolid =
-  "border-(--lsys-badge-primary-border-color) bg-(--lsys-badge-primary-background) text-(--lsys-badge-primary-foreground)"
+  "border-(--lex-badge-primary-border-color) bg-(--lex-badge-primary-background) text-(--lex-badge-primary-foreground)"
 
 const primaryOutline =
-  "border-(--lsys-badge-primary-border-color) bg-(--lsys-badge-outline-background) text-(--lsys-badge-primary-border-color)"
+  "border-(--lex-badge-primary-border-color) bg-(--lex-badge-outline-background) text-(--lex-badge-primary-border-color)"
 
 const dangerSolid =
-  "border-(--lsys-badge-danger-border-color) bg-(--lsys-badge-danger-background) text-(--lsys-badge-danger-foreground)"
+  "border-(--lex-badge-danger-border-color) bg-(--lex-badge-danger-background) text-(--lex-badge-danger-foreground)"
 
 const dangerOutline =
-  "border-(--lsys-badge-danger-border-color) bg-(--lsys-badge-outline-background) text-(--lsys-badge-danger-border-color)"
+  "border-(--lex-badge-danger-border-color) bg-(--lex-badge-outline-background) text-(--lex-badge-danger-border-color)"
 
 const successSolid =
-  "border-(--lsys-color-feedback-success-foreground) bg-(--lsys-color-feedback-success-background) text-(--lsys-color-feedback-success-foreground)"
+  "border-(--lex-color-feedback-success-foreground) bg-(--lex-color-feedback-success-background) text-(--lex-color-feedback-success-foreground)"
 
 const successOutline =
-  "border-(--lsys-color-feedback-success-foreground) bg-(--lsys-badge-outline-background) text-(--lsys-color-feedback-success-foreground)"
+  "border-(--lex-color-feedback-success-foreground) bg-(--lex-badge-outline-background) text-(--lex-color-feedback-success-foreground)"
 
 const warningSolid =
-  "border-(--lsys-color-feedback-warning-foreground) bg-(--lsys-color-feedback-warning-background) text-(--lsys-color-feedback-warning-foreground)"
+  "border-(--lex-color-feedback-warning-foreground) bg-(--lex-color-feedback-warning-background) text-(--lex-color-feedback-warning-foreground)"
 
 const warningOutline =
-  "border-(--lsys-color-feedback-warning-foreground) bg-(--lsys-badge-outline-background) text-(--lsys-color-feedback-warning-foreground)"
+  "border-(--lex-color-feedback-warning-foreground) bg-(--lex-badge-outline-background) text-(--lex-color-feedback-warning-foreground)"
 
 export const badgeVariants = cva(
   [
     "inline-flex items-center justify-center whitespace-nowrap border",
-    "rounded-(--lsys-badge-radius) font-(--lsys-badge-font-weight) leading-(--lsys-badge-font-line-height)",
-    "transition-colors duration-(--lsys-badge-transition-duration) ease-(--lsys-badge-transition-easing)",
+    "rounded-(--lex-badge-radius) font-(--lex-badge-font-weight) leading-(--lex-badge-font-line-height)",
+    "transition-colors duration-(--lex-badge-transition-duration) ease-(--lex-badge-transition-easing)",
   ].join(" "),
   {
     variants: {
@@ -56,8 +56,8 @@ export const badgeVariants = cva(
         outline: "",
       },
       size: {
-        sm: "h-(--lsys-badge-height-sm) px-(--lsys-badge-padding-x-sm) text-(length:--lsys-badge-font-size-sm)",
-        md: "h-(--lsys-badge-height-md) px-(--lsys-badge-padding-x-md) text-(length:--lsys-badge-font-size-md)",
+        sm: "h-(--lex-badge-height-sm) px-(--lex-badge-padding-x-sm) text-(length:--lex-badge-font-size-sm)",
+        md: "h-(--lex-badge-height-md) px-(--lex-badge-padding-x-md) text-(length:--lex-badge-font-size-md)",
       },
     },
     compoundVariants: [

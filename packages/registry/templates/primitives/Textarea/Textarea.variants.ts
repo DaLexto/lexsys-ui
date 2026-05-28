@@ -9,27 +9,27 @@ import { disabledStateClasses } from "@/lib/utils"
 
 export const textareaVariants = cva(
   [
-    "flex w-full min-w-0 border bg-(--lsys-textarea-background) text-(--lsys-textarea-foreground)",
-    "rounded-(--lsys-textarea-radius) border-(--lsys-textarea-border-color)",
-    "font-(family-name:--lsys-textarea-font-family) font-(--lsys-textarea-font-weight) leading-(--lsys-textarea-font-line-height) tracking-(--lsys-textarea-font-letter-spacing)",
-    "placeholder:text-(--lsys-textarea-placeholder-color)",
-    "transition-colors duration-(--lsys-textarea-transition-duration) ease-(--lsys-textarea-transition-easing)",
-    "outline-none focus-visible:border-(--lsys-textarea-focus-border-color) focus-visible:ring-(length:--lsys-textarea-focus-ring-width) focus-visible:ring-(--lsys-textarea-focus-ring-color) focus-visible:ring-offset-(length:--lsys-textarea-focus-ring-offset) focus-visible:ring-offset-(--lsys-textarea-focus-ring-offset-color)",
+    "flex w-full min-w-0 border bg-(--lex-textarea-background) text-(--lex-textarea-foreground)",
+    "rounded-(--lex-textarea-radius) border-(--lex-textarea-border-color)",
+    "font-(family-name:--lex-textarea-font-family) font-(--lex-textarea-font-weight) leading-(--lex-textarea-font-line-height) tracking-(--lex-textarea-font-letter-spacing)",
+    "placeholder:text-(--lex-textarea-placeholder-color)",
+    "transition-colors duration-(--lex-textarea-transition-duration) ease-(--lex-textarea-transition-easing)",
+    "outline-none focus-visible:border-(--lex-textarea-focus-border-color) focus-visible:ring-(length:--lex-textarea-focus-ring-width) focus-visible:ring-(--lex-textarea-focus-ring-color) focus-visible:ring-offset-(length:--lex-textarea-focus-ring-offset) focus-visible:ring-offset-(--lex-textarea-focus-ring-offset-color)",
     "disabled:cursor-not-allowed",
     disabledStateClasses,
-    "aria-invalid:border-(--lsys-textarea-invalid-border-color) aria-invalid:ring-(--lsys-textarea-invalid-ring-color) data-[invalid]:border-(--lsys-textarea-invalid-border-color) data-[invalid]:ring-(--lsys-textarea-invalid-ring-color)",
+    "aria-invalid:border-(--lex-textarea-invalid-border-color) aria-invalid:ring-(--lex-textarea-invalid-ring-color) data-[invalid]:border-(--lex-textarea-invalid-border-color) data-[invalid]:ring-(--lex-textarea-invalid-ring-color)",
   ].join(" "),
   {
     variants: {
       variant: {
         default: "",
         ghost:
-          "border-transparent bg-transparent focus-visible:bg-(--lsys-textarea-background)",
+          "border-transparent bg-transparent focus-visible:bg-(--lex-textarea-background)",
       },
       size: {
-        sm: "min-h-(--lsys-textarea-min-height-sm) px-(--lsys-textarea-padding-x-sm) py-(--lsys-textarea-padding-y-sm) text-(length:--lsys-textarea-font-size-sm)",
-        md: "min-h-(--lsys-textarea-min-height-md) px-(--lsys-textarea-padding-x-md) py-(--lsys-textarea-padding-y-md) text-(length:--lsys-textarea-font-size-md)",
-        lg: "min-h-(--lsys-textarea-min-height-lg) px-(--lsys-textarea-padding-x-lg) py-(--lsys-textarea-padding-y-lg) text-(length:--lsys-textarea-font-size-lg)",
+        sm: "min-h-(--lex-textarea-min-height-sm) px-(--lex-textarea-padding-x-sm) py-(--lex-textarea-padding-y-sm) text-(length:--lex-textarea-font-size-sm)",
+        md: "min-h-(--lex-textarea-min-height-md) px-(--lex-textarea-padding-x-md) py-(--lex-textarea-padding-y-md) text-(length:--lex-textarea-font-size-md)",
+        lg: "min-h-(--lex-textarea-min-height-lg) px-(--lex-textarea-padding-x-lg) py-(--lex-textarea-padding-y-lg) text-(length:--lex-textarea-font-size-lg)",
       },
       resize: {
         none: "resize-none",

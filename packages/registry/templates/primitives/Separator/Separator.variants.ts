@@ -6,11 +6,11 @@
 
 import { cva } from "class-variance-authority"
 
-export const separatorVariants = cva("shrink-0 bg-(--lsys-separator-color)", {
+export const separatorVariants = cva("shrink-0 bg-(--lex-separator-color)", {
   variants: {
     orientation: {
-      horizontal: "h-(--lsys-separator-thickness) w-full",
-      vertical: "h-full w-(--lsys-separator-thickness)",
+      horizontal: "h-(--lex-separator-thickness) w-full",
+      vertical: "h-full w-(--lex-separator-thickness)",
     },
   },
   defaultVariants: {

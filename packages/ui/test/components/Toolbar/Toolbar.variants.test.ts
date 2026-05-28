@@ -6,14 +6,14 @@ import {
 
 describe("Toolbar variants", () => {
   it("uses token-backed button styling", () => {
-    expect(toolbarButtonVariants()).toContain("h-(--lsys-button-height-sm)")
+    expect(toolbarButtonVariants()).toContain("h-(--lex-button-height-sm)")
     expect(toolbarButtonVariants()).toContain(
-      "text-(--lsys-button-secondary-foreground)",
+      "text-(--lex-button-secondary-foreground)",
     )
   })
 
   it("uses token-backed input styling", () => {
-    expect(toolbarInputVariants()).toContain("h-(--lsys-input-height-sm)")
-    expect(toolbarInputVariants()).toContain("bg-(--lsys-input-background)")
+    expect(toolbarInputVariants()).toContain("h-(--lex-input-height-sm)")
+    expect(toolbarInputVariants()).toContain("bg-(--lex-input-background)")
   })
 })

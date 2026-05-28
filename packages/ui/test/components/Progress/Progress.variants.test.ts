@@ -7,7 +7,7 @@ import {
 describe("progressVariants", () => {
   it("styles track sizes and indeterminate state", () => {
     expect(progressTrackVariants({ size: "lg" })).toContain(
-      "h-(--lsys-progress-track-height-lg)",
+      "h-(--lex-progress-track-height-lg)",
     )
     expect(progressIndicatorVariants()).toContain(
       "data-[indeterminate]:animate-pulse",

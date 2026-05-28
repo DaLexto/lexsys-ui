@@ -100,7 +100,7 @@ Summary only — do not duplicate detail here.
 - AST expression evaluator and color/unit math (requires new subsystem — see RESOLVER_EVOLUTION)
 - Automatic contrast pair discovery without an explicit registry
 - Runtime accessibility checks in consumer apps
-- Default CSS/DTCG output switching from `var(--lsys-*)` refs to hardcoded literals
+- Default CSS/DTCG output switching from `var(--lex-*)` refs to hardcoded literals
 
 ### Semantic and product gaps
 

@@ -6,11 +6,11 @@ describe("checkboxVariants", () => {
     const className = checkboxVariants({ size: "md" })
 
     expect(className).toContain(
-      "data-[checked]:bg-(--lsys-checkbox-checked-background)",
+      "data-[checked]:bg-(--lex-checkbox-checked-background)",
     )
     expect(className).toContain(
-      "data-[focused]:ring-(--lsys-checkbox-focus-ring-color)",
+      "data-[focused]:ring-(--lex-checkbox-focus-ring-color)",
     )
-    expect(className).toContain("size-(--lsys-checkbox-size-md)")
+    expect(className).toContain("size-(--lex-checkbox-size-md)")
   })
 })

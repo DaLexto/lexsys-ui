@@ -6,12 +6,10 @@ import {
 
 describe("fieldset variants", () => {
   test("uses token-backed classes for fieldset parts", () => {
-    expect(fieldsetVariants()).toContain("gap-(--lsys-fieldset-gap)")
-    expect(fieldsetVariants()).toContain(
-      "border-(--lsys-fieldset-border-color)",
-    )
+    expect(fieldsetVariants()).toContain("gap-(--lex-fieldset-gap)")
+    expect(fieldsetVariants()).toContain("border-(--lex-fieldset-border-color)")
     expect(fieldsetLegendVariants()).toContain(
-      "text-(--lsys-fieldset-legend-foreground)",
+      "text-(--lex-fieldset-legend-foreground)",
     )
   })
 

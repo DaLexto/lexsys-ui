@@ -5,7 +5,7 @@ describe("form variants", () => {
   test("uses token-backed classes", () => {
     const className = formVariants()
 
-    expect(className).toContain("gap-(--lsys-form-gap)")
-    expect(className).toContain("text-(--lsys-form-foreground)")
+    expect(className).toContain("gap-(--lex-form-gap)")
+    expect(className).toContain("text-(--lex-form-foreground)")
   })
 })

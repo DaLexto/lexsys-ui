@@ -5,10 +5,10 @@ describe("textareaVariants", () => {
   test("uses token-backed classes for base styling", () => {
     const className = textareaVariants()
 
-    expect(className).toContain("rounded-(--lsys-textarea-radius)")
-    expect(className).toContain("border-(--lsys-textarea-border-color)")
-    expect(className).toContain("bg-(--lsys-textarea-background)")
-    expect(className).toContain("min-h-(--lsys-textarea-min-height-md)")
+    expect(className).toContain("rounded-(--lex-textarea-radius)")
+    expect(className).toContain("border-(--lex-textarea-border-color)")
+    expect(className).toContain("bg-(--lex-textarea-background)")
+    expect(className).toContain("min-h-(--lex-textarea-min-height-md)")
   })
 
   test("includes focus, invalid, disabled, resize, and size classes", () => {
@@ -19,13 +19,13 @@ describe("textareaVariants", () => {
     })
 
     expect(className).toContain(
-      "focus-visible:ring-(--lsys-textarea-focus-ring-color)",
+      "focus-visible:ring-(--lex-textarea-focus-ring-color)",
     )
     expect(className).toContain("aria-invalid:border-")
     expect(className).toContain(
-      "data-[disabled]:opacity-(--lsys-opacity-disabled)",
+      "data-[disabled]:opacity-(--lex-opacity-disabled)",
     )
     expect(className).toContain("resize-none")
-    expect(className).toContain("min-h-(--lsys-textarea-min-height-lg)")
+    expect(className).toContain("min-h-(--lex-textarea-min-height-lg)")
   })
 })

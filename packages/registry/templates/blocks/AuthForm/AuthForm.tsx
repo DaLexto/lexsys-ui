@@ -71,7 +71,7 @@ const AuthFormFooter = ({ ref, className, ...props }: AuthFormFooterProps) => {
   return (
     <CardFooter
       ref={ref}
-      className={cn("flex-col gap-(--lsys-space-3)", className)}
+      className={cn("flex-col gap-(--lex-space-3)", className)}
       {...props}
     />
   )

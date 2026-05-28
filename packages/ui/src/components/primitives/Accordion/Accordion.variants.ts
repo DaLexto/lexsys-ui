@@ -8,25 +8,25 @@ import { cva } from "class-variance-authority"
 import { disabledStateClasses } from "../../../utils/cn"
 
 export const accordionVariants = cva(
-  "grid overflow-hidden rounded-(--lsys-accordion-radius) border border-(--lsys-accordion-border-color) bg-(--lsys-accordion-background) text-(--lsys-accordion-foreground)",
+  "grid overflow-hidden rounded-(--lex-accordion-radius) border border-(--lex-accordion-border-color) bg-(--lex-accordion-background) text-(--lex-accordion-foreground)",
 )
 
 export const accordionItemVariants = cva(
-  "border-b border-(--lsys-accordion-item-border-color) last:border-b-0",
+  "border-b border-(--lex-accordion-item-border-color) last:border-b-0",
 )
 
 export const accordionHeaderVariants = cva("flex")
 
 export const accordionTriggerVariants = cva(
   [
-    "flex w-full items-center justify-between px-(--lsys-accordion-trigger-padding-x) py-(--lsys-accordion-trigger-padding-y) text-left",
-    "text-(length:--lsys-accordion-trigger-font-size) font-(--lsys-accordion-trigger-font-weight) leading-(--lsys-accordion-trigger-font-line-height) text-(--lsys-accordion-foreground)",
-    "transition-colors duration-(--lsys-accordion-transition-duration) ease-(--lsys-accordion-transition-easing)",
-    "outline-none hover:bg-(--lsys-accordion-trigger-background-hover) focus-visible:ring-(length:--lsys-accordion-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lsys-accordion-focus-ring-color)",
+    "flex w-full items-center justify-between px-(--lex-accordion-trigger-padding-x) py-(--lex-accordion-trigger-padding-y) text-left",
+    "text-(length:--lex-accordion-trigger-font-size) font-(--lex-accordion-trigger-font-weight) leading-(--lex-accordion-trigger-font-line-height) text-(--lex-accordion-foreground)",
+    "transition-colors duration-(--lex-accordion-transition-duration) ease-(--lex-accordion-transition-easing)",
+    "outline-none hover:bg-(--lex-accordion-trigger-background-hover) focus-visible:ring-(length:--lex-accordion-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-accordion-focus-ring-color)",
     disabledStateClasses,
   ].join(" "),
 )
 
 export const accordionPanelVariants = cva(
-  "px-(--lsys-accordion-panel-padding-x) pb-(--lsys-accordion-panel-padding-bottom) text-(length:--lsys-accordion-panel-font-size) leading-(--lsys-accordion-panel-font-line-height) text-(--lsys-accordion-panel-foreground)",
+  "px-(--lex-accordion-panel-padding-x) pb-(--lex-accordion-panel-padding-bottom) text-(length:--lex-accordion-panel-font-size) leading-(--lex-accordion-panel-font-line-height) text-(--lex-accordion-panel-foreground)",
 )

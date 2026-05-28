@@ -4,13 +4,13 @@ import { checkboxGroupVariants } from "../../../src/components/primitives/Checkb
 describe("CheckboxGroup variants", () => {
   it("uses checkbox and field token-backed layout", () => {
     expect(checkboxGroupVariants({ orientation: "vertical" })).toContain(
-      "gap-(--lsys-checkbox-label-gap)",
+      "gap-(--lex-checkbox-label-gap)",
     )
     expect(checkboxGroupVariants({ orientation: "horizontal" })).toContain(
       "grid-flow-col",
     )
     expect(checkboxGroupVariants()).toContain(
-      "text-(--lsys-checkbox-label-foreground)",
+      "text-(--lex-checkbox-label-foreground)",
     )
   })
 })

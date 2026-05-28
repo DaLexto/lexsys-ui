@@ -8,19 +8,19 @@ import { cva } from "class-variance-authority"
 
 export const cardVariants = cva(
   [
-    "rounded-(--lsys-card-radius) border border-(--lsys-card-border-color)",
-    "bg-(--lsys-card-background) text-(--lsys-card-foreground) transition-colors",
-    "duration-(--lsys-card-transition-duration) ease-(--lsys-card-transition-easing)",
+    "rounded-(--lex-card-radius) border border-(--lex-card-border-color)",
+    "bg-(--lex-card-background) text-(--lex-card-foreground) transition-colors",
+    "duration-(--lex-card-transition-duration) ease-(--lex-card-transition-easing)",
   ].join(" "),
   {
     variants: {
       variant: {
         surface: "",
-        muted: "bg-(--lsys-card-muted-background)",
+        muted: "bg-(--lex-card-muted-background)",
         default: "",
-        outlined: "border-(--lsys-border-strong)",
+        outlined: "border-(--lex-border-strong)",
         elevated:
-          "border-transparent shadow-(--lsys-elevation-shadow-raised-box-shadow)",
+          "border-transparent shadow-(--lex-elevation-shadow-raised-box-shadow)",
         ghost: "border-transparent bg-transparent shadow-none",
       },
     },
@@ -31,16 +31,16 @@ export const cardVariants = cva(
 )
 
 export const cardHeaderClassName =
-  "grid gap-(--lsys-card-gap-sm) p-(--lsys-card-padding) pb-(--lsys-card-header-padding-bottom)"
+  "grid gap-(--lex-card-gap-sm) p-(--lex-card-padding) pb-(--lex-card-header-padding-bottom)"
 
 export const cardTitleClassName =
-  "text-(length:--lsys-card-title-font-size) font-(--lsys-card-title-font-weight) leading-(--lsys-card-title-font-line-height) tracking-(--lsys-card-title-font-letter-spacing) text-(--lsys-card-title-foreground)"
+  "text-(length:--lex-card-title-font-size) font-(--lex-card-title-font-weight) leading-(--lex-card-title-font-line-height) tracking-(--lex-card-title-font-letter-spacing) text-(--lex-card-title-foreground)"
 
 export const cardDescriptionClassName =
-  "text-(length:--lsys-card-description-font-size) leading-(--lsys-card-description-font-line-height) text-(--lsys-card-description-foreground)"
+  "text-(length:--lex-card-description-font-size) leading-(--lex-card-description-font-line-height) text-(--lex-card-description-foreground)"
 
 export const cardContentClassName =
-  "p-(--lsys-card-padding) pt-(--lsys-card-content-padding-top) text-(length:--lsys-card-content-font-size) leading-(--lsys-card-content-font-line-height)"
+  "p-(--lex-card-padding) pt-(--lex-card-content-padding-top) text-(length:--lex-card-content-font-size) leading-(--lex-card-content-font-line-height)"
 
 export const cardFooterClassName =
-  "flex items-center gap-(--lsys-card-gap-md) p-(--lsys-card-padding) pt-(--lsys-card-footer-padding-top)"
+  "flex items-center gap-(--lex-card-gap-md) p-(--lex-card-padding) pt-(--lex-card-footer-padding-top)"

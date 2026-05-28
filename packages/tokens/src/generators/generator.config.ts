@@ -23,7 +23,7 @@ export interface StyleOutputConfig {
 }
 
 export const defaultStyleOutputConfig: StyleOutputConfig = {
-  cssVarPrefix: "lsys",
+  cssVarPrefix: "lex",
   tailwindPrefix: "twix",
   registryStylesPath: "packages/registry/templates/styles",
   styleHeader:

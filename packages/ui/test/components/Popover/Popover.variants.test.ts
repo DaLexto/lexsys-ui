@@ -7,13 +7,13 @@ import {
 describe("Popover variants", () => {
   test("uses component token variables for the trigger", () => {
     expect(popoverTriggerVariants()).toContain(
-      "bg-(--lsys-popover-trigger-background)",
+      "bg-(--lex-popover-trigger-background)",
     )
   })
 
   test("uses component token variables for the popup", () => {
     expect(popoverPopupVariants()).toContain(
-      "bg-(--lsys-popover-popup-background)",
+      "bg-(--lex-popover-popup-background)",
     )
   })
 })

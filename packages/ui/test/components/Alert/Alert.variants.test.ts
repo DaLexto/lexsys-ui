@@ -9,23 +9,23 @@ describe("alertVariants", () => {
   test("uses token-backed classes for visual styling", () => {
     const className = alertVariants()
 
-    expect(className).toContain("rounded-(--lsys-alert-radius)")
-    expect(className).toContain("bg-(--lsys-alert-neutral-background)")
-    expect(className).toContain("text-(--lsys-alert-neutral-foreground)")
-    expect(className).toContain("border-(--lsys-alert-neutral-border-color)")
+    expect(className).toContain("rounded-(--lex-alert-radius)")
+    expect(className).toContain("bg-(--lex-alert-neutral-background)")
+    expect(className).toContain("text-(--lex-alert-neutral-foreground)")
+    expect(className).toContain("border-(--lex-alert-neutral-border-color)")
   })
 
   test("maps alert variants and slots through component tokens", () => {
     const className = alertVariants({ variant: "danger" })
 
-    expect(className).toContain("bg-(--lsys-alert-danger-background)")
-    expect(className).toContain("text-(--lsys-alert-danger-foreground)")
-    expect(className).toContain("border-(--lsys-alert-danger-border-color)")
+    expect(className).toContain("bg-(--lex-alert-danger-background)")
+    expect(className).toContain("text-(--lex-alert-danger-foreground)")
+    expect(className).toContain("border-(--lex-alert-danger-border-color)")
     expect(alertTitleClassName).toContain(
-      "font-(--lsys-alert-title-font-weight)",
+      "font-(--lex-alert-title-font-weight)",
     )
     expect(alertDescriptionClassName).toContain(
-      "text-(--lsys-alert-description-foreground)",
+      "text-(--lex-alert-description-foreground)",
     )
   })
 })

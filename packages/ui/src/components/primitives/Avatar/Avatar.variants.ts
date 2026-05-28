@@ -8,20 +8,20 @@ import { cva } from "class-variance-authority"
 
 export const avatarVariants = cva(
   [
-    "inline-flex shrink-0 items-center justify-center overflow-hidden border border-(--lsys-avatar-border-color)",
-    "bg-(--lsys-avatar-background) text-(--lsys-avatar-foreground)",
-    "font-(--lsys-avatar-font-weight) leading-(--lsys-avatar-font-line-height)",
+    "inline-flex shrink-0 items-center justify-center overflow-hidden border border-(--lex-avatar-border-color)",
+    "bg-(--lex-avatar-background) text-(--lex-avatar-foreground)",
+    "font-(--lex-avatar-font-weight) leading-(--lex-avatar-font-line-height)",
   ].join(" "),
   {
     variants: {
       size: {
-        sm: "size-(--lsys-avatar-size-sm) text-(length:--lsys-avatar-font-size-sm)",
-        md: "size-(--lsys-avatar-size-md) text-(length:--lsys-avatar-font-size-md)",
-        lg: "size-(--lsys-avatar-size-lg) text-(length:--lsys-avatar-font-size-lg)",
+        sm: "size-(--lex-avatar-size-sm) text-(length:--lex-avatar-font-size-sm)",
+        md: "size-(--lex-avatar-size-md) text-(length:--lex-avatar-font-size-md)",
+        lg: "size-(--lex-avatar-size-lg) text-(length:--lex-avatar-font-size-lg)",
       },
       shape: {
-        circle: "rounded-(--lsys-avatar-radius-circle)",
-        square: "rounded-(--lsys-avatar-radius-square)",
+        circle: "rounded-(--lex-avatar-radius-circle)",
+        square: "rounded-(--lex-avatar-radius-square)",
       },
     },
     defaultVariants: {
@@ -32,9 +32,9 @@ export const avatarVariants = cva(
 )
 
 export const avatarImageVariants = cva(
-  "size-full object-cover transition-opacity duration-(--lsys-avatar-transition-duration) ease-(--lsys-avatar-transition-easing) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+  "size-full object-cover transition-opacity duration-(--lex-avatar-transition-duration) ease-(--lex-avatar-transition-easing) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
 )
 
 export const avatarFallbackVariants = cva(
-  "flex size-full items-center justify-center bg-(--lsys-avatar-fallback-background) text-(--lsys-avatar-fallback-foreground)",
+  "flex size-full items-center justify-center bg-(--lex-avatar-fallback-background) text-(--lex-avatar-fallback-foreground)",
 )

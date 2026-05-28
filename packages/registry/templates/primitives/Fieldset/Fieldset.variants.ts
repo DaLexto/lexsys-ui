@@ -8,17 +8,17 @@ import { cva } from "class-variance-authority"
 
 export const fieldsetVariants = cva(
   [
-    "m-0 grid min-w-0 gap-(--lsys-fieldset-gap) rounded-(--lsys-fieldset-radius)",
-    "border border-(--lsys-fieldset-border-color) p-(--lsys-fieldset-padding)",
-    "bg-(--lsys-fieldset-background) text-(--lsys-fieldset-foreground)",
-    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lsys-opacity-disabled)",
+    "m-0 grid min-w-0 gap-(--lex-fieldset-gap) rounded-(--lex-fieldset-radius)",
+    "border border-(--lex-fieldset-border-color) p-(--lex-fieldset-padding)",
+    "bg-(--lex-fieldset-background) text-(--lex-fieldset-foreground)",
+    "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
   {
     variants: {
       variant: {
         surface: "",
         plain:
-          "border-transparent bg-transparent p-0 shadow-none data-[disabled]:opacity-(--lsys-opacity-disabled)",
+          "border-transparent bg-transparent p-0 shadow-none data-[disabled]:opacity-(--lex-opacity-disabled)",
       },
     },
     defaultVariants: {
@@ -29,9 +29,9 @@ export const fieldsetVariants = cva(
 
 export const fieldsetLegendVariants = cva(
   [
-    "mb-(--lsys-fieldset-legend-margin-bottom) text-(length:--lsys-fieldset-legend-font-size)",
-    "font-(--lsys-fieldset-legend-font-weight) leading-(--lsys-fieldset-legend-font-line-height)",
-    "tracking-(--lsys-fieldset-legend-font-letter-spacing) text-(--lsys-fieldset-legend-foreground)",
+    "mb-(--lex-fieldset-legend-margin-bottom) text-(length:--lex-fieldset-legend-font-size)",
+    "font-(--lex-fieldset-legend-font-weight) leading-(--lex-fieldset-legend-font-line-height)",
+    "tracking-(--lex-fieldset-legend-font-letter-spacing) text-(--lex-fieldset-legend-foreground)",
     "data-[disabled]:cursor-not-allowed",
   ].join(" "),
 )

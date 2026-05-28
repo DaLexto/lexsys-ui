@@ -108,11 +108,11 @@ primitives → brand → semantics → component tokens
            presets are configuration, not a token layer
 ```
 
-CSS output uses generated CSS variables as `--lsys-<token-path>`. Component
+CSS output uses generated CSS variables as `--lex-<token-path>`. Component
 variants in `*.variants.ts` reference them through Tailwind v4 canonical syntax
-(for example `bg-(--lsys-button-primary-background)`,
-`ring-(length:--lsys-button-focus-ring-width)`). They MUST NOT use raw Tailwind
-palette values or the legacy `[var(--lsys-*)]` arbitrary form.
+(for example `bg-(--lex-button-primary-background)`,
+`ring-(length:--lex-button-focus-ring-width)`). They MUST NOT use raw Tailwind
+palette values or the legacy `[var(--lex-*)]` arbitrary form.
 
 The current preset is `lexsys` (`Lexsys Default`), brand `lexsys`, with
 `light` (`:root`) and `dark` (`.dark`) theme modes.

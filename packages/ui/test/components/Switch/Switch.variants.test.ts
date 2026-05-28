@@ -7,10 +7,10 @@ import {
 describe("switchVariants", () => {
   it("includes Lexsys switch states", () => {
     expect(switchVariants({ size: "md" })).toContain(
-      "data-[checked]:bg-(--lsys-switch-checked-background)",
+      "data-[checked]:bg-(--lex-switch-checked-background)",
     )
     expect(switchThumbVariants({ size: "md" })).toContain(
-      "data-[checked]:translate-x-(--lsys-switch-thumb-translate-md)",
+      "data-[checked]:translate-x-(--lex-switch-thumb-translate-md)",
     )
   })
 })

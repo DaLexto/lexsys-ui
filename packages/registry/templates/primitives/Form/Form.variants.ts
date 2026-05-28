@@ -7,5 +7,5 @@
 import { cva } from "class-variance-authority"
 
 export const formVariants = cva(
-  "grid gap-(--lsys-form-gap) text-(--lsys-form-foreground)",
+  "grid gap-(--lex-form-gap) text-(--lex-form-foreground)",
 )

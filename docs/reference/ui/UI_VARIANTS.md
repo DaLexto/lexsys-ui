@@ -47,7 +47,7 @@ Do **not** introduce a public `error` variant. It duplicates `danger` with no vi
 | **Badge**  | `tone` + `variant` (solid/outline)         | `variant?: neutral \| primary \| success \| warning \| danger` + `appearance?: solid \| outline` |
 | **Button** | `variant?: primary \| secondary`           | add **`danger`**, **`ghost`**, **`outline`**; `isLoading` spinner via `aria-busy`                |
 
-Token branches rename `*.destructive.*` → `*.danger.*` with aligned `--lsys-*-danger-*` CSS vars.
+Token branches rename `*.destructive.*` → `*.danger.*` with aligned `--lex-*-danger-*` CSS vars.
 Semantic source remains **`action.danger`**.
 
 ---
@@ -88,7 +88,7 @@ When the underlying library owns state, style via attribute selectors. Do **not*
 
 - Base UI sets `data-type` from toast manager API
 - Supported `toastManager.add({ type })` values: **`success`**, **`info`**, **`destructive`** (default / omitted = neutral surface)
-- Lexsys tokens use `danger` naming (`--lsys-toast-danger-*`) while Base UI keeps `destructive`
+- Lexsys tokens use `danger` naming (`--lex-toast-danger-*`) while Base UI keeps `destructive`
 - Typed toasts apply full semantic **background + foreground + border** via `data-[type=*]` selectors (not border-only)
 - Do not add a parallel public `variant` prop on Toast
 
@@ -103,7 +103,7 @@ Other examples: `data-[swiping]`, `data-[behind]`, `data-[invalid]`, `aria-busy`
 ## CVA implementation rules
 
 1. **Base classes** — string array joined; structural Tailwind only (`inline-flex`, `grid`, `outline-none`, `disabled:pointer-events-none`).
-2. **Visual values** — always `--lsys-*` via Tailwind v4 typed syntax (`text-(length:--lsys-*)`, `font-(family-name:--lsys-*)`, `ring-(length:--lsys-*)`).
+2. **Visual values** — always `--lex-*` via Tailwind v4 typed syntax (`text-(length:--lex-*)`, `font-(family-name:--lex-*)`, `ring-(length:--lex-*)`).
 3. **Color variants** — extracted constants or direct variant entries; avoid empty stubs + compound matrix when constants suffice.
 4. **`compoundVariants`** — use **`class:`** key consistently (not `className:`).
 5. **Compound components** — export slot strings as `{slot}ClassName` or `{slot}Variants` (Card, Alert, Field patterns).
@@ -130,10 +130,10 @@ Per-component allowed enums live in [UI_AUDIT.md](../ui/UI_AUDIT.md). Force **co
 
 ## Token consumption
 
-| Layer           | Rule                                                  | Enforcement                                     |
-| --------------- | ----------------------------------------------------- | ----------------------------------------------- |
-| **Authoring**   | Component tokens reference semantics only             | `pnpm tokens:check`                             |
-| **Consumption** | `*.variants.ts` uses `--lsys-*`; minimal raw literals | Variant tests, `pnpm ui:audit` (blocking in CI) |
+| Layer           | Rule                                                 | Enforcement                                     |
+| --------------- | ---------------------------------------------------- | ----------------------------------------------- |
+| **Authoring**   | Component tokens reference semantics only            | `pnpm tokens:check`                             |
+| **Consumption** | `*.variants.ts` uses `--lex-*`; minimal raw literals | Variant tests, `pnpm ui:audit` (blocking in CI) |
 
 Shared semantic tokens (PR1+):
 
@@ -150,9 +150,9 @@ Overlay semantics (shared scroll/stacking roles):
 
 ### Token-only styling
 
-`*.variants.ts` must use generated `--lsys-*` classes for color, size, spacing, motion, opacity, and z-index. **`pnpm ui:audit` is blocking** in `pnpm ui:check`.
+`*.variants.ts` must use generated `--lex-*` classes for color, size, spacing, motion, opacity, and z-index. **`pnpm ui:audit` is blocking** in `pnpm ui:check`.
 
-**Allowed non-`--lsys-*` forms in CVA strings:**
+**Allowed non-`--lex-*` forms in CVA strings:**
 
 | Form                   | Why                                                                            |
 | ---------------------- | ------------------------------------------------------------------------------ |
@@ -160,7 +160,7 @@ Overlay semantics (shared scroll/stacking roles):
 | Base UI runtime vars   | `--anchor-width`, `--available-width`, `--transform-origin`, drawer swipe vars |
 | Base UI owned attrs    | `data-[type=destructive]`, `data-[starting-style]`, `aria-invalid`             |
 | Fractional anchor math | `translate-x-1/2`, `translate-y-1/2` on arrow slots (center on anchor edge)    |
-| Generated `--lsys-*`   | All color, size, spacing, motion, opacity, z-index, viewport math              |
+| Generated `--lex-*`    | All color, size, spacing, motion, opacity, z-index, viewport math              |
 
 Use `disabledStateClasses`, `busyStateClasses`, and `invalidStateClasses` from `@/lib/utils` (installed) or `../../utils/cn` (reference UI) instead of inline disabled opacity fragments.
 

@@ -11,7 +11,7 @@ describe("PreviewCard variants", () => {
 
   it("reuses popover popup styling", () => {
     expect(previewCardPopupVariants()).toContain(
-      "bg-(--lsys-popover-popup-background)",
+      "bg-(--lex-popover-popup-background)",
     )
   })
 })
