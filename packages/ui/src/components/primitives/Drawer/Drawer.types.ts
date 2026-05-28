@@ -12,8 +12,8 @@ export type DrawerSide = "bottom" | "top" | "right" | "left"
 export type DrawerSize = "sm" | "md" | "lg" | "full"
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface DrawerProps<Payload = unknown>
-  extends BaseDrawer.Root.Props<Payload> {}
+export interface DrawerProps<Payload = unknown> extends BaseDrawer.Root
+  .Props<Payload> {}
 export type DrawerProviderProps = BaseDrawer.Provider.Props
 export type DrawerPortalProps = BaseDrawer.Portal.Props
 export type DrawerHandle<Payload = unknown> = BaseDrawer.Handle<Payload>

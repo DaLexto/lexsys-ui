@@ -23,9 +23,7 @@ export interface CommandPaletteContentProps extends HTMLAttributes<HTMLDivElemen
   children?: ReactNode
 }
 
-export interface CommandPaletteInputProps extends InputProps {
-  ref?: Ref<HTMLInputElement>
-}
+export type CommandPaletteInputProps = InputProps
 
 export type CommandPaletteSeparatorProps = Record<string, never>
 
@@ -60,14 +58,10 @@ export interface CommandPaletteEmptyProps extends HTMLAttributes<HTMLParagraphEl
   children?: ReactNode
 }
 
-export interface CommandPaletteTitleProps {
+export interface CommandPaletteTitleProps extends HTMLAttributes<HTMLHeadingElement> {
   ref?: Ref<HTMLHeadingElement>
-  className?: string
-  children?: ReactNode
 }
 
-export interface CommandPaletteDescriptionProps {
+export interface CommandPaletteDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {
   ref?: Ref<HTMLParagraphElement>
-  className?: string
-  children?: ReactNode
 }
