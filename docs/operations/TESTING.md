@@ -33,7 +33,7 @@ External project outside this monorepo (example: `D:\PLAYGROUND\sandbox-lexsys`)
 
 **Primary manual gate** before PRs that touch CLI, registry, templates, blocks/templates, or install artifacts.
 
-For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [REVIEW_TODO.md § Blocks/templates optimization backlog](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
+For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [REVIEW_TODO.md § Blocks/templates optimization backlog](../REVIEW_TODO.md#blocks--templates-optimization-backlog).
 
 ### Practical workflow
 
@@ -235,7 +235,7 @@ Checklist after CLI or registry changes:
 
 1. Fresh or updated install: `lexsys add dashboard-shell` (transitive closure — Sidebar + primitives).
 2. Confirm flat layout: `src/components/ui/DashboardShell/`, `src/components/ui/Sidebar/`, sibling import paths (no `blocks/` or `templates/` folders in consumer tree).
-3. Narrow viewport (`< md`): mobile drawer opens; nav list items stack vertically (plain nav + `DrawerClose appearance="inline"` — see BO.2 in [REVIEW_TODO.md](./REVIEW_TODO.md)).
+3. Narrow viewport (`< md`): mobile drawer opens; nav list items stack vertically (plain nav + `DrawerClose appearance="inline"` — see BO.2 in [REVIEW_TODO.md](../REVIEW_TODO.md)).
 4. `lexsys uninstall dashboard-shell --dry-run` then `--with-deps --dry-run` — orphan hints look correct.
 5. Compare drawer shell to [playground overlays panel](../apps/playground/src/overlays-panel.tsx) when changing Sidebar/Drawer composition.
 
