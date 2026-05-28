@@ -27,21 +27,21 @@ import type {
   SelectValueProps,
 } from "./Select.types"
 import {
-  selectArrowVariants,
-  selectBackdropVariants,
-  selectGroupLabelVariants,
-  selectGroupVariants,
-  selectIconVariants,
-  selectItemIndicatorVariants,
-  selectItemTextVariants,
-  selectItemVariants,
-  selectLabelVariants,
-  selectListVariants,
-  selectPopupVariants,
-  selectPositionerVariants,
-  selectScrollArrowVariants,
+  selectArrowClasses,
+  selectBackdropClasses,
+  selectGroupClasses,
+  selectGroupLabelClasses,
+  selectIconClasses,
+  selectItemClasses,
+  selectItemIndicatorClasses,
+  selectItemTextClasses,
+  selectListClasses,
+  selectPopupClasses,
+  selectPositionerClasses,
+  selectScrollArrowClasses,
   selectTriggerVariants,
-  selectValueVariants,
+  selectValueClasses,
+  selectLabelClasses,
 } from "./Select.variants"
 import { mergeClassName } from "@/lib/utils"
 import { overlayPositionerSideOffset } from "@/lib/utils"
@@ -58,7 +58,7 @@ const SelectLabel = ({ ref, className, ...props }: SelectLabelProps) => {
   return (
     <BaseSelect.Label
       ref={ref}
-      className={mergeClassName(selectLabelVariants(), className)}
+      className={mergeClassName(selectLabelClasses, className)}
       {...props}
     />
   )
@@ -87,7 +87,7 @@ const SelectValue = ({ ref, className, ...props }: SelectValueProps) => {
   return (
     <BaseSelect.Value
       ref={ref}
-      className={mergeClassName(selectValueVariants(), className)}
+      className={mergeClassName(selectValueClasses, className)}
       {...props}
     />
   )
@@ -104,7 +104,7 @@ const SelectIcon = ({
   return (
     <BaseSelect.Icon
       ref={ref}
-      className={mergeClassName(selectIconVariants(), className)}
+      className={mergeClassName(selectIconClasses, className)}
       {...props}
     >
       {children ?? <ChevronDown aria-hidden="true" size={16} />}
@@ -124,7 +124,7 @@ const SelectBackdrop = ({ ref, className, ...props }: SelectBackdropProps) => {
   return (
     <BaseSelect.Backdrop
       ref={ref}
-      className={mergeClassName(selectBackdropVariants(), className)}
+      className={mergeClassName(selectBackdropClasses, className)}
       {...props}
     />
   )
@@ -144,7 +144,7 @@ const SelectPositioner = ({
       ref={ref}
       alignItemWithTrigger={alignItemWithTrigger}
       sideOffset={sideOffset}
-      className={mergeClassName(selectPositionerVariants(), className)}
+      className={mergeClassName(selectPositionerClasses, className)}
       {...props}
     />
   )
@@ -156,7 +156,7 @@ const SelectPopup = ({ ref, className, ...props }: SelectPopupProps) => {
   return (
     <BaseSelect.Popup
       ref={ref}
-      className={mergeClassName(selectPopupVariants(), className)}
+      className={mergeClassName(selectPopupClasses, className)}
       {...props}
     />
   )
@@ -168,7 +168,7 @@ const SelectList = ({ ref, className, ...props }: SelectListProps) => {
   return (
     <BaseSelect.List
       ref={ref}
-      className={mergeClassName(selectListVariants(), className)}
+      className={mergeClassName(selectListClasses, className)}
       {...props}
     />
   )
@@ -180,7 +180,7 @@ const SelectItem = ({ ref, className, ...props }: SelectItemProps) => {
   return (
     <BaseSelect.Item
       ref={ref}
-      className={mergeClassName(selectItemVariants(), className)}
+      className={mergeClassName(selectItemClasses, className)}
       {...props}
     />
   )
@@ -197,7 +197,7 @@ const SelectItemIndicator = ({
   return (
     <BaseSelect.ItemIndicator
       ref={ref}
-      className={mergeClassName(selectItemIndicatorVariants(), className)}
+      className={mergeClassName(selectItemIndicatorClasses, className)}
       {...props}
     >
       {children ?? <Check aria-hidden="true" size={14} />}
@@ -211,7 +211,7 @@ const SelectItemText = ({ ref, className, ...props }: SelectItemTextProps) => {
   return (
     <BaseSelect.ItemText
       ref={ref}
-      className={mergeClassName(selectItemTextVariants(), className)}
+      className={mergeClassName(selectItemTextClasses, className)}
       {...props}
     />
   )
@@ -223,7 +223,7 @@ const SelectArrow = ({ ref, className, ...props }: SelectArrowProps) => {
   return (
     <BaseSelect.Arrow
       ref={ref}
-      className={mergeClassName(selectArrowVariants(), className)}
+      className={mergeClassName(selectArrowClasses, className)}
       {...props}
     />
   )
@@ -240,7 +240,7 @@ const SelectScrollUpArrow = ({
   return (
     <BaseSelect.ScrollUpArrow
       ref={ref}
-      className={mergeClassName(selectScrollArrowVariants(), className)}
+      className={mergeClassName(selectScrollArrowClasses, className)}
       {...props}
     >
       {children ?? <ChevronUp aria-hidden="true" size={16} />}
@@ -259,7 +259,7 @@ const SelectScrollDownArrow = ({
   return (
     <BaseSelect.ScrollDownArrow
       ref={ref}
-      className={mergeClassName(selectScrollArrowVariants(), className)}
+      className={mergeClassName(selectScrollArrowClasses, className)}
       {...props}
     >
       {children ?? <ChevronDown aria-hidden="true" size={16} />}
@@ -273,7 +273,7 @@ const SelectGroup = ({ ref, className, ...props }: SelectGroupProps) => {
   return (
     <BaseSelect.Group
       ref={ref}
-      className={mergeClassName(selectGroupVariants(), className)}
+      className={mergeClassName(selectGroupClasses, className)}
       {...props}
     />
   )
@@ -289,7 +289,7 @@ const SelectGroupLabel = ({
   return (
     <BaseSelect.GroupLabel
       ref={ref}
-      className={mergeClassName(selectGroupLabelVariants(), className)}
+      className={mergeClassName(selectGroupLabelClasses, className)}
       {...props}
     />
   )
