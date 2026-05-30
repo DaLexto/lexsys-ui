@@ -47,7 +47,7 @@ that are not yet done.
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
 | M8      | CLI cleanup and deduplication                                       | shipped |
-| M10     | Release readiness — `0.0.3` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
+| M10     | Release readiness — `0.0.4` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 | CS      | Component standardization (CS.1–CS.8)                               | shipped |

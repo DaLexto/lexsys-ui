@@ -12,7 +12,7 @@
 
 - [Purpose and scope](#purpose-and-scope)
 - [Inventory](#inventory)
-  - [Primitives (41)](#primitives-41)
+  - [Primitives (42)](#primitives-42)
   - [Blocks (6)](#blocks-6)
   - [Templates (1)](#templates-1)
 - [Out of scope / planned](#out-of-scope-planned)

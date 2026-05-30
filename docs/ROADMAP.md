@@ -3,7 +3,7 @@
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
 **Status:** Tokens phases 1–10 complete; monorepo M1–M8, M10, M11 **shipped**; UI
-composition pilots **shipped** (PR #28); `0.0.3` @ `next` **shipped** (2026-05-28 — token fixes, CardAction, Empty block); blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
+composition pilots **shipped** (PR #28); `0.0.4` @ `next` **shipped** (2026-05-30 — Table, CLI `installed` array, `lexsys reset`); `0.0.3` (2026-05-28) historical; blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
