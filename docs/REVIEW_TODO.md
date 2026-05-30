@@ -47,7 +47,7 @@ that are not yet done.
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
 | M8      | CLI cleanup and deduplication                                       | shipped |
-| M10     | Release readiness — `0.0.2` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
+| M10     | Release readiness — `0.0.3` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 | CS      | Component standardization (CS.1–CS.8)                               | shipped |
@@ -100,7 +100,7 @@ Detail: [Roadmap § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
 via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
 [Changelog](../CHANGELOG.md#001---2026-05-24).
 
-**Current preview:** `0.0.2` @ `next` (2026-05-25) — M4 entry + CLI DX + M8 CLI cleanup.
+**Current preview:** `0.0.3` @ `next` (2026-05-28) — token fixes, CardAction, Empty block ([CHANGELOG](../CHANGELOG.md#003---2026-05-28)). Prior: `0.0.2` (2026-05-25, M4 + M8 + M11).
 
 **Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [Deploy guide § Transition to 0.1.0](../operations/DEPLOY.md#transition-to-010-latest).
 

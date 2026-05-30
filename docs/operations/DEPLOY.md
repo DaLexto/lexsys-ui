@@ -75,12 +75,13 @@ explicit product decision and this file is updated.
 
 ## Version lane
 
-| Milestone     | Version | npm dist-tag | Meaning                                      |
-| ------------- | ------- | ------------ | -------------------------------------------- |
-| First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical      |
-| Current       | `0.0.2` | `next`       | Early preview; breaking changes still likely |
-| Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line       |
-| MVP stable    | `0.1.0` | `latest`     | Public MVP commitment — future milestone     |
+| Milestone        | Version | npm dist-tag | Meaning                                                         |
+| ---------------- | ------- | ------------ | --------------------------------------------------------------- |
+| First publish    | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                       |
+| Prior preview    | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical |
+| **Current**      | `0.0.3` | `next`       | Early preview; breaking changes still likely (2026-05-28)       |
+| Iterations       | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                          |
+| MVP stable       | `0.1.0` | `latest`     | Public MVP commitment — future milestone                        |
 
 Install for early preview:
 
