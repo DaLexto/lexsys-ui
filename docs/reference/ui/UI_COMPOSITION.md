@@ -59,7 +59,7 @@ Do not use atoms/molecules/organisms in Lexsys docs or CLI copy — those names 
 **Monorepo reference** (`packages/ui/src/components/`):
 
 ```txt
-primitives/     ← 41 shipped primitives
+primitives/     ← 42 shipped primitives
 blocks/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty
 templates/      ← DashboardShell
 ```
@@ -130,7 +130,7 @@ New Base UI wraps ship as **primitives** (`registryDependencies: []`).
 | `@base-ui/react/preview-card`          | PreviewCard                         | shipped |
 | `@base-ui/react/toolbar`               | Toolbar                             | shipped |
 
-Lexsys-only primitives (no dedicated Base UI module): Alert, Badge, Card.
+Lexsys-only primitives (no dedicated Base UI module): Alert, Badge, Card, Table.
 
 **Planned primitive sequencing (completed):** Autocomplete + Combobox → OtpField → NavigationMenu → ContextMenu + Toolbar → CheckboxGroup → Menubar + PreviewCard.
 
@@ -307,7 +307,7 @@ No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
 
 ## Current state
 
-Installable inventory (48 items — compound vs leaf, named exports, registry
+Installable inventory (49 items — compound vs leaf, named exports, registry
 version): **[UI catalog](../ui/UI_CATALOG.md)**.
 
 Pilot blocks and templates remain installable; stability and sandbox QA gaps are

@@ -100,7 +100,7 @@ Detail: [Roadmap § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
 via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
 [Changelog](../CHANGELOG.md#001---2026-05-24).
 
-**Current preview:** `0.0.3` @ `next` (2026-05-28) — token fixes, CardAction, Empty block ([CHANGELOG](../CHANGELOG.md#003---2026-05-28)). Prior: `0.0.2` (2026-05-25, M4 + M8 + M11).
+**Current preview:** `0.0.4` @ `next` (2026-05-30) — Table primitive, CLI `installed` array + `lexsys reset` ([CHANGELOG](../CHANGELOG.md#004---2026-05-30)). Prior: `0.0.3` (2026-05-28).
 
 **Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [Deploy guide § Transition to 0.1.0](../operations/DEPLOY.md#transition-to-010-latest).
 

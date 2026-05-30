@@ -109,8 +109,8 @@ Test files in `packages/ui/test/`:
 | File                                             | What it tests                                                                                |
 | ------------------------------------------------ | -------------------------------------------------------------------------------------------- |
 | `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@dalexto/lexsys-ui` |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**41 primitives**)  |
-| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**41/41 primitives**)      |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**42 primitives**)  |
+| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**42/42 primitives**)      |
 
 Blocks (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty) and templates (DashboardShell) live under
 `packages/ui/src/components/blocks/` and `templates/`. Blocks have render smoke tests; variant tests are not tracked for blocks — verify behavior in the consumer sandbox.
@@ -131,7 +131,7 @@ Test files in `packages/registry/test/`:
 | `validate-registry.test.ts`    | Registry manifest validation — required fields, template files, layer composition rules, block/template dependency constraints |
 | `registry-styles-sync.test.ts` | Registry style sync helpers — in-sync templates, stale content, missing template files                                         |
 
-Bundled registry: **48 installable UI items** (41 primitives + 6 blocks + 1 template). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`.
+Bundled registry: **49 installable UI items** (42 primitives + 6 blocks + 1 template). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`.
 
 Run:
 

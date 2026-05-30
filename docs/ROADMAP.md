@@ -110,7 +110,7 @@ Summary only — do not duplicate detail here.
 - Full primitive shadow scale migration (`shadow.0`–`shadow.6` branch+slot) with CSS compose
 - `shadow.inner` inset slot model (branch+slot with `inset: true`; CSS compose prepends `inset`)
 - Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`LEXSYS_GOVERNANCE_POLICY=ci`; override with `report`)
-- Broad UI render coverage (41/41 primitives; M3 baseline was 32/32)
+- Broad UI render coverage (42/42 primitives; M3 baseline was 32/32)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
 - `lexsys uninstall` metadata-driven removal with dry-run and conflict reporting

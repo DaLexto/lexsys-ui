@@ -47,7 +47,7 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 | [UI.md](./reference/ui/UI.md)                         | Reference component contract, file structure, Base UI boundaries |
 | [UI_VARIANTS.md](./reference/ui/UI_VARIANTS.md)       | Public variant props, CVA rules, styling taxonomy                |
 | [UI_COMPOSITION.md](./reference/ui/UI_COMPOSITION.md) | Primitives → blocks → templates; compound-first composition      |
-| [UI_CATALOG.md](./reference/ui/UI_CATALOG.md)         | Installable surface — compound vs leaf, named exports (48 items) |
+| [UI_CATALOG.md](./reference/ui/UI_CATALOG.md)         | Installable surface — compound vs leaf, named exports (49 items) |
 | [UI_AUDIT.md](./reference/ui/UI_AUDIT.md)             | **Variant / CVA compliance only** — composition → UI_CATALOG.md  |
 
 Drift check: `pnpm ui:audit:catalog:check` — see [UI_CATALOG.md § Generation](./reference/ui/UI_CATALOG.md#generation-and-drift-checks).

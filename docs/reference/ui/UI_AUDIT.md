@@ -12,7 +12,7 @@
 
 - [Purpose and scope](#purpose-and-scope)
 - [Batch summary](#batch-summary)
-- [Variant inventory (41 primitives)](#variant-inventory-41-primitives)
+- [Variant inventory (42 primitives)](#variant-inventory-42-primitives)
 - [Cross-cutting issues](#cross-cutting-issues)
 - [Generation and drift checks](#generation-and-drift-checks)
 - [PR0 checklist extras](#pr0-checklist-extras)
@@ -48,7 +48,7 @@ This inventory tracks **styling and variant-axis compliance** against [UI varian
 
 ---
 
-## Variant inventory (41 primitives)
+## Variant inventory (42 primitives)
 
 | Component       | Public props                                          | Styling pattern       | CVA / slot exports                                                                                      | Composition                                   | Token flags                                                                             | Tests             | Batch   |
 | --------------- | ----------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- | ----------------- | ------- |

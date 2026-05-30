@@ -28,6 +28,7 @@ import { selectRegistryItem } from "./select.js"
 import { separatorRegistryItem } from "./separator.js"
 import { sliderRegistryItem } from "./slider.js"
 import { switchRegistryItem } from "./switch.js"
+import { tableRegistryItem } from "./table.js"
 import { tabsRegistryItem } from "./tabs.js"
 import { textareaRegistryItem } from "./textarea.js"
 import { toastRegistryItem } from "./toast.js"
@@ -97,6 +98,7 @@ export { authFormRegistryItem } from "./auth-form.js"
 export { commandPaletteRegistryItem } from "./command-palette.js"
 export { otpFieldRegistryItem } from "./otp-field.js"
 export { emptyRegistryItem } from "./empty.js"
+export { tableRegistryItem } from "./table.js"
 export const registryItems: RegistryItem[] = [
   accordionRegistryItem,
   alertDialogRegistryItem,
@@ -127,6 +129,7 @@ export const registryItems: RegistryItem[] = [
   separatorRegistryItem,
   sliderRegistryItem,
   switchRegistryItem,
+  tableRegistryItem,
   tabsRegistryItem,
   textareaRegistryItem,
   toastRegistryItem,

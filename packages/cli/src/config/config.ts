@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileExists } from "../utils/fs.js"
 import { getCwd } from "../utils/context.js"
-import { normalizeInstalled } from "./installed.js"
+import { isLegacyInstalledRecord, normalizeInstalled } from "./installed.js"
 
 export interface LexsysPathsConfig {
   components: string
@@ -72,9 +72,11 @@ export const loadConfig = async (): Promise<LexsysConfig> => {
   }
 
   const content = await readFile(configPath, "utf-8")
-  const parsed = JSON.parse(content) as Partial<LexsysConfig>
+  const parsed = JSON.parse(content) as Partial<LexsysConfig> & {
+    installed?: unknown
+  }
 
-  return {
+  const config: LexsysConfig = {
     ...defaultConfig,
     ...parsed,
     paths: {
@@ -91,6 +93,12 @@ export const loadConfig = async (): Promise<LexsysConfig> => {
     },
     installed: normalizeInstalled(parsed.installed),
   }
+
+  if (isLegacyInstalledRecord(parsed.installed)) {
+    await saveConfig(config)
+  }
+
+  return config
 }
 
 export const saveConfig = async (config: LexsysConfig): Promise<void> => {
