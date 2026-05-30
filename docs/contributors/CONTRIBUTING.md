@@ -56,7 +56,7 @@ Issues and pull requests use the namespaced label set in [`.github/labels.yml`](
 | Namespace      | When to use                                                                                 |
 | -------------- | ------------------------------------------------------------------------------------------- |
 | `type:*`       | Change kind — mirrors commit types (`type:feat`, `type:fix`, `type:docs`, …)                |
-| `area:*`       | Primary package or surface (`area:tokens`, `area:cli`, `area:repo`, …)                      |
+| `area:*`       | Primary package or surface (`area:tokens`, `area:cli`, `area:agents`, `area:repo`, …)     |
 | `priority:*`   | Issue triage only (`priority:critical`, `priority:high`, `priority:medium`, `priority:low`) |
 | `status:*`     | Workflow state (`status:needs-triage`, `status:blocked`, `status:ready-for-review`)         |
 | `meta:*`       | Cross-cutting flags (`meta:breaking-change`, `meta:good-first-issue`, `meta:help-wanted`)   |
