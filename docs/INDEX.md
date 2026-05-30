@@ -3,6 +3,9 @@
 **Audience:** Maintainers, contributors, and agents  
 **Type:** Routing hub  
 **Source of truth for:** Which document owns which topic — not the rules themselves
+**Last reviewed:** 2026-05-30
+
+---
 
 Use this index to find the canonical document. Do not duplicate domain rules in
 [AGENTS.md](../AGENTS.md) or Cursor rules — link here instead.
@@ -96,7 +99,9 @@ shipped. Current implementation contracts live in reference docs and catalogs ab
 ## Repo-local agent skills
 
 Task-specific procedures live in [`.agents/skills/`](../.agents/skills/). See
-[AGENTS.md § Repo skills](../AGENTS.md#repo-skills).
+[AGENTS.md § Repo skills](../AGENTS.md#repo-skills). Layout authoring:
+[`$docs-authoring`](../.agents/skills/docs-authoring/SKILL.md). Freshness pass:
+[`$docs-alignment`](../.agents/skills/docs-alignment/SKILL.md).
 
 ---
 

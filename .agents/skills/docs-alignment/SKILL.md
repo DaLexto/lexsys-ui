@@ -60,4 +60,5 @@ rg "FormField, SettingsPanel|41 primitives" docs README.md packages/ui/README.md
 ## Related
 
 - [docs-routing.mdc](../../.cursor/rules/docs-routing.mdc)
+- [`$docs-authoring`](../docs-authoring/SKILL.md) (new/reshape layout — not freshness)
 - `$monorepo-check-gate` (after doc-only changes)

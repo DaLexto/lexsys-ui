@@ -3,12 +3,12 @@
 **Audience:** Contributors and agents
 **Type:** Contributor style guide
 **Source of truth for:** Coding rules and conventions across all packages
-**Related docs:** `docs/contributors/STYLEGUIDE.md` (practical patterns and examples), `docs/ARCHITECTURE.md` (package boundaries)
-
-If there is a conflict between this document and `docs/ARCHITECTURE.md`, architecture wins.
-For examples and practical patterns, see `docs/contributors/STYLEGUIDE.md`.
+**Last reviewed:** 2026-05-30
 
 ---
+
+If there is a conflict between this document and `docs/ARCHITECTURE.md`, architecture wins.
+For examples and practical patterns, see [STYLEGUIDE.md](STYLEGUIDE.md).
 
 ## Core Principles
 
@@ -126,3 +126,10 @@ For examples and practical patterns, see `docs/contributors/STYLEGUIDE.md`.
 Run `pnpm check` before merging. Full script reference: [Scripts reference](../operations/SCRIPTS.md).
 
 For the full test command reference, per-package scripts, and when to run targeted vs full checks: `docs/operations/TESTING.md`.
+
+---
+
+## Related documentation
+
+- [Style guide](STYLEGUIDE.md) — practical patterns and examples
+- [Architecture](../ARCHITECTURE.md) — package boundaries

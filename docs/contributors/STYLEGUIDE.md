@@ -4,15 +4,11 @@
 **Type:** Contributor style guide
 **Source of truth for:** Practical code patterns, component structure, naming, token authoring conventions, registry item shape, CSS variable naming
 **Verified against:** `packages/ui/src/`, `packages/tokens/src/`, `packages/registry/src/`, `packages/cli/src/`
+**Last reviewed:** 2026-05-30
 
-**Related docs:**
+---
 
-- `docs/contributors/STYLE.md` — concise rule checklist for all packages
-- `docs/reference/tokens/TOKENS.md` — token layer rules and validation contracts
-- `docs/reference/ui/UI_VARIANTS.md` — canonical variant prop contract and CVA rules
-- `docs/reference/cli/CLI.md` — CLI command reference and install behavior
-
-If a rule conflicts between this document and `docs/contributors/STYLE.md`, `docs/contributors/STYLE.md` wins for rule decisions. This document provides practical patterns and examples.
+If a rule conflicts between this document and [STYLE.md](STYLE.md), STYLE.md wins for rule decisions. This document provides practical patterns and examples.
 
 ---
 
@@ -451,3 +447,11 @@ Before merging, verify:
 - [ ] New CSS classes use `--lex-*` variables, not hardcoded values
 - [ ] Templates synced (`pnpm registry:sync` run if UI components changed)
 - [ ] `pnpm check` passes (format + lint + typecheck + test)
+
+---
+
+## Related documentation
+
+- [Style rules](STYLE.md) — concise rule checklist
+- [UI variants](../reference/ui/UI_VARIANTS.md) — variant and CVA contract
+- [Tokens reference](../reference/tokens/TOKENS.md) — token layer rules

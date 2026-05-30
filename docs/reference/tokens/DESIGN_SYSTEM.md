@@ -4,6 +4,9 @@
 **Type:** Conceptual model + domain specification  
 **Source of truth for:** Design system structure, token layers, CSS output contract, component styling model  
 **Verified against:** `packages/tokens/src/`, `packages/ui/src/`
+**Last reviewed:** 2026-05-30
+
+---
 
 Canonical token layer rules live in [Tokens reference](TOKENS.md).  
 CLI install behavior lives in [CLI reference](CLI.md).  

@@ -3,10 +3,11 @@
 **Audience:** Maintainers  
 **Type:** Architecture overview  
 **Source of truth for:** System shape, package boundaries, install flow, major constraints
-
-Domain specifications own their canonical rules. This document links to them.
+**Last reviewed:** 2026-05-30
 
 ---
+
+Domain specifications own their canonical rules. This document links to them.
 
 ## System model
 
@@ -306,16 +307,10 @@ invocation.
 
 ---
 
-## Related documents
+## Related documentation
 
-| Document                                    | Owns                                                          |
-| ------------------------------------------- | ------------------------------------------------------------- |
-| [Doc index](INDEX.md)                       | Documentation routing hub — which doc owns which topic        |
-| [Tokens reference](TOKENS.md)               | Token layer rules, resolver, CSS generation, validation       |
-| [Resolver evolution](RESOLVER_EVOLUTION.md) | Post–Phase 10 resolver direction, deferred speculative work   |
-| [CLI reference](CLI.md)                     | Full CLI command reference, flags, config options             |
-| [Component style guide](STYLEGUIDE.md)      | Component naming, file layout, CSS class conventions          |
-| [Style guide](STYLE.md)                     | Coding style, TypeScript, React, import/export rules          |
-| [Deploy guide](DEPLOY.md)                   | Build pipeline, publish-readiness, artifact contract          |
-| [UI composition](UI_COMPOSITION.md)         | UI composition model, layer rules, monorepo vs consumer paths |
-| [AGENTS.md](../AGENTS.md)                   | Agent routing, guardrails, skills index (not domain specs)    |
+- [Documentation index](INDEX.md) — which doc owns which topic
+- [Tokens reference](reference/tokens/TOKENS.md) — token layers and CSS generation
+- [Registry reference](reference/registry/REGISTRY.md) — install metadata and templates
+- [CLI reference](reference/cli/CLI.md) — `lexsys` commands and config
+- [Deploy guide](operations/DEPLOY.md) — build and publish contract

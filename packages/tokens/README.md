@@ -3,6 +3,10 @@
 **Audience:** Maintainers and token domain owners
 **Type:** Package README
 **Source of truth for:** Package role, token layer implementation, generator pipeline, public exports
+**Verified against:** `packages/tokens/src/`
+**Last reviewed:** 2026-05-30
+
+---
 
 Design token source, validation, resolution, and generated style output package for Lexsys.
 

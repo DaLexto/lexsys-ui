@@ -3,8 +3,8 @@
 **Audience:** Maintainers
 **Type:** Domain specification
 **Source of truth for:** Build and publish contract, version lanes, pre-release gates, npm publish surface
-
-**Related docs:** [Scripts reference](./SCRIPTS.md), [Testing docs](./TESTING.md), [Changelog](../../CHANGELOG.md)
+**Verified against:** Root and workspace `package.json` files, `turbo.json`
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -355,3 +355,11 @@ Known gaps and deferred security/tooling work:
 
 Historical release records (0.0.1 first publish, M4/M10 implementation tracks):
 [Changelog](../../CHANGELOG.md) and git history.
+
+---
+
+## Related documentation
+
+- [Scripts reference](SCRIPTS.md) — monorepo `pnpm` commands
+- [Testing docs](TESTING.md) — verification surfaces
+- [Changelog](../../CHANGELOG.md) — release history

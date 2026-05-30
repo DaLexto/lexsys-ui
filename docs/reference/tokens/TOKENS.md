@@ -4,12 +4,12 @@
 **Type:** Domain specification
 **Source of truth for:** Token layer rules, reference rules, resolution behavior, validation status, package exports
 **Verified against:** `packages/tokens/src/` (all layers, resolver, generator inputs)
-**Related docs:** `docs/reference/tokens/DESIGN_SYSTEM.md` (token authoring guide, CSS output), `docs/ARCHITECTURE.md`
+**Last reviewed:** 2026-05-30
+
+---
 
 If there is a conflict between this document and other documentation for any
 token-system decision, this document wins.
-
----
 
 ## Token Layer Order
 
@@ -483,3 +483,11 @@ Generated output lives at:
 | `packages/tokens/dist/tokens/dtcg/semantics/*.tokens.json`  | Per-group semantic DTCG JSON                      |
 | `packages/tokens/dist/tokens/dtcg/components/*.tokens.json` | Per-component DTCG JSON                           |
 | `packages/tokens/dist/tokens/dtcg/themes/*.tokens.json`     | Per-theme DTCG JSON                               |
+
+---
+
+## Related documentation
+
+- [Design system overview](DESIGN_SYSTEM.md) — conceptual token/design guide
+- [Architecture](../../ARCHITECTURE.md) — package boundaries and install flow
+- [Tokens package README](../../../packages/tokens/README.md) — package internals

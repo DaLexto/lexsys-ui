@@ -5,15 +5,17 @@ alwaysApply: false
 ---
 # Documentation routing (Lexsys)
 
-Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance and **document layout**: [documentation-standards.mdc](./documentation-standards.mdc) (§ Document layout contract).
+Hub: [docs/INDEX.md](../../docs/INDEX.md). Layout: [documentation-standards.mdc](./documentation-standards.mdc) (§ Document layout contract).
 
 ## Before editing
 
 1. Confirm the **owning document** in INDEX — edit there, not in AGENTS.md or rules.
-2. Apply the **Document layout contract** — metadata block + H2 order for the doc type.
+2. Apply [documentation-standards.mdc § Document layout contract](./documentation-standards.mdc) (metadata, H2 order, Related documentation footer).
 3. **Current implementation** wins over roadmap, comments, or memory.
 4. **Script inventory** lives only in [SCRIPTS.md](../../docs/operations/SCRIPTS.md) — link, do not copy tables.
-5. After count, export, or registry item metadata changes, run **`$docs-alignment`** skill and `pnpm ui:audit:catalog:check` when UI exports changed.
+5. New or restructured doc → **`$docs-authoring`**. After behavior, count, or registry item metadata changes → **`$docs-alignment`** and `pnpm ui:audit:catalog:check` when UI exports changed.
+
+**Out of glob:** `AGENTS.md`, root `README.md`, `packages/*/README.md` — same INDEX + documentation-standards contracts.
 
 ## Quick ownership
 
@@ -27,6 +29,8 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md). Governance and **document layout**: [
 | Installable inventory (compound/leaf, exports) | `docs/reference/ui/UI_CATALOG.md` |
 | Variant / CVA compliance rows | `docs/reference/ui/UI_AUDIT.md` |
 | Verification / sandbox | `docs/operations/TESTING.md` |
+| Monorepo `pnpm` scripts / sync | `docs/operations/SCRIPTS.md` |
+| Release / publish contract | `docs/operations/DEPLOY.md` |
 | Backlog / BO / M-phases | `docs/REVIEW_TODO.md`, `docs/ROADMAP.md` |
 | System shape (hub only) | `docs/ARCHITECTURE.md` |
 

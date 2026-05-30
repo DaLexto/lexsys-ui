@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Registry item contract, template sync rules, validation requirements, local/remote resolution
 **Verified against:** `packages/registry/src/`
-**Related docs:** `docs/reference/cli/CLI.md` (install behavior), `docs/ARCHITECTURE.md` (package boundaries), `packages/registry/README.md` (package internals)
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -247,3 +247,11 @@ Valid `RegistryItemCategory` values:
 
 Do not add install logic to registry metadata. Do not add registry metadata
 rules to CLI code. Do not manually maintain templates.
+
+---
+
+## Related documentation
+
+- [CLI reference](../cli/CLI.md) — install behavior
+- [Architecture](../../ARCHITECTURE.md) — package boundaries
+- [Registry package README](../../../packages/registry/README.md) — package internals

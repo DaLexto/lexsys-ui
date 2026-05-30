@@ -4,7 +4,9 @@
 **Type:** Catalog / inventory  
 **Source of truth for:** Per-primitive **variant / CVA compliance** status and batch assignment  
 **Canonical standard:** [UI variants](../ui/UI_VARIANTS.md)  
-**Related docs:** [UI catalog](../ui/UI_CATALOG.md) (compound vs leaf, named exports — **not** this doc), [UI reference](../ui/UI.md), [UI composition](../ui/UI_COMPOSITION.md)
+**Last reviewed:** 2026-05-30
+
+---
 
 **Scope:** CVA patterns, public variant props, token literals, and `.variants.ts` exports only. For installable composition (compound parts, registry item names), use **[UI catalog](../ui/UI_CATALOG.md)**.
 
@@ -145,8 +147,8 @@ Run `pnpm ui:audit` after variant edits. Run `pnpm ui:audit:catalog:check` after
 
 ---
 
-## Related docs
+## Related documentation
 
-- [UI catalog](../ui/UI_CATALOG.md) — installable inventory (canonical for compound vs leaf)
+- [UI catalog](../ui/UI_CATALOG.md) — installable inventory (compound vs leaf)
 - [UI variants](../ui/UI_VARIANTS.md) — variant contract this audit enforces
-- [Doc index](./INDEX.md) — documentation routing
+- [UI reference](../ui/UI.md) — component contract

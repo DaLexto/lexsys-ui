@@ -4,6 +4,7 @@
 **Type:** Package README
 **Source of truth for:** Package role, public exports, item structure, template sync
 **Verified against:** `packages/registry/src/`
+**Last reviewed:** 2026-05-30
 
 ---
 

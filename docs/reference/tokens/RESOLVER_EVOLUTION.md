@@ -5,8 +5,11 @@
 **Status:** Phases 1–10 shipped; speculative items deferred
 **Source of truth for:** Resolver and governance evolution sequencing after the initial platform pass
 **Verified against:** `packages/tokens/src/engine/`, `packages/tokens/src/generators/`
+**Last reviewed:** 2026-05-30
 
-Current enforced rules and build-failing validation live in [Tokens reference](../tokens/TOKENS.md).
+---
+
+Current enforced rules and build-failing validation live in [Tokens reference](TOKENS.md).
 Platform phase history lives in [Roadmap](../../ROADMAP.md).
 
 ---
