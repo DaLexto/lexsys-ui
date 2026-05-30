@@ -26,6 +26,7 @@ import { selectComponentTokens } from "./select"
 import { separatorComponentTokens } from "./separator"
 import { sliderComponentTokens } from "./slider"
 import { switchComponentTokens } from "./switch"
+import { tableComponentTokens } from "./table"
 import { tabsComponentTokens } from "./tabs"
 import { textareaComponentTokens } from "./textarea"
 import { toastComponentTokens } from "./toast"
@@ -60,6 +61,7 @@ export { selectComponentTokens } from "./select"
 export { separatorComponentTokens } from "./separator"
 export { sliderComponentTokens } from "./slider"
 export { switchComponentTokens } from "./switch"
+export { tableComponentTokens } from "./table"
 export { tabsComponentTokens } from "./tabs"
 export { textareaComponentTokens } from "./textarea"
 export { toastComponentTokens } from "./toast"
@@ -95,6 +97,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   separatorComponentTokens,
   sliderComponentTokens,
   switchComponentTokens,
+  tableComponentTokens,
   tabsComponentTokens,
   textareaComponentTokens,
   toastComponentTokens,
