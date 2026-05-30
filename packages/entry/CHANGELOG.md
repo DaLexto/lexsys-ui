@@ -1,5 +1,18 @@
 # lexsys
 
+## 0.0.4
+
+### Patch Changes
+
+- [#54](https://github.com/DaLexto/lexsys-ui/pull/54) [`a76b46f`](https://github.com/DaLexto/lexsys-ui/commit/a76b46fd2f35194fbcb7f92347ddb4b0c9262caf) Thanks [@itsalexdev](https://github.com/itsalexdev)! - Table primitive, CLI config migration, and template-drift tooling (0.0.4 @ `next`).
+  - Add **Table** compound primitive (`lexsys add table`) with `--lex-table-*` tokens
+  - Add **`lexsys reset`** (`--dry-run`, `--with-deps`)
+  - **Breaking:** `lexsys.config.json` `installed` is `string[]`; legacy map migrates and persists on load
+  - **Changed:** `status` / `update` drift via template hash; registry items drop per-item `version`
+
+- Updated dependencies [[`a76b46f`](https://github.com/DaLexto/lexsys-ui/commit/a76b46fd2f35194fbcb7f92347ddb4b0c9262caf)]:
+  - @dalexto/lexsys-cli@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
