@@ -1,7 +1,7 @@
 ---
-"@dalexto/lexsys": minor
-"@dalexto/lexsys-cli": minor
-"@dalexto/lexsys-registry": minor
+"@dalexto/lexsys": patch
+"@dalexto/lexsys-cli": patch
+"@dalexto/lexsys-registry": patch
 ---
 
 Table primitive, CLI config migration, and template-drift tooling (0.0.4 @ `next`).
