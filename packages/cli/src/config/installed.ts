@@ -1,3 +1,7 @@
+export const isLegacyInstalledRecord = (value: unknown): boolean => {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value))
+}
+
 export const normalizeInstalled = (value: unknown): string[] => {
   if (Array.isArray(value)) {
     return value.filter((entry): entry is string => typeof entry === "string")

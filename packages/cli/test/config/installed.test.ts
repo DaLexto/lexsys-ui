@@ -2,11 +2,18 @@ import { describe, expect, test } from "vitest"
 import {
   addInstalled,
   isInstalled,
+  isLegacyInstalledRecord,
   normalizeInstalled,
   removeInstalled,
 } from "../../src/config/installed.js"
 
 describe("installed config helpers", () => {
+  test("isLegacyInstalledRecord detects record-shaped installed maps", () => {
+    expect(isLegacyInstalledRecord({ button: "0.0.1" })).toBe(true)
+    expect(isLegacyInstalledRecord(["button"])).toBe(false)
+    expect(isLegacyInstalledRecord(undefined)).toBe(false)
+  })
+
   test("normalizeInstalled migrates legacy record maps to name lists", () => {
     expect(normalizeInstalled({ button: "0.0.1", card: "0.0.2" })).toEqual([
       "button",
