@@ -65,7 +65,7 @@ Place immediately after the H1. Use bold labels on their own lines in **fixed or
 | 4 | `**Verified against:**` | Domain spec, catalog/inventory, CLI/API ref, package README |
 | 5 | `**Last reviewed:**` | On touch (same PR as the edit) |
 
-After the metadata block: blank line → `---` → blank line → optional **On this page** (long docs) → first substantive H2. **No prose between metadata and `---`.**
+After the metadata block: blank line → `---` → blank line → **`## On this page`** when required (see below) → first substantive H2. **No prose between metadata and `---`.**
 
 **Slim variants** (same bold style; omit inapplicable lines 4–5):
 
@@ -84,7 +84,7 @@ After the metadata block: blank line → `---` → blank line → optional **On 
 | ------- | ---- |
 | H1 | Exactly one — matches document title |
 | Metadata | Fixed-order bold block → blank line → `---` (no links in metadata) |
-| On this page | Optional H2 after `---` on long docs (≥4 H2); anchor list mirroring H2/H3 — see below |
+| On this page | **Required** H2 after `---` when the doc has ≥4 substantive H2 sections; anchor list mirroring H2/H3 — see below |
 | H2 / H3 | Sentence case; do not skip levels (H1 → H2 → H3) |
 | Normative specs | Use `MUST` / `SHOULD` / `MAY` in domain specs and catalogs |
 | Backlog / roadmap | Do **not** use `MUST` for unshipped work — use *planned*, *target*, *TBD* |
@@ -94,9 +94,16 @@ After the metadata block: blank line → `---` → blank line → optional **On 
 | Inline prose links | Contextual “see X for Y” in body — keep; do not move to footer |
 | Related documentation | Optional final H2 — cross-file links only; see below |
 
-### On this page (optional)
+### On this page (required on long docs)
 
-Use **`## On this page`** immediately after `---` when the doc has **≥4 H2 sections** (e.g. [CLI.md](../../docs/reference/cli/CLI.md), [ARCHITECTURE.md](../../docs/ARCHITECTURE.md)). Skip [INDEX.md](../../docs/INDEX.md) and short docs.
+When a doc has **≥4 substantive H2 sections**, it **MUST** include **`## On this page`** immediately after `---` (before the first substantive H2). Examples: [CLI.md](../../docs/reference/cli/CLI.md), [ARCHITECTURE.md](../../docs/ARCHITECTURE.md).
+
+**Counting H2 sections:** count all H2 headings **except** `## On this page` and `## Related documentation`. If the count is ≥4, the nav block is required.
+
+**Exemptions (do not add `## On this page`):**
+
+- [INDEX.md](../../docs/INDEX.md) and other routing hubs whose primary job is orientation tables.
+- Docs with fewer than four substantive H2 sections.
 
 - Bullet list of anchor links matching existing H2/H3 headings (indent H3 under H2).
 - Update **on touch** when headings change in the same PR.
@@ -313,7 +320,7 @@ For each edited document:
 
 - Clear audience.
 - Clear document type (matches Taxonomy row).
-- **Layout contract:** metadata block present (fixed order; no links in metadata); H2 order matches declared type; **Related documentation** / **On this page** per layout contract.
+- **Layout contract:** metadata block present (fixed order; no links in metadata); H2 order matches declared type; **On this page** when ≥4 substantive H2 sections; **Related documentation** footer per layout contract.
 - Current vs target state separated.
 - Normative language matches enforcement level.
 - No unverified implementation claims.
