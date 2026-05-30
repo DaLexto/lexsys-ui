@@ -30,7 +30,6 @@ vi.mock("../../src/registry/remote.js", () => {
 const item: RegistryItem = {
   name: "button",
   canonicalName: "Button",
-  version: "0.0.1",
   type: "component",
   category: "actions",
   aliases: ["btn"],

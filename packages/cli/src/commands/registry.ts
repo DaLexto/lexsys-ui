@@ -35,7 +35,7 @@ const printRegistrySummary = (result: RegistryProviderResult): void => {
     const remoteFileCount = item.remoteFiles?.length ?? 0
 
     console.log(
-      `- ${item.canonicalName} v${item.version} (${item.type}/${item.category}, remote files: ${remoteFileCount})`,
+      `- ${item.canonicalName} (${item.type}/${item.category}, remote files: ${remoteFileCount})`,
     )
   }
 }

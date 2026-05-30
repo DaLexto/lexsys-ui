@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const alertDialogRegistryItem: RegistryItem = {
   name: "alert-dialog",
   canonicalName: "AlertDialog",
-  version: "0.0.1",
   type: "component",
   category: "overlays",
   aliases: [],

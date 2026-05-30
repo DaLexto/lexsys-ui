@@ -80,15 +80,17 @@ npx @dalexto/lexsys@next init vite my-app
 Lexsys is a CLI installer, not a library — the breaking change definition is
 non-obvious:
 
-| Change                                    | Breaking                              |
-| ----------------------------------------- | ------------------------------------- |
-| CLI command or flag rename / removal      | Yes                                   |
-| Config format change (`lexsys.config.ts`) | Yes                                   |
-| Registry item ID rename                   | Yes                                   |
-| Template content update                   | **No** — consumer owns installed code |
-| New CLI commands or flags                 | No                                    |
-| New registry items                        | No                                    |
-| Token CSS variable rename (`--lex-*`)     | Yes — breaks existing consumer CSS    |
+| Change                                      | Breaking                              |
+| ------------------------------------------- | ------------------------------------- |
+| CLI command or flag rename / removal        | Yes                                   |
+| Config format change (`lexsys.config.json`) | Yes                                   |
+| `installed` shape change (map → array)      | Yes                                   |
+| Per-item registry `version` field removed   | Yes (remote/local manifest)           |
+| Registry item ID rename                     | Yes                                   |
+| Template content update                     | **No** — consumer owns installed code |
+| New CLI commands or flags                   | No                                    |
+| New registry items                          | No                                    |
+| Token CSS variable rename (`--lex-*`)       | Yes — breaks existing consumer CSS    |
 
 ### Release notes
 
@@ -101,6 +103,25 @@ Every release MUST call out in CHANGELOG:
 - any manual consumer migration required
 
 If there is no consumer-facing impact, state that explicitly.
+
+### Package semver bumps (`@dalexto/lexsys`, `@dalexto/lexsys-cli`, `@dalexto/lexsys-registry`)
+
+The three published packages share one version via Changesets `fixed[]`. Choose
+the bump from **consumer-facing impact**, not per-file churn.
+
+| Bump      | When to use (examples)                                                                                                                                                              |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **patch** | Template/CSS fixes; new registry items; CLI bug fixes; non-breaking docs; `lexsys reset` and other additive CLI flags; registry metadata that does not change consumer config shape |
+| **minor** | New CLI commands or subcommands; new install layers or registry features; additive config fields with defaults; remote registry contract extensions that remain backward compatible |
+| **major** | Breaking CLI renames/removals; breaking `lexsys.config.json` shape; registry item ID renames; token renames (`--lex-*`); removing installable items consumers may depend on         |
+
+**Not versioned per component:** registry item files no longer carry a
+`version` field. Template drift is detected by content hash at `status` /
+`update` / `reset` time — see [CLI reference](../reference/cli/CLI.md).
+
+**Lane note:** while on **`0.0.x` @ `next`**, breaking consumer changes MAY still
+ship as patch/minor per the stability contract above. From **`0.1.0` @ `latest`**,
+breaking changes MUST be a **major** bump on the fixed group.
 
 ---
 

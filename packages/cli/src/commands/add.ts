@@ -1,5 +1,6 @@
 import { registryItems } from "@dalexto/lexsys-registry"
 
+import { addInstalled } from "../config/installed.js"
 import { loadConfig, saveConfig } from "../config/config.js"
 import {
   ensureProjectStructure,
@@ -102,7 +103,7 @@ export const runAdd = async (args: string[]): Promise<void> => {
 
     console.log("Components:")
     for (const item of resolvedItems) {
-      console.log(`- ${item.canonicalName} v${item.version}`)
+      console.log(`- ${item.canonicalName}`)
     }
 
     console.log("\nDependencies:")
@@ -152,12 +153,10 @@ export const runAdd = async (args: string[]): Promise<void> => {
     console.log("")
   }
 
-  const installed = {
-    ...(config.installed ?? {}),
-  }
+  let installed = [...(config.installed ?? [])]
 
   for (const item of successfullyInstalled) {
-    installed[item.name] = item.version
+    installed = addInstalled(installed, item.name)
   }
 
   await saveConfig({

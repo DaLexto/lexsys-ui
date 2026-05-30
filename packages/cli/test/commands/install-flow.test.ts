@@ -55,26 +55,20 @@ const assertFlatConsumerImportPaths = (content: string): void => {
 
 const readInstalledConfig = async (
   root: string,
-): Promise<{ installed?: Record<string, string> }> => {
+): Promise<{ installed?: string[] }> => {
   return JSON.parse(
     await readFile(join(root, "lexsys.config.json"), "utf-8"),
-  ) as { installed?: Record<string, string> }
+  ) as { installed?: string[] }
 }
 
 const expectRegistryClosureInstalled = (
-  installed: Record<string, string> | undefined,
+  installed: string[] | undefined,
   rootNames: string[],
 ): void => {
   const closure = computeRegistryClosure(rootNames, registryItems)
 
   for (const name of closure) {
-    const item = registryItems.find((entry) => entry.name === name)
-
-    if (!item) {
-      throw new Error(`Missing registry item for closure member: ${name}`)
-    }
-
-    expect(installed?.[name]).toBe(item.version)
+    expect(installed).toContain(name)
   }
 }
 
@@ -201,19 +195,16 @@ describe("install flow smoke", () => {
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as {
-      installed?: Record<string, string>
+      installed?: string[]
       style?: string
       tailwind?: { css?: string }
     }
 
     expect(config.style).toBe("default")
     expect(config.tailwind?.css).toBe("src/style.css")
-    expect(config.installed).toEqual({
-      alert: "0.0.1",
-      badge: "0.0.1",
-      button: "0.0.1",
-      card: "0.0.1",
-    })
+    expect(config.installed?.sort()).toEqual(
+      ["alert", "badge", "button", "card"].sort(),
+    )
   })
 
   test("installs every bundled registry component idempotently", async () => {
@@ -322,19 +313,15 @@ describe("install flow smoke", () => {
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as {
-      installed?: Record<string, string>
+      installed?: string[]
       style?: string
       tailwind?: { css?: string }
     }
 
     expect(config.style).toBe("default")
     expect(config.tailwind?.css).toBe("src/style.css")
-    expect(config.installed).toEqual(
-      Object.fromEntries(
-        componentRegistryItems.map((item) => {
-          return [item.name, item.version]
-        }),
-      ),
+    expect(config.installed?.sort()).toEqual(
+      componentRegistryItems.map((item) => item.name).sort(),
     )
   })
 
@@ -400,19 +387,11 @@ describe("install flow smoke", () => {
     }
 
     const config = await readInstalledConfig(tempDir)
-    const expectedInstalled = Object.fromEntries(
-      [...computeRegistryClosure(blockNames, registryItems)].map((name) => {
-        const registryItem = registryItems.find((entry) => entry.name === name)
+    const expectedInstalled = [
+      ...computeRegistryClosure(blockNames, registryItems),
+    ].sort()
 
-        if (!registryItem) {
-          throw new Error(`Missing registry item for closure member: ${name}`)
-        }
-
-        return [name, registryItem.version]
-      }),
-    )
-
-    expect(config.installed).toEqual(expectedInstalled)
+    expect(config.installed?.sort()).toEqual(expectedInstalled)
   })
 
   test.each(blockRegistryItems.map((item) => [item.name, item] as const))(
@@ -454,7 +433,7 @@ describe("install flow smoke", () => {
 
     const config = await readInstalledConfig(tempDir)
 
-    expect(config.installed?.menu).toBeUndefined()
+    expect(config.installed).not.toContain("menu")
   })
 
   test("dashboard-shell solo install writes compound layout template", async () => {
@@ -472,7 +451,7 @@ describe("install flow smoke", () => {
 
     const config = await readInstalledConfig(tempDir)
     expectRegistryClosureInstalled(config.installed, ["dashboard-shell"])
-    expect(config.installed?.sidebar).toBeUndefined()
+    expect(config.installed).not.toContain("sidebar")
   })
 
   test("settings-panel solo install pulls card primitive", async () => {
@@ -513,7 +492,7 @@ describe("install flow smoke", () => {
 
     const config = await readInstalledConfig(tempDir)
     expectRegistryClosureInstalled(config.installed, ["form-field"])
-    expect(config.installed?.input).toBeUndefined()
+    expect(config.installed).not.toContain("input")
   })
 
   test("auth-form solo install pulls card, button, field, and form-field", async () => {
@@ -553,8 +532,8 @@ describe("install flow smoke", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({})
+    expect(config.installed).toEqual([])
   })
 })

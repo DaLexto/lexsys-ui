@@ -42,7 +42,6 @@ export type RegistryItemCategory =
 export interface RegistryItem {
   name: string
   canonicalName: string
-  version: string
   type: RegistryItemType
   category: RegistryItemCategory
   aliases: string[]

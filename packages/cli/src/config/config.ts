@@ -2,6 +2,7 @@ import { readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileExists } from "../utils/fs.js"
 import { getCwd } from "../utils/context.js"
+import { normalizeInstalled } from "./installed.js"
 
 export interface LexsysPathsConfig {
   components: string
@@ -22,7 +23,7 @@ export interface LexsysConfig {
   paths: LexsysPathsConfig
   aliases: LexsysAliasesConfig
   tailwind: LexsysTailwindConfig
-  installed?: Record<string, string>
+  installed?: string[]
   registryUrl?: string | null
 }
 
@@ -55,7 +56,7 @@ export const defaultConfig: LexsysConfig = {
   paths: defaultPathsConfig,
   aliases: defaultAliasesConfig,
   tailwind: defaultTailwindConfig,
-  installed: {},
+  installed: [],
   registryUrl: null,
 }
 
@@ -88,6 +89,7 @@ export const loadConfig = async (): Promise<LexsysConfig> => {
       ...defaultTailwindConfig,
       ...parsed.tailwind,
     },
+    installed: normalizeInstalled(parsed.installed),
   }
 }
 

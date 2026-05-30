@@ -68,7 +68,7 @@ System shape: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
   run **`pnpm registry:sync`** — use **`$registry-sync`** skill.
 - **Registry two-zone contract — do not confuse:**
   - `packages/registry/src/items/<name>.ts` — install metadata (`name`, `version`, `type`, `category`, `files`, `dependencies`, `registryDependencies`, `target`).
-    - **Primitives:** `pnpm registry:sync` auto-scaffolds this if missing (`type: "component"`, auto-category, `version: "0.0.1"`). Review and adjust after sync.
+    - **Primitives:** `pnpm registry:sync` auto-scaffolds this if missing (`type: "component"`, auto-category). Review and adjust after sync.
     - **Blocks/templates:** must be **written manually** — `pnpm registry:sync` does NOT create item files for blocks. Set `type: "block"`, correct `category`, and all `registryDependencies` by hand.
   - `packages/registry/templates/` — **generated output, never edit directly**. Always edit `packages/ui/src/components/` and run `pnpm registry:sync`. Manual edits are overwritten on the next sync.
 - **Playground:** maintenance-only monorepo smoke (~10–20%). Consumer truth is

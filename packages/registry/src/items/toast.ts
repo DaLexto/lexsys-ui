@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const toastRegistryItem: RegistryItem = {
   name: "toast",
   canonicalName: "Toast",
-  version: "0.0.1",
   type: "component",
   category: "feedback",
   aliases: [],

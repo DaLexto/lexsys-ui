@@ -9,7 +9,10 @@ import { prepareInstalledFileContent } from "./import-rewriter.js"
 import { resolveItemInstallTarget } from "./target.js"
 import { getRegistryTemplatePath } from "./installer.js"
 import { findItem } from "../registry/resolver.js"
-import { isUpdateAvailable } from "../utils/version.js"
+import {
+  getComponentDriftStatus,
+  itemHasTemplateDrift,
+} from "./component-drift.js"
 
 export const checkItemFiles = async (name: string): Promise<void> => {
   const item = await findItem(name)
@@ -54,7 +57,7 @@ export const checkItemFiles = async (name: string): Promise<void> => {
   }
 }
 
-const applySafeItemUpdate = async (
+export const applyItemOverwrite = async (
   name: string,
   force: boolean,
 ): Promise<boolean> => {
@@ -120,20 +123,17 @@ const applySafeItemUpdate = async (
 
   if (hasConflict) {
     console.log(
-      "Update finished with conflicts. Installed version was not changed.",
+      "Update finished with conflicts. Review conflicted files before retrying.",
     )
     return false
   }
 
-  console.log(
-    `✔ ${item.canonicalName} updated successfully to v${item.version}`,
-  )
+  console.log(`✔ ${item.canonicalName} updated successfully`)
   return true
 }
 
 export const checkItemUpdate = async (
   name: string,
-  installedVersion: string,
   dryRun: boolean,
   force: boolean,
   sync = false,
@@ -145,24 +145,26 @@ export const checkItemUpdate = async (
     return false
   }
 
-  const versionUpdateAvailable = isUpdateAvailable(
-    installedVersion,
-    item.version,
-  )
+  const driftStatus = await getComponentDriftStatus(name)
 
-  if (!sync && !versionUpdateAvailable) {
-    console.log(`${item.canonicalName} is up to date (v${installedVersion}).`)
+  if (driftStatus === "missing") {
+    console.log(`Component "${name}" no longer exists in the registry.`)
     return false
   }
 
-  if (sync && !versionUpdateAvailable) {
+  const hasDrift = driftStatus === "drift"
+
+  if (!sync && !hasDrift) {
+    console.log(`${item.canonicalName} is up to date with the registry.`)
+    return false
+  }
+
+  if (sync && !hasDrift) {
     console.log(
-      `${item.canonicalName} template sync (installed v${installedVersion}, registry v${item.version})`,
+      `${item.canonicalName} template sync (already matches registry)`,
     )
   } else {
-    console.log(
-      `${item.canonicalName} can be updated: v${installedVersion} → v${item.version}`,
-    )
+    console.log(`${item.canonicalName} can be updated from registry templates`)
   }
 
   if (dryRun) {
@@ -194,5 +196,40 @@ export const checkItemUpdate = async (
     return false
   }
 
-  return await applySafeItemUpdate(name, force)
+  return await applyItemOverwrite(name, force)
+}
+
+export const resetItem = async (
+  name: string,
+  dryRun: boolean,
+): Promise<boolean> => {
+  const item = await findItem(name)
+
+  if (!item) {
+    console.log(`Component "${name}" no longer exists in the registry.`)
+    return false
+  }
+
+  const hasDrift = await itemHasTemplateDrift(item)
+
+  if (!hasDrift) {
+    console.log(`${item.canonicalName} already matches registry templates.`)
+    return false
+  }
+
+  if (dryRun) {
+    console.log(`Reset plan for ${item.canonicalName}:`)
+    console.log("- Backups would be created before overwriting changed files")
+    console.log("- Files would be restored from registry templates")
+
+    for (const file of item.files) {
+      console.log(`~ ${file}`)
+    }
+
+    console.log("\nDry run: no files will be changed.")
+    await checkItemFiles(name)
+    return false
+  }
+
+  return await applyItemOverwrite(name, true)
 }

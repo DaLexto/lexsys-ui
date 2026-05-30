@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const alertRegistryItem: RegistryItem = {
   name: "alert",
   canonicalName: "Alert",
-  version: "0.0.1",
   type: "component",
   category: "feedback",
   aliases: ["notice", "message"],

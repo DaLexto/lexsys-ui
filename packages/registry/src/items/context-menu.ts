@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const contextMenuRegistryItem: RegistryItem = {
   name: "context-menu",
   canonicalName: "ContextMenu",
-  version: "0.0.1",
   type: "component",
   category: "overlays",
   aliases: [],

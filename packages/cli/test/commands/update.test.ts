@@ -75,7 +75,7 @@ describe("runUpdate", () => {
         version: "v4",
         css: "src/style.css",
       },
-      installed: {},
+      installed: [] as string[],
     })
     await mkdir(join(tempDir, "src"), { recursive: true })
     await mkdir(join(tempDir, "styles"), { recursive: true })
@@ -128,7 +128,7 @@ describe("runUpdate", () => {
       "stale local edit",
     )
     expect(console.log).toHaveBeenCalledWith(
-      expect.stringContaining("template sync"),
+      expect.stringContaining("can be updated from registry templates"),
     )
 
     await runUpdate(["button", "--sync", "--force"])

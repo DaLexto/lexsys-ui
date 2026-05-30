@@ -42,7 +42,6 @@ const isRegistryItem = (value: unknown): value is RegistryItem => {
   return (
     typeof item.name === "string" &&
     typeof item.canonicalName === "string" &&
-    typeof item.version === "string" &&
     typeof item.type === "string" &&
     typeof item.category === "string" &&
     Array.isArray(item.aliases) &&

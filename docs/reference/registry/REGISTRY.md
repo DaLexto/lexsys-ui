@@ -23,20 +23,19 @@ about what to install, and templates to copy.
 
 Every installable item MUST declare all of the following fields:
 
-| Field                  | Type                                             | Contract                                                     |
-| ---------------------- | ------------------------------------------------ | ------------------------------------------------------------ |
-| `name`                 | `string`                                         | Lowercase lookup key; unique across the registry             |
-| `canonicalName`        | `string`                                         | PascalCase display name; matches component folder name       |
-| `version`              | `string`                                         | Semver string; used by `status` and `update` to detect drift |
-| `type`                 | `"component" \| "block" \| "utility" \| "style"` | Determines install behavior and path conventions             |
-| `category`             | `RegistryItemCategory`                           | Groups items in `list` output                                |
-| `aliases`              | `string[]`                                       | Alternative lookup names; MAY be empty                       |
-| `files`                | `string[]`                                       | Template-relative paths of files to copy                     |
-| `dependencies`         | `string[]`                                       | npm packages the CLI MUST install                            |
-| `registryDependencies` | `string[]`                                       | Other registry items that MUST be installed first            |
-| `utilities`            | `string[]`                                       | Shared utility names the CLI MUST resolve and install        |
-| `styles`               | `string[]`                                       | Style names the CLI MUST resolve and install                 |
-| `target`               | `string`                                         | Default consumer project install path                        |
+| Field                  | Type                                             | Contract                                               |
+| ---------------------- | ------------------------------------------------ | ------------------------------------------------------ |
+| `name`                 | `string`                                         | Lowercase lookup key; unique across the registry       |
+| `canonicalName`        | `string`                                         | PascalCase display name; matches component folder name |
+| `type`                 | `"component" \| "block" \| "utility" \| "style"` | Determines install behavior and path conventions       |
+| `category`             | `RegistryItemCategory`                           | Groups items in `list` output                          |
+| `aliases`              | `string[]`                                       | Alternative lookup names; MAY be empty                 |
+| `files`                | `string[]`                                       | Template-relative paths of files to copy               |
+| `dependencies`         | `string[]`                                       | npm packages the CLI MUST install                      |
+| `registryDependencies` | `string[]`                                       | Other registry items that MUST be installed first      |
+| `utilities`            | `string[]`                                       | Shared utility names the CLI MUST resolve and install  |
+| `styles`               | `string[]`                                       | Style names the CLI MUST resolve and install           |
+| `target`               | `string`                                         | Default consumer project install path                  |
 
 ### Primitives (`type: "component"`)
 
@@ -84,7 +83,6 @@ Example block metadata (from `packages/registry/src/items/sidebar.ts`):
 export const sidebarRegistryItem: RegistryItem = {
   name: "sidebar",
   canonicalName: "Sidebar",
-  version: "0.0.1",
   type: "block",
   category: "blocks",
   aliases: [],
@@ -112,7 +110,6 @@ Example template metadata (from `packages/registry/src/items/dashboard-shell.ts`
 export const dashboardShellRegistryItem: RegistryItem = {
   name: "dashboard-shell",
   canonicalName: "DashboardShell",
-  version: "0.0.1",
   type: "block",
   category: "layout",
   aliases: ["dashboard-template"],

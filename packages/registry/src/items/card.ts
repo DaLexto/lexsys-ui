@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const cardRegistryItem: RegistryItem = {
   name: "card",
   canonicalName: "Card",
-  version: "0.0.1",
   type: "component",
   category: "layout",
   aliases: ["panel", "surface"],

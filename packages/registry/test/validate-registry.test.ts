@@ -57,7 +57,6 @@ const toRegistryTemplate = (source: string): string => {
 const item: RegistryItem = {
   name: "button",
   canonicalName: "Button",
-  version: "0.0.1",
   type: "component",
   category: "actions",
   aliases: ["btn"],
@@ -329,7 +328,6 @@ describe("validateRegistry", () => {
     const formField: RegistryItem = {
       name: "form-field",
       canonicalName: "FormField",
-      version: "0.0.1",
       type: "block",
       category: "blocks",
       aliases: [],
@@ -344,7 +342,6 @@ describe("validateRegistry", () => {
     const sidebar: RegistryItem = {
       name: "sidebar",
       canonicalName: "Sidebar",
-      version: "0.0.1",
       type: "block",
       category: "blocks",
       aliases: [],
@@ -379,7 +376,6 @@ describe("validateRegistry", () => {
     const dashboardShell: RegistryItem = {
       name: "dashboard-shell",
       canonicalName: "DashboardShell",
-      version: "0.0.1",
       type: "block",
       category: "layout",
       aliases: [],
@@ -394,7 +390,6 @@ describe("validateRegistry", () => {
     const sidebarBlock: RegistryItem = {
       name: "sidebar",
       canonicalName: "Sidebar",
-      version: "0.0.1",
       type: "block",
       category: "blocks",
       aliases: [],
@@ -415,7 +410,6 @@ describe("validateRegistry", () => {
     const sidebarBlock: RegistryItem = {
       name: "sidebar",
       canonicalName: "Sidebar",
-      version: "0.0.1",
       type: "block",
       category: "blocks",
       aliases: [],
@@ -430,7 +424,6 @@ describe("validateRegistry", () => {
     const dashboardShell: RegistryItem = {
       name: "dashboard-shell",
       canonicalName: "DashboardShell",
-      version: "0.0.1",
       type: "block",
       category: "layout",
       aliases: [],
@@ -451,7 +444,6 @@ describe("validateRegistry", () => {
     const blockA: RegistryItem = {
       name: "block-a",
       canonicalName: "BlockA",
-      version: "0.0.1",
       type: "block",
       category: "blocks",
       aliases: [],
@@ -466,7 +458,6 @@ describe("validateRegistry", () => {
     const blockB: RegistryItem = {
       name: "block-b",
       canonicalName: "BlockB",
-      version: "0.0.1",
       type: "block",
       category: "blocks",
       aliases: [],

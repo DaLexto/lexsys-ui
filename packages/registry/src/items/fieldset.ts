@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const fieldsetRegistryItem: RegistryItem = {
   name: "fieldset",
   canonicalName: "Fieldset",
-  version: "0.0.1",
   type: "component",
   category: "forms",
   aliases: [],

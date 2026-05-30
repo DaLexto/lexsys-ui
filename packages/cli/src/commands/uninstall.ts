@@ -1,4 +1,9 @@
 import type { RegistryItem } from "@dalexto/lexsys-registry"
+import {
+  findInstalledKey,
+  isInstalled,
+  removeInstalled,
+} from "../config/installed.js"
 import { loadConfig, saveConfig } from "../config/config.js"
 import {
   uninstallItemFiles,
@@ -28,20 +33,14 @@ import {
   printUninstallSummary,
 } from "../install/results.js"
 
-const normalizeInstalledKey = (name: string): string => {
-  return name.toLowerCase()
-}
-
 const resolveInstalledItems = async (
-  installed: Record<string, string>,
+  installed: string[],
 ): Promise<RegistryItem[]> => {
-  const names = Object.keys(installed)
-
-  if (!names.length) {
+  if (!installed.length) {
     return []
   }
 
-  return resolveRegistryItems(names)
+  return resolveRegistryItems(installed)
 }
 
 const collectOrphanedSharedResources = (
@@ -66,19 +65,6 @@ const collectOrphanedSharedResources = (
   }
 }
 
-const removeInstalledKey = (
-  installed: Record<string, string>,
-  itemName: string,
-): void => {
-  const installedKey = Object.keys(installed).find((key) => {
-    return normalizeInstalledKey(key) === normalizeInstalledKey(itemName)
-  })
-
-  if (installedKey) {
-    delete installed[installedKey]
-  }
-}
-
 export const runUninstall = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run", "-d")
   const withDeps = hasFlag(args, "--with-deps", "-w")
@@ -96,7 +82,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
 
   if (!targetArgs.length) {
     const preConfig = await loadConfig()
-    const installedNames = Object.keys(preConfig.installed ?? {})
+    const installedNames = preConfig.installed ?? []
 
     if (installedNames.length === 0) {
       console.log("No components installed.")
@@ -115,7 +101,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
   }
 
   const config = await loadConfig()
-  const installed = config.installed ?? {}
+  const installed = [...(config.installed ?? [])]
   const resolvedTargets: RegistryItem[] = []
   const notTracked: string[] = []
 
@@ -127,11 +113,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
       continue
     }
 
-    const installedKey = Object.keys(installed).find((key) => {
-      return normalizeInstalledKey(key) === normalizeInstalledKey(item.name)
-    })
-
-    if (!installedKey) {
+    if (!isInstalled(installed, item.name)) {
       notTracked.push(name)
       console.log(`Component "${name}" is not tracked as installed.`)
       continue
@@ -148,11 +130,11 @@ export const runUninstall = async (args: string[]): Promise<void> => {
     return
   }
 
-  const remainingInstalled = { ...installed }
-
-  for (const item of resolvedTargets) {
-    removeInstalledKey(remainingInstalled, item.name)
-  }
+  const remainingInstalled = installed.filter((entry) => {
+    return !resolvedTargets.some((item) => {
+      return findInstalledKey([entry], item.name) !== undefined
+    })
+  })
 
   const allItems = await getRegistryItems({ fallback: !noFallback })
   const orphanItems = withDeps
@@ -181,9 +163,7 @@ export const runUninstall = async (args: string[]): Promise<void> => {
 
     console.log("Components:")
     for (const item of resolvedTargets) {
-      console.log(
-        `- ${item.canonicalName} v${installed[item.name] ?? "unknown"}`,
-      )
+      console.log(`- ${item.canonicalName}`)
     }
 
     if (withDeps && orphanItems.length) {
@@ -202,11 +182,13 @@ export const runUninstall = async (args: string[]): Promise<void> => {
       }
     }
 
-    const postOrphanRemaining = { ...remainingInstalled }
+    const postOrphanRemaining = remainingInstalled.filter((entry) => {
+      if (!withDeps) {
+        return true
+      }
 
-    for (const item of withDeps ? orphanItems : []) {
-      removeInstalledKey(postOrphanRemaining, item.name)
-    }
+      return !orphanItems.some((item) => isInstalled([entry], item.name))
+    })
 
     const dryRunOrphans = collectOrphanedSharedResources(
       allRemovalTargets,
@@ -249,13 +231,13 @@ export const runUninstall = async (args: string[]): Promise<void> => {
     console.log("")
   }
 
-  const postUninstallInstalled = { ...installed }
+  let updatedInstalled = [...installed]
 
   for (const item of successfullyUninstalled) {
-    removeInstalledKey(postUninstallInstalled, item.name)
+    updatedInstalled = removeInstalled(updatedInstalled, item.name)
   }
 
-  const remainingItems = await resolveInstalledItems(postUninstallInstalled)
+  const remainingItems = await resolveInstalledItems(updatedInstalled)
   const orphanedResources = collectOrphanedSharedResources(
     successfullyUninstalled,
     remainingItems,
@@ -278,14 +260,6 @@ export const runUninstall = async (args: string[]): Promise<void> => {
 
   const utilitiesResult = await uninstallUtilities(resolvedUtilities, config)
   const stylesResult = await uninstallStyles(resolvedStyles, config)
-
-  const updatedInstalled = {
-    ...installed,
-  }
-
-  for (const item of successfullyUninstalled) {
-    removeInstalledKey(updatedInstalled, item.name)
-  }
 
   await saveConfig({
     ...config,

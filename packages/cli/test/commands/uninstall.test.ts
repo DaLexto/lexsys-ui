@@ -73,9 +73,9 @@ describe("runUninstall", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({})
+    expect(config.installed).toEqual([])
     expect(consoleOutput()).toContain("- untracked components: 1/1")
     expect(consoleOutput()).toContain("- components: 3 removed")
   })
@@ -92,9 +92,9 @@ describe("runUninstall", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(config.installed).toEqual(["button"])
     expect(consoleOutput()).toContain("Dry run: no files will be removed.")
   })
 
@@ -111,9 +111,9 @@ describe("runUninstall", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(config.installed).toEqual(["button"])
     expect(consoleOutput()).toContain("- untracked components: 0/1")
     expect(consoleOutput()).toContain("1 conflicted")
   })
@@ -140,9 +140,9 @@ describe("runUninstall", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({ input: "0.0.1" })
+    expect(config.installed).toEqual(["input"])
     expect(consoleOutput()).toContain("- untracked components: 1/1")
   })
 
@@ -157,9 +157,9 @@ describe("runUninstall", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({})
+    expect(config.installed).toEqual([])
     expect(consoleOutput()).toContain("- shared resources:")
   })
 
@@ -177,9 +177,9 @@ describe("runUninstall", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(config.installed).toEqual(["button"])
     expect(consoleOutput()).toContain("Shared resources eligible for removal:")
     expect(consoleOutput()).toContain("- utility: cn")
     expect(consoleOutput()).toContain("- style: theme")
@@ -198,9 +198,9 @@ describe("runUninstall", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({})
+    expect(config.installed).toEqual([])
     expect(consoleOutput()).toContain("- untracked components: 1/1")
     expect(consoleOutput()).toContain("- shared resources:")
     expect(consoleOutput()).toContain("1 conflicted")

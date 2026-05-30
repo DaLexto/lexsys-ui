@@ -30,10 +30,6 @@ export const validateRegistryItem = (item: RegistryItem): void => {
     throw new Error(`Registry item "${item.name}" has invalid 'canonicalName'`)
   }
 
-  if (isEmpty(item.version)) {
-    throw new Error(`Registry item "${item.name}" has invalid 'version'`)
-  }
-
   if (!item.files || !item.files.length) {
     throw new Error(
       `Registry item "${item.name}" must define at least one file`,

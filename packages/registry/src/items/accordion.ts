@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const accordionRegistryItem: RegistryItem = {
   name: "accordion",
   canonicalName: "Accordion",
-  version: "0.0.1",
   type: "component",
   category: "data-display",
   aliases: ["collapse"],

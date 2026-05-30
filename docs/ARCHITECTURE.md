@@ -132,7 +132,6 @@ Every installable item is declared as a `RegistryItem` in
 | Field                    | Purpose                                                                                 |
 | ------------------------ | --------------------------------------------------------------------------------------- |
 | `name` / `canonicalName` | Registry key + PascalCase folder name                                                   |
-| `version`                | Item version (tracked in `lexsys.config.json` after install)                            |
 | `type` / `category`      | `component`, `block`, `utility`, or `style`; category includes `blocks`, `layout`, etc. |
 | `files`                  | Template paths relative to `packages/registry/templates/`                               |
 | `dependencies`           | npm packages the CLI installs into the consumer project                                 |
@@ -158,7 +157,8 @@ build time.
 | `lexsys update [items...] \| --all` | Update tracked components; supports `--dry-run`, `--force`, `--yes`                   |
 | `lexsys update styles`              | Update theme/token CSS files only                                                     |
 | `lexsys list [--json]`              | List available registry items                                                         |
-| `lexsys status`                     | Show installed component versions                                                     |
+| `lexsys status`                     | Show installed components and template drift                                          |
+| `lexsys reset`                      | Restore installed components from registry templates (with backup)                    |
 | `lexsys doctor`                     | Check project health (config, paths, registry connectivity)                           |
 | `lexsys uninstall [items...]`       | Remove tracked components from config                                                 |
 | `lexsys registry`                   | Inspect the active registry source                                                    |
@@ -269,7 +269,7 @@ Paths are configurable via `lexsys.config.json` (`paths.components`,
     "hooks": "@/hooks"
   },
   "tailwind": { "version": "v4", "css": "src/style.css" },
-  "installed": { "button": "0.0.1" },
+  "installed": ["button"],
   "registryUrl": null
 }
 ```
@@ -291,7 +291,7 @@ lexsys add button
   7. Install token/theme CSS files (skip generated-file header check)
   8. Copy template files to paths.components/<CanonicalName>/
   9. Rewrite cross-layer imports for flat consumer layout (blocks/templates)
- 10. Record item version in installed map; save config
+ 10. Record item name in `installed` array; save config
  11. Print created / updated / skipped / conflicted summary
 ```
 

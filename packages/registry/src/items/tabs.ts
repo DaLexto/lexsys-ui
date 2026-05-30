@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const tabsRegistryItem: RegistryItem = {
   name: "tabs",
   canonicalName: "Tabs",
-  version: "0.0.1",
   type: "component",
   category: "navigation",
   aliases: ["tab"],

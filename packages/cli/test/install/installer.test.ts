@@ -32,7 +32,7 @@ const config: LexsysConfig = {
     version: "v4",
     css: "src/style.css",
   },
-  installed: {},
+  installed: [] as string[],
   registryUrl: null,
 }
 

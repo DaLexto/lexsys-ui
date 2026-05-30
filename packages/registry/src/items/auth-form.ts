@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const authFormRegistryItem: RegistryItem = {
   name: "auth-form",
   canonicalName: "AuthForm",
-  version: "0.0.2",
   type: "block",
   category: "blocks",
   aliases: ["login-form"],

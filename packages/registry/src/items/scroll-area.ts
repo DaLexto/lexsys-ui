@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const scrollAreaRegistryItem: RegistryItem = {
   name: "scroll-area",
   canonicalName: "ScrollArea",
-  version: "0.0.1",
   type: "component",
   category: "layout",
   aliases: ["scroll"],

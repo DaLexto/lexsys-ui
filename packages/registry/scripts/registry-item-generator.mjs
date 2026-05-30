@@ -263,7 +263,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const ${itemVariableName}: RegistryItem = {
   name: "${itemName}",
   canonicalName: "${componentName}",
-  version: "0.0.1",
   type: "component",
   category: "${getCategory(componentName)}",
   aliases: [],

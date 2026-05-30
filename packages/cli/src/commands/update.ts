@@ -1,4 +1,4 @@
-import { loadConfig, saveConfig } from "../config/config.js"
+import { loadConfig } from "../config/config.js"
 import {
   collectUtilities,
   findItem,
@@ -15,15 +15,18 @@ import {
   printResourceSummary,
 } from "../install/results.js"
 import type { LexsysConfig } from "../config/config.js"
+import { findInstalledKey, isInstalled } from "../config/installed.js"
 
 const styleUpdateNames = ["theme"]
 
 const resolveInstalledKey = async (
   name: string,
-  installed: Record<string, string>,
+  installed: string[],
 ): Promise<string | undefined> => {
-  if (installed[name]) {
-    return name
+  const direct = findInstalledKey(installed, name)
+
+  if (direct) {
+    return direct
   }
 
   const item = await findItem(name)
@@ -32,7 +35,7 @@ const resolveInstalledKey = async (
     return undefined
   }
 
-  return installed[item.name] ? item.name : undefined
+  return findInstalledKey(installed, item.name)
 }
 
 const runStylesUpdate = async (
@@ -68,14 +71,12 @@ const runStylesUpdate = async (
 
 const runUtilitiesUpdate = async (
   config: LexsysConfig,
-  installed: Record<string, string>,
+  installed: string[],
   dryRun: boolean,
   force: boolean,
 ): Promise<void> => {
   const installedItems = (
-    await Promise.all(
-      Object.keys(installed).map(async (name) => findItem(name)),
-    )
+    await Promise.all(installed.map(async (name) => findItem(name)))
   ).filter((item): item is NonNullable<typeof item> => Boolean(item))
 
   const utilityNames = collectUtilities(installedItems)
@@ -110,40 +111,26 @@ const runUtilitiesUpdate = async (
 }
 
 const runComponentUpdates = async (
-  config: LexsysConfig,
-  installed: Record<string, string>,
+  installed: string[],
   targetNames: string[],
   dryRun: boolean,
   force: boolean,
   sync: boolean,
-): Promise<boolean> => {
-  let changed = false
-
-  if (!Object.keys(installed).length) {
+): Promise<void> => {
+  if (!installed.length) {
     console.log("No Lexsys components are currently tracked.")
-    return false
+    return
   }
 
   console.log("Checking installed Lexsys components:\n")
 
   for (const name of targetNames) {
-    const version = installed[name]
-
-    if (!version) {
+    if (!isInstalled(installed, name)) {
       continue
     }
 
-    const didUpdate = await checkItemUpdate(name, version, dryRun, force, sync)
-
-    const item = await findItem(name)
-
-    if (didUpdate && item) {
-      installed[name] = item.version
-      changed = true
-    }
+    await checkItemUpdate(name, dryRun, force, sync)
   }
-
-  return changed
 }
 
 export const runUpdate = async (args: string[]): Promise<void> => {
@@ -174,7 +161,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   ])
 
   const config = await loadConfig()
-  const installed = { ...(config.installed ?? {}) }
+  const installed = [...(config.installed ?? [])]
 
   try {
     await getRegistryProviderResult({
@@ -188,9 +175,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
   }
 
   if (!updateAll && !stylesFlag && !utilitiesFlag && targetArgs.length === 0) {
-    const installedNames = Object.keys(installed)
-
-    if (installedNames.length === 0) {
+    if (installed.length === 0) {
       console.log(
         "No components installed. Run `lexsys add <component>` first.",
       )
@@ -198,11 +183,11 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     }
 
     if (yes) {
-      targetArgs.push(...installedNames)
+      targetArgs.push(...installed)
     } else {
       const selected = await promptMultiselect(
         "Select components to update",
-        installedNames.map((name) => ({ title: name, value: name })),
+        installed.map((name) => ({ title: name, value: name })),
         { min: 1 },
       )
 
@@ -239,17 +224,8 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     return
   }
 
-  let changed = false
-
   if (updateAll) {
-    changed = await runComponentUpdates(
-      config,
-      installed,
-      Object.keys(installed),
-      dryRun,
-      force,
-      sync,
-    )
+    await runComponentUpdates(installed, installed, dryRun, force, sync)
   } else {
     for (const name of targetArgs) {
       const installedKey = await resolveInstalledKey(name, installed)
@@ -259,25 +235,7 @@ export const runUpdate = async (args: string[]): Promise<void> => {
         continue
       }
 
-      const didUpdateOne = await runComponentUpdates(
-        config,
-        installed,
-        [installedKey],
-        dryRun,
-        force,
-        sync,
-      )
-
-      if (didUpdateOne) {
-        changed = true
-      }
+      await runComponentUpdates(installed, [installedKey], dryRun, force, sync)
     }
-  }
-
-  if (changed) {
-    await saveConfig({
-      ...config,
-      installed,
-    })
   }
 }

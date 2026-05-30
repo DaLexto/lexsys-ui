@@ -69,16 +69,16 @@ export const runDoctor = async (
     return
   }
 
-  const installed = config.installed ?? {}
+  const installed = config.installed ?? []
 
-  if (Object.keys(installed).length) {
+  if (installed.length) {
     console.log("\nTracked components:")
 
-    for (const [name, version] of Object.entries(installed)) {
+    for (const name of installed) {
       const item = await findItem(name)
 
       if (!item) {
-        console.log(`× ${name} v${version} (missing from registry)`)
+        console.log(`× ${name} (missing from registry)`)
         continue
       }
 
@@ -89,9 +89,7 @@ export const runDoctor = async (
       const exists = await fileExists(componentPath)
       const layer = getInstallLayer(item) ?? "unknown"
 
-      console.log(
-        `${exists ? "✓" : "×"} ${item.canonicalName} v${version} (${layer})`,
-      )
+      console.log(`${exists ? "✓" : "×"} ${item.canonicalName} (${layer})`)
     }
   }
 }

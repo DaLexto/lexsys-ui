@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const formRegistryItem: RegistryItem = {
   name: "form",
   canonicalName: "Form",
-  version: "0.0.1",
   type: "component",
   category: "forms",
   aliases: [],

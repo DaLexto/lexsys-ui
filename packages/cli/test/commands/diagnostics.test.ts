@@ -26,7 +26,6 @@ vi.mock("../../src/registry/provider.js", () => {
 const item: RegistryItem = {
   name: "button",
   canonicalName: "Button",
-  version: "0.0.1",
   type: "component",
   category: "actions",
   aliases: ["btn"],
@@ -100,10 +99,10 @@ describe("CLI diagnostic commands", () => {
     )
   })
 
-  test("runStatus reports installed component versions", async () => {
+  test("runStatus reports installed component drift status", async () => {
     await writeJson(join(tempDir, "lexsys.config.json"), {
       ...defaultConfig,
-      installed: { button: "0.0.1" },
+      installed: ["button"],
     })
     await mkdir(join(tempDir, "src/components/ui/Button"), {
       recursive: true,
@@ -120,7 +119,7 @@ describe("CLI diagnostic commands", () => {
     await runStatus()
 
     expect(consoleOutput()).toContain("Installed Lexsys components:")
-    expect(consoleOutput()).toContain("- Button v0.0.1 (up to date)")
+    expect(consoleOutput()).toContain("- Button (out of sync with registry)")
   })
 
   test("runList prints registry items", async () => {
@@ -130,7 +129,7 @@ describe("CLI diagnostic commands", () => {
 
     expect(consoleOutput()).toContain("Available Lexsys registry items:")
     expect(consoleOutput()).toContain("Primitives:")
-    expect(consoleOutput()).toContain("- Button v0.0.1 (actions)")
+    expect(consoleOutput()).toContain("- Button (actions)")
   })
 
   test("runList supports json output", async () => {

@@ -190,26 +190,23 @@ lexsys update --all --yes
 | `--all`         |       | Update all components tracked in `lexsys.config.json`                     |
 | `--styles`      |       | Update token/theme CSS files (generated output auto-updates when stale)   |
 | `--utilities`   |       | Update shared utility files such as `utils.ts` from installed components  |
-| `--sync`        |       | Refresh tracked component templates even when installed version matches   |
+| `--sync`        |       | Refresh tracked component templates even when files already match         |
 | `--dry-run`     | `-d`  | Preview what would change; no writes; reports conflict/identical per file |
 | `--force`       |       | Write conflicted files after creating `.bak` timestamped backups          |
 | `--yes`         |       | Auto-confirm safe prompts                                                 |
 | `--no-fallback` |       | Fail if remote registry unavailable                                       |
 
-**Version check:** an update is available when the registry item version is
-semver-greater than the installed version recorded in `lexsys.config.json`.
-Use **`--sync`** when the installed version already matches but registry
-templates changed (for example after a Lexsys patch that did not bump item
-versions).
+**Drift check:** an update is available when any installed file differs from
+the active registry template (content hash). Use **`--sync`** to run the same
+check even when you only want to reconcile templates without assuming prior
+drift (for example after upgrading `@dalexto/lexsys`).
 
 **Per-file update logic:**
 
 - Missing file → restored.
 - Identical file → skipped.
-- Differs, no `--force` → reported as conflict; installed version unchanged.
+- Differs, no `--force` → reported as conflict; files left unchanged.
 - Differs, `--force` → backup created as `<file>.<ISO-timestamp>.bak`; file overwritten.
-
-Components that complete without conflicts have their version updated in config.
 
 **`--styles`** updates token/theme CSS files (the `theme` style manifest) using
 the same generated-file auto-update path as `add`.
@@ -236,10 +233,10 @@ lexsys list
 lexsys list --json
 ```
 
-| Flag            | Alias | Description                                                                       |
-| --------------- | ----- | --------------------------------------------------------------------------------- |
-| `--json`        | `-j`  | Output as JSON array with `name`, `canonicalName`, `version`, `category`, `layer` |
-| `--no-fallback` |       | Fail if remote registry unavailable                                               |
+| Flag            | Alias | Description                                                            |
+| --------------- | ----- | ---------------------------------------------------------------------- |
+| `--json`        | `-j`  | Output as JSON array with `name`, `canonicalName`, `category`, `layer` |
+| `--no-fallback` |       | Fail if remote registry unavailable                                    |
 
 Default output groups items by install layer (`Primitives`, `Blocks`, `Templates`):
 
@@ -247,11 +244,11 @@ Default output groups items by install layer (`Primitives`, `Blocks`, `Templates
 Available Lexsys registry items:
 
 Primitives:
-- Button v… (actions)
+- Button (actions)
 …
 
 Blocks:
-- Sidebar v… (blocks)
+- Sidebar (blocks)
 …
 ```
 
@@ -259,19 +256,19 @@ Blocks:
 
 ### `status`
 
-Show installed component versions and update availability.
+Show installed components and template drift vs the active registry.
 
 ```bash
 lexsys status
 ```
 
-Reads the `installed` map from `lexsys.config.json` and compares each recorded
-version against the active registry. Output per component:
+Reads the `installed` array from `lexsys.config.json` and compares each
+component's files against registry templates. Output per component:
 
 ```txt
-- Button v0.0.1 (up to date)
-- Dialog v0.0.1 (update available: v0.0.1 → v0.0.2)
-- Input v0.0.1 (missing from registry)
+- Button (up to date with registry)
+- Dialog (out of sync with registry)
+- Input (missing from registry)
 ```
 
 If no components are tracked: `"No Lexsys components are currently tracked."`
@@ -349,6 +346,28 @@ lexsys registry --no-fallback
 | `--local`       | `-l`  | Read only the bundled `@dalexto/lexsys-registry` package; ignore remote URL                 |
 | `--remote`      | `-r`  | Read only the remote URL from config; error if none configured                              |
 | `--no-fallback` |       | Disable local fallback for the default resolution path                                      |
+
+---
+
+### `reset`
+
+Restore installed component files from registry templates. Always overwrites
+files that differ from templates (with `.bak` backups). Does not change the
+`installed` list.
+
+```bash
+lexsys reset button
+lexsys reset button --dry-run
+lexsys reset sidebar --with-deps
+```
+
+| Flag            | Alias | Description                                                               |
+| --------------- | ----- | ------------------------------------------------------------------------- |
+| `--dry-run`     | `-d`  | Preview files that would be reset; no writes                              |
+| `--with-deps`   | `-w`  | Also reset installed items in the target's `registryDependencies` closure |
+| `--no-fallback` |       | Fail if remote registry unavailable                                       |
+
+Run without arguments for a guided picker (same as `update` / `uninstall`).
 
 ---
 
@@ -449,7 +468,7 @@ imports to sibling paths on install (for example `../Button/Button`).
 | `aliases.hooks`      | `"@/hooks"`           |
 | `tailwind.version`   | `"v4"`                |
 | `tailwind.css`       | `"src/style.css"`     |
-| `installed`          | `{}`                  |
+| `installed`          | `[]`                  |
 | `registryUrl`        | `null`                |
 
 `tailwind.version` is a type literal locked to `"v4"`. Tailwind v3 is not
@@ -481,7 +500,7 @@ Remote manifests MUST be JSON fetched over HTTPS. The CLI parses payloads with
 | Legacy array    | bare `RegistryItem[]`                                  | Accepted; `version` becomes `"unknown"` |
 
 Each `items[]` entry MUST match the local registry item shape (`name`,
-`canonicalName`, `version`, `type`, `category`, `aliases`, `files`,
+`canonicalName`, `type`, `category`, `aliases`, `files`,
 `dependencies`, `registryDependencies`, `utilities`, `styles`, `target`).
 Optional `styles[]` entries follow the local style manifest shape (`name`,
 `version`, `files[]` with `path` + `target`).
@@ -539,4 +558,5 @@ is printed. All errors exit with code 1.
 - Style files starting with `/* Generated by @dalexto/lexsys-tokens. Do not edit directly. */`
   are auto-updated without conflict because they are not user-owned.
 - Items with any conflict during `add` are not recorded in the installed map.
-- Items with conflicts during `update` do not have their version bumped.
+- Items with conflicts during `update` leave files unchanged unless `--force` is used.
+- Legacy `installed` maps (`{ "button": "0.0.1" }`) migrate to `["button"]` on load.

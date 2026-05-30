@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const textareaRegistryItem: RegistryItem = {
   name: "textarea",
   canonicalName: "Textarea",
-  version: "0.0.1",
   type: "component",
   category: "forms",
   aliases: [],

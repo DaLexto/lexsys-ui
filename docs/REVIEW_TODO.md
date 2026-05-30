@@ -31,6 +31,7 @@ that are not yet done.
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 | CS      | Component standardization before new component expansion            | planned |
+| M12     | CLI command optimization (audit, merge candidates, cleanup)         | planned |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
@@ -236,6 +237,22 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~Governance promotion (semantic audit errors)~~ — `LEXSYS_GOVERNANCE_POLICY` (M3.4)
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
 - ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI variants](./reference/ui/UI_VARIANTS.md))
+
+## M12 — CLI command optimization (planned)
+
+Detail: [Roadmap § M12](./ROADMAP.md#m12--cli-command-optimization).
+
+**Scope:** Small–medium PRs only — no mega-refactor. Separate from version-removal / config migration work.
+
+| ID    | Focus                                                                 | Status  |
+| ----- | --------------------------------------------------------------------- | ------- |
+| M12.1 | Audit command names (logic, aliases from M4, help grouping)           | planned |
+| M12.2 | Overlapping commands — candidates to merge (e.g. status vs doctor)    | planned |
+| M12.3 | CLI cleanup (dead code, duplicate output, help sections)              | planned |
+| M12.4 | UX optimizations (guided modes, flags, error hints) — one PR per item | planned |
+| M12.5 | Reserved — additional proposals TBD                                   | planned |
+
+---
 
 ## SI — Script Improvements
 

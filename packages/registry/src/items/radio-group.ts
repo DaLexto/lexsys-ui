@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const radioGroupRegistryItem: RegistryItem = {
   name: "radio-group",
   canonicalName: "RadioGroup",
-  version: "0.0.1",
   type: "component",
   category: "forms",
   aliases: ["radio"],

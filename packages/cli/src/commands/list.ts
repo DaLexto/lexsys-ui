@@ -22,7 +22,6 @@ export const runList = async (options: RunListOptions = {}): Promise<void> => {
       const simplified = registryItems.map((item) => ({
         name: item.name,
         canonicalName: item.canonicalName,
-        version: item.version,
         category: item.category,
         layer: getInstallLayer(item),
       }))
@@ -52,9 +51,7 @@ export const runList = async (options: RunListOptions = {}): Promise<void> => {
       console.log(`${layerLabels[layer] ?? layer}:`)
 
       for (const item of items) {
-        console.log(
-          `- ${item.canonicalName} v${item.version} (${item.category})`,
-        )
+        console.log(`- ${item.canonicalName} (${item.category})`)
       }
 
       console.log("")

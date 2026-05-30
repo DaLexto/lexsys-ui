@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const previewCardRegistryItem: RegistryItem = {
   name: "preview-card",
   canonicalName: "PreviewCard",
-  version: "0.0.1",
   type: "component",
   category: "overlays",
   aliases: [],

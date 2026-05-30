@@ -17,7 +17,20 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
-_No unreleased changes yet._
+### Added
+
+- **`lexsys reset`** — restore installed component files from registry templates with backup before overwrite; `--dry-run`, `--with-deps` for installed closure dependencies
+
+### Changed
+
+- **`lexsys.config.json` `installed`** — now a `string[]` of component names (was `Record<string, string>` per-item versions). Legacy map shapes migrate automatically on load (keys become names).
+- **`status` / `update`** — drift detection uses file content vs registry templates, not per-item semver.
+- **Registry items** — removed per-item `version` field; manifest-level registry version unchanged.
+
+### Migration
+
+- Existing configs with `"installed": { "button": "0.0.1" }` load as `"installed": ["button"]` on the next CLI command that reads config.
+- Re-run `lexsys update` or `lexsys reset` when templates change after upgrading `@dalexto/lexsys`.
 
 ---
 

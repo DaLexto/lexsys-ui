@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const toggleRegistryItem: RegistryItem = {
   name: "toggle",
   canonicalName: "Toggle",
-  version: "0.0.1",
   type: "component",
   category: "actions",
   aliases: ["toggle-button"],

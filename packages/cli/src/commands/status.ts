@@ -1,6 +1,7 @@
 import { loadConfig } from "../config/config.js"
 import { findItem } from "../registry/resolver.js"
 import { getRegistryProviderResult } from "../registry/provider.js"
+import { getComponentDriftStatus } from "../install/component-drift.js"
 
 interface RunStatusOptions {
   noFallback?: boolean
@@ -10,9 +11,9 @@ export const runStatus = async (
   options: RunStatusOptions = {},
 ): Promise<void> => {
   const config = await loadConfig()
-  const installed = config.installed ?? {}
+  const installed = config.installed ?? []
 
-  if (!Object.keys(installed).length) {
+  if (!installed.length) {
     console.log("No Lexsys components are currently tracked.")
     return
   }
@@ -30,19 +31,20 @@ export const runStatus = async (
 
   console.log("Installed Lexsys components:\n")
 
-  for (const [name, installedVersion] of Object.entries(installed)) {
+  for (const name of installed) {
     const item = await findItem(name)
 
     if (!item) {
-      console.log(`- ${name} v${installedVersion} (missing from registry)`)
+      console.log(`- ${name} (missing from registry)`)
       continue
     }
 
+    const driftStatus = await getComponentDriftStatus(name)
     const status =
-      item.version === installedVersion
-        ? "up to date"
-        : `update available: v${installedVersion} → v${item.version}`
+      driftStatus === "drift"
+        ? "out of sync with registry"
+        : "up to date with registry"
 
-    console.log(`- ${item.canonicalName} v${installedVersion} (${status})`)
+    console.log(`- ${item.canonicalName} (${status})`)
   }
 }

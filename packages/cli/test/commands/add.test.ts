@@ -50,9 +50,9 @@ describe("runAdd", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({})
+    expect(config.installed).toEqual([])
     expect(consoleOutput()).toContain("- tracked components: 0/1")
     expect(consoleOutput()).toContain("- components: 2 created, 1 conflicted")
   })
@@ -88,9 +88,9 @@ describe("runAdd", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string>; tailwind?: { css?: string } }
+    ) as { installed?: string[]; tailwind?: { css?: string } }
 
-    expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(config.installed).toEqual(["button"])
     expect(consoleOutput()).toContain("- tracked components: 1/1")
     expect(config.tailwind?.css).toBe("src/style.css")
   })
@@ -112,9 +112,9 @@ describe("runAdd", () => {
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: Record<string, string> }
+    ) as { installed?: string[] }
 
-    expect(config.installed).toEqual({ button: "0.0.1" })
+    expect(config.installed).toEqual(["button"])
     expect(consoleOutput()).toContain("- tracked components: 1/1")
     expect(consoleOutput()).toContain("- shared resources:")
     expect(consoleOutput()).toContain(

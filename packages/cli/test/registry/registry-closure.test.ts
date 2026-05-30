@@ -18,9 +18,7 @@ describe("registry closure", () => {
   })
 
   test("finds orphan items after removing a block with --with-deps semantics", () => {
-    const remainingInstalled = {
-      drawer: "0.0.1",
-    }
+    const remainingInstalled = ["drawer"]
 
     const orphans = findOrphanInstalledItems(
       [sidebarRegistryItem.name],

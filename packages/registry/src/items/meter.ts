@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const meterRegistryItem: RegistryItem = {
   name: "meter",
   canonicalName: "Meter",
-  version: "0.0.1",
   type: "component",
   category: "data-display",
   aliases: [],

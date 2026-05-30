@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const toolbarRegistryItem: RegistryItem = {
   name: "toolbar",
   canonicalName: "Toolbar",
-  version: "0.0.1",
   type: "component",
   category: "layout",
   aliases: [],

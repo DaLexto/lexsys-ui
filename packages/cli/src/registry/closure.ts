@@ -31,10 +31,10 @@ export const computeRegistryClosure = (
 
 export const findOrphanInstalledItems = (
   removedTargetNames: string[],
-  remainingInstalled: Record<string, string>,
+  remainingInstalled: string[],
   items: RegistryItem[],
 ): RegistryItem[] => {
-  const remainingNames = Object.keys(remainingInstalled)
+  const remainingNames = remainingInstalled
   const removedDependencyNames = new Set<string>()
 
   for (const removedName of removedTargetNames) {

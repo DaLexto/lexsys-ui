@@ -142,6 +142,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.agents/skills/`          |
 | M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                |
 | M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
+| M12   | CLI command optimization | planned | Command audit, merge candidates, cleanup, UX polish — small PRs                                   | CLI.md, REVIEW_TODO.md                |
 
 ### M1 — Infra and DX
 
@@ -299,6 +300,26 @@ Status: shipped
 #### Post-M7 — GitHub label sync (shipped)
 
 - Strict namespaced label manifest (`.github/labels.yml`) synced via `github-label-sync` and [`.github/workflows/labels-sync.yml`](../.github/workflows/labels-sync.yml).
+
+### M12 — CLI command optimization
+
+Status: **planned** — backlog only; no implementation contract yet.
+
+Post–M8 polish: command naming audit, overlapping-command merge candidates,
+targeted cleanup, and UX improvements. Execute as **small–medium PRs** (one
+M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12--cli-command-optimization-planned).
+
+| Item  | Focus                                     |
+| ----- | ----------------------------------------- |
+| M12.1 | Command name / alias audit                |
+| M12.2 | Overlap analysis (merge vs keep separate) |
+| M12.3 | Dead code and output deduplication        |
+| M12.4 | Guided mode, flags, error hint polish     |
+| M12.5 | Reserved for follow-up proposals          |
+
+**Verification:** `pnpm cli:check` per sub-item; sandbox smoke when behavior changes.
+
+---
 
 ### M8 — CLI cleanup and deduplication
 

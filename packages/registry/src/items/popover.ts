@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const popoverRegistryItem: RegistryItem = {
   name: "popover",
   canonicalName: "Popover",
-  version: "0.0.1",
   type: "component",
   category: "overlays",
   aliases: [],

@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const formFieldRegistryItem: RegistryItem = {
   name: "form-field",
   canonicalName: "FormField",
-  version: "0.0.2",
   type: "block",
   category: "blocks",
   aliases: [],

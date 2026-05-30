@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const menuRegistryItem: RegistryItem = {
   name: "menu",
   canonicalName: "Menu",
-  version: "0.0.2",
   type: "component",
   category: "overlays",
   aliases: [],

@@ -46,7 +46,7 @@ Options
   --all, -a           Update all tracked components
   --styles, -S        Update generated token/theme CSS files
   --utilities, -u     Update shared utility files
-  --sync              Refresh tracked components even when versions match
+  --sync              Refresh tracked components even when templates already match
   --dry-run, -d       Preview update without writing files
   --force, -f         Write conflicted updates after creating backups
   --yes, -y           Auto-confirm safe prompts
@@ -85,6 +85,24 @@ Usage
 Options
   --no-fallback       Fail instead of falling back to local registry
   --help, -h          Show this help
+`,
+  reset: `
+Usage
+  lexsys reset [component...]
+
+Options
+  --dry-run, -d       Preview reset without writing files
+  --with-deps, -w     Also reset installed registry dependencies in the closure
+  --no-fallback       Fail instead of falling back to local registry
+  --cwd, -C <path>    Run from a different project directory
+  --help, -h          Show this help
+
+  Run without arguments for guided reset picker.
+
+Examples
+  lexsys reset button
+  lexsys reset sidebar --with-deps
+  lexsys reset button --dry-run
 `,
   uninstall: `
 Usage
@@ -169,6 +187,7 @@ Scaffold
 Components
   add <component...>        Install components into your project       [alias: a]
   update [component...]     Update installed components                [alias: up]
+  reset [component...]      Restore components from registry templates
   uninstall [component...]  Remove installed components                [alias: rm]
 
 Inspect

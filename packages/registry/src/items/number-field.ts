@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const numberFieldRegistryItem: RegistryItem = {
   name: "number-field",
   canonicalName: "NumberField",
-  version: "0.0.1",
   type: "component",
   category: "forms",
   aliases: [],

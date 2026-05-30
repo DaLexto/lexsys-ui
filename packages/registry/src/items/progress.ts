@@ -9,7 +9,6 @@ import type { RegistryItem } from "../registry.types.js"
 export const progressRegistryItem: RegistryItem = {
   name: "progress",
   canonicalName: "Progress",
-  version: "0.0.2",
   type: "component",
   category: "feedback",
   aliases: ["progress-bar"],

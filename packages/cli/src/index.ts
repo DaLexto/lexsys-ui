@@ -9,6 +9,7 @@ import { runInit } from "./commands/init.js"
 import { runList } from "./commands/list.js"
 import { runRegistry } from "./commands/registry.js"
 import { runStatus } from "./commands/status.js"
+import { runReset } from "./commands/reset.js"
 import { runUninstall } from "./commands/uninstall.js"
 import { runUpdate } from "./commands/update.js"
 import { runVersion } from "./commands/version.js"
@@ -125,6 +126,15 @@ try {
       setRegistryUrl: getFlagValue(args, "--set-registry-url"),
       clearRegistryUrl: args.includes("--clear-registry-url"),
     })
+    process.exit(0)
+  }
+
+  if (command === "reset") {
+    if (hasFlag(args, "--help", "-h")) {
+      runHelpFor("reset")
+      process.exit(0)
+    }
+    await runReset(args)
     process.exit(0)
   }
 
