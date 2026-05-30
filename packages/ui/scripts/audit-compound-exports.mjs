@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Parses UI component named exports and registry versions; validates or updates
+ * Parses UI component named exports and registry item names; validates or updates
  * docs/reference/ui/UI_CATALOG.md generated region.
  *
  * Usage (from packages/ui):
@@ -72,14 +72,12 @@ function loadRegistryByCanonicalName() {
 
     const source = readFileSync(join(registryItemsDir, file), "utf-8")
     const canonicalName = source.match(/canonicalName:\s*"([^"]+)"/)?.[1]
-    const version = source.match(/version:\s*"([^"]+)"/)?.[1]
     const name = source.match(/name:\s*"([^"]+)"/)?.[1]
     const type = source.match(/type:\s*"([^"]+)"/)?.[1]
 
     if (canonicalName) {
       map.set(canonicalName, {
         name,
-        version: version ?? "?",
         type: type ?? "?",
       })
     }
@@ -135,7 +133,6 @@ function collectComponents() {
         style,
         exports,
         registryName: reg?.name ?? "—",
-        registryVersion: reg?.version ?? "—",
         registryType: reg?.type ?? "—",
       })
     }
@@ -170,12 +167,12 @@ function buildGeneratedSection(rows) {
     const layerRows = rows.filter((row) => row.layer === layer.key)
     lines.push(`### ${layer.label} (${layerRows.length})`)
     lines.push("")
-    lines.push("| Component | Style | Named exports | Registry | Version |")
-    lines.push("| --------- | ----- | ------------- | -------- | ------- |")
+    lines.push("| Component | Style | Named exports | Registry |")
+    lines.push("| --------- | ----- | ------------- | -------- |")
 
     for (const row of layerRows) {
       lines.push(
-        `| **${row.name}** | ${row.style} | \`${formatExports(row.exports)}\` | \`${row.registryName}\` | ${row.registryVersion} |`,
+        `| **${row.name}** | ${row.style} | \`${formatExports(row.exports)}\` | \`${row.registryName}\` |`,
       )
     }
 
@@ -208,7 +205,6 @@ function rowCheckSignature(rows) {
       name: row.name,
       style: row.style,
       registryName: row.registryName,
-      registryVersion: row.registryVersion,
       exportCount: row.exports?.length ?? row.exportCount,
     })),
   )
@@ -242,7 +238,7 @@ function parseCatalogFromMarkdown(content) {
       .map((cell) => cell.trim())
       .filter(Boolean)
 
-    if (cells.length < 5) {
+    if (cells.length < 4) {
       continue
     }
 
@@ -254,7 +250,6 @@ function parseCatalogFromMarkdown(content) {
       name,
       style: cells[1],
       registryName: cells[3].replace(/`/g, ""),
-      registryVersion: cells[4],
       exportCount,
     })
   }
@@ -275,7 +270,7 @@ const CATALOG_TEMPLATE = `# UI Installable Catalog
 
 **Audience:** Maintainers, contributors, and agents  
 **Type:** Catalog / inventory  
-**Source of truth for:** Installable surface inventory — compound vs leaf, named exports, registry version  
+**Source of truth for:** Installable surface inventory — compound vs leaf, named exports, registry item name  
 **Verified against:** \`packages/ui/src/components/\`, \`packages/registry/src/items/\`  
 **Related docs:** [UI.md](./UI.md) (leaf decision tree), [UI_COMPOSITION.md](./UI_COMPOSITION.md) (composition rules), [UI_AUDIT.md](./UI_AUDIT.md) (variant compliance), [REGISTRY.md](./REGISTRY.md) (item contract)
 
@@ -283,7 +278,7 @@ const CATALOG_TEMPLATE = `# UI Installable Catalog
 
 ## Purpose and scope
 
-This catalog answers: **what is installable, compound or leaf, what exports exist, and what registry version ships.**
+This catalog answers: **what is installable, compound or leaf, what exports exist, and which registry item installs it.**
 
 - **Rules** (when to use compound vs leaf) → [UI.md](./UI.md), [UI_COMPOSITION.md](./UI_COMPOSITION.md)
 - **Variant compliance** → [UI_AUDIT.md](./UI_AUDIT.md)
@@ -375,7 +370,7 @@ if (extractGeneratedSection(content) === null) {
 
 if (!signaturesMatch(rows, content)) {
   console.error(
-    "ui:audit:catalog — docs/reference/ui/UI_CATALOG.md drifted from packages/ui exports or registry versions",
+    "ui:audit:catalog — docs/reference/ui/UI_CATALOG.md drifted from packages/ui exports or registry item names",
   )
   console.error("Run: pnpm ui:audit:catalog:write")
   process.exit(1)
