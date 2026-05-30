@@ -8,6 +8,37 @@
 
 ---
 
+## On this page
+
+- [1. Component File Structure](#1-component-file-structure)
+- [2. Component Implementation Patterns](#2-component-implementation-patterns)
+  - [React 19 ref Prop and displayName](#react-19-ref-prop-and-displayname)
+  - [className handling](#classname-handling)
+  - [cn() utility](#cn-utility)
+  - [CVA in .variants.ts](#cva-in-variantsts)
+- [3. CSS Variable Naming](#3-css-variable-naming)
+- [4. Naming Conventions](#4-naming-conventions)
+  - [Files and folders](#files-and-folders)
+  - [Symbols](#symbols)
+  - [Component naming alignment](#component-naming-alignment)
+- [5. TypeScript Conventions](#5-typescript-conventions)
+  - [Imports](#imports)
+  - [Module resolution](#module-resolution)
+  - [Narrowing and unknowns](#narrowing-and-unknowns)
+  - [Exports](#exports)
+- [6. Registry Item Structure](#6-registry-item-structure)
+- [7. Template Sync](#7-template-sync)
+- [8. CLI Conventions](#8-cli-conventions)
+- [9. Token Authoring Conventions](#9-token-authoring-conventions)
+  - [Token source file structure](#token-source-file-structure)
+  - [Token group shape](#token-group-shape)
+  - [Token leaf shape](#token-leaf-shape)
+  - [CSS variable output](#css-variable-output)
+- [10. Consumer Project Layout](#10-consumer-project-layout)
+- [11. Package Boundary Rules](#11-package-boundary-rules)
+- [12. Build and Check Commands](#12-build-and-check-commands)
+- [13. Review Checklist](#13-review-checklist)
+
 If a rule conflicts between this document and [STYLE.md](STYLE.md), STYLE.md wins for rule decisions. This document provides practical patterns and examples.
 
 ---

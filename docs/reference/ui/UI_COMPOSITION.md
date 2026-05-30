@@ -8,6 +8,29 @@
 
 ---
 
+## On this page
+
+- [Lexsys model (three layers)](#lexsys-model-three-layers)
+- [Folder layout](#folder-layout)
+- [Base UI inventory](#base-ui-inventory)
+- [Block catalog](#block-catalog)
+- [Template catalog](#template-catalog)
+- [Composition rules](#composition-rules)
+- [Compound-first contract](#compound-first-contract)
+  - [Architecture rules](#architecture-rules)
+  - [Naming convention](#naming-convention)
+  - [Custom Lexsys parts](#custom-lexsys-parts)
+  - [Variant propagation](#variant-propagation)
+  - [Good vs bad (consumer)](#good-vs-bad-consumer)
+  - [Breaking migration (compound-first track)](#breaking-migration-compound-first-track)
+- [Registry vs consumer config](#registry-vs-consumer-config)
+- [Current state](#current-state)
+- [Install and uninstall (consumer)](#install-and-uninstall-consumer)
+- [Verification](#verification)
+- [Package mapping](#package-mapping)
+- [Sequencing](#sequencing)
+- [Non-goals](#non-goals)
+
 ## Lexsys model (three layers)
 
 ```txt

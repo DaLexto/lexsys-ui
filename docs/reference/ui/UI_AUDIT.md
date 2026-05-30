@@ -8,6 +8,16 @@
 
 ---
 
+## On this page
+
+- [Purpose and scope](#purpose-and-scope)
+- [Batch summary](#batch-summary)
+- [Variant inventory (41 primitives)](#variant-inventory-41-primitives)
+- [Cross-cutting issues](#cross-cutting-issues)
+- [Generation and drift checks](#generation-and-drift-checks)
+- [PR0 checklist extras](#pr0-checklist-extras)
+- [Resolution tracking](#resolution-tracking)
+
 **Scope:** CVA patterns, public variant props, token literals, and `.variants.ts` exports only. For installable composition (compound parts, registry item names), use **[UI catalog](../ui/UI_CATALOG.md)**.
 
 Legend: ✅ pass · ⚠️ fix planned · ❌ fail

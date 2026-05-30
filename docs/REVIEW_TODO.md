@@ -7,6 +7,23 @@
 
 ---
 
+## On this page
+
+- [Execution Queue (active)](#execution-queue-active)
+- [M4 — Entry + CLI DX (shipped)](#m4-entry-cli-dx-shipped)
+- [M8 — CLI Cleanup and Deduplication (shipped)](#m8-cli-cleanup-and-deduplication-shipped)
+- [M10 — Release readiness (shipped 2026-05-24)](#m10-release-readiness-shipped-2026-05-24)
+- [Verification policy (maintainer contract)](#verification-policy-maintainer-contract)
+- [Current State](#current-state)
+- [P2 — Product and DX](#p2-product-and-dx)
+  - [UI composition (primitives / blocks / templates)](#ui-composition-primitives-blocks-templates)
+  - [Blocks / templates optimization backlog](#blocks-templates-optimization-backlog)
+  - [CS — Component Standardization](#cs-component-standardization)
+- [P3 — Architecture Planning](#p3-architecture-planning)
+- [M12 — CLI command optimization (planned)](#m12-cli-command-optimization-planned)
+- [SI — Script Improvements](#si-script-improvements)
+- [Known Gaps](#known-gaps)
+
 Long-term tokens platform direction lives in [Roadmap](./ROADMAP.md).
 
 Completed work is tracked in git history. This document only contains items

@@ -8,6 +8,33 @@
 
 ---
 
+## On this page
+
+- [Usage](#usage)
+  - [Command aliases](#command-aliases)
+  - [Global options](#global-options)
+- [Commands](#commands)
+  - [init](#init)
+  - [add](#add)
+  - [update](#update)
+  - [list](#list)
+  - [status](#status)
+  - [doctor](#doctor)
+  - [config](#config)
+  - [registry](#registry)
+  - [reset](#reset)
+  - [uninstall](#uninstall)
+  - [version](#version)
+  - [help](#help)
+- [Configuration](#configuration)
+  - [Schema](#schema)
+  - [Defaults](#defaults)
+- [Registry source resolution](#registry-source-resolution)
+  - [Remote registry manifest contract](#remote-registry-manifest-contract)
+- [Package manager detection](#package-manager-detection)
+- [Error handling](#error-handling)
+- [Install safety rules](#install-safety-rules)
+
 ## Usage
 
 ```bash

@@ -8,6 +8,30 @@
 
 ---
 
+## On this page
+
+- [CLI](#cli)
+  - [lexsys: command not found](#lexsys-command-not-found)
+  - [Unknown command: <command>](#unknown-command-command)
+  - [lexsys init fails with missing lexsys.config.json](#lexsys-init-fails-with-missing-lexsysconfigjson)
+  - [lexsys add reports all files as conflicted](#lexsys-add-reports-all-files-as-conflicted)
+  - [lexsys add silently skips a component](#lexsys-add-silently-skips-a-component)
+  - [lexsys init does not wire Tailwind CSS](#lexsys-init-does-not-wire-tailwind-css)
+  - [Registry source falls back to local when remote is set](#registry-source-falls-back-to-local-when-remote-is-set)
+- [Tokens](#tokens)
+  - [Token build fails with MISSING_REFERENCE](#token-build-fails-with-missing_reference)
+  - [Token build fails with CIRCULAR_REFERENCE](#token-build-fails-with-circular_reference)
+  - [Token build fails with REFERENCE_POINTS_TO_BRANCH](#token-build-fails-with-reference_points_to_branch)
+  - [CSS output contains wrong variable name](#css-output-contains-wrong-variable-name)
+  - [Token CSS file is empty or outdated](#token-css-file-is-empty-or-outdated)
+- [Registry](#registry)
+  - [pnpm registry:check fails with template drift](#pnpm-registrycheck-fails-with-template-drift)
+  - [validateRegistryItem throws for a new item](#validateregistryitem-throws-for-a-new-item)
+- [Build and Typecheck](#build-and-typecheck)
+  - [pnpm typecheck fails in packages/cli or packages/registry](#pnpm-typecheck-fails-in-packagescli-or-packagesregistry)
+  - [pnpm build fails for packages/tokens with validation errors](#pnpm-build-fails-for-packagestokens-with-validation-errors)
+  - [Playground fails to build after token changes](#playground-fails-to-build-after-token-changes)
+
 Each entry includes a symptom, cause, and fix verified against the source.
 
 ---

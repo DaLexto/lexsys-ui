@@ -8,6 +8,23 @@
 
 ---
 
+## On this page
+
+- [Purpose](#purpose)
+- [Public prop axes](#public-prop-axes)
+- [Vocabulary taxonomy](#vocabulary-taxonomy)
+- [Breaking renames (PR1)](#breaking-renames-pr1)
+- [Styling patterns](#styling-patterns)
+  - [1. CVA prop axis](#1-cva-prop-axis)
+  - [2. CVA secondary axis](#2-cva-secondary-axis)
+  - [3. Data-attribute driven](#3-data-attribute-driven)
+- [CVA implementation rules](#cva-implementation-rules)
+- [Variant vocabulary by category](#variant-vocabulary-by-category)
+- [Token consumption](#token-consumption)
+  - [Token-only styling](#token-only-styling)
+  - [Recommended Select / Menu composition](#recommended-select-menu-composition)
+- [Verification](#verification)
+
 ## Purpose
 
 Pre-0.1.0 contract for all 41 reference primitives. Breaking API changes are acceptable

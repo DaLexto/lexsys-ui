@@ -11,6 +11,37 @@ monorepo optimization sequencing
 
 ---
 
+## On this page
+
+- [Current State](#current-state)
+- [Completed Platform Phases (1–10)](#completed-platform-phases-1-10)
+- [Future Direction](#future-direction)
+  - [Token engine — next direction](#token-engine-next-direction)
+  - [Semantic and product gaps](#semantic-and-product-gaps)
+- [Monorepo optimization](#monorepo-optimization)
+  - [Execution discipline](#execution-discipline)
+  - [Phase overview](#phase-overview)
+  - [M1 — Infra and DX](#m1-infra-and-dx)
+  - [M2 — Quality and verification](#m2-quality-and-verification)
+  - [M3 — Product and architecture backlog](#m3-product-and-architecture-backlog)
+  - [M4 — Entry + CLI DX](#m4-entry-cli-dx)
+  - [M5 — Advanced CI](#m5-advanced-ci)
+  - [M6 — Dependency hygiene](#m6-dependency-hygiene)
+  - [M7 — Maintainer and tooling](#m7-maintainer-and-tooling)
+  - [M12 — CLI command optimization](#m12-cli-command-optimization)
+  - [M8 — CLI cleanup and deduplication](#m8-cli-cleanup-and-deduplication)
+  - [M10 — Release readiness](#m10-release-readiness)
+  - [Explicitly deferred](#explicitly-deferred)
+  - [PR sequence](#pr-sequence)
+  - [Verification gates](#verification-gates)
+- [Document Ownership](#document-ownership)
+- [UI polish track (post-M3)](#ui-polish-track-post-m3)
+- [UI composition — three layers (pilots shipped)](#ui-composition-three-layers-pilots-shipped)
+  - [UI composition track](#ui-composition-track)
+- [M11 — Compound-first API](#m11-compound-first-api)
+- [Component standardization (shipped)](#component-standardization-shipped)
+- [Maintenance Workflow](#maintenance-workflow)
+
 ## Current State
 
 Current implementation:

@@ -8,6 +8,27 @@
 
 ---
 
+## On this page
+
+- [Verification surfaces](#verification-surfaces)
+  - [apps/playground](#appsplayground)
+  - [Consumer sandbox](#consumer-sandbox)
+  - [Practical workflow](#practical-workflow)
+- [Quick Reference](#quick-reference)
+- [Test Coverage by Package](#test-coverage-by-package)
+  - [@dalexto/lexsys-tokens](#dalextolexsys-tokens)
+  - [@dalexto/lexsys-ui](#dalextolexsys-ui)
+  - [@dalexto/lexsys-registry](#dalextolexsys-registry)
+  - [lexsys (CLI)](#lexsys-cli)
+- [When to Run What](#when-to-run-what)
+- [Template Sync Verification](#template-sync-verification)
+- [Vitest configuration](#vitest-configuration)
+  - [Playground tooling](#playground-tooling)
+  - [IDE test explorer (Vitest extension)](#ide-test-explorer-vitest-extension)
+- [UI render tests](#ui-render-tests)
+- [Consumer sandbox verification](#consumer-sandbox-verification)
+- [Known Gaps](#known-gaps)
+
 Command names and sync workflows: [Scripts reference](SCRIPTS.md).
 
 ---

@@ -9,6 +9,39 @@
 
 ---
 
+## On this page
+
+- [Overview](#overview)
+- [Shipped Baseline](#shipped-baseline)
+  - [Reference resolver](#reference-resolver)
+  - [Layer validation](#layer-validation)
+  - [Graph traversal (shared)](#graph-traversal-shared)
+  - [Governance and semantic audit (non-blocking)](#governance-and-semantic-audit-non-blocking)
+  - [Optional dead-primitive stripping (Phase 7)](#optional-dead-primitive-stripping-phase-7)
+  - [Governance CI (documented hook)](#governance-ci-documented-hook)
+  - [Composite token expansion (Phase 8)](#composite-token-expansion-phase-8)
+- [Phase Summary](#phase-summary)
+- [Phase 8: Composite Token Expansion](#phase-8-composite-token-expansion)
+  - [Shipped behavior](#shipped-behavior)
+  - [Authoring model (unchanged)](#authoring-model-unchanged)
+  - [Non-goals (still deferred)](#non-goals-still-deferred)
+- [Phase 9: Resolved Value Pipeline](#phase-9-resolved-value-pipeline)
+  - [Shipped behavior](#shipped-behavior)
+  - [Distinction from build-time resolution](#distinction-from-build-time-resolution)
+  - [Non-goals (still deferred)](#non-goals-still-deferred)
+- [Phase 10: Accessibility Guard](#phase-10-accessibility-guard)
+  - [Shipped behavior](#shipped-behavior)
+  - [Registered pairs](#registered-pairs)
+  - [Non-goals (still deferred)](#non-goals-still-deferred)
+- [After Phase 10](#after-phase-10)
+  - [Planned (likely next, no phase number yet)](#planned-likely-next-no-phase-number-yet)
+  - [Deferred (explicit non-goals for now)](#deferred-explicit-non-goals-for-now)
+  - [Known gaps (current state, not bugs)](#known-gaps-current-state-not-bugs)
+- [Speculative (Deferred)](#speculative-deferred)
+  - [AST evaluator subsystem](#ast-evaluator-subsystem)
+  - [Color and unit math](#color-and-unit-math)
+- [Document Ownership](#document-ownership)
+
 Current enforced rules and build-failing validation live in [Tokens reference](TOKENS.md).
 Platform phase history lives in [Roadmap](../../ROADMAP.md).
 

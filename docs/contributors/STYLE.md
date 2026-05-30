@@ -7,6 +7,19 @@
 
 ---
 
+## On this page
+
+- [Core Principles](#core-principles)
+- [TypeScript](#typescript)
+- [React Components](#react-components)
+- [Styling](#styling)
+- [Tokens](#tokens)
+- [Registry and CLI](#registry-and-cli)
+- [Naming](#naming)
+- [Comments](#comments)
+- [Imports and Exports](#imports-and-exports)
+- [Testing and Verification](#testing-and-verification)
+
 If there is a conflict between this document and `docs/ARCHITECTURE.md`, architecture wins.
 For examples and practical patterns, see [STYLEGUIDE.md](STYLEGUIDE.md).
 

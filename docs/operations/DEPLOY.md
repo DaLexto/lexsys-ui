@@ -8,6 +8,30 @@
 
 ---
 
+## On this page
+
+- [Publish surface](#publish-surface)
+- [Version lane](#version-lane)
+- [Versioning policy](#versioning-policy)
+  - [Stability contract](#stability-contract)
+  - [What counts as a breaking change](#what-counts-as-a-breaking-change)
+  - [Release notes](#release-notes)
+  - [Package semver bumps (@dalexto/lexsys, @dalexto/lexsys-cli, @dalexto/lexsys-registry)](#package-semver-bumps-dalextolexsys-dalextolexsys-cli-dalextolexsys-registry)
+- [Pre-release gate](#pre-release-gate)
+- [Release workflow](#release-workflow)
+  - [0.0.x bump (@next)](#00x-bump-next)
+  - [0.1.0 stable (@latest)](#010-stable-latest)
+- [Rollback and hotfix](#rollback-and-hotfix)
+  - [Bad publish procedure](#bad-publish-procedure)
+  - [npm unpublish limitations](#npm-unpublish-limitations)
+  - [Registry-first caveat](#registry-first-caveat)
+- [Package build contract](#package-build-contract)
+  - [Per-package dist requirements](#per-package-dist-requirements)
+- [Registry sync rule](#registry-sync-rule)
+- [CI policy](#ci-policy)
+- [Supply chain security](#supply-chain-security)
+- [Deferred](#deferred)
+
 ```mermaid
 flowchart LR
     devBranch[branch off dev] --> pr[PR to dev]

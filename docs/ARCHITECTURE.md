@@ -7,6 +7,24 @@
 
 ---
 
+## On this page
+
+- [System model](#system-model)
+- [Monorepo packages](#monorepo-packages)
+- [Component file contract](#component-file-contract)
+  - [UI composition layers](#ui-composition-layers)
+- [Design token system](#design-token-system)
+- [Registry metadata](#registry-metadata)
+- [CLI behavior](#cli-behavior)
+  - [Supported commands](#supported-commands)
+  - [Registry source](#registry-source)
+  - [Install idempotency](#install-idempotency)
+  - [Framework support (current)](#framework-support-current)
+- [Consumer project layout](#consumer-project-layout)
+- [Configuration](#configuration)
+- [End-to-end install flow](#end-to-end-install-flow)
+- [Package manager detection](#package-manager-detection)
+
 Domain specifications own their canonical rules. This document links to them.
 
 ## System model

@@ -8,6 +8,16 @@
 
 ---
 
+## On this page
+
+- [Purpose and scope](#purpose-and-scope)
+- [Inventory](#inventory)
+  - [Primitives (41)](#primitives-41)
+  - [Blocks (6)](#blocks-6)
+  - [Templates (1)](#templates-1)
+- [Out of scope / planned](#out-of-scope-planned)
+- [Generation and drift checks](#generation-and-drift-checks)
+
 ## Purpose and scope
 
 This catalog answers: **what is installable, compound or leaf, what exports exist, and which registry item installs it.**

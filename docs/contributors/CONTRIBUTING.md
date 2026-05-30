@@ -7,6 +7,16 @@
 
 ---
 
+## On this page
+
+- [Setup](#setup)
+- [Change workflow](#change-workflow)
+- [Before opening a PR](#before-opening-a-pr)
+- [Commits](#commits)
+- [GitHub labels](#github-labels)
+- [Documentation](#documentation)
+- [Consumer verification](#consumer-verification)
+
 ## Setup
 
 1. Clone the repo and install from the root: `pnpm install`

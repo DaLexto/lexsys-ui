@@ -8,6 +8,30 @@
 
 ---
 
+## On this page
+
+- [Quick reference (root)](#quick-reference-root)
+- [Repo-wide scripts](#repo-wide-scripts)
+  - [pnpm check](#pnpm-check)
+  - [Partial runs](#partial-runs)
+- [@dalexto/lexsys-tokens](#dalextolexsys-tokens)
+- [@dalexto/lexsys-ui](#dalextolexsys-ui)
+- [@dalexto/lexsys-registry](#dalextolexsys-registry)
+- [lexsys (CLI)](#lexsys-cli)
+- [@dalexto/lexsys-playground](#dalextolexsys-playground)
+- [Sync workflows](#sync-workflows)
+- [Before merge](#before-merge)
+- [CI reference](#ci-reference)
+  - [Monorepo check (all PRs)](#monorepo-check-all-prs)
+  - [Token governance (token-path PRs)](#token-governance-token-path-prs)
+  - [GitHub label sync (manifest changes)](#github-label-sync-manifest-changes)
+- [Turbo vs root alias vs filter](#turbo-vs-root-alias-vs-filter)
+- [Publish (M10)](#publish-m10)
+  - [pnpm publish:pack-audit](#pnpm-publishpack-audit)
+  - [pnpm changeset](#pnpm-changeset)
+  - [pnpm version-packages](#pnpm-version-packages)
+  - [pnpm publish:release](#pnpm-publishrelease)
+
 Run commands from the **repository root** unless noted. For consumer-facing CLI commands (`lexsys init`, `lexsys add`, …), see [CLI reference](../reference/cli/CLI.md).
 
 ---

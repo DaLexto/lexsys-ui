@@ -8,6 +8,36 @@
 
 ---
 
+## On this page
+
+- [Token Layer Order](#token-layer-order)
+- [Layer Rules](#layer-rules)
+  - [Primitives](#primitives)
+  - [Brand](#brand)
+  - [Semantics](#semantics)
+  - [Components](#components)
+  - [Themes](#themes)
+  - [Presets](#presets)
+- [Resolution Chain](#resolution-chain)
+  - [How merging works](#how-merging-works)
+  - [Reference resolution paths](#reference-resolution-paths)
+  - [Reference format](#reference-format)
+  - [Max resolution depth](#max-resolution-depth)
+  - [Resolved value pipeline (Phase 9)](#resolved-value-pipeline-phase-9)
+  - [Accessibility contrast guard (Phase 10 + CI policy)](#accessibility-contrast-guard-phase-10-ci-policy)
+- [Resolver Error Codes](#resolver-error-codes)
+- [Token Authoring](#token-authoring)
+  - [Token leaf shape (DTCG)](#token-leaf-shape-dtcg)
+  - [Branch metadata keys](#branch-metadata-keys)
+  - [Scalar token types](#scalar-token-types)
+  - [Composite typography groups (branch + slot leaves)](#composite-typography-groups-branch-slot-leaves)
+  - [Composite shadow and border groups (branch + slot leaves)](#composite-shadow-and-border-groups-branch-slot-leaves)
+- [Validation Status](#validation-status)
+  - [Currently build-failing](#currently-build-failing)
+  - [Governance tooling](#governance-tooling)
+- [Package Public API](#package-public-api)
+- [Build Commands](#build-commands)
+
 If there is a conflict between this document and other documentation for any
 token-system decision, this document wins.
 

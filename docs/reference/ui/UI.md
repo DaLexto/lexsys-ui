@@ -8,6 +8,21 @@
 
 ---
 
+## On this page
+
+- [What packages/ui Is](#what-packagesui-is)
+- [Component File Structure](#component-file-structure)
+- [React 19 Ref Contract](#react-19-ref-contract)
+- [Base UI Relationship](#base-ui-relationship)
+  - [Wrapper checklist](#wrapper-checklist)
+  - [Compound vs leaf decision tree](#compound-vs-leaf-decision-tree)
+- [className Contract](#classname-contract)
+- [Variant Contract](#variant-contract)
+- [Prop Type Contract](#prop-type-contract)
+- [Public API Rules](#public-api-rules)
+- [Registry Sync Rules](#registry-sync-rules)
+- [Ownership Boundaries](#ownership-boundaries)
+
 ## What `packages/ui` Is
 
 `packages/ui` is the reference implementation layer. It provides the canonical

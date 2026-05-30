@@ -8,6 +8,20 @@
 
 ---
 
+## On this page
+
+- [What the Registry Is](#what-the-registry-is)
+- [Registry Item Contract](#registry-item-contract)
+  - [Primitives (type: "component")](#primitives-type-component)
+  - [Blocks (type: "block", install layer: blocks)](#blocks-type-block-install-layer-blocks)
+  - [Templates (type: "block", install layer: templates)](#templates-type-block-install-layer-templates)
+  - [Optional fields](#optional-fields)
+- [Template Rules](#template-rules)
+- [Registry Validation](#registry-validation)
+- [Local vs Remote Registry](#local-vs-remote-registry)
+- [Categories](#categories)
+- [Ownership Boundaries](#ownership-boundaries)
+
 ## What the Registry Is
 
 The registry is the install contract layer between Lexsys components and consumer

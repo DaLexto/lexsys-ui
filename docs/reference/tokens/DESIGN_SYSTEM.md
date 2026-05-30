@@ -8,6 +8,33 @@
 
 ---
 
+## On this page
+
+- [What Lexsys is as a design system](#what-lexsys-is-as-a-design-system)
+- [Token system](#token-system)
+  - [Layer order](#layer-order)
+  - [Primitives](#primitives)
+  - [Brand](#brand)
+  - [Semantics](#semantics)
+  - [Components](#components)
+  - [Themes](#themes)
+  - [Presets](#presets)
+- [Token authoring](#token-authoring)
+  - [File structure](#file-structure)
+  - [Reference syntax](#reference-syntax)
+  - [Token types](#token-types)
+- [CSS output](#css-output)
+  - [Variable naming](#variable-naming)
+  - [Tailwind @theme](#tailwind-theme)
+  - [Output files](#output-files)
+  - [Build commands](#build-commands)
+- [Component styling model](#component-styling-model)
+  - [Where tokens connect to components](#where-tokens-connect-to-components)
+  - [User styling surface](#user-styling-surface)
+  - [Overriding tokens at runtime](#overriding-tokens-at-runtime)
+  - [Base UI](#base-ui)
+- [Stability](#stability)
+
 Canonical token layer rules live in [Tokens reference](TOKENS.md).  
 CLI install behavior lives in [CLI reference](CLI.md).  
 Full system shape lives in [Architecture](ARCHITECTURE.md).
