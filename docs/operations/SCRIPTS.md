@@ -33,7 +33,7 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm tokens:re-prefix`         | Rename CSS var + BEM class prefix codebase-wide; regenerates styles + syncs registry (rebrand utility)  |
 | `pnpm ui:check`                 | Lint + typecheck + test `@dalexto/lexsys-ui`                                                            |
 | `pnpm ui:audit`                 | Variant literal scan **and** `UI_CATALOG.md` drift check                                                |
-| `pnpm ui:audit:catalog:check`   | Fail if catalog region drifted from UI exports / registry versions                                      |
+| `pnpm ui:audit:catalog:check`   | Fail if catalog region drifted from UI exports / registry item names                                    |
 | `pnpm ui:audit:catalog:write`   | Regenerate catalog tables in [UI catalog](../reference/ui/UI_CATALOG.md)                                |
 | `pnpm ui:build`                 | Build `@dalexto/lexsys-ui`                                                                              |
 | `pnpm registry:check`           | Lint + typecheck + template/style sync checks + test                                                    |
@@ -110,11 +110,11 @@ pnpm --filter @dalexto/lexsys-tokens <script>
 
 Package-only scripts (no root alias):
 
-| Script                | Purpose                                                                       |
-| --------------------- | ----------------------------------------------------------------------------- |
-| `audit`               | `audit-variants.mjs` + `audit-compound-exports.mjs check`                     |
-| `audit:catalog:check` | Compare `docs/reference/ui/UI_CATALOG.md` to UI exports and registry versions |
-| `audit:catalog:write` | Update `docs/reference/ui/UI_CATALOG.md` between `CATALOG:BEGIN/END` markers  |
+| Script                | Purpose                                                                         |
+| --------------------- | ------------------------------------------------------------------------------- |
+| `audit`               | `audit-variants.mjs` + `audit-compound-exports.mjs check`                       |
+| `audit:catalog:check` | Compare `docs/reference/ui/UI_CATALOG.md` to UI exports and registry item names |
+| `audit:catalog:write` | Update `docs/reference/ui/UI_CATALOG.md` between `CATALOG:BEGIN/END` markers    |
 
 Filter equivalent:
 

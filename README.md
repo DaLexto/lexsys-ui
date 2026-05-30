@@ -96,7 +96,7 @@ lexsys.config.json
 ```
 
 The generated config tracks `paths`, aliases, Tailwind v4 entrypoint, selected
-CLI style alias, installed component versions, and an optional remote registry
+CLI style alias, installed component names, and an optional remote registry
 URL:
 
 ```json
@@ -118,7 +118,7 @@ URL:
     "version": "v4",
     "css": "src/style.css"
   },
-  "installed": {},
+  "installed": [],
   "registryUrl": null
 }
 ```
@@ -232,17 +232,17 @@ Planned but not current API:
 
 Start at [docs/INDEX.md](../INDEX.md) for the full documentation map.
 
-| Doc                                                                          | Purpose                                                             |
-| ---------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [docs/INDEX.md](../INDEX.md)                                                 | Documentation routing hub                                           |
-| [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md)         | Installable inventory — compound vs leaf, exports, registry version |
-| [docs/reference/ui/UI_COMPOSITION.md](./docs/reference/ui/UI_COMPOSITION.md) | Composition rules and install layers                                |
-| [docs/ROADMAP.md](../ROADMAP.md)                                             | Long-term direction and monorepo optimization phases (M1–M11)       |
-| [docs/REVIEW_TODO.md](../REVIEW_TODO.md)                                     | Active execution queue and known gaps                               |
-| [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md)                       | Monorepo `pnpm` script names and CI reference                       |
-| [docs/operations/TESTING.md](../operations/TESTING.md)                       | Test coverage and verification workflows                            |
-| [docs/contributors/CONTRIBUTING.md](./docs/contributors/CONTRIBUTING.md)     | Branch, check, and commit expectations                              |
-| [AGENTS.md](../../AGENTS.md)                                                 | Agent routing and repo skills index                                 |
+| Doc                                                                          | Purpose                                                               |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| [docs/INDEX.md](../INDEX.md)                                                 | Documentation routing hub                                             |
+| [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md)         | Installable inventory — compound vs leaf, exports, registry item name |
+| [docs/reference/ui/UI_COMPOSITION.md](./docs/reference/ui/UI_COMPOSITION.md) | Composition rules and install layers                                  |
+| [docs/ROADMAP.md](../ROADMAP.md)                                             | Long-term direction and monorepo optimization phases (M1–M11)         |
+| [docs/REVIEW_TODO.md](../REVIEW_TODO.md)                                     | Active execution queue and known gaps                                 |
+| [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md)                       | Monorepo `pnpm` script names and CI reference                         |
+| [docs/operations/TESTING.md](../operations/TESTING.md)                       | Test coverage and verification workflows                              |
+| [docs/contributors/CONTRIBUTING.md](./docs/contributors/CONTRIBUTING.md)     | Branch, check, and commit expectations                                |
+| [AGENTS.md](../../AGENTS.md)                                                 | Agent routing and repo skills index                                   |
 
 ## Development
 

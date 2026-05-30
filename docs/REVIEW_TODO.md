@@ -13,7 +13,7 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M10** — see [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization-planned). M1–M4, M5–M7, **R0**, and **M10** shipped; **M8 shipped** (CLI cleanup and deduplication — all sub-items complete).
+**Monorepo optimization M1–M12** — see [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization). M1–M11, **R0**, and **M10** shipped; **M12** is the active planned phase.
 
 | Phase   | Focus                                                               | Status  |
 | ------- | ------------------------------------------------------------------- | ------- |
@@ -30,7 +30,7 @@ that are not yet done.
 | M10     | Release readiness — `0.0.2` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
-| CS      | Component standardization before new component expansion            | planned |
+| CS      | Component standardization (CS.1–CS.8)                               | shipped |
 | M12     | CLI command optimization (audit, merge candidates, cleanup)         | planned |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
@@ -193,7 +193,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 templates, and registry templates before expanding the component catalog or
 writing permanent component rules.
 
-Roadmap anchor: [Roadmap § Component standardization](./ROADMAP.md#component-standardization-planned).
+Roadmap anchor: [Roadmap § Component standardization](./ROADMAP.md#component-standardization-shipped).
 
 | ID   | Area                     | Goal                                                                                                                                      | Status  |
 | ---- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ------- |

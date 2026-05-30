@@ -5,7 +5,7 @@
 **Source of truth for:** Package role, primitive categories, file structure, public exports  
 **Verified against:** `packages/ui/src/`
 
-Compound vs leaf, named exports, and registry versions: [docs/reference/ui/UI_CATALOG.md](../../docs/reference/ui/UI_CATALOG.md).
+Compound vs leaf, named exports, and registry item names: [docs/reference/ui/UI_CATALOG.md](../../docs/reference/ui/UI_CATALOG.md).
 
 ---
 

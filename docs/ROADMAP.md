@@ -110,9 +110,9 @@ Active backlog items live in `docs/REVIEW_TODO.md`.
 
 ---
 
-## Monorepo optimization (planned)
+## Monorepo optimization
 
-Status: **planned** — not current implementation contract.  
+Status: **M1–M11 and M10 shipped**; **M12 planned** — see [Backlog execution queue](./REVIEW_TODO.md#execution-queue-active).  
 Active execution queue: [`docs/REVIEW_TODO.md`](./REVIEW_TODO.md)  
 Command details: [`docs/operations/SCRIPTS.md`](../operations/SCRIPTS.md) (link only — no script inventory here)
 
@@ -325,7 +325,7 @@ M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12--cl
 
 Status: **shipped**
 
-Dead-code removal and targeted deduplication across `packages/cli/src/`. No behavior changes except proper `--yes` wiring. Sub-items tracked in [Backlog § M8](./REVIEW_TODO.md#m8--cli-cleanup-and-deduplication-in-progress).
+Dead-code removal and targeted deduplication across `packages/cli/src/`. No behavior changes except proper `--yes` wiring. Sub-items tracked in [Backlog § M8](./REVIEW_TODO.md#m8--cli-cleanup-and-deduplication-shipped).
 
 | Item | Focus                                                                          |
 | ---- | ------------------------------------------------------------------------------ |
@@ -390,13 +390,13 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 
 **Delivered (2026-05-22):** Phase 0 + **M1, M2, M5, M6, M7** shipped in one consolidated PR
 [#18](https://github.com/DaLexto/lexsys-ui/pull/18) (`chore/monorepo-optimization` → `dev`) instead of
-separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3 shipped** in consolidated PR to `dev`. **M10 shipped** (2026-05-24). M4 remains planned.
+separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.y`). **M3** and **M4** shipped in follow-up PRs to `dev`. **M10 shipped** (2026-05-24).
 
 | PR      | Phase | Title sketch                                        | Delivery                              |
 | ------- | ----- | --------------------------------------------------- | ------------------------------------- |
 | 0–7     | M1–M7 | `chore: monorepo optimization M1–M7` (consolidated) | **PR #18** — single PR                |
 | 3a–3b   | M3    | Product slices + docs sync                          | **shipped** (consolidated PR → `dev`) |
-| 4a–4b   | M4    | (TBD) + docs sync                                   | planned                               |
+| 4a–4b   | M4    | Entry + CLI DX + docs sync                          | **shipped**                           |
 | 10a–10b | M10   | Release readiness + docs sync                       | **shipped** (2026-05-24)              |
 
 Original per-phase sketch (reference if splitting future work):

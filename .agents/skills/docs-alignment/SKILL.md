@@ -23,9 +23,9 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md).
 1. **Identify owner** — each rule lives in one canonical doc (INDEX table).
 2. **Edit owner only** — replace duplicates elsewhere with links.
 3. **Verify claims** against code (`packages/*/src`, registry item count, tests).
-4. **Catalog / exports** — after UI export or registry version changes:
+4. **Catalog / exports** — after UI export or registry item metadata changes:
    - Run `pnpm ui:audit:catalog:check` (or full `pnpm ui:audit`).
-   - Refresh generated tables: `pnpm ui:audit:catalog:write` when exports or versions changed.
+   - Refresh generated tables: `pnpm ui:audit:catalog:write` when exports or registry item names changed.
    - Compound/leaf questions → [UI_CATALOG.md](../../docs/reference/ui/UI_CATALOG.md), not UI_COMPOSITION body lists.
 5. **Cross-links:** ARCHITECTURE ↔ domain specs ↔ INDEX; README maintainer table → INDEX.
 6. **Counts grep** (examples):

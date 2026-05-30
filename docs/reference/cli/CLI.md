@@ -444,7 +444,7 @@ interface LexsysConfig {
     version: "v4"
     css: string
   }
-  installed?: Record<string, string>
+  installed?: string[]
   registryUrl?: string | null
 }
 ```

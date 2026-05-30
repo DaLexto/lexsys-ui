@@ -50,8 +50,9 @@ Installed via `npm install -g lexsys` or run directly with `pnpm exec lexsys`.
 | `lexsys init next [directory]` | Scaffold a new Next.js App Router consumer (pinned Next.js 15.3.3)          |
 | `lexsys add <component>`       | Install one or more components into the consumer project                    |
 | `lexsys update [component]`    | Update installed components; `--sync`, `--utilities`, `--styles`, `--force` |
+| `lexsys reset [component]`     | Restore components from registry templates (backup + overwrite)             |
 | `lexsys list`                  | List available registry components                                          |
-| `lexsys status`                | Show installed component versions vs registry versions                      |
+| `lexsys status`                | Show installed components and template drift vs registry                    |
 | `lexsys doctor`                | Check project health and config validity                                    |
 | `lexsys config`                | Read or modify `lexsys.config.json`                                         |
 | `lexsys registry`              | Inspect the active registry source                                          |
@@ -69,20 +70,11 @@ Installed via `npm install -g lexsys` or run directly with `pnpm exec lexsys`.
 
 ---
 
-## Core Modules
+## Source layout
 
-| Module                      | Role                                                                        |
-| --------------------------- | --------------------------------------------------------------------------- |
-| `core/config.ts`            | Read/write `lexsys.config.json`; defines `LexsysConfig` schema and defaults |
-| `core/installer.ts`         | File copy, conflict detection, idempotent installs                          |
-| `core/registry-provider.ts` | Selects local vs remote registry source                                     |
-| `core/registry-resolver.ts` | Resolves registry items, utilities, and styles from active registry         |
-| `core/tailwind-setup.ts`    | Detects and wires Tailwind v4 CSS entrypoint                                |
-| `core/vite-scaffold.ts`     | Detects and patches Vite config for Tailwind plugin                         |
-| `core/package-manager.ts`   | Detects npm/pnpm/yarn and runs installs                                     |
-| `core/context.ts`           | Process-level `cwd` override via `--cwd` flag                               |
-| `core/flags.ts`             | Shared flag parsing utilities                                               |
-| `core/cli-error.ts`         | Typed CLI error class and top-level error handler                           |
+Domain modules under `packages/cli/src/`: `config/`, `install/`, `registry/`,
+`commands/`, `scaffold/`, `utils/`. Command behavior and config schema:
+[docs/reference/cli/CLI.md](../../docs/reference/cli/CLI.md).
 
 ---
 

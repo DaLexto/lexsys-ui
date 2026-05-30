@@ -6,7 +6,7 @@
 **Canonical standard:** [UI variants](../ui/UI_VARIANTS.md)  
 **Related docs:** [UI catalog](../ui/UI_CATALOG.md) (compound vs leaf, named exports — **not** this doc), [UI reference](../ui/UI.md), [UI composition](../ui/UI_COMPOSITION.md)
 
-**Scope:** CVA patterns, public variant props, token literals, and `.variants.ts` exports only. For installable composition (compound parts, registry version), use **[UI catalog](../ui/UI_CATALOG.md)**.
+**Scope:** CVA patterns, public variant props, token literals, and `.variants.ts` exports only. For installable composition (compound parts, registry item names), use **[UI catalog](../ui/UI_CATALOG.md)**.
 
 Legend: ✅ pass · ⚠️ fix planned · ❌ fail
 
@@ -141,7 +141,7 @@ See [UI catalog § Generation and drift checks](../ui/UI_CATALOG.md#generation-a
 
 **Composition pass (M11):** Shipped on `dev` — export and registry inventory in [UI catalog](../ui/UI_CATALOG.md). This doc’s primitive rows were refreshed for M11-touched variant axes only; blocks/templates are out of scope.
 
-Run `pnpm ui:audit` after variant edits. Run `pnpm ui:audit:catalog:check` after export or registry version changes.
+Run `pnpm ui:audit` after variant edits. Run `pnpm ui:audit:catalog:check` after export or registry item metadata changes.
 
 ---
 
