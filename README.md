@@ -17,7 +17,7 @@ The current implementation focuses on supported consumer starters:
 - Next.js App Router setup through `lexsys init next` (pinned Next.js 15.3.3)
 - Tailwind v4 wiring for Vite and Next.js consumers
 - token and theme CSS installation
-- a growing Base UI-backed installable catalog — **48 items** (41 primitives, 6
+- a growing Base UI-backed installable catalog — **49 items** (42 primitives, 6
   blocks, 1 template) — see [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md)
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification

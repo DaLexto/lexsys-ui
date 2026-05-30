@@ -36,7 +36,7 @@ Out of scope here: page-level consumer code, playground-only demos, unpublished 
 
 _Generated 2026-05-30 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
 
-### Primitives (41)
+### Primitives (42)
 
 | Component          | Style    | Named exports                                                        | Registry          |
 | ------------------ | -------- | -------------------------------------------------------------------- | ----------------- |
@@ -74,6 +74,7 @@ _Generated 2026-05-30 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **Separator**      | leaf     | `Separator`                                                          | `separator`       |
 | **Slider**         | compound | `Slider, SliderControl, SliderTrack, … (+4)`                         | `slider`          |
 | **Switch**         | compound | `Switch, SwitchThumb`                                                | `switch`          |
+| **Table**          | compound | `Table, TableHeader, TableBody, … (+5)`                              | `table`           |
 | **Tabs**           | compound | `Tabs, TabsList, TabsTab, TabsPanel`                                 | `tabs`            |
 | **Textarea**       | leaf     | `Textarea`                                                           | `textarea`        |
 | **Toast**          | compound | `ToastProvider, ToastPortal, ToastViewport, … (+10)`                 | `toast`           |
