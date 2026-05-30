@@ -7,15 +7,7 @@ composition pilots **shipped** (PR #28); `0.0.3` @ `next` **shipped** (2026-05-2
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
-
-**Related docs:**
-
-- `docs/reference/tokens/TOKENS.md` - canonical current token rules and layer/reference contract
-- `docs/REVIEW_TODO.md` - active actionable backlog and known gaps
-- `docs/reference/tokens/RESOLVER_EVOLUTION.md` - resolver-specific planned evolution
-- `docs/operations/SCRIPTS.md` - monorepo `pnpm` script names and sync workflows
-- `docs/operations/TESTING.md` - test coverage tiers and when-to-run checks
-- `docs/operations/DEPLOY.md` - release and build contract
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -541,3 +533,13 @@ Canonical docs:
 - Update `docs/reference/tokens/TOKENS.md` when current token behavior or enforced rules change.
 - Record completed implementation details in git history, not in this roadmap
   body.
+
+---
+
+## Related documentation
+
+- [Backlog](REVIEW_TODO.md) — active execution queue
+- [Tokens reference](reference/tokens/TOKENS.md) — current token rules
+- [Resolver evolution](reference/tokens/RESOLVER_EVOLUTION.md) — deferred resolver work
+- [Scripts reference](operations/SCRIPTS.md) — monorepo commands
+- [Deploy guide](operations/DEPLOY.md) — release contract

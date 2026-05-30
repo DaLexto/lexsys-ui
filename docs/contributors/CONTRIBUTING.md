@@ -1,6 +1,11 @@
 # Contributing to Lexsys
 
 **Audience:** Maintainers and contributors
+**Type:** Contributor workflow
+**Source of truth for:** Human contributor workflow, PR gates, and labels
+**Last reviewed:** 2026-05-30
+
+---
 
 ## Setup
 
@@ -51,7 +56,7 @@ Issues and pull requests use the namespaced label set in [`.github/labels.yml`](
 | Namespace      | When to use                                                                                 |
 | -------------- | ------------------------------------------------------------------------------------------- |
 | `type:*`       | Change kind — mirrors commit types (`type:feat`, `type:fix`, `type:docs`, …)                |
-| `area:*`       | Primary package or surface (`area:tokens`, `area:cli`, `area:repo`, …)                      |
+| `area:*`       | Primary package or surface (`area:tokens`, `area:cli`, `area:agents`, `area:repo`, …)       |
 | `priority:*`   | Issue triage only (`priority:critical`, `priority:high`, `priority:medium`, `priority:low`) |
 | `status:*`     | Workflow state (`status:needs-triage`, `status:blocked`, `status:ready-for-review`)         |
 | `meta:*`       | Cross-cutting flags (`meta:breaking-change`, `meta:good-first-issue`, `meta:help-wanted`)   |
@@ -66,6 +71,7 @@ The manifest is synced in **strict** mode: labels not listed in `.github/labels.
 - Roadmap and phase sequencing: [Roadmap](../ROADMAP.md)
 - Active backlog: [Backlog](../REVIEW_TODO.md)
 - Script names (do not duplicate elsewhere): [Scripts reference](../operations/SCRIPTS.md)
+- New or reshaped docs: [`.agents/skills/docs-authoring/SKILL.md`](../../.agents/skills/docs-authoring/SKILL.md)
 - Post-change doc pass: [`.agents/skills/docs-alignment/SKILL.md`](../../.agents/skills/docs-alignment/SKILL.md)
 
 ## Consumer verification

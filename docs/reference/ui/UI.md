@@ -4,11 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Component contract rules, file structure, Base UI boundaries, variant and token usage
 **Verified against:** `packages/ui/src/`
-**Related docs:** [UI composition](../ui/UI_COMPOSITION.md) (install layers),
-[UI catalog](../ui/UI_CATALOG.md) (full installable inventory),
-[UI variants](../ui/UI_VARIANTS.md), [UI audit](../ui/UI_AUDIT.md),
-[Registry reference](../registry/REGISTRY.md), `docs/contributors/STYLEGUIDE.md` (practical patterns),
-`docs/reference/tokens/DESIGN_SYSTEM.md` (token system), `packages/ui/README.md` (package internals)
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -245,3 +241,12 @@ Full template sync contract (transform rules, drift validation, manual vs. gener
 - Registry metadata or install logic
 - CLI configuration or detection logic
 - Generated token CSS (use `@dalexto/lexsys-tokens` exports instead)
+
+---
+
+## Related documentation
+
+- [UI catalog](UI_CATALOG.md) — installable inventory
+- [UI composition](UI_COMPOSITION.md) — install layers and composition rules
+- [UI variants](UI_VARIANTS.md) — variant and CVA contract
+- [Registry reference](../registry/REGISTRY.md) — install metadata

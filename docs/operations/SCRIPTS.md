@@ -4,6 +4,9 @@
 **Type:** Commands reference (monorepo `pnpm` scripts)
 **Source of truth for:** Root and package script names, sync workflows, when to run checks
 **Verified against:** Root and workspace `package.json` files, `turbo.json`
+**Last reviewed:** 2026-05-30
+
+---
 
 Run commands from the **repository root** unless noted. For consumer-facing CLI commands (`lexsys init`, `lexsys add`, …), see [CLI reference](../reference/cli/CLI.md).
 
@@ -346,11 +349,9 @@ Builds publish packages and runs `changeset publish --tag next`. Used by Release
 
 ---
 
-## Related docs
+## Related documentation
 
-| Document                                            | Owns                                                                       |
-| --------------------------------------------------- | -------------------------------------------------------------------------- |
-| [Testing docs](../operations/TESTING.md)            | Test file inventory, Vitest config, IDE extension, render-test conventions |
-| [CLI reference](../reference/cli/CLI.md)            | Consumer `lexsys` CLI commands (not monorepo scripts)                      |
-| [Deploy guide](../operations/DEPLOY.md)             | Release and publish contract                                               |
-| [Troubleshooting](../operations/TROUBLESHOOTING.md) | Common failure fixes (links here for command names)                        |
+- [Testing docs](TESTING.md) — test inventory and verification surfaces
+- [Deploy guide](DEPLOY.md) — release and publish contract
+- [CLI reference](../reference/cli/CLI.md) — consumer `lexsys` CLI (not monorepo scripts)
+- [Troubleshooting](TROUBLESHOOTING.md) — common failure fixes

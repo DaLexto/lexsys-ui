@@ -4,16 +4,7 @@
 **Type:** Domain specification  
 **Source of truth for:** Install layers, composition rules, monorepo vs consumer layout  
 **Verified against:** `packages/ui`, `packages/registry`, `packages/cli`, consumer sandbox
-
-**Related docs:**
-
-- [UI catalog](../ui/UI_CATALOG.md) — installable inventory (compound/leaf, exports, versions)
-- [Registry reference](../registry/REGISTRY.md) — item metadata contract
-- [CLI reference](../cli/CLI.md) — install, config, uninstall
-- [Architecture](./ARCHITECTURE.md) — package boundaries
-- [Roadmap](./ROADMAP.md) — sequencing
-- [Testing docs](../operations/TESTING.md) — verification surfaces
-- [Backlog § Blocks/templates optimization](../../REVIEW_TODO.md#blocks--templates-optimization-backlog) — known gaps
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -367,3 +358,12 @@ Tracked in [Backlog § UI composition](../../REVIEW_TODO.md#ui-composition-primi
 - Consumer folder layout mirroring monorepo layer depth by default
 - `installedBy` provenance in consumer config
 - Hand-written token CSS
+
+---
+
+## Related documentation
+
+- [UI catalog](UI_CATALOG.md) — installable inventory (compound/leaf, exports)
+- [Registry reference](../registry/REGISTRY.md) — item metadata contract
+- [CLI reference](../cli/CLI.md) — install and config
+- [UI reference](UI.md) — component contract

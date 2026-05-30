@@ -4,7 +4,7 @@
 **Type:** Domain specification  
 **Source of truth for:** Public variant prop contract, CVA implementation rules, styling pattern taxonomy  
 **Verified against:** `packages/ui/src/components/`  
-**Related docs:** [UI reference](../ui/UI.md), [UI audit](../ui/UI_AUDIT.md), [Component style guide](../../contributors/STYLEGUIDE.md), [Style guide](../../contributors/STYLE.md), [Tokens reference](../tokens/TOKENS.md)
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -191,4 +191,12 @@ For scrollable lists, compose portal → positioner → popup → list (Select) 
 - `pnpm tokens:check` — token layer + CSS generation
 - Consumer smoke via sandbox when registry templates or public props change ([Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces))
 
-Do not start dev servers from agent sessions ([AGENTS.md § Agent operations](../AGENTS.md#agent-operations)).
+Do not start dev servers from agent sessions ([AGENTS.md § Agent operations](../../../AGENTS.md#agent-operations)).
+
+---
+
+## Related documentation
+
+- [UI reference](UI.md) — component contract
+- [UI audit](UI_AUDIT.md) — variant compliance inventory
+- [Tokens reference](../tokens/TOKENS.md) — token layers

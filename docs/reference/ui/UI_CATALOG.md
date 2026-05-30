@@ -4,7 +4,7 @@
 **Type:** Catalog / inventory  
 **Source of truth for:** Installable surface inventory — compound vs leaf, named exports, registry item name  
 **Verified against:** `packages/ui/src/components/`, `packages/registry/src/items/`  
-**Related docs:** [UI reference](../ui/UI.md) (leaf decision tree), [UI composition](../ui/UI_COMPOSITION.md) (composition rules), [UI audit](../ui/UI_AUDIT.md) (variant compliance), [Registry reference](../registry/REGISTRY.md) (item contract)
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -118,8 +118,9 @@ pnpm ui:audit:catalog:write   # refresh generated tables in this file
 
 ---
 
-## Related docs
+## Related documentation
 
-- [Doc index](./INDEX.md) — documentation routing
-- [UI reference § Compound vs leaf decision tree](../ui/UI.md#compound-vs-leaf-decision-tree)
-- [UI composition § Compound-first contract](../ui/UI_COMPOSITION.md#compound-first-contract)
+- [UI reference](../ui/UI.md) — leaf decision tree and component contract
+- [UI composition](../ui/UI_COMPOSITION.md) — composition rules (not inventory)
+- [UI audit](../ui/UI_AUDIT.md) — variant compliance
+- [Registry reference](../registry/REGISTRY.md) — item contract

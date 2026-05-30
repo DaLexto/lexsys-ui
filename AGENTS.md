@@ -1,5 +1,11 @@
 # AGENTS.md
 
+**Audience:** Maintainers, contributors, and agents  
+**Type:** Routing hub  
+**Source of truth for:** Agent routing and guardrails (not domain specification bodies)
+
+---
+
 ## Purpose
 
 Repository-specific **routing layer** for `lexsys`. Global user and tool rules
@@ -111,6 +117,7 @@ Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures.
 | `$consumer-sandbox-verify` | CLI/registry/template/blocks PR gate                                  |
 | `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks                              |
 | `$ui-authoring`            | New or edited primitive/block/template in UI; writing component tests |
+| `$docs-authoring`          | New or reshaped markdown per documentation-standards layout           |
 | `$docs-alignment`          | Behavior or counts changed → cross-ref docs                           |
 | `$token-change-verify`     | Token layers, generator, or governance touched                        |
 | `$project-next-steps`      | What to work on next, backlog triage, project status                  |
@@ -128,8 +135,8 @@ For non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans
 
 1. **Branch** off **`dev`** — never commit directly to **`main`**.
 2. **Implement** on the branch; scoped commits per concern.
-3. **Docs alignment** — **`$docs-alignment`** when contracts or counts change;
-   link to [docs/INDEX.md](./docs/INDEX.md).
+3. **Docs** — **`$docs-authoring`** for new/reshaped docs; **`$docs-alignment`**
+   when contracts or counts change; link to [docs/INDEX.md](./docs/INDEX.md).
 4. **Verify** — **`$monorepo-check-gate`**; sandbox when install artifacts change.
 5. **PR last** to **`dev`** only when the branch is complete — **`$git-commit`**.
 

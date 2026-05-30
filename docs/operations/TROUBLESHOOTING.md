@@ -4,6 +4,9 @@
 **Type:** Troubleshooting reference
 **Source of truth for:** Known failure modes and their verified fixes
 **Verified against:** `packages/cli/src/`, `packages/tokens/src/`, `packages/registry/src/`
+**Last reviewed:** 2026-05-30
+
+---
 
 Each entry includes a symptom, cause, and fix verified against the source.
 

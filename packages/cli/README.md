@@ -5,6 +5,7 @@
 **Source of truth for:** Package role, command surface, core module boundaries
 **Full CLI reference:** [docs/reference/cli/CLI.md](../../docs/reference/cli/CLI.md)
 **Verified against:** `packages/cli/src/`
+**Last reviewed:** 2026-05-30
 
 ---
 

@@ -4,8 +4,11 @@
 **Type:** Verification workflow reference
 **Source of truth for:** Verification surfaces (playground vs sandbox), test coverage by package, when to run which checks
 **Verified against:** `packages/*/test/`, `packages/*/vitest.config.ts`, `package.json` scripts
+**Last reviewed:** 2026-05-30
 
-Command names and sync workflows: [Scripts reference](../operations/SCRIPTS.md).
+---
+
+Command names and sync workflows: [Scripts reference](SCRIPTS.md).
 
 ---
 

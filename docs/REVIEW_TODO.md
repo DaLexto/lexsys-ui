@@ -3,6 +3,9 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
+**Last reviewed:** 2026-05-30
+
+---
 
 Long-term tokens platform direction lives in [Roadmap](./ROADMAP.md).
 
@@ -269,10 +272,10 @@ Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 
 ## Known Gaps
 
-| Gap                                    | Notes                                                                                                                                                                             |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blocks/templates mobile viewport QA    | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md).                                    |
-| Remote registry signatures / allowlist | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                              |
-| `documentation-standards.mdc` revisit  | Solid Diátaxis base but lacks: codebase-specific examples, tooling reference (future `docs:lint`), hub+detail split for readability, rule maintenance policy. Revisit post-0.1.0. |
+| Gap                                          | Notes                                                                                                                                          |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blocks/templates mobile viewport QA          | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md). |
+| Remote registry signatures / allowlist       | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                           |
+| `docs:lint` automation (metadata + H2 order) | Deferred — layout contract lives in `documentation-standards.mdc`; manual compliance pass shipped 2026-05-30.                                  |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.

@@ -4,6 +4,7 @@
 **Type:** CLI/API reference  
 **Source of truth for:** Command surface, flags, config schema, install behavior, error handling  
 **Verified against:** `packages/cli/src/` (all commands and core modules)
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -560,3 +561,12 @@ is printed. All errors exit with code 1.
 - Items with any conflict during `add` are not recorded in the installed map.
 - Items with conflicts during `update` leave files unchanged unless `--force` is used.
 - Legacy `installed` maps (`{ "button": "0.0.1" }`) migrate to `["button"]` on load.
+
+---
+
+## Related documentation
+
+- [Registry reference](../registry/REGISTRY.md) — install metadata and templates
+- [Architecture](../../ARCHITECTURE.md) — install flow and package boundaries
+- [CLI package README](../../../packages/cli/README.md) — package internals
+- [Testing docs](../../operations/TESTING.md) — consumer sandbox verification

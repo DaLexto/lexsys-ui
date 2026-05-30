@@ -81,6 +81,10 @@
   color: "6E7781"
   description: Root tooling, workspace config, monorepo infra
 
+- name: "area:agents"
+  color: "6F42C1"
+  description: AGENTS.md, .agents/skills/, and agent workflow policy
+
 # --- priority:* (issue triage) ---
 
 - name: "priority:critical"

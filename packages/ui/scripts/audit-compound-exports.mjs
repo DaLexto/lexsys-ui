@@ -271,8 +271,7 @@ const CATALOG_TEMPLATE = `# UI Installable Catalog
 **Audience:** Maintainers, contributors, and agents  
 **Type:** Catalog / inventory  
 **Source of truth for:** Installable surface inventory — compound vs leaf, named exports, registry item name  
-**Verified against:** \`packages/ui/src/components/\`, \`packages/registry/src/items/\`  
-**Related docs:** [UI.md](./UI.md) (leaf decision tree), [UI_COMPOSITION.md](./UI_COMPOSITION.md) (composition rules), [UI_AUDIT.md](./UI_AUDIT.md) (variant compliance), [REGISTRY.md](./REGISTRY.md) (item contract)
+**Verified against:** \`packages/ui/src/components/\`, \`packages/registry/src/items/\`
 
 ---
 
@@ -307,11 +306,12 @@ pnpm ui:audit:catalog:write   # refresh generated tables in this file
 
 ---
 
-## Related docs
+## Related documentation
 
-- [INDEX.md](./INDEX.md) — documentation routing
-- [UI.md § Compound vs leaf decision tree](./UI.md#compound-vs-leaf-decision-tree)
-- [UI_COMPOSITION.md § Compound-first contract](./UI_COMPOSITION.md#compound-first-contract)
+- [UI reference](../ui/UI.md) — leaf decision tree and component contract
+- [UI composition](../ui/UI_COMPOSITION.md) — composition rules (not inventory)
+- [UI audit](../ui/UI_AUDIT.md) — variant compliance
+- [Registry reference](../registry/REGISTRY.md) — item contract
 `
 
 function ensureCatalogFile(generated) {
