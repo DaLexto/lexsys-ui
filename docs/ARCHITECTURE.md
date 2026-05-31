@@ -112,7 +112,7 @@ folder depth. `registryDependencies` resolve transitively.
 
 Full layer rules, composition validator, and optimization backlog:
 [UI composition](UI_COMPOSITION.md), [Registry reference](REGISTRY.md),
-[Backlog § Blocks/templates optimization](REVIEW_TODO.md#blocks--templates-optimization-backlog).
+[Backlog § Blocks/templates optimization](REVIEW_TODO.md#blocks-templates-optimization-backlog).
 
 ---
 

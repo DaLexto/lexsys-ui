@@ -57,7 +57,7 @@ External project outside this monorepo (example: `D:\PLAYGROUND\sandbox-lexsys`)
 
 **Primary manual gate** before PRs that touch CLI, registry, templates, blocks/templates, or install artifacts.
 
-For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [Backlog § Blocks/templates optimization](../REVIEW_TODO.md#blocks--templates-optimization-backlog).
+For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [Backlog § Blocks/templates optimization](../REVIEW_TODO.md#blocks-templates-optimization-backlog).
 
 ### Practical workflow
 

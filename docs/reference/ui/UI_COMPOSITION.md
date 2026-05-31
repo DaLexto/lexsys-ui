@@ -276,7 +276,7 @@ Rules:
 
 ### Breaking migration (compound-first track)
 
-Tracked in [Roadmap § M11](./ROADMAP.md#m11--compound-first-api). After
+Tracked in [Roadmap § M11](./ROADMAP.md#m11-compound-first-api). After
 implementation, touched registry items bump to **`0.0.2`**.
 
 | Old API                                       | New API                                                                                |
@@ -311,7 +311,7 @@ Installable inventory (49 items — compound vs leaf, named exports, registry
 version): **[UI catalog](../ui/UI_CATALOG.md)**.
 
 Pilot blocks and templates remain installable; stability and sandbox QA gaps are
-tracked in [Backlog § Blocks/templates optimization](../../REVIEW_TODO.md#blocks--templates-optimization-backlog).
+tracked in [Backlog § Blocks/templates optimization](../../REVIEW_TODO.md#blocks-templates-optimization-backlog).
 
 **Pages** — routing, data, and product copy stay in the consumer project only.
 

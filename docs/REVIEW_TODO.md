@@ -10,18 +10,18 @@
 ## On this page
 
 - [Execution Queue (active)](#execution-queue-active)
-- [M4 — Entry + CLI DX (shipped)](#m4-entry-cli-dx-shipped)
-- [M8 — CLI Cleanup and Deduplication (shipped)](#m8-cli-cleanup-and-deduplication-shipped)
-- [M10 — Release readiness (shipped 2026-05-24)](#m10-release-readiness-shipped-2026-05-24)
+- [M4 - Entry + CLI DX (shipped)](#m4-entry-cli-dx-shipped)
+- [M8 - CLI Cleanup and Deduplication (shipped)](#m8-cli-cleanup-and-deduplication-shipped)
+- [M10 - Release readiness (shipped 2026-05-24)](#m10-release-readiness-shipped-2026-05-24)
 - [Verification policy (maintainer contract)](#verification-policy-maintainer-contract)
 - [Current State](#current-state)
-- [P2 — Product and DX](#p2-product-and-dx)
+- [P2 - Product and DX](#p2-product-and-dx)
   - [UI composition (primitives / blocks / templates)](#ui-composition-primitives-blocks-templates)
   - [Blocks / templates optimization backlog](#blocks-templates-optimization-backlog)
-  - [CS — Component Standardization](#cs-component-standardization)
-- [P3 — Architecture Planning](#p3-architecture-planning)
-- [M12 — CLI command optimization (planned)](#m12-cli-command-optimization-planned)
-- [SI — Script Improvements](#si-script-improvements)
+  - [CS - Component Standardization](#cs-component-standardization)
+- [P3 - Architecture Planning](#p3-architecture-planning)
+- [M12 - CLI command optimization (planned)](#m12-cli-command-optimization-planned)
+- [SI - Script Improvements](#si-script-improvements)
 - [Known Gaps](#known-gaps)
 
 Long-term tokens platform direction lives in [Roadmap](./ROADMAP.md).
@@ -57,7 +57,7 @@ Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
 ---
 
-## M4 — Entry + CLI DX (shipped)
+## M4 - Entry + CLI DX (shipped)
 
 Detail: [Roadmap § M4](./ROADMAP.md#phase-overview).
 
@@ -79,9 +79,9 @@ Detail: [Roadmap § M4](./ROADMAP.md#phase-overview).
 
 ---
 
-## M8 — CLI Cleanup and Deduplication (shipped)
+## M8 - CLI Cleanup and Deduplication (shipped)
 
-Detail: [Roadmap § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
+Detail: [Roadmap § M8](./ROADMAP.md#m8-cli-cleanup-and-deduplication).
 
 | Item | Description                                                                                         | Status  |
 | ---- | --------------------------------------------------------------------------------------------------- | ------- |
@@ -94,17 +94,17 @@ Detail: [Roadmap § M8](./ROADMAP.md#m8--cli-cleanup-and-deduplication).
 
 ---
 
-## M10 — Release readiness (shipped 2026-05-24)
+## M10 - Release readiness (shipped 2026-05-24)
 
 **First publish (historical):** `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm dist-tag **`next`**
 via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
-[Changelog](../CHANGELOG.md#001---2026-05-24).
+[Changelog](../CHANGELOG.md#001-2026-05-24).
 
-**Current preview:** `0.0.4` @ `next` (2026-05-30) — Table primitive, CLI `installed` array + `lexsys reset` ([CHANGELOG](../CHANGELOG.md#004---2026-05-30)). Prior: `0.0.3` (2026-05-28).
+**Current preview:** `0.0.4` @ `next` (2026-05-30) — Table primitive, CLI `installed` array + `lexsys reset` ([CHANGELOG](../CHANGELOG.md#004-2026-05-30)). Prior: `0.0.3` (2026-05-28).
 
 **Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [Deploy guide § Transition to 0.1.0](../operations/DEPLOY.md#transition-to-010-latest).
 
-Detail: [Roadmap § M10](./ROADMAP.md#m10--release-readiness).
+Detail: [Roadmap § M10](./ROADMAP.md#m10-release-readiness).
 
 ---
 
@@ -154,26 +154,26 @@ Known gaps below.
 
 ---
 
-## P2 — Product and DX
+## P2 - Product and DX
 
 ### UI composition (primitives / blocks / templates)
 
 Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md). Roadmap sequencing:
-[Roadmap § UI composition](./ROADMAP.md#ui-composition--three-layers-pilots-shipped).
+[Roadmap § UI composition](./ROADMAP.md#ui-composition-three-layers-pilots-shipped).
 
 **Today:** PR #28 merged — monorepo reference uses `primitives/`, `blocks/`, `templates/`; consumer install is flat under `paths.components` (`src/components/ui/<CanonicalName>/`). Pilot blocks and template are `lexsys add`-installable. BO.1–BO.7 fixed (CI install smoke, render tests, registry template-import audit); pilots marked stable. Narrow-viewport sandbox QA remains manual per [Testing docs § Blocks/templates checklist](../operations/TESTING.md#consumer-sandbox-verification).
 
 **Target:** expand registry **blocks** and **templates** beyond the pilot set. **`lexsys add <name>`** installs the transitive closure via `registryDependencies`; `item.target` resolves to the flat components root (monorepo templates still live under `primitives/`, `blocks/`, or `templates/` source folders).
 
-| Item | Layer     | Status  | Notes                                                                                                                                                     |
-| ---- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UC.1 | All       | shipped | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`                                           |
-| UC.2 | Blocks    | shipped | FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty — BO pass complete; CI render + install smoke                                          |
-| UC.3 | Templates | shipped | DashboardShell mobile layout fixed; CI render + install smoke                                                                                             |
-| UC.4 | Pages     | n/a     | Pages stay consumer-owned                                                                                                                                 |
-| UC.5 | CLI       | shipped | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)                                         |
-| UC.6 | Tests     | shipped | Block install smoke, render tests, registry template-import audit; closure/import-rewrite unit tests                                                      |
-| UC.7 | Compound  | shipped | Compound-first API (M11): flat named exports, variant propagation, blocks/templates compound-only — [ROADMAP § M11](./ROADMAP.md#m11--compound-first-api) |
+| Item | Layer     | Status  | Notes                                                                                                                                                    |
+| ---- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UC.1 | All       | shipped | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`                                          |
+| UC.2 | Blocks    | shipped | FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty — BO pass complete; CI render + install smoke                                         |
+| UC.3 | Templates | shipped | DashboardShell mobile layout fixed; CI render + install smoke                                                                                            |
+| UC.4 | Pages     | n/a     | Pages stay consumer-owned                                                                                                                                |
+| UC.5 | CLI       | shipped | `paths.components`, flat `item.target` install, import rewrite, `list` by layer, `--with-deps` uninstall (PR #28)                                        |
+| UC.6 | Tests     | shipped | Block install smoke, render tests, registry template-import audit; closure/import-rewrite unit tests                                                     |
+| UC.7 | Compound  | shipped | Compound-first API (M11): flat named exports, variant propagation, blocks/templates compound-only — [ROADMAP § M11](./ROADMAP.md#m11-compound-first-api) |
 
 **UC.7 execution queue (compound-first):**
 
@@ -207,7 +207,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 **Related fixes already landed (PR #28):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring. Post–PR #30 + `ef65072`: plain nav, mobile drawer, FormField sandbox, `DrawerClose` inline appearance, DashboardShell mobile layout.
 
-### CS — Component Standardization
+### CS - Component Standardization
 
 **Purpose:** Standardize component authoring patterns across primitives, blocks,
 templates, and registry templates before expanding the component catalog or
@@ -234,7 +234,7 @@ Roadmap anchor: [Roadmap § Component standardization](./ROADMAP.md#component-st
 
 ---
 
-## P3 — Architecture Planning
+## P3 - Architecture Planning
 
 Optional follow-ups after Phases 1–10 (detail in
 [Resolver evolution — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10)):
@@ -258,9 +258,9 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
 - ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI variants](./reference/ui/UI_VARIANTS.md))
 
-## M12 — CLI command optimization (planned)
+## M12 - CLI command optimization (planned)
 
-Detail: [Roadmap § M12](./ROADMAP.md#m12--cli-command-optimization).
+Detail: [Roadmap § M12](./ROADMAP.md#m12-cli-command-optimization).
 
 **Scope:** Small–medium PRs only — no mega-refactor. Separate from version-removal / config migration work.
 
@@ -274,7 +274,7 @@ Detail: [Roadmap § M12](./ROADMAP.md#m12--cli-command-optimization).
 
 ---
 
-## SI — Script Improvements
+## SI - Script Improvements
 
 Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 

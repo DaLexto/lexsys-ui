@@ -14,31 +14,31 @@ monorepo optimization sequencing
 ## On this page
 
 - [Current State](#current-state)
-- [Completed Platform Phases (1–10)](#completed-platform-phases-1-10)
+- [Completed Platform Phases (1-10)](#completed-platform-phases-1-10)
 - [Future Direction](#future-direction)
-  - [Token engine — next direction](#token-engine-next-direction)
+  - [Token engine - next direction](#token-engine-next-direction)
   - [Semantic and product gaps](#semantic-and-product-gaps)
 - [Monorepo optimization](#monorepo-optimization)
   - [Execution discipline](#execution-discipline)
   - [Phase overview](#phase-overview)
-  - [M1 — Infra and DX](#m1-infra-and-dx)
-  - [M2 — Quality and verification](#m2-quality-and-verification)
-  - [M3 — Product and architecture backlog](#m3-product-and-architecture-backlog)
-  - [M4 — Entry + CLI DX](#m4-entry-cli-dx)
-  - [M5 — Advanced CI](#m5-advanced-ci)
-  - [M6 — Dependency hygiene](#m6-dependency-hygiene)
-  - [M7 — Maintainer and tooling](#m7-maintainer-and-tooling)
-  - [M12 — CLI command optimization](#m12-cli-command-optimization)
-  - [M8 — CLI cleanup and deduplication](#m8-cli-cleanup-and-deduplication)
-  - [M10 — Release readiness](#m10-release-readiness)
+  - [M1 - Infra and DX](#m1-infra-and-dx)
+  - [M2 - Quality and verification](#m2-quality-and-verification)
+  - [M3 - Product and architecture backlog](#m3-product-and-architecture-backlog)
+  - [M4 - Entry + CLI DX](#m4-entry-cli-dx)
+  - [M5 - Advanced CI](#m5-advanced-ci)
+  - [M6 - Dependency hygiene](#m6-dependency-hygiene)
+  - [M7 - Maintainer and tooling](#m7-maintainer-and-tooling)
+  - [M12 - CLI command optimization](#m12-cli-command-optimization)
+  - [M8 - CLI cleanup and deduplication](#m8-cli-cleanup-and-deduplication)
+  - [M10 - Release readiness](#m10-release-readiness)
   - [Explicitly deferred](#explicitly-deferred)
   - [PR sequence](#pr-sequence)
   - [Verification gates](#verification-gates)
 - [Document Ownership](#document-ownership)
 - [UI polish track (post-M3)](#ui-polish-track-post-m3)
-- [UI composition — three layers (pilots shipped)](#ui-composition-three-layers-pilots-shipped)
+- [UI composition - three layers (pilots shipped)](#ui-composition-three-layers-pilots-shipped)
   - [UI composition track](#ui-composition-track)
-- [M11 — Compound-first API](#m11-compound-first-api)
+- [M11 - Compound-first API](#m11-compound-first-api)
 - [Component standardization (shipped)](#component-standardization-shipped)
 - [Maintenance Workflow](#maintenance-workflow)
 
@@ -70,7 +70,7 @@ Canonical current rules and enforcement details live in `docs/reference/tokens/T
 
 ---
 
-## Completed Platform Phases (1–10)
+## Completed Platform Phases (1-10)
 
 Phases 1–10 are complete. Detailed implementation history lives in git; this
 table is the high-level record only.
@@ -94,7 +94,7 @@ table is the high-level record only.
 
 The items below are planned work, not current contracts.
 
-### Token engine — next direction
+### Token engine - next direction
 
 Planned hardening and deferred speculative work are documented in
 [Resolver evolution — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10).
@@ -167,7 +167,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
 | M12   | CLI command optimization | planned | Command audit, merge candidates, cleanup, UX polish — small PRs                                   | CLI.md, REVIEW_TODO.md                |
 
-### M1 — Infra and DX
+### M1 - Infra and DX
 
 Status: shipped
 
@@ -201,7 +201,7 @@ Status: shipped
 **Phase PR:** `chore(m1): infra and DX`  
 **Post-merge docs:** ROADMAP status → shipped; REVIEW_TODO sync; SCRIPTS/DEPLOY if not in phase PR.
 
-### M2 — Quality and verification
+### M2 - Quality and verification
 
 Status: shipped
 
@@ -232,7 +232,7 @@ Status: shipped
 
 **Phase PR:** `test(m2): quality and verification`
 
-### M3 — Product and architecture backlog
+### M3 - Product and architecture backlog
 
 Status: shipped
 
@@ -258,11 +258,11 @@ Status: shipped
 
 **Phase PR:** `chore(m3): product and architecture backlog`
 
-### M4 — Entry + CLI DX
+### M4 - Entry + CLI DX
 
-Status: **shipped** — see [Backlog § M4](./REVIEW_TODO.md#m4--entry--cli-dx-shipped) for sub-item detail.
+Status: **shipped** — see [Backlog § M4](./REVIEW_TODO.md#m4-entry-cli-dx-shipped) for sub-item detail.
 
-### M5 — Advanced CI
+### M5 - Advanced CI
 
 Status: shipped — prerequisite: M1 baseline `ci.yml` merged.
 
@@ -280,7 +280,7 @@ Status: shipped — prerequisite: M1 baseline `ci.yml` merged.
 
 **Phase PR:** `ci(m5): advanced path-filter workflow`
 
-### M6 — Dependency hygiene
+### M6 - Dependency hygiene
 
 Status: shipped
 
@@ -298,7 +298,7 @@ Status: shipped
 
 **Phase PR:** `chore(m6): dependency hygiene`
 
-### M7 — Maintainer and tooling
+### M7 - Maintainer and tooling
 
 Status: shipped
 
@@ -324,13 +324,13 @@ Status: shipped
 
 - Strict namespaced label manifest (`.github/labels.yml`) synced via `github-label-sync` and [`.github/workflows/labels-sync.yml`](../.github/workflows/labels-sync.yml).
 
-### M12 — CLI command optimization
+### M12 - CLI command optimization
 
 Status: **planned** — backlog only; no implementation contract yet.
 
 Post–M8 polish: command naming audit, overlapping-command merge candidates,
 targeted cleanup, and UX improvements. Execute as **small–medium PRs** (one
-M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12--cli-command-optimization-planned).
+M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12-cli-command-optimization-planned).
 
 | Item  | Focus                                     |
 | ----- | ----------------------------------------- |
@@ -344,11 +344,11 @@ M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12--cl
 
 ---
 
-### M8 — CLI cleanup and deduplication
+### M8 - CLI cleanup and deduplication
 
 Status: **shipped**
 
-Dead-code removal and targeted deduplication across `packages/cli/src/`. No behavior changes except proper `--yes` wiring. Sub-items tracked in [Backlog § M8](./REVIEW_TODO.md#m8--cli-cleanup-and-deduplication-shipped).
+Dead-code removal and targeted deduplication across `packages/cli/src/`. No behavior changes except proper `--yes` wiring. Sub-items tracked in [Backlog § M8](./REVIEW_TODO.md#m8-cli-cleanup-and-deduplication-shipped).
 
 | Item | Focus                                                                          |
 | ---- | ------------------------------------------------------------------------------ |
@@ -363,14 +363,14 @@ Dead-code removal and targeted deduplication across `packages/cli/src/`. No beha
 
 ---
 
-### M10 — Release readiness
+### M10 - Release readiness
 
 Status: **shipped** (2026-05-24) — `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm
 dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later milestone.
 
 **Publish-day checklist (canonical):** [Deploy guide § Pre-release gate](../operations/DEPLOY.md#pre-release-gate)
 
-**Execution track:** [Backlog § M10](./REVIEW_TODO.md#m10--release-readiness-shipped-2026-05-24)
+**Execution track:** [Backlog § M10](./REVIEW_TODO.md#m10-release-readiness-shipped-2026-05-24)
 
 #### M10.0 — Publish scope and version lane
 
@@ -468,7 +468,7 @@ and [UI audit](./reference/ui/UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaki
 
 ---
 
-## UI composition — three layers (pilots shipped)
+## UI composition - three layers (pilots shipped)
 
 **Status:** **PR #28** merged to `dev`. Monorepo reference layout uses
 `primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
@@ -502,13 +502,13 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
 testing. BO.1–BO.7 fixed; narrow-viewport sandbox checklist remains manual ([Testing docs](../operations/TESTING.md)).
-Tracked in [Backlog § Blocks/templates optimization](./REVIEW_TODO.md#blocks--templates-optimization-backlog).
+Tracked in [Backlog § Blocks/templates optimization](./REVIEW_TODO.md#blocks-templates-optimization-backlog).
 
 Execution queue: [Backlog § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 
 ---
 
-## M11 — Compound-first API
+## M11 - Compound-first API
 
 **Status:** shipped on `dev` (merged [PR #34](https://github.com/DaLexto/lexsys-ui/pull/34), 2026-05-24)
 
@@ -544,7 +544,7 @@ CVA vs `*Classes()`, props/ref/className standards, compound API consistency,
 `lex-` CSS var prefix with rebrand script, `$ui-authoring` hub skill, and
 `ui-component-authoring.mdc` Cursor rule.
 
-Execution queue: [Backlog § CS](./REVIEW_TODO.md#cs--component-standardization).
+Execution queue: [Backlog § CS](./REVIEW_TODO.md#cs-component-standardization).
 
 Canonical docs:
 [UI reference](./reference/ui/UI.md),

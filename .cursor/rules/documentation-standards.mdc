@@ -106,7 +106,10 @@ When a doc has **≥4 substantive H2 sections**, it **MUST** include **`## On th
 - Docs with fewer than four substantive H2 sections.
 
 - Bullet list of anchor links matching existing H2/H3 headings (indent H3 under H2).
-- Update **on touch** when headings change in the same PR.
+- **Nav labels MUST match heading text exactly**; click-test each link in markdown preview.
+- **Linked H2/H3 (On this page targets):** use ASCII ` - ` between segments — not em dash `—`; ranges `1-10` not `1–10`. Em dash in body prose is fine.
+- **`#fragment` slugs:** lowercase heading, strip `` ` ``, treat ` - ` as space, drop other punctuation, spaces → `-` (e.g. `## P3 - Architecture` → `#p3-architecture-planning`). Do not hand-guess; copy hash from preview when unsure.
+- Update **on touch** when headings change (fix fragments in this file and cross-links).
 
 ### Related documentation (footer)
 
