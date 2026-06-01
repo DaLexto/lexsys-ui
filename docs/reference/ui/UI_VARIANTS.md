@@ -208,7 +208,7 @@ For scrollable lists, compose portal → positioner → popup → list (Select) 
 - `pnpm tokens:check` — token layer + CSS generation
 - Consumer smoke via sandbox when registry templates or public props change ([Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces))
 
-Do not start dev servers from agent sessions ([AGENTS.md § Agent operations](../../../AGENTS.md#agent-operations)).
+Do not start dev servers from agent sessions ([AGENTS.md § Verification](../../../AGENTS.md#verification)).
 
 ---
 
