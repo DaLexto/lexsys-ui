@@ -1,9 +1,12 @@
 ---
 name: agent-workflow
 description: >
-  Default Lexsys monorepo workflow: branch, implement, docs, user-run verify,
-  PR last. Load for any non-trivial implementation unless the user names a
-  single domain skill or git-only task.
+  Default Lexsys monorepo implementation workflow in AGENTS.md and
+  .cursor/skills/agent-workflow. Branch off dev, implement (UI, registry, CLI,
+  tokens), docs pass, user-run pnpm verify checklist from SCRIPTS.md and
+  REVIEW_TODO.md, PR last via $git-commit. Use for multi-package tasks, feature
+  slices, registry sync, ui:check, format:check, pnpm check, or when unsure
+  which skill to load. Not for commit-only, backlog triage, or question-only turns.
 ---
 
 # Agent workflow
