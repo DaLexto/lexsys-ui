@@ -11,25 +11,6 @@ Follow [cursor-rules.mdc](cursor-rules.mdc) for file placement and frontmatter. 
 
 ---
 
-## Where the rule file belongs
-
-| Requirement | Detail |
-|-------------|--------|
-| Location | `PROJECT_ROOT/.cursor/rules/` only |
-| Filename | kebab-case, `.mdc` extension, purpose-clear (e.g. `git-commits.mdc`, `git-commit-policy.mdc`) |
-| Forbidden | Project root, `docs/`, package folders, or any path outside `.cursor/rules/` |
-
-Suggested layout:
-
-```txt
-.cursor/rules/
-├── cursor-rules.mdc
-├── git-commit-rules.mdc    # this meta-guide
-└── git-commits.mdc         # project policy (you author per repo)
-```
-
----
-
 ## Neutral frontmatter
 
 Keep frontmatter **portable** and **discovery-friendly**:
@@ -217,7 +198,7 @@ Use **relative** Markdown links only — files in the same repo, same rule folde
 |-------------|---------|
 | Rule authoring | [cursor-rules.mdc](cursor-rules.mdc) |
 | This meta-guide | [git-commit-rules.mdc](git-commit-rules.mdc) |
-| Project commit policy | [git-commits.mdc](../../.agents/skills/git-commit/git-commits.mdc) *(Lexsys; may live under `.cursor/rules/` in other repos)* |
+| Project commit policy | [git-commits.mdc](./git-commits.mdc) *(Lexsys canonical)* |
 
 Do not use `mdc:` URLs or absolute paths to another developer’s machine.
 
