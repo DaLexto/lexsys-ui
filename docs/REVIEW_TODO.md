@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-05-30 (SI.4–SI.5 registry sync automation)
 
 ---
 
@@ -52,6 +52,7 @@ that are not yet done.
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 | CS      | Component standardization (CS.1–CS.8)                               | shipped |
 | M12     | CLI command optimization (audit, merge candidates, cleanup)         | planned |
+| SI      | Registry sync — full templates + items automation (SI.4–SI.5)        | planned |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
@@ -283,7 +284,8 @@ Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 | SI.1 | Full post-rename run order: rename → `registry:sync` → `format` (per-package scripts exist) → `pnpm check` (lint + typecheck + tests). Currently stops after `registry:sync` and does not format or run tests.                                                                                                                                                                                                                                                                                                                                                                                       | shipped |
 | SI.2 | Post-rename format: run `pnpm format` (Prettier, whole repo) after file writes. Currently the script does not format — touched files may drift from style rules. Note: `*:lint:fix` scripts are ESLint-only, not Prettier; there are no per-package Prettier scripts. `pnpm format` on the whole repo is the correct call here.                                                                                                                                                                                                                                                                      | shipped |
 | SI.3 | Post-rename summary: print count of files changed per category (source / docs / test-configs / registry) after all tasks complete.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | shipped |
-| SI.4 | Auto-scaffold `src/items/<name>.ts` for blocks/templates in `sync-block-templates.mjs`. Currently `sync-component-templates.mjs` calls `syncRegistryItems` (auto-creates primitive item files if missing), but `sync-block-templates.mjs` does not — block/template item files must be written manually. Extend `syncRegistryItems` or add a parallel helper that scaffolds block items with `type: "block"`, inferred `category`, correct `registryDependencies` stub, and wires `index.ts`. Gate: `registry:check` must catch missing block items the same way it catches missing primitive items. | planned |
+| SI.4 | **Registry sync — block/template item scaffold:** call `syncRegistryItems` (or equivalent) from `sync-block-templates.mjs` so missing `src/items/<block>.ts` / template items are created and wired in `index.ts` (`type: "block"` / template, category stub, `files` from templates). Gate: `registry:check` fails on missing items for every UI folder under `blocks/` and `templates/`. | planned |
+| SI.5 | **Registry sync — full item automation:** on `pnpm registry:sync`, regenerate or reconcile **all** `src/items/*.ts` from UI + templates (primitives, blocks, templates): `files`, `dependencies`, `registryDependencies` inference, `utilities`, index wiring. Policy for merge vs overwrite (preserve manual fields like `aliases`, `version` until semver tooling exists). Target: one command updates **templates + items**; no hand-editing item files for routine UI changes. Depends on SI.4 for blocks/templates scaffold path. | planned |
 
 ---
 
@@ -291,6 +293,7 @@ Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 
 | Gap                                          | Notes                                                                                                                                          |
 | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Registry item metadata manual / partial sync | `registry:sync` regenerates `templates/**` but only scaffolds **missing** primitive items; blocks/template items are fully manual; existing items are never reconciled. Target: SI.4–SI.5 — full auto items on sync. See [REGISTRY.md](./reference/registry/REGISTRY.md), `registry-item-generator.mjs`. |
 | Blocks/templates mobile viewport QA          | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md). |
 | Remote registry signatures / allowlist       | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                           |
 | `docs:lint` automation (metadata + H2 order) | Deferred — layout contract lives in `documentation-standards.mdc`; manual compliance pass shipped 2026-05-30.                                  |

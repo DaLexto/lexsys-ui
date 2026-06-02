@@ -113,4 +113,6 @@ Stari `.cursor/rules/` → novi fajl: samo [RULES_REPLACEMENT_MAP.txt](../../RUL
 
 **DEFER:** `architecture.mdc` · **NO:** `naming.mdc`, `release.mdc` · **Later:** README/AGENTS rule, `tech-stack` revisit, test/release skills (wave 2)
 
-**Sledeći korak:** per-rule plan (npr. `typescript.md`) ili UI component analysis — reci šta prvo.
+**Implementacioni planovi (draft):** [typescript.md](./typescript.md) · [code-commenting.md](./code-commenting.md) · [ui-components.md](./ui-components.md) · [testing.md](./testing.md) · [documentation.md](./documentation.md)
+
+**Sledeći korak:** pregled planova → OK po fajlu → pišemo `rules/*.mdc`. Ako fali rule → novi red u katalog + proposal.

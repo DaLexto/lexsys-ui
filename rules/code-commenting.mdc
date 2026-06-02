@@ -1,0 +1,61 @@
+---
+description: JSDoc and inline comment standards for Lexsys TypeScript source and tests.
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+alwaysApply: false
+---
+
+# Code Commenting
+
+Edit-time standards for comments in `.ts` / `.tsx`. Canonical detail: [STYLE.md](../docs/contributors/STYLE.md) § Comments.
+
+**Scope:** Source and test **code** only — not `docs/**/*.md` ([documentation.mdc](./documentation.mdc)).
+
+**Precedence:** Does not replace types or exports ([typescript.mdc](./typescript.mdc)) or UI variant rules ([ui-components.mdc](./ui-components.mdc)). Comments explain **why** and behavior — not types already in signatures.
+
+---
+
+## JSDoc on exports
+
+- All **new or changed public API exports** MUST have JSDoc — symbols exposed via `package.json` `exports`, package entry barrels, CLI commands, and other surfaces other packages or consumers import.
+- **Internal exports** (helpers within a package, test utilities) SHOULD have JSDoc when behavior, constraints, or invariants are not obvious from the name and types alone.
+
+Keep JSDoc **short** — not a novel:
+
+- Brief description; add `@param` / `@returns` / `@throws` only when they add information TypeScript does not show.
+- Trivial one-liner helpers (`hasFlag`, `cn`) — one line or skip if self-explanatory.
+- Obvious re-exports — no block; do not restate the name.
+
+Update JSDoc in the **same** change when you touch a documented export.
+
+---
+
+## Required — inline comments
+
+- Explain intent, constraints, or non-obvious behavior — not what the code already says.
+- Use `// TODO:`, `// NOTE:`, `// FIXME:` for coordination; include ticket or context when known.
+
+---
+
+## Do not
+
+- Narrate obvious code (`// increment i`, `// return result`).
+- Write multi-paragraph JSDoc on trivial exported helpers.
+- Add JSDoc blocks to non-exported internals unless clarifying a non-obvious invariant.
+- Disable ESLint missing-documentation rules without a documented exception.
+- Apply markdown doc layout rules here — use [documentation.mdc](./documentation.mdc) for `docs/**`.
+
+---
+
+## ESLint
+
+Public exports should satisfy documentation lint. Fix missing docs on exports you touch; do not blanket-disable rules for new public API.
+
+---
+
+## See also
+
+- [typescript.mdc](./typescript.mdc) — types, imports, exports
+- [documentation.mdc](./documentation.mdc) — `docs/**/*.md` only
+- [STYLE.md](../docs/contributors/STYLE.md) § Comments
