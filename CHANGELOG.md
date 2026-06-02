@@ -19,6 +19,25 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ---
 
+## [0.0.5] - 2026-06-02
+
+Fifth early-preview release on dist-tag **`next`**. Registry sync automation for blocks/templates and block install import fixes.
+
+### Fixed
+
+- **Block and template install** — copied files no longer keep monorepo-style `@/components/primitives|blocks|templates/…` imports; CLI rewrites them to flat sibling paths under `paths.components` (e.g. `../Button/Button`)
+
+### Changed
+
+- **Registry package** — block and template registry items and templates stay aligned with UI source when maintainers run `registry:sync` (item metadata reconciled; `registryDependencies` inferred from template imports)
+
+### Notes
+
+- Maintainer workflow only: no change to consumer `lexsys add` flags beyond install output paths above
+- Published via Changesets after merging this release changeset to `main`
+
+---
+
 ## [0.0.4] - 2026-05-30
 
 Fourth early-preview release on dist-tag **`next`**. New **Table** primitive, CLI config migration, and template-drift tooling.
@@ -126,7 +145,8 @@ First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.3...HEAD
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.4...HEAD
+[0.0.4]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.3...@dalexto/lexsys@0.0.4
 [0.0.3]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.2...@dalexto/lexsys@0.0.3
 [0.0.2]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys-cli@0.0.1...@dalexto/lexsys-cli@0.0.2
 [0.0.1]: https://www.npmjs.com/package/@dalexto/lexsys-cli/v/0.0.1
