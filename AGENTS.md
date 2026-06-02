@@ -30,7 +30,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 | Edit-time standards | [`.cursor/rules/`](./.cursor/rules/) — attach via globs while editing matching files                       |
 | Contracts           | [docs/](./docs/) — domain specs; find owner in [INDEX.md](./docs/INDEX.md)                                 |
 
-**Quick routing:** non-trivial multi-step work → **`$agent-workflow`** first; new doc layout → **`$docs-authoring`**; counts or contracts stale → **`$docs-alignment`**; UI component work → **`$ui-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
+**Quick routing:** default for implementation → **`$agent-workflow`** (if unsure, start there); new doc layout → **`$docs-authoring`**; counts or contracts stale → **`$docs-alignment`**; UI component work → **`$ui-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
 
 ---
 
@@ -39,7 +39,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 - **Package boundaries:** public API via `package.json` `exports` only; `src/` is source-only; `dist/` is publish output; no deep imports into another package's `src/` or `dist/`.
 - **Registry-first CLI:** no hardcoded per-component install logic; read registry metadata; idempotent installs; no silent overwrites — [CLI.md](./docs/reference/cli/CLI.md).
 - **Generated CSS:** token CSS is build output — never hand-write. See [TOKENS.md](./docs/reference/tokens/TOKENS.md).
-- **UI → registry:** after `packages/ui` edits that affect install artifacts, run **`pnpm registry:sync`** — **`$registry-sync`**.
+- **UI → registry:** after UI edits affecting install artifacts, put **`pnpm registry:sync`** on the **`$agent-workflow`** step 4 checklist — **`$registry-sync`** for metadata; never hand-edit templates.
 - **Registry two-zone:** `packages/registry/src/items/` (install metadata) vs `packages/registry/templates/` (generated from UI — never edit templates directly). Full rules: [REGISTRY.md](./docs/reference/registry/REGISTRY.md); primitives vs blocks scaffolding via **`$registry-sync`**.
 - **Playground:** maintenance-only monorepo smoke — not consumer install truth. See [TESTING.md](./docs/operations/TESTING.md).
 - **Branch policy:** branch off **`dev`**; PR to **`dev`**; do not touch **`main`** unless the user explicitly requests it.
@@ -63,24 +63,24 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 **Transitional layout:** domain procedures live in [`.agents/skills/`](./.agents/skills/); **`$agent-workflow`** lives in [`.cursor/skills/agent-workflow/`](./.cursor/skills/agent-workflow/) (Cursor project default). A later reorg may consolidate under `.cursor/skills/`. Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) (with **`$git-commit`**).
 
-| Skill                  | When                                              |
-| ---------------------- | ------------------------------------------------- |
-| `$agent-workflow`      | Non-trivial task — procedure before domain skills |
-| `$registry-sync`       | UI changed → sync registry templates              |
-| `$monorepo-check-gate` | Pre-commit / pre-PR scoped `pnpm` checks          |
-| `$ui-authoring`        | New or edited UI primitive/block/template; tests  |
-| `$docs-authoring`      | New or reshaped markdown layout                   |
-| `$docs-alignment`      | Behavior or counts changed → cross-ref docs       |
-| `$token-change-verify` | Token layers, generator, or governance            |
-| `$project-next-steps`  | What to work on next; backlog triage              |
-| `$git-commit`          | Commit, push, or PR to `dev`                      |
-| `$changelog-update`    | CHANGELOG after feature or fix merges             |
+| Skill                  | When                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| `$agent-workflow`      | **Default** monorepo implementation procedure (unless a single other skill is named) |
+| `$registry-sync`       | UI changed → sync registry templates                                                 |
+| `$monorepo-check-gate` | Pre-commit / pre-PR scoped `pnpm` checks                                             |
+| `$ui-authoring`        | New or edited UI primitive/block/template; tests                                     |
+| `$docs-authoring`      | New or reshaped markdown layout                                                      |
+| `$docs-alignment`      | Behavior or counts changed → cross-ref docs                                          |
+| `$token-change-verify` | Token layers, generator, or governance                                               |
+| `$project-next-steps`  | What to work on next; backlog triage                                                 |
+| `$git-commit`          | Commit, push, or PR to `dev`                                                         |
+| `$changelog-update`    | CHANGELOG after feature or fix merges                                                |
 
 ---
 
 ## Change workflow
 
-**Procedure (canonical):** [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) — branch → implement → docs → verify (you run checks; agent plans from **`$monorepo-check-gate`**) → PR last (**`$git-commit`** when you ask). Session state: **git + [REVIEW_TODO.md](./docs/REVIEW_TODO.md)** only.
+**Procedure (canonical):** [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) — branch → implement → docs → verify (you run checks; agent plans from SCRIPTS + skill quick map) → PR last (**`$git-commit`** when you ask). Session state: **git + [REVIEW_TODO.md](./docs/REVIEW_TODO.md)** only.
 
 Use it for non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans); load domain skills from the table above as that skill directs.
 
