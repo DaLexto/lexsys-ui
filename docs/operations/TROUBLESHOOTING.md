@@ -200,14 +200,16 @@ pnpm registry:check           # verify style templates are in sync
 
 ## Registry
 
-### `pnpm registry:check` fails with template drift
+### `pnpm registry:check` fails with template or item drift
 
-**Cause:** A UI component was edited but `pnpm registry:sync` was not run.
+**Cause:** UI source changed without `pnpm registry:sync`, a block/template UI
+folder lacks a matching `src/items/<name>.ts`, or reconciled item metadata would
+change (check mode).
 
 **Fix:**
 
 ```sh
-pnpm registry:sync    # sync UI source → registry templates
+pnpm registry:sync    # sync UI → templates + reconcile src/items/
 pnpm registry:check   # verify (should pass now)
 ```
 

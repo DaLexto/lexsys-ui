@@ -147,8 +147,10 @@ mirror that layout under `packages/registry/templates/{primitives,blocks,templat
 **Consumer install path vs monorepo layout:** `target` is always flat
 `src/components/ui/<CanonicalName>/` regardless of registry layer. The CLI
 rewrites cross-layer imports in block/template files at install time
-(`../../primitives/` → `../`, etc.) so consumers do not mirror monorepo folder
-depth. See [CLI reference](../cli/CLI.md) and `packages/cli/src/core/import-rewriter.ts`.
+(`../../primitives/` → `../`, and `@/components/{primitives,blocks,templates}/…`
+→ flat sibling paths under `paths.components`) so consumers do not mirror
+monorepo folder depth. See [CLI reference](../cli/CLI.md) and
+`packages/cli/src/install/import-rewriter.ts`.
 
 If the CLI needs any knowledge not declared in the registry item, the item is
 incomplete.
@@ -185,8 +187,9 @@ Rules:
 - Templates MUST NOT be hand-edited. Overwrite via sync scripts only.
 - **Sync transforms (registry templates):**
   - `cn` / `mergeClassName` import paths → `@/lib/utils`
-  - Block/template sync may rewrite monorepo-relative cross-layer imports for
-    template storage; see `scripts/sync-block-templates.mjs`
+  - Block/template sync rewrites monorepo-relative and `@/components/{layer}/…`
+    imports for template storage; see `scripts/sync-block-templates.mjs` and
+    `scripts/lib/registry-composition-imports.mjs`
 - **Install transforms (consumer project):** CLI rewrites cross-layer imports in
   block/template installs for flat `paths.components` layout. Sync does not
   apply consumer paths — that happens in `packages/cli` at install/update time.

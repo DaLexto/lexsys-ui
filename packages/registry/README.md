@@ -52,7 +52,7 @@ Templates are resolved via the `./templates/*` export path, not the `.` entry:
 
 ```ts
 import.meta
-  .resolve("@dalexto/lexsys-registry/templates/components/Button/Button.tsx")
+  .resolve("@dalexto/lexsys-registry/templates/primitives/Button/Button.tsx")
 ```
 
 ---
@@ -67,7 +67,7 @@ Each item in `src/items/` declares the full install contract (required fields, o
 
 Installable templates live under `packages/registry/templates/` — component files, shared utilities, and token CSS styles. Component templates are synced from `packages/ui/src/components`; style templates from `@dalexto/lexsys-tokens` via `generate:styles`. Templates MUST NOT be manually edited.
 
-Template sync rules, the `cn` import transform, and drift validation: [docs/reference/registry/REGISTRY.md](../../docs/reference/registry/REGISTRY.md).
+Template sync rules, item reconcile policy, import transforms, and drift validation: [docs/reference/registry/REGISTRY.md](../../docs/reference/registry/REGISTRY.md).
 
 ---
 

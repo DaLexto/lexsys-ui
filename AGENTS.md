@@ -40,7 +40,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 - **Registry-first CLI:** no hardcoded per-component install logic; read registry metadata; idempotent installs; no silent overwrites — [CLI.md](./docs/reference/cli/CLI.md).
 - **Generated CSS:** token CSS is build output — never hand-write. See [TOKENS.md](./docs/reference/tokens/TOKENS.md).
 - **UI → registry:** after UI edits affecting install artifacts, put **`pnpm registry:sync`** on the step 4 checklist via **`$monorepo-verify-gate`** — **`$registry-sync`** for metadata; never hand-edit templates.
-- **Registry two-zone:** `packages/registry/src/items/` (install metadata) vs `packages/registry/templates/` (generated from UI — never edit templates directly). Full rules: [REGISTRY.md](./docs/reference/registry/REGISTRY.md); primitives vs blocks scaffolding via **`$registry-sync`**.
+- **Registry two-zone:** `packages/registry/src/items/` (install metadata) vs `packages/registry/templates/` (generated from UI — never edit templates directly). **`pnpm registry:sync`** reconciles items and templates for all layers (preserves `aliases` / `category` on reconcile). Full rules: [REGISTRY.md](./docs/reference/registry/REGISTRY.md); workflow: **`$registry-sync`**.
 - **Playground:** maintenance-only monorepo smoke — not consumer install truth. See [TESTING.md](./docs/operations/TESTING.md).
 - **Branch policy:** branch off **`dev`**; PR to **`dev`**; do not touch **`main`** unless the user explicitly requests it.
 - **Prefer links over duplication** when a rule already lives in `docs/`.

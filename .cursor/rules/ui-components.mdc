@@ -91,10 +91,9 @@ packages/registry/src/items/    ← install metadata — see below
 | Artifact | `pnpm registry:sync` today |
 | -------- | --------------------------- |
 | `templates/**` | Regenerated from UI source (overwrite when changed) |
-| `src/items/*.ts` (primitives) | **Scaffold only if file missing** — sync does **not** overwrite existing items |
-| `src/items/*.ts` (blocks/templates) | **Manual** — sync does not create or update item files yet |
+| `src/items/*.ts` (all layers) | Generated/reconciled; scaffolds if missing; preserves `aliases` / `category`; regenerates `files`, `registryDependencies`, etc. |
 
-After install-affecting UI edits: tell user to run **`$registry-sync`** / `pnpm registry:sync` and review reconciled item metadata (`registryDependencies`, `files`). Items are regenerated on sync — preserve `aliases` / `category` only; see [REGISTRY.md](../../docs/reference/registry/REGISTRY.md).
+After install-affecting UI edits: tell user to run **`$registry-sync`** / `pnpm registry:sync` and review inferred `registryDependencies`. See [REGISTRY.md](../../docs/reference/registry/REGISTRY.md) reconcile table.
 
 ---
 

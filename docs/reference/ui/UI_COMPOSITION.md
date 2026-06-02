@@ -342,7 +342,7 @@ See [CLI reference](../cli/CLI.md) for `lexsys.config.json` (`paths.components`,
 | Primitives         | Monorepo playground (~20%) |
 | Blocks + templates | Consumer sandbox (~80%)    |
 
-Workflow: edit `packages/ui` → `pnpm registry:sync` → `lexsys update` in sandbox — never hand-edit registry templates or installed consumer source.
+Workflow: edit `packages/ui` → `pnpm registry:sync` (templates + reconciled `src/items/`) → `lexsys update` in sandbox — never hand-edit registry templates or installed consumer source.
 
 ---
 
