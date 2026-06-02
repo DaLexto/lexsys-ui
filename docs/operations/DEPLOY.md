@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Build and publish contract, version lanes, pre-release gates, npm publish surface
 **Verified against:** Root and workspace `package.json` files, `turbo.json`
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-02
 
 ---
 
@@ -42,8 +42,9 @@ flowchart LR
     mainPR --> releaseCI[Release CI]
     releaseCI --> versionPR[Changesets Version PR]
     versionPR --> publish[npm publish]
-    publish --> nextTag["@next — 0.0.x"]
-    publish --> latestTag["@latest — 0.1.0+"]
+    publish --> syncDev["merge main into dev"]
+    syncDev --> nextTag["@next — 0.0.x"]
+    syncDev --> latestTag["@latest — 0.1.0+"]
 ```
 
 ---
@@ -190,6 +191,18 @@ violations do not fail the gate.)
 
 ## Release workflow
 
+Changesets uses **`baseBranch: "main"`** ([`.changeset/config.json`](../../.changeset/config.json)).
+The Version Packages PR updates `package.json` versions and CHANGELOG on **`main` only**.
+After publish, **merge `main` into `dev`** so the integration branch keeps the same
+release metadata (otherwise `dev` can look "behind" `main` by two release commits while
+still being ahead on feature work).
+
+```bash
+git checkout dev && git pull origin dev
+git merge origin/main
+git push origin dev
+```
+
 ### 0.0.x bump (`@next`)
 
 For any patch or minor release on the `0.0.x` line:
@@ -198,8 +211,9 @@ For any patch or minor release on the `0.0.x` line:
 2. Add a changeset: `pnpm changeset`
 3. Merge the Changesets "Version Packages" PR to `main`
 4. Release CI publishes automatically on merge to `main`
-5. Verify: `npm view @dalexto/lexsys dist-tags` shows updated `next` version
-6. Post-publish smoke in a clean temp directory:
+5. Merge `main` into `dev` (see [Sync dev after release](#release-workflow) above)
+6. Verify: `npm view @dalexto/lexsys dist-tags` shows updated `next` version
+7. Post-publish smoke in a clean temp directory:
 
 ```bash
 npx --yes @dalexto/lexsys@next init vite smoke-test
@@ -221,9 +235,10 @@ Additional steps beyond the standard 0.0.x flow:
 3. Add changeset with minor bump → `0.1.0`
 4. Update Changesets config and publish CI to use dist-tag **`latest`**
 5. Merge Version Packages PR to `main` → Release CI publishes
-6. README: update install command to remove `@next`
-7. Update CHANGELOG `[0.1.0]` entry and dist-tag policy in this file
-8. Add `npm publish --provenance` to the Release CI workflow (see [Supply chain security](#supply-chain-security))
+6. Merge `main` into `dev` (release metadata sync — see [Release workflow](#release-workflow))
+7. README: update install command to remove `@next`
+8. Update CHANGELOG `[0.1.0]` entry and dist-tag policy in this file
+9. Add `npm publish --provenance` to the Release CI workflow (see [Supply chain security](#supply-chain-security))
 
 **First-time `@latest` smoke:**
 
