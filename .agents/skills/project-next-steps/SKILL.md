@@ -29,7 +29,7 @@ This skill owns **how to analyze** — do not copy queue rows into the skill fil
 ## When not to use
 
 - User already named a task, branch, or PR scope — implement instead
-- Pure doc edit pass — use **`$docs-alignment`**
+- Pure doc edit pass — use **`$docs-authoring`** ([alignment](../../.cursor/skills/docs-authoring/procedures.md#alignment))
 - Pre-commit / PR verification on a branch in progress — use **`$agent-workflow`** (step 4 checklist) or **`$git-commit`** when ready
 
 ---
@@ -80,7 +80,7 @@ Label every candidate item with **one** category:
 | **Deferred**    | Explicitly postponed            | ROADMAP § Explicitly deferred; REVIEW_TODO deferred notes          |
 | **Speculative** | Vision without schedule         | Target doc says deferred / not scheduled (e.g. RESOLVER_EVOLUTION) |
 
-If docs disagree with code, flag **doc drift** and prefer **`$docs-alignment`**
+If docs disagree with code, flag **doc drift** and prefer **`$docs-authoring`** alignment pass
 before recommending feature work.
 
 ---
@@ -192,7 +192,7 @@ add value without being required for stability.
 
 ## Related
 
-- `$docs-alignment` — after finding doc drift; also when closing/shipping backlog rows
+- `$docs-authoring` — after finding doc drift; also when closing/shipping backlog rows
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — before recommending "merge-ready" on active implementation
 - [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md) — suggest which `pnpm` commands the user should run
 - `$components-authoring` — when next step is new primitive/block/template

@@ -25,7 +25,7 @@ lexsys/
 ├── .agents/            # Domain skills/ (registry-sync, docs-*, token-change-verify, …)
 ├── .cursor/
 │   ├── rules/          # Cursor editing behavior (*.mdc)
-│   └── skills/         # agent-workflow, verify-gate, git-commit, components-authoring, changelog-update
+│   └── skills/         # agent-workflow, verify-gate, git-commit, components-authoring, changelog-update, docs-authoring
 ├── apps/               # playground (smoke), docs (placeholder)
 ├── docs/               # Hub + reference / operations / contributors
 │   ├── reference/      # tokens, ui, registry, cli domain specs
@@ -97,4 +97,4 @@ ComponentName/
 | `ui-components.mdc` | UI component standards (CS.8) |
 | `self-improvement.mdc` | When to evolve rules |
 
-Repo skills: [`.cursor/skills/`](../../.cursor/skills/) (`$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$components-authoring`, `$changelog-update`); [`.agents/skills/`](../../.agents/skills/) (domain). Git policy: [`$git-commit`](../../.cursor/skills/git-commit/SKILL.md) → [git-commits.mdc](./git-commits.mdc).
+Repo skills: [`.cursor/skills/`](../../.cursor/skills/) (`$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$components-authoring`, `$changelog-update`, `$docs-authoring`); [`.agents/skills/`](../../.agents/skills/) (domain). Git policy: [`$git-commit`](../../.cursor/skills/git-commit/SKILL.md) → [git-commits.mdc](./git-commits.mdc).

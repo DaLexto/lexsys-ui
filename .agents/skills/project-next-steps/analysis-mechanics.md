@@ -52,7 +52,7 @@ rg "\bprimitives?\b|\binstallable\b" docs README.md packages/ui/README.md
 
 Interpret hits in context. `shipped` in phase tables is expected.
 
-If docs disagree with code, flag drift and use **`$docs-alignment`** before feature recommendations.
+If docs disagree with code, flag drift and use **`$docs-authoring`** ([alignment](../../.cursor/skills/docs-authoring/procedures.md#alignment)) before feature recommendations.
 
 ---
 

@@ -52,15 +52,15 @@ Else                 → this procedure
 
 _Table may evolve — update this section when the workflow steps change._
 
-| Step        | Goal                     | Domain skills (load as needed)                                               |
-| ----------- | ------------------------ | ---------------------------------------------------------------------------- |
-| 1 Branch    | `dev`, REVIEW_TODO state | —                                                                            |
-| 2 Implement | Code + metadata          | `$components-authoring`, `$registry-sync`, `$token-change-verify`            |
-| 3 Docs      | Canonical docs           | `$docs-authoring`, `$docs-alignment`, `$changelog-update` after shipped work |
-| 4 Verify    | You run `pnpm`           | **`$monorepo-verify-gate`**                                                  |
-| 5 PR last   | Git / GitHub             | `$git-commit` when you ask                                                   |
+| Step        | Goal                     | Domain skills (load as needed)                                    |
+| ----------- | ------------------------ | ----------------------------------------------------------------- |
+| 1 Branch    | `dev`, REVIEW_TODO state | —                                                                 |
+| 2 Implement | Code + metadata          | `$components-authoring`, `$registry-sync`, `$token-change-verify` |
+| 3 Docs      | Canonical docs           | `$docs-authoring`, `$changelog-update` after shipped work         |
+| 4 Verify    | You run `pnpm`           | **`$monorepo-verify-gate`**                                       |
+| 5 PR last   | Git / GitHub             | `$git-commit` when you ask                                        |
 
-Early hints by path (step 2): `packages/ui/**` → `$components-authoring`; `packages/tokens/**` → `$token-change-verify`; `packages/registry/**` / `packages/cli/**` → `$registry-sync`; `docs/**` layout → `$docs-authoring`.
+Early hints by path (step 2): `packages/ui/**` → `$components-authoring`; `packages/tokens/**` → `$token-change-verify`; `packages/registry/**` / `packages/cli/**` → `$registry-sync`; `docs/**` → `$docs-authoring`.
 
 ---
 
@@ -81,8 +81,7 @@ Early hints by path (step 2): `packages/ui/**` → `$components-authoring`; `pac
 
 ### 3. Docs
 
-- Layout / new pages → **`$docs-authoring`**
-- Contracts or counts stale → **`$docs-alignment`** only when you want that pass
+- Docs → **`$docs-authoring`** — [authoring](./docs-authoring/procedures.md#authoring) for layout; [alignment](./docs-authoring/procedures.md#alignment) when contracts or counts changed
 - Shipped feature/fix → **`$changelog-update`** when appropriate
 
 ### 4. Verify (user runs; agent plans)
@@ -107,7 +106,7 @@ Human mirror: [CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md).
 
 ## Trivial exception
 
-One-line fix, no contract/catalog impact: skip **`$docs-alignment`**; still branch off **`dev`**. Step 4 → **`$monorepo-verify-gate`** scenario `trivial` — same handoff.
+One-line fix, no contract/catalog impact: skip **`$docs-authoring`** alignment pass unless contracts/counts changed; still branch off **`dev`**. Step 4 → **`$monorepo-verify-gate`** scenario `trivial` — same handoff.
 
 ---
 
@@ -124,10 +123,10 @@ One-line fix, no contract/catalog impact: skip **`$docs-alignment`**; still bran
 
 ## Skills roots
 
-| Location                                   | Contents                                                                                                                    |
-| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| [`.cursor/skills/`](.)                     | **`$agent-workflow`**, **`$monorepo-verify-gate`**, **`$git-commit`**, **`$components-authoring`**, **`$changelog-update`** |
-| [`.agents/skills/`](../../.agents/skills/) | Domain procedures                                                                                                           |
+| Location                                   | Contents                                                                                                                                           |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`.cursor/skills/`](.)                     | **`$agent-workflow`**, **`$monorepo-verify-gate`**, **`$git-commit`**, **`$components-authoring`**, **`$changelog-update`**, **`$docs-authoring`** |
+| [`.agents/skills/`](../../.agents/skills/) | Domain procedures                                                                                                                                  |
 
 ---
 

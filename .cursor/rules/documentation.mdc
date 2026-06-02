@@ -11,7 +11,7 @@ Edit-time rules for `docs/**/*.md` only. Hub: [INDEX.md](../../docs/INDEX.md). S
 
 **Out of glob (same contracts apply; this rule does not auto-attach):** [AGENTS.md](../../AGENTS.md), root [README.md](../../README.md), `packages/*/README.md`, root [CONTRIBUTING.md](../../CONTRIBUTING.md) stub → [docs/contributors/CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md). Future: optional `readme.mdc`.
 
-**Skills** (names may change in wave 2): new or major reshape → **`$docs-authoring`**; after behavior, catalog, or count drift → **`$docs-alignment`** (and `pnpm ui:audit:catalog:check` when UI exports/catalog changed).
+**Skills:** new or major reshape → **`$docs-authoring`** ([authoring](../../.cursor/skills/docs-authoring/procedures.md#authoring)); after behavior, catalog, or count drift → same skill ([alignment](../../.cursor/skills/docs-authoring/procedures.md#alignment); `pnpm ui:audit:catalog:check` when UI exports/catalog changed).
 
 ---
 
@@ -76,4 +76,4 @@ TypeScript comments in code → [code-commenting.mdc](./code-commenting.mdc) —
 
 - [INDEX.md](../../docs/INDEX.md), [ARCHITECTURE.md](../../docs/ARCHITECTURE.md)
 - [docs/contributors/STYLE.md](../../docs/contributors/STYLE.md) — prose and naming
-- `$docs-authoring`, `$docs-alignment` in `.agents/skills/`
+- `$docs-authoring` in [`.cursor/skills/docs-authoring/`](../../.cursor/skills/docs-authoring/)

@@ -30,7 +30,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 | Edit-time standards | [`.cursor/rules/`](./.cursor/rules/) — attach via globs while editing matching files                       |
 | Contracts           | [docs/](./docs/) — domain specs; find owner in [INDEX.md](./docs/INDEX.md)                                 |
 
-**Quick routing:** default for implementation → **`$agent-workflow`** (if unsure, start there); new doc layout → **`$docs-authoring`**; counts or contracts stale → **`$docs-alignment`**; UI component work → **`$components-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
+**Quick routing:** default for implementation → **`$agent-workflow`** (if unsure, start there); docs (layout or freshness) → **`$docs-authoring`**; UI component work → **`$components-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
 
 ---
 
@@ -61,7 +61,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 ## Repo skills
 
-**Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$components-authoring`, `$changelog-update`. Domain procedures remain in [`.agents/skills/`](./.agents/skills/) (`$registry-sync`, `$docs-*`, …). Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
+**Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$components-authoring`, `$changelog-update`, `$docs-authoring`. Domain procedures remain in [`.agents/skills/`](./.agents/skills/) (`$registry-sync`, `$token-change-verify`, `$project-next-steps`, …). Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
 
 | Skill                   | When                                                                                                                                |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -69,8 +69,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 | `$monorepo-verify-gate` | User-run verify checklists by change type (step 4; format last when committing)                                                     |
 | `$registry-sync`        | UI changed → sync registry templates                                                                                                |
 | `$components-authoring` | New or edited UI primitive/block/template; tests ([`.cursor/skills/components-authoring/`](./.cursor/skills/components-authoring/)) |
-| `$docs-authoring`       | New or reshaped markdown layout                                                                                                     |
-| `$docs-alignment`       | Behavior or counts changed → cross-ref docs                                                                                         |
+| `$docs-authoring`       | Markdown layout and freshness ([`.cursor/skills/docs-authoring/`](./.cursor/skills/docs-authoring/))                                |
 | `$token-change-verify`  | Token layers, generator, or governance                                                                                              |
 | `$project-next-steps`   | What to work on next; backlog triage                                                                                                |
 | `$git-commit`           | Commit, push, or PR to `dev`                                                                                                        |

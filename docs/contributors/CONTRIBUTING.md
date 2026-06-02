@@ -81,8 +81,7 @@ The manifest is synced in **strict** mode: labels not listed in `.github/labels.
 - Roadmap and phase sequencing: [Roadmap](../ROADMAP.md)
 - Active backlog: [Backlog](../REVIEW_TODO.md)
 - Script names (do not duplicate elsewhere): [Scripts reference](../operations/SCRIPTS.md)
-- New or reshaped docs: [`.agents/skills/docs-authoring/SKILL.md`](../../.agents/skills/docs-authoring/SKILL.md)
-- Post-change doc pass: [`.agents/skills/docs-alignment/SKILL.md`](../../.agents/skills/docs-alignment/SKILL.md)
+- Docs (layout and freshness): [`.cursor/skills/docs-authoring/SKILL.md`](../../.cursor/skills/docs-authoring/SKILL.md)
 
 ## Consumer verification
 

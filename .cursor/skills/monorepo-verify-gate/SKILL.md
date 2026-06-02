@@ -133,4 +133,4 @@ Wait for **`format ok`** / **`format passed`** once, then proceed with **`$git-c
 - [`$registry-sync`](../../.agents/skills/registry-sync/SKILL.md) — metadata; sync command on checklist after UI
 - [`$token-change-verify`](../../.agents/skills/token-change-verify/SKILL.md) — token rules; scenarios `tokens` / `tokens-styles-registry` here
 - [`$components-authoring`](../components-authoring/SKILL.md) — UI edit rules; checklist via this skill after UI
-- [`$docs-alignment`](../../.agents/skills/docs-alignment/SKILL.md) — catalog audit commands in `docs-only` / path fallback
+- [`$docs-authoring`](../docs-authoring/SKILL.md) — catalog audit commands in `docs-only` / path fallback (alignment procedure)

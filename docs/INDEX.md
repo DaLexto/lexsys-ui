@@ -100,8 +100,7 @@ shipped. Current implementation contracts live in reference docs and catalogs ab
 
 Task-specific procedures live in [`.agents/skills/`](../.agents/skills/). See
 [AGENTS.md § Repo skills](../AGENTS.md#repo-skills). Layout authoring:
-[`$docs-authoring`](../.agents/skills/docs-authoring/SKILL.md). Freshness pass:
-[`$docs-alignment`](../.agents/skills/docs-alignment/SKILL.md).
+[`$docs-authoring`](../.cursor/skills/docs-authoring/SKILL.md) — layout ([authoring](../.cursor/skills/docs-authoring/procedures.md#authoring)) and freshness ([alignment](../.cursor/skills/docs-authoring/procedures.md#alignment)).
 
 ---
 
