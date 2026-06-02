@@ -79,7 +79,7 @@ No root workspace `vitest.config.ts`.
 
 ## Skills
 
-- Pick scoped `pnpm *:check` from diff → **`$monorepo-check-gate`**.
+- Pick scoped `pnpm *:check` from diff → **`$monorepo-verify-gate`**.
 - Dedicated test skill — wave 2 (name TBD).
 
 ---

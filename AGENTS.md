@@ -39,7 +39,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 - **Package boundaries:** public API via `package.json` `exports` only; `src/` is source-only; `dist/` is publish output; no deep imports into another package's `src/` or `dist/`.
 - **Registry-first CLI:** no hardcoded per-component install logic; read registry metadata; idempotent installs; no silent overwrites — [CLI.md](./docs/reference/cli/CLI.md).
 - **Generated CSS:** token CSS is build output — never hand-write. See [TOKENS.md](./docs/reference/tokens/TOKENS.md).
-- **UI → registry:** after UI edits affecting install artifacts, put **`pnpm registry:sync`** on the **`$agent-workflow`** step 4 checklist — **`$registry-sync`** for metadata; never hand-edit templates.
+- **UI → registry:** after UI edits affecting install artifacts, put **`pnpm registry:sync`** on the step 4 checklist via **`$monorepo-verify-gate`** — **`$registry-sync`** for metadata; never hand-edit templates.
 - **Registry two-zone:** `packages/registry/src/items/` (install metadata) vs `packages/registry/templates/` (generated from UI — never edit templates directly). Full rules: [REGISTRY.md](./docs/reference/registry/REGISTRY.md); primitives vs blocks scaffolding via **`$registry-sync`**.
 - **Playground:** maintenance-only monorepo smoke — not consumer install truth. See [TESTING.md](./docs/operations/TESTING.md).
 - **Branch policy:** branch off **`dev`**; PR to **`dev`**; do not touch **`main`** unless the user explicitly requests it.
@@ -49,9 +49,9 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 
 ## Verification
 
-Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). Scoped checks by touched paths: **`$monorepo-check-gate`** (helper; may be replaced).
+Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). Scoped verify checklists: **`$monorepo-verify-gate`**.
 
-**During [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md):** the agent outputs a numbered command checklist (from touched paths + SCRIPTS); **you run** checks and report pass or errors. The agent does not run `pnpm` verify unless you explicitly ask in that turn.
+**During [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) step 4:** load **`$monorepo-verify-gate`** — numbered checklist from change type; **you run** commands and reply **`verify passed`** or paste errors. The agent does not run `pnpm` verify unless you explicitly ask in that turn.
 
 **Outside agent-workflow:** the agent may run `pnpm check`, scoped `*:check`, `pnpm playground:build`, or unit tests when you request it.
 
@@ -63,24 +63,24 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 **Transitional layout:** domain procedures live in [`.agents/skills/`](./.agents/skills/); **`$agent-workflow`** lives in [`.cursor/skills/agent-workflow/`](./.cursor/skills/agent-workflow/) (Cursor project default). A later reorg may consolidate under `.cursor/skills/`. Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) (with **`$git-commit`**).
 
-| Skill                  | When                                                                                 |
-| ---------------------- | ------------------------------------------------------------------------------------ |
-| `$agent-workflow`      | **Default** monorepo implementation procedure (unless a single other skill is named) |
-| `$registry-sync`       | UI changed → sync registry templates                                                 |
-| `$monorepo-check-gate` | Pre-commit / pre-PR scoped `pnpm` checks                                             |
-| `$ui-authoring`        | New or edited UI primitive/block/template; tests                                     |
-| `$docs-authoring`      | New or reshaped markdown layout                                                      |
-| `$docs-alignment`      | Behavior or counts changed → cross-ref docs                                          |
-| `$token-change-verify` | Token layers, generator, or governance                                               |
-| `$project-next-steps`  | What to work on next; backlog triage                                                 |
-| `$git-commit`          | Commit, push, or PR to `dev`                                                         |
-| `$changelog-update`    | CHANGELOG after feature or fix merges                                                |
+| Skill                   | When                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------ |
+| `$agent-workflow`       | **Default** monorepo implementation procedure (unless a single other skill is named) |
+| `$monorepo-verify-gate` | User-run verify checklists by change type (step 4; format last when committing)      |
+| `$registry-sync`        | UI changed → sync registry templates                                                 |
+| `$ui-authoring`         | New or edited UI primitive/block/template; tests                                     |
+| `$docs-authoring`       | New or reshaped markdown layout                                                      |
+| `$docs-alignment`       | Behavior or counts changed → cross-ref docs                                          |
+| `$token-change-verify`  | Token layers, generator, or governance                                               |
+| `$project-next-steps`   | What to work on next; backlog triage                                                 |
+| `$git-commit`           | Commit, push, or PR to `dev`                                                         |
+| `$changelog-update`     | CHANGELOG after feature or fix merges                                                |
 
 ---
 
 ## Change workflow
 
-**Procedure (canonical):** [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) — branch → implement → docs → verify (you run checks; agent plans from SCRIPTS + skill quick map) → PR last (**`$git-commit`** when you ask). Session state: **git + [REVIEW_TODO.md](./docs/REVIEW_TODO.md)** only.
+**Procedure (canonical):** [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) — branch → implement → docs → verify (**`$monorepo-verify-gate`**, you run checks) → PR last (**`$git-commit`** when you ask). Session state: **git + [REVIEW_TODO.md](./docs/REVIEW_TODO.md)** only.
 
 Use it for non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans); load domain skills from the table above as that skill directs.
 

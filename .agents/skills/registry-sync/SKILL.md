@@ -77,4 +77,4 @@ See [git-commits.mdc](../../../.cursor/rules/git-commits.mdc).
 - [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md)
 - `$ui-authoring`
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md)
-- `$monorepo-check-gate` — path → command map for checklists
+- [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md) — step 4 checklist (`ui-registry` scenario)

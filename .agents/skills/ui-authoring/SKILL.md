@@ -34,25 +34,16 @@ Layer folders: `primitives/`, `blocks/`, `templates/`.
 
 ## What's in this skill
 
-| Detail file                    | Covers                                                                                          |
-| ------------------------------ | ----------------------------------------------------------------------------------------------- |
-| [component.md](./component.md) | Create / edit / delete procedure, primitive checklist, block/template checklist, post-edit gate |
-| [tests.md](./tests.md)         | Test types, file locations, `testCssVarPrefix`, render + variant test patterns                  |
+| Detail file                    | Covers                                                                                            |
+| ------------------------------ | ------------------------------------------------------------------------------------------------- |
+| [component.md](./component.md) | Create / edit / delete procedure, primitive checklist, block/template checklist, post-edit verify |
+| [tests.md](./tests.md)         | Test types, file locations, `testCssVarPrefix`, render + variant test patterns                    |
 
 ---
 
-## Quick post-edit gate
+## Quick post-edit verify
 
-**You run** (agent gives the numbered list and waits for your report):
-
-```sh
-pnpm ui:check
-pnpm registry:sync
-pnpm ui:test
-pnpm format:check
-```
-
-Full procedure and handoff → [component.md § Post-edit gate](./component.md#post-edit-gate-user-runs-agent-plans).
+After UI create/edit/delete → load **[`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md)** (typically **`ui-registry`** scenario; add `pnpm ui:test` when you want tests in the list). Details → [component.md § Post-edit verify](./component.md#post-edit-verify).
 
 ---
 
@@ -60,5 +51,5 @@ Full procedure and handoff → [component.md § Post-edit gate](./component.md#p
 
 - `$registry-sync`
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md)
-- `$monorepo-check-gate` — path → command map
+- [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md)
 - [docs/reference/ui/UI_AUDIT.md](../../docs/reference/ui/UI_AUDIT.md)

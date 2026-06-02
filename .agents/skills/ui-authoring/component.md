@@ -35,7 +35,7 @@ Test patterns → [tests.md](./tests.md).
 - Use `*Classes()` helper function (not `cva()`) for variant strings
 - Render test: `packages/ui/test/components/<Name>/<Name>.render.test.tsx` — **required**
 - Variants test: optional for plain `*Classes()` helpers (no `cva()` output to assert)
-- After install-artifact changes: **tell the user** which checks to run (numbered list from [SCRIPTS.md](../../docs/operations/SCRIPTS.md) — typically `pnpm ui:check`, `pnpm registry:sync`, `pnpm registry:check`; add `pnpm --filter ./packages/cli check` when CLI/install paths changed). **Stop and wait** for pass or error output before treating the block as done.
+- After install-artifact changes: load **[`$monorepo-verify-gate`](../../../.cursor/skills/monorepo-verify-gate/SKILL.md)** (scenario **`ui-registry`** or **`cli-registry`** as needed). **Stop and wait** for **`verify passed`** or errors before treating the block as done.
 
 ---
 
@@ -45,23 +45,12 @@ Test patterns → [tests.md](./tests.md).
 - Remove export from `packages/ui/src/index.ts` (primitives only)
 - Remove registry item from `packages/registry/src/items/`
 - Remove test files from `packages/ui/test/components/<Name>/`
-- Give the user the post-edit gate checklist (see below)
+- After create/edit/delete → load **[`$monorepo-verify-gate`](../../../.cursor/skills/monorepo-verify-gate/SKILL.md)** for the checklist (see below)
 
 ---
 
-## Post-edit gate (user runs; agent plans)
+## Post-edit verify
 
-After any create / edit / delete, **do not run** these commands unless the user explicitly asks. **Output this numbered checklist** for the user, then wait for pass or pasted errors:
+After any create / edit / delete, **do not run** `pnpm` unless the user explicitly asks. Load **[`$monorepo-verify-gate`](../../../.cursor/skills/monorepo-verify-gate/SKILL.md)** — use scenario **`ui-registry`** (add `pnpm ui:test` to the checklist when tests should run). Wait for **`verify passed`** or pasted errors.
 
-```sh
-pnpm ui:check
-pnpm registry:sync
-pnpm ui:test
-pnpm format:check
-```
-
-If `format:check` fails, they run `pnpm format` and re-check. On failure, help fix and re-issue only the steps that still need re-run.
-
-`pnpm ui:check` includes `ui:audit` — scans variant files for forbidden raw palette literals.
-
-Aligns with [`$agent-workflow`](../../../.cursor/skills/agent-workflow/SKILL.md) step 4 when the wider change pipeline applies.
+`pnpm ui:check` includes `ui:audit` — scans variant files for forbidden raw palette literals. Wider pipeline: [`$agent-workflow`](../../../.cursor/skills/agent-workflow/SKILL.md) step 4.

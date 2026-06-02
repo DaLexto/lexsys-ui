@@ -62,4 +62,4 @@ rg "FormField, SettingsPanel|41 primitives" docs README.md packages/ui/README.md
 - [documentation.mdc](../../.cursor/rules/documentation.mdc)
 - [`$docs-authoring`](../docs-authoring/SKILL.md) (new/reshape layout)
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — when docs pass is part of a larger change
-- `$monorepo-check-gate` — path → command map for doc-only `pnpm` checks
+- [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md) — `docs-only` scenario for doc-only `pnpm` checks

@@ -32,7 +32,7 @@ implementing feature code.
 ## Procedure A — Commit
 
 1. **Inspect** (parallel): `git status --short`, `git diff`, `git diff --staged`, `git log -5 --oneline`
-2. **Gates:** Ask whether the user already ran **`pnpm format:check`** and scoped checks (checklist from **`$agent-workflow`** / **`$monorepo-check-gate`**). Do not run `pnpm` unless they explicitly ask.
+2. **Gates:** Assume scoped checks + format done if step 4 **`verify passed`** included them ([`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md)). **Only** ask for **`pnpm format:check`** if format was not on the last checklist — wait for **format ok** once. Do not run `pnpm` unless they explicitly ask.
 3. **Stage:** `git add -- <path>` — not `git add -A` unless user wants everything
 4. **Message:** type, scope, subject — full rules in [git-commits.mdc](../../../.cursor/rules/git-commits.mdc)
 5. **Commit** (PowerShell):
@@ -60,7 +60,7 @@ git push -u origin HEAD
 Only when the user **explicitly** requests PR and the branch is complete.
 
 1. **Inspect vs dev** (parallel): `git status --short`, `git diff`, `git rev-parse --abbrev-ref HEAD`, `git log dev..HEAD --oneline`, `git diff dev...HEAD --stat`
-2. **Gates:** Confirm verify **passed** (user ran checklist from **`$agent-workflow`** step 4) and **`pnpm format:check`**; do not run `pnpm` unless they explicitly ask
+2. **Gates:** Confirm step 4 **`verify passed`** via **`$monorepo-verify-gate`** (format included if on checklist). Use [format fallback](../../.cursor/skills/monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) only if format was skipped. Do not run `pnpm` unless they explicitly ask
 3. **Template:** [lite.md](../../.github/PULL_REQUEST_TEMPLATE/lite.md) or [full.md](../../.github/PULL_REQUEST_TEMPLATE/full.md) — default base **`dev`**
 4. **Create:** fill template from **all** branch commits; `gh pr create --base dev --title "…" --body-file …`
 5. **Labels:** required after create — see [git-commits.mdc § GitHub labels](../../../.cursor/rules/git-commits.mdc#github-labels-required-after-pr-create)
@@ -86,7 +86,7 @@ git checkout dev
 
 - [git-commits.mdc](../../../.cursor/rules/git-commits.mdc) — authorization, scopes, types, breaking changes, PR labels
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — verify before PR
-- `$monorepo-check-gate` — path → command map for checklists
+- [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md) — verify checklists
 - `$docs-alignment` — before commit when contracts or counts changed
 - `$registry-sync` — before/at registry commit after UI template changes
 - [docs/contributors/CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md) — human-oriented overview

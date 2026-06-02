@@ -95,7 +95,7 @@ describe("Button render", () => {
 
 ## Running tests
 
-Include in the **post-edit gate** checklist ([component.md § Post-edit gate](./component.md#post-edit-gate-user-runs-agent-plans)) — **you run**, agent waits for your report:
+Include in the verify checklist via **[`$monorepo-verify-gate`](../../../.cursor/skills/monorepo-verify-gate/SKILL.md)** ([component.md § Post-edit verify](./component.md#post-edit-verify)) — **you run**, agent waits for your report:
 
 ```sh
 pnpm ui:test        # variant + render tests only (fast)
