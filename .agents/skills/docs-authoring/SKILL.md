@@ -30,7 +30,7 @@ Ownership: [docs/INDEX.md](../../docs/INDEX.md).
 4. **On this page** — **required** after `---` when ≥4 substantive H2 sections (exclude `On this page` / `Related documentation` from count); follow documentation.mdc (ASCII `-` in linked headings, label = heading text, verify `#fragment` in preview).
 5. **Body** — one section mode per H2; inline prose links allowed; no header link lists.
 6. **Related documentation** — optional final H2; max ~5 topic-related links with one-line why.
-7. Hand off to **`$docs-alignment`** when content must match code; run `pnpm format:check`.
+7. Hand off to **`$docs-alignment`** when content must match code; ask the user to run `pnpm format:check` when done (do not run unless they ask). Multi-step implementation → [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md).
 
 ## Related
 

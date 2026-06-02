@@ -95,7 +95,11 @@ describe("Button render", () => {
 
 ## Running tests
 
+Include in the **post-edit gate** checklist ([component.md § Post-edit gate](./component.md#post-edit-gate-user-runs-agent-plans)) — **you run**, agent waits for your report:
+
 ```sh
 pnpm ui:test        # variant + render tests only (fast)
 pnpm ui:check       # lint + typecheck + tests + audit (full gate)
 ```
+
+Wider change pipeline: [`$agent-workflow`](../../../.cursor/skills/agent-workflow/SKILL.md).

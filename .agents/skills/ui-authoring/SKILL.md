@@ -59,5 +59,6 @@ Full procedure and handoff → [component.md § Post-edit gate](./component.md#p
 ## Related
 
 - `$registry-sync`
-- `$monorepo-check-gate`
+- [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md)
+- `$monorepo-check-gate` — path → command map
 - [docs/reference/ui/UI_AUDIT.md](../../docs/reference/ui/UI_AUDIT.md)

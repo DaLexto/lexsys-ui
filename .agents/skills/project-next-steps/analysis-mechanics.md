@@ -58,7 +58,7 @@ If docs disagree with code, flag drift and use **`$docs-alignment`** before feat
 
 ## Layer spot-checks (by track)
 
-Probe only layers tied to candidate next steps.
+Probe only layers tied to candidate next steps. Listed `pnpm` commands are **suggestions for the user** (or checklist via **`$monorepo-check-gate`** / **`$agent-workflow`**) — do not run during analysis unless they ask.
 
 ### Tokens
 
@@ -76,13 +76,13 @@ Probe only layers tied to candidate next steps.
 
 - `pnpm cli:check`
 - Tests under `packages/cli/test/`
-- Sandbox checklist: [docs/operations/TESTING.md](../../docs/operations/TESTING.md)
+- Install verification: [docs/operations/TESTING.md](../../docs/operations/TESTING.md)
 
 ### Composition (blocks / templates)
 
 - Open rows in REVIEW_TODO composition / optimization sections (not hardcoded IDs)
 - Missing verification gates called out in Known Gaps
-- Scoped **`pnpm *:check`** / **`$monorepo-check-gate`** when recommending install-artifact work
+- Tell the user which **`pnpm *:check`** to run (map: **`$monorepo-check-gate`**) when recommending install-artifact work — analysis does not run gates unless they ask
 
 ---
 

@@ -43,35 +43,23 @@ packages/registry/
 
 ## Procedure
 
-1. Complete UI edits and pass UI checks:
+1. Complete UI edits under `packages/ui/src/components/`.
+2. **Give the user** this numbered checklist (do not run unless they explicitly ask). Wait for pass or errors before treating sync as done:
 
 ```sh
 pnpm ui:check
-```
-
-2. Sync templates from UI:
-
-```sh
 pnpm registry:sync
-```
-
-3. If token CSS or style templates may be stale:
-
-```sh
-pnpm sync:all
-```
-
-4. Validate registry:
-
-```sh
+pnpm sync:all          # omit if only UI/templates changed, no token/style drift
 pnpm registry:check
 ```
 
-5. Review diff — expect changes under `packages/registry/templates/` and possibly `src/items/` if generator was run separately.
+3. Review diff with the user — expect changes under `packages/registry/templates/` and possibly `src/items/` if the generator ran separately.
+
+Wider pipeline: [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) step 4 may wrap the same commands with other touched-path checks.
 
 ## Overlay / elevation changes
 
-If you changed overlay stacking, drawer z-index, or component elevation tokens:
+If overlay stacking, drawer z-index, or elevation tokens changed, **append** to the checklist:
 
 ```sh
 pnpm tokens:check
@@ -88,4 +76,5 @@ See [git-commits.mdc](../../../.cursor/rules/git-commits.mdc).
 - [docs/reference/registry/REGISTRY.md](../../docs/reference/registry/REGISTRY.md)
 - [docs/operations/SCRIPTS.md](../../docs/operations/SCRIPTS.md)
 - `$ui-authoring`
-- `$monorepo-check-gate`
+- [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md)
+- `$monorepo-check-gate` — path → command map for checklists

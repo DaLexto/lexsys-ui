@@ -1,14 +1,17 @@
 ---
 name: token-change-verify
 description: >
-  Verify Lexsys token layer edits — tokens:check, governance report, style
-  generation, registry style sync. Use when editing packages/tokens, TOKENS.md
-  validation, themes, semantics, or component token files.
+  Token-layer verification checklist after packages/tokens edits. Agent plans
+  commands from this skill; user runs them unless they ask the agent to run.
+  Use when editing tokens, TOKENS.md validation, themes, semantics, or
+  component token files.
 ---
 
 # Token change verify
 
 Canonical rules: [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/TOKENS.md).
+
+**Handoff:** Output a **numbered checklist** from the procedure below; **do not run** `pnpm` unless the user explicitly asks. Wait for pass or pasted errors. For multi-package work, prefer [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) step 4.
 
 ## When to use
 
@@ -16,38 +19,20 @@ Canonical rules: [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/T
 - Generator or validator changes
 - Contrast / governance policy updates
 
-## Procedure
+## Procedure (user runs; agent plans)
 
-1. Run token package gate:
+Issue these in order; skip steps that do not apply to the diff:
 
 ```sh
 pnpm tokens:check
-```
-
-2. Regenerate CSS outputs when source tokens changed:
-
-```sh
-pnpm tokens:generate:styles
-```
-
-3. If registry style templates must match:
-
-```sh
-pnpm sync:styles
+pnpm tokens:generate:styles    # when source tokens changed
+pnpm sync:styles               # when registry style templates must match
 pnpm registry:check
+pnpm tokens:governance:report  # optional; CI policy
+pnpm ui:check                  # when UI variants reference new/changed CSS vars
 ```
 
-4. Optional governance report (CI policy):
-
-```sh
-pnpm tokens:governance:report
-```
-
-5. If UI variants reference new/changed CSS vars (prefixed with `cssVarPrefix` from `packages/tokens/src/generators/generator.config.ts`, currently `lex`), ensure UI still passes:
-
-```sh
-pnpm ui:check
-```
+If registry templates need a full sync after style changes, add `$registry-sync` steps to the checklist.
 
 ## Layer reminders (do not duplicate — see TOKENS.md)
 
@@ -58,5 +43,6 @@ pnpm ui:check
 ## Related
 
 - [docs/reference/tokens/RESOLVER_EVOLUTION.md](../../docs/reference/tokens/RESOLVER_EVOLUTION.md) — deferred capabilities
-- `$registry-sync` / `pnpm sync:all` when style templates change
-- `$monorepo-check-gate`
+- `$registry-sync` — when UI templates and `src/items/` must follow token/style changes
+- [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md)
+- `$monorepo-check-gate` — path → command map for broader diffs

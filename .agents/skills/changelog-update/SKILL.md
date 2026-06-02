@@ -130,13 +130,15 @@ When promoting `[Unreleased]` to a version block, update the footer link list at
 
 Each new release block gets a comparison link. First release links to npm instead of a diff.
 
-### Step 7 — Verify
+### Step 7 — Confirm (user runs)
+
+Ask the user to run:
 
 ```bash
 pnpm format:check
 ```
 
-Changelog entries are markdown-only changes — no package checks required.
+Wait for confirmation before **`$git-commit`**. Changelog-only work needs no package `*:check`. Do not run `pnpm` unless they explicitly ask.
 
 ---
 
@@ -152,6 +154,7 @@ Changelog entries are markdown-only changes — no package checks required.
 
 ## Related
 
+- [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — verify/format handoff on larger changes
 - `$git-commit` — commit the changelog entry after writing
 - [docs/operations/DEPLOY.md § Version lane](../docs/operations/DEPLOY.md#version-lane) — dist-tag policy and release promotion
 - [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)

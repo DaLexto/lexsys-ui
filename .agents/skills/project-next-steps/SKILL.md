@@ -30,7 +30,7 @@ This skill owns **how to analyze** — do not copy queue rows into the skill fil
 
 - User already named a task, branch, or PR scope — implement instead
 - Pure doc edit pass — use **`$docs-alignment`**
-- Pre-commit verification — use **`$monorepo-check-gate`**
+- Pre-commit / PR verification on a branch in progress — use **`$agent-workflow`** (step 4 checklist) or **`$git-commit`** when ready
 
 ---
 
@@ -193,6 +193,7 @@ add value without being required for stability.
 ## Related
 
 - `$docs-alignment` — after finding doc drift; also when closing/shipping backlog rows
-- `$monorepo-check-gate` — before recommending "merge-ready"
+- [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — before recommending "merge-ready" on active implementation
+- `$monorepo-check-gate` — suggest which `pnpm` commands the user should run
 - `$ui-authoring` — when next step is new primitive/block/template
 - [docs/operations/TESTING.md](../../docs/operations/TESTING.md)

@@ -8,7 +8,7 @@
    `packages/tokens/src/generators/generator.config.ts` (currently `lex`,
    e.g. `--lex-button-radius`). No raw Tailwind palette in `*.variants.ts`.
 4. **Never edit registry templates directly.** `packages/registry/templates/` is generated
-   output — always edit `packages/ui/src/components/` and run `pnpm registry:sync`.
+   output — always edit `packages/ui/src/components/`; include `pnpm registry:sync` in the post-edit checklist (user runs).
 5. Give the user the **post-edit gate** checklist (see below); do not run `pnpm` gates unless they explicitly ask. Continue after they report pass or paste errors.
 
 ---
@@ -18,7 +18,7 @@
 - Three-file folder under `packages/ui/src/components/primitives/<Name>/`
 - Export from `packages/ui/src/index.ts`
 - Registry item in `packages/registry/src/items/`
-- `pnpm registry:sync` after adding — run `registry-item-generator` if category metadata needed
+- After adding: user runs `pnpm registry:sync` (checklist); run `registry-item-generator` if category metadata needed
 - Variant test: `packages/ui/test/components/<Name>/<Name>.variants.test.ts` — **required**
 - Render test: `packages/ui/test/components/<Name>/<Name>.render.test.tsx` — **required**
 
