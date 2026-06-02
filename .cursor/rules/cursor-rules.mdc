@@ -1,11 +1,12 @@
 ---
 description: How to add or edit Cursor rules in a project
-globs: .cursor/rules/**/*
+globs: ".cursor/rules/**/*"
 alwaysApply: false
 ---
-# Cursor Rules Location
 
-How to add new cursor rules to a project.
+# Cursor Rule Authoring
+
+How to add or edit Cursor rules in this project.
 
 ## Placement
 
@@ -18,7 +19,7 @@ How to add new cursor rules to a project.
 └── ...
 ```
 
-2. **Naming:** kebab-case filename, `.mdc` extension, descriptive purpose.
+2. **Naming:** use kebab-case filenames, `.mdc` extension, and a descriptive purpose.
 
 3. **Never** place rule files in the project root or in subdirectories outside `.cursor/rules/`.
 
@@ -40,7 +41,7 @@ Every rule file starts with YAML frontmatter:
 ```yaml
 ---
 description: Short description of the rule's purpose (required)
-globs: optional/path/pattern/**/*
+globs: "optional/path/pattern/**/*"
 alwaysApply: false
 ---
 ```
@@ -48,28 +49,56 @@ alwaysApply: false
 | Field | Purpose |
 | ----- | ------- |
 | `description` | Shown in rule pickers; keep it specific |
-| `globs` | Limit when the rule applies (path patterns) |
-| `alwaysApply` | `true` only for small, always-relevant rules |
+| `globs` | Limit when the rule applies |
+| `alwaysApply` | Use `true` only for small, always-relevant rules |
 
 ## Rule body
 
-1. Clear title and purpose
-2. Detailed step-by-step instructions
-3. Code examples (good vs bad when helpful)
-4. Guidelines agents can follow while editing
+Each rule should include only what agents need to act correctly:
 
-## Example
+1. Scope — when the rule applies.
+2. Required behavior — what to do.
+3. Forbidden behavior — what not to do.
+4. Verification — what to check before finishing.
+5. Examples — only when they prevent common mistakes.
 
-```typescript
-// Good example — follows project conventions
-function goodExample() {
-  // Implementation following guidelines
-}
+## Rule responsibility
 
-// Bad example — avoid this pattern
-function badExample() {
-  // Implementation not following guidelines
-}
-```
+Each rule SHOULD have a single responsibility.
+
+Good examples:
+
+- `documentation-layout.mdc`
+- `documentation-governance.mdc`
+- `typescript-style.mdc`
+- `testing-workflow.mdc`
+
+Avoid combining unrelated concerns in the same rule.
+
+Bad examples:
+
+- `project-standards.mdc`
+- `engineering-rules.mdc`
+- `everything.mdc`
+
+## Rule size budget
+
+Keep Cursor rules focused and short enough for agents to apply reliably.
+
+| Rule type | Recommended length | Use for |
+| --------- | ------------------ | ------- |
+| Meta rule | 40-80 lines | Rules about writing or maintaining rules |
+| Domain rule | 80-200 lines | One technical or domain area |
+| Workflow rule | 100-250 lines | Multi-step workflows with checks |
+
+Rules SHOULD stay within their recommended length.
+
+Length limits are guidelines, not hard requirements. Clarity and separation of concerns are more important than exact line counts.
+
+If a rule grows past its budget, split it by responsibility instead of adding more sections.
+
+Examples are optional. Add them only when they prevent a common mistake.
+
+## Related rules
 
 Follow [self-improvement.mdc](./self-improvement.mdc) for when to add or update rules.
