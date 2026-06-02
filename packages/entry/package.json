@@ -1,6 +1,6 @@
 {
   "name": "@dalexto/lexsys",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Registry-first React UI framework — run `npx @dalexto/lexsys@latest init` to get started",
   "type": "module",
   "license": "MIT",
