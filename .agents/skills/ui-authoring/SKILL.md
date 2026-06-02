@@ -14,7 +14,7 @@ description: >
 Covers creating, editing, deleting, and testing UI components in
 `packages/ui/src/components/`.
 
-Coding standards quick-reference: [`.cursor/rules/ui-component-authoring.mdc`](../../.cursor/rules/ui-component-authoring.mdc).  
+Coding standards quick-reference: [`.cursor/rules/ui-components.mdc`](../../.cursor/rules/ui-components.mdc).  
 Contracts: [UI.md](../../docs/reference/ui/UI.md), [UI_VARIANTS.md](../../docs/reference/ui/UI_VARIANTS.md), [UI_COMPOSITION.md](../../docs/reference/ui/UI_COMPOSITION.md).
 
 ---

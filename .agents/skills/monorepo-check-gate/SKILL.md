@@ -43,5 +43,5 @@ Prefer: `pnpm playground:build`, unit tests, sandbox production build.
 ## Related
 
 - [docs/operations/TESTING.md](../../docs/operations/TESTING.md)
-- [lexsys-testing.mdc](../../.cursor/rules/lexsys-testing.mdc)
+- [testing.mdc](../../.cursor/rules/testing.mdc)
 - `$registry-sync`, `$consumer-sandbox-verify`

@@ -8,7 +8,7 @@ alwaysApply: false
 
 # TypeScript conventions
 
-Edit-time checklist for all `.ts` / `.tsx` in the monorepo. Canonical detail: [STYLE.md](../docs/contributors/STYLE.md) § TypeScript, [STYLEGUIDE.md](../docs/contributors/STYLEGUIDE.md). Baseline: [tsconfig.base.json](../tsconfig.base.json) (`strict`, `isolatedModules`).
+Edit-time checklist for all `.ts` / `.tsx` in the monorepo. Canonical detail: [STYLE.md](../../docs/contributors/STYLE.md) § TypeScript, [STYLEGUIDE.md](../../docs/contributors/STYLEGUIDE.md). Baseline: [tsconfig.base.json](../../tsconfig.base.json) (`strict`, `isolatedModules`).
 
 **Precedence:** Under `packages/ui/src/components/**`, this rule covers **TypeScript only**. CVA, token prefix, layer exports → [ui-components.mdc](./ui-components.mdc). JSDoc → [code-commenting.mdc](./code-commenting.mdc).
 
@@ -22,7 +22,7 @@ Edit-time checklist for all `.ts` / `.tsx` in the monorepo. Canonical detail: [S
 - Use `export function` — use `export const` arrow functions.
 - Use TypeScript `enum` — use string literal unions and `as const` tuples.
 - Use non-null assertion `!`.
-- Deep-import another package's `src/` or internal `dist/` — public API via `package.json` `exports` only ([AGENTS.md](../AGENTS.md)).
+- Deep-import another package's `src/` or internal `dist/` — public API via `package.json` `exports` only ([AGENTS.md](../../AGENTS.md)).
 
 ---
 
@@ -81,7 +81,7 @@ import { loadConfig } from "../config/config"
 
 ## Naming
 
-File, export, and symbol casing: [STYLE.md](../docs/contributors/STYLE.md) § Naming only — no duplicate tables here.
+File, export, and symbol casing: [STYLE.md](../../docs/contributors/STYLE.md) § Naming only — no duplicate tables here.
 
 ---
 
@@ -93,7 +93,7 @@ Use `readonly` on schema/config arrays in tokens and registry where mutation wou
 
 ## See also
 
-- [STYLE.md](../docs/contributors/STYLE.md), [STYLEGUIDE.md](../docs/contributors/STYLEGUIDE.md)
+- [STYLE.md](../../docs/contributors/STYLE.md), [STYLEGUIDE.md](../../docs/contributors/STYLEGUIDE.md)
 - [ui-components.mdc](./ui-components.mdc) — `packages/ui/src/components/**`
 - [code-commenting.mdc](./code-commenting.mdc) — JSDoc on exports
-- [AGENTS.md](../AGENTS.md) — package boundaries and guardrails
+- [AGENTS.md](../../AGENTS.md) — package boundaries and guardrails

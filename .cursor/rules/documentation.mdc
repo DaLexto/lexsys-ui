@@ -1,0 +1,79 @@
+---
+description: Documentation routing and layout when editing docs/ — check INDEX owner, metadata skeleton, link don't copy SCRIPTS.
+globs:
+  - "docs/**/*.md"
+alwaysApply: false
+---
+
+# Documentation
+
+Edit-time rules for `docs/**/*.md` only. Hub: [INDEX.md](../../docs/INDEX.md). System shape: [ARCHITECTURE.md](../../docs/ARCHITECTURE.md).
+
+**Out of glob (same contracts apply; this rule does not auto-attach):** [AGENTS.md](../../AGENTS.md), root [README.md](../../README.md), `packages/*/README.md`, root [CONTRIBUTING.md](../../CONTRIBUTING.md) stub → [docs/contributors/CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md). Future: optional `readme.mdc`.
+
+**Skills** (names may change in wave 2): new or major reshape → **`$docs-authoring`**; after behavior, catalog, or count drift → **`$docs-alignment`** (and `pnpm ui:audit:catalog:check` when UI exports/catalog changed).
+
+---
+
+## Before editing (routing)
+
+1. Open [INDEX.md](../../docs/INDEX.md) — confirm the **owning document**; edit there only. If the owner is unclear, use INDEX **Start here** and the reference/operations tables — do not guess or duplicate a routing map in this rule.
+2. Do not duplicate domain specs in AGENTS.md, `.cursor/rules/`, or unrelated READMEs.
+3. **Current implementation** wins over [ROADMAP.md](../../docs/ROADMAP.md), [REVIEW_TODO.md](../../docs/REVIEW_TODO.md), or memory.
+4. Script names and sync workflows → link [SCRIPTS.md](../../docs/operations/SCRIPTS.md) only — **no** command tables in reference specs.
+5. Verification surfaces → link [TESTING.md](../../docs/operations/TESTING.md).
+
+---
+
+## Do not
+
+- Copy SCRIPTS inventory tables into domain or reference docs.
+- Use `MUST` in roadmap/backlog for unshipped work — use *planned*, *target*, *TBD*.
+- Add per-topic layout rules as new `.mdc` files under `docs/`.
+- Paste full architecture contracts here — link ARCHITECTURE.md and the INDEX owner.
+- Copy INDEX ownership tables into this rule or into AGENTS — INDEX stays the only routing map.
+
+---
+
+## Layout contract (`docs/**/*.md`)
+
+**Metadata** (immediately after H1, fixed order, no links in metadata, no prose before `---`):
+
+1. `**Audience:**`
+2. `**Type:**` — routing hub · domain spec · catalog · operations · contributor guide · roadmap/backlog (see INDEX)
+3. `**Source of truth for:**` — one sentence
+4. `**Verified against:**` — when domain spec, catalog, or CLI/API ref (omit if N/A)
+5. `**Last reviewed:** YYYY-MM-DD` — update on touch in the same PR
+
+Then: blank line → `---` → optional **`## On this page`** → first substantive H2.
+
+**Structure:**
+
+- Exactly one H1 (matches title).
+- `## On this page` — **required** when the doc has **≥4 substantive H2** sections (exclude `On this page` and `Related documentation` from the count). Anchor labels match headings; update on touch when headings change.
+- [INDEX.md](../../docs/INDEX.md) — routing hub; `On this page` not required when the doc is primarily orientation tables.
+- Sentence case H2/H3; do not skip levels (H1 → H2 → H3).
+- Domain specs: normative `MUST` / `SHOULD` / `MAY` where appropriate.
+- Optional final `## Related documentation` — cross-file links only.
+
+---
+
+## Layers (reminder)
+
+| Layer | Role |
+| ----- | ---- |
+| [INDEX.md](../../docs/INDEX.md) | Which doc owns which topic |
+| Domain docs under `docs/` | Canonical contracts |
+| [AGENTS.md](../../AGENTS.md) | Agent routing and guardrails — not full domain copies |
+| `.cursor/rules/` | Edit-time behavior |
+| `.agents/skills/` | Multi-step procedures |
+
+TypeScript comments in code → [code-commenting.mdc](./code-commenting.mdc) — not this rule.
+
+---
+
+## See also
+
+- [INDEX.md](../../docs/INDEX.md), [ARCHITECTURE.md](../../docs/ARCHITECTURE.md)
+- [docs/contributors/STYLE.md](../../docs/contributors/STYLE.md) — prose and naming
+- `$docs-authoring`, `$docs-alignment` in `.agents/skills/`

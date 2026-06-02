@@ -167,7 +167,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                |
 | M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
 | M12   | CLI command optimization | planned | Command audit, merge candidates, cleanup, UX polish — small PRs                                   | CLI.md, REVIEW_TODO.md                |
-| SI    | Registry sync automation | planned | `registry:sync` writes templates **and** reconciles `src/items/` for all layers (SI.4–SI.5)     | REGISTRY.md, REVIEW_TODO.md           |
+| SI    | Registry sync automation | planned | `registry:sync` writes templates **and** reconciles `src/items/` for all layers (SI.4–SI.5)       | REGISTRY.md, REVIEW_TODO.md           |
 
 ### M1 - Infra and DX
 
@@ -361,9 +361,9 @@ when item metadata disagrees with templates.
 Execute as **small–medium PRs** (SI.4 then SI.5). Track sub-items in
 [Backlog § SI](./REVIEW_TODO.md#si---script-improvements).
 
-| Item | Focus |
-| ---- | ----- |
-| SI.4 | Block/template item scaffold from `sync-block-templates.mjs`; wire `index.ts`; `registry:check` gate for missing block/template items |
+| Item | Focus                                                                                                                                                    |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SI.4 | Block/template item scaffold from `sync-block-templates.mjs`; wire `index.ts`; `registry:check` gate for missing block/template items                    |
 | SI.5 | Reconcile all `src/items/*.ts` on sync (`files`, `dependencies`, `registryDependencies`, `utilities`); documented merge policy for `aliases` / `version` |
 
 **Primary code:** `packages/registry/scripts/sync-component-templates.mjs`,
@@ -575,7 +575,7 @@ merged via PR #34. See [UI catalog](./reference/ui/UI_CATALOG.md) for the post-M
 **Delivered:** canonical authoring patterns for primitives, blocks, and templates —
 CVA vs `*Classes()`, props/ref/className standards, compound API consistency,
 `lex-` CSS var prefix with rebrand script, `$ui-authoring` hub skill, and
-`ui-component-authoring.mdc` Cursor rule.
+`ui-components.mdc` Cursor rule.
 
 Execution queue: [Backlog § CS](./REVIEW_TODO.md#cs-component-standardization).
 

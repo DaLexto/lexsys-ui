@@ -30,7 +30,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 | Edit-time standards | [`.cursor/rules/`](./.cursor/rules/) — attach via globs while editing matching files       |
 | Contracts           | [docs/](./docs/) — domain specs; find owner in [INDEX.md](./docs/INDEX.md)                 |
 
-**Quick routing:** new doc layout → **`$docs-authoring`**; counts or contracts stale → **`$docs-alignment`**; UI component work → **`$ui-authoring`** (+ `ui-component-authoring.mdc` on glob); commit / push / PR → **`$git-commit`**.
+**Quick routing:** new doc layout → **`$docs-authoring`**; counts or contracts stale → **`$docs-alignment`**; UI component work → **`$ui-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
 
 ---
 

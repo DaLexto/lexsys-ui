@@ -8,7 +8,7 @@ description: >
 
 # Docs alignment
 
-Governance: [.cursor/rules/documentation-standards.mdc](../../.cursor/rules/documentation-standards.mdc).  
+Governance: [.cursor/rules/documentation.mdc](../../.cursor/rules/documentation.mdc).  
 Hub: [docs/INDEX.md](../../docs/INDEX.md).
 
 ## When to use
@@ -19,7 +19,7 @@ Hub: [docs/INDEX.md](../../docs/INDEX.md).
 
 ## Procedure
 
-0. **Layout** — edited files match [documentation-standards.mdc](../../.cursor/rules/documentation-standards.mdc) (metadata, H2 order, On this page anchor rules if nav/headings touched).
+0. **Layout** — edited files match [documentation.mdc](../../.cursor/rules/documentation.mdc) (metadata, H2 order, On this page anchor rules if nav/headings touched).
 1. **Identify owner** — each rule lives in one canonical doc (INDEX table).
 2. **Edit owner only** — replace duplicates elsewhere with links.
 3. **Verify claims** against code (`packages/*/src`, registry item count, tests).
@@ -59,6 +59,6 @@ rg "FormField, SettingsPanel|41 primitives" docs README.md packages/ui/README.md
 
 ## Related
 
-- [docs-routing.mdc](../../.cursor/rules/docs-routing.mdc)
+- [documentation.mdc](../../.cursor/rules/documentation.mdc)
 - [`$docs-authoring`](../docs-authoring/SKILL.md) (new/reshape layout)
 - `$monorepo-check-gate` (after doc-only changes)

@@ -86,14 +86,13 @@ ComponentName/
 | ---- | ------- |
 | `cursor-rules.mdc` | How to add/edit rules |
 | `project-structure.mdc` | This file — layout and edit map |
-| `docs-routing.mdc` | Doc ownership when editing `docs/**` |
-| `documentation-standards.mdc` | Doc governance (`docs/`, README, CONTRIBUTING) |
+| `documentation.mdc` | Doc routing and layout when editing `docs/**` |
 | `code-commenting.mdc` | JSDoc and comments in `src/` |
 | `git-commit-rules.mdc` | Meta: authoring commit rules |
-| `lexsys-testing.mdc` | Vitest layout and commands per package |
+| `testing.mdc` | Vitest layout and test-edit conventions |
 | `tech-stack.mdc` | Dependencies and toolchain |
-| `typescript-conventions.mdc` | TypeScript conventions and patterns |
-| `ui-component-authoring.mdc` | UI component authoring standards (CS.8) |
+| `typescript.mdc` | TypeScript conventions and patterns |
+| `ui-components.mdc` | UI component standards (CS.8) |
 | `self-improvement.mdc` | When to evolve rules |
 
 Repo skills: [`.agents/skills/`](../../.agents/skills/). Git commit/PR policy: [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → [git-commits.mdc](../../.agents/skills/git-commit/git-commits.mdc).
