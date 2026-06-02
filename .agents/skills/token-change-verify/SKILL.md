@@ -30,5 +30,5 @@ Canonical rules: [docs/reference/tokens/TOKENS.md](../../docs/reference/tokens/T
 
 - [docs/reference/tokens/RESOLVER_EVOLUTION.md](../../docs/reference/tokens/RESOLVER_EVOLUTION.md) — deferred capabilities
 - [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md) — checklist commands
-- `$registry-sync` — when UI templates and `src/items/` must follow token/style changes
+- [`$registry-sync`](../../.cursor/skills/registry-sync/SKILL.md) — when UI templates and `src/items/` must follow token/style changes
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md)

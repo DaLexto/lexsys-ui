@@ -49,7 +49,7 @@ After UI create/edit/delete → load **[`$monorepo-verify-gate`](../monorepo-ver
 
 ## Related
 
-- `$registry-sync`
+- [`$registry-sync`](../registry-sync/SKILL.md)
 - [`$agent-workflow`](../agent-workflow/SKILL.md)
 - [`$monorepo-verify-gate`](../monorepo-verify-gate/SKILL.md)
 - [docs/reference/ui/UI_AUDIT.md](../../docs/reference/ui/UI_AUDIT.md)

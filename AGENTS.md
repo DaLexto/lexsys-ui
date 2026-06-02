@@ -61,13 +61,13 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 ## Repo skills
 
-**Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$components-authoring`, `$changelog-update`, `$docs-authoring`, `$project-next-steps`. Domain procedures remain in [`.agents/skills/`](./.agents/skills/) (`$registry-sync`, `$token-change-verify`, …). Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
+**Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$registry-sync`, `$components-authoring`, `$changelog-update`, `$docs-authoring`, `$project-next-steps`. Remaining domain skill: [`.agents/skills/`](./.agents/skills/) (`$token-change-verify`, …). Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
 
 | Skill                   | When                                                                                                                                |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `$agent-workflow`       | **Default** monorepo implementation procedure (unless a single other skill is named)                                                |
 | `$monorepo-verify-gate` | User-run verify checklists by change type (step 4; format last when committing)                                                     |
-| `$registry-sync`        | UI changed → sync registry templates                                                                                                |
+| `$registry-sync`        | UI changed → sync templates + reconciled items ([`.cursor/skills/registry-sync/`](./.cursor/skills/registry-sync/))                 |
 | `$components-authoring` | New or edited UI primitive/block/template; tests ([`.cursor/skills/components-authoring/`](./.cursor/skills/components-authoring/)) |
 | `$docs-authoring`       | Markdown layout and freshness ([`.cursor/skills/docs-authoring/`](./.cursor/skills/docs-authoring/))                                |
 | `$token-change-verify`  | Token layers, generator, or governance                                                                                              |

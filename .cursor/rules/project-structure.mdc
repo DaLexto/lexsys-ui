@@ -22,10 +22,10 @@ Public APIs: `package.json` `exports` only. Never deep-import another package's 
 
 ```txt
 lexsys/
-├── .agents/            # Domain skills/ (registry-sync, docs-*, token-change-verify, …)
+├── .agents/            # Domain skills/ (token-change-verify, …)
 ├── .cursor/
 │   ├── rules/          # Cursor editing behavior (*.mdc)
-│   └── skills/         # agent-workflow, verify-gate, git-commit, components-authoring, changelog-update, docs-authoring, project-next-steps
+│   └── skills/         # agent-workflow, verify-gate, git-commit, registry-sync, components-authoring, changelog-update, docs-authoring, project-next-steps
 ├── apps/               # playground (smoke), docs (placeholder)
 ├── docs/               # Hub + reference / operations / contributors
 │   ├── reference/      # tokens, ui, registry, cli domain specs
