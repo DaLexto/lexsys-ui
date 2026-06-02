@@ -66,7 +66,7 @@ Then: blank line → `---` → optional **`## On this page`** → first substant
 | Domain docs under `docs/` | Canonical contracts |
 | [AGENTS.md](../../AGENTS.md) | Agent routing and guardrails — not full domain copies |
 | `.cursor/rules/` | Edit-time behavior |
-| `.agents/skills/` | Multi-step procedures |
+| `.cursor/skills/` | Multi-step agent procedures (`SKILL.md` + `procedures.md`) |
 
 TypeScript comments in code → [code-commenting.mdc](./code-commenting.mdc) — not this rule.
 

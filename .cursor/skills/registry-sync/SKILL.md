@@ -22,7 +22,7 @@ Canonical contract: [docs/reference/registry/REGISTRY.md](../../docs/reference/r
 
 ## When not to use
 
-- Token-only edits with no UI/registry template impact → **`$token-change-verify`**
+- Token-only edits with no UI/registry template impact → **`$token-verify`**
 - Commit / PR → **`$git-commit`**
 - Writing or editing TSX/CVA/tests → **`$components-authoring`**
 

@@ -98,7 +98,7 @@ shipped. Current implementation contracts live in reference docs and catalogs ab
 
 ## Repo-local agent skills
 
-Task-specific procedures live in [`.agents/skills/`](../.agents/skills/). See
+Task-specific procedures live in [`.cursor/skills/`](../.cursor/skills/) (`$token-verify`, `$registry-sync`, …). See
 [AGENTS.md § Repo skills](../AGENTS.md#repo-skills). Layout authoring:
 [`$docs-authoring`](../.cursor/skills/docs-authoring/SKILL.md) — layout ([authoring](../.cursor/skills/docs-authoring/procedures.md#authoring)) and freshness ([alignment](../.cursor/skills/docs-authoring/procedures.md#alignment)).
 

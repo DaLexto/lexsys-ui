@@ -163,7 +163,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                     |
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                             |
-| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.agents/skills/`          |
+| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.cursor/skills/`          |
 | M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                |
 | M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
 | M12   | CLI command optimization | planned | Command audit, merge candidates, cleanup, UX polish — small PRs                                   | CLI.md, REVIEW_TODO.md                |

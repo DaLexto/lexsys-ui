@@ -71,7 +71,7 @@ pnpm workspace: `apps/*`, `packages/*` ([pnpm-workspace.yaml](../../pnpm-workspa
 | `docs` | Multiple files under `docs/` or cross-package documentation |
 | `repo` | Root `package.json`, `turbo.json`, `pnpm-workspace.yaml`, workspace scripts |
 | `cursor` | `.cursor/rules/**`, `.cursor/skills/**` |
-| `agents` | [AGENTS.md](../../AGENTS.md), [`.agents/skills/`](../../.agents/skills/) |
+| `agents` | [AGENTS.md](../../AGENTS.md), [`.cursor/skills/`](../../.cursor/skills/) |
 
 Optional nested doc scopes when one doc area dominates: `docs(tokens)`, `docs(cli)`, `docs(registry)`.
 
@@ -176,7 +176,7 @@ Apply labels in [procedures § Pull request step 5](../skills/git-commit/procedu
 | `area:playground` | `apps/playground/**` |
 | `area:docs` | `docs/**`, `AGENTS.md`, package READMEs when docs-heavy |
 | `area:repo` | Root tooling, `turbo.json`, workspace scripts, `.github/**` |
-| `area:agents` | `.agents/skills/**`, `.cursor/skills/**`, [AGENTS.md](../../AGENTS.md) |
+| `area:agents` | `.cursor/skills/**`, [AGENTS.md](../../AGENTS.md) |
 
 Pick **all areas** that match the diff.
 

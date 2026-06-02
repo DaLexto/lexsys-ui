@@ -45,20 +45,20 @@ Command names: [SCRIPTS.md](../../docs/operations/SCRIPTS.md). Surfaces: [TESTIN
 
 ## Repo scenarios
 
-| ID                       | Trigger                                                                                       | Commands (in order)                                                                                                |
-| ------------------------ | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `trivial`                | Single package, one-line, no contract impact                                                  | One scoped `*:check` for that package                                                                              |
-| `docs-only`              | `docs/**`, AGENTS, `.cursor/rules/**`, `.cursor/skills/**`, `.agents/skills/**` markdown only | `pnpm format:check` · optional `pnpm ui:audit:catalog:check` if catalog counts claimed                             |
-| `tokens`                 | `packages/tokens/**`                                                                          | `pnpm tokens:check` · optional `pnpm tokens:generate:styles` when source tokens changed                            |
-| `ui`                     | `packages/ui/**` only (no template drift)                                                     | `pnpm ui:check`                                                                                                    |
-| `ui-registry`            | UI edits affecting install templates                                                          | `pnpm ui:check` → `pnpm registry:sync` → `pnpm registry:check`                                                     |
-| `registry-meta`          | `packages/registry/src/items/**` only (no UI template change)                                 | `pnpm registry:check` — next `pnpm registry:sync` reconciles items from UI (preserves `aliases` / `category` only) |
-| `tokens-styles-registry` | Token CSS + registry style templates                                                          | `pnpm tokens:check` → `pnpm sync:all` → `pnpm registry:check`                                                      |
-| `cli`                    | `packages/cli/**`                                                                             | `pnpm cli:check` (see SCRIPTS — not bare `pnpm --filter ./packages/cli check`)                                     |
-| `cli-registry`           | CLI + registry/templates                                                                      | `pnpm cli:check` plus `ui-registry` or `registry:check` as diff dictates                                           |
-| `playground`             | `apps/playground/**`                                                                          | `pnpm playground:check`                                                                                            |
-| `multi-package`          | Root config, turbo, eslint, or 2+ packages                                                    | `pnpm check`                                                                                                       |
-| `pre-pr`                 | Broad branch ready for PR                                                                     | Scoped checks for touched areas, then `pnpm check` if still unsure                                                 |
+| ID                       | Trigger                                                                  | Commands (in order)                                                                                                |
+| ------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `trivial`                | Single package, one-line, no contract impact                             | One scoped `*:check` for that package                                                                              |
+| `docs-only`              | `docs/**`, AGENTS, `.cursor/rules/**`, `.cursor/skills/**` markdown only | `pnpm format:check` · optional `pnpm ui:audit:catalog:check` if catalog counts claimed                             |
+| `tokens`                 | `packages/tokens/**`                                                     | `pnpm tokens:check` · optional `pnpm tokens:generate:styles` when source tokens changed                            |
+| `ui`                     | `packages/ui/**` only (no template drift)                                | `pnpm ui:check`                                                                                                    |
+| `ui-registry`            | UI edits affecting install templates                                     | `pnpm ui:check` → `pnpm registry:sync` → `pnpm registry:check`                                                     |
+| `registry-meta`          | `packages/registry/src/items/**` only (no UI template change)            | `pnpm registry:check` — next `pnpm registry:sync` reconciles items from UI (preserves `aliases` / `category` only) |
+| `tokens-styles-registry` | Token CSS + registry style templates                                     | `pnpm tokens:check` → `pnpm sync:all` → `pnpm registry:check`                                                      |
+| `cli`                    | `packages/cli/**`                                                        | `pnpm cli:check` (see SCRIPTS — not bare `pnpm --filter ./packages/cli check`)                                     |
+| `cli-registry`           | CLI + registry/templates                                                 | `pnpm cli:check` plus `ui-registry` or `registry:check` as diff dictates                                           |
+| `playground`             | `apps/playground/**`                                                     | `pnpm playground:check`                                                                                            |
+| `multi-package`          | Root config, turbo, eslint, or 2+ packages                               | `pnpm check`                                                                                                       |
+| `pre-pr`                 | Broad branch ready for PR                                                | Scoped checks for touched areas, then `pnpm check` if still unsure                                                 |
 
 **Format when committing:** for code scenarios, add **`pnpm format:check`** as the final checklist step when you plan to commit — not a separate scenario row. `docs-only` already includes format.
 
@@ -131,6 +131,6 @@ Wait for **`format ok`** / **`format passed`** once, then proceed with **`$git-c
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — step 4 loads this skill
 - [`$git-commit`](../git-commit/SKILL.md) — after verify (and format when needed)
 - [`$registry-sync`](../registry-sync/SKILL.md) — two-zone rules; `ui-registry` includes `registry:sync`
-- [`$token-change-verify`](../../.agents/skills/token-change-verify/SKILL.md) — token rules; scenarios `tokens` / `tokens-styles-registry` here
+- [`$token-verify`](../token-verify/SKILL.md) — token rules; scenarios `tokens` / `tokens-styles-registry` here
 - [`$components-authoring`](../components-authoring/SKILL.md) — UI edit rules; checklist via this skill after UI
 - [`$docs-authoring`](../docs-authoring/SKILL.md) — catalog audit commands in `docs-only` / path fallback (alignment procedure)

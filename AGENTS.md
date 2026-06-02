@@ -22,13 +22,13 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 
 ## Layers
 
-| Layer               | Where                                                                                                      |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Routing             | This file (`AGENTS.md`)                                                                                    |
-| Procedure           | [`.agents/skills/`](./.agents/skills/) and [`.cursor/skills/`](./.cursor/skills/) — load `$name` on demand |
-| Policy supplement   | [git-commits.mdc](./.cursor/rules/git-commits.mdc) with **`$git-commit`**                                  |
-| Edit-time standards | [`.cursor/rules/`](./.cursor/rules/) — attach via globs while editing matching files                       |
-| Contracts           | [docs/](./docs/) — domain specs; find owner in [INDEX.md](./docs/INDEX.md)                                 |
+| Layer               | Where                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------ |
+| Routing             | This file (`AGENTS.md`)                                                              |
+| Procedure           | [`.cursor/skills/`](./.cursor/skills/) — load `$name` on demand                      |
+| Policy supplement   | [git-commits.mdc](./.cursor/rules/git-commits.mdc) with **`$git-commit`**            |
+| Edit-time standards | [`.cursor/rules/`](./.cursor/rules/) — attach via globs while editing matching files |
+| Contracts           | [docs/](./docs/) — domain specs; find owner in [INDEX.md](./docs/INDEX.md)           |
 
 **Quick routing:** default for implementation → **`$agent-workflow`** (if unsure, start there); docs (layout or freshness) → **`$docs-authoring`**; UI component work → **`$components-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
 
@@ -61,7 +61,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 ## Repo skills
 
-**Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$registry-sync`, `$components-authoring`, `$changelog-update`, `$docs-authoring`, `$project-next-steps`. Remaining domain skill: [`.agents/skills/`](./.agents/skills/) (`$token-change-verify`, …). Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
+**Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$registry-sync`, `$token-verify`, `$components-authoring`, `$changelog-update`, `$docs-authoring`, `$project-next-steps`. Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
 
 | Skill                   | When                                                                                                                                |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -70,7 +70,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 | `$registry-sync`        | UI changed → sync templates + reconciled items ([`.cursor/skills/registry-sync/`](./.cursor/skills/registry-sync/))                 |
 | `$components-authoring` | New or edited UI primitive/block/template; tests ([`.cursor/skills/components-authoring/`](./.cursor/skills/components-authoring/)) |
 | `$docs-authoring`       | Markdown layout and freshness ([`.cursor/skills/docs-authoring/`](./.cursor/skills/docs-authoring/))                                |
-| `$token-change-verify`  | Token layers, generator, or governance                                                                                              |
+| `$token-verify`         | Token layers, generator, or governance ([`.cursor/skills/token-verify/`](./.cursor/skills/token-verify/))                           |
 | `$project-next-steps`   | What to work on next; backlog triage ([`.cursor/skills/project-next-steps/`](./.cursor/skills/project-next-steps/))                 |
 | `$git-commit`           | Commit, push, or PR to `dev`                                                                                                        |
 | `$changelog-update`     | CHANGELOG after feature or fix merges ([`.cursor/skills/changelog-update/`](./.cursor/skills/changelog-update/))                    |
