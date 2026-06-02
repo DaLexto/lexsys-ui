@@ -65,7 +65,7 @@ No root workspace `vitest.config.ts`.
 
 - `*.variants.test.ts` — primitive CVA class output.
 - `*.render.test.tsx` — DOM smoke, className merge, key a11y roles.
-- Blocks/templates — install smoke in CLI; render smoke in UI for pilots; narrow viewport → manual sandbox ([TESTING.md](../../docs/operations/TESTING.md#consumer-sandbox-verification)).
+- Blocks/templates — install smoke in CLI; render smoke in UI for pilots ([TESTING.md](../../docs/operations/TESTING.md)).
 
 ---
 
@@ -80,7 +80,6 @@ No root workspace `vitest.config.ts`.
 ## Skills
 
 - Pick scoped `pnpm *:check` from diff → **`$monorepo-check-gate`**.
-- CLI/registry/template install PRs → **`$consumer-sandbox-verify`**.
 - Dedicated test skill — wave 2 (name TBD).
 
 ---

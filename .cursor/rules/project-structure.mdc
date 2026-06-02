@@ -22,8 +22,10 @@ Public APIs: `package.json` `exports` only. Never deep-import another package's 
 
 ```txt
 lexsys/
-├── .agents/            # Agent workspace — skills/ (tracked)
-├── .cursor/rules/      # Cursor editing behavior (*.mdc)
+├── .agents/            # Domain skills/ (tracked; reorg to .cursor/skills/ planned)
+├── .cursor/
+│   ├── rules/          # Cursor editing behavior (*.mdc)
+│   └── skills/         # Project skills (e.g. agent-workflow)
 ├── apps/               # playground (smoke), docs (placeholder)
 ├── docs/               # Hub + reference / operations / contributors
 │   ├── reference/      # tokens, ui, registry, cli domain specs
@@ -66,7 +68,7 @@ lexsys/
 | Registry install templates | Edit `packages/ui/src/components/` → run `pnpm registry:sync` — **never edit `templates/` directly** | `$registry-sync` skill |
 | CLI install behavior | `packages/cli/src/` | [CLI.md](../../docs/reference/cli/CLI.md) |
 | After UI edits → templates | run `pnpm registry:sync` | `$registry-sync` skill |
-| Verification | sandbox + `pnpm *:check` | [TESTING.md](../../docs/operations/TESTING.md) |
+| Verification | `pnpm *:check` (scoped or full) | [TESTING.md](../../docs/operations/TESTING.md), [SCRIPTS.md](../../docs/operations/SCRIPTS.md) |
 | Script names | — | [SCRIPTS.md](../../docs/operations/SCRIPTS.md) only |
 
 Component file shape (all layers):
@@ -89,10 +91,11 @@ ComponentName/
 | `documentation.mdc` | Doc routing and layout when editing `docs/**` |
 | `code-commenting.mdc` | JSDoc and comments in `src/` |
 | `git-commit-rules.mdc` | Meta: authoring commit rules |
+| `git-commits.mdc` | Commit/PR policy (with `$git-commit`) |
 | `testing.mdc` | Vitest layout and test-edit conventions |
 | `tech-stack.mdc` | Dependencies and toolchain |
 | `typescript.mdc` | TypeScript conventions and patterns |
 | `ui-components.mdc` | UI component standards (CS.8) |
 | `self-improvement.mdc` | When to evolve rules |
 
-Repo skills: [`.agents/skills/`](../../.agents/skills/). Git commit/PR policy: [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → [git-commits.mdc](../../.agents/skills/git-commit/git-commits.mdc).
+Repo skills: [`.agents/skills/`](../../.agents/skills/), [`.cursor/skills/`](../../.cursor/skills/) (transitional). Git commit/PR policy: [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → [git-commits.mdc](./git-commits.mdc).

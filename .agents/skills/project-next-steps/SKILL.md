@@ -147,7 +147,7 @@ Always deliver output in **three categories**. Aim for 2–3 items per category.
 ## Predlozi za nastavak (continuation)
 
 Items that directly continue the current trajectory — open Known Gaps, next release
-milestone, next undefined phase, or consumer sandbox verification.
+milestone, or next undefined phase.
 
 1. **[Category]** … — why high leverage; owner doc link
 2. …
@@ -194,6 +194,5 @@ add value without being required for stability.
 
 - `$docs-alignment` — after finding doc drift; also when closing/shipping backlog rows
 - `$monorepo-check-gate` — before recommending "merge-ready"
-- `$consumer-sandbox-verify` — when next step touches CLI/registry/blocks
 - `$ui-authoring` — when next step is new primitive/block/template
-- [docs/operations/TESTING.md § Verification surfaces](../../docs/operations/TESTING.md#verification-surfaces)
+- [docs/operations/TESTING.md](../../docs/operations/TESTING.md)

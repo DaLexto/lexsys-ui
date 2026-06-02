@@ -34,14 +34,14 @@ Run scoped checks first when the change set is narrow.
 ## Do not
 
 - Start dev servers as verification (`playground:dev`, `vite dev`) unless user asks.
-- Use playground as consumer install truth — see `$consumer-sandbox-verify`.
+- Playground is maintenance smoke only — not consumer install truth ([TESTING.md](../../docs/operations/TESTING.md)).
 
 ## Agent operations
 
-Prefer: `pnpm playground:build`, unit tests, sandbox production build.
+Prefer: `pnpm playground:build`, unit tests, scoped `*:check` or `pnpm check`.
 
 ## Related
 
 - [docs/operations/TESTING.md](../../docs/operations/TESTING.md)
 - [testing.mdc](../../.cursor/rules/testing.mdc)
-- `$registry-sync`, `$consumer-sandbox-verify`
+- `$registry-sync`

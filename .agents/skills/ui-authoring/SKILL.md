@@ -43,14 +43,16 @@ Layer folders: `primitives/`, `blocks/`, `templates/`.
 
 ## Quick post-edit gate
 
+**You run** (agent gives the numbered list and waits for your report):
+
 ```sh
 pnpm ui:check
 pnpm registry:sync
 pnpm ui:test
-pnpm format
+pnpm format:check
 ```
 
-Full procedure and checklists → [component.md](./component.md).
+Full procedure and handoff → [component.md § Post-edit gate](./component.md#post-edit-gate-user-runs-agent-plans).
 
 ---
 
@@ -58,5 +60,4 @@ Full procedure and checklists → [component.md](./component.md).
 
 - `$registry-sync`
 - `$monorepo-check-gate`
-- `$consumer-sandbox-verify` — blocks/templates PR gate
 - [docs/reference/ui/UI_AUDIT.md](../../docs/reference/ui/UI_AUDIT.md)

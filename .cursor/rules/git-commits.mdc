@@ -1,0 +1,297 @@
+---
+description: Lexsys Conventional Commits, commit/push/PR authorization, scopes, and GitHub labels. Use with $git-commit when the user requests git operations.
+globs:
+alwaysApply: false
+---
+
+# Lexsys Git Commits and Pull Requests
+
+**Canonical workflow policy** for the [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) skill.
+
+Format follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+Authoring guide: [git-commit-rules.mdc](./git-commit-rules.mdc).
+Layout: [project-structure.mdc](./project-structure.mdc).
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+Imperative mood, lowercase subject, no trailing period. Prefer ≤ 72 characters in the subject.
+
+---
+
+## Authorization
+
+| Action | Allowed when |
+|--------|----------------|
+| `git commit` | User **explicitly** requests a commit (or user rules override) |
+| `git push` | User **explicitly** requests push — do not offer push proactively |
+| `gh pr create` / open PR | User **explicitly** requests a pull request |
+| `git commit --amend` | User rules allow (unpushed HEAD, hook fixed files, user said amend) |
+| `push --force`, `reset --hard`, etc. | User explicitly requests and understands impact |
+| `git config` | Never |
+| Touch `main` | Only when user **explicitly** requests (commit, PR base, ff) |
+
+If intent is unclear ("save this", "finish up", "ship it"), confirm whether the user wants file changes only, a commit, push, or a PR. Stage only paths for the current task unless the user approves a broader commit.
+
+---
+
+## Commit types
+
+| Type | Use for |
+|------|---------|
+| `feat` | New component, CLI behavior, token layer, registry item |
+| `fix` | Incorrect install, resolver, validation, or runtime behavior |
+| `docs` | `docs/`, [AGENTS.md](../../AGENTS.md), package READMEs — no logic change |
+| `test` | `packages/*/test/**` |
+| `refactor` | Internal restructure, same intended behavior |
+| `chore` | Tooling, deps, formatting, repo hygiene |
+| `build` | `tsup`, turbo, generated artifact wiring |
+| `ci` | CI workflows |
+| `perf` | Measurable performance win |
+| `style` | Formatting or class order only |
+
+Use `docs` for documentation-only work, not `feat`.
+
+---
+
+## Scopes in this repository
+
+pnpm workspace: `apps/*`, `packages/*` ([pnpm-workspace.yaml](../../pnpm-workspace.yaml)). Pick **one primary scope** per commit from where most lines changed (`git diff --stat`).
+
+| Scope | Paths |
+|-------|--------|
+| `tokens` | `packages/tokens/` |
+| `ui` | `packages/ui/` |
+| `registry` | `packages/registry/` (`src/`, `templates/`, `scripts/`) |
+| `cli` | `packages/cli/` |
+| `playground` | `apps/playground/` |
+| `docs` | Multiple files under `docs/` or cross-package documentation |
+| `repo` | Root `package.json`, `turbo.json`, `pnpm-workspace.yaml`, workspace scripts |
+| `cursor` | `.cursor/rules/**`, `.cursor/skills/**` |
+| `agents` | [AGENTS.md](../../AGENTS.md), [`.agents/skills/`](../../.agents/skills/) |
+
+Optional nested doc scopes when one doc area dominates: `docs(tokens)`, `docs(cli)`, `docs(registry)`.
+
+**Avoid as scope:** component names (`button`, `dialog`), vague `tests` — use `test(<package>)` instead.
+
+**Multi-package workflow:** prefer separate commits (`feat(ui)` → `feat(registry)` → `feat(tokens)`). After `packages/ui` changes that affect install templates, run **`pnpm registry:sync`** (see [`$registry-sync`](../../.agents/skills/registry-sync/SKILL.md)) before or note it in the registry commit body. After token generator changes, note `pnpm tokens:generate:styles` when registry style outputs depend on it.
+
+---
+
+## Breaking changes
+
+Mark with `!` or `BREAKING CHANGE:` footer when:
+
+- `lexsys.config.json` shape or default paths change
+- Package `exports` or public entrypoints change
+- Token rules become build-failing and invalidate consumer CSS
+- Bundled registry item files or `target` paths change
+
+Details: [Conventional Commits — breaking change](https://www.conventionalcommits.org/en/v1.0.0/#commit-message-with-description-and-breaking-change-footer).
+
+---
+
+## Before committing
+
+1. `git status --short` and `git diff` (and `git diff --staged` if needed)
+2. `git log -5 --oneline` for message style
+3. **`pnpm format:check`** — required before every commit. If it fails, run `pnpm format`, re-check, then commit. CI `root-check` runs the same gate.
+4. Exclude unrelated files, `.env`, credentials, accidental `dist/` unless intentional
+5. Match scope to [project-structure.mdc](./project-structure.mdc) ownership
+6. Do not use `git add -A` unless the user wants everything
+7. No `--no-verify` unless the user explicitly requests it
+8. No interactive git (`-i`)
+
+---
+
+## Commit commands
+
+```bash
+git status --short
+git diff
+git diff --staged
+git log -5 --oneline
+git add -- <path>
+git restore --staged -- <path>
+git restore -- <path>
+```
+
+Commit (after authorization; HEREDOC on Unix):
+
+```bash
+git commit -m "$(cat <<'EOF'
+type(scope): short summary
+
+Optional body.
+
+EOF
+)"
+```
+
+On PowerShell, use multiple `-m` flags or equivalent the shell supports:
+
+```powershell
+git commit -m "type(scope): short summary" -m "Optional body."
+```
+
+---
+
+## Pull requests
+
+Use repository templates from [.github/PULL_REQUEST_TEMPLATE/](../../.github/PULL_REQUEST_TEMPLATE/). Do not invent a one-off PR body when a template applies.
+
+### Choose a template
+
+| Template | Use when |
+|----------|----------|
+| [lite.md](../../.github/PULL_REQUEST_TEMPLATE/lite.md) | Small PRs: docs-only, single-file chores, tiny fixes, low risk |
+| [full.md](../../.github/PULL_REQUEST_TEMPLATE/full.md) | Multi-package work, tokens/registry/cli, UI + template sync, breaking changes, or architectural impact |
+
+When unsure, use `full.md`.
+
+### Base branch
+
+**Default PR target is `dev`, not `main`.**
+
+| Branch | Role |
+|--------|------|
+| `dev` | Integration branch — open feature/fix PRs here |
+| `main` | Production/release — only when the user explicitly requests a PR to `main` |
+
+GitHub's repository default may still be `main`; do not infer the PR base from `gh repo view` or `origin/HEAD` alone. When the user does not specify a base, use `--base dev`.
+
+**Do not touch `main`** — no commits, merges, fast-forwards, or PRs targeting `main` unless the user explicitly requests it.
+
+### Branch and PR order
+
+For non-trivial work, follow [AGENTS.md § Change workflow](../../AGENTS.md#change-workflow) and load **`$agent-workflow`** when the pipeline is unclear:
+
+```txt
+branch off dev → implement → docs alignment → PR to dev (last)
+```
+
+Open the PR only when the branch is complete. See [AGENTS.md](../../AGENTS.md) for branch policy and verification surfaces.
+
+### Before opening a PR
+
+Run in parallel:
+
+```bash
+git status --short
+git diff
+git log -5 --oneline
+git rev-parse --abbrev-ref HEAD
+git diff dev...HEAD
+```
+
+Then run **`pnpm format:check`** (or `pnpm format` + re-check if it fails). Do not push or open a PR until formatting passes — CI `root-check` fails on the same step.
+
+Confirm the branch is pushed or push only when the user explicitly requests it.
+
+### Fill the template
+
+1. Read the chosen template file from `.github/PULL_REQUEST_TEMPLATE/`.
+2. Replace HTML comments with concrete content from **all commits** on the branch, not only the latest commit.
+3. Check Scope and Change Type boxes that match the diff.
+4. Complete Package Boundary, Registry/CLI, Token/Styling, and UI safety sections when those areas are touched; mark **Not applicable** otherwise.
+5. Record exact verification commands and results in the Verification table.
+6. Delete optional sections that do not apply (per template comments).
+
+PR title should summarize the branch intent; it may differ from a single commit subject when the branch contains multiple commits.
+
+### Create the PR
+
+Use `gh` after the user explicitly requests a PR:
+
+```bash
+git push -u origin HEAD
+gh pr create --base dev --title "short pr title" --body-file path/to/filled-body.md
+```
+
+For a filled body, write the completed template to a temporary file or pass a HEREDOC/`--body` string — do not open a PR with unfilled `<!-- -->` placeholders or empty required sections.
+
+If a PR was opened against the wrong base, fix with `gh pr edit <number> --base dev` (or `--base main` when explicitly requested).
+
+Return the PR URL when done. Do not push unless the user explicitly requests it.
+
+### GitHub labels (required after PR create)
+
+After `gh pr create` succeeds, **always apply labels** with `gh pr edit`. Taxonomy: [docs/contributors/CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md) § GitHub labels, manifest [`.github/labels.yml`](../../.github/labels.yml).
+
+**Always apply when opening a PR:**
+
+| Label | When |
+|-------|------|
+| `type:*` | One — mirrors primary commit type (`type:feat`, `type:fix`, `type:docs`, …) |
+| `area:*` | One or more — every primary package/surface touched (see mapping below) |
+| `status:ready-for-review` | PR is complete and awaiting review |
+| `meta:breaking-change` | Public API, registry install paths, token CSS, or config breaks |
+
+**Do not apply on PRs:** `priority:*` (issues only), `automation:*` (bot PRs only), `meta:good-first-issue`, `meta:help-wanted`.
+
+#### `area:*` mapping
+
+| Label | Paths / trigger |
+|-------|-----------------|
+| `area:ui` | `packages/ui/**` |
+| `area:tokens` | `packages/tokens/**` |
+| `area:registry` | `packages/registry/**` |
+| `area:cli` | `packages/cli/**` |
+| `area:playground` | `apps/playground/**` |
+| `area:docs` | `docs/**`, `AGENTS.md`, package READMEs when docs-heavy |
+| `area:repo` | Root tooling, `turbo.json`, workspace scripts, `.github/**` |
+| `area:agents` | `.agents/skills/**`, `.cursor/skills/**`, [AGENTS.md](../../AGENTS.md) |
+
+Pick **all areas** that match the diff — cross-package PRs get multiple `area:*` labels.
+
+#### Examples
+
+| PR shape | Labels |
+|----------|--------|
+| UI-only feature | `type:feat`, `area:ui`, `status:ready-for-review` |
+| UI + registry sync | `type:feat`, `area:ui`, `area:registry`, `status:ready-for-review` |
+| UI polish + tokens + docs + playground (breaking) | `type:feat`, `area:ui`, `area:tokens`, `area:registry`, `area:docs`, `area:playground`, `meta:breaking-change`, `status:ready-for-review` |
+| Docs-only | `type:docs`, `area:docs`, `status:ready-for-review` |
+| CI workflow | `type:ci`, `area:repo`, `status:ready-for-review` |
+| Git skill / agent workflow | `type:docs`, `area:agents`, `status:ready-for-review` |
+
+#### Command
+
+After PR is created, derive labels from diff/commits, then:
+
+```bash
+gh pr edit <number> --add-label "type:feat,area:ui,area:registry,status:ready-for-review"
+```
+
+Comma-separated list; no spaces after commas. Add `meta:breaking-change` when applicable.
+
+---
+
+## Examples
+
+```txt
+feat(tokens): add brand layer to token pipeline
+fix(cli): make registry source flags deterministic
+test(registry): guard public api and template sync
+refactor(ui): route components through semantic token classes
+docs(tokens): document semantic size and spacing roles
+docs(tokens): record dtcg output paths
+chore(repo): add scoped package check scripts
+feat(playground): add overlays QA panel
+feat(agents): add git-commit skill with workflow policy
+```
+
+## Avoid
+
+```txt
+Normalize line height tokens
+update: docs
+feat: add TypeScript definitions for Dialog, Drawer, Menu...
+fix(tests): formatting feat(tokens): ensure formatting
+feat(button): add button
+```

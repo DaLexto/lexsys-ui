@@ -25,12 +25,12 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 | Layer               | Where                                                                                      |
 | ------------------- | ------------------------------------------------------------------------------------------ |
 | Routing             | This file (`AGENTS.md`)                                                                    |
-| Procedure           | [`.agents/skills/`](./.agents/skills/) — load `$name` skills on demand                     |
-| Policy supplement   | e.g. [git-commits.mdc](./.agents/skills/git-commit/git-commits.mdc) with **`$git-commit`** |
+| Procedure           | [`.agents/skills/`](./.agents/skills/) and [`.cursor/skills/`](./.cursor/skills/) — load `$name` on demand |
+| Policy supplement   | [git-commits.mdc](./.cursor/rules/git-commits.mdc) with **`$git-commit`** |
 | Edit-time standards | [`.cursor/rules/`](./.cursor/rules/) — attach via globs while editing matching files       |
 | Contracts           | [docs/](./docs/) — domain specs; find owner in [INDEX.md](./docs/INDEX.md)                 |
 
-**Quick routing:** new doc layout → **`$docs-authoring`**; counts or contracts stale → **`$docs-alignment`**; UI component work → **`$ui-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
+**Quick routing:** non-trivial multi-step work → **`$agent-workflow`** first; new doc layout → **`$docs-authoring`**; counts or contracts stale → **`$docs-alignment`**; UI component work → **`$ui-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
 
 ---
 
@@ -41,7 +41,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 - **Generated CSS:** token CSS is build output — never hand-write. See [TOKENS.md](./docs/reference/tokens/TOKENS.md).
 - **UI → registry:** after `packages/ui` edits that affect install artifacts, run **`pnpm registry:sync`** — **`$registry-sync`**.
 - **Registry two-zone:** `packages/registry/src/items/` (install metadata) vs `packages/registry/templates/` (generated from UI — never edit templates directly). Full rules: [REGISTRY.md](./docs/reference/registry/REGISTRY.md); primitives vs blocks scaffolding via **`$registry-sync`**.
-- **Playground:** maintenance-only monorepo smoke (~10–20%). Consumer truth is the external sandbox (~80–90%) — [TESTING.md § Verification surfaces](./docs/operations/TESTING.md#verification-surfaces).
+- **Playground:** maintenance-only monorepo smoke — not consumer install truth. See [TESTING.md](./docs/operations/TESTING.md).
 - **Branch policy:** branch off **`dev`**; PR to **`dev`**; do not touch **`main`** unless the user explicitly requests it.
 - **Prefer links over duplication** when a rule already lives in `docs/`.
 
@@ -49,22 +49,24 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 
 ## Verification
 
-Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). Scoped checks by touched paths: **`$monorepo-check-gate`**. CLI / registry / templates / blocks PRs: **`$consumer-sandbox-verify`** before merge — [TESTING.md](./docs/operations/TESTING.md).
+Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). Scoped checks by touched paths: **`$monorepo-check-gate`** (helper; may be replaced).
 
-**Do not start dev servers** unless the user explicitly requests it (`pnpm playground:dev`, `vite dev`, `next dev`, or equivalent `*:dev`). Prefer non-interactive verification: `pnpm check`, scoped `*:check`, `pnpm playground:build`, unit tests, sandbox production build. Do not suggest starting a dev server as a default next step.
+**During [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md):** the agent outputs a numbered command checklist (from touched paths + SCRIPTS); **you run** checks and report pass or errors. The agent does not run `pnpm` verify unless you explicitly ask in that turn.
 
-**Example sandbox path:** `D:\PLAYGROUND\sandbox-lexsys` (local; optional `AGENTS.md` in sandbox for consumer-specific notes).
+**Outside agent-workflow:** the agent may run `pnpm check`, scoped `*:check`, `pnpm playground:build`, or unit tests when you request it.
+
+**Do not start dev servers** unless you explicitly request it (`pnpm playground:dev`, `vite dev`, `next dev`, or equivalent `*:dev`). Do not suggest a dev server as the default verification path.
 
 ---
 
 ## Repo skills
 
-Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures. Git policy: [git-commits.mdc](./.agents/skills/git-commit/git-commits.mdc) (with **`$git-commit`**).
+**Transitional layout:** domain procedures live in [`.agents/skills/`](./.agents/skills/); **`$agent-workflow`** lives in [`.cursor/skills/agent-workflow/`](./.cursor/skills/agent-workflow/) (Cursor project default). A later reorg may consolidate under `.cursor/skills/`. Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) (with **`$git-commit`**).
 
 | Skill                      | When                                             |
 | -------------------------- | ------------------------------------------------ |
+| `$agent-workflow`          | Non-trivial task — procedure before domain skills |
 | `$registry-sync`           | UI changed → sync registry templates             |
-| `$consumer-sandbox-verify` | CLI/registry/template/blocks PR gate             |
 | `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks         |
 | `$ui-authoring`            | New or edited UI primitive/block/template; tests |
 | `$docs-authoring`          | New or reshaped markdown layout                  |
@@ -78,17 +80,11 @@ Load from [`.agents/skills/`](./.agents/skills/) for multi-step procedures. Git 
 
 ## Change workflow
 
-Session state lives in **git + [REVIEW_TODO.md](./docs/REVIEW_TODO.md)**; do not maintain a local continuity file.
+**Procedure (canonical):** [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) — branch → implement → docs → verify (you run checks; agent plans from **`$monorepo-check-gate`**) → PR last (**`$git-commit`** when you ask). Session state: **git + [REVIEW_TODO.md](./docs/REVIEW_TODO.md)** only.
 
-For non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans):
+Use it for non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans); load domain skills from the table above as that skill directs.
 
-1. **Branch** off **`dev`**.
-2. **Implement** on the branch; scoped commits per concern.
-3. **Docs** — **`$docs-authoring`** for new/reshaped docs; **`$docs-alignment`** when contracts or counts change ([INDEX.md](./docs/INDEX.md)).
-4. **Verify** — **`$monorepo-check-gate`**; **`$consumer-sandbox-verify`** when install artifacts change.
-5. **PR last** to **`dev`** when the branch is complete — **`$git-commit`**.
-
-Human-oriented steps: [CONTRIBUTING.md](./docs/contributors/CONTRIBUTING.md). Trivial one-line fixes with no contract impact may skip the docs pass; still branch off `dev`.
+Human-oriented mirror: [CONTRIBUTING.md](./docs/contributors/CONTRIBUTING.md). Trivial one-line fixes with no contract impact may skip the docs pass; still branch off `dev`.
 
 ---
 

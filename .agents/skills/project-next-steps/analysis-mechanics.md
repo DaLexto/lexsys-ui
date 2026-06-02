@@ -82,7 +82,7 @@ Probe only layers tied to candidate next steps.
 
 - Open rows in REVIEW_TODO composition / optimization sections (not hardcoded IDs)
 - Missing verification gates called out in Known Gaps
-- **`$consumer-sandbox-verify`** when recommending install-artifact work
+- Scoped **`pnpm *:check`** / **`$monorepo-check-gate`** when recommending install-artifact work
 
 ---
 
