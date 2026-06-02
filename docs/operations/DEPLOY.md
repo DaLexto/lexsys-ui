@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Build and publish contract, version lanes, pre-release gates, npm publish surface
 **Verified against:** Root and workspace `package.json` files, `turbo.json`
-**Last reviewed:** 2026-06-02
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -42,7 +42,7 @@ flowchart LR
     mainPR --> releaseCI[Release CI]
     releaseCI --> versionPR[Changesets Version PR]
     versionPR --> publish[npm publish]
-    publish --> syncDev["merge main into dev"]
+    publish --> syncDev["CI: sync main into dev"]
     syncDev --> nextTag["@next — 0.0.x"]
     syncDev --> latestTag["@latest — 0.1.0+"]
 ```
@@ -193,15 +193,26 @@ violations do not fail the gate.)
 
 Changesets uses **`baseBranch: "main"`** ([`.changeset/config.json`](../../.changeset/config.json)).
 The Version Packages PR updates `package.json` versions and CHANGELOG on **`main` only**.
-After publish, **merge `main` into `dev`** so the integration branch keeps the same
-release metadata (otherwise `dev` can look "behind" `main` by two release commits while
-still being ahead on feature work).
+After the [Release workflow](../../.github/workflows/release.yml) finishes on `main`,
+[**Sync dev from main**](../../.github/workflows/sync-dev-from-main.yml) merges
+`main` into `dev` so the integration branch keeps the same release metadata (otherwise
+`dev` can look "behind" `main` by ~two release commits while still being ahead on
+feature work).
+
+| Trigger | Behavior |
+| ------- | -------- |
+| `Release` workflow completed successfully on `main` | Merge `origin/main` into `dev` and push when needed |
+| `workflow_dispatch` | Manual re-sync (same merge logic) |
+
+**Manual fallback** (only if the sync job fails — rare merge conflict on version/changelog files):
 
 ```bash
 git checkout dev && git pull origin dev
 git merge origin/main
 git push origin dev
 ```
+
+Re-run **Sync dev from main** from the Actions tab after resolving conflicts locally.
 
 ### 0.0.x bump (`@next`)
 
@@ -211,7 +222,7 @@ For any patch or minor release on the `0.0.x` line:
 2. Add a changeset: `pnpm changeset`
 3. Merge the Changesets "Version Packages" PR to `main`
 4. Release CI publishes automatically on merge to `main`
-5. Merge `main` into `dev` (see [Sync dev after release](#release-workflow) above)
+5. Confirm **Sync dev from main** succeeded (or use manual fallback in [Release workflow](#release-workflow))
 6. Verify: `npm view @dalexto/lexsys dist-tags` shows updated `next` version
 7. Post-publish smoke in a clean temp directory:
 
@@ -235,7 +246,7 @@ Additional steps beyond the standard 0.0.x flow:
 3. Add changeset with minor bump → `0.1.0`
 4. Update Changesets config and publish CI to use dist-tag **`latest`**
 5. Merge Version Packages PR to `main` → Release CI publishes
-6. Merge `main` into `dev` (release metadata sync — see [Release workflow](#release-workflow))
+6. Confirm **Sync dev from main** succeeded (see [Release workflow](#release-workflow))
 7. README: update install command to remove `@next`
 8. Update CHANGELOG `[0.1.0]` entry and dist-tag policy in this file
 9. Add `npm publish --provenance` to the Release CI workflow (see [Supply chain security](#supply-chain-security))
@@ -348,7 +359,10 @@ CI runs on pull requests and pushes to `dev`/`main` via
 [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) (Node 24, frozen
 lockfile). Pull requests use path-filtered jobs; pushes to `dev`/`main` run a
 full `pnpm check`. Token-path PRs also run
-[tokens-governance](../../.github/workflows/tokens-governance.yml).
+[tokens-governance](../../.github/workflows/tokens-governance.yml). After a successful
+[Release](../../.github/workflows/release.yml) on `main`,
+[sync-dev-from-main](../../.github/workflows/sync-dev-from-main.yml) merges release
+metadata into `dev` (see [Release workflow](#release-workflow)).
 
 **Lockfile and dependency rules:**
 

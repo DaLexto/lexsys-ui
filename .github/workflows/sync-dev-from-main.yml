@@ -1,0 +1,54 @@
+name: Sync dev from main
+
+# Keeps dev in sync with Changesets release metadata on main (versions, changelogs).
+# See docs/operations/DEPLOY.md § Release workflow.
+
+on:
+  workflow_run:
+    workflows: ["Release"]
+    types: [completed]
+  workflow_dispatch:
+
+concurrency:
+  group: sync-dev-from-main
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main'
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: dev
+
+      - name: Merge main into dev
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main dev
+
+          if git merge-base --is-ancestor origin/main HEAD; then
+            echo "dev already contains main — nothing to sync."
+            exit 0
+          fi
+
+          git merge origin/main --no-edit -m "chore(release): sync release metadata from main"
+          git push origin dev
+
+      - name: Manual sync instructions
+        if: failure()
+        run: |
+          echo "::error::Automatic sync failed (likely merge conflict). On your machine:"
+          echo "git checkout dev && git pull origin dev && git merge origin/main"
+          echo "Resolve conflicts, push dev, then re-run this workflow if needed."
