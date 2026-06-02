@@ -10,8 +10,8 @@ import type {
   ReactNode,
   Ref,
 } from "react"
-import type { DialogProps } from "../../primitives/Dialog/Dialog.types"
-import type { InputProps } from "../../primitives/Input/Input.types"
+import type { DialogProps } from "@/components/primitives/Dialog"
+import type { InputProps } from "@/components/primitives/Input"
 
 export interface CommandPaletteProps extends DialogProps {
   children?: ReactNode

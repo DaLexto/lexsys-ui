@@ -118,22 +118,34 @@ const syncComponentTemplates = async () => {
 
   const registryItemResult = await syncRegistryItems({
     checkOnly,
+    defaultCategory: undefined,
+    itemType: "component",
+    reconcile: true,
     registryRoot,
     sourceComponentNames,
-    templateRoot: targetRoot,
     templatePrefix: "primitives",
     targetPrefix: "src/components/ui",
+    templateRoot: targetRoot,
+    uiSourceRoot: sourceRoot,
   })
 
   if (checkOnly) {
+    let hasErrors = false
+
     if (
       registryItemResult.missingItemFiles.length > 0 ||
+      registryItemResult.outOfSyncItemFiles.length > 0 ||
       registryItemResult.missingIndexEntries.length > 0
     ) {
       console.error("Registry component items are out of sync:")
+      hasErrors = true
 
       for (const file of registryItemResult.missingItemFiles) {
         console.error(`- missing item: ${file}`)
+      }
+
+      for (const file of registryItemResult.outOfSyncItemFiles) {
+        console.error(`- out of sync item: ${file}`)
       }
 
       for (const entry of registryItemResult.missingIndexEntries) {
@@ -143,16 +155,14 @@ const syncComponentTemplates = async () => {
 
     if (outOfSyncFiles.length > 0) {
       console.error("Component templates are out of sync:")
+      hasErrors = true
+
       for (const file of outOfSyncFiles) {
         console.error(`- ${file}`)
       }
     }
 
-    if (
-      outOfSyncFiles.length > 0 ||
-      registryItemResult.missingItemFiles.length > 0 ||
-      registryItemResult.missingIndexEntries.length > 0
-    ) {
+    if (hasErrors) {
       process.exitCode = 1
       return
     }
@@ -165,7 +175,7 @@ const syncComponentTemplates = async () => {
     `Synced ${changedTemplateCount} changed component template files; ${unchangedTemplateCount} already up to date.`,
   )
   console.log(
-    `Created ${registryItemResult.missingItemFiles.length} missing registry item files.`,
+    `Registry items (primitives): ${registryItemResult.createdItemCount} created; ${registryItemResult.updatedItemCount} updated.`,
   )
 }
 

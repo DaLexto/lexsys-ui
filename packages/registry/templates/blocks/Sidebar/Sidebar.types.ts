@@ -12,7 +12,7 @@ import type {
   ReactNode,
   Ref,
 } from "react"
-import type { ButtonProps } from "../../primitives/Button/Button.types"
+import type { ButtonProps } from "@/components/primitives/Button"
 
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
   ref?: Ref<HTMLElement>

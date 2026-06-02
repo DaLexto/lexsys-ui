@@ -11,7 +11,7 @@ import {
   FieldError,
   FieldItem,
   FieldLabel,
-} from "../../primitives/Field/Field"
+} from "@/components/primitives/Field"
 import type {
   FormFieldControlProps,
   FormFieldDescriptionProps,

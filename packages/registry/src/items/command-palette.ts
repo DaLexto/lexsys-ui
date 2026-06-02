@@ -17,7 +17,7 @@ export const commandPaletteRegistryItem: RegistryItem = {
     "blocks/CommandPalette/CommandPalette.types.ts",
     "blocks/CommandPalette/CommandPalette.variants.ts",
   ],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  dependencies: ["clsx", "tailwind-merge"],
   registryDependencies: ["dialog", "input", "scroll-area", "separator"],
   utilities: ["cn"],
   styles: ["theme"],

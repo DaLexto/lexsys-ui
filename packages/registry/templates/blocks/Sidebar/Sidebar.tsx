@@ -5,7 +5,7 @@
  */
 
 import { createContext, useContext } from "react"
-import { Button } from "../../primitives/Button/Button"
+import { Button } from "@/components/primitives/Button"
 import {
   Drawer,
   DrawerBackdrop,
@@ -17,12 +17,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
   DrawerViewport,
-} from "../../primitives/Drawer/Drawer"
+} from "@/components/primitives/Drawer"
 import {
   ScrollArea,
   ScrollAreaContent,
   ScrollAreaViewport,
-} from "../../primitives/ScrollArea/ScrollArea"
+} from "@/components/primitives/ScrollArea"
 import type {
   SidebarContentProps,
   SidebarFooterProps,

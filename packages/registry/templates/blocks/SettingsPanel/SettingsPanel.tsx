@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../primitives/Card/Card"
+} from "@/components/primitives/Card"
 import type {
   SettingsPanelContentProps,
   SettingsPanelDescriptionProps,

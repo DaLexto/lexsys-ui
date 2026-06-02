@@ -10,8 +10,8 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-} from "../../primitives/Card/Card"
-import { Button } from "../../primitives/Button/Button"
+} from "@/components/primitives/Card"
+import { Button } from "@/components/primitives/Button"
 import type {
   AuthFormContentProps,
   AuthFormFooterProps,

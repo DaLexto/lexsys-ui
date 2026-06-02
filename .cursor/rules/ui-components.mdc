@@ -94,7 +94,7 @@ packages/registry/src/items/    ← install metadata — see below
 | `src/items/*.ts` (primitives) | **Scaffold only if file missing** — sync does **not** overwrite existing items |
 | `src/items/*.ts` (blocks/templates) | **Manual** — sync does not create or update item files yet |
 
-After install-affecting UI edits: tell user to run **`$registry-sync`** / `pnpm registry:sync` and review item metadata (`registryDependencies`, `files`, version). Full auto item sync is planned — [REVIEW_TODO.md](../../docs/REVIEW_TODO.md) (SI.4–SI.5).
+After install-affecting UI edits: tell user to run **`$registry-sync`** / `pnpm registry:sync` and review reconciled item metadata (`registryDependencies`, `files`). Items are regenerated on sync — preserve `aliases` / `category` only; see [REGISTRY.md](../../docs/reference/registry/REGISTRY.md).
 
 ---
 

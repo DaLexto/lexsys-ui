@@ -12,7 +12,7 @@ import type {
   CardHeaderProps,
   CardProps,
   CardTitleProps,
-} from "../../primitives/Card/Card.types"
+} from "@/components/primitives/Card"
 
 export interface SettingsPanelProps extends Omit<CardProps, "children"> {
   ref?: Ref<HTMLDivElement>

@@ -121,17 +121,21 @@ describe("validateRegistry", () => {
 
       expect(item).toEqual(
         expect.objectContaining({
-          dependencies: expect.arrayContaining([
-            "class-variance-authority",
-            "clsx",
-            "tailwind-merge",
-          ]),
           styles: ["theme"],
           target: expect.stringMatching(/^src\/components\/ui\//),
           type: "component",
           utilities: ["cn"],
         }),
       )
+
+      for (const dependency of item.dependencies) {
+        if (dependency === "clsx" || dependency === "tailwind-merge") {
+          expect(templateContent).toContain("@/lib/utils")
+          continue
+        }
+
+        expect(templateContent).toContain(dependency)
+      }
       expect(item?.files).toHaveLength(3)
       expect(item?.remoteFiles).toHaveLength(3)
       expect(item?.target).toBe(`src/components/ui/${item.canonicalName}`)

@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Registry item contract, template sync rules, validation requirements, local/remote resolution
 **Verified against:** `packages/registry/src/`
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-02
 
 ---
 
@@ -193,8 +193,23 @@ Rules:
 - Template drift is a validation error. `pnpm registry:check` fails if templates
   are out of sync with UI source or if style templates differ from token output.
 
-Registry item metadata files (in `src/items/`) are manually authored because
-they define the install contract, not the component implementation.
+Registry item metadata (`src/items/<name>.ts`) is **generated and reconciled** by
+`pnpm registry:sync` (`scripts/registry-item-generator.mjs`):
+
+| Layer      | Templates                 | Items on sync                                                                 |
+| ---------- | ------------------------- | ----------------------------------------------------------------------------- |
+| Primitives | Copied from `packages/ui` | Reconciled; scaffolds if missing                                              |
+| Blocks     | Copied from `packages/ui` | Reconciled; scaffolds if missing; `registryDependencies` inferred from `.tsx` |
+| Templates  | Copied from `packages/ui` | Same as blocks (`type: "block"`, category `layout` stub for new items)        |
+
+**Reconcile merge policy** (existing item files):
+
+- **Preserved:** `aliases`, `category` (when already set)
+- **Regenerated:** `files`, `dependencies`, `utilities`, `registryDependencies`, `target`, `canonicalName`
+- **Primitives only:** `remoteFiles` regenerated from `files`
+- **Check mode:** `pnpm registry:check` fails when UI folders lack items, templates drift, or reconciled item source would change
+
+Review inferred `registryDependencies` after sync; adjust only when inference misses an edge case.
 
 ---
 

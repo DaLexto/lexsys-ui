@@ -11,7 +11,7 @@ import type {
   FieldItemProps,
   FieldLabelProps,
   FieldProps,
-} from "../../primitives/Field/Field.types"
+} from "@/components/primitives/Field"
 
 export type FormFieldProps = FieldProps
 
