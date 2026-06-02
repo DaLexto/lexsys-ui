@@ -11,9 +11,7 @@ export const radioGroupRegistryItem: RegistryItem = {
   canonicalName: "RadioGroup",
   type: "component",
   category: "forms",
-  aliases: [
-    "radio",
-  ],
+  aliases: ["radio"],
   files: [
     "primitives/RadioGroup/RadioGroup.tsx",
     "primitives/RadioGroup/RadioGroup.types.ts",
@@ -37,9 +35,7 @@ export const radioGroupRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/RadioGroup",
 }

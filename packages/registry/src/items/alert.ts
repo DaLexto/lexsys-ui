@@ -11,10 +11,7 @@ export const alertRegistryItem: RegistryItem = {
   canonicalName: "Alert",
   type: "component",
   category: "feedback",
-  aliases: [
-    "notice",
-    "message",
-  ],
+  aliases: ["notice", "message"],
   files: [
     "primitives/Alert/Alert.tsx",
     "primitives/Alert/Alert.types.ts",
@@ -31,15 +28,9 @@ export const alertRegistryItem: RegistryItem = {
       path: "primitives/Alert/Alert.variants.ts",
     },
   ],
-  dependencies: [
-    "class-variance-authority",
-    "clsx",
-    "tailwind-merge",
-  ],
+  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Alert",
 }

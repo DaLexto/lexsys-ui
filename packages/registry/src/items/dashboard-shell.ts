@@ -11,22 +11,15 @@ export const dashboardShellRegistryItem: RegistryItem = {
   canonicalName: "DashboardShell",
   type: "block",
   category: "layout",
-  aliases: [
-    "dashboard-template",
-  ],
+  aliases: ["dashboard-template"],
   files: [
     "templates/DashboardShell/DashboardShell.tsx",
     "templates/DashboardShell/DashboardShell.types.ts",
     "templates/DashboardShell/DashboardShell.variants.ts",
   ],
-  dependencies: [
-    "clsx",
-    "tailwind-merge",
-  ],
+  dependencies: ["clsx", "tailwind-merge"],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/DashboardShell",
 }

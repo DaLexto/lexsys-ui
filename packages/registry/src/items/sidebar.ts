@@ -17,18 +17,9 @@ export const sidebarRegistryItem: RegistryItem = {
     "blocks/Sidebar/Sidebar.types.ts",
     "blocks/Sidebar/Sidebar.variants.ts",
   ],
-  dependencies: [
-    "clsx",
-    "tailwind-merge",
-  ],
-  registryDependencies: [
-    "button",
-    "drawer",
-    "scroll-area",
-  ],
-  utilities: [
-    "cn",
-  ],
+  dependencies: ["clsx", "tailwind-merge"],
+  registryDependencies: ["button", "drawer", "scroll-area"],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Sidebar",
 }

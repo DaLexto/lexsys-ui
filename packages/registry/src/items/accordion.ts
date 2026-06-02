@@ -11,9 +11,7 @@ export const accordionRegistryItem: RegistryItem = {
   canonicalName: "Accordion",
   type: "component",
   category: "data-display",
-  aliases: [
-    "collapse",
-  ],
+  aliases: ["collapse"],
   files: [
     "primitives/Accordion/Accordion.tsx",
     "primitives/Accordion/Accordion.types.ts",
@@ -37,9 +35,7 @@ export const accordionRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Accordion",
 }
