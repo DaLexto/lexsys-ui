@@ -1,5 +1,16 @@
 # lexsys
 
+## 0.0.5
+
+### Patch Changes
+
+- [`8b096f4`](https://github.com/DaLexto/lexsys-ui/commit/8b096f4a03edd4eed4e1bf6dc117e093b5450a05) - Early-preview release on dist-tag **`next`** (`0.0.5`).
+  - **Fixed** — `lexsys add` for blocks and templates rewrites `@/components/{primitives,blocks,templates}/…` imports to flat sibling paths under `paths.components`
+  - **Changed** — registry install metadata for blocks and templates is reconciled from UI source (accurate `registryDependencies` and template paths for maintainers publishing `@dalexto/lexsys-registry`)
+
+- Updated dependencies [[`8b096f4`](https://github.com/DaLexto/lexsys-ui/commit/8b096f4a03edd4eed4e1bf6dc117e093b5450a05)]:
+  - @dalexto/lexsys-cli@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes
