@@ -574,7 +574,7 @@ merged via PR #34. See [UI catalog](./reference/ui/UI_CATALOG.md) for the post-M
 
 **Delivered:** canonical authoring patterns for primitives, blocks, and templates —
 CVA vs `*Classes()`, props/ref/className standards, compound API consistency,
-`lex-` CSS var prefix with rebrand script, `$ui-authoring` hub skill, and
+`lex-` CSS var prefix with rebrand script, `$components-authoring` hub skill, and
 `ui-components.mdc` Cursor rule.
 
 Execution queue: [Backlog § CS](./REVIEW_TODO.md#cs-component-standardization).

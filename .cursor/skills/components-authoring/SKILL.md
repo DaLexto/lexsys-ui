@@ -1,5 +1,5 @@
 ---
-name: ui-authoring
+name: components-authoring
 description: >
   Authoring workflow for packages/ui components — create, edit, or delete
   primitives, blocks, and templates; writing variant and render tests.
@@ -9,12 +9,12 @@ description: >
   / testCssVarPrefix issues. Also covers the post-edit gate sequence.
 ---
 
-# UI authoring
+# Components authoring
 
 Covers creating, editing, deleting, and testing UI components in
 `packages/ui/src/components/`.
 
-Coding standards quick-reference: [`.cursor/rules/ui-components.mdc`](../../.cursor/rules/ui-components.mdc).  
+Coding standards quick-reference: [`.cursor/rules/ui-components.mdc`](../rules/ui-components.mdc).  
 Contracts: [UI.md](../../docs/reference/ui/UI.md), [UI_VARIANTS.md](../../docs/reference/ui/UI_VARIANTS.md), [UI_COMPOSITION.md](../../docs/reference/ui/UI_COMPOSITION.md).
 
 ---
@@ -43,13 +43,13 @@ Layer folders: `primitives/`, `blocks/`, `templates/`.
 
 ## Quick post-edit verify
 
-After UI create/edit/delete → load **[`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md)** (typically **`ui-registry`** scenario; add `pnpm ui:test` when you want tests in the list). Details → [component.md § Post-edit verify](./component.md#post-edit-verify).
+After UI create/edit/delete → load **[`$monorepo-verify-gate`](../monorepo-verify-gate/SKILL.md)** (typically **`ui-registry`** scenario; add `pnpm ui:test` when you want tests in the list). Details → [component.md § Post-edit verify](./component.md#post-edit-verify).
 
 ---
 
 ## Related
 
 - `$registry-sync`
-- [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md)
-- [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md)
+- [`$agent-workflow`](../agent-workflow/SKILL.md)
+- [`$monorepo-verify-gate`](../monorepo-verify-gate/SKILL.md)
 - [docs/reference/ui/UI_AUDIT.md](../../docs/reference/ui/UI_AUDIT.md)

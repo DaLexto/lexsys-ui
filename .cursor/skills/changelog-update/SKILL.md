@@ -96,7 +96,7 @@ For `### Breaking`, always include a migration note or a link:
 ### Breaking
 
 - **Sidebar** — `items[]` prop removed; use `SidebarContent` + `SidebarGroup` compound parts.
-  Migration: [UI_COMPOSITION.md § Compound-first contract](../docs/reference/ui/UI_COMPOSITION.md#compound-first-contract)
+  Migration: [UI_COMPOSITION.md § Compound-first contract](../../docs/reference/ui/UI_COMPOSITION.md#compound-first-contract)
 ```
 
 ### Step 4 — Add to `[Unreleased]`
@@ -154,7 +154,7 @@ Wait for confirmation before **`$git-commit`**. Changelog-only work needs no pac
 
 ## Related
 
-- [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — verify/format handoff on larger changes
-- `$git-commit` — commit the changelog entry after writing
-- [docs/operations/DEPLOY.md § Version lane](../docs/operations/DEPLOY.md#version-lane) — dist-tag policy and release promotion
+- [`$agent-workflow`](../agent-workflow/SKILL.md) — verify/format handoff on larger changes
+- [`$git-commit`](../git-commit/SKILL.md) — commit the changelog entry after writing
+- [docs/operations/DEPLOY.md § Version lane](../../docs/operations/DEPLOY.md#version-lane) — dist-tag policy and release promotion
 - [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)

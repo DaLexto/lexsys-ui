@@ -195,5 +195,5 @@ add value without being required for stability.
 - `$docs-alignment` — after finding doc drift; also when closing/shipping backlog rows
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — before recommending "merge-ready" on active implementation
 - [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md) — suggest which `pnpm` commands the user should run
-- `$ui-authoring` — when next step is new primitive/block/template
+- `$components-authoring` — when next step is new primitive/block/template
 - [docs/operations/TESTING.md](../../docs/operations/TESTING.md)

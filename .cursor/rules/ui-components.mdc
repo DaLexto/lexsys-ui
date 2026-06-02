@@ -7,7 +7,7 @@ alwaysApply: false
 
 # UI components
 
-Edit-time standards for `packages/ui/src/components/{primitives,blocks,templates}/`. Contract: [UI.md](../../docs/reference/ui/UI.md). Workflow: **`$ui-authoring`** (wave 2 rename possible).
+Edit-time standards for `packages/ui/src/components/{primitives,blocks,templates}/`. Contract: [UI.md](../../docs/reference/ui/UI.md). Workflow: **`$components-authoring`**.
 
 **Scope:** `*.tsx`, `*.types.ts`, `*.variants.ts` — not `packages/ui/test/**` ([testing.mdc](./testing.mdc)).
 
@@ -100,7 +100,7 @@ After install-affecting UI edits: tell user to run **`$registry-sync`** / `pnpm 
 
 ## After edit (agent)
 
-Do **not** run `pnpm ui:check`, `registry:sync`, or tests unless the user asks. Install-affecting change → user runs gates or **`$ui-authoring`** / **`$registry-sync`**; test edits → [testing.mdc](./testing.mdc) notify pattern.
+Do **not** run `pnpm ui:check`, `registry:sync`, or tests unless the user asks. Install-affecting change → user runs gates or **`$components-authoring`** / **`$registry-sync`**; test edits → [testing.mdc](./testing.mdc) notify pattern.
 
 ---
 

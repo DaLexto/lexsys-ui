@@ -26,7 +26,7 @@ For **any implementation task** in this monorepo (code, registry, CLI, rules/ski
 
 If unsure which skill to load, **start here**, then pull domain skills from the step table below.
 
-**Domain skills contract:** `$ui-authoring`, `$registry-sync`, `$token-change-verify`, etc. **do not run `pnpm` verify** during implement — defer to **step 4** and [`$monorepo-verify-gate`](./monorepo-verify-gate/SKILL.md) (unless you explicitly ask the agent to run a command).
+**Domain skills contract:** `$components-authoring`, `$registry-sync`, `$token-change-verify`, etc. **do not run `pnpm` verify** during implement — defer to **step 4** and [`$monorepo-verify-gate`](./monorepo-verify-gate/SKILL.md) (unless you explicitly ask the agent to run a command).
 
 ---
 
@@ -55,12 +55,12 @@ _Table may evolve — update this section when the workflow steps change._
 | Step        | Goal                     | Domain skills (load as needed)                                               |
 | ----------- | ------------------------ | ---------------------------------------------------------------------------- |
 | 1 Branch    | `dev`, REVIEW_TODO state | —                                                                            |
-| 2 Implement | Code + metadata          | `$ui-authoring`, `$registry-sync`, `$token-change-verify`                    |
+| 2 Implement | Code + metadata          | `$components-authoring`, `$registry-sync`, `$token-change-verify`            |
 | 3 Docs      | Canonical docs           | `$docs-authoring`, `$docs-alignment`, `$changelog-update` after shipped work |
 | 4 Verify    | You run `pnpm`           | **`$monorepo-verify-gate`**                                                  |
 | 5 PR last   | Git / GitHub             | `$git-commit` when you ask                                                   |
 
-Early hints by path (step 2): `packages/ui/**` → `$ui-authoring`; `packages/tokens/**` → `$token-change-verify`; `packages/registry/**` / `packages/cli/**` → `$registry-sync`; `docs/**` layout → `$docs-authoring`.
+Early hints by path (step 2): `packages/ui/**` → `$components-authoring`; `packages/tokens/**` → `$token-change-verify`; `packages/registry/**` / `packages/cli/**` → `$registry-sync`; `docs/**` layout → `$docs-authoring`.
 
 ---
 
@@ -124,10 +124,10 @@ One-line fix, no contract/catalog impact: skip **`$docs-alignment`**; still bran
 
 ## Skills roots
 
-| Location                                   | Contents                                                              |
-| ------------------------------------------ | --------------------------------------------------------------------- |
-| [`.cursor/skills/`](.)                     | **`$agent-workflow`**, **`$monorepo-verify-gate`**, **`$git-commit`** |
-| [`.agents/skills/`](../../.agents/skills/) | Domain procedures                                                     |
+| Location                                   | Contents                                                                                                                    |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| [`.cursor/skills/`](.)                     | **`$agent-workflow`**, **`$monorepo-verify-gate`**, **`$git-commit`**, **`$components-authoring`**, **`$changelog-update`** |
+| [`.agents/skills/`](../../.agents/skills/) | Domain procedures                                                                                                           |
 
 ---
 
