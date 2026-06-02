@@ -59,6 +59,22 @@ describe("rewriteCrossLayerImports", () => {
       ].join("\n"),
     )
   })
+
+  test("rewrites @/components registry template imports to sibling ui imports", () => {
+    const content = [
+      'import { Button } from "@/components/primitives/Button"',
+      'import { Card } from "@/components/primitives/Card/Card"',
+      'import { Sidebar } from "@/components/blocks/Sidebar"',
+    ].join("\n")
+
+    expect(rewriteCrossLayerImports(content)).toBe(
+      [
+        'import { Button } from "../Button/Button"',
+        'import { Card } from "../Card/Card"',
+        'import { Sidebar } from "../Sidebar/Sidebar"',
+      ].join("\n"),
+    )
+  })
 })
 
 describe("prepareInstalledFileContent", () => {
@@ -72,6 +88,14 @@ describe("prepareInstalledFileContent", () => {
 
   test("rewrites block files on install", () => {
     const content = `import { Button } from "../../primitives/Button/Button"`
+
+    expect(prepareInstalledFileContent(content, sidebarRegistryItem)).toBe(
+      `import { Button } from "../Button/Button"`,
+    )
+  })
+
+  test("rewrites block files that use @/components registry template imports", () => {
+    const content = `import { Button } from "@/components/primitives/Button"`
 
     expect(prepareInstalledFileContent(content, sidebarRegistryItem)).toBe(
       `import { Button } from "../Button/Button"`,
