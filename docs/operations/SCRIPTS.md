@@ -313,7 +313,7 @@ With `LEXSYS_CONTRAST_POLICY=ci` in CI.
 Local preview (requires a PAT with `repo` scope):
 
 ```sh
-npx github-label-sync@3 --access-token <token> --labels .github/labels.yml --dry-run DaLexto/lexsys
+npx github-label-sync@3 --access-token <token> --labels .github/labels.yml --dry-run DaLexto/lexsys-ui
 ```
 
 Taxonomy and usage: [Contributing](../contributors/CONTRIBUTING.md) § GitHub labels.
