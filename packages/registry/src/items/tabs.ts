@@ -11,7 +11,9 @@ export const tabsRegistryItem: RegistryItem = {
   canonicalName: "Tabs",
   type: "component",
   category: "navigation",
-  aliases: ["tab"],
+  aliases: [
+    "tab",
+  ],
   files: [
     "primitives/Tabs/Tabs.tsx",
     "primitives/Tabs/Tabs.types.ts",
@@ -35,7 +37,9 @@ export const tabsRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/Tabs",
 }

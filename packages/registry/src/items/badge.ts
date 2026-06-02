@@ -11,7 +11,10 @@ export const badgeRegistryItem: RegistryItem = {
   canonicalName: "Badge",
   type: "component",
   category: "data-display",
-  aliases: ["tag", "label"],
+  aliases: [
+    "tag",
+    "label",
+  ],
   files: [
     "primitives/Badge/Badge.tsx",
     "primitives/Badge/Badge.types.ts",
@@ -28,9 +31,15 @@ export const badgeRegistryItem: RegistryItem = {
       path: "primitives/Badge/Badge.variants.ts",
     },
   ],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  dependencies: [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+  ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/Badge",
 }

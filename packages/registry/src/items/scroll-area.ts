@@ -11,7 +11,9 @@ export const scrollAreaRegistryItem: RegistryItem = {
   canonicalName: "ScrollArea",
   type: "component",
   category: "layout",
-  aliases: ["scroll"],
+  aliases: [
+    "scroll",
+  ],
   files: [
     "primitives/ScrollArea/ScrollArea.tsx",
     "primitives/ScrollArea/ScrollArea.types.ts",
@@ -35,7 +37,9 @@ export const scrollAreaRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/ScrollArea",
 }

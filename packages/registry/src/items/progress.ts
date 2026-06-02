@@ -11,7 +11,9 @@ export const progressRegistryItem: RegistryItem = {
   canonicalName: "Progress",
   type: "component",
   category: "feedback",
-  aliases: ["progress-bar"],
+  aliases: [
+    "progress-bar",
+  ],
   files: [
     "primitives/Progress/Progress.tsx",
     "primitives/Progress/Progress.types.ts",
@@ -35,7 +37,9 @@ export const progressRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/Progress",
 }

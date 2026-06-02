@@ -11,15 +11,28 @@ export const commandPaletteRegistryItem: RegistryItem = {
   canonicalName: "CommandPalette",
   type: "block",
   category: "blocks",
-  aliases: ["command-menu", "kbar"],
+  aliases: [
+    "command-menu",
+    "kbar",
+  ],
   files: [
     "blocks/CommandPalette/CommandPalette.tsx",
     "blocks/CommandPalette/CommandPalette.types.ts",
     "blocks/CommandPalette/CommandPalette.variants.ts",
   ],
-  dependencies: ["clsx", "tailwind-merge"],
-  registryDependencies: ["dialog", "input", "scroll-area", "separator"],
-  utilities: ["cn"],
+  dependencies: [
+    "clsx",
+    "tailwind-merge",
+  ],
+  registryDependencies: [
+    "dialog",
+    "input",
+    "scroll-area",
+    "separator",
+  ],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/CommandPalette",
 }
