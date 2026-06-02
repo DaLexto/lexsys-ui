@@ -208,7 +208,7 @@ External specs: full URL once (Conventional Commits, optional Conventional Branc
 
 ## Checklist: creating `git-commits.mdc` for a repository
 
-1. Create project commit policy per [cursor-rules.mdc](cursor-rules.mdc) — typically `.cursor/rules/git-commits.mdc`, or co-locate with a repo skill (e.g. `.agents/skills/git-commit/git-commits.mdc`).
+1. Create project commit policy per [cursor-rules.mdc](cursor-rules.mdc) — typically `.cursor/rules/git-commits.mdc`, with procedures in a skill (e.g. `.cursor/skills/git-commit/procedures.md`).
 2. Write neutral `description` and `alwaysApply: false`.
 3. Add **authorization** section (commit / push / amend / destructive).
 4. Add compact **Conventional Commits** section (format + types table + breaking note).

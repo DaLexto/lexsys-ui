@@ -61,7 +61,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 ## Repo skills
 
-**Transitional layout:** domain procedures live in [`.agents/skills/`](./.agents/skills/); **`$agent-workflow`** lives in [`.cursor/skills/agent-workflow/`](./.cursor/skills/agent-workflow/) (Cursor project default). A later reorg may consolidate under `.cursor/skills/`. Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) (with **`$git-commit`**).
+**Skills layout:** workflow, verify, and git live in [`.cursor/skills/`](./.cursor/skills/) (`$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`). Domain procedures remain in [`.agents/skills/`](./.agents/skills/). Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
 
 | Skill                   | When                                                                                 |
 | ----------------------- | ------------------------------------------------------------------------------------ |

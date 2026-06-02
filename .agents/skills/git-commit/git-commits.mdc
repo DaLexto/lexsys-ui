@@ -1,5 +1,0 @@
-# Moved — canonical policy
-
-Lexsys git commit and PR policy lives in **[`.cursor/rules/git-commits.mdc`](../../../.cursor/rules/git-commits.mdc)**.
-
-Use with [`$git-commit`](./SKILL.md).

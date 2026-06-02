@@ -98,7 +98,7 @@ Reminders (include in checklist context when relevant): no default dev servers; 
 - Only after step 4 **`verify passed`** and you **explicitly** request commit / push / PR.
 - If step 4 checklist **already included** `pnpm format:check` and you confirmed verify → go to **`$git-commit`** — **do not** ask for format again.
 - If commit is requested but format was **not** on the last checklist → use **`$monorepo-verify-gate`** [format fallback](./monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) once (`format ok`) → then **`$git-commit`**.
-- **`$git-commit`** + [git-commits.mdc](../../.cursor/rules/git-commits.mdc) — agent runs git only when you ask in that turn.
+- **`$git-commit`** ([procedures](../git-commit/procedures.md)) + [git-commits.mdc](../rules/git-commits.mdc) — agent runs git only when you ask in that turn.
 - PR target **`dev`** unless you explicitly request **`main`**.
 
 Human mirror: [CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md).
@@ -122,12 +122,12 @@ One-line fix, no contract/catalog impact: skip **`$docs-alignment`**; still bran
 
 ---
 
-## Skills roots (transitional)
+## Skills roots
 
-| Location                                   | Contents                                           |
-| ------------------------------------------ | -------------------------------------------------- |
-| [`.cursor/skills/`](.)                     | **`$agent-workflow`**, **`$monorepo-verify-gate`** |
-| [`.agents/skills/`](../../.agents/skills/) | Domain procedures until a later reorg              |
+| Location                                   | Contents                                                              |
+| ------------------------------------------ | --------------------------------------------------------------------- |
+| [`.cursor/skills/`](.)                     | **`$agent-workflow`**, **`$monorepo-verify-gate`**, **`$git-commit`** |
+| [`.agents/skills/`](../../.agents/skills/) | Domain procedures                                                     |
 
 ---
 
@@ -135,5 +135,6 @@ One-line fix, no contract/catalog impact: skip **`$docs-alignment`**; still bran
 
 - [AGENTS.md](../../AGENTS.md)
 - [`$monorepo-verify-gate`](./monorepo-verify-gate/SKILL.md)
+- [`$git-commit`](./git-commit/SKILL.md)
 - [project-structure.mdc](../../.cursor/rules/project-structure.mdc)
 - [git-commits.mdc](../../.cursor/rules/git-commits.mdc)

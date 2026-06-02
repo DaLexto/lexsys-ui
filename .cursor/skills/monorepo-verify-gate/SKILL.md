@@ -129,7 +129,7 @@ Wait for **`format ok`** / **`format passed`** once, then proceed with **`$git-c
 ## Related skills
 
 - [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) — step 4 loads this skill
-- [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) — after verify (and format when needed)
+- [`$git-commit`](../git-commit/SKILL.md) — after verify (and format when needed)
 - [`$registry-sync`](../../.agents/skills/registry-sync/SKILL.md) — metadata; sync command on checklist after UI
 - [`$token-change-verify`](../../.agents/skills/token-change-verify/SKILL.md) — token rules; scenarios `tokens` / `tokens-styles-registry` here
 - [`$ui-authoring`](../../.agents/skills/ui-authoring/SKILL.md) — UI edit rules; checklist via this skill after UI

@@ -90,7 +90,6 @@ ComponentName/
 | `project-structure.mdc` | This file — layout and edit map |
 | `documentation.mdc` | Doc routing and layout when editing `docs/**` |
 | `code-commenting.mdc` | JSDoc and comments in `src/` |
-| `git-commit-rules.mdc` | Meta: authoring commit rules |
 | `git-commits.mdc` | Commit/PR policy (with `$git-commit`) |
 | `testing.mdc` | Vitest layout and test-edit conventions |
 | `tech-stack.mdc` | Dependencies and toolchain |
@@ -98,4 +97,4 @@ ComponentName/
 | `ui-components.mdc` | UI component standards (CS.8) |
 | `self-improvement.mdc` | When to evolve rules |
 
-Repo skills: [`.agents/skills/`](../../.agents/skills/), [`.cursor/skills/`](../../.cursor/skills/) (transitional). Git commit/PR policy: [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → [git-commits.mdc](./git-commits.mdc).
+Repo skills: [`.agents/skills/`](../../.agents/skills/) (domain); [`.cursor/skills/`](../../.cursor/skills/) (`$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`). Git policy: [`$git-commit`](../../.cursor/skills/git-commit/SKILL.md) → [git-commits.mdc](./git-commits.mdc).
