@@ -28,9 +28,15 @@ export const tableRegistryItem: RegistryItem = {
       path: "primitives/Table/Table.variants.ts",
     },
   ],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  dependencies: [
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+  ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/Table",
 }

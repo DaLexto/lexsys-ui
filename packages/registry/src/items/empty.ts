@@ -11,15 +11,22 @@ export const emptyRegistryItem: RegistryItem = {
   canonicalName: "Empty",
   type: "block",
   category: "layout",
-  aliases: ["empty-state"],
+  aliases: [
+    "empty-state",
+  ],
   files: [
     "blocks/Empty/Empty.tsx",
     "blocks/Empty/Empty.types.ts",
     "blocks/Empty/Empty.variants.ts",
   ],
-  dependencies: ["clsx", "tailwind-merge"],
+  dependencies: [
+    "clsx",
+    "tailwind-merge",
+  ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/Empty",
 }

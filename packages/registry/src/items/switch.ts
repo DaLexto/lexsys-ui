@@ -11,7 +11,9 @@ export const switchRegistryItem: RegistryItem = {
   canonicalName: "Switch",
   type: "component",
   category: "forms",
-  aliases: ["toggle-switch"],
+  aliases: [
+    "toggle-switch",
+  ],
   files: [
     "primitives/Switch/Switch.tsx",
     "primitives/Switch/Switch.types.ts",
@@ -35,7 +37,9 @@ export const switchRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/Switch",
 }

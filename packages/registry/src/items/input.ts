@@ -11,7 +11,9 @@ export const inputRegistryItem: RegistryItem = {
   canonicalName: "Input",
   type: "component",
   category: "forms",
-  aliases: ["ipt"],
+  aliases: [
+    "ipt",
+  ],
   files: [
     "primitives/Input/Input.tsx",
     "primitives/Input/Input.types.ts",
@@ -35,7 +37,9 @@ export const inputRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/Input",
 }

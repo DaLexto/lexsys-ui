@@ -11,7 +11,9 @@ export const buttonRegistryItem: RegistryItem = {
   canonicalName: "Button",
   type: "component",
   category: "actions",
-  aliases: ["btn"],
+  aliases: [
+    "btn",
+  ],
   files: [
     "primitives/Button/Button.tsx",
     "primitives/Button/Button.types.ts",
@@ -35,7 +37,9 @@ export const buttonRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: ["cn"],
+  utilities: [
+    "cn",
+  ],
   styles: ["theme"],
   target: "src/components/ui/Button",
 }
