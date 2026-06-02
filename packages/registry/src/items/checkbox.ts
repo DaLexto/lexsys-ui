@@ -11,9 +11,7 @@ export const checkboxRegistryItem: RegistryItem = {
   canonicalName: "Checkbox",
   type: "component",
   category: "forms",
-  aliases: [
-    "check",
-  ],
+  aliases: ["check"],
   files: [
     "primitives/Checkbox/Checkbox.tsx",
     "primitives/Checkbox/Checkbox.types.ts",
@@ -37,9 +35,7 @@ export const checkboxRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Checkbox",
 }

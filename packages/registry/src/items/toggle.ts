@@ -11,9 +11,7 @@ export const toggleRegistryItem: RegistryItem = {
   canonicalName: "Toggle",
   type: "component",
   category: "actions",
-  aliases: [
-    "toggle-button",
-  ],
+  aliases: ["toggle-button"],
   files: [
     "primitives/Toggle/Toggle.tsx",
     "primitives/Toggle/Toggle.types.ts",
@@ -37,9 +35,7 @@ export const toggleRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Toggle",
 }

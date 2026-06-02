@@ -11,25 +11,15 @@ export const authFormRegistryItem: RegistryItem = {
   canonicalName: "AuthForm",
   type: "block",
   category: "blocks",
-  aliases: [
-    "login-form",
-  ],
+  aliases: ["login-form"],
   files: [
     "blocks/AuthForm/AuthForm.tsx",
     "blocks/AuthForm/AuthForm.types.ts",
     "blocks/AuthForm/AuthForm.variants.ts",
   ],
-  dependencies: [
-    "clsx",
-    "tailwind-merge",
-  ],
-  registryDependencies: [
-    "button",
-    "card",
-  ],
-  utilities: [
-    "cn",
-  ],
+  dependencies: ["clsx", "tailwind-merge"],
+  registryDependencies: ["button", "card"],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/AuthForm",
 }

@@ -11,9 +11,7 @@ export const separatorRegistryItem: RegistryItem = {
   canonicalName: "Separator",
   type: "component",
   category: "layout",
-  aliases: [
-    "divider",
-  ],
+  aliases: ["divider"],
   files: [
     "primitives/Separator/Separator.tsx",
     "primitives/Separator/Separator.types.ts",
@@ -37,9 +35,7 @@ export const separatorRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Separator",
 }

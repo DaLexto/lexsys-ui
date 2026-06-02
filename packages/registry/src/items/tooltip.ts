@@ -11,9 +11,7 @@ export const tooltipRegistryItem: RegistryItem = {
   canonicalName: "Tooltip",
   type: "component",
   category: "overlays",
-  aliases: [
-    "hint",
-  ],
+  aliases: ["hint"],
   files: [
     "primitives/Tooltip/Tooltip.tsx",
     "primitives/Tooltip/Tooltip.types.ts",
@@ -37,9 +35,7 @@ export const tooltipRegistryItem: RegistryItem = {
     "tailwind-merge",
   ],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Tooltip",
 }

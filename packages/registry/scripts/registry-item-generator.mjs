@@ -1,7 +1,30 @@
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, relative, resolve } from "node:path"
+import { fileURLToPath, pathToFileURL } from "node:url"
 
 import { getRegistryDependenciesFromTemplateContents } from "./lib/registry-composition-imports.mjs"
+
+const scriptsRoot = dirname(fileURLToPath(import.meta.url))
+const registryPackageRoot = resolve(scriptsRoot, "..")
+const repoRoot = resolve(registryPackageRoot, "../..")
+
+let prettierInstance = null
+
+const normalizeItemSource = async (source, filepath) => {
+  if (!prettierInstance) {
+    const prettierModule = await import(
+      pathToFileURL(resolve(repoRoot, "node_modules/prettier/index.mjs")).href
+    )
+    prettierInstance = prettierModule.default
+  }
+
+  const config = await prettierInstance.resolveConfig(filepath)
+
+  return prettierInstance.format(source, {
+    ...config,
+    filepath,
+  })
+}
 
 const syncableExtensions = new Set([".ts", ".tsx"])
 
@@ -467,6 +490,7 @@ export const syncRegistryItems = async ({
       templatePrefix,
       targetPrefix,
     })
+    const normalizedNextSource = await normalizeItemSource(nextSource, itemPath)
 
     if (checkOnly) {
       if (!itemAlreadyExists) {
@@ -474,8 +498,12 @@ export const syncRegistryItems = async ({
       }
 
       const existingSource = await readFile(itemPath, "utf-8")
+      const normalizedExistingSource = await normalizeItemSource(
+        existingSource,
+        itemPath,
+      )
 
-      if (existingSource !== nextSource) {
+      if (normalizedExistingSource !== normalizedNextSource) {
         outOfSyncItemFiles.push(`${itemName}.ts`)
       }
 
@@ -486,12 +514,20 @@ export const syncRegistryItems = async ({
       continue
     }
 
+    const existingSource = itemAlreadyExists
+      ? await readFile(itemPath, "utf-8")
+      : null
+    const normalizedExistingSource =
+      existingSource === null
+        ? null
+        : await normalizeItemSource(existingSource, itemPath)
+
     if (
       !itemAlreadyExists ||
-      (await readFile(itemPath, "utf-8")) !== nextSource
+      normalizedExistingSource !== normalizedNextSource
     ) {
       await mkdir(dirname(itemPath), { recursive: true })
-      await writeFile(itemPath, nextSource, "utf-8")
+      await writeFile(itemPath, normalizedNextSource, "utf-8")
 
       if (itemAlreadyExists) {
         updatedItemCount += 1

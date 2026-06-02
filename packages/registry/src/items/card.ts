@@ -11,10 +11,7 @@ export const cardRegistryItem: RegistryItem = {
   canonicalName: "Card",
   type: "component",
   category: "layout",
-  aliases: [
-    "panel",
-    "surface",
-  ],
+  aliases: ["panel", "surface"],
   files: [
     "primitives/Card/Card.tsx",
     "primitives/Card/Card.types.ts",
@@ -31,15 +28,9 @@ export const cardRegistryItem: RegistryItem = {
       path: "primitives/Card/Card.variants.ts",
     },
   ],
-  dependencies: [
-    "class-variance-authority",
-    "clsx",
-    "tailwind-merge",
-  ],
+  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Card",
 }

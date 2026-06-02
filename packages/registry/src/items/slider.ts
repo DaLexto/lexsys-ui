@@ -11,9 +11,7 @@ export const sliderRegistryItem: RegistryItem = {
   canonicalName: "Slider",
   type: "component",
   category: "forms",
-  aliases: [
-    "range",
-  ],
+  aliases: ["range"],
   files: [
     "primitives/Slider/Slider.tsx",
     "primitives/Slider/Slider.types.ts",
@@ -30,15 +28,9 @@ export const sliderRegistryItem: RegistryItem = {
       path: "primitives/Slider/Slider.variants.ts",
     },
   ],
-  dependencies: [
-    "@base-ui/react",
-    "clsx",
-    "tailwind-merge",
-  ],
+  dependencies: ["@base-ui/react", "clsx", "tailwind-merge"],
   registryDependencies: [],
-  utilities: [
-    "cn",
-  ],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Slider",
 }

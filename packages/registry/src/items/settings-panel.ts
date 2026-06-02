@@ -11,24 +11,15 @@ export const settingsPanelRegistryItem: RegistryItem = {
   canonicalName: "SettingsPanel",
   type: "block",
   category: "blocks",
-  aliases: [
-    "settings-section",
-  ],
+  aliases: ["settings-section"],
   files: [
     "blocks/SettingsPanel/SettingsPanel.tsx",
     "blocks/SettingsPanel/SettingsPanel.types.ts",
     "blocks/SettingsPanel/SettingsPanel.variants.ts",
   ],
-  dependencies: [
-    "clsx",
-    "tailwind-merge",
-  ],
-  registryDependencies: [
-    "card",
-  ],
-  utilities: [
-    "cn",
-  ],
+  dependencies: ["clsx", "tailwind-merge"],
+  registryDependencies: ["card"],
+  utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/SettingsPanel",
 }
