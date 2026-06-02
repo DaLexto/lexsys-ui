@@ -63,18 +63,18 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 **Transitional layout:** domain procedures live in [`.agents/skills/`](./.agents/skills/); **`$agent-workflow`** lives in [`.cursor/skills/agent-workflow/`](./.cursor/skills/agent-workflow/) (Cursor project default). A later reorg may consolidate under `.cursor/skills/`. Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) (with **`$git-commit`**).
 
-| Skill                      | When                                             |
-| -------------------------- | ------------------------------------------------ |
+| Skill                      | When                                              |
+| -------------------------- | ------------------------------------------------- |
 | `$agent-workflow`          | Non-trivial task — procedure before domain skills |
-| `$registry-sync`           | UI changed → sync registry templates             |
-| `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks         |
-| `$ui-authoring`            | New or edited UI primitive/block/template; tests |
-| `$docs-authoring`          | New or reshaped markdown layout                  |
-| `$docs-alignment`          | Behavior or counts changed → cross-ref docs      |
-| `$token-change-verify`     | Token layers, generator, or governance           |
-| `$project-next-steps`      | What to work on next; backlog triage             |
-| `$git-commit`              | Commit, push, or PR to `dev`                     |
-| `$changelog-update`        | CHANGELOG after feature or fix merges            |
+| `$registry-sync`           | UI changed → sync registry templates              |
+| `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks          |
+| `$ui-authoring`            | New or edited UI primitive/block/template; tests  |
+| `$docs-authoring`          | New or reshaped markdown layout                   |
+| `$docs-alignment`          | Behavior or counts changed → cross-ref docs       |
+| `$token-change-verify`     | Token layers, generator, or governance            |
+| `$project-next-steps`      | What to work on next; backlog triage              |
+| `$git-commit`              | Commit, push, or PR to `dev`                      | 
+| `$changelog-update`        | CHANGELOG after feature or fix merges             |
 
 ---
 
