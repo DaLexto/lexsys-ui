@@ -24,13 +24,13 @@ Turn-by-turn procedure for **non-trivial** Lexsys work. [AGENTS.md](../../AGENTS
 
 ## When not to use
 
-| Situation | Use instead |
-| --------- | ----------- |
-| Question-only, review-only, no repo edits | Answer from [docs/INDEX.md](../../docs/INDEX.md) |
-| User asked only to commit / push / PR | **`$git-commit`** |
-| "What should I work on next?" | **`$project-next-steps`** |
-| Single domain already named ("sync registry", "ui:check") | That **`$skill`** directly |
-| One-line fix, no contract/count change | AGENTS trivial exception — still branch off **`dev`** |
+| Situation                                                 | Use instead                                           |
+| --------------------------------------------------------- | ----------------------------------------------------- |
+| Question-only, review-only, no repo edits                 | Answer from [docs/INDEX.md](../../docs/INDEX.md)      |
+| User asked only to commit / push / PR                     | **`$git-commit`**                                     |
+| "What should I work on next?"                             | **`$project-next-steps`**                             |
+| Single domain already named ("sync registry", "ui:check") | That **`$skill`** directly                            |
+| One-line fix, no contract/count change                    | AGENTS trivial exception — still branch off **`dev`** |
 
 ---
 
@@ -43,13 +43,13 @@ Backlog / priority?       → $project-next-steps
 Else                      → follow procedure below
 ```
 
-| If you will touch… | Load early |
-| ------------------ | ---------- |
-| `packages/ui/**` (install artifacts) | **`$ui-authoring`**, then **`$registry-sync`** after UI edits |
-| `packages/tokens/**` | **`$token-change-verify`** |
-| `packages/registry/**`, `packages/cli/**`, templates | **`$registry-sync`** as needed |
-| `docs/**` layout or new pages | **`$docs-authoring`** |
-| Contracts, counts, INDEX freshness | **`$docs-alignment`** (user must want a docs pass) |
+| If you will touch…                                   | Load early                                                    |
+| ---------------------------------------------------- | ------------------------------------------------------------- |
+| `packages/ui/**` (install artifacts)                 | **`$ui-authoring`**, then **`$registry-sync`** after UI edits |
+| `packages/tokens/**`                                 | **`$token-change-verify`**                                    |
+| `packages/registry/**`, `packages/cli/**`, templates | **`$registry-sync`** as needed                                |
+| `docs/**` layout or new pages                        | **`$docs-authoring`**                                         |
+| Contracts, counts, INDEX freshness                   | **`$docs-alignment`** (user must want a docs pass)            |
 
 ---
 
@@ -120,9 +120,9 @@ One-line fix with **no** contract or catalog impact: skip **`$docs-alignment`**;
 
 ## Skills roots (transitional)
 
-| Location | Contents |
-| -------- | -------- |
-| [`.cursor/skills/`](.) | **`$agent-workflow`** (this file) — Cursor project default |
+| Location                                   | Contents                                                                        |
+| ------------------------------------------ | ------------------------------------------------------------------------------- |
+| [`.cursor/skills/`](.)                     | **`$agent-workflow`** (this file) — Cursor project default                      |
 | [`.agents/skills/`](../../.agents/skills/) | Domain procedures (`$git-commit`, `$registry-sync`, …) until a later repo reorg |
 
 Load domain skills from **AGENTS.md** skills table after this procedure points you to them.

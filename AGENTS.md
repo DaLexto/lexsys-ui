@@ -22,13 +22,13 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 
 ## Layers
 
-| Layer               | Where                                                                                      |
-| ------------------- | ------------------------------------------------------------------------------------------ |
-| Routing             | This file (`AGENTS.md`)                                                                    |
+| Layer               | Where                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Routing             | This file (`AGENTS.md`)                                                                                    |
 | Procedure           | [`.agents/skills/`](./.agents/skills/) and [`.cursor/skills/`](./.cursor/skills/) — load `$name` on demand |
-| Policy supplement   | [git-commits.mdc](./.cursor/rules/git-commits.mdc) with **`$git-commit`** |
-| Edit-time standards | [`.cursor/rules/`](./.cursor/rules/) — attach via globs while editing matching files       |
-| Contracts           | [docs/](./docs/) — domain specs; find owner in [INDEX.md](./docs/INDEX.md)                 |
+| Policy supplement   | [git-commits.mdc](./.cursor/rules/git-commits.mdc) with **`$git-commit`**                                  |
+| Edit-time standards | [`.cursor/rules/`](./.cursor/rules/) — attach via globs while editing matching files                       |
+| Contracts           | [docs/](./docs/) — domain specs; find owner in [INDEX.md](./docs/INDEX.md)                                 |
 
 **Quick routing:** non-trivial multi-step work → **`$agent-workflow`** first; new doc layout → **`$docs-authoring`**; counts or contracts stale → **`$docs-alignment`**; UI component work → **`$ui-authoring`** (+ `ui-components.mdc` on glob); commit / push / PR → **`$git-commit`**.
 
@@ -63,18 +63,18 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 **Transitional layout:** domain procedures live in [`.agents/skills/`](./.agents/skills/); **`$agent-workflow`** lives in [`.cursor/skills/agent-workflow/`](./.cursor/skills/agent-workflow/) (Cursor project default). A later reorg may consolidate under `.cursor/skills/`. Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) (with **`$git-commit`**).
 
-| Skill                      | When                                              |
-| -------------------------- | ------------------------------------------------- |
-| `$agent-workflow`          | Non-trivial task — procedure before domain skills |
-| `$registry-sync`           | UI changed → sync registry templates              |
-| `$monorepo-check-gate`     | Pre-commit / pre-PR scoped `pnpm` checks          |
-| `$ui-authoring`            | New or edited UI primitive/block/template; tests  |
-| `$docs-authoring`          | New or reshaped markdown layout                   |
-| `$docs-alignment`          | Behavior or counts changed → cross-ref docs       |
-| `$token-change-verify`     | Token layers, generator, or governance            |
-| `$project-next-steps`      | What to work on next; backlog triage              |
-| `$git-commit`              | Commit, push, or PR to `dev`                      | 
-| `$changelog-update`        | CHANGELOG after feature or fix merges             |
+| Skill                  | When                                              |
+| ---------------------- | ------------------------------------------------- |
+| `$agent-workflow`      | Non-trivial task — procedure before domain skills |
+| `$registry-sync`       | UI changed → sync registry templates              |
+| `$monorepo-check-gate` | Pre-commit / pre-PR scoped `pnpm` checks          |
+| `$ui-authoring`        | New or edited UI primitive/block/template; tests  |
+| `$docs-authoring`      | New or reshaped markdown layout                   |
+| `$docs-alignment`      | Behavior or counts changed → cross-ref docs       |
+| `$token-change-verify` | Token layers, generator, or governance            |
+| `$project-next-steps`  | What to work on next; backlog triage              |
+| `$git-commit`          | Commit, push, or PR to `dev`                      |
+| `$changelog-update`    | CHANGELOG after feature or fix merges             |
 
 ---
 

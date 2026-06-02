@@ -40,16 +40,16 @@ rg "FormField, SettingsPanel|41 primitives" docs README.md packages/ui/README.md
 
 ## Layer rules
 
-| Content                           | Belongs in                            |
-| --------------------------------- | ------------------------------------- |
-| Token layer rules                 | `docs/reference/tokens/TOKENS.md`     |
-| Installable inventory             | `docs/reference/ui/UI_CATALOG.md`     |
-| Variant / CVA compliance rows     | `docs/reference/ui/UI_AUDIT.md`       |
-| Composition rules (not inventory) | `docs/reference/ui/UI_COMPOSITION.md` |
-| Agent routing                     | `AGENTS.md` (short)                   |
-| Cursor edit behavior              | `.cursor/rules/`                      |
+| Content                           | Belongs in                                                        |
+| --------------------------------- | ----------------------------------------------------------------- |
+| Token layer rules                 | `docs/reference/tokens/TOKENS.md`                                 |
+| Installable inventory             | `docs/reference/ui/UI_CATALOG.md`                                 |
+| Variant / CVA compliance rows     | `docs/reference/ui/UI_AUDIT.md`                                   |
+| Composition rules (not inventory) | `docs/reference/ui/UI_COMPOSITION.md`                             |
+| Agent routing                     | `AGENTS.md` (short)                                               |
+| Cursor edit behavior              | `.cursor/rules/`                                                  |
 | Multi-step verify handoff         | [`$agent-workflow`](../../.cursor/skills/agent-workflow/SKILL.md) |
-| Script inventory                  | `docs/operations/SCRIPTS.md` only     |
+| Script inventory                  | `docs/operations/SCRIPTS.md` only                                 |
 
 ## Do not
 
