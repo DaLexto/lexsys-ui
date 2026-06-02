@@ -199,10 +199,10 @@ After the [Release workflow](../../.github/workflows/release.yml) finishes on `m
 `dev` can look "behind" `main` by ~two release commits while still being ahead on
 feature work).
 
-| Trigger | Behavior |
-| ------- | -------- |
+| Trigger                                             | Behavior                                            |
+| --------------------------------------------------- | --------------------------------------------------- |
 | `Release` workflow completed successfully on `main` | Merge `origin/main` into `dev` and push when needed |
-| `workflow_dispatch` | Manual re-sync (same merge logic) |
+| `workflow_dispatch`                                 | Manual re-sync (same merge logic)                   |
 
 **Manual fallback** (only if the sync job fails — rare merge conflict on version/changelog files):
 
