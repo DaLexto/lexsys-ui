@@ -61,7 +61,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 ## Repo skills
 
-**Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$components-authoring`, `$changelog-update`, `$docs-authoring`. Domain procedures remain in [`.agents/skills/`](./.agents/skills/) (`$registry-sync`, `$token-change-verify`, `$project-next-steps`, …). Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
+**Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$components-authoring`, `$changelog-update`, `$docs-authoring`, `$project-next-steps`. Domain procedures remain in [`.agents/skills/`](./.agents/skills/) (`$registry-sync`, `$token-change-verify`, …). Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
 
 | Skill                   | When                                                                                                                                |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -71,7 +71,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 | `$components-authoring` | New or edited UI primitive/block/template; tests ([`.cursor/skills/components-authoring/`](./.cursor/skills/components-authoring/)) |
 | `$docs-authoring`       | Markdown layout and freshness ([`.cursor/skills/docs-authoring/`](./.cursor/skills/docs-authoring/))                                |
 | `$token-change-verify`  | Token layers, generator, or governance                                                                                              |
-| `$project-next-steps`   | What to work on next; backlog triage                                                                                                |
+| `$project-next-steps`   | What to work on next; backlog triage ([`.cursor/skills/project-next-steps/`](./.cursor/skills/project-next-steps/))                 |
 | `$git-commit`           | Commit, push, or PR to `dev`                                                                                                        |
 | `$changelog-update`     | CHANGELOG after feature or fix merges ([`.cursor/skills/changelog-update/`](./.cursor/skills/changelog-update/))                    |
 
