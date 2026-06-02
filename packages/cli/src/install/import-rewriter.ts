@@ -1,17 +1,39 @@
 import { getInstallLayer } from "@dalexto/lexsys-registry"
 import type { RegistryItem } from "@dalexto/lexsys-registry"
 
-const crossLayerImportPatterns = [
+const monorepoCrossLayerPatterns = [
   /\.\.\/\.\.\/primitives\//g,
   /\.\.\/\.\.\/blocks\//g,
   /\.\.\/\.\.\/templates\//g,
 ] as const
 
+const registryTemplateLayers = ["primitives", "blocks", "templates"] as const
+
+const toFlatSiblingImportPath = (importPath: string): string => {
+  const segments = importPath.split("/").filter(Boolean)
+
+  if (segments.length >= 2) {
+    return `../${segments.join("/")}`
+  }
+
+  const name = segments[0] ?? importPath
+
+  return `../${name}/${name}`
+}
+
 export const rewriteCrossLayerImports = (content: string): string => {
   let rewritten = content
 
-  for (const pattern of crossLayerImportPatterns) {
+  for (const pattern of monorepoCrossLayerPatterns) {
     rewritten = rewritten.replace(pattern, "../")
+  }
+
+  for (const layer of registryTemplateLayers) {
+    const pattern = new RegExp(`from "@/components/${layer}/([^"]+)"`, "g")
+
+    rewritten = rewritten.replace(pattern, (_, importPath: string) => {
+      return `from "${toFlatSiblingImportPath(importPath)}"`
+    })
   }
 
   return rewritten

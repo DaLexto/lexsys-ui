@@ -54,7 +54,7 @@ jobs:
               - '.github/**'
               - 'AGENTS.md'
               - 'README.md'
-              - '.agents/**'
+              - '.cursor/skills/**'
 
   tokens:
     needs: changes

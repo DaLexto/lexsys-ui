@@ -1,7 +1,7 @@
 /**
  * dashboard-shell.ts
  *
- * Registry metadata for the DashboardShell template.
+ * Registry metadata for the DashboardShell block.
  */
 
 import type { RegistryItem } from "../registry.types.js"
@@ -17,7 +17,7 @@ export const dashboardShellRegistryItem: RegistryItem = {
     "templates/DashboardShell/DashboardShell.types.ts",
     "templates/DashboardShell/DashboardShell.variants.ts",
   ],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  dependencies: ["clsx", "tailwind-merge"],
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],

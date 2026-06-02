@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Registry item contract, template sync rules, validation requirements, local/remote resolution
 **Verified against:** `packages/registry/src/`
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-02
 
 ---
 
@@ -147,8 +147,10 @@ mirror that layout under `packages/registry/templates/{primitives,blocks,templat
 **Consumer install path vs monorepo layout:** `target` is always flat
 `src/components/ui/<CanonicalName>/` regardless of registry layer. The CLI
 rewrites cross-layer imports in block/template files at install time
-(`../../primitives/` → `../`, etc.) so consumers do not mirror monorepo folder
-depth. See [CLI reference](../cli/CLI.md) and `packages/cli/src/core/import-rewriter.ts`.
+(`../../primitives/` → `../`, and `@/components/{primitives,blocks,templates}/…`
+→ flat sibling paths under `paths.components`) so consumers do not mirror
+monorepo folder depth. See [CLI reference](../cli/CLI.md) and
+`packages/cli/src/install/import-rewriter.ts`.
 
 If the CLI needs any knowledge not declared in the registry item, the item is
 incomplete.
@@ -185,16 +187,32 @@ Rules:
 - Templates MUST NOT be hand-edited. Overwrite via sync scripts only.
 - **Sync transforms (registry templates):**
   - `cn` / `mergeClassName` import paths → `@/lib/utils`
-  - Block/template sync may rewrite monorepo-relative cross-layer imports for
-    template storage; see `scripts/sync-block-templates.mjs`
+  - Block/template sync rewrites monorepo-relative and `@/components/{layer}/…`
+    imports for template storage; see `scripts/sync-block-templates.mjs` and
+    `scripts/lib/registry-composition-imports.mjs`
 - **Install transforms (consumer project):** CLI rewrites cross-layer imports in
   block/template installs for flat `paths.components` layout. Sync does not
   apply consumer paths — that happens in `packages/cli` at install/update time.
 - Template drift is a validation error. `pnpm registry:check` fails if templates
   are out of sync with UI source or if style templates differ from token output.
 
-Registry item metadata files (in `src/items/`) are manually authored because
-they define the install contract, not the component implementation.
+Registry item metadata (`src/items/<name>.ts`) is **generated and reconciled** by
+`pnpm registry:sync` (`scripts/registry-item-generator.mjs`):
+
+| Layer      | Templates                 | Items on sync                                                                 |
+| ---------- | ------------------------- | ----------------------------------------------------------------------------- |
+| Primitives | Copied from `packages/ui` | Reconciled; scaffolds if missing                                              |
+| Blocks     | Copied from `packages/ui` | Reconciled; scaffolds if missing; `registryDependencies` inferred from `.tsx` |
+| Templates  | Copied from `packages/ui` | Same as blocks (`type: "block"`, category `layout` stub for new items)        |
+
+**Reconcile merge policy** (existing item files):
+
+- **Preserved:** `aliases`, `category` (when already set)
+- **Regenerated:** `files`, `dependencies`, `utilities`, `registryDependencies`, `target`, `canonicalName`
+- **Primitives only:** `remoteFiles` regenerated from `files`
+- **Check mode:** `pnpm registry:check` fails when UI folders lack items, templates drift, or reconciled item source would change
+
+Review inferred `registryDependencies` after sync; adjust only when inference misses an edge case.
 
 ---
 

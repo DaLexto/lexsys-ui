@@ -146,7 +146,9 @@ Canonical token rules are owned by [Tokens reference](TOKENS.md).
 ## Registry metadata
 
 Every installable item is declared as a `RegistryItem` in
-`packages/registry/src/items/`. Required fields:
+`packages/registry/src/items/`. Item files are **generated and reconciled** by
+`pnpm registry:sync` from UI source (see [Registry reference](reference/registry/REGISTRY.md)).
+Required fields:
 
 | Field                    | Purpose                                                                                 |
 | ------------------------ | --------------------------------------------------------------------------------------- |

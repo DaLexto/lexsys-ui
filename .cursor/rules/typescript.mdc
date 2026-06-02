@@ -1,0 +1,99 @@
+---
+description: TypeScript conventions for Lexsys — import type, no any, catch typing, export style, ESM boundaries. Apply when editing .ts or .tsx.
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+alwaysApply: false
+---
+
+# TypeScript conventions
+
+Edit-time checklist for all `.ts` / `.tsx` in the monorepo. Canonical detail: [STYLE.md](../../docs/contributors/STYLE.md) § TypeScript, [STYLEGUIDE.md](../../docs/contributors/STYLEGUIDE.md). Baseline: [tsconfig.base.json](../../tsconfig.base.json) (`strict`, `isolatedModules`).
+
+**Precedence:** Under `packages/ui/src/components/**`, this rule covers **TypeScript only**. CVA, token prefix, layer exports → [ui-components.mdc](./ui-components.mdc). JSDoc → [code-commenting.mdc](./code-commenting.mdc).
+
+---
+
+## Do not
+
+- Use `any` (explicit or implicit).
+- Use `catch (error)` without typing — use `catch (error: unknown)` and narrow before use.
+- Value-import type-only symbols (`import { Foo }` when `Foo` is type-only).
+- Use `export function` — use `export const` arrow functions.
+- Use TypeScript `enum` — use string literal unions and `as const` tuples.
+- Use non-null assertion `!`.
+- Deep-import another package's `src/` or internal `dist/` — public API via `package.json` `exports` only ([AGENTS.md](../../AGENTS.md)).
+
+---
+
+## Import style
+
+- Use `import type` or inline `import { value, type Type }` for type-only symbols.
+- Prefer one import line per module (avoid duplicate lines from the same path).
+- ESM only — no `require()`.
+- In `packages/cli` and `packages/registry`, use `node:` for Node.js built-ins (`node:fs/promises`, `node:path`, …).
+
+---
+
+## Module resolution
+
+| Package area | Relative imports |
+| ------------ | ---------------- |
+| `packages/ui`, `packages/tokens` | Bundler — no `.js` extension on relatives |
+| `packages/cli`, `packages/registry` | NodeNext — **`.js`** extension on all relative imports |
+
+Cross-package imports use published package names only — never `@scope/package/src/...`.
+
+---
+
+## Errors and boundaries
+
+- Narrow `unknown` at JSON parse, config read, and CLI arg boundaries — not `as any`.
+- Prefer `// @ts-expect-error` over `// @ts-ignore`; if used, one-line reason.
+- CLI user-facing failures: `CliError` with recovery hint; let `handleCliError` be the exit path (see STYLE / `packages/cli`).
+
+---
+
+## Types and exports
+
+| Use `interface` | Use `type` |
+| --------------- | ---------- |
+| Extendable object props, component props | Unions, mapped types, generic aliases |
+
+- Annotate return types on **exported** functions; internal helpers may infer.
+- UI components may infer JSX return type; still use `export const`, `displayName`, and a single `export { … }` block at file bottom (STYLE § React Components).
+- Use `satisfies` only for const objects/literals where literal inference must be preserved (registry items, preset ids) — not for parameters or simple strings. See STYLE.
+
+```typescript
+// Bad — missing .js on relative import in cli/registry
+import { loadConfig } from "../config/config"
+```
+
+---
+
+## Type assertions
+
+- Prefer type guards over assertions.
+- When asserting, cast through `unknown` — not across unrelated types.
+- No `!` operator — explicit checks or guards.
+
+---
+
+## Naming
+
+File, export, and symbol casing: [STYLE.md](../../docs/contributors/STYLE.md) § Naming only — no duplicate tables here.
+
+---
+
+## `readonly`
+
+Use `readonly` on schema/config arrays in tokens and registry where mutation would be a bug. UI prop interfaces do not require `readonly`.
+
+---
+
+## See also
+
+- [STYLE.md](../../docs/contributors/STYLE.md), [STYLEGUIDE.md](../../docs/contributors/STYLEGUIDE.md)
+- [ui-components.mdc](./ui-components.mdc) — `packages/ui/src/components/**`
+- [code-commenting.mdc](./code-commenting.mdc) — JSDoc on exports
+- [AGENTS.md](../../AGENTS.md) — package boundaries and guardrails

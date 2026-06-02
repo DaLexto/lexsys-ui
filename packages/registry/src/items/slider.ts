@@ -28,12 +28,7 @@ export const sliderRegistryItem: RegistryItem = {
       path: "primitives/Slider/Slider.variants.ts",
     },
   ],
-  dependencies: [
-    "@base-ui/react",
-    "class-variance-authority",
-    "clsx",
-    "tailwind-merge",
-  ],
+  dependencies: ["@base-ui/react", "clsx", "tailwind-merge"],
   registryDependencies: [],
   utilities: ["cn"],
   styles: ["theme"],

@@ -18,15 +18,15 @@ Use this index to find the canonical document. Do not duplicate domain rules in
 
 ## Start here
 
-| Question                                       | Read                                                                        |
-| ---------------------------------------------- | --------------------------------------------------------------------------- |
-| What is Lexsys and how does install flow work? | [ARCHITECTURE.md](./ARCHITECTURE.md)                                        |
-| What is installable — compound vs leaf?        | [UI_CATALOG.md](./reference/ui/UI_CATALOG.md)                               |
-| What should I work on next?                    | [REVIEW_TODO.md](./REVIEW_TODO.md)                                          |
-| Long-term direction and M-phases               | [ROADMAP.md](./ROADMAP.md)                                                  |
-| Agent routing and always-on guardrails         | [AGENTS.md](../AGENTS.md)                                                   |
-| Human contributor workflow                     | [CONTRIBUTING.md](./contributors/CONTRIBUTING.md)                           |
-| Document layout and authoring standards        | [documentation-standards.mdc](../.cursor/rules/documentation-standards.mdc) |
+| Question                                       | Read                                                    |
+| ---------------------------------------------- | ------------------------------------------------------- |
+| What is Lexsys and how does install flow work? | [ARCHITECTURE.md](./ARCHITECTURE.md)                    |
+| What is installable — compound vs leaf?        | [UI_CATALOG.md](./reference/ui/UI_CATALOG.md)           |
+| What should I work on next?                    | [REVIEW_TODO.md](./REVIEW_TODO.md)                      |
+| Long-term direction and M-phases               | [ROADMAP.md](./ROADMAP.md)                              |
+| Agent routing and always-on guardrails         | [AGENTS.md](../AGENTS.md)                               |
+| Human contributor workflow                     | [CONTRIBUTING.md](./contributors/CONTRIBUTING.md)       |
+| Document layout and authoring standards        | [documentation.mdc](../.cursor/rules/documentation.mdc) |
 
 ---
 
@@ -98,10 +98,9 @@ shipped. Current implementation contracts live in reference docs and catalogs ab
 
 ## Repo-local agent skills
 
-Task-specific procedures live in [`.agents/skills/`](../.agents/skills/). See
+Task-specific procedures live in [`.cursor/skills/`](../.cursor/skills/) (`$token-verify`, `$registry-sync`, …). See
 [AGENTS.md § Repo skills](../AGENTS.md#repo-skills). Layout authoring:
-[`$docs-authoring`](../.agents/skills/docs-authoring/SKILL.md). Freshness pass:
-[`$docs-alignment`](../.agents/skills/docs-alignment/SKILL.md).
+[`$docs-authoring`](../.cursor/skills/docs-authoring/SKILL.md) — layout ([authoring](../.cursor/skills/docs-authoring/procedures.md#authoring)) and freshness ([alignment](../.cursor/skills/docs-authoring/procedures.md#alignment)).
 
 ---
 

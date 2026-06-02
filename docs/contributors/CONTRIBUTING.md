@@ -57,7 +57,7 @@ pnpm sync:all && pnpm registry:check
 
 ## Commits
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) with monorepo scopes (`tokens`, `ui`, `registry`, `cli`, `docs`, `ci`, …). See [`.agents/skills/git-commit/git-commits.mdc`](../../.agents/skills/git-commit/git-commits.mdc) for repository conventions.
+Use [Conventional Commits](https://www.conventionalcommits.org/) with monorepo scopes (`tokens`, `ui`, `registry`, `cli`, `docs`, `ci`, …). See [`.cursor/rules/git-commits.mdc`](../../.cursor/rules/git-commits.mdc) for repository conventions. Agents: [`$git-commit`](../../.cursor/skills/git-commit/SKILL.md) (procedures) after [`$monorepo-verify-gate`](../../.cursor/skills/monorepo-verify-gate/SKILL.md) when applicable.
 
 ## GitHub labels
 
@@ -77,12 +77,11 @@ The manifest is synced in **strict** mode: labels not listed in `.github/labels.
 ## Documentation
 
 - **Routing hub:** [Doc index](../INDEX.md)
-- **Document layout and authoring:** [.cursor/rules/documentation-standards.mdc](../../.cursor/rules/documentation-standards.mdc) (§ Document layout contract)
+- **Document layout and authoring:** [.cursor/rules/documentation.mdc](../../.cursor/rules/documentation.mdc)
 - Roadmap and phase sequencing: [Roadmap](../ROADMAP.md)
 - Active backlog: [Backlog](../REVIEW_TODO.md)
 - Script names (do not duplicate elsewhere): [Scripts reference](../operations/SCRIPTS.md)
-- New or reshaped docs: [`.agents/skills/docs-authoring/SKILL.md`](../../.agents/skills/docs-authoring/SKILL.md)
-- Post-change doc pass: [`.agents/skills/docs-alignment/SKILL.md`](../../.agents/skills/docs-alignment/SKILL.md)
+- Docs (layout and freshness): [`.cursor/skills/docs-authoring/SKILL.md`](../../.cursor/skills/docs-authoring/SKILL.md)
 
 ## Consumer verification
 

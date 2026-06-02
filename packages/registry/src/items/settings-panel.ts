@@ -17,7 +17,7 @@ export const settingsPanelRegistryItem: RegistryItem = {
     "blocks/SettingsPanel/SettingsPanel.types.ts",
     "blocks/SettingsPanel/SettingsPanel.variants.ts",
   ],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  dependencies: ["clsx", "tailwind-merge"],
   registryDependencies: ["card"],
   utilities: ["cn"],
   styles: ["theme"],

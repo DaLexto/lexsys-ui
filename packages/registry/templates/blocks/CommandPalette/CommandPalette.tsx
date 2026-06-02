@@ -12,14 +12,14 @@ import {
   DialogPortal,
   DialogTitle,
   DialogViewport,
-} from "../../primitives/Dialog/Dialog"
-import { Input } from "../../primitives/Input/Input"
-import { Separator } from "../../primitives/Separator/Separator"
+} from "@/components/primitives/Dialog"
+import { Input } from "@/components/primitives/Input"
+import { Separator } from "@/components/primitives/Separator"
 import {
   ScrollArea,
   ScrollAreaContent,
   ScrollAreaViewport,
-} from "../../primitives/ScrollArea/ScrollArea"
+} from "@/components/primitives/ScrollArea"
 import type {
   CommandPaletteContentProps,
   CommandPaletteDescriptionProps,

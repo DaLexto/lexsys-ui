@@ -5,13 +5,13 @@
  */
 
 import type { FormEventHandler, ReactNode, Ref } from "react"
-import type { CardProps } from "../../primitives/Card/Card.types"
-import type { ButtonProps } from "../../primitives/Button/Button.types"
+import type { CardProps } from "@/components/primitives/Card"
+import type { ButtonProps } from "@/components/primitives/Button"
 import type {
   CardContentProps,
   CardFooterProps,
   CardHeaderProps,
-} from "../../primitives/Card/Card.types"
+} from "@/components/primitives/Card"
 
 export interface AuthFormProps extends Omit<
   CardProps,

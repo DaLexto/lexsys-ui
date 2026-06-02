@@ -31,8 +31,8 @@ export const contextMenuRegistryItem: RegistryItem = {
   dependencies: [
     "@base-ui/react",
     "class-variance-authority",
-    "lucide-react",
     "clsx",
+    "lucide-react",
     "tailwind-merge",
   ],
   registryDependencies: [],

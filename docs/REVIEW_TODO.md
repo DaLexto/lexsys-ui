@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-02 (SI.4–SI.5 registry sync automation shipped)
 
 ---
 
@@ -52,6 +52,7 @@ that are not yet done.
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 | CS      | Component standardization (CS.1–CS.8)                               | shipped |
 | M12     | CLI command optimization (audit, merge candidates, cleanup)         | planned |
+| SI      | Registry sync — full templates + items automation (SI.4–SI.5)       | shipped |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
@@ -224,7 +225,7 @@ Roadmap anchor: [Roadmap § Component standardization](./ROADMAP.md#component-st
 | CS.5 | Cleanup implementation   | Apply agreed standards and run `pnpm ui:check`                                                                                            | shipped |
 | CS.6 | Registry sync            | Sync templates if UI install artifacts change                                                                                             | shipped |
 | CS.7 | Prefix transform         | Fixed `lex-` prefix; `scripts/rebrand/rename-prefix.mjs` for future rebrand; all packages converted to dynamic `testCssVarPrefix` helpers | shipped |
-| CS.8 | Rule + skill template    | `ui-component-authoring.mdc` rule + `$ui-authoring` hub skill (component.md + tests.md); stale `lsys-` fixed across skills and rules      | shipped |
+| CS.8 | Rule + skill template    | `ui-components.mdc` rule + `$components-authoring` hub skill (component.md + tests.md); stale `lsys-` fixed across skills and rules       | shipped |
 
 **CS.8 pre-rule intentional decisions (locked in CS.4):**
 
@@ -278,21 +279,23 @@ Detail: [Roadmap § M12](./ROADMAP.md#m12-cli-command-optimization).
 
 Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 
-| ID   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Status  |
-| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| SI.1 | Full post-rename run order: rename → `registry:sync` → `format` (per-package scripts exist) → `pnpm check` (lint + typecheck + tests). Currently stops after `registry:sync` and does not format or run tests.                                                                                                                                                                                                                                                                                                                                                                                       | shipped |
-| SI.2 | Post-rename format: run `pnpm format` (Prettier, whole repo) after file writes. Currently the script does not format — touched files may drift from style rules. Note: `*:lint:fix` scripts are ESLint-only, not Prettier; there are no per-package Prettier scripts. `pnpm format` on the whole repo is the correct call here.                                                                                                                                                                                                                                                                      | shipped |
-| SI.3 | Post-rename summary: print count of files changed per category (source / docs / test-configs / registry) after all tasks complete.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | shipped |
-| SI.4 | Auto-scaffold `src/items/<name>.ts` for blocks/templates in `sync-block-templates.mjs`. Currently `sync-component-templates.mjs` calls `syncRegistryItems` (auto-creates primitive item files if missing), but `sync-block-templates.mjs` does not — block/template item files must be written manually. Extend `syncRegistryItems` or add a parallel helper that scaffolds block items with `type: "block"`, inferred `category`, correct `registryDependencies` stub, and wires `index.ts`. Gate: `registry:check` must catch missing block items the same way it catches missing primitive items. | planned |
+| ID   | Description                                                                                                                                                                                                                                                                                                                     | Status  |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| SI.1 | Full post-rename run order: rename → `registry:sync` → `format` (per-package scripts exist) → `pnpm check` (lint + typecheck + tests). Currently stops after `registry:sync` and does not format or run tests.                                                                                                                  | shipped |
+| SI.2 | Post-rename format: run `pnpm format` (Prettier, whole repo) after file writes. Currently the script does not format — touched files may drift from style rules. Note: `*:lint:fix` scripts are ESLint-only, not Prettier; there are no per-package Prettier scripts. `pnpm format` on the whole repo is the correct call here. | shipped |
+| SI.3 | Post-rename summary: print count of files changed per category (source / docs / test-configs / registry) after all tasks complete.                                                                                                                                                                                              | shipped |
+| SI.4 | **Registry sync — block/template item scaffold:** `sync-block-templates.mjs` calls `syncRegistryItems` for blocks/templates; missing items + index wiring; `--check` fails when UI folders lack items.                                                                                                                          | shipped |
+| SI.5 | **Registry sync — full item automation:** `pnpm registry:sync` reconciles all `src/items/*.ts` (files, dependencies, `registryDependencies`, utilities); preserves `aliases` and `category`; primitives include `remoteFiles`. See [REGISTRY.md](./reference/registry/REGISTRY.md) merge policy.                                | shipped |
 
 ---
 
 ## Known Gaps
 
-| Gap                                          | Notes                                                                                                                                          |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blocks/templates mobile viewport QA          | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md). |
-| Remote registry signatures / allowlist       | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                           |
-| `docs:lint` automation (metadata + H2 order) | Deferred — layout contract lives in `documentation-standards.mdc`; manual compliance pass shipped 2026-05-30.                                  |
+| Gap                                          | Notes                                                                                                                                                                                                                                                                                    |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Registry item reconcile edge cases           | `registry:sync` reconciles items for all layers; `registryDependencies` are inferred from template imports — verify after atypical import paths. Manual edits to `files` / deps are overwritten on sync unless workflow skips sync. See [REGISTRY.md](./reference/registry/REGISTRY.md). |
+| Blocks/templates mobile viewport QA          | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md).                                                                                                                                           |
+| Remote registry signatures / allowlist       | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                                                                                                                     |
+| `docs:lint` automation (metadata + H2 order) | Deferred — layout contract lives in `documentation.mdc`; manual compliance pass shipped 2026-05-30.                                                                                                                                                                                      |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.

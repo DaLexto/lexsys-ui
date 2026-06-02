@@ -1,0 +1,55 @@
+# Component authoring — create / edit / delete
+
+## Editing an existing component
+
+1. Edit under the correct layer folder (`primitives/`, `blocks/`, `templates/`).
+2. Preserve accessibility — Base UI structure stays internal; do not expose internal subpaths.
+3. Variants use CSS vars prefixed with `cssVarPrefix` from
+   `packages/tokens/src/generators/generator.config.ts` (currently `lex`,
+   e.g. `--lex-button-radius`). No raw Tailwind palette in `*.variants.ts`.
+4. **Never edit registry templates directly.** `packages/registry/templates/` is generated
+   output — always edit `packages/ui/src/components/`; include `pnpm registry:sync` in the post-edit checklist (user runs).
+5. Give the user the **post-edit gate** checklist (see below); do not run `pnpm` gates unless they explicitly ask. Continue after they report pass or paste errors.
+
+---
+
+## New primitive checklist
+
+- Three-file folder under `packages/ui/src/components/primitives/<Name>/`
+- Export from `packages/ui/src/index.ts`
+- Registry item in `packages/registry/src/items/`
+- After adding: user runs `pnpm registry:sync` (checklist); run `registry-item-generator` if category metadata needed
+- Variant test: `packages/ui/test/components/<Name>/<Name>.variants.test.ts` — **required**
+- Render test: `packages/ui/test/components/<Name>/<Name>.render.test.tsx` — **required**
+
+Test patterns → [tests.md](./tests.md).
+
+---
+
+## New block / template checklist
+
+- Three-file folder under `packages/ui/src/components/blocks/<Name>/` or `templates/<Name>/`
+- **Do NOT export from `packages/ui/src/index.ts`** — registry-first; consumers install via `lexsys add`
+- After the UI folder exists → **`$registry-sync`** ([§ New block](../registry-sync/procedures.md#new-block)); never hand-write `templates/` or `src/items/` for routine adds.
+- Use `*Classes()` helper function (not `cva()`) for variant strings
+- Render test: `packages/ui/test/components/<Name>/<Name>.render.test.tsx` — **required**
+- Variants test: optional for plain `*Classes()` helpers (no `cva()` output to assert)
+- After install-artifact changes: load **[`$monorepo-verify-gate`](../monorepo-verify-gate/SKILL.md)** (scenario **`ui-registry`** or **`cli-registry`** as needed). **Stop and wait** for **`verify passed`** or errors before treating the block as done.
+
+---
+
+## Delete checklist
+
+- Remove three-file folder from `packages/ui/src/components/{primitives,blocks,templates}/`
+- Remove export from `packages/ui/src/index.ts` (primitives only)
+- Remove registry item from `packages/registry/src/items/`
+- Remove test files from `packages/ui/test/components/<Name>/`
+- After create/edit/delete → load **[`$monorepo-verify-gate`](../monorepo-verify-gate/SKILL.md)** for the checklist (see below)
+
+---
+
+## Post-edit verify
+
+After any create / edit / delete, **do not run** `pnpm` unless the user explicitly asks. Load **[`$monorepo-verify-gate`](../monorepo-verify-gate/SKILL.md)** — use scenario **`ui-registry`** (add `pnpm ui:test` to the checklist when tests should run). Wait for **`verify passed`** or pasted errors.
+
+`pnpm ui:check` includes `ui:audit` — scans variant files for forbidden raw palette literals. Wider pipeline: [`$agent-workflow`](../agent-workflow/SKILL.md) step 4.

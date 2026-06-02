@@ -29,6 +29,7 @@ monorepo optimization sequencing
   - [M6 - Dependency hygiene](#m6-dependency-hygiene)
   - [M7 - Maintainer and tooling](#m7-maintainer-and-tooling)
   - [M12 - CLI command optimization](#m12-cli-command-optimization)
+  - [SI - Registry sync automation](#si---registry-sync-automation)
   - [M8 - CLI cleanup and deduplication](#m8-cli-cleanup-and-deduplication)
   - [M10 - Release readiness](#m10-release-readiness)
   - [Explicitly deferred](#explicitly-deferred)
@@ -162,10 +163,11 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                     |
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`      |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                             |
-| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.agents/skills/`          |
+| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.cursor/skills/`          |
 | M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                |
 | M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
 | M12   | CLI command optimization | planned | Command audit, merge candidates, cleanup, UX polish — small PRs                                   | CLI.md, REVIEW_TODO.md                |
+| SI    | Registry sync automation | shipped | `registry:sync` writes templates **and** reconciles `src/items/` for all layers (SI.4–SI.5)       | REGISTRY.md, REVIEW_TODO.md           |
 
 ### M1 - Infra and DX
 
@@ -341,6 +343,21 @@ M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12-cli
 | M12.5 | Reserved for follow-up proposals          |
 
 **Verification:** `pnpm cli:check` per sub-item; sandbox smoke when behavior changes.
+
+### SI - Registry sync automation
+
+Status: **shipped** (2026-06-02) — SI.4 block/template scaffold + SI.5 full item reconcile.
+
+`pnpm registry:sync` updates `templates/**` and reconciles `src/items/*.ts` for
+primitives, blocks, and templates. Merge policy (preserve `aliases` / `category`):
+[REGISTRY.md](./reference/registry/REGISTRY.md).
+
+**Primary code:** `packages/registry/scripts/sync-component-templates.mjs`,
+`sync-block-templates.mjs`, `registry-item-generator.mjs`,
+`src/registry-composition-imports.ts`.
+
+**Verification:** `pnpm registry:check`; after UI edits use
+`$monorepo-verify-gate` scenario `ui-registry` (add `tokens-styles-registry` when token CSS changes).
 
 ---
 
@@ -541,8 +558,8 @@ merged via PR #34. See [UI catalog](./reference/ui/UI_CATALOG.md) for the post-M
 
 **Delivered:** canonical authoring patterns for primitives, blocks, and templates —
 CVA vs `*Classes()`, props/ref/className standards, compound API consistency,
-`lex-` CSS var prefix with rebrand script, `$ui-authoring` hub skill, and
-`ui-component-authoring.mdc` Cursor rule.
+`lex-` CSS var prefix with rebrand script, `$components-authoring` hub skill, and
+`ui-components.mdc` Cursor rule.
 
 Execution queue: [Backlog § CS](./REVIEW_TODO.md#cs-component-standardization).
 

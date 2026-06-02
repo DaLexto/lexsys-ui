@@ -1,22 +1,11 @@
 import { getInstallLayer } from "./install-layer.js"
+import {
+  extractRegistryCompositionImports,
+  toRegistryItemName,
+} from "./registry-composition-imports.js"
 import type { RegistryItem } from "./registry.types.js"
 
-const COMPOSITION_IMPORT_RE =
-  /from "\.\.\/\.\.\/(primitives|blocks)\/([A-Za-z0-9]+)\//g
-
-export const toRegistryItemName = (canonicalName: string): string => {
-  return canonicalName.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
-}
-
-export const extractRegistryCompositionImports = (source: string): string[] => {
-  const names = new Set<string>()
-
-  for (const match of source.matchAll(COMPOSITION_IMPORT_RE)) {
-    names.add(toRegistryItemName(match[2]))
-  }
-
-  return [...names]
-}
+export { extractRegistryCompositionImports, toRegistryItemName }
 
 export const validateRegistryTemplateImports = (
   items: RegistryItem[],

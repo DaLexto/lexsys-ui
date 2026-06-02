@@ -1,5 +1,30 @@
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, relative, resolve } from "node:path"
+import { fileURLToPath, pathToFileURL } from "node:url"
+
+import { getRegistryDependenciesFromTemplateContents } from "./lib/registry-composition-imports.mjs"
+
+const scriptsRoot = dirname(fileURLToPath(import.meta.url))
+const registryPackageRoot = resolve(scriptsRoot, "..")
+const repoRoot = resolve(registryPackageRoot, "../..")
+
+let prettierInstance = null
+
+const normalizeItemSource = async (source, filepath) => {
+  if (!prettierInstance) {
+    const prettierModule = await import(
+      pathToFileURL(resolve(repoRoot, "node_modules/prettier/index.mjs")).href
+    )
+    prettierInstance = prettierModule.default
+  }
+
+  const config = await prettierInstance.resolveConfig(filepath)
+
+  return prettierInstance.format(source, {
+    ...config,
+    filepath,
+  })
+}
 
 const syncableExtensions = new Set([".ts", ".tsx"])
 
@@ -94,13 +119,26 @@ const collectFiles = async (directory) => {
   return files
 }
 
-const listComponentNames = async (directory) => {
-  const entries = await readdir(directory, { withFileTypes: true })
+export const listComponentNames = async (directory) => {
+  try {
+    const entries = await readdir(directory, { withFileTypes: true })
 
-  return entries
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name)
-    .sort((a, b) => a.localeCompare(b))
+    return entries
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .sort((a, b) => a.localeCompare(b))
+  } catch (error) {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "ENOENT"
+    ) {
+      return []
+    }
+
+    throw error
+  }
 }
 
 const toKebabCase = (value) => {
@@ -116,7 +154,7 @@ const toCamelCase = (value) => {
   )
 }
 
-const getCategory = (componentName) => {
+const getPrimitiveCategory = (componentName) => {
   if (actionComponentNames.has(componentName)) {
     return "actions"
   }
@@ -176,11 +214,39 @@ const formatRemoteFiles = (files) => {
     .join("\n")}\n  ]`
 }
 
-const getTemplateContent = async (files) => {
+const parseStringArrayField = (source, fieldName) => {
+  const match = new RegExp(`${fieldName}:\\s*(\\[[^\\]]*\\])`, "s").exec(source)
+
+  if (!match) {
+    return []
+  }
+
+  const values = []
+
+  for (const itemMatch of match[1].matchAll(/"([^"]+)"/g)) {
+    values.push(itemMatch[1])
+  }
+
+  return values
+}
+
+const parseCategory = (source) => {
+  const match = /category:\s*"([^"]+)"/.exec(source)
+
+  return match?.[1]
+}
+
+const parseExistingItemFields = (source) => {
+  return {
+    aliases: parseStringArrayField(source, "aliases"),
+    category: parseCategory(source),
+    hasRemoteFiles: /\bremoteFiles:\s*\[/.test(source),
+  }
+}
+
+const getTemplateContent = async (absolutePaths) => {
   const contents = await Promise.all(
-    files.map(async (file) => {
-      return readFile(file, "utf-8")
-    }),
+    absolutePaths.map(async (file) => readFile(file, "utf-8")),
   )
 
   return contents.join("\n")
@@ -206,7 +272,7 @@ const getDependencies = (templateContent) => {
     dependencies.add("tailwind-merge")
   }
 
-  return [...dependencies]
+  return [...dependencies].sort((a, b) => a.localeCompare(b))
 }
 
 const getUtilities = (templateContent) => {
@@ -217,16 +283,21 @@ const getUtilities = (templateContent) => {
   return []
 }
 
-const createRegistryItemSource = async ({
+const buildRegistryItemSource = async ({
+  aliases,
+  category,
   componentName,
+  includeRemoteFiles,
   itemName,
+  itemType,
   itemVariableName,
   templateRoot,
-  templatePrefix = "primitives",
-  targetPrefix = "src/components/ui",
+  templatePrefix,
+  targetPrefix,
 }) => {
   const componentRoot = resolve(templateRoot, componentName)
-  const files = (await collectFiles(componentRoot))
+  const absoluteFiles = await collectFiles(componentRoot)
+  const files = absoluteFiles
     .map((file) => {
       return `${templatePrefix}/${relative(templateRoot, file).replaceAll("\\", "/")}`
     })
@@ -241,21 +312,26 @@ const createRegistryItemSource = async ({
 
       return a.localeCompare(b)
     })
-  const templateContent = await getTemplateContent(
-    files.map((file) =>
-      resolve(
-        templateRoot,
-        file.replace(new RegExp(`^${templatePrefix}/`), ""),
-      ),
-    ),
+  const templateContents = await Promise.all(
+    absoluteFiles.map(async (file) => readFile(file, "utf-8")),
   )
+  const templateContent = templateContents.join("\n")
   const dependencies = getDependencies(templateContent)
   const utilities = getUtilities(templateContent)
+  const registryDependencies = getRegistryDependenciesFromTemplateContents(
+    templateContents.filter((_, index) =>
+      absoluteFiles[index].endsWith(".tsx"),
+    ),
+  )
+  const entityLabel = itemType === "block" ? "block" : "component"
+  const remoteFilesBlock = includeRemoteFiles
+    ? `  remoteFiles: ${formatRemoteFiles(files)},\n`
+    : ""
 
   return `/**
  * ${itemName}.ts
  *
- * Registry metadata for the ${componentName} component.
+ * Registry metadata for the ${componentName} ${entityLabel}.
  */
 
 import type { RegistryItem } from "../registry.types.js"
@@ -263,13 +339,12 @@ import type { RegistryItem } from "../registry.types.js"
 export const ${itemVariableName}: RegistryItem = {
   name: "${itemName}",
   canonicalName: "${componentName}",
-  type: "component",
-  category: "${getCategory(componentName)}",
-  aliases: [],
+  type: "${itemType}",
+  category: "${category}",
+  aliases: ${formatStringArray(aliases)},
   files: ${formatStringArray(files)},
-  remoteFiles: ${formatRemoteFiles(files)},
-  dependencies: ${formatStringArray(dependencies)},
-  registryDependencies: [],
+${remoteFilesBlock}  dependencies: ${formatStringArray(dependencies)},
+  registryDependencies: ${formatStringArray(registryDependencies)},
   utilities: ${formatStringArray(utilities)},
   styles: ["theme"],
   target: "${targetPrefix}/${componentName}",
@@ -354,18 +429,26 @@ const ensureRegistryIndex = async ({ checkOnly, indexPath, items }) => {
 
 export const syncRegistryItems = async ({
   checkOnly,
+  defaultCategory,
+  itemType = "component",
+  reconcile = true,
   registryRoot,
   sourceComponentNames,
-  templateRoot,
   templatePrefix = "primitives",
   targetPrefix = "src/components/ui",
+  templateRoot,
+  uiSourceRoot,
 }) => {
   const componentNames =
-    sourceComponentNames ?? (await listComponentNames(templateRoot))
+    sourceComponentNames ??
+    (await listComponentNames(uiSourceRoot ?? templateRoot))
   const itemRoot = resolve(registryRoot, "src/items")
   const indexPath = resolve(registryRoot, "src/items/index.ts")
   const missingItemFiles = []
+  const outOfSyncItemFiles = []
   const items = []
+  let createdItemCount = 0
+  let updatedItemCount = 0
 
   for (const componentName of componentNames) {
     const itemName = toKebabCase(componentName)
@@ -375,27 +458,83 @@ export const syncRegistryItems = async ({
 
     items.push({ itemName, itemVariableName })
 
+    const resolvedCategory =
+      itemType === "component"
+        ? getPrimitiveCategory(componentName)
+        : (defaultCategory ?? "blocks")
+
+    let aliases = []
+    let category = resolvedCategory
+    let includeRemoteFiles = itemType === "component"
+
     if (itemAlreadyExists) {
-      continue
+      const existingSource = await readFile(itemPath, "utf-8")
+      const preserved = parseExistingItemFields(existingSource)
+      aliases = preserved.aliases
+      category = preserved.category ?? resolvedCategory
+      includeRemoteFiles =
+        itemType === "component" ? true : preserved.hasRemoteFiles
+    } else {
+      missingItemFiles.push(`${itemName}.ts`)
     }
 
-    missingItemFiles.push(`${itemName}.ts`)
-
-    if (checkOnly) {
-      continue
-    }
-
-    const itemSource = await createRegistryItemSource({
+    const nextSource = await buildRegistryItemSource({
+      aliases,
+      category,
       componentName,
+      includeRemoteFiles,
       itemName,
+      itemType,
       itemVariableName,
       templateRoot,
       templatePrefix,
       targetPrefix,
     })
+    const normalizedNextSource = await normalizeItemSource(nextSource, itemPath)
 
-    await mkdir(dirname(itemPath), { recursive: true })
-    await writeFile(itemPath, itemSource, "utf-8")
+    if (checkOnly) {
+      if (!itemAlreadyExists) {
+        continue
+      }
+
+      const existingSource = await readFile(itemPath, "utf-8")
+      const normalizedExistingSource = await normalizeItemSource(
+        existingSource,
+        itemPath,
+      )
+
+      if (normalizedExistingSource !== normalizedNextSource) {
+        outOfSyncItemFiles.push(`${itemName}.ts`)
+      }
+
+      continue
+    }
+
+    if (!reconcile && itemAlreadyExists) {
+      continue
+    }
+
+    const existingSource = itemAlreadyExists
+      ? await readFile(itemPath, "utf-8")
+      : null
+    const normalizedExistingSource =
+      existingSource === null
+        ? null
+        : await normalizeItemSource(existingSource, itemPath)
+
+    if (
+      !itemAlreadyExists ||
+      normalizedExistingSource !== normalizedNextSource
+    ) {
+      await mkdir(dirname(itemPath), { recursive: true })
+      await writeFile(itemPath, normalizedNextSource, "utf-8")
+
+      if (itemAlreadyExists) {
+        updatedItemCount += 1
+      } else {
+        createdItemCount += 1
+      }
+    }
   }
 
   const missingIndexEntries = await ensureRegistryIndex({
@@ -405,7 +544,10 @@ export const syncRegistryItems = async ({
   })
 
   return {
+    createdItemCount,
     missingIndexEntries,
     missingItemFiles,
+    outOfSyncItemFiles,
+    updatedItemCount,
   }
 }

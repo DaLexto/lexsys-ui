@@ -233,11 +233,11 @@ Rules:
 
 ## Registry Sync Rules
 
-After editing any component, run `pnpm registry:sync` (primitives + blocks) and
-verify with `pnpm registry:check` before merging. Do not manually edit registry
-templates.
+After editing any component, run `pnpm registry:sync` (templates + reconciled
+`src/items/` for primitives, blocks, and templates) and verify with
+`pnpm registry:check` before merging. Do not manually edit registry templates.
 
-Full template sync contract (transform rules, drift validation, manual vs. generated distinction): [Registry reference](REGISTRY.md).
+Full sync contract (transform rules, item reconcile policy, drift validation): [Registry reference](REGISTRY.md).
 
 ---
 

@@ -216,9 +216,9 @@ them in components via Tailwind v4 canonical CSS variable syntax:
 Keep component names consistent across all three locations:
 
 ```
-packages/ui/src/components/Button/     ← source
-packages/registry/src/items/button.ts  ← registry metadata (lowercase)
-packages/registry/templates/components/Button/  ← install template
+packages/ui/src/components/primitives/Button/     ← source
+packages/registry/src/items/button.ts             ← registry metadata (lowercase; reconciled on sync)
+packages/registry/templates/primitives/Button/    ← install template
 ```
 
 ---
@@ -299,9 +299,9 @@ Full field contract, category values, and validation rules: [Registry reference]
 
 ## 7. Template Sync
 
-Templates in `packages/registry/templates/components/` are synced from `packages/ui/src/components`. Do not manually edit them. Run `pnpm registry:sync` after editing UI components and `pnpm registry:check` to verify no drift.
+Templates under `packages/registry/templates/{primitives,blocks,templates}/` are synced from `packages/ui/src/components/`. Do not manually edit them. Run `pnpm registry:sync` after editing UI components and `pnpm registry:check` to verify no drift.
 
-The only transform the sync script applies is the `cn` import path rewrite. Any additional transform goes in the sync script, not the template file.
+Sync also reconciles `packages/registry/src/items/` (see [Registry reference](../reference/registry/REGISTRY.md)). Transforms include `cn` path rewrites and block/template import normalization — do not patch templates by hand.
 
 Full template rules and sync contract: [Registry reference](REGISTRY.md).
 

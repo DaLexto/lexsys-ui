@@ -1,0 +1,90 @@
+---
+description: Lexsys Vitest layout and test-edit conventions — no agent test runs; notify user to run checks.
+globs:
+  - "packages/**/*.test.ts"
+  - "packages/**/*.test.tsx"
+  - "packages/**/vitest.config.ts"
+alwaysApply: false
+---
+
+# Testing (Vitest)
+
+Edit-time rules for test files and Vitest configs under `packages/`. Canonical map: [TESTING.md](../../docs/operations/TESTING.md). Commands: [SCRIPTS.md](../../docs/operations/SCRIPTS.md) only — do not copy script tables here.
+
+**Scope:** `packages/**/*.test.ts(x)` and `packages/**/vitest.config.ts` — not `apps/**` (until catalog adds it). UI **source** under `components/**` → [ui-components.mdc](./ui-components.mdc). Types and JSDoc in tests → [typescript.mdc](./typescript.mdc), [code-commenting.mdc](./code-commenting.mdc).
+
+**Co-attach:** `packages/ui/test/components/Button/Button.variants.test.ts` loads testing + typescript + commenting — **not** ui-components.
+
+---
+
+## Agent — do not run tests
+
+Unless the user explicitly asks, do **not** run `pnpm *:test`, `vitest`, `pnpm check`, or other test gates.
+
+After creating or editing tests or `vitest.config.ts`, end the response with:
+
+```text
+*** URADI TEST za: <scope> ***
+```
+
+| Touched area | Scope example | Suggest (from SCRIPTS.md) |
+| ------------ | ------------- | ------------------------- |
+| `packages/ui/` | `ui` | `pnpm ui:check` or `pnpm ui:test`; if `*.variants.ts` changed in UI source, mention audit in the note |
+| `packages/tokens/` | `tokens` | `pnpm tokens:check` |
+| `packages/registry/` | `registry` | `pnpm registry:check` |
+| `packages/cli/` | `cli` | `pnpm --filter ./packages/cli check` |
+| Multiple packages | list names or `full` | `pnpm check` only when user wants full gate |
+
+Do not invent commands not listed in SCRIPTS.md.
+
+---
+
+## Layout
+
+| Package | Config | Env | Test root |
+| ------- | ------ | --- | --------- |
+| tokens | `packages/tokens/vitest.config.ts` | node | `packages/tokens/test/` |
+| ui | `packages/ui/vitest.config.ts` | jsdom | `packages/ui/test/components/<Name>/` |
+| registry | `packages/registry/vitest.config.ts` | node | `packages/registry/test/` |
+| cli | `packages/cli/vitest.config.ts` | node | `packages/cli/test/commands/`, `packages/cli/test/core/` |
+
+No root workspace `vitest.config.ts`.
+
+---
+
+## Do not
+
+- Add a root `vitest.config.ts`.
+- Colocate UI tests next to `src/components/` — use `packages/ui/test/components/<Name>/`.
+- Default to snapshot assertions.
+- Duplicate UI variant or CVA rules here — [ui-components.mdc](./ui-components.mdc).
+
+---
+
+## UI test types
+
+- `*.variants.test.ts` — primitive CVA class output.
+- `*.render.test.tsx` — DOM smoke, className merge, key a11y roles.
+- Blocks/templates — install smoke in CLI; render smoke in UI for pilots ([TESTING.md](../../docs/operations/TESTING.md)).
+
+---
+
+## Conventions
+
+- Prefer behavior assertions over snapshots.
+- CLI tests: mock filesystem/network at boundaries; temp dirs for install-flow.
+- After editing primitive `*.variants.ts` (in UI source), remind user that `ui:check` includes token audit.
+
+---
+
+## Skills
+
+- Pick scoped `pnpm *:check` from diff → **`$monorepo-verify-gate`**.
+- Dedicated test skill — wave 2 (name TBD).
+
+---
+
+## See also
+
+- [TESTING.md](../../docs/operations/TESTING.md), [SCRIPTS.md](../../docs/operations/SCRIPTS.md)
+- [ui-components.mdc](./ui-components.mdc) — component source only

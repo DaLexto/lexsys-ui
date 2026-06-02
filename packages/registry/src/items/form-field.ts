@@ -17,7 +17,7 @@ export const formFieldRegistryItem: RegistryItem = {
     "blocks/FormField/FormField.types.ts",
     "blocks/FormField/FormField.variants.ts",
   ],
-  dependencies: ["class-variance-authority", "clsx", "tailwind-merge"],
+  dependencies: ["clsx", "tailwind-merge"],
   registryDependencies: ["field"],
   utilities: ["cn"],
   styles: ["theme"],

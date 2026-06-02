@@ -4,7 +4,7 @@
 **Type:** CLI/API reference  
 **Source of truth for:** Command surface, flags, config schema, install behavior, error handling  
 **Verified against:** `packages/cli/src/` (all commands and core modules)
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-02
 
 ---
 
@@ -175,7 +175,7 @@ available registry items (format: `CanonicalName (category)`).
 6. Install style files to `paths.styles` (skip if identical; auto-update if both
    source and target are generated Lexsys files; conflict otherwise).
 7. Wire style `@import` statements into the Tailwind CSS entrypoint.
-8. Copy template files to `paths.components/<CanonicalName>/` (all layers — primitives, blocks, templates). Rewrite cross-layer imports to sibling paths on install.
+8. Copy template files to `paths.components/<CanonicalName>/` (all layers — primitives, blocks, templates). For blocks/templates, rewrite cross-layer imports to flat sibling paths on install (`../../primitives/…` → `../…`, and `@/components/{primitives,blocks,templates}/…` → `../<Name>/<Name>`).
 9. Track successfully installed items (no conflicts) in `lexsys.config.json`.
 10. Print install summary.
 
@@ -478,8 +478,10 @@ interface LexsysConfig {
 ```
 
 All installable items (primitives, blocks, templates) copy into
-`paths.components/<CanonicalName>/`. The CLI rewrites cross-layer template
-imports to sibling paths on install (for example `../Button/Button`).
+`paths.components/<CanonicalName>/`. For blocks and templates, the CLI rewrites
+cross-layer template imports to flat sibling paths on install (for example
+`../Button/Button`, including `@/components/primitives/Button/Button` in synced
+templates). Implementation: `packages/cli/src/install/import-rewriter.ts`.
 
 ### Defaults
 
