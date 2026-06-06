@@ -4,7 +4,7 @@
 **Type:** Commands reference (monorepo `pnpm` scripts)
 **Source of truth for:** Root and package script names, sync workflows, when to run checks
 **Verified against:** Root and workspace `package.json` files, `turbo.json`
-**Last reviewed:** 2026-05-30 (script contract + root alias matrix)
+**Last reviewed:** 2026-06-06 (docs site + docs:lint scripts)
 
 ---
 
@@ -19,6 +19,7 @@
 - [@dalexto/lexsys-registry](#dalextolexsys-registry)
 - [lexsys (CLI)](#lexsys-cli)
 - [@dalexto/lexsys-playground](#dalextolexsys-playground)
+- [@dalexto/lexsys-docs](#dalextolexsys-docs)
 - [Sync workflows](#sync-workflows)
 - [Before merge](#before-merge)
 - [CI reference](#ci-reference)
@@ -72,6 +73,9 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm playground:dev`           | Start local playground (Vite)                                                                           |
 | `pnpm playground:check`         | Lint + typecheck playground                                                                             |
 | `pnpm playground:build`         | Build tokens + UI, then playground                                                                      |
+| `pnpm docs:dev`                 | Start minimal docs site (`apps/docs`, Vite)                                                             |
+| `pnpm docs:build`               | Build docs site static output                                                                           |
+| `pnpm docs:lint`                | Lint `docs/**/*.md` frontmatter and relative links                                                      |
 | `pnpm scripts:check`            | Validate root `{scope}:{script}` aliases match workspace packages                                       |
 
 Per-package shortcuts use `{scope}:{action}` (for example `pnpm ui:test`, `pnpm tokens:lint`). See sections below.
@@ -201,6 +205,21 @@ Playground has no Vitest tests today; `check` = lint + typecheck. No `playground
 
 ---
 
+## `@dalexto/lexsys-docs`
+
+| Root alias        | Package script | Purpose                                     |
+| ----------------- | -------------- | ------------------------------------------- |
+| `pnpm docs:dev`   | `dev`          | Start minimal docs site (Vite static shell) |
+| `pnpm docs:build` | `build`        | Production build to `apps/docs/dist`        |
+
+Canonical specs remain in the monorepo `docs/` tree; the site links quickstart and catalog pages.
+
+### `pnpm docs:lint`
+
+Repo-level markdown lint (not turbo): validates `docs/**/*.md` metadata (`Audience`, `Type`, `Last reviewed`). Runs in CI when root/docs paths change.
+
+---
+
 ## Sync workflows
 
 ```mermaid
@@ -251,14 +270,14 @@ Test coverage details and per-file test inventory: [Testing docs](../operations/
 
 **Pull requests** — path-filtered jobs (via `dorny/paths-filter`):
 
-| Filter                                     | Command                                          |
-| ------------------------------------------ | ------------------------------------------------ |
-| `packages/tokens/**`                       | `pnpm tokens:check`                              |
-| `packages/ui/**`                           | `pnpm ui:check`                                  |
-| `packages/ui/**` or `packages/registry/**` | `pnpm registry:check` (template drift on UI PRs) |
-| `packages/cli/**`                          | `pnpm turbo run check --filter=./packages/cli`   |
-| `apps/playground/**` (+ tokens/ui deps)    | `pnpm playground:build`                          |
-| Root config/docs                           | `pnpm format:check` + `pnpm lint:root`           |
+| Filter                                     | Command                                                   |
+| ------------------------------------------ | --------------------------------------------------------- |
+| `packages/tokens/**`                       | `pnpm tokens:check`                                       |
+| `packages/ui/**`                           | `pnpm ui:check`                                           |
+| `packages/ui/**` or `packages/registry/**` | `pnpm registry:check` (template drift on UI PRs)          |
+| `packages/cli/**`                          | `pnpm turbo run check --filter=./packages/cli`            |
+| `apps/playground/**` (+ tokens/ui deps)    | `pnpm playground:build`                                   |
+| Root config/docs                           | `pnpm format:check` + `pnpm lint:root` + `pnpm docs:lint` |
 
 **Push to `dev`/`main`** — additionally runs full `pnpm check`.
 

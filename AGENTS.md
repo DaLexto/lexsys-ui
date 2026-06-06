@@ -66,17 +66,17 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 **Skills layout:** [`.cursor/skills/`](./.cursor/skills/) — `$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$registry-sync`, `$token-verify`, `$components-authoring`, `$changelog-update`, `$docs-authoring`, `$project-next-steps`. Git policy: [git-commits.mdc](./.cursor/rules/git-commits.mdc) with [**`$git-commit`**](./.cursor/skills/git-commit/SKILL.md).
 
-| Skill                   | When                                                                                                                                |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `$agent-workflow`       | **Default** monorepo implementation procedure (unless a single other skill is named)                                                |
+| Skill                   | When                                                                                                                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `$agent-workflow`       | **Default** monorepo implementation procedure (unless a single other skill is named)                                                                        |
 | `$monorepo-verify-gate` | User-run verify checklists (step 4); [format gate](./.cursor/skills/monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write) before git write |
-| `$registry-sync`        | UI changed → sync templates + reconciled items ([`.cursor/skills/registry-sync/`](./.cursor/skills/registry-sync/))                 |
-| `$components-authoring` | New or edited UI primitive/block/template; tests ([`.cursor/skills/components-authoring/`](./.cursor/skills/components-authoring/)) |
-| `$docs-authoring`       | Markdown layout and freshness ([`.cursor/skills/docs-authoring/`](./.cursor/skills/docs-authoring/))                                |
-| `$token-verify`         | Token layers, generator, or governance ([`.cursor/skills/token-verify/`](./.cursor/skills/token-verify/))                           |
-| `$project-next-steps`   | What to work on next; backlog triage ([`.cursor/skills/project-next-steps/`](./.cursor/skills/project-next-steps/))                 |
-| `$git-commit`           | Commit, push, or PR to `dev`                                                                                                        |
-| `$changelog-update`     | CHANGELOG after feature or fix merges ([`.cursor/skills/changelog-update/`](./.cursor/skills/changelog-update/))                    |
+| `$registry-sync`        | UI changed → sync templates + reconciled items ([`.cursor/skills/registry-sync/`](./.cursor/skills/registry-sync/))                                         |
+| `$components-authoring` | New or edited UI primitive/block/template; tests ([`.cursor/skills/components-authoring/`](./.cursor/skills/components-authoring/))                         |
+| `$docs-authoring`       | Markdown layout and freshness ([`.cursor/skills/docs-authoring/`](./.cursor/skills/docs-authoring/))                                                        |
+| `$token-verify`         | Token layers, generator, or governance ([`.cursor/skills/token-verify/`](./.cursor/skills/token-verify/))                                                   |
+| `$project-next-steps`   | What to work on next; backlog triage ([`.cursor/skills/project-next-steps/`](./.cursor/skills/project-next-steps/))                                         |
+| `$git-commit`           | Commit, push, or PR to `dev`                                                                                                                                |
+| `$changelog-update`     | CHANGELOG after feature or fix merges ([`.cursor/skills/changelog-update/`](./.cursor/skills/changelog-update/))                                            |
 
 ---
 

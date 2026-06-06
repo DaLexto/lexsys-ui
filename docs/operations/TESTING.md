@@ -13,6 +13,8 @@
 - [Verification surfaces](#verification-surfaces)
   - [apps/playground](#appsplayground)
   - [Consumer sandbox](#consumer-sandbox)
+  - [PLAYGROUND verification surfaces](#playground-verification-surfaces)
+  - [PLAYGROUND automation (planned)](#playground-automation-planned--external-repos)
   - [Practical workflow](#practical-workflow)
 - [Quick Reference](#quick-reference)
 - [Test Coverage by Package](#test-coverage-by-package)
@@ -53,11 +55,24 @@ Lexsys has two complementary manual verification surfaces. Invest maintainer tim
 
 ### Consumer sandbox
 
-External project outside this monorepo (example: `D:\PLAYGROUND\sandbox-lexsys`). Manual verification — not CI.
+External projects outside this monorepo. Manual verification — not lexsys CI.
 
-**Primary manual gate** before PRs that touch CLI, registry, templates, blocks/templates, or install artifacts.
+### PLAYGROUND verification surfaces
 
-For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, DashboardShell), sandbox verification is required — playground render tests cover **primitives only**. See [Backlog § Blocks/templates optimization](../REVIEW_TODO.md#blocks-templates-optimization-backlog).
+Two distinct consumer paths — do not conflate fresh-install lab with the real app.
+
+| Path                              | Role                              | Validates                                                                  | Planned automation                             |
+| --------------------------------- | --------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------- |
+| `D:\PLAYGROUND\sandbox-lexsys`    | **PulseDesk** — real consumer app | Block/template UX, narrow viewport (`< md`), integration on real pages     | DX.2 Playwright E2E (`pnpm test:e2e`)          |
+| `D:\PLAYGROUND\lexsys-fresh-test` | **Fresh-install lab**             | Clean `lexsys init` → `lexsys add` → `pnpm build`; CLI/registry regression | DX.3 smoke script (`pnpm smoke:install-build`) |
+
+**PulseDesk (`sandbox-lexsys`)** — **primary manual gate** (~80–90% consumer truth) before PRs that touch CLI, registry, templates, blocks/templates, or install artifacts.
+
+For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, DashboardShell), PulseDesk verification is required — playground render tests cover **primitives only**. See [Backlog § Blocks/templates optimization](../REVIEW_TODO.md#blocks-templates-optimization-backlog).
+
+**Fresh-test (`lexsys-fresh-test`)** — optional parallel gate for reproducible install/build confidence; not a substitute for PulseDesk UX QA.
+
+Tracked IDs: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
 
 ### Practical workflow
 
@@ -228,7 +243,7 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-All **42 bundled primitives** and **blocks** (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty) have render smoke tests using `@testing-library/react` with Vitest
+All **49 installable UI items** (42 primitives + 6 blocks + 1 template) have render smoke tests using `@testing-library/react` with Vitest
 `jsdom` (`packages/ui/vitest.config.ts`).
 
 - Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.
@@ -241,7 +256,7 @@ All **42 bundled primitives** and **blocks** (FormField, SettingsPanel, Sidebar,
 
 Policy and surface roles: [§ Verification surfaces](#verification-surfaces) above.
 
-Maintainers SHOULD verify CLI and registry changes against an external consumer project outside this monorepo (for example `D:\PLAYGROUND\sandbox-lexsys`).
+Maintainers SHOULD verify CLI and registry changes against **PulseDesk** (`D:\PLAYGROUND\sandbox-lexsys`). Use **fresh-test** (`D:\PLAYGROUND\lexsys-fresh-test`) for clean install/build smoke when needed.
 
 Checklist after CLI or registry changes:
 
@@ -266,7 +281,37 @@ Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monore
 
 ---
 
+## PLAYGROUND automation (planned — external repos)
+
+Implementation lives **outside** this monorepo. No lexsys CI until explicitly promoted.
+
+### DX.3 — Fresh install smoke (`lexsys-fresh-test`)
+
+**Path:** `D:\PLAYGROUND\lexsys-fresh-test`
+
+**Target script:** `pnpm smoke:install-build` (to add in that repo)
+
+```txt
+1. Link or pin CLI under test (@next or local packages/cli)
+2. lexsys init vite .   (or reset fixture directory)
+3. lexsys add dashboard-shell
+4. pnpm build
+5. exit non-zero on failure
+```
+
+### DX.2 — Playwright E2E (`sandbox-lexsys` / PulseDesk)
+
+**Path:** `D:\PLAYGROUND\sandbox-lexsys`
+
+**Target script:** `pnpm test:e2e` (to add in that repo)
+
+Suggested scenarios: Sidebar mobile drawer (`< md`), theme toggle, dashboard-shell nav. Complements manual checklist above — does not replace it for the first **0.1.0** gate.
+
+Tracked: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
+
+---
+
 ## Known Gaps
 
-- Narrow-viewport block/template UX (mobile drawer stacking, `< md` layout) — manual consumer sandbox checklist only; not CI ([§ Blocks/templates checklist](#consumer-sandbox-verification)).
-- No automated end-to-end install tests against a real external consumer project (temp-directory `install-flow` smoke covers primitives and all registry blocks).
+- **DX.2** — Narrow-viewport PulseDesk UX — manual checklist + planned Playwright; not lexsys CI ([§ Blocks/templates checklist](#consumer-sandbox-verification)).
+- **DX.3** — Fresh install/build smoke in `lexsys-fresh-test` — planned; temp-directory `install-flow` covers primitives and all registry blocks in monorepo CI.

@@ -2,8 +2,7 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M8, M10, M11, M12 **shipped**; UI
-composition pilots **shipped** (PR #28); `0.0.5` @ `next` **shipped** (2026-06-02 — registry sync automation, block install paths); `0.0.4` (2026-05-30) historical; blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); waves B–F **shipped**; **`0.0.6` @ `next`** current preview; **57** installable UI items; **active milestone: `0.1.0` @ `latest`** (A4) — [§ 0.1.0 roadmap](#010-roadmap)  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -32,6 +31,8 @@ monorepo optimization sequencing
   - [SI - Registry sync automation](#si---registry-sync-automation)
   - [M8 - CLI cleanup and deduplication](#m8-cli-cleanup-and-deduplication)
   - [M10 - Release readiness](#m10-release-readiness)
+  - [0.1.0 roadmap](#010-roadmap)
+  - [DX track](#dx-track)
   - [Explicitly deferred](#explicitly-deferred)
   - [PR sequence](#pr-sequence)
   - [Verification gates](#verification-gates)
@@ -101,9 +102,10 @@ Planned hardening and deferred speculative work are documented in
 [Resolver evolution — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10).
 Summary only — do not duplicate detail here.
 
-**Planned (likely next):**
+**Planned (likely next):** track [Backlog § TOK](./REVIEW_TODO.md#p23-tokens-tok1tok2)
 
-- Further expand `SEMANTIC_CONTRAST_PAIRS` (additional roles beyond the current 15-pair registry)
+- **TOK.1** — dedicated component tokens for 9 aliased primitives (PR E1)
+- **TOK.2** — further expand `SEMANTIC_CONTRAST_PAIRS` (additional roles beyond the current 15-pair registry; PR E2)
 
 **Recently shipped (post–Phase 10 queue):**
 
@@ -159,7 +161,7 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 | ----- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment                    | SCRIPTS.md, DEPLOY.md                                                |
 | M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                                     | TESTING.md, AGENTS.md                                                |
-| M3    | Product and architecture | shipped | UI render 32/32, Next init, remote registry contract, governance + shadow.inner                   | REVIEW_TODO.md, RESOLVER_EVOLUTION.md                                |
+| M3    | Product and architecture | shipped | UI render coverage, Next init, remote registry contract, governance + shadow.inner                | REVIEW_TODO.md, RESOLVER_EVOLUTION.md                                |
 | M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                                                    |
 | M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`                                     |
 | M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                                                            |
@@ -415,16 +417,64 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 
 **Phase PR:** `chore(m10): release readiness` (may split into M10.0–M10.3 PRs)
 
+#### M10.5 — 0.1.0 @ `latest` (active)
+
+Stable MVP on dist-tag **`latest`**. Canonical PR order: [Backlog § 0.1.0 Execution Queue](./REVIEW_TODO.md#010-execution-queue).
+
+| Item  | Focus                                       | PR     |
+| ----- | ------------------------------------------- | ------ |
+| REL.2 | npm provenance + SBOM                       | A3     |
+| —     | PulseDesk consumer QA (narrow viewport)     | manual |
+| M10   | Changeset `0.1.0`, publish `@latest`, smoke | A4     |
+
+**Policy:** catalog expansion (UC.8–UC.16) ships **after** 0.1.0 unless release gate completes early.
+
+---
+
+### 0.1.0 roadmap
+
+**Waves:** A (release gate) → B (primitives) → C (blocks/templates) → D (DX) → E (tokens) → F (trust) → deferred (starter, PLAYGROUND automation).
+
+| Wave | PRs   | Focus                                                                                |
+| ---- | ----- | ------------------------------------------------------------------------------------ |
+| A    | A1–A4 | Docs, provenance, 0.1.0 publish                                                      |
+| B    | B1–B3 | Pagination, Breadcrumb, DatePicker                                                   |
+| C    | C1–C6 | PageHeader, StatsCard, FilterToolbar, DataTable, Combobox wiring, SettingsPageLayout |
+| D    | D1–D2 | `apps/docs`, `docs:lint`                                                             |
+| E    | E1–E2 | Aliased primitive tokens, contrast pairs                                             |
+| F    | F1–F2 | Remote registry trust, M12.5 CLI polish                                              |
+| G    | G1–G2 | Starter repo (deferred), fresh-test smoke + PulseDesk E2E                            |
+
+Execution table: [REVIEW_TODO § 0.1.0 Execution Queue](./REVIEW_TODO.md#010-execution-queue).
+
+---
+
+### DX track
+
+| ID   | Item                         | Status   | Surface                                    |
+| ---- | ---------------------------- | -------- | ------------------------------------------ |
+| DX.1 | Public starter template repo | deferred | Separate repo post-0.1.0                   |
+| DX.2 | Playwright E2E               | planned  | `D:\PLAYGROUND\sandbox-lexsys` (PulseDesk) |
+| DX.3 | Fresh install/build smoke    | planned  | `D:\PLAYGROUND\lexsys-fresh-test`          |
+| DX.4 | `apps/docs` minimal site     | shipped  | `apps/docs` (PR D1)                        |
+| DX.5 | `docs:lint` automation       | shipped  | root script (PR D2)                        |
+
+No lexsys CI for DX.2/DX.3 until explicitly promoted. Detail: [Testing docs § PLAYGROUND](./operations/TESTING.md#playground-verification-surfaces).
+
+---
+
 ### Explicitly deferred
 
-| Item                              | Why deferred                                                                                                                                                                               |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `apps/docs` public docs site      | Placeholder only; `docs/*.md` + README sufficient pre-publish; revisit post-M10                                                                                                            |
-| Playground dark/brand demos       | Out of scope — playground is maintenance-only monorepo smoke; consumer UX belongs in sandbox/SaaS ([Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces)) |
-| `@vitest/ui` browser dashboard    | Decided overkill                                                                                                                                                                           |
-| Visual regression / screenshots   | Overkill for current coverage                                                                                                                                                              |
-| Changesets / npm provenance       | Changesets **shipped** (M10); npm provenance deferred                                                                                                                                      |
-| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                                                                                                           |
+| Item                              | Status / notes                                                                        |
+| --------------------------------- | ------------------------------------------------------------------------------------- |
+| `apps/docs` public docs site      | **shipped** — DX.4 (PR D1); minimal Vite shell pre-0.1.0                            |
+| Public starter template repo      | **deferred** — DX.1 post-0.1.0; separate GitHub repo                                  |
+| Playwright E2E + fresh smoke      | **planned** — DX.2/DX.3; PLAYGROUND repos only, not lexsys CI ([DX track](#dx-track)) |
+| Playground dark/brand demos       | Out of scope — playground is maintenance-only; consumer UX in PulseDesk sandbox       |
+| `@vitest/ui` browser dashboard    | Decided overkill                                                                      |
+| Visual regression / screenshots   | Overkill for current coverage                                                         |
+| npm provenance                    | **shipped** — REL.2 (PR A3); Changesets **shipped** (M10)                             |
+| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                      |
 
 ### PR sequence
 
@@ -439,18 +489,18 @@ separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.
 | 4a–4b   | M4    | Entry + CLI DX + docs sync                          | **shipped**                           |
 | 10a–10b | M10   | Release readiness + docs sync                       | **shipped** (2026-05-24)              |
 
-Original per-phase sketch (reference if splitting future work):
+**0.1.0 wave (active):** superseded per-phase M1–M7 sketch consolidated in PR #18.
 
-| PR    | Phase   | Title sketch                                             |
-| ----- | ------- | -------------------------------------------------------- |
-| 0     | Phase 0 | `docs(roadmap): add monorepo optimization phases M1–M10` |
-| 1a    | M1      | `chore(m1): infra and DX`                                |
-| 1b    | M1      | `docs(roadmap): mark M1 shipped` (if needed)             |
-| 2a    | M2      | `test(m2): quality and verification`                     |
-| 2b    | M2      | `docs(testing): sync M2 coverage` (if needed)            |
-| 5a–5b | M5      | Advanced CI + docs sync                                  |
-| 6a–6b | M6      | Dependency hygiene + docs sync                           |
-| 7a–7b | M7      | Maintainer tooling + docs sync                           |
+| Order | PR    | Title sketch                                   | IDs          |
+| ----- | ----- | ---------------------------------------------- | ------------ |
+| 1     | A1    | `docs: 0.1.0 roadmap integration`              | all          |
+| 2     | A3    | `ci: npm publish provenance`                   | REL.2        |
+| 3     | A4    | `chore: release 0.1.0 @ latest`                | M10          |
+| 4–6   | B1–B3 | `feat(ui): pagination, breadcrumb, datepicker` | UC.8–10      |
+| 7–12  | C1–C6 | `feat(ui): admin blocks + template`            | UC.11–16     |
+| 13–14 | D1–D2 | `feat(docs): site + docs lint`                 | DX.4–5       |
+| 15–16 | E1–E2 | `feat(tokens): aliased tokens + contrast`      | TOK.1–2      |
+| 17–18 | F1–F2 | `feat(cli): registry trust + m12.5`            | SEC.1, CLI.1 |
 
 ### Verification gates
 
@@ -507,14 +557,14 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 
 ### UI composition track
 
-| Step | Outcome                                                                                        | Status            |
-| ---- | ---------------------------------------------------------------------------------------------- | ----------------- |
-| 1    | Layer docs + registry composition validators                                                   | **shipped**       |
-| 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite) | **shipped** (#28) |
-| 3    | Pilot blocks + template + CI verify (install smoke, render tests)                              | **shipped**       |
-| 4    | Blocks/templates optimization (BO.1–BO.7)                                                      | **shipped**       |
-| 5    | Additional blocks/templates beyond pilot set                                                   | planned           |
-| 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                       | **shipped** (#30) |
+| Step | Outcome                                                                                                                                               | Status                                                                        |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| 1    | Layer docs + registry composition validators                                                                                                          | **shipped**                                                                   |
+| 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite)                                                        | **shipped** (#28)                                                             |
+| 3    | Pilot blocks + template + CI verify (install smoke, render tests)                                                                                     | **shipped**                                                                   |
+| 4    | Blocks/templates optimization (BO.1–BO.7)                                                                                                             | **shipped**                                                                   |
+| 5    | Admin catalog — Pagination, Breadcrumb, DatePicker, PageHeader, StatsCard, FilterToolbar, DataTable, SettingsPageLayout, Combobox wiring (UC.8–UC.16) | planned — [Backlog § P2.1](./REVIEW_TODO.md#p21-ui-catalog-expansion-uc8uc16) |
+| 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                                                                              | **shipped** (#30)                                                             |
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
