@@ -310,6 +310,15 @@ Lexsys naming is fixed:
 Install **`collapsible`** with `sidebar` for expandable parents. Collapsible
 `SidebarGroup` (fold whole sections) → SB.17.
 
+#### Layer 3 — keyboard a11y (SB.12 shipped)
+
+`SidebarContent` renders a `<nav>` with `onKeyDown` roving focus across
+`.lex-sidebar__item` links and buttons (ArrowUp/Down, Home, End). Skips
+`disabled` / `aria-disabled` / hidden items.
+
+`SidebarItemLink` and `SidebarSubItemLink` set `aria-current="page"` when
+`active` is true (consumer supplies `active` from router — SB.13).
+
 **Registry deps (sidebar block):** `badge`, `button`, `collapsible`, `drawer`,
 `scroll-area`.
 

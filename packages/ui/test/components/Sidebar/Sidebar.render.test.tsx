@@ -1,4 +1,10 @@
-import { cleanup, render, screen } from "@testing-library/react"
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
 import {
   Sidebar,
@@ -14,6 +20,7 @@ import {
   SidebarItemAction,
   SidebarItemBadge,
   SidebarItemIcon,
+  SidebarItemButton,
   SidebarItemLink,
   SidebarItemShortcut,
   SidebarList,
@@ -318,5 +325,77 @@ describe("Sidebar render", () => {
     const [subList] = container.querySelectorAll(".lex-sidebar__sub-list")
 
     expect(subList).toHaveClass("md:group-data-[collapsed=true]/sidebar:hidden")
+  })
+
+  it("sets aria-current on active SidebarItemLink and SidebarSubItemLink", () => {
+    render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarList>
+            <SidebarItem>
+              <SidebarItemLink href="#overview" active>
+                Overview
+              </SidebarItemLink>
+            </SidebarItem>
+            <SidebarItem>
+              <SidebarItemLink href="#settings">Settings</SidebarItemLink>
+              <SidebarSubList>
+                <SidebarItem>
+                  <SidebarSubItemLink href="#profile" active>
+                    Profile
+                  </SidebarSubItemLink>
+                </SidebarItem>
+              </SidebarSubList>
+            </SidebarItem>
+          </SidebarList>
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [overviewLink] = screen.getAllByRole("link", { name: "Overview" })
+    const [settingsLink] = screen.getAllByRole("link", { name: "Settings" })
+    const [profileLink] = screen.getAllByRole("link", { name: "Profile" })
+
+    expect(overviewLink).toHaveAttribute("aria-current", "page")
+    expect(settingsLink).not.toHaveAttribute("aria-current")
+    expect(profileLink).toHaveAttribute("aria-current", "page")
+  })
+
+  it("moves focus between nav items with arrow keys", () => {
+    render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarList>
+            <SidebarItem>
+              <SidebarItemLink href="#overview">Overview</SidebarItemLink>
+            </SidebarItem>
+            <SidebarItem>
+              <SidebarItemLink href="#settings">Settings</SidebarItemLink>
+            </SidebarItem>
+            <SidebarItem>
+              <SidebarItemButton type="button">Sign out</SidebarItemButton>
+            </SidebarItem>
+          </SidebarList>
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [nav] = screen.getAllByRole("navigation", {
+      name: "Application navigation",
+    })
+    const navQueries = within(nav)
+    const overviewLink = navQueries.getByRole("link", { name: "Overview" })
+    const settingsLink = navQueries.getByRole("link", { name: "Settings" })
+    const signOutButton = navQueries.getByRole("button", { name: "Sign out" })
+
+    overviewLink.focus()
+    fireEvent.keyDown(nav, { key: "ArrowDown" })
+    expect(settingsLink).toHaveFocus()
+
+    fireEvent.keyDown(nav, { key: "End" })
+    expect(signOutButton).toHaveFocus()
+
+    fireEvent.keyDown(nav, { key: "Home" })
+    expect(overviewLink).toHaveFocus()
   })
 })

@@ -13,6 +13,7 @@ import {
   useMemo,
   useState,
   useSyncExternalStore,
+  type KeyboardEvent,
   type ReactNode,
 } from "react"
 import { Badge } from "../../primitives/Badge/Badge"
@@ -95,6 +96,68 @@ import {
 import { cn } from "../../../utils/cn"
 
 const MD_MEDIA_QUERY = "(min-width: 768px)"
+
+const SIDEBAR_NAV_ITEM_SELECTOR =
+  "a.lex-sidebar__item, button.lex-sidebar__item"
+
+const getSidebarNavItems = (nav: HTMLElement): HTMLElement[] => {
+  return Array.from(
+    nav.querySelectorAll<HTMLElement>(SIDEBAR_NAV_ITEM_SELECTOR),
+  ).filter((item) => {
+    if (item.hasAttribute("disabled")) {
+      return false
+    }
+
+    if (item.getAttribute("aria-disabled") === "true") {
+      return false
+    }
+
+    if (item.closest("[hidden], [aria-hidden='true']")) {
+      return false
+    }
+
+    return true
+  })
+}
+
+const handleSidebarNavKeyDown = (event: KeyboardEvent<HTMLElement>): void => {
+  const { key, currentTarget } = event
+
+  if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(key)) {
+    return
+  }
+
+  const items = getSidebarNavItems(currentTarget)
+
+  if (items.length === 0) {
+    return
+  }
+
+  const activeIndex = items.indexOf(document.activeElement as HTMLElement)
+  let nextIndex = activeIndex
+
+  if (key === "ArrowDown") {
+    nextIndex = activeIndex === -1 ? 0 : (activeIndex + 1) % items.length
+  } else if (key === "ArrowUp") {
+    nextIndex =
+      activeIndex === -1
+        ? items.length - 1
+        : (activeIndex - 1 + items.length) % items.length
+  } else if (key === "Home") {
+    nextIndex = 0
+  } else if (key === "End") {
+    nextIndex = items.length - 1
+  }
+
+  if (nextIndex !== activeIndex || activeIndex === -1) {
+    event.preventDefault()
+    items[nextIndex]?.focus()
+  }
+}
+
+const getSidebarActiveLinkProps = (active?: boolean) => {
+  return active ? ({ "aria-current": "page" } as const) : undefined
+}
 
 const getDesktopMediaQuery = () => {
   if (
@@ -386,6 +449,7 @@ const SidebarContent = ({
   ref,
   className,
   children,
+  onKeyDown,
   ...props
 }: SidebarContentProps) => {
   return (
@@ -396,6 +460,10 @@ const SidebarContent = ({
             ref={ref}
             aria-label="Application navigation"
             className={className}
+            onKeyDown={(event) => {
+              handleSidebarNavKeyDown(event)
+              onKeyDown?.(event)
+            }}
             {...props}
           >
             {children}
@@ -660,9 +728,14 @@ const SidebarItemLink = ({
     className,
   )
 
+  const linkProps = {
+    ...props,
+    ...getSidebarActiveLinkProps(active),
+  }
+
   if (!closeOnSelect) {
     return (
-      <a ref={ref} className={linkClassName} {...props}>
+      <a ref={ref} className={linkClassName} {...linkProps}>
         {children}
       </a>
     )
@@ -671,7 +744,7 @@ const SidebarItemLink = ({
   return (
     <DrawerClose
       appearance="inline"
-      render={<a ref={ref} className={linkClassName} {...props} />}
+      render={<a ref={ref} className={linkClassName} {...linkProps} />}
     >
       {children}
     </DrawerClose>
@@ -874,10 +947,14 @@ const SidebarSubItemLink = ({
 }: SidebarSubItemLinkProps) => {
   const { closeOnSelect } = useSidebarMobileContext()
   const linkClassName = cn(sidebarSubNavItemClasses(active), className)
+  const linkProps = {
+    ...props,
+    ...getSidebarActiveLinkProps(active),
+  }
 
   if (!closeOnSelect) {
     return (
-      <a ref={ref} className={linkClassName} {...props}>
+      <a ref={ref} className={linkClassName} {...linkProps}>
         {children}
       </a>
     )
@@ -886,7 +963,7 @@ const SidebarSubItemLink = ({
   return (
     <DrawerClose
       appearance="inline"
-      render={<a ref={ref} className={linkClassName} {...props} />}
+      render={<a ref={ref} className={linkClassName} {...linkProps} />}
     >
       {children}
     </DrawerClose>
