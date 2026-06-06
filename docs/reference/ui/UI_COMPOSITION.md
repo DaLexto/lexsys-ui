@@ -177,7 +177,7 @@ existing primitives:
 | Scrollable nav                     | —                                | `ScrollArea`     | `SidebarContent` viewport                                                                                            |
 | Nested groups (planned SB.9)       | `@base-ui/react/collapsible`     | `Collapsible`    | `SidebarSubList` / collapsible `SidebarGroup`                                                                        |
 | Icon rail tooltips (planned SB.7+) | `@base-ui/react/tooltip`         | `Tooltip`        | Label hints when `collapsible="icon"`                                                                                |
-| Row badges (planned SB.7)          | —                                | `Badge`          | `SidebarItemBadge`                                                                                                   |
+| Row badges                         | —                                | `Badge`          | `SidebarItemBadge`                                                                                                   |
 | Menu selection tokens              | `@base-ui/react/menu`            | `Menu`           | **Not** used for Sidebar nav chrome — Menu checked tokens are for transient overlays, not persistent nav (see SB.11) |
 
 **Rule:** Drawer is mobile-only. Desktop collapse (SB.5) uses CSS width/translate on
@@ -234,7 +234,7 @@ Lexsys naming is fixed:
 | ------------------- | ------------------------------------------- | ---------------------------------------------- |
 | `SidebarMenu`       | **`SidebarList`**                           | Shipped — `<ul>` nav list                      |
 | `SidebarMenuItem`   | **`SidebarItem`**                           | Shipped — `<li>` wrapper                       |
-| `SidebarMenuBadge`  | **`SidebarItemBadge`**                      | Planned SB.7 — row adornment, not shell chrome |
+| `SidebarMenuBadge`  | **`SidebarItemBadge`**                      | Shipped SB.7 — row adornment, not shell chrome |
 | `SidebarMenuButton` | **`SidebarItemLink` / `SidebarItemButton`** | Shipped — split by element                     |
 
 **Do not use:** `SidebarBadge`, `SidebarMenuBadge`.
@@ -257,7 +257,7 @@ Lexsys naming is fixed:
 `.sidebar-expandable`) · `offcanvas` (panel slides off-canvas). Animation uses
 `--lex-sidebar-transition-*` and global motion semantics — not Drawer on desktop.
 
-#### Layer 1 — item chrome (planned SB.7 / SB.8)
+#### Layer 1 — item chrome (SB.7 shipped; SB.8 planned)
 
 ```tsx
 <SidebarItem>
@@ -267,17 +267,17 @@ Lexsys naming is fixed:
     </SidebarItemIcon>
     <span className="sidebar-expandable">Inbox</span>
   </SidebarItemButton>
-  <SidebarItemBadge variant="secondary">24</SidebarItemBadge>
+  <SidebarItemBadge variant="neutral">24</SidebarItemBadge>
 </SidebarItem>
 ```
 
-| Export                | Role                                      |
-| --------------------- | ----------------------------------------- |
-| `SidebarItemIcon`     | Fixed icon slot                           |
-| `SidebarItemBadge`    | Trailing count; `dot` mode when collapsed |
-| `SidebarItemAction`   | Row hover action (ghost `Button`)         |
-| `SidebarItemShortcut` | `<kbd>` hint; hidden in icon collapse     |
-| `SidebarGroupAction`  | Action in group label row                 |
+| Export                | Role                                                                              |
+| --------------------- | --------------------------------------------------------------------------------- |
+| `SidebarItemIcon`     | Fixed icon slot                                                                   |
+| `SidebarItemBadge`    | Trailing count; auto `dot` when icon-collapsed on desktop; `dot` prop to override |
+| `SidebarItemAction`   | Row hover action (ghost `Button`)                                                 |
+| `SidebarItemShortcut` | `<kbd>` hint; hidden in icon collapse                                             |
+| `SidebarGroupAction`  | Action in group label row                                                         |
 
 `SidebarItem` layout: `relative flex items-center`; variants in `Sidebar.variants.ts`
 — no consumer CSS hacks.

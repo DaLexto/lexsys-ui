@@ -15,6 +15,7 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react"
+import { Badge } from "@/components/primitives/Badge"
 import { Button } from "@/components/primitives/Button"
 import {
   Drawer,
@@ -43,6 +44,7 @@ import type {
   SidebarGroupLabelProps,
   SidebarGroupProps,
   SidebarHeaderProps,
+  SidebarItemBadgeProps,
   SidebarItemButtonProps,
   SidebarItemLinkProps,
   SidebarItemProps,
@@ -64,6 +66,10 @@ import {
   sidebarGroupContentClasses,
   sidebarGroupLabelClasses,
   sidebarGroupClasses,
+  sidebarItemBadgeClasses,
+  sidebarItemBadgeCollapsedClasses,
+  sidebarItemBadgeDotClasses,
+  sidebarItemBadgeLabelClasses,
   sidebarItemClasses,
   sidebarMainClasses,
   sidebarMobileHeaderClasses,
@@ -698,6 +704,62 @@ const SidebarItemButton = ({
 
 SidebarItemButton.displayName = "SidebarItemButton"
 
+const getSidebarItemBadgeLabel = (children: ReactNode): string | undefined => {
+  if (typeof children === "string" || typeof children === "number") {
+    return String(children)
+  }
+
+  return undefined
+}
+
+const SidebarItemBadge = ({
+  ref,
+  variant = "neutral",
+  appearance,
+  size = "sm",
+  dot,
+  className,
+  children,
+  ...props
+}: SidebarItemBadgeProps) => {
+  const badgeLabel = getSidebarItemBadgeLabel(children)
+
+  if (dot) {
+    return (
+      <span
+        ref={ref}
+        role="status"
+        aria-label={badgeLabel}
+        className={cn(
+          sidebarItemBadgeClasses(),
+          sidebarItemBadgeDotClasses(variant),
+          className,
+        )}
+        {...props}
+      />
+    )
+  }
+
+  return (
+    <Badge
+      ref={ref}
+      variant={variant}
+      appearance={appearance}
+      size={size}
+      className={cn(
+        sidebarItemBadgeClasses(),
+        sidebarItemBadgeCollapsedClasses(),
+        className,
+      )}
+      {...props}
+    >
+      <span className={sidebarItemBadgeLabelClasses()}>{children}</span>
+    </Badge>
+  )
+}
+
+SidebarItemBadge.displayName = "SidebarItemBadge"
+
 export {
   Sidebar,
   SidebarProvider,
@@ -712,6 +774,7 @@ export {
   SidebarItem,
   SidebarItemLink,
   SidebarItemButton,
+  SidebarItemBadge,
   SidebarTrigger,
   SidebarCollapseTrigger,
   SidebarRail,

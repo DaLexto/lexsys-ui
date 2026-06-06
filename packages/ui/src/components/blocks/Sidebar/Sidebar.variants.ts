@@ -4,6 +4,7 @@
  * Variant classes for the Sidebar block.
  */
 
+import type { BadgeVariant } from "../../primitives/Badge/Badge.types"
 import type { SidebarShellOptions } from "./Sidebar.types"
 
 export const sidebarRootClasses = ({
@@ -109,13 +110,52 @@ export const sidebarNavListClasses = (): string => {
 }
 
 export const sidebarItemClasses = (): string => {
-  return "lex-sidebar__row relative flex items-center"
+  return "lex-sidebar__row relative flex items-center [&>:first-child]:min-w-0 [&>:first-child]:flex-1"
+}
+
+export const sidebarItemBadgeClasses = (): string => {
+  return [
+    "lex-sidebar__item-badge shrink-0",
+    "max-w-(--lex-sidebar-item-badge-max-width) truncate",
+    "md:group-data-[collapsed=true]/sidebar:absolute md:group-data-[collapsed=true]/sidebar:top-1",
+    "md:group-data-[collapsed=true]/sidebar:right-1 md:group-data-[collapsed=true]/sidebar:max-w-none",
+  ].join(" ")
+}
+
+export const sidebarItemBadgeCollapsedClasses = (): string => {
+  return [
+    "md:group-data-[collapsed=true]/sidebar:h-2 md:group-data-[collapsed=true]/sidebar:min-h-2",
+    "md:group-data-[collapsed=true]/sidebar:w-2 md:group-data-[collapsed=true]/sidebar:min-w-2",
+    "md:group-data-[collapsed=true]/sidebar:px-0",
+    "md:group-data-[collapsed=true]/sidebar:text-[0px] md:group-data-[collapsed=true]/sidebar:leading-(--lex-badge-font-line-height)",
+  ].join(" ")
+}
+
+export const sidebarItemBadgeLabelClasses = (): string => {
+  return "md:group-data-[collapsed=true]/sidebar:sr-only"
+}
+
+const sidebarItemBadgeDotVariantClasses: Record<BadgeVariant, string> = {
+  neutral: "bg-(--lex-badge-neutral-foreground)",
+  primary: "bg-(--lex-badge-primary-background)",
+  success: "bg-(--lex-color-feedback-success-foreground)",
+  warning: "bg-(--lex-color-feedback-warning-foreground)",
+  danger: "bg-(--lex-badge-danger-background)",
+}
+
+export const sidebarItemBadgeDotClasses = (
+  variant: BadgeVariant = "neutral",
+): string => {
+  return [
+    "size-2 rounded-full border-0 p-0",
+    sidebarItemBadgeDotVariantClasses[variant],
+  ].join(" ")
 }
 
 export const sidebarNavItemClasses = (active?: boolean): string => {
   const base = [
     "lex-sidebar__item",
-    "relative flex w-full items-center gap-(--lex-sidebar-item-gap)",
+    "relative flex min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
     "rounded-(--lex-sidebar-item-radius)",
     "px-(--lex-sidebar-item-padding-x) py-(--lex-sidebar-item-padding-y)",
     "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",

@@ -12,6 +12,7 @@ import type {
   ReactNode,
   Ref,
 } from "react"
+import type { BadgeProps } from "@/components/primitives/Badge"
 import type { ButtonProps } from "@/components/primitives/Button"
 
 export type SidebarCollapsible = "none" | "icon" | "offcanvas"
@@ -136,6 +137,14 @@ export interface SidebarExpandableProps extends HTMLAttributes<HTMLSpanElement> 
   ref?: Ref<HTMLSpanElement>
   className?: string
   children?: ReactNode
+}
+
+export interface SidebarItemBadgeProps extends BadgeProps {
+  /**
+   * Force dot indicator instead of the count badge.
+   * Defaults to dot when the sidebar is icon-collapsed on desktop.
+   */
+  dot?: boolean
 }
 
 export interface SidebarShellOptions {
