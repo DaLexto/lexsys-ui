@@ -234,9 +234,11 @@ After a successful npm publish, Release CI creates **one** GitHub release (not p
 | Tag   | `lexsys@<version>` | `lexsys@0.1.0` |
 | Title | `Lexsys <version>` | `Lexsys 0.1.0` |
 
-Notes are extracted from root `CHANGELOG.md` for that version. `changeset publish` runs with
-`--no-git-tag` so legacy `@dalexto/*@*` tags are not created on new publishes. Older releases
-remain on GitHub for history.
+Notes are extracted from root `CHANGELOG.md` for that version; if that section is missing,
+Release CI falls back to `packages/entry/CHANGELOG.md` (Changesets-generated). The step always
+runs after Changesets and is idempotent: skip when the GitHub release already exists, or when the
+version is not yet on npm. `changeset publish` runs with `--no-git-tag` so legacy `@dalexto/*@*`
+tags are not created on new publishes. Older releases remain on GitHub for history.
 
 ### 0.0.x bump (`@next`)
 

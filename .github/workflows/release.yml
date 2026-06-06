@@ -55,8 +55,10 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
 
+      # Always run: idempotent script checks npm + existing release tag.
+      # changesets/action may publish without setting outputs.published when no
+      # pending changesets remain (fallback publish path).
       - name: Create unified GitHub release
-        if: steps.changesets.outputs.published == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_SHA: ${{ github.sha }}
