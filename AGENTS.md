@@ -52,7 +52,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 
 Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). Scoped verify checklists: **`$monorepo-verify-gate`**.
 
-**During [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) step 4:** load **`$monorepo-verify-gate`** — numbered checklist from change type; **you run** commands and reply **`verify passed`** or paste errors. The agent does not run `pnpm` verify unless you explicitly ask in that turn.
+**During [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) step 4:** load **[`$monorepo-verify-gate`](./.cursor/skills/monorepo-verify-gate/SKILL.md)** — **you run** the checklist and reply **`verify passed`** or paste errors. The agent does not run `pnpm` verify unless you explicitly ask. Pre-git obligation: [§ Format gate](./.cursor/skills/monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write).
 
 **Outside agent-workflow:** the agent may run `pnpm check`, scoped `*:check`, `pnpm playground:build`, or unit tests when you request it.
 
@@ -67,7 +67,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 | Skill                   | When                                                                                                                                |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `$agent-workflow`       | **Default** monorepo implementation procedure (unless a single other skill is named)                                                |
-| `$monorepo-verify-gate` | User-run verify checklists by change type (step 4; format last when committing)                                                     |
+| `$monorepo-verify-gate` | User-run verify checklists (step 4); [format gate](./.cursor/skills/monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write) before git write |
 | `$registry-sync`        | UI changed → sync templates + reconciled items ([`.cursor/skills/registry-sync/`](./.cursor/skills/registry-sync/))                 |
 | `$components-authoring` | New or edited UI primitive/block/template; tests ([`.cursor/skills/components-authoring/`](./.cursor/skills/components-authoring/)) |
 | `$docs-authoring`       | Markdown layout and freshness ([`.cursor/skills/docs-authoring/`](./.cursor/skills/docs-authoring/))                                |
@@ -80,7 +80,7 @@ Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). S
 
 ## Change workflow
 
-**Procedure (canonical):** [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) — branch → implement → docs → verify (**`$monorepo-verify-gate`**, you run checks) → PR last (**`$git-commit`** when you ask). Session state: **git + [REVIEW_TODO.md](./docs/REVIEW_TODO.md)** only.
+**Procedure (canonical):** [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) — branch → implement → docs → verify ([`$monorepo-verify-gate`](./.cursor/skills/monorepo-verify-gate/SKILL.md)) → PR last ([`$git-commit`](./.cursor/skills/git-commit/SKILL.md) when you ask). Session state: **git + [REVIEW_TODO.md](./docs/REVIEW_TODO.md)** only.
 
 Use it for non-trivial work (multi-file, behavior, CLI/registry/templates, agreed plans); load domain skills from the table above as that skill directs.
 

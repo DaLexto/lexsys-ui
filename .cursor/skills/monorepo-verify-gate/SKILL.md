@@ -18,6 +18,23 @@ Command names: [SCRIPTS.md](../../docs/operations/SCRIPTS.md). Surfaces: [TESTIN
 
 ---
 
+## Format gate (mandatory — blocks git write)
+
+**Before every commit, push to `dev`, PR, or ff `main`:** the checklist MUST end with **`pnpm format:check`**.
+
+CI runs `format:check` inside `pnpm check`. Unformatted code → CI fails → fix push → **double CI run**.
+
+| Step | Who | Action |
+| ---- | --- | ------ |
+| 1 | User | Run `pnpm format:check` (last line on every pre-git checklist) |
+| 2 | User | If it fails: `pnpm format`, then `pnpm format:check` again until green |
+| 3 | User | Reply **`verify passed`** (or **`format ok`** when only format was pending) |
+| 4 | Agent | Only then proceed with **`$git-commit`** (commit / push / PR / ff `main`) |
+
+**Agent MUST NOT:** open a PR, push, ff `main`, or mark verification as passed in a PR body without your confirmed green `format:check`.
+
+---
+
 ## When to use
 
 - After implementation (agent-workflow step 4)
@@ -36,10 +53,10 @@ Command names: [SCRIPTS.md](../../docs/operations/SCRIPTS.md). Surfaces: [TESTIN
 1. Inspect change set: `git diff --stat`, `git status --short`, or the paths you know were edited.
 2. Match one or more **scenarios** below (combine when needed, e.g. `ui-registry` + `pre-pr`).
 3. Merge commands in order; **dedupe** (keep first occurrence).
-4. If **commit or PR is planned**, append **`pnpm format:check`** as the **last line** (unless `docs-only` already included it).
-5. Output the [checklist template](#verification-checklist-template).
-6. **Stop and wait** for **`verify passed`** (covers all lines including format) or error output from a step.
-7. On failure: help fix → re-issue checklist with **remaining steps only**.
+4. When commit, push, PR, or ff `main` is planned: apply [§ Format gate](#format-gate-mandatory--blocks-git-write) — append **`pnpm format:check`** last (`docs-only` already includes it).
+5. Output the [checklist template](#verification-checklist-template); on format failure use [format failure path](#format-failure-path).
+6. **Stop and wait** for **`verify passed`** (covers all lines including format) or error output from a step. **Do not run git/gh until this reply.**
+7. On failure: help fix → if format failed, user runs `pnpm format` → re-check → re-issue checklist with **remaining steps only**.
 
 ---
 
@@ -60,8 +77,6 @@ Command names: [SCRIPTS.md](../../docs/operations/SCRIPTS.md). Surfaces: [TESTIN
 | `playground`             | `apps/playground/**`                                                     | `pnpm playground:check`                                                                                            |
 | `multi-package`          | Root config, turbo, eslint, or 2+ packages                               | `pnpm check`                                                                                                       |
 | `pre-pr`                 | Broad branch ready for PR                                                | Scoped checks for touched areas, then `pnpm check` if still unsure                                                 |
-
-**Format when committing:** for code scenarios, add **`pnpm format:check`** as the final checklist step when you plan to commit — not a separate scenario row. `docs-only` already includes format.
 
 ---
 
@@ -90,9 +105,26 @@ When the diff does not match a single scenario, map paths to commands (prefer sc
 
 1. `pnpm …`
 2. `pnpm …`
-   N. `pnpm format:check` <!-- last, when commit/PR planned -->
+N. `pnpm format:check` <!-- mandatory last step before commit / push / PR / ff main -->
 
-Reply with **verify passed** or paste errors from step N.
+If step N fails: `pnpm format`, then repeat `pnpm format:check`.
+
+Reply with **verify passed** only when every step (including format) is green, or paste errors.
+```
+
+---
+
+## Format failure path
+
+When `pnpm format:check` fails:
+
+```markdown
+Format check failed. Run:
+
+1. `pnpm format`
+2. `pnpm format:check`
+
+Reply **format ok** or **verify passed** when green. Do not push / open PR / ff main until then.
 ```
 
 ---
@@ -121,6 +153,8 @@ Wait for **`format ok`** / **`format passed`** once, then proceed with **`$git-c
 ## Do not
 
 - Run `pnpm` verify unless you explicitly ask the agent to
+- Proceed with git write without [§ Format gate](#format-gate-mandatory--blocks-git-write) / **`verify passed`**
+- Mark PR verification tables as "passed" without user confirmation
 - Suggest dev servers (`playground:dev`, `vite dev`, `next dev`) as default verification
 - Treat playground as consumer install truth — [TESTING.md](../../docs/operations/TESTING.md)
 - Duplicate the full SCRIPTS handbook in chat

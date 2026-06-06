@@ -98,7 +98,7 @@ Details: [Conventional Commits — breaking change](https://www.conventionalcomm
 ## Before committing (agent)
 
 1. **Inspect:** `git status`, `git diff`, `git log -5` — see [`$git-commit` procedures § Commit](../skills/git-commit/procedures.md#commit).
-2. **Verify/format:** follow [`$agent-workflow`](../skills/agent-workflow/SKILL.md) step 4 and [`$monorepo-verify-gate`](../skills/monorepo-verify-gate/SKILL.md). Do **not** require a separate `pnpm format:check` if step 4 checklist included format and the user replied **`verify passed`**. Use [format fallback](../skills/monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) only when committing without that pass.
+2. **Verify/format:** [`$agent-workflow`](../skills/agent-workflow/SKILL.md) step 4 + [`$monorepo-verify-gate` § Format gate](../skills/monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write) before git write. [Format fallback](../skills/monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) only when git is requested without a prior step 4 pass.
 3. Stage only task paths; exclude `.env`, credentials, accidental `dist/`; no `git add -A` unless the user wants everything; no `--no-verify` unless the user asks; no interactive git (`-i`).
 
 Commit command (PowerShell):
@@ -128,7 +128,7 @@ When unsure, use `full.md`.
 
 ### Before opening a PR
 
-- **`verify passed`** (or [format fallback](../skills/monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) if format was skipped on step 4).
+- [`$monorepo-verify-gate` § Format gate](../skills/monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write) — **`verify passed`** before `gh pr create`.
 - Inspect vs `dev` per [procedures § Pull request](../skills/git-commit/procedures.md#pull-request).
 - Push only when the user explicitly requests it.
 

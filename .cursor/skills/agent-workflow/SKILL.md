@@ -86,17 +86,16 @@ Early hints by path (step 2): `packages/ui/**` → `$components-authoring`; `pac
 
 ### 4. Verify (user runs; agent plans)
 
-1. Load **[`$monorepo-verify-gate`](./monorepo-verify-gate/SKILL.md)** and follow its procedure.
-2. **Stop and wait** for **`verify passed`** or errors — do not run `pnpm` unless you explicitly ask.
+1. Load **[`$monorepo-verify-gate`](./monorepo-verify-gate/SKILL.md)** and follow its procedure (includes [§ Format gate](./monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write) when git write will follow).
+2. **Stop and wait** for **`verify passed`** or errors — do not run `pnpm` unless you explicitly ask. **Do not proceed to step 5 without this.**
 3. After pass → step 5 when you request git.
 
 Reminders (include in checklist context when relevant): no default dev servers; playground ≠ consumer install truth — [TESTING.md](../../docs/operations/TESTING.md).
 
 ### 5. PR last (user confirms; agent assists git)
 
-- Only after step 4 **`verify passed`** and you **explicitly** request commit / push / PR.
-- If step 4 checklist **already included** `pnpm format:check` and you confirmed verify → go to **`$git-commit`** — **do not** ask for format again.
-- If commit is requested but format was **not** on the last checklist → use **`$monorepo-verify-gate`** [format fallback](./monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) once (`format ok`) → then **`$git-commit`**.
+- Only after step 4 **`verify passed`** and you **explicitly** request commit / push / PR / ff `main`.
+- If git is requested without a prior step 4 pass → [`$monorepo-verify-gate` format fallback](./monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) → then **`$git-commit`**.
 - **`$git-commit`** ([procedures](../git-commit/procedures.md)) + [git-commits.mdc](../rules/git-commits.mdc) — agent runs git only when you ask in that turn.
 - **PR labels:** `gh pr create` + `gh pr edit --add-label` + `gh pr view --json labels` in the **same turn** — PR is incomplete without verified labels.
 - PR target **`dev`** unless you explicitly request **`main`**. Never `gh pr merge` unless you explicitly request merge.
@@ -115,7 +114,8 @@ One-line fix, no contract/catalog impact: skip **`$docs-authoring`** alignment p
 
 - Run step 4 `pnpm` commands unless you explicitly ask
 - Run `pnpm registry:sync` during step 2 unless you explicitly ask
-- Repeat `pnpm format:check` at step 5 if step 4 verify already covered it
+- Git write without [`$monorepo-verify-gate` § Format gate](./monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write) / **`verify passed`**
+- Mark PR verification as "passed" without user confirmation
 - Expand AGENTS with procedure essays — edit this skill or `$monorepo-verify-gate`
 - Commit / push / PR without explicit request in that turn
 - Return a PR URL before `type:*`, `area:*`, and `status:ready-for-review` labels are applied and verified
