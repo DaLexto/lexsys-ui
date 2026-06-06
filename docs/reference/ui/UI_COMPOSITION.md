@@ -150,7 +150,7 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 | -------------- | ------- | ---------------------------------------- |
 | FormField      | shipped | field, input                             |
 | SettingsPanel  | shipped | card                                     |
-| Sidebar        | shipped | button, drawer, scroll-area              |
+| Sidebar        | shipped (SB.* enterprise upgrade in progress) | button, drawer, scroll-area; planned: tooltip, badge, collapsible |
 | AuthForm       | shipped | card, input, button, separator           |
 | CommandPalette | shipped | dialog, combobox, scroll-area, separator |
 | Empty          | shipped | —                                        |
@@ -158,6 +158,135 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 | StatsCard      | shipped | card                                     |
 | FilterToolbar  | shipped | toolbar, input, button, select           |
 | DataTable      | shipped | table, pagination                        |
+
+## Sidebar block
+
+Enterprise navigation shell — mobile Drawer overlay + desktop persistent column.
+Tracked in [Backlog § SB](../../REVIEW_TODO.md#sb-sidebar-enterprise-upgrade);
+roadmap step 7.
+
+### Base UI primitive map (SB.1)
+
+Base UI has **no** dedicated app-sidebar primitive. Lexsys `Sidebar` composes
+existing primitives:
+
+| Surface | Base UI module | Lexsys primitive | Role in Sidebar |
+| ------- | -------------- | ---------------- | --------------- |
+| Mobile overlay | `@base-ui/react/dialog` (Drawer) | `Drawer` | Slide-in nav below `md`; `side=left`, swipe-to-close |
+| Desktop column | — (plain layout) | — | Persistent `<aside>` shell; **not** Drawer |
+| Scrollable nav | — | `ScrollArea` | `SidebarContent` viewport |
+| Nested groups (planned SB.9) | `@base-ui/react/collapsible` | `Collapsible` | `SidebarSubList` / collapsible `SidebarGroup` |
+| Icon rail tooltips (planned SB.7+) | `@base-ui/react/tooltip` | `Tooltip` | Label hints when `collapsible="icon"` |
+| Row badges (planned SB.7) | — | `Badge` | `SidebarItemBadge` |
+| Menu selection tokens | `@base-ui/react/menu` | `Menu` | **Not** used for Sidebar nav chrome — Menu checked tokens are for transient overlays, not persistent nav (see SB.11) |
+
+**Rule:** Drawer is mobile-only. Desktop collapse (SB.5) uses CSS width/translate on
+the desktop shell — not a second Drawer instance.
+
+### Wrapper audit (SB.2)
+
+| Finding | Verdict | Resolution |
+| ------- | ------- | ---------- |
+| Compound export shape (`Sidebar*` flat named exports) | OK — matches CS.4 compound-first | Keep |
+| `SidebarMobileContext` for drawer close-on-select | OK — typed context, not children cloning | Keep |
+| Template drift: sandbox `partitionSidebarChildren` + mobile header strip | Bug — monorepo source behind consumer | **Shipped SB.3** |
+| Nav items used Menu checked tokens (`--lex-menu-item-checked-*`) | Wrong semantic layer for persistent nav | **Shipped SB.11** — `--lex-sidebar-item-*` |
+| No `SidebarProvider` / desktop collapse API | Missing feature (not a wrapper bug) | **Planned SB.5** — remove sandbox `AppLayout` hack |
+| `Select` ref asymmetry (CS.4) | Unrelated to Sidebar | No Sidebar change |
+
+### Shipped compound tree (today)
+
+```tsx
+<Sidebar>
+  <SidebarMobileHeader>{/* md:hidden strip — SB.3 */}</SidebarMobileHeader>
+  <SidebarHeader />
+  <SidebarContent>
+    <SidebarGroup>
+      <SidebarGroupLabel />
+      <SidebarGroupContent>
+        <SidebarList>
+          <SidebarItem>
+            <SidebarItemLink href="/" active>Dashboard</SidebarItemLink>
+          </SidebarItem>
+        </SidebarList>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  </SidebarContent>
+  <SidebarFooter />
+  <SidebarTrigger />
+</Sidebar>
+```
+
+Nav item active state: **variant A** — subtle background tint + left accent bar
+(`--lex-sidebar-item-accent-*`). Tokens: `packages/tokens/src/components/sidebar.ts`
+(SB.19); width transition: `--lex-sidebar-transition-*`; global slide motion:
+`motion.duration.overlayEnter` / `overlayExit`, `motion.easing.easeIn` / `easeOut`
+(SB.18).
+
+### Enterprise API — locked naming (SB.4)
+
+Inspiration only: [shadcn Sidebar](https://ui.shadcn.com/docs/components/radix/sidebar).
+Lexsys naming is fixed:
+
+| shadcn | Lexsys | Notes |
+| ------ | ------ | ----- |
+| `SidebarMenu` | **`SidebarList`** | Shipped — `<ul>` nav list |
+| `SidebarMenuItem` | **`SidebarItem`** | Shipped — `<li>` wrapper |
+| `SidebarMenuBadge` | **`SidebarItemBadge`** | Planned SB.7 — row adornment, not shell chrome |
+| `SidebarMenuButton` | **`SidebarItemLink` / `SidebarItemButton`** | Shipped — split by element |
+
+**Do not use:** `SidebarBadge`, `SidebarMenuBadge`.
+
+**Naming rule:** row-level = `SidebarItem*`; group-level = `SidebarGroup*`; shell-level =
+`Sidebar*` / `SidebarProvider`.
+
+#### Layer 0 — context and shell (planned SB.5)
+
+| Export | Role |
+| ------ | ---- |
+| `SidebarProvider` | `open`, `collapsed`, `setOpen`, `toggleSidebar`, `isMobile`, optional `persistKey` |
+| `useSidebar` | Triggers outside the aside (header collapse button) |
+| `Sidebar` | `side?: "left" \| "right"`, `collapsible?: "none" \| "icon" \| "offcanvas"` |
+| `SidebarRail` | Desktop edge affordance to expand/collapse |
+| `SidebarTrigger` | Mobile drawer open (shipped) |
+| `SidebarCollapseTrigger` | Desktop-only collapse toggle |
+
+**Collapse modes:** `none` (fixed width) · `icon` (rail + hidden labels via
+`.sidebar-expandable`) · `offcanvas` (panel slides off-canvas). Animation uses
+`--lex-sidebar-transition-*` and global motion semantics — not Drawer on desktop.
+
+#### Layer 1 — item chrome (planned SB.7 / SB.8)
+
+```tsx
+<SidebarItem>
+  <SidebarItemButton active>
+    <SidebarItemIcon><Inbox /></SidebarItemIcon>
+    <span className="sidebar-expandable">Inbox</span>
+  </SidebarItemButton>
+  <SidebarItemBadge variant="secondary">24</SidebarItemBadge>
+</SidebarItem>
+```
+
+| Export | Role |
+| ------ | ---- |
+| `SidebarItemIcon` | Fixed icon slot |
+| `SidebarItemBadge` | Trailing count; `dot` mode when collapsed |
+| `SidebarItemAction` | Row hover action (ghost `Button`) |
+| `SidebarItemShortcut` | `<kbd>` hint; hidden in icon collapse |
+| `SidebarGroupAction` | Action in group label row |
+
+`SidebarItem` layout: `relative flex items-center`; variants in `Sidebar.variants.ts`
+— no consumer CSS hacks.
+
+#### Layer 2 — nested nav (planned SB.9 / SB.17)
+
+`SidebarSubList`, `SidebarSubItemLink`, `SidebarSubItemButton` — indented nested
+rows; collapsible `SidebarGroup` wraps `Collapsible`.
+
+**Projected registry deps after SB wave:** `button`, `drawer`, `scroll-area`,
+`tooltip`, `badge`, `collapsible`.
+
+---
 
 ## Template catalog
 
@@ -381,6 +510,7 @@ Workflow: edit `packages/ui` → `pnpm registry:sync` (templates + reconciled `s
 | 4    | Blocks/templates optimization pass (BO.1–BO.7)            | shipped |
 | 5    | Additional blocks/templates beyond pilot set              | planned |
 | 6    | Base UI primitive expansion (9 modules above)             | shipped |
+| 7    | Sidebar enterprise upgrade (SB.1–SB.20)                   | in progress — [Backlog § SB](../../REVIEW_TODO.md#sb-sidebar-enterprise-upgrade) |
 
 Tracked in [Backlog § UI composition](../../REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 

@@ -307,10 +307,10 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 | ID    | Phase    | Task                                                                       | Depends            | Status  |
 | ----- | -------- | -------------------------------------------------------------------------- | ------------------ | ------- |
-| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                 | —                  | planned |
-| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                          | —                  | planned |
+| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                 | —                  | shipped |
+| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                          | —                  | shipped |
 | SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                 | —                  | shipped |
-| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface           | SB.1, SB.2         | planned |
+| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface           | SB.1, SB.2         | shipped |
 | SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)     | SB.4               | shipped |
 | SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases         | SB.18              | shipped |
 | SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`      | SB.19              | shipped |
