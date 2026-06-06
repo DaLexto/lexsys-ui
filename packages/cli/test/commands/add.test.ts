@@ -124,4 +124,13 @@ describe("runAdd", () => {
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
     ).resolves.toBe("user cn")
   })
+
+  test("exits with code 1 when --yes is passed without component names", async () => {
+    await runAdd(["--yes"])
+
+    expect(consoleOutput()).toContain("No components specified.")
+    expect(consoleOutput()).toContain("lexsys update --yes")
+    expect(process.exitCode).toBe(1)
+    process.exitCode = 0
+  })
 })

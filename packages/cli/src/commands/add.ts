@@ -56,7 +56,14 @@ export const runAdd = async (args: string[]): Promise<void> => {
 
   if (!items.length) {
     if (yes) {
-      console.log("No components specified. Pass component names to add them.")
+      console.log(
+        "No components specified. Pass names to install non-interactively, for example:",
+      )
+      console.log("  lexsys add button dialog --yes")
+      console.log(
+        "To refresh all tracked components, use `lexsys update --yes` instead.",
+      )
+      process.exitCode = 1
       return
     }
 

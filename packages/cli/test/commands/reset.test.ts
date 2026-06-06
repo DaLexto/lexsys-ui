@@ -56,4 +56,25 @@ describe("runReset", () => {
     expect(restored).not.toBe("user modified")
     expect(consoleOutput()).toContain("updated successfully")
   })
+
+  test("resets all tracked components when --yes is passed without names", async () => {
+    await writeJson(join(tempDir, "package.json"), {
+      dependencies: {
+        "@base-ui/react": "^1.0.0-beta.3",
+        "class-variance-authority": "^0.7.1",
+        clsx: "^2.1.1",
+        "tailwind-merge": "^3.5.0",
+      },
+      packageManager: "pnpm@10.33.0",
+    })
+    await mkdir(join(tempDir, "src"), { recursive: true })
+    await writeFile(join(tempDir, "src/style.css"), ":root {}\n", "utf-8")
+
+    await runAdd(["button"])
+
+    await runReset(["--yes", "--dry-run"])
+
+    expect(consoleOutput()).toContain("Dry run: no files will be changed.")
+    expect(consoleOutput()).toContain("- Button")
+  })
 })

@@ -205,4 +205,14 @@ describe("runUninstall", () => {
     expect(consoleOutput()).toContain("- shared resources:")
     expect(consoleOutput()).toContain("1 conflicted")
   })
+
+  test("uninstalls all tracked components when --yes is passed without names", async () => {
+    await writeConsumerProject(tempDir)
+    await runAdd(["button"])
+
+    await runUninstall(["--yes", "--dry-run"])
+
+    expect(consoleOutput()).toContain("Dry run: no files will be removed.")
+    expect(consoleOutput()).toContain("- Button")
+  })
 })

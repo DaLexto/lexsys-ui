@@ -166,12 +166,12 @@ No merge candidate — `list` is catalog; `registry` is provider/debug (`--sourc
 
 ## UX candidates (M12.4)
 
-| ID    | Finding                                                                   | Suggested fix                                  |
-| ----- | ------------------------------------------------------------------------- | ---------------------------------------------- |
-| U12.1 | `add --yes` with no component names prints message and exits (no install) | Document; or treat as “confirm guided” vs skip |
-| U12.2 | `reset` / `uninstall` guided modes lack `--yes` for non-interactive CI    | Optional `-y` + required args policy           |
-| U12.3 | `doctor` exit code 1 on registry fail; `status` same — good               | Document exit codes in CLI.md                  |
-| U12.4 | `registry` with no flags — behavior undocumented in audit table           | Confirm default output in CLI.md spot-check    |
+| ID    | Finding                                                                   | Suggested fix                                    |
+| ----- | ------------------------------------------------------------------------- | ------------------------------------------------ |
+| U12.1 | `add --yes` with no component names prints message and exits (no install) | **Shipped** — fail-fast exit 1 + CLI.md guidance |
+| U12.2 | `reset` / `uninstall` guided modes lack `--yes` for non-interactive CI    | **Shipped** — `--yes` selects all `installed`    |
+| U12.3 | `doctor` exit code 1 on registry fail; `status` same — good               | **Shipped** — CLI.md § Exit codes                |
+| U12.4 | `registry` with no flags — behavior undocumented in audit table           | **Shipped** — CLI.md + `registry.test.ts`        |
 
 One PR per item per M12 scope.
 
@@ -195,5 +195,5 @@ audit**; update when M12.2–M12.4 ship behavior changes.
 
 ## Next step
 
-**M12.3:** Optional — C12.5 dispatch boilerplate in `index.ts` (low priority).
-**M12.4:** UX items U12.1–U12.4 — one PR per row.
+**M12.4:** Shipped — U12.1–U12.4 (see UX candidates table).
+**M12.5 / optional:** C12.5 dispatch boilerplate in `index.ts` (low priority).
