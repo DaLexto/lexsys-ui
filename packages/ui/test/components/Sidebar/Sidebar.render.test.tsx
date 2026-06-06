@@ -299,7 +299,8 @@ describe("Sidebar render", () => {
     const [profileLink] = screen.getAllByRole("link", { name: "Profile" })
 
     expect(subList).toBeInTheDocument()
-    expect(subList).toHaveClass("border-l")
+    expect(subList).toHaveClass("border-s")
+    expect(subList.className).toContain("ms-[calc")
     expect(profileLink).toHaveClass("lex-sidebar__item--active")
     expect(profileLink.className).toContain(
       "var(--lex-sidebar-item-sub-indent)",
@@ -464,6 +465,58 @@ describe("Sidebar render", () => {
     expect(
       skeleton.querySelector(".lex-sidebar__item-skeleton-label"),
     ).toHaveClass("md:group-data-[collapsed=true]/sidebar:hidden")
+  })
+
+  it("applies right-side shell and active accent on inline end", () => {
+    const { container } = render(
+      <SidebarProvider side="right">
+        <Sidebar>
+          <SidebarContent>
+            <SidebarList>
+              <SidebarItem>
+                <SidebarItemLink href="#billing" active>
+                  Billing
+                </SidebarItemLink>
+              </SidebarItem>
+            </SidebarList>
+          </SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    )
+
+    const aside = container.querySelector("aside")
+
+    expect(aside).toHaveAttribute("data-side", "right")
+    expect(aside).toHaveClass("lex-sidebar--right")
+
+    const [billingLink] = screen.getAllByRole("link", { name: "Billing" })
+
+    expect(billingLink.className).toContain("before:start-0")
+    expect(billingLink.className).toContain(
+      "group-data-[side=right]/sidebar:before:end-0",
+    )
+  })
+
+  it("uses logical sub-list chrome under rtl", () => {
+    const { container } = render(
+      <div dir="rtl">
+        <Sidebar>
+          <SidebarContent>
+            <SidebarSubList>
+              <SidebarItem>
+                <SidebarSubItemLink href="#profile">Profile</SidebarSubItemLink>
+              </SidebarItem>
+            </SidebarSubList>
+          </SidebarContent>
+        </Sidebar>
+      </div>,
+    )
+
+    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list")
+
+    expect(subList).toHaveClass("border-s")
+    expect(subList.className).toContain("ms-[calc")
+    expect(subList.className).toContain("ps-(--lex-sidebar-item-sub-indent)")
   })
 
   it("renders SidebarInput as compact search field", () => {

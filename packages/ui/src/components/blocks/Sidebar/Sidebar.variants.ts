@@ -64,8 +64,8 @@ export const sidebarDesktopClasses = ({
     "lex-sidebar__desktop hidden h-full shrink-0 bg-[var(--lex-color-background-subtle)] md:flex md:flex-col",
     "overflow-hidden transition-[width,transform] duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing) motion-reduce:transition-none",
     side === "right"
-      ? "border-l border-[var(--lex-border-default)]"
-      : "border-r border-[var(--lex-border-default)]",
+      ? "border-s border-[var(--lex-border-default)]"
+      : "border-e border-[var(--lex-border-default)]",
   ]
 
   if (collapsible === "icon" && collapsed) {
@@ -73,7 +73,9 @@ export const sidebarDesktopClasses = ({
   } else if (collapsible === "offcanvas" && collapsed) {
     classes.push(
       "w-(--lex-sidebar-width-default)",
-      side === "right" ? "translate-x-full" : "-translate-x-full",
+      side === "right"
+        ? "translate-x-full rtl:-translate-x-full"
+        : "-translate-x-full rtl:translate-x-full",
     )
   } else {
     classes.push("w-(--lex-sidebar-width-default)")
@@ -87,10 +89,10 @@ export const sidebarRailClasses = ({
 }: SidebarShellOptions = {}): string => {
   return [
     "lex-sidebar__rail absolute inset-y-0 hidden w-4 md:block",
-    side === "right" ? "-left-2" : "-right-2",
+    side === "right" ? "-start-2" : "-end-2",
     "cursor-pointer border-0 bg-transparent p-0 outline-none",
     "after:absolute after:inset-y-0 after:w-px after:bg-[var(--lex-border-default)]",
-    side === "right" ? "after:left-2" : "after:right-2",
+    side === "right" ? "after:start-2" : "after:end-2",
   ].join(" ")
 }
 
@@ -121,7 +123,7 @@ export const sidebarItemClasses = (): string => {
   return [
     "lex-sidebar__row group/sidebar-row relative flex items-center",
     "[&>:first-child]:min-w-0 [&>:first-child]:flex-1",
-    "has-[.lex-sidebar__item-action]:[&>:first-child]:pr-8",
+    "has-[.lex-sidebar__item-action]:[&>:first-child]:pe-8",
   ].join(" ")
 }
 
@@ -134,7 +136,7 @@ export const sidebarItemIconClasses = (): string => {
 
 export const sidebarItemActionClasses = (showOnHover = true): string => {
   const classes = [
-    "lex-sidebar__item-action absolute top-1/2 right-1 -translate-y-1/2",
+    "lex-sidebar__item-action absolute top-1/2 end-1 -translate-y-1/2",
     "md:group-data-[collapsed=true]/sidebar:hidden",
   ]
 
@@ -150,7 +152,7 @@ export const sidebarItemActionClasses = (showOnHover = true): string => {
 
 export const sidebarItemShortcutClasses = (): string => {
   return [
-    "lex-sidebar__item-shortcut ml-auto shrink-0",
+    "lex-sidebar__item-shortcut ms-auto shrink-0",
     "rounded-(--lex-sidebar-item-radius) border border-[var(--lex-border-default)]",
     "px-(--lex-space-control-x-xs) py-(--lex-space-control-y-xs)",
     "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",
@@ -171,7 +173,7 @@ export const sidebarItemBadgeClasses = (): string => {
     "lex-sidebar__item-badge shrink-0",
     "max-w-(--lex-sidebar-item-badge-max-width) truncate",
     "md:group-data-[collapsed=true]/sidebar:absolute md:group-data-[collapsed=true]/sidebar:top-1",
-    "md:group-data-[collapsed=true]/sidebar:right-1 md:group-data-[collapsed=true]/sidebar:max-w-none",
+    "md:group-data-[collapsed=true]/sidebar:end-1 md:group-data-[collapsed=true]/sidebar:max-w-none",
   ].join(" ")
 }
 
@@ -208,8 +210,8 @@ export const sidebarItemBadgeDotClasses = (
 export const sidebarSubListClasses = (): string => {
   return [
     "lex-sidebar__sub-list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0",
-    "ml-[calc(var(--lex-sidebar-item-padding-x)+(var(--lex-sidebar-item-icon-size)/2))]",
-    "border-l border-[var(--lex-border-default)] pl-(--lex-sidebar-item-sub-indent)",
+    "ms-[calc(var(--lex-sidebar-item-padding-x)+(var(--lex-sidebar-item-icon-size)/2))]",
+    "border-s border-[var(--lex-border-default)] ps-(--lex-sidebar-item-sub-indent)",
     "md:group-data-[collapsed=true]/sidebar:hidden",
   ].join(" ")
 }
@@ -222,7 +224,16 @@ export const sidebarSubNavItemClasses = (
 
   return [
     base,
-    "pl-[calc(var(--lex-sidebar-item-padding-x)+var(--lex-sidebar-item-sub-indent))]",
+    "ps-[calc(var(--lex-sidebar-item-padding-x)+var(--lex-sidebar-item-sub-indent))]",
+  ].join(" ")
+}
+
+const sidebarNavItemActiveAccentClasses = (): string => {
+  return [
+    "before:absolute before:inset-y-1 before:w-(--lex-sidebar-item-accent-width)",
+    "before:rounded-full before:bg-(--lex-sidebar-item-accent-color) before:content-['']",
+    "before:start-0 group-data-[side=right]/sidebar:before:start-auto",
+    "group-data-[side=right]/sidebar:before:end-0",
   ].join(" ")
 }
 
@@ -258,7 +269,7 @@ export const sidebarNavItemClasses = (
       "lex-sidebar__item--active",
       "bg-(--lex-sidebar-item-background-active) text-(--lex-sidebar-item-foreground-active)",
       "font-(--lex-sidebar-item-font-weight-active)",
-      "before:absolute before:inset-y-1 before:left-0 before:w-(--lex-sidebar-item-accent-width) before:rounded-full before:bg-(--lex-sidebar-item-accent-color) before:content-['']",
+      sidebarNavItemActiveAccentClasses(),
       "hover:bg-(--lex-sidebar-item-background-active) hover:text-(--lex-sidebar-item-foreground-active)",
     ].join(" ")
   }
@@ -280,7 +291,7 @@ export const sidebarItemSkeletonClasses = (indent = false): string => {
 
   if (indent) {
     classes.push(
-      "pl-[calc(var(--lex-sidebar-item-padding-x)+var(--lex-sidebar-item-sub-indent))]",
+      "ps-[calc(var(--lex-sidebar-item-padding-x)+var(--lex-sidebar-item-sub-indent))]",
     )
   }
 

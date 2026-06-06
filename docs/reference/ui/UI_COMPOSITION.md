@@ -424,6 +424,28 @@ defaults, `type="search"`. Place above `SidebarList` inside `SidebarContent` (or
 **Registry deps (sidebar block):** `badge`, `button`, `collapsible`, `drawer`,
 `input`, `scroll-area`.
 
+#### Layer 7 — `side="right"` + RTL (SB.16 shipped)
+
+`SidebarProvider` / `Sidebar` accept `side?: "left" | "right"` (default `"left"`).
+Shell exposes `data-side` on the root `<aside>`. Right-side offcanvas, drawer
+swipe, and desktop border follow `side`. Item chrome uses **logical** spacing
+(`start`/`end`, `ms`/`ps`/`border-s`) so `dir="rtl"` on a layout ancestor mirrors
+indent, active accent, row actions, and sub-lists without extra props.
+
+```tsx
+<SidebarProvider side="right" collapsible="icon">
+  <Sidebar>{/* … */}</Sidebar>
+</SidebarProvider>
+
+// RTL app shell
+<html dir="rtl">
+  <SidebarProvider side="left">{/* inline-start accent + sub-indent */}</SidebarProvider>
+</html>
+```
+
+Active item accent: `before:start-0` (left / inline-start); flips to
+`before:end-0` when `data-side="right"`.
+
 ---
 
 ## Template catalog
