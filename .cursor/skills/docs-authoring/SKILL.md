@@ -3,13 +3,16 @@ name: docs-authoring
 description: >
   Lexsys markdown docs — layout authoring and post-change alignment in one skill.
   Use for documentation.mdc, docs/INDEX.md, new docs, metadata, On this page,
-  Related documentation, freshness pass, stale counts, catalog drift, docs-alignment,
+  Related documentation, freshness pass, stale counts, catalog drift,
   ui:audit:catalog, or AGENTS vs docs duplication. Procedures in procedures.md.
+  No separate docs-alignment skill — alignment is procedures.md § Alignment.
 ---
 
 # Docs authoring
 
-Use for **markdown layout** and **freshness / cross-ref** passes. Governance: [documentation.mdc](../rules/documentation.mdc). Ownership: [docs/INDEX.md](../../docs/INDEX.md).
+Use for **markdown layout** and **freshness / cross-ref** passes — one skill, two procedures
+([§ Authoring](./procedures.md#authoring) and [§ Alignment](./procedures.md#alignment)). There is
+no separate `$docs-alignment` skill or slash command. Governance: [documentation.mdc](../rules/documentation.mdc). Ownership: [docs/INDEX.md](../../docs/INDEX.md).
 
 **Read the matching section in [procedures.md](./procedures.md) before editing docs.**
 
