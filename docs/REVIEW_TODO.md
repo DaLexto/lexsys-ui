@@ -168,7 +168,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 | Item | Layer     | Status  | Notes                                                                                                                                                    |
 | ---- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UC.1 | All       | shipped | Monorepo layout, composition validators, layer docs — ongoing alignment via [UI composition](./reference/ui/UI_COMPOSITION.md) and catalog drift checks |
+| UC.1 | All       | shipped | Monorepo layout, composition validators, layer docs — ongoing alignment via [UI composition](./reference/ui/UI_COMPOSITION.md) and catalog drift checks  |
 | UC.2 | Blocks    | shipped | FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty — BO pass complete; CI render + install smoke                                         |
 | UC.3 | Templates | shipped | DashboardShell mobile layout fixed; CI render + install smoke                                                                                            |
 | UC.4 | Pages     | n/a     | Pages stay consumer-owned                                                                                                                                |
