@@ -9,11 +9,15 @@ export const sidebarRootClasses = (): string => {
 }
 
 export const sidebarDesktopClasses = (): string => {
-  return "lex-sidebar__desktop hidden h-full w-[var(--lex-size-sidebar-width,16rem)] shrink-0 border-r border-[var(--lex-border-default)] bg-[var(--lex-color-background-subtle)] md:flex md:flex-col"
+  return [
+    "lex-sidebar__desktop hidden h-full shrink-0 border-r border-[var(--lex-border-default)] bg-[var(--lex-color-background-subtle)] md:flex md:flex-col",
+    "w-(--lex-sidebar-width-default)",
+    "transition-[width] duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+  ].join(" ")
 }
 
 export const sidebarMobileHeaderClasses = (): string => {
-  return "lex-sidebar__mobile-header min-w-0 flex-1"
+  return "lex-sidebar__mobile-header flex min-w-0 flex-1 items-center gap-3"
 }
 
 export const sidebarBrandClasses = (): string => {
@@ -31,27 +35,31 @@ export const sidebarNavListClasses = (): string => {
 export const sidebarNavItemClasses = (active?: boolean): string => {
   const base = [
     "lex-sidebar__item",
-    "flex w-full items-center rounded-(--lex-menu-item-radius)",
-    "px-(--lex-menu-item-padding-x) py-(--lex-menu-item-padding-y)",
-    "text-(length:--lex-menu-item-font-size) font-(--lex-menu-item-font-weight)",
-    "leading-(--lex-menu-item-font-line-height) text-(--lex-menu-item-foreground)",
+    "relative flex w-full items-center gap-(--lex-sidebar-item-gap)",
+    "rounded-(--lex-sidebar-item-radius)",
+    "px-(--lex-sidebar-item-padding-x) py-(--lex-sidebar-item-padding-y)",
+    "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",
+    "leading-(--lex-sidebar-item-font-line-height)",
     "no-underline outline-none transition-colors",
-    "focus-visible:ring-(length:--lex-menu-item-focus-ring-width) focus-visible:ring-(--lex-menu-item-focus-ring-color)",
-    "focus-visible:ring-offset-(length:--lex-menu-item-focus-ring-offset) focus-visible:ring-offset-(--lex-menu-item-focus-ring-offset-color)",
+    "focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
+    "focus-visible:ring-offset-(length:--lex-sidebar-item-focus-ring-offset) focus-visible:ring-offset-(--lex-sidebar-item-focus-ring-offset-color)",
   ].join(" ")
 
   if (active) {
     return [
       base,
       "lex-sidebar__item--active",
-      "bg-(--lex-menu-item-checked-background) text-(--lex-menu-item-checked-foreground)",
-      "hover:bg-(--lex-action-primary-hover) hover:text-(--lex-menu-item-checked-foreground)",
+      "bg-(--lex-sidebar-item-background-active) text-(--lex-sidebar-item-foreground-active)",
+      "font-(--lex-sidebar-item-font-weight-active)",
+      "before:absolute before:inset-y-1 before:left-0 before:w-(--lex-sidebar-item-accent-width) before:rounded-full before:bg-(--lex-sidebar-item-accent-color)",
+      "hover:bg-(--lex-sidebar-item-background-active) hover:text-(--lex-sidebar-item-foreground-active)",
     ].join(" ")
   }
 
   return [
     base,
-    "hover:bg-(--lex-action-secondary-hover) hover:text-(--lex-color-text-primary)",
+    "text-(--lex-sidebar-item-foreground)",
+    "hover:bg-(--lex-sidebar-item-background-hover) hover:text-(--lex-color-text-primary)",
   ].join(" ")
 }
 

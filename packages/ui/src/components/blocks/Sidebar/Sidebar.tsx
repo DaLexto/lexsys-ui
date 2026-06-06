@@ -4,7 +4,13 @@
  * Reference Sidebar block — compound navigation shell with desktop and mobile drawer.
  */
 
-import { createContext, useContext } from "react"
+import {
+  Children,
+  createContext,
+  isValidElement,
+  useContext,
+  type ReactNode,
+} from "react"
 import { Button } from "../../primitives/Button/Button"
 import {
   Drawer,
@@ -65,16 +71,42 @@ const SidebarMobileContext = createContext<SidebarMobileContextValue>({
 
 const useSidebarMobileContext = () => useContext(SidebarMobileContext)
 
+const isSidebarMobileHeaderChild = (child: ReactNode): boolean => {
+  return (
+    isValidElement(child) &&
+    (child.type as { displayName?: string }).displayName ===
+      "SidebarMobileHeader"
+  )
+}
+
+const partitionSidebarChildren = (children: ReactNode) => {
+  const mobileHeader: ReactNode[] = []
+  const rest: ReactNode[] = []
+
+  Children.forEach(children, (child) => {
+    if (isSidebarMobileHeaderChild(child)) {
+      mobileHeader.push(child)
+      return
+    }
+
+    rest.push(child)
+  })
+
+  return { mobileHeader, rest }
+}
+
 const Sidebar = ({ ref, className, children, ...props }: SidebarProps) => {
+  const { mobileHeader, rest } = partitionSidebarChildren(children)
+
   const sidebarBody = (
     <SidebarMobileContext.Provider value={{ closeOnSelect: false }}>
-      {children}
+      {rest}
     </SidebarMobileContext.Provider>
   )
 
   const drawerBody = (
     <SidebarMobileContext.Provider value={{ closeOnSelect: true }}>
-      {children}
+      {rest}
       <div className={sidebarDrawerFooterClasses()}>
         <DrawerClose render={<Button variant="secondary" size="sm" />}>
           Close
@@ -86,6 +118,11 @@ const Sidebar = ({ ref, className, children, ...props }: SidebarProps) => {
   return (
     <aside ref={ref} className={cn(sidebarRootClasses(), className)} {...props}>
       <Drawer swipeDirection="left">
+        {mobileHeader.length > 0 ? (
+          <div className="flex items-center gap-3 border-b border-[var(--lex-border-default)] bg-[var(--lex-color-background-base)] px-[var(--lex-space-4)] py-[var(--lex-space-3)] md:hidden">
+            {mobileHeader}
+          </div>
+        ) : null}
         <div className={sidebarDesktopClasses()}>{sidebarBody}</div>
         <DrawerPortal>
           <DrawerBackdrop />

@@ -35,6 +35,7 @@ import { radioGroupComponentTokens } from "./radio-group"
 import { scrollAreaComponentTokens } from "./scroll-area"
 import { selectComponentTokens } from "./select"
 import { separatorComponentTokens } from "./separator"
+import { sidebarComponentTokens } from "./sidebar"
 import { sliderComponentTokens } from "./slider"
 import { switchComponentTokens } from "./switch"
 import { tableComponentTokens } from "./table"
@@ -82,6 +83,7 @@ export { radioGroupComponentTokens } from "./radio-group"
 export { scrollAreaComponentTokens } from "./scroll-area"
 export { selectComponentTokens } from "./select"
 export { separatorComponentTokens } from "./separator"
+export { sidebarComponentTokens } from "./sidebar"
 export { sliderComponentTokens } from "./slider"
 export { switchComponentTokens } from "./switch"
 export { tableComponentTokens } from "./table"
@@ -130,6 +132,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   scrollAreaComponentTokens,
   selectComponentTokens,
   separatorComponentTokens,
+  sidebarComponentTokens,
   sliderComponentTokens,
   switchComponentTokens,
   tableComponentTokens,
