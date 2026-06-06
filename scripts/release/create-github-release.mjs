@@ -22,9 +22,62 @@ const execQuiet = (cmd) => {
   }
 }
 
-const version = JSON.parse(
-  readFileSync(join(root, "packages/entry/package.json"), "utf8"),
-).version
+const readRepoFile = (relativePath) =>
+  readFileSync(join(root, relativePath), "utf8")
+
+const sliceChangelogSection = (changelog, header) => {
+  const start = changelog.indexOf(header)
+  if (start === -1) {
+    return null
+  }
+
+  const after = changelog.slice(start + header.length)
+  const next = after.search(/\r?\n## (\[)?/)
+  const section = (next === -1 ? after : after.slice(0, next)).trim()
+
+  return section.replace(/^\s*-\s*\d{4}-\d{2}-\d{2}\s*\n?/, "").trim() || null
+}
+
+const formatEntryChangelog = (section) =>
+  section
+    .replace(/^### Patch Changes\s*/m, "### Changed\n\n")
+    .replace(/\n- Updated dependencies[\s\S]*$/m, "")
+    .trim()
+
+const extractNotes = (releaseVersion) => {
+  const rootSection = sliceChangelogSection(
+    readRepoFile("CHANGELOG.md"),
+    `## [${releaseVersion}]`,
+  )
+  if (rootSection) {
+    return rootSection
+  }
+
+  const entrySection = sliceChangelogSection(
+    readRepoFile("packages/entry/CHANGELOG.md"),
+    `## ${releaseVersion}`,
+  )
+  if (entrySection) {
+    return formatEntryChangelog(entrySection)
+  }
+
+  return `Lexsys ${releaseVersion}. See CHANGELOG.md for details.`
+}
+
+const isPublishedOnNpm = (releaseVersion) => {
+  try {
+    const published = execSync(
+      `npm view @dalexto/lexsys@${releaseVersion} version --registry https://registry.npmjs.org`,
+      { cwd: root, encoding: "utf8", stdio: "pipe" },
+    ).trim()
+
+    return published === releaseVersion
+  } catch {
+    return false
+  }
+}
+
+const version = JSON.parse(readRepoFile("packages/entry/package.json")).version
 const tag = `lexsys@${version}`
 const title = `Lexsys ${version}`
 
@@ -33,20 +86,23 @@ if (execQuiet(`gh release view "${tag}"`)) {
   process.exit(0)
 }
 
-const extractNotes = (releaseVersion) => {
-  const changelog = readFileSync(join(root, "CHANGELOG.md"), "utf8")
-  const header = `## [${releaseVersion}]`
-  const start = changelog.indexOf(header)
+if (!isPublishedOnNpm(version)) {
+  console.log(
+    `@dalexto/lexsys@${version} is not on npm yet — skipping GitHub release.`,
+  )
+  process.exit(0)
+}
 
-  if (start === -1) {
-    throw new Error(`CHANGELOG.md has no section ${header}`)
+const resolveTarget = (ref) => {
+  try {
+    return execSync(`git rev-parse ${ref}^{commit}`, {
+      cwd: root,
+      encoding: "utf8",
+      stdio: "pipe",
+    }).trim()
+  } catch {
+    return ref
   }
-
-  const after = changelog.slice(start + header.length)
-  const next = after.search(/\r?\n## \[/)
-  const section = (next === -1 ? after : after.slice(0, next)).trim()
-
-  return section.replace(/^\s*-\s*\d{4}-\d{2}-\d{2}\s*\n?/, "").trim() || title
 }
 
 const notesDir = join(root, ".tmp")
@@ -54,7 +110,7 @@ mkdirSync(notesDir, { recursive: true })
 const notesFile = join(notesDir, `release-notes-${version}.md`)
 writeFileSync(notesFile, extractNotes(version), "utf8")
 
-const target = process.env.GITHUB_SHA ?? "HEAD"
+const target = resolveTarget(process.env.GITHUB_SHA ?? "HEAD")
 exec(
   `gh release create "${tag}" --title "${title}" --notes-file "${notesFile}" --target "${target}"`,
 )
