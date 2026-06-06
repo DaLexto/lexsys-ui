@@ -16,6 +16,7 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
+  SidebarInput,
   SidebarItem,
   SidebarItemAction,
   SidebarItemBadge,
@@ -463,6 +464,49 @@ describe("Sidebar render", () => {
     expect(
       skeleton.querySelector(".lex-sidebar__item-skeleton-label"),
     ).toHaveClass("md:group-data-[collapsed=true]/sidebar:hidden")
+  })
+
+  it("renders SidebarInput as compact search field", () => {
+    render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarInput aria-label="Filter navigation" placeholder="Filter…" />
+          <SidebarList>
+            <SidebarItem>
+              <SidebarItemLink href="#overview">Overview</SidebarItemLink>
+            </SidebarItem>
+          </SidebarList>
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [filterInput] = screen.getAllByRole("searchbox", {
+      name: "Filter navigation",
+    })
+
+    expect(filterInput).toHaveClass("lex-sidebar__input")
+    expect(filterInput).toHaveAttribute("placeholder", "Filter…")
+  })
+
+  it("hides SidebarInput when icon-collapsed", () => {
+    render(
+      <SidebarProvider collapsible="icon" defaultCollapsed>
+        <Sidebar>
+          <SidebarContent>
+            <SidebarInput
+              aria-label="Filter navigation"
+              data-testid="sidebar-filter"
+            />
+          </SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    )
+
+    const [filterInput] = screen.getAllByTestId("sidebar-filter")
+
+    expect(filterInput).toHaveClass(
+      "md:group-data-[collapsed=true]/sidebar:hidden",
+    )
   })
 
   it("renders indented SidebarItemSkeleton for nested rows", () => {

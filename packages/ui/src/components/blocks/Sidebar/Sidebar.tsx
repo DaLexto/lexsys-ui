@@ -31,6 +31,7 @@ import {
   DrawerTrigger,
   DrawerViewport,
 } from "../../primitives/Drawer/Drawer"
+import { Input } from "../../primitives/Input/Input"
 import {
   ScrollArea,
   ScrollAreaContent,
@@ -55,6 +56,7 @@ import type {
   SidebarItemLinkProps,
   SidebarItemProps,
   SidebarItemShortcutProps,
+  SidebarInputProps,
   SidebarItemSkeletonProps,
   SidebarSubItemButtonProps,
   SidebarSubItemLinkProps,
@@ -89,6 +91,7 @@ import {
   sidebarItemSkeletonClasses,
   sidebarItemSkeletonIconClasses,
   sidebarItemSkeletonLabelClasses,
+  sidebarInputClasses,
   sidebarMainClasses,
   sidebarMobileHeaderClasses,
   sidebarNavItemClasses,
@@ -489,6 +492,28 @@ const SidebarHeader = ({
 }
 
 SidebarHeader.displayName = "SidebarHeader"
+
+const SidebarInput = ({
+  ref,
+  className,
+  size = "sm",
+  variant = "ghost",
+  type = "search",
+  ...props
+}: SidebarInputProps) => {
+  return (
+    <Input
+      ref={ref}
+      type={type}
+      size={size}
+      variant={variant}
+      className={cn(sidebarInputClasses(), className)}
+      {...props}
+    />
+  )
+}
+
+SidebarInput.displayName = "SidebarInput"
 
 const SidebarContent = ({
   ref,
@@ -1142,6 +1167,7 @@ export {
   SidebarProvider,
   useSidebar,
   SidebarHeader,
+  SidebarInput,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,

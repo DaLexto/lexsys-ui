@@ -106,6 +106,13 @@ export const sidebarNavClasses = (): string => {
   return "lex-sidebar__nav min-h-0 flex-1 p-[var(--lex-space-2)]"
 }
 
+export const sidebarInputClasses = (): string => {
+  return [
+    "lex-sidebar__input w-full",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
+  ].join(" ")
+}
+
 export const sidebarNavListClasses = (): string => {
   return "lex-sidebar__list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0"
 }

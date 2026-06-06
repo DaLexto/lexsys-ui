@@ -14,6 +14,7 @@ import type {
 } from "react"
 import type { BadgeProps } from "../../primitives/Badge/Badge.types"
 import type { ButtonProps } from "../../primitives/Button/Button.types"
+import type { InputProps } from "../../primitives/Input/Input.types"
 
 export type SidebarCollapsible = "none" | "icon" | "offcanvas"
 export type SidebarSide = "left" | "right"
@@ -120,6 +121,8 @@ export interface SidebarItemButtonProps extends ButtonHTMLAttributes<HTMLButtonE
   className?: string
   children?: ReactNode
 }
+
+export type SidebarInputProps = InputProps
 
 export interface SidebarItemSkeletonProps extends HTMLAttributes<HTMLDivElement> {
   ref?: Ref<HTMLDivElement>

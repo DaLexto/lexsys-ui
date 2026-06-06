@@ -399,8 +399,30 @@ pulse). Use `indent` for nested `SidebarSubList` placeholders.
 | --------------------- | -------------------------------------- |
 | `SidebarItemSkeleton` | Shipped SB.14 — per-row loading chrome |
 
+#### Layer 6 — inline nav filter (SB.15 shipped)
+
+`SidebarInput` wraps the `input` primitive — compact `size="sm"` + `variant="ghost"`
+defaults, `type="search"`. Place above `SidebarList` inside `SidebarContent` (or in
+`SidebarHeader`). Hidden in icon collapse. Consumer filters visible rows in app code.
+
+```tsx
+<SidebarContent>
+  <SidebarInput
+    aria-label="Filter navigation"
+    placeholder="Filter…"
+    value={query}
+    onChange={(event) => setQuery(event.target.value)}
+  />
+  <SidebarList>{/* filtered items */}</SidebarList>
+</SidebarContent>
+```
+
+| Export         | Role                                     |
+| -------------- | ---------------------------------------- |
+| `SidebarInput` | Shipped SB.15 — inline nav search/filter |
+
 **Registry deps (sidebar block):** `badge`, `button`, `collapsible`, `drawer`,
-`scroll-area`.
+`input`, `scroll-area`.
 
 ---
 

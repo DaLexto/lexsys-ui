@@ -19,7 +19,7 @@ export const sidebarRegistryItem: RegistryItem = {
     "blocks/Sidebar/Sidebar.utils.ts",
   ],
   dependencies: ["clsx", "tailwind-merge"],
-  registryDependencies: ["badge", "button", "drawer", "scroll-area"],
+  registryDependencies: ["badge", "button", "drawer", "input", "scroll-area"],
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Sidebar",
