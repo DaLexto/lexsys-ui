@@ -2,7 +2,7 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); waves B–F **shipped**; **`0.0.6` @ `next`** current preview; **57** installable UI items; **active milestone: `0.1.0` @ `latest`** (A4) — [§ 0.1.0 roadmap](#010-roadmap)  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.0` @ `latest`** stable MVP; **`0.0.6` @ `next`** prior preview lane; **57** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
@@ -384,8 +384,7 @@ Dead-code removal and targeted deduplication across `packages/cli/src/`. No beha
 
 ### M10 - Release readiness
 
-Status: **shipped** (2026-05-24) — `@dalexto/lexsys-cli@0.0.1` and `@dalexto/lexsys-registry@0.0.1` on npm
-dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later milestone.
+Status: **shipped** — first publish `0.0.1` @ **`next`** (2026-05-24); stable MVP **`0.1.0`** @ **`latest`** (2026-06-06).
 
 **Publish-day checklist (canonical):** [Deploy guide § Pre-release gate](../operations/DEPLOY.md#pre-release-gate)
 
@@ -417,17 +416,17 @@ dist-tag **`next`**. Stable MVP **`0.1.0`** on **`latest`** remains a later mile
 
 **Phase PR:** `chore(m10): release readiness` (may split into M10.0–M10.3 PRs)
 
-#### M10.5 — 0.1.0 @ `latest` (active)
+#### M10.5 — 0.1.0 @ `latest` (shipped 2026-06-06)
 
 Stable MVP on dist-tag **`latest`**. Canonical PR order: [Backlog § 0.1.0 Execution Queue](./REVIEW_TODO.md#010-execution-queue).
 
-| Item  | Focus                                       | PR     |
-| ----- | ------------------------------------------- | ------ |
-| REL.2 | npm provenance + SBOM                       | A3     |
-| —     | PulseDesk consumer QA (narrow viewport)     | manual |
-| M10   | Changeset `0.1.0`, publish `@latest`, smoke | A4     |
+| Item  | Focus                                       | PR     | Status  |
+| ----- | ------------------------------------------- | ------ | ------- |
+| REL.2 | npm provenance + SBOM                       | A3     | shipped |
+| —     | PulseDesk consumer QA (narrow viewport)     | manual | shipped |
+| M10   | Changeset `0.1.0`, publish `@latest`, smoke | A4     | shipped |
 
-**Policy:** catalog expansion (UC.8–UC.16) ships **after** 0.1.0 unless release gate completes early.
+Post-publish smoke: `D:\PLAYGROUND\smoke-010` with `@dalexto/lexsys@latest`.
 
 ---
 
@@ -435,15 +434,15 @@ Stable MVP on dist-tag **`latest`**. Canonical PR order: [Backlog § 0.1.0 Execu
 
 **Waves:** A (release gate) → B (primitives) → C (blocks/templates) → D (DX) → E (tokens) → F (trust) → deferred (starter, PLAYGROUND automation).
 
-| Wave | PRs   | Focus                                                                                |
-| ---- | ----- | ------------------------------------------------------------------------------------ |
-| A    | A1–A4 | Docs, provenance, 0.1.0 publish                                                      |
-| B    | B1–B3 | Pagination, Breadcrumb, DatePicker                                                   |
-| C    | C1–C6 | PageHeader, StatsCard, FilterToolbar, DataTable, Combobox wiring, SettingsPageLayout |
-| D    | D1–D2 | `apps/docs`, `docs:lint`                                                             |
-| E    | E1–E2 | Aliased primitive tokens, contrast pairs                                             |
-| F    | F1–F2 | Remote registry trust, M12.5 CLI polish                                              |
-| G    | G1–G2 | Starter repo (deferred), fresh-test smoke + PulseDesk E2E                            |
+| Wave | PRs   | Focus                                                                                | Status                             |
+| ---- | ----- | ------------------------------------------------------------------------------------ | ---------------------------------- |
+| A    | A1–A4 | Docs, provenance, 0.1.0 publish                                                      | shipped                            |
+| B    | B1–B3 | Pagination, Breadcrumb, DatePicker                                                   | shipped                            |
+| C    | C1–C6 | PageHeader, StatsCard, FilterToolbar, DataTable, Combobox wiring, SettingsPageLayout | shipped                            |
+| D    | D1–D2 | `apps/docs`, `docs:lint`                                                             | shipped                            |
+| E    | E1–E2 | Aliased primitive tokens, contrast pairs                                             | shipped                            |
+| F    | F1–F2 | Remote registry trust, M12.5 CLI polish                                              | shipped                            |
+| G    | G1–G2 | Starter repo (deferred), fresh-test smoke + PulseDesk E2E                            | partial — G2a shipped, G2b planned |
 
 Execution table: [REVIEW_TODO § 0.1.0 Execution Queue](./REVIEW_TODO.md#010-execution-queue).
 
@@ -451,13 +450,13 @@ Execution table: [REVIEW_TODO § 0.1.0 Execution Queue](./REVIEW_TODO.md#010-exe
 
 ### DX track
 
-| ID   | Item                         | Status   | Surface                                    |
-| ---- | ---------------------------- | -------- | ------------------------------------------ |
-| DX.1 | Public starter template repo | deferred | Separate repo post-0.1.0                   |
-| DX.2 | Playwright E2E               | planned  | `D:\PLAYGROUND\sandbox-lexsys` (PulseDesk) |
-| DX.3 | Fresh install/build smoke    | planned  | `D:\PLAYGROUND\lexsys-fresh-test`          |
-| DX.4 | `apps/docs` minimal site     | shipped  | `apps/docs` (PR D1)                        |
-| DX.5 | `docs:lint` automation       | shipped  | root script (PR D2)                        |
+| ID   | Item                         | Status   | Surface                                           |
+| ---- | ---------------------------- | -------- | ------------------------------------------------- |
+| DX.1 | Public starter template repo | deferred | Separate repo post-0.1.0                          |
+| DX.2 | Playwright E2E               | planned  | `D:\PLAYGROUND\sandbox-lexsys` (PulseDesk)        |
+| DX.3 | Fresh install/build smoke    | shipped  | `D:\PLAYGROUND\smoke-010` (`@latest`, 2026-06-06) |
+| DX.4 | `apps/docs` minimal site     | shipped  | `apps/docs` (PR D1)                               |
+| DX.5 | `docs:lint` automation       | shipped  | root script (PR D2)                               |
 
 No lexsys CI for DX.2/DX.3 until explicitly promoted. Detail: [Testing docs § PLAYGROUND](./operations/TESTING.md#playground-verification-surfaces).
 
@@ -465,16 +464,16 @@ No lexsys CI for DX.2/DX.3 until explicitly promoted. Detail: [Testing docs § P
 
 ### Explicitly deferred
 
-| Item                              | Status / notes                                                                        |
-| --------------------------------- | ------------------------------------------------------------------------------------- |
-| `apps/docs` public docs site      | **shipped** — DX.4 (PR D1); minimal Vite shell pre-0.1.0                              |
-| Public starter template repo      | **deferred** — DX.1 post-0.1.0; separate GitHub repo                                  |
-| Playwright E2E + fresh smoke      | **planned** — DX.2/DX.3; PLAYGROUND repos only, not lexsys CI ([DX track](#dx-track)) |
-| Playground dark/brand demos       | Out of scope — playground is maintenance-only; consumer UX in PulseDesk sandbox       |
-| `@vitest/ui` browser dashboard    | Decided overkill                                                                      |
-| Visual regression / screenshots   | Overkill for current coverage                                                         |
-| npm provenance                    | **shipped** — REL.2 (PR A3); Changesets **shipped** (M10)                             |
-| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                      |
+| Item                              | Status / notes                                                                                        |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `apps/docs` public docs site      | **shipped** — DX.4 (PR D1); minimal Vite shell pre-0.1.0                                              |
+| Public starter template repo      | **deferred** — DX.1 post-0.1.0; separate GitHub repo                                                  |
+| Playwright E2E + fresh smoke      | **partial** — DX.3 fresh smoke shipped (`smoke-010`); DX.2 Playwright planned ([DX track](#dx-track)) |
+| Playground dark/brand demos       | Out of scope — playground is maintenance-only; consumer UX in PulseDesk sandbox                       |
+| `@vitest/ui` browser dashboard    | Decided overkill                                                                                      |
+| Visual regression / screenshots   | Overkill for current coverage                                                                         |
+| npm provenance                    | **shipped** — REL.2 (PR A3); Changesets **shipped** (M10)                                             |
+| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                      |
 
 ### PR sequence
 
@@ -489,7 +488,7 @@ separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.
 | 4a–4b   | M4    | Entry + CLI DX + docs sync                          | **shipped**                           |
 | 10a–10b | M10   | Release readiness + docs sync                       | **shipped** (2026-05-24)              |
 
-**0.1.0 wave (active):** superseded per-phase M1–M7 sketch consolidated in PR #18.
+**0.1.0 wave (shipped 2026-06-06):** superseded per-phase M1–M7 sketch consolidated in PR #18.
 
 | Order | PR    | Title sketch                                   | IDs          |
 | ----- | ----- | ---------------------------------------------- | ------------ |

@@ -28,7 +28,7 @@ Remote registry manifest fetch over HTTPS is supported with local fallback.
 
 ## Quick Start
 
-**Stable** (`0.1.0+` @ `latest` — use after the stable cut ships):
+**Stable** (`0.1.0+` @ `latest`):
 
 ```bash
 npx @dalexto/lexsys@latest init vite my-app
