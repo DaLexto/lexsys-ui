@@ -267,13 +267,13 @@ Detail: [Roadmap § M12](./ROADMAP.md#m12-cli-command-optimization).
 
 **M12.1 artifact:** [CLI command audit](./reference/cli/M12_COMMAND_AUDIT.md) — inventory, overlap input for M12.2, cleanup/UX candidates.
 
-| ID    | Focus                                                                 | Status  |
-| ----- | --------------------------------------------------------------------- | ------- |
-| M12.1 | Audit command names (logic, aliases from M4, help grouping)           | shipped |
-| M12.2 | Overlapping commands — candidates to merge (e.g. status vs doctor)    | planned |
-| M12.3 | CLI cleanup (dead code, duplicate output, help sections)              | planned |
-| M12.4 | UX optimizations (guided modes, flags, error hints) — one PR per item | planned |
-| M12.5 | Reserved — additional proposals TBD                                   | planned |
+| ID    | Focus                                                                 | Status      |
+| ----- | --------------------------------------------------------------------- | ----------- |
+| M12.1 | Audit command names (logic, aliases from M4, help grouping)           | shipped     |
+| M12.2 | Overlapping commands — candidates to merge (e.g. status vs doctor)    | shipped     |
+| M12.3 | CLI cleanup (dead code, duplicate output, help sections)              | in progress |
+| M12.4 | UX optimizations (guided modes, flags, error hints) — one PR per item | planned     |
+| M12.5 | Reserved — additional proposals TBD                                   | planned     |
 
 ---
 

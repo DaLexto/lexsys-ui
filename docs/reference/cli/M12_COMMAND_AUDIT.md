@@ -137,14 +137,9 @@ if documented as “where supported”; avoid implying all guided commands respe
 **Overlap:** both iterate `config.installed` and hit the registry. **Different jobs:**
 `status` = sync state; `doctor` = filesystem + registry health.
 
-**M12.2 options (no decision in M12.1):**
-
-1. **Keep separate** — clarify in help: `status` for drift, `doctor` for setup health.
-2. **Merge under `doctor`** — `doctor --drift` or default sections; deprecate `status` later.
-3. **Merge under `status`** — `status --check-paths` for doctor-style checks.
-
-**Recommendation:** option **1** (keep separate) unless consumer feedback says two commands
-confuse; lowest churn for `0.1.0`. Revisit alias `st` / `dr` only if merged.
+**M12.2 decision (2026-05-30):** **Keep separate** (option 1). Help copy in `help.ts` and
+`CLI.md` now cross-reference drift (`status`) vs setup health (`doctor`). No merge or
+deprecation in `0.0.x`.
 
 ### `registry` vs `list`
 
@@ -161,9 +156,9 @@ No merge candidate — `list` is catalog; `registry` is provider/debug (`--sourc
 
 | ID    | Finding                                                              | Suggested fix                                         |
 | ----- | -------------------------------------------------------------------- | ----------------------------------------------------- |
-| C12.1 | `uninstall` help omits `--no-fallback` (implemented)                 | Add to `COMMAND_HELP` + `CLI.md` uninstall section    |
-| C12.2 | `version` has no `lexsys version --help`                             | Add branch in `index.ts` or document as intentional   |
-| C12.3 | Root help lists global `--yes`; limited command support              | Qualify in root help (“add, update”)                  |
+| C12.1 | `uninstall` help omits `--no-fallback` (implemented)                 | **Shipped** — `COMMAND_HELP` + `CLI.md`               |
+| C12.2 | `version` has no `lexsys version --help`                             | Deferred — use root `-v` / `--version` only           |
+| C12.3 | Root help lists global `--yes`; limited command support              | **Shipped** — root help + `CLI.md` global table       |
 | C12.4 | `status` / `doctor` both print registry failure messages differently | Shared helper for registry resolve errors             |
 | C12.5 | Dispatch boilerplate in `index.ts` (repeated `--help` blocks)        | Optional thin `dispatchCommand` helper — low priority |
 
@@ -190,7 +185,7 @@ One PR per item per M12 scope.
 | Global options | OK     | `--cwd`, `--no-fallback`, help/version             |
 | `status`       | OK     | Drift semantics documented                         |
 | `doctor`       | OK     | Checklist documented; overlap with status implicit |
-| `uninstall`    | Gap    | Missing `--no-fallback` in reference (see C12.1)   |
+| `uninstall`    | OK     | `--no-fallback` documented (C12.1)                 |
 | `reset`        | OK     | Present in reference                               |
 
 Canonical user reference remains [CLI.md](./CLI.md). This file is the **M12 maintainer
@@ -200,5 +195,5 @@ audit**; update when M12.2–M12.4 ship behavior changes.
 
 ## Next step
 
-**M12.2:** Decide merge vs keep for `status` / `doctor` using [Overlap analysis](#overlap-analysis-m12.2-input).
-Default recommendation: **keep separate** + help copy polish (small PR).
+**M12.3:** Remaining cleanup — C12.4 registry error helper, C12.5 dispatch boilerplate (optional).
+**M12.4:** UX items U12.1–U12.4 — one PR per row.

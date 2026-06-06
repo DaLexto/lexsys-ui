@@ -82,6 +82,9 @@ Usage
   lexsys status
   lexsys st
 
+Shows template drift for tracked components (up to date vs out of sync).
+For project paths and registry connectivity, use \`lexsys doctor\`.
+
 Options
   --no-fallback       Fail instead of falling back to local registry
   --help, -h          Show this help
@@ -112,6 +115,7 @@ Usage
 Options
   --dry-run, -d       Preview uninstall without removing files
   --with-deps, -w     Also remove registry-owned shared dependencies
+  --no-fallback       Fail instead of falling back to local registry
   --help, -h          Show this help
 
   Run without arguments for guided uninstall picker.
@@ -124,6 +128,9 @@ Examples
 Usage
   lexsys doctor
   lexsys dr
+
+Checks project paths, registry connectivity, and on-disk component folders.
+For template drift vs the registry, use \`lexsys status\`.
 
 Options
   --no-fallback       Fail instead of falling back to local registry
@@ -192,8 +199,8 @@ Components
 
 Inspect
   list                      List available registry items              [alias: ls]
-  status                    Show installed component status            [alias: st]
-  doctor                    Check local project setup                  [alias: dr]
+  status                    Template drift for installed components    [alias: st]
+  doctor                    Project paths and registry health          [alias: dr]
   registry                  Inspect registry source and manifest       [alias: reg]
   config                    Print or update Lexsys config              [alias: cfg]
 
@@ -203,7 +210,7 @@ Meta
 
 Global Options
   --cwd, -C <path>          Run from a different project directory
-  --yes, -y                 Auto-confirm safe prompts where supported
+  --yes, -y                 Auto-confirm safe prompts (add, update)
   --no-fallback             Disable local registry fallback
   --help, -h                Show help
   --version, -v             Show CLI version

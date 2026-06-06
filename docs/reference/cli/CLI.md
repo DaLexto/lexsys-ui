@@ -73,7 +73,7 @@ lexsys update --help
 | Flag            | Alias | Description                                               |
 | --------------- | ----- | --------------------------------------------------------- |
 | `--cwd <path>`  | `-C`  | Run from a different directory instead of `process.cwd()` |
-| `--yes`         |       | Auto-confirm safe prompts where supported                 |
+| `--yes`         | `-y`  | Auto-confirm safe prompts on `add` and `update`           |
 | `--no-fallback` |       | Disable local registry fallback where supported           |
 | `--help`        | `-h`  | Print help message                                        |
 | `--version`     | `-v`  | Print CLI version                                         |
@@ -285,11 +285,17 @@ Blocks:
 
 ### `status`
 
-Show installed components and template drift vs the active registry.
+Show template drift for installed components vs the active registry. Use
+`doctor` for project paths, registry connectivity, and on-disk folder checks.
 
 ```bash
 lexsys status
+lexsys status --no-fallback
 ```
+
+| Flag            | Description                         |
+| --------------- | ----------------------------------- |
+| `--no-fallback` | Fail if remote registry unavailable |
 
 Reads the `installed` array from `lexsys.config.json` and compares each
 component's files against registry templates. Output per component:
@@ -306,7 +312,8 @@ If no components are tracked: `"No Lexsys components are currently tracked."`
 
 ### `doctor`
 
-Check project health against the current config.
+Check project paths and registry connectivity against the current config. Use
+`status` to see whether installed component files match registry templates.
 
 ```bash
 lexsys doctor
@@ -411,6 +418,12 @@ as conflicts; the component stays tracked in `lexsys.config.json`.
 lexsys uninstall button
 lexsys uninstall button --dry-run
 ```
+
+| Flag            | Description |
+| --------------- | ----------- | ------------------------------------------------------------- |
+| `--dry-run`     | `-d`        | Preview uninstall without removing files                      |
+| `--with-deps`   | `-w`        | Also remove registry-owned shared dependencies in the closure |
+| `--no-fallback` |             | Fail if remote registry unavailable                           |
 
 **Behavior:**
 
