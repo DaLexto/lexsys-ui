@@ -385,13 +385,13 @@ GitHub Actions secrets if CI duration grows.
 
 ## Supply chain security
 
-| Control                                                               | Status                                                                    |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `--frozen-lockfile` in CI                                             | implemented                                                               |
-| Granular NPM_TOKEN (scoped publish permissions per package)           | implemented                                                               |
+| Control                                                               | Status                                                                                                        |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `--frozen-lockfile` in CI                                             | implemented                                                                                                   |
+| Granular NPM_TOKEN (scoped publish permissions per package)           | implemented                                                                                                   |
 | `npm publish --provenance` (links package to GitHub Actions workflow) | **shipped** — Release workflow sets `NPM_CONFIG_PROVENANCE: true` (Changesets does not accept `--provenance`) |
-| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC)         | deferred                                                                  |
-| Signed releases (sigstore)                                            | deferred                                                                  |
+| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC)         | deferred                                                                                                      |
+| Signed releases (sigstore)                                            | deferred                                                                                                      |
 
 **Notes:**
 
