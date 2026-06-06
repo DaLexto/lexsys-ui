@@ -17,6 +17,12 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+---
+
+## [0.1.0] - 2026-06-06
+
+First stable MVP release on dist-tag **`latest`**. Early-preview lane **`0.0.x`** remains on **`next`**.
+
 ### Added
 
 - **Catalog expansion (57 installable items)** — primitives: Pagination, Breadcrumb, DatePicker; blocks: PageHeader, StatsCard, FilterToolbar, DataTable; template: SettingsPageLayout
@@ -30,7 +36,12 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ### Changed
 
-- **Quick start** — stable lane uses `@dalexto/lexsys@latest` after `0.1.0` ships; preview `@next` remains for `0.0.x`
+- **Quick start** — stable lane uses `@dalexto/lexsys@latest`; preview `@next` remains for `0.0.x`
+
+### Notes
+
+- Published via Changesets after Version Packages PR #66; Release CI hotfix #67 (`NPM_CONFIG_PROVENANCE`)
+- Post-publish smoke: `npx @dalexto/lexsys@latest init vite` → `add button` → `npm run build`
 
 ---
 
@@ -160,7 +171,9 @@ First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.5...HEAD
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.1.0...HEAD
+[0.1.0]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.6...@dalexto/lexsys@0.1.0
+[0.0.6]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.5...@dalexto/lexsys@0.0.6
 [0.0.5]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.4...@dalexto/lexsys@0.0.5
 [0.0.4]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.3...@dalexto/lexsys@0.0.4
 [0.0.3]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.2...@dalexto/lexsys@0.0.3

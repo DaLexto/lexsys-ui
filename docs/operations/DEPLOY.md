@@ -76,17 +76,23 @@ explicit product decision and this file is updated.
 
 ## Version lane
 
-| Milestone     | Version | npm dist-tag | Meaning                                                                          |
-| ------------- | ------- | ------------ | -------------------------------------------------------------------------------- |
-| First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                                          |
-| Prior preview | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical    |
-| Prior preview | `0.0.4` | `next`       | Table primitive, CLI `installed` array, `lexsys reset` (2026-05-30) — historical |
-| Prior preview | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02) — historical   |
-| **Current**   | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06)             |
-| Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                           |
-| MVP stable    | `0.1.0` | `latest`     | Public MVP commitment — future milestone                                         |
+| Milestone     | Version | npm dist-tag | Meaning                                                                           |
+| ------------- | ------- | ------------ | --------------------------------------------------------------------------------- |
+| First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                                           |
+| Prior preview | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical     |
+| Prior preview | `0.0.4` | `next`       | Table primitive, CLI `installed` array, `lexsys reset` (2026-05-30) — historical  |
+| Prior preview | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02) — historical    |
+| Prior preview | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06) — historical |
+| Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                            |
+| **Current**   | `0.1.0` | `latest`     | Stable MVP — 57 installable items, admin catalog, registry trust (2026-06-06)     |
 
-Install for early preview:
+Install for stable MVP:
+
+```bash
+npx @dalexto/lexsys@latest init vite my-app
+```
+
+Early preview (`0.0.x` @ `next`):
 
 ```bash
 npx @dalexto/lexsys@next init vite my-app
@@ -196,17 +202,20 @@ violations do not fail the gate.)
 Changesets uses **`baseBranch: "main"`** ([`.changeset/config.json`](../../.changeset/config.json)).
 The Version Packages PR updates `package.json` versions and CHANGELOG on **`main` only**.
 After the [Release workflow](../../.github/workflows/release.yml) finishes on `main`,
-[**Sync dev from main**](../../.github/workflows/sync-dev-from-main.yml) merges
-`main` into `dev` so the integration branch keeps the same release metadata (otherwise
-`dev` can look "behind" `main` by ~two release commits while still being ahead on
-feature work).
+[**Sync dev from main**](../../.github/workflows/sync-dev-from-main.yml) opens a PR
+from `chore/sync-main-into-dev` into `dev` (merge `main` into that branch) and enables
+**auto-merge** when CI passes. This respects branch protection on `dev` without a
+`github-actions` bypass actor.
 
-| Trigger                                             | Behavior                                            |
-| --------------------------------------------------- | --------------------------------------------------- |
-| `Release` workflow completed successfully on `main` | Merge `origin/main` into `dev` and push when needed |
-| `workflow_dispatch`                                 | Manual re-sync (same merge logic)                   |
+**Repo setting (one-time):** Settings → General → Pull Requests → **Allow auto-merge**
+must be enabled for the bot to queue the merge.
 
-**Manual fallback** (only if the sync job fails — rare merge conflict on version/changelog files):
+| Trigger                                             | Behavior                                                   |
+| --------------------------------------------------- | ---------------------------------------------------------- |
+| `Release` workflow completed successfully on `main` | Open or update sync PR; enable auto-merge when checks pass |
+| `workflow_dispatch`                                 | Manual re-sync (same PR logic)                             |
+
+**Manual fallback** (merge conflict, auto-merge disabled, or CI blocked):
 
 ```bash
 git checkout dev && git pull origin dev
