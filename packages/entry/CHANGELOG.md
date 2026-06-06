@@ -1,5 +1,16 @@
 # lexsys
 
+## 0.1.0
+
+### Minor Changes
+
+- [#64](https://github.com/DaLexto/lexsys-ui/pull/64) [`834a8c2`](https://github.com/DaLexto/lexsys-ui/commit/834a8c2f38cb7a89009ae2d98d3f1479791048fc) Thanks [@itsalexdev](https://github.com/itsalexdev)! - Stable MVP release `0.1.0` on npm dist-tag `latest`: docs site scaffold, admin catalog expansion, component token coverage for remaining primitives, remote registry checksum verification and allowlist support, and `lexsys status --json`.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @dalexto/lexsys-cli@0.1.0
+
 ## 0.0.6
 
 ### Patch Changes
