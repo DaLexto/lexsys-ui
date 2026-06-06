@@ -258,9 +258,10 @@ describe("createTokenGovernanceReport", () => {
   })
 
   it("does not change generated style outputs", () => {
-    const before = createStyleOutputs()
+    const generatedAt = new Date("2026-05-30T12:00:00.000Z")
+    const before = createStyleOutputs({ generatedAt })
     createTokenGovernanceReport(createStyleTokenInput())
-    const after = createStyleOutputs()
+    const after = createStyleOutputs({ generatedAt })
 
     expect(after.tokensCss).toBe(before.tokensCss)
     expect(after.themeCss).toBe(before.themeCss)

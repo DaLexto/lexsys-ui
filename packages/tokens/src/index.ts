@@ -8,6 +8,10 @@ export {
   createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
 } from "./generators/generator.create"
+export {
+  createGeneratedStyleFileHeader,
+  generatedStyleFileHeader,
+} from "./generators/generator.config"
 export { primitiveTokens } from "./primitives"
 export { semanticTokens } from "./semantics"
 export { componentTokens } from "./components"

@@ -20,7 +20,10 @@ import {
   generateJsonTokens,
 } from "./outputs"
 import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared"
-import { defaultStyleOutputConfig } from "./generator.config"
+import {
+  createGeneratedStyleFileHeader,
+  defaultStyleOutputConfig,
+} from "./generator.config"
 
 const styleOutputConfig = defaultStyleOutputConfig
 const cssPrefix = styleOutputConfig.cssVarPrefix
@@ -65,7 +68,10 @@ const getTailwindBaseTheme = (input: StyleTokenInput): ThemeTokenInput => {
   return lightTheme
 }
 
-const createTokensCss = (input: StyleTokenInput): string => {
+const createTokensCss = (
+  input: StyleTokenInput,
+  styleHeader: string,
+): string => {
   const entries = [
     ...createCssVariableEntries(
       input.foundationTokens,
@@ -74,7 +80,7 @@ const createTokensCss = (input: StyleTokenInput): string => {
     ...createCssVariableEntries(input.componentTokens, cssVarsGeneratorOptions),
   ]
 
-  return `${styleOutputConfig.styleHeader}\n\n${createCssBlock(
+  return `${styleHeader}\n\n${createCssBlock(
     ":root",
     entries,
     cssVarsGeneratorOptions,
@@ -83,10 +89,11 @@ const createTokensCss = (input: StyleTokenInput): string => {
 
 const createTokensCssFromTokenTree = (
   tokenTree: StyleTokenInput["tokenTree"],
+  styleHeader: string,
 ) => {
   const entries = createCssVariableEntries(tokenTree, cssVarsGeneratorOptions)
 
-  return `${styleOutputConfig.styleHeader}\n\n${createCssBlock(
+  return `${styleHeader}\n\n${createCssBlock(
     ":root",
     entries,
     cssVarsGeneratorOptions,
@@ -297,12 +304,15 @@ const createTailwindThemeBlock = (input: StyleTokenInput): string => {
   return ["@theme inline {", ...themeLines, "}"].join("\n")
 }
 
-const createThemeCss = (input: StyleTokenInput): string => {
+const createThemeCss = (
+  input: StyleTokenInput,
+  styleHeader: string,
+): string => {
   const themeBlocks = input.themeTokens.map((theme) => {
     return createThemeBlock(theme)
   })
 
-  return `${styleOutputConfig.styleHeader}\n\n${[
+  return `${styleHeader}\n\n${[
     ...themeBlocks,
     createTailwindThemeBlock(input),
   ].join("\n\n")}\n`
@@ -339,24 +349,33 @@ export const createStyleOutputs = (
     ? applyStripDeadPrimitives(input)
     : input
 
+  const styleHeader = createGeneratedStyleFileHeader(options.generatedAt)
+
   return {
-    tokensCss: createTokensCss(outputInput),
-    themeCss: createThemeCss(outputInput),
+    tokensCss: createTokensCss(outputInput, styleHeader),
+    themeCss: createThemeCss(outputInput, styleHeader),
     tokensJson: createTokensJson(outputInput),
     tokenJsonFiles: createTokenJsonFiles(outputInput),
     themesJson: createThemesJson(outputInput),
   }
 }
 
-export const createTokensCssFromDtcgJson = (content: string): string => {
+export const createTokensCssFromDtcgJson = (
+  content: string,
+  generatedAt?: Date,
+): string => {
   const input = createDtcgTokenInputFromJson(content)
 
-  return createTokensCssFromTokenTree(input.tokenTree)
+  return createTokensCssFromTokenTree(
+    input.tokenTree,
+    createGeneratedStyleFileHeader(generatedAt),
+  )
 }
 
 export const createThemeCssFromDtcgJson = (
   tokensContent: string,
   themesContent: string,
+  generatedAt?: Date,
 ): string => {
   const tokenInput = createDtcgTokenInputFromJson(tokensContent)
   const themeInput = createDtcgThemeTokenInputFromJson(themesContent)
@@ -389,7 +408,7 @@ export const createThemeCssFromDtcgJson = (
     return `  ${createTailwindThemeVariableName(entry.name)}: ${toCssVarReference(entry.name)};`
   })
 
-  return `${styleOutputConfig.styleHeader}\n\n${[
+  return `${createGeneratedStyleFileHeader(generatedAt)}\n\n${[
     ...themeBlocks,
     ["@theme inline {", ...themeLines, "}"].join("\n"),
   ].join("\n\n")}\n`
