@@ -30,7 +30,7 @@ source components that:
 
 - define the correct component API, variants, and accessibility behavior
 - are synced into registry templates when ready to be installed into consumer projects
-- export a stable public API (`@dalexto/lexsys-ui`) for use in the playground (**42 primitives** today)
+- export a stable public API (`@dalexto/lexsys-ui`) for use in the playground (**45 primitives** today)
 
 Monorepo source is organized in three composition layers under
 `packages/ui/src/components/` — `primitives/`, `blocks/`, `templates/`. See
@@ -51,7 +51,7 @@ the correct layer directory:
 
 ```txt
 packages/ui/src/components/
-  primitives/ComponentName/     ← 42 bundled primitives
+  primitives/ComponentName/     ← 45 bundled primitives
   blocks/ComponentName/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty
   templates/ComponentName/      ← DashboardShell
 ```
@@ -211,11 +211,10 @@ Use direct component token utilities instead (see `Badge.variants.ts`).
 
 ## Public API Rules
 
-All public exports MUST go through `packages/ui/src/index.ts`. Today the package
-root exports **42 primitives**, **five pilot blocks** (`AuthForm`, `CommandPalette`,
-`FormField`, `SettingsPanel`, `Sidebar`), and **`DashboardShell`** for playground
-smoke. `Empty` is registry + CLI installable only (not in `index.ts`). Production
-consumers still install via `lexsys add`, not `@dalexto/lexsys-ui` imports.
+All public exports MUST go through `packages/ui/src/index.ts`. Playground exports
+cover reference primitives, blocks, and templates — full inventory in
+[UI catalog](./UI_CATALOG.md). Production consumers install via `lexsys add`, not
+`@dalexto/lexsys-ui` imports.
 
 ```ts
 export * from "./components/primitives/Button/Button"

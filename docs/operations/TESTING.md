@@ -121,14 +121,16 @@ pnpm tokens:test              # vitest only (faster)
 
 Test files in `packages/ui/test/`:
 
-| File                                             | What it tests                                                                                |
-| ------------------------------------------------ | -------------------------------------------------------------------------------------------- |
-| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@dalexto/lexsys-ui` |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**42 primitives**)  |
-| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**42/42 primitives**)      |
+| File                                             | What it tests                                                                                  |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@dalexto/lexsys-ui`   |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**45 primitives**)    |
+| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**57/57** installable items) |
 
-Blocks (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty) and templates (DashboardShell) live under
-`packages/ui/src/components/blocks/` and `templates/`. Blocks have render smoke tests; variant tests are not tracked for blocks — verify behavior in the consumer sandbox.
+Blocks and templates live under `packages/ui/src/components/blocks/` and
+`templates/` — see [UI catalog § Inventory](../reference/ui/UI_CATALOG.md#inventory).
+Blocks and templates have render smoke tests; variant tests are not tracked for
+blocks — verify behavior in the consumer sandbox.
 
 Run:
 
@@ -146,7 +148,7 @@ Test files in `packages/registry/test/`:
 | `validate-registry.test.ts`    | Registry manifest validation — required fields, template files, layer composition rules, block/template dependency constraints |
 | `registry-styles-sync.test.ts` | Registry style sync helpers — in-sync templates, stale content, missing template files                                         |
 
-Bundled registry: **49 installable UI items** (42 primitives + 6 blocks + 1 template). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`.
+Bundled registry: **57 installable UI items** (45 primitives + 10 blocks + 2 templates). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`. Inventory: [UI catalog](../reference/ui/UI_CATALOG.md).
 
 Run:
 
@@ -243,7 +245,7 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-All **49 installable UI items** (42 primitives + 6 blocks + 1 template) have render smoke tests using `@testing-library/react` with Vitest
+All **57 installable UI items** (45 primitives + 10 blocks + 2 templates) have render smoke tests using `@testing-library/react` with Vitest
 `jsdom` (`packages/ui/vitest.config.ts`).
 
 - Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.
@@ -281,23 +283,17 @@ Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monore
 
 ---
 
-## PLAYGROUND automation (planned — external repos)
+## PLAYGROUND automation (external repos)
 
-Implementation lives **outside** this monorepo. No lexsys CI until explicitly promoted.
+Implementation lives **outside** this monorepo. No lexsys CI for DX.2 until explicitly promoted.
 
-### DX.3 — Fresh install smoke (`lexsys-fresh-test`)
+### DX.3 — Fresh install smoke (`lexsys-fresh-test`) — shipped
 
-**Path:** `D:\PLAYGROUND\lexsys-fresh-test`
+**Path:** `D:\PLAYGROUND\smoke-010` (also `D:\PLAYGROUND\lexsys-fresh-test` lab)
 
-**Target script:** `pnpm smoke:install-build` (to add in that repo)
+**Recorded pass:** `npx @dalexto/lexsys@latest init vite` → `lexsys add button` → `pnpm build` (2026-06-06).
 
-```txt
-1. Link or pin CLI under test (@next or local packages/cli)
-2. lexsys init vite .   (or reset fixture directory)
-3. lexsys add dashboard-shell
-4. pnpm build
-5. exit non-zero on failure
-```
+Optional repeatable script in the external repo: `pnpm smoke:install-build` — same flow as above; exit non-zero on failure.
 
 ### DX.2 — Playwright E2E (`sandbox-lexsys` / PulseDesk)
 
@@ -314,4 +310,4 @@ Tracked: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
 ## Known Gaps
 
 - **DX.2** — Narrow-viewport PulseDesk UX — manual checklist + planned Playwright; not lexsys CI ([§ Blocks/templates checklist](#consumer-sandbox-verification)).
-- **DX.3** — Fresh install/build smoke in `lexsys-fresh-test` — planned; temp-directory `install-flow` covers primitives and all registry blocks in monorepo CI.
+- **DX.3** — Fresh install/build smoke — **shipped** (`smoke-010` with `@latest`); monorepo `install-flow` still covers primitives and registry blocks in CI.

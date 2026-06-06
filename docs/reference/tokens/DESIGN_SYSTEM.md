@@ -160,12 +160,9 @@ Semantic source: `packages/tokens/src/semantics/`.
 Component tokens reference semantic tokens and describe per-component slot
 decisions.
 
-**34 dedicated component token files** (42 primitives + Empty block — newer Base UI modules inherit semantic tokens until dedicated component slots land):
-
-Accordion, Alert, AlertDialog, Avatar, Badge, Button, Card, Checkbox,
-Collapsible, Dialog, Drawer, Field, Fieldset, Form, Input, Menu, Meter,
-NumberField, Popover, Progress, RadioGroup, ScrollArea, Separator, Select,
-Slider, Switch, Tabs, Textarea, Toast, Toggle, ToggleGroup, Tooltip.
+**46 dedicated component token modules** under `packages/tokens/src/components/`
+(excluding `index.ts`) — **45 primitives** plus `empty` block slots. Full
+inventory and layer rules: [TOKENS.md](./TOKENS.md).
 
 ```typescript
 // packages/tokens/src/components/button.ts — example slot pattern
