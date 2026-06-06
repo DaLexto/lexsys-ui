@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-05-30 (M12.1 CLI command audit shipped)
+**Last reviewed:** 2026-05-30 (M12 CLI command optimization shipped)
 
 ---
 
@@ -33,26 +33,26 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M12** — see [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization). M1–M11, **R0**, and **M10** shipped; **M12** is the active planned phase.
+**Monorepo optimization M1–M12** — see [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization). M1–M12, **R0**, and **M10** shipped.
 
-| Phase   | Focus                                                               | Status      |
-| ------- | ------------------------------------------------------------------- | ----------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done        |
-| R0      | Lexsys product naming + publish surface (blocks M10)                | shipped     |
-| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped     |
-| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped     |
-| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped     |
-| M4      | Entry + CLI DX                                                      | shipped     |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped     |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped     |
-| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped     |
-| M8      | CLI cleanup and deduplication                                       | shipped     |
-| M10     | Release readiness — `0.0.4` @ `next` (first: `0.0.1` 2026-05-24)    | shipped     |
-| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped     |
-| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped     |
-| CS      | Component standardization (CS.1–CS.8)                               | shipped     |
-| M12     | CLI command optimization (audit, merge candidates, cleanup)         | in progress |
-| SI      | Registry sync — full templates + items automation (SI.4–SI.5)       | shipped     |
+| Phase   | Focus                                                               | Status  |
+| ------- | ------------------------------------------------------------------- | ------- |
+| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done    |
+| R0      | Lexsys product naming + publish surface (blocks M10)                | shipped |
+| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped |
+| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped |
+| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
+| M4      | Entry + CLI DX                                                      | shipped |
+| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
+| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
+| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
+| M8      | CLI cleanup and deduplication                                       | shipped |
+| M10     | Release readiness — `0.0.4` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
+| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
+| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
+| CS      | Component standardization (CS.1–CS.8)                               | shipped |
+| M12     | CLI command optimization (audit, merge candidates, cleanup)         | shipped |
+| SI      | Registry sync — full templates + items automation (SI.4–SI.5)       | shipped |
 
 Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
 
@@ -259,7 +259,7 @@ Optional follow-ups after Phases 1–10 (detail in
 - ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
 - ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI variants](./reference/ui/UI_VARIANTS.md))
 
-## M12 - CLI command optimization (planned)
+## M12 - CLI command optimization (shipped)
 
 Detail: [Roadmap § M12](./ROADMAP.md#m12-cli-command-optimization).
 
@@ -272,7 +272,7 @@ Detail: [Roadmap § M12](./ROADMAP.md#m12-cli-command-optimization).
 | M12.1 | Audit command names (logic, aliases from M4, help grouping)           | shipped |
 | M12.2 | Overlapping commands — candidates to merge (e.g. status vs doctor)    | shipped |
 | M12.3 | CLI cleanup (dead code, duplicate output, help sections)              | shipped |
-| M12.4 | UX optimizations (guided modes, flags, error hints) — one PR per item | planned |
+| M12.4 | UX optimizations (guided modes, flags, error hints) — one PR per item | shipped |
 | M12.5 | Reserved — additional proposals TBD                                   | planned |
 
 ---

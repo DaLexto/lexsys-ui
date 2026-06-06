@@ -26,7 +26,7 @@ Usage
 
 Options
   --dry-run, -d       Preview files, dependencies, and install paths
-  --yes, -y           Auto-confirm safe prompts
+  --yes, -y           Non-interactive when component names are provided
   --no-fallback       Fail instead of falling back to local registry
   --cwd, -C <path>    Run from a different project directory
   --help, -h          Show this help
@@ -55,6 +55,7 @@ Options
   --help, -h          Show this help
 
   Run without arguments for guided update picker.
+  With --yes and no names, updates all tracked components.
 
 Examples
   lexsys up
@@ -96,6 +97,7 @@ Usage
 Options
   --dry-run, -d       Preview reset without writing files
   --with-deps, -w     Also reset installed registry dependencies in the closure
+  --yes, -y           Non-interactive; with no names, resets all tracked components
   --no-fallback       Fail instead of falling back to local registry
   --cwd, -C <path>    Run from a different project directory
   --help, -h          Show this help
@@ -115,6 +117,7 @@ Usage
 Options
   --dry-run, -d       Preview uninstall without removing files
   --with-deps, -w     Also remove registry-owned shared dependencies
+  --yes, -y           Non-interactive; with no names, uninstalls all tracked components
   --no-fallback       Fail instead of falling back to local registry
   --help, -h          Show this help
 
@@ -210,7 +213,7 @@ Meta
 
 Global Options
   --cwd, -C <path>          Run from a different project directory
-  --yes, -y                 Auto-confirm safe prompts (add, update)
+  --yes, -y                 Non-interactive mode (add, update, reset, uninstall)
   --no-fallback             Disable local registry fallback
   --help, -h                Show help
   --version, -v             Show CLI version

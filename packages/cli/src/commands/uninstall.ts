@@ -68,6 +68,7 @@ const collectOrphanedSharedResources = (
 export const runUninstall = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run", "-d")
   const withDeps = hasFlag(args, "--with-deps", "-w")
+  const yes = hasFlag(args, "--yes", "-y")
   const noFallback = hasFlag(args, "--no-fallback")
   const targetArgs = removeFlagsWithValues(
     removeFlags(args, [
@@ -75,33 +76,36 @@ export const runUninstall = async (args: string[]): Promise<void> => {
       "-d",
       "--with-deps",
       "-w",
+      "--yes",
+      "-y",
       "--no-fallback",
     ]),
     ["--cwd", "-C"],
   )
 
-  if (!targetArgs.length) {
-    const preConfig = await loadConfig()
-    const installedNames = preConfig.installed ?? []
+  const config = await loadConfig()
+  const installed = [...(config.installed ?? [])]
 
-    if (installedNames.length === 0) {
+  if (!targetArgs.length) {
+    if (!installed.length) {
       console.log("No components installed.")
       return
     }
 
-    const selected = await promptMultiselect(
-      "Select components to uninstall",
-      installedNames.map((name) => ({ title: name, value: name })),
-      { min: 1 },
-    )
+    if (yes) {
+      targetArgs.push(...installed)
+    } else {
+      const selected = await promptMultiselect(
+        "Select components to uninstall",
+        installed.map((name) => ({ title: name, value: name })),
+        { min: 1 },
+      )
 
-    if (!selected.length) return
+      if (!selected.length) return
 
-    targetArgs.push(...selected)
+      targetArgs.push(...selected)
+    }
   }
-
-  const config = await loadConfig()
-  const installed = [...(config.installed ?? [])]
   const resolvedTargets: RegistryItem[] = []
   const notTracked: string[] = []
 

@@ -31,12 +31,12 @@ Use when the user requests **commit**, **push**, or **PR** — not for implement
 
 **Read the matching section in [procedures.md](./procedures.md) before running git/gh commands.**
 
-| User intent        | Section                                                                       |
-| ------------------ | ----------------------------------------------------------------------------- |
-| commit / `/commit` | [§ Commit](./procedures.md#commit)                                            |
-| push only          | [§ Push](./procedures.md#push)                                                |
-| open PR            | [§ Pull request](./procedures.md#pull-request) — **includes required labels** |
-| ff `main`          | [§ Fast-forward main](./procedures.md#fast-forward-main)                      |
+| User intent        | Section                                                                                   |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| commit / `/commit` | [§ Commit](./procedures.md#commit)                                                        |
+| push only          | [§ Push](./procedures.md#push)                                                            |
+| open PR            | [§ Pull request](./procedures.md#pull-request) — **create + labels + verify in one turn** |
+| ff `main`          | [§ Fast-forward main](./procedures.md#fast-forward-main)                                  |
 
 ---
 

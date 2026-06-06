@@ -98,7 +98,8 @@ Reminders (include in checklist context when relevant): no default dev servers; 
 - If step 4 checklist **already included** `pnpm format:check` and you confirmed verify → go to **`$git-commit`** — **do not** ask for format again.
 - If commit is requested but format was **not** on the last checklist → use **`$monorepo-verify-gate`** [format fallback](./monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) once (`format ok`) → then **`$git-commit`**.
 - **`$git-commit`** ([procedures](../git-commit/procedures.md)) + [git-commits.mdc](../rules/git-commits.mdc) — agent runs git only when you ask in that turn.
-- PR target **`dev`** unless you explicitly request **`main`**.
+- **PR labels:** `gh pr create` + `gh pr edit --add-label` + `gh pr view --json labels` in the **same turn** — PR is incomplete without verified labels.
+- PR target **`dev`** unless you explicitly request **`main`**. Never `gh pr merge` unless you explicitly request merge.
 
 Human mirror: [CONTRIBUTING.md](../../docs/contributors/CONTRIBUTING.md).
 
@@ -117,6 +118,8 @@ One-line fix, no contract/catalog impact: skip **`$docs-authoring`** alignment p
 - Repeat `pnpm format:check` at step 5 if step 4 verify already covered it
 - Expand AGENTS with procedure essays — edit this skill or `$monorepo-verify-gate`
 - Commit / push / PR without explicit request in that turn
+- Return a PR URL before `type:*`, `area:*`, and `status:ready-for-review` labels are applied and verified
+- Run `gh pr merge` without explicit merge request in that turn
 - Default to dev servers for verification
 
 ---

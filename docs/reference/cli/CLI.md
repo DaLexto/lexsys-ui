@@ -70,13 +70,13 @@ lexsys update --help
 
 ### Global options
 
-| Flag            | Alias | Description                                               |
-| --------------- | ----- | --------------------------------------------------------- |
-| `--cwd <path>`  | `-C`  | Run from a different directory instead of `process.cwd()` |
-| `--yes`         | `-y`  | Auto-confirm safe prompts on `add` and `update`           |
-| `--no-fallback` |       | Disable local registry fallback where supported           |
-| `--help`        | `-h`  | Print help message                                        |
-| `--version`     | `-v`  | Print CLI version                                         |
+| Flag            | Alias | Description                                                                            |
+| --------------- | ----- | -------------------------------------------------------------------------------------- |
+| `--cwd <path>`  | `-C`  | Run from a different directory instead of `process.cwd()`                              |
+| `--yes`         | `-y`  | Non-interactive mode — see per-command notes for `add`, `update`, `reset`, `uninstall` |
+| `--no-fallback` |       | Disable local registry fallback where supported                                        |
+| `--help`        | `-h`  | Print help message                                                                     |
+| `--version`     | `-v`  | Print CLI version                                                                      |
 
 ---
 
@@ -159,10 +159,16 @@ lexsys add                          # interactive multiselect
 | Flag            | Alias | Description                                                                        |
 | --------------- | ----- | ---------------------------------------------------------------------------------- |
 | `--dry-run`     | `-d`  | Preview components, dependencies, utilities, styles, and install paths — no writes |
+| `--yes`         | `-y`  | Non-interactive when component names are provided on the command line              |
 | `--no-fallback` |       | Fail if remote registry is configured and unavailable (no local fallback)          |
 
 **Without component arguments**, shows an interactive multiselect of all
 available registry items (format: `CanonicalName (category)`).
+
+**Non-interactive `--yes`:** unlike `update`, `add` does not install the full
+catalog when names are omitted. `lexsys add --yes` without component names exits
+with code `1` and prints guidance. Pass explicit names (`lexsys add button --yes`)
+or use `lexsys update --yes` to refresh all tracked components.
 
 **Install sequence per `add` run:**
 
@@ -222,8 +228,13 @@ lexsys update --all --yes
 | `--sync`        |       | Refresh tracked component templates even when files already match         |
 | `--dry-run`     | `-d`  | Preview what would change; no writes; reports conflict/identical per file |
 | `--force`       |       | Write conflicted files after creating `.bak` timestamped backups          |
-| `--yes`         |       | Auto-confirm safe prompts                                                 |
+| `--yes`         | `-y`  | Non-interactive; with no component names, updates all tracked components  |
 | `--no-fallback` |       | Fail if remote registry unavailable                                       |
+
+**Non-interactive `--yes`:** `lexsys update --yes` (no component arguments)
+updates every name in `installed` without the guided picker — equivalent to
+selecting all items in the interactive flow. Use `--all` explicitly when you
+also combine `--styles`, `--utilities`, or `--sync` in the same command.
 
 **Drift check:** an update is available when any installed file differs from
 the active registry template (content hash). Use **`--sync`** to run the same
@@ -365,7 +376,7 @@ With no flags: reads config (merging defaults) and prints as indented JSON.
 Inspect the registry source and manifest.
 
 ```bash
-lexsys registry                      # JSON manifest from resolved source
+lexsys registry                      # JSON from resolved source (source, fallbackUsed, items)
 lexsys registry --summary            # human-readable: source, item count, per-item details
 lexsys registry --source             # print active registry source string
 lexsys registry --local              # inspect the bundled local registry
@@ -401,9 +412,13 @@ lexsys reset sidebar --with-deps
 | --------------- | ----- | ------------------------------------------------------------------------- |
 | `--dry-run`     | `-d`  | Preview files that would be reset; no writes                              |
 | `--with-deps`   | `-w`  | Also reset installed items in the target's `registryDependencies` closure |
+| `--yes`         | `-y`  | Non-interactive; with no component names, resets all tracked components   |
 | `--no-fallback` |       | Fail if remote registry unavailable                                       |
 
 Run without arguments for a guided picker (same as `update` / `uninstall`).
+
+**Destructive `--yes`:** `lexsys reset --yes` without component names resets
+every entry in `installed`. Combine with `--dry-run` first when scripting.
 
 ---
 
@@ -420,10 +435,15 @@ lexsys uninstall button --dry-run
 ```
 
 | Flag            | Description |
-| --------------- | ----------- | ------------------------------------------------------------- |
-| `--dry-run`     | `-d`        | Preview uninstall without removing files                      |
-| `--with-deps`   | `-w`        | Also remove registry-owned shared dependencies in the closure |
-| `--no-fallback` |             | Fail if remote registry unavailable                           |
+| --------------- | ----------- | ---------------------------------------------------------------- |
+| `--dry-run`     | `-d`        | Preview uninstall without removing files                         |
+| `--with-deps`   | `-w`        | Also remove registry-owned shared dependencies in the closure    |
+| `--yes`         | `-y`        | Non-interactive; with no component names, uninstalls all tracked |
+| `--no-fallback` |             | Fail if remote registry unavailable                              |
+
+**Destructive `--yes`:** `lexsys uninstall --yes` (or `lexsys rm --yes`) without
+component names removes every tracked component whose files still match templates.
+Use `--dry-run` first in scripts.
 
 **Behavior:**
 
@@ -597,7 +617,21 @@ Run `lexsys <command> --help` for usage.
 
 Unexpected errors print `Unexpected error: <message>` and exit with code 1.
 Unknown commands throw `CliError: Unknown command: <name>` and the help message
-is printed. All errors exit with code 1.
+is printed.
+
+### Exit codes
+
+The CLI sets `process.exitCode` (it does not always call `process.exit()`), so
+embedded test runners and scripts can observe failures without terminating early.
+
+| Code | When                                                                                                                                         |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0`  | Success; informational empty states (for example `status` with no tracked components, `config --exists` when the file is missing)            |
+| `1`  | `CliError`; registry resolve failure (`doctor`, `status`, `list`, `registry`, `add`, `update`, `reset`, `uninstall`); other command failures |
+
+Registry resolve failures print `Failed to resolve registry.` (or the doctor
+checklist `× failed to resolve registry` line) followed by the underlying error
+message.
 
 ---
 

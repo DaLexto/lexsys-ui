@@ -30,6 +30,7 @@ const resolveInstalledKey = async (
 export const runReset = async (args: string[]): Promise<void> => {
   const dryRun = hasFlag(args, "--dry-run", "-d")
   const withDeps = hasFlag(args, "--with-deps", "-w")
+  const yes = hasFlag(args, "--yes", "-y")
   const noFallback = hasFlag(args, "--no-fallback")
   const targetArgs = removeFlagsWithValues(
     removeFlags(args, [
@@ -37,6 +38,8 @@ export const runReset = async (args: string[]): Promise<void> => {
       "-d",
       "--with-deps",
       "-w",
+      "--yes",
+      "-y",
       "--no-fallback",
     ]),
     ["--cwd", "-C"],
@@ -62,15 +65,19 @@ export const runReset = async (args: string[]): Promise<void> => {
   }
 
   if (!targetArgs.length) {
-    const selected = await promptMultiselect(
-      "Select components to reset",
-      installed.map((name) => ({ title: name, value: name })),
-      { min: 1 },
-    )
+    if (yes) {
+      targetArgs.push(...installed)
+    } else {
+      const selected = await promptMultiselect(
+        "Select components to reset",
+        installed.map((name) => ({ title: name, value: name })),
+        { min: 1 },
+      )
 
-    if (!selected.length) return
+      if (!selected.length) return
 
-    targetArgs.push(...selected)
+      targetArgs.push(...selected)
+    }
   }
 
   const resetNames = new Set<string>()

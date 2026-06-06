@@ -39,21 +39,30 @@ Only when the user **explicitly** requests a PR and the branch is complete.
 1. **Inspect vs `dev`** (parallel): `git status --short`, `git diff`, `git rev-parse --abbrev-ref HEAD`, `git log dev..HEAD --oneline`, `git diff dev...HEAD --stat`
 2. **Gates:** Same as [§ Commit](#commit) — **`verify passed`** or [format fallback](../monorepo-verify-gate/SKILL.md#format-fallback-step-5-only) once. Do not run `pnpm` unless they explicitly ask.
 3. **Template:** [lite.md](../../../.github/PULL_REQUEST_TEMPLATE/lite.md) or [full.md](../../../.github/PULL_REQUEST_TEMPLATE/full.md) — default base **`dev`**. Fill from **all** branch commits; see [git-commits.mdc § Fill the template](../rules/git-commits.mdc#fill-the-template).
-4. **Create:** `gh pr create --base dev --title "short pr title" --body-file path/to/filled-body.md` — no unfilled `<!-- -->` placeholders
-5. **Labels (required — do not skip):** After `gh pr create` succeeds, derive from diff + commits:
+4. **Derive labels** from diff + commits (before create):
    - One `type:*` (mirrors primary commit type)
    - All matching `area:*` from [git-commits.mdc § area mapping](../rules/git-commits.mdc#area-mapping)
    - `status:ready-for-review`
    - `meta:breaking-change` when applicable  
-     Namespaces: [CONTRIBUTING § GitHub labels](../../docs/contributors/CONTRIBUTING.md). Then:
+     Namespaces: [CONTRIBUTING § GitHub labels](../../docs/contributors/CONTRIBUTING.md).
+5. **Create + labels (atomic — same turn, no pause):** PR is **not complete** until labels are applied. Run both commands back-to-back; do not return the PR URL between them.
 
 ```bash
+gh pr create --base dev --title "short pr title" --body-file path/to/filled-body.md
 gh pr edit <number> --add-label "type:feat,area:ui,status:ready-for-review"
 ```
 
-Comma-separated; no spaces after commas.
+No unfilled `<!-- -->` placeholders in the body. Comma-separated labels; no spaces after commas. Use `<number>` from the create output URL, or `gh pr view --json number -q .number` on the current branch.
 
-6. **Return** the PR URL. Push only when the user explicitly requests it.
+6. **Verify labels (required — do not skip):**
+
+```bash
+gh pr view <number> --json labels
+```
+
+Confirm at least one `type:*`, every matching `area:*`, and `status:ready-for-review`. If any are missing, run `gh pr edit` again before continuing.
+
+7. **Return** the PR URL only after step 6 passes. Push only when the user explicitly requests it.
 
 ---
 
