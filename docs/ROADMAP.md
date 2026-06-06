@@ -113,7 +113,7 @@ Summary only — do not duplicate detail here.
 - Full primitive shadow scale migration (`shadow.0`–`shadow.6` branch+slot) with CSS compose
 - `shadow.inner` inset slot model (branch+slot with `inset: true`; CSS compose prepends `inset`)
 - Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`LEXSYS_GOVERNANCE_POLICY=ci`; override with `report`)
-- Broad UI render coverage (42/42 primitives; M3 baseline was 32/32)
+- Broad UI render coverage (**57/57** installable items; **45/45** primitives; M3 baseline was 32/32)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
 - `lexsys uninstall` metadata-driven removal with dry-run and conflict reporting
@@ -539,31 +539,31 @@ and [UI audit](./reference/ui/UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaki
 **Status:** **PR #28** merged to `dev`. Monorepo reference layout uses
 `primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
 `paths.components` (`src/components/ui/<CanonicalName>/` with import rewrite).
-Blocks (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty) and template (DashboardShell) are registry +
-CLI installable — **optimization pass complete** (BO.1–BO.7; CI install smoke, render tests, registry template-import audit).
+**57** installable items (45 primitives, 10 blocks, 2 templates) are registry +
+CLI installable — see [UI catalog](./reference/ui/UI_CATALOG.md). Optimization pass complete (BO.1–BO.7; CI install smoke, render tests, registry template-import audit).
 
 Lexsys uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
-| Layer      | Monorepo reference                                                 | Consumer install (`lexsys add`)               |
-| ---------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| Primitives | Shipped (42 components + tokens + `cn`)                            | `src/components/ui/<CanonicalName>/`          |
-| Blocks     | FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty | Same flat path; cross-layer imports rewritten |
-| Templates  | Pilot (DashboardShell)                                             | Same flat path                                |
-| Pages      | —                                                                  | Always consumer-owned                         |
+| Layer      | Monorepo reference                                         | Consumer install (`lexsys add`)               |
+| ---------- | ---------------------------------------------------------- | --------------------------------------------- |
+| Primitives | Shipped (**45** components + tokens + `cn`)                | `src/components/ui/<CanonicalName>/`          |
+| Blocks     | **10** blocks — [UI catalog](./reference/ui/UI_CATALOG.md) | Same flat path; cross-layer imports rewritten |
+| Templates  | **2** templates — catalog                                  | Same flat path                                |
+| Pages      | —                                                          | Always consumer-owned                         |
 
 Canonical mapping, composition rules, folder layout, and CLI contract:
 [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 ### UI composition track
 
-| Step | Outcome                                                                                                                                               | Status                                                                        |
-| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| 1    | Layer docs + registry composition validators                                                                                                          | **shipped**                                                                   |
-| 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite)                                                        | **shipped** (#28)                                                             |
-| 3    | Pilot blocks + template + CI verify (install smoke, render tests)                                                                                     | **shipped**                                                                   |
-| 4    | Blocks/templates optimization (BO.1–BO.7)                                                                                                             | **shipped**                                                                   |
-| 5    | Admin catalog — Pagination, Breadcrumb, DatePicker, PageHeader, StatsCard, FilterToolbar, DataTable, SettingsPageLayout, Combobox wiring (UC.8–UC.16) | planned — [Backlog § P2.1](./REVIEW_TODO.md#p21-ui-catalog-expansion-uc8uc16) |
-| 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                                                                              | **shipped** (#30)                                                             |
+| Step | Outcome                                                                                                                                               | Status                                                                            |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| 1    | Layer docs + registry composition validators                                                                                                          | **shipped**                                                                       |
+| 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite)                                                        | **shipped** (#28)                                                                 |
+| 3    | Pilot blocks + template + CI verify (install smoke, render tests)                                                                                     | **shipped**                                                                       |
+| 4    | Blocks/templates optimization (BO.1–BO.7)                                                                                                             | **shipped**                                                                       |
+| 5    | Admin catalog — Pagination, Breadcrumb, DatePicker, PageHeader, StatsCard, FilterToolbar, DataTable, SettingsPageLayout, Combobox wiring (UC.8–UC.16) | **shipped** — [Backlog § P2.1](./REVIEW_TODO.md#p21-ui-catalog-expansion-uc8uc16) |
+| 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                                                                              | **shipped** (#30)                                                                 |
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
