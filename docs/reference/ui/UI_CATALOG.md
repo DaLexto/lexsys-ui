@@ -34,7 +34,7 @@ Out of scope here: page-level consumer code, playground-only demos, unpublished 
 
 <!-- CATALOG:BEGIN -->
 
-_Generated 2026-05-30 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
+_Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
 
 ### Primitives (42)
 

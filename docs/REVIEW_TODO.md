@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-06-06 (docs alignment pass)
+**Last reviewed:** 2026-05-30 (registry gap + render coverage alignment)
 
 ---
 
@@ -230,7 +230,7 @@ Roadmap anchor: [Roadmap § Component standardization](./ROADMAP.md#component-st
 **CS.8 pre-rule intentional decisions (locked in CS.4):**
 
 - `SidebarItemLink` / `SidebarItemButton` use plain `<a>` / `<button>` — not our `Button` primitive; their styling requirements differ and they own nav-item appearance independently.
-- Blocks (`Sidebar`, `CommandPalette`, etc.) are not exported from `packages/ui/src/index.ts` — intentional registry-first; consumers install via `lexsys add`, not direct package imports.
+- Pilot blocks (`AuthForm`, `CommandPalette`, `FormField`, `SettingsPanel`, `Sidebar`) and `DashboardShell` **are** exported from `packages/ui/src/index.ts` for playground smoke; `Empty` stays registry-only. Consumers still install via `lexsys add`, not `@dalexto/lexsys-ui` imports in production apps.
 - `SidebarTrigger` is composable — consumer places it in `<SidebarHeader>` or any `<Sidebar>` child; `Drawer` context wraps the root `<aside>` so any descendant `DrawerTrigger` wires up automatically.
 
 ---
@@ -293,11 +293,10 @@ Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 
 ## Known Gaps
 
-| Gap                                          | Notes                                                                                                                                                                                                                                                                                    |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Registry item reconcile edge cases           | `registry:sync` reconciles items for all layers; `registryDependencies` are inferred from template imports — verify after atypical import paths. Manual edits to `files` / deps are overwritten on sync unless workflow skips sync. See [REGISTRY.md](./reference/registry/REGISTRY.md). |
-| Blocks/templates mobile viewport QA          | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md).                                                                                                                                           |
-| Remote registry signatures / allowlist       | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                                                                                                                                                                     |
-| `docs:lint` automation (metadata + H2 order) | Deferred — layout contract lives in `documentation.mdc`; manual compliance pass shipped 2026-05-30.                                                                                                                                                                                      |
+| Gap                                          | Notes                                                                                                                                          |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Blocks/templates mobile viewport QA          | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md). |
+| Remote registry signatures / allowlist       | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                           |
+| `docs:lint` automation (metadata + H2 order) | Deferred — layout contract lives in `documentation.mdc`; manual compliance pass shipped 2026-05-30.                                            |
 
-Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`.
+Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`; registry item reconcile automation (SI.5) — `registry:sync` reconciles all layers; `registryDependencies` inferred from template imports with overwrite policy in [REGISTRY.md § Maintainer notes](./reference/registry/REGISTRY.md#maintainer-notes).
