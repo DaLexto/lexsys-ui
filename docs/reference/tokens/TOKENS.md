@@ -491,9 +491,9 @@ pnpm tokens:governance:report -- --json
 From the repo root:
 
 ```sh
-pnpm --filter @dalexto/lexsys-tokens build            # generate dist CSS + DTCG JSON (--package)
-pnpm tokens:generate:styles  # dist + registry template CSS sync (--package --registry)
-pnpm --filter @dalexto/lexsys-tokens test             # run resolver and generator tests
+pnpm tokens:build                                     # generate dist CSS + DTCG JSON (--package)
+pnpm tokens:generate:styles                           # dist + registry template CSS sync (--package --registry)
+pnpm tokens:test                                      # run resolver and generator tests
 pnpm tokens:governance:report
 # Optional: omit dead primitives from generated CSS/DTCG after build (breaking output change)
 pnpm --filter @dalexto/lexsys-tokens exec node dist/scripts/write-style-outputs.js --package --strip-dead-primitives

@@ -4,7 +4,7 @@
 **Type:** Commands reference (monorepo `pnpm` scripts)
 **Source of truth for:** Root and package script names, sync workflows, when to run checks
 **Verified against:** Root and workspace `package.json` files, `turbo.json`
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-05-30 (script contract + root alias matrix)
 
 ---
 
@@ -72,8 +72,20 @@ Run commands from the **repository root** unless noted. For consumer-facing CLI 
 | `pnpm playground:dev`           | Start local playground (Vite)                                                                           |
 | `pnpm playground:check`         | Lint + typecheck playground                                                                             |
 | `pnpm playground:build`         | Build tokens + UI, then playground                                                                      |
+| `pnpm scripts:check`            | Validate root `{scope}:{script}` aliases match workspace packages                                       |
 
-Per-package `*:lint:fix`, `*:typecheck`, and `*:build` aliases follow the same `{package}:{action}` pattern. See sections below.
+Per-package shortcuts use `{scope}:{action}` (for example `pnpm ui:test`, `pnpm tokens:lint`). See sections below.
+
+### Two-layer model
+
+| Layer                    | Examples                                | Implementation                                                              |
+| ------------------------ | --------------------------------------- | --------------------------------------------------------------------------- |
+| **Repo-wide**            | `pnpm check`, `pnpm test`, `pnpm build` | `turbo run` across all workspace packages                                   |
+| **Scoped (one package)** | `pnpm ui:test`, `pnpm registry:check`   | Root alias → `turbo run <task> --filter=@dalexto/lexsys-*` for Tier-0 tasks |
+| **Tier-1 ops**           | `pnpm registry:sync`, `pnpm ui:audit`   | Root alias → `pnpm --filter … run …` (not in `turbo.json`)                  |
+| **Format**               | `pnpm format`, `pnpm format:check`      | Root only — not per-package                                                 |
+
+**Format** stays repo-level (single Prettier config). Do not add `format` scripts to workspace packages.
 
 ---
 
@@ -112,14 +124,12 @@ Use when you only need one layer:
 | `pnpm tokens:governance:report` | `governance:report` | Governance audit, contrast policy (CI on token PRs)                                                                                                                                                        |
 | `pnpm tokens:imports:clean`     | `imports:clean`     | Maintenance — normalize token import paths                                                                                                                                                                 |
 | `pnpm tokens:re-prefix`         | `re-prefix`         | Rename CSS var + BEM class prefix across source, docs, test configs; post-rename: regenerates styles + syncs registry. See [`scripts/rebrand/rename-prefix.mjs`](../../scripts/rebrand/rename-prefix.mjs). |
+| `pnpm tokens:lint`              | `lint`              | Lint only (turbo)                                                                                                                                                                                          |
 | `pnpm tokens:lint:fix`          | `lint:fix`          | Auto-fix token package lint                                                                                                                                                                                |
+| `pnpm tokens:test`              | `test`              | Vitest only (turbo; faster than `tokens:check`)                                                                                                                                                            |
 | `pnpm tokens:typecheck`         | `typecheck`         | Types only                                                                                                                                                                                                 |
 
-Filter equivalent:
-
-```sh
-pnpm --filter @dalexto/lexsys-tokens <script>
-```
+Tier-0 aliases use `turbo run` with `^build`. Advanced: `turbo run test --filter=@dalexto/lexsys-tokens`.
 
 ---
 
@@ -132,22 +142,12 @@ pnpm --filter @dalexto/lexsys-tokens <script>
 | `pnpm ui:audit`               | `audit`               | Variant literals + catalog drift (blocking subset of `ui:check`)     |
 | `pnpm ui:audit:catalog:check` | `audit:catalog:check` | Catalog-only drift check                                             |
 | `pnpm ui:audit:catalog:write` | `audit:catalog:write` | Refresh [UI catalog](../reference/ui/UI_CATALOG.md) generated region |
+| `pnpm ui:lint`                | `lint`                | Lint only (turbo)                                                    |
 | `pnpm ui:lint:fix`            | `lint:fix`            | Auto-fix UI package lint                                             |
+| `pnpm ui:test`                | `test`                | Vitest only (turbo; faster than `ui:check`)                          |
 | `pnpm ui:typecheck`           | `typecheck`           | Types only                                                           |
 
-Package-only scripts (no root alias):
-
-| Script                | Purpose                                                                         |
-| --------------------- | ------------------------------------------------------------------------------- |
-| `audit`               | `audit-variants.mjs` + `audit-compound-exports.mjs check`                       |
-| `audit:catalog:check` | Compare `docs/reference/ui/UI_CATALOG.md` to UI exports and registry item names |
-| `audit:catalog:write` | Update `docs/reference/ui/UI_CATALOG.md` between `CATALOG:BEGIN/END` markers    |
-
-Filter equivalent:
-
-```sh
-pnpm --filter @dalexto/lexsys-ui <script>
-```
+Tier-1 (`audit*`) uses `pnpm --filter … run …` — not registered in `turbo.json`.
 
 After UI component edits, also run `pnpm registry:sync` and `pnpm registry:check`. When named exports or registry item versions change, run `pnpm ui:audit:catalog:write` then commit [UI catalog](../reference/ui/UI_CATALOG.md). See [Sync workflows](#sync-workflows).
 
@@ -155,27 +155,18 @@ After UI component edits, also run `pnpm registry:sync` and `pnpm registry:check
 
 ## `@dalexto/lexsys-registry`
 
-| Root alias                  | Package script   | When to run                                                               |
-| --------------------------- | ---------------- | ------------------------------------------------------------------------- |
-| `pnpm registry:build`       | `build`          | Build registry metadata                                                   |
-| `pnpm registry:check`       | `check`          | Before merge when UI, tokens, or registry items changed                   |
-| `pnpm registry:sync`        | `templates:sync` | After UI component source edits                                           |
-| `pnpm registry:styles:sync` | `styles:sync`    | After token CSS generator changes (delegates to `tokens:generate:styles`) |
-| `pnpm registry:lint:fix`    | `lint:fix`       | Auto-fix registry package lint                                            |
-| `pnpm registry:typecheck`   | `typecheck`      | Types only                                                                |
-
-Package-only scripts (no root alias):
-
-| Script                 | Purpose                                                                       |
-| ---------------------- | ----------------------------------------------------------------------------- |
-| `templates:check-sync` | Fail if component templates drift from UI (part of `registry:check`)          |
-| `styles:check-sync`    | Fail if style templates drift from token generator (part of `registry:check`) |
-
-Filter equivalent:
-
-```sh
-pnpm --filter @dalexto/lexsys-registry <script>
-```
+| Root alias                           | Package script         | When to run                                                               |
+| ------------------------------------ | ---------------------- | ------------------------------------------------------------------------- |
+| `pnpm registry:build`                | `build`                | Build registry metadata                                                   |
+| `pnpm registry:check`                | `check`                | Before merge when UI, tokens, or registry items changed                   |
+| `pnpm registry:sync`                 | `templates:sync`       | After UI component source edits                                           |
+| `pnpm registry:styles:sync`          | `styles:sync`          | After token CSS generator changes (delegates to `tokens:generate:styles`) |
+| `pnpm registry:lint`                 | `lint`                 | Lint only (turbo)                                                         |
+| `pnpm registry:lint:fix`             | `lint:fix`             | Auto-fix registry package lint                                            |
+| `pnpm registry:templates:check-sync` | `templates:check-sync` | Template drift only (also part of `registry:check`)                       |
+| `pnpm registry:styles:check-sync`    | `styles:check-sync`    | Style template drift only (also part of `registry:check`)                 |
+| `pnpm registry:test`                 | `test`                 | Vitest only (turbo)                                                       |
+| `pnpm registry:typecheck`            | `typecheck`            | Types only                                                                |
 
 ---
 
@@ -184,22 +175,13 @@ pnpm --filter @dalexto/lexsys-registry <script>
 | Root alias           | Package script | When to run                            |
 | -------------------- | -------------- | -------------------------------------- |
 | `pnpm cli:build`     | `build`        | Build CLI binary                       |
-| `pnpm cli:check`     | turbo `check`  | After CLI command or installer changes |
+| `pnpm cli:check`     | `check`        | After CLI command or installer changes |
+| `pnpm cli:lint`      | `lint`         | Lint only (turbo)                      |
 | `pnpm cli:lint:fix`  | `lint:fix`     | Auto-fix CLI package lint              |
+| `pnpm cli:test`      | `test`         | Vitest only (turbo; builds `^deps`)    |
 | `pnpm cli:typecheck` | `typecheck`    | Types only                             |
 
-`pnpm cli:check` runs `pnpm turbo run check --filter=./packages/cli`, so workspace
-dependencies (notably `@dalexto/lexsys-registry`) are built before lint and typecheck.
-Do not substitute `pnpm --filter ./packages/cli check` for the full gate — that
-skips the turbo `^build` graph and ESLint can fail on unresolved registry types.
-
-Filter equivalent for other CLI scripts (use path filter — root package is also named `lexsys`):
-
-```sh
-pnpm --filter ./packages/cli <script>
-```
-
-For tests only (registry already built): `pnpm --filter ./packages/cli test`.
+All `cli:*` Tier-0 aliases use `turbo run check --filter=@dalexto/lexsys-cli` (or the matching task), so `@dalexto/lexsys-registry` is built via `^build` before lint/typecheck/test. Do not substitute bare `pnpm --filter @dalexto/lexsys-cli check` — that skips the turbo dependency graph.
 
 ---
 
@@ -213,14 +195,9 @@ For tests only (registry already built): `pnpm --filter ./packages/cli test`.
 | `pnpm playground:lint`      | `lint`         | Lint only                                                      |
 | `pnpm playground:lint:fix`  | `lint:fix`     | Auto-fix playground lint                                       |
 | `pnpm playground:typecheck` | `typecheck`    | Types only (builds tokens + UI first)                          |
+| `pnpm playground:preview`   | `preview`      | Vite preview of production build                               |
 
-Playground has no Vitest tests today; `check` = lint + typecheck.
-
-Filter equivalent:
-
-```sh
-pnpm --filter @dalexto/lexsys-playground <script>
-```
+Playground has no Vitest tests today; `check` = lint + typecheck. No `playground:test` alias (intentional).
 
 ---
 
@@ -334,15 +311,16 @@ Does not retroactively clean PRs merged before the workflow existed.
 
 ## Turbo vs root alias vs filter
 
-| Pattern                                      | Use when                                                         |
-| -------------------------------------------- | ---------------------------------------------------------------- |
-| `pnpm check`, `pnpm build`, `pnpm test`      | Run across all workspace packages via turbo                      |
-| `pnpm tokens:check`, `pnpm registry:sync`, … | Daily maintainer shortcuts from repo root                        |
-| `pnpm cli:check`                             | CLI gate via turbo (`^build` then lint + typecheck + test)       |
-| `pnpm --filter @dalexto/lexsys-tokens test`  | Running a single package script without a root alias, or from CI |
-| `pnpm --filter ./packages/cli test`          | CLI tests only (not the full check gate; registry must be built) |
+| Pattern                                      | Use when                                                 |
+| -------------------------------------------- | -------------------------------------------------------- |
+| `pnpm check`, `pnpm build`, `pnpm test`      | All workspace packages (turbo)                           |
+| `pnpm ui:test`, `pnpm tokens:check`, …       | **Default** — one package from repo root                 |
+| `pnpm registry:sync`, `pnpm ui:audit`        | Tier-1 ops (`pnpm --filter … run …`)                     |
+| `pnpm scripts:check`                         | After editing root or workspace `package.json` scripts   |
+| `turbo run test --filter=@dalexto/lexsys-ui` | Advanced / CI when bypassing root alias                  |
+| `pnpm --filter @dalexto/lexsys-ui test`      | Escape hatch only — skips turbo task graph documentation |
 
-Prefer root aliases in docs and commit messages when they exist. Use `--filter` when documenting the underlying package script or when no root alias exists (e.g. `templates:check-sync`).
+Prefer root aliases in docs, skills, and commit messages. [`scripts/validate-root-scripts.mjs`](../../scripts/validate-root-scripts.mjs) enforces parity (`pnpm scripts:check`).
 
 ---
 

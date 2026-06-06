@@ -47,6 +47,7 @@ jobs:
               - 'package.json'
               - 'pnpm-lock.yaml'
               - 'turbo.json'
+              - 'scripts/**'
               - 'eslint.config.mjs'
               - 'prettier.config.mjs'
               - 'tsconfig*.json'
@@ -110,7 +111,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm turbo run check --filter=./packages/cli
+      - run: pnpm cli:check
 
   playground:
     needs: changes
@@ -140,6 +141,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm format:check
       - run: pnpm lint:root
+      - run: pnpm scripts:check
 
   full:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main')

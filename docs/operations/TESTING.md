@@ -99,7 +99,7 @@ Run:
 
 ```sh
 pnpm tokens:check             # from repo root
-pnpm --filter @dalexto/lexsys-tokens test
+pnpm tokens:test              # vitest only (faster)
 ```
 
 ### `@dalexto/lexsys-ui`
@@ -119,7 +119,7 @@ Run:
 
 ```sh
 pnpm ui:check                 # from repo root
-pnpm --filter @dalexto/lexsys-ui test
+pnpm ui:test                  # vitest only (faster)
 ```
 
 ### `@dalexto/lexsys-registry`
@@ -137,7 +137,7 @@ Run:
 
 ```sh
 pnpm registry:check           # from repo root (includes template sync check)
-pnpm --filter @dalexto/lexsys-registry test
+pnpm registry:test            # vitest only
 ```
 
 ### `lexsys` (CLI)
@@ -163,7 +163,7 @@ Run:
 
 ```sh
 pnpm cli:check                # from repo root
-pnpm --filter ./packages/cli test
+pnpm cli:test                 # vitest only (turbo ^build)
 ```
 
 ---
