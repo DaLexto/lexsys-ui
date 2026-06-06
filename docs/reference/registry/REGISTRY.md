@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Registry item contract, template sync rules, validation requirements, local/remote resolution
 **Verified against:** `packages/registry/src/`
-**Last reviewed:** 2026-06-02
+**Last reviewed:** 2026-05-30
 
 ---
 
@@ -21,6 +21,7 @@
 - [Local vs Remote Registry](#local-vs-remote-registry)
 - [Categories](#categories)
 - [Ownership Boundaries](#ownership-boundaries)
+- [Maintainer notes](#maintainer-notes)
 
 ## What the Registry Is
 
@@ -279,6 +280,26 @@ Valid `RegistryItemCategory` values:
 
 Do not add install logic to registry metadata. Do not add registry metadata
 rules to CLI code. Do not manually maintain templates.
+
+---
+
+## Maintainer notes
+
+**SI.5 shipped** — `pnpm registry:sync` reconciles `src/items/*.ts` for primitives,
+blocks, and templates. Treat sync as the source of truth for install metadata.
+
+**Overwrite policy:** On reconcile, `files`, `dependencies`, `utilities`,
+`registryDependencies`, `target`, and `canonicalName` are regenerated. `aliases` and
+`category` (when already set) are preserved. Manual edits to regenerated fields are
+overwritten on the next sync unless you skip sync in your workflow.
+
+**Inference limits:** `registryDependencies` are inferred from template `.tsx` import
+paths (`registry-composition-imports.ts`). Verify after atypical import paths (dynamic
+imports, re-exports, or non-standard monorepo paths). `pnpm registry:check` includes
+`validate-registry-template-imports.ts` to catch drift.
+
+**When to hand-edit items:** Only for fields sync preserves (`aliases`, `category`) or
+when inference misses an edge case — then adjust and document why in the PR.
 
 ---
 

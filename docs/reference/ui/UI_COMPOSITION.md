@@ -140,24 +140,25 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 
 ## Block catalog
 
-| Block          | Status | Depends on                            |
-| -------------- | ------ | ------------------------------------- |
-| FormField      | pilot  | field, input                          |
-| SettingsPanel  | pilot  | card                                  |
-| Sidebar        | pilot  | button, drawer, scroll-area           |
-| AuthForm       | pilot  | card, input, button, separator        |
-| CommandPalette | pilot  | dialog, input, scroll-area, separator |
+| Block          | Status  | Depends on                            |
+| -------------- | ------- | ------------------------------------- |
+| FormField      | shipped | field, input                          |
+| SettingsPanel  | shipped | card                                  |
+| Sidebar        | shipped | button, drawer, scroll-area           |
+| AuthForm       | shipped | card, input, button, separator        |
+| CommandPalette | shipped | dialog, input, scroll-area, separator |
 
 ## Template catalog
 
 | Template           | Status  | Depends on |
 | ------------------ | ------- | ---------- |
-| DashboardShell     | pilot   | sidebar    |
+| DashboardShell     | shipped | sidebar    |
 | SettingsPageLayout | planned | —          |
 | DocsLayout         | planned | —          |
 
-Pilot blocks/templates are installable but not yet marked stable — see
-optimization backlog in [Backlog](../../REVIEW_TODO.md).
+Pilot blocks and `DashboardShell` are installable and **stable** after the BO.1–BO.7
+pass (CI install smoke + render tests). Narrow-viewport sandbox QA remains manual —
+see [Testing docs § Consumer sandbox verification](../../operations/TESTING.md#consumer-sandbox-verification).
 
 ---
 
@@ -361,14 +362,14 @@ Workflow: edit `packages/ui` → `pnpm registry:sync` (templates + reconciled `s
 
 ## Sequencing
 
-| Step | Work                                                      | Status      |
-| ---- | --------------------------------------------------------- | ----------- |
-| 1    | Layer docs + registry validators                          | shipped     |
-| 2    | Monorepo `primitives/blocks/templates` + flat CLI install | shipped     |
-| 3    | Pilot blocks + template + sandbox verify                  | in progress |
-| 4    | Blocks/templates optimization pass (BO.1–BO.7)            | in progress |
-| 5    | Additional blocks/templates beyond pilot set              | planned     |
-| 6    | Base UI primitive expansion (9 modules above)             | shipped     |
+| Step | Work                                                      | Status  |
+| ---- | --------------------------------------------------------- | ------- |
+| 1    | Layer docs + registry validators                          | shipped |
+| 2    | Monorepo `primitives/blocks/templates` + flat CLI install | shipped |
+| 3    | Pilot blocks + template + sandbox verify                  | shipped |
+| 4    | Blocks/templates optimization pass (BO.1–BO.7)            | shipped |
+| 5    | Additional blocks/templates beyond pilot set              | planned |
+| 6    | Base UI primitive expansion (9 modules above)             | shipped |
 
 Tracked in [Backlog § UI composition](../../REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 

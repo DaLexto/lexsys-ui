@@ -29,7 +29,7 @@ Test patterns → [tests.md](./tests.md).
 ## New block / template checklist
 
 - Three-file folder under `packages/ui/src/components/blocks/<Name>/` or `templates/<Name>/`
-- **Do NOT export from `packages/ui/src/index.ts`** — registry-first; consumers install via `lexsys add`
+- Default **registry-first** — consumers install via `lexsys add`. Add to `packages/ui/src/index.ts` only when playground smoke needs the symbol (today: five pilot blocks + `DashboardShell`; `Empty` stays out of `index.ts`)
 - After the UI folder exists → **`$registry-sync`** ([§ New block](../registry-sync/procedures.md#new-block)); never hand-write `templates/` or `src/items/` for routine adds.
 - Use `*Classes()` helper function (not `cva()`) for variant strings
 - Render test: `packages/ui/test/components/<Name>/<Name>.render.test.tsx` — **required**
@@ -41,7 +41,7 @@ Test patterns → [tests.md](./tests.md).
 ## Delete checklist
 
 - Remove three-file folder from `packages/ui/src/components/{primitives,blocks,templates}/`
-- Remove export from `packages/ui/src/index.ts` (primitives only)
+- Remove export from `packages/ui/src/index.ts` when present (primitives, blocks, or templates)
 - Remove registry item from `packages/registry/src/items/`
 - Remove test files from `packages/ui/test/components/<Name>/`
 - After create/edit/delete → load **[`$monorepo-verify-gate`](../monorepo-verify-gate/SKILL.md)** for the checklist (see below)

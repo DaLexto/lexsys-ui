@@ -212,12 +212,15 @@ Use direct component token utilities instead (see `Badge.variants.ts`).
 ## Public API Rules
 
 All public exports MUST go through `packages/ui/src/index.ts`. Today the package
-root exports **primitives only** (playground smoke). Pilot blocks and templates
-are registry + CLI installable but not yet part of the `@dalexto/lexsys-ui` public export
-surface:
+root exports **42 primitives**, **five pilot blocks** (`AuthForm`, `CommandPalette`,
+`FormField`, `SettingsPanel`, `Sidebar`), and **`DashboardShell`** for playground
+smoke. `Empty` is registry + CLI installable only (not in `index.ts`). Production
+consumers still install via `lexsys add`, not `@dalexto/lexsys-ui` imports.
 
 ```ts
 export * from "./components/primitives/Button/Button"
+export * from "./components/blocks/Sidebar/Sidebar"
+export * from "./components/templates/DashboardShell/DashboardShell"
 export type * from "./components/primitives/Button/Button.types"
 ```
 
