@@ -389,7 +389,7 @@ GitHub Actions secrets if CI duration grows.
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `--frozen-lockfile` in CI                                             | implemented                                                               |
 | Granular NPM_TOKEN (scoped publish permissions per package)           | implemented                                                               |
-| `npm publish --provenance` (links package to GitHub Actions workflow) | **shipped** — `pnpm publish:release` passes `--provenance` via Changesets |
+| `npm publish --provenance` (links package to GitHub Actions workflow) | **shipped** — Release workflow sets `NPM_CONFIG_PROVENANCE: true` (Changesets does not accept `--provenance`) |
 | OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC)         | deferred                                                                  |
 | Signed releases (sigstore)                                            | deferred                                                                  |
 
@@ -398,8 +398,8 @@ GitHub Actions secrets if CI duration grows.
 - The Granular NPM_TOKEN scopes publish access to specific packages — this is
   the primary publish authorization control, not a bypass of security.
 - `npm publish --provenance` requires no additional tokens — it uses the GitHub
-  Actions OIDC token automatically when run in CI. Root scripts `publish:release` and
-  `publish:release:latest` pass `--provenance` through Changesets.
+  Actions OIDC token automatically when run in CI. Set `NPM_CONFIG_PROVENANCE: true`
+  in `.github/workflows/release.yml`; do not pass `--provenance` to `changeset publish`.
 - **SBOM:** npm provenance attestations ship with published packages. Full CycloneDX
   SBOM generation is deferred — track as future supply-chain hardening.
 - Deferred items tracked in [Backlog § Known Gaps](../REVIEW_TODO.md#known-gaps).
