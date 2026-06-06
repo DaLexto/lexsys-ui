@@ -1,5 +1,12 @@
 # Changelog — @dalexto/lexsys-cli
 
+## 0.1.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @dalexto/lexsys-registry@0.1.0
+
 ## 0.0.6
 
 ### Patch Changes
