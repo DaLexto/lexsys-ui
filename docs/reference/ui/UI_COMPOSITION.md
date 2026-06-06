@@ -317,7 +317,68 @@ Install **`collapsible`** with `sidebar` for expandable parents. Collapsible
 `disabled` / `aria-disabled` / hidden items.
 
 `SidebarItemLink` and `SidebarSubItemLink` set `aria-current="page"` when
-`active` is true (consumer supplies `active` from router — SB.13).
+`active` is true.
+
+#### Layer 4 — router-aware active state (SB.13 shipped)
+
+Lexsys does **not** bundle a router. Consumers pass `active` explicitly.
+`isSidebarNavActive(pathname, href, options?)` ships with the Sidebar block —
+router-agnostic matcher. **Default:** exact pathname match (`end: true`). Pass
+`end: false` for section parents that should stay active on nested routes.
+
+**Flat nav (React Router `useLocation`):**
+
+```tsx
+import { useLocation } from "react-router-dom"
+import {
+  isSidebarNavActive,
+  SidebarItem,
+  SidebarItemIcon,
+  SidebarItemLink,
+} from "@/components/ui/Sidebar/Sidebar"
+
+const location = useLocation()
+
+<SidebarItem>
+  <SidebarItemLink
+    href="/billing"
+    active={isSidebarNavActive(location.pathname, "/billing")}
+  >
+    <SidebarItemIcon>
+      <CreditCard />
+    </SidebarItemIcon>
+    <SidebarExpandable>Billing</SidebarExpandable>
+  </SidebarItemLink>
+</SidebarItem>
+```
+
+**Nested section parent (`end: false`) + child (`end: true`):**
+
+```tsx
+<SidebarItemLink
+  href="/settings"
+  active={isSidebarNavActive(location.pathname, "/settings", { end: false })}
+>
+  Settings
+</SidebarItemLink>
+
+<SidebarSubItemLink
+  href="/settings/profile"
+  active={isSidebarNavActive(location.pathname, "/settings/profile", {
+    end: true,
+  })}
+>
+  Profile
+</SidebarSubItemLink>
+```
+
+**`NavLink` / `useMatch` (optional):** prefer `isSidebarNavActive` for
+consistent prefix rules. If you already use `NavLink`, map `isActive` to
+`SidebarItemLink` `active` — keep `href` on `SidebarItemLink` for semantics;
+avoid nesting two anchors.
+
+**Anti-pattern:** `active={location.pathname === item.path}` breaks for nested
+routes and the root path (`"/"` matches everything with loose equality tricks).
 
 **Registry deps (sidebar block):** `badge`, `button`, `collapsible`, `drawer`,
 `scroll-area`.

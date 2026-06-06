@@ -319,7 +319,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 | SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction` | SB.7               | shipped |
 | SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                   | SB.4, SB.5         | shipped |
 | SB.12 | A11y     | Keyboard nav + `aria-current` on active links                                | SB.11              | shipped |
-| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                         | SB.4               | planned |
+| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                         | SB.4               | shipped |
 | SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                            | SB.11              | planned |
 | SB.15 | Impl     | `SidebarInput` — inline nav filter                                           | SB.8               | planned |
 | SB.16 | Impl     | `side="right"` + RTL mirror                                                  | SB.5               | planned |

@@ -35,6 +35,7 @@ import {
   ScrollAreaContent,
   ScrollAreaViewport,
 } from "../../primitives/ScrollArea/ScrollArea"
+import { isSidebarNavActive } from "./Sidebar.utils.js"
 import type {
   SidebarCollapseTriggerProps,
   SidebarContentProps,
@@ -1032,4 +1033,7 @@ export {
   SidebarRail,
   SidebarMobileHeader,
   SidebarExpandable,
+  isSidebarNavActive,
 }
+
+export type { SidebarNavActiveOptions } from "./Sidebar.types.js"

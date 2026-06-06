@@ -98,6 +98,11 @@ export interface SidebarItemProps extends LiHTMLAttributes<HTMLLIElement> {
   children?: ReactNode
 }
 
+export interface SidebarNavActiveOptions {
+  /** When true, only an exact pathname match is active. Defaults to `true`. */
+  end?: boolean
+}
+
 export interface SidebarItemLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   ref?: Ref<HTMLAnchorElement>
   active?: boolean
