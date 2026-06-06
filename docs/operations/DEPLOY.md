@@ -76,17 +76,23 @@ explicit product decision and this file is updated.
 
 ## Version lane
 
-| Milestone     | Version | npm dist-tag | Meaning                                                                          |
-| ------------- | ------- | ------------ | -------------------------------------------------------------------------------- |
-| First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                                          |
-| Prior preview | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical    |
-| Prior preview | `0.0.4` | `next`       | Table primitive, CLI `installed` array, `lexsys reset` (2026-05-30) — historical |
-| Prior preview | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02) — historical   |
-| **Current**   | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06)             |
-| Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                           |
-| MVP stable    | `0.1.0` | `latest`     | Public MVP commitment — future milestone                                         |
+| Milestone     | Version | npm dist-tag | Meaning                                                                           |
+| ------------- | ------- | ------------ | --------------------------------------------------------------------------------- |
+| First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                                           |
+| Prior preview | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical     |
+| Prior preview | `0.0.4` | `next`       | Table primitive, CLI `installed` array, `lexsys reset` (2026-05-30) — historical  |
+| Prior preview | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02) — historical    |
+| Prior preview | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06) — historical |
+| Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                            |
+| **Current**   | `0.1.0` | `latest`     | Stable MVP — 57 installable items, admin catalog, registry trust (2026-06-06)     |
 
-Install for early preview:
+Install for stable MVP:
+
+```bash
+npx @dalexto/lexsys@latest init vite my-app
+```
+
+Early preview (`0.0.x` @ `next`):
 
 ```bash
 npx @dalexto/lexsys@next init vite my-app
