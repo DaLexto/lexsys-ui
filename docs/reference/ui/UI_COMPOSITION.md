@@ -301,11 +301,11 @@ Lexsys naming is fixed:
 </SidebarItem>
 ```
 
-| Export                  | Role                                                         |
-| ----------------------- | ------------------------------------------------------------ |
-| `SidebarSubList`        | Shipped SB.9 — indented nested `<ul>`; hidden in icon collapse |
-| `SidebarSubItemLink`    | Shipped SB.9 — nested `<a>` with extra indent + active chrome  |
-| `SidebarSubItemButton`  | Shipped SB.9 — nested `<button>` row                           |
+| Export                 | Role                                                           |
+| ---------------------- | -------------------------------------------------------------- |
+| `SidebarSubList`       | Shipped SB.9 — indented nested `<ul>`; hidden in icon collapse |
+| `SidebarSubItemLink`   | Shipped SB.9 — nested `<a>` with extra indent + active chrome  |
+| `SidebarSubItemButton` | Shipped SB.9 — nested `<button>` row                           |
 
 Install **`collapsible`** with `sidebar` for expandable parents. Collapsible
 `SidebarGroup` (fold whole sections) → SB.17.

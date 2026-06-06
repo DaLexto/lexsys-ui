@@ -16,9 +16,9 @@ describe("isSidebarNavActive", () => {
     expect(
       isSidebarNavActive("/settings/profile", "/settings", { end: false }),
     ).toBe(true)
-    expect(
-      isSidebarNavActive("/settings", "/settings", { end: false }),
-    ).toBe(true)
+    expect(isSidebarNavActive("/settings", "/settings", { end: false })).toBe(
+      true,
+    )
     expect(
       isSidebarNavActive("/settings-old", "/settings", { end: false }),
     ).toBe(false)

@@ -282,7 +282,9 @@ describe("Sidebar render", () => {
                   </SidebarSubItemLink>
                 </SidebarItem>
                 <SidebarItem>
-                  <SidebarSubItemLink href="#billing">Billing</SidebarSubItemLink>
+                  <SidebarSubItemLink href="#billing">
+                    Billing
+                  </SidebarSubItemLink>
                 </SidebarItem>
               </SidebarSubList>
             </SidebarItem>
@@ -312,7 +314,9 @@ describe("Sidebar render", () => {
                 <SidebarItemLink href="#settings">Settings</SidebarItemLink>
                 <SidebarSubList>
                   <SidebarItem>
-                    <SidebarSubItemLink href="#profile">Profile</SidebarSubItemLink>
+                    <SidebarSubItemLink href="#profile">
+                      Profile
+                    </SidebarSubItemLink>
                   </SidebarItem>
                 </SidebarSubList>
               </SidebarItem>
