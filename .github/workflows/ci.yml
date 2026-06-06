@@ -142,6 +142,7 @@ jobs:
       - run: pnpm format:check
       - run: pnpm lint:root
       - run: pnpm scripts:check
+      - run: pnpm docs:lint
 
   full:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main')

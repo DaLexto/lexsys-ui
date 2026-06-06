@@ -8,7 +8,7 @@ import { cva } from "class-variance-authority"
 import { disabledStateClasses } from "../../../utils/cn"
 
 export const toolbarRootVariants = cva(
-  "flex items-center gap-(--lex-button-padding-x-sm) rounded-(--lex-button-radius) border border-(--lex-button-secondary-border-color) bg-(--lex-button-secondary-background) p-(--lex-button-padding-x-sm)",
+  "flex items-center gap-(--lex-toolbar-root-gap) rounded-(--lex-toolbar-radius) border border-(--lex-toolbar-root-border-color) bg-(--lex-toolbar-root-background) p-(--lex-toolbar-root-padding)",
   {
     variants: {
       orientation: {
@@ -23,7 +23,7 @@ export const toolbarRootVariants = cva(
 )
 
 export const toolbarGroupVariants = cva(
-  "flex items-center gap-(--lex-space-1)",
+  "flex items-center gap-(--lex-toolbar-group-gap)",
   {
     variants: {
       orientation: {
@@ -39,31 +39,31 @@ export const toolbarGroupVariants = cva(
 
 export const toolbarButtonVariants = cva(
   [
-    "inline-flex h-(--lex-button-height-sm) items-center justify-center rounded-(--lex-button-radius) border border-transparent px-(--lex-button-padding-x-sm)",
-    "text-(length:--lex-button-font-size-sm) font-(--lex-button-font-weight) leading-(--lex-button-font-line-height) text-(--lex-button-secondary-foreground)",
-    "transition-colors duration-(--lex-button-transition-duration) ease-(--lex-button-transition-easing)",
-    "outline-none hover:bg-(--lex-button-secondary-hover-background) focus-visible:ring-(length:--lex-button-focus-ring-width) focus-visible:ring-(--lex-button-focus-ring-color) focus-visible:ring-offset-(length:--lex-button-focus-ring-offset) focus-visible:ring-offset-(--lex-button-focus-ring-offset-color)",
+    "inline-flex h-(--lex-toolbar-button-height) items-center justify-center rounded-(--lex-toolbar-radius) border border-transparent px-(--lex-toolbar-button-padding-x)",
+    "text-(length:--lex-toolbar-button-font-size) font-(--lex-toolbar-button-font-weight) leading-(--lex-toolbar-button-font-line-height) text-(--lex-toolbar-button-foreground)",
+    "transition-colors duration-(--lex-toolbar-transition-duration) ease-(--lex-toolbar-transition-easing)",
+    "outline-none hover:bg-(--lex-toolbar-button-hover-background) focus-visible:ring-(length:--lex-toolbar-button-focus-ring-width) focus-visible:ring-(--lex-toolbar-button-focus-ring-color) focus-visible:ring-offset-(length:--lex-toolbar-button-focus-ring-offset) focus-visible:ring-offset-(--lex-toolbar-button-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
 )
 
 export const toolbarLinkVariants = cva(
   [
-    "inline-flex h-(--lex-button-height-sm) items-center justify-center rounded-(--lex-button-radius) px-(--lex-button-padding-x-sm)",
-    "text-(length:--lex-button-font-size-sm) font-(--lex-button-font-weight) leading-(--lex-button-font-line-height) text-(--lex-button-secondary-foreground)",
-    "transition-colors duration-(--lex-button-transition-duration) ease-(--lex-button-transition-easing)",
-    "outline-none hover:bg-(--lex-button-secondary-hover-background) focus-visible:ring-(length:--lex-button-focus-ring-width) focus-visible:ring-(--lex-button-focus-ring-color) focus-visible:ring-offset-(length:--lex-button-focus-ring-offset) focus-visible:ring-offset-(--lex-button-focus-ring-offset-color)",
+    "inline-flex h-(--lex-toolbar-link-height) items-center justify-center rounded-(--lex-toolbar-radius) px-(--lex-toolbar-link-padding-x)",
+    "text-(length:--lex-toolbar-link-font-size) font-(--lex-toolbar-link-font-weight) leading-(--lex-toolbar-link-font-line-height) text-(--lex-toolbar-link-foreground)",
+    "transition-colors duration-(--lex-toolbar-transition-duration) ease-(--lex-toolbar-transition-easing)",
+    "outline-none hover:bg-(--lex-toolbar-link-hover-background) focus-visible:ring-(length:--lex-toolbar-link-focus-ring-width) focus-visible:ring-(--lex-toolbar-link-focus-ring-color) focus-visible:ring-offset-(length:--lex-toolbar-link-focus-ring-offset) focus-visible:ring-offset-(--lex-toolbar-link-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
 )
 
 export const toolbarInputVariants = cva(
   [
-    "h-(--lex-input-height-sm) min-w-0 rounded-(--lex-input-radius) border border-(--lex-input-border-color) bg-(--lex-input-background) px-(--lex-input-padding-x-sm)",
-    "text-(length:--lex-input-font-size-sm) font-(family-name:--lex-input-font-family) font-(--lex-input-font-weight) leading-(--lex-input-font-line-height) text-(--lex-input-foreground)",
-    "placeholder:text-(--lex-input-placeholder-color)",
-    "transition-colors duration-(--lex-input-transition-duration) ease-(--lex-input-transition-easing)",
-    "outline-none focus-visible:border-(--lex-input-focus-border-color) focus-visible:ring-(length:--lex-input-focus-ring-width) focus-visible:ring-(--lex-input-focus-ring-color) focus-visible:ring-offset-(length:--lex-input-focus-ring-offset) focus-visible:ring-offset-(--lex-input-focus-ring-offset-color)",
+    "h-(--lex-toolbar-input-height) min-w-0 rounded-(--lex-toolbar-input-radius) border border-(--lex-toolbar-input-border-color) bg-(--lex-toolbar-input-background) px-(--lex-toolbar-input-padding-x)",
+    "text-(length:--lex-toolbar-input-font-size) font-(family-name:--lex-toolbar-input-font-family) font-(--lex-toolbar-input-font-weight) leading-(--lex-toolbar-input-font-line-height) text-(--lex-toolbar-input-foreground)",
+    "placeholder:text-(--lex-toolbar-input-placeholder-color)",
+    "transition-colors duration-(--lex-toolbar-transition-duration) ease-(--lex-toolbar-transition-easing)",
+    "outline-none focus-visible:border-(--lex-toolbar-input-focus-border-color) focus-visible:ring-(length:--lex-toolbar-input-focus-ring-width) focus-visible:ring-(--lex-toolbar-input-focus-ring-color) focus-visible:ring-offset-(length:--lex-toolbar-input-focus-ring-offset) focus-visible:ring-offset-(--lex-toolbar-input-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
 )

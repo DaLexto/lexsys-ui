@@ -11,7 +11,7 @@ import type {
   Ref,
 } from "react"
 import type { DialogProps } from "@/components/primitives/Dialog"
-import type { InputProps } from "@/components/primitives/Input"
+import type { ComboboxInputProps } from "@/components/primitives/Combobox"
 
 export interface CommandPaletteProps extends DialogProps {
   children?: ReactNode
@@ -23,7 +23,7 @@ export interface CommandPaletteContentProps extends HTMLAttributes<HTMLDivElemen
   children?: ReactNode
 }
 
-export type CommandPaletteInputProps = InputProps
+export type CommandPaletteInputProps = ComboboxInputProps
 
 export type CommandPaletteSeparatorProps = Record<string, never>
 

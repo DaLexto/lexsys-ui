@@ -13,7 +13,10 @@ import {
   DialogTitle,
   DialogViewport,
 } from "../../primitives/Dialog/Dialog"
-import { Input } from "../../primitives/Input/Input"
+import {
+  ComboboxInput,
+  ComboboxInputGroup,
+} from "../../primitives/Combobox/Combobox"
 import { Separator } from "../../primitives/Separator/Separator"
 import {
   ScrollArea,
@@ -113,13 +116,14 @@ const CommandPaletteInput = ({
   ...props
 }: CommandPaletteInputProps) => {
   return (
-    <Input
-      ref={ref}
-      autoFocus
-      className={cn(commandPaletteInputClasses, className)}
-      aria-label="Search commands"
-      {...props}
-    />
+    <ComboboxInputGroup className={cn(commandPaletteInputClasses, className)}>
+      <ComboboxInput
+        ref={ref}
+        autoFocus
+        aria-label="Search commands"
+        {...props}
+      />
+    </ComboboxInputGroup>
   )
 }
 

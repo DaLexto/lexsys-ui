@@ -3,13 +3,14 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-05-30 (registry gap + render coverage alignment)
+**Last reviewed:** 2026-05-30 (0.1.0 roadmap integration)
 
 ---
 
 ## On this page
 
 - [Execution Queue (active)](#execution-queue-active)
+- [0.1.0 Execution Queue](#010-execution-queue)
 - [M4 - Entry + CLI DX (shipped)](#m4-entry-cli-dx-shipped)
 - [M8 - CLI Cleanup and Deduplication (shipped)](#m8-cli-cleanup-and-deduplication-shipped)
 - [M10 - Release readiness (shipped 2026-05-24)](#m10-release-readiness-shipped-2026-05-24)
@@ -33,28 +34,49 @@ that are not yet done.
 
 ## Execution Queue (active)
 
-**Monorepo optimization M1–M12** — see [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization). M1–M12, **R0**, and **M10** shipped.
+**Historical:** M1–M12, R0, M10 first publish — [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization). All **shipped**.
 
-| Phase   | Focus                                                               | Status  |
-| ------- | ------------------------------------------------------------------- | ------- |
-| Phase 0 | ROADMAP + REVIEW_TODO publish                                       | done    |
-| R0      | Lexsys product naming + publish surface (blocks M10)                | shipped |
-| M1      | Infra and DX (filter, CI, turbo, docs)                              | shipped |
-| M2      | Quality (Tier 2 tests, playground CI, sandbox checklist)            | shipped |
-| M3      | Product and architecture (render 32/32, Next init, remote registry) | shipped |
-| M4      | Entry + CLI DX                                                      | shipped |
-| M5      | Advanced CI (path filters, registry:check on UI PRs)                | shipped |
-| M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
-| M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
-| M8      | CLI cleanup and deduplication                                       | shipped |
-| M10     | Release readiness — `0.0.5` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
-| UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
-| BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
-| CS      | Component standardization (CS.1–CS.8)                               | shipped |
-| M12     | CLI command optimization (audit, merge candidates, cleanup)         | shipped |
-| SI      | Registry sync — full templates + items automation (SI.4–SI.5)       | shipped |
+**Current focus — 0.1.0 @ `latest`:** canonical PR order in [§ 0.1.0 Execution Queue](#010-execution-queue). Sequencing: [Roadmap § 0.1.0 roadmap](./ROADMAP.md#010-roadmap).
 
-Previous queue (**E → A → C → B → Docs**) — completed 2026-05-23.
+| Phase          | Focus                                      | Status                        |
+| -------------- | ------------------------------------------ | ----------------------------- |
+| **REL**        | 0.1.0 release gate (PR A1–A4)              | **active** — A4 next          |
+| **UC+**        | Admin catalog expansion (PR B1–C6)         | **shipped**                   |
+| **DX**         | `apps/docs` + `docs:lint` (PR D1–D2)       | **shipped**                   |
+| **TOK**        | Token hardening (PR E1–E2)                 | **shipped**                   |
+| **SEC+CLI**    | Registry trust + M12.5 (PR F1–F2)          | **shipped**                   |
+| **PLAYGROUND** | fresh-test smoke + PulseDesk E2E (G2a–G2b) | planned — external repos only |
+
+---
+
+## 0.1.0 Execution Queue
+
+Sorted PR order for the full improvement roadmap. Update **Status** column as each PR lands.
+
+| Order | PR     | ID(s)         | Item                                    | Surface / path                    | Status   |
+| ----- | ------ | ------------- | --------------------------------------- | --------------------------------- | -------- |
+| 1     | A1     | all           | Docs integration + drift fix            | REVIEW_TODO, ROADMAP, TESTING     | shipped  |
+| 2     | A3     | REL.2         | Provenance + SBOM                       | `release.yml`, DEPLOY             | shipped  |
+| —     | manual | —             | PulseDesk consumer QA                   | `D:\PLAYGROUND\sandbox-lexsys`    | planned  |
+| 3     | A4     | M10           | **0.1.0 @ latest** release              | Changesets, publish               | planned  |
+| 4     | B1     | UC.8          | Pagination primitive                    | ui + registry                     | shipped  |
+| 5     | B2     | UC.9          | Breadcrumb primitive                    | ui + registry                     | shipped  |
+| 6     | B3     | UC.10         | DatePicker primitive                    | ui + registry                     | shipped  |
+| 7     | C1     | UC.11         | PageHeader block                        | block                             | shipped  |
+| 8     | C2     | UC.12         | StatsCard block                         | block                             | shipped  |
+| 9     | C3     | UC.13         | FilterToolbar block                     | block                             | shipped  |
+| 10    | C4     | UC.14         | DataTable block                         | block (deps UC.8)                 | shipped  |
+| 11    | C5     | UC.15         | CommandPalette → Combobox wiring        | block edit                        | shipped  |
+| 12    | C6     | UC.16         | SettingsPageLayout template             | template (deps UC.11)             | shipped  |
+| 13    | D1     | DX.4          | `apps/docs` minimal site                | apps/docs                         | shipped  |
+| 14    | D2     | DX.5          | `docs:lint` automation                  | root script + optional CI         | shipped  |
+| 15    | E1     | TOK.1         | Dedicated tokens (9 aliased primitives) | packages/tokens                   | shipped  |
+| 16    | E2     | TOK.2         | Expand `SEMANTIC_CONTRAST_PAIRS`        | packages/tokens                   | shipped  |
+| 17    | F1     | SEC.1         | Remote registry checksum/allowlist      | packages/cli                      | shipped  |
+| 18    | F2     | CLI.1 / M12.5 | CLI polish (`status --json`)            | packages/cli                      | shipped  |
+| —     | G2a    | DX.3          | Fresh install/build smoke               | `D:\PLAYGROUND\lexsys-fresh-test` | planned  |
+| —     | G2b    | DX.2          | Playwright E2E                          | `D:\PLAYGROUND\sandbox-lexsys`    | planned  |
+| —     | G1     | DX.1          | Public starter repo                     | deferred post-0.1.0               | deferred |
 
 ---
 
@@ -101,9 +123,9 @@ Detail: [Roadmap § M8](./ROADMAP.md#m8-cli-cleanup-and-deduplication).
 via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
 [Changelog](../CHANGELOG.md#001-2026-05-24).
 
-**Current preview:** `0.0.5` @ `next` (2026-06-02) — registry sync automation, block/template install import fixes ([CHANGELOG](../CHANGELOG.md#005-2026-06-02)). Prior: `0.0.4` (2026-05-30).
+**Current preview:** `0.0.6` @ `next` — CSS generated header (JSDoc + ISO timestamp), scripts enterprise contract. Prior: `0.0.5` (2026-06-02), `0.0.4` (2026-05-30). See [CHANGELOG](../CHANGELOG.md).
 
-**Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [Deploy guide § Transition to 0.1.0](../operations/DEPLOY.md#transition-to-010-latest).
+**Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [Deploy guide § 0.1.0 stable](../operations/DEPLOY.md#010-stable-latest). Execution: [§ 0.1.0 Execution Queue](#010-execution-queue).
 
 Detail: [Roadmap § M10](./ROADMAP.md#m10-release-readiness).
 
@@ -114,9 +136,17 @@ Detail: [Roadmap § M10](./ROADMAP.md#m10-release-readiness).
 Canonical detail: [Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces).
 
 - **`apps/playground`** — monorepo smoke, **maintenance-only** (~10–20% focus). Optional `pnpm playground:dev`; category nav for quick scans. Do not build product UX here unless the PR explicitly targets `apps/playground/**`.
-- **Consumer sandbox** — **consumer truth** (~80–90% focus) for CLI, registry, template, and install-artifact PRs. Manual checklist — not CI.
+- **Consumer sandbox (PulseDesk)** — **real app truth** (~80–90% focus) for block/template UX, narrow viewport, and integration flows. Path: `D:\PLAYGROUND\sandbox-lexsys`. Manual checklist + planned Playwright (DX.2) — not lexsys CI.
+- **Fresh-install lab** — repeatable `init` → `add` → `build` smoke (DX.3). Path: `D:\PLAYGROUND\lexsys-fresh-test`. Throwaway / reproducible CLI regression — not PulseDesk.
 - **Playground dark/brand demos** — deferred; consumer UX belongs in sandbox/SaaS ([Roadmap § Explicitly deferred](./ROADMAP.md#explicitly-deferred)).
 - **Change workflow** — branch off `dev` → implement → docs alignment → PR to `dev` last; **`main` untouched** unless explicitly requested ([AGENTS.md § Change workflow](../AGENTS.md#change-workflow)).
+
+| PLAYGROUND path                   | Role                          | IDs                      |
+| --------------------------------- | ----------------------------- | ------------------------ |
+| `D:\PLAYGROUND\sandbox-lexsys`    | PulseDesk — real consumer app | Manual QA, DX.2 E2E      |
+| `D:\PLAYGROUND\lexsys-fresh-test` | Fresh-install lab             | DX.3 install/build smoke |
+
+Detail: [Testing docs § PLAYGROUND verification surfaces](../operations/TESTING.md#playground-verification-surfaces).
 
 ---
 
@@ -132,7 +162,7 @@ The P0 and P1 implementation passes are complete:
 - ScrollArea component (UI, tokens, registry, playground) merged via PR #14 (`884e3eb`)
 - `lexsys uninstall` removes registry-owned files with dry-run and conflict reporting
 - UI render test pilot: ScrollArea, Collapsible, Dialog (`@testing-library/react` + Vitest jsdom)
-- Broad UI render coverage: all 42 bundled primitives have render smoke tests
+- Broad UI render coverage: **57/57** installable items have render smoke tests — **45** primitives, **10** blocks, **2** templates (0.1.0 wave shipped)
 - Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Governance CI promotion: semantic audit **`error`-severity** fails `pnpm tokens:governance:report` (`LEXSYS_GOVERNANCE_POLICY`)
@@ -149,13 +179,67 @@ The P0 and P1 implementation passes are complete:
 - Consumer sandbox verify (PR #26 artifacts): `lexsys update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, all 42 bundled primitives, and blocks/templates (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, DashboardShell).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, **57 installable UI items** (45 primitives, 10 blocks, 2 templates), published **`0.0.6`** @ `next` — **`0.1.0`** cut pending A4.
 
-Known gaps below.
+Known gaps below — tracked by ID in [§ 0.1.0 Execution Queue](#010-execution-queue).
 
 ---
 
 ## P2 - Product and DX
+
+### P2.0 — Release gate (REL)
+
+| ID    | Item                           | PR     | Status                                                                                                                                            |
+| ----- | ------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| REL.2 | npm provenance + SBOM          | A3     | shipped                                                                                                                                           |
+| —     | PulseDesk consumer QA (`< md`) | manual | **pending user** — run [$consumer-sandbox-verify](../.agents/skills/consumer-sandbox-verify/SKILL.md) in `D:\PLAYGROUND\sandbox-lexsys` before A4 |
+| M10   | 0.1.0 @ `latest` publish       | A4     | planned                                                                                                                                           |
+
+Canonical checklist: [Deploy guide § Pre-release gate](../operations/DEPLOY.md#pre-release-gate).
+
+### P2.1 — UI catalog expansion (UC.8–UC.16)
+
+Admin catalog items — after **0.1.0** unless release gate completes first. See [§ 0.1.0 Execution Queue](#010-execution-queue).
+
+| ID    | Layer     | Item                      | PR  | Deps  | Status  |
+| ----- | --------- | ------------------------- | --- | ----- | ------- |
+| UC.8  | primitive | Pagination                | B1  | —     | shipped |
+| UC.9  | primitive | Breadcrumb                | B2  | —     | shipped |
+| UC.10 | primitive | DatePicker                | B3  | —     | shipped |
+| UC.11 | block     | PageHeader                | C1  | UC.9  | shipped |
+| UC.12 | block     | StatsCard                 | C2  | —     | shipped |
+| UC.13 | block     | FilterToolbar             | C3  | —     | shipped |
+| UC.14 | block     | DataTable                 | C4  | UC.8  | shipped |
+| UC.15 | block     | CommandPalette → Combobox | C5  | —     | shipped |
+| UC.16 | template  | SettingsPageLayout        | C6  | UC.11 | shipped |
+
+### P2.2 — DX (DX.1–DX.5)
+
+| ID   | Item                         | PR / track | Path / notes                      | Status   |
+| ---- | ---------------------------- | ---------- | --------------------------------- | -------- |
+| DX.1 | Public starter template repo | G1         | Separate GitHub repo post-0.1.0   | deferred |
+| DX.2 | Playwright E2E (PulseDesk)   | G2b        | `D:\PLAYGROUND\sandbox-lexsys`    | planned  |
+| DX.3 | Fresh install/build smoke    | G2a        | `D:\PLAYGROUND\lexsys-fresh-test` | planned  |
+| DX.4 | `apps/docs` minimal site     | D1         | apps/docs                         | shipped  |
+| DX.5 | `docs:lint` automation       | D2         | root `pnpm docs:lint`             | shipped  |
+
+### P2.3 — Tokens (TOK.1–TOK.2)
+
+Cross-link [P3](#p3-architecture-planning) and [Resolver evolution § After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10). Canonical rules: [TOKENS.md](./reference/tokens/TOKENS.md).
+
+| ID    | Item                                      | PR  | Status  |
+| ----- | ----------------------------------------- | --- | ------- |
+| TOK.1 | Dedicated tokens for 9 aliased primitives | E1  | shipped |
+| TOK.2 | Expand `SEMANTIC_CONTRAST_PAIRS`          | E2  | shipped |
+
+### P2.4 — Trust + CLI (SEC.1, M12.5)
+
+| ID    | Item                               | PR  | Status  |
+| ----- | ---------------------------------- | --- | ------- |
+| SEC.1 | Remote registry checksum/allowlist | F1  | shipped |
+| CLI.1 | M12.5 CLI polish (`status --json`) | F2  | shipped |
+
+Detail: [M12 § M12.5](#m12-cli-command-optimization-shipped), [M12_COMMAND_AUDIT](./reference/cli/M12_COMMAND_AUDIT.md).
 
 ### UI composition (primitives / blocks / templates)
 
@@ -244,20 +328,7 @@ Optional follow-ups after Phases 1–10 (detail in
 - DTCG composite object `$value` engine phase (option B — after slot model stable)
 - Speculative AST evaluator and color/unit math — **deferred**, not scheduled
 
-**Shipped in P3 pass:**
-
-- ~~Extend composite registry beyond typography~~ — shadow/border schemas; elevation shadow pilot; `border.control` group
-- ~~Contrast policy CI gate~~ — `contrast.policy.ts`; `governance:report` exits 1 on failures in CI
-- ~~Overlay background compositing + overlay contrast pair~~ — compositing over `color.background.base`; `text-primary-on-overlay` pair
-- ~~Build-failing contrast~~ — `validateContrastPolicyStrict` in `validateStyleTokenInput` (unless `LEXSYS_CONTRAST_POLICY=report`)
-- ~~Contrast pair expansion (partial)~~ — danger/secondary action + large-text heading pairs (15 pairs)
-- ~~Full primitive shadow migration~~ — `shadow.0`–`shadow.6` branch+slot; elevation refs; CSS compose for primitive + semantic paths
-- ~~Broad UI render coverage~~ — 32/32 components (M3.1)
-- ~~Next.js scaffold~~ — `lexsys init next` App Router minimal (M3.2)
-- ~~Remote registry contract~~ — manifest parser + validation (M3.3)
-- ~~Governance promotion (semantic audit errors)~~ — `LEXSYS_GOVERNANCE_POLICY` (M3.4)
-- ~~`shadow.inner` inset slot~~ — branch+slot + CSS compose (M3.5)
-- ~~UI package polish~~ — PR #24 (`c619a85`): `variant`/`appearance`/`danger` API, 32-component token compliance, `pnpm ui:audit` ([UI variants](./reference/ui/UI_VARIANTS.md))
+**Shipped in P3 pass:** see [Roadmap § M3](./ROADMAP.md#m3-product-and-architecture-backlog) and git history (shadow/border composites, contrast CI, render coverage expansion, Next init, remote registry, governance promotion, UI polish PR #24).
 
 ## M12 - CLI command optimization (shipped)
 
@@ -273,7 +344,7 @@ Detail: [Roadmap § M12](./ROADMAP.md#m12-cli-command-optimization).
 | M12.2 | Overlapping commands — candidates to merge (e.g. status vs doctor)    | shipped |
 | M12.3 | CLI cleanup (dead code, duplicate output, help sections)              | shipped |
 | M12.4 | UX optimizations (guided modes, flags, error hints) — one PR per item | shipped |
-| M12.5 | Reserved — additional proposals TBD                                   | planned |
+| M12.5 | CLI polish — see [P2.4 CLI.1](#p24-trust-cli-sec1-m125) (PR F2)       | shipped |
 
 ---
 
@@ -293,10 +364,14 @@ Shipped improvements to `scripts/rebrand/rename-prefix.mjs`.
 
 ## Known Gaps
 
-| Gap                                          | Notes                                                                                                                                          |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Blocks/templates mobile viewport QA          | Manual sandbox only — CI covers install smoke + render composition; `< md` drawer/layout checklist in [Testing docs](./operations/TESTING.md). |
-| Remote registry signatures / allowlist       | Deferred post-M10 — manifest fetch is HTTPS-only; no checksum or host allowlist yet.                                                           |
-| `docs:lint` automation (metadata + H2 order) | Deferred — layout contract lives in `documentation.mdc`; manual compliance pass shipped 2026-05-30.                                            |
+Tracked IDs in [§ 0.1.0 Execution Queue](#010-execution-queue). Update status when closed.
+
+| ID / gap                      | Notes                                                                                                                                   |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| DX.2 / mobile viewport QA     | PulseDesk manual QA + planned Playwright — `D:\PLAYGROUND\sandbox-lexsys`; `< md` checklist in [Testing docs](./operations/TESTING.md). |
+| DX.3 / fresh install smoke    | Planned script in `D:\PLAYGROUND\lexsys-fresh-test` — `init` → `add` → `build`; not lexsys CI.                                          |
+| SEC.1 / remote registry trust | **shipped** — checksum + `registryAllowlist`; HTTPS-only fetch remains default.                                                         |
+| DX.5 / `docs:lint` automation | **shipped** — `pnpm docs:lint`; optional CI promotion deferred.                                                                         |
+| DX.1 / public starter repo    | Deferred post-0.1.0 — separate GitHub repo.                                                                                             |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`; registry item reconcile automation (SI.5) — `registry:sync` reconciles all layers; `registryDependencies` inferred from template imports with overwrite policy in [REGISTRY.md § Maintainer notes](./reference/registry/REGISTRY.md#maintainer-notes).

@@ -4,7 +4,7 @@
 **Type:** Domain specification  
 **Source of truth for:** Install layers, composition rules, monorepo vs consumer layout  
 **Verified against:** `packages/ui`, `packages/registry`, `packages/cli`, consumer sandbox
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-06
 
 ---
 
@@ -59,9 +59,9 @@ Do not use atoms/molecules/organisms in Lexsys docs or CLI copy — those names 
 **Monorepo reference** (`packages/ui/src/components/`):
 
 ```txt
-primitives/     ← 42 shipped primitives
-blocks/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty
-templates/      ← DashboardShell
+primitives/     ← 45 shipped primitives
+blocks/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, PageHeader, StatsCard, FilterToolbar, DataTable
+templates/      ← DashboardShell, SettingsPageLayout
 ```
 
 **Registry templates** mirror the same three folders under
@@ -130,9 +130,15 @@ New Base UI wraps ship as **primitives** (`registryDependencies: []`).
 | `@base-ui/react/preview-card`          | PreviewCard                         | shipped |
 | `@base-ui/react/toolbar`               | Toolbar                             | shipped |
 
-Lexsys-only primitives (no dedicated Base UI module): Alert, Badge, Card, Table.
+Lexsys-only primitives (no dedicated Base UI module): Alert, Badge, Breadcrumb, Card, DatePicker, Pagination, Table.
 
-**Planned primitive sequencing (completed):** Autocomplete + Combobox → OtpField → NavigationMenu → ContextMenu + Toolbar → CheckboxGroup → Menubar + PreviewCard.
+| Lexsys primitive | Registry item | UC id | Status  |
+| ---------------- | ------------- | ----- | ------- |
+| Pagination       | `pagination`  | UC.8  | shipped |
+| Breadcrumb       | `breadcrumb`  | UC.9  | shipped |
+| DatePicker       | `date-picker` | UC.10 | shipped |
+
+**Planned primitive sequencing (completed):** Autocomplete + Combobox → OtpField → NavigationMenu → ContextMenu + Toolbar → CheckboxGroup → Menubar + PreviewCard → Pagination + Breadcrumb + DatePicker (UC.8–UC.10).
 
 Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRender`) stay internal — not registry primitives.
 
@@ -140,21 +146,26 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 
 ## Block catalog
 
-| Block          | Status  | Depends on                            |
-| -------------- | ------- | ------------------------------------- |
-| FormField      | shipped | field, input                          |
-| SettingsPanel  | shipped | card                                  |
-| Sidebar        | shipped | button, drawer, scroll-area           |
-| AuthForm       | shipped | card, input, button, separator        |
-| CommandPalette | shipped | dialog, input, scroll-area, separator |
+| Block          | Status  | Depends on                               |
+| -------------- | ------- | ---------------------------------------- |
+| FormField      | shipped | field, input                             |
+| SettingsPanel  | shipped | card                                     |
+| Sidebar        | shipped | button, drawer, scroll-area              |
+| AuthForm       | shipped | card, input, button, separator           |
+| CommandPalette | shipped | dialog, combobox, scroll-area, separator |
+| Empty          | shipped | —                                        |
+| PageHeader     | shipped | button, breadcrumb                       |
+| StatsCard      | shipped | card                                     |
+| FilterToolbar  | shipped | toolbar, input, button, select           |
+| DataTable      | shipped | table, pagination                        |
 
 ## Template catalog
 
-| Template           | Status  | Depends on |
-| ------------------ | ------- | ---------- |
-| DashboardShell     | shipped | sidebar    |
-| SettingsPageLayout | planned | —          |
-| DocsLayout         | planned | —          |
+| Template           | Status  | Depends on                  |
+| ------------------ | ------- | --------------------------- |
+| DashboardShell     | shipped | sidebar                     |
+| SettingsPageLayout | shipped | settings-panel, page-header |
+| DocsLayout         | planned | —                           |
 
 Pilot blocks and `DashboardShell` are installable and **stable** after the BO.1–BO.7
 pass (CI install smoke + render tests). Narrow-viewport sandbox QA remains manual —
@@ -308,7 +319,7 @@ No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
 
 ## Current state
 
-Installable inventory (49 items — compound vs leaf, named exports, registry
+Installable inventory (52 items — compound vs leaf, named exports, registry
 version): **[UI catalog](../ui/UI_CATALOG.md)**.
 
 Pilot blocks and templates remain installable; stability and sandbox QA gaps are

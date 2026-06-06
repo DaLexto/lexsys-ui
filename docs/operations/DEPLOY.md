@@ -128,7 +128,7 @@ Every release MUST call out in CHANGELOG:
 - CLI behavior changes
 - config format changes
 - breaking template or token changes
-- any manual consumer migration required
+- any breaking change requiring consumers to re-run `lexsys update --sync --styles`
 
 If there is no consumer-facing impact, state that explicitly.
 
@@ -246,7 +246,7 @@ Additional steps beyond the standard 0.0.x flow:
 2. Consumer sandbox QA — `$consumer-sandbox-verify` checklist including narrow
    viewport (`< md`) pass ([Testing docs § Consumer sandbox](./TESTING.md#consumer-sandbox-verification))
 3. Add changeset with minor bump → `0.1.0`
-4. Update Changesets config and publish CI to use dist-tag **`latest`**
+4. Switch publish script to **`pnpm publish:release:latest`** (or update `publish:release` to `--tag latest`) for the `0.1.0` cut
 5. Merge Version Packages PR to `main` → Release CI publishes
 6. Confirm **Sync dev from main** succeeded (see [Release workflow](#release-workflow))
 7. README: update install command to remove `@next`
@@ -385,21 +385,23 @@ GitHub Actions secrets if CI duration grows.
 
 ## Supply chain security
 
-| Control                                                               | Status                   |
-| --------------------------------------------------------------------- | ------------------------ |
-| `--frozen-lockfile` in CI                                             | implemented              |
-| Granular NPM_TOKEN (scoped publish permissions per package)           | implemented              |
-| `npm publish --provenance` (links package to GitHub Actions workflow) | planned — add at `0.1.0` |
-| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC)         | deferred                 |
-| Signed releases (sigstore)                                            | deferred                 |
+| Control                                                               | Status                                                                    |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `--frozen-lockfile` in CI                                             | implemented                                                               |
+| Granular NPM_TOKEN (scoped publish permissions per package)           | implemented                                                               |
+| `npm publish --provenance` (links package to GitHub Actions workflow) | **shipped** — `pnpm publish:release` passes `--provenance` via Changesets |
+| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC)         | deferred                                                                  |
+| Signed releases (sigstore)                                            | deferred                                                                  |
 
 **Notes:**
 
 - The Granular NPM_TOKEN scopes publish access to specific packages — this is
   the primary publish authorization control, not a bypass of security.
 - `npm publish --provenance` requires no additional tokens — it uses the GitHub
-  Actions OIDC token automatically when run in CI. Add `--provenance` to the
-  release workflow at `0.1.0`.
+  Actions OIDC token automatically when run in CI. Root scripts `publish:release` and
+  `publish:release:latest` pass `--provenance` through Changesets.
+- **SBOM:** npm provenance attestations ship with published packages. Full CycloneDX
+  SBOM generation is deferred — track as future supply-chain hardening.
 - Deferred items tracked in [Backlog § Known Gaps](../REVIEW_TODO.md#known-gaps).
 
 ---

@@ -102,4 +102,10 @@ export const SEMANTIC_CONTRAST_PAIRS: SemanticContrastPair[] = [
     foregroundPath: "color.text.primary",
     backgroundPath: "color.background.overlay",
   },
+  {
+    id: "text-primary-on-muted",
+    label: "Primary text on muted (subtle) background",
+    foregroundPath: "color.text.primary",
+    backgroundPath: "color.background.subtle",
+  },
 ]

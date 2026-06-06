@@ -25,6 +25,7 @@ export interface LexsysConfig {
   tailwind: LexsysTailwindConfig
   installed?: string[]
   registryUrl?: string | null
+  registryAllowlist?: string[]
 }
 
 export interface LexsysTailwindConfig {
@@ -58,6 +59,7 @@ export const defaultConfig: LexsysConfig = {
   tailwind: defaultTailwindConfig,
   installed: [],
   registryUrl: null,
+  registryAllowlist: [],
 }
 
 export const getConfigPath = (): string => {
@@ -92,6 +94,11 @@ export const loadConfig = async (): Promise<LexsysConfig> => {
       ...parsed.tailwind,
     },
     installed: normalizeInstalled(parsed.installed),
+    registryAllowlist: Array.isArray(parsed.registryAllowlist)
+      ? parsed.registryAllowlist.filter((entry): entry is string => {
+          return typeof entry === "string" && entry.length > 0
+        })
+      : defaultConfig.registryAllowlist,
   }
 
   if (isLegacyInstalledRecord(parsed.installed)) {

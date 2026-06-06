@@ -6,15 +6,19 @@ import {
 import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("Toolbar variants", () => {
-  it("uses token-backed button styling", () => {
-    expect(toolbarButtonVariants()).toContain(`h-(--${p}-button-height-sm)`)
+  it("uses dedicated toolbar button tokens", () => {
     expect(toolbarButtonVariants()).toContain(
-      `text-(--${p}-button-secondary-foreground)`,
+      `h-(--${p}-toolbar-button-height)`,
+    )
+    expect(toolbarButtonVariants()).toContain(
+      `text-(--${p}-toolbar-button-foreground)`,
     )
   })
 
-  it("uses token-backed input styling", () => {
-    expect(toolbarInputVariants()).toContain(`h-(--${p}-input-height-sm)`)
-    expect(toolbarInputVariants()).toContain(`bg-(--${p}-input-background)`)
+  it("uses dedicated toolbar input tokens", () => {
+    expect(toolbarInputVariants()).toContain(`h-(--${p}-toolbar-input-height)`)
+    expect(toolbarInputVariants()).toContain(
+      `bg-(--${p}-toolbar-input-background)`,
+    )
   })
 })

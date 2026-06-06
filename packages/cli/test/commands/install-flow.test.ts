@@ -32,7 +32,6 @@ const getVariantsTokenPrefix = (canonicalName: string): string => {
     NavigationMenu: "menu",
     OtpField: "input",
     PreviewCard: "popover",
-    Toolbar: "button",
   }
 
   return reusedPrefixes[canonicalName] ?? toTokenPrefix(canonicalName)

@@ -1,9 +1,11 @@
 import type { RegistryItem, RegistryStyle } from "@dalexto/lexsys-registry"
+import { hashContent } from "../utils/hash.js"
 
 export interface RemoteRegistryManifest {
   version: string
   items: RegistryItem[]
   styles?: RegistryStyle[]
+  checksum?: string
 }
 
 const isStringArray = (value: unknown): value is string[] => {
@@ -87,10 +89,39 @@ const parseRegistryStyles = (styles: unknown[]): RegistryStyle[] => {
 }
 
 /**
+ * Computes a SHA-256 checksum for a remote manifest (excluding the checksum field).
+ */
+export const computeRemoteRegistryChecksum = (
+  manifest: Omit<RemoteRegistryManifest, "checksum">,
+): string => {
+  return hashContent(JSON.stringify(manifest))
+}
+
+/**
+ * Verifies an optional manifest checksum when publishers include one.
+ */
+export const verifyRemoteRegistryChecksum = (
+  manifest: RemoteRegistryManifest,
+): void => {
+  if (!manifest.checksum) {
+    return
+  }
+
+  const { checksum, ...rest } = manifest
+  const computed = computeRemoteRegistryChecksum(rest)
+
+  if (computed !== checksum) {
+    throw new Error(
+      `Remote registry checksum mismatch. Expected ${checksum}, computed ${computed}.`,
+    )
+  }
+}
+
+/**
  * Parses a remote registry JSON payload into a manifest object.
  *
  * Accepts either:
- * - a manifest object `{ version, items, styles? }`
+ * - a manifest object `{ version, items, styles?, checksum? }`
  * - a legacy bare array of registry items (version becomes `"unknown"`)
  */
 export const parseRemoteRegistry = (value: unknown): RemoteRegistryManifest => {
@@ -124,7 +155,53 @@ export const parseRemoteRegistry = (value: unknown): RemoteRegistryManifest => {
     parsed.styles = parseRegistryStyles(manifest.styles)
   }
 
+  if (manifest.checksum !== undefined) {
+    if (
+      typeof manifest.checksum !== "string" ||
+      manifest.checksum.length === 0
+    ) {
+      throw new Error(
+        "Remote registry manifest checksum must be a non-empty string.",
+      )
+    }
+
+    parsed.checksum = manifest.checksum
+  }
+
+  verifyRemoteRegistryChecksum(parsed)
+
   return parsed
+}
+
+/**
+ * Returns true when the registry URL host or prefix matches an allowlist entry.
+ */
+export const isRegistryUrlAllowed = (
+  url: string,
+  allowlist: string[] | undefined,
+): boolean => {
+  if (!allowlist?.length) {
+    return true
+  }
+
+  let parsed: URL
+
+  try {
+    parsed = new URL(url)
+  } catch {
+    return false
+  }
+
+  const host = parsed.hostname
+  const origin = parsed.origin
+
+  return allowlist.some((entry) => {
+    if (entry === host || entry === origin || entry === url) {
+      return true
+    }
+
+    return url.startsWith(entry)
+  })
 }
 
 export const fetchRemoteRegistry = async (
