@@ -157,19 +157,19 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 
 ### Phase overview
 
-| Phase | Name                     | Status  | Outcome (summary)                                                                                 | Primary docs                                                         |
-| ----- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment                    | SCRIPTS.md, DEPLOY.md                                                |
-| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                                     | TESTING.md, AGENTS.md                                                |
-| M3    | Product and architecture | shipped | UI render coverage, Next init, remote registry contract, governance + shadow.inner                | REVIEW_TODO.md, RESOLVER_EVOLUTION.md                                |
-| M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                                                    |
-| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`                                     |
-| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                                                            |
-| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.cursor/skills/`                                         |
-| M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                                               |
-| M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                                                            |
-| M12   | CLI command optimization | shipped | Command audit, help polish, registry-errors, `--yes` UX (M12.1–M12.4)                             | CLI.md, [M12_COMMAND_AUDIT.md](./reference/cli/M12_COMMAND_AUDIT.md) |
-| SI    | Registry sync automation | shipped | `registry:sync` writes templates **and** reconciles `src/items/` for all layers (SI.4–SI.5)       | REGISTRY.md, REVIEW_TODO.md                                          |
+| Phase | Name                     | Status  | Outcome (summary)                                                                                 | Primary docs                          |
+| ----- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment                    | SCRIPTS.md, DEPLOY.md                 |
+| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                                     | TESTING.md, AGENTS.md                 |
+| M3    | Product and architecture | shipped | UI render coverage, Next init, remote registry contract, governance + shadow.inner                | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
+| M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                     |
+| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`      |
+| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                             |
+| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.cursor/skills/`          |
+| M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                |
+| M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
+| M12   | CLI command optimization | shipped | Command audit, help polish, registry-errors, `--yes` UX (M12.1–M12.4)                             | CLI.md                                |
+| SI    | Registry sync automation | shipped | `registry:sync` writes templates **and** reconciles `src/items/` for all layers (SI.4–SI.5)       | REGISTRY.md, REVIEW_TODO.md           |
 
 ### M1 - Infra and DX
 
@@ -336,13 +336,13 @@ Post–M8 polish: command naming audit, overlapping-command merge candidates,
 targeted cleanup, and UX improvements. Execute as **small–medium PRs** (one
 M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12-cli-command-optimization-shipped).
 
-| Item  | Focus                                                                                                   |
-| ----- | ------------------------------------------------------------------------------------------------------- |
-| M12.1 | Command name / alias audit (**shipped** — [M12_COMMAND_AUDIT.md](./reference/cli/M12_COMMAND_AUDIT.md)) |
-| M12.2 | Overlap analysis (**shipped** — keep `status` / `doctor` separate)                                      |
-| M12.3 | Dead code and output deduplication (**shipped**)                                                        |
-| M12.4 | Guided mode, flags, error hint polish (**shipped**)                                                     |
-| M12.5 | Reserved for follow-up proposals                                                                        |
+| Item  | Focus                                                                       |
+| ----- | --------------------------------------------------------------------------- |
+| M12.1 | Command name / alias audit (**shipped** — [CLI.md](./reference/cli/CLI.md)) |
+| M12.2 | Overlap analysis (**shipped** — keep `status` / `doctor` separate)          |
+| M12.3 | Dead code and output deduplication (**shipped**)                            |
+| M12.4 | Guided mode, flags, error hint polish (**shipped**)                         |
+| M12.5 | Reserved for follow-up proposals                                            |
 
 **Verification:** `pnpm cli:check` per sub-item; sandbox smoke when behavior changes.
 

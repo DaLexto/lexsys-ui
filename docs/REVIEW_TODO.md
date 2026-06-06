@@ -239,7 +239,7 @@ Cross-link [P3](#p3-architecture-planning) and [Resolver evolution § After Phas
 | SEC.1 | Remote registry checksum/allowlist | F1  | shipped |
 | CLI.1 | M12.5 CLI polish (`status --json`) | F2  | shipped |
 
-Detail: [M12 § M12.5](#m12-cli-command-optimization-shipped), [M12_COMMAND_AUDIT](./reference/cli/M12_COMMAND_AUDIT.md).
+Detail: [M12 § M12.5](#m12-cli-command-optimization-shipped), [CLI.md](./reference/cli/CLI.md).
 
 ### UI composition (primitives / blocks / templates)
 
@@ -335,8 +335,6 @@ Optional follow-ups after Phases 1–10 (detail in
 Detail: [Roadmap § M12](./ROADMAP.md#m12-cli-command-optimization).
 
 **Scope:** Small–medium PRs only — no mega-refactor. Separate from version-removal / config migration work.
-
-**M12.1 artifact:** [CLI command audit](./reference/cli/M12_COMMAND_AUDIT.md) — inventory, overlap input for M12.2, cleanup/UX candidates.
 
 | ID    | Focus                                                                 | Status  |
 | ----- | --------------------------------------------------------------------- | ------- |
