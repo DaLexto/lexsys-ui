@@ -110,7 +110,52 @@ export const sidebarNavListClasses = (): string => {
 }
 
 export const sidebarItemClasses = (): string => {
-  return "lex-sidebar__row relative flex items-center [&>:first-child]:min-w-0 [&>:first-child]:flex-1"
+  return [
+    "lex-sidebar__row group/sidebar-row relative flex items-center",
+    "[&>:first-child]:min-w-0 [&>:first-child]:flex-1",
+    "has-[.lex-sidebar__item-action]:[&>:first-child]:pr-8",
+  ].join(" ")
+}
+
+export const sidebarItemIconClasses = (): string => {
+  return [
+    "lex-sidebar__item-icon flex size-(--lex-sidebar-item-icon-size) shrink-0 items-center justify-center",
+    "[&_svg]:size-full",
+  ].join(" ")
+}
+
+export const sidebarItemActionClasses = (showOnHover = true): string => {
+  const classes = [
+    "lex-sidebar__item-action absolute top-1/2 right-1 -translate-y-1/2",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
+  ]
+
+  if (showOnHover) {
+    classes.push(
+      "opacity-0 transition-opacity duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+      "group-hover/sidebar-row:opacity-100 focus-visible:opacity-100",
+    )
+  }
+
+  return classes.join(" ")
+}
+
+export const sidebarItemShortcutClasses = (): string => {
+  return [
+    "lex-sidebar__item-shortcut ml-auto shrink-0",
+    "rounded-(--lex-sidebar-item-radius) border border-[var(--lex-border-default)]",
+    "px-(--lex-space-control-x-xs) py-(--lex-space-control-y-xs)",
+    "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",
+    "leading-(--lex-sidebar-item-font-line-height) text-(--lex-sidebar-item-foreground)",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
+  ].join(" ")
+}
+
+export const sidebarGroupActionClasses = (): string => {
+  return [
+    "lex-sidebar__group-action shrink-0",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
+  ].join(" ")
 }
 
 export const sidebarItemBadgeClasses = (): string => {
@@ -200,7 +245,12 @@ export const sidebarGroupClasses = (): string => {
 }
 
 export const sidebarGroupLabelClasses = (): string => {
-  return "lex-sidebar__group-label px-[var(--lex-space-3)] py-[var(--lex-space-1)] text-(length:--lex-menu-group-label-font-size) font-(--lex-menu-group-label-font-weight) leading-(--lex-menu-group-label-font-line-height) text-(--lex-menu-group-label-foreground)"
+  return [
+    "lex-sidebar__group-label flex items-center justify-between gap-[var(--lex-space-2)]",
+    "px-[var(--lex-space-3)] py-[var(--lex-space-1)]",
+    "text-(length:--lex-menu-group-label-font-size) font-(--lex-menu-group-label-font-weight)",
+    "leading-(--lex-menu-group-label-font-line-height) text-(--lex-menu-group-label-foreground)",
+  ].join(" ")
 }
 
 export const sidebarGroupContentClasses = (): string => {

@@ -257,7 +257,7 @@ Lexsys naming is fixed:
 `.sidebar-expandable`) · `offcanvas` (panel slides off-canvas). Animation uses
 `--lex-sidebar-transition-*` and global motion semantics — not Drawer on desktop.
 
-#### Layer 1 — item chrome (SB.7 shipped; SB.8 planned)
+#### Layer 1 — item chrome (SB.7 / SB.8 shipped)
 
 ```tsx
 <SidebarItem>
@@ -271,13 +271,13 @@ Lexsys naming is fixed:
 </SidebarItem>
 ```
 
-| Export                | Role                                                                              |
-| --------------------- | --------------------------------------------------------------------------------- |
-| `SidebarItemIcon`     | Fixed icon slot                                                                   |
-| `SidebarItemBadge`    | Trailing count; auto `dot` when icon-collapsed on desktop; `dot` prop to override |
-| `SidebarItemAction`   | Row hover action (ghost `Button`)                                                 |
-| `SidebarItemShortcut` | `<kbd>` hint; hidden in icon collapse                                             |
-| `SidebarGroupAction`  | Action in group label row                                                         |
+| Export                | Role                                                                           |
+| --------------------- | ------------------------------------------------------------------------------ |
+| `SidebarItemIcon`     | Shipped SB.8 — fixed icon slot (`--lex-sidebar-item-icon-size`)                |
+| `SidebarItemBadge`    | Shipped SB.7 — trailing count; auto `dot` when icon-collapsed on desktop       |
+| `SidebarItemAction`   | Shipped SB.8 — row hover action (ghost `Button`; `showOnHover` default `true`) |
+| `SidebarItemShortcut` | Shipped SB.8 — `<kbd>` hint; hidden in icon collapse                           |
+| `SidebarGroupAction`  | Shipped SB.8 — ghost `Button` in `SidebarGroupLabel` row                       |
 
 `SidebarItem` layout: `relative flex items-center`; variants in `Sidebar.variants.ts`
 — no consumer CSS hacks.

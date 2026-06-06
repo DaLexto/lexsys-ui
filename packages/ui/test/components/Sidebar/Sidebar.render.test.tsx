@@ -4,12 +4,18 @@ import {
   Sidebar,
   SidebarCollapseTrigger,
   SidebarContent,
+  SidebarExpandable,
   SidebarGroup,
+  SidebarGroupAction,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarItem,
+  SidebarItemAction,
   SidebarItemBadge,
+  SidebarItemIcon,
   SidebarItemLink,
+  SidebarItemShortcut,
   SidebarList,
   SidebarProvider,
   SidebarTrigger,
@@ -167,5 +173,89 @@ describe("Sidebar render", () => {
 
     expect(dotBadges.length).toBeGreaterThanOrEqual(1)
     expect(dotBadges[0]).toHaveClass("lex-sidebar__item-badge")
+  })
+
+  it("renders item chrome exports on nav rows", () => {
+    const { container } = render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>
+              Workspace
+              <SidebarGroupAction aria-label="Add workspace">
+                +
+              </SidebarGroupAction>
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarList>
+                <SidebarItem>
+                  <SidebarItemLink href="#inbox">
+                    <SidebarItemIcon aria-hidden="true">
+                      <svg />
+                    </SidebarItemIcon>
+                    <SidebarExpandable>Inbox</SidebarExpandable>
+                    <SidebarItemShortcut>⌘I</SidebarItemShortcut>
+                  </SidebarItemLink>
+                  <SidebarItemAction aria-label="Inbox actions">
+                    ⋯
+                  </SidebarItemAction>
+                </SidebarItem>
+              </SidebarList>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [icon] = container.querySelectorAll(".lex-sidebar__item-icon")
+    const [shortcut] = container.querySelectorAll(".lex-sidebar__item-shortcut")
+    const [action] = container.querySelectorAll(".lex-sidebar__item-action")
+    const [groupAction] = container.querySelectorAll(
+      ".lex-sidebar__group-action",
+    )
+
+    expect(icon).toBeInTheDocument()
+    expect(shortcut).toHaveTextContent("⌘I")
+    expect(action).toHaveAttribute("aria-label", "Inbox actions")
+    expect(groupAction).toHaveAttribute("aria-label", "Add workspace")
+  })
+
+  it("hides shortcut and group action classes when icon-collapsed", () => {
+    const { container } = render(
+      <SidebarProvider collapsible="icon" defaultCollapsed>
+        <Sidebar>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>
+                Workspace
+                <SidebarGroupAction aria-label="Add workspace">
+                  +
+                </SidebarGroupAction>
+              </SidebarGroupLabel>
+              <SidebarList>
+                <SidebarItem>
+                  <SidebarItemLink href="#inbox">
+                    <SidebarExpandable>Inbox</SidebarExpandable>
+                    <SidebarItemShortcut>⌘I</SidebarItemShortcut>
+                  </SidebarItemLink>
+                </SidebarItem>
+              </SidebarList>
+            </SidebarGroup>
+          </SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    )
+
+    const [shortcut] = container.querySelectorAll(".lex-sidebar__item-shortcut")
+    const [groupAction] = container.querySelectorAll(
+      ".lex-sidebar__group-action",
+    )
+
+    expect(shortcut).toHaveClass(
+      "md:group-data-[collapsed=true]/sidebar:hidden",
+    )
+    expect(groupAction).toHaveClass(
+      "md:group-data-[collapsed=true]/sidebar:hidden",
+    )
   })
 })

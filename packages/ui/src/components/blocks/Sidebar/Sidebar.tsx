@@ -44,10 +44,14 @@ import type {
   SidebarGroupLabelProps,
   SidebarGroupProps,
   SidebarHeaderProps,
+  SidebarGroupActionProps,
+  SidebarItemActionProps,
   SidebarItemBadgeProps,
   SidebarItemButtonProps,
+  SidebarItemIconProps,
   SidebarItemLinkProps,
   SidebarItemProps,
+  SidebarItemShortcutProps,
   SidebarListProps,
   SidebarMobileHeaderProps,
   SidebarProps,
@@ -63,10 +67,14 @@ import {
   sidebarDrawerFooterClasses,
   sidebarExpandableClasses,
   sidebarFooterClasses,
+  sidebarGroupActionClasses,
   sidebarGroupContentClasses,
   sidebarGroupLabelClasses,
   sidebarGroupClasses,
+  sidebarItemActionClasses,
   sidebarItemBadgeClasses,
+  sidebarItemIconClasses,
+  sidebarItemShortcutClasses,
   sidebarItemBadgeCollapsedClasses,
   sidebarItemBadgeDotClasses,
   sidebarItemBadgeLabelClasses,
@@ -760,6 +768,83 @@ const SidebarItemBadge = ({
 
 SidebarItemBadge.displayName = "SidebarItemBadge"
 
+const SidebarItemIcon = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemIconProps) => {
+  return (
+    <span
+      ref={ref}
+      className={cn(sidebarItemIconClasses(), className)}
+      {...props}
+    >
+      {children}
+    </span>
+  )
+}
+
+SidebarItemIcon.displayName = "SidebarItemIcon"
+
+const SidebarItemAction = ({
+  ref,
+  showOnHover = true,
+  className,
+  ...props
+}: SidebarItemActionProps) => {
+  return (
+    <Button
+      ref={ref}
+      type="button"
+      variant="ghost"
+      size="xs"
+      className={cn(sidebarItemActionClasses(showOnHover), className)}
+      {...props}
+    />
+  )
+}
+
+SidebarItemAction.displayName = "SidebarItemAction"
+
+const SidebarItemShortcut = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemShortcutProps) => {
+  return (
+    <kbd
+      ref={ref}
+      className={cn(sidebarItemShortcutClasses(), className)}
+      {...props}
+    >
+      {children}
+    </kbd>
+  )
+}
+
+SidebarItemShortcut.displayName = "SidebarItemShortcut"
+
+const SidebarGroupAction = ({
+  ref,
+  className,
+  ...props
+}: SidebarGroupActionProps) => {
+  return (
+    <Button
+      ref={ref}
+      type="button"
+      variant="ghost"
+      size="xs"
+      className={cn(sidebarGroupActionClasses(), className)}
+      {...props}
+    />
+  )
+}
+
+SidebarGroupAction.displayName = "SidebarGroupAction"
+
 export {
   Sidebar,
   SidebarProvider,
@@ -775,6 +860,10 @@ export {
   SidebarItemLink,
   SidebarItemButton,
   SidebarItemBadge,
+  SidebarItemIcon,
+  SidebarItemAction,
+  SidebarItemShortcut,
+  SidebarGroupAction,
   SidebarTrigger,
   SidebarCollapseTrigger,
   SidebarRail,

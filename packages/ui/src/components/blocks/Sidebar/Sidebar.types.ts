@@ -147,6 +147,33 @@ export interface SidebarItemBadgeProps extends BadgeProps {
   dot?: boolean
 }
 
+export interface SidebarItemIconProps extends HTMLAttributes<HTMLSpanElement> {
+  ref?: Ref<HTMLSpanElement>
+  className?: string
+  children?: ReactNode
+}
+
+export interface SidebarItemActionProps extends Omit<
+  ButtonProps,
+  "type" | "variant" | "size"
+> {
+  ref?: Ref<HTMLButtonElement>
+  showOnHover?: boolean
+}
+
+export interface SidebarItemShortcutProps extends HTMLAttributes<HTMLElement> {
+  ref?: Ref<HTMLElement>
+  className?: string
+  children?: ReactNode
+}
+
+export interface SidebarGroupActionProps extends Omit<
+  ButtonProps,
+  "type" | "variant" | "size"
+> {
+  ref?: Ref<HTMLButtonElement>
+}
+
 export interface SidebarShellOptions {
   collapsed?: boolean
   collapsible?: SidebarCollapsible
