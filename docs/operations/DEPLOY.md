@@ -84,7 +84,8 @@ explicit product decision and this file is updated.
 | Prior preview | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02) — historical    |
 | Prior preview | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06) — historical |
 | Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                            |
-| **Current**   | `0.1.0` | `latest`     | Stable MVP — 57 installable items, admin catalog, registry trust (2026-06-06)     |
+| Prior stable  | `0.1.0` | `latest`     | Stable MVP — 57 installable items, admin catalog, registry trust (2026-06-06)     |
+| **Current**   | `0.1.1` | `latest`     | Housekeeping — docs/rules alignment, unified GitHub release CI (2026-06-06)       |
 
 Install for stable MVP:
 
