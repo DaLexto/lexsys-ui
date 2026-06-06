@@ -12,8 +12,13 @@ import type {
   ReactNode,
   Ref,
 } from "react"
+import type { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
 import type { BadgeProps } from "../../primitives/Badge/Badge.types"
 import type { ButtonProps } from "../../primitives/Button/Button.types"
+import type {
+  CollapsiblePanelProps,
+  CollapsibleProps,
+} from "../../primitives/Collapsible/Collapsible.types"
 import type { InputProps } from "../../primitives/Input/Input.types"
 
 export type SidebarCollapsible = "none" | "icon" | "offcanvas"
@@ -85,6 +90,22 @@ export interface SidebarGroupContentProps extends HTMLAttributes<HTMLDivElement>
   ref?: Ref<HTMLDivElement>
   className?: string
   children?: ReactNode
+}
+
+export type SidebarGroupCollapsibleProps = Omit<CollapsibleProps, "variant">
+
+export interface SidebarGroupCollapsibleTriggerProps extends Omit<
+  BaseCollapsible.Trigger.Props,
+  "className"
+> {
+  ref?: Ref<HTMLButtonElement>
+  className?: string
+  children?: ReactNode
+}
+
+export interface SidebarGroupCollapsiblePanelProps extends CollapsiblePanelProps {
+  ref?: Ref<HTMLDivElement>
+  className?: string
 }
 
 export interface SidebarListProps extends HTMLAttributes<HTMLUListElement> {

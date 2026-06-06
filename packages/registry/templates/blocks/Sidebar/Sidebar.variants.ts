@@ -341,3 +341,25 @@ export const sidebarGroupLabelClasses = (): string => {
 export const sidebarGroupContentClasses = (): string => {
   return "lex-sidebar__group-content flex flex-col gap-[var(--lex-space-1)]"
 }
+
+export const sidebarGroupCollapsibleClasses = (): string => {
+  return "group/sidebar-group-collapsible lex-sidebar__group-collapsible"
+}
+
+export const sidebarGroupCollapsibleTriggerClasses = (): string => {
+  return [
+    "lex-sidebar__group-collapsible-trigger",
+    "flex min-w-0 flex-1 items-center gap-[var(--lex-space-2)] text-left outline-none",
+    "text-(length:--lex-menu-group-label-font-size) font-(--lex-menu-group-label-font-weight)",
+    "leading-(--lex-menu-group-label-font-line-height) text-(--lex-menu-group-label-foreground)",
+    "transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "hover:text-(--lex-menu-group-label-foreground)",
+    "focus-visible:ring-(length:--lex-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-focus-ring-color)",
+    "[&>svg]:ms-auto [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:transition-transform",
+    "group-data-[panel-open]/sidebar-group-collapsible:[&>svg]:rotate-180",
+  ].join(" ")
+}
+
+export const sidebarGroupCollapsiblePanelClasses = (): string => {
+  return "lex-sidebar__group-collapsible-panel p-0"
+}

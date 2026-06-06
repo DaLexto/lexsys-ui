@@ -31,6 +31,12 @@ import {
   DrawerTrigger,
   DrawerViewport,
 } from "@/components/primitives/Drawer"
+import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
+import { ChevronDown } from "lucide-react"
+import {
+  Collapsible,
+  CollapsiblePanel,
+} from "@/components/primitives/Collapsible"
 import { Input } from "@/components/primitives/Input"
 import {
   ScrollArea,
@@ -44,6 +50,9 @@ import type {
   SidebarContextValue,
   SidebarExpandableProps,
   SidebarFooterProps,
+  SidebarGroupCollapsiblePanelProps,
+  SidebarGroupCollapsibleProps,
+  SidebarGroupCollapsibleTriggerProps,
   SidebarGroupContentProps,
   SidebarGroupLabelProps,
   SidebarGroupProps,
@@ -77,6 +86,9 @@ import {
   sidebarExpandableClasses,
   sidebarFooterClasses,
   sidebarGroupActionClasses,
+  sidebarGroupCollapsibleClasses,
+  sidebarGroupCollapsiblePanelClasses,
+  sidebarGroupCollapsibleTriggerClasses,
   sidebarGroupContentClasses,
   sidebarGroupLabelClasses,
   sidebarGroupClasses,
@@ -754,6 +766,59 @@ const SidebarGroupContent = ({
 
 SidebarGroupContent.displayName = "SidebarGroupContent"
 
+const SidebarGroupCollapsible = ({
+  ref,
+  className,
+  ...props
+}: SidebarGroupCollapsibleProps) => {
+  return (
+    <Collapsible
+      ref={ref}
+      variant="plain"
+      className={cn(sidebarGroupCollapsibleClasses(), className)}
+      {...props}
+    />
+  )
+}
+
+SidebarGroupCollapsible.displayName = "SidebarGroupCollapsible"
+
+const SidebarGroupCollapsibleTrigger = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarGroupCollapsibleTriggerProps) => {
+  return (
+    <BaseCollapsible.Trigger
+      ref={ref}
+      className={cn(sidebarGroupCollapsibleTriggerClasses(), className)}
+      {...props}
+    >
+      {children}
+      <ChevronDown aria-hidden="true" />
+    </BaseCollapsible.Trigger>
+  )
+}
+
+SidebarGroupCollapsibleTrigger.displayName = "SidebarGroupCollapsibleTrigger"
+
+const SidebarGroupCollapsiblePanel = ({
+  ref,
+  className,
+  ...props
+}: SidebarGroupCollapsiblePanelProps) => {
+  return (
+    <CollapsiblePanel
+      ref={ref}
+      className={cn(sidebarGroupCollapsiblePanelClasses(), className)}
+      {...props}
+    />
+  )
+}
+
+SidebarGroupCollapsiblePanel.displayName = "SidebarGroupCollapsiblePanel"
+
 const SidebarList = ({
   ref,
   className,
@@ -1173,6 +1238,9 @@ export {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
+  SidebarGroupCollapsible,
+  SidebarGroupCollapsibleTrigger,
+  SidebarGroupCollapsiblePanel,
   SidebarList,
   SidebarItem,
   SidebarItemLink,

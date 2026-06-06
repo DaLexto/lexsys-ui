@@ -13,6 +13,9 @@ import {
   SidebarExpandable,
   SidebarGroup,
   SidebarGroupAction,
+  SidebarGroupCollapsible,
+  SidebarGroupCollapsiblePanel,
+  SidebarGroupCollapsibleTrigger,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
@@ -560,6 +563,53 @@ describe("Sidebar render", () => {
     expect(filterInput).toHaveClass(
       "md:group-data-[collapsed=true]/sidebar:hidden",
     )
+  })
+
+  it("folds SidebarGroup sections with SidebarGroupCollapsible", () => {
+    render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarGroupCollapsible defaultOpen={false}>
+            <SidebarGroup>
+              <SidebarGroupLabel>
+                <SidebarGroupCollapsibleTrigger>
+                  Developer
+                </SidebarGroupCollapsibleTrigger>
+                <SidebarGroupAction aria-label="Add developer tool">
+                  +
+                </SidebarGroupAction>
+              </SidebarGroupLabel>
+              <SidebarGroupCollapsiblePanel>
+                <SidebarGroupContent>
+                  <SidebarList>
+                    <SidebarItem>
+                      <SidebarItemLink href="#api-keys">
+                        API keys
+                      </SidebarItemLink>
+                    </SidebarItem>
+                  </SidebarList>
+                </SidebarGroupContent>
+              </SidebarGroupCollapsiblePanel>
+            </SidebarGroup>
+          </SidebarGroupCollapsible>
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [nav] = screen.getAllByRole("navigation", {
+      name: "Application navigation",
+    })
+    const navQueries = within(nav)
+    const trigger = navQueries.getByRole("button", { name: "Developer" })
+    const apiKeysLink = navQueries.queryByRole("link", { name: "API keys" })
+
+    expect(trigger).toHaveClass("lex-sidebar__group-collapsible-trigger")
+    expect(apiKeysLink).not.toBeInTheDocument()
+
+    fireEvent.click(trigger)
+    expect(
+      navQueries.getByRole("link", { name: "API keys" }),
+    ).toBeInTheDocument()
   })
 
   it("renders indented SidebarItemSkeleton for nested rows", () => {

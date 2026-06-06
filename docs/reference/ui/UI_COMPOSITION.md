@@ -175,7 +175,7 @@ existing primitives:
 | Mobile overlay                     | `@base-ui/react/dialog` (Drawer) | `Drawer`         | Slide-in nav below `md`; `side=left`, swipe-to-close                                                                 |
 | Desktop column                     | — (plain layout)                 | —                | Persistent `<aside>` shell; **not** Drawer                                                                           |
 | Scrollable nav                     | —                                | `ScrollArea`     | `SidebarContent` viewport                                                                                            |
-| Nested groups                      | `@base-ui/react/collapsible`     | `Collapsible`    | `SidebarSubList` + `Collapsible` / `CollapsiblePanel` (collapsible `SidebarGroup` → SB.17)                           |
+| Nested groups                      | `@base-ui/react/collapsible`     | `Collapsible`    | Item-level: `SidebarSubList` + `Collapsible`; section-level: `SidebarGroupCollapsible*` (SB.17)                      |
 | Icon rail tooltips (planned SB.7+) | `@base-ui/react/tooltip`         | `Tooltip`        | Label hints when `collapsible="icon"`                                                                                |
 | Row badges                         | —                                | `Badge`          | `SidebarItemBadge`                                                                                                   |
 | Menu selection tokens              | `@base-ui/react/menu`            | `Menu`           | **Not** used for Sidebar nav chrome — Menu checked tokens are for transient overlays, not persistent nav (see SB.11) |
@@ -282,7 +282,7 @@ Lexsys naming is fixed:
 `SidebarItem` layout: `relative flex items-center`; variants in `Sidebar.variants.ts`
 — no consumer CSS hacks.
 
-#### Layer 2 — nested nav (SB.9 shipped; SB.17 planned)
+#### Layer 2 — nested nav (SB.9 shipped)
 
 ```tsx
 <SidebarItem>
@@ -307,8 +307,8 @@ Lexsys naming is fixed:
 | `SidebarSubItemLink`   | Shipped SB.9 — nested `<a>` with extra indent + active chrome  |
 | `SidebarSubItemButton` | Shipped SB.9 — nested `<button>` row                           |
 
-Install **`collapsible`** with `sidebar` for expandable parents. Collapsible
-`SidebarGroup` (fold whole sections) → SB.17.
+Install **`collapsible`** with `sidebar` for expandable item parents (Layer 2) and
+section folds (Layer 8).
 
 #### Layer 3 — keyboard a11y (SB.12 shipped)
 
@@ -445,6 +445,35 @@ indent, active accent, row actions, and sub-lists without extra props.
 
 Active item accent: `before:start-0` (left / inline-start); flips to
 `before:end-0` when `data-side="right"`.
+
+#### Layer 8 — collapsible sections (SB.17 shipped)
+
+Fold whole `SidebarGroup` sections (distinct from Layer 2 item-level
+`Collapsible` + `SidebarSubList`). Wrap the group in `SidebarGroupCollapsible`;
+put `SidebarGroupCollapsibleTrigger` inside `SidebarGroupLabel` (pairs with
+`SidebarGroupAction`). Panel wraps `SidebarGroupContent`.
+
+```tsx
+<SidebarGroupCollapsible defaultOpen>
+  <SidebarGroup>
+    <SidebarGroupLabel>
+      <SidebarGroupCollapsibleTrigger>Developer</SidebarGroupCollapsibleTrigger>
+      <SidebarGroupAction aria-label="Add tool">+</SidebarGroupAction>
+    </SidebarGroupLabel>
+    <SidebarGroupCollapsiblePanel>
+      <SidebarGroupContent>
+        <SidebarList>{/* … */}</SidebarList>
+      </SidebarGroupContent>
+    </SidebarGroupCollapsiblePanel>
+  </SidebarGroup>
+</SidebarGroupCollapsible>
+```
+
+| Export                           | Role                                                            |
+| -------------------------------- | --------------------------------------------------------------- |
+| `SidebarGroupCollapsible`        | Shipped SB.17 — `Collapsible` root (`variant` fixed to `plain`) |
+| `SidebarGroupCollapsibleTrigger` | Shipped SB.17 — group label row toggle + chevron                |
+| `SidebarGroupCollapsiblePanel`   | Shipped SB.17 — zero-padding panel for group body               |
 
 ---
 

@@ -323,7 +323,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 | SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                            | SB.11              | shipped |
 | SB.15 | Impl     | `SidebarInput` — inline nav filter                                           | SB.8               | shipped |
 | SB.16 | Impl     | `side="right"` + RTL mirror                                                  | SB.5               | shipped |
-| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                             | SB.9               | planned |
+| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                             | SB.9               | shipped |
 | SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                   | SB.5–SB.17         | planned |
 | SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                 | SB.6               | planned |
 | SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`    | SB.10              | planned |
