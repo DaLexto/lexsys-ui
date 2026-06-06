@@ -1,5 +1,16 @@
 # Changelog — @dalexto/lexsys-cli
 
+## 0.0.6
+
+### Patch Changes
+
+- Root pnpm script aliases with `scripts:check` validator, JSDoc generated CSS headers with `Last generated` timestamp, and refreshed registry style templates.
+
+  **Breaking:** installed style files must use the new JSDoc header for CLI auto-update; reinstall styles after upgrading.
+
+- Updated dependencies []:
+  - @dalexto/lexsys-registry@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

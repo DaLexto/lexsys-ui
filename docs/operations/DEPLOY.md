@@ -81,7 +81,8 @@ explicit product decision and this file is updated.
 | First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                                          |
 | Prior preview | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical    |
 | Prior preview | `0.0.4` | `next`       | Table primitive, CLI `installed` array, `lexsys reset` (2026-05-30) — historical |
-| **Current**   | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02)                |
+| Prior preview | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02) — historical   |
+| **Current**   | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06)           |
 | Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                           |
 | MVP stable    | `0.1.0` | `latest`     | Public MVP commitment — future milestone                                         |
 
