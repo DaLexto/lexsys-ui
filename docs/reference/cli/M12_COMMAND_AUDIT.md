@@ -159,7 +159,7 @@ No merge candidate — `list` is catalog; `registry` is provider/debug (`--sourc
 | C12.1 | `uninstall` help omits `--no-fallback` (implemented)                 | **Shipped** — `COMMAND_HELP` + `CLI.md`               |
 | C12.2 | `version` has no `lexsys version --help`                             | Deferred — use root `-v` / `--version` only           |
 | C12.3 | Root help lists global `--yes`; limited command support              | **Shipped** — root help + `CLI.md` global table       |
-| C12.4 | `status` / `doctor` both print registry failure messages differently | Shared helper for registry resolve errors             |
+| C12.4 | `status` / `doctor` both print registry failure messages differently | **Shipped** — `utils/registry-errors.ts`              |
 | C12.5 | Dispatch boilerplate in `index.ts` (repeated `--help` blocks)        | Optional thin `dispatchCommand` helper — low priority |
 
 ---
@@ -195,5 +195,5 @@ audit**; update when M12.2–M12.4 ship behavior changes.
 
 ## Next step
 
-**M12.3:** Remaining cleanup — C12.4 registry error helper, C12.5 dispatch boilerplate (optional).
+**M12.3:** Optional — C12.5 dispatch boilerplate in `index.ts` (low priority).
 **M12.4:** UX items U12.1–U12.4 — one PR per row.

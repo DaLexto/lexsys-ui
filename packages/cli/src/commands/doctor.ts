@@ -6,6 +6,7 @@ import { fileExists } from "../utils/fs.js"
 import { resolveItemInstallTarget } from "../install/target.js"
 import { getRegistryProviderResult } from "../registry/provider.js"
 import { findItem } from "../registry/resolver.js"
+import { printRegistryResolveFailureChecklist } from "../utils/registry-errors.js"
 
 interface RunDoctorOptions {
   noFallback?: boolean
@@ -58,11 +59,9 @@ export const runDoctor = async (
     console.log(`✓ items: ${registryResult.items.length}`)
   } catch (error) {
     registryFailed = true
-
-    console.log("\nRegistry:")
-    console.log("× failed to resolve registry")
-    console.log(error instanceof Error ? error.message : String(error))
-    process.exitCode = 1
+    printRegistryResolveFailureChecklist(error, {
+      sectionHeading: "\nRegistry:",
+    })
   }
 
   if (registryFailed && options.noFallback) {

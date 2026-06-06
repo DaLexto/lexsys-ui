@@ -99,6 +99,39 @@ describe("CLI diagnostic commands", () => {
     )
   })
 
+  test("runStatus reports registry resolve failures consistently", async () => {
+    await writeJson(join(tempDir, "lexsys.config.json"), {
+      ...defaultConfig,
+      installed: ["button"],
+    })
+
+    mocks.getRegistryProviderResult.mockRejectedValue(
+      new Error("remote registry unavailable"),
+    )
+
+    await runStatus()
+
+    expect(consoleOutput()).toContain("Failed to resolve registry.")
+    expect(consoleOutput()).toContain("remote registry unavailable")
+    expect(process.exitCode).toBe(1)
+    process.exitCode = 0
+  })
+
+  test("runDoctor reports registry resolve failures in checklist format", async () => {
+    await writeJson(join(tempDir, "package.json"), { name: "demo" })
+
+    mocks.getRegistryProviderResult.mockRejectedValue(
+      new Error("remote registry unavailable"),
+    )
+
+    await runDoctor({ noFallback: true })
+
+    expect(consoleOutput()).toContain("× failed to resolve registry")
+    expect(consoleOutput()).toContain("remote registry unavailable")
+    expect(process.exitCode).toBe(1)
+    process.exitCode = 0
+  })
+
   test("runStatus reports installed component drift status", async () => {
     await writeJson(join(tempDir, "lexsys.config.json"), {
       ...defaultConfig,

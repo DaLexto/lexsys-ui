@@ -2,6 +2,7 @@ import { loadConfig } from "../config/config.js"
 import { findItem } from "../registry/resolver.js"
 import { getRegistryProviderResult } from "../registry/provider.js"
 import { getComponentDriftStatus } from "../install/component-drift.js"
+import { printRegistryResolveFailure } from "../utils/registry-errors.js"
 
 interface RunStatusOptions {
   noFallback?: boolean
@@ -23,9 +24,7 @@ export const runStatus = async (
       fallback: !options.noFallback,
     })
   } catch (error) {
-    console.log("Failed to resolve registry.")
-    console.log(error instanceof Error ? error.message : String(error))
-    process.exitCode = 1
+    printRegistryResolveFailure(error)
     return
   }
 
