@@ -197,6 +197,24 @@ export const sidebarItemBadgeDotClasses = (
   ].join(" ")
 }
 
+export const sidebarSubListClasses = (): string => {
+  return [
+    "lex-sidebar__sub-list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0",
+    "ml-[calc(var(--lex-sidebar-item-padding-x)+(var(--lex-sidebar-item-icon-size)/2))]",
+    "border-l border-[var(--lex-border-default)] pl-(--lex-sidebar-item-sub-indent)",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
+  ].join(" ")
+}
+
+export const sidebarSubNavItemClasses = (active?: boolean): string => {
+  const base = sidebarNavItemClasses(active)
+
+  return [
+    base,
+    "pl-[calc(var(--lex-sidebar-item-padding-x)+var(--lex-sidebar-item-sub-indent))]",
+  ].join(" ")
+}
+
 export const sidebarNavItemClasses = (active?: boolean): string => {
   const base = [
     "lex-sidebar__item",

@@ -174,6 +174,26 @@ export interface SidebarGroupActionProps extends Omit<
   ref?: Ref<HTMLButtonElement>
 }
 
+export interface SidebarSubListProps extends HTMLAttributes<HTMLUListElement> {
+  ref?: Ref<HTMLUListElement>
+  className?: string
+  children?: ReactNode
+}
+
+export interface SidebarSubItemLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  ref?: Ref<HTMLAnchorElement>
+  active?: boolean
+  className?: string
+  children?: ReactNode
+}
+
+export interface SidebarSubItemButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: Ref<HTMLButtonElement>
+  active?: boolean
+  className?: string
+  children?: ReactNode
+}
+
 export interface SidebarShellOptions {
   collapsed?: boolean
   collapsible?: SidebarCollapsible

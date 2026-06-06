@@ -52,6 +52,9 @@ import type {
   SidebarItemLinkProps,
   SidebarItemProps,
   SidebarItemShortcutProps,
+  SidebarSubItemButtonProps,
+  SidebarSubItemLinkProps,
+  SidebarSubListProps,
   SidebarListProps,
   SidebarMobileHeaderProps,
   SidebarProps,
@@ -84,6 +87,8 @@ import {
   sidebarNavItemClasses,
   sidebarNavListClasses,
   sidebarNavClasses,
+  sidebarSubListClasses,
+  sidebarSubNavItemClasses,
   sidebarRailClasses,
   sidebarRootClasses,
 } from "./Sidebar.variants"
@@ -845,6 +850,84 @@ const SidebarGroupAction = ({
 
 SidebarGroupAction.displayName = "SidebarGroupAction"
 
+const SidebarSubList = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarSubListProps) => {
+  return (
+    <ul ref={ref} className={cn(sidebarSubListClasses(), className)} {...props}>
+      {children}
+    </ul>
+  )
+}
+
+SidebarSubList.displayName = "SidebarSubList"
+
+const SidebarSubItemLink = ({
+  ref,
+  active,
+  className,
+  children,
+  ...props
+}: SidebarSubItemLinkProps) => {
+  const { closeOnSelect } = useSidebarMobileContext()
+  const linkClassName = cn(sidebarSubNavItemClasses(active), className)
+
+  if (!closeOnSelect) {
+    return (
+      <a ref={ref} className={linkClassName} {...props}>
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <DrawerClose
+      appearance="inline"
+      render={<a ref={ref} className={linkClassName} {...props} />}
+    >
+      {children}
+    </DrawerClose>
+  )
+}
+
+SidebarSubItemLink.displayName = "SidebarSubItemLink"
+
+const SidebarSubItemButton = ({
+  ref,
+  active,
+  className,
+  children,
+  type = "button",
+  ...props
+}: SidebarSubItemButtonProps) => {
+  const { closeOnSelect } = useSidebarMobileContext()
+  const buttonClassName = cn(sidebarSubNavItemClasses(active), className)
+
+  if (!closeOnSelect) {
+    return (
+      <button ref={ref} type={type} className={buttonClassName} {...props}>
+        {children}
+      </button>
+    )
+  }
+
+  return (
+    <DrawerClose
+      appearance="inline"
+      render={
+        <button ref={ref} type={type} className={buttonClassName} {...props} />
+      }
+    >
+      {children}
+    </DrawerClose>
+  )
+}
+
+SidebarSubItemButton.displayName = "SidebarSubItemButton"
+
 export {
   Sidebar,
   SidebarProvider,
@@ -864,6 +947,9 @@ export {
   SidebarItemAction,
   SidebarItemShortcut,
   SidebarGroupAction,
+  SidebarSubList,
+  SidebarSubItemLink,
+  SidebarSubItemButton,
   SidebarTrigger,
   SidebarCollapseTrigger,
   SidebarRail,

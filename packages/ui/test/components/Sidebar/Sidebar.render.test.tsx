@@ -17,6 +17,8 @@ import {
   SidebarItemLink,
   SidebarItemShortcut,
   SidebarList,
+  SidebarSubItemLink,
+  SidebarSubList,
   SidebarProvider,
   SidebarTrigger,
 } from "../../../src/components/blocks/Sidebar/Sidebar.js"
@@ -257,5 +259,64 @@ describe("Sidebar render", () => {
     expect(groupAction).toHaveClass(
       "md:group-data-[collapsed=true]/sidebar:hidden",
     )
+  })
+
+  it("renders nested SidebarSubList with indented links", () => {
+    const { container } = render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarList>
+            <SidebarItem>
+              <SidebarItemLink href="#settings">Settings</SidebarItemLink>
+              <SidebarSubList>
+                <SidebarItem>
+                  <SidebarSubItemLink href="#profile" active>
+                    Profile
+                  </SidebarSubItemLink>
+                </SidebarItem>
+                <SidebarItem>
+                  <SidebarSubItemLink href="#billing">Billing</SidebarSubItemLink>
+                </SidebarItem>
+              </SidebarSubList>
+            </SidebarItem>
+          </SidebarList>
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list")
+    const [profileLink] = screen.getAllByRole("link", { name: "Profile" })
+
+    expect(subList).toBeInTheDocument()
+    expect(subList).toHaveClass("border-l")
+    expect(profileLink).toHaveClass("lex-sidebar__item--active")
+    expect(profileLink.className).toContain(
+      "var(--lex-sidebar-item-sub-indent)",
+    )
+  })
+
+  it("hides SidebarSubList when icon-collapsed", () => {
+    const { container } = render(
+      <SidebarProvider collapsible="icon" defaultCollapsed>
+        <Sidebar>
+          <SidebarContent>
+            <SidebarList>
+              <SidebarItem>
+                <SidebarItemLink href="#settings">Settings</SidebarItemLink>
+                <SidebarSubList>
+                  <SidebarItem>
+                    <SidebarSubItemLink href="#profile">Profile</SidebarSubItemLink>
+                  </SidebarItem>
+                </SidebarSubList>
+              </SidebarItem>
+            </SidebarList>
+          </SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    )
+
+    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list")
+
+    expect(subList).toHaveClass("md:group-data-[collapsed=true]/sidebar:hidden")
   })
 })

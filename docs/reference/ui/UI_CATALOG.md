@@ -38,74 +38,74 @@ _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 
 ### Primitives (45)
 
-| Component          | Style    | Named exports                                                        | Registry          |
-| ------------------ | -------- | -------------------------------------------------------------------- | ----------------- |
-| **Accordion**      | compound | `Accordion, AccordionItem, AccordionHeader, … (+2)`                  | `accordion`       |
-| **Alert**          | compound | `Alert, AlertTitle, AlertDescription`                                | `alert`           |
-| **AlertDialog**    | compound | `AlertDialog, AlertDialogTrigger, AlertDialogPortal, … (+6)`         | `alert-dialog`    |
-| **Autocomplete**   | compound | `Autocomplete, AutocompleteTrigger, AutocompleteInputGroup, … (+20)` | `autocomplete`    |
-| **Avatar**         | compound | `Avatar, AvatarImage, AvatarFallback`                                | `avatar`          |
-| **Badge**          | leaf     | `Badge`                                                              | `badge`           |
-| **Breadcrumb**     | compound | `Breadcrumb, BreadcrumbList, BreadcrumbItem, … (+4)`                 | `breadcrumb`      |
-| **Button**         | leaf     | `Button`                                                             | `button`          |
-| **Card**           | compound | `Card, CardHeader, CardTitle, … (+4)`                                | `card`            |
-| **Checkbox**       | compound | `Checkbox, CheckboxIndicator`                                        | `checkbox`        |
-| **CheckboxGroup**  | leaf     | `CheckboxGroup`                                                      | `checkbox-group`  |
-| **Collapsible**    | compound | `Collapsible, CollapsibleTrigger, CollapsiblePanel`                  | `collapsible`     |
-| **Combobox**       | compound | `Combobox, ComboboxLabel, ComboboxTrigger, … (+25)`                  | `combobox`        |
-| **ContextMenu**    | compound | `ContextMenu, ContextMenuTrigger, ContextMenuPortal, … (+16)`        | `context-menu`    |
-| **DatePicker**     | compound | `DatePicker, DatePickerTrigger, DatePickerInput, … (+3)`             | `date-picker`     |
-| **Dialog**         | compound | `Dialog, DialogTrigger, DialogPortal, … (+6)`                        | `dialog`          |
-| **Drawer**         | compound | `Drawer, DrawerProvider, DrawerIndentBackground, … (+13)`            | `drawer`          |
-| **Field**          | compound | `Field, FieldLabel, FieldControl, … (+4)`                            | `field`           |
-| **Fieldset**       | compound | `Fieldset, FieldsetLegend`                                           | `fieldset`        |
-| **Form**           | leaf     | `Form`                                                               | `form`            |
-| **Input**          | leaf     | `Input`                                                              | `input`           |
-| **Menu**           | compound | `Menu, MenuTrigger, MenuPortal, … (+18)`                             | `menu`            |
-| **Menubar**        | leaf     | `Menubar`                                                            | `menubar`         |
-| **Meter**          | compound | `Meter, MeterTrack, MeterIndicator, … (+2)`                          | `meter`           |
-| **NavigationMenu** | compound | `NavigationMenu, NavigationMenuList, NavigationMenuItem, … (+10)`    | `navigation-menu` |
-| **NumberField**    | compound | `NumberField, NumberFieldGroup, NumberFieldInput, … (+4)`            | `number-field`    |
-| **OtpField**       | compound | `OtpField, OtpFieldInput, OtpFieldSeparator`                         | `otp-field`       |
-| **Pagination**     | compound | `Pagination, PaginationContent, PaginationItem, … (+4)`              | `pagination`      |
-| **Popover**        | compound | `Popover, PopoverTrigger, PopoverPortal, … (+8)`                     | `popover`         |
-| **PreviewCard**    | compound | `PreviewCard, PreviewCardTrigger, PreviewCardPortal, … (+6)`         | `preview-card`    |
-| **Progress**       | compound | `Progress, ProgressLabel, ProgressTrack, … (+2)`                     | `progress`        |
-| **RadioGroup**     | compound | `RadioGroup, RadioGroupItem`                                         | `radio-group`     |
-| **ScrollArea**     | compound | `ScrollArea, ScrollAreaViewport, ScrollAreaContent, … (+4)`          | `scroll-area`     |
-| **Select**         | compound | `Select, SelectLabel, SelectTrigger, … (+15)`                        | `select`          |
-| **Separator**      | leaf     | `Separator`                                                          | `separator`       |
-| **Slider**         | compound | `Slider, SliderControl, SliderTrack, … (+4)`                         | `slider`          |
-| **Switch**         | compound | `Switch, SwitchThumb`                                                | `switch`          |
-| **Table**          | compound | `Table, TableHeader, TableBody, … (+5)`                              | `table`           |
-| **Tabs**           | compound | `Tabs, TabsList, TabsTab, TabsPanel`                                 | `tabs`            |
-| **Textarea**       | leaf     | `Textarea`                                                           | `textarea`        |
-| **Toast**          | compound | `ToastProvider, ToastPortal, ToastViewport, … (+10)`                 | `toast`           |
-| **Toggle**         | leaf     | `Toggle`                                                             | `toggle`          |
-| **ToggleGroup**    | leaf     | `ToggleGroup`                                                        | `toggle-group`    |
-| **Toolbar**        | compound | `Toolbar, ToolbarGroup, ToolbarButton, … (+3)`                       | `toolbar`         |
-| **Tooltip**        | compound | `Tooltip, TooltipTrigger, TooltipPortal, … (+3)`                     | `tooltip`         |
+| Component | Style | Named exports | Registry |
+| --------- | ----- | ------------- | -------- |
+| **Accordion** | compound | `Accordion, AccordionItem, AccordionHeader, … (+2)` | `accordion` |
+| **Alert** | compound | `Alert, AlertTitle, AlertDescription` | `alert` |
+| **AlertDialog** | compound | `AlertDialog, AlertDialogTrigger, AlertDialogPortal, … (+6)` | `alert-dialog` |
+| **Autocomplete** | compound | `Autocomplete, AutocompleteTrigger, AutocompleteInputGroup, … (+20)` | `autocomplete` |
+| **Avatar** | compound | `Avatar, AvatarImage, AvatarFallback` | `avatar` |
+| **Badge** | leaf | `Badge` | `badge` |
+| **Breadcrumb** | compound | `Breadcrumb, BreadcrumbList, BreadcrumbItem, … (+4)` | `breadcrumb` |
+| **Button** | leaf | `Button` | `button` |
+| **Card** | compound | `Card, CardHeader, CardTitle, … (+4)` | `card` |
+| **Checkbox** | compound | `Checkbox, CheckboxIndicator` | `checkbox` |
+| **CheckboxGroup** | leaf | `CheckboxGroup` | `checkbox-group` |
+| **Collapsible** | compound | `Collapsible, CollapsibleTrigger, CollapsiblePanel` | `collapsible` |
+| **Combobox** | compound | `Combobox, ComboboxLabel, ComboboxTrigger, … (+25)` | `combobox` |
+| **ContextMenu** | compound | `ContextMenu, ContextMenuTrigger, ContextMenuPortal, … (+16)` | `context-menu` |
+| **DatePicker** | compound | `DatePicker, DatePickerTrigger, DatePickerInput, … (+3)` | `date-picker` |
+| **Dialog** | compound | `Dialog, DialogTrigger, DialogPortal, … (+6)` | `dialog` |
+| **Drawer** | compound | `Drawer, DrawerProvider, DrawerIndentBackground, … (+13)` | `drawer` |
+| **Field** | compound | `Field, FieldLabel, FieldControl, … (+4)` | `field` |
+| **Fieldset** | compound | `Fieldset, FieldsetLegend` | `fieldset` |
+| **Form** | leaf | `Form` | `form` |
+| **Input** | leaf | `Input` | `input` |
+| **Menu** | compound | `Menu, MenuTrigger, MenuPortal, … (+18)` | `menu` |
+| **Menubar** | leaf | `Menubar` | `menubar` |
+| **Meter** | compound | `Meter, MeterTrack, MeterIndicator, … (+2)` | `meter` |
+| **NavigationMenu** | compound | `NavigationMenu, NavigationMenuList, NavigationMenuItem, … (+10)` | `navigation-menu` |
+| **NumberField** | compound | `NumberField, NumberFieldGroup, NumberFieldInput, … (+4)` | `number-field` |
+| **OtpField** | compound | `OtpField, OtpFieldInput, OtpFieldSeparator` | `otp-field` |
+| **Pagination** | compound | `Pagination, PaginationContent, PaginationItem, … (+4)` | `pagination` |
+| **Popover** | compound | `Popover, PopoverTrigger, PopoverPortal, … (+8)` | `popover` |
+| **PreviewCard** | compound | `PreviewCard, PreviewCardTrigger, PreviewCardPortal, … (+6)` | `preview-card` |
+| **Progress** | compound | `Progress, ProgressLabel, ProgressTrack, … (+2)` | `progress` |
+| **RadioGroup** | compound | `RadioGroup, RadioGroupItem` | `radio-group` |
+| **ScrollArea** | compound | `ScrollArea, ScrollAreaViewport, ScrollAreaContent, … (+4)` | `scroll-area` |
+| **Select** | compound | `Select, SelectLabel, SelectTrigger, … (+15)` | `select` |
+| **Separator** | leaf | `Separator` | `separator` |
+| **Slider** | compound | `Slider, SliderControl, SliderTrack, … (+4)` | `slider` |
+| **Switch** | compound | `Switch, SwitchThumb` | `switch` |
+| **Table** | compound | `Table, TableHeader, TableBody, … (+5)` | `table` |
+| **Tabs** | compound | `Tabs, TabsList, TabsTab, TabsPanel` | `tabs` |
+| **Textarea** | leaf | `Textarea` | `textarea` |
+| **Toast** | compound | `ToastProvider, ToastPortal, ToastViewport, … (+10)` | `toast` |
+| **Toggle** | leaf | `Toggle` | `toggle` |
+| **ToggleGroup** | leaf | `ToggleGroup` | `toggle-group` |
+| **Toolbar** | compound | `Toolbar, ToolbarGroup, ToolbarButton, … (+3)` | `toolbar` |
+| **Tooltip** | compound | `Tooltip, TooltipTrigger, TooltipPortal, … (+3)` | `tooltip` |
 
 ### Blocks (10)
 
-| Component          | Style    | Named exports                                                        | Registry          |
-| ------------------ | -------- | -------------------------------------------------------------------- | ----------------- |
-| **AuthForm**       | compound | `AuthForm, AuthFormHeader, AuthFormContent, … (+2)`                  | `auth-form`       |
+| Component | Style | Named exports | Registry |
+| --------- | ----- | ------------- | -------- |
+| **AuthForm** | compound | `AuthForm, AuthFormHeader, AuthFormContent, … (+2)` | `auth-form` |
 | **CommandPalette** | compound | `CommandPalette, CommandPaletteContent, CommandPaletteTitle, … (+8)` | `command-palette` |
-| **DataTable**      | compound | `DataTable, DataTableToolbar, DataTableTable, … (+15)`               | `data-table`      |
-| **Empty**          | compound | `Empty, EmptyHeader, EmptyMedia, … (+3)`                             | `empty`           |
-| **FilterToolbar**  | compound | `FilterToolbar, FilterToolbarGroup, FilterToolbarSearch, … (+4)`     | `filter-toolbar`  |
-| **FormField**      | compound | `FormField, FormFieldItem, FormFieldLabel, … (+3)`                   | `form-field`      |
-| **PageHeader**     | compound | `PageHeader, PageHeaderTop, PageHeaderBreadcrumb, … (+10)`           | `page-header`     |
-| **SettingsPanel**  | compound | `SettingsPanel, SettingsPanelHeader, SettingsPanelTitle, … (+3)`     | `settings-panel`  |
-| **Sidebar**        | compound | `Sidebar, SidebarProvider, useSidebar, … (+20)`                      | `sidebar`         |
-| **StatsCard**      | compound | `StatsCard, StatsCardHeader, StatsCardTitle, … (+5)`                 | `stats-card`      |
+| **DataTable** | compound | `DataTable, DataTableToolbar, DataTableTable, … (+15)` | `data-table` |
+| **Empty** | compound | `Empty, EmptyHeader, EmptyMedia, … (+3)` | `empty` |
+| **FilterToolbar** | compound | `FilterToolbar, FilterToolbarGroup, FilterToolbarSearch, … (+4)` | `filter-toolbar` |
+| **FormField** | compound | `FormField, FormFieldItem, FormFieldLabel, … (+3)` | `form-field` |
+| **PageHeader** | compound | `PageHeader, PageHeaderTop, PageHeaderBreadcrumb, … (+10)` | `page-header` |
+| **SettingsPanel** | compound | `SettingsPanel, SettingsPanelHeader, SettingsPanelTitle, … (+3)` | `settings-panel` |
+| **Sidebar** | compound | `Sidebar, SidebarProvider, useSidebar, … (+23)` | `sidebar` |
+| **StatsCard** | compound | `StatsCard, StatsCardHeader, StatsCardTitle, … (+5)` | `stats-card` |
 
 ### Templates (2)
 
-| Component              | Style    | Named exports                                                                  | Registry               |
-| ---------------------- | -------- | ------------------------------------------------------------------------------ | ---------------------- |
-| **DashboardShell**     | compound | `DashboardShell, DashboardShellSidebar, DashboardShellHeader, … (+2)`          | `dashboard-shell`      |
+| Component | Style | Named exports | Registry |
+| --------- | ----- | ------------- | -------- |
+| **DashboardShell** | compound | `DashboardShell, DashboardShellSidebar, DashboardShellHeader, … (+2)` | `dashboard-shell` |
 | **SettingsPageLayout** | compound | `SettingsPageLayout, SettingsPageLayoutHeader, SettingsPageLayoutBody, … (+8)` | `settings-page-layout` |
 
 **Leaf policy:** only components listed in [UI.md § Intentional leaves](./UI.md#compound-vs-leaf-decision-tree) with a single part export. All blocks and templates are compound-only.

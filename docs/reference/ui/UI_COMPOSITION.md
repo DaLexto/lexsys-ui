@@ -175,7 +175,7 @@ existing primitives:
 | Mobile overlay                     | `@base-ui/react/dialog` (Drawer) | `Drawer`         | Slide-in nav below `md`; `side=left`, swipe-to-close                                                                 |
 | Desktop column                     | — (plain layout)                 | —                | Persistent `<aside>` shell; **not** Drawer                                                                           |
 | Scrollable nav                     | —                                | `ScrollArea`     | `SidebarContent` viewport                                                                                            |
-| Nested groups (planned SB.9)       | `@base-ui/react/collapsible`     | `Collapsible`    | `SidebarSubList` / collapsible `SidebarGroup`                                                                        |
+| Nested groups                      | `@base-ui/react/collapsible`     | `Collapsible`    | `SidebarSubList` + `Collapsible` / `CollapsiblePanel` (collapsible `SidebarGroup` → SB.17)                           |
 | Icon rail tooltips (planned SB.7+) | `@base-ui/react/tooltip`         | `Tooltip`        | Label hints when `collapsible="icon"`                                                                                |
 | Row badges                         | —                                | `Badge`          | `SidebarItemBadge`                                                                                                   |
 | Menu selection tokens              | `@base-ui/react/menu`            | `Menu`           | **Not** used for Sidebar nav chrome — Menu checked tokens are for transient overlays, not persistent nav (see SB.11) |
@@ -282,13 +282,36 @@ Lexsys naming is fixed:
 `SidebarItem` layout: `relative flex items-center`; variants in `Sidebar.variants.ts`
 — no consumer CSS hacks.
 
-#### Layer 2 — nested nav (planned SB.9 / SB.17)
+#### Layer 2 — nested nav (SB.9 shipped; SB.17 planned)
 
-`SidebarSubList`, `SidebarSubItemLink`, `SidebarSubItemButton` — indented nested
-rows; collapsible `SidebarGroup` wraps `Collapsible`.
+```tsx
+<SidebarItem>
+  <Collapsible variant="plain" defaultOpen>
+    <CollapsibleTrigger>Settings</CollapsibleTrigger>
+    <CollapsiblePanel className="p-0">
+      <SidebarSubList>
+        <SidebarItem>
+          <SidebarSubItemLink href="/settings/profile" active>
+            Profile
+          </SidebarSubItemLink>
+        </SidebarItem>
+      </SidebarSubList>
+    </CollapsiblePanel>
+  </Collapsible>
+</SidebarItem>
+```
 
-**Projected registry deps after SB wave:** `button`, `drawer`, `scroll-area`,
-`tooltip`, `badge`, `collapsible`.
+| Export                  | Role                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| `SidebarSubList`        | Shipped SB.9 — indented nested `<ul>`; hidden in icon collapse |
+| `SidebarSubItemLink`    | Shipped SB.9 — nested `<a>` with extra indent + active chrome  |
+| `SidebarSubItemButton`  | Shipped SB.9 — nested `<button>` row                           |
+
+Install **`collapsible`** with `sidebar` for expandable parents. Collapsible
+`SidebarGroup` (fold whole sections) → SB.17.
+
+**Registry deps (sidebar block):** `badge`, `button`, `collapsible`, `drawer`,
+`scroll-area`.
 
 ---
 

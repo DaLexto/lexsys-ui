@@ -44,6 +44,10 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
       $type: "dimension",
       maxWidth: { $value: "{size.panel.width.sm}" },
     },
+    sub: {
+      $type: "dimension",
+      indent: { $value: "{spacing.control.x.sm}" },
+    },
     focus: {
       ring: {
         width: { $value: "{outline.width.focus}" },
