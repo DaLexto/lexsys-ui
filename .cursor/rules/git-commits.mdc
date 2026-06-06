@@ -29,6 +29,7 @@ Imperative mood, lowercase subject, no trailing period. Prefer ≤ 72 characters
 | `git commit` | User **explicitly** requests a commit (or user rules override) |
 | `git push` | User **explicitly** requests push — do not offer push proactively |
 | `gh pr create` / open PR | User **explicitly** requests a pull request |
+| `gh pr merge` | User **explicitly** requests merge — never merge autonomously |
 | `git commit --amend` | User rules allow (unpushed HEAD, hook fixed files, user said amend) |
 | `push --force`, `reset --hard`, etc. | User explicitly requests and understands impact |
 | `git config` | Never |
