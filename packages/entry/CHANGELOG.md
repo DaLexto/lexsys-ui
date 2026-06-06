@@ -1,5 +1,14 @@
 # lexsys
 
+## 0.1.1
+
+### Patch Changes
+
+- [#77](https://github.com/DaLexto/lexsys-ui/pull/77) [`14bc7dc`](https://github.com/DaLexto/lexsys-ui/commit/14bc7dc5e0e72ac0bf4eade3ae87774ca0e60c3f) Thanks [@itsalexdev](https://github.com/itsalexdev)! - Post-0.1.0 maintainer release: unified GitHub release metadata (`lexsys@version`), documentation hub alignment, and Cursor rules housekeeping. No consumer CLI or registry behavior changes.
+
+- Updated dependencies []:
+  - @dalexto/lexsys-cli@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
