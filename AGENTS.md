@@ -43,6 +43,7 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 - **Registry two-zone:** `packages/registry/src/items/` (install metadata) vs `packages/registry/templates/` (generated from UI — never edit templates directly). **`pnpm registry:sync`** reconciles items and templates for all layers (preserves `aliases` / `category` on reconcile). Full rules: [REGISTRY.md](./docs/reference/registry/REGISTRY.md); workflow: **`$registry-sync`**.
 - **Playground:** maintenance-only monorepo smoke — not consumer install truth. See [TESTING.md](./docs/operations/TESTING.md).
 - **Branch policy:** branch off **`dev`**; PR to **`dev`**; do not touch **`main`** unless the user explicitly requests it.
+- **Git / PR ops:** commit, push, open PR, and merge only on **explicit** request; new PRs need verified labels in the **same turn** as `gh pr create` — [`$git-commit`](./.cursor/skills/git-commit/SKILL.md) · [git-commits.mdc](./.cursor/rules/git-commits.mdc).
 - **Prefer links over duplication** when a rule already lives in `docs/`.
 
 ---

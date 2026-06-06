@@ -318,6 +318,18 @@ npx github-label-sync@3 --access-token <token> --labels .github/labels.yml --dry
 
 Taxonomy and usage: [Contributing](../contributors/CONTRIBUTING.md) § GitHub labels.
 
+### PR status label cleanup (merged PRs)
+
+[`.github/workflows/pr-status-label-cleanup.yml`](../.github/workflows/pr-status-label-cleanup.yml) runs on `pull_request` `closed` when `merged == true` and removes `status:ready-for-review` via `gh pr edit --remove-label`. No checkout required; uses `GITHUB_TOKEN` with `issues: write`.
+
+| Trigger              | Behavior                                              |
+| -------------------- | ----------------------------------------------------- |
+| PR merged            | Remove `status:ready-for-review` if present           |
+| PR closed unmerged   | No-op (job skipped)                                   |
+| Label already absent | Step succeeds with `continue-on-error` (harmless log) |
+
+Does not retroactively clean PRs merged before the workflow existed.
+
 ---
 
 ## Turbo vs root alias vs filter

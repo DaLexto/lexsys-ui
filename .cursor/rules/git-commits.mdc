@@ -145,15 +145,19 @@ PR title may differ from a single commit subject when the branch has multiple co
 
 ### Create the PR
 
+**Create and labels are one atomic step** — see [procedures § Pull request steps 4–6](../skills/git-commit/procedures.md#pull-request). Do not treat `gh pr create` alone as done; apply labels in the same turn, then verify before returning the URL.
+
 ```bash
 gh pr create --base dev --title "short pr title" --body-file path/to/filled-body.md
+gh pr edit <number> --add-label "type:feat,area:ui,status:ready-for-review"
+gh pr view <number> --json labels
 ```
 
-Fix wrong base: `gh pr edit <number> --base dev`. Return the PR URL.
+Fix wrong base: `gh pr edit <number> --base dev`.
 
-### GitHub labels (required after PR create)
+### GitHub labels (required — same turn as create)
 
-Apply labels in [procedures § Pull request step 5](../skills/git-commit/procedures.md#pull-request). Label namespaces: [CONTRIBUTING.md § GitHub labels](../../docs/contributors/CONTRIBUTING.md). Manifest: [`.github/labels.yml`](../../.github/labels.yml).
+Apply labels per [procedures § Pull request](../skills/git-commit/procedures.md#pull-request) steps 4–6. Label namespaces: [CONTRIBUTING.md § GitHub labels](../../docs/contributors/CONTRIBUTING.md). Manifest: [`.github/labels.yml`](../../.github/labels.yml).
 
 **Always apply:**
 
@@ -161,7 +165,7 @@ Apply labels in [procedures § Pull request step 5](../skills/git-commit/procedu
 |-------|------|
 | `type:*` | One — mirrors primary commit type |
 | `area:*` | One or more — every primary surface touched (see [area mapping](#area-mapping)) |
-| `status:ready-for-review` | PR complete and awaiting review |
+| `status:ready-for-review` | Open PR complete and awaiting review — removed automatically on merge ([pr-status-label-cleanup.yml](../../.github/workflows/pr-status-label-cleanup.yml)) |
 | `meta:breaking-change` | Public API, registry install paths, token CSS, or config breaks |
 
 **Do not apply on PRs:** `priority:*`, `automation:*`, `meta:good-first-issue`, `meta:help-wanted`.
