@@ -145,7 +145,8 @@ First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.4...HEAD
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.5...HEAD
+[0.0.5]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.4...@dalexto/lexsys@0.0.5
 [0.0.4]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.3...@dalexto/lexsys@0.0.4
 [0.0.3]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.2...@dalexto/lexsys@0.0.3
 [0.0.2]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys-cli@0.0.1...@dalexto/lexsys-cli@0.0.2

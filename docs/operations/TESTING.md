@@ -228,7 +228,7 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-All **41 bundled primitives** and **blocks** (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty) have render smoke tests using `@testing-library/react` with Vitest
+All **42 bundled primitives** and **blocks** (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty) have render smoke tests using `@testing-library/react` with Vitest
 `jsdom` (`packages/ui/vitest.config.ts`).
 
 - Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.

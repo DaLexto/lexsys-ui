@@ -4,7 +4,7 @@
 **Type:** Audit artifact (M12 track)  
 **Source of truth for:** Command inventory, alias map, help grouping, overlap and cleanup candidates for M12.2–M12.4  
 **Verified against:** `packages/cli/src/index.ts`, `packages/cli/src/commands/help.ts`, `docs/reference/cli/CLI.md`  
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-06
 
 ---
 
@@ -28,9 +28,10 @@ The CLI exposes **12 user-facing commands** (including meta `help` / `version`) 
 `index.ts`. Naming and aliases match M4.4–M4.5; root help groups match the **Scaffold /
 Components / Inspect / Meta** layout from M4.8.
 
-**M12.1 outcome:** inventory complete; no renames required before M12.2. Highest-value
-follow-ups are **status vs doctor** scope (M12.2), **help/flag doc drift** on
-`uninstall` (M12.3), and **`add --yes` with no args** behavior (M12.4).
+**M12 outcome:** M12.1–M12.4 **shipped**. Inventory complete with no renames; `status` and
+`doctor` kept separate; `registry-errors.ts` unified registry failure output; `--yes` UX
+aligned on add/update/reset/uninstall; exit codes documented in [CLI.md](./CLI.md). M12.5
+reserved (optional C12.5 dispatch helper).
 
 ---
 
@@ -189,7 +190,7 @@ One PR per item per M12 scope.
 | `reset`        | OK     | Present in reference                               |
 
 Canonical user reference remains [CLI.md](./CLI.md). This file is the **M12 maintainer
-audit**; update when M12.2–M12.4 ship behavior changes.
+audit**; update when follow-up CLI behavior changes (M12.5+).
 
 ---
 

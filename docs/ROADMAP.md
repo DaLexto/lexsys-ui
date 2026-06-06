@@ -2,12 +2,12 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M8, M10, M11 **shipped**; UI
-composition pilots **shipped** (PR #28); `0.0.4` @ `next` **shipped** (2026-05-30 — Table, CLI `installed` array, `lexsys reset`); `0.0.3` (2026-05-28) historical; blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M8, M10, M11, M12 **shipped**; UI
+composition pilots **shipped** (PR #28); `0.0.5` @ `next` **shipped** (2026-06-02 — registry sync automation, block install paths); `0.0.4` (2026-05-30) historical; blocks/templates optimization **shipped** (BO.1–BO.7) — see phase tables below for current vs future work  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-06
 
 ---
 
@@ -332,7 +332,7 @@ Status: **shipped** (2026-05-30) — M12.1–M12.4 complete; M12.5 reserved.
 
 Post–M8 polish: command naming audit, overlapping-command merge candidates,
 targeted cleanup, and UX improvements. Execute as **small–medium PRs** (one
-M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12-cli-command-optimization-planned).
+M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12-cli-command-optimization-shipped).
 
 | Item  | Focus                                                                                                   |
 | ----- | ------------------------------------------------------------------------------------------------------- |

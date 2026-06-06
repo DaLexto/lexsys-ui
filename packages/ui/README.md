@@ -4,7 +4,7 @@
 **Type:** Package README
 **Source of truth for:** Package role, primitive categories, file structure, public exports  
 **Verified against:** `packages/ui/src/`
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-06
 
 ---
 
@@ -34,7 +34,7 @@ independent implementations.
 
 ---
 
-## Primitives by category (41)
+## Primitives by category (42)
 
 Category grouping for reference UI only. Compound vs leaf, exports, and registry
 version: [docs/reference/ui/UI_CATALOG.md](../../docs/reference/ui/UI_CATALOG.md).
@@ -75,6 +75,7 @@ version: [docs/reference/ui/UI_CATALOG.md](../../docs/reference/ui/UI_CATALOG.md
 | `Separator`      | layout       |
 | `Slider`         | forms        |
 | `Switch`         | forms        |
+| `Table`          | data-display |
 | `Tabs`           | navigation   |
 | `Textarea`       | forms        |
 | `Toast`          | feedback     |

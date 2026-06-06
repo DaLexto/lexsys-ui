@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-05-30 (M12 CLI command optimization shipped)
+**Last reviewed:** 2026-06-06 (docs alignment pass)
 
 ---
 
@@ -20,7 +20,7 @@
   - [Blocks / templates optimization backlog](#blocks-templates-optimization-backlog)
   - [CS - Component Standardization](#cs-component-standardization)
 - [P3 - Architecture Planning](#p3-architecture-planning)
-- [M12 - CLI command optimization (planned)](#m12-cli-command-optimization-planned)
+- [M12 - CLI command optimization (shipped)](#m12-cli-command-optimization-shipped)
 - [SI - Script Improvements](#si-script-improvements)
 - [Known Gaps](#known-gaps)
 
@@ -47,7 +47,7 @@ that are not yet done.
 | M6      | Dependency hygiene (Dependabot, lockfile policy)                    | shipped |
 | M7      | Maintainer tooling (README, CONTRIBUTING, agent skills)             | shipped |
 | M8      | CLI cleanup and deduplication                                       | shipped |
-| M10     | Release readiness — `0.0.4` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
+| M10     | Release readiness — `0.0.5` @ `next` (first: `0.0.1` 2026-05-24)    | shipped |
 | UI      | Composition pilots + flat CLI install (PR #28)                      | shipped |
 | BO      | Blocks/templates optimization (BO.1–BO.7)                           | shipped |
 | CS      | Component standardization (CS.1–CS.8)                               | shipped |
@@ -101,7 +101,7 @@ Detail: [Roadmap § M8](./ROADMAP.md#m8-cli-cleanup-and-deduplication).
 via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
 [Changelog](../CHANGELOG.md#001-2026-05-24).
 
-**Current preview:** `0.0.4` @ `next` (2026-05-30) — Table primitive, CLI `installed` array + `lexsys reset` ([CHANGELOG](../CHANGELOG.md#004-2026-05-30)). Prior: `0.0.3` (2026-05-28).
+**Current preview:** `0.0.5` @ `next` (2026-06-02) — registry sync automation, block/template install import fixes ([CHANGELOG](../CHANGELOG.md#005-2026-06-02)). Prior: `0.0.4` (2026-05-30).
 
 **Next milestone:** **`0.1.0`** on dist-tag **`latest`** — [Deploy guide § Transition to 0.1.0](../operations/DEPLOY.md#transition-to-010-latest).
 
@@ -132,7 +132,7 @@ The P0 and P1 implementation passes are complete:
 - ScrollArea component (UI, tokens, registry, playground) merged via PR #14 (`884e3eb`)
 - `lexsys uninstall` removes registry-owned files with dry-run and conflict reporting
 - UI render test pilot: ScrollArea, Collapsible, Dialog (`@testing-library/react` + Vitest jsdom)
-- Broad UI render coverage: all 41 bundled primitives have render smoke tests
+- Broad UI render coverage: all 42 bundled primitives have render smoke tests
 - Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Governance CI promotion: semantic audit **`error`-severity** fails `pnpm tokens:governance:report` (`LEXSYS_GOVERNANCE_POLICY`)
@@ -149,7 +149,7 @@ The P0 and P1 implementation passes are complete:
 - Consumer sandbox verify (PR #26 artifacts): `lexsys update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, all 41 bundled primitives, and blocks/templates (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, DashboardShell).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, all 42 bundled primitives, and blocks/templates (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, DashboardShell).
 
 Known gaps below.
 
@@ -168,7 +168,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 | Item | Layer     | Status  | Notes                                                                                                                                                    |
 | ---- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UC.1 | All       | shipped | Monorepo layout, composition validators, layer docs — ongoing docs alignment on `docs/post-ui-layers-alignment`                                          |
+| UC.1 | All       | shipped | Monorepo layout, composition validators, layer docs — ongoing alignment via [UI composition](./reference/ui/UI_COMPOSITION.md) and catalog drift checks |
 | UC.2 | Blocks    | shipped | FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty — BO pass complete; CI render + install smoke                                         |
 | UC.3 | Templates | shipped | DashboardShell mobile layout fixed; CI render + install smoke                                                                                            |
 | UC.4 | Pages     | n/a     | Pages stay consumer-owned                                                                                                                                |

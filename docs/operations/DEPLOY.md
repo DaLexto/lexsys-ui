@@ -80,7 +80,8 @@ explicit product decision and this file is updated.
 | ------------- | ------- | ------------ | ----------------------------------------------------------------------------- |
 | First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                                       |
 | Prior preview | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical |
-| **Current**   | `0.0.4` | `next`       | Early preview; breaking changes still likely (2026-05-30)                     |
+| Prior preview | `0.0.4` | `next`       | Table primitive, CLI `installed` array, `lexsys reset` (2026-05-30) — historical |
+| **Current**   | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02)             |
 | Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                        |
 | MVP stable    | `0.1.0` | `latest`     | Public MVP commitment — future milestone                                      |
 
