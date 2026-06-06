@@ -189,11 +189,11 @@ Known gaps below — post-0.1.0 backlog; closed 0.1.0 items remain in [§ 0.1.0 
 
 ### P2.0 — Release gate (REL)
 
-| ID    | Item                           | PR     | Status                                                                                                                                   |
-| ----- | ------------------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| REL.2 | npm provenance + SBOM          | A3     | shipped                                                                                                                                  |
-| —     | PulseDesk consumer QA (`< md`) | manual | shipped — [$consumer-sandbox-verify](../.agents/skills/consumer-sandbox-verify/SKILL.md) pass in `D:\PLAYGROUND\sandbox-lexsys` (pre-A4) |
-| M10   | 0.1.0 @ `latest` publish       | A4     | shipped (2026-06-06) — PR #65–#67; post-publish smoke `D:\PLAYGROUND\smoke-010`                                                          |
+| ID    | Item                           | PR     | Status                                                                                                                                             |
+| ----- | ------------------------------ | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| REL.2 | npm provenance + SBOM          | A3     | shipped                                                                                                                                            |
+| —     | PulseDesk consumer QA (`< md`) | manual | shipped — [Testing docs § Consumer sandbox](./operations/TESTING.md#consumer-sandbox-verification) pass in `D:\PLAYGROUND\sandbox-lexsys` (pre-A4) |
+| M10   | 0.1.0 @ `latest` publish       | A4     | shipped (2026-06-06) — PR #65–#67; post-publish smoke `D:\PLAYGROUND\smoke-010`                                                                    |
 
 Canonical checklist: [Deploy guide § Pre-release gate](../operations/DEPLOY.md#pre-release-gate).
 

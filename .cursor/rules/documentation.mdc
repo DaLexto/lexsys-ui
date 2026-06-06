@@ -52,6 +52,7 @@ Then: blank line → `---` → optional **`## On this page`** → first substant
 - Exactly one H1 (matches title).
 - `## On this page` — **required** when the doc has **≥4 substantive H2** sections (exclude `On this page` and `Related documentation` from the count). Anchor labels match headings; update on touch when headings change.
 - [INDEX.md](../../docs/INDEX.md) — routing hub; `On this page` not required when the doc is primarily orientation tables.
+- [AGENTS.md](../../AGENTS.md) and `.cursor/skills/**/SKILL.md` — **no** `On this page`; slim metadata only (Audience, Type, Source of truth for).
 - Sentence case H2/H3; do not skip levels (H1 → H2 → H3).
 - Domain specs: normative `MUST` / `SHOULD` / `MAY` where appropriate.
 - Optional final `## Related documentation` — cross-file links only.

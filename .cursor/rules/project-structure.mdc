@@ -81,19 +81,6 @@ ComponentName/
 
 ---
 
-## Cursor rules (`.cursor/rules/`)
+## Cursor rules and skills
 
-| Rule | Purpose |
-| ---- | ------- |
-| `cursor-rules.mdc` | How to add/edit rules |
-| `project-structure.mdc` | This file — layout and edit map |
-| `documentation.mdc` | Doc routing and layout when editing `docs/**` |
-| `code-commenting.mdc` | JSDoc and comments in `src/` |
-| `git-commits.mdc` | Commit/PR policy (with `$git-commit`) |
-| `testing.mdc` | Vitest layout and test-edit conventions |
-| `tech-stack.mdc` | Dependencies and toolchain |
-| `typescript.mdc` | TypeScript conventions and patterns |
-| `ui-components.mdc` | UI component standards (CS.8) |
-| `self-improvement.mdc` | When to evolve rules |
-
-Repo skills: [`.cursor/skills/`](../../.cursor/skills/) (`$agent-workflow`, `$monorepo-verify-gate`, `$git-commit`, `$registry-sync`, `$token-verify`, `$components-authoring`, `$changelog-update`, `$docs-authoring`, `$project-next-steps`). Git policy: [`$git-commit`](../../.cursor/skills/git-commit/SKILL.md) → [git-commits.mdc](./git-commits.mdc).
+Edit-time rules: [`.cursor/rules/`](../../.cursor/rules/). Agent procedures: [`.cursor/skills/`](../../.cursor/skills/) and [AGENTS.md](../../AGENTS.md). Git policy: [`$git-commit`](../../.cursor/skills/git-commit/SKILL.md) → [git-commits.mdc](./git-commits.mdc).
