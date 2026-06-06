@@ -301,12 +301,14 @@ Show template drift for installed components vs the active registry. Use
 
 ```bash
 lexsys status
+lexsys status --json
 lexsys status --no-fallback
 ```
 
-| Flag            | Description                         |
-| --------------- | ----------------------------------- |
-| `--no-fallback` | Fail if remote registry unavailable |
+| Flag            | Description                                                            |
+| --------------- | ---------------------------------------------------------------------- |
+| `--json`, `-j`  | Print installed component drift as JSON (`synced`, `drift`, `missing`) |
+| `--no-fallback` | Fail if remote registry unavailable                                    |
 
 Reads the `installed` array from `lexsys.config.json` and compares each
 component's files against registry templates. Output per component:
@@ -565,10 +567,10 @@ cached in-memory for the duration of a single CLI invocation.
 Remote manifests MUST be JSON fetched over HTTPS. The CLI parses payloads with
 `parseRemoteRegistry`:
 
-| Shape           | Fields                                                 | Notes                                   |
-| --------------- | ------------------------------------------------------ | --------------------------------------- |
-| Manifest object | `version` (string), `items` (array), `styles?` (array) | Preferred contract                      |
-| Legacy array    | bare `RegistryItem[]`                                  | Accepted; `version` becomes `"unknown"` |
+| Shape           | Fields                                                                       | Notes                                                                      |
+| --------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Manifest object | `version` (string), `items` (array), `styles?` (array), `checksum?` (string) | Preferred contract; optional SHA-256 of manifest JSON excluding `checksum` |
+| Legacy array    | bare `RegistryItem[]`                                                        | Accepted; `version` becomes `"unknown"`                                    |
 
 Each `items[]` entry MUST match the local registry item shape (`name`,
 `canonicalName`, `type`, `category`, `aliases`, `files`,
@@ -580,10 +582,17 @@ Malformed manifests throw descriptive errors (invalid item/style index, missing
 `version`/`items`, non-array `styles`). Remote optional styles are validated
 with the same registry validator options as local styles where applicable.
 
-**Trust model (current):** the CLI trusts the configured URL. There is no
-signature verification, checksum enforcement, or host allowlist yet — configure
-`registryUrl` only for sources you control. Use `--no-fallback` when remote
-unavailability must fail the command instead of using the bundled registry.
+**Trust model (current):** the CLI trusts the configured URL unless you add
+guardrails in `lexsys.config.json`:
+
+| Field               | Purpose                                                                                                                                                  |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `registryAllowlist` | Optional `string[]` of allowed hosts, origins, URL prefixes, or full URLs. When non-empty, `registryUrl` must match an entry before fetch.               |
+| Manifest `checksum` | Optional SHA-256 hex on remote manifests. When present, `parseRemoteRegistry` verifies the hash of `{ version, items, styles? }` and rejects mismatches. |
+
+There is no signature verification yet — configure `registryUrl` only for sources
+you control. Use `--no-fallback` when remote unavailability must fail the
+command instead of using the bundled registry.
 
 ---
 

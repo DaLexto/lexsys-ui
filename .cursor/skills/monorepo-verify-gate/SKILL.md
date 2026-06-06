@@ -24,12 +24,12 @@ Command names: [SCRIPTS.md](../../docs/operations/SCRIPTS.md). Surfaces: [TESTIN
 
 CI runs `format:check` inside `pnpm check`. Unformatted code → CI fails → fix push → **double CI run**.
 
-| Step | Who | Action |
-| ---- | --- | ------ |
-| 1 | User | Run `pnpm format:check` (last line on every pre-git checklist) |
-| 2 | User | If it fails: `pnpm format`, then `pnpm format:check` again until green |
-| 3 | User | Reply **`verify passed`** (or **`format ok`** when only format was pending) |
-| 4 | Agent | Only then proceed with **`$git-commit`** (commit / push / PR / ff `main`) |
+| Step | Who   | Action                                                                      |
+| ---- | ----- | --------------------------------------------------------------------------- |
+| 1    | User  | Run `pnpm format:check` (last line on every pre-git checklist)              |
+| 2    | User  | If it fails: `pnpm format`, then `pnpm format:check` again until green      |
+| 3    | User  | Reply **`verify passed`** (or **`format ok`** when only format was pending) |
+| 4    | Agent | Only then proceed with **`$git-commit`** (commit / push / PR / ff `main`)   |
 
 **Agent MUST NOT:** open a PR, push, ff `main`, or mark verification as passed in a PR body without your confirmed green `format:check`.
 
@@ -105,7 +105,7 @@ When the diff does not match a single scenario, map paths to commands (prefer sc
 
 1. `pnpm …`
 2. `pnpm …`
-N. `pnpm format:check` <!-- mandatory last step before commit / push / PR / ff main -->
+   N. `pnpm format:check` <!-- mandatory last step before commit / push / PR / ff main -->
 
 If step N fails: `pnpm format`, then repeat `pnpm format:check`.
 

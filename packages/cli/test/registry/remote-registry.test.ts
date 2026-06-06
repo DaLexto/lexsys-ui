@@ -2,7 +2,10 @@ import type { RegistryItem } from "@dalexto/lexsys-registry"
 import { describe, expect, test, vi } from "vitest"
 
 import {
+  computeRemoteRegistryChecksum,
+  isRegistryUrlAllowed,
   parseRemoteRegistry,
+  verifyRemoteRegistryChecksum,
   type RemoteRegistryManifest,
 } from "../../src/registry/remote.js"
 
@@ -63,6 +66,34 @@ describe("parseRemoteRegistry", () => {
     })
   })
 
+  test("accepts optional checksum when hash matches manifest body", () => {
+    const body = {
+      version: "1.0.0",
+      items: [item],
+    }
+    const checksum = computeRemoteRegistryChecksum(body)
+
+    expect(
+      parseRemoteRegistry({
+        ...body,
+        checksum,
+      }),
+    ).toEqual({
+      ...body,
+      checksum,
+    })
+  })
+
+  test("rejects checksum mismatch", () => {
+    expect(() => {
+      return verifyRemoteRegistryChecksum({
+        version: "1.0.0",
+        items: [item],
+        checksum: "deadbeef",
+      })
+    }).toThrow("Remote registry checksum mismatch")
+  })
+
   test("rejects invalid manifest shapes with explicit errors", () => {
     expect(() => {
       return parseRemoteRegistry(null)
@@ -78,6 +109,34 @@ describe("parseRemoteRegistry", () => {
         items: [{ ...item, canonicalName: 123 }],
       })
     }).toThrow("Remote registry contains invalid registry item at index 0.")
+  })
+})
+
+describe("isRegistryUrlAllowed", () => {
+  test("allows any URL when allowlist is empty", () => {
+    expect(isRegistryUrlAllowed("https://example.test/registry.json", [])).toBe(
+      true,
+    )
+    expect(
+      isRegistryUrlAllowed("https://example.test/registry.json", undefined),
+    ).toBe(true)
+  })
+
+  test("matches host, origin, prefix, or full URL entries", () => {
+    const allowlist = ["cdn.example.test", "https://trusted.example"]
+
+    expect(
+      isRegistryUrlAllowed("https://cdn.example.test/registry.json", allowlist),
+    ).toBe(true)
+    expect(
+      isRegistryUrlAllowed(
+        "https://trusted.example/v1/registry.json",
+        allowlist,
+      ),
+    ).toBe(true)
+    expect(
+      isRegistryUrlAllowed("https://other.example/registry.json", allowlist),
+    ).toBe(false)
   })
 })
 

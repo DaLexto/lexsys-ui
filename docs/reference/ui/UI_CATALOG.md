@@ -12,9 +12,9 @@
 
 - [Purpose and scope](#purpose-and-scope)
 - [Inventory](#inventory)
-  - [Primitives (42)](#primitives-42)
-  - [Blocks (6)](#blocks-6)
-  - [Templates (1)](#templates-1)
+  - [Primitives (45)](#primitives-45)
+  - [Blocks (10)](#blocks-10)
+  - [Templates (2)](#templates-2)
 - [Out of scope / planned](#out-of-scope-planned)
 - [Generation and drift checks](#generation-and-drift-checks)
 
@@ -36,7 +36,7 @@ Out of scope here: page-level consumer code, playground-only demos, unpublished 
 
 _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
 
-### Primitives (42)
+### Primitives (45)
 
 | Component          | Style    | Named exports                                                        | Registry          |
 | ------------------ | -------- | -------------------------------------------------------------------- | ----------------- |
@@ -46,6 +46,7 @@ _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **Autocomplete**   | compound | `Autocomplete, AutocompleteTrigger, AutocompleteInputGroup, … (+20)` | `autocomplete`    |
 | **Avatar**         | compound | `Avatar, AvatarImage, AvatarFallback`                                | `avatar`          |
 | **Badge**          | leaf     | `Badge`                                                              | `badge`           |
+| **Breadcrumb**     | compound | `Breadcrumb, BreadcrumbList, BreadcrumbItem, … (+4)`                 | `breadcrumb`      |
 | **Button**         | leaf     | `Button`                                                             | `button`          |
 | **Card**           | compound | `Card, CardHeader, CardTitle, … (+4)`                                | `card`            |
 | **Checkbox**       | compound | `Checkbox, CheckboxIndicator`                                        | `checkbox`        |
@@ -53,6 +54,7 @@ _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **Collapsible**    | compound | `Collapsible, CollapsibleTrigger, CollapsiblePanel`                  | `collapsible`     |
 | **Combobox**       | compound | `Combobox, ComboboxLabel, ComboboxTrigger, … (+25)`                  | `combobox`        |
 | **ContextMenu**    | compound | `ContextMenu, ContextMenuTrigger, ContextMenuPortal, … (+16)`        | `context-menu`    |
+| **DatePicker**     | compound | `DatePicker, DatePickerTrigger, DatePickerInput, … (+3)`             | `date-picker`     |
 | **Dialog**         | compound | `Dialog, DialogTrigger, DialogPortal, … (+6)`                        | `dialog`          |
 | **Drawer**         | compound | `Drawer, DrawerProvider, DrawerIndentBackground, … (+13)`            | `drawer`          |
 | **Field**          | compound | `Field, FieldLabel, FieldControl, … (+4)`                            | `field`           |
@@ -65,6 +67,7 @@ _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **NavigationMenu** | compound | `NavigationMenu, NavigationMenuList, NavigationMenuItem, … (+10)`    | `navigation-menu` |
 | **NumberField**    | compound | `NumberField, NumberFieldGroup, NumberFieldInput, … (+4)`            | `number-field`    |
 | **OtpField**       | compound | `OtpField, OtpFieldInput, OtpFieldSeparator`                         | `otp-field`       |
+| **Pagination**     | compound | `Pagination, PaginationContent, PaginationItem, … (+4)`              | `pagination`      |
 | **Popover**        | compound | `Popover, PopoverTrigger, PopoverPortal, … (+8)`                     | `popover`         |
 | **PreviewCard**    | compound | `PreviewCard, PreviewCardTrigger, PreviewCardPortal, … (+6)`         | `preview-card`    |
 | **Progress**       | compound | `Progress, ProgressLabel, ProgressTrack, … (+2)`                     | `progress`        |
@@ -83,22 +86,27 @@ _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **Toolbar**        | compound | `Toolbar, ToolbarGroup, ToolbarButton, … (+3)`                       | `toolbar`         |
 | **Tooltip**        | compound | `Tooltip, TooltipTrigger, TooltipPortal, … (+3)`                     | `tooltip`         |
 
-### Blocks (6)
+### Blocks (10)
 
 | Component          | Style    | Named exports                                                        | Registry          |
 | ------------------ | -------- | -------------------------------------------------------------------- | ----------------- |
 | **AuthForm**       | compound | `AuthForm, AuthFormHeader, AuthFormContent, … (+2)`                  | `auth-form`       |
 | **CommandPalette** | compound | `CommandPalette, CommandPaletteContent, CommandPaletteTitle, … (+8)` | `command-palette` |
+| **DataTable**      | compound | `DataTable, DataTableToolbar, DataTableTable, … (+15)`               | `data-table`      |
 | **Empty**          | compound | `Empty, EmptyHeader, EmptyMedia, … (+3)`                             | `empty`           |
+| **FilterToolbar**  | compound | `FilterToolbar, FilterToolbarGroup, FilterToolbarSearch, … (+4)`     | `filter-toolbar`  |
 | **FormField**      | compound | `FormField, FormFieldItem, FormFieldLabel, … (+3)`                   | `form-field`      |
+| **PageHeader**     | compound | `PageHeader, PageHeaderTop, PageHeaderBreadcrumb, … (+10)`           | `page-header`     |
 | **SettingsPanel**  | compound | `SettingsPanel, SettingsPanelHeader, SettingsPanelTitle, … (+3)`     | `settings-panel`  |
 | **Sidebar**        | compound | `Sidebar, SidebarHeader, SidebarContent, … (+10)`                    | `sidebar`         |
+| **StatsCard**      | compound | `StatsCard, StatsCardHeader, StatsCardTitle, … (+5)`                 | `stats-card`      |
 
-### Templates (1)
+### Templates (2)
 
-| Component          | Style    | Named exports                                                         | Registry          |
-| ------------------ | -------- | --------------------------------------------------------------------- | ----------------- |
-| **DashboardShell** | compound | `DashboardShell, DashboardShellSidebar, DashboardShellHeader, … (+2)` | `dashboard-shell` |
+| Component              | Style    | Named exports                                                                  | Registry               |
+| ---------------------- | -------- | ------------------------------------------------------------------------------ | ---------------------- |
+| **DashboardShell**     | compound | `DashboardShell, DashboardShellSidebar, DashboardShellHeader, … (+2)`          | `dashboard-shell`      |
+| **SettingsPageLayout** | compound | `SettingsPageLayout, SettingsPageLayoutHeader, SettingsPageLayoutBody, … (+8)` | `settings-page-layout` |
 
 **Leaf policy:** only components listed in [UI.md § Intentional leaves](./UI.md#compound-vs-leaf-decision-tree) with a single part export. All blocks and templates are compound-only.
 
@@ -108,11 +116,11 @@ _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 
 ## Out of scope / planned
 
-| Item                             | Status       | Notes                                         |
-| -------------------------------- | ------------ | --------------------------------------------- |
-| CommandPalette → Combobox wiring | planned      | M11 Phase 4b — block uses internal list today |
-| Creator / export tooling docs    | planned      | See [Roadmap](./ROADMAP.md)                   |
-| Page-level consumer layouts      | out of scope | Sandbox-owned; not registry items             |
+| Item                             | Status       | Notes                                          |
+| -------------------------------- | ------------ | ---------------------------------------------- |
+| CommandPalette → Combobox wiring | shipped      | UC.15 — Combobox-backed list in CommandPalette |
+| Creator / export tooling docs    | planned      | See [Roadmap](./ROADMAP.md)                    |
+| Page-level consumer layouts      | out of scope | Sandbox-owned; not registry items              |
 
 ---
 

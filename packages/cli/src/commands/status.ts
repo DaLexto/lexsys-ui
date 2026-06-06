@@ -5,7 +5,14 @@ import { getComponentDriftStatus } from "../install/component-drift.js"
 import { printRegistryResolveFailure } from "../utils/registry-errors.js"
 
 interface RunStatusOptions {
+  json?: boolean
   noFallback?: boolean
+}
+
+export interface StatusEntry {
+  name: string
+  canonicalName: string
+  drift: "synced" | "drift" | "missing"
 }
 
 export const runStatus = async (
@@ -15,6 +22,11 @@ export const runStatus = async (
   const installed = config.installed ?? []
 
   if (!installed.length) {
+    if (options.json) {
+      console.log(JSON.stringify({ installed: [] }, null, 2))
+      return
+    }
+
     console.log("No Lexsys components are currently tracked.")
     return
   }
@@ -24,26 +36,65 @@ export const runStatus = async (
       fallback: !options.noFallback,
     })
   } catch (error) {
+    if (options.json) {
+      console.log(
+        JSON.stringify(
+          {
+            error: error instanceof Error ? error.message : String(error),
+          },
+          null,
+          2,
+        ),
+      )
+      process.exitCode = 1
+      return
+    }
+
     printRegistryResolveFailure(error)
     return
   }
 
-  console.log("Installed Lexsys components:\n")
+  const entries: StatusEntry[] = []
 
   for (const name of installed) {
     const item = await findItem(name)
 
     if (!item) {
-      console.log(`- ${name} (missing from registry)`)
+      entries.push({
+        name,
+        canonicalName: name,
+        drift: "missing",
+      })
       continue
     }
 
     const driftStatus = await getComponentDriftStatus(name)
+
+    entries.push({
+      name: item.name,
+      canonicalName: item.canonicalName,
+      drift: driftStatus === "drift" ? "drift" : "synced",
+    })
+  }
+
+  if (options.json) {
+    console.log(JSON.stringify({ installed: entries }, null, 2))
+    return
+  }
+
+  console.log("Installed Lexsys components:\n")
+
+  for (const entry of entries) {
+    if (entry.drift === "missing") {
+      console.log(`- ${entry.name} (missing from registry)`)
+      continue
+    }
+
     const status =
-      driftStatus === "drift"
+      entry.drift === "drift"
         ? "out of sync with registry"
         : "up to date with registry"
 
-    console.log(`- ${item.canonicalName} (${status})`)
+    console.log(`- ${entry.canonicalName} (${status})`)
   }
 }

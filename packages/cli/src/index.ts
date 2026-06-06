@@ -95,6 +95,7 @@ try {
       process.exit(0)
     }
     await runStatus({
+      json: hasFlag(args, "--json", "-j"),
       noFallback: args.includes("--no-fallback"),
     })
     process.exit(0)

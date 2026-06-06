@@ -17,28 +17,35 @@ The current implementation focuses on supported consumer starters:
 - Next.js App Router setup through `lexsys init next` (pinned Next.js 15.3.3)
 - Tailwind v4 wiring for Vite and Next.js consumers
 - token and theme CSS installation
-- a growing Base UI-backed installable catalog — **49 items** (42 primitives, 6
-  blocks, 1 template) — see [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md)
+- a growing Base UI-backed installable catalog — **57 items** (45 primitives, 10
+  blocks, 2 templates) — see [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md); run `pnpm ui:audit:catalog:write` after verify to refresh generated tables
 - conflict-aware installs with no silent overwrites
 - local playground for package/export/style verification
 
-Additional framework starters, remote registry trust policy (signatures /
-allowlists), and richer migration tooling are planned but not complete yet.
+Additional framework starters and remote registry trust policy (signatures /
+allowlists) are planned. New consumers install `@latest` — no `0.0.x` → `0.1.0` migration path is maintained.
 Remote registry manifest fetch over HTTPS is supported with local fallback.
 
 ## Quick Start
 
-Early preview install from npm (`@next` dist-tag):
+**Stable** (`0.1.0+` @ `latest` — use after the stable cut ships):
+
+```bash
+npx @dalexto/lexsys@latest init vite my-app
+cd my-app
+```
+
+**Preview** (`0.0.x` @ `next`):
 
 ```bash
 npx @dalexto/lexsys@next init vite my-app
 cd my-app
 ```
 
-Or a new Next.js App Router consumer:
+Or a new Next.js App Router consumer (`@latest` or `@next` as above):
 
 ```bash
-npx @dalexto/lexsys@next init next my-app
+npx @dalexto/lexsys@latest init next my-app
 cd my-app
 ```
 
@@ -46,7 +53,7 @@ Or initialize Lexsys inside an existing supported Vite app from that app's
 root (auto-detects scaffold):
 
 ```bash
-npx @dalexto/lexsys@next init
+npx @dalexto/lexsys@latest init
 ```
 
 Monorepo development (after `pnpm cli:build` from this repository) uses the

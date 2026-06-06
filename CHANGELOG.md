@@ -17,6 +17,21 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+### Added
+
+- **Catalog expansion (57 installable items)** — primitives: Pagination, Breadcrumb, DatePicker; blocks: PageHeader, StatsCard, FilterToolbar, DataTable; template: SettingsPageLayout
+- **CommandPalette** — Combobox-backed list wiring (replaces internal list pattern)
+- **`apps/docs`** — minimal Vite static docs shell with quickstart and catalog links (`pnpm docs:dev`, `pnpm docs:build`)
+- **`pnpm docs:lint`** — lightweight frontmatter and relative-link checks for `docs/**/*.md`
+- **Component tokens** — dedicated namespaces for Autocomplete, Combobox, ContextMenu, Menubar, NavigationMenu, OtpField, PreviewCard, Toolbar, and CheckboxGroup; Toolbar variants use `--lex-toolbar-*`
+- **Contrast pairs** — danger-on-subtle, secondary-on-overlay, secondary-on-subtle semantic pairs
+- **Remote registry security** — optional manifest `checksum` verification and `registryAllowlist` in `lexsys.config.json`
+- **`lexsys status --json`** — machine-readable drift output for tracked components
+
+### Changed
+
+- **Quick start** — stable lane uses `@dalexto/lexsys@latest` after `0.1.0` ships; preview `@next` remains for `0.0.x`
+
 ---
 
 ## [0.0.5] - 2026-06-02

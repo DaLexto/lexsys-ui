@@ -87,8 +87,13 @@ Shows template drift for tracked components (up to date vs out of sync).
 For project paths and registry connectivity, use \`lexsys doctor\`.
 
 Options
+  --json, -j          Print installed component drift as JSON
   --no-fallback       Fail instead of falling back to local registry
   --help, -h          Show this help
+
+Examples
+  lexsys st
+  lexsys st --json
 `,
   reset: `
 Usage
