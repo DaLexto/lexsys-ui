@@ -28,8 +28,8 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     },
     background: {
       $type: "color",
-      hover: { $value: "{color.background.subtle}" },
-      active: { $value: "{color.background.subtle}" },
+      hover: { $value: "{action.secondary.hover}" },
+      active: { $value: "{color.background.base}" },
     },
     accent: {
       $type: "dimension",

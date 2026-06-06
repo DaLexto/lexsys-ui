@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 import {
   Sidebar,
+  SidebarCollapseTrigger,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -9,6 +10,7 @@ import {
   SidebarItem,
   SidebarItemLink,
   SidebarList,
+  SidebarProvider,
   SidebarTrigger,
 } from "../../../src/components/blocks/Sidebar/Sidebar.js"
 
@@ -64,5 +66,33 @@ describe("Sidebar render", () => {
     )
 
     expect(container.querySelector("aside")).toHaveClass("custom-sidebar")
+  })
+
+  it("applies collapsed shell state from SidebarProvider", () => {
+    const { container } = render(
+      <SidebarProvider collapsible="icon" defaultCollapsed>
+        <Sidebar>
+          <SidebarHeader>
+            PulseDesk
+            <SidebarCollapseTrigger>Expand sidebar</SidebarCollapseTrigger>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarList>
+              <SidebarItem>
+                <SidebarItemLink href="#overview">Overview</SidebarItemLink>
+              </SidebarItem>
+            </SidebarList>
+          </SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    )
+
+    const aside = container.querySelector("aside")
+
+    expect(aside).toHaveAttribute("data-collapsed", "true")
+    expect(aside).toHaveClass("lex-sidebar--collapsed")
+    expect(
+      screen.getByRole("button", { name: "Expand sidebar" }),
+    ).toBeInTheDocument()
   })
 })

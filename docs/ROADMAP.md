@@ -570,7 +570,7 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
 testing. BO.1–BO.7 fixed; narrow-viewport sandbox checklist remains manual ([Testing docs](../operations/TESTING.md)).
 Post-0.1.1 sandbox QA added **desktop collapse**, NavItem visual polish, and item-badge
-requirements — tracked as SB.* ([Backlog § SB](./REVIEW_TODO.md#sb-sidebar-enterprise-upgrade)).
+requirements — tracked as SB.\* ([Backlog § SB](./REVIEW_TODO.md#sb-sidebar-enterprise-upgrade)).
 Tracked in [Backlog § Blocks/templates optimization](./REVIEW_TODO.md#blocks-templates-optimization-backlog).
 
 Execution queue: [Backlog § UI composition](./REVIEW_TODO.md#ui-composition-primitives-blocks-templates).

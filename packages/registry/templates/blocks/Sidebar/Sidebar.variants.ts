@@ -4,15 +4,91 @@
  * Variant classes for the Sidebar block.
  */
 
-export const sidebarRootClasses = (): string => {
-  return "lex-sidebar w-full shrink-0 md:h-full md:w-auto"
+import type { SidebarShellOptions } from "./Sidebar.types"
+
+export const sidebarRootClasses = ({
+  collapsed = false,
+  collapsible = "none",
+  side = "left",
+}: SidebarShellOptions = {}): string => {
+  const classes = [
+    "group/sidebar lex-sidebar w-full shrink-0 md:h-full md:w-auto",
+  ]
+
+  if (collapsible !== "none" && collapsed) {
+    classes.push("lex-sidebar--collapsed")
+  }
+
+  if (collapsible === "offcanvas" && collapsed) {
+    classes.push("lex-sidebar--offcanvas")
+  }
+
+  if (side === "right") {
+    classes.push("lex-sidebar--right")
+  }
+
+  return classes.join(" ")
 }
 
-export const sidebarDesktopClasses = (): string => {
+export const sidebarCollapsedItemClasses = (): string => {
+  return "md:group-data-[collapsed=true]/sidebar:justify-center md:group-data-[collapsed=true]/sidebar:px-2"
+}
+
+export const sidebarCollapsedGroupLabelClasses = (): string => {
+  return "md:group-data-[collapsed=true]/sidebar:hidden"
+}
+
+export const sidebarExpandableClasses = (): string => {
   return [
-    "lex-sidebar__desktop hidden h-full shrink-0 border-r border-[var(--lex-border-default)] bg-[var(--lex-color-background-subtle)] md:flex md:flex-col",
-    "w-(--lex-sidebar-width-default)",
-    "transition-[width] duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "sidebar-expandable transition-[opacity,width] duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
+  ].join(" ")
+}
+
+export const sidebarCollapsedBrandClasses = (): string => {
+  return "md:group-data-[collapsed=true]/sidebar:justify-center"
+}
+
+export const sidebarCollapsedFooterClasses = (): string => {
+  return "md:group-data-[collapsed=true]/sidebar:justify-center"
+}
+
+export const sidebarDesktopClasses = ({
+  collapsed = false,
+  collapsible = "none",
+  side = "left",
+}: SidebarShellOptions = {}): string => {
+  const classes = [
+    "lex-sidebar__desktop hidden h-full shrink-0 bg-[var(--lex-color-background-subtle)] md:flex md:flex-col",
+    "overflow-hidden transition-[width,transform] duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing) motion-reduce:transition-none",
+    side === "right"
+      ? "border-l border-[var(--lex-border-default)]"
+      : "border-r border-[var(--lex-border-default)]",
+  ]
+
+  if (collapsible === "icon" && collapsed) {
+    classes.push("w-(--lex-sidebar-width-collapsed)")
+  } else if (collapsible === "offcanvas" && collapsed) {
+    classes.push(
+      "w-(--lex-sidebar-width-default)",
+      side === "right" ? "translate-x-full" : "-translate-x-full",
+    )
+  } else {
+    classes.push("w-(--lex-sidebar-width-default)")
+  }
+
+  return classes.join(" ")
+}
+
+export const sidebarRailClasses = ({
+  side = "left",
+}: SidebarShellOptions = {}): string => {
+  return [
+    "lex-sidebar__rail absolute inset-y-0 hidden w-4 md:block",
+    side === "right" ? "-left-2" : "-right-2",
+    "cursor-pointer border-0 bg-transparent p-0 outline-none",
+    "after:absolute after:inset-y-0 after:w-px after:bg-[var(--lex-border-default)]",
+    side === "right" ? "after:left-2" : "after:right-2",
   ].join(" ")
 }
 
@@ -32,6 +108,10 @@ export const sidebarNavListClasses = (): string => {
   return "lex-sidebar__list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0"
 }
 
+export const sidebarItemClasses = (): string => {
+  return "lex-sidebar__row relative flex items-center"
+}
+
 export const sidebarNavItemClasses = (active?: boolean): string => {
   const base = [
     "lex-sidebar__item",
@@ -40,7 +120,7 @@ export const sidebarNavItemClasses = (active?: boolean): string => {
     "px-(--lex-sidebar-item-padding-x) py-(--lex-sidebar-item-padding-y)",
     "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",
     "leading-(--lex-sidebar-item-font-line-height)",
-    "no-underline outline-none transition-colors",
+    "no-underline outline-none transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
     "focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
     "focus-visible:ring-offset-(length:--lex-sidebar-item-focus-ring-offset) focus-visible:ring-offset-(--lex-sidebar-item-focus-ring-offset-color)",
   ].join(" ")
@@ -51,7 +131,7 @@ export const sidebarNavItemClasses = (active?: boolean): string => {
       "lex-sidebar__item--active",
       "bg-(--lex-sidebar-item-background-active) text-(--lex-sidebar-item-foreground-active)",
       "font-(--lex-sidebar-item-font-weight-active)",
-      "before:absolute before:inset-y-1 before:left-0 before:w-(--lex-sidebar-item-accent-width) before:rounded-full before:bg-(--lex-sidebar-item-accent-color)",
+      "before:absolute before:inset-y-1 before:left-0 before:w-(--lex-sidebar-item-accent-width) before:rounded-full before:bg-(--lex-sidebar-item-accent-color) before:content-['']",
       "hover:bg-(--lex-sidebar-item-background-active) hover:text-(--lex-sidebar-item-foreground-active)",
     ].join(" ")
   }

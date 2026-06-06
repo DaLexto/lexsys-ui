@@ -297,7 +297,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 ### SB - Sidebar enterprise upgrade
 
-**Context:** PulseDesk consumer sandbox (`D:\PLAYGROUND\sandbox-lexsys`) exposed gaps after 0.1.1: desktop collapsible sidebar (icon rail), enterprise NavItem polish (active state too loud — Menu checked tokens), `SidebarItemBadge`, nested nav, and template drift vs monorepo `Sidebar.tsx`. Mobile Drawer slide-in is **shipped** (Base UI); desktop collapse is **not** in the block API today. Sandbox `AppLayout` consumer hack — remove in SB.5.
+**Context:** PulseDesk consumer sandbox (`D:\PLAYGROUND\sandbox-lexsys`) exposed gaps after 0.1.1: desktop collapsible sidebar (icon rail), enterprise NavItem polish (active state too loud — Menu checked tokens), `SidebarItemBadge`, nested nav, and template drift vs monorepo `Sidebar.tsx`. Mobile Drawer slide-in is **shipped** (Base UI). Desktop collapse **shipped SB.5** (`SidebarProvider`, `collapsible="icon"|"offcanvas"`); sandbox consumer CSS/hook removed.
 
 **Target:** `SidebarProvider`, `collapsible="icon"`, `SidebarItemBadge`, item chrome (`SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `SidebarGroupAction`), nested `SidebarSubList` + Collapsible, keyboard a11y, router-aware active docs. **Tokens:** SB.18 global slide motion semantics (`overlayEnter`/`Exit`, easing enter/exit); SB.19 `packages/tokens/src/components/sidebar.ts` (`--lex-sidebar-*`, `--lex-sidebar-item-*`). Active nav visual = tint + left accent bar (variant A). Row adornments = `SidebarItem*` (not `SidebarMenu*`). Base UI has no app-sidebar primitive; Drawer = mobile overlay only.
 
@@ -305,27 +305,27 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 **Status rule:** `planned` until shipped; flip row when PR merges. **SB.20 (release) starts only when SB.1–SB.19 are all `shipped`** — IDs are not sequential (SB.11–SB.19 exist); SB.10 is the last implementation/polish gate before release, not the last task in the wave.
 
-| ID    | Phase    | Task                                                                       | Depends            | Status  |
-| ----- | -------- | -------------------------------------------------------------------------- | ------------------ | ------- |
-| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                 | —                  | shipped |
-| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                          | —                  | shipped |
-| SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                 | —                  | shipped |
-| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface           | SB.1, SB.2         | shipped |
-| SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)     | SB.4               | shipped |
-| SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases         | SB.18              | shipped |
-| SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`      | SB.19              | shipped |
-| SB.5  | Impl     | Provider + desktop collapse + mobile partition + sandbox migration         | SB.4, SB.18, SB.19 | planned |
-| SB.7  | Impl     | `SidebarItemBadge` (+ collapsed dot mode)                                  | SB.11, SB.19       | planned |
-| SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction` | SB.7             | planned |
-| SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                 | SB.4, SB.5         | planned |
-| SB.12 | A11y     | Keyboard nav + `aria-current` on active links                              | SB.11              | planned |
-| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                       | SB.4               | planned |
-| SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                          | SB.11              | planned |
-| SB.15 | Impl     | `SidebarInput` — inline nav filter                                         | SB.8               | planned |
-| SB.16 | Impl     | `side="right"` + RTL mirror                                                | SB.5               | planned |
-| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                           | SB.9               | planned |
-| SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                 | SB.5–SB.17         | planned |
-| SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs               | SB.6               | planned |
+| ID    | Phase    | Task                                                                         | Depends            | Status  |
+| ----- | -------- | ---------------------------------------------------------------------------- | ------------------ | ------- |
+| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                   | —                  | shipped |
+| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                            | —                  | shipped |
+| SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                   | —                  | shipped |
+| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface             | SB.1, SB.2         | shipped |
+| SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)       | SB.4               | shipped |
+| SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases           | SB.18              | shipped |
+| SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`        | SB.19              | shipped |
+| SB.5  | Impl     | Provider + desktop collapse + mobile partition + sandbox migration           | SB.4, SB.18, SB.19 | shipped |
+| SB.7  | Impl     | `SidebarItemBadge` (+ collapsed dot mode)                                    | SB.11, SB.19       | planned |
+| SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction` | SB.7               | planned |
+| SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                   | SB.4, SB.5         | planned |
+| SB.12 | A11y     | Keyboard nav + `aria-current` on active links                                | SB.11              | planned |
+| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                         | SB.4               | planned |
+| SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                            | SB.11              | planned |
+| SB.15 | Impl     | `SidebarInput` — inline nav filter                                           | SB.8               | planned |
+| SB.16 | Impl     | `side="right"` + RTL mirror                                                  | SB.5               | planned |
+| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                             | SB.9               | planned |
+| SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                   | SB.5–SB.17         | planned |
+| SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                 | SB.6               | planned |
 | SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`    | SB.10              | planned |
 
 **Pick-up order:** SB.1 → SB.2 → SB.3 → SB.4 → SB.18 → SB.19 → SB.11 → SB.5 → SB.7 → SB.8 → SB.9 → SB.12 → SB.13 → SB.14 → SB.15 → SB.16 → SB.17 → SB.6 → SB.10 → **SB.20**.
@@ -335,7 +335,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 **Release workflow (SB.20 — after SB.1–SB.19 are all `shipped`):**
 
 1. **Changeset** — bump publish set to **`0.1.2`** (`@dalexto/lexsys` + `@dalexto/lexsys-cli` fixed group; include `packages/ui`, `packages/tokens`, `packages/registry` as touched). Use [`$changelog-update`](../../.agents/skills/changelog-update/SKILL.md) for `CHANGELOG.md` / package changelogs where applicable.
-2. **Docs alignment** — [`$docs-authoring`](../../.cursor/skills/docs-authoring/SKILL.md) § Alignment: `UI_CATALOG.md` export counts, `UI_COMPOSITION.md` Sidebar compound tree, `TOKENS.md` motion + sidebar tokens, `ROADMAP.md` step 7 → shipped, flip all SB.* rows to `shipped`.
+2. **Docs alignment** — [`$docs-authoring`](../../.cursor/skills/docs-authoring/SKILL.md) § Alignment: `UI_CATALOG.md` export counts, `UI_COMPOSITION.md` Sidebar compound tree, `TOKENS.md` motion + sidebar tokens, `ROADMAP.md` step 7 → shipped, flip all SB.\* rows to `shipped`.
 3. **Maintainer verify (user-owned)** — user runs `pnpm check` (or `$monorepo-verify-gate` by touched paths) + sandbox smoke; agent does **not** commit until user confirms pass.
 4. **Commit + PR** — on explicit user confirmation only: branch off `dev`, [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → `gh pr create` targeting **`dev`** (not `main`).
 
