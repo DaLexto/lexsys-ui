@@ -1,0 +1,24 @@
+---
+description: Lexsys router override — user runs pnpm verify; agent plans checklists; git only after verify passed.
+alwaysApply: true
+---
+
+# Lexsys agent mode (override)
+
+**OVERRIDE:** This repo uses **Lexsys router**, not agent-developer default ("run checks myself").
+
+## Forbidden unless the user explicitly asks
+
+- Shell / `pnpm` for `*:check`, `*:test`, `pnpm check`, `format:check`, `format`, `registry:sync`, `vitest`
+- Marking verification or PR tables as "passed" without user **`verify passed`**
+- `git commit`, `git push`, `gh pr create`, ff `main` without [`$monorepo-verify-gate` § Format gate](../skills/monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write)
+
+## Default ritual
+
+1. Implement → [`$monorepo-verify-gate`](../skills/monorepo-verify-gate/SKILL.md) → numbered checklist
+2. **User runs** commands → **`verify passed`** (`pnpm format:check` last before git)
+3. User requests git → [`$git-commit`](../skills/git-commit/SKILL.md)
+
+`commit` / `PR` without prior verify → [format fallback](../skills/monorepo-verify-gate/SKILL.md#format-fallback-step-5-only); **stop** until green.
+
+Workflow: [`$agent-workflow`](../skills/agent-workflow/SKILL.md) · [AGENTS.md](../../AGENTS.md)

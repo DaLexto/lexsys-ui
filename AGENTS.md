@@ -52,6 +52,8 @@ Installed code is user-owned; CLI is idempotent and metadata-driven; packages st
 
 Default gate: **`pnpm check`** — [SCRIPTS.md](./docs/operations/SCRIPTS.md). Scoped verify checklists: **`$monorepo-verify-gate`**.
 
+**Agent mode:** [lexsys-agent-mode.mdc](./.cursor/rules/lexsys-agent-mode.mdc) (`alwaysApply`) — Lexsys router overrides agent-developer verify habits.
+
 **During [`$agent-workflow`](./.cursor/skills/agent-workflow/SKILL.md) step 4:** load **[`$monorepo-verify-gate`](./.cursor/skills/monorepo-verify-gate/SKILL.md)** — **you run** the checklist and reply **`verify passed`** or paste errors. The agent does not run `pnpm` verify unless you explicitly ask. Pre-git obligation: [§ Format gate](./.cursor/skills/monorepo-verify-gate/SKILL.md#format-gate-mandatory--blocks-git-write).
 
 **Outside agent-workflow:** the agent may run `pnpm check`, scoped `*:check`, `pnpm playground:build`, or unit tests when you request it.
