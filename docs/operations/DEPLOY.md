@@ -225,6 +225,19 @@ git push origin dev
 
 Re-run **Sync dev from main** from the Actions tab after resolving conflicts locally.
 
+### GitHub release naming
+
+After a successful npm publish, Release CI creates **one** GitHub release (not per-package tags):
+
+| Field | Format             | Example        |
+| ----- | ------------------ | -------------- |
+| Tag   | `lexsys@<version>` | `lexsys@0.1.0` |
+| Title | `Lexsys <version>` | `Lexsys 0.1.0` |
+
+Notes are extracted from root `CHANGELOG.md` for that version. `changeset publish` runs with
+`--no-git-tag` so legacy `@dalexto/*@*` tags are not created on new publishes. Older releases
+remain on GitHub for history.
+
 ### 0.0.x bump (`@next`)
 
 For any patch or minor release on the `0.0.x` line:
@@ -252,8 +265,8 @@ npm run build
 Additional steps beyond the standard 0.0.x flow:
 
 1. Run pre-release gate: `pnpm format && pnpm build && pnpm sync:all && pnpm check && pnpm publish:pack-audit`
-2. Consumer sandbox QA — `$consumer-sandbox-verify` checklist including narrow
-   viewport (`< md`) pass ([Testing docs § Consumer sandbox](./TESTING.md#consumer-sandbox-verification))
+2. Consumer sandbox QA — [Testing docs § Consumer sandbox](./TESTING.md#consumer-sandbox-verification)
+   checklist including narrow viewport (`< md`) pass
 3. Add changeset with minor bump → `0.1.0`
 4. Switch publish script to **`pnpm publish:release:latest`** (or update `publish:release` to `--tag latest`) for the `0.1.0` cut
 5. Merge Version Packages PR to `main` → Release CI publishes

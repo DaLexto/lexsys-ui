@@ -113,7 +113,7 @@ Summary only — do not duplicate detail here.
 - Full primitive shadow scale migration (`shadow.0`–`shadow.6` branch+slot) with CSS compose
 - `shadow.inner` inset slot model (branch+slot with `inset: true`; CSS compose prepends `inset`)
 - Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`LEXSYS_GOVERNANCE_POLICY=ci`; override with `report`)
-- Broad UI render coverage (42/42 primitives; M3 baseline was 32/32)
+- Broad UI render coverage (**57/57** installable items; **45/45** primitives; M3 baseline was 32/32)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
 - `lexsys uninstall` metadata-driven removal with dry-run and conflict reporting
@@ -157,19 +157,19 @@ Branch per phase off `dev` (e.g. `chore/m1-infra-dx`). Record shipped implementa
 
 ### Phase overview
 
-| Phase | Name                     | Status  | Outcome (summary)                                                                                 | Primary docs                                                         |
-| ----- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment                    | SCRIPTS.md, DEPLOY.md                                                |
-| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                                     | TESTING.md, AGENTS.md                                                |
-| M3    | Product and architecture | shipped | UI render coverage, Next init, remote registry contract, governance + shadow.inner                | REVIEW_TODO.md, RESOLVER_EVOLUTION.md                                |
-| M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                                                    |
-| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`                                     |
-| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                                                            |
-| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.cursor/skills/`                                         |
-| M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                                               |
-| M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                                                            |
-| M12   | CLI command optimization | shipped | Command audit, help polish, registry-errors, `--yes` UX (M12.1–M12.4)                             | CLI.md, [M12_COMMAND_AUDIT.md](./reference/cli/M12_COMMAND_AUDIT.md) |
-| SI    | Registry sync automation | shipped | `registry:sync` writes templates **and** reconciles `src/items/` for all layers (SI.4–SI.5)       | REGISTRY.md, REVIEW_TODO.md                                          |
+| Phase | Name                     | Status  | Outcome (summary)                                                                                 | Primary docs                          |
+| ----- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| M1    | Infra and DX             | shipped | Filter fix, baseline CI (`pnpm check`), turbo inputs, DEPLOY/SCRIPTS alignment                    | SCRIPTS.md, DEPLOY.md                 |
+| M2    | Quality and verification | shipped | Tier 2 tests, playground build CI, consumer sandbox checklist                                     | TESTING.md, AGENTS.md                 |
+| M3    | Product and architecture | shipped | UI render coverage, Next init, remote registry contract, governance + shadow.inner                | REVIEW_TODO.md, RESOLVER_EVOLUTION.md |
+| M4    | Entry + CLI DX           | shipped | `@dalexto/lexsys` entry package, CLI aliases/flags/guided modes/help redesign, src reorganization | CLI.md, DEPLOY.md                     |
+| M5    | Advanced CI              | shipped | Path-filter jobs, `registry:check` on UI PRs, optional `pnpm audit`                               | SCRIPTS.md, `.github/workflows/`      |
+| M6    | Dependency hygiene       | shipped | Renovate/Dependabot, frozen lockfile policy, Node 24 alignment                                    | DEPLOY.md                             |
+| M7    | Maintainer and tooling   | shipped | README/CONTRIBUTING, agent skills, eslint/tsconfig gaps, optional turbo remote cache              | AGENTS.md, `.cursor/skills/`          |
+| M8    | CLI cleanup              | shipped | Dead export removal, `--yes` wiring, results merge, registry type unification, shared helpers     | CLI.md                                |
+| M10   | Release readiness        | shipped | First npm `0.0.1` @ `next` (2026-05-24); Changesets + publish CI; `0.1.0` @ `latest` later        | DEPLOY.md                             |
+| M12   | CLI command optimization | shipped | Command audit, help polish, registry-errors, `--yes` UX (M12.1–M12.4)                             | CLI.md                                |
+| SI    | Registry sync automation | shipped | `registry:sync` writes templates **and** reconciles `src/items/` for all layers (SI.4–SI.5)       | REGISTRY.md, REVIEW_TODO.md           |
 
 ### M1 - Infra and DX
 
@@ -336,13 +336,13 @@ Post–M8 polish: command naming audit, overlapping-command merge candidates,
 targeted cleanup, and UX improvements. Execute as **small–medium PRs** (one
 M12.x item per PR). Track sub-items in [Backlog § M12](./REVIEW_TODO.md#m12-cli-command-optimization-shipped).
 
-| Item  | Focus                                                                                                   |
-| ----- | ------------------------------------------------------------------------------------------------------- |
-| M12.1 | Command name / alias audit (**shipped** — [M12_COMMAND_AUDIT.md](./reference/cli/M12_COMMAND_AUDIT.md)) |
-| M12.2 | Overlap analysis (**shipped** — keep `status` / `doctor` separate)                                      |
-| M12.3 | Dead code and output deduplication (**shipped**)                                                        |
-| M12.4 | Guided mode, flags, error hint polish (**shipped**)                                                     |
-| M12.5 | Reserved for follow-up proposals                                                                        |
+| Item  | Focus                                                                       |
+| ----- | --------------------------------------------------------------------------- |
+| M12.1 | Command name / alias audit (**shipped** — [CLI.md](./reference/cli/CLI.md)) |
+| M12.2 | Overlap analysis (**shipped** — keep `status` / `doctor` separate)          |
+| M12.3 | Dead code and output deduplication (**shipped**)                            |
+| M12.4 | Guided mode, flags, error hint polish (**shipped**)                         |
+| M12.5 | Reserved for follow-up proposals                                            |
 
 **Verification:** `pnpm cli:check` per sub-item; sandbox smoke when behavior changes.
 
@@ -539,31 +539,31 @@ and [UI audit](./reference/ui/UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaki
 **Status:** **PR #28** merged to `dev`. Monorepo reference layout uses
 `primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
 `paths.components` (`src/components/ui/<CanonicalName>/` with import rewrite).
-Blocks (FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty) and template (DashboardShell) are registry +
-CLI installable — **optimization pass complete** (BO.1–BO.7; CI install smoke, render tests, registry template-import audit).
+**57** installable items (45 primitives, 10 blocks, 2 templates) are registry +
+CLI installable — see [UI catalog](./reference/ui/UI_CATALOG.md). Optimization pass complete (BO.1–BO.7; CI install smoke, render tests, registry template-import audit).
 
 Lexsys uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):
 
-| Layer      | Monorepo reference                                                 | Consumer install (`lexsys add`)               |
-| ---------- | ------------------------------------------------------------------ | --------------------------------------------- |
-| Primitives | Shipped (42 components + tokens + `cn`)                            | `src/components/ui/<CanonicalName>/`          |
-| Blocks     | FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty | Same flat path; cross-layer imports rewritten |
-| Templates  | Pilot (DashboardShell)                                             | Same flat path                                |
-| Pages      | —                                                                  | Always consumer-owned                         |
+| Layer      | Monorepo reference                                         | Consumer install (`lexsys add`)               |
+| ---------- | ---------------------------------------------------------- | --------------------------------------------- |
+| Primitives | Shipped (**45** components + tokens + `cn`)                | `src/components/ui/<CanonicalName>/`          |
+| Blocks     | **10** blocks — [UI catalog](./reference/ui/UI_CATALOG.md) | Same flat path; cross-layer imports rewritten |
+| Templates  | **2** templates — catalog                                  | Same flat path                                |
+| Pages      | —                                                          | Always consumer-owned                         |
 
 Canonical mapping, composition rules, folder layout, and CLI contract:
 [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 ### UI composition track
 
-| Step | Outcome                                                                                                                                               | Status                                                                        |
-| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| 1    | Layer docs + registry composition validators                                                                                                          | **shipped**                                                                   |
-| 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite)                                                        | **shipped** (#28)                                                             |
-| 3    | Pilot blocks + template + CI verify (install smoke, render tests)                                                                                     | **shipped**                                                                   |
-| 4    | Blocks/templates optimization (BO.1–BO.7)                                                                                                             | **shipped**                                                                   |
-| 5    | Admin catalog — Pagination, Breadcrumb, DatePicker, PageHeader, StatsCard, FilterToolbar, DataTable, SettingsPageLayout, Combobox wiring (UC.8–UC.16) | planned — [Backlog § P2.1](./REVIEW_TODO.md#p21-ui-catalog-expansion-uc8uc16) |
-| 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                                                                              | **shipped** (#30)                                                             |
+| Step | Outcome                                                                                                                                               | Status                                                                            |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| 1    | Layer docs + registry composition validators                                                                                                          | **shipped**                                                                       |
+| 2    | Monorepo `primitives/blocks/templates` + flat CLI install (`paths.components`, import rewrite)                                                        | **shipped** (#28)                                                                 |
+| 3    | Pilot blocks + template + CI verify (install smoke, render tests)                                                                                     | **shipped**                                                                       |
+| 4    | Blocks/templates optimization (BO.1–BO.7)                                                                                                             | **shipped**                                                                       |
+| 5    | Admin catalog — Pagination, Breadcrumb, DatePicker, PageHeader, StatsCard, FilterToolbar, DataTable, SettingsPageLayout, Combobox wiring (UC.8–UC.16) | **shipped** — [Backlog § P2.1](./REVIEW_TODO.md#p21-ui-catalog-expansion-uc8uc16) |
+| 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                                                                              | **shipped** (#30)                                                                 |
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration

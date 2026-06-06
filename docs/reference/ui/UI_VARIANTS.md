@@ -27,8 +27,8 @@
 
 ## Purpose
 
-Pre-0.1.0 contract for all 42 reference primitives. Breaking API changes are acceptable
-now to establish a stable long-term surface before publish.
+Post-**0.1.0** contract for all **45** reference primitives. Breaking API changes
+require a semver bump and changelog entry — see [Deploy guide](../../operations/DEPLOY.md).
 
 ---
 

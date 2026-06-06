@@ -12,7 +12,7 @@
 
 - [Purpose and scope](#purpose-and-scope)
 - [Batch summary](#batch-summary)
-- [Variant inventory (42 primitives)](#variant-inventory-42-primitives)
+- [Variant inventory (45 primitives)](#variant-inventory-45-primitives)
 - [Cross-cutting issues](#cross-cutting-issues)
 - [Generation and drift checks](#generation-and-drift-checks)
 - [PR0 checklist extras](#pr0-checklist-extras)
@@ -48,7 +48,7 @@ This inventory tracks **styling and variant-axis compliance** against [UI varian
 
 ---
 
-## Variant inventory (42 primitives)
+## Variant inventory (45 primitives)
 
 | Component       | Public props                                          | Styling pattern       | CVA / slot exports                                                                                      | Composition                                   | Token flags                                                                             | Tests             | Batch   |
 | --------------- | ----------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- | ----------------- | ------- |
@@ -149,8 +149,8 @@ See [UI catalog § Generation and drift checks](../ui/UI_CATALOG.md#generation-a
 - Unified `variant` / `appearance` API; `danger` vocabulary; semantic opacity tokens
 - Shared state helpers in installed `utils.ts`; viewport inset tokens for overlays
 - Overlay semantics (`size.overlay.*`, `spacing.overlay.sideOffset`, `elevation.behind.*`)
-- **`pnpm ui:audit` blocking** in `pnpm ui:check`; audited primitive variants token-compliant (42 shipped primitives; 9 PR #30 modules have variant table rows in this doc)
-- **Render smoke:** all 42 primitives have `*.render.test.tsx` coverage (see [Testing docs](../../operations/TESTING.md#ui-render-tests))
+- **`pnpm ui:audit` blocking** in `pnpm ui:check`; audited primitive variants token-compliant (**45** shipped primitives; UC.8–16 and PR #30 modules have variant table rows in this doc)
+- **Render smoke:** all **57** installable items have `*.render.test.tsx` coverage (see [Testing docs](../../operations/TESTING.md#ui-render-tests))
 
 **Composition pass (M11):** Shipped on `dev` — export and registry inventory in [UI catalog](../ui/UI_CATALOG.md). This doc’s primitive rows were refreshed for M11-touched variant axes only; blocks/templates are out of scope.
 

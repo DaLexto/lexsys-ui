@@ -225,7 +225,7 @@ Internal or still evolving:
 - token authoring internals in `packages/tokens`
 - registry item generation internals
 - update conflict resolution and migration tooling
-- blocks/templates pilot quality and mobile composition QA — see [docs/REVIEW_TODO.md](../REVIEW_TODO.md)
+- blocks/templates pilot quality and mobile composition QA — see [docs/REVIEW_TODO.md](docs/REVIEW_TODO.md)
 - remote registry hosting and version policy
 - additional CLI style aliases or token presets beyond `default` / `lexsys`
 
@@ -237,19 +237,19 @@ Planned but not current API:
 
 ## Maintainers
 
-Start at [docs/INDEX.md](../INDEX.md) for the full documentation map.
+Start at [docs/INDEX.md](docs/INDEX.md) for the full documentation map.
 
-| Doc                                                                          | Purpose                                                               |
-| ---------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| [docs/INDEX.md](../INDEX.md)                                                 | Documentation routing hub                                             |
-| [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md)         | Installable inventory — compound vs leaf, exports, registry item name |
-| [docs/reference/ui/UI_COMPOSITION.md](./docs/reference/ui/UI_COMPOSITION.md) | Composition rules and install layers                                  |
-| [docs/ROADMAP.md](../ROADMAP.md)                                             | Long-term direction and monorepo optimization phases (M1–M11)         |
-| [docs/REVIEW_TODO.md](../REVIEW_TODO.md)                                     | Active execution queue and known gaps                                 |
-| [docs/operations/SCRIPTS.md](../operations/SCRIPTS.md)                       | Monorepo `pnpm` script names and CI reference                         |
-| [docs/operations/TESTING.md](../operations/TESTING.md)                       | Test coverage and verification workflows                              |
-| [docs/contributors/CONTRIBUTING.md](./docs/contributors/CONTRIBUTING.md)     | Branch, check, and commit expectations                                |
-| [AGENTS.md](../../AGENTS.md)                                                 | Agent routing and repo skills index                                   |
+| Doc                                                                        | Purpose                                                               |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| [docs/INDEX.md](docs/INDEX.md)                                             | Documentation routing hub                                             |
+| [docs/reference/ui/UI_CATALOG.md](docs/reference/ui/UI_CATALOG.md)         | Installable inventory — compound vs leaf, exports, registry item name |
+| [docs/reference/ui/UI_COMPOSITION.md](docs/reference/ui/UI_COMPOSITION.md) | Composition rules and install layers                                  |
+| [docs/ROADMAP.md](docs/ROADMAP.md)                                         | Long-term direction and monorepo optimization phases (M1–M11)         |
+| [docs/REVIEW_TODO.md](docs/REVIEW_TODO.md)                                 | Active execution queue and known gaps                                 |
+| [docs/operations/SCRIPTS.md](docs/operations/SCRIPTS.md)                   | Monorepo `pnpm` script names and CI reference                         |
+| [docs/operations/TESTING.md](docs/operations/TESTING.md)                   | Test coverage and verification workflows                              |
+| [docs/contributors/CONTRIBUTING.md](docs/contributors/CONTRIBUTING.md)     | Branch, check, and commit expectations                                |
+| [AGENTS.md](AGENTS.md)                                                     | Agent routing and repo skills index                                   |
 
 ## Development
 
@@ -277,10 +277,10 @@ For CLI/registry install verification, use an external consumer sandbox — see 
 
 ## Status
 
-Lexsys is not production-ready yet. Vite and Next.js install flows are working;
-the installable catalog is documented in [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md).
-Blocks/templates are installable but not yet marked stable — see
-[docs/REVIEW_TODO.md](../REVIEW_TODO.md).
+**0.1.0** is published on npm (`@latest`). Vite and Next.js install flows are
+working; the installable catalog (**57 items**) is documented in
+[docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md). Remaining
+DX and polish work is tracked in [docs/REVIEW_TODO.md](docs/REVIEW_TODO.md).
 
 ## License
 

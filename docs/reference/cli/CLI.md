@@ -26,7 +26,6 @@
   - [uninstall](#uninstall)
   - [version](#version)
   - [help](#help)
-- [Maintainer: M12 command audit](#maintainer-m12-command-audit)
 - [Configuration](#configuration)
   - [Schema](#schema)
   - [Defaults](#defaults)
@@ -478,13 +477,6 @@ lexsys help
 lexsys -h
 lexsys --help
 ```
-
----
-
-## Maintainer: M12 command audit
-
-Command inventory, alias map, overlap analysis (`status` vs `doctor`), and M12.2–M12.4
-candidates: [M12_COMMAND_AUDIT.md](./M12_COMMAND_AUDIT.md).
 
 ---
 

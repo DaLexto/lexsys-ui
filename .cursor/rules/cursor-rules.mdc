@@ -99,6 +99,17 @@ If a rule grows past its budget, split it by responsibility instead of adding mo
 
 Examples are optional. Add them only when they prevent a common mistake.
 
+## Rule maintenance triggers
+
+Add or update rules when:
+
+- A pattern appears in **3+ files** and is not covered by an existing rule
+- Code reviews repeat the same feedback
+- A new library or tool is used consistently across packages
+- Implementation details changed and rule examples are stale
+
+Full evolution workflow: [self-improvement.mdc](./self-improvement.mdc).
+
 ## Related rules
 
-Follow [self-improvement.mdc](./self-improvement.mdc) for when to add or update rules.
+Follow [self-improvement.mdc](./self-improvement.mdc) when editing `.cursor/rules/` or `.cursor/skills/`.
