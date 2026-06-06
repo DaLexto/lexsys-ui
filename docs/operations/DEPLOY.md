@@ -225,6 +225,19 @@ git push origin dev
 
 Re-run **Sync dev from main** from the Actions tab after resolving conflicts locally.
 
+### GitHub release naming
+
+After a successful npm publish, Release CI creates **one** GitHub release (not per-package tags):
+
+| Field | Format             | Example        |
+| ----- | ------------------ | -------------- |
+| Tag   | `lexsys@<version>` | `lexsys@0.1.0` |
+| Title | `Lexsys <version>` | `Lexsys 0.1.0` |
+
+Notes are extracted from root `CHANGELOG.md` for that version. `changeset publish` runs with
+`--no-git-tag` so legacy `@dalexto/*@*` tags are not created on new publishes. Older releases
+remain on GitHub for history.
+
 ### 0.0.x bump (`@next`)
 
 For any patch or minor release on the `0.0.x` line:
