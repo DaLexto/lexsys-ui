@@ -17,10 +17,6 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
-### Fixed
-
-- **Release CI** — unified GitHub release (`lexsys@<version>`) is created whenever the version is on npm, even when Changesets fallback publish does not set `outputs.published`
-
 ---
 
 ## [0.1.1] - 2026-06-06
@@ -36,6 +32,7 @@ Post-0.1.0 maintainer release on dist-tag **`latest`**. Documentation and releas
 
 - Published via Changesets Version Packages PR #79; npm **0.1.1** on **`latest`**
 - No changes to `lexsys add`, registry templates, or install output paths
+- Post-publish hotfix (PR #80–#81): unified GitHub release (`lexsys@<version>`) is created whenever the version is on npm, even when Changesets fallback publish does not set `outputs.published`; `lexsys@0.1.1` release backfilled on GitHub
 
 ---
 

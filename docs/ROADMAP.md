@@ -2,11 +2,11 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.0` @ `latest`** stable MVP; **`0.0.6` @ `next`** prior preview lane; **57** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.1` @ `latest`** stable MVP (housekeeping + release CI hotfix); **`0.0.6` @ `next`** prior preview lane; **57** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
-**Last reviewed:** 2026-06-06
+**Last reviewed:** 2026-06-06 (post-0.1.1 docs alignment)
 
 ---
 

@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-06-06 (0.1.0 @ `latest` shipped)
+**Last reviewed:** 2026-06-06 (`0.1.1` @ `latest`; release CI hotfix on `main`)
 
 ---
 
@@ -36,7 +36,7 @@ that are not yet done.
 
 **Historical:** M1–M12, R0, M10 first publish, **0.1.0 wave (A–F + REL)** — [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization), [§ 0.1.0 roadmap](./ROADMAP.md#010-roadmap). All **shipped**.
 
-**Current focus — post-0.1.0:** PLAYGROUND automation (DX.2 Playwright) and deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
+**Current focus — post-0.1.1:** PLAYGROUND automation (DX.2 Playwright) and deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
 
 | Phase          | Focus                                      | Status                                           |
 | -------------- | ------------------------------------------ | ------------------------------------------------ |
@@ -69,7 +69,7 @@ Sorted PR order for the full improvement roadmap. Update **Status** column as ea
 | 11    | C5     | UC.15         | CommandPalette → Combobox wiring        | block edit                            | shipped  |
 | 12    | C6     | UC.16         | SettingsPageLayout template             | template (deps UC.11)                 | shipped  |
 | 13    | D1     | DX.4          | `apps/docs` minimal site                | apps/docs                             | shipped  |
-| 14    | D2     | DX.5          | `docs:lint` automation                  | root script + optional CI             | shipped  |
+| 14    | D2     | DX.5          | `docs:lint` automation                  | root script + CI (`changes` job)      | shipped  |
 | 15    | E1     | TOK.1         | Dedicated tokens (9 aliased primitives) | packages/tokens                       | shipped  |
 | 16    | E2     | TOK.2         | Expand `SEMANTIC_CONTRAST_PAIRS`        | packages/tokens                       | shipped  |
 | 17    | F1     | SEC.1         | Remote registry checksum/allowlist      | packages/cli                          | shipped  |
@@ -125,6 +125,8 @@ via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
 
 **Stable release (2026-06-06):** `@dalexto/lexsys@0.1.0` on dist-tag **`latest`**. Post-publish smoke: `D:\PLAYGROUND\smoke-010` (`init vite` → `add button` → `npm run build`). See [CHANGELOG § 0.1.0](../CHANGELOG.md#010---2026-06-06).
 
+**Housekeeping (2026-06-06):** `@dalexto/lexsys@0.1.1` on **`latest`** — docs/rules alignment and release CI hotfix (PR #77–#81). See [CHANGELOG § 0.1.1](../CHANGELOG.md#011---2026-06-06).
+
 **Prior preview:** `0.0.6` @ `next` — CSS generated header (JSDoc + ISO timestamp), scripts enterprise contract. Prior: `0.0.5` (2026-06-02), `0.0.4` (2026-05-30).
 
 Detail: [Roadmap § M10](./ROADMAP.md#m10-release-readiness).
@@ -179,9 +181,9 @@ The P0 and P1 implementation passes are complete:
 - Consumer sandbox verify (PR #26 artifacts): `lexsys update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, **57 installable UI items** (45 primitives, 10 blocks, 2 templates), published **`0.1.0`** @ **`latest`** (stable MVP).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, **57 installable UI items** (45 primitives, 10 blocks, 2 templates), published **`0.1.1`** @ **`latest`** (stable MVP).
 
-Known gaps below — post-0.1.0 backlog; closed 0.1.0 items remain in [§ 0.1.0 Execution Queue](#010-execution-queue).
+Known gaps below — post-0.1.1 backlog; closed 0.1.0 wave items remain in [§ 0.1.0 Execution Queue](#010-execution-queue).
 
 ---
 
@@ -215,13 +217,13 @@ Admin catalog items — after **0.1.0** unless release gate completes first. See
 
 ### P2.2 — DX (DX.1–DX.5)
 
-| ID   | Item                         | PR / track | Path / notes                          | Status   |
-| ---- | ---------------------------- | ---------- | ------------------------------------- | -------- |
-| DX.1 | Public starter template repo | G1         | Separate GitHub repo post-0.1.0       | deferred |
-| DX.2 | Playwright E2E (PulseDesk)   | G2b        | `D:\PLAYGROUND\sandbox-lexsys`        | planned  |
-| DX.3 | Fresh install/build smoke    | G2a        | `D:\PLAYGROUND\smoke-010` (`@latest`) | shipped  |
-| DX.4 | `apps/docs` minimal site     | D1         | apps/docs                             | shipped  |
-| DX.5 | `docs:lint` automation       | D2         | root `pnpm docs:lint`                 | shipped  |
+| ID   | Item                         | PR / track | Path / notes                            | Status   |
+| ---- | ---------------------------- | ---------- | --------------------------------------- | -------- |
+| DX.1 | Public starter template repo | G1         | Separate GitHub repo post-0.1.0         | deferred |
+| DX.2 | Playwright E2E (PulseDesk)   | G2b        | `D:\PLAYGROUND\sandbox-lexsys`          | planned  |
+| DX.3 | Fresh install/build smoke    | G2a        | `D:\PLAYGROUND\smoke-010` (`@latest`)   | shipped  |
+| DX.4 | `apps/docs` minimal site     | D1         | apps/docs                               | shipped  |
+| DX.5 | `docs:lint` automation       | D2         | root `pnpm docs:lint`; CI `changes` job | shipped  |
 
 ### P2.3 — Tokens (TOK.1–TOK.2)
 
@@ -369,7 +371,6 @@ Tracked IDs in [§ 0.1.0 Execution Queue](#010-execution-queue). Update status w
 | DX.2 / mobile viewport QA     | Manual PulseDesk QA **shipped**; Playwright automation (DX.2) still planned — `D:\PLAYGROUND\sandbox-lexsys`.        |
 | DX.3 / fresh install smoke    | **shipped** — `D:\PLAYGROUND\smoke-010` with `@dalexto/lexsys@latest` (`init` → `add button` → `build`, 2026-06-06). |
 | SEC.1 / remote registry trust | **shipped** — checksum + `registryAllowlist`; HTTPS-only fetch remains default.                                      |
-| DX.5 / `docs:lint` automation | **shipped** — `pnpm docs:lint`; optional CI promotion deferred.                                                      |
 | DX.1 / public starter repo    | Deferred post-0.1.0 — separate GitHub repo.                                                                          |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`; registry item reconcile automation (SI.5) — `registry:sync` reconciles all layers; `registryDependencies` inferred from template imports with overwrite policy in [REGISTRY.md § Maintainer notes](./reference/registry/REGISTRY.md#maintainer-notes).

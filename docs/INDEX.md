@@ -3,7 +3,7 @@
 **Audience:** Maintainers, contributors, and agents  
 **Type:** Routing hub  
 **Source of truth for:** Which document owns which topic — not the rules themselves
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-06
 
 ---
 
