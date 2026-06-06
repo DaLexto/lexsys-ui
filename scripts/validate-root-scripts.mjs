@@ -35,6 +35,11 @@ const PACKAGES = [
     path: "apps/playground/package.json",
     allowMissingScripts: ["test"],
   },
+  {
+    shortName: "docs",
+    path: "apps/docs/package.json",
+    allowMissingScripts: ["preview"],
+  },
 ]
 
 const readJson = (relativePath) =>

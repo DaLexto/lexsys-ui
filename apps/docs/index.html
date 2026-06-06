@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lexsys Docs</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">Lexsys documentation</p>
+        <h1>Registry-first React UI</h1>
+        <p class="lede">
+          Install editable components into your project with the Lexsys CLI.
+          This site is a minimal docs shell — canonical specs live in the
+          monorepo
+          <code>docs/</code> tree.
+        </p>
+      </header>
+
+      <section>
+        <h2>Quick start</h2>
+        <p>Stable lane after <code>0.1.0</code> ships:</p>
+        <pre><code>npx @dalexto/lexsys@latest init vite my-app
+cd my-app
+lexsys add button
+lexsys add dialog</code></pre>
+        <p>Preview lane (<code>0.0.x</code> @ <code>next</code>):</p>
+        <pre><code>npx @dalexto/lexsys@next init vite my-app</code></pre>
+        <p>
+          Dist-tag policy and release steps:
+          <a
+            href="https://github.com/DaLexto/lexsys-ui/blob/dev/docs/operations/DEPLOY.md"
+            >DEPLOY.md</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Component catalog</h2>
+        <p>
+          Browse installable primitives, blocks, and templates in the UI catalog
+          (49 items at MVP):
+        </p>
+        <p>
+          <a
+            href="https://github.com/DaLexto/lexsys-ui/blob/dev/docs/reference/ui/UI_CATALOG.md"
+            >UI_CATALOG.md</a
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>More docs</h2>
+        <ul>
+          <li>
+            <a href="https://github.com/DaLexto/lexsys-ui/tree/dev/docs"
+              >docs/ index on GitHub</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://github.com/DaLexto/lexsys-ui/blob/dev/docs/reference/cli/CLI.md"
+              >CLI reference</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://github.com/DaLexto/lexsys-ui/blob/dev/docs/reference/tokens/TOKENS.md"
+              >Design tokens</a
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
