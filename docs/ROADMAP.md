@@ -467,7 +467,7 @@ No lexsys CI for DX.2/DX.3 until explicitly promoted. Detail: [Testing docs § P
 
 | Item                              | Status / notes                                                                        |
 | --------------------------------- | ------------------------------------------------------------------------------------- |
-| `apps/docs` public docs site      | **shipped** — DX.4 (PR D1); minimal Vite shell pre-0.1.0                            |
+| `apps/docs` public docs site      | **shipped** — DX.4 (PR D1); minimal Vite shell pre-0.1.0                              |
 | Public starter template repo      | **deferred** — DX.1 post-0.1.0; separate GitHub repo                                  |
 | Playwright E2E + fresh smoke      | **planned** — DX.2/DX.3; PLAYGROUND repos only, not lexsys CI ([DX track](#dx-track)) |
 | Playground dark/brand demos       | Out of scope — playground is maintenance-only; consumer UX in PulseDesk sandbox       |

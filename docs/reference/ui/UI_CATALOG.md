@@ -116,11 +116,11 @@ _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 
 ## Out of scope / planned
 
-| Item                             | Status       | Notes                                         |
-| -------------------------------- | ------------ | --------------------------------------------- |
+| Item                             | Status       | Notes                                          |
+| -------------------------------- | ------------ | ---------------------------------------------- |
 | CommandPalette → Combobox wiring | shipped      | UC.15 — Combobox-backed list in CommandPalette |
-| Creator / export tooling docs    | planned      | See [Roadmap](./ROADMAP.md)                   |
-| Page-level consumer layouts      | out of scope | Sandbox-owned; not registry items             |
+| Creator / export tooling docs    | planned      | See [Roadmap](./ROADMAP.md)                    |
+| Page-level consumer layouts      | out of scope | Sandbox-owned; not registry items              |
 
 ---
 
