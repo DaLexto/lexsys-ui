@@ -38,7 +38,7 @@ Order (UI authoring first):
 1. Create three-file folder under `packages/ui/src/components/blocks/<Name>/` or `templates/<Name>/` — **`$components-authoring`**.
 2. Do **not** export blocks/templates from `packages/ui/src/index.ts`.
 3. User runs verify scenario **`ui-registry`** — sync scaffolds/reconciles `src/items/<name>.ts` (`type: "block"`, inferred deps).
-4. Optional consumer check: **`$consumer-sandbox-verify`** when install behavior changes (not in verify-gate).
+4. Optional consumer check: [Testing docs § Consumer sandbox verification](../../docs/operations/TESTING.md#consumer-sandbox-verification) when install behavior changes (not in verify-gate).
 
 ---
 

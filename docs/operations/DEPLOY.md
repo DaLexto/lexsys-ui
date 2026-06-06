@@ -265,8 +265,8 @@ npm run build
 Additional steps beyond the standard 0.0.x flow:
 
 1. Run pre-release gate: `pnpm format && pnpm build && pnpm sync:all && pnpm check && pnpm publish:pack-audit`
-2. Consumer sandbox QA — `$consumer-sandbox-verify` checklist including narrow
-   viewport (`< md`) pass ([Testing docs § Consumer sandbox](./TESTING.md#consumer-sandbox-verification))
+2. Consumer sandbox QA — [Testing docs § Consumer sandbox](./TESTING.md#consumer-sandbox-verification)
+   checklist including narrow viewport (`< md`) pass
 3. Add changeset with minor bump → `0.1.0`
 4. Switch publish script to **`pnpm publish:release:latest`** (or update `publish:release` to `--tag latest`) for the `0.1.0` cut
 5. Merge Version Packages PR to `main` → Release CI publishes
