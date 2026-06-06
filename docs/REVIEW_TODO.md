@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-06-06 (`0.1.1` @ `latest`; release CI hotfix on `main`)
+**Last reviewed:** 2026-06-06 (`0.1.1` @ `latest`; DX.2 Playwright E2E shipped)
 
 ---
 
@@ -36,16 +36,16 @@ that are not yet done.
 
 **Historical:** M1–M12, R0, M10 first publish, **0.1.0 wave (A–F + REL)** — [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization), [§ 0.1.0 roadmap](./ROADMAP.md#010-roadmap). All **shipped**.
 
-**Current focus — post-0.1.1:** PLAYGROUND automation (DX.2 Playwright) and deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
+**Current focus — post-0.1.1:** deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps). PLAYGROUND automation (G2a–G2b) **shipped**.
 
-| Phase          | Focus                                      | Status                                           |
-| -------------- | ------------------------------------------ | ------------------------------------------------ |
-| **REL**        | 0.1.0 release gate (PR A1–A4)              | **shipped** (2026-06-06)                         |
-| **UC+**        | Admin catalog expansion (PR B1–C6)         | **shipped**                                      |
-| **DX**         | `apps/docs` + `docs:lint` (PR D1–D2)       | **shipped**                                      |
-| **TOK**        | Token hardening (PR E1–E2)                 | **shipped**                                      |
-| **SEC+CLI**    | Registry trust + M12.5 (PR F1–F2)          | **shipped**                                      |
-| **PLAYGROUND** | fresh-test smoke + PulseDesk E2E (G2a–G2b) | **active** — G2a shipped; G2b Playwright planned |
+| Phase          | Focus                                      | Status                                                                        |
+| -------------- | ------------------------------------------ | ----------------------------------------------------------------------------- |
+| **REL**        | 0.1.0 release gate (PR A1–A4)              | **shipped** (2026-06-06)                                                      |
+| **UC+**        | Admin catalog expansion (PR B1–C6)         | **shipped**                                                                   |
+| **DX**         | `apps/docs` + `docs:lint` (PR D1–D2)       | **shipped**                                                                   |
+| **TOK**        | Token hardening (PR E1–E2)                 | **shipped**                                                                   |
+| **SEC+CLI**    | Registry trust + M12.5 (PR F1–F2)          | **shipped**                                                                   |
+| **PLAYGROUND** | fresh-test smoke + PulseDesk E2E (G2a–G2b) | **shipped** — G2a fresh smoke; G2b Playwright E2E (`pnpm test:e2e`, 4/4 pass) |
 
 ---
 
@@ -75,7 +75,7 @@ Sorted PR order for the full improvement roadmap. Update **Status** column as ea
 | 17    | F1     | SEC.1         | Remote registry checksum/allowlist      | packages/cli                          | shipped  |
 | 18    | F2     | CLI.1 / M12.5 | CLI polish (`status --json`)            | packages/cli                          | shipped  |
 | —     | G2a    | DX.3          | Fresh install/build smoke               | `D:\PLAYGROUND\smoke-010` (`@latest`) | shipped  |
-| —     | G2b    | DX.2          | Playwright E2E                          | `D:\PLAYGROUND\sandbox-lexsys`        | planned  |
+| —     | G2b    | DX.2          | Playwright E2E                          | `D:\PLAYGROUND\sandbox-lexsys`        | shipped  |
 | —     | G1     | DX.1          | Public starter repo                     | deferred post-0.1.0                   | deferred |
 
 ---
@@ -138,7 +138,7 @@ Detail: [Roadmap § M10](./ROADMAP.md#m10-release-readiness).
 Canonical detail: [Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces).
 
 - **`apps/playground`** — monorepo smoke, **maintenance-only** (~10–20% focus). Optional `pnpm playground:dev`; category nav for quick scans. Do not build product UX here unless the PR explicitly targets `apps/playground/**`.
-- **Consumer sandbox (PulseDesk)** — **real app truth** (~80–90% focus) for block/template UX, narrow viewport, and integration flows. Path: `D:\PLAYGROUND\sandbox-lexsys`. Manual checklist + planned Playwright (DX.2) — not lexsys CI.
+- **Consumer sandbox (PulseDesk)** — **real app truth** (~80–90% focus) for block/template UX, narrow viewport, and integration flows. Path: `D:\PLAYGROUND\sandbox-lexsys`. Manual checklist + Playwright E2E (DX.2, `pnpm test:e2e`) — not lexsys CI.
 - **Fresh-install lab** — repeatable `init` → `add` → `build` smoke (DX.3). Path: `D:\PLAYGROUND\lexsys-fresh-test`. Throwaway / reproducible CLI regression — not PulseDesk.
 - **Playground dark/brand demos** — deferred; consumer UX belongs in sandbox/SaaS ([Roadmap § Explicitly deferred](./ROADMAP.md#explicitly-deferred)).
 - **Change workflow** — branch off `dev` → implement → docs alignment → PR to `dev` last; **`main` untouched** unless explicitly requested ([AGENTS.md § Change workflow](../AGENTS.md#change-workflow)).
@@ -217,13 +217,13 @@ Admin catalog items — after **0.1.0** unless release gate completes first. See
 
 ### P2.2 — DX (DX.1–DX.5)
 
-| ID   | Item                         | PR / track | Path / notes                            | Status   |
-| ---- | ---------------------------- | ---------- | --------------------------------------- | -------- |
-| DX.1 | Public starter template repo | G1         | Separate GitHub repo post-0.1.0         | deferred |
-| DX.2 | Playwright E2E (PulseDesk)   | G2b        | `D:\PLAYGROUND\sandbox-lexsys`          | planned  |
-| DX.3 | Fresh install/build smoke    | G2a        | `D:\PLAYGROUND\smoke-010` (`@latest`)   | shipped  |
-| DX.4 | `apps/docs` minimal site     | D1         | apps/docs                               | shipped  |
-| DX.5 | `docs:lint` automation       | D2         | root `pnpm docs:lint`; CI `changes` job | shipped  |
+| ID   | Item                         | PR / track | Path / notes                                     | Status   |
+| ---- | ---------------------------- | ---------- | ------------------------------------------------ | -------- |
+| DX.1 | Public starter template repo | G1         | Separate GitHub repo post-0.1.0                  | deferred |
+| DX.2 | Playwright E2E (PulseDesk)   | G2b        | `D:\PLAYGROUND\sandbox-lexsys` — `pnpm test:e2e` | shipped  |
+| DX.3 | Fresh install/build smoke    | G2a        | `D:\PLAYGROUND\smoke-010` (`@latest`)            | shipped  |
+| DX.4 | `apps/docs` minimal site     | D1         | apps/docs                                        | shipped  |
+| DX.5 | `docs:lint` automation       | D2         | root `pnpm docs:lint`; CI `changes` job          | shipped  |
 
 ### P2.3 — Tokens (TOK.1–TOK.2)
 
@@ -368,7 +368,6 @@ Tracked IDs in [§ 0.1.0 Execution Queue](#010-execution-queue). Update status w
 
 | ID / gap                      | Notes                                                                                                                |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| DX.2 / mobile viewport QA     | Manual PulseDesk QA **shipped**; Playwright automation (DX.2) still planned — `D:\PLAYGROUND\sandbox-lexsys`.        |
 | DX.3 / fresh install smoke    | **shipped** — `D:\PLAYGROUND\smoke-010` with `@dalexto/lexsys@latest` (`init` → `add button` → `build`, 2026-06-06). |
 | SEC.1 / remote registry trust | **shipped** — checksum + `registryAllowlist`; HTTPS-only fetch remains default.                                      |
 | DX.1 / public starter repo    | Deferred post-0.1.0 — separate GitHub repo.                                                                          |

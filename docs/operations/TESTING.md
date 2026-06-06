@@ -295,13 +295,48 @@ Implementation lives **outside** this monorepo. No lexsys CI for DX.2 until expl
 
 Optional repeatable script in the external repo: `pnpm smoke:install-build` — same flow as above; exit non-zero on failure.
 
-### DX.2 — Playwright E2E (`sandbox-lexsys` / PulseDesk)
+### DX.2 — Playwright E2E (`sandbox-lexsys` / PulseDesk) — shipped
 
-**Path:** `D:\PLAYGROUND\sandbox-lexsys`
+**Path:** `D:\PLAYGROUND\sandbox-lexsys` (external repo — not lexsys CI)
 
-**Target script:** `pnpm test:e2e` (to add in that repo)
+**Status:** **shipped** (2026-06-06) — `pnpm test:e2e` passes (4 scenarios: seed, mobile sidebar, theme toggle, dashboard nav). Requires `@playwright/test` **≥ 1.53.2** on Node 24 (1.52.0 hangs on Windows).
 
-Suggested scenarios: Sidebar mobile drawer (`< md`), theme toggle, dashboard-shell nav. Complements manual checklist above — does not replace it for the first **0.1.0** gate.
+Layout follows [Playwright Test Agents](https://playwright.dev/docs/test-agents) conventions:
+
+| Path                     | Role                                                         |
+| ------------------------ | ------------------------------------------------------------ |
+| `specs/pulsedesk-e2e.md` | Human-readable test plan (planner input)                     |
+| `tests/seed.spec.ts`     | Authenticated bootstrap for agent/generator flows            |
+| `tests/*.spec.ts`        | Executable scenarios                                         |
+| `playwright.config.mjs`  | `webServer` launches Vite; `baseURL` `http://127.0.0.1:5173` |
+
+**Scripts (sandbox `package.json`):**
+
+```bash
+pnpm dev:e2e          # Vite on 127.0.0.1:5173 (webServer target)
+pnpm test:e2e         # playwright test
+pnpm test:e2e:ui      # UI mode (watch / debug)
+pnpm test:e2e:report  # HTML report after a run
+```
+
+**Covered scenarios** (see `specs/pulsedesk-e2e.md`):
+
+- Mobile Sidebar drawer (`< md`) → Settings route
+- Theme toggle (`html.dark`)
+- Dashboard shell sidebar nav (Team, Billing, API Keys, Dashboard)
+
+**First-time setup** (per [Playwright installation](https://playwright.dev/docs/intro)):
+
+```bash
+cd D:\PLAYGROUND\sandbox-lexsys
+pnpm install
+pnpm exec playwright install chromium
+pnpm test:e2e
+```
+
+Optional: upgrade `@playwright/test` to latest and run `pnpm exec playwright init-agents --loop=vscode` for planner/generator/healer agent definitions ([Test Agents](https://playwright.dev/docs/test-agents)).
+
+Complements the manual blocks/templates checklist above — does not replace PulseDesk manual QA for first-time gate.
 
 Tracked: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
 
@@ -309,5 +344,4 @@ Tracked: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
 
 ## Known Gaps
 
-- **DX.2** — Narrow-viewport PulseDesk UX — manual checklist + planned Playwright; not lexsys CI ([§ Blocks/templates checklist](#consumer-sandbox-verification)).
 - **DX.3** — Fresh install/build smoke — **shipped** (`smoke-010` with `@latest`); monorepo `install-flow` still covers primitives and registry blocks in CI.

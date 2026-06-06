@@ -434,15 +434,15 @@ Post-publish smoke: `D:\PLAYGROUND\smoke-010` with `@dalexto/lexsys@latest`.
 
 **Waves:** A (release gate) → B (primitives) → C (blocks/templates) → D (DX) → E (tokens) → F (trust) → deferred (starter, PLAYGROUND automation).
 
-| Wave | PRs   | Focus                                                                                | Status                             |
-| ---- | ----- | ------------------------------------------------------------------------------------ | ---------------------------------- |
-| A    | A1–A4 | Docs, provenance, 0.1.0 publish                                                      | shipped                            |
-| B    | B1–B3 | Pagination, Breadcrumb, DatePicker                                                   | shipped                            |
-| C    | C1–C6 | PageHeader, StatsCard, FilterToolbar, DataTable, Combobox wiring, SettingsPageLayout | shipped                            |
-| D    | D1–D2 | `apps/docs`, `docs:lint`                                                             | shipped                            |
-| E    | E1–E2 | Aliased primitive tokens, contrast pairs                                             | shipped                            |
-| F    | F1–F2 | Remote registry trust, M12.5 CLI polish                                              | shipped                            |
-| G    | G1–G2 | Starter repo (deferred), fresh-test smoke + PulseDesk E2E                            | partial — G2a shipped, G2b planned |
+| Wave | PRs   | Focus                                                                                | Status                                   |
+| ---- | ----- | ------------------------------------------------------------------------------------ | ---------------------------------------- |
+| A    | A1–A4 | Docs, provenance, 0.1.0 publish                                                      | shipped                                  |
+| B    | B1–B3 | Pagination, Breadcrumb, DatePicker                                                   | shipped                                  |
+| C    | C1–C6 | PageHeader, StatsCard, FilterToolbar, DataTable, Combobox wiring, SettingsPageLayout | shipped                                  |
+| D    | D1–D2 | `apps/docs`, `docs:lint`                                                             | shipped                                  |
+| E    | E1–E2 | Aliased primitive tokens, contrast pairs                                             | shipped                                  |
+| F    | F1–F2 | Remote registry trust, M12.5 CLI polish                                              | shipped                                  |
+| G    | G1–G2 | Starter repo (deferred), fresh-test smoke + PulseDesk E2E                            | partial — G2a + G2b shipped; G1 deferred |
 
 Execution table: [REVIEW_TODO § 0.1.0 Execution Queue](./REVIEW_TODO.md#010-execution-queue).
 
@@ -453,7 +453,7 @@ Execution table: [REVIEW_TODO § 0.1.0 Execution Queue](./REVIEW_TODO.md#010-exe
 | ID   | Item                         | Status   | Surface                                           |
 | ---- | ---------------------------- | -------- | ------------------------------------------------- |
 | DX.1 | Public starter template repo | deferred | Separate repo post-0.1.0                          |
-| DX.2 | Playwright E2E               | planned  | `D:\PLAYGROUND\sandbox-lexsys` (PulseDesk)        |
+| DX.2 | Playwright E2E               | shipped  | `D:\PLAYGROUND\sandbox-lexsys` — `pnpm test:e2e`  |
 | DX.3 | Fresh install/build smoke    | shipped  | `D:\PLAYGROUND\smoke-010` (`@latest`, 2026-06-06) |
 | DX.4 | `apps/docs` minimal site     | shipped  | `apps/docs` (PR D1)                               |
 | DX.5 | `docs:lint` automation       | shipped  | root script (PR D2)                               |
@@ -464,16 +464,16 @@ No lexsys CI for DX.2/DX.3 until explicitly promoted. Detail: [Testing docs § P
 
 ### Explicitly deferred
 
-| Item                              | Status / notes                                                                                        |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `apps/docs` public docs site      | **shipped** — DX.4 (PR D1); minimal Vite shell pre-0.1.0                                              |
-| Public starter template repo      | **deferred** — DX.1 post-0.1.0; separate GitHub repo                                                  |
-| Playwright E2E + fresh smoke      | **partial** — DX.3 fresh smoke shipped (`smoke-010`); DX.2 Playwright planned ([DX track](#dx-track)) |
-| Playground dark/brand demos       | Out of scope — playground is maintenance-only; consumer UX in PulseDesk sandbox                       |
-| `@vitest/ui` browser dashboard    | Decided overkill                                                                                      |
-| Visual regression / screenshots   | Overkill for current coverage                                                                         |
-| npm provenance                    | **shipped** — REL.2 (PR A3); Changesets **shipped** (M10)                                             |
-| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                                      |
+| Item                              | Status / notes                                                                            |
+| --------------------------------- | ----------------------------------------------------------------------------------------- |
+| `apps/docs` public docs site      | **shipped** — DX.4 (PR D1); minimal Vite shell pre-0.1.0                                  |
+| Public starter template repo      | **deferred** — DX.1 post-0.1.0; separate GitHub repo                                      |
+| Playwright E2E + fresh smoke      | **shipped** — DX.2 Playwright E2E + DX.3 fresh smoke (`smoke-010`); [DX track](#dx-track) |
+| Playground dark/brand demos       | Out of scope — playground is maintenance-only; consumer UX in PulseDesk sandbox           |
+| `@vitest/ui` browser dashboard    | Decided overkill                                                                          |
+| Visual regression / screenshots   | Overkill for current coverage                                                             |
+| npm provenance                    | **shipped** — REL.2 (PR A3); Changesets **shipped** (M10)                                 |
+| Next.js scaffold, remote registry | **Shipped in M3** — `lexsys init next`; remote manifest contract                          |
 
 ### PR sequence
 
