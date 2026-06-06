@@ -6,8 +6,12 @@ export const DEFAULT_STYLE_FILES = [
   { fileName: "theme.css", outputKey: "themeCss" },
 ]
 
+const stripGeneratedTimestamp = (content) => {
+  return content.replace(/^ \* Last generated: .+$\n/m, "")
+}
+
 export const normalizeContent = (content) => {
-  return content.replace(/\r\n/g, "\n")
+  return stripGeneratedTimestamp(content.replace(/\r\n/g, "\n"))
 }
 
 export const findOutOfSyncStyleFiles = async ({

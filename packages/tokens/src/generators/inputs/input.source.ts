@@ -43,6 +43,8 @@ export interface ThemeTokenInput {
 export interface StyleTokenInputOptions {
   presetId?: PresetId
   stripDeadPrimitives?: boolean
+  /** Fixed timestamp for generated CSS headers (deterministic tests). */
+  generatedAt?: Date
 }
 
 export interface StyleTokenInput {
