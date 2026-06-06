@@ -380,6 +380,25 @@ avoid nesting two anchors.
 **Anti-pattern:** `active={location.pathname === item.path}` breaks for nested
 routes and the root path (`"/"` matches everything with loose equality tricks).
 
+#### Layer 5 — disabled + loading rows (SB.14 shipped)
+
+Set `disabled` on `SidebarItem` (inherited by child link/button) or directly on
+`SidebarItemLink` / `SidebarItemButton` / sub-item parts. Disabled anchors use
+`aria-disabled`, `tabIndex={-1}`, and skip keyboard roving focus.
+
+```tsx
+<SidebarItem disabled>
+  <SidebarItemLink href="/billing">Billing</SidebarItemLink>
+</SidebarItem>
+```
+
+Async nav: render `SidebarItemSkeleton` inside `SidebarItem` (icon + label
+pulse). Use `indent` for nested `SidebarSubList` placeholders.
+
+| Export                | Role                                   |
+| --------------------- | -------------------------------------- |
+| `SidebarItemSkeleton` | Shipped SB.14 — per-row loading chrome |
+
 **Registry deps (sidebar block):** `badge`, `button`, `collapsible`, `drawer`,
 `scroll-area`.
 

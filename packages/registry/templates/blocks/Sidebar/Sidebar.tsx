@@ -14,6 +14,7 @@ import {
   useState,
   useSyncExternalStore,
   type KeyboardEvent,
+  type MouseEventHandler,
   type ReactNode,
 } from "react"
 import { Badge } from "@/components/primitives/Badge"
@@ -54,6 +55,7 @@ import type {
   SidebarItemLinkProps,
   SidebarItemProps,
   SidebarItemShortcutProps,
+  SidebarItemSkeletonProps,
   SidebarSubItemButtonProps,
   SidebarSubItemLinkProps,
   SidebarSubListProps,
@@ -84,6 +86,9 @@ import {
   sidebarItemBadgeDotClasses,
   sidebarItemBadgeLabelClasses,
   sidebarItemClasses,
+  sidebarItemSkeletonClasses,
+  sidebarItemSkeletonIconClasses,
+  sidebarItemSkeletonLabelClasses,
   sidebarMainClasses,
   sidebarMobileHeaderClasses,
   sidebarNavItemClasses,
@@ -156,8 +161,47 @@ const handleSidebarNavKeyDown = (event: KeyboardEvent<HTMLElement>): void => {
   }
 }
 
-const getSidebarActiveLinkProps = (active?: boolean) => {
+const getSidebarActiveLinkProps = (active?: boolean, disabled?: boolean) => {
+  if (disabled) {
+    return undefined
+  }
+
   return active ? ({ "aria-current": "page" } as const) : undefined
+}
+
+const SidebarItemDisabledContext = createContext(false)
+
+const useSidebarItemDisabled = () => useContext(SidebarItemDisabledContext)
+
+const resolveSidebarNavItemDisabled = (
+  explicit?: boolean,
+  inherited?: boolean,
+) => explicit ?? inherited ?? false
+
+const getSidebarDisabledAnchorProps = (disabled: boolean) => {
+  if (!disabled) {
+    return {}
+  }
+
+  return {
+    "aria-disabled": true as const,
+    "data-disabled": "",
+    tabIndex: -1,
+  }
+}
+
+const getSidebarDisabledAnchorClickHandler = (
+  disabled: boolean,
+  onClick?: MouseEventHandler<HTMLAnchorElement>,
+): MouseEventHandler<HTMLAnchorElement> | undefined => {
+  if (!disabled) {
+    return onClick
+  }
+
+  return (event) => {
+    event.preventDefault()
+    event.stopPropagation()
+  }
 }
 
 const getDesktopMediaQuery = () => {
@@ -704,12 +748,21 @@ const SidebarItem = ({
   ref,
   className,
   children,
+  disabled = false,
   ...props
 }: SidebarItemProps) => {
   return (
-    <li ref={ref} className={cn(sidebarItemClasses(), className)} {...props}>
-      {children}
-    </li>
+    <SidebarItemDisabledContext.Provider value={disabled}>
+      <li
+        ref={ref}
+        className={cn(sidebarItemClasses(), className)}
+        data-disabled={disabled ? "" : undefined}
+        aria-disabled={disabled || undefined}
+        {...props}
+      >
+        {children}
+      </li>
+    </SidebarItemDisabledContext.Provider>
   )
 }
 
@@ -718,20 +771,26 @@ SidebarItem.displayName = "SidebarItem"
 const SidebarItemLink = ({
   ref,
   active,
+  disabled,
   className,
   children,
+  onClick,
   ...props
 }: SidebarItemLinkProps) => {
   const { closeOnSelect } = useSidebarMobileContext()
+  const inheritedDisabled = useSidebarItemDisabled()
+  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
   const linkClassName = cn(
-    sidebarNavItemClasses(active),
+    sidebarNavItemClasses(active, isDisabled),
     sidebarCollapsedItemClasses(),
     className,
   )
 
   const linkProps = {
     ...props,
-    ...getSidebarActiveLinkProps(active),
+    ...getSidebarDisabledAnchorProps(isDisabled),
+    ...getSidebarActiveLinkProps(active, isDisabled),
+    onClick: getSidebarDisabledAnchorClickHandler(isDisabled, onClick),
   }
 
   if (!closeOnSelect) {
@@ -757,21 +816,35 @@ SidebarItemLink.displayName = "SidebarItemLink"
 const SidebarItemButton = ({
   ref,
   active,
+  disabled,
   className,
   children,
   type = "button",
   ...props
 }: SidebarItemButtonProps) => {
   const { closeOnSelect } = useSidebarMobileContext()
+  const inheritedDisabled = useSidebarItemDisabled()
+  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
   const buttonClassName = cn(
-    sidebarNavItemClasses(active),
+    sidebarNavItemClasses(active, isDisabled),
     sidebarCollapsedItemClasses(),
     className,
   )
+  const buttonProps = {
+    ...props,
+    disabled: isDisabled,
+    "data-disabled": isDisabled ? "" : undefined,
+    "aria-disabled": isDisabled || undefined,
+  }
 
   if (!closeOnSelect) {
     return (
-      <button ref={ref} type={type} className={buttonClassName} {...props}>
+      <button
+        ref={ref}
+        type={type}
+        className={buttonClassName}
+        {...buttonProps}
+      >
         {children}
       </button>
     )
@@ -781,7 +854,12 @@ const SidebarItemButton = ({
     <DrawerClose
       appearance="inline"
       render={
-        <button ref={ref} type={type} className={buttonClassName} {...props} />
+        <button
+          ref={ref}
+          type={type}
+          className={buttonClassName}
+          {...buttonProps}
+        />
       }
     >
       {children}
@@ -790,6 +868,28 @@ const SidebarItemButton = ({
 }
 
 SidebarItemButton.displayName = "SidebarItemButton"
+
+const SidebarItemSkeleton = ({
+  ref,
+  className,
+  showIcon = true,
+  indent = false,
+  ...props
+}: SidebarItemSkeletonProps) => {
+  return (
+    <div
+      ref={ref}
+      aria-hidden
+      className={cn(sidebarItemSkeletonClasses(indent), className)}
+      {...props}
+    >
+      {showIcon ? <span className={sidebarItemSkeletonIconClasses()} /> : null}
+      <span className={sidebarItemSkeletonLabelClasses()} />
+    </div>
+  )
+}
+
+SidebarItemSkeleton.displayName = "SidebarItemSkeleton"
 
 const getSidebarItemBadgeLabel = (children: ReactNode): string | undefined => {
   if (typeof children === "string" || typeof children === "number") {
@@ -942,15 +1042,24 @@ SidebarSubList.displayName = "SidebarSubList"
 const SidebarSubItemLink = ({
   ref,
   active,
+  disabled,
   className,
   children,
+  onClick,
   ...props
 }: SidebarSubItemLinkProps) => {
   const { closeOnSelect } = useSidebarMobileContext()
-  const linkClassName = cn(sidebarSubNavItemClasses(active), className)
+  const inheritedDisabled = useSidebarItemDisabled()
+  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
+  const linkClassName = cn(
+    sidebarSubNavItemClasses(active, isDisabled),
+    className,
+  )
   const linkProps = {
     ...props,
-    ...getSidebarActiveLinkProps(active),
+    ...getSidebarDisabledAnchorProps(isDisabled),
+    ...getSidebarActiveLinkProps(active, isDisabled),
+    onClick: getSidebarDisabledAnchorClickHandler(isDisabled, onClick),
   }
 
   if (!closeOnSelect) {
@@ -976,17 +1085,34 @@ SidebarSubItemLink.displayName = "SidebarSubItemLink"
 const SidebarSubItemButton = ({
   ref,
   active,
+  disabled,
   className,
   children,
   type = "button",
   ...props
 }: SidebarSubItemButtonProps) => {
   const { closeOnSelect } = useSidebarMobileContext()
-  const buttonClassName = cn(sidebarSubNavItemClasses(active), className)
+  const inheritedDisabled = useSidebarItemDisabled()
+  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
+  const buttonClassName = cn(
+    sidebarSubNavItemClasses(active, isDisabled),
+    className,
+  )
+  const buttonProps = {
+    ...props,
+    disabled: isDisabled,
+    "data-disabled": isDisabled ? "" : undefined,
+    "aria-disabled": isDisabled || undefined,
+  }
 
   if (!closeOnSelect) {
     return (
-      <button ref={ref} type={type} className={buttonClassName} {...props}>
+      <button
+        ref={ref}
+        type={type}
+        className={buttonClassName}
+        {...buttonProps}
+      >
         {children}
       </button>
     )
@@ -996,7 +1122,12 @@ const SidebarSubItemButton = ({
     <DrawerClose
       appearance="inline"
       render={
-        <button ref={ref} type={type} className={buttonClassName} {...props} />
+        <button
+          ref={ref}
+          type={type}
+          className={buttonClassName}
+          {...buttonProps}
+        />
       }
     >
       {children}
@@ -1020,6 +1151,7 @@ export {
   SidebarItem,
   SidebarItemLink,
   SidebarItemButton,
+  SidebarItemSkeleton,
   SidebarItemBadge,
   SidebarItemIcon,
   SidebarItemAction,

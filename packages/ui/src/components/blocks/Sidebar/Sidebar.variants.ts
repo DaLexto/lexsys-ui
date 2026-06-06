@@ -4,6 +4,7 @@
  * Variant classes for the Sidebar block.
  */
 
+import { disabledStateClasses } from "../../../utils/cn"
 import type { BadgeVariant } from "../../primitives/Badge/Badge.types"
 import type { SidebarShellOptions } from "./Sidebar.types"
 
@@ -206,8 +207,11 @@ export const sidebarSubListClasses = (): string => {
   ].join(" ")
 }
 
-export const sidebarSubNavItemClasses = (active?: boolean): string => {
-  const base = sidebarNavItemClasses(active)
+export const sidebarSubNavItemClasses = (
+  active?: boolean,
+  disabled?: boolean,
+): string => {
+  const base = sidebarNavItemClasses(active, disabled)
 
   return [
     base,
@@ -215,7 +219,10 @@ export const sidebarSubNavItemClasses = (active?: boolean): string => {
   ].join(" ")
 }
 
-export const sidebarNavItemClasses = (active?: boolean): string => {
+export const sidebarNavItemClasses = (
+  active?: boolean,
+  disabled?: boolean,
+): string => {
   const base = [
     "lex-sidebar__item",
     "relative flex min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
@@ -227,6 +234,16 @@ export const sidebarNavItemClasses = (active?: boolean): string => {
     "focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
     "focus-visible:ring-offset-(length:--lex-sidebar-item-focus-ring-offset) focus-visible:ring-offset-(--lex-sidebar-item-focus-ring-offset-color)",
   ].join(" ")
+
+  if (disabled) {
+    return [
+      base,
+      disabledStateClasses,
+      "cursor-not-allowed text-(--lex-color-text-disabled)",
+      "hover:bg-transparent hover:text-(--lex-color-text-disabled)",
+      "data-[disabled]:text-(--lex-color-text-disabled)",
+    ].join(" ")
+  }
 
   if (active) {
     return [
@@ -243,6 +260,38 @@ export const sidebarNavItemClasses = (active?: boolean): string => {
     base,
     "text-(--lex-sidebar-item-foreground)",
     "hover:bg-(--lex-sidebar-item-background-hover) hover:text-(--lex-color-text-primary)",
+  ].join(" ")
+}
+
+export const sidebarItemSkeletonClasses = (indent = false): string => {
+  const classes = [
+    "lex-sidebar__item-skeleton flex w-full min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
+    "rounded-(--lex-sidebar-item-radius)",
+    "px-(--lex-sidebar-item-padding-x) py-(--lex-sidebar-item-padding-y)",
+    sidebarCollapsedItemClasses(),
+  ]
+
+  if (indent) {
+    classes.push(
+      "pl-[calc(var(--lex-sidebar-item-padding-x)+var(--lex-sidebar-item-sub-indent))]",
+    )
+  }
+
+  return classes.join(" ")
+}
+
+export const sidebarItemSkeletonIconClasses = (): string => {
+  return [
+    "lex-sidebar__item-skeleton-icon size-(--lex-sidebar-item-icon-size) shrink-0",
+    "rounded-(--lex-sidebar-item-radius) animate-pulse bg-(--lex-color-background-subtle)",
+  ].join(" ")
+}
+
+export const sidebarItemSkeletonLabelClasses = (): string => {
+  return [
+    "lex-sidebar__item-skeleton-label h-[1em] min-w-0 flex-1",
+    "rounded-(--lex-sidebar-item-radius) animate-pulse bg-(--lex-color-background-subtle)",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
   ].join(" ")
 }
 

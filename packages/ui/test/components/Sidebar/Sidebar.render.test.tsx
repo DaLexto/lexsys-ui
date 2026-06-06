@@ -22,6 +22,7 @@ import {
   SidebarItemIcon,
   SidebarItemButton,
   SidebarItemLink,
+  SidebarItemSkeleton,
   SidebarItemShortcut,
   SidebarList,
   SidebarSubItemLink,
@@ -401,5 +402,86 @@ describe("Sidebar render", () => {
 
     fireEvent.keyDown(nav, { key: "Home" })
     expect(overviewLink).toHaveFocus()
+  })
+
+  it("marks disabled SidebarItemLink with aria-disabled and skips arrow focus", () => {
+    render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarList>
+            <SidebarItem>
+              <SidebarItemLink href="#overview">Overview</SidebarItemLink>
+            </SidebarItem>
+            <SidebarItem disabled>
+              <SidebarItemLink href="#settings">Settings</SidebarItemLink>
+            </SidebarItem>
+            <SidebarItem>
+              <SidebarItemButton type="button">Sign out</SidebarItemButton>
+            </SidebarItem>
+          </SidebarList>
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [nav] = screen.getAllByRole("navigation", {
+      name: "Application navigation",
+    })
+    const navQueries = within(nav)
+    const overviewLink = navQueries.getByRole("link", { name: "Overview" })
+    const settingsLink = navQueries.getByRole("link", { name: "Settings" })
+    const signOutButton = navQueries.getByRole("button", { name: "Sign out" })
+
+    expect(settingsLink).toHaveAttribute("aria-disabled", "true")
+    expect(settingsLink).toHaveAttribute("tabindex", "-1")
+
+    overviewLink.focus()
+    fireEvent.keyDown(nav, { key: "ArrowDown" })
+    expect(signOutButton).toHaveFocus()
+  })
+
+  it("renders SidebarItemSkeleton with icon and label pulse blocks", () => {
+    render(
+      <SidebarProvider defaultCollapsed>
+        <Sidebar>
+          <SidebarContent>
+            <SidebarList>
+              <SidebarItem>
+                <SidebarItemSkeleton data-testid="nav-skeleton" />
+              </SidebarItem>
+            </SidebarList>
+          </SidebarContent>
+        </Sidebar>
+      </SidebarProvider>,
+    )
+
+    const [skeleton] = screen.getAllByTestId("nav-skeleton")
+
+    expect(skeleton).toHaveClass("lex-sidebar__item-skeleton")
+    expect(
+      skeleton.querySelector(".lex-sidebar__item-skeleton-icon"),
+    ).toBeTruthy()
+    expect(
+      skeleton.querySelector(".lex-sidebar__item-skeleton-label"),
+    ).toHaveClass("md:group-data-[collapsed=true]/sidebar:hidden")
+  })
+
+  it("renders indented SidebarItemSkeleton for nested rows", () => {
+    render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarSubList>
+            <SidebarItem>
+              <SidebarItemSkeleton indent data-testid="sub-skeleton" />
+            </SidebarItem>
+          </SidebarSubList>
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [indentedSkeleton] = screen.getAllByTestId("sub-skeleton")
+
+    expect(indentedSkeleton.className).toContain(
+      "--lex-sidebar-item-sub-indent",
+    )
   })
 })

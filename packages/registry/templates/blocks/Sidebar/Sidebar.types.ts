@@ -96,6 +96,8 @@ export interface SidebarItemProps extends LiHTMLAttributes<HTMLLIElement> {
   ref?: Ref<HTMLLIElement>
   className?: string
   children?: ReactNode
+  /** Disables row interaction; inherited by child nav item parts unless overridden. */
+  disabled?: boolean
 }
 
 export interface SidebarNavActiveOptions {
@@ -106,6 +108,7 @@ export interface SidebarNavActiveOptions {
 export interface SidebarItemLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   ref?: Ref<HTMLAnchorElement>
   active?: boolean
+  disabled?: boolean
   className?: string
   children?: ReactNode
 }
@@ -113,8 +116,18 @@ export interface SidebarItemLinkProps extends AnchorHTMLAttributes<HTMLAnchorEle
 export interface SidebarItemButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   ref?: Ref<HTMLButtonElement>
   active?: boolean
+  disabled?: boolean
   className?: string
   children?: ReactNode
+}
+
+export interface SidebarItemSkeletonProps extends HTMLAttributes<HTMLDivElement> {
+  ref?: Ref<HTMLDivElement>
+  className?: string
+  /** Renders an icon-sized pulse block. Defaults to `true`. */
+  showIcon?: boolean
+  /** Indented skeleton for nested `SidebarSubList` rows. */
+  indent?: boolean
 }
 
 export interface SidebarTriggerProps extends Omit<ButtonProps, "type"> {
@@ -188,6 +201,7 @@ export interface SidebarSubListProps extends HTMLAttributes<HTMLUListElement> {
 export interface SidebarSubItemLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   ref?: Ref<HTMLAnchorElement>
   active?: boolean
+  disabled?: boolean
   className?: string
   children?: ReactNode
 }
@@ -195,6 +209,7 @@ export interface SidebarSubItemLinkProps extends AnchorHTMLAttributes<HTMLAnchor
 export interface SidebarSubItemButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   ref?: Ref<HTMLButtonElement>
   active?: boolean
+  disabled?: boolean
   className?: string
   children?: ReactNode
 }
