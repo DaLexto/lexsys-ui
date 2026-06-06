@@ -4,11 +4,13 @@ import { alertDialogRegistryItem } from "./alert-dialog.js"
 import { alertRegistryItem } from "./alert.js"
 import { avatarRegistryItem } from "./avatar.js"
 import { badgeRegistryItem } from "./badge.js"
+import { breadcrumbRegistryItem } from "./breadcrumb.js"
 import { buttonRegistryItem } from "./button.js"
 import { cardRegistryItem } from "./card.js"
 import { checkboxRegistryItem } from "./checkbox.js"
 import { collapsibleRegistryItem } from "./collapsible.js"
 import { contextMenuRegistryItem } from "./context-menu.js"
+import { datePickerRegistryItem } from "./date-picker.js"
 import { dialogRegistryItem } from "./dialog.js"
 import { drawerRegistryItem } from "./drawer.js"
 import { fieldRegistryItem } from "./field.js"
@@ -20,6 +22,7 @@ import { menubarRegistryItem } from "./menubar.js"
 import { meterRegistryItem } from "./meter.js"
 import { numberFieldRegistryItem } from "./number-field.js"
 import { navigationMenuRegistryItem } from "./navigation-menu.js"
+import { paginationRegistryItem } from "./pagination.js"
 import { popoverRegistryItem } from "./popover.js"
 import { previewCardRegistryItem } from "./preview-card.js"
 import { progressRegistryItem } from "./progress.js"
@@ -48,17 +51,24 @@ import { authFormRegistryItem } from "./auth-form.js"
 import { commandPaletteRegistryItem } from "./command-palette.js"
 import { otpFieldRegistryItem } from "./otp-field.js"
 import { emptyRegistryItem } from "./empty.js"
+import { pageHeaderRegistryItem } from "./page-header.js"
+import { statsCardRegistryItem } from "./stats-card.js"
+import { filterToolbarRegistryItem } from "./filter-toolbar.js"
+import { dataTableRegistryItem } from "./data-table.js"
+import { settingsPageLayoutRegistryItem } from "./settings-page-layout.js"
 
 export { accordionRegistryItem } from "./accordion.js"
 export { alertDialogRegistryItem } from "./alert-dialog.js"
 export { alertRegistryItem } from "./alert.js"
 export { avatarRegistryItem } from "./avatar.js"
 export { badgeRegistryItem } from "./badge.js"
+export { breadcrumbRegistryItem } from "./breadcrumb.js"
 export { buttonRegistryItem } from "./button.js"
 export { cardRegistryItem } from "./card.js"
 export { checkboxRegistryItem } from "./checkbox.js"
 export { collapsibleRegistryItem } from "./collapsible.js"
 export { contextMenuRegistryItem } from "./context-menu.js"
+export { datePickerRegistryItem } from "./date-picker.js"
 export { dialogRegistryItem } from "./dialog.js"
 export { drawerRegistryItem } from "./drawer.js"
 export { fieldRegistryItem } from "./field.js"
@@ -70,6 +80,7 @@ export { menubarRegistryItem } from "./menubar.js"
 export { meterRegistryItem } from "./meter.js"
 export { numberFieldRegistryItem } from "./number-field.js"
 export { navigationMenuRegistryItem } from "./navigation-menu.js"
+export { paginationRegistryItem } from "./pagination.js"
 export { popoverRegistryItem } from "./popover.js"
 export { previewCardRegistryItem } from "./preview-card.js"
 export { progressRegistryItem } from "./progress.js"
@@ -98,6 +109,11 @@ export { authFormRegistryItem } from "./auth-form.js"
 export { commandPaletteRegistryItem } from "./command-palette.js"
 export { otpFieldRegistryItem } from "./otp-field.js"
 export { emptyRegistryItem } from "./empty.js"
+export { pageHeaderRegistryItem } from "./page-header.js"
+export { statsCardRegistryItem } from "./stats-card.js"
+export { filterToolbarRegistryItem } from "./filter-toolbar.js"
+export { dataTableRegistryItem } from "./data-table.js"
+export { settingsPageLayoutRegistryItem } from "./settings-page-layout.js"
 export { tableRegistryItem } from "./table.js"
 export const registryItems: RegistryItem[] = [
   accordionRegistryItem,
@@ -105,11 +121,13 @@ export const registryItems: RegistryItem[] = [
   alertRegistryItem,
   avatarRegistryItem,
   badgeRegistryItem,
+  breadcrumbRegistryItem,
   buttonRegistryItem,
   cardRegistryItem,
   checkboxRegistryItem,
   collapsibleRegistryItem,
   contextMenuRegistryItem,
+  datePickerRegistryItem,
   dialogRegistryItem,
   drawerRegistryItem,
   fieldRegistryItem,
@@ -121,6 +139,7 @@ export const registryItems: RegistryItem[] = [
   meterRegistryItem,
   numberFieldRegistryItem,
   navigationMenuRegistryItem,
+  paginationRegistryItem,
   popoverRegistryItem,
   previewCardRegistryItem,
   progressRegistryItem,
@@ -149,4 +168,9 @@ export const registryItems: RegistryItem[] = [
   comboboxRegistryItem,
   otpFieldRegistryItem,
   emptyRegistryItem,
+  pageHeaderRegistryItem,
+  statsCardRegistryItem,
+  filterToolbarRegistryItem,
+  dataTableRegistryItem,
+  settingsPageLayoutRegistryItem,
 ]
