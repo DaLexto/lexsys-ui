@@ -17,6 +17,26 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+### Fixed
+
+- **Release CI** — unified GitHub release (`lexsys@<version>`) is created whenever the version is on npm, even when Changesets fallback publish does not set `outputs.published`
+
+---
+
+## [0.1.1] - 2026-06-06
+
+Post-0.1.0 maintainer release on dist-tag **`latest`**. Documentation and release tooling only — no consumer CLI or registry behavior changes.
+
+### Changed
+
+- **Documentation hub** — catalog counts, cross-references, and operations docs aligned with post-0.1.0 repo layout
+- **Cursor rules** — rules audit housekeeping (tech-stack trim, self-improvement scoping, stale link fixes)
+
+### Notes
+
+- Published via Changesets Version Packages PR #79; npm **0.1.1** on **`latest`**
+- No changes to `lexsys add`, registry templates, or install output paths
+
 ---
 
 ## [0.1.0] - 2026-06-06
@@ -171,7 +191,8 @@ First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.1.0...HEAD
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.1...HEAD
+[0.1.1]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.0...lexsys@0.1.1
 [0.1.0]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.6...@dalexto/lexsys@0.1.0
 [0.0.6]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.5...@dalexto/lexsys@0.0.6
 [0.0.5]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.4...@dalexto/lexsys@0.0.5
