@@ -3,7 +3,7 @@
 **Audience:** Maintainers and contributors
 **Type:** Contributor workflow
 **Source of truth for:** Human contributor workflow, PR gates, and labels
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-06
 
 ---
 
@@ -32,6 +32,11 @@ For non-trivial changes, follow [AGENTS.md § Change workflow](../../AGENTS.md#c
 3. Docs alignment / update when contracts change
 4. Verify (`pnpm check` and scoped checks)
 5. Open PR **to `dev` last** — never target **`main`** without explicit user request
+
+**Branch protection:** `dev` and `main` require pull requests (see repository rulesets).
+After a release on `main`, the [**Sync dev from main**](../.github/workflows/sync-dev-from-main.yml)
+workflow opens `chore(release): sync release metadata from main` and auto-merges when CI
+passes — contributors do not action that PR unless it fails.
 
 ## Before opening a PR
 

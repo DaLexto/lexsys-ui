@@ -202,17 +202,20 @@ violations do not fail the gate.)
 Changesets uses **`baseBranch: "main"`** ([`.changeset/config.json`](../../.changeset/config.json)).
 The Version Packages PR updates `package.json` versions and CHANGELOG on **`main` only**.
 After the [Release workflow](../../.github/workflows/release.yml) finishes on `main`,
-[**Sync dev from main**](../../.github/workflows/sync-dev-from-main.yml) merges
-`main` into `dev` so the integration branch keeps the same release metadata (otherwise
-`dev` can look "behind" `main` by ~two release commits while still being ahead on
-feature work).
+[**Sync dev from main**](../../.github/workflows/sync-dev-from-main.yml) opens a PR
+from `chore/sync-main-into-dev` into `dev` (merge `main` into that branch) and enables
+**auto-merge** when CI passes. This respects branch protection on `dev` without a
+`github-actions` bypass actor.
 
-| Trigger                                             | Behavior                                            |
-| --------------------------------------------------- | --------------------------------------------------- |
-| `Release` workflow completed successfully on `main` | Merge `origin/main` into `dev` and push when needed |
-| `workflow_dispatch`                                 | Manual re-sync (same merge logic)                   |
+**Repo setting (one-time):** Settings → General → Pull Requests → **Allow auto-merge**
+must be enabled for the bot to queue the merge.
 
-**Manual fallback** (only if the sync job fails — rare merge conflict on version/changelog files):
+| Trigger                                             | Behavior                                                   |
+| --------------------------------------------------- | ---------------------------------------------------------- |
+| `Release` workflow completed successfully on `main` | Open or update sync PR; enable auto-merge when checks pass |
+| `workflow_dispatch`                                 | Manual re-sync (same PR logic)                             |
+
+**Manual fallback** (merge conflict, auto-merge disabled, or CI blocked):
 
 ```bash
 git checkout dev && git pull origin dev
