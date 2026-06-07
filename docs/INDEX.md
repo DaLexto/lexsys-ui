@@ -89,7 +89,7 @@ Drift check: `pnpm ui:audit:catalog:check` — see [UI_CATALOG.md § Generation]
 | Document                           | Owns                                                                |
 | ---------------------------------- | ------------------------------------------------------------------- |
 | [ROADMAP.md](./ROADMAP.md)         | Tokens phases, monorepo **M1–M11** sequencing, UI composition track |
-| [REVIEW_TODO.md](./REVIEW_TODO.md) | Active execution queue, known gaps, BO backlog                      |
+| [REVIEW_TODO.md](./REVIEW_TODO.md) | Active execution queue, open backlog, shipped index (ID → detail)   |
 
 Roadmap and REVIEW_TODO entries are **future or in-progress work** unless marked
 shipped. Current implementation contracts live in reference docs and catalogs above.

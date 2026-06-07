@@ -102,7 +102,7 @@ Planned hardening and deferred speculative work are documented in
 [Resolver evolution — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10).
 Summary only — do not duplicate detail here.
 
-**Planned (likely next):** track [Backlog § TOK](./REVIEW_TODO.md#p23-tokens-tok1tok2)
+**Planned (likely next):** [Backlog § Execution queue](./REVIEW_TODO.md#execution-queue-active) — **TOK.6** density; UI composition step 5
 
 - **TOK.1** — dedicated component tokens for 9 aliased primitives (PR E1)
 - **TOK.2** — further expand `SEMANTIC_CONTRAST_PAIRS` (additional roles beyond the current 15-pair registry; PR E2)
