@@ -1,5 +1,11 @@
 # @dalexto/lexsys-registry
 
+## 0.1.2
+
+### Patch Changes
+
+- [#90](https://github.com/DaLexto/lexsys-ui/pull/90) [`f827fa7`](https://github.com/DaLexto/lexsys-ui/commit/f827fa72e9180365bb42e5dcb25fc86c93909511) Thanks [@itsalexdev](https://github.com/itsalexdev)! - Sidebar enterprise upgrade: `SidebarProvider` desktop collapse, item badge and chrome, nested nav, keyboard a11y, router-aware active helper, collapsible groups, filter input, section separators, right-side and RTL layout, sidebar component tokens, and block template type-import path fixes for consumer installs.
+
 ## 0.1.1
 
 ## 0.1.0
