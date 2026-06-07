@@ -122,11 +122,12 @@ Summary only — do not duplicate detail here.
 **Recently shipped (token semantics):**
 
 - **TOK.3** — `size.icon` semantic scale (`xs`–`xl`); decorative component `icon.size` slots migrated off `selectionControl`; Sidebar group chevron uses `--lex-sidebar-item-icon-size`
-- **TOK.5** — control rhythm harmonization (active): Sidebar `nav`/`list`/`group`/`separator` component slots wired to `spacing.control.*`; item padding `x.md` / `y.sm`, intra-row `control.gap.md`; variants stop hardcoding `--lex-space-1`/`--lex-space-2` for list rhythm
+- **TOK.5** — control rhythm harmonization (shipped): Sidebar `nav`/`list`/`group`/`separator` component slots wired to `spacing.control.*`; item padding `x.md` / `y.sm`, intra-row `control.gap.md`; variants stop hardcoding `--lex-space-1`/`--lex-space-2` for list rhythm
+- **TOK.7** — control-zone harmonization (shipped): blocks/templates/primitives migrate `--lex-space-*` hardcodes to component token slots (`page-header`, `dashboard-shell`, `data-table`, `command-palette`, `stats-card`, `form-field`, `auth-form`, `settings-page-layout`, plus `sidebar`/`date-picker`/`toolbar` extensions); `pnpm ui:audit` clean for spacing literals in variants
 
 **Deferred (explicit non-goals for now):**
 
-- **TOK.6** — density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders; deferred until TOK.5 profile is stable
+- **TOK.6** — density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders; deferred until TOK.5/TOK.7 profiles are stable in consumer sandboxes
 
 - DTCG composite object `$value` authoring on single leaves (deferred engine phase; branch+slot is current)
 - AST expression evaluator and color/unit math (requires new subsystem — see RESOLVER_EVOLUTION)
