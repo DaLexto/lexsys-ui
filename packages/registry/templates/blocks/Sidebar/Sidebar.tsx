@@ -38,6 +38,7 @@ import {
   CollapsiblePanel,
 } from "@/components/primitives/Collapsible/Collapsible"
 import { Input } from "@/components/primitives/Input/Input"
+import { Separator } from "@/components/primitives/Separator/Separator"
 import {
   ScrollArea,
   ScrollAreaContent,
@@ -66,6 +67,7 @@ import type {
   SidebarItemProps,
   SidebarItemShortcutProps,
   SidebarInputProps,
+  SidebarSeparatorProps,
   SidebarItemSkeletonProps,
   SidebarSubItemButtonProps,
   SidebarSubItemLinkProps,
@@ -104,6 +106,7 @@ import {
   sidebarItemSkeletonIconClasses,
   sidebarItemSkeletonLabelClasses,
   sidebarInputClasses,
+  sidebarSeparatorClasses,
   sidebarMainClasses,
   sidebarMobileHeaderClasses,
   sidebarNavItemClasses,
@@ -526,6 +529,24 @@ const SidebarInput = ({
 }
 
 SidebarInput.displayName = "SidebarInput"
+
+const SidebarSeparator = ({
+  ref,
+  className,
+  orientation = "horizontal",
+  ...props
+}: SidebarSeparatorProps) => {
+  return (
+    <Separator
+      ref={ref}
+      orientation={orientation}
+      className={cn(sidebarSeparatorClasses(), className)}
+      {...props}
+    />
+  )
+}
+
+SidebarSeparator.displayName = "SidebarSeparator"
 
 const SidebarContent = ({
   ref,
@@ -1233,6 +1254,7 @@ export {
   useSidebar,
   SidebarHeader,
   SidebarInput,
+  SidebarSeparator,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,

@@ -20,6 +20,7 @@ import type {
   CollapsibleProps,
 } from "../../primitives/Collapsible/Collapsible.types"
 import type { InputProps } from "../../primitives/Input/Input.types"
+import type { SeparatorProps } from "../../primitives/Separator/Separator.types"
 
 export type SidebarCollapsible = "none" | "icon" | "offcanvas"
 export type SidebarSide = "left" | "right"
@@ -144,6 +145,8 @@ export interface SidebarItemButtonProps extends ButtonHTMLAttributes<HTMLButtonE
 }
 
 export type SidebarInputProps = InputProps
+
+export type SidebarSeparatorProps = SeparatorProps
 
 export interface SidebarItemSkeletonProps extends HTMLAttributes<HTMLDivElement> {
   ref?: Ref<HTMLDivElement>

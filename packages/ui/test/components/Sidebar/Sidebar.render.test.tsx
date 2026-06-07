@@ -20,6 +20,7 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarInput,
+  SidebarSeparator,
   SidebarItem,
   SidebarItemAction,
   SidebarItemBadge,
@@ -563,6 +564,23 @@ describe("Sidebar render", () => {
     expect(filterInput).toHaveClass(
       "md:group-data-[collapsed=true]/sidebar:hidden",
     )
+  })
+
+  it("renders SidebarSeparator with inset horizontal divider", () => {
+    const { container } = render(
+      <Sidebar>
+        <SidebarContent>
+          <SidebarSeparator data-testid="nav-separator" />
+        </SidebarContent>
+      </Sidebar>,
+    )
+
+    const [separator] = container.querySelectorAll(
+      "[data-testid='nav-separator']",
+    )
+
+    expect(separator).toHaveClass("lex-sidebar__separator")
+    expect(separator.className).toContain("w-auto")
   })
 
   it("folds SidebarGroup sections with SidebarGroupCollapsible", () => {

@@ -34,7 +34,7 @@ Out of scope here: page-level consumer code, playground-only demos, unpublished 
 
 <!-- CATALOG:BEGIN -->
 
-_Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
+_Generated 2026-06-07 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
 
 ### Primitives (45)
 
@@ -98,7 +98,7 @@ _Generated 2026-06-06 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **FormField**      | compound | `FormField, FormFieldItem, FormFieldLabel, … (+3)`                   | `form-field`      |
 | **PageHeader**     | compound | `PageHeader, PageHeaderTop, PageHeaderBreadcrumb, … (+10)`           | `page-header`     |
 | **SettingsPanel**  | compound | `SettingsPanel, SettingsPanelHeader, SettingsPanelTitle, … (+3)`     | `settings-panel`  |
-| **Sidebar**        | compound | `Sidebar, SidebarProvider, useSidebar, … (+29)`                      | `sidebar`         |
+| **Sidebar**        | compound | `Sidebar, SidebarProvider, useSidebar, … (+30)`                      | `sidebar`         |
 | **StatsCard**      | compound | `StatsCard, StatsCardHeader, StatsCardTitle, … (+5)`                 | `stats-card`      |
 
 ### Templates (2)

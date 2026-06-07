@@ -26,6 +26,7 @@ export const sidebarRegistryItem: RegistryItem = {
     "drawer",
     "input",
     "scroll-area",
+    "separator",
   ],
   utilities: ["cn"],
   styles: ["theme"],

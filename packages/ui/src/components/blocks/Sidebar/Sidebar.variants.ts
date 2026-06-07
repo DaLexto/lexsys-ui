@@ -115,6 +115,14 @@ export const sidebarInputClasses = (): string => {
   ].join(" ")
 }
 
+export const sidebarSeparatorClasses = (): string => {
+  return [
+    "lex-sidebar__separator",
+    "mx-[var(--lex-space-2)] w-auto",
+    "my-[var(--lex-space-1)]",
+  ].join(" ")
+}
+
 export const sidebarNavListClasses = (): string => {
   return "lex-sidebar__list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0"
 }

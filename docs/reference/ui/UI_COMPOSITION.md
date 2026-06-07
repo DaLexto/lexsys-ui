@@ -185,38 +185,57 @@ the desktop shell — not a second Drawer instance.
 
 ### Wrapper audit (SB.2)
 
-| Finding                                                                  | Verdict                                  | Resolution                                         |
-| ------------------------------------------------------------------------ | ---------------------------------------- | -------------------------------------------------- |
-| Compound export shape (`Sidebar*` flat named exports)                    | OK — matches CS.4 compound-first         | Keep                                               |
-| `SidebarMobileContext` for drawer close-on-select                        | OK — typed context, not children cloning | Keep                                               |
-| Template drift: sandbox `partitionSidebarChildren` + mobile header strip | Bug — monorepo source behind consumer    | **Shipped SB.3**                                   |
-| Nav items used Menu checked tokens (`--lex-menu-item-checked-*`)         | Wrong semantic layer for persistent nav  | **Shipped SB.11** — `--lex-sidebar-item-*`         |
-| No `SidebarProvider` / desktop collapse API                              | Missing feature (not a wrapper bug)      | **Planned SB.5** — remove sandbox `AppLayout` hack |
-| `Select` ref asymmetry (CS.4)                                            | Unrelated to Sidebar                     | No Sidebar change                                  |
+| Finding                                                                  | Verdict                                  | Resolution                                            |
+| ------------------------------------------------------------------------ | ---------------------------------------- | ----------------------------------------------------- |
+| Compound export shape (`Sidebar*` flat named exports)                    | OK — matches CS.4 compound-first         | Keep                                                  |
+| `SidebarMobileContext` for drawer close-on-select                        | OK — typed context, not children cloning | Keep                                                  |
+| Template drift: sandbox `partitionSidebarChildren` + mobile header strip | Bug — monorepo source behind consumer    | **Shipped SB.3**                                      |
+| Nav items used Menu checked tokens (`--lex-menu-item-checked-*`)         | Wrong semantic layer for persistent nav  | **Shipped SB.11** — `--lex-sidebar-item-*`            |
+| No `SidebarProvider` / desktop collapse API                              | Missing feature (not a wrapper bug)      | **Shipped SB.5** — `SidebarProvider` + collapse modes |
+| `Select` ref asymmetry (CS.4)                                            | Unrelated to Sidebar                     | No Sidebar change                                     |
 
 ### Shipped compound tree (today)
 
 ```tsx
-<Sidebar>
-  <SidebarMobileHeader>{/* md:hidden strip — SB.3 */}</SidebarMobileHeader>
-  <SidebarHeader />
-  <SidebarContent>
-    <SidebarGroup>
-      <SidebarGroupLabel />
-      <SidebarGroupContent>
-        <SidebarList>
-          <SidebarItem>
-            <SidebarItemLink href="/" active>
-              Dashboard
-            </SidebarItemLink>
-          </SidebarItem>
-        </SidebarList>
-      </SidebarGroupContent>
-    </SidebarGroup>
-  </SidebarContent>
-  <SidebarFooter />
-  <SidebarTrigger />
-</Sidebar>
+<SidebarProvider collapsible="icon">
+  <DashboardShell>
+    <DashboardShellSidebar>
+      <Sidebar>
+        <SidebarMobileHeader>
+          {/* md:hidden strip — SB.3 */}
+        </SidebarMobileHeader>
+        <SidebarHeader>
+          PulseDesk
+          <SidebarCollapseTrigger>Toggle sidebar</SidebarCollapseTrigger>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarInput aria-label="Filter navigation" placeholder="Filter…" />
+          <SidebarGroup>
+            <SidebarGroupLabel>Main</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarList>
+                <SidebarItem>
+                  <SidebarItemLink href="/" active>
+                    Dashboard
+                  </SidebarItemLink>
+                </SidebarItem>
+              </SidebarList>
+            </SidebarGroupContent>
+          </SidebarGroup>
+          <SidebarSeparator />
+          <SidebarGroup>{/* … */}</SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter />
+        <SidebarTrigger />
+        <SidebarRail />
+      </Sidebar>
+    </DashboardShellSidebar>
+    <DashboardShellBody>
+      <DashboardShellHeader>Page title</DashboardShellHeader>
+      <DashboardShellMain>{/* page */}</DashboardShellMain>
+    </DashboardShellBody>
+  </DashboardShell>
+</SidebarProvider>
 ```
 
 Nav item active state: **variant A** — subtle background tint + left accent bar
@@ -242,16 +261,16 @@ Lexsys naming is fixed:
 **Naming rule:** row-level = `SidebarItem*`; group-level = `SidebarGroup*`; shell-level =
 `Sidebar*` / `SidebarProvider`.
 
-#### Layer 0 — context and shell (planned SB.5)
+#### Layer 0 — context and shell (SB.5 shipped)
 
-| Export                   | Role                                                                               |
-| ------------------------ | ---------------------------------------------------------------------------------- |
-| `SidebarProvider`        | `open`, `collapsed`, `setOpen`, `toggleSidebar`, `isMobile`, optional `persistKey` |
-| `useSidebar`             | Triggers outside the aside (header collapse button)                                |
-| `Sidebar`                | `side?: "left" \| "right"`, `collapsible?: "none" \| "icon" \| "offcanvas"`        |
-| `SidebarRail`            | Desktop edge affordance to expand/collapse                                         |
-| `SidebarTrigger`         | Mobile drawer open (shipped)                                                       |
-| `SidebarCollapseTrigger` | Desktop-only collapse toggle                                                       |
+| Export                   | Role                                                                       |
+| ------------------------ | -------------------------------------------------------------------------- |
+| `SidebarProvider`        | Shipped SB.5 — `open`, `collapsed`, `setOpen`, `toggleSidebar`, `isMobile` |
+| `useSidebar`             | Shipped SB.5 — triggers outside the aside (header collapse button)         |
+| `Sidebar`                | Shipped SB.5 — `side`, `collapsible` (`none` \| `icon` \| `offcanvas`)     |
+| `SidebarRail`            | Shipped SB.5 — desktop edge affordance to expand/collapse                  |
+| `SidebarTrigger`         | Shipped — mobile drawer open                                               |
+| `SidebarCollapseTrigger` | Shipped SB.5 — desktop-only collapse toggle                                |
 
 **Collapse modes:** `none` (fixed width) · `icon` (rail + hidden labels via
 `.sidebar-expandable`) · `offcanvas` (panel slides off-canvas). Animation uses
@@ -422,7 +441,7 @@ defaults, `type="search"`. Place above `SidebarList` inside `SidebarContent` (or
 | `SidebarInput` | Shipped SB.15 — inline nav search/filter |
 
 **Registry deps (sidebar block):** `badge`, `button`, `collapsible`, `drawer`,
-`input`, `scroll-area`.
+`input`, `scroll-area`, `separator`.
 
 #### Layer 7 — `side="right"` + RTL (SB.16 shipped)
 
@@ -474,6 +493,39 @@ put `SidebarGroupCollapsibleTrigger` inside `SidebarGroupLabel` (pairs with
 | `SidebarGroupCollapsible`        | Shipped SB.17 — `Collapsible` root (`variant` fixed to `plain`) |
 | `SidebarGroupCollapsibleTrigger` | Shipped SB.17 — group label row toggle + chevron                |
 | `SidebarGroupCollapsiblePanel`   | Shipped SB.17 — zero-padding panel for group body               |
+
+#### Layer 9 — section dividers (SB.10 shipped)
+
+`SidebarSeparator` wraps the `separator` primitive — horizontal inset divider
+between groups (alternative to `SidebarGroupLabel` headers). Place inside
+`SidebarContent`, `SidebarHeader`, or `SidebarFooter`.
+
+```tsx
+<SidebarContent>
+  <SidebarGroup>{/* Main */}</SidebarGroup>
+  <SidebarSeparator />
+  <SidebarGroup>{/* Account */}</SidebarGroup>
+</SidebarContent>
+```
+
+| Export             | Role                                             |
+| ------------------ | ------------------------------------------------ |
+| `SidebarSeparator` | Shipped SB.10 — inset horizontal section divider |
+
+#### DashboardShell + Sidebar (SB.10 shipped)
+
+`DashboardShell` is the installable layout template for app shells. Wrap
+`Sidebar` in `DashboardShellSidebar`; place page chrome in `DashboardShellBody`.
+Enterprise desktop collapse: wrap the shell in `SidebarProvider` and place
+`SidebarCollapseTrigger` in `SidebarHeader` (see compound tree above).
+
+| Export                  | Role                                |
+| ----------------------- | ----------------------------------- |
+| `DashboardShell`        | Root flex shell (`md:flex-row`)     |
+| `DashboardShellSidebar` | Slot for `Sidebar` block            |
+| `DashboardShellBody`    | Column for header + scrollable main |
+| `DashboardShellHeader`  | Top bar inside main column          |
+| `DashboardShellMain`    | Page content viewport               |
 
 ---
 

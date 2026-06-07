@@ -499,6 +499,7 @@ describe("validateRegistry", () => {
       "drawer",
       "input",
       "scroll-area",
+      "separator",
     ])
   })
 
