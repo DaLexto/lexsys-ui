@@ -146,18 +146,18 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 
 ## Block catalog
 
-| Block          | Status                                         | Depends on                                                        |
-| -------------- | ---------------------------------------------- | ----------------------------------------------------------------- |
-| FormField      | shipped                                        | field, input                                                      |
-| SettingsPanel  | shipped                                        | card                                                              |
-| Sidebar        | shipped (SB.\* enterprise upgrade)             | badge, button, collapsible, drawer, input, scroll-area, separator; deferred: tooltip |
-| AuthForm       | shipped                                        | card, input, button, separator                                    |
-| CommandPalette | shipped                                        | dialog, combobox, scroll-area, separator                          |
-| Empty          | shipped                                        | —                                                                 |
-| PageHeader     | shipped                                        | button, breadcrumb                                                |
-| StatsCard      | shipped                                        | card                                                              |
-| FilterToolbar  | shipped                                        | toolbar, input, button, select                                    |
-| DataTable      | shipped                                        | table, pagination                                                 |
+| Block          | Status                             | Depends on                                                                           |
+| -------------- | ---------------------------------- | ------------------------------------------------------------------------------------ |
+| FormField      | shipped                            | field, input                                                                         |
+| SettingsPanel  | shipped                            | card                                                                                 |
+| Sidebar        | shipped (SB.\* enterprise upgrade) | badge, button, collapsible, drawer, input, scroll-area, separator; deferred: tooltip |
+| AuthForm       | shipped                            | card, input, button, separator                                                       |
+| CommandPalette | shipped                            | dialog, combobox, scroll-area, separator                                             |
+| Empty          | shipped                            | —                                                                                    |
+| PageHeader     | shipped                            | button, breadcrumb                                                                   |
+| StatsCard      | shipped                            | card                                                                                 |
+| FilterToolbar  | shipped                            | toolbar, input, button, select                                                       |
+| DataTable      | shipped                            | table, pagination                                                                    |
 
 ## Sidebar block
 
@@ -743,15 +743,15 @@ Workflow: edit `packages/ui` → `pnpm registry:sync` (templates + reconciled `s
 
 ## Sequencing
 
-| Step | Work                                                      | Status                                                                           |
-| ---- | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| 1    | Layer docs + registry validators                          | shipped                                                                          |
-| 2    | Monorepo `primitives/blocks/templates` + flat CLI install | shipped                                                                          |
-| 3    | Pilot blocks + template + sandbox verify                  | shipped                                                                          |
-| 4    | Blocks/templates optimization pass (BO.1–BO.7)            | shipped                                                                          |
-| 5    | Additional blocks/templates beyond pilot set              | planned                                                                          |
-| 6    | Base UI primitive expansion (9 modules above)             | shipped                                                                          |
-| 7    | Sidebar enterprise upgrade (SB.1–SB.20)                   | shipped — [Backlog § SB](../../REVIEW_TODO.md#sb-sidebar-enterprise-upgrade)     |
+| Step | Work                                                      | Status                                                                       |
+| ---- | --------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 1    | Layer docs + registry validators                          | shipped                                                                      |
+| 2    | Monorepo `primitives/blocks/templates` + flat CLI install | shipped                                                                      |
+| 3    | Pilot blocks + template + sandbox verify                  | shipped                                                                      |
+| 4    | Blocks/templates optimization pass (BO.1–BO.7)            | shipped                                                                      |
+| 5    | Additional blocks/templates beyond pilot set              | planned                                                                      |
+| 6    | Base UI primitive expansion (9 modules above)             | shipped                                                                      |
+| 7    | Sidebar enterprise upgrade (SB.1–SB.20)                   | shipped — [Backlog § SB](../../REVIEW_TODO.md#sb-sidebar-enterprise-upgrade) |
 
 Tracked in [Backlog § UI composition](../../REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 
