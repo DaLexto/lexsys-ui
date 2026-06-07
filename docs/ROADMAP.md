@@ -2,11 +2,11 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.1` @ `latest`** stable MVP (housekeeping + release CI hotfix); **`0.0.6` @ `next`** prior preview lane; **57** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.2` @ `latest`** (Sidebar enterprise, 2026-06-07); **`0.0.6` @ `next`** prior preview lane; **57** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
-**Last reviewed:** 2026-05-30 (SB Sidebar enterprise track queued in backlog)
+**Last reviewed:** 2026-05-30 (npm `0.1.2` @ `latest`; SB Sidebar enterprise shipped)
 
 ---
 
@@ -524,7 +524,7 @@ separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.
 ## Document Ownership
 
 - `docs/ROADMAP.md` owns long-term direction after the initial platform pass and
-  monorepo optimization sequencing (M1–M10 section above).
+  monorepo optimization sequencing (M1–M12 section above).
 - `docs/reference/tokens/TOKENS.md` owns current token rules, layer definitions, and generated
   output contracts.
 - `docs/REVIEW_TODO.md` owns actionable active work and known gaps.

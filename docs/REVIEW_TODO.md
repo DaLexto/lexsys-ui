@@ -28,7 +28,7 @@ Long-term direction: [Roadmap](./ROADMAP.md). Release notes: [CHANGELOG](../CHAN
 
 **Closed waves:** 0.1.0 (A–G), SB enterprise (SB.1–SB.22), TOK.5 / TOK.7 / TOK.8 — all **shipped** on `dev`. Outcomes: [§ Shipped index](#shipped-index).
 
-**Release:** [PR #91](https://github.com/DaLexto/lexsys-ui/pull/91) (`dev` → `main`) **merged**; npm **`0.1.2`** @ **`latest`** when the Changesets **Version packages** PR lands. Post-TOK.7/8 token work may need a follow-up version bump.
+**Release:** [PR #91](https://github.com/DaLexto/lexsys-ui/pull/91) (`dev` → `main`) **merged**; npm **`0.1.2`** @ **`latest`** (2026-06-07). Post-TOK.7/8 token work may need a follow-up version bump.
 
 | Priority | ID / track        | Item                                                   | Status   | Surface                          |
 | -------- | ----------------- | ------------------------------------------------------ | -------- | -------------------------------- |
@@ -133,7 +133,7 @@ Playground dark/brand demos — deferred; consumer UX belongs in sandbox ([Roadm
 
 **Today (2026-06-07):** registry-first React UI — **57** installable items (**45** primitives, **10** blocks, **2** templates); `lexsys init` (Vite / Next.js 15.3.3), `add`, `update`, flat `paths.components` install; token platform phases **1–10** complete; `pnpm ui:audit` clean for spacing literals in variants after TOK.7.
 
-**npm:** **`0.1.1`** @ **`latest`** until Version packages publishes **`0.1.2`** (Sidebar enterprise + release train). TOK.7/TOK.8 may ship in a subsequent patch/minor.
+**npm:** **`0.1.2`** @ **`latest`** (Sidebar enterprise, 2026-06-07). TOK.7/TOK.8 may ship in a subsequent patch/minor.
 
 **Verification default:** `pnpm check` — scoped gates in [SCRIPTS.md](./operations/SCRIPTS.md). What shipped and where to verify: [§ Shipped index](#shipped-index).
 
@@ -148,7 +148,7 @@ Closed IDs — **what landed** and **where to read/run it**. Do not pick up new 
 | ID          | What shipped                                                                                                     | Detail                                                                                                                                                    | Track        |
 | ----------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | **REL.2**   | npm provenance + SBOM on publish artifacts                                                                       | [DEPLOY § Pre-release gate](./operations/DEPLOY.md#pre-release-gate)                                                                                      | A3           |
-| **M10**     | `@dalexto/lexsys@0.1.0` @ **`latest`** (2026-06-06); `0.1.1` housekeeping                                        | [CHANGELOG § 0.1.0](../CHANGELOG.md#010-2026-06-06)                                                                                                       | A4           |
+| **M10**     | `@dalexto/lexsys@0.1.2` @ **`latest`** (2026-06-07); prior `0.1.0` / `0.1.1` housekeeping                        | [CHANGELOG § 0.1.2](../CHANGELOG.md#012-2026-06-07)                                                                                                       | A4           |
 | **DX.2**    | Playwright E2E in PulseDesk — 4 scenarios, `pnpm test:e2e` pass (mobile sidebar, theme, dashboard nav)           | [TESTING § DX.2](./operations/TESTING.md#dx2-playwright-e2e-sandbox-lexsys-pulsedesk-shipped)                                                             | G2b          |
 | **DX.3**    | Fresh `@latest` smoke: `init vite` → `add button` → `build` (`smoke-010`, 2026-06-06)                            | [TESTING § DX.3](./operations/TESTING.md#dx3-fresh-install-smoke-lexsys-fresh-test-shipped)                                                               | G2a          |
 | **DX.4**    | Minimal `apps/docs` site scaffold                                                                                | [ROADMAP § DX track](./ROADMAP.md#dx-track)                                                                                                               | D1           |
@@ -173,7 +173,7 @@ Closed IDs — **what landed** and **where to read/run it**. Do not pick up new 
 | **CLI.1**   | `lexsys status --json` + M12.5 polish                                                                            | [CLI.md](./reference/cli/CLI.md)                                                                                                                          | F2 / M12.5   |
 | **BO.1–7**  | Mobile Sidebar drawer, DashboardShell responsive layout, block install smoke, render audit, FormField sandbox QA | [TESTING § Consumer sandbox](./operations/TESTING.md#consumer-sandbox-verification)                                                                       | PR #28–#30   |
 | **SB.1–22** | Enterprise Sidebar: Provider, collapse, badge, nested nav, tokens, a11y; release **0.1.2** train                 | [UI_COMPOSITION § Sidebar](./reference/ui/UI_COMPOSITION.md) + [track below](#sb-sidebar-enterprise-upgrade)                                              | step 7       |
-| **CS.1–8**  | Variant/CVA standards, compound API, `lex-` prefix, `ui-component-authoring` rule + skill                        | [ROADMAP § Component standardization](./ROADMAP.md#component-standardization-shipped) + [decisions below](#cs-component-standardization)                  | CS wave      |
+| **CS.1–8**  | Variant/CVA standards, compound API, `lex-` prefix, `ui-components.mdc` rule + `$components-authoring` skill     | [ROADMAP § Component standardization](./ROADMAP.md#component-standardization-shipped) + [decisions below](#cs-component-standardization)                  | CS wave      |
 | **M4**      | `@dalexto/lexsys` entry shim, CLI aliases, guided modes, `src/core/` layout                                      | [ROADMAP § M4](./ROADMAP.md#phase-overview)                                                                                                               | M4.1–M4.13   |
 | **M8**      | CLI dead-code removal, `--yes` wiring, install results merge, remote fetch dedupe                                | [ROADMAP § M8](./ROADMAP.md#m8-cli-cleanup-and-deduplication)                                                                                             | M8.1–M8.6    |
 | **M12**     | Command audit, help cleanup, UX optimizations, `status --json`                                                   | [ROADMAP § M12](./ROADMAP.md#m12-cli-command-optimization)                                                                                                | M12.1–M12.5  |
@@ -308,7 +308,7 @@ M8.1–M8.6 **shipped** — dead exports, `--yes`, merged install results, dedup
 ### M10 - Release readiness (shipped 2026-05-24)
 
 - First publish: `@dalexto/lexsys-cli@0.0.1` @ **`next`** (2026-05-24)
-- Stable: **`0.1.0`** @ **`latest`** (2026-06-06); **`0.1.1`** housekeeping (2026-06-06)
+- Stable: **`0.1.2`** @ **`latest`** (2026-06-07); prior **`0.1.0`** / **`0.1.1`** housekeeping (2026-06-06)
 - Detail: [CHANGELOG](../CHANGELOG.md), [ROADMAP § M10](./ROADMAP.md#m10-release-readiness)
 
 ### M12 - CLI command optimization (shipped)
