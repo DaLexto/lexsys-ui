@@ -72,7 +72,7 @@ For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, C
 
 **Fresh-test (`lexsys-fresh-test`)** — optional parallel gate for reproducible install/build confidence; not a substitute for PulseDesk UX QA.
 
-Tracked IDs: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
+Tracked IDs (outcome + runbooks): [Backlog § Shipped index — DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
 
 ### Practical workflow
 
@@ -338,7 +338,7 @@ Optional: upgrade `@playwright/test` to latest and run `pnpm exec playwright ini
 
 Complements the manual blocks/templates checklist above — does not replace PulseDesk manual QA for first-time gate.
 
-Tracked: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
+Tracked: [Backlog § Shipped index — DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
 
 ---
 

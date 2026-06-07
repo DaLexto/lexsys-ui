@@ -318,7 +318,7 @@ Parallel ladders share step names (`sm`, `md`) across groups; pixel values diffe
 
 **Sidebar item shell:** leaf rows paint one shell on `SidebarItemLink` / `SidebarItemButton`; badge and shortcut live in `SidebarItemTrailing` **inside** that shell (`ms-auto`). Disclosure parent rows use `SidebarItemRow variant="disclosure"` so the link lead (`chrome="disclosureLead"`, transparent per-cell fill) and `SidebarItemExpandTrigger variant="disclosure"` share one row background (`item.height.min` → `size.control.sm`). **Icon rail:** expanded nav icons use `item.icon.size` (`size.icon.md`, 16px); desktop icon-collapse bumps to `item.icon.sizeCollapsed` (`size.icon.lg`, 20px) via `SidebarItemIcon`.
 
-**TOK.7 (shipped):** blocks, templates, and targeted primitives consume `--lex-<component>-*` spacing slots — not raw `--lex-space-*` primitives in `*.variants.ts`. New component token files: `page-header`, `dashboard-shell`, `data-table`, `command-palette`, `stats-card`, `form-field`, `auth-form`, `settings-page-layout`; extensions to `sidebar`, `date-picker`, `toolbar`. Audit map: [REVIEW_TODO § TOK.7](../../REVIEW_TODO.md).
+**TOK.7 (shipped):** blocks, templates, and targeted primitives consume `--lex-<component>-*` spacing slots — not raw `--lex-space-*` primitives in `*.variants.ts`. New component token files: `page-header`, `dashboard-shell`, `data-table`, `command-palette`, `stats-card`, `form-field`, `auth-form`, `settings-page-layout`; extensions to `sidebar`, `date-picker`, `toolbar`. Audit map: [REVIEW_TODO § TOK.7](../../REVIEW_TODO.md#p23-tokens-shipped-tok1tok8).
 
 Density switching (`compact` / `default` / `comfortable`) is **TOK.6** — deferred until TOK.5/TOK.7 profiles are stable in consumer sandboxes.
 
@@ -343,7 +343,7 @@ primitive steps directly — use semantic or component slots.
 
 #### Target semantic → surface map (TOK.8)
 
-Canonical intent for Lexsys UI. **Wired in TOK.8** — semantic targets in `motion.ts`; component `transition.duration` slots retargeted per tier. See [REVIEW_TODO § TOK.8](../../REVIEW_TODO.md).
+Canonical intent for Lexsys UI. **Wired in TOK.8** — semantic targets in `motion.ts`; component `transition.duration` slots retargeted per tier. See [REVIEW_TODO § TOK.8](../../REVIEW_TODO.md#p23-tokens-shipped-tok1tok8).
 
 | Semantic role                      | Target primitive | Typical surfaces                                                                                                           |
 | ---------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
