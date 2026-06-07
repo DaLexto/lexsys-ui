@@ -9,6 +9,15 @@ import { disabledStateClasses } from "@/lib/utils"
 
 export const datePickerContentVariants = cva("p-0")
 
+export const datePickerInputEmbeddedClasses = (): string => {
+  return [
+    "h-(--lex-date-picker-trigger-input-embedded-height)",
+    "border-0 bg-(--lex-date-picker-trigger-input-embedded-background) shadow-none",
+    "px-(--lex-date-picker-trigger-input-embedded-padding-x)",
+    "focus-visible:border-0 focus-visible:ring-0",
+  ].join(" ")
+}
+
 export const datePickerCalendarVariants = cva(
   "flex w-(--lex-date-picker-calendar-width) flex-col gap-(--lex-date-picker-calendar-gap) rounded-(--lex-date-picker-calendar-radius) border border-(--lex-date-picker-calendar-border-color) bg-(--lex-date-picker-calendar-background) p-(--lex-date-picker-calendar-padding) text-(--lex-date-picker-calendar-foreground)",
 )

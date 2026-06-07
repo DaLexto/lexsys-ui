@@ -7,11 +7,17 @@
 export const filterToolbarClasses = (): string => {
   return [
     "lex-filter-toolbar",
-    "flex flex-wrap items-center gap-(--lex-space-2)",
-    "rounded-(--lex-radius-control)",
-    "border border-(--lex-border-default)",
-    "bg-(--lex-color-background-subtle)",
-    "p-(--lex-space-2)",
+    "flex flex-wrap items-center gap-(--lex-toolbar-root-gap)",
+    "rounded-(--lex-toolbar-radius)",
+    "border border-(--lex-toolbar-root-border-color)",
+    "bg-(--lex-toolbar-root-background)",
+    "p-(--lex-toolbar-root-padding)",
+  ].join(" ")
+}
+
+export const filterToolbarGroupClasses = (): string => {
+  return [
+    "lex-filter-toolbar__group flex flex-wrap items-center gap-(--lex-toolbar-group-gap)",
   ].join(" ")
 }
 

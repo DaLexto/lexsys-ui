@@ -138,46 +138,73 @@ export const sidebarItemClasses = (): string => {
 
 export const sidebarItemRowClasses = (): string => {
   return [
-    "lex-sidebar__item-row group/sidebar-item-row flex w-full min-h-(--lex-sidebar-item-height-min) items-stretch",
-    "has-[.lex-sidebar__item--active]:[&_.lex-sidebar__item-expand]:bg-(--lex-sidebar-item-background-active)",
+    "lex-sidebar__item-row flex w-full min-h-(--lex-sidebar-item-height-min) items-stretch",
+  ].join(" ")
+}
+
+export const sidebarItemDisclosureRowClasses = (): string => {
+  return [
+    "lex-sidebar__item-row lex-sidebar__item-row--disclosure group/sidebar-item-row",
+    "flex w-full min-h-(--lex-sidebar-item-height-min) items-stretch overflow-hidden",
+    "rounded-(--lex-sidebar-item-radius)",
+    "transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "hover:bg-(--lex-sidebar-item-background-hover)",
+    "has-[.lex-sidebar__item--active]:bg-(--lex-sidebar-item-background-active)",
+    "has-[.lex-sidebar__item--active]:text-(--lex-sidebar-item-foreground-active)",
     "has-[.lex-sidebar__item--active]:[&_.lex-sidebar__item-expand]:text-(--lex-sidebar-item-foreground-active)",
   ].join(" ")
 }
 
-export const sidebarItemAdornmentsClasses = (): string => {
+export const sidebarItemTrailingClasses = (): string => {
   return [
-    "lex-sidebar__item-adornments flex shrink-0 items-center gap-(--lex-sidebar-item-gap) self-center",
-    "pe-(--lex-sidebar-item-padding-x)",
+    "lex-sidebar__item-trailing ms-auto flex shrink-0 items-center gap-(--lex-sidebar-item-gap)",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
   ].join(" ")
+}
+
+/** @deprecated Prefer `sidebarItemTrailingClasses` inside the item shell. */
+export const sidebarItemAdornmentsClasses = (): string => {
+  return sidebarItemTrailingClasses()
 }
 
 export const sidebarNavItemRowLeadClasses = (
   active?: boolean,
   disabled?: boolean,
 ): string => {
-  return [
-    sidebarNavItemClasses(active, disabled),
-    "min-w-0 flex-1 rounded-e-none",
-  ].join(" ")
+  return sidebarNavItemDisclosureLeadClasses(active, disabled)
 }
 
-export const sidebarNavItemExpandTriggerClasses = (open = false): string => {
-  return [
+export const sidebarNavItemExpandTriggerClasses = (
+  open = false,
+  variant: "default" | "disclosure" = "default",
+): string => {
+  const classes = [
     "lex-sidebar__item-expand flex shrink-0 items-center justify-center",
     "min-h-(--lex-sidebar-item-height-min) w-(--lex-sidebar-item-height-min)",
     "rounded-(--lex-sidebar-item-radius) rounded-s-none",
     "text-(--lex-sidebar-item-foreground)",
     "transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
-    "hover:bg-(--lex-sidebar-item-background-hover) hover:text-(--lex-color-text-primary)",
     "focus-visible:outline-none focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
     "[&>svg]:size-(--lex-sidebar-item-icon-size) [&>svg]:shrink-0 [&>svg]:transition-transform",
     open ? "[&>svg]:rotate-180" : "",
-  ].join(" ")
+  ]
+
+  if (variant === "disclosure") {
+    classes.push("hover:bg-transparent")
+  } else {
+    classes.push(
+      "hover:bg-(--lex-sidebar-item-background-hover) hover:text-(--lex-color-text-primary)",
+    )
+  }
+
+  return classes.join(" ")
 }
 
 export const sidebarItemIconClasses = (): string => {
   return [
     "lex-sidebar__item-icon flex size-(--lex-sidebar-item-icon-size) shrink-0 items-center justify-center",
+    "transition-[width,height] duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "md:group-data-[collapsed=true]/sidebar:size-(--lex-sidebar-item-icon-size-collapsed)",
     "[&_svg]:size-full",
   ].join(" ")
 }
@@ -286,11 +313,8 @@ const sidebarNavItemActiveAccentClasses = (): string => {
   ].join(" ")
 }
 
-export const sidebarNavItemClasses = (
-  active?: boolean,
-  disabled?: boolean,
-): string => {
-  const base = [
+const sidebarNavItemShellBaseClasses = (): string => {
+  return [
     "lex-sidebar__item",
     "relative flex min-h-(--lex-sidebar-item-height-min) w-full min-w-0 items-center gap-(--lex-sidebar-item-gap)",
     "rounded-(--lex-sidebar-item-radius)",
@@ -300,6 +324,13 @@ export const sidebarNavItemClasses = (
     "no-underline outline-none transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
     "focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
   ].join(" ")
+}
+
+export const sidebarNavItemClasses = (
+  active?: boolean,
+  disabled?: boolean,
+): string => {
+  const base = sidebarNavItemShellBaseClasses()
 
   if (disabled) {
     return [
@@ -326,6 +357,43 @@ export const sidebarNavItemClasses = (
     base,
     "text-(--lex-sidebar-item-foreground)",
     "hover:bg-(--lex-sidebar-item-background-hover) hover:text-(--lex-color-text-primary)",
+  ].join(" ")
+}
+
+export const sidebarNavItemDisclosureLeadClasses = (
+  active?: boolean,
+  disabled?: boolean,
+): string => {
+  const base = sidebarNavItemShellBaseClasses()
+
+  if (disabled) {
+    return [
+      base,
+      disabledStateClasses,
+      "min-w-0 flex-1 rounded-e-none bg-transparent",
+      "cursor-not-allowed text-(--lex-color-text-disabled)",
+      "hover:bg-transparent hover:text-(--lex-color-text-disabled)",
+      "data-[disabled]:text-(--lex-color-text-disabled)",
+    ].join(" ")
+  }
+
+  if (active) {
+    return [
+      base,
+      "lex-sidebar__item--active",
+      "min-w-0 flex-1 rounded-e-none bg-transparent",
+      "text-(--lex-sidebar-item-foreground-active)",
+      "font-(--lex-sidebar-item-font-weight-active)",
+      sidebarNavItemActiveAccentClasses(),
+      "hover:bg-transparent hover:text-(--lex-sidebar-item-foreground-active)",
+    ].join(" ")
+  }
+
+  return [
+    base,
+    "min-w-0 flex-1 rounded-e-none bg-transparent",
+    "text-(--lex-sidebar-item-foreground)",
+    "hover:bg-transparent hover:text-(--lex-sidebar-item-foreground)",
   ].join(" ")
 }
 

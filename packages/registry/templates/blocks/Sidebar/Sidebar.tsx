@@ -61,6 +61,7 @@ import type {
   SidebarGroupActionProps,
   SidebarItemActionProps,
   SidebarItemAdornmentsProps,
+  SidebarItemTrailingProps,
   SidebarItemBadgeProps,
   SidebarItemButtonProps,
   SidebarItemExpandTriggerProps,
@@ -98,10 +99,11 @@ import {
   sidebarGroupLabelClasses,
   sidebarGroupClasses,
   sidebarItemActionClasses,
-  sidebarItemAdornmentsClasses,
   sidebarItemBadgeClasses,
+  sidebarItemDisclosureRowClasses,
   sidebarItemIconClasses,
   sidebarItemRowClasses,
+  sidebarItemTrailingClasses,
   sidebarItemShortcutClasses,
   sidebarNavItemExpandTriggerClasses,
   sidebarItemBadgeCollapsedClasses,
@@ -116,6 +118,7 @@ import {
   sidebarMainClasses,
   sidebarMobileHeaderClasses,
   sidebarNavItemClasses,
+  sidebarNavItemDisclosureLeadClasses,
   sidebarNavListClasses,
   sidebarNavClasses,
   sidebarSubListClasses,
@@ -889,6 +892,7 @@ const SidebarItemLink = ({
   ref,
   active,
   disabled,
+  chrome = "default",
   className,
   children,
   onClick,
@@ -898,7 +902,9 @@ const SidebarItemLink = ({
   const inheritedDisabled = useSidebarItemDisabled()
   const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
   const linkClassName = cn(
-    sidebarNavItemClasses(active, isDisabled),
+    chrome === "disclosureLead"
+      ? sidebarNavItemDisclosureLeadClasses(active, isDisabled)
+      : sidebarNavItemClasses(active, isDisabled),
     sidebarCollapsedItemClasses(),
     className,
   )
@@ -1085,6 +1091,7 @@ SidebarItemIcon.displayName = "SidebarItemIcon"
 
 const SidebarItemRow = ({
   ref,
+  variant = "default",
   className,
   children,
   ...props
@@ -1092,7 +1099,12 @@ const SidebarItemRow = ({
   return (
     <div
       ref={ref}
-      className={cn(sidebarItemRowClasses(), className)}
+      className={cn(
+        variant === "disclosure"
+          ? sidebarItemDisclosureRowClasses()
+          : sidebarItemRowClasses(),
+        className,
+      )}
       {...props}
     >
       {children}
@@ -1102,16 +1114,16 @@ const SidebarItemRow = ({
 
 SidebarItemRow.displayName = "SidebarItemRow"
 
-const SidebarItemAdornments = ({
+const SidebarItemTrailing = ({
   ref,
   className,
   children,
   ...props
-}: SidebarItemAdornmentsProps) => {
+}: SidebarItemTrailingProps) => {
   return (
     <div
       ref={ref}
-      className={cn(sidebarItemAdornmentsClasses(), className)}
+      className={cn(sidebarItemTrailingClasses(), className)}
       {...props}
     >
       {children}
@@ -1119,10 +1131,27 @@ const SidebarItemAdornments = ({
   )
 }
 
+SidebarItemTrailing.displayName = "SidebarItemTrailing"
+
+/** @deprecated Use `SidebarItemTrailing` inside the item shell. */
+const SidebarItemAdornments = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemAdornmentsProps) => {
+  return (
+    <SidebarItemTrailing ref={ref} className={className} {...props}>
+      {children}
+    </SidebarItemTrailing>
+  )
+}
+
 SidebarItemAdornments.displayName = "SidebarItemAdornments"
 
 const SidebarItemExpandTrigger = ({
   ref,
+  variant = "default",
   className,
   open = false,
   children,
@@ -1133,7 +1162,10 @@ const SidebarItemExpandTrigger = ({
     <button
       ref={ref}
       type={type}
-      className={cn(sidebarNavItemExpandTriggerClasses(open), className)}
+      className={cn(
+        sidebarNavItemExpandTriggerClasses(open, variant),
+        className,
+      )}
       {...props}
     >
       {children ?? <ChevronDown aria-hidden />}
@@ -1337,6 +1369,7 @@ export {
   SidebarItemBadge,
   SidebarItemIcon,
   SidebarItemRow,
+  SidebarItemTrailing,
   SidebarItemAdornments,
   SidebarItemExpandTrigger,
   SidebarItemAction,
@@ -1356,7 +1389,10 @@ export {
 export type { SidebarNavActiveOptions } from "./Sidebar.types.js"
 export {
   sidebarItemRowClasses,
+  sidebarItemDisclosureRowClasses,
+  sidebarItemTrailingClasses,
   sidebarItemAdornmentsClasses,
   sidebarNavItemRowLeadClasses,
+  sidebarNavItemDisclosureLeadClasses,
   sidebarNavItemExpandTriggerClasses,
 } from "./Sidebar.variants.js"
