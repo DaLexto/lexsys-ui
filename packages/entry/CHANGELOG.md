@@ -1,5 +1,14 @@
 # lexsys
 
+## 0.1.3
+
+### Patch Changes
+
+- [#108](https://github.com/DaLexto/lexsys-ui/pull/108) [`c66a436`](https://github.com/DaLexto/lexsys-ui/commit/c66a43636b035c667b747136f3a35a34be0984c8) Thanks [@itsalexdev](https://github.com/itsalexdev)! - TOK.7 and TOK.8 token harmonization: component token slots across blocks and templates, spacing literal removal from install variants, motion duration tier retune (`surface` 250ms, `overlayEnter` / `layout` 350ms), and regenerated `tokens.css` / `theme.css`. Consumers should run `lexsys update --sync --styles` (and `lexsys update` on affected blocks) to pick up template and CSS changes.
+
+- Updated dependencies [[`c66a436`](https://github.com/DaLexto/lexsys-ui/commit/c66a43636b035c667b747136f3a35a34be0984c8)]:
+  - @dalexto/lexsys-cli@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
