@@ -4,10 +4,10 @@ export const motionSemantics = semanticTokens("motion", {
   duration: {
     $type: "duration",
     control: { $value: "{motion.duration.fast}" },
-    surface: { $value: "{motion.duration.fast}" },
-    overlayEnter: { $value: "{motion.duration.normal}" },
+    surface: { $value: "{motion.duration.normal}" },
+    overlayEnter: { $value: "{motion.duration.slow}" },
     overlayExit: { $value: "{motion.duration.fast}" },
-    layout: { $value: "{motion.duration.normal}" },
+    layout: { $value: "{motion.duration.slow}" },
   },
   easing: {
     $type: "cubicBezier",

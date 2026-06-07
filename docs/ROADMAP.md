@@ -124,6 +124,7 @@ Summary only — do not duplicate detail here.
 - **TOK.3** — `size.icon` semantic scale (`xs`–`xl`); decorative component `icon.size` slots migrated off `selectionControl`; Sidebar group chevron uses `--lex-sidebar-item-icon-size`
 - **TOK.5** — control rhythm harmonization (shipped): Sidebar `nav`/`list`/`group`/`separator` component slots wired to `spacing.control.*`; item padding `x.md` / `y.sm`, intra-row `control.gap.md`; variants stop hardcoding `--lex-space-1`/`--lex-space-2` for list rhythm
 - **TOK.7** — control-zone harmonization (shipped): blocks/templates/primitives migrate `--lex-space-*` hardcodes to component token slots (`page-header`, `dashboard-shell`, `data-table`, `command-palette`, `stats-card`, `form-field`, `auth-form`, `settings-page-layout`, plus `sidebar`/`date-picker`/`toolbar` extensions); `pnpm ui:audit` clean for spacing literals in variants
+- **TOK.8** — motion semantic harmonization (shipped): `surface` → `normal` (250ms), `overlayEnter`/`layout` → `slow` (350ms); dropdown/surface primitives on `motion.duration.surface`; Drawer/Dialog/AlertDialog on `overlayEnter` + `easeIn`; Sidebar on `layout`
 
 **Deferred (explicit non-goals for now):**
 

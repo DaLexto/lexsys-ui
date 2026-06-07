@@ -73,7 +73,7 @@ export const autocompleteComponentTokens = componentTokens("autocomplete", {
     ringWidth: { $value: "{outline.width.focus}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
+    duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
 })
