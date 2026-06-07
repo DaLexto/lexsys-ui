@@ -59,6 +59,7 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     icon: {
       $type: "dimension",
       size: { $value: "{size.icon.md}" },
+      sizeCollapsed: { $value: "{size.icon.lg}" },
     },
     badge: {
       $type: "dimension",

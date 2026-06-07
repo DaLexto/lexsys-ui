@@ -65,4 +65,16 @@ export const datePickerComponentTokens = componentTokens("date-picker", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
+  trigger: {
+    input: {
+      embedded: {
+        height: { $value: "{size.control.sm}" },
+        background: { $value: "transparent" },
+        padding: {
+          $type: "dimension",
+          x: { $value: "{spacing.control.x.sm}" },
+        },
+      },
+    },
+  },
 })

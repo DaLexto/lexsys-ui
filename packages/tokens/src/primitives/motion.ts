@@ -32,10 +32,9 @@ export const motionPrimitives = primitiveTokens("motion", {
     $description: "Raw duration scale for UI transitions and animations.",
 
     instant: { $value: { value: 0, unit: "ms" } },
-    fastest: { $value: { value: 100, unit: "ms" } },
     fast: { $value: { value: 150, unit: "ms" } },
-    normal: { $value: { value: 200, unit: "ms" } },
-    slow: { $value: { value: 300, unit: "ms" } },
+    normal: { $value: { value: 250, unit: "ms" } },
+    slow: { $value: { value: 350, unit: "ms" } },
     slower: { $value: { value: 500, unit: "ms" } },
   },
 
