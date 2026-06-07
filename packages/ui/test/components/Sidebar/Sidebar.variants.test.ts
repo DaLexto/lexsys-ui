@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest"
 import {
+  sidebarBrandClasses,
+  sidebarFooterClasses,
   sidebarGroupClasses,
   sidebarGroupContentClasses,
+  sidebarGroupLabelClasses,
+  sidebarMobileBarClasses,
   sidebarItemDisclosureRowClasses,
   sidebarItemIconClasses,
   sidebarItemRowClasses,
@@ -29,6 +33,29 @@ describe("Sidebar variants", () => {
     expect(sidebarSeparatorClasses()).toContain(
       `my-(--${p}-sidebar-separator-margin-y)`,
     )
+    expect(sidebarSeparatorClasses()).toContain(
+      `mx-(--${p}-sidebar-separator-margin-x)`,
+    )
+  })
+
+  it("uses token-backed brand, footer, mobile bar, and group label shell slots", () => {
+    expect(sidebarBrandClasses()).toContain(
+      `px-(--${p}-sidebar-brand-padding-x)`,
+    )
+    expect(sidebarBrandClasses()).toContain(
+      `border-(--${p}-sidebar-brand-border-color)`,
+    )
+    expect(sidebarFooterClasses()).toContain(
+      `p-(--${p}-sidebar-footer-padding)`,
+    )
+    expect(sidebarMobileBarClasses()).toContain(
+      `gap-(--${p}-sidebar-mobile-bar-gap)`,
+    )
+    expect(sidebarMobileBarClasses()).not.toContain(`--${p}-space-`)
+    expect(sidebarGroupLabelClasses()).toContain(
+      `gap-(--${p}-sidebar-group-label-gap)`,
+    )
+    expect(sidebarGroupLabelClasses()).not.toContain(`--${p}-space-`)
   })
 
   it("uses token-backed item padding, min-height, and intra-row gap", () => {

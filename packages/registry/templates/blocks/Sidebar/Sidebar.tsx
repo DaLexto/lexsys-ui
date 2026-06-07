@@ -116,6 +116,7 @@ import {
   sidebarInputClasses,
   sidebarSeparatorClasses,
   sidebarMainClasses,
+  sidebarMobileBarClasses,
   sidebarMobileHeaderClasses,
   sidebarNavItemClasses,
   sidebarNavItemDisclosureLeadClasses,
@@ -472,7 +473,7 @@ const Sidebar = ({
         swipeDirection={side === "right" ? "right" : "left"}
       >
         {mobileHeader.length > 0 ? (
-          <div className="flex items-center gap-3 border-b border-[var(--lex-border-default)] bg-[var(--lex-color-background-base)] px-[var(--lex-space-4)] py-[var(--lex-space-3)] md:hidden">
+          <div className={cn(sidebarMobileBarClasses(), "md:hidden")}>
             {mobileHeader}
           </div>
         ) : null}
@@ -1392,6 +1393,7 @@ export {
   sidebarItemDisclosureRowClasses,
   sidebarItemTrailingClasses,
   sidebarItemAdornmentsClasses,
+  sidebarMobileBarClasses,
   sidebarNavItemRowLeadClasses,
   sidebarNavItemDisclosureLeadClasses,
   sidebarNavItemExpandTriggerClasses,
