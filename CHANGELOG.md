@@ -17,6 +17,18 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+### Changed
+
+- **Tokens (TOK.7)** — component token slots for Sidebar, PageHeader, DashboardShell, DataTable, CommandPalette, StatsCard, FormField, AuthForm, SettingsPageLayout, DatePicker, FilterToolbar, and Toolbar; spacing literals removed from install `*.variants.ts` in favor of `--lex-*` references
+- **Tokens (TOK.8)** — motion duration tiers retuned (`surface` → 250ms, `overlayEnter` / `layout` → 350ms); overlay primitives wired to semantic motion tokens in generated CSS
+- **Registry templates** — harmonized block and template install output for the components above; Sidebar shell-first row layout and control-rhythm polish (TOK.5)
+
+### Notes
+
+- No CLI command, config shape, or registry item ID changes — patch release on the `0.1.x` line
+- Monorepo reference only: `@dalexto/lexsys-ui` and `@dalexto/lexsys-tokens` are not published; changes ship via registry templates and installed styles
+- After publish: run `lexsys update --sync --styles` in consumer projects; update affected blocks (e.g. `sidebar`, `dashboard-shell`) as needed
+
 ---
 
 ## [0.1.2] - 2026-06-07
