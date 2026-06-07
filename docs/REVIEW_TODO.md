@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-05-30 (`0.1.1` @ `latest`; SB Sidebar enterprise upgrade queued)
+**Last reviewed:** 2026-06-07 (`0.1.2` release prep on `feat/sb-sidebar-enterprise`; SB wave shipped)
 
 ---
 
@@ -37,7 +37,7 @@ that are not yet done.
 
 **Historical:** M1–M12, R0, M10 first publish, **0.1.0 wave (A–F + REL)** — [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization), [§ 0.1.0 roadmap](./ROADMAP.md#010-roadmap). All **shipped**.
 
-**Current focus — post-0.1.1:** [§ SB — Sidebar enterprise upgrade](#sb-sidebar-enterprise-upgrade) (PulseDesk sandbox QA); deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps). PLAYGROUND automation (G2a–G2b) **shipped**.
+**Current focus — post-0.1.2 prep:** merge `feat/sb-sidebar-enterprise` → `dev`, then Changesets Version Packages PR → `main` for npm **`0.1.2`** @ **`latest`**. SB wave **shipped**; deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
 
 | Phase          | Focus                                      | Status                                                                        |
 | -------------- | ------------------------------------------ | ----------------------------------------------------------------------------- |
@@ -326,7 +326,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 | SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                             | SB.9               | shipped |
 | SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                   | SB.5–SB.17         | shipped |
 | SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                 | SB.6               | shipped |
-| SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`    | SB.10              | planned |
+| SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`    | SB.10              | shipped |
 
 **Pick-up order:** SB.1 → SB.2 → SB.3 → SB.4 → SB.18 → SB.19 → SB.11 → SB.5 → SB.7 → SB.8 → SB.9 → SB.12 → SB.13 → SB.14 → SB.15 → SB.16 → SB.17 → SB.6 → SB.10 → **SB.20**.
 

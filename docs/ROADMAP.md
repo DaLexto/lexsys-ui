@@ -564,7 +564,7 @@ Canonical mapping, composition rules, folder layout, and CLI contract:
 | 4    | Blocks/templates optimization (BO.1–BO.7)                                                                                                             | **shipped**                                                                       |
 | 5    | Admin catalog — Pagination, Breadcrumb, DatePicker, PageHeader, StatsCard, FilterToolbar, DataTable, SettingsPageLayout, Combobox wiring (UC.8–UC.16) | **shipped** — [Backlog § P2.1](./REVIEW_TODO.md#p21-ui-catalog-expansion-uc8uc16) |
 | 6    | Base UI primitive expansion (Autocomplete … PreviewCard)                                                                                              | **shipped** (#30)                                                                 |
-| 7    | Sidebar enterprise — collapse, `SidebarItemBadge`, NavItem tokens, global slide motion semantics, nested nav; release **0.1.2** (SB.1–SB.20)          | **planned** — [Backlog § SB](./REVIEW_TODO.md#sb-sidebar-enterprise-upgrade)      |
+| 7    | Sidebar enterprise — collapse, `SidebarItemBadge`, NavItem tokens, global slide motion semantics, nested nav; release **0.1.2** (SB.1–SB.20)          | **shipped** — [Backlog § SB](./REVIEW_TODO.md#sb-sidebar-enterprise-upgrade)      |
 
 **Optimization context:** Consumer sandbox QA (PulseDesk) found mobile Sidebar nav
 layout issues and invalidated “primitives-ready → blocks-ready” without integration
