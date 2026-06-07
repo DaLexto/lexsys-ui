@@ -81,19 +81,19 @@ Presets are configuration. They are not a layer in this chain.
 - Semantic tokens must represent reusable product meaning. One-off visual decisions belong in component tokens.
 - Organized by top-level group. **11 active groups:**
 
-  | Group        | Role                                                                                                                 |
-  | ------------ | -------------------------------------------------------------------------------------------------------------------- |
-  | `color`      | Nested surface/text/feedback roles: `background.*`, `text.*`, `feedback.*`                                           |
-  | `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                              |
-  | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                                                  |
-  | `elevation`  | Overlay stacking and shadow roles: `behind`, `backdrop`, `handle`, `layer`, `floating`, `toast`, `tooltip`, `shadow` |
-  | `motion`     | Duration, easing, and entry offset roles: `control`, `surface`, `offset.entry.*`                                     |
-  | `radius`     | Border-radius roles: `control`, `selection`, `surface`, `pill`                                                       |
-  | `size`       | Reusable sizing roles: `control`, `selectionControl`, `icon`, `area`, `panel`, `overlay.*`                           |
-  | `spacing`    | Spacing roles: `control.*`, `surface.*`, `overlay.sideOffset`                                                        |
-  | `typography` | Font family, body, label, heading, code composite roles                                                              |
-  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                                               |
-  | `layout`     | Viewport (`sm`–`2xl`, `full`) and `aspectRatio` roles                                                                |
+  | Group        | Role                                                                                                                                                                                                                     |
+  | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+  | `color`      | Nested surface/text/feedback roles: `background.*`, `text.*`, `feedback.*`                                                                                                                                               |
+  | `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                                                                  |
+  | `border`     | Reusable border color roles: `default`, `strong`, `focus`, `accent`                                                                                                                                                      |
+  | `elevation`  | Overlay stacking and shadow roles: `behind`, `backdrop`, `handle`, `layer`, `floating`, `toast`, `tooltip`, `shadow`                                                                                                     |
+  | `motion`     | Duration, easing, and entry offset roles: `control`, `surface`, `overlayEnter`, `overlayExit`, `layout`, `offset.entry.*` — tier map in [DESIGN_SYSTEM § Motion rhythm](./DESIGN_SYSTEM.md#motion-rhythm-duration-tiers) |
+  | `radius`     | Border-radius roles: `control`, `selection`, `surface`, `pill`                                                                                                                                                           |
+  | `size`       | Reusable sizing roles: `control`, `selectionControl`, `icon`, `area`, `panel`, `overlay.*`                                                                                                                               |
+  | `spacing`    | Spacing roles: `control.*`, `surface.*`, `overlay.sideOffset`                                                                                                                                                            |
+  | `typography` | Font family, body, label, heading, code composite roles                                                                                                                                                                  |
+  | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                                                                                                                                                   |
+  | `layout`     | Viewport (`sm`–`2xl`, `full`) and `aspectRatio` roles                                                                                                                                                                    |
 
 - `color`, `action`, `border`, `elevation`, `outline`, and `layout` are separate top-level groups. Do not document them as `color.action.*`, `color.border.*`, or nested elevation under `color`.
 - `outline.*` supplies component `focus.ringWidth` / `focus.ringOffset` decisions. Do not hardcode Tailwind `ring-2` / `ring-offset-2` in component variants.
@@ -132,7 +132,7 @@ Generated CSS uses `--lex-size-overlay-*`, `--lex-space-overlay-side-offset` (sp
 - MUST NOT reference other component token namespaces.
 - Scoped to one component. Use one token file per component.
 - Component tokens describe slot/property decisions, not global product meaning.
-- Namespaced by component name in the merged token tree (e.g. `button.*`, `badge.*`, `sidebar.*` — see `packages/tokens/src/components/sidebar.ts` for nav shell width, item chrome, and motion aliases).
+- Namespaced by component name in the merged token tree (e.g. `button.*`, `badge.*`, `sidebar.*` — see `packages/tokens/src/components/sidebar.ts` for nav shell width, list/group rhythm slots (`nav`, `list`, `group`, `separator`), item row min-height/adornment slots, item chrome, and motion aliases).
 
 ### Themes
 

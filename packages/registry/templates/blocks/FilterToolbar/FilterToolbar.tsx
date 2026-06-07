@@ -23,6 +23,7 @@ import type {
 } from "./FilterToolbar.types"
 import {
   filterToolbarClasses,
+  filterToolbarGroupClasses,
   filterToolbarSearchClasses,
   filterToolbarSelectTriggerClasses,
 } from "./FilterToolbar.variants"
@@ -51,7 +52,13 @@ const FilterToolbarGroup = ({
   className,
   ...props
 }: FilterToolbarGroupProps) => {
-  return <ToolbarGroup ref={ref} className={className} {...props} />
+  return (
+    <ToolbarGroup
+      ref={ref}
+      className={cn(filterToolbarGroupClasses(), className)}
+      {...props}
+    />
+  )
 }
 
 FilterToolbarGroup.displayName = "FilterToolbarGroup"

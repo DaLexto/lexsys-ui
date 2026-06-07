@@ -132,6 +132,11 @@ export interface SidebarItemLinkProps extends AnchorHTMLAttributes<HTMLAnchorEle
   ref?: Ref<HTMLAnchorElement>
   active?: boolean
   disabled?: boolean
+  /**
+   * Background chrome owner. `disclosureLead` defers hover/active fill to
+   * `SidebarItemRow variant="disclosure"`.
+   */
+  chrome?: "default" | "disclosureLead"
   className?: string
   children?: ReactNode
 }
@@ -190,6 +195,31 @@ export interface SidebarItemBadgeProps extends BadgeProps {
    * Defaults to dot when the sidebar is icon-collapsed on desktop.
    */
   dot?: boolean
+}
+
+export interface SidebarItemRowProps extends HTMLAttributes<HTMLDivElement> {
+  ref?: Ref<HTMLDivElement>
+  /** `disclosure` paints one shared row shell for link lead + expand trigger. */
+  variant?: "default" | "disclosure"
+  className?: string
+  children?: ReactNode
+}
+
+export interface SidebarItemTrailingProps extends HTMLAttributes<HTMLDivElement> {
+  ref?: Ref<HTMLDivElement>
+  className?: string
+  children?: ReactNode
+}
+
+/** @deprecated Place `SidebarItemTrailing` inside `SidebarItemLink` / `SidebarItemButton`. */
+export type SidebarItemAdornmentsProps = SidebarItemTrailingProps
+
+export interface SidebarItemExpandTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: Ref<HTMLButtonElement>
+  /** `disclosure` suppresses per-cell hover fill — row shell owns chrome. */
+  variant?: "default" | "disclosure"
+  className?: string
+  open?: boolean
 }
 
 export interface SidebarItemIconProps extends HTMLAttributes<HTMLSpanElement> {

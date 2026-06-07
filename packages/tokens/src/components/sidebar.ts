@@ -10,15 +10,35 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     duration: { $value: "{motion.duration.layout}" },
     easing: { $value: "{motion.easing.layout}" },
   },
+  nav: {
+    padding: { $value: "{spacing.control.x.sm}" },
+  },
+  list: {
+    gap: { $value: "{spacing.control.gap.md}" },
+  },
+  group: {
+    gap: { $value: "{spacing.control.gap.md}" },
+  },
+  separator: {
+    marginY: { $value: "{spacing.control.gap.md}" },
+  },
   item: {
     foreground: { $value: "{color.text.secondary}" },
     foregroundActive: { $value: "{color.text.primary}" },
-    gap: { $value: "{spacing.control.gap.sm}" },
+    gap: { $value: "{spacing.control.gap.md}" },
+    height: {
+      $type: "dimension",
+      min: { $value: "{size.control.sm}" },
+    },
+    adornment: {
+      $type: "dimension",
+      height: { $value: "{size.control.xs}" },
+    },
     radius: { $value: "{radius.control}" },
     padding: {
       $type: "dimension",
-      x: { $value: "{spacing.control.x.sm}" },
-      y: { $value: "{spacing.control.y.xs}" },
+      x: { $value: "{spacing.control.x.md}" },
+      y: { $value: "{spacing.control.y.sm}" },
     },
     font: {
       size: { $value: "{typography.control.sm.fontSize}" },
@@ -39,6 +59,7 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     icon: {
       $type: "dimension",
       size: { $value: "{size.icon.md}" },
+      sizeCollapsed: { $value: "{size.icon.lg}" },
     },
     badge: {
       $type: "dimension",
@@ -50,10 +71,8 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     },
     focus: {
       ring: {
-        width: { $value: "{outline.width.focus}" },
+        width: { $value: "{outline.width.inset}" },
         color: { $value: "{border.focus}" },
-        offset: { $value: "{outline.offset.focus}" },
-        offsetColor: { $value: "{color.background.base}" },
       },
     },
   },

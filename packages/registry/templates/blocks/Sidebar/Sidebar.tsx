@@ -60,9 +60,13 @@ import type {
   SidebarHeaderProps,
   SidebarGroupActionProps,
   SidebarItemActionProps,
+  SidebarItemAdornmentsProps,
+  SidebarItemTrailingProps,
   SidebarItemBadgeProps,
   SidebarItemButtonProps,
+  SidebarItemExpandTriggerProps,
   SidebarItemIconProps,
+  SidebarItemRowProps,
   SidebarItemLinkProps,
   SidebarItemProps,
   SidebarItemShortcutProps,
@@ -96,8 +100,12 @@ import {
   sidebarGroupClasses,
   sidebarItemActionClasses,
   sidebarItemBadgeClasses,
+  sidebarItemDisclosureRowClasses,
   sidebarItemIconClasses,
+  sidebarItemRowClasses,
+  sidebarItemTrailingClasses,
   sidebarItemShortcutClasses,
+  sidebarNavItemExpandTriggerClasses,
   sidebarItemBadgeCollapsedClasses,
   sidebarItemBadgeDotClasses,
   sidebarItemBadgeLabelClasses,
@@ -110,6 +118,7 @@ import {
   sidebarMainClasses,
   sidebarMobileHeaderClasses,
   sidebarNavItemClasses,
+  sidebarNavItemDisclosureLeadClasses,
   sidebarNavListClasses,
   sidebarNavClasses,
   sidebarSubListClasses,
@@ -883,6 +892,7 @@ const SidebarItemLink = ({
   ref,
   active,
   disabled,
+  chrome = "default",
   className,
   children,
   onClick,
@@ -892,7 +902,9 @@ const SidebarItemLink = ({
   const inheritedDisabled = useSidebarItemDisabled()
   const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
   const linkClassName = cn(
-    sidebarNavItemClasses(active, isDisabled),
+    chrome === "disclosureLead"
+      ? sidebarNavItemDisclosureLeadClasses(active, isDisabled)
+      : sidebarNavItemClasses(active, isDisabled),
     sidebarCollapsedItemClasses(),
     className,
   )
@@ -1076,6 +1088,92 @@ const SidebarItemIcon = ({
 }
 
 SidebarItemIcon.displayName = "SidebarItemIcon"
+
+const SidebarItemRow = ({
+  ref,
+  variant = "default",
+  className,
+  children,
+  ...props
+}: SidebarItemRowProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        variant === "disclosure"
+          ? sidebarItemDisclosureRowClasses()
+          : sidebarItemRowClasses(),
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+SidebarItemRow.displayName = "SidebarItemRow"
+
+const SidebarItemTrailing = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemTrailingProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(sidebarItemTrailingClasses(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+SidebarItemTrailing.displayName = "SidebarItemTrailing"
+
+/** @deprecated Use `SidebarItemTrailing` inside the item shell. */
+const SidebarItemAdornments = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemAdornmentsProps) => {
+  return (
+    <SidebarItemTrailing ref={ref} className={className} {...props}>
+      {children}
+    </SidebarItemTrailing>
+  )
+}
+
+SidebarItemAdornments.displayName = "SidebarItemAdornments"
+
+const SidebarItemExpandTrigger = ({
+  ref,
+  variant = "default",
+  className,
+  open = false,
+  children,
+  type = "button",
+  ...props
+}: SidebarItemExpandTriggerProps) => {
+  return (
+    <button
+      ref={ref}
+      type={type}
+      className={cn(
+        sidebarNavItemExpandTriggerClasses(open, variant),
+        className,
+      )}
+      {...props}
+    >
+      {children ?? <ChevronDown aria-hidden />}
+    </button>
+  )
+}
+
+SidebarItemExpandTrigger.displayName = "SidebarItemExpandTrigger"
 
 const SidebarItemAction = ({
   ref,
@@ -1270,6 +1368,10 @@ export {
   SidebarItemSkeleton,
   SidebarItemBadge,
   SidebarItemIcon,
+  SidebarItemRow,
+  SidebarItemTrailing,
+  SidebarItemAdornments,
+  SidebarItemExpandTrigger,
   SidebarItemAction,
   SidebarItemShortcut,
   SidebarGroupAction,
@@ -1285,3 +1387,12 @@ export {
 }
 
 export type { SidebarNavActiveOptions } from "./Sidebar.types.js"
+export {
+  sidebarItemRowClasses,
+  sidebarItemDisclosureRowClasses,
+  sidebarItemTrailingClasses,
+  sidebarItemAdornmentsClasses,
+  sidebarNavItemRowLeadClasses,
+  sidebarNavItemDisclosureLeadClasses,
+  sidebarNavItemExpandTriggerClasses,
+} from "./Sidebar.variants.js"

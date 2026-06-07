@@ -122,8 +122,11 @@ Summary only — do not duplicate detail here.
 **Recently shipped (token semantics):**
 
 - **TOK.3** — `size.icon` semantic scale (`xs`–`xl`); decorative component `icon.size` slots migrated off `selectionControl`; Sidebar group chevron uses `--lex-sidebar-item-icon-size`
+- **TOK.5** — control rhythm harmonization (active): Sidebar `nav`/`list`/`group`/`separator` component slots wired to `spacing.control.*`; item padding `x.md` / `y.sm`, intra-row `control.gap.md`; variants stop hardcoding `--lex-space-1`/`--lex-space-2` for list rhythm
 
 **Deferred (explicit non-goals for now):**
+
+- **TOK.6** — density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders; deferred until TOK.5 profile is stable
 
 - DTCG composite object `$value` authoring on single leaves (deferred engine phase; branch+slot is current)
 - AST expression evaluator and color/unit math (requires new subsystem — see RESOLVER_EVOLUTION)
