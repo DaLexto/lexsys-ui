@@ -13,7 +13,7 @@ import type {
   PaginationNextProps,
   PaginationPreviousProps,
   PaginationProps,
-} from "@/components/primitives/Pagination"
+} from "@/components/primitives/Pagination/Pagination.types"
 import type {
   TableBodyProps,
   TableCaptionProps,
@@ -23,7 +23,7 @@ import type {
   TableHeaderProps,
   TableProps,
   TableRowProps,
-} from "@/components/primitives/Table"
+} from "@/components/primitives/Table/Table.types"
 
 export interface DataTableProps extends HTMLAttributes<HTMLDivElement> {
   ref?: Ref<HTMLDivElement>

@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-06-06 (0.1.0 @ `latest` shipped)
+**Last reviewed:** 2026-06-07 (SB wave shipped on `dev`; **0.1.2** release train — PR #91 → Version packages)
 
 ---
 
@@ -19,6 +19,7 @@
 - [P2 - Product and DX](#p2-product-and-dx)
   - [UI composition (primitives / blocks / templates)](#ui-composition-primitives-blocks-templates)
   - [Blocks / templates optimization backlog](#blocks-templates-optimization-backlog)
+  - [SB - Sidebar enterprise upgrade](#sb-sidebar-enterprise-upgrade)
   - [CS - Component Standardization](#cs-component-standardization)
 - [P3 - Architecture Planning](#p3-architecture-planning)
 - [M12 - CLI command optimization (shipped)](#m12-cli-command-optimization-shipped)
@@ -36,16 +37,16 @@ that are not yet done.
 
 **Historical:** M1–M12, R0, M10 first publish, **0.1.0 wave (A–F + REL)** — [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization), [§ 0.1.0 roadmap](./ROADMAP.md#010-roadmap). All **shipped**.
 
-**Current focus — post-0.1.0:** PLAYGROUND automation (DX.2 Playwright) and deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
+**Current focus — 0.1.2 release train:** merge [PR #91](https://github.com/DaLexto/lexsys-ui/pull/91) (`dev` → `main`), then merge Changesets **Version packages** PR for npm **`0.1.2`** @ **`latest`**. SB wave **shipped**; deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
 
-| Phase          | Focus                                      | Status                                           |
-| -------------- | ------------------------------------------ | ------------------------------------------------ |
-| **REL**        | 0.1.0 release gate (PR A1–A4)              | **shipped** (2026-06-06)                         |
-| **UC+**        | Admin catalog expansion (PR B1–C6)         | **shipped**                                      |
-| **DX**         | `apps/docs` + `docs:lint` (PR D1–D2)       | **shipped**                                      |
-| **TOK**        | Token hardening (PR E1–E2)                 | **shipped**                                      |
-| **SEC+CLI**    | Registry trust + M12.5 (PR F1–F2)          | **shipped**                                      |
-| **PLAYGROUND** | fresh-test smoke + PulseDesk E2E (G2a–G2b) | **active** — G2a shipped; G2b Playwright planned |
+| Phase          | Focus                                      | Status                                                                        |
+| -------------- | ------------------------------------------ | ----------------------------------------------------------------------------- |
+| **REL**        | 0.1.0 release gate (PR A1–A4)              | **shipped** (2026-06-06)                                                      |
+| **UC+**        | Admin catalog expansion (PR B1–C6)         | **shipped**                                                                   |
+| **DX**         | `apps/docs` + `docs:lint` (PR D1–D2)       | **shipped**                                                                   |
+| **TOK**        | Token hardening (PR E1–E2)                 | **shipped**                                                                   |
+| **SEC+CLI**    | Registry trust + M12.5 (PR F1–F2)          | **shipped**                                                                   |
+| **PLAYGROUND** | fresh-test smoke + PulseDesk E2E (G2a–G2b) | **shipped** — G2a fresh smoke; G2b Playwright E2E (`pnpm test:e2e`, 4/4 pass) |
 
 ---
 
@@ -69,13 +70,13 @@ Sorted PR order for the full improvement roadmap. Update **Status** column as ea
 | 11    | C5     | UC.15         | CommandPalette → Combobox wiring        | block edit                            | shipped  |
 | 12    | C6     | UC.16         | SettingsPageLayout template             | template (deps UC.11)                 | shipped  |
 | 13    | D1     | DX.4          | `apps/docs` minimal site                | apps/docs                             | shipped  |
-| 14    | D2     | DX.5          | `docs:lint` automation                  | root script + optional CI             | shipped  |
+| 14    | D2     | DX.5          | `docs:lint` automation                  | root script + CI (`changes` job)      | shipped  |
 | 15    | E1     | TOK.1         | Dedicated tokens (9 aliased primitives) | packages/tokens                       | shipped  |
 | 16    | E2     | TOK.2         | Expand `SEMANTIC_CONTRAST_PAIRS`        | packages/tokens                       | shipped  |
 | 17    | F1     | SEC.1         | Remote registry checksum/allowlist      | packages/cli                          | shipped  |
 | 18    | F2     | CLI.1 / M12.5 | CLI polish (`status --json`)            | packages/cli                          | shipped  |
 | —     | G2a    | DX.3          | Fresh install/build smoke               | `D:\PLAYGROUND\smoke-010` (`@latest`) | shipped  |
-| —     | G2b    | DX.2          | Playwright E2E                          | `D:\PLAYGROUND\sandbox-lexsys`        | planned  |
+| —     | G2b    | DX.2          | Playwright E2E                          | `D:\PLAYGROUND\sandbox-lexsys`        | shipped  |
 | —     | G1     | DX.1          | Public starter repo                     | deferred post-0.1.0                   | deferred |
 
 ---
@@ -125,6 +126,8 @@ via Release CI ([`release.yml`](../.github/workflows/release.yml)). Record:
 
 **Stable release (2026-06-06):** `@dalexto/lexsys@0.1.0` on dist-tag **`latest`**. Post-publish smoke: `D:\PLAYGROUND\smoke-010` (`init vite` → `add button` → `npm run build`). See [CHANGELOG § 0.1.0](../CHANGELOG.md#010---2026-06-06).
 
+**Housekeeping (2026-06-06):** `@dalexto/lexsys@0.1.1` on **`latest`** — docs/rules alignment and release CI hotfix (PR #77–#81). See [CHANGELOG § 0.1.1](../CHANGELOG.md#011---2026-06-06).
+
 **Prior preview:** `0.0.6` @ `next` — CSS generated header (JSDoc + ISO timestamp), scripts enterprise contract. Prior: `0.0.5` (2026-06-02), `0.0.4` (2026-05-30).
 
 Detail: [Roadmap § M10](./ROADMAP.md#m10-release-readiness).
@@ -136,7 +139,7 @@ Detail: [Roadmap § M10](./ROADMAP.md#m10-release-readiness).
 Canonical detail: [Testing docs § Verification surfaces](../operations/TESTING.md#verification-surfaces).
 
 - **`apps/playground`** — monorepo smoke, **maintenance-only** (~10–20% focus). Optional `pnpm playground:dev`; category nav for quick scans. Do not build product UX here unless the PR explicitly targets `apps/playground/**`.
-- **Consumer sandbox (PulseDesk)** — **real app truth** (~80–90% focus) for block/template UX, narrow viewport, and integration flows. Path: `D:\PLAYGROUND\sandbox-lexsys`. Manual checklist + planned Playwright (DX.2) — not lexsys CI.
+- **Consumer sandbox (PulseDesk)** — **real app truth** (~80–90% focus) for block/template UX, narrow viewport, and integration flows. Path: `D:\PLAYGROUND\sandbox-lexsys`. Manual checklist + Playwright E2E (DX.2, `pnpm test:e2e`) — not lexsys CI.
 - **Fresh-install lab** — repeatable `init` → `add` → `build` smoke (DX.3). Path: `D:\PLAYGROUND\lexsys-fresh-test`. Throwaway / reproducible CLI regression — not PulseDesk.
 - **Playground dark/brand demos** — deferred; consumer UX belongs in sandbox/SaaS ([Roadmap § Explicitly deferred](./ROADMAP.md#explicitly-deferred)).
 - **Change workflow** — branch off `dev` → implement → docs alignment → PR to `dev` last; **`main` untouched** unless explicitly requested ([AGENTS.md § Change workflow](../AGENTS.md#change-workflow)).
@@ -179,9 +182,9 @@ The P0 and P1 implementation passes are complete:
 - Consumer sandbox verify (PR #26 artifacts): `lexsys update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, **57 installable UI items** (45 primitives, 10 blocks, 2 templates), published **`0.1.0`** @ **`latest`** (stable MVP).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, **57 installable UI items** (45 primitives, 10 blocks, 2 templates). npm **`0.1.1`** @ **`latest`** today; **`0.1.2`** (Sidebar enterprise) pending Version packages publish.
 
-Known gaps below — post-0.1.0 backlog; closed 0.1.0 items remain in [§ 0.1.0 Execution Queue](#010-execution-queue).
+Known gaps below — post-0.1.2 release backlog; closed 0.1.0 wave items remain in [§ 0.1.0 Execution Queue](#010-execution-queue).
 
 ---
 
@@ -215,13 +218,13 @@ Admin catalog items — after **0.1.0** unless release gate completes first. See
 
 ### P2.2 — DX (DX.1–DX.5)
 
-| ID   | Item                         | PR / track | Path / notes                          | Status   |
-| ---- | ---------------------------- | ---------- | ------------------------------------- | -------- |
-| DX.1 | Public starter template repo | G1         | Separate GitHub repo post-0.1.0       | deferred |
-| DX.2 | Playwright E2E (PulseDesk)   | G2b        | `D:\PLAYGROUND\sandbox-lexsys`        | planned  |
-| DX.3 | Fresh install/build smoke    | G2a        | `D:\PLAYGROUND\smoke-010` (`@latest`) | shipped  |
-| DX.4 | `apps/docs` minimal site     | D1         | apps/docs                             | shipped  |
-| DX.5 | `docs:lint` automation       | D2         | root `pnpm docs:lint`                 | shipped  |
+| ID   | Item                         | PR / track | Path / notes                                     | Status   |
+| ---- | ---------------------------- | ---------- | ------------------------------------------------ | -------- |
+| DX.1 | Public starter template repo | G1         | Separate GitHub repo post-0.1.0                  | deferred |
+| DX.2 | Playwright E2E (PulseDesk)   | G2b        | `D:\PLAYGROUND\sandbox-lexsys` — `pnpm test:e2e` | shipped  |
+| DX.3 | Fresh install/build smoke    | G2a        | `D:\PLAYGROUND\smoke-010` (`@latest`)            | shipped  |
+| DX.4 | `apps/docs` minimal site     | D1         | apps/docs                                        | shipped  |
+| DX.5 | `docs:lint` automation       | D2         | root `pnpm docs:lint`; CI `changes` job          | shipped  |
 
 ### P2.3 — Tokens (TOK.1–TOK.2)
 
@@ -291,6 +294,50 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 **Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `lexsys add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 
 **Related fixes already landed (PR #28):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring. Post–PR #30 + `ef65072`: plain nav, mobile drawer, FormField sandbox, `DrawerClose` inline appearance, DashboardShell mobile layout.
+
+### SB - Sidebar enterprise upgrade
+
+**Context:** PulseDesk consumer sandbox (`D:\PLAYGROUND\sandbox-lexsys`) exposed gaps after 0.1.1: desktop collapsible sidebar (icon rail), enterprise NavItem polish (active state too loud — Menu checked tokens), `SidebarItemBadge`, nested nav, and template drift vs monorepo `Sidebar.tsx`. Mobile Drawer slide-in is **shipped** (Base UI). Desktop collapse **shipped SB.5** (`SidebarProvider`, `collapsible="icon"|"offcanvas"`); sandbox consumer CSS/hook removed.
+
+**Target:** `SidebarProvider`, `collapsible="icon"`, `SidebarItemBadge`, item chrome (`SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `SidebarGroupAction`), nested `SidebarSubList` + Collapsible, keyboard a11y, router-aware active docs. **Tokens:** SB.18 global slide motion semantics (`overlayEnter`/`Exit`, easing enter/exit); SB.19 `packages/tokens/src/components/sidebar.ts` (`--lex-sidebar-*`, `--lex-sidebar-item-*`). Active nav visual = tint + left accent bar (variant A). Row adornments = `SidebarItem*` (not `SidebarMenu*`). Base UI has no app-sidebar primitive; Drawer = mobile overlay only.
+
+**Roadmap:** [§ UI composition track step 7](./ROADMAP.md#ui-composition-track).
+
+**Status rule:** `planned` until shipped; flip row when PR merges. **SB.20 (release) starts only when SB.1–SB.19 are all `shipped`** — IDs are not sequential (SB.11–SB.19 exist); SB.10 is the last implementation/polish gate before release, not the last task in the wave.
+
+| ID    | Phase    | Task                                                                         | Depends            | Status  |
+| ----- | -------- | ---------------------------------------------------------------------------- | ------------------ | ------- |
+| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                   | —                  | shipped |
+| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                            | —                  | shipped |
+| SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                   | —                  | shipped |
+| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface             | SB.1, SB.2         | shipped |
+| SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)       | SB.4               | shipped |
+| SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases           | SB.18              | shipped |
+| SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`        | SB.19              | shipped |
+| SB.5  | Impl     | Provider + desktop collapse + mobile partition + sandbox migration           | SB.4, SB.18, SB.19 | shipped |
+| SB.7  | Impl     | `SidebarItemBadge` (+ collapsed dot mode)                                    | SB.11, SB.19       | shipped |
+| SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction` | SB.7               | shipped |
+| SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                   | SB.4, SB.5         | shipped |
+| SB.12 | A11y     | Keyboard nav + `aria-current` on active links                                | SB.11              | shipped |
+| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                         | SB.4               | shipped |
+| SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                            | SB.11              | shipped |
+| SB.15 | Impl     | `SidebarInput` — inline nav filter                                           | SB.8               | shipped |
+| SB.16 | Impl     | `side="right"` + RTL mirror                                                  | SB.5               | shipped |
+| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                             | SB.9               | shipped |
+| SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                   | SB.5–SB.17         | shipped |
+| SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                 | SB.6               | shipped |
+| SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`    | SB.10              | shipped |
+
+**Pick-up order:** SB.1 → SB.2 → SB.3 → SB.4 → SB.18 → SB.19 → SB.11 → SB.5 → SB.7 → SB.8 → SB.9 → SB.12 → SB.13 → SB.14 → SB.15 → SB.16 → SB.17 → SB.6 → SB.10 → **SB.20**.
+
+**Gate when marking SB.6 shipped:** `pnpm tokens:check`, `pnpm ui:check`, `pnpm registry:check`, `$consumer-sandbox-verify` (desktop collapse + badge + mobile drawer unchanged).
+
+**Release workflow (SB.20 — after SB.1–SB.19 are all `shipped`):**
+
+1. **Changeset** — bump publish set to **`0.1.2`** (`@dalexto/lexsys` + `@dalexto/lexsys-cli` fixed group; include `packages/ui`, `packages/tokens`, `packages/registry` as touched). Use [`$changelog-update`](../../.agents/skills/changelog-update/SKILL.md) for `CHANGELOG.md` / package changelogs where applicable.
+2. **Docs alignment** — [`$docs-authoring`](../../.cursor/skills/docs-authoring/SKILL.md) § Alignment: `UI_CATALOG.md` export counts, `UI_COMPOSITION.md` Sidebar compound tree, `TOKENS.md` motion + sidebar tokens, `ROADMAP.md` step 7 → shipped, flip all SB.\* rows to `shipped`.
+3. **Maintainer verify (user-owned)** — user runs `pnpm check` (or `$monorepo-verify-gate` by touched paths) + sandbox smoke; agent does **not** commit until user confirms pass.
+4. **Commit + PR** — on explicit user confirmation only: branch off `dev`, [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → `gh pr create` targeting **`dev`** (not `main`).
 
 ### CS - Component Standardization
 
@@ -366,10 +413,8 @@ Tracked IDs in [§ 0.1.0 Execution Queue](#010-execution-queue). Update status w
 
 | ID / gap                      | Notes                                                                                                                |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| DX.2 / mobile viewport QA     | Manual PulseDesk QA **shipped**; Playwright automation (DX.2) still planned — `D:\PLAYGROUND\sandbox-lexsys`.        |
 | DX.3 / fresh install smoke    | **shipped** — `D:\PLAYGROUND\smoke-010` with `@dalexto/lexsys@latest` (`init` → `add button` → `build`, 2026-06-06). |
 | SEC.1 / remote registry trust | **shipped** — checksum + `registryAllowlist`; HTTPS-only fetch remains default.                                      |
-| DX.5 / `docs:lint` automation | **shipped** — `pnpm docs:lint`; optional CI promotion deferred.                                                      |
 | DX.1 / public starter repo    | Deferred post-0.1.0 — separate GitHub repo.                                                                          |
 
 Resolved (reference only — see git history): CVA helpers in installed `utils.ts` (PR #25); Select popup layout (PR #25); CLI diagnostics and install-flow tests in `packages/cli/test/`; registry item reconcile automation (SI.5) — `registry:sync` reconciles all layers; `registryDependencies` inferred from template imports with overwrite policy in [REGISTRY.md § Maintainer notes](./reference/registry/REGISTRY.md#maintainer-notes).

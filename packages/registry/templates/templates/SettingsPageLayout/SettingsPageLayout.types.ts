@@ -5,7 +5,7 @@
  */
 
 import type { HTMLAttributes, ReactNode, Ref } from "react"
-import type { PageHeaderProps } from "@/components/blocks/PageHeader"
+import type { PageHeaderProps } from "@/components/blocks/PageHeader/PageHeader.types"
 import type {
   SettingsPanelContentProps,
   SettingsPanelDescriptionProps,
@@ -13,7 +13,7 @@ import type {
   SettingsPanelHeaderProps,
   SettingsPanelProps,
   SettingsPanelTitleProps,
-} from "@/components/blocks/SettingsPanel"
+} from "@/components/blocks/SettingsPanel/SettingsPanel.types"
 
 export interface SettingsPageLayoutProps extends HTMLAttributes<HTMLDivElement> {
   ref?: Ref<HTMLDivElement>

@@ -75,6 +75,20 @@ describe("rewriteCrossLayerImports", () => {
       ].join("\n"),
     )
   })
+
+  test("preserves primitive type module paths from registry templates", () => {
+    const content = [
+      'import type { BadgeProps } from "@/components/primitives/Badge/Badge.types"',
+      'import type { CollapsibleProps } from "@/components/primitives/Collapsible/Collapsible.types"',
+    ].join("\n")
+
+    expect(rewriteCrossLayerImports(content)).toBe(
+      [
+        'import type { BadgeProps } from "../Badge/Badge.types"',
+        'import type { CollapsibleProps } from "../Collapsible/Collapsible.types"',
+      ].join("\n"),
+    )
+  })
 })
 
 describe("prepareInstalledFileContent", () => {

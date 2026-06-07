@@ -12,7 +12,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/primitives/Pagination"
+} from "@/components/primitives/Pagination/Pagination"
 import {
   Table,
   TableBody,
@@ -22,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/primitives/Table"
+} from "@/components/primitives/Table/Table"
 import type {
   DataTableBodyProps,
   DataTableCaptionProps,

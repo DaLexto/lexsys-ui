@@ -17,9 +17,36 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+---
+
+## [0.1.2] - 2026-06-07
+
+Sidebar enterprise release on dist-tag **`latest`**. Registry templates and CLI install paths for the **Sidebar** block — run `lexsys update sidebar` (and `lexsys add collapsible separator` if missing) in consumer projects.
+
+### Added
+
+- **Sidebar** — `SidebarProvider` with desktop `collapsible` modes (`icon`, `offcanvas`), `SidebarCollapseTrigger`, `SidebarRail`, and `useSidebar`
+- **Sidebar** — `SidebarItemBadge` with icon-collapsed dot mode; item chrome (`SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `SidebarGroupAction`)
+- **Sidebar** — nested `SidebarSubList` / sub-item links; `SidebarGroupCollapsible*` for folding whole sections; `SidebarInput` nav filter; `SidebarSeparator` section dividers
+- **Sidebar** — keyboard roving focus and `aria-current` on active links; `isSidebarNavActive` pathname helper; disabled rows and `SidebarItemSkeleton`
+- **Sidebar** — `side="right"` shell and logical RTL layout for accent, indent, and offcanvas
+- **Tokens** — `sidebar` component tokens (`--lex-sidebar-*`, `--lex-sidebar-item-*`) and global slide motion semantics (`overlayEnter` / `overlayExit`)
+
+### Changed
+
+- **Sidebar** — active nav chrome uses `--lex-sidebar-item-*` (variant A accent bar), not Menu checked tokens
+- **Sidebar** — mobile `SidebarMobileHeader` partition and drawer close-on-select wiring in install templates
+- **Registry** — `sidebar` block declares `badge`, `button`, `collapsible`, `drawer`, `input`, `scroll-area`, `separator` dependencies
+
 ### Fixed
 
-- **Release CI** — unified GitHub release (`lexsys@<version>`) is created whenever the version is on npm, even when Changesets fallback publish does not set `outputs.published`
+- **Registry block templates** — primitive `.types` import paths preserved on sync so consumer `tsc` resolves `BadgeProps`, `CollapsibleProps`, and related types after `lexsys update`
+
+### Notes
+
+- Monorepo reference only: `@dalexto/lexsys-ui` and `@dalexto/lexsys-tokens` are not published; changes ship via registry templates
+- PulseDesk sandbox E2E (desktop nav + mobile drawer) passed before release prep
+- Publish via Changesets Version Packages PR after merge to `main`
 
 ---
 
@@ -36,6 +63,7 @@ Post-0.1.0 maintainer release on dist-tag **`latest`**. Documentation and releas
 
 - Published via Changesets Version Packages PR #79; npm **0.1.1** on **`latest`**
 - No changes to `lexsys add`, registry templates, or install output paths
+- Post-publish hotfix (PR #80–#81): unified GitHub release (`lexsys@<version>`) is created whenever the version is on npm, even when Changesets fallback publish does not set `outputs.published`; `lexsys@0.1.1` release backfilled on GitHub
 
 ---
 
@@ -191,7 +219,8 @@ First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.1...HEAD
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.2...HEAD
+[0.1.2]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.1...lexsys@0.1.2
 [0.1.1]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.0...lexsys@0.1.1
 [0.1.0]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.6...@dalexto/lexsys@0.1.0
 [0.0.6]: https://github.com/DaLexto/lexsys-ui/compare/@dalexto/lexsys@0.0.5...@dalexto/lexsys@0.0.6

@@ -146,18 +146,388 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 
 ## Block catalog
 
-| Block          | Status  | Depends on                               |
-| -------------- | ------- | ---------------------------------------- |
-| FormField      | shipped | field, input                             |
-| SettingsPanel  | shipped | card                                     |
-| Sidebar        | shipped | button, drawer, scroll-area              |
-| AuthForm       | shipped | card, input, button, separator           |
-| CommandPalette | shipped | dialog, combobox, scroll-area, separator |
-| Empty          | shipped | —                                        |
-| PageHeader     | shipped | button, breadcrumb                       |
-| StatsCard      | shipped | card                                     |
-| FilterToolbar  | shipped | toolbar, input, button, select           |
-| DataTable      | shipped | table, pagination                        |
+| Block          | Status                             | Depends on                                                                           |
+| -------------- | ---------------------------------- | ------------------------------------------------------------------------------------ |
+| FormField      | shipped                            | field, input                                                                         |
+| SettingsPanel  | shipped                            | card                                                                                 |
+| Sidebar        | shipped (SB.\* enterprise upgrade) | badge, button, collapsible, drawer, input, scroll-area, separator; deferred: tooltip |
+| AuthForm       | shipped                            | card, input, button, separator                                                       |
+| CommandPalette | shipped                            | dialog, combobox, scroll-area, separator                                             |
+| Empty          | shipped                            | —                                                                                    |
+| PageHeader     | shipped                            | button, breadcrumb                                                                   |
+| StatsCard      | shipped                            | card                                                                                 |
+| FilterToolbar  | shipped                            | toolbar, input, button, select                                                       |
+| DataTable      | shipped                            | table, pagination                                                                    |
+
+## Sidebar block
+
+Enterprise navigation shell — mobile Drawer overlay + desktop persistent column.
+Tracked in [Backlog § SB](../../REVIEW_TODO.md#sb-sidebar-enterprise-upgrade);
+roadmap step 7.
+
+### Base UI primitive map (SB.1)
+
+Base UI has **no** dedicated app-sidebar primitive. Lexsys `Sidebar` composes
+existing primitives:
+
+| Surface                            | Base UI module                   | Lexsys primitive | Role in Sidebar                                                                                                      |
+| ---------------------------------- | -------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Mobile overlay                     | `@base-ui/react/dialog` (Drawer) | `Drawer`         | Slide-in nav below `md`; `side=left`, swipe-to-close                                                                 |
+| Desktop column                     | — (plain layout)                 | —                | Persistent `<aside>` shell; **not** Drawer                                                                           |
+| Scrollable nav                     | —                                | `ScrollArea`     | `SidebarContent` viewport                                                                                            |
+| Nested groups                      | `@base-ui/react/collapsible`     | `Collapsible`    | Item-level: `SidebarSubList` + `Collapsible`; section-level: `SidebarGroupCollapsible*` (SB.17)                      |
+| Icon rail tooltips (planned SB.7+) | `@base-ui/react/tooltip`         | `Tooltip`        | Label hints when `collapsible="icon"`                                                                                |
+| Row badges                         | —                                | `Badge`          | `SidebarItemBadge`                                                                                                   |
+| Menu selection tokens              | `@base-ui/react/menu`            | `Menu`           | **Not** used for Sidebar nav chrome — Menu checked tokens are for transient overlays, not persistent nav (see SB.11) |
+
+**Rule:** Drawer is mobile-only. Desktop collapse (SB.5) uses CSS width/translate on
+the desktop shell — not a second Drawer instance.
+
+### Wrapper audit (SB.2)
+
+| Finding                                                                  | Verdict                                  | Resolution                                            |
+| ------------------------------------------------------------------------ | ---------------------------------------- | ----------------------------------------------------- |
+| Compound export shape (`Sidebar*` flat named exports)                    | OK — matches CS.4 compound-first         | Keep                                                  |
+| `SidebarMobileContext` for drawer close-on-select                        | OK — typed context, not children cloning | Keep                                                  |
+| Template drift: sandbox `partitionSidebarChildren` + mobile header strip | Bug — monorepo source behind consumer    | **Shipped SB.3**                                      |
+| Nav items used Menu checked tokens (`--lex-menu-item-checked-*`)         | Wrong semantic layer for persistent nav  | **Shipped SB.11** — `--lex-sidebar-item-*`            |
+| No `SidebarProvider` / desktop collapse API                              | Missing feature (not a wrapper bug)      | **Shipped SB.5** — `SidebarProvider` + collapse modes |
+| `Select` ref asymmetry (CS.4)                                            | Unrelated to Sidebar                     | No Sidebar change                                     |
+
+### Shipped compound tree (today)
+
+```tsx
+<SidebarProvider collapsible="icon">
+  <DashboardShell>
+    <DashboardShellSidebar>
+      <Sidebar>
+        <SidebarMobileHeader>
+          {/* md:hidden strip — SB.3 */}
+        </SidebarMobileHeader>
+        <SidebarHeader>
+          PulseDesk
+          <SidebarCollapseTrigger>Toggle sidebar</SidebarCollapseTrigger>
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarInput aria-label="Filter navigation" placeholder="Filter…" />
+          <SidebarGroup>
+            <SidebarGroupLabel>Main</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarList>
+                <SidebarItem>
+                  <SidebarItemLink href="/" active>
+                    Dashboard
+                  </SidebarItemLink>
+                </SidebarItem>
+              </SidebarList>
+            </SidebarGroupContent>
+          </SidebarGroup>
+          <SidebarSeparator />
+          <SidebarGroup>{/* … */}</SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter />
+        <SidebarTrigger />
+        <SidebarRail />
+      </Sidebar>
+    </DashboardShellSidebar>
+    <DashboardShellBody>
+      <DashboardShellHeader>Page title</DashboardShellHeader>
+      <DashboardShellMain>{/* page */}</DashboardShellMain>
+    </DashboardShellBody>
+  </DashboardShell>
+</SidebarProvider>
+```
+
+Nav item active state: **variant A** — subtle background tint + left accent bar
+(`--lex-sidebar-item-accent-*`). Tokens: `packages/tokens/src/components/sidebar.ts`
+(SB.19); width transition: `--lex-sidebar-transition-*`; global slide motion:
+`motion.duration.overlayEnter` / `overlayExit`, `motion.easing.easeIn` / `easeOut`
+(SB.18).
+
+### Enterprise API — locked naming (SB.4)
+
+Inspiration only: [shadcn Sidebar](https://ui.shadcn.com/docs/components/radix/sidebar).
+Lexsys naming is fixed:
+
+| shadcn              | Lexsys                                      | Notes                                          |
+| ------------------- | ------------------------------------------- | ---------------------------------------------- |
+| `SidebarMenu`       | **`SidebarList`**                           | Shipped — `<ul>` nav list                      |
+| `SidebarMenuItem`   | **`SidebarItem`**                           | Shipped — `<li>` wrapper                       |
+| `SidebarMenuBadge`  | **`SidebarItemBadge`**                      | Shipped SB.7 — row adornment, not shell chrome |
+| `SidebarMenuButton` | **`SidebarItemLink` / `SidebarItemButton`** | Shipped — split by element                     |
+
+**Do not use:** `SidebarBadge`, `SidebarMenuBadge`.
+
+**Naming rule:** row-level = `SidebarItem*`; group-level = `SidebarGroup*`; shell-level =
+`Sidebar*` / `SidebarProvider`.
+
+#### Layer 0 — context and shell (SB.5 shipped)
+
+| Export                   | Role                                                                       |
+| ------------------------ | -------------------------------------------------------------------------- |
+| `SidebarProvider`        | Shipped SB.5 — `open`, `collapsed`, `setOpen`, `toggleSidebar`, `isMobile` |
+| `useSidebar`             | Shipped SB.5 — triggers outside the aside (header collapse button)         |
+| `Sidebar`                | Shipped SB.5 — `side`, `collapsible` (`none` \| `icon` \| `offcanvas`)     |
+| `SidebarRail`            | Shipped SB.5 — desktop edge affordance to expand/collapse                  |
+| `SidebarTrigger`         | Shipped — mobile drawer open                                               |
+| `SidebarCollapseTrigger` | Shipped SB.5 — desktop-only collapse toggle                                |
+
+**Collapse modes:** `none` (fixed width) · `icon` (rail + hidden labels via
+`.sidebar-expandable`) · `offcanvas` (panel slides off-canvas). Animation uses
+`--lex-sidebar-transition-*` and global motion semantics — not Drawer on desktop.
+
+#### Layer 1 — item chrome (SB.7 / SB.8 shipped)
+
+```tsx
+<SidebarItem>
+  <SidebarItemButton active>
+    <SidebarItemIcon>
+      <Inbox />
+    </SidebarItemIcon>
+    <span className="sidebar-expandable">Inbox</span>
+  </SidebarItemButton>
+  <SidebarItemBadge variant="neutral">24</SidebarItemBadge>
+</SidebarItem>
+```
+
+| Export                | Role                                                                           |
+| --------------------- | ------------------------------------------------------------------------------ |
+| `SidebarItemIcon`     | Shipped SB.8 — fixed icon slot (`--lex-sidebar-item-icon-size`)                |
+| `SidebarItemBadge`    | Shipped SB.7 — trailing count; auto `dot` when icon-collapsed on desktop       |
+| `SidebarItemAction`   | Shipped SB.8 — row hover action (ghost `Button`; `showOnHover` default `true`) |
+| `SidebarItemShortcut` | Shipped SB.8 — `<kbd>` hint; hidden in icon collapse                           |
+| `SidebarGroupAction`  | Shipped SB.8 — ghost `Button` in `SidebarGroupLabel` row                       |
+
+`SidebarItem` layout: `relative flex items-center`; variants in `Sidebar.variants.ts`
+— no consumer CSS hacks.
+
+#### Layer 2 — nested nav (SB.9 shipped)
+
+```tsx
+<SidebarItem>
+  <Collapsible variant="plain" defaultOpen>
+    <CollapsibleTrigger>Settings</CollapsibleTrigger>
+    <CollapsiblePanel className="p-0">
+      <SidebarSubList>
+        <SidebarItem>
+          <SidebarSubItemLink href="/settings/profile" active>
+            Profile
+          </SidebarSubItemLink>
+        </SidebarItem>
+      </SidebarSubList>
+    </CollapsiblePanel>
+  </Collapsible>
+</SidebarItem>
+```
+
+| Export                 | Role                                                           |
+| ---------------------- | -------------------------------------------------------------- |
+| `SidebarSubList`       | Shipped SB.9 — indented nested `<ul>`; hidden in icon collapse |
+| `SidebarSubItemLink`   | Shipped SB.9 — nested `<a>` with extra indent + active chrome  |
+| `SidebarSubItemButton` | Shipped SB.9 — nested `<button>` row                           |
+
+Install **`collapsible`** with `sidebar` for expandable item parents (Layer 2) and
+section folds (Layer 8).
+
+#### Layer 3 — keyboard a11y (SB.12 shipped)
+
+`SidebarContent` renders a `<nav>` with `onKeyDown` roving focus across
+`.lex-sidebar__item` links and buttons (ArrowUp/Down, Home, End). Skips
+`disabled` / `aria-disabled` / hidden items.
+
+`SidebarItemLink` and `SidebarSubItemLink` set `aria-current="page"` when
+`active` is true.
+
+#### Layer 4 — router-aware active state (SB.13 shipped)
+
+Lexsys does **not** bundle a router. Consumers pass `active` explicitly.
+`isSidebarNavActive(pathname, href, options?)` ships with the Sidebar block —
+router-agnostic matcher. **Default:** exact pathname match (`end: true`). Pass
+`end: false` for section parents that should stay active on nested routes.
+
+**Flat nav (React Router `useLocation`):**
+
+```tsx
+import { useLocation } from "react-router-dom"
+import {
+  isSidebarNavActive,
+  SidebarItem,
+  SidebarItemIcon,
+  SidebarItemLink,
+} from "@/components/ui/Sidebar/Sidebar"
+
+const location = useLocation()
+
+<SidebarItem>
+  <SidebarItemLink
+    href="/billing"
+    active={isSidebarNavActive(location.pathname, "/billing")}
+  >
+    <SidebarItemIcon>
+      <CreditCard />
+    </SidebarItemIcon>
+    <SidebarExpandable>Billing</SidebarExpandable>
+  </SidebarItemLink>
+</SidebarItem>
+```
+
+**Nested section parent (`end: false`) + child (`end: true`):**
+
+```tsx
+<SidebarItemLink
+  href="/settings"
+  active={isSidebarNavActive(location.pathname, "/settings", { end: false })}
+>
+  Settings
+</SidebarItemLink>
+
+<SidebarSubItemLink
+  href="/settings/profile"
+  active={isSidebarNavActive(location.pathname, "/settings/profile", {
+    end: true,
+  })}
+>
+  Profile
+</SidebarSubItemLink>
+```
+
+**`NavLink` / `useMatch` (optional):** prefer `isSidebarNavActive` for
+consistent prefix rules. If you already use `NavLink`, map `isActive` to
+`SidebarItemLink` `active` — keep `href` on `SidebarItemLink` for semantics;
+avoid nesting two anchors.
+
+**Anti-pattern:** `active={location.pathname === item.path}` breaks for nested
+routes and the root path (`"/"` matches everything with loose equality tricks).
+
+#### Layer 5 — disabled + loading rows (SB.14 shipped)
+
+Set `disabled` on `SidebarItem` (inherited by child link/button) or directly on
+`SidebarItemLink` / `SidebarItemButton` / sub-item parts. Disabled anchors use
+`aria-disabled`, `tabIndex={-1}`, and skip keyboard roving focus.
+
+```tsx
+<SidebarItem disabled>
+  <SidebarItemLink href="/billing">Billing</SidebarItemLink>
+</SidebarItem>
+```
+
+Async nav: render `SidebarItemSkeleton` inside `SidebarItem` (icon + label
+pulse). Use `indent` for nested `SidebarSubList` placeholders.
+
+| Export                | Role                                   |
+| --------------------- | -------------------------------------- |
+| `SidebarItemSkeleton` | Shipped SB.14 — per-row loading chrome |
+
+#### Layer 6 — inline nav filter (SB.15 shipped)
+
+`SidebarInput` wraps the `input` primitive — compact `size="sm"` + `variant="ghost"`
+defaults, `type="search"`. Place above `SidebarList` inside `SidebarContent` (or in
+`SidebarHeader`). Hidden in icon collapse. Consumer filters visible rows in app code.
+
+```tsx
+<SidebarContent>
+  <SidebarInput
+    aria-label="Filter navigation"
+    placeholder="Filter…"
+    value={query}
+    onChange={(event) => setQuery(event.target.value)}
+  />
+  <SidebarList>{/* filtered items */}</SidebarList>
+</SidebarContent>
+```
+
+| Export         | Role                                     |
+| -------------- | ---------------------------------------- |
+| `SidebarInput` | Shipped SB.15 — inline nav search/filter |
+
+**Registry deps (sidebar block):** `badge`, `button`, `collapsible`, `drawer`,
+`input`, `scroll-area`, `separator`.
+
+#### Layer 7 — `side="right"` + RTL (SB.16 shipped)
+
+`SidebarProvider` / `Sidebar` accept `side?: "left" | "right"` (default `"left"`).
+Shell exposes `data-side` on the root `<aside>`. Right-side offcanvas, drawer
+swipe, and desktop border follow `side`. Item chrome uses **logical** spacing
+(`start`/`end`, `ms`/`ps`/`border-s`) so `dir="rtl"` on a layout ancestor mirrors
+indent, active accent, row actions, and sub-lists without extra props.
+
+```tsx
+<SidebarProvider side="right" collapsible="icon">
+  <Sidebar>{/* … */}</Sidebar>
+</SidebarProvider>
+
+// RTL app shell
+<html dir="rtl">
+  <SidebarProvider side="left">{/* inline-start accent + sub-indent */}</SidebarProvider>
+</html>
+```
+
+Active item accent: `before:start-0` (left / inline-start); flips to
+`before:end-0` when `data-side="right"`.
+
+#### Layer 8 — collapsible sections (SB.17 shipped)
+
+Fold whole `SidebarGroup` sections (distinct from Layer 2 item-level
+`Collapsible` + `SidebarSubList`). Wrap the group in `SidebarGroupCollapsible`;
+put `SidebarGroupCollapsibleTrigger` inside `SidebarGroupLabel` (pairs with
+`SidebarGroupAction`). Panel wraps `SidebarGroupContent`.
+
+```tsx
+<SidebarGroupCollapsible defaultOpen>
+  <SidebarGroup>
+    <SidebarGroupLabel>
+      <SidebarGroupCollapsibleTrigger>Developer</SidebarGroupCollapsibleTrigger>
+      <SidebarGroupAction aria-label="Add tool">+</SidebarGroupAction>
+    </SidebarGroupLabel>
+    <SidebarGroupCollapsiblePanel>
+      <SidebarGroupContent>
+        <SidebarList>{/* … */}</SidebarList>
+      </SidebarGroupContent>
+    </SidebarGroupCollapsiblePanel>
+  </SidebarGroup>
+</SidebarGroupCollapsible>
+```
+
+| Export                           | Role                                                            |
+| -------------------------------- | --------------------------------------------------------------- |
+| `SidebarGroupCollapsible`        | Shipped SB.17 — `Collapsible` root (`variant` fixed to `plain`) |
+| `SidebarGroupCollapsibleTrigger` | Shipped SB.17 — group label row toggle + chevron                |
+| `SidebarGroupCollapsiblePanel`   | Shipped SB.17 — zero-padding panel for group body               |
+
+#### Layer 9 — section dividers (SB.10 shipped)
+
+`SidebarSeparator` wraps the `separator` primitive — horizontal inset divider
+between groups (alternative to `SidebarGroupLabel` headers). Place inside
+`SidebarContent`, `SidebarHeader`, or `SidebarFooter`.
+
+```tsx
+<SidebarContent>
+  <SidebarGroup>{/* Main */}</SidebarGroup>
+  <SidebarSeparator />
+  <SidebarGroup>{/* Account */}</SidebarGroup>
+</SidebarContent>
+```
+
+| Export             | Role                                             |
+| ------------------ | ------------------------------------------------ |
+| `SidebarSeparator` | Shipped SB.10 — inset horizontal section divider |
+
+#### DashboardShell + Sidebar (SB.10 shipped)
+
+`DashboardShell` is the installable layout template for app shells. Wrap
+`Sidebar` in `DashboardShellSidebar`; place page chrome in `DashboardShellBody`.
+Enterprise desktop collapse: wrap the shell in `SidebarProvider` and place
+`SidebarCollapseTrigger` in `SidebarHeader` (see compound tree above).
+
+| Export                  | Role                                |
+| ----------------------- | ----------------------------------- |
+| `DashboardShell`        | Root flex shell (`md:flex-row`)     |
+| `DashboardShellSidebar` | Slot for `Sidebar` block            |
+| `DashboardShellBody`    | Column for header + scrollable main |
+| `DashboardShellHeader`  | Top bar inside main column          |
+| `DashboardShellMain`    | Page content viewport               |
+
+---
 
 ## Template catalog
 
@@ -373,14 +743,15 @@ Workflow: edit `packages/ui` → `pnpm registry:sync` (templates + reconciled `s
 
 ## Sequencing
 
-| Step | Work                                                      | Status  |
-| ---- | --------------------------------------------------------- | ------- |
-| 1    | Layer docs + registry validators                          | shipped |
-| 2    | Monorepo `primitives/blocks/templates` + flat CLI install | shipped |
-| 3    | Pilot blocks + template + sandbox verify                  | shipped |
-| 4    | Blocks/templates optimization pass (BO.1–BO.7)            | shipped |
-| 5    | Additional blocks/templates beyond pilot set              | planned |
-| 6    | Base UI primitive expansion (9 modules above)             | shipped |
+| Step | Work                                                      | Status                                                                       |
+| ---- | --------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 1    | Layer docs + registry validators                          | shipped                                                                      |
+| 2    | Monorepo `primitives/blocks/templates` + flat CLI install | shipped                                                                      |
+| 3    | Pilot blocks + template + sandbox verify                  | shipped                                                                      |
+| 4    | Blocks/templates optimization pass (BO.1–BO.7)            | shipped                                                                      |
+| 5    | Additional blocks/templates beyond pilot set              | planned                                                                      |
+| 6    | Base UI primitive expansion (9 modules above)             | shipped                                                                      |
+| 7    | Sidebar enterprise upgrade (SB.1–SB.20)                   | shipped — [Backlog § SB](../../REVIEW_TODO.md#sb-sidebar-enterprise-upgrade) |
 
 Tracked in [Backlog § UI composition](../../REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 

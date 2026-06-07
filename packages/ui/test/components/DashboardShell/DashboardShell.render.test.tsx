@@ -2,11 +2,17 @@ import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 import {
   Sidebar,
+  SidebarCollapseTrigger,
   SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarItem,
   SidebarItemLink,
   SidebarList,
+  SidebarProvider,
+  SidebarSeparator,
 } from "../../../src/components/blocks/Sidebar/Sidebar.js"
 import {
   DashboardShell,
@@ -47,5 +53,61 @@ describe("DashboardShell render", () => {
 
     const shell = screen.getByText("Page content").closest(".custom-shell")
     expect(shell).not.toBeNull()
+  })
+
+  it("composes enterprise SidebarProvider shell with separators and collapse", () => {
+    const { container } = render(
+      <SidebarProvider collapsible="icon">
+        <DashboardShell>
+          <DashboardShellSidebar>
+            <Sidebar>
+              <SidebarHeader>
+                PulseDesk
+                <SidebarCollapseTrigger>Toggle sidebar</SidebarCollapseTrigger>
+              </SidebarHeader>
+              <SidebarContent>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Main</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarList>
+                      <SidebarItem>
+                        <SidebarItemLink href="#home" active>
+                          Home
+                        </SidebarItemLink>
+                      </SidebarItem>
+                    </SidebarList>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarSeparator data-testid="shell-separator" />
+                <SidebarGroup>
+                  <SidebarGroupLabel>Account</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarList>
+                      <SidebarItem>
+                        <SidebarItemLink href="#settings">
+                          Settings
+                        </SidebarItemLink>
+                      </SidebarItem>
+                    </SidebarList>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </SidebarContent>
+            </Sidebar>
+          </DashboardShellSidebar>
+          <DashboardShellBody>
+            <DashboardShellHeader>Dashboard</DashboardShellHeader>
+            <DashboardShellMain>Enterprise layout</DashboardShellMain>
+          </DashboardShellBody>
+        </DashboardShell>
+      </SidebarProvider>,
+    )
+
+    expect(screen.getByText("Enterprise layout")).toBeInTheDocument()
+    expect(
+      screen.getByRole("button", { name: "Collapse sidebar" }),
+    ).toBeInTheDocument()
+    expect(
+      container.querySelector("[data-testid='shell-separator']"),
+    ).toHaveClass("lex-sidebar__separator")
   })
 })
