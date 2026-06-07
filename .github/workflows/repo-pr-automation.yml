@@ -1,0 +1,71 @@
+name: Repo — PR automation
+
+# PR hygiene: path labels, release-train meta label, status cleanup on merge, label budget notice.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  path-labels:
+    name: Apply path labels
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Sync area labels from paths
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml
+          sync-labels: true
+
+  release-train-label:
+    name: Tag dev to main PRs
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add meta:release-train on dev → main
+        if: github.base_ref == 'main' && github.head_ref == 'dev'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          gh pr edit "${{ github.event.pull_request.number }}"
+          --repo "${{ github.repository }}"
+          --add-label "meta:release-train"
+
+  label-budget:
+    name: Label budget notice
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment when more than four labels
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COUNT="$(gh pr view "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" --json labels --jq '.labels | length')"
+          if [ "$COUNT" -le 4 ]; then
+            echo "Label count OK ($COUNT)."
+            exit 0
+          fi
+          gh pr comment "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" \
+            --body "⚠️ This PR has **${COUNT}** labels. Policy: max **4** (1× \`type:*\`, up to 2× \`area:*\`, 1× \`status:*\`, optional 1× \`meta:*\`). See [CONTRIBUTING.md § GitHub labels](https://github.com/DaLexto/lexsys-ui/blob/dev/docs/contributors/CONTRIBUTING.md#github-labels)."
+
+  remove-status-on-merge:
+    name: Remove status labels on merge
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove status:ready-for-review
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          gh pr edit "${{ github.event.pull_request.number }}"
+          --repo "${{ github.repository }}"
+          --remove-label "status:ready-for-review"

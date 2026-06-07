@@ -1,4 +1,4 @@
-name: Tokens governance report
+name: Tokens — Governance
 
 on:
   pull_request:

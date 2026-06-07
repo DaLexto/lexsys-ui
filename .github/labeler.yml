@@ -1,0 +1,44 @@
+# Path-based area labels for pull requests (max 2 applied by policy — see CONTRIBUTING.md).
+area:cli:
+  - changed-files:
+      - any-glob-to-any-file: "packages/cli/**"
+
+area:ui:
+  - changed-files:
+      - any-glob-to-any-file: "packages/ui/**"
+
+area:tokens:
+  - changed-files:
+      - any-glob-to-any-file: "packages/tokens/**"
+
+area:registry:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/registry/**"
+          - "packages/ui/**"
+
+area:playground:
+  - changed-files:
+      - any-glob-to-any-file: "apps/playground/**"
+
+area:docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "README.md"
+          - "CHANGELOG.md"
+
+area:repo:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
+          - "package.json"
+          - "pnpm-lock.yaml"
+          - "turbo.json"
+          - "scripts/**"
+
+area:agents:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "AGENTS.md"
+          - ".cursor/**"

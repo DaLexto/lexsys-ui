@@ -266,7 +266,7 @@ Test coverage details and per-file test inventory: [Testing docs](../operations/
 
 ### Monorepo check (all PRs)
 
-[`.github/workflows/ci.yml`](../.github/workflows/ci.yml) runs on every pull request and on push to `dev`/`main`.
+[**Monorepo CI**](../.github/workflows/ci.yml) runs on every pull request and on push to `dev`/`main`.
 
 **Pull requests** — path-filtered jobs (via `dorny/paths-filter`):
 
@@ -287,7 +287,7 @@ Setup: Node 24, `pnpm install --frozen-lockfile`, pnpm cache enabled.
 
 ### Token governance (token-path PRs)
 
-[`.github/workflows/tokens-governance.yml`](../.github/workflows/tokens-governance.yml) runs when `packages/tokens/**` changes:
+[**Tokens — Governance**](../.github/workflows/tokens-governance.yml) runs when `packages/tokens/**` changes:
 
 ```sh
 pnpm tokens:governance:report
@@ -298,7 +298,7 @@ With `LEXSYS_CONTRAST_POLICY=ci` in CI.
 
 ### GitHub label sync (manifest changes)
 
-[`.github/workflows/labels-sync.yml`](../.github/workflows/labels-sync.yml) keeps repo labels aligned with [`.github/labels.yml`](../.github/labels.yml) using [`github-label-sync`](https://github.com/Financial-Times/github-label-sync) v3 in **strict** mode (labels not in the manifest are deleted).
+[**Repo — Label sync**](../.github/workflows/repo-labels-sync.yml) keeps repo labels aligned with [`.github/labels.yml`](../.github/labels.yml) using [`github-label-sync`](https://github.com/Financial-Times/github-label-sync) v3 in **strict** mode (labels not in the manifest are deleted).
 
 | Trigger                                       | Behavior                                  |
 | --------------------------------------------- | ----------------------------------------- |
@@ -314,15 +314,15 @@ npx github-label-sync@3 --access-token <token> --labels .github/labels.yml --dry
 
 Taxonomy and usage: [Contributing](../contributors/CONTRIBUTING.md) § GitHub labels.
 
-### PR status label cleanup (merged PRs)
+### PR automation (labels and hygiene)
 
-[`.github/workflows/pr-status-label-cleanup.yml`](../.github/workflows/pr-status-label-cleanup.yml) runs on `pull_request` `closed` when `merged == true` and removes `status:ready-for-review` via `gh pr edit --remove-label`. No checkout required; uses `GITHUB_TOKEN` with `issues: write`.
+[**Repo — PR automation**](../.github/workflows/repo-pr-automation.yml) handles path-based `area:*` labels ([`.github/labeler.yml`](../.github/labeler.yml)), `meta:release-train` on `dev` → `main` PRs, label budget notices (max 4 labels), and `status:ready-for-review` removal on merge.
 
-| Trigger              | Behavior                                              |
-| -------------------- | ----------------------------------------------------- |
-| PR merged            | Remove `status:ready-for-review` if present           |
-| PR closed unmerged   | No-op (job skipped)                                   |
-| Label already absent | Step succeeds with `continue-on-error` (harmless log) |
+| Trigger             | Behavior                                                             |
+| ------------------- | -------------------------------------------------------------------- |
+| PR opened / updated | Apply path labels; tag release-train PRs; comment if label count > 4 |
+| PR merged           | Remove `status:ready-for-review` (`pull-requests: write`)            |
+| PR closed unmerged  | Status cleanup skipped                                               |
 
 Does not retroactively clean PRs merged before the workflow existed.
 
@@ -366,7 +366,7 @@ Add a changeset when `@dalexto/lexsys-cli` or `@dalexto/lexsys-registry` publish
 pnpm changeset
 ```
 
-Commit the generated file under `.changeset/`. The [Release workflow](../.github/workflows/release.yml) on `main` opens a **Version packages** PR; after merge it publishes to npm dist-tag **`next`**.
+Commit the generated file under `.changeset/`. [**Release — Version packages**](../.github/workflows/release-version.yml) on `main` opens a **Version packages** PR; after merge [**Release — Publish npm**](../.github/workflows/release-publish.yml) publishes to dist-tag **`latest`** (gate + `npm-production` approval).
 
 ### `pnpm version-packages`
 
@@ -378,7 +378,7 @@ pnpm version-packages
 
 ### `pnpm publish:release`
 
-Builds publish packages and runs `changeset publish --tag next`. Used by Release CI; requires `NPM_TOKEN` locally for manual publish.
+Builds publish packages and runs `changeset publish --tag latest` via `publish:release:latest`. Used by **Release — Publish npm**; requires `NPM_TOKEN` locally for manual publish.
 
 ---
 

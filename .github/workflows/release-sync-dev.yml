@@ -1,17 +1,15 @@
-name: Sync dev from main
+name: Release — Sync dev
 
-# Keeps dev in sync with Changesets release metadata on main (versions, changelogs).
-# Opens a PR into dev (protected branch) and enables auto-merge when CI passes.
-# See docs/operations/DEPLOY.md § Release workflow.
+# Keeps dev in sync with release metadata on main (versions, changelogs).
 
 on:
   workflow_run:
-    workflows: ["Release"]
+    workflows: ["Release — Publish npm"]
     types: [completed]
   workflow_dispatch:
 
 concurrency:
-  group: sync-dev-from-main
+  group: release-sync-dev
   cancel-in-progress: false
 
 permissions:
@@ -20,6 +18,7 @@ permissions:
 
 jobs:
   sync:
+    name: Open or update sync PR
     if: >
       github.event_name == 'workflow_dispatch' ||
       (
@@ -57,7 +56,8 @@ jobs:
           if [ -z "$PR_NUM" ]; then
             gh pr create --base dev --head "$SYNC_BRANCH" \
               --title "chore(release): sync release metadata from main" \
-              --body "Automated sync after Release on \`main\`. Auto-merges when CI passes.
+              --label "type:chore,meta:release-train,status:ready-for-review" \
+              --body "Automated sync after **Release — Publish npm** on \`main\`. Auto-merges when CI passes.
 
           Maintainer fallback: merge manually if auto-merge is disabled or checks fail."
             PR_NUM="$(gh pr list --base dev --head "$SYNC_BRANCH" --state open --json number --jq '.[0].number')"

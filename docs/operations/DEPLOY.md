@@ -39,10 +39,12 @@ flowchart LR
     ci --> mergeDev[merge to dev]
     mergeDev --> ready{ready to release?}
     ready --> mainPR["PR dev → main"]
-    mainPR --> releaseCI[Release CI]
-    releaseCI --> versionPR[Changesets Version PR]
-    versionPR --> publish[npm publish]
-    publish --> syncDev["CI: sync main into dev"]
+    mainPR --> versionWF["Release — Version packages"]
+    versionWF --> versionPR[Changesets Version PR]
+    versionPR --> publishWF["Release — Publish npm"]
+    publishWF --> publish[npm publish]
+    publish --> ghRelease[GitHub release]
+    ghRelease --> syncDev["Release — Sync dev"]
     syncDev --> nextTag["@next — 0.0.x"]
     syncDev --> latestTag["@latest — 0.1.0+"]
 ```
@@ -196,7 +198,9 @@ violations do not fail the gate.)
 - [ ] no package deep-imports another package's `src/` structure
 - [ ] CLI does not assume repository-only file paths in published usage
 - [ ] `pnpm sync:all && pnpm registry:check` passes — registry in sync with UI
-- [ ] CHANGELOG entry drafted for this release
+- [ ] `[Unreleased]` promoted to `## [<version>]` in root `CHANGELOG.md` (required — publish gate fails otherwise)
+- [ ] Footer compare link `[<version>]:` added; `[Unreleased]:` bumped to new base tag
+- [ ] `### Notes` lists release-train PR links (changeset + Version packages)
 
 ---
 
@@ -204,19 +208,28 @@ violations do not fail the gate.)
 
 Changesets uses **`baseBranch: "main"`** ([`.changeset/config.json`](../../.changeset/config.json)).
 The Version Packages PR updates `package.json` versions and CHANGELOG on **`main` only**.
-After the [Release workflow](../../.github/workflows/release.yml) finishes on `main`,
-[**Sync dev from main**](../../.github/workflows/sync-dev-from-main.yml) opens a PR
-from `chore/sync-main-into-dev` into `dev` (merge `main` into that branch) and enables
-**auto-merge** when CI passes. This respects branch protection on `dev` without a
-`github-actions` bypass actor.
 
-**Repo setting (one-time):** Settings → General → Pull Requests → **Allow auto-merge**
-must be enabled for the bot to queue the merge.
+Release automation is split into four workflows (display names use **Category — Verb**):
 
-| Trigger                                             | Behavior                                                   |
-| --------------------------------------------------- | ---------------------------------------------------------- |
-| `Release` workflow completed successfully on `main` | Open or update sync PR; enable auto-merge when checks pass |
-| `workflow_dispatch`                                 | Manual re-sync (same PR logic)                             |
+| Workflow                       | File                                                                                     | Role                                                                                                |
+| ------------------------------ | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **Release — Version packages** | [`.github/workflows/release-version.yml`](../../.github/workflows/release-version.yml)   | Opens or updates the Changesets Version packages PR on `main` push. Does **not** publish.           |
+| **Release — Publish npm**      | [`.github/workflows/release-publish.yml`](../../.github/workflows/release-publish.yml)   | Gate → publish to npm (`environment: npm-production`) → GitHub release → parity verify.             |
+| **Release — Sync dev**         | [`.github/workflows/release-sync-dev.yml`](../../.github/workflows/release-sync-dev.yml) | After successful publish, opens sync PR from `chore/sync-main-into-dev` into `dev` with auto-merge. |
+| **Release — Backfill GitHub**  | [`.github/workflows/release-backfill.yml`](../../.github/workflows/release-backfill.yml) | Daily + manual repair when npm has a version but GitHub release is missing.                         |
+
+**Repo settings (one-time):**
+
+- Settings → General → Pull Requests → **Allow auto-merge** (for sync PR).
+- Settings → Environments → **`npm-production`** on `main` with **required reviewers** before publish (approval gate on **Release — Publish npm**).
+
+| Trigger                                       | Behavior                                                                                        |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Push to `main`                                | Version packages workflow runs; publish workflow runs when version files change and gate passes |
+| **Release — Publish npm** completed on `main` | **Release — Sync dev** opens or updates sync PR; enables auto-merge when CI passes              |
+| `workflow_dispatch` on sync or backfill       | Manual re-sync or GitHub release repair                                                         |
+
+Sync PR respects branch protection on `dev` without a `github-actions` bypass actor.
 
 **Manual fallback** (merge conflict, auto-merge disabled, or CI blocked):
 
@@ -226,22 +239,26 @@ git merge origin/main
 git push origin dev
 ```
 
-Re-run **Sync dev from main** from the Actions tab after resolving conflicts locally.
+Re-run **Release — Sync dev** from the Actions tab after resolving conflicts locally.
 
 ### GitHub release naming
 
-After a successful npm publish, Release CI creates **one** GitHub release (not per-package tags):
+After a successful npm publish, **Release — Publish npm** creates **one** GitHub release (not per-package tags):
 
 | Field | Format             | Example        |
 | ----- | ------------------ | -------------- |
 | Tag   | `lexsys@<version>` | `lexsys@0.1.0` |
 | Title | `Lexsys <version>` | `Lexsys 0.1.0` |
 
-Notes are extracted from root `CHANGELOG.md` for that version; if that section is missing,
-Release CI falls back to `packages/entry/CHANGELOG.md` (Changesets-generated). The step always
-runs after Changesets and is idempotent: skip when the GitHub release already exists, or when the
-version is not yet on npm. `changeset publish` runs with `--no-git-tag` so legacy `@dalexto/*@*`
-tags are not created on new publishes. Older releases remain on GitHub for history.
+Notes are extracted from root `CHANGELOG.md` for that version. **Release — Publish npm** fails
+if that section is missing when a new version is about to publish (`should-publish.mjs` gate).
+The release script appends a `### Links` block (full diff compare URL from the changelog
+footer + PR links from `packages/entry/CHANGELOG.md`). If the root section is absent during
+backfill only, the script falls back to Changesets entry changelog text. The step waits for npm
+propagation (retry) and is idempotent: skip when the GitHub release already exists.
+**Release — Backfill GitHub** repairs drift when npm published but GitHub release was skipped.
+`changeset publish` runs with `--no-git-tag` so legacy `@dalexto/*@*` tags are not created on new
+publishes. Older releases remain on GitHub for history.
 
 ### 0.0.x bump (`@next`)
 
@@ -250,8 +267,8 @@ For any patch or minor release on the `0.0.x` line:
 1. Run pre-release gate (see above)
 2. Add a changeset: `pnpm changeset`
 3. Merge the Changesets "Version Packages" PR to `main`
-4. Release CI publishes automatically on merge to `main`
-5. Confirm **Sync dev from main** succeeded (or use manual fallback in [Release workflow](#release-workflow))
+4. **Release — Publish npm** publishes automatically on merge to `main` (after gate + optional `npm-production` approval)
+5. Confirm **Release — Sync dev** succeeded (or use manual fallback in [Release workflow](#release-workflow))
 6. Verify: `npm view @dalexto/lexsys dist-tags` shows updated `next` version
 7. Post-publish smoke in a clean temp directory:
 
@@ -274,11 +291,11 @@ Additional steps beyond the standard 0.0.x flow:
    checklist including narrow viewport (`< md`) pass
 3. Add changeset with minor bump → `0.1.0`
 4. Switch publish script to **`pnpm publish:release:latest`** (or update `publish:release` to `--tag latest`) for the `0.1.0` cut
-5. Merge Version Packages PR to `main` → Release CI publishes
-6. Confirm **Sync dev from main** succeeded (see [Release workflow](#release-workflow))
+5. Merge Version Packages PR to `main` → **Release — Publish npm** publishes
+6. Confirm **Release — Sync dev** succeeded (see [Release workflow](#release-workflow))
 7. README: update install command to remove `@next`
 8. Update CHANGELOG `[0.1.0]` entry and dist-tag policy in this file
-9. Add `npm publish --provenance` to the Release CI workflow (see [Supply chain security](#supply-chain-security))
+9. Provenance is enabled in **Release — Publish npm** (see [Supply chain security](#supply-chain-security))
 
 **First-time `@latest` smoke:**
 
@@ -385,12 +402,11 @@ Run `pnpm sync:all && pnpm registry:check` before every publish.
 ## CI policy
 
 CI runs on pull requests and pushes to `dev`/`main` via
-[`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) (Node 24, frozen
-lockfile). Pull requests use path-filtered jobs; pushes to `dev`/`main` run a
-full `pnpm check`. Token-path PRs also run
-[tokens-governance](../../.github/workflows/tokens-governance.yml). After a successful
-[Release](../../.github/workflows/release.yml) on `main`,
-[sync-dev-from-main](../../.github/workflows/sync-dev-from-main.yml) merges release
+[**Monorepo CI**](../../.github/workflows/ci.yml) (Node 24, frozen lockfile). Pull
+requests use path-filtered jobs; pushes to `dev`/`main` run a full `pnpm check`.
+Token-path PRs also run [**Tokens — Governance**](../../.github/workflows/tokens-governance.yml).
+After a successful [**Release — Publish npm**](../../.github/workflows/release-publish.yml) on
+`main`, [**Release — Sync dev**](../../.github/workflows/release-sync-dev.yml) merges release
 metadata into `dev` (see [Release workflow](#release-workflow)).
 
 **Lockfile and dependency rules:**
@@ -412,13 +428,13 @@ GitHub Actions secrets if CI duration grows.
 
 ## Supply chain security
 
-| Control                                                               | Status                                                                                                        |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `--frozen-lockfile` in CI                                             | implemented                                                                                                   |
-| Granular NPM_TOKEN (scoped publish permissions per package)           | implemented                                                                                                   |
-| `npm publish --provenance` (links package to GitHub Actions workflow) | **shipped** — Release workflow sets `NPM_CONFIG_PROVENANCE: true` (Changesets does not accept `--provenance`) |
-| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC)         | deferred                                                                                                      |
-| Signed releases (sigstore)                                            | deferred                                                                                                      |
+| Control                                                               | Status                                                                                                                 |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `--frozen-lockfile` in CI                                             | implemented                                                                                                            |
+| Granular NPM_TOKEN (scoped publish permissions per package)           | implemented                                                                                                            |
+| `npm publish --provenance` (links package to GitHub Actions workflow) | **shipped** — **Release — Publish npm** sets `NPM_CONFIG_PROVENANCE: true` (Changesets does not accept `--provenance`) |
+| OIDC trusted publishing (replaces NPM_TOKEN with GitHub OIDC)         | deferred                                                                                                               |
+| Signed releases (sigstore)                                            | deferred                                                                                                               |
 
 **Notes:**
 
@@ -426,7 +442,7 @@ GitHub Actions secrets if CI duration grows.
   the primary publish authorization control, not a bypass of security.
 - `npm publish --provenance` requires no additional tokens — it uses the GitHub
   Actions OIDC token automatically when run in CI. Set `NPM_CONFIG_PROVENANCE: true`
-  in `.github/workflows/release.yml`; do not pass `--provenance` to `changeset publish`.
+  in `.github/workflows/release-publish.yml`; do not pass `--provenance` to `changeset publish`.
 - **SBOM:** npm provenance attestations ship with published packages. Full CycloneDX
   SBOM generation is deferred — track as future supply-chain hardening.
 - Deferred items tracked in [Backlog § Known Gaps](../REVIEW_TODO.md#known-gaps).
