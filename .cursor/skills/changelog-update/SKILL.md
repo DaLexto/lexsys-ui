@@ -128,9 +128,29 @@ When promoting `[Unreleased]` to a version block, update the footer link list at
 [0.0.1]: https://www.npmjs.com/package/@dalexto/lexsys-cli/v/0.0.1
 ```
 
-Each new release block gets a comparison link. First release links to npm instead of a diff.
+Each new release block gets a comparison link. Stable lane uses `lexsys@<version>` tags:
 
-### Step 7 — Confirm (user runs)
+```markdown
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.3...HEAD
+[0.1.3]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.2...lexsys@0.1.3
+```
+
+First release links to npm instead of a diff.
+
+### Step 7 — Promote before release train (mandatory)
+
+Before opening **`dev` → `main`** or merging the Version packages PR, promote `[Unreleased]`:
+
+1. Copy `[Unreleased]` content into `## [<version>] - YYYY-MM-DD` with a one-line consumer intro (like prior releases).
+2. Clear `[Unreleased]` (leave the heading only).
+3. Add footer `[<version>]:` compare link and bump `[Unreleased]:` to `lexsys@<version>...HEAD`.
+4. In `### Notes`, list release-train PRs (changeset PR, Version packages PR) with markdown links.
+
+**CI gate:** **Release — Publish npm** fails if `CHANGELOG.md` has no `## [<version>]` matching `packages/entry/package.json`. Do not rely on Changesets fallback for GitHub release notes.
+
+**Automated links on GitHub Release:** `create-github-release.mjs` appends a `### Links` section with the footer compare URL and PR links parsed from `packages/entry/CHANGELOG.md` (Changesets output). Root changelog body is still the primary release narrative.
+
+### Step 8 — Confirm (user runs)
 
 Ask the user to run:
 

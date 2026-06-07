@@ -34,9 +34,9 @@ For non-trivial changes, follow [AGENTS.md § Change workflow](../../AGENTS.md#c
 5. Open PR **to `dev` last** — never target **`main`** without explicit user request
 
 **Branch protection:** `dev` and `main` require pull requests (see repository rulesets).
-After a release on `main`, the [**Sync dev from main**](../.github/workflows/sync-dev-from-main.yml)
-workflow opens `chore(release): sync release metadata from main` and auto-merges when CI
-passes — contributors do not action that PR unless it fails.
+After a release on `main`, [**Release — Sync dev**](../.github/workflows/release-sync-dev.yml)
+opens `chore(release): sync release metadata from main` and auto-merges when CI passes —
+contributors do not action that PR unless it fails.
 
 ## Before opening a PR
 
@@ -74,12 +74,14 @@ Issues and pull requests use the namespaced label set in [`.github/labels.yml`](
 | `area:*`       | Primary package or surface (`area:tokens`, `area:cli`, `area:agents`, `area:repo`, …)           |
 | `priority:*`   | Issue triage only (`priority:critical`, `priority:high`, `priority:medium`, `priority:low`)     |
 | `status:*`     | Workflow state (`status:needs-triage`, `status:blocked`, `status:ready-for-review` on open PRs) |
-| `meta:*`       | Cross-cutting flags (`meta:breaking-change`, `meta:good-first-issue`, `meta:help-wanted`)       |
+| `meta:*`       | Cross-cutting flags (`meta:breaking-change`, `meta:release-train`, `meta:changeset`, …)         |
 | `automation:*` | Bot PRs (`automation:dependencies`, `automation:github-actions`)                                |
 
 The manifest is synced in **strict** mode: labels not listed in `.github/labels.yml` are removed on sync. Edit the manifest in a PR; CI runs a dry-run preview. Sync applies on merge to `dev`/`main`. See [Scripts reference](../operations/SCRIPTS.md) § GitHub label sync.
 
-On **merged** pull requests, [`.github/workflows/pr-status-label-cleanup.yml`](../../.github/workflows/pr-status-label-cleanup.yml) automatically removes `status:ready-for-review`. Apply it when opening a PR; no manual cleanup after merge.
+**Label budget:** max **4** labels per PR — 1× `type:*`, up to 2× `area:*`, 1× `status:*`, optional 1× `meta:*`. [**Repo — PR automation**](../../.github/workflows/repo-pr-automation.yml) comments when the count exceeds 4.
+
+On **merged** pull requests, **Repo — PR automation** removes `status:ready-for-review`. Apply it when opening a PR; no manual cleanup after merge. Path-based `area:*` labels are applied automatically from [`.github/labeler.yml`](../../.github/labeler.yml).
 
 ## Documentation
 

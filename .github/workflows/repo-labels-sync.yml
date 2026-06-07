@@ -1,4 +1,4 @@
-name: Sync GitHub labels
+name: Repo — Label sync
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - .github/labels.yml
-      - .github/workflows/labels-sync.yml
+      - .github/workflows/repo-labels-sync.yml
   pull_request:
     paths:
       - .github/labels.yml
@@ -19,6 +19,7 @@ permissions:
 
 jobs:
   dry-run:
+    name: Preview label diff
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +34,7 @@ jobs:
           DaLexto/lexsys-ui
 
   sync:
+    name: Apply label sync
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:

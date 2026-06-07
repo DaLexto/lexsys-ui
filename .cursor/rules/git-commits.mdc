@@ -165,10 +165,13 @@ Apply labels per [procedures § Pull request](../skills/git-commit/procedures.md
 |-------|------|
 | `type:*` | One — mirrors primary commit type |
 | `area:*` | One or more — every primary surface touched (see [area mapping](#area-mapping)) |
-| `status:ready-for-review` | Open PR complete and awaiting review — removed automatically on merge ([pr-status-label-cleanup.yml](../../.github/workflows/pr-status-label-cleanup.yml)) |
+| `status:ready-for-review` | Open PR complete and awaiting review — removed on merge ([repo-pr-automation.yml](../../.github/workflows/repo-pr-automation.yml)) |
 | `meta:breaking-change` | Public API, registry install paths, token CSS, or config breaks |
+| `meta:changeset` | Changeset-only prep PR for an upcoming release (optional) |
 
-**Do not apply on PRs:** `priority:*`, `automation:*`, `meta:good-first-issue`, `meta:help-wanted`.
+**Label budget (max 4):** 1× `type:*`, up to 2× `area:*`, 1× `status:*`, optional 1× `meta:*`. Do not exceed — automation comments when count > 4.
+
+**Do not apply on PRs:** `priority:*`, `automation:*`, `meta:good-first-issue`, `meta:help-wanted`, `meta:release-train` (bot applies on `dev` → `main` and sync PRs).
 
 ### area mapping
 
