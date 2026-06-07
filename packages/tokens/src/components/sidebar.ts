@@ -26,6 +26,14 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     foreground: { $value: "{color.text.secondary}" },
     foregroundActive: { $value: "{color.text.primary}" },
     gap: { $value: "{spacing.control.gap.md}" },
+    height: {
+      $type: "dimension",
+      min: { $value: "{size.control.sm}" },
+    },
+    adornment: {
+      $type: "dimension",
+      height: { $value: "{size.control.xs}" },
+    },
     radius: { $value: "{radius.control}" },
     padding: {
       $type: "dimension",
@@ -62,10 +70,8 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     },
     focus: {
       ring: {
-        width: { $value: "{outline.width.focus}" },
+        width: { $value: "{outline.width.inset}" },
         color: { $value: "{border.focus}" },
-        offset: { $value: "{outline.offset.focus}" },
-        offsetColor: { $value: "{color.background.base}" },
       },
     },
   },

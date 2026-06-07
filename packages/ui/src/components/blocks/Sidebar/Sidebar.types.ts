@@ -192,6 +192,24 @@ export interface SidebarItemBadgeProps extends BadgeProps {
   dot?: boolean
 }
 
+export interface SidebarItemRowProps extends HTMLAttributes<HTMLDivElement> {
+  ref?: Ref<HTMLDivElement>
+  className?: string
+  children?: ReactNode
+}
+
+export interface SidebarItemAdornmentsProps extends HTMLAttributes<HTMLDivElement> {
+  ref?: Ref<HTMLDivElement>
+  className?: string
+  children?: ReactNode
+}
+
+export interface SidebarItemExpandTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: Ref<HTMLButtonElement>
+  className?: string
+  open?: boolean
+}
+
 export interface SidebarItemIconProps extends HTMLAttributes<HTMLSpanElement> {
   ref?: Ref<HTMLSpanElement>
   className?: string

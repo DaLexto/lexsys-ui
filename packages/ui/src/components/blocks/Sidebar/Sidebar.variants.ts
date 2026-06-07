@@ -131,7 +131,47 @@ export const sidebarItemClasses = (): string => {
   return [
     "lex-sidebar__row group/sidebar-row relative flex flex-col items-stretch",
     "[&>:first-child]:min-w-0",
+    "[&>.lex-sidebar__item-row]:min-w-0",
     "has-[.lex-sidebar__item-action]:[&>:first-child]:pe-8",
+  ].join(" ")
+}
+
+export const sidebarItemRowClasses = (): string => {
+  return [
+    "lex-sidebar__item-row group/sidebar-item-row flex w-full min-h-(--lex-sidebar-item-height-min) items-stretch",
+    "has-[.lex-sidebar__item--active]:[&_.lex-sidebar__item-expand]:bg-(--lex-sidebar-item-background-active)",
+    "has-[.lex-sidebar__item--active]:[&_.lex-sidebar__item-expand]:text-(--lex-sidebar-item-foreground-active)",
+  ].join(" ")
+}
+
+export const sidebarItemAdornmentsClasses = (): string => {
+  return [
+    "lex-sidebar__item-adornments flex shrink-0 items-center gap-(--lex-sidebar-item-gap) self-center",
+    "pe-(--lex-sidebar-item-padding-x)",
+  ].join(" ")
+}
+
+export const sidebarNavItemRowLeadClasses = (
+  active?: boolean,
+  disabled?: boolean,
+): string => {
+  return [
+    sidebarNavItemClasses(active, disabled),
+    "min-w-0 flex-1 rounded-e-none",
+  ].join(" ")
+}
+
+export const sidebarNavItemExpandTriggerClasses = (open = false): string => {
+  return [
+    "lex-sidebar__item-expand flex shrink-0 items-center justify-center",
+    "min-h-(--lex-sidebar-item-height-min) w-(--lex-sidebar-item-height-min)",
+    "rounded-(--lex-sidebar-item-radius) rounded-s-none",
+    "text-(--lex-sidebar-item-foreground)",
+    "transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "hover:bg-(--lex-sidebar-item-background-hover) hover:text-(--lex-color-text-primary)",
+    "focus-visible:outline-none focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
+    "[&>svg]:size-(--lex-sidebar-item-icon-size) [&>svg]:shrink-0 [&>svg]:transition-transform",
+    open ? "[&>svg]:rotate-180" : "",
   ].join(" ")
 }
 
@@ -160,9 +200,10 @@ export const sidebarItemActionClasses = (showOnHover = true): string => {
 
 export const sidebarItemShortcutClasses = (): string => {
   return [
-    "lex-sidebar__item-shortcut ms-auto shrink-0",
+    "lex-sidebar__item-shortcut inline-flex shrink-0 items-center justify-center",
+    "h-(--lex-sidebar-item-adornment-height) min-w-(--lex-sidebar-item-adornment-height)",
     "rounded-(--lex-sidebar-item-radius) border border-[var(--lex-border-default)]",
-    "px-(--lex-space-control-x-xs) py-(--lex-space-control-y-xs)",
+    "px-(--lex-space-control-x-xs)",
     "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",
     "leading-(--lex-sidebar-item-font-line-height) text-(--lex-sidebar-item-foreground)",
     "md:group-data-[collapsed=true]/sidebar:hidden",
@@ -178,7 +219,7 @@ export const sidebarGroupActionClasses = (): string => {
 
 export const sidebarItemBadgeClasses = (): string => {
   return [
-    "lex-sidebar__item-badge shrink-0",
+    "lex-sidebar__item-badge inline-flex shrink-0 items-center self-center",
     "max-w-(--lex-sidebar-item-badge-max-width) truncate",
     "md:group-data-[collapsed=true]/sidebar:absolute md:group-data-[collapsed=true]/sidebar:top-1",
     "md:group-data-[collapsed=true]/sidebar:end-1 md:group-data-[collapsed=true]/sidebar:max-w-none",
@@ -251,14 +292,13 @@ export const sidebarNavItemClasses = (
 ): string => {
   const base = [
     "lex-sidebar__item",
-    "relative flex min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
+    "relative flex min-h-(--lex-sidebar-item-height-min) w-full min-w-0 items-center gap-(--lex-sidebar-item-gap)",
     "rounded-(--lex-sidebar-item-radius)",
     "px-(--lex-sidebar-item-padding-x) py-(--lex-sidebar-item-padding-y)",
     "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",
     "leading-(--lex-sidebar-item-font-line-height)",
     "no-underline outline-none transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
-    "focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
-    "focus-visible:ring-offset-(length:--lex-sidebar-item-focus-ring-offset) focus-visible:ring-offset-(--lex-sidebar-item-focus-ring-offset-color)",
+    "focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
   ].join(" ")
 
   if (disabled) {
@@ -291,7 +331,7 @@ export const sidebarNavItemClasses = (
 
 export const sidebarItemSkeletonClasses = (indent = false): string => {
   const classes = [
-    "lex-sidebar__item-skeleton flex w-full min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
+    "lex-sidebar__item-skeleton flex min-h-(--lex-sidebar-item-height-min) w-full min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
     "rounded-(--lex-sidebar-item-radius)",
     "px-(--lex-sidebar-item-padding-x) py-(--lex-sidebar-item-padding-y)",
     sidebarCollapsedItemClasses(),

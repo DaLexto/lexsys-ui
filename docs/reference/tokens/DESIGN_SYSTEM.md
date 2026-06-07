@@ -314,6 +314,10 @@ Parallel ladders share step names (`sm`, `md`) across groups; pixel values diffe
 
 **Sidebar md profile (TOK.5):** `nav.padding` → `control.x.sm` (12px); `list.gap` / `group.gap` / `subList.gap` / `separator.marginY` → `control.gap.md` (8px); `item.padding.x` → `control.x.md` (16px); `item.padding.y` → `control.y.sm` (8px); `item.gap` → `control.gap.md` (8px). Variants consume `--lex-sidebar-*` component vars, not raw `--lex-space-*` primitives for these slots.
 
+**Sidebar focus (dense lists):** nav items use an **inset** focus ring (`outline.width.inset` via `item.focus.ring.width`) so the ring stays inside item padding and does not consume `list.gap` slack. Outset `ring-offset` is for controls with surrounding bleed room (Button, Input), not stacked nav rows.
+
+**Sidebar item row shell:** every nav row uses `SidebarItemRow` (`item.height.min` → `size.control.sm`) so links, adornments (`SidebarItemAdornments`), and `SidebarItemExpandTrigger` share one min-height and padding rhythm. Split parent rows attach expand trigger to the link lead (`rounded-e-none` + square expand slot).
+
 Density switching (`compact` / `default` / `comfortable`) is **TOK.6** — deferred until this profile ships.
 
 ### Tailwind `@theme`

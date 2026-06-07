@@ -132,7 +132,7 @@ Generated CSS uses `--lex-size-overlay-*`, `--lex-space-overlay-side-offset` (sp
 - MUST NOT reference other component token namespaces.
 - Scoped to one component. Use one token file per component.
 - Component tokens describe slot/property decisions, not global product meaning.
-- Namespaced by component name in the merged token tree (e.g. `button.*`, `badge.*`, `sidebar.*` — see `packages/tokens/src/components/sidebar.ts` for nav shell width, list/group rhythm slots (`nav`, `list`, `group`, `separator`), item chrome, and motion aliases).
+- Namespaced by component name in the merged token tree (e.g. `button.*`, `badge.*`, `sidebar.*` — see `packages/tokens/src/components/sidebar.ts` for nav shell width, list/group rhythm slots (`nav`, `list`, `group`, `separator`), item row min-height/adornment slots, item chrome, and motion aliases).
 
 ### Themes
 

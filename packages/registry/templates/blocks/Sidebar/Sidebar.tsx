@@ -60,9 +60,12 @@ import type {
   SidebarHeaderProps,
   SidebarGroupActionProps,
   SidebarItemActionProps,
+  SidebarItemAdornmentsProps,
   SidebarItemBadgeProps,
   SidebarItemButtonProps,
+  SidebarItemExpandTriggerProps,
   SidebarItemIconProps,
+  SidebarItemRowProps,
   SidebarItemLinkProps,
   SidebarItemProps,
   SidebarItemShortcutProps,
@@ -95,9 +98,12 @@ import {
   sidebarGroupLabelClasses,
   sidebarGroupClasses,
   sidebarItemActionClasses,
+  sidebarItemAdornmentsClasses,
   sidebarItemBadgeClasses,
   sidebarItemIconClasses,
+  sidebarItemRowClasses,
   sidebarItemShortcutClasses,
+  sidebarNavItemExpandTriggerClasses,
   sidebarItemBadgeCollapsedClasses,
   sidebarItemBadgeDotClasses,
   sidebarItemBadgeLabelClasses,
@@ -1077,6 +1083,66 @@ const SidebarItemIcon = ({
 
 SidebarItemIcon.displayName = "SidebarItemIcon"
 
+const SidebarItemRow = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemRowProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(sidebarItemRowClasses(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+SidebarItemRow.displayName = "SidebarItemRow"
+
+const SidebarItemAdornments = ({
+  ref,
+  className,
+  children,
+  ...props
+}: SidebarItemAdornmentsProps) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(sidebarItemAdornmentsClasses(), className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+SidebarItemAdornments.displayName = "SidebarItemAdornments"
+
+const SidebarItemExpandTrigger = ({
+  ref,
+  className,
+  open = false,
+  children,
+  type = "button",
+  ...props
+}: SidebarItemExpandTriggerProps) => {
+  return (
+    <button
+      ref={ref}
+      type={type}
+      className={cn(sidebarNavItemExpandTriggerClasses(open), className)}
+      {...props}
+    >
+      {children ?? <ChevronDown aria-hidden />}
+    </button>
+  )
+}
+
+SidebarItemExpandTrigger.displayName = "SidebarItemExpandTrigger"
+
 const SidebarItemAction = ({
   ref,
   showOnHover = true,
@@ -1270,6 +1336,9 @@ export {
   SidebarItemSkeleton,
   SidebarItemBadge,
   SidebarItemIcon,
+  SidebarItemRow,
+  SidebarItemAdornments,
+  SidebarItemExpandTrigger,
   SidebarItemAction,
   SidebarItemShortcut,
   SidebarGroupAction,
@@ -1285,3 +1354,9 @@ export {
 }
 
 export type { SidebarNavActiveOptions } from "./Sidebar.types.js"
+export {
+  sidebarItemRowClasses,
+  sidebarItemAdornmentsClasses,
+  sidebarNavItemRowLeadClasses,
+  sidebarNavItemExpandTriggerClasses,
+} from "./Sidebar.variants.js"
