@@ -4,17 +4,17 @@
  * Public types for the FilterToolbar block.
  */
 
-import type { ButtonProps } from "@/components/primitives/Button"
-import type { InputProps } from "@/components/primitives/Input"
+import type { ButtonProps } from "@/components/primitives/Button/Button.types"
+import type { InputProps } from "@/components/primitives/Input/Input.types"
 import type {
   SelectProps,
   SelectTriggerProps,
   SelectValueProps,
-} from "@/components/primitives/Select"
+} from "@/components/primitives/Select/Select.types"
 import type {
   ToolbarGroupProps,
   ToolbarProps,
-} from "@/components/primitives/Toolbar"
+} from "@/components/primitives/Toolbar/Toolbar.types"
 
 export type FilterToolbarProps = ToolbarProps
 

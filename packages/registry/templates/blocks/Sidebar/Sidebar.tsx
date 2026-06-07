@@ -17,8 +17,8 @@ import {
   type MouseEventHandler,
   type ReactNode,
 } from "react"
-import { Badge } from "@/components/primitives/Badge"
-import { Button } from "@/components/primitives/Button"
+import { Badge } from "@/components/primitives/Badge/Badge"
+import { Button } from "@/components/primitives/Button/Button"
 import {
   Drawer,
   DrawerBackdrop,
@@ -30,19 +30,19 @@ import {
   DrawerTitle,
   DrawerTrigger,
   DrawerViewport,
-} from "@/components/primitives/Drawer"
+} from "@/components/primitives/Drawer/Drawer"
 import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
 import { ChevronDown } from "lucide-react"
 import {
   Collapsible,
   CollapsiblePanel,
-} from "@/components/primitives/Collapsible"
-import { Input } from "@/components/primitives/Input"
+} from "@/components/primitives/Collapsible/Collapsible"
+import { Input } from "@/components/primitives/Input/Input"
 import {
   ScrollArea,
   ScrollAreaContent,
   ScrollAreaViewport,
-} from "@/components/primitives/ScrollArea"
+} from "@/components/primitives/ScrollArea/ScrollArea"
 import { isSidebarNavActive } from "./Sidebar.utils.js"
 import type {
   SidebarCollapseTriggerProps,

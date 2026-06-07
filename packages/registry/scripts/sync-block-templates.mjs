@@ -90,27 +90,27 @@ const toRegistryTemplate = (source) => {
     .replaceAll('from "../../../utils/cn"', 'from "@/lib/utils"')
     .replaceAll('from "../../../utils/variant-states"', 'from "@/lib/utils"')
     .replaceAll(
-      /from "\.\.\/\.\.\/primitives\/([^"/]+)\/[^"]+"/gu,
+      /from "\.\.\/\.\.\/primitives\/([^"]+)"/gu,
       'from "@/components/primitives/$1"',
     )
     .replaceAll(
-      /from "\.\.\/primitives\/([^"/]+)\/[^"]+"/gu,
+      /from "\.\.\/primitives\/([^"]+)"/gu,
       'from "@/components/primitives/$1"',
     )
     .replaceAll(
-      /from "\.\.\/\.\.\/blocks\/([^"/]+)\/[^"]+"/gu,
+      /from "\.\.\/\.\.\/blocks\/([^"]+)"/gu,
       'from "@/components/blocks/$1"',
     )
     .replaceAll(
-      /from "\.\.\/blocks\/([^"/]+)\/[^"]+"/gu,
+      /from "\.\.\/blocks\/([^"]+)"/gu,
       'from "@/components/blocks/$1"',
     )
     .replaceAll(
-      /from "\.\.\/\.\.\/templates\/([^"/]+)\/[^"]+"/gu,
+      /from "\.\.\/\.\.\/templates\/([^"]+)"/gu,
       'from "@/components/templates/$1"',
     )
     .replaceAll(
-      /from "\.\.\/templates\/([^"/]+)\/[^"]+"/gu,
+      /from "\.\.\/templates\/([^"]+)"/gu,
       'from "@/components/templates/$1"',
     )
 }

@@ -12,6 +12,7 @@ import type {
   RegistryStyle,
   RegistryUtility,
 } from "../src/registry.types.js"
+import { getRegistryDependenciesFromTemplateContents } from "../src/registry-composition-imports.js"
 import { validateRegistry } from "../src/validate-registry.js"
 
 /**
@@ -474,6 +475,31 @@ describe("validateRegistry", () => {
     }
 
     expect(() => validateRegistry([blockA, blockB])).toThrow(/dependency cycle/)
+  })
+
+  test("sidebar block registryDependencies match template composition imports", () => {
+    const sidebar = registryItems.find((registryItem) => {
+      return registryItem.name === "sidebar"
+    })
+
+    expect(sidebar).toBeDefined()
+
+    const templateContents = sidebar!.files
+      .filter((file) => file.endsWith(".tsx"))
+      .map(readTemplateFile)
+
+    const inferred =
+      getRegistryDependenciesFromTemplateContents(templateContents)
+
+    expect([...sidebar!.registryDependencies].sort()).toEqual(inferred)
+    expect(inferred).toEqual([
+      "badge",
+      "button",
+      "collapsible",
+      "drawer",
+      "input",
+      "scroll-area",
+    ])
   })
 
   test("rejects block templates that import undeclared registry items", () => {

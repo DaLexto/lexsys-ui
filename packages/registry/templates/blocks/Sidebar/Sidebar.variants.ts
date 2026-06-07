@@ -5,7 +5,7 @@
  */
 
 import { disabledStateClasses } from "@/lib/utils"
-import type { BadgeVariant } from "@/components/primitives/Badge"
+import type { BadgeVariant } from "@/components/primitives/Badge/Badge.types"
 import type { SidebarShellOptions } from "./Sidebar.types"
 
 export const sidebarRootClasses = ({

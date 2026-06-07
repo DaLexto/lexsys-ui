@@ -13,13 +13,13 @@ import type {
   Ref,
 } from "react"
 import type { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
-import type { BadgeProps } from "@/components/primitives/Badge"
-import type { ButtonProps } from "@/components/primitives/Button"
+import type { BadgeProps } from "@/components/primitives/Badge/Badge.types"
+import type { ButtonProps } from "@/components/primitives/Button/Button.types"
 import type {
   CollapsiblePanelProps,
   CollapsibleProps,
-} from "@/components/primitives/Collapsible"
-import type { InputProps } from "@/components/primitives/Input"
+} from "@/components/primitives/Collapsible/Collapsible.types"
+import type { InputProps } from "@/components/primitives/Input/Input.types"
 
 export type SidebarCollapsible = "none" | "icon" | "offcanvas"
 export type SidebarSide = "left" | "right"
