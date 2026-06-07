@@ -32,13 +32,13 @@ Long-term direction: [Roadmap](./ROADMAP.md). Release notes: [CHANGELOG](../CHAN
 
 | Priority | ID / track        | Item                                                   | Status   | Surface                          |
 | -------- | ----------------- | ------------------------------------------------------ | -------- | -------------------------------- |
-| **1**    | **TOK.6**         | Density prop (`compact` / `default` / `comfortable`)   | **next** | `packages/tokens`, UI variants   |
-| 2        | UI composition #5 | Additional blocks/templates beyond pilot set           | planned  | `packages/ui`, registry          |
+| **1**    | UI composition #5 | Additional blocks/templates beyond pilot set           | planned  | `packages/ui`, registry          |
+| —        | TOK.6             | Density prop (`compact` / `default` / `comfortable`)   | planned  | `packages/tokens`, UI variants   |
 | —        | TOK.4             | Cross-scale size harmony (icon ↔ typography ↔ control) | deferred | blocked on AST evaluator         |
 | —        | TOK.8 (mini)      | `motion.duration.page` (500ms)                         | deferred | no template owns page motion yet |
 | —        | DX.1              | Public starter template repo                           | deferred | separate GitHub repo             |
 
-**Suggested pick-up:** TOK.6 spec in [DESIGN_SYSTEM § Control rhythm](./reference/tokens/DESIGN_SYSTEM.md#control-rhythm-padding-gap-focus-offset) → semantic ladders → component slots → sandbox QA.
+**Suggested pick-up:** UI composition step 5 — pick a block/template, ship with CI install smoke + [consumer sandbox](./operations/TESTING.md#consumer-sandbox-verification). TOK.6 stays **planned** until density work is explicitly scheduled ([DESIGN_SYSTEM § Control rhythm](./reference/tokens/DESIGN_SYSTEM.md#control-rhythm-padding-gap-focus-offset)).
 
 ---
 
@@ -73,7 +73,7 @@ Cross-link [Resolver evolution § After Phase 10](./reference/tokens/RESOLVER_EV
 
 | ID    | Item                                                                                   | Status                                                                                                                                             |
 | ----- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TOK.6 | Density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders         | **next** — TOK.5/TOK.7/TOK.8 stable in monorepo + sandbox                                                                                          |
+| TOK.6 | Density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders         | **planned** — TOK.5/TOK.7/TOK.8 stable; not scheduled yet                                                                                          |
 | TOK.4 | Cross-scale size harmony (icon ↔ typography ↔ control; Button `icon.size` per variant) | deferred — [AST evaluator](./reference/tokens/RESOLVER_EVOLUTION.md#ast-evaluator-subsystem)                                                       |
 | —     | `motion.duration.page` (500ms tier)                                                    | deferred — add when a template owns page-level motion ([DESIGN_SYSTEM § Motion](./reference/tokens/DESIGN_SYSTEM.md#motion-rhythm-duration-tiers)) |
 
@@ -106,7 +106,7 @@ Optional follow-ups after token phases 1–10 ([Resolver evolution § After Phas
 | -------------------------- | ------------------------------------------- |
 | DX.1 / public starter repo | Deferred post-0.1.0 — separate GitHub repo. |
 | TOK.4                      | Deferred until AST evaluator subsystem.     |
-| TOK.6                      | Next active token slice — not started.      |
+| TOK.6                      | Planned density slice — not started.        |
 | UI composition step 5      | Planned — no item IDs assigned yet.         |
 
 **Resolved (reference):** see [§ Shipped index (all IDs)](#shipped-index-all-ids) and git history.
@@ -241,7 +241,7 @@ DX track outcomes indexed above. **DX.1** deferred; **DX.2–DX.5** shipped with
 
 ### P2.3 — Tokens shipped (TOK.1–TOK.8)
 
-Post–Phase 10 token hardening **shipped** for TOK.1–TOK.3, TOK.5, TOK.7, TOK.8. Index rows: [§ Shipped index (all IDs)](#shipped-index-all-ids). Open: TOK.6 (**next**), TOK.4 (**deferred**) — [§ Open backlog](#open-backlog).
+Post–Phase 10 token hardening **shipped** for TOK.1–TOK.3, TOK.5, TOK.7, TOK.8. Index rows: [§ Shipped index (all IDs)](#shipped-index-all-ids). Open: TOK.6 (**planned**), TOK.4 (**deferred**) — [§ Open backlog](#open-backlog).
 
 **TOK.7 harmonization map** (audit complete 2026-06-07; `pnpm ui:audit` clean):
 

@@ -320,7 +320,7 @@ Parallel ladders share step names (`sm`, `md`) across groups; pixel values diffe
 
 **TOK.7 (shipped):** blocks, templates, and targeted primitives consume `--lex-<component>-*` spacing slots — not raw `--lex-space-*` primitives in `*.variants.ts`. New component token files: `page-header`, `dashboard-shell`, `data-table`, `command-palette`, `stats-card`, `form-field`, `auth-form`, `settings-page-layout`; extensions to `sidebar`, `date-picker`, `toolbar`. Audit map: [REVIEW_TODO § TOK.7](../../REVIEW_TODO.md#p23-tokens-shipped-tok1tok8).
 
-Density switching (`compact` / `default` / `comfortable`) is **TOK.6** — deferred until TOK.5/TOK.7 profiles are stable in consumer sandboxes.
+Density switching (`compact` / `default` / `comfortable`) is **TOK.6** — **planned** (TOK.5/TOK.7/TOK.8 stable; not scheduled yet).
 
 ### Motion rhythm (duration tiers)
 
