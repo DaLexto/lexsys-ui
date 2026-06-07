@@ -9,6 +9,9 @@ export const datePickerComponentTokens = componentTokens("date-picker", {
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     width: { $value: "{size.panel.width.sm}" },
+    grid: {
+      gap: { $value: "{spacing.surface.gap.sm}" },
+    },
   },
   header: {
     foreground: { $value: "{color.text.primary}" },

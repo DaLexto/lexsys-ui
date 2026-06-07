@@ -12,6 +12,9 @@ export const toolbarComponentTokens = componentTokens("toolbar", {
   group: {
     gap: { $value: "{spacing.control.gap.sm}" },
   },
+  separator: {
+    margin: { $value: "{spacing.control.gap.sm}" },
+  },
   button: {
     height: { $value: "{size.control.sm}" },
     radius: { $value: "{radius.control}" },

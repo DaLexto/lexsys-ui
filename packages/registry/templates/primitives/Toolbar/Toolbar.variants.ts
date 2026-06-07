@@ -73,8 +73,10 @@ export const toolbarSeparatorVariants = cva(
   {
     variants: {
       orientation: {
-        horizontal: "mx-(--lex-space-1) h-(--lex-separator-thickness) w-full",
-        vertical: "my-(--lex-space-1) h-full w-(--lex-separator-thickness)",
+        horizontal:
+          "mx-(--lex-toolbar-separator-margin) h-(--lex-separator-thickness) w-full",
+        vertical:
+          "my-(--lex-toolbar-separator-margin) h-full w-(--lex-separator-thickness)",
       },
     },
     defaultVariants: {
