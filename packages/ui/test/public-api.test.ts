@@ -49,7 +49,11 @@ const getComponentExports = (
 }
 
 const isNonComponentExport = (exportName: string): boolean => {
-  return exportName.startsWith("use") || exportName.startsWith("create")
+  return (
+    exportName.startsWith("use") ||
+    exportName.startsWith("create") ||
+    exportName.startsWith("is")
+  )
 }
 
 const layerEntries = getLayerEntries()

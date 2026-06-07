@@ -5,7 +5,7 @@
  */
 
 import type { HTMLAttributes, ReactNode, Ref } from "react"
-import type { ButtonProps } from "@/components/primitives/Button"
+import type { ButtonProps } from "@/components/primitives/Button/Button.types"
 import type {
   BreadcrumbItemProps,
   BreadcrumbLinkProps,
@@ -13,7 +13,7 @@ import type {
   BreadcrumbPageProps,
   BreadcrumbProps,
   BreadcrumbSeparatorProps,
-} from "@/components/primitives/Breadcrumb"
+} from "@/components/primitives/Breadcrumb/Breadcrumb.types"
 
 export interface PageHeaderProps extends HTMLAttributes<HTMLElement> {
   ref?: Ref<HTMLElement>

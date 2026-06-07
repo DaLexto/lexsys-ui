@@ -4,7 +4,7 @@
  * Reference SettingsPageLayout template — settings page shell with header and panels.
  */
 
-import { PageHeader } from "@/components/blocks/PageHeader"
+import { PageHeader } from "@/components/blocks/PageHeader/PageHeader"
 import {
   SettingsPanel,
   SettingsPanelContent,
@@ -12,7 +12,7 @@ import {
   SettingsPanelFooter,
   SettingsPanelHeader,
   SettingsPanelTitle,
-} from "@/components/blocks/SettingsPanel"
+} from "@/components/blocks/SettingsPanel/SettingsPanel"
 import type {
   SettingsPageLayoutBodyProps,
   SettingsPageLayoutHeaderProps,

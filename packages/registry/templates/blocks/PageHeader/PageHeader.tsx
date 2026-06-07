@@ -4,7 +4,7 @@
  * Reference PageHeader block — compound page title surface with breadcrumb and actions.
  */
 
-import { Button } from "@/components/primitives/Button"
+import { Button } from "@/components/primitives/Button/Button"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,7 +12,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/primitives/Breadcrumb"
+} from "@/components/primitives/Breadcrumb/Breadcrumb"
 import type {
   PageHeaderActionProps,
   PageHeaderActionsProps,

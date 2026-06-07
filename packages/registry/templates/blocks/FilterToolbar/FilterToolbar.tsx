@@ -4,14 +4,14 @@
  * Reference FilterToolbar block — compound Toolbar filter row.
  */
 
-import { Button } from "@/components/primitives/Button"
-import { Input } from "@/components/primitives/Input"
+import { Button } from "@/components/primitives/Button/Button"
+import { Input } from "@/components/primitives/Input/Input"
 import {
   Select,
   SelectTrigger,
   SelectValue,
-} from "@/components/primitives/Select"
-import { Toolbar, ToolbarGroup } from "@/components/primitives/Toolbar"
+} from "@/components/primitives/Select/Select"
+import { Toolbar, ToolbarGroup } from "@/components/primitives/Toolbar/Toolbar"
 import type {
   FilterToolbarButtonProps,
   FilterToolbarGroupProps,

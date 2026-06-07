@@ -12,17 +12,17 @@ import {
   DialogPortal,
   DialogTitle,
   DialogViewport,
-} from "@/components/primitives/Dialog"
+} from "@/components/primitives/Dialog/Dialog"
 import {
   ComboboxInput,
   ComboboxInputGroup,
-} from "@/components/primitives/Combobox"
-import { Separator } from "@/components/primitives/Separator"
+} from "@/components/primitives/Combobox/Combobox"
+import { Separator } from "@/components/primitives/Separator/Separator"
 import {
   ScrollArea,
   ScrollAreaContent,
   ScrollAreaViewport,
-} from "@/components/primitives/ScrollArea"
+} from "@/components/primitives/ScrollArea/ScrollArea"
 import type {
   CommandPaletteContentProps,
   CommandPaletteDescriptionProps,

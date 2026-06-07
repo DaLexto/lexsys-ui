@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-06-06 (`0.1.1` @ `latest`; DX.2 Playwright E2E shipped)
+**Last reviewed:** 2026-06-07 (`0.1.2` release prep on `feat/sb-sidebar-enterprise`; SB wave shipped)
 
 ---
 
@@ -19,6 +19,7 @@
 - [P2 - Product and DX](#p2-product-and-dx)
   - [UI composition (primitives / blocks / templates)](#ui-composition-primitives-blocks-templates)
   - [Blocks / templates optimization backlog](#blocks-templates-optimization-backlog)
+  - [SB - Sidebar enterprise upgrade](#sb-sidebar-enterprise-upgrade)
   - [CS - Component Standardization](#cs-component-standardization)
 - [P3 - Architecture Planning](#p3-architecture-planning)
 - [M12 - CLI command optimization (shipped)](#m12-cli-command-optimization-shipped)
@@ -36,7 +37,7 @@ that are not yet done.
 
 **Historical:** M1–M12, R0, M10 first publish, **0.1.0 wave (A–F + REL)** — [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization), [§ 0.1.0 roadmap](./ROADMAP.md#010-roadmap). All **shipped**.
 
-**Current focus — post-0.1.1:** deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps). PLAYGROUND automation (G2a–G2b) **shipped**.
+**Current focus — post-0.1.2 prep:** merge `feat/sb-sidebar-enterprise` → `dev`, then Changesets Version Packages PR → `main` for npm **`0.1.2`** @ **`latest`**. SB wave **shipped**; deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
 
 | Phase          | Focus                                      | Status                                                                        |
 | -------------- | ------------------------------------------ | ----------------------------------------------------------------------------- |
@@ -293,6 +294,50 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 **Verification surface when picking this up:** consumer sandbox at narrow viewport (`< md`); `lexsys add dashboard-shell` fresh install; compare drawer to playground `DrawerViewport side="right"` pattern.
 
 **Related fixes already landed (PR #28):** valid border tokens in Sidebar/DashboardShell variants; flat consumer install path `src/components/ui/`; Sidebar drawer trigger wiring. Post–PR #30 + `ef65072`: plain nav, mobile drawer, FormField sandbox, `DrawerClose` inline appearance, DashboardShell mobile layout.
+
+### SB - Sidebar enterprise upgrade
+
+**Context:** PulseDesk consumer sandbox (`D:\PLAYGROUND\sandbox-lexsys`) exposed gaps after 0.1.1: desktop collapsible sidebar (icon rail), enterprise NavItem polish (active state too loud — Menu checked tokens), `SidebarItemBadge`, nested nav, and template drift vs monorepo `Sidebar.tsx`. Mobile Drawer slide-in is **shipped** (Base UI). Desktop collapse **shipped SB.5** (`SidebarProvider`, `collapsible="icon"|"offcanvas"`); sandbox consumer CSS/hook removed.
+
+**Target:** `SidebarProvider`, `collapsible="icon"`, `SidebarItemBadge`, item chrome (`SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `SidebarGroupAction`), nested `SidebarSubList` + Collapsible, keyboard a11y, router-aware active docs. **Tokens:** SB.18 global slide motion semantics (`overlayEnter`/`Exit`, easing enter/exit); SB.19 `packages/tokens/src/components/sidebar.ts` (`--lex-sidebar-*`, `--lex-sidebar-item-*`). Active nav visual = tint + left accent bar (variant A). Row adornments = `SidebarItem*` (not `SidebarMenu*`). Base UI has no app-sidebar primitive; Drawer = mobile overlay only.
+
+**Roadmap:** [§ UI composition track step 7](./ROADMAP.md#ui-composition-track).
+
+**Status rule:** `planned` until shipped; flip row when PR merges. **SB.20 (release) starts only when SB.1–SB.19 are all `shipped`** — IDs are not sequential (SB.11–SB.19 exist); SB.10 is the last implementation/polish gate before release, not the last task in the wave.
+
+| ID    | Phase    | Task                                                                         | Depends            | Status  |
+| ----- | -------- | ---------------------------------------------------------------------------- | ------------------ | ------- |
+| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                   | —                  | shipped |
+| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                            | —                  | shipped |
+| SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                   | —                  | shipped |
+| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface             | SB.1, SB.2         | shipped |
+| SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)       | SB.4               | shipped |
+| SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases           | SB.18              | shipped |
+| SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`        | SB.19              | shipped |
+| SB.5  | Impl     | Provider + desktop collapse + mobile partition + sandbox migration           | SB.4, SB.18, SB.19 | shipped |
+| SB.7  | Impl     | `SidebarItemBadge` (+ collapsed dot mode)                                    | SB.11, SB.19       | shipped |
+| SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction` | SB.7               | shipped |
+| SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                   | SB.4, SB.5         | shipped |
+| SB.12 | A11y     | Keyboard nav + `aria-current` on active links                                | SB.11              | shipped |
+| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                         | SB.4               | shipped |
+| SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                            | SB.11              | shipped |
+| SB.15 | Impl     | `SidebarInput` — inline nav filter                                           | SB.8               | shipped |
+| SB.16 | Impl     | `side="right"` + RTL mirror                                                  | SB.5               | shipped |
+| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                             | SB.9               | shipped |
+| SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                   | SB.5–SB.17         | shipped |
+| SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                 | SB.6               | shipped |
+| SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`    | SB.10              | shipped |
+
+**Pick-up order:** SB.1 → SB.2 → SB.3 → SB.4 → SB.18 → SB.19 → SB.11 → SB.5 → SB.7 → SB.8 → SB.9 → SB.12 → SB.13 → SB.14 → SB.15 → SB.16 → SB.17 → SB.6 → SB.10 → **SB.20**.
+
+**Gate when marking SB.6 shipped:** `pnpm tokens:check`, `pnpm ui:check`, `pnpm registry:check`, `$consumer-sandbox-verify` (desktop collapse + badge + mobile drawer unchanged).
+
+**Release workflow (SB.20 — after SB.1–SB.19 are all `shipped`):**
+
+1. **Changeset** — bump publish set to **`0.1.2`** (`@dalexto/lexsys` + `@dalexto/lexsys-cli` fixed group; include `packages/ui`, `packages/tokens`, `packages/registry` as touched). Use [`$changelog-update`](../../.agents/skills/changelog-update/SKILL.md) for `CHANGELOG.md` / package changelogs where applicable.
+2. **Docs alignment** — [`$docs-authoring`](../../.cursor/skills/docs-authoring/SKILL.md) § Alignment: `UI_CATALOG.md` export counts, `UI_COMPOSITION.md` Sidebar compound tree, `TOKENS.md` motion + sidebar tokens, `ROADMAP.md` step 7 → shipped, flip all SB.\* rows to `shipped`.
+3. **Maintainer verify (user-owned)** — user runs `pnpm check` (or `$monorepo-verify-gate` by touched paths) + sandbox smoke; agent does **not** commit until user confirms pass.
+4. **Commit + PR** — on explicit user confirmation only: branch off `dev`, [`$git-commit`](../../.agents/skills/git-commit/SKILL.md) → `gh pr create` targeting **`dev`** (not `main`).
 
 ### CS - Component Standardization
 
