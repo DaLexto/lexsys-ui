@@ -129,8 +129,8 @@ export const sidebarNavListClasses = (): string => {
 
 export const sidebarItemClasses = (): string => {
   return [
-    "lex-sidebar__row group/sidebar-row relative flex items-center",
-    "[&>:first-child]:min-w-0 [&>:first-child]:flex-1",
+    "lex-sidebar__row group/sidebar-row relative flex flex-col items-stretch",
+    "[&>:first-child]:min-w-0",
     "has-[.lex-sidebar__item-action]:[&>:first-child]:pe-8",
   ].join(" ")
 }
@@ -363,7 +363,7 @@ export const sidebarGroupCollapsibleTriggerClasses = (): string => {
     "transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
     "hover:text-(--lex-menu-group-label-foreground)",
     "focus-visible:ring-(length:--lex-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-focus-ring-color)",
-    "[&>svg]:ms-auto [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:transition-transform",
+    "[&>svg]:ms-auto [&>svg]:size-(--lex-sidebar-item-icon-size) [&>svg]:shrink-0 [&>svg]:transition-transform",
     "group-data-[panel-open]/sidebar-group-collapsible:[&>svg]:rotate-180",
   ].join(" ")
 }

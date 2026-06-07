@@ -17,6 +17,14 @@ export const sizeSemantics = semanticTokens("size", {
     md: { $value: "{size.4}" },
     lg: { $value: "{size.5}" },
   },
+  icon: {
+    $type: "dimension",
+    xs: { $value: "{size.2}" },
+    sm: { $value: "{size.3}" },
+    md: { $value: "{size.4}" },
+    lg: { $value: "{size.5}" },
+    xl: { $value: "{size.6}" },
+  },
   area: {
     swipe: {
       $type: "dimension",

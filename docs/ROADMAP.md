@@ -119,10 +119,15 @@ Summary only — do not duplicate detail here.
 - `lexsys uninstall` metadata-driven removal with dry-run and conflict reporting
 - UI render test pilot (`ScrollArea`, `Collapsible`, `Dialog`)
 
+**Recently shipped (token semantics):**
+
+- **TOK.3** — `size.icon` semantic scale (`xs`–`xl`); decorative component `icon.size` slots migrated off `selectionControl`; Sidebar group chevron uses `--lex-sidebar-item-icon-size`
+
 **Deferred (explicit non-goals for now):**
 
 - DTCG composite object `$value` authoring on single leaves (deferred engine phase; branch+slot is current)
 - AST expression evaluator and color/unit math (requires new subsystem — see RESOLVER_EVOLUTION)
+- **TOK.4** — cross-scale size harmony pass (icon ↔ typography ↔ control pairing tables, Button `icon.size` per variant, optical QA) — **deferred until AST evaluator subsystem**; see [Resolver evolution § AST evaluator](./reference/tokens/RESOLVER_EVOLUTION.md#ast-evaluator-subsystem)
 - Automatic contrast pair discovery without an explicit registry
 - Runtime accessibility checks in consumer apps
 - Default CSS/DTCG output switching from `var(--lex-*)` refs to hardcoded literals

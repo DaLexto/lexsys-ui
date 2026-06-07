@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Token layer rules, reference rules, resolution behavior, validation status, package exports
 **Verified against:** `packages/tokens/src/` (all layers, resolver, generator inputs)
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-05-31
 
 ---
 
@@ -89,7 +89,7 @@ Presets are configuration. They are not a layer in this chain.
   | `elevation`  | Overlay stacking and shadow roles: `behind`, `backdrop`, `handle`, `layer`, `floating`, `toast`, `tooltip`, `shadow` |
   | `motion`     | Duration, easing, and entry offset roles: `control`, `surface`, `offset.entry.*`                                     |
   | `radius`     | Border-radius roles: `control`, `selection`, `surface`, `pill`                                                       |
-  | `size`       | Reusable sizing roles: `control`, `selectionControl`, `area`, `panel`, `overlay.*`                                   |
+  | `size`       | Reusable sizing roles: `control`, `selectionControl`, `icon`, `area`, `panel`, `overlay.*`                           |
   | `spacing`    | Spacing roles: `control.*`, `surface.*`, `overlay.sideOffset`                                                        |
   | `typography` | Font family, body, label, heading, code composite roles                                                              |
   | `outline`    | Focus ring roles: `width` (focus, inset, zero), `offset` (focus, zero)                                               |
