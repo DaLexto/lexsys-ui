@@ -11,9 +11,11 @@ import { cardComponentTokens } from "./card"
 import { checkboxComponentTokens } from "./checkbox"
 import { checkboxGroupComponentTokens } from "./checkbox-group"
 import { comboboxComponentTokens } from "./combobox"
+import { commandPaletteComponentTokens } from "./command-palette"
 import { contextMenuComponentTokens } from "./context-menu"
 import { collapsibleComponentTokens } from "./collapsible"
 import { dashboardShellComponentTokens } from "./dashboard-shell"
+import { dataTableComponentTokens } from "./data-table"
 import { datePickerComponentTokens } from "./date-picker"
 import { dialogComponentTokens } from "./dialog"
 import { emptyComponentTokens } from "./empty"
@@ -39,6 +41,7 @@ import { selectComponentTokens } from "./select"
 import { separatorComponentTokens } from "./separator"
 import { sidebarComponentTokens } from "./sidebar"
 import { sliderComponentTokens } from "./slider"
+import { statsCardComponentTokens } from "./stats-card"
 import { switchComponentTokens } from "./switch"
 import { tableComponentTokens } from "./table"
 import { tabsComponentTokens } from "./tabs"
@@ -61,9 +64,11 @@ export { cardComponentTokens } from "./card"
 export { checkboxComponentTokens } from "./checkbox"
 export { checkboxGroupComponentTokens } from "./checkbox-group"
 export { comboboxComponentTokens } from "./combobox"
+export { commandPaletteComponentTokens } from "./command-palette"
 export { contextMenuComponentTokens } from "./context-menu"
 export { collapsibleComponentTokens } from "./collapsible"
 export { dashboardShellComponentTokens } from "./dashboard-shell"
+export { dataTableComponentTokens } from "./data-table"
 export { datePickerComponentTokens } from "./date-picker"
 export { dialogComponentTokens } from "./dialog"
 export { emptyComponentTokens } from "./empty"
@@ -89,6 +94,7 @@ export { selectComponentTokens } from "./select"
 export { separatorComponentTokens } from "./separator"
 export { sidebarComponentTokens } from "./sidebar"
 export { sliderComponentTokens } from "./slider"
+export { statsCardComponentTokens } from "./stats-card"
 export { switchComponentTokens } from "./switch"
 export { tableComponentTokens } from "./table"
 export { tabsComponentTokens } from "./tabs"
@@ -112,9 +118,11 @@ export const componentTokens: ComponentTokenGroup[] = [
   checkboxComponentTokens,
   checkboxGroupComponentTokens,
   comboboxComponentTokens,
+  commandPaletteComponentTokens,
   contextMenuComponentTokens,
   collapsibleComponentTokens,
   dashboardShellComponentTokens,
+  dataTableComponentTokens,
   datePickerComponentTokens,
   dialogComponentTokens,
   emptyComponentTokens,
@@ -140,6 +148,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   separatorComponentTokens,
   sidebarComponentTokens,
   sliderComponentTokens,
+  statsCardComponentTokens,
   switchComponentTokens,
   tableComponentTokens,
   tabsComponentTokens,
