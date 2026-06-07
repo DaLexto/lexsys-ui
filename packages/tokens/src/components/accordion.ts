@@ -41,7 +41,7 @@ export const accordionComponentTokens = componentTokens("accordion", {
     ringWidth: { $value: "{outline.width.inset}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
+    duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
 })

@@ -343,7 +343,7 @@ primitive steps directly — use semantic or component slots.
 
 #### Target semantic → surface map (TOK.8)
 
-Canonical intent for Lexsys UI. **Not fully wired yet** — see [REVIEW_TODO § TOK.8](../../REVIEW_TODO.md#p23--tokens-tok1tok2) for the component audit.
+Canonical intent for Lexsys UI. **Wired in TOK.8** — semantic targets in `motion.ts`; component `transition.duration` slots retargeted per tier. See [REVIEW_TODO § TOK.8](../../REVIEW_TODO.md).
 
 | Semantic role                      | Target primitive | Typical surfaces                                                                                                           |
 | ---------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -358,15 +358,16 @@ Canonical intent for Lexsys UI. **Not fully wired yet** — see [REVIEW_TODO § 
 `overlayEnter` → `easeIn`; `overlayExit` → `easeOut`; `layout` → `standard`.
 Revisit with TOK.8 if overlay/layout tiers move to `slow`.
 
-#### Current vs target (gap snapshot)
+#### Semantic duration targets (TOK.8 shipped)
 
-| Semantic slot  | Resolves today | Target   | Notes                                                                    |
-| -------------- | -------------- | -------- | ------------------------------------------------------------------------ |
-| `control`      | `fast`         | `fast`   | aligned                                                                  |
-| `surface`      | `fast`         | `normal` | Accordion/Collapsible should move to `normal`                            |
-| `overlayEnter` | `normal`       | `slow`   | Drawer/Dialog open should move to `slow`                                 |
-| `overlayExit`  | `fast`         | `fast`   | aligned                                                                  |
-| `layout`       | `normal`       | `slow`   | Sidebar collapse should move to `slow` (today inherits `normal` = 250ms) |
+| Semantic slot  | Resolves to | Primitive | Notes                                                                 |
+| -------------- | ----------- | --------- | --------------------------------------------------------------------- |
+| `control`      | `fast`      | 150ms     | Button, Input, Toggle, Switch, Checkbox, Tooltip, field hover         |
+| `surface`      | `normal`    | 250ms     | Accordion, Collapsible, Tabs, Select, Menu, Combobox, Popover, …      |
+| `overlayEnter` | `slow`      | 350ms     | Drawer, Dialog, AlertDialog — `easeIn` easing on component transition |
+| `overlayExit`  | `fast`      | 150ms     | Semantic reserved; single-slot overlays use `overlayEnter` today      |
+| `layout`       | `slow`      | 350ms     | Sidebar width/collapse, expandable label fade                         |
+| `page`         | `slower`    | 500ms     | Planned — route/template choreography only                            |
 
 **Rule:** pick the tier by **perceived surface class** (micro feedback vs panel vs
 layout), not by component file count. When in doubt, prefer the slower adjacent

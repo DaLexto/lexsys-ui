@@ -37,7 +37,7 @@ export const tabsComponentTokens = componentTokens("tabs", {
     ringWidth: { $value: "{outline.width.inset}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
+    duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
 })

@@ -126,7 +126,7 @@ export const menuComponentTokens = componentTokens("menu", {
     ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
+    duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
 })

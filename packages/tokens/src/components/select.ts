@@ -139,7 +139,7 @@ export const selectComponentTokens = componentTokens("select", {
     ringWidth: { $value: "{outline.width.focus}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
+    duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
 })
