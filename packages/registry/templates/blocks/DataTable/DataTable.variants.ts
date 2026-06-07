@@ -5,15 +5,16 @@
  */
 
 export const dataTableClasses = (): string => {
-  return ["lex-data-table", "flex w-full flex-col gap-(--lex-space-4)"].join(
-    " ",
-  )
+  return [
+    "lex-data-table",
+    "flex w-full flex-col gap-(--lex-data-table-root-gap)",
+  ].join(" ")
 }
 
 export const dataTableFooterClasses = (): string => {
   return [
     "lex-data-table__footer",
-    "flex flex-col gap-(--lex-space-3)",
+    "flex flex-col gap-(--lex-data-table-footer-gap)",
     "sm:flex-row sm:items-center sm:justify-between",
   ].join(" ")
 }
