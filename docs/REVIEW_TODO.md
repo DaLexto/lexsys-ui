@@ -230,12 +230,14 @@ Admin catalog items — after **0.1.0** unless release gate completes first. See
 
 Cross-link [P3](#p3-architecture-planning) and [Resolver evolution § After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10). Canonical rules: [TOKENS.md](./reference/tokens/TOKENS.md).
 
-| ID    | Item                                                                                                | PR  | Status                                                                                                                                       |
-| ----- | --------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| TOK.1 | Dedicated tokens for 9 aliased primitives                                                           | E1  | shipped                                                                                                                                      |
-| TOK.2 | Expand `SEMANTIC_CONTRAST_PAIRS`                                                                    | E2  | shipped                                                                                                                                      |
-| TOK.3 | `size.icon` semantic scale + migrate decorative `icon.size` slots off `selectionControl`            | —   | shipped                                                                                                                                      |
-| TOK.4 | Cross-scale size harmony pass (icon ↔ typography ↔ control pairing; Button `icon.size` per variant) | —   | deferred — blocked on AST evaluator subsystem ([RESOLVER_EVOLUTION § AST](./reference/tokens/RESOLVER_EVOLUTION.md#ast-evaluator-subsystem)) |
+| ID    | Item                                                                                                                                    | PR  | Status                                                                                                                                       |
+| ----- | --------------------------------------------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| TOK.1 | Dedicated tokens for 9 aliased primitives                                                                                               | E1  | shipped                                                                                                                                      |
+| TOK.2 | Expand `SEMANTIC_CONTRAST_PAIRS`                                                                                                        | E2  | shipped                                                                                                                                      |
+| TOK.3 | `size.icon` semantic scale + migrate decorative `icon.size` slots off `selectionControl`                                                | —   | shipped                                                                                                                                      |
+| TOK.4 | Cross-scale size harmony pass (icon ↔ typography ↔ control pairing; Button `icon.size` per variant)                                     | —   | deferred — blocked on AST evaluator subsystem ([RESOLVER_EVOLUTION § AST](./reference/tokens/RESOLVER_EVOLUTION.md#ast-evaluator-subsystem)) |
+| TOK.5 | Control rhythm harmonization — Sidebar `nav`/`list`/`group`/`separator` slots + item padding/gap bump to `spacing.control.*` md profile | —   | active                                                                                                                                       |
+| TOK.6 | Density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders per profile                                              | —   | deferred — document when TOK.5 ships                                                                                                         |
 
 ### P2.4 — Trust + CLI (SEC.1, M12.5)
 
@@ -307,29 +309,30 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 **Status rule:** `planned` until shipped; flip row when PR merges. **SB.20 (release) starts only when SB.1–SB.19 are all `shipped`** — IDs are not sequential (SB.11–SB.19 exist); SB.10 is the last implementation/polish gate before release, not the last task in the wave.
 
-| ID    | Phase    | Task                                                                                                                         | Depends            | Status  |
-| ----- | -------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
-| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                                                                   | —                  | shipped |
-| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                                                                            | —                  | shipped |
-| SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                                                                   | —                  | shipped |
-| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface                                                             | SB.1, SB.2         | shipped |
-| SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)                                                       | SB.4               | shipped |
-| SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases                                                           | SB.18              | shipped |
-| SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`                                                        | SB.19              | shipped |
-| SB.5  | Impl     | Provider + desktop collapse + mobile partition + sandbox migration                                                           | SB.4, SB.18, SB.19 | shipped |
-| SB.7  | Impl     | `SidebarItemBadge` (+ collapsed dot mode)                                                                                    | SB.11, SB.19       | shipped |
-| SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction`                                                 | SB.7               | shipped |
-| SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                                                                   | SB.4, SB.5         | shipped |
-| SB.12 | A11y     | Keyboard nav + `aria-current` on active links                                                                                | SB.11              | shipped |
-| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                                                                         | SB.4               | shipped |
-| SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                                                                            | SB.11              | shipped |
-| SB.15 | Impl     | `SidebarInput` — inline nav filter                                                                                           | SB.8               | shipped |
-| SB.16 | Impl     | `side="right"` + RTL mirror                                                                                                  | SB.5               | shipped |
-| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                                                                             | SB.9               | shipped |
-| SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                                                                   | SB.5–SB.17         | shipped |
-| SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                                                                 | SB.6               | shipped |
-| SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`                                                    | SB.10              | shipped |
-| SB.21 | Fix      | `sidebarItemClasses` `flex-col` — nested `SidebarSubList` stacks under parent row (was `flex-row` + `flex-1` on first child) | SB.9               | shipped |
+| ID    | Phase    | Task                                                                                                                             | Depends            | Status  |
+| ----- | -------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
+| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                                                                       | —                  | shipped |
+| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                                                                                | —                  | shipped |
+| SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                                                                       | —                  | shipped |
+| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface                                                                 | SB.1, SB.2         | shipped |
+| SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)                                                           | SB.4               | shipped |
+| SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases                                                               | SB.18              | shipped |
+| SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`                                                            | SB.19              | shipped |
+| SB.5  | Impl     | Provider + desktop collapse + mobile partition + sandbox migration                                                               | SB.4, SB.18, SB.19 | shipped |
+| SB.7  | Impl     | `SidebarItemBadge` (+ collapsed dot mode)                                                                                        | SB.11, SB.19       | shipped |
+| SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction`                                                     | SB.7               | shipped |
+| SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                                                                       | SB.4, SB.5         | shipped |
+| SB.12 | A11y     | Keyboard nav + `aria-current` on active links                                                                                    | SB.11              | shipped |
+| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                                                                             | SB.4               | shipped |
+| SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                                                                                | SB.11              | shipped |
+| SB.15 | Impl     | `SidebarInput` — inline nav filter                                                                                               | SB.8               | shipped |
+| SB.16 | Impl     | `side="right"` + RTL mirror                                                                                                      | SB.5               | shipped |
+| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                                                                                 | SB.9               | shipped |
+| SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                                                                       | SB.5–SB.17         | shipped |
+| SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                                                                     | SB.6               | shipped |
+| SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`                                                        | SB.10              | shipped |
+| SB.21 | Fix      | `sidebarItemClasses` `flex-col` — nested `SidebarSubList` stacks under parent row (was `flex-row` + `flex-1` on first child)     | SB.9               | shipped |
+| SB.22 | TOK      | Control rhythm — `sidebar.ts` nav/list/group/separator slots; variants off `--lex-space-*` hardcodes; sandbox AppSidebar cleanup | TOK.5              | active  |
 
 **Pick-up order:** SB.1 → SB.2 → SB.3 → SB.4 → SB.18 → SB.19 → SB.11 → SB.5 → SB.7 → SB.8 → SB.9 → SB.12 → SB.13 → SB.14 → SB.15 → SB.16 → SB.17 → SB.6 → SB.10 → **SB.20**.
 

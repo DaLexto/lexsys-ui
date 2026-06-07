@@ -295,6 +295,26 @@ Examples:
 - `action.primary.base` → `--lex-action-primary-base`
 - `radius.control` → `--lex-radius-control`
 - `spacing.control.x.md` → `--lex-space-control-x-md`
+- `sidebar.nav.padding` → `--lex-sidebar-nav-padding`
+- `sidebar.list.gap` → `--lex-sidebar-list-gap`
+
+### Control rhythm (padding, gap, focus offset)
+
+Three semantic roles — never conflate them in one token:
+
+| Role             | Definition                  | Semantic home                                  | Example (md profile)    |
+| ---------------- | --------------------------- | ---------------------------------------------- | ----------------------- |
+| **Padding**      | Border → content            | `spacing.control.x` / `y`, `spacing.surface.*` | `control.x.md` → 16px   |
+| **Gap**          | Child → child               | `spacing.control.gap.*`                        | `control.gap.md` → 8px  |
+| **Focus offset** | Component edge → focus ring | `outline.offset.focus`                         | unchanged per component |
+
+`size.control.md` is **height only** — vertical rhythm is not bundled into size tokens.
+
+Parallel ladders share step names (`sm`, `md`) across groups; pixel values differ by design (`size.icon.md` = 16px vs `size.control.md` = 40px).
+
+**Sidebar md profile (TOK.5):** `nav.padding` → `control.x.sm` (12px); `list.gap` / `group.gap` / `subList.gap` / `separator.marginY` → `control.gap.md` (8px); `item.padding.x` → `control.x.md` (16px); `item.padding.y` → `control.y.sm` (8px); `item.gap` → `control.gap.md` (8px). Variants consume `--lex-sidebar-*` component vars, not raw `--lex-space-*` primitives for these slots.
+
+Density switching (`compact` / `default` / `comfortable`) is **TOK.6** — deferred until this profile ships.
 
 ### Tailwind `@theme`
 

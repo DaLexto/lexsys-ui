@@ -10,15 +10,27 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     duration: { $value: "{motion.duration.layout}" },
     easing: { $value: "{motion.easing.layout}" },
   },
+  nav: {
+    padding: { $value: "{spacing.control.x.sm}" },
+  },
+  list: {
+    gap: { $value: "{spacing.control.gap.md}" },
+  },
+  group: {
+    gap: { $value: "{spacing.control.gap.md}" },
+  },
+  separator: {
+    marginY: { $value: "{spacing.control.gap.md}" },
+  },
   item: {
     foreground: { $value: "{color.text.secondary}" },
     foregroundActive: { $value: "{color.text.primary}" },
-    gap: { $value: "{spacing.control.gap.sm}" },
+    gap: { $value: "{spacing.control.gap.md}" },
     radius: { $value: "{radius.control}" },
     padding: {
       $type: "dimension",
-      x: { $value: "{spacing.control.x.sm}" },
-      y: { $value: "{spacing.control.y.xs}" },
+      x: { $value: "{spacing.control.x.md}" },
+      y: { $value: "{spacing.control.y.sm}" },
     },
     font: {
       size: { $value: "{typography.control.sm.fontSize}" },

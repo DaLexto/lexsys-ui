@@ -105,7 +105,7 @@ export const sidebarBrandClasses = (): string => {
 }
 
 export const sidebarNavClasses = (): string => {
-  return "lex-sidebar__nav min-h-0 flex-1 p-[var(--lex-space-2)]"
+  return "lex-sidebar__nav min-h-0 flex-1 p-(--lex-sidebar-nav-padding)"
 }
 
 export const sidebarInputClasses = (): string => {
@@ -119,12 +119,12 @@ export const sidebarSeparatorClasses = (): string => {
   return [
     "lex-sidebar__separator",
     "mx-[var(--lex-space-2)] w-auto",
-    "my-[var(--lex-space-1)]",
+    "my-(--lex-sidebar-separator-margin-y)",
   ].join(" ")
 }
 
 export const sidebarNavListClasses = (): string => {
-  return "lex-sidebar__list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0"
+  return "lex-sidebar__list m-0 flex list-none flex-col gap-(--lex-sidebar-list-gap) p-0"
 }
 
 export const sidebarItemClasses = (): string => {
@@ -217,7 +217,7 @@ export const sidebarItemBadgeDotClasses = (
 
 export const sidebarSubListClasses = (): string => {
   return [
-    "lex-sidebar__sub-list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0",
+    "lex-sidebar__sub-list m-0 flex list-none flex-col gap-(--lex-sidebar-list-gap) p-0",
     "ms-[calc(var(--lex-sidebar-item-padding-x)+(var(--lex-sidebar-item-icon-size)/2))]",
     "border-s border-[var(--lex-border-default)] ps-(--lex-sidebar-item-sub-indent)",
     "md:group-data-[collapsed=true]/sidebar:hidden",
@@ -334,7 +334,7 @@ export const sidebarFooterClasses = (): string => {
 }
 
 export const sidebarGroupClasses = (): string => {
-  return "lex-sidebar__group flex flex-col gap-[var(--lex-space-1)]"
+  return "lex-sidebar__group flex flex-col gap-(--lex-sidebar-group-gap)"
 }
 
 export const sidebarGroupLabelClasses = (): string => {
@@ -347,7 +347,7 @@ export const sidebarGroupLabelClasses = (): string => {
 }
 
 export const sidebarGroupContentClasses = (): string => {
-  return "lex-sidebar__group-content flex flex-col gap-[var(--lex-space-1)]"
+  return "lex-sidebar__group-content flex flex-col gap-(--lex-sidebar-group-gap)"
 }
 
 export const sidebarGroupCollapsibleClasses = (): string => {
