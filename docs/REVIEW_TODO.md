@@ -336,29 +336,29 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 
 **Status rule:** `planned` until shipped; flip row when PR merges. **SB.20 (release) starts only when SB.1–SB.19 are all `shipped`** — IDs are not sequential (SB.11–SB.19 exist); SB.10 is the last implementation/polish gate before release, not the last task in the wave.
 
-| ID    | Phase    | Task                                                                                                                             | Depends            | Status  |
-| ----- | -------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
-| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                                                                       | —                  | shipped |
-| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                                                                                | —                  | shipped |
-| SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                                                                       | —                  | shipped |
-| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface                                                                 | SB.1, SB.2         | shipped |
-| SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)                                                           | SB.4               | shipped |
-| SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases                                                               | SB.18              | shipped |
-| SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`                                                            | SB.19              | shipped |
-| SB.5  | Impl     | Provider + desktop collapse + mobile partition + sandbox migration                                                               | SB.4, SB.18, SB.19 | shipped |
-| SB.7  | Impl     | `SidebarItemBadge` (+ collapsed dot mode)                                                                                        | SB.11, SB.19       | shipped |
-| SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction`                                                     | SB.7               | shipped |
-| SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                                                                       | SB.4, SB.5         | shipped |
-| SB.12 | A11y     | Keyboard nav + `aria-current` on active links                                                                                    | SB.11              | shipped |
-| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                                                                             | SB.4               | shipped |
-| SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                                                                                | SB.11              | shipped |
-| SB.15 | Impl     | `SidebarInput` — inline nav filter                                                                                               | SB.8               | shipped |
-| SB.16 | Impl     | `side="right"` + RTL mirror                                                                                                      | SB.5               | shipped |
-| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                                                                                 | SB.9               | shipped |
-| SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                                                                       | SB.5–SB.17         | shipped |
-| SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                                                                     | SB.6               | shipped |
-| SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`                                                        | SB.10              | shipped |
-| SB.21 | Fix      | `sidebarItemClasses` `flex-col` — nested `SidebarSubList` stacks under parent row (was `flex-row` + `flex-1` on first child)     | SB.9               | shipped |
+| ID    | Phase    | Task                                                                                                                                                                            | Depends            | Status  |
+| ----- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
+| SB.1  | Research | Base UI map: Drawer / Collapsible / Menu / Tooltip / Badge                                                                                                                      | —                  | shipped |
+| SB.2  | Audit    | Sidebar wrapper vs `$components-authoring` + CS.4                                                                                                                               | —                  | shipped |
+| SB.3  | Audit    | Monorepo vs sandbox Sidebar template drift                                                                                                                                      | —                  | shipped |
+| SB.4  | Design   | Enterprise API: Provider, collapse modes, tokens, export surface                                                                                                                | SB.1, SB.2         | shipped |
+| SB.18 | TOK      | Global motion semantics — slide in/out (`overlayEnter`/`Exit`, easing)                                                                                                          | SB.4               | shipped |
+| SB.19 | TOK      | `sidebar.ts` component tokens — width, item chrome, motion aliases                                                                                                              | SB.18              | shipped |
+| SB.11 | Impl     | NavItem visual — active accent (variant A) via `--lex-sidebar-item-*`                                                                                                           | SB.19              | shipped |
+| SB.5  | Impl     | Provider + desktop collapse + mobile partition + sandbox migration                                                                                                              | SB.4, SB.18, SB.19 | shipped |
+| SB.7  | Impl     | `SidebarItemBadge` (+ collapsed dot mode)                                                                                                                                       | SB.11, SB.19       | shipped |
+| SB.8  | Impl     | `SidebarItemIcon`, `SidebarItemAction`, `SidebarItemShortcut`, `GroupAction`                                                                                                    | SB.7               | shipped |
+| SB.9  | Impl     | Nested nav: `SidebarSubList` + Collapsible                                                                                                                                      | SB.4, SB.5         | shipped |
+| SB.12 | A11y     | Keyboard nav + `aria-current` on active links                                                                                                                                   | SB.11              | shipped |
+| SB.13 | DX       | Router-aware active state pattern (`NavLink` / docs)                                                                                                                            | SB.4               | shipped |
+| SB.14 | Impl     | `SidebarItem` disabled + per-row skeleton loading                                                                                                                               | SB.11              | shipped |
+| SB.15 | Impl     | `SidebarInput` — inline nav filter                                                                                                                                              | SB.8               | shipped |
+| SB.16 | Impl     | `side="right"` + RTL mirror                                                                                                                                                     | SB.5               | shipped |
+| SB.17 | Impl     | Collapsible `SidebarGroup` (fold whole sections)                                                                                                                                | SB.9               | shipped |
+| SB.6  | Verify   | Render tests + registry deps + sandbox E2E                                                                                                                                      | SB.5–SB.17         | shipped |
+| SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                                                                                                                    | SB.6               | shipped |
+| SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`                                                                                                       | SB.10              | shipped |
+| SB.21 | Fix      | `sidebarItemClasses` `flex-col` — nested `SidebarSubList` stacks under parent row (was `flex-row` + `flex-1` on first child)                                                    | SB.9               | shipped |
 | SB.22 | TOK      | Control rhythm — `sidebar.ts` nav/list/group/separator slots; variants off `--lex-space-*` hardcodes; `SidebarItemTrailing` shell-first composition; sandbox AppSidebar cleanup | TOK.5              | shipped |
 
 **Pick-up order:** SB.1 → SB.2 → SB.3 → SB.4 → SB.18 → SB.19 → SB.11 → SB.5 → SB.7 → SB.8 → SB.9 → SB.12 → SB.13 → SB.14 → SB.15 → SB.16 → SB.17 → SB.6 → SB.10 → **SB.20**.
