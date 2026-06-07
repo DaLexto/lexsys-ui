@@ -130,19 +130,19 @@ brand-specific values and primitive tokens for non-brand values.
 
 **11 active semantic groups:**
 
-| Group        | Roles                                                                                                                                                                                                          |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × background/foreground)                                  |
-| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                                                        |
-| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                                                         |
-| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                                                              |
-| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                                                      |
-| `spacing`    | Semantic spacing roles                                                                                                                                                                                         |
-| `size`       | Reusable sizing roles (`control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names                                                                                    |
-| `motion`     | Duration and easing semantic roles                                                                                                                                                                             |
-| `typography` | Font scale semantic roles                                                                                                                                                                                      |
-| `outline`    | Focus and state ring roles: `width` (focus, inset, zero), `offset` (focus, zero) — maps from primitive `outline.width.*` and `outline.offset.*`                                                                |
-| `layout`     | Responsive layout roles: `viewport` (`sm`–`2xl`, aligned with breakpoint scale), `aspectRatio` (square, standard, photo, portrait, video, ultrawide) — maps from primitive `breakpoint.*` and `aspect-ratio.*` |
+| Group        | Roles                                                                                                                                                                                                                                              |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × background/foreground)                                                                      |
+| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                                                                                            |
+| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                                                                                             |
+| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                                                                                                  |
+| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                                                                                          |
+| `spacing`    | Semantic spacing roles                                                                                                                                                                                                                             |
+| `size`       | Reusable sizing roles (`control`, `selectionControl`, `icon`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names; `icon` = inline glyphs, `control` = containers/heights, `selectionControl` = checkbox/radio box geometry only |
+| `motion`     | Duration and easing semantic roles                                                                                                                                                                                                                 |
+| `typography` | Font scale semantic roles                                                                                                                                                                                                                          |
+| `outline`    | Focus and state ring roles: `width` (focus, inset, zero), `offset` (focus, zero) — maps from primitive `outline.width.*` and `outline.offset.*`                                                                                                    |
+| `layout`     | Responsive layout roles: `viewport` (`sm`–`2xl`, aligned with breakpoint scale), `aspectRatio` (square, standard, photo, portrait, video, ultrawide) — maps from primitive `breakpoint.*` and `aspect-ratio.*`                                     |
 
 Semantic path structure:
 

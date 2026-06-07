@@ -23,7 +23,7 @@ export const popoverComponentTokens = componentTokens("popover", {
   },
   arrow: {
     $type: "dimension",
-    size: { $value: "{size.selectionControl.sm}" },
+    size: { $value: "{size.icon.sm}" },
   },
   title: {
     foreground: { $value: "{color.text.primary}" },
