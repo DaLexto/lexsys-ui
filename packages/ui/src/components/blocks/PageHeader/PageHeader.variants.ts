@@ -7,17 +7,18 @@
 export const pageHeaderClasses = (): string => {
   return [
     "lex-page-header",
-    "flex flex-col gap-(--lex-space-4)",
-    "border-b border-(--lex-border-default) pb-(--lex-space-4)",
+    "flex flex-col gap-(--lex-page-header-root-gap)",
+    "border-b border-(--lex-page-header-root-border-color)",
+    "pb-(--lex-page-header-root-padding-bottom)",
   ].join(" ")
 }
 
 export const pageHeaderTopClasses = (): string => {
-  return "lex-page-header__top flex flex-col gap-(--lex-space-3)"
+  return "lex-page-header__top flex flex-col gap-(--lex-page-header-top-gap)"
 }
 
 export const pageHeaderHeadingClasses = (): string => {
-  return "lex-page-header__heading flex flex-col gap-(--lex-space-1)"
+  return "lex-page-header__heading flex flex-col gap-(--lex-page-header-heading-gap)"
 }
 
 export const pageHeaderTitleClasses = (): string => {
@@ -40,7 +41,7 @@ export const pageHeaderDescriptionClasses = (): string => {
 }
 
 export const pageHeaderActionsClasses = (): string => {
-  return "lex-page-header__actions flex flex-wrap items-center gap-(--lex-space-2)"
+  return "lex-page-header__actions flex flex-wrap items-center gap-(--lex-page-header-actions-gap)"
 }
 
 export const pageHeaderBreadcrumbClasses = (): string => {

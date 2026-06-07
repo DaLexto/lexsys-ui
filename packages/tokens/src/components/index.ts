@@ -13,6 +13,7 @@ import { checkboxGroupComponentTokens } from "./checkbox-group"
 import { comboboxComponentTokens } from "./combobox"
 import { contextMenuComponentTokens } from "./context-menu"
 import { collapsibleComponentTokens } from "./collapsible"
+import { dashboardShellComponentTokens } from "./dashboard-shell"
 import { datePickerComponentTokens } from "./date-picker"
 import { dialogComponentTokens } from "./dialog"
 import { emptyComponentTokens } from "./empty"
@@ -27,6 +28,7 @@ import { meterComponentTokens } from "./meter"
 import { navigationMenuComponentTokens } from "./navigation-menu"
 import { numberFieldComponentTokens } from "./number-field"
 import { otpFieldComponentTokens } from "./otp-field"
+import { pageHeaderComponentTokens } from "./page-header"
 import { previewCardComponentTokens } from "./preview-card"
 import { paginationComponentTokens } from "./pagination"
 import { popoverComponentTokens } from "./popover"
@@ -61,6 +63,7 @@ export { checkboxGroupComponentTokens } from "./checkbox-group"
 export { comboboxComponentTokens } from "./combobox"
 export { contextMenuComponentTokens } from "./context-menu"
 export { collapsibleComponentTokens } from "./collapsible"
+export { dashboardShellComponentTokens } from "./dashboard-shell"
 export { datePickerComponentTokens } from "./date-picker"
 export { dialogComponentTokens } from "./dialog"
 export { emptyComponentTokens } from "./empty"
@@ -75,6 +78,7 @@ export { meterComponentTokens } from "./meter"
 export { navigationMenuComponentTokens } from "./navigation-menu"
 export { numberFieldComponentTokens } from "./number-field"
 export { otpFieldComponentTokens } from "./otp-field"
+export { pageHeaderComponentTokens } from "./page-header"
 export { previewCardComponentTokens } from "./preview-card"
 export { paginationComponentTokens } from "./pagination"
 export { popoverComponentTokens } from "./popover"
@@ -110,6 +114,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   comboboxComponentTokens,
   contextMenuComponentTokens,
   collapsibleComponentTokens,
+  dashboardShellComponentTokens,
   datePickerComponentTokens,
   dialogComponentTokens,
   emptyComponentTokens,
@@ -124,6 +129,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   navigationMenuComponentTokens,
   numberFieldComponentTokens,
   otpFieldComponentTokens,
+  pageHeaderComponentTokens,
   previewCardComponentTokens,
   paginationComponentTokens,
   popoverComponentTokens,
