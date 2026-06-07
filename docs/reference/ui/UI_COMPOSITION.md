@@ -150,7 +150,7 @@ Base UI **utilities** (CSP Provider, Direction Provider, `mergeProps`, `useRende
 | -------------- | ---------------------------------------------- | ----------------------------------------------------------------- |
 | FormField      | shipped                                        | field, input                                                      |
 | SettingsPanel  | shipped                                        | card                                                              |
-| Sidebar        | shipped (SB.\* enterprise upgrade in progress) | button, drawer, scroll-area; planned: tooltip, badge, collapsible |
+| Sidebar        | shipped (SB.\* enterprise upgrade)             | badge, button, collapsible, drawer, input, scroll-area, separator; deferred: tooltip |
 | AuthForm       | shipped                                        | card, input, button, separator                                    |
 | CommandPalette | shipped                                        | dialog, combobox, scroll-area, separator                          |
 | Empty          | shipped                                        | —                                                                 |
@@ -751,7 +751,7 @@ Workflow: edit `packages/ui` → `pnpm registry:sync` (templates + reconciled `s
 | 4    | Blocks/templates optimization pass (BO.1–BO.7)            | shipped                                                                          |
 | 5    | Additional blocks/templates beyond pilot set              | planned                                                                          |
 | 6    | Base UI primitive expansion (9 modules above)             | shipped                                                                          |
-| 7    | Sidebar enterprise upgrade (SB.1–SB.20)                   | in progress — [Backlog § SB](../../REVIEW_TODO.md#sb-sidebar-enterprise-upgrade) |
+| 7    | Sidebar enterprise upgrade (SB.1–SB.20)                   | shipped — [Backlog § SB](../../REVIEW_TODO.md#sb-sidebar-enterprise-upgrade)     |
 
 Tracked in [Backlog § UI composition](../../REVIEW_TODO.md#ui-composition-primitives-blocks-templates).
 

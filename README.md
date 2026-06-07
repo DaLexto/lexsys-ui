@@ -277,7 +277,8 @@ For CLI/registry install verification, use an external consumer sandbox — see 
 
 ## Status
 
-**0.1.1** is published on npm (`@latest`). Vite and Next.js install flows are
+**0.1.1** is on npm (`@latest`) today; **0.1.2** (Sidebar enterprise) ships via
+Changesets after `dev` merges to `main`. Vite and Next.js install flows are
 working; the installable catalog (**57 items**) is documented in
 [docs/reference/ui/UI_CATALOG.md](./docs/reference/ui/UI_CATALOG.md). Remaining
 DX and polish work is tracked in [docs/REVIEW_TODO.md](docs/REVIEW_TODO.md).

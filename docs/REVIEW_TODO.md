@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-06-07 (`0.1.2` release prep on `feat/sb-sidebar-enterprise`; SB wave shipped)
+**Last reviewed:** 2026-06-07 (SB wave shipped on `dev`; **0.1.2** release train — PR #91 → Version packages)
 
 ---
 
@@ -37,7 +37,7 @@ that are not yet done.
 
 **Historical:** M1–M12, R0, M10 first publish, **0.1.0 wave (A–F + REL)** — [Roadmap § Monorepo optimization](./ROADMAP.md#monorepo-optimization), [§ 0.1.0 roadmap](./ROADMAP.md#010-roadmap). All **shipped**.
 
-**Current focus — post-0.1.2 prep:** merge `feat/sb-sidebar-enterprise` → `dev`, then Changesets Version Packages PR → `main` for npm **`0.1.2`** @ **`latest`**. SB wave **shipped**; deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
+**Current focus — 0.1.2 release train:** merge [PR #91](https://github.com/DaLexto/lexsys-ui/pull/91) (`dev` → `main`), then merge Changesets **Version packages** PR for npm **`0.1.2`** @ **`latest`**. SB wave **shipped**; deferred DX.1 starter repo — see [§ Known Gaps](#known-gaps).
 
 | Phase          | Focus                                      | Status                                                                        |
 | -------------- | ------------------------------------------ | ----------------------------------------------------------------------------- |
@@ -182,9 +182,9 @@ The P0 and P1 implementation passes are complete:
 - Consumer sandbox verify (PR #26 artifacts): `lexsys update menu toast --sync --styles --force`; Settings flyout on narrow viewport; toast success/info/destructive surfaces — **manual checklist pass**
 - UI composition layers (PR #28): monorepo `primitives/blocks/templates` reference layout; flat consumer install via `paths.components` + import rewrite; pilot FormField, Sidebar, DashboardShell registry + CLI installable; `list` by layer; `--with-deps` uninstall
 
-The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, **57 installable UI items** (45 primitives, 10 blocks, 2 templates), published **`0.1.1`** @ **`latest`** (stable MVP).
+The current implementation supports: Vite or Next.js App Router + React + Tailwind v4, `lexsys init`, `lexsys add`, `lexsys update`, **57 installable UI items** (45 primitives, 10 blocks, 2 templates). npm **`0.1.1`** @ **`latest`** today; **`0.1.2`** (Sidebar enterprise) pending Version packages publish.
 
-Known gaps below — post-0.1.1 backlog; closed 0.1.0 wave items remain in [§ 0.1.0 Execution Queue](#010-execution-queue).
+Known gaps below — post-0.1.2 release backlog; closed 0.1.0 wave items remain in [§ 0.1.0 Execution Queue](#010-execution-queue).
 
 ---
 

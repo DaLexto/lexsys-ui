@@ -85,8 +85,9 @@ explicit product decision and this file is updated.
 | Prior preview | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06) — historical   |
 | Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                              |
 | Prior stable  | `0.1.0` | `latest`     | Stable MVP — 57 installable items, admin catalog, registry trust (2026-06-06)       |
-| Pending       | `0.1.2` | `latest`     | Sidebar enterprise — registry templates + changeset on `feat/sb-sidebar-enterprise` |
-| **Current**   | `0.1.1` | `latest`     | Housekeeping — docs/rules alignment, unified GitHub release CI (2026-06-06)         |
+| Prior stable  | `0.1.1` | `latest`     | Housekeeping — docs/rules alignment, unified GitHub release CI (2026-06-06)         |
+| **Pending**   | `0.1.2` | `latest`     | Sidebar enterprise — changeset on `dev`; publish after PR #91 + Version packages PR |
+| **On npm**    | `0.1.1` | `latest`     | Until Version packages merge bumps published packages to **0.1.2**                    |
 
 Install for stable MVP:
 
