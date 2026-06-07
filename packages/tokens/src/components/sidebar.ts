@@ -21,6 +21,48 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
   },
   separator: {
     marginY: { $value: "{spacing.control.gap.md}" },
+    marginX: { $value: "{spacing.control.gap.md}" },
+  },
+  brand: {
+    padding: {
+      $type: "dimension",
+      x: { $value: "{spacing.control.x.md}" },
+      y: { $value: "{spacing.control.x.sm}" },
+    },
+    borderColor: { $value: "{border.default}" },
+  },
+  footer: {
+    padding: { $value: "{spacing.control.x.xs}" },
+    borderColor: { $value: "{border.default}" },
+  },
+  drawerFooter: {
+    padding: { $value: "{spacing.control.x.xs}" },
+    borderColor: { $value: "{border.default}" },
+  },
+  mobileBar: {
+    gap: { $value: "{spacing.control.gap.lg}" },
+    padding: {
+      $type: "dimension",
+      x: { $value: "{spacing.control.x.md}" },
+      y: { $value: "{spacing.control.x.sm}" },
+    },
+    background: { $value: "{color.background.base}" },
+    borderColor: { $value: "{border.default}" },
+  },
+  groupLabel: {
+    gap: { $value: "{spacing.control.gap.md}" },
+    padding: {
+      $type: "dimension",
+      x: { $value: "{spacing.control.x.sm}" },
+      y: { $value: "{spacing.control.y.xs}" },
+    },
+  },
+  groupCollapsibleTrigger: {
+    gap: { $value: "{spacing.control.gap.md}" },
+  },
+  desktop: {
+    background: { $value: "{color.background.subtle}" },
+    borderColor: { $value: "{border.default}" },
   },
   item: {
     foreground: { $value: "{color.text.secondary}" },
@@ -68,6 +110,12 @@ export const sidebarComponentTokens = componentTokens("sidebar", {
     sub: {
       $type: "dimension",
       indent: { $value: "{spacing.control.x.sm}" },
+    },
+    shortcut: {
+      padding: {
+        $type: "dimension",
+        x: { $value: "{spacing.control.x.xs}" },
+      },
     },
     focus: {
       ring: {
