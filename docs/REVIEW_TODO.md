@@ -236,9 +236,9 @@ Cross-link [P3](#p3-architecture-planning) and [Resolver evolution § After Phas
 | TOK.2 | Expand `SEMANTIC_CONTRAST_PAIRS`                                                                                                                                                                                                                                | E2  | shipped                                                                                                                                      |
 | TOK.3 | `size.icon` semantic scale + migrate decorative `icon.size` slots off `selectionControl`                                                                                                                                                                        | —   | shipped                                                                                                                                      |
 | TOK.4 | Cross-scale size harmony pass (icon ↔ typography ↔ control pairing; Button `icon.size` per variant)                                                                                                                                                             | —   | deferred — blocked on AST evaluator subsystem ([RESOLVER_EVOLUTION § AST](./reference/tokens/RESOLVER_EVOLUTION.md#ast-evaluator-subsystem)) |
-| TOK.5 | Control rhythm harmonization — Sidebar `nav`/`list`/`group`/`separator` slots + item padding/gap bump to `spacing.control.*` md profile                                                                                                                         | —   | active                                                                                                                                       |
+| TOK.5 | Control rhythm harmonization — Sidebar `nav`/`list`/`group`/`separator` slots + item padding/gap bump to `spacing.control.*` md profile                                                                                                                         | —   | shipped                                                                                                                                      |
 | TOK.6 | Density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders per profile                                                                                                                                                                      | —   | deferred — document when TOK.5 ships                                                                                                         |
-| TOK.7 | Control-zone harmonization — blocks with hardcoded `--lex-space-*` → component tokens (`toolbar`, `page-header`, `data-table`, `command-palette`, …); DatePicker `embedded` trigger slot                                                                        | —   | active — FilterToolbar + DatePicker slice shipped; full block map below                                                                      |
+| TOK.7 | Control-zone harmonization — blocks/templates/primitives with hardcoded `--lex-space-*` → component tokens; DatePicker `embedded` trigger + calendar grid; Toolbar separator margin                                                                             | —   | shipped — full harmonization map below (PRs #98–#103)                                                                                        |
 | TOK.8 | Motion semantic harmonization — align `motion.duration.*` roles + component `transition.duration` slots to [DESIGN_SYSTEM § Motion rhythm](./reference/tokens/DESIGN_SYSTEM.md#motion-rhythm-duration-tiers); add `motion.duration.page` → `slower` when needed | —   | planned — primitive scale shipped (150/250/350/500); semantic + component audit below                                                        |
 
 **TOK.8 motion harmonization map** (component `transition.duration` → target semantic tier — [DESIGN_SYSTEM § Motion rhythm](./reference/tokens/DESIGN_SYSTEM.md#motion-rhythm-duration-tiers)):
@@ -254,17 +254,25 @@ Cross-link [P3](#p3-architecture-planning) and [Resolver evolution § After Phas
 
 **Execution order:** (1) update `packages/tokens/src/semantics/motion.ts` targets; (2) batch component token files by tier; (3) variant smoke in playground/sandbox; (4) no raw `duration-*` in `packages/ui` variants.
 
-**TOK.7 block harmonization map** (remaining `--lex-space-*` / raw semantic leaks in `*.variants.ts`):
+**TOK.7 block harmonization map** (`*.variants.ts` spacing leaks — audit complete 2026-06-07):
 
-| Block / primitive                | Token home                                | Status                   |
-| -------------------------------- | ----------------------------------------- | ------------------------ |
-| `FilterToolbar`                  | `toolbar.ts` (`root`, `group`)            | **shipped** (this slice) |
-| `DatePicker` trigger             | `date-picker.ts` `trigger.input.embedded` | **shipped** (this slice) |
-| `PageHeader`                     | `page-header.ts` (new or extend)          | planned                  |
-| `DataTable` toolbar / filter row | `toolbar.ts` or `data-table.ts`           | planned                  |
-| `CommandPalette`                 | `command-palette.ts`                      | planned                  |
-| `StatsCard`                      | `stats-card.ts`                           | planned                  |
-| `DashboardShell` header gap      | `dashboard-shell.ts`                      | planned                  |
+| Block / template / primitive  | Token home                                          | Status  |
+| ----------------------------- | --------------------------------------------------- | ------- |
+| `FilterToolbar`               | `toolbar.ts` (`root`, `group`)                      | shipped |
+| `DatePicker` trigger          | `date-picker.ts` `trigger.input.embedded`           | shipped |
+| `DatePicker` weekday/day grid | `date-picker.ts` `calendar.grid.gap`                | shipped |
+| `Toolbar` separator margin    | `toolbar.ts` `separator.margin`                     | shipped |
+| `Sidebar` shell chrome        | `sidebar.ts` (brand, footer, mobileBar, desktop, …) | shipped |
+| `PageHeader`                  | `page-header.ts`                                    | shipped |
+| `DashboardShell`              | `dashboard-shell.ts`                                | shipped |
+| `DataTable`                   | `data-table.ts`                                     | shipped |
+| `CommandPalette`              | `command-palette.ts`                                | shipped |
+| `StatsCard` value/trend       | `stats-card.ts` (layout spacing via `Card`)         | shipped |
+| `FormField`                   | `form-field.ts`                                     | shipped |
+| `AuthForm`                    | `auth-form.ts`                                      | shipped |
+| `SettingsPageLayout`          | `settings-page-layout.ts`                           | shipped |
+
+**Intentional deferrals (foundation refs, not spacing leaks):** Sidebar shortcut/sub-list borders (`--lex-border-default`); foundation typography/color on PageHeader titles, CommandPalette labels, StatsCard via Card padding.
 
 ### P2.4 — Trust + CLI (SEC.1, M12.5)
 
