@@ -4,7 +4,7 @@
 **Type:** Verification workflow reference
 **Source of truth for:** Verification surfaces (playground vs sandbox), test coverage by package, when to run which checks
 **Verified against:** `packages/*/test/`, `packages/*/vitest.config.ts`, `package.json` scripts
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-05-30 (PLAYGROUND DX.2/DX.3 shipped in external repos)
 
 ---
 
@@ -14,7 +14,7 @@
   - [apps/playground](#appsplayground)
   - [Consumer sandbox](#consumer-sandbox)
   - [PLAYGROUND verification surfaces](#playground-verification-surfaces)
-  - [PLAYGROUND automation (planned)](#playground-automation-planned--external-repos)
+  - [PLAYGROUND automation (external repos)](#playground-automation-external-repos)
   - [Practical workflow](#practical-workflow)
 - [Quick Reference](#quick-reference)
 - [Test Coverage by Package](#test-coverage-by-package)
@@ -285,7 +285,7 @@ Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monore
 
 ## PLAYGROUND automation (external repos)
 
-Implementation lives **outside** this monorepo. No lexsys CI for DX.2 until explicitly promoted.
+Implementation lives **outside** this monorepo. **DX.2** (Playwright E2E) and **DX.3** (fresh install smoke) are **shipped** in external PLAYGROUND repos — not wired into lexsys monorepo CI unless explicitly promoted later.
 
 ### DX.3 — Fresh install smoke (`lexsys-fresh-test`) — shipped
 
