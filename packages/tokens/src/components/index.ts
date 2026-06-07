@@ -2,6 +2,7 @@ import type { ComponentTokenGroup } from "../types"
 import { accordionComponentTokens } from "./accordion"
 import { alertDialogComponentTokens } from "./alert-dialog"
 import { alertComponentTokens } from "./alert"
+import { authFormComponentTokens } from "./auth-form"
 import { autocompleteComponentTokens } from "./autocomplete"
 import { avatarComponentTokens } from "./avatar"
 import { badgeComponentTokens } from "./badge"
@@ -11,8 +12,11 @@ import { cardComponentTokens } from "./card"
 import { checkboxComponentTokens } from "./checkbox"
 import { checkboxGroupComponentTokens } from "./checkbox-group"
 import { comboboxComponentTokens } from "./combobox"
+import { commandPaletteComponentTokens } from "./command-palette"
 import { contextMenuComponentTokens } from "./context-menu"
 import { collapsibleComponentTokens } from "./collapsible"
+import { dashboardShellComponentTokens } from "./dashboard-shell"
+import { dataTableComponentTokens } from "./data-table"
 import { datePickerComponentTokens } from "./date-picker"
 import { dialogComponentTokens } from "./dialog"
 import { emptyComponentTokens } from "./empty"
@@ -20,6 +24,7 @@ import { drawerComponentTokens } from "./drawer"
 import { fieldComponentTokens } from "./field"
 import { fieldsetComponentTokens } from "./fieldset"
 import { formComponentTokens } from "./form"
+import { formFieldComponentTokens } from "./form-field"
 import { inputComponentTokens } from "./input"
 import { menuComponentTokens } from "./menu"
 import { menubarComponentTokens } from "./menubar"
@@ -27,6 +32,7 @@ import { meterComponentTokens } from "./meter"
 import { navigationMenuComponentTokens } from "./navigation-menu"
 import { numberFieldComponentTokens } from "./number-field"
 import { otpFieldComponentTokens } from "./otp-field"
+import { pageHeaderComponentTokens } from "./page-header"
 import { previewCardComponentTokens } from "./preview-card"
 import { paginationComponentTokens } from "./pagination"
 import { popoverComponentTokens } from "./popover"
@@ -35,8 +41,10 @@ import { radioGroupComponentTokens } from "./radio-group"
 import { scrollAreaComponentTokens } from "./scroll-area"
 import { selectComponentTokens } from "./select"
 import { separatorComponentTokens } from "./separator"
+import { settingsPageLayoutComponentTokens } from "./settings-page-layout"
 import { sidebarComponentTokens } from "./sidebar"
 import { sliderComponentTokens } from "./slider"
+import { statsCardComponentTokens } from "./stats-card"
 import { switchComponentTokens } from "./switch"
 import { tableComponentTokens } from "./table"
 import { tabsComponentTokens } from "./tabs"
@@ -50,6 +58,7 @@ import { tooltipComponentTokens } from "./tooltip"
 export { accordionComponentTokens } from "./accordion"
 export { alertDialogComponentTokens } from "./alert-dialog"
 export { alertComponentTokens } from "./alert"
+export { authFormComponentTokens } from "./auth-form"
 export { autocompleteComponentTokens } from "./autocomplete"
 export { avatarComponentTokens } from "./avatar"
 export { badgeComponentTokens } from "./badge"
@@ -59,8 +68,11 @@ export { cardComponentTokens } from "./card"
 export { checkboxComponentTokens } from "./checkbox"
 export { checkboxGroupComponentTokens } from "./checkbox-group"
 export { comboboxComponentTokens } from "./combobox"
+export { commandPaletteComponentTokens } from "./command-palette"
 export { contextMenuComponentTokens } from "./context-menu"
 export { collapsibleComponentTokens } from "./collapsible"
+export { dashboardShellComponentTokens } from "./dashboard-shell"
+export { dataTableComponentTokens } from "./data-table"
 export { datePickerComponentTokens } from "./date-picker"
 export { dialogComponentTokens } from "./dialog"
 export { emptyComponentTokens } from "./empty"
@@ -68,6 +80,7 @@ export { drawerComponentTokens } from "./drawer"
 export { fieldComponentTokens } from "./field"
 export { fieldsetComponentTokens } from "./fieldset"
 export { formComponentTokens } from "./form"
+export { formFieldComponentTokens } from "./form-field"
 export { inputComponentTokens } from "./input"
 export { menuComponentTokens } from "./menu"
 export { menubarComponentTokens } from "./menubar"
@@ -75,6 +88,7 @@ export { meterComponentTokens } from "./meter"
 export { navigationMenuComponentTokens } from "./navigation-menu"
 export { numberFieldComponentTokens } from "./number-field"
 export { otpFieldComponentTokens } from "./otp-field"
+export { pageHeaderComponentTokens } from "./page-header"
 export { previewCardComponentTokens } from "./preview-card"
 export { paginationComponentTokens } from "./pagination"
 export { popoverComponentTokens } from "./popover"
@@ -83,8 +97,10 @@ export { radioGroupComponentTokens } from "./radio-group"
 export { scrollAreaComponentTokens } from "./scroll-area"
 export { selectComponentTokens } from "./select"
 export { separatorComponentTokens } from "./separator"
+export { settingsPageLayoutComponentTokens } from "./settings-page-layout"
 export { sidebarComponentTokens } from "./sidebar"
 export { sliderComponentTokens } from "./slider"
+export { statsCardComponentTokens } from "./stats-card"
 export { switchComponentTokens } from "./switch"
 export { tableComponentTokens } from "./table"
 export { tabsComponentTokens } from "./tabs"
@@ -99,6 +115,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   accordionComponentTokens,
   alertDialogComponentTokens,
   alertComponentTokens,
+  authFormComponentTokens,
   autocompleteComponentTokens,
   avatarComponentTokens,
   badgeComponentTokens,
@@ -108,8 +125,11 @@ export const componentTokens: ComponentTokenGroup[] = [
   checkboxComponentTokens,
   checkboxGroupComponentTokens,
   comboboxComponentTokens,
+  commandPaletteComponentTokens,
   contextMenuComponentTokens,
   collapsibleComponentTokens,
+  dashboardShellComponentTokens,
+  dataTableComponentTokens,
   datePickerComponentTokens,
   dialogComponentTokens,
   emptyComponentTokens,
@@ -117,6 +137,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   fieldComponentTokens,
   fieldsetComponentTokens,
   formComponentTokens,
+  formFieldComponentTokens,
   inputComponentTokens,
   menuComponentTokens,
   menubarComponentTokens,
@@ -124,6 +145,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   navigationMenuComponentTokens,
   numberFieldComponentTokens,
   otpFieldComponentTokens,
+  pageHeaderComponentTokens,
   previewCardComponentTokens,
   paginationComponentTokens,
   popoverComponentTokens,
@@ -132,8 +154,10 @@ export const componentTokens: ComponentTokenGroup[] = [
   scrollAreaComponentTokens,
   selectComponentTokens,
   separatorComponentTokens,
+  settingsPageLayoutComponentTokens,
   sidebarComponentTokens,
   sliderComponentTokens,
+  statsCardComponentTokens,
   switchComponentTokens,
   tableComponentTokens,
   tabsComponentTokens,

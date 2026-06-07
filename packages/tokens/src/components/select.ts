@@ -49,7 +49,7 @@ export const selectComponentTokens = componentTokens("select", {
   },
   icon: {
     foreground: { $value: "{color.text.secondary}" },
-    size: { $value: "{size.selectionControl.md}" },
+    size: { $value: "{size.icon.md}" },
   },
   popup: {
     background: { $value: "{color.background.base}" },
@@ -93,7 +93,7 @@ export const selectComponentTokens = componentTokens("select", {
     },
     indicator: {
       $type: "dimension",
-      size: { $value: "{size.selectionControl.sm}" },
+      size: { $value: "{size.icon.sm}" },
     },
   },
   group: {
@@ -139,7 +139,7 @@ export const selectComponentTokens = componentTokens("select", {
     ringWidth: { $value: "{outline.width.focus}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
+    duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
 })

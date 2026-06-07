@@ -110,7 +110,7 @@ export const drawerComponentTokens = componentTokens("drawer", {
     ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
-    easing: { $value: "{motion.easing.control}" },
+    duration: { $value: "{motion.duration.overlayEnter}" },
+    easing: { $value: "{motion.easing.easeIn}" },
   },
 })

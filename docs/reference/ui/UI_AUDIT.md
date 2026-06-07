@@ -4,7 +4,7 @@
 **Type:** Catalog / inventory  
 **Source of truth for:** Per-primitive **variant / CVA compliance** status and batch assignment  
 **Canonical standard:** [UI variants](../ui/UI_VARIANTS.md)  
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-06-07
 
 ---
 
@@ -13,6 +13,7 @@
 - [Purpose and scope](#purpose-and-scope)
 - [Batch summary](#batch-summary)
 - [Variant inventory (45 primitives)](#variant-inventory-45-primitives)
+- [Blocks and templates (TOK.7 spacing)](#blocks-and-templates-tok7-spacing)
 - [Cross-cutting issues](#cross-cutting-issues)
 - [Generation and drift checks](#generation-and-drift-checks)
 - [PR0 checklist extras](#pr0-checklist-extras)
@@ -87,7 +88,30 @@ This inventory tracks **styling and variant-axis compliance** against [UI varian
 
 **Shipped PR #30 (variant rows pending):** Autocomplete, CheckboxGroup, Combobox, ContextMenu, Menubar, NavigationMenu, OtpField, PreviewCard, Toolbar — composition in [UI catalog](../ui/UI_CATALOG.md).
 
-**Blocks and templates (compound-only):** FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette @ `0.0.2`; Empty @ `0.0.1`; DashboardShell @ `0.0.2` — variant audit rows not tracked here; render tests in `packages/ui/test/`.
+**Blocks and templates (compound-only):** FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette @ `0.0.2`; Empty @ `0.0.1`; DashboardShell @ `0.0.2` — spacing harmonization tracked in [§ Blocks and templates (TOK.7 spacing)](#blocks-and-templates-tok7-spacing); render + variant tests in `packages/ui/test/`.
+
+---
+
+## Blocks and templates (TOK.7 spacing)
+
+**Status:** ✅ shipped (2026-06-07) — `pnpm ui:audit` reports no `--lex-space-*` in `packages/ui/**/\*.variants.ts`.
+
+| Layer     | Component           | Token file                | Variant tests                         |
+| --------- | ------------------- | ------------------------- | ------------------------------------- |
+| Block     | Sidebar             | `sidebar.ts`              | `Sidebar.variants.test.ts`            |
+| Block     | PageHeader          | `page-header.ts`          | `PageHeader.variants.test.ts`         |
+| Block     | FilterToolbar       | `toolbar.ts`              | `FilterToolbar.variants.test.ts`      |
+| Block     | DataTable           | `data-table.ts`           | `DataTable.variants.test.ts`          |
+| Block     | CommandPalette      | `command-palette.ts`      | `CommandPalette.variants.test.ts`     |
+| Block     | StatsCard           | `stats-card.ts`           | `StatsCard.variants.test.ts`          |
+| Block     | FormField           | `form-field.ts`           | `FormField.variants.test.ts`          |
+| Block     | AuthForm            | `auth-form.ts`            | `AuthForm.variants.test.ts`           |
+| Template  | DashboardShell      | `dashboard-shell.ts`      | `DashboardShell.variants.test.ts`     |
+| Template  | SettingsPageLayout  | `settings-page-layout.ts` | `SettingsPageLayout.variants.test.ts` |
+| Primitive | DatePicker (grid)   | `date-picker.ts`          | `DatePicker.variants.test.ts`         |
+| Primitive | Toolbar (separator) | `toolbar.ts`              | `Toolbar.variants.test.ts`            |
+
+Backlog closure: [REVIEW_TODO § TOK.7](../../REVIEW_TODO.md). Design rationale: [DESIGN_SYSTEM § Control rhythm](../tokens/DESIGN_SYSTEM.md#control-rhythm-padding-gap-focus-offset).
 
 ---
 

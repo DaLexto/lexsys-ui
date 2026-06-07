@@ -28,6 +28,7 @@ import {
   datePickerDayVariants,
   datePickerGridVariants,
   datePickerHeaderVariants,
+  datePickerInputEmbeddedClasses,
   datePickerMonthLabelVariants,
   datePickerNavButtonVariants,
   datePickerWeekdayVariants,
@@ -102,9 +103,18 @@ DatePickerTrigger.displayName = "DatePickerTrigger"
 const DatePickerInput = ({
   ref,
   className,
+  embedded = false,
+  size,
   ...props
 }: DatePickerInputProps) => {
-  return <Input ref={ref} className={className} {...props} />
+  return (
+    <Input
+      ref={ref}
+      size={size ?? (embedded ? "sm" : undefined)}
+      className={cn(embedded && datePickerInputEmbeddedClasses(), className)}
+      {...props}
+    />
+  )
 }
 
 DatePickerInput.displayName = "DatePickerInput"

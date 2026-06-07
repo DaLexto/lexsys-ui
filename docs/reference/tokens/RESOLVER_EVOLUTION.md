@@ -357,6 +357,28 @@ layer — not a blocker for the planned tracks above.
 - OKLCH-aware transformations (for example `oklch-modify({brand.color.primary}, l -10%)`)
 - Unit-aware arithmetic across `rem`, `px`, `%` with configurable base font size
 
+### Cross-scale size harmony (TOK.4 — deferred with AST)
+
+**Status:** Deferred — not scheduled until the AST evaluator subsystem exists.
+
+**Context:** `size.icon` shipped in TOK.3 (`xs`–`xl` on the primitive `size` grid; decorative
+component `icon.size` slots migrated off `selectionControl`). Checkbox/radio remain on
+`size.selectionControl`; containers remain on `size.control`. Step names (`sm`, `md`, …) are
+shared across ladders but resolve to different px by design.
+
+**Blocked follow-up (TOK.4):** a harmony pass that documents and optionally encodes pairing rules
+between semantic ladders — for example `button.height.md` + `button.icon.size.md` +
+`typography.control.md`, Sidebar row optical balance, icon-only button square targets. Today
+these are manual component-token maps and visual QA.
+
+**Why AST dependency:** proportion tuning may later use evaluable expressions (for example
+pairing hints, unit-normalized comparisons, or theme-relative icon scale adjustments). The
+current string-match reference resolver cannot host that logic; branch+slot leaves and explicit
+references remain the authoring model until the evaluator ships.
+
+**Near-term (no AST):** keep adjusting per-component token maps in `packages/tokens/src/components/`
+and validate in consumer sandbox — no harmony automation required for TOK.3 consumers.
+
 ---
 
 ## Document Ownership

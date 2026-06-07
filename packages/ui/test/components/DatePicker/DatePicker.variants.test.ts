@@ -1,42 +1,32 @@
 import { describe, expect, it } from "vitest"
 import {
-  datePickerCalendarVariants,
-  datePickerDayVariants,
-} from "../../../src/components/primitives/DatePicker/DatePicker.variants.js"
+  datePickerGridVariants,
+  datePickerInputEmbeddedClasses,
+  datePickerWeekdaysVariants,
+} from "../../../src/components/primitives/DatePicker/DatePicker.variants"
 import { testCssVarPrefix as p } from "../../config/prefix.js"
 
 describe("DatePicker variants", () => {
-  it("uses token-backed calendar styling", () => {
-    const className = datePickerCalendarVariants()
+  it("uses embedded trigger input tokens for toolbar slots", () => {
+    const classes = datePickerInputEmbeddedClasses()
 
-    expect(className).toContain(`bg-(--${p}-date-picker-calendar-background)`)
-    expect(className).toContain(
-      `border-(--${p}-date-picker-calendar-border-color)`,
+    expect(classes).toContain(
+      `h-(--${p}-date-picker-trigger-input-embedded-height)`,
     )
-    expect(className).toContain(`w-(--${p}-date-picker-calendar-width)`)
+    expect(classes).toContain(
+      `bg-(--${p}-date-picker-trigger-input-embedded-background)`,
+    )
+    expect(classes).toContain("border-0")
+    expect(classes).toContain("focus-visible:ring-0")
   })
 
-  it("maps day state variants through component tokens", () => {
-    const selectedClassName = datePickerDayVariants({
-      isSelected: true,
-      isToday: true,
-      isOutside: false,
-    })
-
-    expect(selectedClassName).toContain(
-      `bg-(--${p}-date-picker-day-selected-background)`,
+  it("uses date-picker calendar grid gap for weekday and day grids", () => {
+    expect(datePickerWeekdaysVariants()).toContain(
+      `gap-(--${p}-date-picker-calendar-grid-gap)`,
     )
-    expect(selectedClassName).toContain(
-      `text-(--${p}-date-picker-day-selected-foreground)`,
+    expect(datePickerGridVariants()).toContain(
+      `gap-(--${p}-date-picker-calendar-grid-gap)`,
     )
-    expect(selectedClassName).toContain(
-      `border-(--${p}-date-picker-day-today-border-color)`,
-    )
-
-    const outsideClassName = datePickerDayVariants({ isOutside: true })
-
-    expect(outsideClassName).toContain(
-      `text-(--${p}-date-picker-day-outside-foreground)`,
-    )
+    expect(datePickerGridVariants()).not.toContain(`--${p}-space-`)
   })
 })

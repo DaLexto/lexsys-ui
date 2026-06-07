@@ -23,7 +23,7 @@ export const collapsibleComponentTokens = componentTokens("collapsible", {
     },
     icon: {
       $type: "dimension",
-      size: { $value: "{size.selectionControl.md}" },
+      size: { $value: "{size.icon.md}" },
     },
     font: {
       size: { $value: "{typography.label.sm.fontSize}" },

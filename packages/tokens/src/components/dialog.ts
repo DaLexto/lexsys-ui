@@ -75,7 +75,7 @@ export const dialogComponentTokens = componentTokens("dialog", {
     ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
-    easing: { $value: "{motion.easing.control}" },
+    duration: { $value: "{motion.duration.overlayEnter}" },
+    easing: { $value: "{motion.easing.easeIn}" },
   },
 })

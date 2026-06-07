@@ -11,10 +11,10 @@ export const statsCardClasses = (): string => {
 export const statsCardValueClasses = (): string => {
   return [
     "lex-stats-card__value",
-    "text-(length:--lex-typography-heading-md-font-size)",
-    "font-(--lex-typography-heading-md-font-weight)",
-    "leading-(--lex-typography-heading-md-font-line-height)",
-    "text-(--lex-color-text-primary)",
+    "text-(length:--lex-stats-card-value-font-size)",
+    "font-(--lex-stats-card-value-font-weight)",
+    "leading-(--lex-stats-card-value-font-line-height)",
+    "text-(--lex-stats-card-value-foreground)",
     "m-0",
   ].join(" ")
 }
@@ -22,7 +22,8 @@ export const statsCardValueClasses = (): string => {
 export const statsCardTrendClasses = (): string => {
   return [
     "lex-stats-card__trend",
-    "text-(length:--lex-typography-body-xs-font-size)",
-    "text-(--lex-color-text-secondary)",
+    "text-(length:--lex-stats-card-trend-font-size)",
+    "leading-(--lex-stats-card-trend-font-line-height)",
+    "text-(--lex-stats-card-trend-foreground)",
   ].join(" ")
 }

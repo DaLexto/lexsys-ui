@@ -130,19 +130,19 @@ brand-specific values and primitive tokens for non-brand values.
 
 **11 active semantic groups:**
 
-| Group        | Roles                                                                                                                                                                                                          |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × background/foreground)                                  |
-| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                                                        |
-| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                                                         |
-| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                                                              |
-| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                                                      |
-| `spacing`    | Semantic spacing roles                                                                                                                                                                                         |
-| `size`       | Reusable sizing roles (`control`, `selectionControl`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names                                                                                    |
-| `motion`     | Duration and easing semantic roles                                                                                                                                                                             |
-| `typography` | Font scale semantic roles                                                                                                                                                                                      |
-| `outline`    | Focus and state ring roles: `width` (focus, inset, zero), `offset` (focus, zero) — maps from primitive `outline.width.*` and `outline.offset.*`                                                                |
-| `layout`     | Responsive layout roles: `viewport` (`sm`–`2xl`, aligned with breakpoint scale), `aspectRatio` (square, standard, photo, portrait, video, ultrawide) — maps from primitive `breakpoint.*` and `aspect-ratio.*` |
+| Group        | Roles                                                                                                                                                                                                                                              |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `color`      | `background` (base, surface, subtle, overlay), `text` (primary, secondary, disabled, inverse, link, accent), `feedback` (info/success/warning/danger × background/foreground)                                                                      |
+| `action`     | Interactive state colors: `primary`, `secondary`, `danger` × base/hover/active/disabled                                                                                                                                                            |
+| `border`     | `default`, `strong`, `focus`, `accent`                                                                                                                                                                                                             |
+| `elevation`  | Overlay stacking and shadow roles: `backdrop`, `layer`, `floating`, `toast`, `tooltip`, `shadow` (maps from primitive `z-index.*` and `shadow.*`)                                                                                                  |
+| `radius`     | `control`, `selection`, `surface`, `pill`                                                                                                                                                                                                          |
+| `spacing`    | Semantic spacing roles                                                                                                                                                                                                                             |
+| `size`       | Reusable sizing roles (`control`, `selectionControl`, `icon`, `selectionIndicator`, `area`, `track`, `thumb`) — not component names; `icon` = inline glyphs, `control` = containers/heights, `selectionControl` = checkbox/radio box geometry only |
+| `motion`     | Duration and easing semantic roles                                                                                                                                                                                                                 |
+| `typography` | Font scale semantic roles                                                                                                                                                                                                                          |
+| `outline`    | Focus and state ring roles: `width` (focus, inset, zero), `offset` (focus, zero) — maps from primitive `outline.width.*` and `outline.offset.*`                                                                                                    |
+| `layout`     | Responsive layout roles: `viewport` (`sm`–`2xl`, aligned with breakpoint scale), `aspectRatio` (square, standard, photo, portrait, video, ultrawide) — maps from primitive `breakpoint.*` and `aspect-ratio.*`                                     |
 
 Semantic path structure:
 
@@ -295,6 +295,83 @@ Examples:
 - `action.primary.base` → `--lex-action-primary-base`
 - `radius.control` → `--lex-radius-control`
 - `spacing.control.x.md` → `--lex-space-control-x-md`
+- `sidebar.nav.padding` → `--lex-sidebar-nav-padding`
+- `sidebar.list.gap` → `--lex-sidebar-list-gap`
+
+### Control rhythm (padding, gap, focus offset)
+
+Three semantic roles — never conflate them in one token:
+
+| Role             | Definition                  | Semantic home                                  | Example (md profile)    |
+| ---------------- | --------------------------- | ---------------------------------------------- | ----------------------- |
+| **Padding**      | Border → content            | `spacing.control.x` / `y`, `spacing.surface.*` | `control.x.md` → 16px   |
+| **Gap**          | Child → child               | `spacing.control.gap.*`                        | `control.gap.md` → 8px  |
+| **Focus offset** | Component edge → focus ring | `outline.offset.focus`                         | unchanged per component |
+
+`size.control.md` is **height only** — vertical rhythm is not bundled into size tokens.
+
+Parallel ladders share step names (`sm`, `md`) across groups; pixel values differ by design (`size.icon.md` = 16px vs `size.control.md` = 40px).
+
+**Sidebar md profile (TOK.5):** `nav.padding` → `control.x.sm` (12px); `list.gap` / `group.gap` / `subList.gap` / `separator.marginY` → `control.gap.md` (8px); `item.padding.x` → `control.x.md` (16px); `item.padding.y` → `control.y.sm` (8px); `item.gap` → `control.gap.md` (8px). Variants consume `--lex-sidebar-*` component vars, not raw `--lex-space-*` primitives for these slots.
+
+**Sidebar focus (dense lists):** nav items use an **inset** focus ring (`outline.width.inset` via `item.focus.ring.width`) so the ring stays inside item padding and does not consume `list.gap` slack. Outset `ring-offset` is for controls with surrounding bleed room (Button, Input), not stacked nav rows.
+
+**Sidebar item shell:** leaf rows paint one shell on `SidebarItemLink` / `SidebarItemButton`; badge and shortcut live in `SidebarItemTrailing` **inside** that shell (`ms-auto`). Disclosure parent rows use `SidebarItemRow variant="disclosure"` so the link lead (`chrome="disclosureLead"`, transparent per-cell fill) and `SidebarItemExpandTrigger variant="disclosure"` share one row background (`item.height.min` → `size.control.sm`). **Icon rail:** expanded nav icons use `item.icon.size` (`size.icon.md`, 16px); desktop icon-collapse bumps to `item.icon.sizeCollapsed` (`size.icon.lg`, 20px) via `SidebarItemIcon`.
+
+**TOK.7 (shipped):** blocks, templates, and targeted primitives consume `--lex-<component>-*` spacing slots — not raw `--lex-space-*` primitives in `*.variants.ts`. New component token files: `page-header`, `dashboard-shell`, `data-table`, `command-palette`, `stats-card`, `form-field`, `auth-form`, `settings-page-layout`; extensions to `sidebar`, `date-picker`, `toolbar`. Audit map: [REVIEW_TODO § TOK.7](../../REVIEW_TODO.md#p23-tokens-shipped-tok1tok8).
+
+Density switching (`compact` / `default` / `comfortable`) is **TOK.6** — **planned** (TOK.5/TOK.7/TOK.8 stable; not scheduled yet).
+
+### Motion rhythm (duration tiers)
+
+Motion uses the same **tiered ladder** pattern as spacing: primitives define the
+scale; semantics assign **roles**; components consume `--lex-<component>-transition-*`
+aliases — never hardcode `duration-200` in variants.
+
+#### Primitive duration scale (shipped)
+
+| Primitive step            | Value | CSS var                  |
+| ------------------------- | ----- | ------------------------ |
+| `motion.duration.instant` | 0ms   | `--lex-duration-instant` |
+| `motion.duration.fast`    | 150ms | `--lex-duration-fast`    |
+| `motion.duration.normal`  | 250ms | `--lex-duration-normal`  |
+| `motion.duration.slow`    | 350ms | `--lex-duration-slow`    |
+| `motion.duration.slower`  | 500ms | `--lex-duration-slower`  |
+
+Source: `packages/tokens/src/primitives/motion.ts`. Components must not reference
+primitive steps directly — use semantic or component slots.
+
+#### Target semantic → surface map (TOK.8)
+
+Canonical intent for Lexsys UI. **Wired in TOK.8** — semantic targets in `motion.ts`; component `transition.duration` slots retargeted per tier. See [REVIEW_TODO § TOK.8](../../REVIEW_TODO.md#p23-tokens-shipped-tok1tok8).
+
+| Semantic role                      | Target primitive | Typical surfaces                                                                                                           |
+| ---------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `motion.duration.control`          | `fast` (150ms)   | Hover, active, focus color transitions; small feedback (badge pulse, switch thumb); **Tooltip** enter/exit                 |
+| `motion.duration.surface`          | `normal` (250ms) | **Button**, **Accordion** / **Collapsible** panel, **Dropdown** / **Menu** / **Select** / **Combobox**, **Tabs** indicator |
+| `motion.duration.overlayEnter`     | `slow` (350ms)   | **Drawer**, **Dialog**, **AlertDialog**, **Sheet**-class overlays — open                                                   |
+| `motion.duration.overlayExit`      | `fast` (150ms)   | Same overlays — close (exit faster than enter)                                                                             |
+| `motion.duration.layout`           | `slow` (350ms)   | **Sidebar** width/collapse, rail layout, label fade (`sidebar-expandable`)                                                 |
+| `motion.duration.page` _(planned)_ | `slower` (500ms) | Route-level transitions, multi-element choreography — add when a template owns page motion                                 |
+
+**Easing pairing (current):** `motion.easing.control` / `surface` → `standard`;
+`overlayEnter` → `easeIn`; `overlayExit` → `easeOut`; `layout` → `standard`.
+Revisit with TOK.8 if overlay/layout tiers move to `slow`.
+
+#### Semantic duration targets (TOK.8 shipped)
+
+| Semantic slot  | Resolves to | Primitive | Notes                                                                 |
+| -------------- | ----------- | --------- | --------------------------------------------------------------------- |
+| `control`      | `fast`      | 150ms     | Button, Input, Toggle, Switch, Checkbox, Tooltip, field hover         |
+| `surface`      | `normal`    | 250ms     | Accordion, Collapsible, Tabs, Select, Menu, Combobox, Popover, …      |
+| `overlayEnter` | `slow`      | 350ms     | Drawer, Dialog, AlertDialog — `easeIn` easing on component transition |
+| `overlayExit`  | `fast`      | 150ms     | Semantic reserved; single-slot overlays use `overlayEnter` today      |
+| `layout`       | `slow`      | 350ms     | Sidebar width/collapse, expandable label fade                         |
+| `page`         | `slower`    | 500ms     | Planned — route/template choreography only                            |
+
+**Rule:** pick the tier by **perceived surface class** (micro feedback vs panel vs
+layout), not by component file count. When in doubt, prefer the slower adjacent
+step for enter/layout and the faster step for exit/hover.
 
 ### Tailwind `@theme`
 

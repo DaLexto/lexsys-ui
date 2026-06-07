@@ -4,7 +4,7 @@
 **Type:** Verification workflow reference
 **Source of truth for:** Verification surfaces (playground vs sandbox), test coverage by package, when to run which checks
 **Verified against:** `packages/*/test/`, `packages/*/vitest.config.ts`, `package.json` scripts
-**Last reviewed:** 2026-05-30
+**Last reviewed:** 2026-05-30 (PLAYGROUND DX.2/DX.3 shipped in external repos)
 
 ---
 
@@ -14,7 +14,7 @@
   - [apps/playground](#appsplayground)
   - [Consumer sandbox](#consumer-sandbox)
   - [PLAYGROUND verification surfaces](#playground-verification-surfaces)
-  - [PLAYGROUND automation (planned)](#playground-automation-planned--external-repos)
+  - [PLAYGROUND automation (external repos)](#playground-automation-external-repos)
   - [Practical workflow](#practical-workflow)
 - [Quick Reference](#quick-reference)
 - [Test Coverage by Package](#test-coverage-by-package)
@@ -72,7 +72,7 @@ For **blocks/templates** changes (FormField, SettingsPanel, Sidebar, AuthForm, C
 
 **Fresh-test (`lexsys-fresh-test`)** — optional parallel gate for reproducible install/build confidence; not a substitute for PulseDesk UX QA.
 
-Tracked IDs: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
+Tracked IDs (outcome + runbooks): [Backlog § Shipped index — DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
 
 ### Practical workflow
 
@@ -285,7 +285,7 @@ Record failures in `docs/REVIEW_TODO.md` or the phase PR — do not block monore
 
 ## PLAYGROUND automation (external repos)
 
-Implementation lives **outside** this monorepo. No lexsys CI for DX.2 until explicitly promoted.
+Implementation lives **outside** this monorepo. **DX.2** (Playwright E2E) and **DX.3** (fresh install smoke) are **shipped** in external PLAYGROUND repos — not wired into lexsys monorepo CI unless explicitly promoted later.
 
 ### DX.3 — Fresh install smoke (`lexsys-fresh-test`) — shipped
 
@@ -338,7 +338,7 @@ Optional: upgrade `@playwright/test` to latest and run `pnpm exec playwright ini
 
 Complements the manual blocks/templates checklist above — does not replace PulseDesk manual QA for first-time gate.
 
-Tracked: [Backlog § DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
+Tracked: [Backlog § Shipped index — DX.2 / DX.3](../REVIEW_TODO.md#p22-dx-dx1dx5).
 
 ---
 

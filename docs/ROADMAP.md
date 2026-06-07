@@ -2,11 +2,11 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.1` @ `latest`** stable MVP (housekeeping + release CI hotfix); **`0.0.6` @ `next`** prior preview lane; **57** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.2` @ `latest`** (Sidebar enterprise, 2026-06-07); **`0.0.6` @ `next`** prior preview lane; **57** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
-**Last reviewed:** 2026-05-30 (SB Sidebar enterprise track queued in backlog)
+**Last reviewed:** 2026-05-30 (npm `0.1.2` @ `latest`; SB Sidebar enterprise shipped)
 
 ---
 
@@ -102,7 +102,7 @@ Planned hardening and deferred speculative work are documented in
 [Resolver evolution — After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10).
 Summary only — do not duplicate detail here.
 
-**Planned (likely next):** track [Backlog § TOK](./REVIEW_TODO.md#p23-tokens-tok1tok2)
+**Planned (likely next):** [Backlog § Execution queue](./REVIEW_TODO.md#execution-queue-active) — UI composition step 5; **TOK.6** density (planned, not urgent)
 
 - **TOK.1** — dedicated component tokens for 9 aliased primitives (PR E1)
 - **TOK.2** — further expand `SEMANTIC_CONTRAST_PAIRS` (additional roles beyond the current 15-pair registry; PR E2)
@@ -119,10 +119,20 @@ Summary only — do not duplicate detail here.
 - `lexsys uninstall` metadata-driven removal with dry-run and conflict reporting
 - UI render test pilot (`ScrollArea`, `Collapsible`, `Dialog`)
 
+**Recently shipped (token semantics):**
+
+- **TOK.3** — `size.icon` semantic scale (`xs`–`xl`); decorative component `icon.size` slots migrated off `selectionControl`; Sidebar group chevron uses `--lex-sidebar-item-icon-size`
+- **TOK.5** — control rhythm harmonization (shipped): Sidebar `nav`/`list`/`group`/`separator` component slots wired to `spacing.control.*`; item padding `x.md` / `y.sm`, intra-row `control.gap.md`; variants stop hardcoding `--lex-space-1`/`--lex-space-2` for list rhythm
+- **TOK.7** — control-zone harmonization (shipped): blocks/templates/primitives migrate `--lex-space-*` hardcodes to component token slots (`page-header`, `dashboard-shell`, `data-table`, `command-palette`, `stats-card`, `form-field`, `auth-form`, `settings-page-layout`, plus `sidebar`/`date-picker`/`toolbar` extensions); `pnpm ui:audit` clean for spacing literals in variants
+- **TOK.8** — motion semantic harmonization (shipped): `surface` → `normal` (250ms), `overlayEnter`/`layout` → `slow` (350ms); dropdown/surface primitives on `motion.duration.surface`; Drawer/Dialog/AlertDialog on `overlayEnter` + `easeIn`; Sidebar on `layout`
+
 **Deferred (explicit non-goals for now):**
+
+- **TOK.6** — density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders; **planned** (TOK.5/TOK.7/TOK.8 stable; not scheduled yet)
 
 - DTCG composite object `$value` authoring on single leaves (deferred engine phase; branch+slot is current)
 - AST expression evaluator and color/unit math (requires new subsystem — see RESOLVER_EVOLUTION)
+- **TOK.4** — cross-scale size harmony pass (icon ↔ typography ↔ control pairing tables, Button `icon.size` per variant, optical QA) — **deferred until AST evaluator subsystem**; see [Resolver evolution § AST evaluator](./reference/tokens/RESOLVER_EVOLUTION.md#ast-evaluator-subsystem)
 - Automatic contrast pair discovery without an explicit registry
 - Runtime accessibility checks in consumer apps
 - Default CSS/DTCG output switching from `var(--lex-*)` refs to hardcoded literals
@@ -514,7 +524,7 @@ separate per-phase PRs. Commit discipline remained one commit per sub-item (`Mx.
 ## Document Ownership
 
 - `docs/ROADMAP.md` owns long-term direction after the initial platform pass and
-  monorepo optimization sequencing (M1–M10 section above).
+  monorepo optimization sequencing (M1–M12 section above).
 - `docs/reference/tokens/TOKENS.md` owns current token rules, layer definitions, and generated
   output contracts.
 - `docs/REVIEW_TODO.md` owns actionable active work and known gaps.

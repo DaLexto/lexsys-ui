@@ -21,7 +21,7 @@ export const previewCardComponentTokens = componentTokens("preview-card", {
   },
   arrow: {
     $type: "dimension",
-    size: { $value: "{size.selectionControl.sm}" },
+    size: { $value: "{size.icon.sm}" },
   },
   trigger: {
     focus: {

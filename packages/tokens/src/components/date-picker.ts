@@ -9,6 +9,9 @@ export const datePickerComponentTokens = componentTokens("date-picker", {
     padding: { $value: "{spacing.surface.md}" },
     gap: { $value: "{spacing.surface.gap.sm}" },
     width: { $value: "{size.panel.width.sm}" },
+    grid: {
+      gap: { $value: "{spacing.surface.gap.sm}" },
+    },
   },
   header: {
     foreground: { $value: "{color.text.primary}" },
@@ -64,5 +67,17 @@ export const datePickerComponentTokens = componentTokens("date-picker", {
   transition: {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
+  },
+  trigger: {
+    input: {
+      embedded: {
+        height: { $value: "{size.control.sm}" },
+        background: { $value: "transparent" },
+        padding: {
+          $type: "dimension",
+          x: { $value: "{spacing.control.x.sm}" },
+        },
+      },
+    },
   },
 })

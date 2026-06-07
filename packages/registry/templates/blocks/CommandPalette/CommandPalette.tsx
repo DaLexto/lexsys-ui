@@ -14,6 +14,7 @@ import {
   DialogViewport,
 } from "@/components/primitives/Dialog/Dialog"
 import {
+  Combobox,
   ComboboxInput,
   ComboboxInputGroup,
 } from "@/components/primitives/Combobox/Combobox"
@@ -116,14 +117,16 @@ const CommandPaletteInput = ({
   ...props
 }: CommandPaletteInputProps) => {
   return (
-    <ComboboxInputGroup className={cn(commandPaletteInputClasses, className)}>
-      <ComboboxInput
-        ref={ref}
-        autoFocus
-        aria-label="Search commands"
-        {...props}
-      />
-    </ComboboxInputGroup>
+    <Combobox>
+      <ComboboxInputGroup className={cn(commandPaletteInputClasses, className)}>
+        <ComboboxInput
+          ref={ref}
+          autoFocus
+          aria-label="Search commands"
+          {...props}
+        />
+      </ComboboxInputGroup>
+    </Combobox>
   )
 }
 

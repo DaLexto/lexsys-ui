@@ -69,7 +69,7 @@ export const menuComponentTokens = componentTokens("menu", {
     },
     indicator: {
       $type: "dimension",
-      size: { $value: "{size.selectionControl.sm}" },
+      size: { $value: "{size.icon.sm}" },
     },
     focus: {
       ring: {
@@ -83,7 +83,7 @@ export const menuComponentTokens = componentTokens("menu", {
   submenu: {
     icon: {
       $type: "dimension",
-      size: { $value: "{size.selectionControl.sm}" },
+      size: { $value: "{size.icon.sm}" },
     },
   },
   group: {
@@ -126,7 +126,7 @@ export const menuComponentTokens = componentTokens("menu", {
     ringOffset: { $value: "{outline.offset.focus}" },
   },
   transition: {
-    duration: { $value: "{motion.duration.control}" },
+    duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
 })

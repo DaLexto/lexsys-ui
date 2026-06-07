@@ -16,7 +16,10 @@ export type DatePickerProps<Payload = unknown> = PopoverProps<Payload>
 export type DatePickerTriggerProps<Payload = unknown> =
   PopoverTriggerProps<Payload>
 
-export type DatePickerInputProps = InputProps
+export interface DatePickerInputProps extends InputProps {
+  /** Flat chrome for toolbar/filter row slots — no outer border. */
+  embedded?: boolean
+}
 
 export interface DatePickerContentProps extends Omit<
   HTMLAttributes<HTMLDivElement>,

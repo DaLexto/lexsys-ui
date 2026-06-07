@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
-import { Combobox } from "../../../src/components/primitives/Combobox/Combobox.js"
 import {
   CommandPalette,
   CommandPaletteContent,
@@ -19,9 +18,7 @@ describe("CommandPalette render", () => {
       <CommandPalette open onOpenChange={() => undefined}>
         <CommandPaletteContent>
           <CommandPaletteTitle>Command palette</CommandPaletteTitle>
-          <Combobox>
-            <CommandPaletteInput placeholder="Search commands…" />
-          </Combobox>
+          <CommandPaletteInput placeholder="Search commands…" />
           <CommandPaletteSeparator />
           <CommandPaletteList>
             <CommandPaletteGroup>

@@ -61,11 +61,11 @@ export const sidebarDesktopClasses = ({
   side = "left",
 }: SidebarShellOptions = {}): string => {
   const classes = [
-    "lex-sidebar__desktop hidden h-full shrink-0 bg-[var(--lex-color-background-subtle)] md:flex md:flex-col",
+    "lex-sidebar__desktop hidden h-full shrink-0 bg-(--lex-sidebar-desktop-background) md:flex md:flex-col",
     "overflow-hidden transition-[width,transform] duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing) motion-reduce:transition-none",
     side === "right"
-      ? "border-s border-[var(--lex-border-default)]"
-      : "border-e border-[var(--lex-border-default)]",
+      ? "border-s border-(--lex-sidebar-desktop-border-color)"
+      : "border-e border-(--lex-sidebar-desktop-border-color)",
   ]
 
   if (collapsible === "icon" && collapsed) {
@@ -91,21 +91,34 @@ export const sidebarRailClasses = ({
     "lex-sidebar__rail absolute inset-y-0 hidden w-4 md:block",
     side === "right" ? "-start-2" : "-end-2",
     "cursor-pointer border-0 bg-transparent p-0 outline-none",
-    "after:absolute after:inset-y-0 after:w-px after:bg-[var(--lex-border-default)]",
+    "after:absolute after:inset-y-0 after:w-px after:bg-(--lex-sidebar-desktop-border-color)",
     side === "right" ? "after:start-2" : "after:end-2",
   ].join(" ")
 }
 
+export const sidebarMobileBarClasses = (): string => {
+  return [
+    "lex-sidebar__mobile-bar flex items-center",
+    "gap-(--lex-sidebar-mobile-bar-gap)",
+    "border-b border-(--lex-sidebar-mobile-bar-border-color)",
+    "bg-(--lex-sidebar-mobile-bar-background)",
+    "px-(--lex-sidebar-mobile-bar-padding-x) py-(--lex-sidebar-mobile-bar-padding-y)",
+  ].join(" ")
+}
+
 export const sidebarMobileHeaderClasses = (): string => {
-  return "lex-sidebar__mobile-header flex min-w-0 flex-1 items-center gap-3"
+  return "lex-sidebar__mobile-header flex min-w-0 flex-1 items-center gap-(--lex-sidebar-mobile-bar-gap)"
 }
 
 export const sidebarBrandClasses = (): string => {
-  return "lex-sidebar__brand border-b border-[var(--lex-border-default)] px-[var(--lex-space-4)] py-[var(--lex-space-3)]"
+  return [
+    "lex-sidebar__brand border-b border-(--lex-sidebar-brand-border-color)",
+    "px-(--lex-sidebar-brand-padding-x) py-(--lex-sidebar-brand-padding-y)",
+  ].join(" ")
 }
 
 export const sidebarNavClasses = (): string => {
-  return "lex-sidebar__nav min-h-0 flex-1 p-[var(--lex-space-2)]"
+  return "lex-sidebar__nav min-h-0 flex-1 p-(--lex-sidebar-nav-padding)"
 }
 
 export const sidebarInputClasses = (): string => {
@@ -118,26 +131,93 @@ export const sidebarInputClasses = (): string => {
 export const sidebarSeparatorClasses = (): string => {
   return [
     "lex-sidebar__separator",
-    "mx-[var(--lex-space-2)] w-auto",
-    "my-[var(--lex-space-1)]",
+    "mx-(--lex-sidebar-separator-margin-x) w-auto",
+    "my-(--lex-sidebar-separator-margin-y)",
   ].join(" ")
 }
 
 export const sidebarNavListClasses = (): string => {
-  return "lex-sidebar__list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0"
+  return "lex-sidebar__list m-0 flex list-none flex-col gap-(--lex-sidebar-list-gap) p-0"
 }
 
 export const sidebarItemClasses = (): string => {
   return [
-    "lex-sidebar__row group/sidebar-row relative flex items-center",
-    "[&>:first-child]:min-w-0 [&>:first-child]:flex-1",
+    "lex-sidebar__row group/sidebar-row relative flex flex-col items-stretch",
+    "[&>:first-child]:min-w-0",
+    "[&>.lex-sidebar__item-row]:min-w-0",
     "has-[.lex-sidebar__item-action]:[&>:first-child]:pe-8",
   ].join(" ")
+}
+
+export const sidebarItemRowClasses = (): string => {
+  return [
+    "lex-sidebar__item-row flex w-full min-h-(--lex-sidebar-item-height-min) items-stretch",
+  ].join(" ")
+}
+
+export const sidebarItemDisclosureRowClasses = (): string => {
+  return [
+    "lex-sidebar__item-row lex-sidebar__item-row--disclosure group/sidebar-item-row",
+    "flex w-full min-h-(--lex-sidebar-item-height-min) items-stretch overflow-hidden",
+    "rounded-(--lex-sidebar-item-radius)",
+    "transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "hover:bg-(--lex-sidebar-item-background-hover)",
+    "has-[.lex-sidebar__item--active]:bg-(--lex-sidebar-item-background-active)",
+    "has-[.lex-sidebar__item--active]:text-(--lex-sidebar-item-foreground-active)",
+    "has-[.lex-sidebar__item--active]:[&_.lex-sidebar__item-expand]:text-(--lex-sidebar-item-foreground-active)",
+  ].join(" ")
+}
+
+export const sidebarItemTrailingClasses = (): string => {
+  return [
+    "lex-sidebar__item-trailing ms-auto flex shrink-0 items-center gap-(--lex-sidebar-item-gap)",
+    "md:group-data-[collapsed=true]/sidebar:hidden",
+  ].join(" ")
+}
+
+/** @deprecated Prefer `sidebarItemTrailingClasses` inside the item shell. */
+export const sidebarItemAdornmentsClasses = (): string => {
+  return sidebarItemTrailingClasses()
+}
+
+export const sidebarNavItemRowLeadClasses = (
+  active?: boolean,
+  disabled?: boolean,
+): string => {
+  return sidebarNavItemDisclosureLeadClasses(active, disabled)
+}
+
+export const sidebarNavItemExpandTriggerClasses = (
+  open = false,
+  variant: "default" | "disclosure" = "default",
+): string => {
+  const classes = [
+    "lex-sidebar__item-expand flex shrink-0 items-center justify-center",
+    "min-h-(--lex-sidebar-item-height-min) w-(--lex-sidebar-item-height-min)",
+    "rounded-(--lex-sidebar-item-radius) rounded-s-none",
+    "text-(--lex-sidebar-item-foreground)",
+    "transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "focus-visible:outline-none focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
+    "[&>svg]:size-(--lex-sidebar-item-icon-size) [&>svg]:shrink-0 [&>svg]:transition-transform",
+    open ? "[&>svg]:rotate-180" : "",
+  ]
+
+  if (variant === "disclosure") {
+    classes.push("hover:bg-transparent")
+  } else {
+    classes.push(
+      "hover:bg-(--lex-sidebar-item-background-hover) hover:text-(--lex-color-text-primary)",
+    )
+  }
+
+  return classes.join(" ")
 }
 
 export const sidebarItemIconClasses = (): string => {
   return [
     "lex-sidebar__item-icon flex size-(--lex-sidebar-item-icon-size) shrink-0 items-center justify-center",
+    "transition-[width,height] duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
+    "md:group-data-[collapsed=true]/sidebar:size-(--lex-sidebar-item-icon-size-collapsed)",
     "[&_svg]:size-full",
   ].join(" ")
 }
@@ -160,9 +240,10 @@ export const sidebarItemActionClasses = (showOnHover = true): string => {
 
 export const sidebarItemShortcutClasses = (): string => {
   return [
-    "lex-sidebar__item-shortcut ms-auto shrink-0",
+    "lex-sidebar__item-shortcut inline-flex shrink-0 items-center justify-center",
+    "h-(--lex-sidebar-item-adornment-height) min-w-(--lex-sidebar-item-adornment-height)",
     "rounded-(--lex-sidebar-item-radius) border border-[var(--lex-border-default)]",
-    "px-(--lex-space-control-x-xs) py-(--lex-space-control-y-xs)",
+    "px-(--lex-sidebar-item-shortcut-padding-x)",
     "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",
     "leading-(--lex-sidebar-item-font-line-height) text-(--lex-sidebar-item-foreground)",
     "md:group-data-[collapsed=true]/sidebar:hidden",
@@ -178,7 +259,7 @@ export const sidebarGroupActionClasses = (): string => {
 
 export const sidebarItemBadgeClasses = (): string => {
   return [
-    "lex-sidebar__item-badge shrink-0",
+    "lex-sidebar__item-badge inline-flex shrink-0 items-center self-center",
     "max-w-(--lex-sidebar-item-badge-max-width) truncate",
     "md:group-data-[collapsed=true]/sidebar:absolute md:group-data-[collapsed=true]/sidebar:top-1",
     "md:group-data-[collapsed=true]/sidebar:end-1 md:group-data-[collapsed=true]/sidebar:max-w-none",
@@ -217,7 +298,7 @@ export const sidebarItemBadgeDotClasses = (
 
 export const sidebarSubListClasses = (): string => {
   return [
-    "lex-sidebar__sub-list m-0 flex list-none flex-col gap-[var(--lex-space-1)] p-0",
+    "lex-sidebar__sub-list m-0 flex list-none flex-col gap-(--lex-sidebar-list-gap) p-0",
     "ms-[calc(var(--lex-sidebar-item-padding-x)+(var(--lex-sidebar-item-icon-size)/2))]",
     "border-s border-[var(--lex-border-default)] ps-(--lex-sidebar-item-sub-indent)",
     "md:group-data-[collapsed=true]/sidebar:hidden",
@@ -245,21 +326,24 @@ const sidebarNavItemActiveAccentClasses = (): string => {
   ].join(" ")
 }
 
-export const sidebarNavItemClasses = (
-  active?: boolean,
-  disabled?: boolean,
-): string => {
-  const base = [
+const sidebarNavItemShellBaseClasses = (): string => {
+  return [
     "lex-sidebar__item",
-    "relative flex min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
+    "relative flex min-h-(--lex-sidebar-item-height-min) w-full min-w-0 items-center gap-(--lex-sidebar-item-gap)",
     "rounded-(--lex-sidebar-item-radius)",
     "px-(--lex-sidebar-item-padding-x) py-(--lex-sidebar-item-padding-y)",
     "text-(length:--lex-sidebar-item-font-size) font-(--lex-sidebar-item-font-weight)",
     "leading-(--lex-sidebar-item-font-line-height)",
     "no-underline outline-none transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
-    "focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
-    "focus-visible:ring-offset-(length:--lex-sidebar-item-focus-ring-offset) focus-visible:ring-offset-(--lex-sidebar-item-focus-ring-offset-color)",
+    "focus-visible:ring-(length:--lex-sidebar-item-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-sidebar-item-focus-ring-color)",
   ].join(" ")
+}
+
+export const sidebarNavItemClasses = (
+  active?: boolean,
+  disabled?: boolean,
+): string => {
+  const base = sidebarNavItemShellBaseClasses()
 
   if (disabled) {
     return [
@@ -289,9 +373,46 @@ export const sidebarNavItemClasses = (
   ].join(" ")
 }
 
+export const sidebarNavItemDisclosureLeadClasses = (
+  active?: boolean,
+  disabled?: boolean,
+): string => {
+  const base = sidebarNavItemShellBaseClasses()
+
+  if (disabled) {
+    return [
+      base,
+      disabledStateClasses,
+      "min-w-0 flex-1 rounded-e-none bg-transparent",
+      "cursor-not-allowed text-(--lex-color-text-disabled)",
+      "hover:bg-transparent hover:text-(--lex-color-text-disabled)",
+      "data-[disabled]:text-(--lex-color-text-disabled)",
+    ].join(" ")
+  }
+
+  if (active) {
+    return [
+      base,
+      "lex-sidebar__item--active",
+      "min-w-0 flex-1 rounded-e-none bg-transparent",
+      "text-(--lex-sidebar-item-foreground-active)",
+      "font-(--lex-sidebar-item-font-weight-active)",
+      sidebarNavItemActiveAccentClasses(),
+      "hover:bg-transparent hover:text-(--lex-sidebar-item-foreground-active)",
+    ].join(" ")
+  }
+
+  return [
+    base,
+    "min-w-0 flex-1 rounded-e-none bg-transparent",
+    "text-(--lex-sidebar-item-foreground)",
+    "hover:bg-transparent hover:text-(--lex-sidebar-item-foreground)",
+  ].join(" ")
+}
+
 export const sidebarItemSkeletonClasses = (indent = false): string => {
   const classes = [
-    "lex-sidebar__item-skeleton flex w-full min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
+    "lex-sidebar__item-skeleton flex min-h-(--lex-sidebar-item-height-min) w-full min-w-0 flex-1 items-center gap-(--lex-sidebar-item-gap)",
     "rounded-(--lex-sidebar-item-radius)",
     "px-(--lex-sidebar-item-padding-x) py-(--lex-sidebar-item-padding-y)",
     sidebarCollapsedItemClasses(),
@@ -326,28 +447,34 @@ export const sidebarMainClasses = (): string => {
 }
 
 export const sidebarDrawerFooterClasses = (): string => {
-  return "lex-sidebar__drawer-footer border-t border-[var(--lex-border-default)] p-[var(--lex-space-2)]"
+  return [
+    "lex-sidebar__drawer-footer border-t border-(--lex-sidebar-drawer-footer-border-color)",
+    "p-(--lex-sidebar-drawer-footer-padding)",
+  ].join(" ")
 }
 
 export const sidebarFooterClasses = (): string => {
-  return "lex-sidebar__footer border-t border-[var(--lex-border-default)] p-[var(--lex-space-2)]"
+  return [
+    "lex-sidebar__footer border-t border-(--lex-sidebar-footer-border-color)",
+    "p-(--lex-sidebar-footer-padding)",
+  ].join(" ")
 }
 
 export const sidebarGroupClasses = (): string => {
-  return "lex-sidebar__group flex flex-col gap-[var(--lex-space-1)]"
+  return "lex-sidebar__group flex flex-col gap-(--lex-sidebar-group-gap)"
 }
 
 export const sidebarGroupLabelClasses = (): string => {
   return [
-    "lex-sidebar__group-label flex items-center justify-between gap-[var(--lex-space-2)]",
-    "px-[var(--lex-space-3)] py-[var(--lex-space-1)]",
+    "lex-sidebar__group-label flex items-center justify-between gap-(--lex-sidebar-group-label-gap)",
+    "px-(--lex-sidebar-group-label-padding-x) py-(--lex-sidebar-group-label-padding-y)",
     "text-(length:--lex-menu-group-label-font-size) font-(--lex-menu-group-label-font-weight)",
     "leading-(--lex-menu-group-label-font-line-height) text-(--lex-menu-group-label-foreground)",
   ].join(" ")
 }
 
 export const sidebarGroupContentClasses = (): string => {
-  return "lex-sidebar__group-content flex flex-col gap-[var(--lex-space-1)]"
+  return "lex-sidebar__group-content flex flex-col gap-(--lex-sidebar-group-gap)"
 }
 
 export const sidebarGroupCollapsibleClasses = (): string => {
@@ -357,13 +484,13 @@ export const sidebarGroupCollapsibleClasses = (): string => {
 export const sidebarGroupCollapsibleTriggerClasses = (): string => {
   return [
     "lex-sidebar__group-collapsible-trigger",
-    "flex min-w-0 flex-1 items-center gap-[var(--lex-space-2)] text-left outline-none",
+    "flex min-w-0 flex-1 items-center gap-(--lex-sidebar-group-collapsible-trigger-gap) text-left outline-none",
     "text-(length:--lex-menu-group-label-font-size) font-(--lex-menu-group-label-font-weight)",
     "leading-(--lex-menu-group-label-font-line-height) text-(--lex-menu-group-label-foreground)",
     "transition-colors duration-(--lex-sidebar-transition-duration) ease-(--lex-sidebar-transition-easing)",
     "hover:text-(--lex-menu-group-label-foreground)",
     "focus-visible:ring-(length:--lex-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-focus-ring-color)",
-    "[&>svg]:ms-auto [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:transition-transform",
+    "[&>svg]:ms-auto [&>svg]:size-(--lex-sidebar-item-icon-size) [&>svg]:shrink-0 [&>svg]:transition-transform",
     "group-data-[panel-open]/sidebar-group-collapsible:[&>svg]:rotate-180",
   ].join(" ")
 }
