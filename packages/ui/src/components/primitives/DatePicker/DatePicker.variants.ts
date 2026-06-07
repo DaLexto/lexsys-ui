@@ -41,7 +41,7 @@ export const datePickerNavButtonVariants = cva(
 )
 
 export const datePickerWeekdaysVariants = cva(
-  "grid grid-cols-7 gap-(--lex-space-1)",
+  "grid grid-cols-7 gap-(--lex-date-picker-calendar-grid-gap)",
 )
 
 export const datePickerWeekdayVariants = cva(
@@ -49,7 +49,7 @@ export const datePickerWeekdayVariants = cva(
 )
 
 export const datePickerGridVariants = cva(
-  "grid grid-cols-7 gap-(--lex-space-1)",
+  "grid grid-cols-7 gap-(--lex-date-picker-calendar-grid-gap)",
 )
 
 export const datePickerDayVariants = cva(
