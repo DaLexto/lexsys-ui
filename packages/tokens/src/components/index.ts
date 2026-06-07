@@ -2,6 +2,7 @@ import type { ComponentTokenGroup } from "../types"
 import { accordionComponentTokens } from "./accordion"
 import { alertDialogComponentTokens } from "./alert-dialog"
 import { alertComponentTokens } from "./alert"
+import { authFormComponentTokens } from "./auth-form"
 import { autocompleteComponentTokens } from "./autocomplete"
 import { avatarComponentTokens } from "./avatar"
 import { badgeComponentTokens } from "./badge"
@@ -23,6 +24,7 @@ import { drawerComponentTokens } from "./drawer"
 import { fieldComponentTokens } from "./field"
 import { fieldsetComponentTokens } from "./fieldset"
 import { formComponentTokens } from "./form"
+import { formFieldComponentTokens } from "./form-field"
 import { inputComponentTokens } from "./input"
 import { menuComponentTokens } from "./menu"
 import { menubarComponentTokens } from "./menubar"
@@ -39,6 +41,7 @@ import { radioGroupComponentTokens } from "./radio-group"
 import { scrollAreaComponentTokens } from "./scroll-area"
 import { selectComponentTokens } from "./select"
 import { separatorComponentTokens } from "./separator"
+import { settingsPageLayoutComponentTokens } from "./settings-page-layout"
 import { sidebarComponentTokens } from "./sidebar"
 import { sliderComponentTokens } from "./slider"
 import { statsCardComponentTokens } from "./stats-card"
@@ -55,6 +58,7 @@ import { tooltipComponentTokens } from "./tooltip"
 export { accordionComponentTokens } from "./accordion"
 export { alertDialogComponentTokens } from "./alert-dialog"
 export { alertComponentTokens } from "./alert"
+export { authFormComponentTokens } from "./auth-form"
 export { autocompleteComponentTokens } from "./autocomplete"
 export { avatarComponentTokens } from "./avatar"
 export { badgeComponentTokens } from "./badge"
@@ -76,6 +80,7 @@ export { drawerComponentTokens } from "./drawer"
 export { fieldComponentTokens } from "./field"
 export { fieldsetComponentTokens } from "./fieldset"
 export { formComponentTokens } from "./form"
+export { formFieldComponentTokens } from "./form-field"
 export { inputComponentTokens } from "./input"
 export { menuComponentTokens } from "./menu"
 export { menubarComponentTokens } from "./menubar"
@@ -92,6 +97,7 @@ export { radioGroupComponentTokens } from "./radio-group"
 export { scrollAreaComponentTokens } from "./scroll-area"
 export { selectComponentTokens } from "./select"
 export { separatorComponentTokens } from "./separator"
+export { settingsPageLayoutComponentTokens } from "./settings-page-layout"
 export { sidebarComponentTokens } from "./sidebar"
 export { sliderComponentTokens } from "./slider"
 export { statsCardComponentTokens } from "./stats-card"
@@ -109,6 +115,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   accordionComponentTokens,
   alertDialogComponentTokens,
   alertComponentTokens,
+  authFormComponentTokens,
   autocompleteComponentTokens,
   avatarComponentTokens,
   badgeComponentTokens,
@@ -130,6 +137,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   fieldComponentTokens,
   fieldsetComponentTokens,
   formComponentTokens,
+  formFieldComponentTokens,
   inputComponentTokens,
   menuComponentTokens,
   menubarComponentTokens,
@@ -146,6 +154,7 @@ export const componentTokens: ComponentTokenGroup[] = [
   scrollAreaComponentTokens,
   selectComponentTokens,
   separatorComponentTokens,
+  settingsPageLayoutComponentTokens,
   sidebarComponentTokens,
   sliderComponentTokens,
   statsCardComponentTokens,

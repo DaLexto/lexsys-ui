@@ -19,7 +19,11 @@ import type {
   AuthFormProps,
   AuthFormSubmitProps,
 } from "./AuthForm.types"
-import { authFormFieldsClassName, authFormClasses } from "./AuthForm.variants"
+import {
+  authFormClasses,
+  authFormContentClasses,
+  authFormFooterClasses,
+} from "./AuthForm.variants"
 import { cn } from "../../../utils/cn"
 
 const AuthForm = ({
@@ -59,7 +63,7 @@ const AuthFormContent = ({
   return (
     <CardContent
       ref={ref}
-      className={cn(authFormFieldsClassName, className)}
+      className={cn(authFormContentClasses(), className)}
       {...props}
     />
   )
@@ -71,7 +75,7 @@ const AuthFormFooter = ({ ref, className, ...props }: AuthFormFooterProps) => {
   return (
     <CardFooter
       ref={ref}
-      className={cn("flex-col gap-(--lex-space-3)", className)}
+      className={cn(authFormFooterClasses(), className)}
       {...props}
     />
   )
