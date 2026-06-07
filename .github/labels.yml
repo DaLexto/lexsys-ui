@@ -1,112 +1,102 @@
 # Lexsys GitHub label manifest (strict sync via github-label-sync).
-# Namespaces: type/* (Conventional Commits), area/* (monorepo scope),
-# priority/*, status/*, meta/*, automation/*.
-# Legacy GitHub defaults migrate through aliases; unlisted labels are deleted.
+# Namespaces: type/*, area/*, priority/*, status/*, meta/*, automation/*.
+
+# --- area:* (monorepo scope) — shared color bfdbfe ---
+
+- name: "area:cli"
+  color: "bfdbfe"
+  description: Changes to packages/cli
+
+- name: "area:ui"
+  color: "bfdbfe"
+  description: Changes to packages/ui
+
+- name: "area:tokens"
+  color: "bfdbfe"
+  description: Changes to packages/tokens
+
+- name: "area:registry"
+  color: "bfdbfe"
+  description: Changes to packages/registry
+
+- name: "area:docs"
+  color: "bfdbfe"
+  description: Changes to documentation
+
+- name: "area:playground"
+  color: "bfdbfe"
+  description: Changes to apps/playground
+
+- name: "area:repo"
+  color: "bfdbfe"
+  description: Changes to monorepo tooling, CI, config, or root files
+
+- name: "area:agents"
+  color: "bfdbfe"
+  description: Changes to AGENTS.md, Cursor rules, or agent skills
 
 # --- type:* (change kind) ---
 
 - name: "type:feat"
-  color: "0E8A16"
-  description: New feature or capability
+  color: "4ade80"
+  description: New functionality
   aliases:
     - enhancement
 
 - name: "type:fix"
-  color: "D73A4A"
-  description: Bug fix or incorrect behavior correction
+  color: "f87171"
+  description: Bug fix
   aliases:
     - bug
 
 - name: "type:docs"
-  color: "0075CA"
-  description: Documentation-only changes
+  color: "60a5fa"
+  description: Documentation-only change
   aliases:
     - documentation
 
 - name: "type:test"
-  color: "1D76DB"
-  description: Tests or test infrastructure
+  color: "67e8f9"
+  description: Adding or correcting tests
 
 - name: "type:refactor"
-  color: "C5DEF5"
+  color: "c084fc"
   description: Internal restructure without intended behavior change
 
 - name: "type:chore"
-  color: "FEF2C0"
-  description: Repo hygiene, deps, formatting, maintenance
-
-- name: "type:build"
-  color: "D4C5F9"
-  description: Build pipeline, bundler, or artifact wiring
+  color: "9ca3af"
+  description: Routine maintenance
 
 - name: "type:ci"
-  color: "0052CC"
-  description: CI workflows and automation config
+  color: "facc15"
+  description: CI workflow changes
 
-- name: "type:perf"
-  color: "FBCA04"
-  description: Measurable performance improvement
-
-- name: "type:style"
-  color: "E4E669"
-  description: Formatting or class/style order only
-
-# --- area:* (monorepo scope) ---
-
-- name: "area:tokens"
-  color: "5319E7"
-  description: packages/tokens
-
-- name: "area:ui"
-  color: "1D76DB"
-  description: packages/ui
-
-- name: "area:registry"
-  color: "006B75"
-  description: packages/registry
-
-- name: "area:cli"
-  color: "0E8A16"
-  description: packages/cli
-
-- name: "area:playground"
-  color: "FBCA04"
-  description: apps/playground
-
-- name: "area:docs"
-  color: "0075CA"
-  description: docs/ and handbook alignment
-
-- name: "area:repo"
-  color: "6E7781"
-  description: Root tooling, workspace config, monorepo infra
-
-- name: "area:agents"
-  color: "6F42C1"
-  description: AGENTS.md, .cursor/skills/, and agent workflow policy
+- name: "type:build"
+  color: "fb923c"
+  description: Build tooling or generated artifact wiring
 
 # --- priority:* (issue triage) ---
 
 - name: "priority:critical"
-  color: "B60205"
-  description: Critical — blocks release or core workflow
+  color: "991b1b"
+  description: Blocks release or core development
   aliases:
     - "priority:P0"
 
 - name: "priority:high"
-  color: "D93F0B"
-  description: High — should be addressed soon
+  color: "ea580c"
+  description: High priority for the next milestone
   aliases:
     - "priority:P1"
 
 - name: "priority:medium"
-  color: "FBCA04"
+  color: "eab308"
   description: Normal priority
   aliases:
     - "priority:P2"
 
 - name: "priority:low"
-  color: "C2E0C6"
+  color: "86efac"
   description: Low priority or nice-to-have
   aliases:
     - "priority:P3"
@@ -114,45 +104,61 @@
 # --- status:* (workflow) ---
 
 - name: "status:needs-triage"
-  color: "EDEDED"
-  description: Awaiting maintainer triage
-
-- name: "status:blocked"
-  color: "B60205"
-  description: Blocked by dependency or external decision
+  color: "fde68a"
+  description: Needs review and classification
 
 - name: "status:ready-for-review"
-  color: "0E8A16"
-  description: Ready for reviewer attention
+  color: "fed7aa"
+  description: Ready for maintainer review
+
+- name: "status:blocked"
+  color: "374151"
+  description: Blocked by another task or decision
+
+- name: "status:in-progress"
+  color: "e0f2fe"
+  description: Work is actively happening
+
+- name: "status:needs-info"
+  color: "ddd6fe"
+  description: Waiting for more information
 
 # --- meta:* (cross-cutting) ---
 
 - name: "meta:breaking-change"
-  color: "B60205"
-  description: Breaking change for consumers or public API
+  color: "7f1d1d"
+  description: Contains breaking API, config, registry, or token changes
+
+- name: "meta:release-train"
+  color: "a5b4fc"
+  description: Release train PR (dev to main, Version packages, sync from main)
+
+- name: "meta:changeset"
+  color: "ddd6fe"
+  description: Changeset and changelog prep for an upcoming release
 
 - name: "meta:good-first-issue"
-  color: "7057FF"
-  description: Good entry point for new contributors
+  color: "bbf7d0"
+  description: Good issue for new contributors
   aliases:
     - "good first issue"
 
 - name: "meta:help-wanted"
-  color: "008672"
-  description: Extra contributor attention welcome
+  color: "bfdbfe"
+  description: External help is welcome
   aliases:
     - "help wanted"
 
 # --- automation:* (bots) ---
 
 - name: "automation:dependencies"
-  color: "0366D6"
+  color: "60a5fa"
   description: Dependency update pull requests
   aliases:
     - dependencies
 
 - name: "automation:github-actions"
-  color: "6E7781"
+  color: "facc15"
   description: GitHub Actions workflow or action updates
   aliases:
     - github_actions

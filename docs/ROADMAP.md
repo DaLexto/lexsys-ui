@@ -336,7 +336,7 @@ Status: shipped
 
 #### Post-M7 — GitHub label sync (shipped)
 
-- Strict namespaced label manifest (`.github/labels.yml`) synced via `github-label-sync` and [`.github/workflows/labels-sync.yml`](../.github/workflows/labels-sync.yml).
+- Strict namespaced label manifest (`.github/labels.yml`) synced via `github-label-sync` and [`.github/workflows/repo-labels-sync.yml`](../.github/workflows/repo-labels-sync.yml).
 
 ### M12 - CLI command optimization
 

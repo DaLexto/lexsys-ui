@@ -46,7 +46,8 @@ Only when the user **explicitly** requests a PR and the branch is complete.
    - One `type:*` (mirrors primary commit type)
    - All matching `area:*` from [git-commits.mdc § area mapping](../rules/git-commits.mdc#area-mapping)
    - `status:ready-for-review`
-   - `meta:breaking-change` when applicable  
+   - `meta:breaking-change` or `meta:changeset` when applicable
+   - **Max 4 labels** — see [git-commits.mdc § GitHub labels](../rules/git-commits.mdc#github-labels-required--same-turn-as-create)  
      Namespaces: [CONTRIBUTING § GitHub labels](../../docs/contributors/CONTRIBUTING.md).
 6. **Create + labels (atomic — same turn, no pause):** PR is **not complete** until labels are applied. Run both commands back-to-back; do not return the PR URL between them.
 

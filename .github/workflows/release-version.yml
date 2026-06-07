@@ -1,0 +1,49 @@
+name: Release — Version packages
+
+# Opens or updates the Changesets "Version packages" PR on main. Does not publish.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: release-version-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  version:
+    name: Open or update Version packages PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Create Version packages PR
+        uses: changesets/action@v1
+        with:
+          version: pnpm version-packages
+          commit: "chore(release): version packages"
+          title: "chore(release): version packages"
+          createGithubReleases: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
