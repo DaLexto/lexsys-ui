@@ -240,7 +240,8 @@ the desktop shell — not a second Drawer instance.
 
 Nav item active state: **variant A** — subtle background tint + left accent bar
 (`--lex-sidebar-item-accent-*`). Tokens: `packages/tokens/src/components/sidebar.ts`
-(SB.19); width transition: `--lex-sidebar-transition-*`; global slide motion:
+(SB.19). Desktop collapse width/label fade: `--lex-sidebar-transition-*` →
+`motion.duration.layout` (target tier **slow** — see [Motion rhythm](../tokens/DESIGN_SYSTEM.md#motion-rhythm-duration-tiers), TOK.8). Mobile drawer overlay:
 `motion.duration.overlayEnter` / `overlayExit`, `motion.easing.easeIn` / `easeOut`
 (SB.18).
 
@@ -278,35 +279,59 @@ Lexsys naming is fixed:
 
 #### Layer 1 — item chrome (SB.7 / SB.8 shipped)
 
+**One row = one painted shell.** Badge, shortcut, and label share the same
+hover/focus chrome — trailing content lives **inside** the link/button, not as a
+sibling (matches shadcn `SidebarMenuButton` + trailing badge pattern).
+
 ```tsx
 <SidebarItem>
-  <SidebarItemButton active>
+  <SidebarItemLink href="/inbox" active>
     <SidebarItemIcon>
       <Inbox />
     </SidebarItemIcon>
-    <span className="sidebar-expandable">Inbox</span>
-  </SidebarItemButton>
-  <SidebarItemBadge variant="neutral">24</SidebarItemBadge>
+    <SidebarExpandable>Inbox</SidebarExpandable>
+    <SidebarItemTrailing>
+      <SidebarItemBadge variant="neutral">24</SidebarItemBadge>
+      <SidebarItemShortcut>⌘K</SidebarItemShortcut>
+    </SidebarItemTrailing>
+  </SidebarItemLink>
 </SidebarItem>
 ```
 
-| Export                | Role                                                                           |
-| --------------------- | ------------------------------------------------------------------------------ |
-| `SidebarItemIcon`     | Shipped SB.8 — fixed icon slot (`--lex-sidebar-item-icon-size`)                |
-| `SidebarItemBadge`    | Shipped SB.7 — trailing count; auto `dot` when icon-collapsed on desktop       |
-| `SidebarItemAction`   | Shipped SB.8 — row hover action (ghost `Button`; `showOnHover` default `true`) |
-| `SidebarItemShortcut` | Shipped SB.8 — `<kbd>` hint; hidden in icon collapse                           |
-| `SidebarGroupAction`  | Shipped SB.8 — ghost `Button` in `SidebarGroupLabel` row                       |
+| Export                  | Role                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------ |
+| `SidebarItemIcon`       | Shipped SB.8 — fixed icon slot (`--lex-sidebar-item-icon-size`)                |
+| `SidebarItemTrailing`   | Shipped — `ms-auto` cluster for badge + shortcut inside the item shell         |
+| `SidebarItemBadge`      | Shipped SB.7 — trailing count; auto `dot` when icon-collapsed on desktop       |
+| `SidebarItemAction`     | Shipped SB.8 — row hover action (ghost `Button`; `showOnHover` default `true`) |
+| `SidebarItemShortcut`   | Shipped SB.8 — `<kbd>` hint; hidden in icon collapse                           |
+| `SidebarGroupAction`    | Shipped SB.8 — ghost `Button` in `SidebarGroupLabel` row                       |
+| `SidebarItemAdornments` | **Deprecated** — external sibling; use `SidebarItemTrailing` inside the shell  |
 
-`SidebarItem` layout: `relative flex items-center`; variants in `Sidebar.variants.ts`
-— no consumer CSS hacks.
+`SidebarItem` layout: `relative flex flex-col items-stretch`; variants in
+`Sidebar.variants.ts` — no consumer CSS hacks.
 
 #### Layer 2 — nested nav (SB.9 shipped)
+
+Disclosure rows use `SidebarItemRow variant="disclosure"` so the link lead and
+expand trigger share one row shell. Trailing badge/shortcut stay inside the link;
+only the chevron sits outside the link cell.
 
 ```tsx
 <SidebarItem>
   <Collapsible variant="plain" defaultOpen>
-    <CollapsibleTrigger>Settings</CollapsibleTrigger>
+    <SidebarItemRow variant="disclosure">
+      <SidebarItemLink href="/settings" chrome="disclosureLead" active>
+        <SidebarItemIcon>
+          <Settings />
+        </SidebarItemIcon>
+        <SidebarExpandable>Settings</SidebarExpandable>
+        <SidebarItemTrailing>
+          <SidebarItemBadge>3</SidebarItemBadge>
+        </SidebarItemTrailing>
+      </SidebarItemLink>
+      <SidebarItemExpandTrigger variant="disclosure" open={open} />
+    </SidebarItemRow>
     <CollapsiblePanel className="p-0">
       <SidebarSubList>
         <SidebarItem>

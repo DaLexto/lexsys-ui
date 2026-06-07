@@ -316,9 +316,59 @@ Parallel ladders share step names (`sm`, `md`) across groups; pixel values diffe
 
 **Sidebar focus (dense lists):** nav items use an **inset** focus ring (`outline.width.inset` via `item.focus.ring.width`) so the ring stays inside item padding and does not consume `list.gap` slack. Outset `ring-offset` is for controls with surrounding bleed room (Button, Input), not stacked nav rows.
 
-**Sidebar item row shell:** every nav row uses `SidebarItemRow` (`item.height.min` → `size.control.sm`) so links, adornments (`SidebarItemAdornments`), and `SidebarItemExpandTrigger` share one min-height and padding rhythm. Split parent rows attach expand trigger to the link lead (`rounded-e-none` + square expand slot).
+**Sidebar item shell:** leaf rows paint one shell on `SidebarItemLink` / `SidebarItemButton`; badge and shortcut live in `SidebarItemTrailing` **inside** that shell (`ms-auto`). Disclosure parent rows use `SidebarItemRow variant="disclosure"` so the link lead (`chrome="disclosureLead"`, transparent per-cell fill) and `SidebarItemExpandTrigger variant="disclosure"` share one row background (`item.height.min` → `size.control.sm`). **Icon rail:** expanded nav icons use `item.icon.size` (`size.icon.md`, 16px); desktop icon-collapse bumps to `item.icon.sizeCollapsed` (`size.icon.lg`, 20px) via `SidebarItemIcon`.
 
 Density switching (`compact` / `default` / `comfortable`) is **TOK.6** — deferred until this profile ships.
+
+### Motion rhythm (duration tiers)
+
+Motion uses the same **tiered ladder** pattern as spacing: primitives define the
+scale; semantics assign **roles**; components consume `--lex-<component>-transition-*`
+aliases — never hardcode `duration-200` in variants.
+
+#### Primitive duration scale (shipped)
+
+| Primitive step            | Value | CSS var                  |
+| ------------------------- | ----- | ------------------------ |
+| `motion.duration.instant` | 0ms   | `--lex-duration-instant` |
+| `motion.duration.fast`    | 150ms | `--lex-duration-fast`    |
+| `motion.duration.normal`  | 250ms | `--lex-duration-normal`  |
+| `motion.duration.slow`    | 350ms | `--lex-duration-slow`    |
+| `motion.duration.slower`  | 500ms | `--lex-duration-slower`  |
+
+Source: `packages/tokens/src/primitives/motion.ts`. Components must not reference
+primitive steps directly — use semantic or component slots.
+
+#### Target semantic → surface map (TOK.8)
+
+Canonical intent for Lexsys UI. **Not fully wired yet** — see [REVIEW_TODO § TOK.8](../../REVIEW_TODO.md#p23--tokens-tok1tok2) for the component audit.
+
+| Semantic role                      | Target primitive | Typical surfaces                                                                                                           |
+| ---------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `motion.duration.control`          | `fast` (150ms)   | Hover, active, focus color transitions; small feedback (badge pulse, switch thumb); **Tooltip** enter/exit                 |
+| `motion.duration.surface`          | `normal` (250ms) | **Button**, **Accordion** / **Collapsible** panel, **Dropdown** / **Menu** / **Select** / **Combobox**, **Tabs** indicator |
+| `motion.duration.overlayEnter`     | `slow` (350ms)   | **Drawer**, **Dialog**, **AlertDialog**, **Sheet**-class overlays — open                                                   |
+| `motion.duration.overlayExit`      | `fast` (150ms)   | Same overlays — close (exit faster than enter)                                                                             |
+| `motion.duration.layout`           | `slow` (350ms)   | **Sidebar** width/collapse, rail layout, label fade (`sidebar-expandable`)                                                 |
+| `motion.duration.page` _(planned)_ | `slower` (500ms) | Route-level transitions, multi-element choreography — add when a template owns page motion                                 |
+
+**Easing pairing (current):** `motion.easing.control` / `surface` → `standard`;
+`overlayEnter` → `easeIn`; `overlayExit` → `easeOut`; `layout` → `standard`.
+Revisit with TOK.8 if overlay/layout tiers move to `slow`.
+
+#### Current vs target (gap snapshot)
+
+| Semantic slot  | Resolves today | Target   | Notes                                                                    |
+| -------------- | -------------- | -------- | ------------------------------------------------------------------------ |
+| `control`      | `fast`         | `fast`   | aligned                                                                  |
+| `surface`      | `fast`         | `normal` | Accordion/Collapsible should move to `normal`                            |
+| `overlayEnter` | `normal`       | `slow`   | Drawer/Dialog open should move to `slow`                                 |
+| `overlayExit`  | `fast`         | `fast`   | aligned                                                                  |
+| `layout`       | `normal`       | `slow`   | Sidebar collapse should move to `slow` (today inherits `normal` = 250ms) |
+
+**Rule:** pick the tier by **perceived surface class** (micro feedback vs panel vs
+layout), not by component file count. When in doubt, prefer the slower adjacent
+step for enter/layout and the faster step for exit/hover.
 
 ### Tailwind `@theme`
 

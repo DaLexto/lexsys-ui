@@ -230,14 +230,41 @@ Admin catalog items — after **0.1.0** unless release gate completes first. See
 
 Cross-link [P3](#p3-architecture-planning) and [Resolver evolution § After Phase 10](./reference/tokens/RESOLVER_EVOLUTION.md#after-phase-10). Canonical rules: [TOKENS.md](./reference/tokens/TOKENS.md).
 
-| ID    | Item                                                                                                                                    | PR  | Status                                                                                                                                       |
-| ----- | --------------------------------------------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| TOK.1 | Dedicated tokens for 9 aliased primitives                                                                                               | E1  | shipped                                                                                                                                      |
-| TOK.2 | Expand `SEMANTIC_CONTRAST_PAIRS`                                                                                                        | E2  | shipped                                                                                                                                      |
-| TOK.3 | `size.icon` semantic scale + migrate decorative `icon.size` slots off `selectionControl`                                                | —   | shipped                                                                                                                                      |
-| TOK.4 | Cross-scale size harmony pass (icon ↔ typography ↔ control pairing; Button `icon.size` per variant)                                     | —   | deferred — blocked on AST evaluator subsystem ([RESOLVER_EVOLUTION § AST](./reference/tokens/RESOLVER_EVOLUTION.md#ast-evaluator-subsystem)) |
-| TOK.5 | Control rhythm harmonization — Sidebar `nav`/`list`/`group`/`separator` slots + item padding/gap bump to `spacing.control.*` md profile | —   | active                                                                                                                                       |
-| TOK.6 | Density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders per profile                                              | —   | deferred — document when TOK.5 ships                                                                                                         |
+| ID    | Item                                                                                                                                                                                                                                                            | PR  | Status                                                                                                                                       |
+| ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| TOK.1 | Dedicated tokens for 9 aliased primitives                                                                                                                                                                                                                       | E1  | shipped                                                                                                                                      |
+| TOK.2 | Expand `SEMANTIC_CONTRAST_PAIRS`                                                                                                                                                                                                                                | E2  | shipped                                                                                                                                      |
+| TOK.3 | `size.icon` semantic scale + migrate decorative `icon.size` slots off `selectionControl`                                                                                                                                                                        | —   | shipped                                                                                                                                      |
+| TOK.4 | Cross-scale size harmony pass (icon ↔ typography ↔ control pairing; Button `icon.size` per variant)                                                                                                                                                             | —   | deferred — blocked on AST evaluator subsystem ([RESOLVER_EVOLUTION § AST](./reference/tokens/RESOLVER_EVOLUTION.md#ast-evaluator-subsystem)) |
+| TOK.5 | Control rhythm harmonization — Sidebar `nav`/`list`/`group`/`separator` slots + item padding/gap bump to `spacing.control.*` md profile                                                                                                                         | —   | active                                                                                                                                       |
+| TOK.6 | Density prop (`compact` / `default` / `comfortable`) — parallel rhythm ladders per profile                                                                                                                                                                      | —   | deferred — document when TOK.5 ships                                                                                                         |
+| TOK.7 | Control-zone harmonization — blocks with hardcoded `--lex-space-*` → component tokens (`toolbar`, `page-header`, `data-table`, `command-palette`, …); DatePicker `embedded` trigger slot                                                                        | —   | active — FilterToolbar + DatePicker slice shipped; full block map below                                                                      |
+| TOK.8 | Motion semantic harmonization — align `motion.duration.*` roles + component `transition.duration` slots to [DESIGN_SYSTEM § Motion rhythm](./reference/tokens/DESIGN_SYSTEM.md#motion-rhythm-duration-tiers); add `motion.duration.page` → `slower` when needed | —   | planned — primitive scale shipped (150/250/350/500); semantic + component audit below                                                        |
+
+**TOK.8 motion harmonization map** (component `transition.duration` → target semantic tier — [DESIGN_SYSTEM § Motion rhythm](./reference/tokens/DESIGN_SYSTEM.md#motion-rhythm-duration-tiers)):
+
+| Target tier             | Semantic alias                          | Components to audit (today mostly `control` or `surface` → `fast`)                                            |
+| ----------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **fast** (150ms)        | `motion.duration.control`               | Button, Input, Toggle, Switch, Checkbox, Radio, Badge, Tooltip, field focus, hover/active color on primitives |
+| **normal** (250ms)      | `motion.duration.surface`               | Accordion, Collapsible, Tabs, Select, Menu, Combobox, Popover, NavigationMenu, Autocomplete                   |
+| **slow** enter (350ms)  | `motion.duration.overlayEnter`          | Drawer, Dialog, AlertDialog (+ mobile Sidebar drawer popup if distinct from layout)                           |
+| **fast** exit (150ms)   | `motion.duration.overlayExit`           | Same overlays — close path                                                                                    |
+| **slow** layout (350ms) | `motion.duration.layout`                | Sidebar (`sidebar.ts` `transition.duration`), DashboardShell layout chrome                                    |
+| **slower** (500ms)      | `motion.duration.page` _(new semantic)_ | Deferred — page/template transitions only                                                                     |
+
+**Execution order:** (1) update `packages/tokens/src/semantics/motion.ts` targets; (2) batch component token files by tier; (3) variant smoke in playground/sandbox; (4) no raw `duration-*` in `packages/ui` variants.
+
+**TOK.7 block harmonization map** (remaining `--lex-space-*` / raw semantic leaks in `*.variants.ts`):
+
+| Block / primitive                | Token home                                | Status                   |
+| -------------------------------- | ----------------------------------------- | ------------------------ |
+| `FilterToolbar`                  | `toolbar.ts` (`root`, `group`)            | **shipped** (this slice) |
+| `DatePicker` trigger             | `date-picker.ts` `trigger.input.embedded` | **shipped** (this slice) |
+| `PageHeader`                     | `page-header.ts` (new or extend)          | planned                  |
+| `DataTable` toolbar / filter row | `toolbar.ts` or `data-table.ts`           | planned                  |
+| `CommandPalette`                 | `command-palette.ts`                      | planned                  |
+| `StatsCard`                      | `stats-card.ts`                           | planned                  |
+| `DashboardShell` header gap      | `dashboard-shell.ts`                      | planned                  |
 
 ### P2.4 — Trust + CLI (SEC.1, M12.5)
 
@@ -332,7 +359,7 @@ Canonical composition model: [UI composition](./reference/ui/UI_COMPOSITION.md).
 | SB.10 | Polish   | `SidebarSeparator`, `DashboardShell` + `UI_COMPOSITION` docs                                                                     | SB.6               | shipped |
 | SB.20 | Release  | Changeset `0.1.2`, docs alignment, maintainer verify, commit + PR → `dev`                                                        | SB.10              | shipped |
 | SB.21 | Fix      | `sidebarItemClasses` `flex-col` — nested `SidebarSubList` stacks under parent row (was `flex-row` + `flex-1` on first child)     | SB.9               | shipped |
-| SB.22 | TOK      | Control rhythm — `sidebar.ts` nav/list/group/separator slots; variants off `--lex-space-*` hardcodes; sandbox AppSidebar cleanup | TOK.5              | active  |
+| SB.22 | TOK      | Control rhythm — `sidebar.ts` nav/list/group/separator slots; variants off `--lex-space-*` hardcodes; `SidebarItemTrailing` shell-first composition; sandbox AppSidebar cleanup | TOK.5              | shipped |
 
 **Pick-up order:** SB.1 → SB.2 → SB.3 → SB.4 → SB.18 → SB.19 → SB.11 → SB.5 → SB.7 → SB.8 → SB.9 → SB.12 → SB.13 → SB.14 → SB.15 → SB.16 → SB.17 → SB.6 → SB.10 → **SB.20**.
 
