@@ -4,7 +4,7 @@
 **Type:** Domain specification  
 **Source of truth for:** Install layers, composition rules, monorepo vs consumer layout  
 **Verified against:** `packages/ui`, `packages/registry`, `packages/cli`, consumer sandbox
-**Last reviewed:** 2026-06-06
+**Last reviewed:** 2026-06-08
 
 ---
 
@@ -22,6 +22,7 @@
   - [Custom Lexsys parts](#custom-lexsys-parts)
   - [Variant propagation](#variant-propagation)
   - [Good vs bad (consumer)](#good-vs-bad-consumer)
+  - [Link hosts (Button, DrawerClose)](#link-hosts-button-drawerclose)
   - [Breaking migration (compound-first track)](#breaking-migration-compound-first-track)
 - [Registry vs consumer config](#registry-vs-consumer-config)
 - [Current state](#current-state)
@@ -59,7 +60,7 @@ Do not use atoms/molecules/organisms in Lexsys docs or CLI copy — those names 
 **Monorepo reference** (`packages/ui/src/components/`):
 
 ```txt
-primitives/     ← 45 shipped primitives
+primitives/     ← 46 shipped primitives
 blocks/         ← FormField, SettingsPanel, Sidebar, AuthForm, CommandPalette, Empty, PageHeader, StatsCard, FilterToolbar, DataTable
 templates/      ← DashboardShell, SettingsPageLayout
 ```
@@ -605,8 +606,8 @@ when a Lexsys part exists.
 1. **Primitive with Base UI parts** → flat named sibling exports + `displayName`
    on each part ([UI reference](../ui/UI.md) wrapper checklist).
 2. **Lexsys-only layout primitive** (Card, Alert) → same named-export pattern.
-3. **True atom** (single DOM node, no slots) → leaf OK: `Button`, `Input`,
-   `Badge`, `Separator`, `Form`, `Toggle`, `Menubar`.
+3. **True atom** (single DOM node, no slots) → leaf OK: `Button`, `ButtonLink`,
+   `Input`, `Badge`, `Separator`, `Form`, `Toggle`, `Menubar`.
 4. **Block** → exports **2+ named parts**; composes primitives/blocks only;
    **no raw `<label>`** when `FieldLabel` exists; **no raw nav list markup**
    when the block exports `SidebarItem`.
@@ -679,6 +680,63 @@ Rules:
 // Bad — config blob + raw markup
 <Sidebar items={[{ id: "1", label: "Dashboard", href: "/" }]} />
 <div><label htmlFor="email">Email</label><Input onChange={…} /></div>
+```
+
+### Link hosts (Button, DrawerClose)
+
+Base UI `Button` and `DrawerClose` default to `nativeButton={true}` — they expect a
+`<button>` host. When `render` points at an anchor or framework `Link`, set
+`nativeButton={false}` (or use Lexsys helpers that already do).
+
+| Pattern                         | Host        | Lexsys helper / fix                                      |
+| ------------------------------- | ----------- | -------------------------------------------------------- |
+| Profile nav in app chrome       | Next `Link` | `ButtonLink` or `Button` + `nativeButton={false}`        |
+| Mobile sidebar row              | `<a>`       | `SidebarItemLink` (sets `nativeButton={false}` on close) |
+| Drawer dismiss on custom anchor | `<a>`       | `DrawerClose` + `nativeButton={false}` + `render={<a>}`  |
+
+**Preferred — `ButtonLink`** (`lexsys add button button-link` — `button-link` reuses `Button` variant tokens):
+
+```tsx
+import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink"
+
+;<ButtonLink href="/profile" variant="outline">
+  Profile
+</ButtonLink>
+```
+
+Default host is a plain `<a>`. For Next.js App Router prefetch, override `render`:
+
+```tsx
+import Link from "next/link"
+import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink"
+
+;<ButtonLink href="/profile" render={<Link href="/profile" />}>
+  Profile
+</ButtonLink>
+```
+
+**Manual `Button` + `Link`** (same contract, more typing):
+
+```tsx
+import Link from "next/link"
+import { Button } from "@/components/ui/Button/Button"
+
+;<Button nativeButton={false} render={<Link href="/profile" />}>
+  Profile
+</Button>
+```
+
+**`DrawerClose` + anchor** — always pair `appearance="inline"` with
+`nativeButton={false}` when `render` is `<a>` or `Link`:
+
+```tsx
+<DrawerClose
+  appearance="inline"
+  nativeButton={false}
+  render={<a href="/settings" />}
+>
+  Settings
+</DrawerClose>
 ```
 
 ### Breaking migration (compound-first track)
