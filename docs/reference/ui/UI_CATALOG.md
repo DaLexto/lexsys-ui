@@ -34,9 +34,9 @@ Out of scope here: page-level consumer code, playground-only demos, unpublished 
 
 <!-- CATALOG:BEGIN -->
 
-_Generated 2026-06-07 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
+_Generated 2026-06-10 — do not edit by hand. Run `pnpm ui:audit:catalog:write` from repo root._
 
-### Primitives (45)
+### Primitives (46)
 
 | Component          | Style    | Named exports                                                        | Registry          |
 | ------------------ | -------- | -------------------------------------------------------------------- | ----------------- |
@@ -48,6 +48,7 @@ _Generated 2026-06-07 — do not edit by hand. Run `pnpm ui:audit:catalog:write`
 | **Badge**          | leaf     | `Badge`                                                              | `badge`           |
 | **Breadcrumb**     | compound | `Breadcrumb, BreadcrumbList, BreadcrumbItem, … (+4)`                 | `breadcrumb`      |
 | **Button**         | leaf     | `Button`                                                             | `button`          |
+| **ButtonLink**     | compound | `ButtonLink`                                                         | `button-link`     |
 | **Card**           | compound | `Card, CardHeader, CardTitle, … (+4)`                                | `card`            |
 | **Checkbox**       | compound | `Checkbox, CheckboxIndicator`                                        | `checkbox`        |
 | **CheckboxGroup**  | leaf     | `CheckboxGroup`                                                      | `checkbox-group`  |

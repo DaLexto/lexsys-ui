@@ -2,11 +2,11 @@
 
 **Audience:** Maintainers (tokens domain owners and monorepo maintainers)  
 **Type:** Vision / strategy and roadmap/backlog  
-**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.2` @ `latest`** (Sidebar enterprise, 2026-06-07); **`0.0.6` @ `next`** prior preview lane; **57** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
+**Status:** Tokens phases 1–10 complete; monorepo M1–M12, M10, M11 **shipped**; UI composition pilots **shipped** (PR #28); **0.1.0 wave (A–F + REL) shipped** (2026-06-06); **`0.1.3` @ `latest`** (TOK harmonization, 2026-06-08); **`0.1.4`** train pending (ButtonLink + Sidebar fix); **`0.0.6` @ `next`** prior preview lane; **58** installable UI items — [§ 0.1.0 roadmap](#010-roadmap)  
 **Source of truth for:** Long-term direction after the platform pass **and**
 monorepo optimization sequencing  
 **Verified against:** `packages/tokens/src/` and monorepo workspace layout
-**Last reviewed:** 2026-05-30 (npm `0.1.2` @ `latest`; SB Sidebar enterprise shipped)
+**Last reviewed:** 2026-06-10 (npm `0.1.3` @ `latest`; 58 installable items)
 
 ---
 
@@ -113,7 +113,7 @@ Summary only — do not duplicate detail here.
 - Full primitive shadow scale migration (`shadow.0`–`shadow.6` branch+slot) with CSS compose
 - `shadow.inner` inset slot model (branch+slot with `inset: true`; CSS compose prepends `inset`)
 - Semantic audit **`error`-severity** failures fail `pnpm tokens:governance:report` in CI (`LEXSYS_GOVERNANCE_POLICY=ci`; override with `report`)
-- Broad UI render coverage (**57/57** installable items; **45/45** primitives; M3 baseline was 32/32)
+- Broad UI render coverage (**58/58** installable items; **46/46** primitives; M3 baseline was 32/32)
 - Remote registry manifest contract (`parseRemoteRegistry`, optional `styles`, local fallback)
 - Next.js App Router minimal scaffold (`lexsys init next`; pinned Next.js 15.3.3)
 - `lexsys uninstall` metadata-driven removal with dry-run and conflict reporting
@@ -549,7 +549,7 @@ and [UI audit](./reference/ui/UI_AUDIT.md). Sequenced PR0–PR4 on `dev`; breaki
 **Status:** **PR #28** merged to `dev`. Monorepo reference layout uses
 `primitives/`, `blocks/`, and `templates/`; consumer install stays flat under
 `paths.components` (`src/components/ui/<CanonicalName>/` with import rewrite).
-**57** installable items (45 primitives, 10 blocks, 2 templates) are registry +
+**58** installable items (46 primitives, 10 blocks, 2 templates) are registry +
 CLI installable — see [UI catalog](./reference/ui/UI_CATALOG.md). Optimization pass complete (BO.1–BO.7; CI install smoke, render tests, registry template-import audit).
 
 Lexsys uses a **three-layer** install model (not Atomic Design atoms/molecules/organisms in docs or CLI):

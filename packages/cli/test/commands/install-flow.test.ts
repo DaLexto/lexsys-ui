@@ -25,6 +25,7 @@ const toTokenPrefix = (folder: string): string => {
 const getVariantsTokenPrefix = (canonicalName: string): string => {
   const reusedPrefixes: Record<string, string> = {
     Autocomplete: "select",
+    ButtonLink: "button",
     CheckboxGroup: "checkbox",
     Combobox: "select",
     ContextMenu: "menu",

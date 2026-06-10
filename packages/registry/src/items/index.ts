@@ -6,6 +6,7 @@ import { avatarRegistryItem } from "./avatar.js"
 import { badgeRegistryItem } from "./badge.js"
 import { breadcrumbRegistryItem } from "./breadcrumb.js"
 import { buttonRegistryItem } from "./button.js"
+import { buttonLinkRegistryItem } from "./button-link.js"
 import { cardRegistryItem } from "./card.js"
 import { checkboxRegistryItem } from "./checkbox.js"
 import { collapsibleRegistryItem } from "./collapsible.js"
@@ -64,6 +65,7 @@ export { avatarRegistryItem } from "./avatar.js"
 export { badgeRegistryItem } from "./badge.js"
 export { breadcrumbRegistryItem } from "./breadcrumb.js"
 export { buttonRegistryItem } from "./button.js"
+export { buttonLinkRegistryItem } from "./button-link.js"
 export { cardRegistryItem } from "./card.js"
 export { checkboxRegistryItem } from "./checkbox.js"
 export { collapsibleRegistryItem } from "./collapsible.js"
@@ -123,6 +125,7 @@ export const registryItems: RegistryItem[] = [
   badgeRegistryItem,
   breadcrumbRegistryItem,
   buttonRegistryItem,
+  buttonLinkRegistryItem,
   cardRegistryItem,
   checkboxRegistryItem,
   collapsibleRegistryItem,

@@ -12,7 +12,7 @@
 
 - [Purpose and scope](#purpose-and-scope)
 - [Batch summary](#batch-summary)
-- [Variant inventory (45 primitives)](#variant-inventory-45-primitives)
+- [Variant inventory (46 primitives)](#variant-inventory-46-primitives)
 - [Blocks and templates (TOK.7 spacing)](#blocks-and-templates-tok7-spacing)
 - [Cross-cutting issues](#cross-cutting-issues)
 - [Generation and drift checks](#generation-and-drift-checks)
@@ -49,7 +49,7 @@ This inventory tracks **styling and variant-axis compliance** against [UI varian
 
 ---
 
-## Variant inventory (45 primitives)
+## Variant inventory (46 primitives)
 
 | Component       | Public props                                          | Styling pattern       | CVA / slot exports                                                                                      | Composition                                   | Token flags                                                                             | Tests             | Batch   |
 | --------------- | ----------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- | ----------------- | ------- |
@@ -59,6 +59,7 @@ This inventory tracks **styling and variant-axis compliance** against [UI varian
 | **Avatar**      | `size`                                                | CVA prop              | `avatarVariants`, image, fallback                                                                       | catalog                                       | `leading-none`                                                                          | variants + render | PR4     |
 | **Badge**       | `variant` + `appearance` (+ `success`, `warning`)     | CVA compound          | `badgeVariants`                                                                                         | catalog                                       | feedback tokens for success/warning                                                     | variants + render | PR1     |
 | **Button**      | `variant`, `size`, `isLoading`                        | CVA prop              | `buttonVariants`                                                                                        | catalog                                       | ghost, outline, danger; `aria-busy` spinner                                             | variants + render | PR1     |
+| **ButtonLink**  | `href`, `variant`, `size`, `isLoading`, `render`      | reuses Button CVA     | re-export `buttonVariants`                                                                              | catalog                                       | anchor host; `nativeButton={false}`; Next `Link` via `render`                           | variants + render | #116    |
 | **Card**        | `variant` (surface, muted, outlined, elevated, ghost) | CVA + slot classNames | `cardVariants`, 5 `*ClassName` exports                                                                  | catalog                                       | elevation shadow token for `elevated`                                                   | variants + render | PR4     |
 | **Checkbox**    | `size` (root)                                         | CVA slots             | `checkboxVariants`, `checkboxIndicatorVariants` (+ orphaned `checkboxLabelVariants` — use `FieldLabel`) | [M11 compound](../ui/UI_CATALOG.md#inventory) | `opacity-50`                                                                            | variants + render | PR2     |
 | **Collapsible** | `variant`                                             | CVA slots             | root, trigger, panel variants                                                                           | catalog                                       | `opacity-50`                                                                            | variants + render | PR2     |
@@ -174,7 +175,7 @@ See [UI catalog § Generation and drift checks](../ui/UI_CATALOG.md#generation-a
 - Shared state helpers in installed `utils.ts`; viewport inset tokens for overlays
 - Overlay semantics (`size.overlay.*`, `spacing.overlay.sideOffset`, `elevation.behind.*`)
 - **`pnpm ui:audit` blocking** in `pnpm ui:check`; audited primitive variants token-compliant (**45** shipped primitives; UC.8–16 and PR #30 modules have variant table rows in this doc)
-- **Render smoke:** all **57** installable items have `*.render.test.tsx` coverage (see [Testing docs](../../operations/TESTING.md#ui-render-tests))
+- **Render smoke:** all **58** installable items have `*.render.test.tsx` coverage (see [Testing docs](../../operations/TESTING.md#ui-render-tests))
 
 **Composition pass (M11):** Shipped on `dev` — export and registry inventory in [UI catalog](../ui/UI_CATALOG.md). This doc’s primitive rows were refreshed for M11-touched variant axes only; blocks/templates are out of scope.
 

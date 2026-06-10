@@ -4,7 +4,7 @@
 **Type:** Domain specification
 **Source of truth for:** Build and publish contract, version lanes, pre-release gates, npm publish surface
 **Verified against:** Root and workspace `package.json` files, `turbo.json`
-**Last reviewed:** 2026-05-30 (npm `0.1.2` @ `latest`)
+**Last reviewed:** 2026-06-10 (npm `0.1.3` @ `latest`; `0.1.4` train pending)
 
 ---
 
@@ -78,18 +78,19 @@ explicit product decision and this file is updated.
 
 ## Version lane
 
-| Milestone     | Version | npm dist-tag | Meaning                                                                                    |
-| ------------- | ------- | ------------ | ------------------------------------------------------------------------------------------ |
-| First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                                                    |
-| Prior preview | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical              |
-| Prior preview | `0.0.4` | `next`       | Table primitive, CLI `installed` array, `lexsys reset` (2026-05-30) — historical           |
-| Prior preview | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02) — historical             |
-| Prior preview | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06) — historical          |
-| Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                                     |
-| Prior stable  | `0.1.0` | `latest`     | Stable MVP — 57 installable items, admin catalog, registry trust (2026-06-06)              |
-| Prior stable  | `0.1.1` | `latest`     | Housekeeping — docs/rules alignment, unified GitHub release CI (2026-06-06)                |
-| **Current**   | `0.1.2` | `latest`     | Sidebar enterprise — published 2026-06-07 ([CHANGELOG](../../CHANGELOG.md#012-2026-06-07)) |
-| **On npm**    | `0.1.2` | `latest`     | Current stable lane                                                                        |
+| Milestone     | Version | npm dist-tag | Meaning                                                                                           |
+| ------------- | ------- | ------------ | ------------------------------------------------------------------------------------------------- |
+| First publish | `0.0.1` | `next`       | Initial release 2026-05-24 — historical                                                           |
+| Prior preview | `0.0.2` | `next`       | M4 entry + CLI DX + M8 cleanup + M11 compound-first (2026-05-25) — historical                     |
+| Prior preview | `0.0.4` | `next`       | Table primitive, CLI `installed` array, `lexsys reset` (2026-05-30) — historical                  |
+| Prior preview | `0.0.5` | `next`       | Registry sync automation, block install import fixes (2026-06-02) — historical                    |
+| Prior preview | `0.0.6` | `next`       | Root script aliases, `scripts:check`, JSDoc CSS headers (2026-06-06) — historical                 |
+| Iterations    | `0.0.x` | `next`       | Changesets patch/minor on the 0.0 line                                                            |
+| Prior stable  | `0.1.0` | `latest`     | Stable MVP — 57 installable items, admin catalog, registry trust (2026-06-06)                     |
+| Prior stable  | `0.1.1` | `latest`     | Housekeeping — docs/rules alignment, unified GitHub release CI (2026-06-06)                       |
+| Prior stable  | `0.1.2` | `latest`     | Sidebar enterprise — published 2026-06-07 ([CHANGELOG](../../CHANGELOG.md#012-2026-06-07))        |
+| **Current**   | `0.1.3` | `latest`     | TOK.7/TOK.8 harmonization — published 2026-06-08 ([CHANGELOG](../../CHANGELOG.md#013-2026-06-08)) |
+| **On npm**    | `0.1.3` | `latest`     | Current stable lane; **`0.1.4`** train pending on `dev`                                           |
 
 Install for stable MVP:
 

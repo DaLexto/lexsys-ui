@@ -3,7 +3,7 @@
 **Audience:** Maintainers
 **Type:** Roadmap / backlog
 **Source of truth for:** Active work items, known gaps, next priorities
-**Last reviewed:** 2026-06-07 (Shipped index — outcome + detail links)
+**Last reviewed:** 2026-06-10 (catalog counts + npm `0.1.3` @ `latest`)
 
 ---
 
@@ -28,7 +28,7 @@ Long-term direction: [Roadmap](./ROADMAP.md). Release notes: [CHANGELOG](../CHAN
 
 **Closed waves:** 0.1.0 (A–G), SB enterprise (SB.1–SB.22), TOK.5 / TOK.7 / TOK.8 — all **shipped** on `dev`. Outcomes: [§ Shipped index](#shipped-index).
 
-**Release:** [PR #91](https://github.com/DaLexto/lexsys-ui/pull/91) (`dev` → `main`) **merged**; npm **`0.1.2`** @ **`latest`** (2026-06-07). Post-TOK.7/8 token work may need a follow-up version bump.
+**Release:** npm **`0.1.3`** @ **`latest`** (TOK.7/TOK.8, 2026-06-08). **`0.1.4`** train pending — ButtonLink + Sidebar drawer fix ([PR #116](https://github.com/DaLexto/lexsys-ui/pull/116)); changeset on `dev` opens Version packages PR on `main`.
 
 | Priority | ID / track        | Item                                                   | Status   | Surface                          |
 | -------- | ----------------- | ------------------------------------------------------ | -------- | -------------------------------- |
@@ -131,9 +131,9 @@ Playground dark/brand demos — deferred; consumer UX belongs in sandbox ([Roadm
 
 ## Project snapshot
 
-**Today (2026-06-07):** registry-first React UI — **57** installable items (**45** primitives, **10** blocks, **2** templates); `lexsys init` (Vite / Next.js 15.3.3), `add`, `update`, flat `paths.components` install; token platform phases **1–10** complete; `pnpm ui:audit` clean for spacing literals in variants after TOK.7.
+**Today (2026-06-10):** registry-first React UI — **58** installable items (**46** primitives, **10** blocks, **2** templates); `lexsys init` (Vite / Next.js 15.3.3), `add`, `update`, flat `paths.components` install; token platform phases **1–10** complete; `pnpm ui:audit` clean for spacing literals in variants after TOK.7.
 
-**npm:** **`0.1.2`** @ **`latest`** (Sidebar enterprise, 2026-06-07). TOK.7/TOK.8 may ship in a subsequent patch/minor.
+**npm:** **`0.1.3`** @ **`latest`** (TOK harmonization, 2026-06-08). **`0.1.4`** queued on `dev` (ButtonLink + Sidebar mobile nav fix).
 
 **Verification default:** `pnpm check` — scoped gates in [SCRIPTS.md](./operations/SCRIPTS.md). What shipped and where to verify: [§ Shipped index](#shipped-index).
 

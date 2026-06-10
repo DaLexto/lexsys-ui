@@ -928,6 +928,7 @@ const SidebarItemLink = ({
   return (
     <DrawerClose
       appearance="inline"
+      nativeButton={false}
       render={<a ref={ref} className={linkClassName} {...linkProps} />}
     >
       {children}
@@ -1283,6 +1284,7 @@ const SidebarSubItemLink = ({
   return (
     <DrawerClose
       appearance="inline"
+      nativeButton={false}
       render={<a ref={ref} className={linkClassName} {...linkProps} />}
     >
       {children}
