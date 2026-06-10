@@ -17,6 +17,14 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+### Added
+
+- **ButtonLink** primitive — link-styled button with `nativeButton={false}` preset; `lexsys add button-link` (requires `button`)
+
+### Fixed
+
+- **Sidebar** — mobile drawer nav links (`SidebarItemLink`, `SidebarSubItemLink`) set `nativeButton={false}` on `DrawerClose` when the host is an anchor — removes Base UI dev warning for `<a>` inside drawer close controls
+
 ---
 
 ## [0.1.3] - 2026-06-08
