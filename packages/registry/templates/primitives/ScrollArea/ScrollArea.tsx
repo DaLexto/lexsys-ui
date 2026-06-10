@@ -4,7 +4,7 @@
  * Reference ScrollArea component implementation.
  */
 
-import { ScrollArea as BaseScrollArea } from "@base-ui/react/scroll-area"
+import { ScrollArea as BaseScrollArea } from "@base-ui/react/scroll-area";
 import type {
   ScrollAreaContentProps,
   ScrollAreaCornerProps,
@@ -12,7 +12,7 @@ import type {
   ScrollAreaScrollbarProps,
   ScrollAreaThumbProps,
   ScrollAreaViewportProps,
-} from "./ScrollArea.types"
+} from "./ScrollArea.types";
 import {
   scrollAreaContentVariants,
   scrollAreaCornerVariants,
@@ -20,8 +20,8 @@ import {
   scrollAreaScrollbarVariants,
   scrollAreaThumbVariants,
   scrollAreaViewportVariants,
-} from "./ScrollArea.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./ScrollArea.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const ScrollArea = ({ ref, className, ...props }: ScrollAreaProps) => {
   return (
@@ -30,10 +30,10 @@ const ScrollArea = ({ ref, className, ...props }: ScrollAreaProps) => {
       className={mergeClassName(scrollAreaRootVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ScrollArea.displayName = "ScrollArea"
+ScrollArea.displayName = "ScrollArea";
 
 const ScrollAreaViewport = ({
   ref,
@@ -46,10 +46,10 @@ const ScrollAreaViewport = ({
       className={mergeClassName(scrollAreaViewportVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ScrollAreaViewport.displayName = "ScrollAreaViewport"
+ScrollAreaViewport.displayName = "ScrollAreaViewport";
 
 const ScrollAreaContent = ({
   ref,
@@ -62,10 +62,10 @@ const ScrollAreaContent = ({
       className={mergeClassName(scrollAreaContentVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ScrollAreaContent.displayName = "ScrollAreaContent"
+ScrollAreaContent.displayName = "ScrollAreaContent";
 
 const ScrollAreaScrollbar = ({
   ref,
@@ -83,14 +83,14 @@ const ScrollAreaScrollbar = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-ScrollAreaScrollbar.displayName = "ScrollAreaScrollbar"
+ScrollAreaScrollbar.displayName = "ScrollAreaScrollbar";
 
-const ScrollBar = ScrollAreaScrollbar
+const ScrollBar = ScrollAreaScrollbar;
 
-ScrollBar.displayName = "ScrollBar"
+ScrollBar.displayName = "ScrollBar";
 
 const ScrollAreaThumb = ({
   ref,
@@ -103,10 +103,10 @@ const ScrollAreaThumb = ({
       className={mergeClassName(scrollAreaThumbVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ScrollAreaThumb.displayName = "ScrollAreaThumb"
+ScrollAreaThumb.displayName = "ScrollAreaThumb";
 
 const ScrollAreaCorner = ({
   ref,
@@ -119,10 +119,10 @@ const ScrollAreaCorner = ({
       className={mergeClassName(scrollAreaCornerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ScrollAreaCorner.displayName = "ScrollAreaCorner"
+ScrollAreaCorner.displayName = "ScrollAreaCorner";
 
 export {
   ScrollArea,
@@ -132,4 +132,4 @@ export {
   ScrollBar,
   ScrollAreaThumb,
   ScrollAreaCorner,
-}
+};

@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/primitives/Card/Card"
+} from "@/components/primitives/Card/Card";
 import type {
   StatsCardContentProps,
   StatsCardDescriptionProps,
@@ -21,13 +21,13 @@ import type {
   StatsCardTitleProps,
   StatsCardTrendProps,
   StatsCardValueProps,
-} from "./StatsCard.types"
+} from "./StatsCard.types";
 import {
   statsCardClasses,
   statsCardTrendClasses,
   statsCardValueClasses,
-} from "./StatsCard.variants"
-import { cn } from "@/lib/utils"
+} from "./StatsCard.variants";
+import { cn } from "@/lib/utils";
 
 const StatsCard = ({
   ref,
@@ -45,46 +45,46 @@ const StatsCard = ({
     >
       {children}
     </Card>
-  )
-}
+  );
+};
 
-StatsCard.displayName = "StatsCard"
+StatsCard.displayName = "StatsCard";
 
 const StatsCardHeader = ({
   ref,
   className,
   ...props
 }: StatsCardHeaderProps) => {
-  return <CardHeader ref={ref} className={className} {...props} />
-}
+  return <CardHeader ref={ref} className={className} {...props} />;
+};
 
-StatsCardHeader.displayName = "StatsCardHeader"
+StatsCardHeader.displayName = "StatsCardHeader";
 
 const StatsCardTitle = ({ ref, className, ...props }: StatsCardTitleProps) => {
-  return <CardTitle ref={ref} className={className} {...props} />
-}
+  return <CardTitle ref={ref} className={className} {...props} />;
+};
 
-StatsCardTitle.displayName = "StatsCardTitle"
+StatsCardTitle.displayName = "StatsCardTitle";
 
 const StatsCardDescription = ({
   ref,
   className,
   ...props
 }: StatsCardDescriptionProps) => {
-  return <CardDescription ref={ref} className={className} {...props} />
-}
+  return <CardDescription ref={ref} className={className} {...props} />;
+};
 
-StatsCardDescription.displayName = "StatsCardDescription"
+StatsCardDescription.displayName = "StatsCardDescription";
 
 const StatsCardContent = ({
   ref,
   className,
   ...props
 }: StatsCardContentProps) => {
-  return <CardContent ref={ref} className={className} {...props} />
-}
+  return <CardContent ref={ref} className={className} {...props} />;
+};
 
-StatsCardContent.displayName = "StatsCardContent"
+StatsCardContent.displayName = "StatsCardContent";
 
 const StatsCardValue = ({ ref, className, ...props }: StatsCardValueProps) => {
   return (
@@ -93,10 +93,10 @@ const StatsCardValue = ({ ref, className, ...props }: StatsCardValueProps) => {
       className={cn(statsCardValueClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-StatsCardValue.displayName = "StatsCardValue"
+StatsCardValue.displayName = "StatsCardValue";
 
 const StatsCardTrend = ({ ref, className, ...props }: StatsCardTrendProps) => {
   return (
@@ -105,20 +105,20 @@ const StatsCardTrend = ({ ref, className, ...props }: StatsCardTrendProps) => {
       className={cn(statsCardTrendClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-StatsCardTrend.displayName = "StatsCardTrend"
+StatsCardTrend.displayName = "StatsCardTrend";
 
 const StatsCardFooter = ({
   ref,
   className,
   ...props
 }: StatsCardFooterProps) => {
-  return <CardFooter ref={ref} className={className} {...props} />
-}
+  return <CardFooter ref={ref} className={className} {...props} />;
+};
 
-StatsCardFooter.displayName = "StatsCardFooter"
+StatsCardFooter.displayName = "StatsCardFooter";
 
 export {
   StatsCard,
@@ -129,4 +129,4 @@ export {
   StatsCardValue,
   StatsCardTrend,
   StatsCardFooter,
-}
+};

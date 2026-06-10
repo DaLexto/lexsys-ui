@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
-import { Input } from "../../../src/components/primitives/Input/Input.js"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { Input } from "../../../src/components/primitives/Input/Input.js";
 
 describe("Input render", () => {
   it("renders input with accessible name and custom className", () => {
@@ -10,10 +10,10 @@ describe("Input render", () => {
         placeholder="you@example.com"
         className="custom-input"
       />,
-    )
+    );
 
     expect(screen.getByRole("textbox", { name: "Email address" })).toHaveClass(
       "custom-input",
-    )
-  })
-})
+    );
+  });
+});

@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const switchComponentTokens = componentTokens("switch", {
   background: { $value: "{color.background.subtle}" },
@@ -46,4 +46,4 @@ export const switchComponentTokens = componentTokens("switch", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

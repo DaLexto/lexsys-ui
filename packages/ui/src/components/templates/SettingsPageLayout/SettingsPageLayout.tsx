@@ -4,7 +4,7 @@
  * Reference SettingsPageLayout template — settings page shell with header and panels.
  */
 
-import { PageHeader } from "../../blocks/PageHeader/PageHeader"
+import { PageHeader } from "../../blocks/PageHeader/PageHeader";
 import {
   SettingsPanel,
   SettingsPanelContent,
@@ -12,7 +12,7 @@ import {
   SettingsPanelFooter,
   SettingsPanelHeader,
   SettingsPanelTitle,
-} from "../../blocks/SettingsPanel/SettingsPanel"
+} from "../../blocks/SettingsPanel/SettingsPanel";
 import type {
   SettingsPageLayoutBodyProps,
   SettingsPageLayoutHeaderProps,
@@ -25,7 +25,7 @@ import type {
   SettingsPageLayoutPanelProps,
   SettingsPageLayoutPanelTitleProps,
   SettingsPageLayoutProps,
-} from "./SettingsPageLayout.types"
+} from "./SettingsPageLayout.types";
 import {
   settingsPageLayoutBodyClasses,
   settingsPageLayoutClasses,
@@ -33,8 +33,8 @@ import {
   settingsPageLayoutMainClasses,
   settingsPageLayoutNavClasses,
   settingsPageLayoutPanelClasses,
-} from "./SettingsPageLayout.variants"
-import { cn } from "../../../utils/cn"
+} from "./SettingsPageLayout.variants";
+import { cn } from "../../../utils/cn";
 
 const SettingsPageLayout = ({
   ref,
@@ -47,10 +47,10 @@ const SettingsPageLayout = ({
       className={cn(settingsPageLayoutClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SettingsPageLayout.displayName = "SettingsPageLayout"
+SettingsPageLayout.displayName = "SettingsPageLayout";
 
 const SettingsPageLayoutHeader = ({
   ref,
@@ -63,10 +63,10 @@ const SettingsPageLayoutHeader = ({
       className={cn(settingsPageLayoutHeaderClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SettingsPageLayoutHeader.displayName = "SettingsPageLayoutHeader"
+SettingsPageLayoutHeader.displayName = "SettingsPageLayoutHeader";
 
 const SettingsPageLayoutBody = ({
   ref,
@@ -79,10 +79,10 @@ const SettingsPageLayoutBody = ({
       className={cn(settingsPageLayoutBodyClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SettingsPageLayoutBody.displayName = "SettingsPageLayoutBody"
+SettingsPageLayoutBody.displayName = "SettingsPageLayoutBody";
 
 const SettingsPageLayoutNav = ({
   ref,
@@ -95,10 +95,10 @@ const SettingsPageLayoutNav = ({
       className={cn(settingsPageLayoutNavClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SettingsPageLayoutNav.displayName = "SettingsPageLayoutNav"
+SettingsPageLayoutNav.displayName = "SettingsPageLayoutNav";
 
 const SettingsPageLayoutMain = ({
   ref,
@@ -111,10 +111,10 @@ const SettingsPageLayoutMain = ({
       className={cn(settingsPageLayoutMainClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SettingsPageLayoutMain.displayName = "SettingsPageLayoutMain"
+SettingsPageLayoutMain.displayName = "SettingsPageLayoutMain";
 
 const SettingsPageLayoutPanel = ({
   ref,
@@ -127,61 +127,63 @@ const SettingsPageLayoutPanel = ({
       className={cn(settingsPageLayoutPanelClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SettingsPageLayoutPanel.displayName = "SettingsPageLayoutPanel"
+SettingsPageLayoutPanel.displayName = "SettingsPageLayoutPanel";
 
 const SettingsPageLayoutPanelHeader = ({
   ref,
   className,
   ...props
 }: SettingsPageLayoutPanelHeaderProps) => {
-  return <SettingsPanelHeader ref={ref} className={className} {...props} />
-}
+  return <SettingsPanelHeader ref={ref} className={className} {...props} />;
+};
 
-SettingsPageLayoutPanelHeader.displayName = "SettingsPageLayoutPanelHeader"
+SettingsPageLayoutPanelHeader.displayName = "SettingsPageLayoutPanelHeader";
 
 const SettingsPageLayoutPanelTitle = ({
   ref,
   className,
   ...props
 }: SettingsPageLayoutPanelTitleProps) => {
-  return <SettingsPanelTitle ref={ref} className={className} {...props} />
-}
+  return <SettingsPanelTitle ref={ref} className={className} {...props} />;
+};
 
-SettingsPageLayoutPanelTitle.displayName = "SettingsPageLayoutPanelTitle"
+SettingsPageLayoutPanelTitle.displayName = "SettingsPageLayoutPanelTitle";
 
 const SettingsPageLayoutPanelDescription = ({
   ref,
   className,
   ...props
 }: SettingsPageLayoutPanelDescriptionProps) => {
-  return <SettingsPanelDescription ref={ref} className={className} {...props} />
-}
+  return (
+    <SettingsPanelDescription ref={ref} className={className} {...props} />
+  );
+};
 
 SettingsPageLayoutPanelDescription.displayName =
-  "SettingsPageLayoutPanelDescription"
+  "SettingsPageLayoutPanelDescription";
 
 const SettingsPageLayoutPanelContent = ({
   ref,
   className,
   ...props
 }: SettingsPageLayoutPanelContentProps) => {
-  return <SettingsPanelContent ref={ref} className={className} {...props} />
-}
+  return <SettingsPanelContent ref={ref} className={className} {...props} />;
+};
 
-SettingsPageLayoutPanelContent.displayName = "SettingsPageLayoutPanelContent"
+SettingsPageLayoutPanelContent.displayName = "SettingsPageLayoutPanelContent";
 
 const SettingsPageLayoutPanelFooter = ({
   ref,
   className,
   ...props
 }: SettingsPageLayoutPanelFooterProps) => {
-  return <SettingsPanelFooter ref={ref} className={className} {...props} />
-}
+  return <SettingsPanelFooter ref={ref} className={className} {...props} />;
+};
 
-SettingsPageLayoutPanelFooter.displayName = "SettingsPageLayoutPanelFooter"
+SettingsPageLayoutPanelFooter.displayName = "SettingsPageLayoutPanelFooter";
 
 export {
   SettingsPageLayout,
@@ -195,4 +197,4 @@ export {
   SettingsPageLayoutPanelDescription,
   SettingsPageLayoutPanelContent,
   SettingsPageLayoutPanelFooter,
-}
+};

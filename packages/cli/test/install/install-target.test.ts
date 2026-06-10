@@ -1,14 +1,14 @@
-import { describe, expect, test } from "vitest"
+import { describe, expect, test } from "vitest";
 import {
   buttonRegistryItem,
   sidebarRegistryItem,
-} from "@dalexto/lexsys-registry"
-import type { LexsysConfig } from "../../src/config/config.js"
+} from "@dalexto/lexsys-registry";
+import type { LexsysConfig } from "../../src/config/config.js";
 import {
   prepareInstalledFileContent,
   rewriteCrossLayerImports,
-} from "../../src/install/import-rewriter.js"
-import { resolveItemInstallTarget } from "../../src/install/target.js"
+} from "../../src/install/import-rewriter.js";
+import { resolveItemInstallTarget } from "../../src/install/target.js";
 
 const config: LexsysConfig = {
   style: "default",
@@ -30,18 +30,18 @@ const config: LexsysConfig = {
   },
   installed: [] as string[],
   registryUrl: null,
-}
+};
 
 describe("resolveItemInstallTarget", () => {
   test("installs primitives and blocks under paths.components", () => {
     expect(resolveItemInstallTarget(config, buttonRegistryItem)).toBe(
       "src/components/ui/Button",
-    )
+    );
     expect(resolveItemInstallTarget(config, sidebarRegistryItem)).toBe(
       "src/components/ui/Sidebar",
-    )
-  })
-})
+    );
+  });
+});
 
 describe("rewriteCrossLayerImports", () => {
   test("rewrites layered registry imports to sibling ui imports", () => {
@@ -49,7 +49,7 @@ describe("rewriteCrossLayerImports", () => {
       'import { Button } from "../../primitives/Button/Button"',
       'import { Sidebar } from "../../blocks/Sidebar/Sidebar"',
       'import { DashboardShell } from "../../templates/DashboardShell/DashboardShell"',
-    ].join("\n")
+    ].join("\n");
 
     expect(rewriteCrossLayerImports(content)).toBe(
       [
@@ -57,15 +57,15 @@ describe("rewriteCrossLayerImports", () => {
         'import { Sidebar } from "../Sidebar/Sidebar"',
         'import { DashboardShell } from "../DashboardShell/DashboardShell"',
       ].join("\n"),
-    )
-  })
+    );
+  });
 
   test("rewrites @/components registry template imports to sibling ui imports", () => {
     const content = [
       'import { Button } from "@/components/primitives/Button"',
       'import { Card } from "@/components/primitives/Card/Card"',
       'import { Sidebar } from "@/components/blocks/Sidebar"',
-    ].join("\n")
+    ].join("\n");
 
     expect(rewriteCrossLayerImports(content)).toBe(
       [
@@ -73,46 +73,46 @@ describe("rewriteCrossLayerImports", () => {
         'import { Card } from "../Card/Card"',
         'import { Sidebar } from "../Sidebar/Sidebar"',
       ].join("\n"),
-    )
-  })
+    );
+  });
 
   test("preserves primitive type module paths from registry templates", () => {
     const content = [
       'import type { BadgeProps } from "@/components/primitives/Badge/Badge.types"',
       'import type { CollapsibleProps } from "@/components/primitives/Collapsible/Collapsible.types"',
-    ].join("\n")
+    ].join("\n");
 
     expect(rewriteCrossLayerImports(content)).toBe(
       [
         'import type { BadgeProps } from "../Badge/Badge.types"',
         'import type { CollapsibleProps } from "../Collapsible/Collapsible.types"',
       ].join("\n"),
-    )
-  })
-})
+    );
+  });
+});
 
 describe("prepareInstalledFileContent", () => {
   test("leaves primitive files unchanged", () => {
-    const content = `export const Button = () => null`
+    const content = `export const Button = () => null`;
 
     expect(prepareInstalledFileContent(content, buttonRegistryItem)).toBe(
       content,
-    )
-  })
+    );
+  });
 
   test("rewrites block files on install", () => {
-    const content = `import { Button } from "../../primitives/Button/Button"`
+    const content = `import { Button } from "../../primitives/Button/Button"`;
 
     expect(prepareInstalledFileContent(content, sidebarRegistryItem)).toBe(
       `import { Button } from "../Button/Button"`,
-    )
-  })
+    );
+  });
 
   test("rewrites block files that use @/components registry template imports", () => {
-    const content = `import { Button } from "@/components/primitives/Button"`
+    const content = `import { Button } from "@/components/primitives/Button"`;
 
     expect(prepareInstalledFileContent(content, sidebarRegistryItem)).toBe(
       `import { Button } from "../Button/Button"`,
-    )
-  })
-})
+    );
+  });
+});

@@ -4,7 +4,7 @@
  * Registry metadata for the FormField block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const formFieldRegistryItem: RegistryItem = {
   name: "form-field",
@@ -22,4 +22,4 @@ export const formFieldRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/FormField",
-}
+};

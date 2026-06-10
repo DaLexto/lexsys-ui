@@ -5,27 +5,27 @@
  * @description Type contracts for semantic token organization audits.
  */
 
-import type { TokenGovernanceInput } from "../shared/shared.governance.types"
+import type { TokenGovernanceInput } from "../shared/shared.governance.types";
 
 export type SemanticAuditIssueKind =
   | "unused-semantic"
   | "component-intent"
-  | "theme-path-mismatch"
+  | "theme-path-mismatch";
 
-export type SemanticAuditIssueSeverity = "error" | "warning"
+export type SemanticAuditIssueSeverity = "error" | "warning";
 
 export interface SemanticAuditIssue {
-  kind: SemanticAuditIssueKind
-  severity: SemanticAuditIssueSeverity
-  path: string
-  message: string
-  themeName?: string
+  kind: SemanticAuditIssueKind;
+  severity: SemanticAuditIssueSeverity;
+  path: string;
+  message: string;
+  themeName?: string;
 }
 
 export interface SemanticAuditReport {
-  issues: SemanticAuditIssue[]
-  semanticPathCount: number
-  referencedSemanticPathCount: number
+  issues: SemanticAuditIssue[];
+  semanticPathCount: number;
+  referencedSemanticPathCount: number;
 }
 
-export type SemanticAuditInput = TokenGovernanceInput
+export type SemanticAuditInput = TokenGovernanceInput;

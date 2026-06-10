@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const avatarVariants = cva(
   [
@@ -29,12 +29,12 @@ export const avatarVariants = cva(
       shape: "circle",
     },
   },
-)
+);
 
 export const avatarImageVariants = cva(
   "size-full object-cover transition-opacity duration-(--lex-avatar-transition-duration) ease-(--lex-avatar-transition-easing) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-)
+);
 
 export const avatarFallbackVariants = cva(
   "flex size-full items-center justify-center bg-(--lex-avatar-fallback-background) text-(--lex-avatar-fallback-foreground)",
-)
+);

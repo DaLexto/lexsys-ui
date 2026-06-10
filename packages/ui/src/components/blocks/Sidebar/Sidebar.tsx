@@ -16,9 +16,9 @@ import {
   type KeyboardEvent,
   type MouseEventHandler,
   type ReactNode,
-} from "react"
-import { Badge } from "../../primitives/Badge/Badge"
-import { Button } from "../../primitives/Button/Button"
+} from "react";
+import { Badge } from "../../primitives/Badge/Badge";
+import { Button } from "../../primitives/Button/Button";
 import {
   Drawer,
   DrawerBackdrop,
@@ -30,21 +30,21 @@ import {
   DrawerTitle,
   DrawerTrigger,
   DrawerViewport,
-} from "../../primitives/Drawer/Drawer"
-import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
-import { ChevronDown } from "lucide-react"
+} from "../../primitives/Drawer/Drawer";
+import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
+import { ChevronDown } from "lucide-react";
 import {
   Collapsible,
   CollapsiblePanel,
-} from "../../primitives/Collapsible/Collapsible"
-import { Input } from "../../primitives/Input/Input"
-import { Separator } from "../../primitives/Separator/Separator"
+} from "../../primitives/Collapsible/Collapsible";
+import { Input } from "../../primitives/Input/Input";
+import { Separator } from "../../primitives/Separator/Separator";
 import {
   ScrollArea,
   ScrollAreaContent,
   ScrollAreaViewport,
-} from "../../primitives/ScrollArea/ScrollArea"
-import { isSidebarNavActive } from "./Sidebar.utils.js"
+} from "../../primitives/ScrollArea/ScrollArea";
+import { isSidebarNavActive } from "./Sidebar.utils";
 import type {
   SidebarCollapseTriggerProps,
   SidebarContentProps,
@@ -82,7 +82,7 @@ import type {
   SidebarProviderProps,
   SidebarRailProps,
   SidebarTriggerProps,
-} from "./Sidebar.types"
+} from "./Sidebar.types";
 import {
   sidebarBrandClasses,
   sidebarCollapsedItemClasses,
@@ -126,142 +126,142 @@ import {
   sidebarSubNavItemClasses,
   sidebarRailClasses,
   sidebarRootClasses,
-} from "./Sidebar.variants"
-import { cn } from "../../../utils/cn"
+} from "./Sidebar.variants";
+import { cn } from "../../../utils/cn";
 
-const MD_MEDIA_QUERY = "(min-width: 768px)"
+const MD_MEDIA_QUERY = "(min-width: 768px)";
 
 const SIDEBAR_NAV_ITEM_SELECTOR =
-  "a.lex-sidebar__item, button.lex-sidebar__item"
+  "a.lex-sidebar__item, button.lex-sidebar__item";
 
 const getSidebarNavItems = (nav: HTMLElement): HTMLElement[] => {
   return Array.from(
     nav.querySelectorAll<HTMLElement>(SIDEBAR_NAV_ITEM_SELECTOR),
   ).filter((item) => {
     if (item.hasAttribute("disabled")) {
-      return false
+      return false;
     }
 
     if (item.getAttribute("aria-disabled") === "true") {
-      return false
+      return false;
     }
 
     if (item.closest("[hidden], [aria-hidden='true']")) {
-      return false
+      return false;
     }
 
-    return true
-  })
-}
+    return true;
+  });
+};
 
 const handleSidebarNavKeyDown = (event: KeyboardEvent<HTMLElement>): void => {
-  const { key, currentTarget } = event
+  const { key, currentTarget } = event;
 
   if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(key)) {
-    return
+    return;
   }
 
-  const items = getSidebarNavItems(currentTarget)
+  const items = getSidebarNavItems(currentTarget);
 
   if (items.length === 0) {
-    return
+    return;
   }
 
-  const activeIndex = items.indexOf(document.activeElement as HTMLElement)
-  let nextIndex = activeIndex
+  const activeIndex = items.indexOf(document.activeElement as HTMLElement);
+  let nextIndex = activeIndex;
 
   if (key === "ArrowDown") {
-    nextIndex = activeIndex === -1 ? 0 : (activeIndex + 1) % items.length
+    nextIndex = activeIndex === -1 ? 0 : (activeIndex + 1) % items.length;
   } else if (key === "ArrowUp") {
     nextIndex =
       activeIndex === -1
         ? items.length - 1
-        : (activeIndex - 1 + items.length) % items.length
+        : (activeIndex - 1 + items.length) % items.length;
   } else if (key === "Home") {
-    nextIndex = 0
+    nextIndex = 0;
   } else if (key === "End") {
-    nextIndex = items.length - 1
+    nextIndex = items.length - 1;
   }
 
   if (nextIndex !== activeIndex || activeIndex === -1) {
-    event.preventDefault()
-    items[nextIndex]?.focus()
+    event.preventDefault();
+    items[nextIndex]?.focus();
   }
-}
+};
 
 const getSidebarActiveLinkProps = (active?: boolean, disabled?: boolean) => {
   if (disabled) {
-    return undefined
+    return undefined;
   }
 
-  return active ? ({ "aria-current": "page" } as const) : undefined
-}
+  return active ? ({ "aria-current": "page" } as const) : undefined;
+};
 
-const SidebarItemDisabledContext = createContext(false)
+const SidebarItemDisabledContext = createContext(false);
 
-const useSidebarItemDisabled = () => useContext(SidebarItemDisabledContext)
+const useSidebarItemDisabled = () => useContext(SidebarItemDisabledContext);
 
 const resolveSidebarNavItemDisabled = (
   explicit?: boolean,
   inherited?: boolean,
-) => explicit ?? inherited ?? false
+) => explicit ?? inherited ?? false;
 
 const getSidebarDisabledAnchorProps = (disabled: boolean) => {
   if (!disabled) {
-    return {}
+    return {};
   }
 
   return {
     "aria-disabled": true as const,
     "data-disabled": "",
     tabIndex: -1,
-  }
-}
+  };
+};
 
 const getSidebarDisabledAnchorClickHandler = (
   disabled: boolean,
   onClick?: MouseEventHandler<HTMLAnchorElement>,
 ): MouseEventHandler<HTMLAnchorElement> | undefined => {
   if (!disabled) {
-    return onClick
+    return onClick;
   }
 
   return (event) => {
-    event.preventDefault()
-    event.stopPropagation()
-  }
-}
+    event.preventDefault();
+    event.stopPropagation();
+  };
+};
 
 const getDesktopMediaQuery = () => {
   if (
     typeof window === "undefined" ||
     typeof window.matchMedia !== "function"
   ) {
-    return null
+    return null;
   }
 
-  return window.matchMedia(MD_MEDIA_QUERY)
-}
+  return window.matchMedia(MD_MEDIA_QUERY);
+};
 
 const subscribeDesktopMedia = (onStoreChange: () => void) => {
-  const mediaQuery = getDesktopMediaQuery()
+  const mediaQuery = getDesktopMediaQuery();
 
   if (!mediaQuery) {
-    return () => undefined
+    return () => undefined;
   }
 
-  mediaQuery.addEventListener("change", onStoreChange)
-  return () => mediaQuery.removeEventListener("change", onStoreChange)
-}
+  mediaQuery.addEventListener("change", onStoreChange);
+  return () => mediaQuery.removeEventListener("change", onStoreChange);
+};
 
-const getIsDesktopSnapshot = () => getDesktopMediaQuery()?.matches ?? true
+const getIsDesktopSnapshot = () => getDesktopMediaQuery()?.matches ?? true;
 
-const getIsDesktopServerSnapshot = () => true
+const getIsDesktopServerSnapshot = () => true;
 
 const readPersistedCollapsed = (persistKey: string): boolean => {
-  if (typeof window === "undefined") return false
-  return localStorage.getItem(persistKey) === "true"
-}
+  if (typeof window === "undefined") return false;
+  return localStorage.getItem(persistKey) === "true";
+};
 
 const defaultSidebarContext: SidebarContextValue = {
   open: false,
@@ -272,32 +272,32 @@ const defaultSidebarContext: SidebarContextValue = {
   isMobile: false,
   collapsible: "none",
   side: "left",
-}
+};
 
-const SidebarContext = createContext<SidebarContextValue | null>(null)
+const SidebarContext = createContext<SidebarContextValue | null>(null);
 
 const useSidebarContext = () =>
-  useContext(SidebarContext) ?? defaultSidebarContext
+  useContext(SidebarContext) ?? defaultSidebarContext;
 
 const useSidebar = () => {
-  const context = useContext(SidebarContext)
+  const context = useContext(SidebarContext);
 
   if (!context) {
-    throw new Error("useSidebar must be used within SidebarProvider")
+    throw new Error("useSidebar must be used within SidebarProvider");
   }
 
-  return context
-}
+  return context;
+};
 
 interface SidebarMobileContextValue {
-  closeOnSelect: boolean
+  closeOnSelect: boolean;
 }
 
 const SidebarMobileContext = createContext<SidebarMobileContextValue>({
   closeOnSelect: false,
-})
+});
 
-const useSidebarMobileContext = () => useContext(SidebarMobileContext)
+const useSidebarMobileContext = () => useContext(SidebarMobileContext);
 
 const SidebarProvider = ({
   children,
@@ -311,60 +311,60 @@ const SidebarProvider = ({
   side = "left",
   persistKey,
 }: SidebarProviderProps) => {
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [uncontrolledCollapsed, setUncontrolledCollapsed] = useState(() => {
     if (persistKey) {
-      return readPersistedCollapsed(persistKey)
+      return readPersistedCollapsed(persistKey);
     }
 
-    return defaultCollapsed
-  })
+    return defaultCollapsed;
+  });
 
-  const open = openProp ?? uncontrolledOpen
-  const collapsed = collapsedProp ?? uncontrolledCollapsed
+  const open = openProp ?? uncontrolledOpen;
+  const collapsed = collapsedProp ?? uncontrolledCollapsed;
   const isDesktop = useSyncExternalStore(
     subscribeDesktopMedia,
     getIsDesktopSnapshot,
     getIsDesktopServerSnapshot,
-  )
-  const isMobile = !isDesktop
+  );
+  const isMobile = !isDesktop;
 
   const setOpen = useCallback(
     (nextOpen: boolean) => {
       if (openProp === undefined) {
-        setUncontrolledOpen(nextOpen)
+        setUncontrolledOpen(nextOpen);
       }
 
-      onOpenChange?.(nextOpen)
+      onOpenChange?.(nextOpen);
     },
     [onOpenChange, openProp],
-  )
+  );
 
   const setCollapsed = useCallback(
     (nextCollapsed: boolean) => {
       if (collapsedProp === undefined) {
-        setUncontrolledCollapsed(nextCollapsed)
+        setUncontrolledCollapsed(nextCollapsed);
       }
 
       if (persistKey && typeof window !== "undefined") {
-        localStorage.setItem(persistKey, String(nextCollapsed))
+        localStorage.setItem(persistKey, String(nextCollapsed));
       }
 
-      onCollapsedChange?.(nextCollapsed)
+      onCollapsedChange?.(nextCollapsed);
     },
     [collapsedProp, onCollapsedChange, persistKey],
-  )
+  );
 
   const toggleSidebar = useCallback(() => {
     if (isMobile) {
-      setOpen(!open)
-      return
+      setOpen(!open);
+      return;
     }
 
     if (collapsible !== "none") {
-      setCollapsed(!collapsed)
+      setCollapsed(!collapsed);
     }
-  }, [collapsed, collapsible, isMobile, open, setCollapsed, setOpen])
+  }, [collapsed, collapsible, isMobile, open, setCollapsed, setOpen]);
 
   const value = useMemo<SidebarContextValue>(
     () => ({
@@ -387,38 +387,38 @@ const SidebarProvider = ({
       side,
       toggleSidebar,
     ],
-  )
+  );
 
   return (
     <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
-  )
-}
+  );
+};
 
-SidebarProvider.displayName = "SidebarProvider"
+SidebarProvider.displayName = "SidebarProvider";
 
 const isSidebarMobileHeaderChild = (child: ReactNode): boolean => {
   return (
     isValidElement(child) &&
     (child.type as { displayName?: string }).displayName ===
       "SidebarMobileHeader"
-  )
-}
+  );
+};
 
 const partitionSidebarChildren = (children: ReactNode) => {
-  const mobileHeader: ReactNode[] = []
-  const rest: ReactNode[] = []
+  const mobileHeader: ReactNode[] = [];
+  const rest: ReactNode[] = [];
 
   Children.forEach(children, (child) => {
     if (isSidebarMobileHeaderChild(child)) {
-      mobileHeader.push(child)
-      return
+      mobileHeader.push(child);
+      return;
     }
 
-    rest.push(child)
-  })
+    rest.push(child);
+  });
 
-  return { mobileHeader, rest }
-}
+  return { mobileHeader, rest };
+};
 
 const Sidebar = ({
   ref,
@@ -434,18 +434,18 @@ const Sidebar = ({
     collapsed,
     collapsible: contextCollapsible,
     side: contextSide,
-  } = useSidebarContext()
+  } = useSidebarContext();
 
-  const collapsible = collapsibleProp ?? contextCollapsible
-  const side = sideProp ?? contextSide
-  const shellOptions = { collapsed, collapsible, side }
-  const { mobileHeader, rest } = partitionSidebarChildren(children)
+  const collapsible = collapsibleProp ?? contextCollapsible;
+  const side = sideProp ?? contextSide;
+  const shellOptions = { collapsed, collapsible, side };
+  const { mobileHeader, rest } = partitionSidebarChildren(children);
 
   const sidebarBody = (
     <SidebarMobileContext.Provider value={{ closeOnSelect: false }}>
       {rest}
     </SidebarMobileContext.Provider>
-  )
+  );
 
   const drawerBody = (
     <SidebarMobileContext.Provider value={{ closeOnSelect: true }}>
@@ -456,7 +456,7 @@ const Sidebar = ({
         </DrawerClose>
       </div>
     </SidebarMobileContext.Provider>
-  )
+  );
 
   return (
     <aside
@@ -498,10 +498,10 @@ const Sidebar = ({
         </DrawerPortal>
       </Drawer>
     </aside>
-  )
-}
+  );
+};
 
-Sidebar.displayName = "Sidebar"
+Sidebar.displayName = "Sidebar";
 
 const SidebarHeader = ({
   ref,
@@ -513,10 +513,10 @@ const SidebarHeader = ({
     <div ref={ref} className={cn(sidebarBrandClasses(), className)} {...props}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-SidebarHeader.displayName = "SidebarHeader"
+SidebarHeader.displayName = "SidebarHeader";
 
 const SidebarInput = ({
   ref,
@@ -535,10 +535,10 @@ const SidebarInput = ({
       className={cn(sidebarInputClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SidebarInput.displayName = "SidebarInput"
+SidebarInput.displayName = "SidebarInput";
 
 const SidebarSeparator = ({
   ref,
@@ -553,10 +553,10 @@ const SidebarSeparator = ({
       className={cn(sidebarSeparatorClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SidebarSeparator.displayName = "SidebarSeparator"
+SidebarSeparator.displayName = "SidebarSeparator";
 
 const SidebarContent = ({
   ref,
@@ -574,8 +574,8 @@ const SidebarContent = ({
             aria-label="Application navigation"
             className={className}
             onKeyDown={(event) => {
-              handleSidebarNavKeyDown(event)
-              onKeyDown?.(event)
+              handleSidebarNavKeyDown(event);
+              onKeyDown?.(event);
             }}
             {...props}
           >
@@ -584,10 +584,10 @@ const SidebarContent = ({
         </ScrollAreaContent>
       </ScrollAreaViewport>
     </ScrollArea>
-  )
-}
+  );
+};
 
-SidebarContent.displayName = "SidebarContent"
+SidebarContent.displayName = "SidebarContent";
 
 const SidebarFooter = ({
   ref,
@@ -599,10 +599,10 @@ const SidebarFooter = ({
     <div ref={ref} className={cn(sidebarFooterClasses(), className)} {...props}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-SidebarFooter.displayName = "SidebarFooter"
+SidebarFooter.displayName = "SidebarFooter";
 
 const SidebarTrigger = ({
   ref,
@@ -612,7 +612,7 @@ const SidebarTrigger = ({
   className,
   ...props
 }: SidebarTriggerProps) => {
-  const { isMobile, collapsible, toggleSidebar } = useSidebarContext()
+  const { isMobile, collapsible, toggleSidebar } = useSidebarContext();
 
   if (!isMobile && collapsible !== "none") {
     return (
@@ -627,7 +627,7 @@ const SidebarTrigger = ({
       >
         {children}
       </Button>
-    )
+    );
   }
 
   return (
@@ -644,10 +644,10 @@ const SidebarTrigger = ({
     >
       {children}
     </DrawerTrigger>
-  )
-}
+  );
+};
 
-SidebarTrigger.displayName = "SidebarTrigger"
+SidebarTrigger.displayName = "SidebarTrigger";
 
 const SidebarCollapseTrigger = ({
   ref,
@@ -657,10 +657,11 @@ const SidebarCollapseTrigger = ({
   className,
   ...props
 }: SidebarCollapseTriggerProps) => {
-  const { collapsed, setCollapsed, isMobile, collapsible } = useSidebarContext()
+  const { collapsed, setCollapsed, isMobile, collapsible } =
+    useSidebarContext();
 
   if (isMobile || collapsible === "none") {
-    return null
+    return null;
   }
 
   return (
@@ -676,16 +677,16 @@ const SidebarCollapseTrigger = ({
     >
       {children}
     </Button>
-  )
-}
+  );
+};
 
-SidebarCollapseTrigger.displayName = "SidebarCollapseTrigger"
+SidebarCollapseTrigger.displayName = "SidebarCollapseTrigger";
 
 const SidebarRail = ({ ref, className, ...props }: SidebarRailProps) => {
-  const { collapsible, toggleSidebar, isMobile, side } = useSidebarContext()
+  const { collapsible, toggleSidebar, isMobile, side } = useSidebarContext();
 
   if (isMobile || collapsible === "none") {
-    return null
+    return null;
   }
 
   return (
@@ -697,10 +698,10 @@ const SidebarRail = ({ ref, className, ...props }: SidebarRailProps) => {
       onClick={toggleSidebar}
       {...props}
     />
-  )
-}
+  );
+};
 
-SidebarRail.displayName = "SidebarRail"
+SidebarRail.displayName = "SidebarRail";
 
 const SidebarMobileHeader = ({
   ref,
@@ -716,10 +717,10 @@ const SidebarMobileHeader = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-SidebarMobileHeader.displayName = "SidebarMobileHeader"
+SidebarMobileHeader.displayName = "SidebarMobileHeader";
 
 const SidebarExpandable = ({
   ref,
@@ -735,10 +736,10 @@ const SidebarExpandable = ({
     >
       {children}
     </span>
-  )
-}
+  );
+};
 
-SidebarExpandable.displayName = "SidebarExpandable"
+SidebarExpandable.displayName = "SidebarExpandable";
 
 const SidebarGroup = ({
   ref,
@@ -750,10 +751,10 @@ const SidebarGroup = ({
     <div ref={ref} className={cn(sidebarGroupClasses(), className)} {...props}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-SidebarGroup.displayName = "SidebarGroup"
+SidebarGroup.displayName = "SidebarGroup";
 
 const SidebarGroupLabel = ({
   ref,
@@ -773,10 +774,10 @@ const SidebarGroupLabel = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-SidebarGroupLabel.displayName = "SidebarGroupLabel"
+SidebarGroupLabel.displayName = "SidebarGroupLabel";
 
 const SidebarGroupContent = ({
   ref,
@@ -792,10 +793,10 @@ const SidebarGroupContent = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-SidebarGroupContent.displayName = "SidebarGroupContent"
+SidebarGroupContent.displayName = "SidebarGroupContent";
 
 const SidebarGroupCollapsible = ({
   ref,
@@ -809,10 +810,10 @@ const SidebarGroupCollapsible = ({
       className={cn(sidebarGroupCollapsibleClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SidebarGroupCollapsible.displayName = "SidebarGroupCollapsible"
+SidebarGroupCollapsible.displayName = "SidebarGroupCollapsible";
 
 const SidebarGroupCollapsibleTrigger = ({
   ref,
@@ -829,10 +830,10 @@ const SidebarGroupCollapsibleTrigger = ({
       {children}
       <ChevronDown aria-hidden="true" />
     </BaseCollapsible.Trigger>
-  )
-}
+  );
+};
 
-SidebarGroupCollapsibleTrigger.displayName = "SidebarGroupCollapsibleTrigger"
+SidebarGroupCollapsibleTrigger.displayName = "SidebarGroupCollapsibleTrigger";
 
 const SidebarGroupCollapsiblePanel = ({
   ref,
@@ -845,10 +846,10 @@ const SidebarGroupCollapsiblePanel = ({
       className={cn(sidebarGroupCollapsiblePanelClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SidebarGroupCollapsiblePanel.displayName = "SidebarGroupCollapsiblePanel"
+SidebarGroupCollapsiblePanel.displayName = "SidebarGroupCollapsiblePanel";
 
 const SidebarList = ({
   ref,
@@ -860,10 +861,10 @@ const SidebarList = ({
     <ul ref={ref} className={cn(sidebarNavListClasses(), className)} {...props}>
       {children}
     </ul>
-  )
-}
+  );
+};
 
-SidebarList.displayName = "SidebarList"
+SidebarList.displayName = "SidebarList";
 
 const SidebarItem = ({
   ref,
@@ -884,10 +885,10 @@ const SidebarItem = ({
         {children}
       </li>
     </SidebarItemDisabledContext.Provider>
-  )
-}
+  );
+};
 
-SidebarItem.displayName = "SidebarItem"
+SidebarItem.displayName = "SidebarItem";
 
 const SidebarItemLink = ({
   ref,
@@ -899,30 +900,30 @@ const SidebarItemLink = ({
   onClick,
   ...props
 }: SidebarItemLinkProps) => {
-  const { closeOnSelect } = useSidebarMobileContext()
-  const inheritedDisabled = useSidebarItemDisabled()
-  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
+  const { closeOnSelect } = useSidebarMobileContext();
+  const inheritedDisabled = useSidebarItemDisabled();
+  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled);
   const linkClassName = cn(
     chrome === "disclosureLead"
       ? sidebarNavItemDisclosureLeadClasses(active, isDisabled)
       : sidebarNavItemClasses(active, isDisabled),
     sidebarCollapsedItemClasses(),
     className,
-  )
+  );
 
   const linkProps = {
     ...props,
     ...getSidebarDisabledAnchorProps(isDisabled),
     ...getSidebarActiveLinkProps(active, isDisabled),
     onClick: getSidebarDisabledAnchorClickHandler(isDisabled, onClick),
-  }
+  };
 
   if (!closeOnSelect) {
     return (
       <a ref={ref} className={linkClassName} {...linkProps}>
         {children}
       </a>
-    )
+    );
   }
 
   return (
@@ -933,10 +934,10 @@ const SidebarItemLink = ({
     >
       {children}
     </DrawerClose>
-  )
-}
+  );
+};
 
-SidebarItemLink.displayName = "SidebarItemLink"
+SidebarItemLink.displayName = "SidebarItemLink";
 
 const SidebarItemButton = ({
   ref,
@@ -947,20 +948,20 @@ const SidebarItemButton = ({
   type = "button",
   ...props
 }: SidebarItemButtonProps) => {
-  const { closeOnSelect } = useSidebarMobileContext()
-  const inheritedDisabled = useSidebarItemDisabled()
-  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
+  const { closeOnSelect } = useSidebarMobileContext();
+  const inheritedDisabled = useSidebarItemDisabled();
+  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled);
   const buttonClassName = cn(
     sidebarNavItemClasses(active, isDisabled),
     sidebarCollapsedItemClasses(),
     className,
-  )
+  );
   const buttonProps = {
     ...props,
     disabled: isDisabled,
     "data-disabled": isDisabled ? "" : undefined,
     "aria-disabled": isDisabled || undefined,
-  }
+  };
 
   if (!closeOnSelect) {
     return (
@@ -972,7 +973,7 @@ const SidebarItemButton = ({
       >
         {children}
       </button>
-    )
+    );
   }
 
   return (
@@ -989,10 +990,10 @@ const SidebarItemButton = ({
     >
       {children}
     </DrawerClose>
-  )
-}
+  );
+};
 
-SidebarItemButton.displayName = "SidebarItemButton"
+SidebarItemButton.displayName = "SidebarItemButton";
 
 const SidebarItemSkeleton = ({
   ref,
@@ -1011,18 +1012,18 @@ const SidebarItemSkeleton = ({
       {showIcon ? <span className={sidebarItemSkeletonIconClasses()} /> : null}
       <span className={sidebarItemSkeletonLabelClasses()} />
     </div>
-  )
-}
+  );
+};
 
-SidebarItemSkeleton.displayName = "SidebarItemSkeleton"
+SidebarItemSkeleton.displayName = "SidebarItemSkeleton";
 
 const getSidebarItemBadgeLabel = (children: ReactNode): string | undefined => {
   if (typeof children === "string" || typeof children === "number") {
-    return String(children)
+    return String(children);
   }
 
-  return undefined
-}
+  return undefined;
+};
 
 const SidebarItemBadge = ({
   ref,
@@ -1034,7 +1035,7 @@ const SidebarItemBadge = ({
   children,
   ...props
 }: SidebarItemBadgeProps) => {
-  const badgeLabel = getSidebarItemBadgeLabel(children)
+  const badgeLabel = getSidebarItemBadgeLabel(children);
 
   if (dot) {
     return (
@@ -1049,7 +1050,7 @@ const SidebarItemBadge = ({
         )}
         {...props}
       />
-    )
+    );
   }
 
   return (
@@ -1067,10 +1068,10 @@ const SidebarItemBadge = ({
     >
       <span className={sidebarItemBadgeLabelClasses()}>{children}</span>
     </Badge>
-  )
-}
+  );
+};
 
-SidebarItemBadge.displayName = "SidebarItemBadge"
+SidebarItemBadge.displayName = "SidebarItemBadge";
 
 const SidebarItemIcon = ({
   ref,
@@ -1086,10 +1087,10 @@ const SidebarItemIcon = ({
     >
       {children}
     </span>
-  )
-}
+  );
+};
 
-SidebarItemIcon.displayName = "SidebarItemIcon"
+SidebarItemIcon.displayName = "SidebarItemIcon";
 
 const SidebarItemRow = ({
   ref,
@@ -1111,10 +1112,10 @@ const SidebarItemRow = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-SidebarItemRow.displayName = "SidebarItemRow"
+SidebarItemRow.displayName = "SidebarItemRow";
 
 const SidebarItemTrailing = ({
   ref,
@@ -1130,10 +1131,10 @@ const SidebarItemTrailing = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-SidebarItemTrailing.displayName = "SidebarItemTrailing"
+SidebarItemTrailing.displayName = "SidebarItemTrailing";
 
 /** @deprecated Use `SidebarItemTrailing` inside the item shell. */
 const SidebarItemAdornments = ({
@@ -1146,10 +1147,10 @@ const SidebarItemAdornments = ({
     <SidebarItemTrailing ref={ref} className={className} {...props}>
       {children}
     </SidebarItemTrailing>
-  )
-}
+  );
+};
 
-SidebarItemAdornments.displayName = "SidebarItemAdornments"
+SidebarItemAdornments.displayName = "SidebarItemAdornments";
 
 const SidebarItemExpandTrigger = ({
   ref,
@@ -1172,10 +1173,10 @@ const SidebarItemExpandTrigger = ({
     >
       {children ?? <ChevronDown aria-hidden />}
     </button>
-  )
-}
+  );
+};
 
-SidebarItemExpandTrigger.displayName = "SidebarItemExpandTrigger"
+SidebarItemExpandTrigger.displayName = "SidebarItemExpandTrigger";
 
 const SidebarItemAction = ({
   ref,
@@ -1192,10 +1193,10 @@ const SidebarItemAction = ({
       className={cn(sidebarItemActionClasses(showOnHover), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SidebarItemAction.displayName = "SidebarItemAction"
+SidebarItemAction.displayName = "SidebarItemAction";
 
 const SidebarItemShortcut = ({
   ref,
@@ -1211,10 +1212,10 @@ const SidebarItemShortcut = ({
     >
       {children}
     </kbd>
-  )
-}
+  );
+};
 
-SidebarItemShortcut.displayName = "SidebarItemShortcut"
+SidebarItemShortcut.displayName = "SidebarItemShortcut";
 
 const SidebarGroupAction = ({
   ref,
@@ -1230,10 +1231,10 @@ const SidebarGroupAction = ({
       className={cn(sidebarGroupActionClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SidebarGroupAction.displayName = "SidebarGroupAction"
+SidebarGroupAction.displayName = "SidebarGroupAction";
 
 const SidebarSubList = ({
   ref,
@@ -1245,10 +1246,10 @@ const SidebarSubList = ({
     <ul ref={ref} className={cn(sidebarSubListClasses(), className)} {...props}>
       {children}
     </ul>
-  )
-}
+  );
+};
 
-SidebarSubList.displayName = "SidebarSubList"
+SidebarSubList.displayName = "SidebarSubList";
 
 const SidebarSubItemLink = ({
   ref,
@@ -1259,26 +1260,26 @@ const SidebarSubItemLink = ({
   onClick,
   ...props
 }: SidebarSubItemLinkProps) => {
-  const { closeOnSelect } = useSidebarMobileContext()
-  const inheritedDisabled = useSidebarItemDisabled()
-  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
+  const { closeOnSelect } = useSidebarMobileContext();
+  const inheritedDisabled = useSidebarItemDisabled();
+  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled);
   const linkClassName = cn(
     sidebarSubNavItemClasses(active, isDisabled),
     className,
-  )
+  );
   const linkProps = {
     ...props,
     ...getSidebarDisabledAnchorProps(isDisabled),
     ...getSidebarActiveLinkProps(active, isDisabled),
     onClick: getSidebarDisabledAnchorClickHandler(isDisabled, onClick),
-  }
+  };
 
   if (!closeOnSelect) {
     return (
       <a ref={ref} className={linkClassName} {...linkProps}>
         {children}
       </a>
-    )
+    );
   }
 
   return (
@@ -1289,10 +1290,10 @@ const SidebarSubItemLink = ({
     >
       {children}
     </DrawerClose>
-  )
-}
+  );
+};
 
-SidebarSubItemLink.displayName = "SidebarSubItemLink"
+SidebarSubItemLink.displayName = "SidebarSubItemLink";
 
 const SidebarSubItemButton = ({
   ref,
@@ -1303,19 +1304,19 @@ const SidebarSubItemButton = ({
   type = "button",
   ...props
 }: SidebarSubItemButtonProps) => {
-  const { closeOnSelect } = useSidebarMobileContext()
-  const inheritedDisabled = useSidebarItemDisabled()
-  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled)
+  const { closeOnSelect } = useSidebarMobileContext();
+  const inheritedDisabled = useSidebarItemDisabled();
+  const isDisabled = resolveSidebarNavItemDisabled(disabled, inheritedDisabled);
   const buttonClassName = cn(
     sidebarSubNavItemClasses(active, isDisabled),
     className,
-  )
+  );
   const buttonProps = {
     ...props,
     disabled: isDisabled,
     "data-disabled": isDisabled ? "" : undefined,
     "aria-disabled": isDisabled || undefined,
-  }
+  };
 
   if (!closeOnSelect) {
     return (
@@ -1327,7 +1328,7 @@ const SidebarSubItemButton = ({
       >
         {children}
       </button>
-    )
+    );
   }
 
   return (
@@ -1344,10 +1345,10 @@ const SidebarSubItemButton = ({
     >
       {children}
     </DrawerClose>
-  )
-}
+  );
+};
 
-SidebarSubItemButton.displayName = "SidebarSubItemButton"
+SidebarSubItemButton.displayName = "SidebarSubItemButton";
 
 export {
   Sidebar,
@@ -1387,9 +1388,9 @@ export {
   SidebarMobileHeader,
   SidebarExpandable,
   isSidebarNavActive,
-}
+};
 
-export type { SidebarNavActiveOptions } from "./Sidebar.types.js"
+export type { SidebarNavActiveOptions } from "./Sidebar.types";
 export {
   sidebarItemRowClasses,
   sidebarItemDisclosureRowClasses,
@@ -1399,4 +1400,4 @@ export {
   sidebarNavItemRowLeadClasses,
   sidebarNavItemDisclosureLeadClasses,
   sidebarNavItemExpandTriggerClasses,
-} from "./Sidebar.variants.js"
+} from "./Sidebar.variants";

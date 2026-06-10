@@ -4,7 +4,7 @@
  * Registry metadata for the Tabs component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const tabsRegistryItem: RegistryItem = {
   name: "tabs",
@@ -38,4 +38,4 @@ export const tabsRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Tabs",
-}
+};

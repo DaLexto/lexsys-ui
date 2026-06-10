@@ -4,7 +4,7 @@
  * Registry metadata for the Alert component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const alertRegistryItem: RegistryItem = {
   name: "alert",
@@ -33,4 +33,4 @@ export const alertRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Alert",
-}
+};

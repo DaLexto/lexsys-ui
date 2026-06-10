@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
-import { Meter } from "../../../src/components/primitives/Meter/Meter.js"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { Meter } from "../../../src/components/primitives/Meter/Meter.js";
 
 describe("Meter render", () => {
   it("renders meter label with custom className", () => {
@@ -12,9 +12,9 @@ describe("Meter render", () => {
         label="Storage used"
         className="custom-meter"
       />,
-    )
+    );
 
-    expect(screen.getByText("Storage used")).toBeInTheDocument()
-    expect(screen.getByRole("meter")).toHaveClass("custom-meter")
-  })
-})
+    expect(screen.getByText("Storage used")).toBeInTheDocument();
+    expect(screen.getByRole("meter")).toHaveClass("custom-meter");
+  });
+});

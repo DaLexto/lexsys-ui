@@ -4,8 +4,8 @@
  * Reference Drawer component implementation.
  */
 
-import { X } from "lucide-react"
-import { Drawer as BaseDrawer } from "@base-ui/react/drawer"
+import { X } from "lucide-react";
+import { Drawer as BaseDrawer } from "@base-ui/react/drawer";
 import type {
   DrawerBackdropProps,
   DrawerCloseProps,
@@ -22,7 +22,7 @@ import type {
   DrawerTitleProps,
   DrawerTriggerProps,
   DrawerViewportProps,
-} from "./Drawer.types"
+} from "./Drawer.types";
 import {
   drawerBackdropVariants,
   drawerCloseVariants,
@@ -37,21 +37,21 @@ import {
   drawerTitleVariants,
   drawerTriggerVariants,
   drawerViewportVariants,
-} from "./Drawer.variants"
-import { cn } from "../../../utils/cn"
-import { mergeClassName } from "../../../utils/merge-class-name"
+} from "./Drawer.variants";
+import { cn } from "../../../utils/cn";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const Drawer = <Payload = unknown,>(props: DrawerProps<Payload>) => {
-  return <BaseDrawer.Root {...props} />
-}
+  return <BaseDrawer.Root {...props} />;
+};
 
-Drawer.displayName = "Drawer"
+Drawer.displayName = "Drawer";
 
 const DrawerProvider = (props: DrawerProviderProps) => {
-  return <BaseDrawer.Provider {...props} />
-}
+  return <BaseDrawer.Provider {...props} />;
+};
 
-DrawerProvider.displayName = "DrawerProvider"
+DrawerProvider.displayName = "DrawerProvider";
 
 const DrawerTrigger = ({ ref, className, ...props }: DrawerTriggerProps) => {
   return (
@@ -60,16 +60,16 @@ const DrawerTrigger = ({ ref, className, ...props }: DrawerTriggerProps) => {
       className={mergeClassName(drawerTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerTrigger.displayName = "DrawerTrigger"
+DrawerTrigger.displayName = "DrawerTrigger";
 
 const DrawerPortal = (props: DrawerPortalProps) => {
-  return <BaseDrawer.Portal {...props} />
-}
+  return <BaseDrawer.Portal {...props} />;
+};
 
-DrawerPortal.displayName = "DrawerPortal"
+DrawerPortal.displayName = "DrawerPortal";
 
 const DrawerIndentBackground = ({
   ref,
@@ -82,10 +82,10 @@ const DrawerIndentBackground = ({
       className={mergeClassName(drawerIndentBackgroundVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerIndentBackground.displayName = "DrawerIndentBackground"
+DrawerIndentBackground.displayName = "DrawerIndentBackground";
 
 const DrawerIndent = ({ ref, className, ...props }: DrawerIndentProps) => {
   return (
@@ -94,10 +94,10 @@ const DrawerIndent = ({ ref, className, ...props }: DrawerIndentProps) => {
       className={mergeClassName(drawerIndentVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerIndent.displayName = "DrawerIndent"
+DrawerIndent.displayName = "DrawerIndent";
 
 const DrawerBackdrop = ({ ref, className, ...props }: DrawerBackdropProps) => {
   return (
@@ -106,10 +106,10 @@ const DrawerBackdrop = ({ ref, className, ...props }: DrawerBackdropProps) => {
       className={mergeClassName(drawerBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerBackdrop.displayName = "DrawerBackdrop"
+DrawerBackdrop.displayName = "DrawerBackdrop";
 
 const DrawerViewport = ({
   ref,
@@ -123,10 +123,10 @@ const DrawerViewport = ({
       className={mergeClassName(drawerViewportVariants({ side }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerViewport.displayName = "DrawerViewport"
+DrawerViewport.displayName = "DrawerViewport";
 
 const DrawerPopup = ({
   ref,
@@ -141,10 +141,10 @@ const DrawerPopup = ({
       className={mergeClassName(drawerPopupVariants({ side, size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerPopup.displayName = "DrawerPopup"
+DrawerPopup.displayName = "DrawerPopup";
 
 const DrawerContent = ({ ref, className, ...props }: DrawerContentProps) => {
   return (
@@ -153,10 +153,10 @@ const DrawerContent = ({ ref, className, ...props }: DrawerContentProps) => {
       className={mergeClassName(drawerContentVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerContent.displayName = "DrawerContent"
+DrawerContent.displayName = "DrawerContent";
 
 const DrawerHandleIndicator = ({
   className,
@@ -168,10 +168,10 @@ const DrawerHandleIndicator = ({
       className={cn(drawerHandleVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerHandleIndicator.displayName = "DrawerHandleIndicator"
+DrawerHandleIndicator.displayName = "DrawerHandleIndicator";
 
 const DrawerSwipeArea = ({
   ref,
@@ -185,10 +185,10 @@ const DrawerSwipeArea = ({
       className={mergeClassName(drawerSwipeAreaVariants({ side }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerSwipeArea.displayName = "DrawerSwipeArea"
+DrawerSwipeArea.displayName = "DrawerSwipeArea";
 
 const DrawerTitle = ({ ref, className, ...props }: DrawerTitleProps) => {
   return (
@@ -197,10 +197,10 @@ const DrawerTitle = ({ ref, className, ...props }: DrawerTitleProps) => {
       className={mergeClassName(drawerTitleVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerTitle.displayName = "DrawerTitle"
+DrawerTitle.displayName = "DrawerTitle";
 
 const DrawerDescription = ({
   ref,
@@ -213,10 +213,10 @@ const DrawerDescription = ({
       className={mergeClassName(drawerDescriptionVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DrawerDescription.displayName = "DrawerDescription"
+DrawerDescription.displayName = "DrawerDescription";
 
 const DrawerClose = ({
   ref,
@@ -239,12 +239,12 @@ const DrawerClose = ({
       {children ??
         (appearance === "icon" ? <X aria-hidden="true" size={16} /> : null)}
     </BaseDrawer.Close>
-  )
-}
+  );
+};
 
-DrawerClose.displayName = "DrawerClose"
+DrawerClose.displayName = "DrawerClose";
 
-const createDrawerHandle = BaseDrawer.createHandle
+const createDrawerHandle = BaseDrawer.createHandle;
 
 export {
   Drawer,
@@ -263,4 +263,4 @@ export {
   DrawerDescription,
   DrawerClose,
   createDrawerHandle,
-}
+};

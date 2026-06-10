@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Dialog,
   DialogBackdrop,
@@ -8,7 +8,7 @@ import {
   DialogPortal,
   DialogTitle,
   DialogViewport,
-} from "../../../src/components/primitives/Dialog/Dialog.js"
+} from "../../../src/components/primitives/Dialog/Dialog.js";
 
 describe("Dialog render", () => {
   it("renders dialog title and description when defaultOpen", () => {
@@ -26,14 +26,14 @@ describe("Dialog render", () => {
           </DialogViewport>
         </DialogPortal>
       </Dialog>,
-    )
+    );
 
     expect(
       screen.getByRole("dialog", { name: "Confirm action" }),
-    ).toBeInTheDocument()
+    ).toBeInTheDocument();
     expect(
       screen.getByText("This dialog copy is visible to assistive tech."),
-    ).toBeInTheDocument()
-    expect(screen.getByRole("dialog")).toHaveClass("custom-dialog-popup")
-  })
-})
+    ).toBeInTheDocument();
+    expect(screen.getByRole("dialog")).toHaveClass("custom-dialog-popup");
+  });
+});

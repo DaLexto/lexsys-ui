@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "@/lib/utils"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "@/lib/utils";
 
 export const toggleVariants = cva(
   [
@@ -29,4 +29,4 @@ export const toggleVariants = cva(
       size: "md",
     },
   },
-)
+);

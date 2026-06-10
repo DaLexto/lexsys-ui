@@ -4,7 +4,7 @@
  * Registry metadata for the NavigationMenu component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const navigationMenuRegistryItem: RegistryItem = {
   name: "navigation-menu",
@@ -39,4 +39,4 @@ export const navigationMenuRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/NavigationMenu",
-}
+};

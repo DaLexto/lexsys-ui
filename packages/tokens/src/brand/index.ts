@@ -5,8 +5,8 @@
  * @description Brand token exports.
  */
 
-import { lexsysBrand } from "./lexsys.brand"
+import { lexsysBrand } from "./lexsys.brand";
 
-export { lexsysBrand }
+export { lexsysBrand };
 
-export const brandTokens = [lexsysBrand]
+export const brandTokens = [lexsysBrand];

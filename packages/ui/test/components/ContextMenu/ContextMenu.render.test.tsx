@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   ContextMenu,
   ContextMenuItem,
@@ -7,7 +7,7 @@ import {
   ContextMenuPortal,
   ContextMenuPositioner,
   ContextMenuTrigger,
-} from "../../../src/components/primitives/ContextMenu/ContextMenu.js"
+} from "../../../src/components/primitives/ContextMenu/ContextMenu.js";
 
 describe("ContextMenu render", () => {
   it("renders context menu item when defaultOpen", () => {
@@ -22,13 +22,13 @@ describe("ContextMenu render", () => {
           </ContextMenuPositioner>
         </ContextMenuPortal>
       </ContextMenu>,
-    )
+    );
 
-    expect(screen.getByRole("menuitem", { name: "Copy" })).toBeInTheDocument()
+    expect(screen.getByRole("menuitem", { name: "Copy" })).toBeInTheDocument();
     expect(
       screen
         .getByRole("menuitem", { name: "Copy" })
         .closest(".custom-context-menu"),
-    ).not.toBeNull()
-  })
-})
+    ).not.toBeNull();
+  });
+});

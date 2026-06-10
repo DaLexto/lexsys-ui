@@ -135,10 +135,10 @@ URL:
 Lexsys is designed to work directly with Tailwind utilities:
 
 ```tsx
-import { Button } from "@/components/ui/Button/Button"
+import { Button } from "@/components/ui/Button/Button";
 
 export function App() {
-  return <Button className="w-full">Save</Button>
+  return <Button className="w-full">Save</Button>;
 }
 ```
 

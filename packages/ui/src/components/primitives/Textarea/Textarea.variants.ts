@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "../../../utils/cn";
 
 export const textareaVariants = cva(
   [
@@ -43,4 +43,4 @@ export const textareaVariants = cva(
       resize: "vertical",
     },
   },
-)
+);

@@ -11,7 +11,7 @@ import {
   FieldError,
   FieldItem,
   FieldLabel,
-} from "../../primitives/Field/Field"
+} from "../../primitives/Field/Field";
 import type {
   FormFieldControlProps,
   FormFieldDescriptionProps,
@@ -19,55 +19,55 @@ import type {
   FormFieldItemProps,
   FormFieldLabelProps,
   FormFieldProps,
-} from "./FormField.types"
-import { formFieldClasses } from "./FormField.variants"
-import { cn } from "../../../utils/cn"
+} from "./FormField.types";
+import { formFieldClasses } from "./FormField.variants";
+import { cn } from "../../../utils/cn";
 
 const FormField = ({ ref, className, ...props }: FormFieldProps) => {
   return (
     <Field ref={ref} className={cn(formFieldClasses(), className)} {...props} />
-  )
-}
+  );
+};
 
-FormField.displayName = "FormField"
+FormField.displayName = "FormField";
 
 const FormFieldItem = ({ ref, className, ...props }: FormFieldItemProps) => {
-  return <FieldItem ref={ref} className={className} {...props} />
-}
+  return <FieldItem ref={ref} className={className} {...props} />;
+};
 
-FormFieldItem.displayName = "FormFieldItem"
+FormFieldItem.displayName = "FormFieldItem";
 
 const FormFieldLabel = ({ ref, className, ...props }: FormFieldLabelProps) => {
-  return <FieldLabel ref={ref} className={className} {...props} />
-}
+  return <FieldLabel ref={ref} className={className} {...props} />;
+};
 
-FormFieldLabel.displayName = "FormFieldLabel"
+FormFieldLabel.displayName = "FormFieldLabel";
 
 const FormFieldControl = ({
   ref,
   className,
   ...props
 }: FormFieldControlProps) => {
-  return <FieldControl ref={ref} className={className} {...props} />
-}
+  return <FieldControl ref={ref} className={className} {...props} />;
+};
 
-FormFieldControl.displayName = "FormFieldControl"
+FormFieldControl.displayName = "FormFieldControl";
 
 const FormFieldDescription = ({
   ref,
   className,
   ...props
 }: FormFieldDescriptionProps) => {
-  return <FieldDescription ref={ref} className={className} {...props} />
-}
+  return <FieldDescription ref={ref} className={className} {...props} />;
+};
 
-FormFieldDescription.displayName = "FormFieldDescription"
+FormFieldDescription.displayName = "FormFieldDescription";
 
 const FormFieldError = ({ ref, className, ...props }: FormFieldErrorProps) => {
-  return <FieldError ref={ref} className={className} {...props} />
-}
+  return <FieldError ref={ref} className={className} {...props} />;
+};
 
-FormFieldError.displayName = "FormFieldError"
+FormFieldError.displayName = "FormFieldError";
 
 export {
   FormField,
@@ -76,4 +76,4 @@ export {
   FormFieldControl,
   FormFieldDescription,
   FormFieldError,
-}
+};

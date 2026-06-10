@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const fieldsetVariants = cva(
   [
@@ -25,7 +25,7 @@ export const fieldsetVariants = cva(
       variant: "surface",
     },
   },
-)
+);
 
 export const fieldsetLegendVariants = cva(
   [
@@ -34,4 +34,4 @@ export const fieldsetLegendVariants = cva(
     "tracking-(--lex-fieldset-legend-font-letter-spacing) text-(--lex-fieldset-legend-foreground)",
     "data-[disabled]:cursor-not-allowed",
   ].join(" "),
-)
+);

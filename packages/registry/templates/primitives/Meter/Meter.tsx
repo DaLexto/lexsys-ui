@@ -4,14 +4,14 @@
  * Reference Meter component implementation.
  */
 
-import { Meter as BaseMeter } from "@base-ui/react/meter"
+import { Meter as BaseMeter } from "@base-ui/react/meter";
 import type {
   MeterIndicatorProps,
   MeterLabelProps,
   MeterProps,
   MeterTrackProps,
   MeterValueProps,
-} from "./Meter.types"
+} from "./Meter.types";
 import {
   meterHeaderVariants,
   meterIndicatorVariants,
@@ -19,8 +19,8 @@ import {
   meterTrackVariants,
   meterValueVariants,
   meterVariants,
-} from "./Meter.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./Meter.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Meter = ({
   ref,
@@ -44,7 +44,7 @@ const Meter = ({
       >
         {children}
       </BaseMeter.Root>
-    )
+    );
   }
 
   return (
@@ -67,10 +67,10 @@ const Meter = ({
         <MeterIndicator className={indicatorClassName} />
       </MeterTrack>
     </BaseMeter.Root>
-  )
-}
+  );
+};
 
-Meter.displayName = "Meter"
+Meter.displayName = "Meter";
 
 const MeterTrack = ({ ref, size, className, ...props }: MeterTrackProps) => {
   return (
@@ -79,10 +79,10 @@ const MeterTrack = ({ ref, size, className, ...props }: MeterTrackProps) => {
       className={mergeClassName(meterTrackVariants({ size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MeterTrack.displayName = "MeterTrack"
+MeterTrack.displayName = "MeterTrack";
 
 const MeterIndicator = ({ ref, className, ...props }: MeterIndicatorProps) => {
   return (
@@ -91,10 +91,10 @@ const MeterIndicator = ({ ref, className, ...props }: MeterIndicatorProps) => {
       className={mergeClassName(meterIndicatorVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MeterIndicator.displayName = "MeterIndicator"
+MeterIndicator.displayName = "MeterIndicator";
 
 const MeterValue = ({ ref, className, ...props }: MeterValueProps) => {
   return (
@@ -103,10 +103,10 @@ const MeterValue = ({ ref, className, ...props }: MeterValueProps) => {
       className={mergeClassName(meterValueVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MeterValue.displayName = "MeterValue"
+MeterValue.displayName = "MeterValue";
 
 const MeterLabel = ({ ref, className, ...props }: MeterLabelProps) => {
   return (
@@ -115,9 +115,9 @@ const MeterLabel = ({ ref, className, ...props }: MeterLabelProps) => {
       className={mergeClassName(meterLabelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MeterLabel.displayName = "MeterLabel"
+MeterLabel.displayName = "MeterLabel";
 
-export { Meter, MeterTrack, MeterIndicator, MeterValue, MeterLabel }
+export { Meter, MeterTrack, MeterIndicator, MeterValue, MeterLabel };

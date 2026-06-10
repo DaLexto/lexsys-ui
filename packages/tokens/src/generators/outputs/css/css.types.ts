@@ -19,8 +19,8 @@
  * CSS variable entry created from a token leaf.
  */
 export interface CssVariableEntry {
-  name: string
-  value: string
+  name: string;
+  value: string;
 }
 
 /**
@@ -34,7 +34,7 @@ export interface CssVarsGeneratorOptions {
    * cssVarPrefix: "nx"
    * --lex-color-primary
    */
-  cssVarPrefix: string
+  cssVarPrefix: string;
 
   /**
    * Optional group/path name overrides.
@@ -42,18 +42,18 @@ export interface CssVarsGeneratorOptions {
    * Example:
    * "motion-duration" -> "duration"
    */
-  groupNameOverrides?: Readonly<Record<string, string>>
+  groupNameOverrides?: Readonly<Record<string, string>>;
 
   /**
    * Metadata keys that should be ignored during token traversal.
    */
-  metadataKeys?: ReadonlySet<string>
+  metadataKeys?: ReadonlySet<string>;
 }
 
 /**
  * Result returned by CSS variable generation.
  */
 export interface CssVarsGenerateResult {
-  entries: CssVariableEntry[]
-  css: string
+  entries: CssVariableEntry[];
+  css: string;
 }

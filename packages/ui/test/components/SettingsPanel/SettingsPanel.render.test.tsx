@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   SettingsPanel,
   SettingsPanelContent,
@@ -7,7 +7,7 @@ import {
   SettingsPanelFooter,
   SettingsPanelHeader,
   SettingsPanelTitle,
-} from "../../../src/components/blocks/SettingsPanel/SettingsPanel.js"
+} from "../../../src/components/blocks/SettingsPanel/SettingsPanel.js";
 
 describe("SettingsPanel render", () => {
   it("composes Card compound parts with title, description, and children", () => {
@@ -21,15 +21,19 @@ describe("SettingsPanel render", () => {
         </SettingsPanelHeader>
         <SettingsPanelContent>Form content</SettingsPanelContent>
       </SettingsPanel>,
-    )
+    );
 
-    expect(screen.getByRole("heading", { name: "Profile" })).toBeInTheDocument()
-    expect(screen.getByText("Update your account details.")).toBeInTheDocument()
-    expect(screen.getByText("Form content")).toBeInTheDocument()
+    expect(
+      screen.getByRole("heading", { name: "Profile" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Update your account details."),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Form content")).toBeInTheDocument();
 
-    const panel = screen.getByText("Form content").closest(".custom-panel")
-    expect(panel).not.toBeNull()
-  })
+    const panel = screen.getByText("Form content").closest(".custom-panel");
+    expect(panel).not.toBeNull();
+  });
 
   it("renders optional footer actions", () => {
     render(
@@ -42,9 +46,9 @@ describe("SettingsPanel render", () => {
           <button type="button">Save</button>
         </SettingsPanelFooter>
       </SettingsPanel>,
-    )
+    );
 
-    expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument()
-    expect(screen.getByText("Toggle settings")).toBeInTheDocument()
-  })
-})
+    expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
+    expect(screen.getByText("Toggle settings")).toBeInTheDocument();
+  });
+});

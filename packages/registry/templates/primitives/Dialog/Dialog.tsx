@@ -4,8 +4,8 @@
  * Reference Dialog component implementation.
  */
 
-import { X } from "lucide-react"
-import { Dialog as BaseDialog } from "@base-ui/react/dialog"
+import { X } from "lucide-react";
+import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 import type {
   DialogBackdropProps,
   DialogCloseProps,
@@ -16,7 +16,7 @@ import type {
   DialogTitleProps,
   DialogTriggerProps,
   DialogViewportProps,
-} from "./Dialog.types"
+} from "./Dialog.types";
 import {
   dialogBackdropVariants,
   dialogCloseVariants,
@@ -25,14 +25,14 @@ import {
   dialogTitleVariants,
   dialogTriggerVariants,
   dialogViewportVariants,
-} from "./Dialog.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./Dialog.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Dialog = <Payload = unknown,>(props: DialogProps<Payload>) => {
-  return <BaseDialog.Root {...props} />
-}
+  return <BaseDialog.Root {...props} />;
+};
 
-Dialog.displayName = "Dialog"
+Dialog.displayName = "Dialog";
 
 const DialogTrigger = ({ ref, className, ...props }: DialogTriggerProps) => {
   return (
@@ -41,16 +41,16 @@ const DialogTrigger = ({ ref, className, ...props }: DialogTriggerProps) => {
       className={mergeClassName(dialogTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DialogTrigger.displayName = "DialogTrigger"
+DialogTrigger.displayName = "DialogTrigger";
 
 const DialogPortal = (props: DialogPortalProps) => {
-  return <BaseDialog.Portal {...props} />
-}
+  return <BaseDialog.Portal {...props} />;
+};
 
-DialogPortal.displayName = "DialogPortal"
+DialogPortal.displayName = "DialogPortal";
 
 const DialogBackdrop = ({ ref, className, ...props }: DialogBackdropProps) => {
   return (
@@ -59,10 +59,10 @@ const DialogBackdrop = ({ ref, className, ...props }: DialogBackdropProps) => {
       className={mergeClassName(dialogBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DialogBackdrop.displayName = "DialogBackdrop"
+DialogBackdrop.displayName = "DialogBackdrop";
 
 const DialogViewport = ({ ref, className, ...props }: DialogViewportProps) => {
   return (
@@ -71,10 +71,10 @@ const DialogViewport = ({ ref, className, ...props }: DialogViewportProps) => {
       className={mergeClassName(dialogViewportVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DialogViewport.displayName = "DialogViewport"
+DialogViewport.displayName = "DialogViewport";
 
 const DialogPopup = ({ ref, className, ...props }: DialogPopupProps) => {
   return (
@@ -83,10 +83,10 @@ const DialogPopup = ({ ref, className, ...props }: DialogPopupProps) => {
       className={mergeClassName(dialogPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DialogPopup.displayName = "DialogPopup"
+DialogPopup.displayName = "DialogPopup";
 
 const DialogTitle = ({ ref, className, ...props }: DialogTitleProps) => {
   return (
@@ -95,10 +95,10 @@ const DialogTitle = ({ ref, className, ...props }: DialogTitleProps) => {
       className={mergeClassName(dialogTitleVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DialogTitle.displayName = "DialogTitle"
+DialogTitle.displayName = "DialogTitle";
 
 const DialogDescription = ({
   ref,
@@ -111,10 +111,10 @@ const DialogDescription = ({
       className={mergeClassName(dialogDescriptionVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DialogDescription.displayName = "DialogDescription"
+DialogDescription.displayName = "DialogDescription";
 
 const DialogClose = ({
   ref,
@@ -130,10 +130,10 @@ const DialogClose = ({
     >
       {children ?? <X aria-hidden="true" size={16} />}
     </BaseDialog.Close>
-  )
-}
+  );
+};
 
-DialogClose.displayName = "DialogClose"
+DialogClose.displayName = "DialogClose";
 
 export {
   Dialog,
@@ -145,4 +145,4 @@ export {
   DialogTitle,
   DialogDescription,
   DialogClose,
-}
+};

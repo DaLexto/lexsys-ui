@@ -13,7 +13,7 @@ import type {
   TableHeaderProps,
   TableProps,
   TableRowProps,
-} from "./Table.types"
+} from "./Table.types";
 import {
   tableBodyClassName,
   tableCaptionClassName,
@@ -24,8 +24,8 @@ import {
   tableRowClassName,
   tableVariants,
   tableWrapperClassName,
-} from "./Table.variants"
-import { cn } from "@/lib/utils"
+} from "./Table.variants";
+import { cn } from "@/lib/utils";
 
 const Table = ({ ref, variant, className, ...props }: TableProps) => {
   return (
@@ -36,10 +36,10 @@ const Table = ({ ref, variant, className, ...props }: TableProps) => {
         {...props}
       />
     </div>
-  )
-}
+  );
+};
 
-Table.displayName = "Table"
+Table.displayName = "Table";
 
 const TableHeader = ({ ref, className, ...props }: TableHeaderProps) => {
   return (
@@ -48,18 +48,18 @@ const TableHeader = ({ ref, className, ...props }: TableHeaderProps) => {
       className={cn(tableHeaderClassName, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TableHeader.displayName = "TableHeader"
+TableHeader.displayName = "TableHeader";
 
 const TableBody = ({ ref, className, ...props }: TableBodyProps) => {
   return (
     <tbody ref={ref} className={cn(tableBodyClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-TableBody.displayName = "TableBody"
+TableBody.displayName = "TableBody";
 
 const TableFooter = ({ ref, className, ...props }: TableFooterProps) => {
   return (
@@ -68,34 +68,34 @@ const TableFooter = ({ ref, className, ...props }: TableFooterProps) => {
       className={cn(tableFooterClassName, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TableFooter.displayName = "TableFooter"
+TableFooter.displayName = "TableFooter";
 
 const TableRow = ({ ref, className, ...props }: TableRowProps) => {
   return (
     <tr ref={ref} className={cn(tableRowClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-TableRow.displayName = "TableRow"
+TableRow.displayName = "TableRow";
 
 const TableHead = ({ ref, className, ...props }: TableHeadProps) => {
   return (
     <th ref={ref} className={cn(tableHeadClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-TableHead.displayName = "TableHead"
+TableHead.displayName = "TableHead";
 
 const TableCell = ({ ref, className, ...props }: TableCellProps) => {
   return (
     <td ref={ref} className={cn(tableCellClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-TableCell.displayName = "TableCell"
+TableCell.displayName = "TableCell";
 
 const TableCaption = ({ ref, className, ...props }: TableCaptionProps) => {
   return (
@@ -104,10 +104,10 @@ const TableCaption = ({ ref, className, ...props }: TableCaptionProps) => {
       className={cn(tableCaptionClassName, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TableCaption.displayName = "TableCaption"
+TableCaption.displayName = "TableCaption";
 
 export {
   Table,
@@ -118,4 +118,4 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-}
+};

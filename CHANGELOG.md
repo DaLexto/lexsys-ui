@@ -17,6 +17,18 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+### Fixed
+
+- **Sidebar (Next.js)** — extensionless relative imports in Sidebar registry templates (`./Sidebar.utils` not `./Sidebar.utils.js`); CLI install rewriter strips stray `.js` suffixes on block/template installs
+
+### Changed
+
+- **Monorepo formatting** — Prettier `semi: true` in `prettier.config.mjs`; contributors should run `pnpm format` after pull so `pnpm format:check` stays green
+
+### Notes
+
+- **Next.js consumers on `0.1.4`:** after `lexsys update sidebar`, check `Sidebar.tsx` / `Sidebar.utils.ts` — remove `.js` from relative imports if present (`from "./Sidebar.utils"` not `from "./Sidebar.utils.js"`). Re-run `lexsys update sidebar` after **`0.1.5`** or patch imports manually until then
+
 ---
 
 ## [0.1.4] - 2026-06-10

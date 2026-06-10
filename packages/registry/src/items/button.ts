@@ -4,7 +4,7 @@
  * Registry metadata for the Button component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const buttonRegistryItem: RegistryItem = {
   name: "button",
@@ -38,4 +38,4 @@ export const buttonRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Button",
-}
+};

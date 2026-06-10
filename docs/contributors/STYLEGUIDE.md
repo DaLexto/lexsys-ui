@@ -70,11 +70,11 @@ set `displayName`, and export it from a single block at the bottom of the file:
 ```tsx
 const Button = ({ ref, variant, size, className, ...props }: ButtonProps) => {
   // ...
-}
+};
 
-Button.displayName = "Button"
+Button.displayName = "Button";
 
-export { Button }
+export { Button };
 ```
 
 Public prop types for ref-capable components should include a precise
@@ -91,9 +91,9 @@ merging with variant classes:
 ```tsx
 const buttonClassName: ButtonProps["className"] = (state) => {
   const userClassName =
-    typeof className === "function" ? className(state) : className
-  return cn(buttonVariants({ variant, size }), userClassName)
-}
+    typeof className === "function" ? className(state) : className;
+  return cn(buttonVariants({ variant, size }), userClassName);
+};
 ```
 
 Components that render plain HTML elements accept `className` as a plain string
@@ -111,9 +111,9 @@ the plain `cn()` merge pattern for HTML element wrappers.
 All class composition uses `cn`, which combines `clsx` and `tailwind-merge`:
 
 ```ts
-import { cn } from "../../utils/cn"
+import { cn } from "../../utils/cn";
 
-cn(variantClasses, userClassName)
+cn(variantClasses, userClassName);
 ```
 
 `cn` resolves Tailwind class conflicts correctly. Do not concatenate class
@@ -126,7 +126,7 @@ Canonical rules and vocabulary: [UI variants](../reference/ui/UI_VARIANTS.md).
 Define all visual variants using `cva` from `class-variance-authority`:
 
 ```ts
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const buttonVariants = cva("base classes here", {
   variants: {
@@ -137,14 +137,14 @@ export const buttonVariants = cva("base classes here", {
     variant: "primary",
     size: "md",
   },
-})
+});
 ```
 
 All variant classes in `.variants.ts` reference `--lex-*` CSS variables, not
 hardcoded color or spacing values:
 
 ```ts
-"bg-(--lex-button-primary-background) text-(--lex-button-primary-foreground)"
+"bg-(--lex-button-primary-background) text-(--lex-button-primary-foreground)";
 ```
 
 ---
@@ -230,15 +230,15 @@ packages/registry/templates/primitives/Button/    ← install template
 Use `import type` for type-only symbols:
 
 ```ts
-import type { ButtonProps } from "./Button.types"
-import type { RegistryItem } from "../registry.types.js"
+import type { ButtonProps } from "./Button.types";
+import type { RegistryItem } from "../registry.types.js";
 ```
 
 Use `node:` protocol for Node.js built-ins (in `cli` and `registry`):
 
 ```ts
-import { readFile, writeFile } from "node:fs/promises"
-import { join, dirname } from "node:path"
+import { readFile, writeFile } from "node:fs/promises";
+import { join, dirname } from "node:path";
 ```
 
 ### Module resolution
@@ -254,8 +254,8 @@ In `cli` and `registry`, always include `.js` on relative imports even when
 the source file is `.ts`:
 
 ```ts
-import { fileExists } from "./fs.js"
-import { getCwd } from "./context.js"
+import { fileExists } from "./fs.js";
+import { getCwd } from "./context.js";
 ```
 
 ### Narrowing and unknowns
@@ -265,8 +265,8 @@ types over type assertions:
 
 ```ts
 const isRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+};
 ```
 
 ### Exports
@@ -277,14 +277,14 @@ imports into another package's `src/` or `dist/`.
 In component files, export from a single block at the bottom:
 
 ```ts
-export { Button }
+export { Button };
 ```
 
 In `packages/ui/src/index.ts`, re-export component symbols and types explicitly:
 
 ```ts
-export * from "./components/Button/Button"
-export type * from "./components/Button/Button.types"
+export * from "./components/Button/Button";
+export type * from "./components/Button/Button.types";
 ```
 
 ---
@@ -363,12 +363,12 @@ All token groups export a typed object with a `name` or `component` key:
 export const buttonComponentTokens: ComponentTokenGroup = {
   component: "button",
   // token tree...
-}
+};
 
 export const spacingSemantics: SemanticTokenGroup = {
   name: "spacing",
   // token tree...
-}
+};
 ```
 
 The `component` / `name` key is the namespace in the merged token tree.

@@ -10,15 +10,15 @@ import type {
   DashboardShellProps,
   DashboardShellSidebarProps,
   DashboardShellBodyProps,
-} from "./DashboardShell.types"
+} from "./DashboardShell.types";
 import {
   dashboardShellContentClasses,
   dashboardShellHeaderClasses,
   dashboardShellMainClasses,
   dashboardShellSidebarClasses,
   dashboardShellClasses,
-} from "./DashboardShell.variants"
-import { cn } from "@/lib/utils"
+} from "./DashboardShell.variants";
+import { cn } from "@/lib/utils";
 
 const DashboardShell = ({
   ref,
@@ -34,10 +34,10 @@ const DashboardShell = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-DashboardShell.displayName = "DashboardShell"
+DashboardShell.displayName = "DashboardShell";
 
 const DashboardShellSidebar = ({
   ref,
@@ -53,10 +53,10 @@ const DashboardShellSidebar = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-DashboardShellSidebar.displayName = "DashboardShellSidebar"
+DashboardShellSidebar.displayName = "DashboardShellSidebar";
 
 const DashboardShellHeader = ({
   ref,
@@ -72,10 +72,10 @@ const DashboardShellHeader = ({
     >
       {children}
     </header>
-  )
-}
+  );
+};
 
-DashboardShellHeader.displayName = "DashboardShellHeader"
+DashboardShellHeader.displayName = "DashboardShellHeader";
 
 const DashboardShellMain = ({
   ref,
@@ -91,10 +91,10 @@ const DashboardShellMain = ({
     >
       {children}
     </main>
-  )
-}
+  );
+};
 
-DashboardShellMain.displayName = "DashboardShellMain"
+DashboardShellMain.displayName = "DashboardShellMain";
 
 const DashboardShellBody = ({
   ref,
@@ -110,10 +110,10 @@ const DashboardShellBody = ({
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-DashboardShellBody.displayName = "DashboardShellBody"
+DashboardShellBody.displayName = "DashboardShellBody";
 
 export {
   DashboardShell,
@@ -121,4 +121,4 @@ export {
   DashboardShellHeader,
   DashboardShellMain,
   DashboardShellBody,
-}
+};

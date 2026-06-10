@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
-import { Toggle } from "../../../src/components/primitives/Toggle/Toggle.js"
-import { ToggleGroup } from "../../../src/components/primitives/ToggleGroup/ToggleGroup.js"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { Toggle } from "../../../src/components/primitives/Toggle/Toggle.js";
+import { ToggleGroup } from "../../../src/components/primitives/ToggleGroup/ToggleGroup.js";
 
 describe("ToggleGroup render", () => {
   it("renders toggle group with custom className", () => {
@@ -14,11 +14,11 @@ describe("ToggleGroup render", () => {
           R
         </Toggle>
       </ToggleGroup>,
-    )
+    );
 
-    expect(screen.getByRole("group")).toHaveClass("custom-toggle-group")
+    expect(screen.getByRole("group")).toHaveClass("custom-toggle-group");
     expect(
       screen.getByRole("button", { name: "Align left" }),
-    ).toBeInTheDocument()
-  })
-})
+    ).toBeInTheDocument();
+  });
+});

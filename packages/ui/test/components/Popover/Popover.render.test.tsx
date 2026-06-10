@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Popover,
   PopoverPopup,
@@ -7,7 +7,7 @@ import {
   PopoverPositioner,
   PopoverTitle,
   PopoverTrigger,
-} from "../../../src/components/primitives/Popover/Popover.js"
+} from "../../../src/components/primitives/Popover/Popover.js";
 
 describe("Popover render", () => {
   it("renders popover title when defaultOpen", () => {
@@ -22,11 +22,11 @@ describe("Popover render", () => {
           </PopoverPositioner>
         </PopoverPortal>
       </Popover>,
-    )
+    );
 
-    expect(screen.getByText("Popover title")).toBeInTheDocument()
+    expect(screen.getByText("Popover title")).toBeInTheDocument();
     expect(
       screen.getByText("Popover title").closest(".custom-popover"),
-    ).not.toBeNull()
-  })
-})
+    ).not.toBeNull();
+  });
+});

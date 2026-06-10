@@ -4,22 +4,22 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "../../../utils/cn";
 
 export const fieldVariants = cva(
   [
     "grid gap-(--lex-field-gap) text-(--lex-field-foreground)",
     "data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
 export const fieldLabelVariants = cva(
   [
     "w-fit text-(length:--lex-field-label-font-size) font-(--lex-field-label-font-weight) leading-(--lex-field-label-font-line-height) tracking-(--lex-field-label-font-letter-spacing)",
     "text-(--lex-field-label-foreground) data-[invalid]:text-(--lex-field-label-invalid-foreground) data-[disabled]:cursor-not-allowed",
   ].join(" "),
-)
+);
 
 export const fieldControlVariants = cva(
   [
@@ -51,21 +51,21 @@ export const fieldControlVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const fieldDescriptionVariants = cva(
   [
     "m-0 text-(length:--lex-field-description-font-size) font-(--lex-field-description-font-weight) leading-(--lex-field-description-font-line-height) tracking-(--lex-field-description-font-letter-spacing)",
     "text-(--lex-field-description-foreground) data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
 export const fieldItemVariants = cva(
   [
     "grid gap-(--lex-field-item-gap)",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
 export const fieldErrorVariants = cva(
   [
@@ -74,4 +74,4 @@ export const fieldErrorVariants = cva(
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
     "transition-opacity duration-(--lex-field-transition-duration) ease-(--lex-field-transition-easing)",
   ].join(" "),
-)
+);

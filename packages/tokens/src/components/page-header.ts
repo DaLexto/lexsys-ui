@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const pageHeaderComponentTokens = componentTokens("page-header", {
   root: {
@@ -18,4 +18,4 @@ export const pageHeaderComponentTokens = componentTokens("page-header", {
   actions: {
     gap: { $value: "{spacing.control.gap.md}" },
   },
-})
+});

@@ -4,16 +4,16 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "../../../utils/cn";
 
-export const paginationRootVariants = cva("mx-auto flex w-full justify-center")
+export const paginationRootVariants = cva("mx-auto flex w-full justify-center");
 
 export const paginationContentVariants = cva(
   "flex flex-row flex-wrap items-center gap-(--lex-pagination-gap)",
-)
+);
 
-export const paginationItemVariants = cva("inline-flex items-center")
+export const paginationItemVariants = cva("inline-flex items-center");
 
 export const paginationLinkVariants = cva(
   [
@@ -40,8 +40,8 @@ export const paginationLinkVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const paginationEllipsisVariants = cva(
   "inline-flex h-(--lex-pagination-ellipsis-size) w-(--lex-pagination-ellipsis-size) items-center justify-center text-(--lex-pagination-ellipsis-foreground)",
-)
+);

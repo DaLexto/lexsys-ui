@@ -4,27 +4,27 @@
  * Reference Checkbox component implementation.
  */
 
-import { createContext, useContext } from "react"
-import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox"
+import { createContext, useContext } from "react";
+import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
 import type {
   CheckboxIndicatorProps,
   CheckboxProps,
   CheckboxSize,
-} from "./Checkbox.types"
+} from "./Checkbox.types";
 import {
   checkboxIndicatorVariants,
   checkboxVariants,
-} from "./Checkbox.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+} from "./Checkbox.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 interface CheckboxContextValue {
-  size: CheckboxSize
-  indeterminate?: boolean
+  size: CheckboxSize;
+  indeterminate?: boolean;
 }
 
-const CheckboxContext = createContext<CheckboxContextValue>({ size: "md" })
+const CheckboxContext = createContext<CheckboxContextValue>({ size: "md" });
 
-const useCheckboxContext = () => useContext(CheckboxContext)
+const useCheckboxContext = () => useContext(CheckboxContext);
 
 const Checkbox = ({
   ref,
@@ -45,17 +45,17 @@ const Checkbox = ({
         {children}
       </BaseCheckbox.Root>
     </CheckboxContext.Provider>
-  )
-}
+  );
+};
 
-Checkbox.displayName = "Checkbox"
+Checkbox.displayName = "Checkbox";
 
 const CheckboxIndicator = ({
   className,
   children,
   ...props
 }: CheckboxIndicatorProps) => {
-  const { indeterminate } = useCheckboxContext()
+  const { indeterminate } = useCheckboxContext();
 
   return (
     <BaseCheckbox.Indicator
@@ -64,9 +64,9 @@ const CheckboxIndicator = ({
     >
       {children ?? (indeterminate ? "-" : "✓")}
     </BaseCheckbox.Indicator>
-  )
-}
+  );
+};
 
-CheckboxIndicator.displayName = "CheckboxIndicator"
+CheckboxIndicator.displayName = "CheckboxIndicator";
 
-export { Checkbox, CheckboxIndicator }
+export { Checkbox, CheckboxIndicator };

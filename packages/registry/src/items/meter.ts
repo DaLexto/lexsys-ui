@@ -4,7 +4,7 @@
  * Registry metadata for the Meter component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const meterRegistryItem: RegistryItem = {
   name: "meter",
@@ -38,4 +38,4 @@ export const meterRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Meter",
-}
+};

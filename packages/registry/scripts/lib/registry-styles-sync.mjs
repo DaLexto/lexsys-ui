@@ -1,18 +1,18 @@
-import { readFile } from "node:fs/promises"
-import { resolve } from "node:path"
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
 export const DEFAULT_STYLE_FILES = [
   { fileName: "tokens.css", outputKey: "tokensCss" },
   { fileName: "theme.css", outputKey: "themeCss" },
-]
+];
 
 const stripGeneratedTimestamp = (content) => {
-  return content.replace(/^ \* Last generated: .+$\n/m, "")
-}
+  return content.replace(/^ \* Last generated: .+$\n/m, "");
+};
 
 export const normalizeContent = (content) => {
-  return stripGeneratedTimestamp(content.replace(/\r\n/g, "\n"))
-}
+  return stripGeneratedTimestamp(content.replace(/\r\n/g, "\n"));
+};
 
 export const findOutOfSyncStyleFiles = async ({
   outputs,
@@ -20,16 +20,16 @@ export const findOutOfSyncStyleFiles = async ({
   styleFiles = DEFAULT_STYLE_FILES,
   readFileImpl = readFile,
 }) => {
-  const outOfSyncFiles = []
+  const outOfSyncFiles = [];
 
   for (const { fileName, outputKey } of styleFiles) {
-    const registryPath = resolve(registryStylesRoot, fileName)
-    const expected = normalizeContent(outputs[outputKey])
+    const registryPath = resolve(registryStylesRoot, fileName);
+    const expected = normalizeContent(outputs[outputKey]);
 
-    let actual
+    let actual;
 
     try {
-      actual = normalizeContent(await readFileImpl(registryPath, "utf-8"))
+      actual = normalizeContent(await readFileImpl(registryPath, "utf-8"));
     } catch (error) {
       if (
         typeof error === "object" &&
@@ -37,20 +37,20 @@ export const findOutOfSyncStyleFiles = async ({
         "code" in error &&
         error.code === "ENOENT"
       ) {
-        outOfSyncFiles.push(`${fileName} (missing registry template file)`)
-        continue
+        outOfSyncFiles.push(`${fileName} (missing registry template file)`);
+        continue;
       }
 
-      throw error
+      throw error;
     }
 
     if (actual !== expected) {
-      outOfSyncFiles.push(fileName)
+      outOfSyncFiles.push(fileName);
     }
   }
 
   return {
     outOfSyncFiles,
     checkedCount: styleFiles.length,
-  }
-}
+  };
+};

@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Autocomplete,
   AutocompleteInput,
@@ -10,7 +10,7 @@ import {
   AutocompletePortal,
   AutocompletePositioner,
   AutocompleteTrigger,
-} from "../../../src/components/primitives/Autocomplete/Autocomplete.js"
+} from "../../../src/components/primitives/Autocomplete/Autocomplete.js";
 
 describe("Autocomplete render", () => {
   it("renders autocomplete input and list item when defaultOpen", () => {
@@ -30,13 +30,13 @@ describe("Autocomplete render", () => {
           </AutocompletePositioner>
         </AutocompletePortal>
       </Autocomplete>,
-    )
+    );
 
     expect(
       screen.getByRole("combobox", { name: "Country" }),
-    ).toBeInTheDocument()
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("option", { name: "United States" }),
-    ).toBeInTheDocument()
-  })
-})
+    ).toBeInTheDocument();
+  });
+});

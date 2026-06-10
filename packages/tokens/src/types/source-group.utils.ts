@@ -10,31 +10,31 @@ import type {
   BrandTokenGroup,
   PrimitiveTokenGroup,
   SemanticTokenGroup,
-} from "./group.types"
-import type { ThemeDefinition } from "./theme.types"
-import type { TokenTree } from "./token.types"
+} from "./group.types";
+import type { ThemeDefinition } from "./theme.types";
+import type { TokenTree } from "./token.types";
 
 export type TokenSourceGroup =
   | PrimitiveTokenGroup
   | BrandTokenGroup
   | SemanticTokenGroup
   | ComponentTokenGroup
-  | ThemeDefinition
+  | ThemeDefinition;
 
 export const getTokenTreeFromSourceGroup = (
   group: TokenSourceGroup,
 ): TokenTree => {
-  return group.tokens
-}
+  return group.tokens;
+};
 
 export const getNamedGroupNamespace = (
   group: PrimitiveTokenGroup | BrandTokenGroup | SemanticTokenGroup,
 ): string => {
-  return group.meta.name
-}
+  return group.meta.name;
+};
 
 export const getComponentGroupNamespace = (
   group: ComponentTokenGroup,
 ): string => {
-  return group.meta.component
-}
+  return group.meta.component;
+};

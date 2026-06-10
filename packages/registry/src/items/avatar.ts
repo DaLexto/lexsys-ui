@@ -4,7 +4,7 @@
  * Registry metadata for the Avatar component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const avatarRegistryItem: RegistryItem = {
   name: "avatar",
@@ -38,4 +38,4 @@ export const avatarRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Avatar",
-}
+};

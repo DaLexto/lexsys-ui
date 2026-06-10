@@ -4,7 +4,7 @@
  * Registry metadata for the Textarea component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const textareaRegistryItem: RegistryItem = {
   name: "textarea",
@@ -38,4 +38,4 @@ export const textareaRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Textarea",
-}
+};

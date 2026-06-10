@@ -4,7 +4,7 @@
  * Reference Breadcrumb component implementation.
  */
 
-import { ChevronRight, MoreHorizontal } from "lucide-react"
+import { ChevronRight, MoreHorizontal } from "lucide-react";
 import type {
   BreadcrumbEllipsisProps,
   BreadcrumbItemProps,
@@ -13,7 +13,7 @@ import type {
   BreadcrumbPageProps,
   BreadcrumbProps,
   BreadcrumbSeparatorProps,
-} from "./Breadcrumb.types"
+} from "./Breadcrumb.types";
 import {
   breadcrumbEllipsisVariants,
   breadcrumbItemVariants,
@@ -22,8 +22,8 @@ import {
   breadcrumbPageVariants,
   breadcrumbRootVariants,
   breadcrumbSeparatorVariants,
-} from "./Breadcrumb.variants"
-import { cn } from "@/lib/utils"
+} from "./Breadcrumb.variants";
+import { cn } from "@/lib/utils";
 
 const Breadcrumb = ({ ref, className, ...props }: BreadcrumbProps) => {
   return (
@@ -33,10 +33,10 @@ const Breadcrumb = ({ ref, className, ...props }: BreadcrumbProps) => {
       className={cn(breadcrumbRootVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Breadcrumb.displayName = "Breadcrumb"
+Breadcrumb.displayName = "Breadcrumb";
 
 const BreadcrumbList = ({ ref, className, ...props }: BreadcrumbListProps) => {
   return (
@@ -45,10 +45,10 @@ const BreadcrumbList = ({ ref, className, ...props }: BreadcrumbListProps) => {
       className={cn(breadcrumbListVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-BreadcrumbList.displayName = "BreadcrumbList"
+BreadcrumbList.displayName = "BreadcrumbList";
 
 const BreadcrumbItem = ({ ref, className, ...props }: BreadcrumbItemProps) => {
   return (
@@ -57,10 +57,10 @@ const BreadcrumbItem = ({ ref, className, ...props }: BreadcrumbItemProps) => {
       className={cn(breadcrumbItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-BreadcrumbItem.displayName = "BreadcrumbItem"
+BreadcrumbItem.displayName = "BreadcrumbItem";
 
 const BreadcrumbLink = ({ ref, className, ...props }: BreadcrumbLinkProps) => {
   return (
@@ -69,10 +69,10 @@ const BreadcrumbLink = ({ ref, className, ...props }: BreadcrumbLinkProps) => {
       className={cn(breadcrumbLinkVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-BreadcrumbLink.displayName = "BreadcrumbLink"
+BreadcrumbLink.displayName = "BreadcrumbLink";
 
 const BreadcrumbPage = ({ ref, className, ...props }: BreadcrumbPageProps) => {
   return (
@@ -84,10 +84,10 @@ const BreadcrumbPage = ({ ref, className, ...props }: BreadcrumbPageProps) => {
       className={cn(breadcrumbPageVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-BreadcrumbPage.displayName = "BreadcrumbPage"
+BreadcrumbPage.displayName = "BreadcrumbPage";
 
 const BreadcrumbSeparator = ({
   ref,
@@ -105,10 +105,10 @@ const BreadcrumbSeparator = ({
     >
       {children ?? <ChevronRight size={14} />}
     </span>
-  )
-}
+  );
+};
 
-BreadcrumbSeparator.displayName = "BreadcrumbSeparator"
+BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 
 const BreadcrumbEllipsis = ({
   ref,
@@ -126,10 +126,10 @@ const BreadcrumbEllipsis = ({
       <MoreHorizontal size={14} />
       <span className="sr-only">More</span>
     </span>
-  )
-}
+  );
+};
 
-BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis"
+BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis";
 
 export {
   Breadcrumb,
@@ -139,4 +139,4 @@ export {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
-}
+};

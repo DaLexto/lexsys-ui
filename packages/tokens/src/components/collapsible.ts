@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const collapsibleComponentTokens = componentTokens("collapsible", {
   background: { $value: "{color.background.surface}" },
@@ -47,4 +47,4 @@ export const collapsibleComponentTokens = componentTokens("collapsible", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-})
+});

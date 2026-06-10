@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const statsCardComponentTokens = componentTokens("stats-card", {
   value: {
@@ -16,4 +16,4 @@ export const statsCardComponentTokens = componentTokens("stats-card", {
       lineHeight: { $value: "{typography.body.xs.lineHeight}" },
     },
   },
-})
+});

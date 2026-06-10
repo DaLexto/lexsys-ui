@@ -12,7 +12,7 @@ import type {
   CardHeaderProps,
   CardProps,
   CardTitleProps,
-} from "./Card.types"
+} from "./Card.types";
 import {
   cardActionClassName,
   cardContentClassName,
@@ -21,8 +21,8 @@ import {
   cardHeaderClassName,
   cardTitleClassName,
   cardVariants,
-} from "./Card.variants"
-import { cn } from "@/lib/utils"
+} from "./Card.variants";
+import { cn } from "@/lib/utils";
 
 const Card = ({ ref, variant, className, ...props }: CardProps) => {
   return (
@@ -31,26 +31,26 @@ const Card = ({ ref, variant, className, ...props }: CardProps) => {
       className={cn(cardVariants({ variant }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Card.displayName = "Card"
+Card.displayName = "Card";
 
 const CardHeader = ({ ref, className, ...props }: CardHeaderProps) => {
   return (
     <div ref={ref} className={cn(cardHeaderClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-CardHeader.displayName = "CardHeader"
+CardHeader.displayName = "CardHeader";
 
 const CardTitle = ({ ref, className, ...props }: CardTitleProps) => {
   return (
     <h3 ref={ref} className={cn(cardTitleClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-CardTitle.displayName = "CardTitle"
+CardTitle.displayName = "CardTitle";
 
 const CardDescription = ({
   ref,
@@ -63,34 +63,34 @@ const CardDescription = ({
       className={cn(cardDescriptionClassName, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-CardDescription.displayName = "CardDescription"
+CardDescription.displayName = "CardDescription";
 
 const CardContent = ({ ref, className, ...props }: CardContentProps) => {
   return (
     <div ref={ref} className={cn(cardContentClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-CardContent.displayName = "CardContent"
+CardContent.displayName = "CardContent";
 
 const CardFooter = ({ ref, className, ...props }: CardFooterProps) => {
   return (
     <div ref={ref} className={cn(cardFooterClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-CardFooter.displayName = "CardFooter"
+CardFooter.displayName = "CardFooter";
 
 const CardAction = ({ ref, className, ...props }: CardActionProps) => {
   return (
     <div ref={ref} className={cn(cardActionClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-CardAction.displayName = "CardAction"
+CardAction.displayName = "CardAction";
 
 export {
   Card,
@@ -100,4 +100,4 @@ export {
   CardContent,
   CardFooter,
   CardAction,
-}
+};

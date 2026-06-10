@@ -5,31 +5,31 @@
  * @description Validates cross-layer token reference contracts.
  */
 
-import type { TokenTree } from "../../../types"
+import type { TokenTree } from "../../../types";
 import {
   collectLeafPaths,
   collectReferenceUsages,
-} from "../../shared/tree.utils"
+} from "../../shared/tree.utils";
 import {
   isTokenLeaf,
   isTokenMetadataKey,
   isTokenTree,
   toPathString,
-} from "../../resolver/shared/shared.resolver.utils"
+} from "../../resolver/shared/shared.resolver.utils";
 import type {
   LayerValidationInput,
   LayerValidationResult,
   LayerViolation,
   LayerViolationCode,
-} from "./layers.types"
+} from "./layers.types";
 
 const createLayerViolation = (
   code: LayerViolationCode,
   message: string,
   usage: {
-    reference: string
-    sourcePath: string
-    targetPath: string
+    reference: string;
+    sourcePath: string;
+    targetPath: string;
   },
 ): LayerViolation => {
   return {
@@ -38,45 +38,45 @@ const createLayerViolation = (
     sourcePath: usage.sourcePath,
     reference: usage.reference,
     targetPath: usage.targetPath,
-  }
-}
+  };
+};
 
 const collectThemeOnlyPaths = (input: LayerValidationInput): Set<string> => {
-  const semanticPaths = collectLeafPaths(input.semanticTokens)
-  const themeOnlyPaths = new Set<string>()
+  const semanticPaths = collectLeafPaths(input.semanticTokens);
+  const themeOnlyPaths = new Set<string>();
 
   for (const theme of input.themeTokens) {
     for (const path of collectLeafPaths(theme.tokens)) {
       if (!semanticPaths.has(path)) {
-        themeOnlyPaths.add(path)
+        themeOnlyPaths.add(path);
       }
     }
   }
 
-  return themeOnlyPaths
-}
+  return themeOnlyPaths;
+};
 
 const collectBrandComponentIntentViolations = (
   input: LayerValidationInput,
 ): LayerViolation[] => {
-  const componentNamespaces = new Set(Object.keys(input.componentTokens))
-  const violations: LayerViolation[] = []
+  const componentNamespaces = new Set(Object.keys(input.componentTokens));
+  const violations: LayerViolation[] = [];
 
   const visit = (tree: TokenTree, path: string[] = []): void => {
     if (isTokenLeaf(tree)) {
-      return
+      return;
     }
 
     if (!isTokenTree(tree)) {
-      return
+      return;
     }
 
     for (const [key, value] of Object.entries(tree)) {
       if (isTokenMetadataKey(key)) {
-        continue
+        continue;
       }
 
-      const nextPath = [...path, key]
+      const nextPath = [...path, key];
 
       if (componentNamespaces.has(key)) {
         violations.push({
@@ -85,30 +85,30 @@ const collectBrandComponentIntentViolations = (
           sourcePath: toPathString(nextPath),
           reference: "",
           targetPath: toPathString(nextPath),
-        })
+        });
       }
 
       if (isTokenLeaf(value) || isTokenTree(value)) {
-        visit(value as TokenTree, nextPath)
+        visit(value as TokenTree, nextPath);
       }
     }
-  }
+  };
 
-  visit(input.brandTokens)
+  visit(input.brandTokens);
 
-  return violations
-}
+  return violations;
+};
 
 export const validateTokenLayerContracts = (
   input: LayerValidationInput,
 ): LayerValidationResult => {
-  const primitivePaths = collectLeafPaths(input.primitiveTokens)
-  const brandPaths = collectLeafPaths(input.brandTokens)
-  const componentPaths = collectLeafPaths(input.componentTokens)
-  const themeOnlyPaths = collectThemeOnlyPaths(input)
+  const primitivePaths = collectLeafPaths(input.primitiveTokens);
+  const brandPaths = collectLeafPaths(input.brandTokens);
+  const componentPaths = collectLeafPaths(input.componentTokens);
+  const themeOnlyPaths = collectThemeOnlyPaths(input);
   const violations: LayerViolation[] = [
     ...collectBrandComponentIntentViolations(input),
-  ]
+  ];
 
   for (const usage of collectReferenceUsages(input.componentTokens)) {
     if (primitivePaths.has(usage.targetPath)) {
@@ -118,8 +118,8 @@ export const validateTokenLayerContracts = (
           `Component token "${usage.sourcePath}" references primitive token "${usage.targetPath}".`,
           usage,
         ),
-      )
-      continue
+      );
+      continue;
     }
 
     if (
@@ -132,8 +132,8 @@ export const validateTokenLayerContracts = (
           `Component token "${usage.sourcePath}" references brand token "${usage.targetPath}".`,
           usage,
         ),
-      )
-      continue
+      );
+      continue;
     }
 
     if (themeOnlyPaths.has(usage.targetPath)) {
@@ -143,7 +143,7 @@ export const validateTokenLayerContracts = (
           `Component token "${usage.sourcePath}" references theme-only token "${usage.targetPath}".`,
           usage,
         ),
-      )
+      );
     }
   }
 
@@ -155,7 +155,7 @@ export const validateTokenLayerContracts = (
           `Semantic token "${usage.sourcePath}" references component token "${usage.targetPath}".`,
           usage,
         ),
-      )
+      );
     }
   }
 
@@ -168,28 +168,28 @@ export const validateTokenLayerContracts = (
             `Theme token "${theme.name}.${usage.sourcePath}" references component token "${usage.targetPath}".`,
             usage,
           ),
-        )
+        );
       }
     }
   }
 
-  return { violations }
-}
+  return { violations };
+};
 
 export const validateTokenLayerContractsStrict = (
   input: LayerValidationInput,
 ): void => {
-  const { violations } = validateTokenLayerContracts(input)
+  const { violations } = validateTokenLayerContracts(input);
 
   if (violations.length === 0) {
-    return
+    return;
   }
 
   const formattedViolations = violations
     .map((violation) => {
-      return `- [${violation.code}] ${violation.message}`
+      return `- [${violation.code}] ${violation.message}`;
     })
-    .join("\n")
+    .join("\n");
 
-  throw new Error(`Token layer validation failed:\n${formattedViolations}`)
-}
+  throw new Error(`Token layer validation failed:\n${formattedViolations}`);
+};

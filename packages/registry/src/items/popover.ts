@@ -4,7 +4,7 @@
  * Registry metadata for the Popover component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const popoverRegistryItem: RegistryItem = {
   name: "popover",
@@ -39,4 +39,4 @@ export const popoverRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Popover",
-}
+};

@@ -4,18 +4,18 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "@/lib/utils"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "@/lib/utils";
 
 export const accordionVariants = cva(
   "grid overflow-hidden rounded-(--lex-accordion-radius) border border-(--lex-accordion-border-color) bg-(--lex-accordion-background) text-(--lex-accordion-foreground)",
-)
+);
 
 export const accordionItemVariants = cva(
   "border-b border-(--lex-accordion-item-border-color) last:border-b-0",
-)
+);
 
-export const accordionHeaderVariants = cva("flex")
+export const accordionHeaderVariants = cva("flex");
 
 export const accordionTriggerVariants = cva(
   [
@@ -25,8 +25,8 @@ export const accordionTriggerVariants = cva(
     "outline-none hover:bg-(--lex-accordion-trigger-background-hover) focus-visible:ring-(length:--lex-accordion-focus-ring-width) focus-visible:ring-inset focus-visible:ring-(--lex-accordion-focus-ring-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const accordionPanelVariants = cva(
   "px-(--lex-accordion-panel-padding-x) pb-(--lex-accordion-panel-padding-bottom) text-(length:--lex-accordion-panel-font-size) leading-(--lex-accordion-panel-font-line-height) text-(--lex-accordion-panel-foreground)",
-)
+);

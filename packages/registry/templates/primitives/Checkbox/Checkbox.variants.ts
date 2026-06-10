@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const checkboxVariants = cva(
   [
@@ -28,8 +28,8 @@ export const checkboxVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const checkboxIndicatorVariants = cva(
   "leading-(--lex-checkbox-label-font-line-height)",
-)
+);

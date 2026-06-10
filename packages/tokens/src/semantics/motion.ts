@@ -1,4 +1,4 @@
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const motionSemantics = semanticTokens("motion", {
   duration: {
@@ -26,4 +26,4 @@ export const motionSemantics = semanticTokens("motion", {
       panel: { $value: "{size.64}" },
     },
   },
-})
+});

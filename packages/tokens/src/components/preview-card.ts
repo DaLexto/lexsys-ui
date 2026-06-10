@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const previewCardComponentTokens = componentTokens("preview-card", {
   backdrop: {
@@ -35,4 +35,4 @@ export const previewCardComponentTokens = componentTokens("preview-card", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

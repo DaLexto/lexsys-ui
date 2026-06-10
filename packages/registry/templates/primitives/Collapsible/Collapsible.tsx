@@ -4,19 +4,19 @@
  * Reference Collapsible component implementation.
  */
 
-import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible"
-import { Plus } from "lucide-react"
+import { Collapsible as BaseCollapsible } from "@base-ui/react/collapsible";
+import { Plus } from "lucide-react";
 import type {
   CollapsiblePanelProps,
   CollapsibleProps,
   CollapsibleTriggerProps,
-} from "./Collapsible.types"
+} from "./Collapsible.types";
 import {
   collapsiblePanelVariants,
   collapsibleTriggerVariants,
   collapsibleVariants,
-} from "./Collapsible.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./Collapsible.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Collapsible = ({
   ref,
@@ -30,10 +30,10 @@ const Collapsible = ({
       className={mergeClassName(collapsibleVariants({ variant }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Collapsible.displayName = "Collapsible"
+Collapsible.displayName = "Collapsible";
 
 const CollapsibleTrigger = ({
   ref,
@@ -50,10 +50,10 @@ const CollapsibleTrigger = ({
       <span>{children}</span>
       <Plus aria-hidden="true" />
     </BaseCollapsible.Trigger>
-  )
-}
+  );
+};
 
-CollapsibleTrigger.displayName = "CollapsibleTrigger"
+CollapsibleTrigger.displayName = "CollapsibleTrigger";
 
 const CollapsiblePanel = ({
   ref,
@@ -66,9 +66,9 @@ const CollapsiblePanel = ({
       className={mergeClassName(collapsiblePanelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-CollapsiblePanel.displayName = "CollapsiblePanel"
+CollapsiblePanel.displayName = "CollapsiblePanel";
 
-export { Collapsible, CollapsibleTrigger, CollapsiblePanel }
+export { Collapsible, CollapsibleTrigger, CollapsiblePanel };

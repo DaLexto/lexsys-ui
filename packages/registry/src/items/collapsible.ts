@@ -4,7 +4,7 @@
  * Registry metadata for the Collapsible component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const collapsibleRegistryItem: RegistryItem = {
   name: "collapsible",
@@ -39,4 +39,4 @@ export const collapsibleRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Collapsible",
-}
+};

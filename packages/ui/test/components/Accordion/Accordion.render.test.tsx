@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Accordion,
   AccordionHeader,
   AccordionItem,
   AccordionPanel,
   AccordionTrigger,
-} from "../../../src/components/primitives/Accordion/Accordion.js"
+} from "../../../src/components/primitives/Accordion/Accordion.js";
 
 describe("Accordion render", () => {
   it("renders trigger and panel when defaultOpen", () => {
@@ -19,9 +19,9 @@ describe("Accordion render", () => {
           <AccordionPanel>Accordion panel body</AccordionPanel>
         </AccordionItem>
       </Accordion>,
-    )
+    );
 
-    expect(screen.getByRole("button", { name: /Details/ })).toBeInTheDocument()
-    expect(screen.getByText("Accordion panel body")).toBeVisible()
-  })
-})
+    expect(screen.getByRole("button", { name: /Details/ })).toBeInTheDocument();
+    expect(screen.getByText("Accordion panel body")).toBeVisible();
+  });
+});

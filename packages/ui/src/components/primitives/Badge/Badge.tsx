@@ -4,9 +4,9 @@
  * Reference Badge component implementation.
  */
 
-import type { BadgeProps } from "./Badge.types"
-import { badgeVariants } from "./Badge.variants"
-import { cn } from "../../../utils/cn"
+import type { BadgeProps } from "./Badge.types";
+import { badgeVariants } from "./Badge.variants";
+import { cn } from "../../../utils/cn";
 
 const Badge = ({
   ref,
@@ -22,9 +22,9 @@ const Badge = ({
       className={cn(badgeVariants({ variant, appearance, size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Badge.displayName = "Badge"
+Badge.displayName = "Badge";
 
-export { Badge }
+export { Badge };

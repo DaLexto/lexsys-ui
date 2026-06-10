@@ -4,7 +4,7 @@
  * Defines Card visual slots using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const cardVariants = cva(
   [
@@ -28,22 +28,22 @@ export const cardVariants = cva(
       variant: "surface",
     },
   },
-)
+);
 
 export const cardHeaderClassName =
-  "grid grid-cols-[1fr_auto] items-start gap-x-(--lex-card-gap-md) gap-y-(--lex-card-gap-sm) p-(--lex-card-padding) pb-(--lex-card-header-padding-bottom)"
+  "grid grid-cols-[1fr_auto] items-start gap-x-(--lex-card-gap-md) gap-y-(--lex-card-gap-sm) p-(--lex-card-padding) pb-(--lex-card-header-padding-bottom)";
 
 export const cardTitleClassName =
-  "col-start-1 text-(length:--lex-card-title-font-size) font-(--lex-card-title-font-weight) leading-(--lex-card-title-font-line-height) tracking-(--lex-card-title-font-letter-spacing) text-(--lex-card-title-foreground)"
+  "col-start-1 text-(length:--lex-card-title-font-size) font-(--lex-card-title-font-weight) leading-(--lex-card-title-font-line-height) tracking-(--lex-card-title-font-letter-spacing) text-(--lex-card-title-foreground)";
 
 export const cardDescriptionClassName =
-  "col-start-1 text-(length:--lex-card-description-font-size) leading-(--lex-card-description-font-line-height) text-(--lex-card-description-foreground)"
+  "col-start-1 text-(length:--lex-card-description-font-size) leading-(--lex-card-description-font-line-height) text-(--lex-card-description-foreground)";
 
 export const cardContentClassName =
-  "p-(--lex-card-padding) pt-(--lex-card-content-padding-top) text-(length:--lex-card-content-font-size) leading-(--lex-card-content-font-line-height)"
+  "p-(--lex-card-padding) pt-(--lex-card-content-padding-top) text-(length:--lex-card-content-font-size) leading-(--lex-card-content-font-line-height)";
 
 export const cardFooterClassName =
-  "flex items-center gap-(--lex-card-gap-md) p-(--lex-card-padding) pt-(--lex-card-footer-padding-top)"
+  "flex items-center gap-(--lex-card-gap-md) p-(--lex-card-padding) pt-(--lex-card-footer-padding-top)";
 
 export const cardActionClassName =
-  "col-start-2 row-start-1 row-span-2 flex items-center gap-(--lex-card-gap-sm)"
+  "col-start-2 row-start-1 row-span-2 flex items-center gap-(--lex-card-gap-sm)";

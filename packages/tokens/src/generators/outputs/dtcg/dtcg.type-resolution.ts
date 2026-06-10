@@ -5,15 +5,19 @@
  * @description DTCG token type inference helpers.
  */
 
-import type { TokenColorValue, TokenLeaf, TokenUnitValue } from "../../../types"
+import type {
+  TokenColorValue,
+  TokenLeaf,
+  TokenUnitValue,
+} from "../../../types";
 import {
   isTypographySlotKey,
   resolveCompositeSlotType,
   resolveCompositeTypeFromAtomicPath,
-} from "../../../engine/composite"
-import { toTokenName, type FlattenedTokenEntry } from "../../shared"
+} from "../../../engine/composite";
+import { toTokenName, type FlattenedTokenEntry } from "../../shared";
 
-import type { DtcgGeneratorOptions, DtcgTokenType } from "./dtcg.types"
+import type { DtcgGeneratorOptions, DtcgTokenType } from "./dtcg.types";
 
 /**
  * Default DTCG type mapping by normalized token group/name.
@@ -49,7 +53,7 @@ export const DEFAULT_TOKEN_TYPE_BY_GROUP: Readonly<
   "motion-easing": "cubicBezier",
 
   "typography-family": "fontFamily",
-}
+};
 
 const DEFAULT_TOKEN_TYPE_BY_SUFFIX: Readonly<Record<string, DtcgTokenType>> = {
   "font-family": "fontFamily",
@@ -57,43 +61,43 @@ const DEFAULT_TOKEN_TYPE_BY_SUFFIX: Readonly<Record<string, DtcgTokenType>> = {
   "font-weight": "fontWeight",
   "letter-spacing": "letterSpacing",
   "line-height": "number",
-}
+};
 
-const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
+const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/;
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+};
 
 const isDtcgUnitValue = (value: unknown): value is TokenUnitValue => {
   return (
     isRecord(value) &&
     typeof value.value === "number" &&
     typeof value.unit === "string"
-  )
-}
+  );
+};
 
 const isDtcgColorValue = (value: unknown): value is TokenColorValue => {
   return (
     isRecord(value) &&
     typeof value.colorSpace === "string" &&
     Array.isArray(value.components)
-  )
-}
+  );
+};
 
 const resolveDtcgObjectValueType = (
   value: unknown,
 ): DtcgTokenType | undefined => {
   if (isDtcgColorValue(value)) {
-    return "color"
+    return "color";
   }
 
   if (!isDtcgUnitValue(value)) {
-    return undefined
+    return undefined;
   }
 
-  return value.unit === "ms" || value.unit === "s" ? "duration" : "dimension"
-}
+  return value.unit === "ms" || value.unit === "s" ? "duration" : "dimension";
+};
 
 const resolveTokenNameType = (
   tokenName: string,
@@ -101,102 +105,102 @@ const resolveTokenNameType = (
 ): DtcgTokenType | undefined => {
   const sortedTypeEntries = Object.entries(tokenTypeByGroup).sort(
     ([left], [right]) => right.length - left.length,
-  )
+  );
 
   for (const [groupName, tokenType] of sortedTypeEntries) {
     if (tokenName === groupName || tokenName.startsWith(`${groupName}-`)) {
-      return tokenType
+      return tokenType;
     }
   }
 
   const sortedSuffixEntries = Object.entries(DEFAULT_TOKEN_TYPE_BY_SUFFIX).sort(
     ([left], [right]) => right.length - left.length,
-  )
+  );
 
   for (const [suffix, tokenType] of sortedSuffixEntries) {
     if (tokenName === suffix || tokenName.endsWith(`-${suffix}`)) {
-      return tokenType
+      return tokenType;
     }
   }
 
-  return undefined
-}
+  return undefined;
+};
 
 const getReferenceTokenName = (value: unknown): string | undefined => {
   if (typeof value !== "string") {
-    return undefined
+    return undefined;
   }
 
-  const reference = value.match(STRICT_REFERENCE_PATTERN)
-  const referencePath = reference?.[1]
+  const reference = value.match(STRICT_REFERENCE_PATTERN);
+  const referencePath = reference?.[1];
 
   if (referencePath === undefined) {
-    return undefined
+    return undefined;
   }
 
-  return referencePath.replace(/\./g, "-")
-}
+  return referencePath.replace(/\./g, "-");
+};
 
 const resolveCompositeSlotTypeFromPath = (
   path: string[],
 ): DtcgTokenType | undefined => {
-  const compositeType = resolveCompositeTypeFromAtomicPath(path)
+  const compositeType = resolveCompositeTypeFromAtomicPath(path);
 
   if (compositeType === undefined) {
-    return undefined
+    return undefined;
   }
 
-  const slotKey = path[path.length - 1]
+  const slotKey = path[path.length - 1];
 
   if (slotKey === undefined) {
-    return undefined
+    return undefined;
   }
 
-  const scalarType = resolveCompositeSlotType(compositeType, slotKey)
+  const scalarType = resolveCompositeSlotType(compositeType, slotKey);
 
   if (scalarType === undefined) {
-    return undefined
+    return undefined;
   }
 
   if (compositeType === "typography" && !isTypographySlotKey(slotKey)) {
-    return undefined
+    return undefined;
   }
 
-  return scalarType
-}
+  return scalarType;
+};
 
 export const resolveDtcgFlattenedTokenType = (
   entry: FlattenedTokenEntry,
   options: Required<DtcgGeneratorOptions>,
 ): DtcgTokenType => {
   if (entry.type !== undefined) {
-    return entry.type
+    return entry.type;
   }
 
-  const compositeSlotType = resolveCompositeSlotTypeFromPath(entry.path)
+  const compositeSlotType = resolveCompositeSlotTypeFromPath(entry.path);
 
   if (compositeSlotType !== undefined) {
-    return compositeSlotType
+    return compositeSlotType;
   }
 
-  const tokenName = entry.path.join("-")
+  const tokenName = entry.path.join("-");
   const pathTokenType = resolveTokenNameType(
     tokenName,
     options.tokenTypeByGroup,
-  )
+  );
 
   if (pathTokenType !== undefined) {
-    return pathTokenType
+    return pathTokenType;
   }
 
-  const referenceTokenName = getReferenceTokenName(entry.value)
+  const referenceTokenName = getReferenceTokenName(entry.value);
   const referenceTokenType =
     referenceTokenName === undefined
       ? undefined
-      : resolveTokenNameType(referenceTokenName, options.tokenTypeByGroup)
+      : resolveTokenNameType(referenceTokenName, options.tokenTypeByGroup);
 
-  return referenceTokenType ?? "string"
-}
+  return referenceTokenType ?? "string";
+};
 
 export const resolveDtcgTokenLeafType = (
   leaf: TokenLeaf,
@@ -204,44 +208,44 @@ export const resolveDtcgTokenLeafType = (
   options: Required<DtcgGeneratorOptions>,
 ): DtcgTokenType => {
   if (leaf.$type !== undefined) {
-    return leaf.$type
+    return leaf.$type;
   }
 
-  const compositeSlotType = resolveCompositeSlotTypeFromPath(path)
+  const compositeSlotType = resolveCompositeSlotTypeFromPath(path);
 
   if (compositeSlotType !== undefined) {
-    return compositeSlotType
+    return compositeSlotType;
   }
 
-  const tokenName = toTokenName(path, {})
+  const tokenName = toTokenName(path, {});
   const pathTokenType = resolveTokenNameType(
     tokenName,
     options.tokenTypeByGroup,
-  )
+  );
 
   if (pathTokenType !== undefined) {
-    return pathTokenType
+    return pathTokenType;
   }
 
-  const referenceTokenName = getReferenceTokenName(leaf.$value)
+  const referenceTokenName = getReferenceTokenName(leaf.$value);
   const referenceTokenType =
     referenceTokenName === undefined
       ? undefined
-      : resolveTokenNameType(referenceTokenName, options.tokenTypeByGroup)
+      : resolveTokenNameType(referenceTokenName, options.tokenTypeByGroup);
 
   if (referenceTokenType !== undefined) {
-    return referenceTokenType
+    return referenceTokenType;
   }
 
-  const objectValueType = resolveDtcgObjectValueType(leaf.$value)
+  const objectValueType = resolveDtcgObjectValueType(leaf.$value);
 
   if (objectValueType !== undefined) {
-    return objectValueType
+    return objectValueType;
   }
 
   if (typeof leaf.$value === "number") {
-    return "number"
+    return "number";
   }
 
-  return "string"
-}
+  return "string";
+};

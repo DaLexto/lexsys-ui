@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const checkboxGroupComponentTokens = componentTokens("checkbox-group", {
   gap: { $value: "{spacing.control.gap.md}" },
@@ -10,4 +10,4 @@ export const checkboxGroupComponentTokens = componentTokens("checkbox-group", {
       lineHeight: { $value: "{typography.label.sm.lineHeight}" },
     },
   },
-})
+});

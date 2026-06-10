@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "@/lib/utils"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "@/lib/utils";
 
 export const collapsibleVariants = cva(
   "grid rounded-(--lex-collapsible-radius) text-(--lex-collapsible-foreground)",
@@ -21,7 +21,7 @@ export const collapsibleVariants = cva(
       variant: "surface",
     },
   },
-)
+);
 
 export const collapsibleTriggerVariants = cva(
   [
@@ -32,7 +32,7 @@ export const collapsibleTriggerVariants = cva(
     disabledStateClasses,
     "[&>svg]:size-(--lex-collapsible-trigger-icon-size) [&>svg]:transition-transform data-[panel-open]:[&>svg]:rotate-45",
   ].join(" "),
-)
+);
 
 export const collapsiblePanelVariants = cva(
   [
@@ -41,4 +41,4 @@ export const collapsiblePanelVariants = cva(
     "transition-[height,opacity] duration-(--lex-collapsible-transition-duration) ease-(--lex-collapsible-transition-easing)",
     "data-[starting-style]:h-0 data-[starting-style]:opacity-0 data-[ending-style]:h-0 data-[ending-style]:opacity-0",
   ].join(" "),
-)
+);

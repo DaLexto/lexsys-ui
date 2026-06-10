@@ -4,10 +4,10 @@
  * Reference Form component implementation.
  */
 
-import { Form as BaseForm } from "@base-ui/react/form"
-import type { FormProps } from "./Form.types"
-import { formVariants } from "./Form.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+import { Form as BaseForm } from "@base-ui/react/form";
+import type { FormProps } from "./Form.types";
+import { formVariants } from "./Form.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const Form = ({ ref, className, ...props }: FormProps) => {
   return (
@@ -16,9 +16,9 @@ const Form = ({ ref, className, ...props }: FormProps) => {
       className={mergeClassName(formVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Form.displayName = "Form"
+Form.displayName = "Form";
 
-export { Form }
+export { Form };

@@ -1,4 +1,4 @@
-import { brandTokens } from "../types/authoring"
+import { brandTokens } from "../types/authoring";
 
 export const lexsysBrand = brandTokens("brand", {
   $description: "Brand tokens for Lexsys.",
@@ -20,4 +20,4 @@ export const lexsysBrand = brandTokens("brand", {
       disabled: { $value: "{color.neutral.200}" },
     },
   },
-})
+});

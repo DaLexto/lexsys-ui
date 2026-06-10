@@ -1,31 +1,31 @@
-import type { RegistryItem } from "./registry.types.js"
+import type { RegistryItem } from "./registry.types.js";
 
-export type InstallLayer = "primitive" | "block" | "template"
+export type InstallLayer = "primitive" | "block" | "template";
 
 export const getInstallLayer = (item: RegistryItem): InstallLayer | null => {
   if (item.type === "component") {
-    return "primitive"
+    return "primitive";
   }
 
   if (item.type !== "block") {
-    return null
+    return null;
   }
 
-  const firstFile = item.files[0] ?? ""
+  const firstFile = item.files[0] ?? "";
 
   if (firstFile.startsWith("blocks/")) {
-    return "block"
+    return "block";
   }
 
   if (firstFile.startsWith("templates/")) {
-    return "template"
+    return "template";
   }
 
-  return null
-}
+  return null;
+};
 
 export const getDependencyInstallLayer = (
   item: RegistryItem,
 ): InstallLayer | null => {
-  return getInstallLayer(item)
-}
+  return getInstallLayer(item);
+};

@@ -4,20 +4,20 @@
  * Reference Tabs component implementation.
  */
 
-import { Tabs as BaseTabs } from "@base-ui/react/tabs"
+import { Tabs as BaseTabs } from "@base-ui/react/tabs";
 import type {
   TabsListProps,
   TabsPanelProps,
   TabsProps,
   TabsTabProps,
-} from "./Tabs.types"
+} from "./Tabs.types";
 import {
   tabsListVariants,
   tabsPanelVariants,
   tabsRootVariants,
   tabsTabVariants,
-} from "./Tabs.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./Tabs.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Tabs = ({ ref, className, ...props }: TabsProps) => {
   return (
@@ -26,10 +26,10 @@ const Tabs = ({ ref, className, ...props }: TabsProps) => {
       className={mergeClassName(tabsRootVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Tabs.displayName = "Tabs"
+Tabs.displayName = "Tabs";
 
 const TabsList = ({ ref, className, ...props }: TabsListProps) => {
   return (
@@ -38,10 +38,10 @@ const TabsList = ({ ref, className, ...props }: TabsListProps) => {
       className={mergeClassName(tabsListVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TabsList.displayName = "TabsList"
+TabsList.displayName = "TabsList";
 
 const TabsTab = ({ ref, className, ...props }: TabsTabProps) => {
   return (
@@ -50,10 +50,10 @@ const TabsTab = ({ ref, className, ...props }: TabsTabProps) => {
       className={mergeClassName(tabsTabVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TabsTab.displayName = "TabsTab"
+TabsTab.displayName = "TabsTab";
 
 const TabsPanel = ({ ref, className, ...props }: TabsPanelProps) => {
   return (
@@ -62,9 +62,9 @@ const TabsPanel = ({ ref, className, ...props }: TabsPanelProps) => {
       className={mergeClassName(tabsPanelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TabsPanel.displayName = "TabsPanel"
+TabsPanel.displayName = "TabsPanel";
 
-export { Tabs, TabsList, TabsTab, TabsPanel }
+export { Tabs, TabsList, TabsTab, TabsPanel };

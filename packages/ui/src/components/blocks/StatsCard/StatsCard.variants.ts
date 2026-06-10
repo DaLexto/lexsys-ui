@@ -5,8 +5,8 @@
  */
 
 export const statsCardClasses = (): string => {
-  return "lex-stats-card"
-}
+  return "lex-stats-card";
+};
 
 export const statsCardValueClasses = (): string => {
   return [
@@ -16,8 +16,8 @@ export const statsCardValueClasses = (): string => {
     "leading-(--lex-stats-card-value-font-line-height)",
     "text-(--lex-stats-card-value-foreground)",
     "m-0",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const statsCardTrendClasses = (): string => {
   return [
@@ -25,5 +25,5 @@ export const statsCardTrendClasses = (): string => {
     "text-(length:--lex-stats-card-trend-font-size)",
     "leading-(--lex-stats-card-trend-font-line-height)",
     "text-(--lex-stats-card-trend-foreground)",
-  ].join(" ")
-}
+  ].join(" ");
+};

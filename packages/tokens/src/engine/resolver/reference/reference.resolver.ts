@@ -11,9 +11,9 @@ import type {
   ResolverError,
   ResolverOptions,
   ResolverWarning,
-} from "./reference.types"
-import { resolveReferenceChain } from "./reference-chain"
-import { resolveLeafValue } from "../values/values.resolver"
+} from "./reference.types";
+import { resolveReferenceChain } from "./reference-chain";
+import { resolveLeafValue } from "../values/values.resolver";
 import {
   createResolverError,
   DEFAULT_RESOLVER_OPTIONS,
@@ -22,20 +22,20 @@ import {
   isTokenMetadataKey,
   isTokenTree,
   toPathString,
-} from "../shared/shared.resolver.utils"
+} from "../shared/shared.resolver.utils";
 import type {
   TokenLeaf,
   TokenNode,
   TokenTree,
   TokenValue,
-} from "../../../types"
+} from "../../../types";
 
 const cloneLeafWithValue = (leaf: TokenLeaf, value: TokenValue): TokenLeaf => {
   return {
     ...leaf,
     $value: value,
-  }
-}
+  };
+};
 
 export const resolveReference = (
   root: TokenTree,
@@ -50,14 +50,14 @@ export const resolveReference = (
     options,
     sourcePath,
     chain,
-  )
+  );
 
   return {
     value: result.value,
     errors: result.errors,
     warnings: result.warnings,
-  }
-}
+  };
+};
 
 const resolveNode = (
   root: TokenTree,
@@ -65,40 +65,40 @@ const resolveNode = (
   path: string[],
   options: ResolverOptions,
 ): {
-  node: TokenNode
-  errors: ResolverError[]
-  warnings: ResolverWarning[]
+  node: TokenNode;
+  errors: ResolverError[];
+  warnings: ResolverWarning[];
 } => {
-  const errors: ResolverError[] = []
-  const warnings: ResolverWarning[] = []
+  const errors: ResolverError[] = [];
+  const warnings: ResolverWarning[] = [];
 
   if (isTokenLeaf(node)) {
-    const sourcePath = toPathString(path)
+    const sourcePath = toPathString(path);
 
     if (!isReferenceString(node.$value)) {
       return {
         node,
         errors,
         warnings,
-      }
+      };
     }
 
-    const leafResult = resolveLeafValue(root, sourcePath, options)
+    const leafResult = resolveLeafValue(root, sourcePath, options);
 
     return {
       node: cloneLeafWithValue(node, leafResult.resolved?.value ?? node.$value),
       errors: leafResult.errors,
       warnings: leafResult.warnings,
-    }
+    };
   }
 
   if (isTokenTree(node)) {
-    const resolvedTree: TokenTree = {}
+    const resolvedTree: TokenTree = {};
 
     for (const [key, value] of Object.entries(node)) {
       if (isTokenMetadataKey(key)) {
-        resolvedTree[key] = value
-        continue
+        resolvedTree[key] = value;
+        continue;
       }
 
       if (!isTokenLeaf(value) && !isTokenTree(value)) {
@@ -110,23 +110,23 @@ const resolveNode = (
             String(value),
             [],
           ),
-        )
+        );
 
-        continue
+        continue;
       }
 
-      const childResult = resolveNode(root, value, [...path, key], options)
+      const childResult = resolveNode(root, value, [...path, key], options);
 
-      resolvedTree[key] = childResult.node
-      errors.push(...childResult.errors)
-      warnings.push(...childResult.warnings)
+      resolvedTree[key] = childResult.node;
+      errors.push(...childResult.errors);
+      warnings.push(...childResult.warnings);
     }
 
     return {
       node: resolvedTree,
       errors,
       warnings,
-    }
+    };
   }
 
   errors.push(
@@ -137,14 +137,14 @@ const resolveNode = (
       String(node),
       [],
     ),
-  )
+  );
 
   return {
     node,
     errors,
     warnings,
-  }
-}
+  };
+};
 
 const mergeOptions = (
   options: ResolverOptions = {},
@@ -152,35 +152,35 @@ const mergeOptions = (
   return {
     strict: options.strict ?? DEFAULT_RESOLVER_OPTIONS.strict ?? true,
     maxDepth: options.maxDepth ?? DEFAULT_RESOLVER_OPTIONS.maxDepth ?? 50,
-  }
-}
+  };
+};
 
 export const resolveTokenTree = (
   root: TokenTree,
   options: ResolverOptions = {},
 ): ResolveTreeResult => {
-  const result = resolveNode(root, root, [], mergeOptions(options))
+  const result = resolveNode(root, root, [], mergeOptions(options));
 
   return {
     tree: result.node as TokenTree,
     errors: result.errors,
     warnings: result.warnings,
-  }
-}
+  };
+};
 
 export const resolveTokenTreeStrict = (root: TokenTree): TokenTree => {
   const result = resolveTokenTree(root, {
     strict: true,
-  })
+  });
 
   if (result.errors.length > 0) {
-    const [firstError] = result.errors
+    const [firstError] = result.errors;
 
-    throw new Error(firstError?.message ?? "Token resolution failed.")
+    throw new Error(firstError?.message ?? "Token resolution failed.");
   }
 
-  return result.tree
-}
+  return result.tree;
+};
 
 export const resolveTokenTreeSafe = (
   root: TokenTree,
@@ -189,5 +189,5 @@ export const resolveTokenTreeSafe = (
   return resolveTokenTree(root, {
     ...options,
     strict: false,
-  })
-}
+  });
+};

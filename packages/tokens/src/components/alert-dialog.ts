@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const alertDialogComponentTokens = componentTokens("alert-dialog", {
   backdrop: {
@@ -78,4 +78,4 @@ export const alertDialogComponentTokens = componentTokens("alert-dialog", {
     duration: { $value: "{motion.duration.overlayEnter}" },
     easing: { $value: "{motion.easing.easeIn}" },
   },
-})
+});

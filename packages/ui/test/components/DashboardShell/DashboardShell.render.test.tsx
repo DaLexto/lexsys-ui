@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Sidebar,
   SidebarCollapseTrigger,
@@ -13,14 +13,14 @@ import {
   SidebarList,
   SidebarProvider,
   SidebarSeparator,
-} from "../../../src/components/blocks/Sidebar/Sidebar.js"
+} from "../../../src/components/blocks/Sidebar/Sidebar.js";
 import {
   DashboardShell,
   DashboardShellBody,
   DashboardShellHeader,
   DashboardShellMain,
   DashboardShellSidebar,
-} from "../../../src/components/templates/DashboardShell/DashboardShell.js"
+} from "../../../src/components/templates/DashboardShell/DashboardShell.js";
 
 describe("DashboardShell render", () => {
   it("composes Sidebar block with header and main content", () => {
@@ -45,15 +45,15 @@ describe("DashboardShell render", () => {
           <DashboardShellMain>Page content</DashboardShellMain>
         </DashboardShellBody>
       </DashboardShell>,
-    )
+    );
 
-    expect(screen.getByText("Dashboard")).toBeInTheDocument()
-    expect(screen.getByText("Page content")).toBeInTheDocument()
-    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument()
+    expect(screen.getByText("Dashboard")).toBeInTheDocument();
+    expect(screen.getByText("Page content")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
 
-    const shell = screen.getByText("Page content").closest(".custom-shell")
-    expect(shell).not.toBeNull()
-  })
+    const shell = screen.getByText("Page content").closest(".custom-shell");
+    expect(shell).not.toBeNull();
+  });
 
   it("composes enterprise SidebarProvider shell with separators and collapse", () => {
     const { container } = render(
@@ -100,14 +100,14 @@ describe("DashboardShell render", () => {
           </DashboardShellBody>
         </DashboardShell>
       </SidebarProvider>,
-    )
+    );
 
-    expect(screen.getByText("Enterprise layout")).toBeInTheDocument()
+    expect(screen.getByText("Enterprise layout")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Collapse sidebar" }),
-    ).toBeInTheDocument()
+    ).toBeInTheDocument();
     expect(
       container.querySelector("[data-testid='shell-separator']"),
-    ).toHaveClass("lex-sidebar__separator")
-  })
-})
+    ).toHaveClass("lex-sidebar__separator");
+  });
+});

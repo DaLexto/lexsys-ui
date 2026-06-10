@@ -4,7 +4,7 @@
  * Registry metadata for the Dialog component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const dialogRegistryItem: RegistryItem = {
   name: "dialog",
@@ -39,4 +39,4 @@ export const dialogRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Dialog",
-}
+};

@@ -4,7 +4,7 @@
  * Registry metadata for the Pagination component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const paginationRegistryItem: RegistryItem = {
   name: "pagination",
@@ -38,4 +38,4 @@ export const paginationRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Pagination",
-}
+};

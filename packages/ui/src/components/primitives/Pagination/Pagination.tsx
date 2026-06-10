@@ -4,7 +4,7 @@
  * Reference Pagination component implementation.
  */
 
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import type {
   PaginationContentProps,
   PaginationEllipsisProps,
@@ -13,15 +13,15 @@ import type {
   PaginationNextProps,
   PaginationPreviousProps,
   PaginationProps,
-} from "./Pagination.types"
+} from "./Pagination.types";
 import {
   paginationContentVariants,
   paginationEllipsisVariants,
   paginationItemVariants,
   paginationLinkVariants,
   paginationRootVariants,
-} from "./Pagination.variants"
-import { cn } from "../../../utils/cn"
+} from "./Pagination.variants";
+import { cn } from "../../../utils/cn";
 
 const Pagination = ({ ref, className, ...props }: PaginationProps) => {
   return (
@@ -31,10 +31,10 @@ const Pagination = ({ ref, className, ...props }: PaginationProps) => {
       className={cn(paginationRootVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Pagination.displayName = "Pagination"
+Pagination.displayName = "Pagination";
 
 const PaginationContent = ({
   ref,
@@ -47,10 +47,10 @@ const PaginationContent = ({
       className={cn(paginationContentVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PaginationContent.displayName = "PaginationContent"
+PaginationContent.displayName = "PaginationContent";
 
 const PaginationItem = ({ ref, className, ...props }: PaginationItemProps) => {
   return (
@@ -59,10 +59,10 @@ const PaginationItem = ({ ref, className, ...props }: PaginationItemProps) => {
       className={cn(paginationItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PaginationItem.displayName = "PaginationItem"
+PaginationItem.displayName = "PaginationItem";
 
 const PaginationLink = ({
   ref,
@@ -78,10 +78,10 @@ const PaginationLink = ({
       className={cn(paginationLinkVariants({ isActive, size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PaginationLink.displayName = "PaginationLink"
+PaginationLink.displayName = "PaginationLink";
 
 const PaginationPrevious = ({
   ref,
@@ -101,10 +101,10 @@ const PaginationPrevious = ({
       <ChevronLeft aria-hidden="true" size={16} />
       {children ?? <span>Previous</span>}
     </PaginationLink>
-  )
-}
+  );
+};
 
-PaginationPrevious.displayName = "PaginationPrevious"
+PaginationPrevious.displayName = "PaginationPrevious";
 
 const PaginationNext = ({
   ref,
@@ -124,10 +124,10 @@ const PaginationNext = ({
       {children ?? <span>Next</span>}
       <ChevronRight aria-hidden="true" size={16} />
     </PaginationLink>
-  )
-}
+  );
+};
 
-PaginationNext.displayName = "PaginationNext"
+PaginationNext.displayName = "PaginationNext";
 
 const PaginationEllipsis = ({
   ref,
@@ -144,10 +144,10 @@ const PaginationEllipsis = ({
       <MoreHorizontal size={16} />
       <span className="sr-only">More pages</span>
     </span>
-  )
-}
+  );
+};
 
-PaginationEllipsis.displayName = "PaginationEllipsis"
+PaginationEllipsis.displayName = "PaginationEllipsis";
 
 export {
   Pagination,
@@ -157,4 +157,4 @@ export {
   PaginationPrevious,
   PaginationNext,
   PaginationEllipsis,
-}
+};

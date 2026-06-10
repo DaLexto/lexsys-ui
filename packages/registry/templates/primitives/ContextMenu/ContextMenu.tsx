@@ -4,8 +4,8 @@
  * Reference ContextMenu component implementation.
  */
 
-import { Check, ChevronRight } from "lucide-react"
-import { ContextMenu as BaseContextMenu } from "@base-ui/react/context-menu"
+import { Check, ChevronRight } from "lucide-react";
+import { ContextMenu as BaseContextMenu } from "@base-ui/react/context-menu";
 import type {
   ContextMenuArrowProps,
   ContextMenuBackdropProps,
@@ -26,7 +26,7 @@ import type {
   ContextMenuSubmenuRootProps,
   ContextMenuSubmenuTriggerProps,
   ContextMenuTriggerProps,
-} from "./ContextMenu.types"
+} from "./ContextMenu.types";
 import {
   contextMenuArrowVariants,
   contextMenuBackdropVariants,
@@ -41,23 +41,23 @@ import {
   contextMenuSubmenuTriggerIconVariants,
   contextMenuSubmenuTriggerVariants,
   contextMenuTriggerVariants,
-} from "./ContextMenu.variants"
-import { mergeClassName } from "@/lib/utils"
-import { overlayPositionerSideOffset } from "@/lib/utils"
+} from "./ContextMenu.variants";
+import { mergeClassName } from "@/lib/utils";
+import { overlayPositionerSideOffset } from "@/lib/utils";
 
 const horizontalContextMenuSides = new Set<
   NonNullable<ContextMenuPositionerProps["side"]>
->(["left", "right", "inline-start", "inline-end"])
+>(["left", "right", "inline-start", "inline-end"]);
 
 const popupCollisionAvoidance = {
   fallbackAxisSide: "end",
-} as const
+} as const;
 
 const ContextMenu = (props: ContextMenuProps) => {
-  return <BaseContextMenu.Root {...props} />
-}
+  return <BaseContextMenu.Root {...props} />;
+};
 
-ContextMenu.displayName = "ContextMenu"
+ContextMenu.displayName = "ContextMenu";
 
 const ContextMenuTrigger = ({
   ref,
@@ -70,16 +70,16 @@ const ContextMenuTrigger = ({
       className={mergeClassName(contextMenuTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuTrigger.displayName = "ContextMenuTrigger"
+ContextMenuTrigger.displayName = "ContextMenuTrigger";
 
 const ContextMenuPortal = (props: ContextMenuPortalProps) => {
-  return <BaseContextMenu.Portal {...props} />
-}
+  return <BaseContextMenu.Portal {...props} />;
+};
 
-ContextMenuPortal.displayName = "ContextMenuPortal"
+ContextMenuPortal.displayName = "ContextMenuPortal";
 
 const ContextMenuBackdrop = ({
   ref,
@@ -92,10 +92,10 @@ const ContextMenuBackdrop = ({
       className={mergeClassName(contextMenuBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuBackdrop.displayName = "ContextMenuBackdrop"
+ContextMenuBackdrop.displayName = "ContextMenuBackdrop";
 
 const ContextMenuPositioner = ({
   ref,
@@ -109,7 +109,7 @@ const ContextMenuPositioner = ({
     collisionAvoidance ??
     (side && horizontalContextMenuSides.has(side)
       ? popupCollisionAvoidance
-      : undefined)
+      : undefined);
 
   return (
     <BaseContextMenu.Positioner
@@ -120,10 +120,10 @@ const ContextMenuPositioner = ({
       className={mergeClassName(contextMenuPositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuPositioner.displayName = "ContextMenuPositioner"
+ContextMenuPositioner.displayName = "ContextMenuPositioner";
 
 const ContextMenuPopup = ({
   ref,
@@ -136,10 +136,10 @@ const ContextMenuPopup = ({
       className={mergeClassName(contextMenuPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuPopup.displayName = "ContextMenuPopup"
+ContextMenuPopup.displayName = "ContextMenuPopup";
 
 const ContextMenuArrow = ({
   ref,
@@ -152,10 +152,10 @@ const ContextMenuArrow = ({
       className={mergeClassName(contextMenuArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuArrow.displayName = "ContextMenuArrow"
+ContextMenuArrow.displayName = "ContextMenuArrow";
 
 const ContextMenuItem = ({
   ref,
@@ -168,10 +168,10 @@ const ContextMenuItem = ({
       className={mergeClassName(contextMenuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuItem.displayName = "ContextMenuItem"
+ContextMenuItem.displayName = "ContextMenuItem";
 
 const ContextMenuLinkItem = ({
   ref,
@@ -184,10 +184,10 @@ const ContextMenuLinkItem = ({
       className={mergeClassName(contextMenuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuLinkItem.displayName = "ContextMenuLinkItem"
+ContextMenuLinkItem.displayName = "ContextMenuLinkItem";
 
 const ContextMenuCheckboxItem = ({
   ref,
@@ -200,10 +200,10 @@ const ContextMenuCheckboxItem = ({
       className={mergeClassName(contextMenuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuCheckboxItem.displayName = "ContextMenuCheckboxItem"
+ContextMenuCheckboxItem.displayName = "ContextMenuCheckboxItem";
 
 const ContextMenuCheckboxItemIndicator = ({
   ref,
@@ -219,11 +219,11 @@ const ContextMenuCheckboxItemIndicator = ({
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseContextMenu.CheckboxItemIndicator>
-  )
-}
+  );
+};
 
 ContextMenuCheckboxItemIndicator.displayName =
-  "ContextMenuCheckboxItemIndicator"
+  "ContextMenuCheckboxItemIndicator";
 
 const ContextMenuRadioGroup = ({
   ref,
@@ -236,10 +236,10 @@ const ContextMenuRadioGroup = ({
       className={mergeClassName(contextMenuGroupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuRadioGroup.displayName = "ContextMenuRadioGroup"
+ContextMenuRadioGroup.displayName = "ContextMenuRadioGroup";
 
 const ContextMenuRadioItem = ({
   ref,
@@ -252,10 +252,10 @@ const ContextMenuRadioItem = ({
       className={mergeClassName(contextMenuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuRadioItem.displayName = "ContextMenuRadioItem"
+ContextMenuRadioItem.displayName = "ContextMenuRadioItem";
 
 const ContextMenuRadioItemIndicator = ({
   ref,
@@ -271,10 +271,10 @@ const ContextMenuRadioItemIndicator = ({
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseContextMenu.RadioItemIndicator>
-  )
-}
+  );
+};
 
-ContextMenuRadioItemIndicator.displayName = "ContextMenuRadioItemIndicator"
+ContextMenuRadioItemIndicator.displayName = "ContextMenuRadioItemIndicator";
 
 const ContextMenuGroup = ({
   ref,
@@ -287,10 +287,10 @@ const ContextMenuGroup = ({
       className={mergeClassName(contextMenuGroupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuGroup.displayName = "ContextMenuGroup"
+ContextMenuGroup.displayName = "ContextMenuGroup";
 
 const ContextMenuGroupLabel = ({
   ref,
@@ -303,10 +303,10 @@ const ContextMenuGroupLabel = ({
       className={mergeClassName(contextMenuGroupLabelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuGroupLabel.displayName = "ContextMenuGroupLabel"
+ContextMenuGroupLabel.displayName = "ContextMenuGroupLabel";
 
 const ContextMenuSeparator = ({
   ref,
@@ -319,16 +319,16 @@ const ContextMenuSeparator = ({
       className={mergeClassName(contextMenuSeparatorVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ContextMenuSeparator.displayName = "ContextMenuSeparator"
+ContextMenuSeparator.displayName = "ContextMenuSeparator";
 
 const ContextMenuSubmenuRoot = (props: ContextMenuSubmenuRootProps) => {
-  return <BaseContextMenu.SubmenuRoot {...props} />
-}
+  return <BaseContextMenu.SubmenuRoot {...props} />;
+};
 
-ContextMenuSubmenuRoot.displayName = "ContextMenuSubmenuRoot"
+ContextMenuSubmenuRoot.displayName = "ContextMenuSubmenuRoot";
 
 const ContextMenuSubmenuTrigger = ({
   ref,
@@ -347,10 +347,10 @@ const ContextMenuSubmenuTrigger = ({
         <ChevronRight aria-hidden="true" size={14} />
       </span>
     </BaseContextMenu.SubmenuTrigger>
-  )
-}
+  );
+};
 
-ContextMenuSubmenuTrigger.displayName = "ContextMenuSubmenuTrigger"
+ContextMenuSubmenuTrigger.displayName = "ContextMenuSubmenuTrigger";
 
 export {
   ContextMenu,
@@ -372,4 +372,4 @@ export {
   ContextMenuSeparator,
   ContextMenuSubmenuRoot,
   ContextMenuSubmenuTrigger,
-}
+};

@@ -23,13 +23,13 @@ export {
   isShadowSlotKey,
   isTypographySlotKey,
   resolveCompositeSlotType,
-} from "./composite.schema"
+} from "./composite.schema";
 
 export type {
   BorderSlotKey,
   ShadowSlotKey,
   TypographySlotKey,
-} from "./composite.schema"
+} from "./composite.schema";
 
 export {
   collectCompositeAtomicPaths,
@@ -37,11 +37,11 @@ export {
   isCompositeBranch,
   normalizeCompositeBranches,
   resolveCompositeTypeFromAtomicPath,
-} from "./composite.resolver"
+} from "./composite.resolver";
 
 export type {
   CompositeAtomicPath,
   CompositeBranchInfo,
   CompositeSlotSchema,
   CompositeTypeDefinition,
-} from "./composite.types"
+} from "./composite.types";

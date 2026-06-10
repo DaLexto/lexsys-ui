@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Checkbox,
   CheckboxIndicator,
-} from "../../../src/components/primitives/Checkbox/Checkbox.js"
-import { CheckboxGroup } from "../../../src/components/primitives/CheckboxGroup/CheckboxGroup.js"
+} from "../../../src/components/primitives/Checkbox/Checkbox.js";
+import { CheckboxGroup } from "../../../src/components/primitives/CheckboxGroup/CheckboxGroup.js";
 
 describe("CheckboxGroup render", () => {
   it("renders checkbox group with child checkbox and custom className", () => {
@@ -17,9 +17,9 @@ describe("CheckboxGroup render", () => {
           <CheckboxIndicator />
         </Checkbox>
       </CheckboxGroup>,
-    )
+    );
 
-    expect(screen.getByRole("group")).toHaveClass("custom-checkbox-group")
-    expect(screen.getByRole("checkbox")).toBeInTheDocument()
-  })
-})
+    expect(screen.getByRole("group")).toHaveClass("custom-checkbox-group");
+    expect(screen.getByRole("checkbox")).toBeInTheDocument();
+  });
+});

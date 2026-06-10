@@ -8,7 +8,7 @@
 export {
   validateTokenLayerContracts,
   validateTokenLayerContractsStrict,
-} from "./layers/layers.validator"
+} from "./layers/layers.validator";
 
 export type {
   LayerValidationInput,
@@ -16,7 +16,7 @@ export type {
   LayerValidationThemeInput,
   LayerViolation,
   LayerViolationCode,
-} from "./layers/layers.types"
+} from "./layers/layers.types";
 
 export {
   createContrastValidationReport,
@@ -34,7 +34,7 @@ export {
   validateContrastPolicyStrict,
   WCAG_AA_LARGE_TEXT_RATIO,
   WCAG_AA_NORMAL_TEXT_RATIO,
-} from "./contrast"
+} from "./contrast";
 
 export type {
   ContrastPolicy,
@@ -46,4 +46,4 @@ export type {
   ContrastValidationReport,
   ContrastValidationThemeInput,
   SemanticContrastPair,
-} from "./contrast"
+} from "./contrast";

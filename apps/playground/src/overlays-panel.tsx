@@ -71,10 +71,10 @@ import {
   ToastTitle,
   ToastViewport,
   useToastManager,
-} from "@dalexto/lexsys-ui"
+} from "@dalexto/lexsys-ui";
 
 const ToastDemo = () => {
-  const toastManager = useToastManager<{ source: "playground" }>()
+  const toastManager = useToastManager<{ source: "playground" }>();
 
   const showSuccessToast = () => {
     toastManager.add({
@@ -87,8 +87,8 @@ const ToastDemo = () => {
         children: "Undo",
         onClick: () => toastManager.close(),
       },
-    })
-  }
+    });
+  };
 
   const showDestructiveToast = () => {
     toastManager.add({
@@ -103,8 +103,8 @@ const ToastDemo = () => {
         children: "Dismiss",
         onClick: () => toastManager.close(),
       },
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -132,8 +132,8 @@ const ToastDemo = () => {
         </ToastViewport>
       </ToastPortal>
     </>
-  )
-}
+  );
+};
 
 export const OverlaysPanel = () => {
   return (
@@ -357,5 +357,5 @@ export const OverlaysPanel = () => {
         </Menu>
       </div>
     </section>
-  )
-}
+  );
+};

@@ -10,41 +10,41 @@ import type {
   ResolverErrorCode,
   ResolverOptions,
   ResolverWarning,
-} from "../reference/reference.types"
+} from "../reference/reference.types";
 import type {
   TokenLeaf,
   TokenNode,
   TokenScalarValue,
   TokenTree,
   TokenValue,
-} from "../../../types"
+} from "../../../types";
 
-export { isTokenMetadataKey } from "../../shared/metadata-keys"
+export { isTokenMetadataKey } from "../../shared/metadata-keys";
 
 export const DEFAULT_RESOLVER_OPTIONS: ResolverOptions = {
   strict: true,
   maxDepth: 50,
-}
+};
 
-export const STRICT_REFERENCE_PATTERN = /^\{([^{}]+)\}$/
+export const STRICT_REFERENCE_PATTERN = /^\{([^{}]+)\}$/;
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+};
 
 export const isTokenScalarValue = (
   value: unknown,
 ): value is TokenScalarValue => {
-  return typeof value === "string" || typeof value === "number"
-}
+  return typeof value === "string" || typeof value === "number";
+};
 
 const isTokenUnitValue = (value: unknown): boolean => {
   return (
     isRecord(value) &&
     typeof value.value === "number" &&
     typeof value.unit === "string"
-  )
-}
+  );
+};
 
 const isTokenColorValue = (value: unknown): boolean => {
   return (
@@ -54,97 +54,97 @@ const isTokenColorValue = (value: unknown): boolean => {
     value.components.every((component) => typeof component === "number") &&
     (value.alpha === undefined || typeof value.alpha === "number") &&
     (value.hex === undefined || typeof value.hex === "string")
-  )
-}
+  );
+};
 
 export const isTokenValue = (value: unknown): value is TokenValue => {
   return (
     isTokenScalarValue(value) ||
     isTokenUnitValue(value) ||
     isTokenColorValue(value)
-  )
-}
+  );
+};
 
 export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  if (!isRecord(value)) return false
-  return "$value" in value && isTokenValue(value["$value"])
-}
+  if (!isRecord(value)) return false;
+  return "$value" in value && isTokenValue(value["$value"]);
+};
 
 export const isTokenTree = (value: unknown): value is TokenTree => {
-  return isRecord(value) && !isTokenLeaf(value)
-}
+  return isRecord(value) && !isTokenLeaf(value);
+};
 
 export const isReferenceString = (value: unknown): value is string => {
   return (
     typeof value === "string" && STRICT_REFERENCE_PATTERN.test(value.trim())
-  )
-}
+  );
+};
 
 export const toPathString = (segments: string[]): string => {
-  return segments.join(".")
-}
+  return segments.join(".");
+};
 
 export const parseReference = (reference: string): string => {
-  const normalizedReference = reference.trim()
-  const match = normalizedReference.match(STRICT_REFERENCE_PATTERN)
+  const normalizedReference = reference.trim();
+  const match = normalizedReference.match(STRICT_REFERENCE_PATTERN);
 
   if (!match) {
-    throw new Error(`Invalid token reference format: "${reference}"`)
+    throw new Error(`Invalid token reference format: "${reference}"`);
   }
 
-  const parsedPath = match[1]
+  const parsedPath = match[1];
 
   if (parsedPath === undefined) {
-    throw new Error(`Invalid token reference capture group: "${reference}"`)
+    throw new Error(`Invalid token reference capture group: "${reference}"`);
   }
 
-  return parsedPath.trim()
-}
+  return parsedPath.trim();
+};
 
 export const getDefaultLeafFromBranch = (
   node: TokenNode,
 ): TokenLeaf | undefined => {
   if (!isTokenTree(node)) {
-    return undefined
+    return undefined;
   }
 
-  const defaultNode = node.DEFAULT
+  const defaultNode = node.DEFAULT;
 
   if (!isTokenLeaf(defaultNode)) {
-    return undefined
+    return undefined;
   }
 
-  return defaultNode
-}
+  return defaultNode;
+};
 
 export const getNodeByPath = (
   root: TokenTree,
   path: string,
 ): TokenNode | undefined => {
-  const segments = path.split(".").filter(Boolean)
+  const segments = path.split(".").filter(Boolean);
 
-  let current: unknown = root
+  let current: unknown = root;
 
   for (const segment of segments) {
     if (!isTokenTree(current)) {
-      return undefined
+      return undefined;
     }
 
-    const nextNode = current[segment]
+    const nextNode = current[segment];
 
     if (nextNode === undefined) {
-      return undefined
+      return undefined;
     }
 
-    current = nextNode
+    current = nextNode;
   }
 
   if (isTokenLeaf(current) || isTokenTree(current)) {
-    return current
+    return current;
   }
 
-  return undefined
-}
+  return undefined;
+};
 
 export const createResolverError = (
   code: ResolverErrorCode,
@@ -161,8 +161,8 @@ export const createResolverError = (
     reference,
     targetPath,
     chain: [...chain],
-  }
-}
+  };
+};
 
 export const createResolverWarning = (
   sourcePath: string,
@@ -173,5 +173,5 @@ export const createResolverWarning = (
     message: `Reference "${reference}" was left unresolved at "${sourcePath}"`,
     sourcePath,
     reference,
-  }
-}
+  };
+};

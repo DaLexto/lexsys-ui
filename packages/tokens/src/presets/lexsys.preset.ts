@@ -1,4 +1,4 @@
-import type { PresetDefinition } from "../types"
+import type { PresetDefinition } from "../types";
 
 export const lexsysPreset: PresetDefinition = {
   id: "lexsys",
@@ -8,6 +8,6 @@ export const lexsysPreset: PresetDefinition = {
     "Baseline Lexsys style preset for the initial token, theme, and component system.",
   themeModes: ["light", "dark"],
   defaultTheme: "light",
-}
+};
 
-export const defaultPresetId = "lexsys" satisfies PresetDefinition["id"]
+export const defaultPresetId = "lexsys" satisfies PresetDefinition["id"];

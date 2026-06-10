@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const settingsPageLayoutComponentTokens = componentTokens(
   "settings-page-layout",
@@ -30,4 +30,4 @@ export const settingsPageLayoutComponentTokens = componentTokens(
       gap: { $value: "{spacing.surface.sm}" },
     },
   },
-)
+);

@@ -86,7 +86,7 @@ export const alertVariants = cva(base, {
       danger: dangerClasses,
     },
   },
-})
+});
 ```
 
 Prefer **extracted constants** (Alert pattern) over empty stub variants + large `compoundVariants` matrices (Badge anti-pattern before PR1).

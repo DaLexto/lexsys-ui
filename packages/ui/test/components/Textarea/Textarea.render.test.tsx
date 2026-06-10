@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
-import { Textarea } from "../../../src/components/primitives/Textarea/Textarea.js"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { Textarea } from "../../../src/components/primitives/Textarea/Textarea.js";
 
 describe("Textarea render", () => {
   it("renders textarea with accessible name and custom className", () => {
@@ -10,10 +10,10 @@ describe("Textarea render", () => {
         placeholder="Add details"
         className="custom-textarea"
       />,
-    )
+    );
 
     expect(screen.getByRole("textbox", { name: "Notes" })).toHaveClass(
       "custom-textarea",
-    )
-  })
-})
+    );
+  });
+});

@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Drawer,
   DrawerBackdrop,
@@ -8,7 +8,7 @@ import {
   DrawerPortal,
   DrawerTitle,
   DrawerViewport,
-} from "../../../src/components/primitives/Drawer/Drawer.js"
+} from "../../../src/components/primitives/Drawer/Drawer.js";
 
 describe("Drawer render", () => {
   it("renders drawer title when defaultOpen", () => {
@@ -25,11 +25,11 @@ describe("Drawer render", () => {
           </DrawerViewport>
         </DrawerPortal>
       </Drawer>,
-    )
+    );
 
-    expect(screen.getByText("Drawer title")).toBeInTheDocument()
+    expect(screen.getByText("Drawer title")).toBeInTheDocument();
     expect(
       screen.getByText("Drawer title").closest(".custom-drawer"),
-    ).not.toBeNull()
-  })
-})
+    ).not.toBeNull();
+  });
+});

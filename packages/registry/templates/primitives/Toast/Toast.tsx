@@ -4,8 +4,8 @@
  * Reference Toast component implementation.
  */
 
-import { X } from "lucide-react"
-import { Toast as BaseToast } from "@base-ui/react/toast"
+import { X } from "lucide-react";
+import { Toast as BaseToast } from "@base-ui/react/toast";
 import type {
   ToastActionProps,
   ToastArrowProps,
@@ -18,7 +18,7 @@ import type {
   ToastProviderProps,
   ToastTitleProps,
   ToastViewportProps,
-} from "./Toast.types"
+} from "./Toast.types";
 import {
   toastActionVariants,
   toastArrowVariants,
@@ -29,20 +29,20 @@ import {
   toastTitleVariants,
   toastVariants,
   toastViewportVariants,
-} from "./Toast.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./Toast.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const ToastProvider = (props: ToastProviderProps) => {
-  return <BaseToast.Provider {...props} />
-}
+  return <BaseToast.Provider {...props} />;
+};
 
-ToastProvider.displayName = "ToastProvider"
+ToastProvider.displayName = "ToastProvider";
 
 const ToastPortal = ({ ref, ...props }: ToastPortalProps) => {
-  return <BaseToast.Portal ref={ref} {...props} />
-}
+  return <BaseToast.Portal ref={ref} {...props} />;
+};
 
-ToastPortal.displayName = "ToastPortal"
+ToastPortal.displayName = "ToastPortal";
 
 const ToastViewport = ({
   ref,
@@ -59,10 +59,10 @@ const ToastViewport = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToastViewport.displayName = "ToastViewport"
+ToastViewport.displayName = "ToastViewport";
 
 const Toast = ({ ref, className, ...props }: ToastProps) => {
   return (
@@ -71,10 +71,10 @@ const Toast = ({ ref, className, ...props }: ToastProps) => {
       className={mergeClassName(toastVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Toast.displayName = "Toast"
+Toast.displayName = "Toast";
 
 const ToastPositioner = ({
   ref,
@@ -87,10 +87,10 @@ const ToastPositioner = ({
       className={mergeClassName(toastPositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToastPositioner.displayName = "ToastPositioner"
+ToastPositioner.displayName = "ToastPositioner";
 
 const ToastContent = ({ ref, className, ...props }: ToastContentProps) => {
   return (
@@ -99,10 +99,10 @@ const ToastContent = ({ ref, className, ...props }: ToastContentProps) => {
       className={mergeClassName(toastContentVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToastContent.displayName = "ToastContent"
+ToastContent.displayName = "ToastContent";
 
 const ToastArrow = ({ ref, className, ...props }: ToastArrowProps) => {
   return (
@@ -111,10 +111,10 @@ const ToastArrow = ({ ref, className, ...props }: ToastArrowProps) => {
       className={mergeClassName(toastArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToastArrow.displayName = "ToastArrow"
+ToastArrow.displayName = "ToastArrow";
 
 const ToastTitle = ({ ref, className, ...props }: ToastTitleProps) => {
   return (
@@ -123,10 +123,10 @@ const ToastTitle = ({ ref, className, ...props }: ToastTitleProps) => {
       className={mergeClassName(toastTitleVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToastTitle.displayName = "ToastTitle"
+ToastTitle.displayName = "ToastTitle";
 
 const ToastDescription = ({
   ref,
@@ -139,10 +139,10 @@ const ToastDescription = ({
       className={mergeClassName(toastDescriptionVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToastDescription.displayName = "ToastDescription"
+ToastDescription.displayName = "ToastDescription";
 
 const ToastAction = ({ ref, className, ...props }: ToastActionProps) => {
   return (
@@ -151,10 +151,10 @@ const ToastAction = ({ ref, className, ...props }: ToastActionProps) => {
       className={mergeClassName(toastActionVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToastAction.displayName = "ToastAction"
+ToastAction.displayName = "ToastAction";
 
 const ToastClose = ({
   ref,
@@ -170,13 +170,13 @@ const ToastClose = ({
     >
       {children ?? <X aria-hidden="true" size={16} />}
     </BaseToast.Close>
-  )
-}
+  );
+};
 
-ToastClose.displayName = "ToastClose"
+ToastClose.displayName = "ToastClose";
 
-const useToastManager = BaseToast.useToastManager
-const createToastManager = BaseToast.createToastManager
+const useToastManager = BaseToast.useToastManager;
+const createToastManager = BaseToast.createToastManager;
 
 export {
   ToastProvider,
@@ -192,4 +192,4 @@ export {
   ToastClose,
   useToastManager,
   createToastManager,
-}
+};

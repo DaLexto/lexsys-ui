@@ -1,37 +1,37 @@
-import { loadConfig } from "../config/config.js"
-import { findInstalledKey, isInstalled } from "../config/installed.js"
-import { computeRegistryClosure } from "../registry/closure.js"
-import { findItem, resolveRegistryItems } from "../registry/resolver.js"
-import { getRegistryItems } from "../registry/provider.js"
-import { resetItem } from "../install/update-engine.js"
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
-import { promptMultiselect } from "../utils/prompt.js"
-import { getRegistryProviderResult } from "../registry/provider.js"
+import { loadConfig } from "../config/config.js";
+import { findInstalledKey, isInstalled } from "../config/installed.js";
+import { computeRegistryClosure } from "../registry/closure.js";
+import { findItem, resolveRegistryItems } from "../registry/resolver.js";
+import { getRegistryItems } from "../registry/provider.js";
+import { resetItem } from "../install/update-engine.js";
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js";
+import { promptMultiselect } from "../utils/prompt.js";
+import { getRegistryProviderResult } from "../registry/provider.js";
 
 const resolveInstalledKey = async (
   name: string,
   installed: string[],
 ): Promise<string | undefined> => {
-  const direct = findInstalledKey(installed, name)
+  const direct = findInstalledKey(installed, name);
 
   if (direct) {
-    return direct
+    return direct;
   }
 
-  const item = await findItem(name)
+  const item = await findItem(name);
 
   if (!item) {
-    return undefined
+    return undefined;
   }
 
-  return findInstalledKey(installed, item.name)
-}
+  return findInstalledKey(installed, item.name);
+};
 
 export const runReset = async (args: string[]): Promise<void> => {
-  const dryRun = hasFlag(args, "--dry-run", "-d")
-  const withDeps = hasFlag(args, "--with-deps", "-w")
-  const yes = hasFlag(args, "--yes", "-y")
-  const noFallback = hasFlag(args, "--no-fallback")
+  const dryRun = hasFlag(args, "--dry-run", "-d");
+  const withDeps = hasFlag(args, "--with-deps", "-w");
+  const yes = hasFlag(args, "--yes", "-y");
+  const noFallback = hasFlag(args, "--no-fallback");
   const targetArgs = removeFlagsWithValues(
     removeFlags(args, [
       "--dry-run",
@@ -43,70 +43,70 @@ export const runReset = async (args: string[]): Promise<void> => {
       "--no-fallback",
     ]),
     ["--cwd", "-C"],
-  )
+  );
 
-  const config = await loadConfig()
-  const installed = [...(config.installed ?? [])]
+  const config = await loadConfig();
+  const installed = [...(config.installed ?? [])];
 
   if (!installed.length) {
-    console.log("No components installed.")
-    return
+    console.log("No components installed.");
+    return;
   }
 
   try {
     await getRegistryProviderResult({
       fallback: !noFallback,
-    })
+    });
   } catch (error) {
-    console.log("Failed to resolve registry.")
-    console.log(error instanceof Error ? error.message : String(error))
-    process.exitCode = 1
-    return
+    console.log("Failed to resolve registry.");
+    console.log(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+    return;
   }
 
   if (!targetArgs.length) {
     if (yes) {
-      targetArgs.push(...installed)
+      targetArgs.push(...installed);
     } else {
       const selected = await promptMultiselect(
         "Select components to reset",
         installed.map((name) => ({ title: name, value: name })),
         { min: 1 },
-      )
+      );
 
-      if (!selected.length) return
+      if (!selected.length) return;
 
-      targetArgs.push(...selected)
+      targetArgs.push(...selected);
     }
   }
 
-  const resetNames = new Set<string>()
+  const resetNames = new Set<string>();
 
   for (const name of targetArgs) {
-    const installedKey = await resolveInstalledKey(name, installed)
+    const installedKey = await resolveInstalledKey(name, installed);
 
     if (!installedKey) {
-      console.log(`Component "${name}" is not tracked as installed.`)
-      continue
+      console.log(`Component "${name}" is not tracked as installed.`);
+      continue;
     }
 
-    resetNames.add(installedKey)
+    resetNames.add(installedKey);
   }
 
   if (!resetNames.size) {
-    console.log("No installed components matched the request.")
-    return
+    console.log("No installed components matched the request.");
+    return;
   }
 
   if (withDeps) {
-    const allItems = await getRegistryItems({ fallback: !noFallback })
+    const allItems = await getRegistryItems({ fallback: !noFallback });
 
     for (const rootName of [...resetNames]) {
-      const closure = computeRegistryClosure([rootName], allItems)
+      const closure = computeRegistryClosure([rootName], allItems);
 
       for (const dependencyName of closure) {
         if (isInstalled(installed, dependencyName)) {
-          resetNames.add(dependencyName)
+          resetNames.add(dependencyName);
         }
       }
     }
@@ -114,19 +114,19 @@ export const runReset = async (args: string[]): Promise<void> => {
 
   const resetItems = await resolveRegistryItems([...resetNames], {
     fallback: !noFallback,
-  })
+  });
 
   if (dryRun) {
-    console.log("Dry run: no files will be changed.\n")
-    console.log("Components:")
+    console.log("Dry run: no files will be changed.\n");
+    console.log("Components:");
     for (const item of resetItems) {
-      console.log(`- ${item.canonicalName}`)
+      console.log(`- ${item.canonicalName}`);
     }
-    console.log("")
+    console.log("");
   }
 
   for (const item of resetItems) {
-    await resetItem(item.name, dryRun)
-    console.log("")
+    await resetItem(item.name, dryRun);
+    console.log("");
   }
-}
+};

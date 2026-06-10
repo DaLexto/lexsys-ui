@@ -4,7 +4,7 @@
  * Registry metadata for the NumberField component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const numberFieldRegistryItem: RegistryItem = {
   name: "number-field",
@@ -38,4 +38,4 @@ export const numberFieldRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/NumberField",
-}
+};

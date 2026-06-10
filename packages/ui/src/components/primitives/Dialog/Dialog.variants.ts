@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "../../../utils/cn";
 
 export const dialogTriggerVariants = cva(
   [
@@ -16,18 +16,18 @@ export const dialogTriggerVariants = cva(
     "outline-none hover:bg-(--lex-dialog-trigger-hover-background) focus-visible:ring-(length:--lex-dialog-focus-ring-width) focus-visible:ring-(--lex-dialog-focus-ring-color) focus-visible:ring-offset-(length:--lex-dialog-focus-ring-offset) focus-visible:ring-offset-(--lex-dialog-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 export const dialogBackdropVariants = cva(
   [
     "fixed inset-0 z-(--lex-dialog-backdrop-z-index) bg-(--lex-dialog-backdrop-background) opacity-(--lex-dialog-backdrop-opacity)",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
     "transition-opacity duration-(--lex-dialog-transition-duration) ease-(--lex-dialog-transition-easing)",
   ].join(" "),
-)
+);
 
 export const dialogViewportVariants = cva(
   "fixed inset-0 z-(--lex-dialog-viewport-z-index) grid place-items-center overflow-y-auto p-(--lex-dialog-viewport-padding)",
-)
+);
 
 export const dialogPopupVariants = cva(
   [
@@ -36,15 +36,15 @@ export const dialogPopupVariants = cva(
     "outline-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "transition-[opacity,transform] duration-(--lex-dialog-transition-duration) ease-(--lex-dialog-transition-easing)",
   ].join(" "),
-)
+);
 
 export const dialogTitleVariants = cva(
   "pr-(--lex-dialog-title-padding-end) text-(length:--lex-dialog-title-font-size) font-(--lex-dialog-title-font-weight) leading-(--lex-dialog-title-font-line-height) text-(--lex-dialog-title-foreground)",
-)
+);
 
 export const dialogDescriptionVariants = cva(
   "text-(length:--lex-dialog-description-font-size) font-(--lex-dialog-description-font-weight) leading-(--lex-dialog-description-font-line-height) text-(--lex-dialog-description-foreground)",
-)
+);
 
 export const dialogCloseVariants = cva(
   [
@@ -53,4 +53,4 @@ export const dialogCloseVariants = cva(
     "hover:bg-(--lex-dialog-close-hover-background) focus-visible:ring-(length:--lex-dialog-focus-ring-width) focus-visible:ring-(--lex-dialog-focus-ring-color) focus-visible:ring-offset-(length:--lex-dialog-focus-ring-offset) focus-visible:ring-offset-(--lex-dialog-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);

@@ -4,7 +4,7 @@
  * Registry metadata for the Separator component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const separatorRegistryItem: RegistryItem = {
   name: "separator",
@@ -38,4 +38,4 @@ export const separatorRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Separator",
-}
+};

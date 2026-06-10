@@ -4,7 +4,7 @@
  * Reference Field component implementation.
  */
 
-import { Field as BaseField } from "@base-ui/react/field"
+import { Field as BaseField } from "@base-ui/react/field";
 import type {
   FieldControlProps,
   FieldDescriptionProps,
@@ -13,7 +13,7 @@ import type {
   FieldLabelProps,
   FieldProps,
   FieldValidityProps,
-} from "./Field.types"
+} from "./Field.types";
 import {
   fieldControlVariants,
   fieldDescriptionVariants,
@@ -21,8 +21,8 @@ import {
   fieldItemVariants,
   fieldLabelVariants,
   fieldVariants,
-} from "./Field.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+} from "./Field.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const Field = ({ ref, className, ...props }: FieldProps) => {
   return (
@@ -31,10 +31,10 @@ const Field = ({ ref, className, ...props }: FieldProps) => {
       className={mergeClassName(fieldVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Field.displayName = "Field"
+Field.displayName = "Field";
 
 const FieldLabel = ({ ref, className, ...props }: FieldLabelProps) => {
   return (
@@ -43,10 +43,10 @@ const FieldLabel = ({ ref, className, ...props }: FieldLabelProps) => {
       className={mergeClassName(fieldLabelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FieldLabel.displayName = "FieldLabel"
+FieldLabel.displayName = "FieldLabel";
 
 const FieldControl = ({
   ref,
@@ -59,7 +59,7 @@ const FieldControl = ({
   const baseControlProps: Omit<
     FieldControlProps,
     "className" | "isInvalid" | "size" | "variant"
-  > = isInvalid ? { ...props, "aria-invalid": true } : props
+  > = isInvalid ? { ...props, "aria-invalid": true } : props;
 
   return (
     <BaseField.Control
@@ -70,10 +70,10 @@ const FieldControl = ({
       )}
       {...baseControlProps}
     />
-  )
-}
+  );
+};
 
-FieldControl.displayName = "FieldControl"
+FieldControl.displayName = "FieldControl";
 
 const FieldDescription = ({
   ref,
@@ -86,10 +86,10 @@ const FieldDescription = ({
       className={mergeClassName(fieldDescriptionVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FieldDescription.displayName = "FieldDescription"
+FieldDescription.displayName = "FieldDescription";
 
 const FieldItem = ({ ref, className, ...props }: FieldItemProps) => {
   return (
@@ -98,10 +98,10 @@ const FieldItem = ({ ref, className, ...props }: FieldItemProps) => {
       className={mergeClassName(fieldItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FieldItem.displayName = "FieldItem"
+FieldItem.displayName = "FieldItem";
 
 const FieldError = ({ ref, className, ...props }: FieldErrorProps) => {
   return (
@@ -110,16 +110,16 @@ const FieldError = ({ ref, className, ...props }: FieldErrorProps) => {
       className={mergeClassName(fieldErrorVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FieldError.displayName = "FieldError"
+FieldError.displayName = "FieldError";
 
 const FieldValidity = (props: FieldValidityProps) => {
-  return <BaseField.Validity {...props} />
-}
+  return <BaseField.Validity {...props} />;
+};
 
-FieldValidity.displayName = "FieldValidity"
+FieldValidity.displayName = "FieldValidity";
 
 export {
   Field,
@@ -129,4 +129,4 @@ export {
   FieldItem,
   FieldError,
   FieldValidity,
-}
+};

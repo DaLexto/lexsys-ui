@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const authFormComponentTokens = componentTokens("auth-form", {
   root: {
@@ -10,4 +10,4 @@ export const authFormComponentTokens = componentTokens("auth-form", {
   footer: {
     gap: { $value: "{spacing.surface.gap.md}" },
   },
-})
+});

@@ -4,7 +4,7 @@
  * Reference PreviewCard component implementation.
  */
 
-import { PreviewCard as BasePreviewCard } from "@base-ui/react/preview-card"
+import { PreviewCard as BasePreviewCard } from "@base-ui/react/preview-card";
 import type {
   PreviewCardArrowProps,
   PreviewCardBackdropProps,
@@ -14,7 +14,7 @@ import type {
   PreviewCardProps,
   PreviewCardTriggerProps,
   PreviewCardViewportProps,
-} from "./PreviewCard.types"
+} from "./PreviewCard.types";
 import {
   previewCardArrowVariants,
   previewCardBackdropVariants,
@@ -22,15 +22,15 @@ import {
   previewCardPositionerVariants,
   previewCardTriggerVariants,
   previewCardViewportVariants,
-} from "./PreviewCard.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
-import { overlayPositionerSideOffset } from "../../../utils/cn"
+} from "./PreviewCard.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
+import { overlayPositionerSideOffset } from "../../../utils/cn";
 
 const PreviewCard = <Payload = unknown,>(props: PreviewCardProps<Payload>) => {
-  return <BasePreviewCard.Root {...props} />
-}
+  return <BasePreviewCard.Root {...props} />;
+};
 
-PreviewCard.displayName = "PreviewCard"
+PreviewCard.displayName = "PreviewCard";
 
 const PreviewCardTrigger = <Payload = unknown,>({
   ref,
@@ -43,16 +43,16 @@ const PreviewCardTrigger = <Payload = unknown,>({
       className={mergeClassName(previewCardTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PreviewCardTrigger.displayName = "PreviewCardTrigger"
+PreviewCardTrigger.displayName = "PreviewCardTrigger";
 
 const PreviewCardPortal = (props: PreviewCardPortalProps) => {
-  return <BasePreviewCard.Portal {...props} />
-}
+  return <BasePreviewCard.Portal {...props} />;
+};
 
-PreviewCardPortal.displayName = "PreviewCardPortal"
+PreviewCardPortal.displayName = "PreviewCardPortal";
 
 const PreviewCardPositioner = ({
   ref,
@@ -67,10 +67,10 @@ const PreviewCardPositioner = ({
       className={mergeClassName(previewCardPositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PreviewCardPositioner.displayName = "PreviewCardPositioner"
+PreviewCardPositioner.displayName = "PreviewCardPositioner";
 
 const PreviewCardPopup = ({
   ref,
@@ -83,10 +83,10 @@ const PreviewCardPopup = ({
       className={mergeClassName(previewCardPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PreviewCardPopup.displayName = "PreviewCardPopup"
+PreviewCardPopup.displayName = "PreviewCardPopup";
 
 const PreviewCardArrow = ({
   ref,
@@ -99,10 +99,10 @@ const PreviewCardArrow = ({
       className={mergeClassName(previewCardArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PreviewCardArrow.displayName = "PreviewCardArrow"
+PreviewCardArrow.displayName = "PreviewCardArrow";
 
 const PreviewCardBackdrop = ({
   ref,
@@ -115,10 +115,10 @@ const PreviewCardBackdrop = ({
       className={mergeClassName(previewCardBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PreviewCardBackdrop.displayName = "PreviewCardBackdrop"
+PreviewCardBackdrop.displayName = "PreviewCardBackdrop";
 
 const PreviewCardViewport = ({
   ref,
@@ -131,12 +131,12 @@ const PreviewCardViewport = ({
       className={mergeClassName(previewCardViewportVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PreviewCardViewport.displayName = "PreviewCardViewport"
+PreviewCardViewport.displayName = "PreviewCardViewport";
 
-const createPreviewCardHandle = BasePreviewCard.createHandle
+const createPreviewCardHandle = BasePreviewCard.createHandle;
 
 export {
   PreviewCard,
@@ -148,6 +148,6 @@ export {
   PreviewCardBackdrop,
   PreviewCardViewport,
   createPreviewCardHandle,
-}
+};
 
-export type { PreviewCardHandle } from "./PreviewCard.types"
+export type { PreviewCardHandle } from "./PreviewCard.types";

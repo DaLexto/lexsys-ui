@@ -1,5 +1,5 @@
-import type { ComponentProps, ReactNode } from "react"
-import type { Button, Input } from "@dalexto/lexsys-ui"
+import type { ComponentProps, ReactNode } from "react";
+import type { Button, Input } from "@dalexto/lexsys-ui";
 
 export const brandSwatches = [
   {
@@ -34,12 +34,12 @@ export const brandSwatches = [
     label: "Link text",
     token: "--lex-color-text-link",
   },
-] as const
+] as const;
 
 export const semanticColorExamples: Array<{
-  label: string
-  className: string
-  content: ReactNode
+  label: string;
+  className: string;
+  content: ReactNode;
 }> = [
   {
     label: "Primary CTA",
@@ -61,11 +61,11 @@ export const semanticColorExamples: Array<{
     className: "brand-demo-accent-border",
     content: "border.accent uses brand.color.accent.base.",
   },
-]
+];
 
 export const buttonExamples: Array<{
-  label: string
-  props: ComponentProps<typeof Button>
+  label: string;
+  props: ComponentProps<typeof Button>;
 }> = [
   {
     label: "Primary xs",
@@ -106,11 +106,11 @@ export const buttonExamples: Array<{
       variant: "secondary",
     },
   },
-]
+];
 
 export const inputExamples: Array<{
-  label: string
-  props: ComponentProps<typeof Input>
+  label: string;
+  props: ComponentProps<typeof Input>;
 }> = [
   {
     label: "Default / sm",
@@ -159,4 +159,4 @@ export const inputExamples: Array<{
       disabled: true,
     },
   },
-]
+];

@@ -4,7 +4,7 @@
  * Registry metadata for the Accordion component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const accordionRegistryItem: RegistryItem = {
   name: "accordion",
@@ -38,4 +38,4 @@ export const accordionRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Accordion",
-}
+};

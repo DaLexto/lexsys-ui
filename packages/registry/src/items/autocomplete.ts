@@ -4,7 +4,7 @@
  * Registry metadata for the Autocomplete component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const autocompleteRegistryItem: RegistryItem = {
   name: "autocomplete",
@@ -39,4 +39,4 @@ export const autocompleteRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Autocomplete",
-}
+};

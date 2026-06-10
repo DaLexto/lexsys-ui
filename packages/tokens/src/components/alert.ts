@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const alertComponentTokens = componentTokens("alert", {
   radius: { $value: "{radius.surface}" },
@@ -39,4 +39,4 @@ export const alertComponentTokens = componentTokens("alert", {
     foreground: { $value: "{color.feedback.danger.foreground}" },
     borderColor: { $value: "{color.feedback.danger.foreground}" },
   },
-})
+});

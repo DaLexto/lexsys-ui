@@ -4,7 +4,7 @@
  * Registry metadata for the Table component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const tableRegistryItem: RegistryItem = {
   name: "table",
@@ -33,4 +33,4 @@ export const tableRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Table",
-}
+};

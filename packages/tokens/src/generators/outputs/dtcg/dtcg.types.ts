@@ -17,15 +17,15 @@
  * - JSON export preserves references for downstream token tooling.
  */
 
-import type { TokenType, TokenValue } from "../../../types"
-import type { FlattenedTokenEntry } from "../../shared"
+import type { TokenType, TokenValue } from "../../../types";
+import type { FlattenedTokenEntry } from "../../shared";
 
 /**
  * Supported DTCG-compatible token types for Lexsys JSON export.
  *
  * Keep this list intentionally limited to token types Lexsys currently needs.
  */
-export type DtcgTokenType = TokenType | "string"
+export type DtcgTokenType = TokenType | "string";
 
 /**
  * Shared DTCG-style metadata allowed on token leaves and token branches.
@@ -35,17 +35,17 @@ export type DtcgTokenType = TokenType | "string"
  * - `string` marks it as deprecated and explains why
  */
 export interface DtcgTokenMetadata {
-  $description?: string
-  $deprecated?: boolean | string
-  $type?: DtcgTokenType
+  $description?: string;
+  $deprecated?: boolean | string;
+  $type?: DtcgTokenType;
 }
 
 /**
  * DTCG-compatible token leaf used in exported JSON.
  */
 export interface DtcgTokenLeaf extends DtcgTokenMetadata {
-  $value: TokenValue
-  $extensions?: Record<string, unknown>
+  $value: TokenValue;
+  $extensions?: Record<string, unknown>;
 }
 
 /**
@@ -54,7 +54,7 @@ export interface DtcgTokenLeaf extends DtcgTokenMetadata {
  * Branch metadata must be preserved without being treated as a token leaf.
  */
 export interface DtcgTokenTree extends DtcgTokenMetadata {
-  [key: string]: DtcgTokenLeaf | DtcgTokenTree | string | boolean | undefined
+  [key: string]: DtcgTokenLeaf | DtcgTokenTree | string | boolean | undefined;
 }
 
 /**
@@ -62,10 +62,10 @@ export interface DtcgTokenTree extends DtcgTokenMetadata {
  * token sets.
  */
 export interface DtcgThemeMetadata {
-  name: string
-  selector: string
-  colorScheme: string
-  brand?: string
+  name: string;
+  selector: string;
+  colorScheme: string;
+  brand?: string;
 }
 
 /**
@@ -76,33 +76,33 @@ export interface DtcgThemeMetadata {
  * outputs such as Tokens Studio.
  */
 export interface DtcgLexsysMetadata {
-  generatedBy: string
-  presetId?: string
-  presetName?: string
-  tokenSetOrder: string[]
-  themes?: DtcgThemeMetadata[]
+  generatedBy: string;
+  presetId?: string;
+  presetName?: string;
+  tokenSetOrder: string[];
+  themes?: DtcgThemeMetadata[];
 }
 
 /**
  * Root DTCG document extensions.
  */
 export type DtcgDocumentExtensions = Record<string, unknown> & {
-  "org.lexsys": DtcgLexsysMetadata
-}
+  "org.lexsys": DtcgLexsysMetadata;
+};
 
 /**
  * Root DTCG JSON document emitted by Lexsys.
  */
 export interface DtcgTokenDocument {
-  $schema: string
-  $extensions: DtcgDocumentExtensions
+  $schema: string;
+  $extensions: DtcgDocumentExtensions;
   [key: string]:
     | DtcgTokenLeaf
     | DtcgTokenTree
     | DtcgDocumentExtensions
     | string
     | boolean
-    | undefined
+    | undefined;
 }
 
 /**
@@ -111,7 +111,7 @@ export interface DtcgTokenDocument {
 export type DtcgTokenTypeResolver = (
   entry: FlattenedTokenEntry,
   options: Required<DtcgGeneratorOptions>,
-) => DtcgTokenType
+) => DtcgTokenType;
 
 /**
  * Options used when generating DTCG-compatible JSON tokens.
@@ -120,12 +120,12 @@ export interface DtcgGeneratorOptions {
   /**
    * JSON schema URL for the emitted token document.
    */
-  schemaUrl?: string
+  schemaUrl?: string;
 
   /**
    * Lexsys root document metadata stored under `$extensions["org.lexsys"]`.
    */
-  metadata?: DtcgLexsysMetadata
+  metadata?: DtcgLexsysMetadata;
 
   /**
    * Optional group/type mapping.
@@ -138,7 +138,7 @@ export interface DtcgGeneratorOptions {
    * "font-weight" -> "fontWeight"
    * "motion-duration" -> "duration"
    */
-  tokenTypeByGroup?: Readonly<Record<string, DtcgTokenType>>
+  tokenTypeByGroup?: Readonly<Record<string, DtcgTokenType>>;
 
   /**
    * Optional group/path name overrides.
@@ -148,25 +148,25 @@ export interface DtcgGeneratorOptions {
    * Example:
    * "motion-duration" -> "duration"
    */
-  groupNameOverrides?: Readonly<Record<string, string>>
+  groupNameOverrides?: Readonly<Record<string, string>>;
 
   /**
    * Metadata keys that should be ignored during token traversal.
    */
-  metadataKeys?: ReadonlySet<string>
+  metadataKeys?: ReadonlySet<string>;
 
   /**
    * Optional custom type resolver.
    *
    * If provided, this resolver controls the final DTCG $type value.
    */
-  tokenTypeResolver?: DtcgTokenTypeResolver
+  tokenTypeResolver?: DtcgTokenTypeResolver;
 }
 
 /**
  * Result returned by JSON token generation.
  */
 export interface DtcgGenerateResult {
-  json: DtcgTokenDocument
-  content: string
+  json: DtcgTokenDocument;
+  content: string;
 }

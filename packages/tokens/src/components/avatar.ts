@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const avatarComponentTokens = componentTokens("avatar", {
   background: { $value: "{color.background.subtle}" },
@@ -34,4 +34,4 @@ export const avatarComponentTokens = componentTokens("avatar", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-})
+});

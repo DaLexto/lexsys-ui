@@ -12,7 +12,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/primitives/Pagination/Pagination"
+} from "@/components/primitives/Pagination/Pagination";
 import {
   Table,
   TableBody,
@@ -22,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/primitives/Table/Table"
+} from "@/components/primitives/Table/Table";
 import type {
   DataTableBodyProps,
   DataTableCaptionProps,
@@ -42,91 +42,91 @@ import type {
   DataTableRowProps,
   DataTableTableProps,
   DataTableToolbarProps,
-} from "./DataTable.types"
+} from "./DataTable.types";
 import {
   dataTableClasses,
   dataTableFooterClasses,
   dataTablePaginationClasses,
-} from "./DataTable.variants"
-import { cn } from "@/lib/utils"
+} from "./DataTable.variants";
+import { cn } from "@/lib/utils";
 
 const DataTable = ({ ref, className, ...props }: DataTableProps) => {
   return (
     <div ref={ref} className={cn(dataTableClasses(), className)} {...props} />
-  )
-}
+  );
+};
 
-DataTable.displayName = "DataTable"
+DataTable.displayName = "DataTable";
 
 const DataTableToolbar = ({
   ref,
   className,
   ...props
 }: DataTableToolbarProps) => {
-  return <div ref={ref} className={className} {...props} />
-}
+  return <div ref={ref} className={className} {...props} />;
+};
 
-DataTableToolbar.displayName = "DataTableToolbar"
+DataTableToolbar.displayName = "DataTableToolbar";
 
 const DataTableTable = ({ ref, className, ...props }: DataTableTableProps) => {
-  return <Table ref={ref} className={className} {...props} />
-}
+  return <Table ref={ref} className={className} {...props} />;
+};
 
-DataTableTable.displayName = "DataTableTable"
+DataTableTable.displayName = "DataTableTable";
 
 const DataTableHeader = ({
   ref,
   className,
   ...props
 }: DataTableHeaderProps) => {
-  return <TableHeader ref={ref} className={className} {...props} />
-}
+  return <TableHeader ref={ref} className={className} {...props} />;
+};
 
-DataTableHeader.displayName = "DataTableHeader"
+DataTableHeader.displayName = "DataTableHeader";
 
 const DataTableBody = ({ ref, className, ...props }: DataTableBodyProps) => {
-  return <TableBody ref={ref} className={className} {...props} />
-}
+  return <TableBody ref={ref} className={className} {...props} />;
+};
 
-DataTableBody.displayName = "DataTableBody"
+DataTableBody.displayName = "DataTableBody";
 
 const DataTableFooter = ({
   ref,
   className,
   ...props
 }: DataTableFooterProps) => {
-  return <TableFooter ref={ref} className={className} {...props} />
-}
+  return <TableFooter ref={ref} className={className} {...props} />;
+};
 
-DataTableFooter.displayName = "DataTableFooter"
+DataTableFooter.displayName = "DataTableFooter";
 
 const DataTableRow = ({ ref, className, ...props }: DataTableRowProps) => {
-  return <TableRow ref={ref} className={className} {...props} />
-}
+  return <TableRow ref={ref} className={className} {...props} />;
+};
 
-DataTableRow.displayName = "DataTableRow"
+DataTableRow.displayName = "DataTableRow";
 
 const DataTableHead = ({ ref, className, ...props }: DataTableHeadProps) => {
-  return <TableHead ref={ref} className={className} {...props} />
-}
+  return <TableHead ref={ref} className={className} {...props} />;
+};
 
-DataTableHead.displayName = "DataTableHead"
+DataTableHead.displayName = "DataTableHead";
 
 const DataTableCell = ({ ref, className, ...props }: DataTableCellProps) => {
-  return <TableCell ref={ref} className={className} {...props} />
-}
+  return <TableCell ref={ref} className={className} {...props} />;
+};
 
-DataTableCell.displayName = "DataTableCell"
+DataTableCell.displayName = "DataTableCell";
 
 const DataTableCaption = ({
   ref,
   className,
   ...props
 }: DataTableCaptionProps) => {
-  return <TableCaption ref={ref} className={className} {...props} />
-}
+  return <TableCaption ref={ref} className={className} {...props} />;
+};
 
-DataTableCaption.displayName = "DataTableCaption"
+DataTableCaption.displayName = "DataTableCaption";
 
 const DataTablePaginationBar = ({
   ref,
@@ -139,10 +139,10 @@ const DataTablePaginationBar = ({
       className={cn(dataTableFooterClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DataTablePaginationBar.displayName = "DataTablePaginationBar"
+DataTablePaginationBar.displayName = "DataTablePaginationBar";
 
 const DataTablePagination = ({
   ref,
@@ -155,64 +155,64 @@ const DataTablePagination = ({
       className={cn(dataTablePaginationClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DataTablePagination.displayName = "DataTablePagination"
+DataTablePagination.displayName = "DataTablePagination";
 
 const DataTablePaginationContent = ({
   className,
   ...props
 }: DataTablePaginationContentProps) => {
-  return <PaginationContent className={className} {...props} />
-}
+  return <PaginationContent className={className} {...props} />;
+};
 
-DataTablePaginationContent.displayName = "DataTablePaginationContent"
+DataTablePaginationContent.displayName = "DataTablePaginationContent";
 
 const DataTablePaginationItem = ({
   className,
   ...props
 }: DataTablePaginationItemProps) => {
-  return <PaginationItem className={className} {...props} />
-}
+  return <PaginationItem className={className} {...props} />;
+};
 
-DataTablePaginationItem.displayName = "DataTablePaginationItem"
+DataTablePaginationItem.displayName = "DataTablePaginationItem";
 
 const DataTablePaginationLink = ({
   className,
   ...props
 }: DataTablePaginationLinkProps) => {
-  return <PaginationLink className={className} {...props} />
-}
+  return <PaginationLink className={className} {...props} />;
+};
 
-DataTablePaginationLink.displayName = "DataTablePaginationLink"
+DataTablePaginationLink.displayName = "DataTablePaginationLink";
 
 const DataTablePaginationPrevious = ({
   className,
   ...props
 }: DataTablePaginationPreviousProps) => {
-  return <PaginationPrevious className={className} {...props} />
-}
+  return <PaginationPrevious className={className} {...props} />;
+};
 
-DataTablePaginationPrevious.displayName = "DataTablePaginationPrevious"
+DataTablePaginationPrevious.displayName = "DataTablePaginationPrevious";
 
 const DataTablePaginationNext = ({
   className,
   ...props
 }: DataTablePaginationNextProps) => {
-  return <PaginationNext className={className} {...props} />
-}
+  return <PaginationNext className={className} {...props} />;
+};
 
-DataTablePaginationNext.displayName = "DataTablePaginationNext"
+DataTablePaginationNext.displayName = "DataTablePaginationNext";
 
 const DataTablePaginationEllipsis = ({
   className,
   ...props
 }: DataTablePaginationEllipsisProps) => {
-  return <PaginationEllipsis className={className} {...props} />
-}
+  return <PaginationEllipsis className={className} {...props} />;
+};
 
-DataTablePaginationEllipsis.displayName = "DataTablePaginationEllipsis"
+DataTablePaginationEllipsis.displayName = "DataTablePaginationEllipsis";
 
 export {
   DataTable,
@@ -233,4 +233,4 @@ export {
   DataTablePaginationPrevious,
   DataTablePaginationNext,
   DataTablePaginationEllipsis,
-}
+};

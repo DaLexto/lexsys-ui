@@ -4,14 +4,14 @@
  * Reference FilterToolbar block — compound Toolbar filter row.
  */
 
-import { Button } from "../../primitives/Button/Button"
-import { Input } from "../../primitives/Input/Input"
+import { Button } from "../../primitives/Button/Button";
+import { Input } from "../../primitives/Input/Input";
 import {
   Select,
   SelectTrigger,
   SelectValue,
-} from "../../primitives/Select/Select"
-import { Toolbar, ToolbarGroup } from "../../primitives/Toolbar/Toolbar"
+} from "../../primitives/Select/Select";
+import { Toolbar, ToolbarGroup } from "../../primitives/Toolbar/Toolbar";
 import type {
   FilterToolbarButtonProps,
   FilterToolbarGroupProps,
@@ -20,14 +20,14 @@ import type {
   FilterToolbarSelectProps,
   FilterToolbarSelectTriggerProps,
   FilterToolbarSelectValueProps,
-} from "./FilterToolbar.types"
+} from "./FilterToolbar.types";
 import {
   filterToolbarClasses,
   filterToolbarGroupClasses,
   filterToolbarSearchClasses,
   filterToolbarSelectTriggerClasses,
-} from "./FilterToolbar.variants"
-import { cn } from "../../../utils/cn"
+} from "./FilterToolbar.variants";
+import { cn } from "../../../utils/cn";
 
 const FilterToolbar = ({
   ref,
@@ -42,10 +42,10 @@ const FilterToolbar = ({
       className={cn(filterToolbarClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FilterToolbar.displayName = "FilterToolbar"
+FilterToolbar.displayName = "FilterToolbar";
 
 const FilterToolbarGroup = ({
   ref,
@@ -58,10 +58,10 @@ const FilterToolbarGroup = ({
       className={cn(filterToolbarGroupClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FilterToolbarGroup.displayName = "FilterToolbarGroup"
+FilterToolbarGroup.displayName = "FilterToolbarGroup";
 
 const FilterToolbarSearch = ({
   ref,
@@ -74,28 +74,28 @@ const FilterToolbarSearch = ({
       className={cn(filterToolbarSearchClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FilterToolbarSearch.displayName = "FilterToolbarSearch"
+FilterToolbarSearch.displayName = "FilterToolbarSearch";
 
 const FilterToolbarButton = ({
   ref,
   className,
   ...props
 }: FilterToolbarButtonProps) => {
-  return <Button ref={ref} className={className} {...props} />
-}
+  return <Button ref={ref} className={className} {...props} />;
+};
 
-FilterToolbarButton.displayName = "FilterToolbarButton"
+FilterToolbarButton.displayName = "FilterToolbarButton";
 
 const FilterToolbarSelect = <Value = string,>(
   props: FilterToolbarSelectProps<Value>,
 ) => {
-  return <Select {...props} />
-}
+  return <Select {...props} />;
+};
 
-FilterToolbarSelect.displayName = "FilterToolbarSelect"
+FilterToolbarSelect.displayName = "FilterToolbarSelect";
 
 const FilterToolbarSelectTrigger = ({
   ref,
@@ -108,19 +108,19 @@ const FilterToolbarSelectTrigger = ({
       className={cn(filterToolbarSelectTriggerClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FilterToolbarSelectTrigger.displayName = "FilterToolbarSelectTrigger"
+FilterToolbarSelectTrigger.displayName = "FilterToolbarSelectTrigger";
 
 const FilterToolbarSelectValue = ({
   className,
   ...props
 }: FilterToolbarSelectValueProps) => {
-  return <SelectValue className={className} {...props} />
-}
+  return <SelectValue className={className} {...props} />;
+};
 
-FilterToolbarSelectValue.displayName = "FilterToolbarSelectValue"
+FilterToolbarSelectValue.displayName = "FilterToolbarSelectValue";
 
 export {
   FilterToolbar,
@@ -130,4 +130,4 @@ export {
   FilterToolbarSelect,
   FilterToolbarSelectTrigger,
   FilterToolbarSelectValue,
-}
+};

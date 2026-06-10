@@ -4,10 +4,10 @@
  * Reference Fieldset component implementation.
  */
 
-import { Fieldset as BaseFieldset } from "@base-ui/react/fieldset"
-import type { FieldsetLegendProps, FieldsetProps } from "./Fieldset.types"
-import { fieldsetLegendVariants, fieldsetVariants } from "./Fieldset.variants"
-import { mergeClassName } from "@/lib/utils"
+import { Fieldset as BaseFieldset } from "@base-ui/react/fieldset";
+import type { FieldsetLegendProps, FieldsetProps } from "./Fieldset.types";
+import { fieldsetLegendVariants, fieldsetVariants } from "./Fieldset.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Fieldset = ({ ref, variant, className, ...props }: FieldsetProps) => {
   return (
@@ -16,10 +16,10 @@ const Fieldset = ({ ref, variant, className, ...props }: FieldsetProps) => {
       className={mergeClassName(fieldsetVariants({ variant }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Fieldset.displayName = "Fieldset"
+Fieldset.displayName = "Fieldset";
 
 const FieldsetLegend = ({ ref, className, ...props }: FieldsetLegendProps) => {
   return (
@@ -28,9 +28,9 @@ const FieldsetLegend = ({ ref, className, ...props }: FieldsetLegendProps) => {
       className={mergeClassName(fieldsetLegendVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-FieldsetLegend.displayName = "FieldsetLegend"
+FieldsetLegend.displayName = "FieldsetLegend";
 
-export { Fieldset, FieldsetLegend }
+export { Fieldset, FieldsetLegend };

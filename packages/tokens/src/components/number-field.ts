@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const numberFieldComponentTokens = componentTokens("number-field", {
   gap: { $value: "{spacing.control.gap.sm}" },
@@ -89,4 +89,4 @@ export const numberFieldComponentTokens = componentTokens("number-field", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

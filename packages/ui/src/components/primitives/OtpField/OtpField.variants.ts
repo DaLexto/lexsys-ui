@@ -4,15 +4,15 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses, invalidStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses, invalidStateClasses } from "../../../utils/cn";
 
 export const otpFieldVariants = cva(
   [
     "inline-flex items-center gap-(--lex-input-padding-x-sm) text-(--lex-field-foreground)",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
 export const otpFieldInputVariants = cva(
   [
@@ -38,8 +38,8 @@ export const otpFieldInputVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const otpFieldSeparatorVariants = cva(
   "select-none text-(length:--lex-input-font-size-md) font-(--lex-input-font-weight) text-(--lex-input-placeholder-color)",
-)
+);

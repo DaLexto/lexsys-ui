@@ -37,13 +37,13 @@ silently break every test.
 **Always import the prefix constant instead of hardcoding it:**
 
 ```ts
-import { testCssVarPrefix as p } from "../../config/prefix.js"
+import { testCssVarPrefix as p } from "../../config/prefix.js";
 
 // Bad
-expect(cls).toContain("bg-(--lex-button-primary-background)")
+expect(cls).toContain("bg-(--lex-button-primary-background)");
 
 // Good
-expect(cls).toContain(`bg-(--${p}-button-primary-background)`)
+expect(cls).toContain(`bg-(--${p}-button-primary-background)`);
 ```
 
 `packages/ui/test/config/prefix.ts` mirrors `cssVarPrefix` from
@@ -55,16 +55,16 @@ expect(cls).toContain(`bg-(--${p}-button-primary-background)`)
 ## Variants test pattern
 
 ```ts
-import { describe, it, expect } from "vitest"
-import { testCssVarPrefix as p } from "../../config/prefix.js"
-import { buttonClasses } from "../../../../src/components/primitives/Button/Button.variants"
+import { describe, it, expect } from "vitest";
+import { testCssVarPrefix as p } from "../../config/prefix.js";
+import { buttonClasses } from "../../../../src/components/primitives/Button/Button.variants";
 
 describe("buttonClasses", () => {
   it("default variant contains primary background token", () => {
-    const cls = buttonClasses({ variant: "primary" })
-    expect(cls).toContain(`bg-(--${p}-button-primary-background)`)
-  })
-})
+    const cls = buttonClasses({ variant: "primary" });
+    expect(cls).toContain(`bg-(--${p}-button-primary-background)`);
+  });
+});
 ```
 
 ---
@@ -74,21 +74,21 @@ describe("buttonClasses", () => {
 Uses `@testing-library/react` + Vitest jsdom environment.
 
 ```tsx
-import { describe, it, expect } from "vitest"
-import { render, screen } from "@testing-library/react"
-import { Button } from "../../../../src/components/primitives/Button/Button"
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { Button } from "../../../../src/components/primitives/Button/Button";
 
 describe("Button render", () => {
   it("renders with correct role", () => {
-    render(<Button>Click</Button>)
-    expect(screen.getByRole("button", { name: "Click" })).toBeInTheDocument()
-  })
+    render(<Button>Click</Button>);
+    expect(screen.getByRole("button", { name: "Click" })).toBeInTheDocument();
+  });
 
   it("merges className", () => {
-    const { container } = render(<Button className="custom">Click</Button>)
-    expect(container.firstChild).toHaveClass("custom")
-  })
-})
+    const { container } = render(<Button className="custom">Click</Button>);
+    expect(container.firstChild).toHaveClass("custom");
+  });
+});
 ```
 
 ---

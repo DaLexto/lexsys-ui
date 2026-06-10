@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const toastComponentTokens = componentTokens("toast", {
   viewport: {
@@ -102,4 +102,4 @@ export const toastComponentTokens = componentTokens("toast", {
   motion: {
     offsetY: { $value: "{motion.offset.entry.y}" },
   },
-})
+});

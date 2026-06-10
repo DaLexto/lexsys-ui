@@ -1,9 +1,9 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   RadioGroup,
   RadioGroupItem,
-} from "../../../src/components/primitives/RadioGroup/RadioGroup.js"
+} from "../../../src/components/primitives/RadioGroup/RadioGroup.js";
 
 describe("RadioGroup render", () => {
   it("renders radio group with custom className", () => {
@@ -12,9 +12,9 @@ describe("RadioGroup render", () => {
         <RadioGroupItem value="a">Option A</RadioGroupItem>
         <RadioGroupItem value="b">Option B</RadioGroupItem>
       </RadioGroup>,
-    )
+    );
 
-    expect(screen.getByRole("radiogroup")).toHaveClass("custom-radio-group")
-    expect(screen.getByText("Option A")).toBeInTheDocument()
-  })
-})
+    expect(screen.getByRole("radiogroup")).toHaveClass("custom-radio-group");
+    expect(screen.getByText("Option A")).toBeInTheDocument();
+  });
+});

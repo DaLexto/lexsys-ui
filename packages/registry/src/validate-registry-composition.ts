@@ -1,11 +1,11 @@
-import { getInstallLayer } from "./install-layer.js"
-import type { RegistryItem } from "./registry.types.js"
+import { getInstallLayer } from "./install-layer.js";
+import type { RegistryItem } from "./registry.types.js";
 
 export const validateRegistryComposition = (
   items: RegistryItem[],
 ): string[] => {
-  const errors: string[] = []
-  const itemsByName = new Map(items.map((item) => [item.name, item]))
+  const errors: string[] = [];
+  const itemsByName = new Map(items.map((item) => [item.name, item]));
 
   const visitCycle = (
     name: string,
@@ -15,70 +15,70 @@ export const validateRegistryComposition = (
     if (stack.includes(name)) {
       errors.push(
         `Registry dependency cycle detected: ${[...stack, name].join(" -> ")}`,
-      )
-      return
+      );
+      return;
     }
 
     if (visited.has(name)) {
-      return
+      return;
     }
 
-    visited.add(name)
-    const item = itemsByName.get(name)
+    visited.add(name);
+    const item = itemsByName.get(name);
 
     if (!item) {
-      return
+      return;
     }
 
     for (const dep of item.registryDependencies) {
-      visitCycle(dep, [...stack, name], visited)
+      visitCycle(dep, [...stack, name], visited);
     }
+  };
+
+  for (const item of items) {
+    visitCycle(item.name, [], new Set());
   }
 
   for (const item of items) {
-    visitCycle(item.name, [], new Set())
-  }
-
-  for (const item of items) {
-    const itemLayer = getInstallLayer(item)
+    const itemLayer = getInstallLayer(item);
 
     if (!itemLayer) {
-      continue
+      continue;
     }
 
     if (itemLayer === "primitive" && item.registryDependencies.length > 0) {
       errors.push(
         `Registry primitive "${item.name}" MUST NOT declare registryDependencies`,
-      )
+      );
     }
 
     if (itemLayer !== "block" && itemLayer !== "template") {
-      continue
+      continue;
     }
 
     for (const depName of item.registryDependencies) {
-      const dep = itemsByName.get(depName)
+      const dep = itemsByName.get(depName);
 
       if (!dep) {
-        continue
+        continue;
       }
 
-      const depLayer = getInstallLayer(dep)
+      const depLayer = getInstallLayer(dep);
 
       if (!depLayer) {
         errors.push(
           `Registry item "${item.name}" depends on "${depName}" with invalid install layer metadata`,
-        )
-        continue
+        );
+        continue;
       }
 
       if (itemLayer === "block" && depLayer === "template") {
         errors.push(
           `Registry block "${item.name}" MUST NOT depend on template "${depName}"`,
-        )
+        );
       }
     }
   }
 
-  return errors
-}
+  return errors;
+};

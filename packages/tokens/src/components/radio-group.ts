@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const radioGroupComponentTokens = componentTokens("radio-group", {
   gap: { $value: "{spacing.control.gap.md}" },
@@ -42,4 +42,4 @@ export const radioGroupComponentTokens = componentTokens("radio-group", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

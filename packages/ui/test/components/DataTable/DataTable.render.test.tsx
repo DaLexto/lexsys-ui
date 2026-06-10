@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   DataTable,
   DataTableBody,
@@ -15,7 +15,7 @@ import {
   DataTablePaginationPrevious,
   DataTableRow,
   DataTableTable,
-} from "../../../src/components/blocks/DataTable/DataTable.js"
+} from "../../../src/components/blocks/DataTable/DataTable.js";
 
 describe("DataTable render", () => {
   it("renders table rows and pagination controls", () => {
@@ -53,13 +53,13 @@ describe("DataTable render", () => {
           </DataTablePagination>
         </DataTablePaginationBar>
       </DataTable>,
-    )
+    );
 
-    expect(screen.getByText("Alex")).toBeInTheDocument()
-    expect(screen.getByText("Admin")).toBeInTheDocument()
-    expect(screen.getByRole("link", { name: "1" })).toBeInTheDocument()
+    expect(screen.getByText("Alex")).toBeInTheDocument();
+    expect(screen.getByText("Admin")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "1" })).toBeInTheDocument();
 
-    const table = screen.getByText("Alex").closest(".custom-data-table")
-    expect(table).not.toBeNull()
-  })
-})
+    const table = screen.getByText("Alex").closest(".custom-data-table");
+    expect(table).not.toBeNull();
+  });
+});

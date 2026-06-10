@@ -1,43 +1,43 @@
-import { readFile, writeFile } from "node:fs/promises"
-import { join } from "node:path"
-import { fileExists } from "../utils/fs.js"
-import { getCwd } from "../utils/context.js"
-import { isLegacyInstalledRecord, normalizeInstalled } from "./installed.js"
+import { readFile, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { fileExists } from "../utils/fs.js";
+import { getCwd } from "../utils/context.js";
+import { isLegacyInstalledRecord, normalizeInstalled } from "./installed.js";
 
 export interface LexsysPathsConfig {
-  components: string
-  utilities: string
-  styles: string
+  components: string;
+  utilities: string;
+  styles: string;
 }
 
 export interface LexsysAliasesConfig {
-  components: string
-  ui: string
-  utils: string
-  lib: string
-  hooks: string
+  components: string;
+  ui: string;
+  utils: string;
+  lib: string;
+  hooks: string;
 }
 
 export interface LexsysConfig {
-  style: "default"
-  paths: LexsysPathsConfig
-  aliases: LexsysAliasesConfig
-  tailwind: LexsysTailwindConfig
-  installed?: string[]
-  registryUrl?: string | null
-  registryAllowlist?: string[]
+  style: "default";
+  paths: LexsysPathsConfig;
+  aliases: LexsysAliasesConfig;
+  tailwind: LexsysTailwindConfig;
+  installed?: string[];
+  registryUrl?: string | null;
+  registryAllowlist?: string[];
 }
 
 export interface LexsysTailwindConfig {
-  version: "v4"
-  css: string
+  version: "v4";
+  css: string;
 }
 
 const defaultPathsConfig: LexsysPathsConfig = {
   components: "src/components/ui",
   utilities: "src/lib",
   styles: "styles",
-}
+};
 
 const defaultAliasesConfig: LexsysAliasesConfig = {
   components: "@/components/ui",
@@ -45,12 +45,12 @@ const defaultAliasesConfig: LexsysAliasesConfig = {
   utils: "@/lib/utils",
   lib: "@/lib",
   hooks: "@/hooks",
-}
+};
 
 const defaultTailwindConfig: LexsysTailwindConfig = {
   version: "v4",
   css: "src/style.css",
-}
+};
 
 export const defaultConfig: LexsysConfig = {
   style: "default",
@@ -60,23 +60,23 @@ export const defaultConfig: LexsysConfig = {
   installed: [],
   registryUrl: null,
   registryAllowlist: [],
-}
+};
 
 export const getConfigPath = (): string => {
-  return join(getCwd(), "lexsys.config.json")
-}
+  return join(getCwd(), "lexsys.config.json");
+};
 
 export const loadConfig = async (): Promise<LexsysConfig> => {
-  const configPath = getConfigPath()
+  const configPath = getConfigPath();
 
   if (!(await fileExists(configPath))) {
-    return defaultConfig
+    return defaultConfig;
   }
 
-  const content = await readFile(configPath, "utf-8")
+  const content = await readFile(configPath, "utf-8");
   const parsed = JSON.parse(content) as Partial<LexsysConfig> & {
-    installed?: unknown
-  }
+    installed?: unknown;
+  };
 
   const config: LexsysConfig = {
     ...defaultConfig,
@@ -96,20 +96,20 @@ export const loadConfig = async (): Promise<LexsysConfig> => {
     installed: normalizeInstalled(parsed.installed),
     registryAllowlist: Array.isArray(parsed.registryAllowlist)
       ? parsed.registryAllowlist.filter((entry): entry is string => {
-          return typeof entry === "string" && entry.length > 0
+          return typeof entry === "string" && entry.length > 0;
         })
       : defaultConfig.registryAllowlist,
-  }
+  };
 
   if (isLegacyInstalledRecord(parsed.installed)) {
-    await saveConfig(config)
+    await saveConfig(config);
   }
 
-  return config
-}
+  return config;
+};
 
 export const saveConfig = async (config: LexsysConfig): Promise<void> => {
-  const configPath = getConfigPath()
+  const configPath = getConfigPath();
 
-  await writeFile(configPath, JSON.stringify(config, null, 2) + "\n", "utf-8")
-}
+  await writeFile(configPath, JSON.stringify(config, null, 2) + "\n", "utf-8");
+};

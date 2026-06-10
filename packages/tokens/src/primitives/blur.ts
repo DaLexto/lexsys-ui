@@ -20,7 +20,7 @@
  * - Blur radius tokens use the DTCG `dimension` type
  */
 
-import { primitiveTokens } from "../types/authoring"
+import { primitiveTokens } from "../types/authoring";
 
 export const blurPrimitives = primitiveTokens("blur", {
   $type: "dimension",
@@ -35,4 +35,4 @@ export const blurPrimitives = primitiveTokens("blur", {
   xl: { $value: { value: 16, unit: "px" } },
   "2xl": { $value: { value: 24, unit: "px" } },
   "3xl": { $value: { value: 40, unit: "px" } },
-})
+});

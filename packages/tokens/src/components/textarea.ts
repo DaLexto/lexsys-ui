@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const textareaComponentTokens = componentTokens("textarea", {
   background: { $value: "{color.background.base}" },
@@ -61,4 +61,4 @@ export const textareaComponentTokens = componentTokens("textarea", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

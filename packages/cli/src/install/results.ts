@@ -1,24 +1,24 @@
 export interface InstallResourceResult {
-  created: string[]
-  updated: string[]
-  skipped: string[]
-  conflicted: string[]
+  created: string[];
+  updated: string[];
+  skipped: string[];
+  conflicted: string[];
 }
 
 export interface UninstallResourceResult {
-  removed: string[]
-  skipped: string[]
-  conflicted: string[]
-  missing: string[]
+  removed: string[];
+  skipped: string[];
+  conflicted: string[];
+  missing: string[];
 }
 
 export const createInstallResourceResult = (): InstallResourceResult => {
-  return { created: [], updated: [], skipped: [], conflicted: [] }
-}
+  return { created: [], updated: [], skipped: [], conflicted: [] };
+};
 
 export const createUninstallResourceResult = (): UninstallResourceResult => {
-  return { removed: [], skipped: [], conflicted: [], missing: [] }
-}
+  return { removed: [], skipped: [], conflicted: [], missing: [] };
+};
 
 export const mergeInstallResults = (
   results: InstallResourceResult[],
@@ -31,8 +31,8 @@ export const mergeInstallResults = (
       conflicted: [...merged.conflicted, ...result.conflicted],
     }),
     createInstallResourceResult(),
-  )
-}
+  );
+};
 
 export const mergeUninstallResults = (
   results: UninstallResourceResult[],
@@ -45,24 +45,24 @@ export const mergeUninstallResults = (
       missing: [...merged.missing, ...result.missing],
     }),
     createUninstallResourceResult(),
-  )
-}
+  );
+};
 
 export const hasInstallConflicts = (result: InstallResourceResult): boolean => {
-  return result.conflicted.length > 0
-}
+  return result.conflicted.length > 0;
+};
 
 export const hasUninstallConflicts = (
   result: UninstallResourceResult,
 ): boolean => {
-  return result.conflicted.length > 0
-}
+  return result.conflicted.length > 0;
+};
 
 const formatParts = (
   parts: Array<{ label: string; count: number }>,
 ): string[] => {
-  return parts.filter((p) => p.count > 0).map((p) => `${p.count} ${p.label}`)
-}
+  return parts.filter((p) => p.count > 0).map((p) => `${p.count} ${p.label}`);
+};
 
 export const printResourceSummary = (
   label: string,
@@ -73,15 +73,15 @@ export const printResourceSummary = (
     { label: "updated", count: result.updated.length },
     { label: "skipped", count: result.skipped.length },
     { label: "conflicted", count: result.conflicted.length },
-  ])
+  ]);
 
   if (!parts.length) {
-    console.log(`- ${label}: no changes`)
-    return
+    console.log(`- ${label}: no changes`);
+    return;
   }
 
-  console.log(`- ${label}: ${parts.join(", ")}`)
-}
+  console.log(`- ${label}: ${parts.join(", ")}`);
+};
 
 export const printUninstallSummary = (
   label: string,
@@ -92,12 +92,12 @@ export const printUninstallSummary = (
     { label: "skipped", count: result.skipped.length },
     { label: "missing", count: result.missing.length },
     { label: "conflicted", count: result.conflicted.length },
-  ])
+  ]);
 
   if (!parts.length) {
-    console.log(`- ${label}: no changes`)
-    return
+    console.log(`- ${label}: no changes`);
+    return;
   }
 
-  console.log(`- ${label}: ${parts.join(", ")}`)
-}
+  console.log(`- ${label}: ${parts.join(", ")}`);
+};

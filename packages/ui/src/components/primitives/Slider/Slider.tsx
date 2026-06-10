@@ -4,7 +4,7 @@
  * Reference Slider component implementation.
  */
 
-import { Slider as BaseSlider } from "@base-ui/react/slider"
+import { Slider as BaseSlider } from "@base-ui/react/slider";
 import type {
   SliderControlProps,
   SliderIndicatorProps,
@@ -13,7 +13,7 @@ import type {
   SliderThumbProps,
   SliderTrackProps,
   SliderValueProps,
-} from "./Slider.types"
+} from "./Slider.types";
 import {
   sliderClasses,
   sliderControlClasses,
@@ -22,8 +22,8 @@ import {
   sliderThumbClasses,
   sliderTrackClasses,
   sliderValueClasses,
-} from "./Slider.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+} from "./Slider.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const Slider = ({ ref, className, children, ...props }: SliderProps) => {
   return (
@@ -34,10 +34,10 @@ const Slider = ({ ref, className, children, ...props }: SliderProps) => {
     >
       {children}
     </BaseSlider.Root>
-  )
-}
+  );
+};
 
-Slider.displayName = "Slider"
+Slider.displayName = "Slider";
 
 const SliderControl = ({
   className,
@@ -51,10 +51,10 @@ const SliderControl = ({
     >
       {children}
     </BaseSlider.Control>
-  )
-}
+  );
+};
 
-SliderControl.displayName = "SliderControl"
+SliderControl.displayName = "SliderControl";
 
 const SliderTrack = ({ className, children, ...props }: SliderTrackProps) => {
   return (
@@ -64,10 +64,10 @@ const SliderTrack = ({ className, children, ...props }: SliderTrackProps) => {
     >
       {children}
     </BaseSlider.Track>
-  )
-}
+  );
+};
 
-SliderTrack.displayName = "SliderTrack"
+SliderTrack.displayName = "SliderTrack";
 
 const SliderIndicator = ({ className, ...props }: SliderIndicatorProps) => {
   return (
@@ -75,10 +75,10 @@ const SliderIndicator = ({ className, ...props }: SliderIndicatorProps) => {
       className={mergeClassName(sliderIndicatorClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SliderIndicator.displayName = "SliderIndicator"
+SliderIndicator.displayName = "SliderIndicator";
 
 const SliderThumb = ({ className, ...props }: SliderThumbProps) => {
   return (
@@ -86,10 +86,10 @@ const SliderThumb = ({ className, ...props }: SliderThumbProps) => {
       className={mergeClassName(sliderThumbClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SliderThumb.displayName = "SliderThumb"
+SliderThumb.displayName = "SliderThumb";
 
 const SliderLabel = ({ className, ...props }: SliderLabelProps) => {
   return (
@@ -97,10 +97,10 @@ const SliderLabel = ({ className, ...props }: SliderLabelProps) => {
       className={mergeClassName(sliderLabelClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SliderLabel.displayName = "SliderLabel"
+SliderLabel.displayName = "SliderLabel";
 
 const SliderValue = ({ className, ...props }: SliderValueProps) => {
   return (
@@ -108,10 +108,10 @@ const SliderValue = ({ className, ...props }: SliderValueProps) => {
       className={mergeClassName(sliderValueClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SliderValue.displayName = "SliderValue"
+SliderValue.displayName = "SliderValue";
 
 export {
   Slider,
@@ -121,4 +121,4 @@ export {
   SliderThumb,
   SliderLabel,
   SliderValue,
-}
+};

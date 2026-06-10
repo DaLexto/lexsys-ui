@@ -19,33 +19,33 @@ import type {
   TokenColorValue,
   TokenUnitValue,
   TokenValue,
-} from "../../../types"
+} from "../../../types";
 
 import {
   DEFAULT_GENERATOR_METADATA_KEYS,
   toTokenName,
   type FlattenedTokenEntry,
-} from "../../shared"
+} from "../../shared";
 
-import type { CssVarsGeneratorOptions, CssVariableEntry } from "./css.types"
+import type { CssVarsGeneratorOptions, CssVariableEntry } from "./css.types";
 import {
   composeShadowBoxShadowCSSValue,
   isShadowCompositeBoxShadowPath,
-} from "./css.shadow-compose"
+} from "./css.shadow-compose";
 
-const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/
+const STRICT_REFERENCE_PATTERN = /^\{([a-zA-Z0-9_.-]+)\}$/;
 
 const isRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+};
 
 const isTokenUnitValue = (value: TokenValue): value is TokenUnitValue => {
   return (
     isRecord(value) &&
     typeof value.value === "number" &&
     typeof value.unit === "string"
-  )
-}
+  );
+};
 
 const isTokenColorValue = (value: TokenValue): value is TokenColorValue => {
   return (
@@ -53,40 +53,40 @@ const isTokenColorValue = (value: TokenValue): value is TokenColorValue => {
     typeof value.colorSpace === "string" &&
     Array.isArray(value.components) &&
     value.components.every((component) => typeof component === "number")
-  )
-}
+  );
+};
 
 const toCssColorValue = (value: TokenColorValue): string => {
-  const alpha = value.alpha ?? 1
-  const alphaSuffix = alpha === 1 ? "" : ` / ${alpha}`
-  const components = value.components.join(" ")
+  const alpha = value.alpha ?? 1;
+  const alphaSuffix = alpha === 1 ? "" : ` / ${alpha}`;
+  const components = value.components.join(" ");
 
   if (value.colorSpace === "oklch") {
-    return `oklch(${components}${alphaSuffix})`
+    return `oklch(${components}${alphaSuffix})`;
   }
 
   if (value.colorSpace === "srgb") {
-    return `color(srgb ${components}${alphaSuffix})`
+    return `color(srgb ${components}${alphaSuffix})`;
   }
 
-  return `color(${value.colorSpace} ${components}${alphaSuffix})`
-}
+  return `color(${value.colorSpace} ${components}${alphaSuffix})`;
+};
 
 const toCssRawTokenValue = (value: TokenValue): string => {
   if (typeof value === "string" || typeof value === "number") {
-    return String(value)
+    return String(value);
   }
 
   if (isTokenUnitValue(value)) {
-    return `${value.value}${value.unit}`
+    return `${value.value}${value.unit}`;
   }
 
   if (isTokenColorValue(value)) {
-    return toCssColorValue(value)
+    return toCssColorValue(value);
   }
 
-  throw new Error("Unsupported token value for CSS output.")
-}
+  throw new Error("Unsupported token value for CSS output.");
+};
 
 export const createDefaultCssVarsGeneratorOptions = (
   options: CssVarsGeneratorOptions,
@@ -95,58 +95,58 @@ export const createDefaultCssVarsGeneratorOptions = (
     cssVarPrefix: options.cssVarPrefix,
     groupNameOverrides: options.groupNameOverrides ?? {},
     metadataKeys: options.metadataKeys ?? DEFAULT_GENERATOR_METADATA_KEYS,
-  }
-}
+  };
+};
 
 export const toCssVarName = (
   tokenName: string,
   options: Required<CssVarsGeneratorOptions>,
 ): string => {
-  return `--${options.cssVarPrefix}-${tokenName}`
-}
+  return `--${options.cssVarPrefix}-${tokenName}`;
+};
 
 export const toCssTokenValue = (
   value: TokenValue,
   options: Required<CssVarsGeneratorOptions>,
 ): string => {
-  const stringValue = toCssRawTokenValue(value)
-  const reference = stringValue.match(STRICT_REFERENCE_PATTERN)
+  const stringValue = toCssRawTokenValue(value);
+  const reference = stringValue.match(STRICT_REFERENCE_PATTERN);
 
   if (!reference) {
-    return stringValue
+    return stringValue;
   }
 
-  const referencePath = reference[1]
+  const referencePath = reference[1];
 
   if (referencePath === undefined) {
-    return stringValue
+    return stringValue;
   }
 
   const tokenName = toTokenName(
     referencePath.split("."),
     options.groupNameOverrides,
-  )
+  );
 
-  return `var(${toCssVarName(tokenName, options)})`
-}
+  return `var(${toCssVarName(tokenName, options)})`;
+};
 
 export const toCssVariableEntry = (
   entry: FlattenedTokenEntry,
   options: Required<CssVarsGeneratorOptions>,
 ): CssVariableEntry => {
-  const tokenName = toTokenName(entry.path, options.groupNameOverrides)
+  const tokenName = toTokenName(entry.path, options.groupNameOverrides);
 
   if (isShadowCompositeBoxShadowPath(entry.path)) {
     return {
       name: tokenName,
       value: composeShadowBoxShadowCSSValue(entry.path.slice(0, -1), options),
-    }
+    };
   }
 
-  const cssValue = toCssTokenValue(entry.value, options)
+  const cssValue = toCssTokenValue(entry.value, options);
 
   return {
     name: tokenName,
     value: cssValue,
-  }
-}
+  };
+};

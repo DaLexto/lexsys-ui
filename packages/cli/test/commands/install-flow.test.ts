@@ -1,26 +1,26 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
-import { join } from "node:path"
-import { registryItems } from "@dalexto/lexsys-registry"
-import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
-import { setCwd } from "../../src/utils/context.js"
-import { runAdd } from "../../src/commands/add.js"
-import { runInit } from "../../src/commands/init.js"
-import { runUninstall } from "../../src/commands/uninstall.js"
-import { runUpdate } from "../../src/commands/update.js"
-import { computeRegistryClosure } from "../../src/registry/closure.js"
-import { testCssVarPrefix as p } from "../config/prefix.js"
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { registryItems } from "@dalexto/lexsys-registry";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { setCwd } from "../../src/utils/context.js";
+import { runAdd } from "../../src/commands/add.js";
+import { runInit } from "../../src/commands/init.js";
+import { runUninstall } from "../../src/commands/uninstall.js";
+import { runUpdate } from "../../src/commands/update.js";
+import { computeRegistryClosure } from "../../src/registry/closure.js";
+import { testCssVarPrefix as p } from "../config/prefix.js";
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
-  await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
-}
+  await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8");
+};
 
 const countOccurrences = (content: string, pattern: string): number => {
-  return content.split(pattern).length - 1
-}
+  return content.split(pattern).length - 1;
+};
 
 const toTokenPrefix = (folder: string): string => {
-  return folder.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
-}
+  return folder.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+};
 
 const getVariantsTokenPrefix = (canonicalName: string): string => {
   const reusedPrefixes: Record<string, string> = {
@@ -33,54 +33,54 @@ const getVariantsTokenPrefix = (canonicalName: string): string => {
     NavigationMenu: "menu",
     OtpField: "input",
     PreviewCard: "popover",
-  }
+  };
 
-  return reusedPrefixes[canonicalName] ?? toTokenPrefix(canonicalName)
-}
+  return reusedPrefixes[canonicalName] ?? toTokenPrefix(canonicalName);
+};
 
 const componentRegistryItems = registryItems.filter((item) => {
-  return item.type === "component"
-})
+  return item.type === "component";
+});
 
 const blockRegistryItems = registryItems.filter((item) => {
-  return item.type === "block"
-})
+  return item.type === "block";
+});
 
 const assertFlatConsumerImportPaths = (content: string): void => {
-  expect(content).not.toMatch(/\.\.\/\.\.\/(blocks|templates|primitives)\//)
-  expect(content).not.toContain("blocks/")
-  expect(content).not.toContain("templates/")
-  expect(content).not.toContain("primitives/")
-}
+  expect(content).not.toMatch(/\.\.\/\.\.\/(blocks|templates|primitives)\//);
+  expect(content).not.toContain("blocks/");
+  expect(content).not.toContain("templates/");
+  expect(content).not.toContain("primitives/");
+};
 
 const readInstalledConfig = async (
   root: string,
 ): Promise<{ installed?: string[] }> => {
   return JSON.parse(
     await readFile(join(root, "lexsys.config.json"), "utf-8"),
-  ) as { installed?: string[] }
-}
+  ) as { installed?: string[] };
+};
 
 const expectRegistryClosureInstalled = (
   installed: string[] | undefined,
   rootNames: string[],
 ): void => {
-  const closure = computeRegistryClosure(rootNames, registryItems)
+  const closure = computeRegistryClosure(rootNames, registryItems);
 
   for (const name of closure) {
-    expect(installed).toContain(name)
+    expect(installed).toContain(name);
   }
-}
+};
 
 const getTemplateFileName = (file: string): string => {
-  const fileName = file.split("/").at(-1)
+  const fileName = file.split("/").at(-1);
 
   if (!fileName) {
-    throw new Error(`Invalid registry template file path: ${file}`)
+    throw new Error(`Invalid registry template file path: ${file}`);
   }
 
-  return fileName
-}
+  return fileName;
+};
 
 const writeViteConsumerFiles = async (root: string): Promise<void> => {
   await writeJson(join(root, "package.json"), {
@@ -96,125 +96,125 @@ const writeViteConsumerFiles = async (root: string): Promise<void> => {
       tailwindcss: "^4.2.4",
     },
     packageManager: "npm@11.0.0",
-  })
-  await mkdir(join(root, "src"), { recursive: true })
-  await writeFile(join(root, "src/style.css"), ":root {}\n", "utf-8")
+  });
+  await mkdir(join(root, "src"), { recursive: true });
+  await writeFile(join(root, "src/style.css"), ":root {}\n", "utf-8");
   await writeFile(
     join(root, "vite.config.ts"),
     'import { defineConfig } from "vite";\nimport react from "@vitejs/plugin-react";\n\nexport default defineConfig({\n  plugins: [react()],\n});\n',
     "utf-8",
-  )
-}
+  );
+};
 
 describe("install flow smoke", () => {
-  let tempDir: string
+  let tempDir: string;
 
   beforeEach(async () => {
-    const testRoot = join(process.cwd(), ".tmp")
-    await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-flow-"))
-    setCwd(tempDir)
-    vi.spyOn(console, "log").mockImplementation(() => undefined)
-  })
+    const testRoot = join(process.cwd(), ".tmp");
+    await mkdir(testRoot, { recursive: true });
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-flow-"));
+    setCwd(tempDir);
+    vi.spyOn(console, "log").mockImplementation(() => undefined);
+  });
 
   afterEach(async () => {
-    vi.restoreAllMocks()
+    vi.restoreAllMocks();
     if (tempDir) {
-      await rm(tempDir, { force: true, recursive: true })
+      await rm(tempDir, { force: true, recursive: true });
     }
-  })
+  });
 
   test("initializes a Vite consumer and installs components idempotently", async () => {
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(["button", "card", "badge", "alert"])
-    await runInit()
-    await runAdd(["button", "card", "badge", "alert"])
+    await runInit();
+    await runAdd(["button", "card", "badge", "alert"]);
+    await runInit();
+    await runAdd(["button", "card", "badge", "alert"]);
 
-    const css = await readFile(join(tempDir, "src/style.css"), "utf-8")
+    const css = await readFile(join(tempDir, "src/style.css"), "utf-8");
     expect(css).toBe(
       '@import "tailwindcss";\n' +
         '@import "../styles/tokens.css";\n' +
         '@import "../styles/theme.css";\n' +
         ":root {}\n",
-    )
-    expect(countOccurrences(css, '@import "tailwindcss";')).toBe(1)
-    expect(countOccurrences(css, "../styles/tokens.css")).toBe(1)
-    expect(countOccurrences(css, "../styles/theme.css")).toBe(1)
+    );
+    expect(countOccurrences(css, '@import "tailwindcss";')).toBe(1);
+    expect(countOccurrences(css, "../styles/tokens.css")).toBe(1);
+    expect(countOccurrences(css, "../styles/theme.css")).toBe(1);
 
     await expect(
       readFile(join(tempDir, "vite.config.ts"), "utf-8"),
-    ).resolves.toContain("plugins: [tailwindcss(), react()]")
+    ).resolves.toContain("plugins: [tailwindcss(), react()]");
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-alert-radius`)
+    ).resolves.toContain(`--${p}-alert-radius`);
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
-    ).resolves.toContain("--color-twix-background-base")
+    ).resolves.toContain("--color-twix-background-base");
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
-    ).resolves.toContain("twMerge")
+    ).resolves.toContain("twMerge");
     await expect(
       readFile(
         join(tempDir, "src/components/ui/Button/Button.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain(`bg-(--${p}-button-primary-background)`)
+    ).resolves.toContain(`bg-(--${p}-button-primary-background)`);
     await expect(
       readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
-    ).resolves.toContain("@/lib/utils")
+    ).resolves.toContain("@/lib/utils");
     await expect(
       readFile(
         join(tempDir, "src/components/ui/Card/Card.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain(`bg-(--${p}-card-background)`)
+    ).resolves.toContain(`bg-(--${p}-card-background)`);
     await expect(
       readFile(join(tempDir, "src/components/ui/Card/Card.tsx"), "utf-8"),
-    ).resolves.toContain("@/lib/utils")
+    ).resolves.toContain("@/lib/utils");
     await expect(
       readFile(
         join(tempDir, "src/components/ui/Badge/Badge.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain(`bg-(--${p}-badge-neutral-background)`)
+    ).resolves.toContain(`bg-(--${p}-badge-neutral-background)`);
     await expect(
       readFile(join(tempDir, "src/components/ui/Badge/Badge.tsx"), "utf-8"),
-    ).resolves.toContain("@/lib/utils")
+    ).resolves.toContain("@/lib/utils");
     await expect(
       readFile(
         join(tempDir, "src/components/ui/Alert/Alert.variants.ts"),
         "utf-8",
       ),
-    ).resolves.toContain(`bg-(--${p}-alert-neutral-background)`)
+    ).resolves.toContain(`bg-(--${p}-alert-neutral-background)`);
     await expect(
       readFile(join(tempDir, "src/components/ui/Alert/Alert.tsx"), "utf-8"),
-    ).resolves.toContain("@/lib/utils")
+    ).resolves.toContain("@/lib/utils");
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as {
-      installed?: string[]
-      style?: string
-      tailwind?: { css?: string }
-    }
+      installed?: string[];
+      style?: string;
+      tailwind?: { css?: string };
+    };
 
-    expect(config.style).toBe("default")
-    expect(config.tailwind?.css).toBe("src/style.css")
+    expect(config.style).toBe("default");
+    expect(config.tailwind?.css).toBe("src/style.css");
     expect(config.installed?.sort()).toEqual(
       ["alert", "badge", "button", "card"].sort(),
-    )
-  })
+    );
+  });
 
   test("installs every bundled registry component idempotently", async () => {
-    const componentNames = componentRegistryItems.map((item) => item.name)
-    const installedFileSnapshots = new Map<string, string>()
+    const componentNames = componentRegistryItems.map((item) => item.name);
+    const installedFileSnapshots = new Map<string, string>();
 
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(componentNames)
+    await runInit();
+    await runAdd(componentNames);
 
     for (const item of componentRegistryItems) {
       for (const file of item.files) {
@@ -223,56 +223,56 @@ describe("install flow smoke", () => {
           "src/components/ui",
           item.canonicalName,
           getTemplateFileName(file),
-        )
+        );
 
         installedFileSnapshots.set(
           targetPath,
           await readFile(targetPath, "utf-8"),
-        )
+        );
       }
     }
 
-    await runInit()
-    await runAdd(componentNames)
+    await runInit();
+    await runAdd(componentNames);
 
-    const css = await readFile(join(tempDir, "src/style.css"), "utf-8")
-    expect(countOccurrences(css, '@import "tailwindcss";')).toBe(1)
-    expect(countOccurrences(css, "../styles/tokens.css")).toBe(1)
-    expect(countOccurrences(css, "../styles/theme.css")).toBe(1)
+    const css = await readFile(join(tempDir, "src/style.css"), "utf-8");
+    expect(countOccurrences(css, '@import "tailwindcss";')).toBe(1);
+    expect(countOccurrences(css, "../styles/tokens.css")).toBe(1);
+    expect(countOccurrences(css, "../styles/theme.css")).toBe(1);
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-switch-thumb-translate-md`)
+    ).resolves.toContain(`--${p}-switch-thumb-translate-md`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-tabs-tab-active-background`)
+    ).resolves.toContain(`--${p}-tabs-tab-active-background`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-field-control-background`)
+    ).resolves.toContain(`--${p}-field-control-background`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-dialog-popup-background`)
+    ).resolves.toContain(`--${p}-dialog-popup-background`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-fieldset-legend-foreground`)
+    ).resolves.toContain(`--${p}-fieldset-legend-foreground`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-form-gap`)
+    ).resolves.toContain(`--${p}-form-gap`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-textarea-min-height-md`)
+    ).resolves.toContain(`--${p}-textarea-min-height-md`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-number-field-stepper-width-md`)
+    ).resolves.toContain(`--${p}-number-field-stepper-width-md`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-popover-popup-background`)
+    ).resolves.toContain(`--${p}-popover-popup-background`);
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-select-popup-background`)
+    ).resolves.toContain(`--${p}-select-popup-background`);
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
-    ).resolves.toContain("twMerge")
+    ).resolves.toContain("twMerge");
 
     for (const item of componentRegistryItems) {
       for (const file of item.files) {
@@ -281,11 +281,11 @@ describe("install flow smoke", () => {
           "src/components/ui",
           item.canonicalName,
           getTemplateFileName(file),
-        )
+        );
 
         await expect(readFile(targetPath, "utf-8")).resolves.toBe(
           installedFileSnapshots.get(targetPath),
-        )
+        );
       }
 
       await expect(
@@ -296,7 +296,7 @@ describe("install flow smoke", () => {
           ),
           "utf-8",
         ),
-      ).resolves.toContain("@/lib/utils")
+      ).resolves.toContain("@/lib/utils");
       await expect(
         readFile(
           join(
@@ -307,32 +307,32 @@ describe("install flow smoke", () => {
         ),
       ).resolves.toContain(
         `--lex-${getVariantsTokenPrefix(item.canonicalName)}`,
-      )
+      );
     }
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
     ) as {
-      installed?: string[]
-      style?: string
-      tailwind?: { css?: string }
-    }
+      installed?: string[];
+      style?: string;
+      tailwind?: { css?: string };
+    };
 
-    expect(config.style).toBe("default")
-    expect(config.tailwind?.css).toBe("src/style.css")
+    expect(config.style).toBe("default");
+    expect(config.tailwind?.css).toBe("src/style.css");
     expect(config.installed?.sort()).toEqual(
       componentRegistryItems.map((item) => item.name).sort(),
-    )
-  })
+    );
+  });
 
   test("installs every bundled registry block idempotently", async () => {
-    const blockNames = blockRegistryItems.map((item) => item.name)
-    const installedFileSnapshots = new Map<string, string>()
+    const blockNames = blockRegistryItems.map((item) => item.name);
+    const installedFileSnapshots = new Map<string, string>();
 
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(blockNames)
+    await runInit();
+    await runAdd(blockNames);
 
     for (const item of blockRegistryItems) {
       for (const file of item.files) {
@@ -341,16 +341,16 @@ describe("install flow smoke", () => {
           "src/components/ui",
           item.canonicalName,
           getTemplateFileName(file),
-        )
-        const content = await readFile(targetPath, "utf-8")
+        );
+        const content = await readFile(targetPath, "utf-8");
 
-        assertFlatConsumerImportPaths(content)
-        installedFileSnapshots.set(targetPath, content)
+        assertFlatConsumerImportPaths(content);
+        installedFileSnapshots.set(targetPath, content);
       }
     }
 
-    await runInit()
-    await runAdd(blockNames)
+    await runInit();
+    await runAdd(blockNames);
 
     for (const item of blockRegistryItems) {
       for (const file of item.files) {
@@ -359,11 +359,11 @@ describe("install flow smoke", () => {
           "src/components/ui",
           item.canonicalName,
           getTemplateFileName(file),
-        )
+        );
 
         await expect(readFile(targetPath, "utf-8")).resolves.toBe(
           installedFileSnapshots.get(targetPath),
-        )
+        );
       }
 
       await expect(
@@ -374,7 +374,7 @@ describe("install flow smoke", () => {
           ),
           "utf-8",
         ),
-      ).resolves.toContain("@/lib/utils")
+      ).resolves.toContain("@/lib/utils");
       await expect(
         readFile(
           join(
@@ -383,24 +383,24 @@ describe("install flow smoke", () => {
           ),
           "utf-8",
         ),
-      ).resolves.toMatch(/--lex-|--color-twix-/)
+      ).resolves.toMatch(/--lex-|--color-twix-/);
     }
 
-    const config = await readInstalledConfig(tempDir)
+    const config = await readInstalledConfig(tempDir);
     const expectedInstalled = [
       ...computeRegistryClosure(blockNames, registryItems),
-    ].sort()
+    ].sort();
 
-    expect(config.installed?.sort()).toEqual(expectedInstalled)
-  })
+    expect(config.installed?.sort()).toEqual(expectedInstalled);
+  });
 
   test.each(blockRegistryItems.map((item) => [item.name, item] as const))(
     "installs %s solo with transitive deps and flat consumer import paths",
     async (_name, item) => {
-      await writeViteConsumerFiles(tempDir)
+      await writeViteConsumerFiles(tempDir);
 
-      await runInit()
-      await runAdd([item.name])
+      await runInit();
+      await runAdd([item.name]);
 
       for (const file of item.files) {
         const content = await readFile(
@@ -411,129 +411,129 @@ describe("install flow smoke", () => {
             getTemplateFileName(file),
           ),
           "utf-8",
-        )
+        );
 
-        assertFlatConsumerImportPaths(content)
+        assertFlatConsumerImportPaths(content);
       }
 
-      const config = await readInstalledConfig(tempDir)
-      expectRegistryClosureInstalled(config.installed, [item.name])
+      const config = await readInstalledConfig(tempDir);
+      expectRegistryClosureInstalled(config.installed, [item.name]);
     },
-  )
+  );
 
   test("sidebar solo install rewrites block imports to flat sibling paths", async () => {
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(["sidebar"])
+    await runInit();
+    await runAdd(["sidebar"]);
 
     await expect(
       readFile(join(tempDir, "src/components/ui/Sidebar/Sidebar.tsx"), "utf-8"),
-    ).resolves.toContain('import { Button } from "../Button/Button"')
+    ).resolves.toContain('import { Button } from "../Button/Button"');
 
-    const config = await readInstalledConfig(tempDir)
+    const config = await readInstalledConfig(tempDir);
 
-    expect(config.installed).not.toContain("menu")
-  })
+    expect(config.installed).not.toContain("menu");
+  });
 
   test("dashboard-shell solo install writes compound layout template", async () => {
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(["dashboard-shell"])
+    await runInit();
+    await runAdd(["dashboard-shell"]);
 
     await expect(
       readFile(
         join(tempDir, "src/components/ui/DashboardShell/DashboardShell.tsx"),
         "utf-8",
       ),
-    ).resolves.toContain("DashboardShellSidebar")
+    ).resolves.toContain("DashboardShellSidebar");
 
-    const config = await readInstalledConfig(tempDir)
-    expectRegistryClosureInstalled(config.installed, ["dashboard-shell"])
-    expect(config.installed).not.toContain("sidebar")
-  })
+    const config = await readInstalledConfig(tempDir);
+    expectRegistryClosureInstalled(config.installed, ["dashboard-shell"]);
+    expect(config.installed).not.toContain("sidebar");
+  });
 
   test("settings-panel solo install pulls card primitive", async () => {
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(["settings-panel"])
+    await runInit();
+    await runAdd(["settings-panel"]);
 
     await expect(
       readFile(
         join(tempDir, "src/components/ui/SettingsPanel/SettingsPanel.tsx"),
         "utf-8",
       ),
-    ).resolves.toContain('from "../Card/Card"')
+    ).resolves.toContain('from "../Card/Card"');
 
-    const config = await readInstalledConfig(tempDir)
-    expectRegistryClosureInstalled(config.installed, ["settings-panel"])
-  })
+    const config = await readInstalledConfig(tempDir);
+    expectRegistryClosureInstalled(config.installed, ["settings-panel"]);
+  });
 
   test("form-field solo install pulls field primitive compound", async () => {
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(["form-field"])
+    await runInit();
+    await runAdd(["form-field"]);
 
     await expect(
       readFile(
         join(tempDir, "src/components/ui/FormField/FormField.tsx"),
         "utf-8",
       ),
-    ).resolves.toContain('from "../Field/Field"')
+    ).resolves.toContain('from "../Field/Field"');
     await expect(
       readFile(
         join(tempDir, "src/components/ui/FormField/FormField.tsx"),
         "utf-8",
       ),
-    ).resolves.toContain("FieldControl")
+    ).resolves.toContain("FieldControl");
 
-    const config = await readInstalledConfig(tempDir)
-    expectRegistryClosureInstalled(config.installed, ["form-field"])
-    expect(config.installed).not.toContain("input")
-  })
+    const config = await readInstalledConfig(tempDir);
+    expectRegistryClosureInstalled(config.installed, ["form-field"]);
+    expect(config.installed).not.toContain("input");
+  });
 
   test("auth-form solo install pulls card, button, field, and form-field", async () => {
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(["auth-form"])
+    await runInit();
+    await runAdd(["auth-form"]);
 
     await expect(
       readFile(
         join(tempDir, "src/components/ui/AuthForm/AuthForm.tsx"),
         "utf-8",
       ),
-    ).resolves.toContain('from "../Button/Button"')
+    ).resolves.toContain('from "../Button/Button"');
 
-    const config = await readInstalledConfig(tempDir)
-    expectRegistryClosureInstalled(config.installed, ["auth-form"])
-  })
+    const config = await readInstalledConfig(tempDir);
+    expectRegistryClosureInstalled(config.installed, ["auth-form"]);
+  });
 
   test("add, update styles, and uninstall round-trip in temp consumer", async () => {
-    await writeViteConsumerFiles(tempDir)
+    await writeViteConsumerFiles(tempDir);
 
-    await runInit()
-    await runAdd(["button", "card"])
+    await runInit();
+    await runAdd(["button", "card"]);
 
-    await runUpdate(["--styles"])
+    await runUpdate(["--styles"]);
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-button-primary-background`)
+    ).resolves.toContain(`--${p}-button-primary-background`);
 
-    await runUninstall(["button", "card"])
+    await runUninstall(["button", "card"]);
 
     await expect(
       readFile(join(tempDir, "src/components/ui/Button/Button.tsx"), "utf-8"),
-    ).rejects.toThrow()
+    ).rejects.toThrow();
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: string[] }
+    ) as { installed?: string[] };
 
-    expect(config.installed).toEqual([])
-  })
-})
+    expect(config.installed).toEqual([]);
+  });
+});

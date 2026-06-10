@@ -1,5 +1,5 @@
-import { Badge, Button } from "@dalexto/lexsys-ui"
-import { brandSwatches, semanticColorExamples } from "./examples"
+import { Badge, Button } from "@dalexto/lexsys-ui";
+import { brandSwatches, semanticColorExamples } from "./examples";
 
 export const BrandPanel = () => {
   return (
@@ -60,5 +60,5 @@ export const BrandPanel = () => {
         </Button>
       </article>
     </section>
-  )
-}
+  );
+};

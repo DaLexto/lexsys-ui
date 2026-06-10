@@ -4,8 +4,8 @@
  * Reference Menu component implementation.
  */
 
-import { Check, ChevronRight } from "lucide-react"
-import { Menu as BaseMenu } from "@base-ui/react/menu"
+import { Check, ChevronRight } from "lucide-react";
+import { Menu as BaseMenu } from "@base-ui/react/menu";
 import type {
   MenuArrowProps,
   MenuBackdropProps,
@@ -27,7 +27,7 @@ import type {
   MenuSubmenuTriggerProps,
   MenuTriggerProps,
   MenuViewportProps,
-} from "./Menu.types"
+} from "./Menu.types";
 import {
   menuArrowVariants,
   menuBackdropVariants,
@@ -42,26 +42,26 @@ import {
   menuSubmenuTriggerIconVariants,
   menuTriggerVariants,
   menuViewportVariants,
-} from "./Menu.variants"
-import { mergeClassName } from "@/lib/utils"
-import { overlayPositionerSideOffset } from "@/lib/utils"
+} from "./Menu.variants";
+import { mergeClassName } from "@/lib/utils";
+import { overlayPositionerSideOffset } from "@/lib/utils";
 
 const horizontalMenuSides = new Set<NonNullable<MenuPositionerProps["side"]>>([
   "left",
   "right",
   "inline-start",
   "inline-end",
-])
+]);
 
 const popupCollisionAvoidance = {
   fallbackAxisSide: "end",
-} as const
+} as const;
 
 const Menu = <Payload = unknown,>(props: MenuProps<Payload>) => {
-  return <BaseMenu.Root {...props} />
-}
+  return <BaseMenu.Root {...props} />;
+};
 
-Menu.displayName = "Menu"
+Menu.displayName = "Menu";
 
 const MenuTrigger = ({ ref, className, ...props }: MenuTriggerProps) => {
   return (
@@ -70,16 +70,16 @@ const MenuTrigger = ({ ref, className, ...props }: MenuTriggerProps) => {
       className={mergeClassName(menuTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuTrigger.displayName = "MenuTrigger"
+MenuTrigger.displayName = "MenuTrigger";
 
 const MenuPortal = (props: MenuPortalProps) => {
-  return <BaseMenu.Portal {...props} />
-}
+  return <BaseMenu.Portal {...props} />;
+};
 
-MenuPortal.displayName = "MenuPortal"
+MenuPortal.displayName = "MenuPortal";
 
 const MenuBackdrop = ({ ref, className, ...props }: MenuBackdropProps) => {
   return (
@@ -88,10 +88,10 @@ const MenuBackdrop = ({ ref, className, ...props }: MenuBackdropProps) => {
       className={mergeClassName(menuBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuBackdrop.displayName = "MenuBackdrop"
+MenuBackdrop.displayName = "MenuBackdrop";
 
 const MenuPositioner = ({
   ref,
@@ -105,7 +105,7 @@ const MenuPositioner = ({
     collisionAvoidance ??
     (side && horizontalMenuSides.has(side)
       ? popupCollisionAvoidance
-      : undefined)
+      : undefined);
 
   return (
     <BaseMenu.Positioner
@@ -116,10 +116,10 @@ const MenuPositioner = ({
       className={mergeClassName(menuPositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuPositioner.displayName = "MenuPositioner"
+MenuPositioner.displayName = "MenuPositioner";
 
 const MenuPopup = ({ ref, className, ...props }: MenuPopupProps) => {
   return (
@@ -128,10 +128,10 @@ const MenuPopup = ({ ref, className, ...props }: MenuPopupProps) => {
       className={mergeClassName(menuPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuPopup.displayName = "MenuPopup"
+MenuPopup.displayName = "MenuPopup";
 
 const MenuArrow = ({ ref, className, ...props }: MenuArrowProps) => {
   return (
@@ -140,10 +140,10 @@ const MenuArrow = ({ ref, className, ...props }: MenuArrowProps) => {
       className={mergeClassName(menuArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuArrow.displayName = "MenuArrow"
+MenuArrow.displayName = "MenuArrow";
 
 const MenuViewport = ({ ref, className, ...props }: MenuViewportProps) => {
   return (
@@ -152,10 +152,10 @@ const MenuViewport = ({ ref, className, ...props }: MenuViewportProps) => {
       className={mergeClassName(menuViewportVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuViewport.displayName = "MenuViewport"
+MenuViewport.displayName = "MenuViewport";
 
 const MenuItem = ({ ref, className, ...props }: MenuItemProps) => {
   return (
@@ -164,10 +164,10 @@ const MenuItem = ({ ref, className, ...props }: MenuItemProps) => {
       className={mergeClassName(menuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuItem.displayName = "MenuItem"
+MenuItem.displayName = "MenuItem";
 
 const MenuLinkItem = ({ ref, className, ...props }: MenuLinkItemProps) => {
   return (
@@ -176,10 +176,10 @@ const MenuLinkItem = ({ ref, className, ...props }: MenuLinkItemProps) => {
       className={mergeClassName(menuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuLinkItem.displayName = "MenuLinkItem"
+MenuLinkItem.displayName = "MenuLinkItem";
 
 const MenuCheckboxItem = ({
   ref,
@@ -192,10 +192,10 @@ const MenuCheckboxItem = ({
       className={mergeClassName(menuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuCheckboxItem.displayName = "MenuCheckboxItem"
+MenuCheckboxItem.displayName = "MenuCheckboxItem";
 
 const MenuCheckboxItemIndicator = ({
   ref,
@@ -211,10 +211,10 @@ const MenuCheckboxItemIndicator = ({
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseMenu.CheckboxItemIndicator>
-  )
-}
+  );
+};
 
-MenuCheckboxItemIndicator.displayName = "MenuCheckboxItemIndicator"
+MenuCheckboxItemIndicator.displayName = "MenuCheckboxItemIndicator";
 
 const MenuRadioGroup = ({ ref, className, ...props }: MenuRadioGroupProps) => {
   return (
@@ -223,10 +223,10 @@ const MenuRadioGroup = ({ ref, className, ...props }: MenuRadioGroupProps) => {
       className={mergeClassName(menuGroupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuRadioGroup.displayName = "MenuRadioGroup"
+MenuRadioGroup.displayName = "MenuRadioGroup";
 
 const MenuRadioItem = ({ ref, className, ...props }: MenuRadioItemProps) => {
   return (
@@ -235,10 +235,10 @@ const MenuRadioItem = ({ ref, className, ...props }: MenuRadioItemProps) => {
       className={mergeClassName(menuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuRadioItem.displayName = "MenuRadioItem"
+MenuRadioItem.displayName = "MenuRadioItem";
 
 const MenuRadioItemIndicator = ({
   ref,
@@ -254,10 +254,10 @@ const MenuRadioItemIndicator = ({
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseMenu.RadioItemIndicator>
-  )
-}
+  );
+};
 
-MenuRadioItemIndicator.displayName = "MenuRadioItemIndicator"
+MenuRadioItemIndicator.displayName = "MenuRadioItemIndicator";
 
 const MenuGroup = ({ ref, className, ...props }: MenuGroupProps) => {
   return (
@@ -266,10 +266,10 @@ const MenuGroup = ({ ref, className, ...props }: MenuGroupProps) => {
       className={mergeClassName(menuGroupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuGroup.displayName = "MenuGroup"
+MenuGroup.displayName = "MenuGroup";
 
 const MenuGroupLabel = ({ ref, className, ...props }: MenuGroupLabelProps) => {
   return (
@@ -278,10 +278,10 @@ const MenuGroupLabel = ({ ref, className, ...props }: MenuGroupLabelProps) => {
       className={mergeClassName(menuGroupLabelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuGroupLabel.displayName = "MenuGroupLabel"
+MenuGroupLabel.displayName = "MenuGroupLabel";
 
 const MenuSeparator = ({ ref, className, ...props }: MenuSeparatorProps) => {
   return (
@@ -290,16 +290,16 @@ const MenuSeparator = ({ ref, className, ...props }: MenuSeparatorProps) => {
       className={mergeClassName(menuSeparatorVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-MenuSeparator.displayName = "MenuSeparator"
+MenuSeparator.displayName = "MenuSeparator";
 
 const MenuSubmenuRoot = (props: MenuSubmenuRootProps) => {
-  return <BaseMenu.SubmenuRoot {...props} />
-}
+  return <BaseMenu.SubmenuRoot {...props} />;
+};
 
-MenuSubmenuRoot.displayName = "MenuSubmenuRoot"
+MenuSubmenuRoot.displayName = "MenuSubmenuRoot";
 
 const MenuSubmenuTrigger = ({
   ref,
@@ -318,12 +318,12 @@ const MenuSubmenuTrigger = ({
         <ChevronRight aria-hidden="true" size={14} />
       </span>
     </BaseMenu.SubmenuTrigger>
-  )
-}
+  );
+};
 
-MenuSubmenuTrigger.displayName = "MenuSubmenuTrigger"
+MenuSubmenuTrigger.displayName = "MenuSubmenuTrigger";
 
-const createMenuHandle = BaseMenu.createHandle
+const createMenuHandle = BaseMenu.createHandle;
 
 export {
   Menu,
@@ -347,6 +347,6 @@ export {
   MenuSubmenuRoot,
   MenuSubmenuTrigger,
   createMenuHandle,
-}
+};
 
-export type { MenuHandle } from "./Menu.types"
+export type { MenuHandle } from "./Menu.types";

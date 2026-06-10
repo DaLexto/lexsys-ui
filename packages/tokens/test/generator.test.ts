@@ -1,20 +1,20 @@
-import { describe, expect, test } from "vitest"
-import { componentTokens } from "../src/components"
+import { describe, expect, test } from "vitest";
+import { componentTokens } from "../src/components";
 import {
   createStyleOutputs,
   createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
-} from "../src/generators/generator.create"
+} from "../src/generators/generator.create";
 import {
   createDtcgTokenInputFromJson,
   createStyleTokenInput,
-} from "../src/generators/inputs/index"
-import { colorPrimitives } from "../src/primitives/color"
-import { primitiveTokens } from "../src/primitives"
-import { semanticTokens } from "../src/semantics"
-import { lexsysPreset, defaultPresetId, presets } from "../src/presets"
-import { themes } from "../src/themes"
-import { testCssVarPrefix as p } from "./config/prefix.js"
+} from "../src/generators/inputs/index";
+import { colorPrimitives } from "../src/primitives/color";
+import { primitiveTokens } from "../src/primitives";
+import { semanticTokens } from "../src/semantics";
+import { lexsysPreset, defaultPresetId, presets } from "../src/presets";
+import { themes } from "../src/themes";
+import { testCssVarPrefix as p } from "./config/prefix.js";
 
 const getOklchLightness = (value: unknown): number => {
   if (
@@ -25,62 +25,62 @@ const getOklchLightness = (value: unknown): number => {
     "components" in value
   ) {
     const colorValue = value as {
-      colorSpace?: unknown
-      components?: unknown
-    }
+      colorSpace?: unknown;
+      components?: unknown;
+    };
 
-    expect(colorValue.colorSpace).toBe("oklch")
-    expect(Array.isArray(colorValue.components)).toBe(true)
+    expect(colorValue.colorSpace).toBe("oklch");
+    expect(Array.isArray(colorValue.components)).toBe(true);
 
-    const [lightness] = colorValue.components as unknown[]
+    const [lightness] = colorValue.components as unknown[];
 
-    expect(typeof lightness).toBe("number")
+    expect(typeof lightness).toBe("number");
 
-    return lightness as number
+    return lightness as number;
   }
 
-  expect(typeof value).toBe("string")
-  const match = String(value).match(/^oklch\((\d+(?:\.\d+)?)\s/)
+  expect(typeof value).toBe("string");
+  const match = String(value).match(/^oklch\((\d+(?:\.\d+)?)\s/);
 
-  expect(match?.[1]).toBeDefined()
+  expect(match?.[1]).toBeDefined();
 
-  return Number(match?.[1])
-}
+  return Number(match?.[1]);
+};
 
 describe("createStyleOutputs", () => {
   test("assembles a W3C/DTCG-shaped generator input contract", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
 
-    expect(input.preset).toBe(lexsysPreset)
-    expect(input.foundationTokens.color).toBeDefined()
-    expect(input.foundationTokens.radius).toBeDefined()
-    expect(input.semanticTokens.color).toBeDefined()
-    expect(input.semanticTokens.radius).toBeDefined()
-    expect(input.componentTokens.button).toBeDefined()
-    expect(input.tokenTree.button).toBe(input.componentTokens.button)
+    expect(input.preset).toBe(lexsysPreset);
+    expect(input.foundationTokens.color).toBeDefined();
+    expect(input.foundationTokens.radius).toBeDefined();
+    expect(input.semanticTokens.color).toBeDefined();
+    expect(input.semanticTokens.radius).toBeDefined();
+    expect(input.componentTokens.button).toBeDefined();
+    expect(input.tokenTree.button).toBe(input.componentTokens.button);
     expect(input.themeTokens[0]).toMatchObject({
       name: "light",
       selector: ":root",
       colorScheme: "light",
       brand: "lexsys",
-    })
-    expect(input.themeTokens[0]?.tokens.color).toBeDefined()
-  })
+    });
+    expect(input.themeTokens[0]?.tokens.color).toBeDefined();
+  });
 
   test("uses one active preset when assembling generator input", () => {
     const input = createStyleTokenInput({
       presetId: "lexsys",
-    })
+    });
 
-    expect(input.preset.id).toBe("lexsys")
+    expect(input.preset.id).toBe("lexsys");
     expect(input.themeTokens.map((theme) => theme.name)).toEqual([
       "light",
       "dark",
-    ])
-  })
+    ]);
+  });
 
   test("defines Lexsys Default as the first style preset", () => {
-    expect(defaultPresetId).toBe("lexsys")
+    expect(defaultPresetId).toBe("lexsys");
 
     expect(lexsysPreset).toEqual({
       id: "lexsys",
@@ -90,15 +90,15 @@ describe("createStyleOutputs", () => {
         "Baseline Lexsys style preset for the initial token, theme, and component system.",
       themeModes: ["light", "dark"],
       defaultTheme: "light",
-    })
-    expect(presets).toEqual([lexsysPreset])
-  })
+    });
+    expect(presets).toEqual([lexsysPreset]);
+  });
 
   test("keeps the yellow primitive scale ordered from light to dark", () => {
     const yellow = colorPrimitives.tokens.yellow as Record<
       string,
       { $value?: unknown }
-    >
+    >;
     const shadeKeys = [
       "50",
       "100",
@@ -111,207 +111,207 @@ describe("createStyleOutputs", () => {
       "800",
       "900",
       "950",
-    ]
+    ];
     const lightnessValues = shadeKeys.map((shade) => {
-      return getOklchLightness(yellow[shade]?.$value)
-    })
+      return getOklchLightness(yellow[shade]?.$value);
+    });
 
     lightnessValues.slice(1).forEach((lightness, index) => {
-      expect(lightness).toBeLessThan(lightnessValues[index] ?? Number.NaN)
-    })
-  })
+      expect(lightness).toBeLessThan(lightnessValues[index] ?? Number.NaN);
+    });
+  });
 
   test("generates token and theme css from token source", () => {
-    const outputs = createStyleOutputs()
+    const outputs = createStyleOutputs();
 
-    expect(outputs.tokensCss).toContain("AUTO-GENERATED FILE.")
-    expect(outputs.tokensCss).toContain("Generated by @dalexto/lexsys-tokens.")
-    expect(outputs.tokensCss).toContain("Manual changes will be overwritten.")
+    expect(outputs.tokensCss).toContain("AUTO-GENERATED FILE.");
+    expect(outputs.tokensCss).toContain("Generated by @dalexto/lexsys-tokens.");
+    expect(outputs.tokensCss).toContain("Manual changes will be overwritten.");
     expect(outputs.tokensCss).toMatch(
       / \* Last generated: \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z\n \*\//,
-    )
-    expect(outputs.themeCss).toContain("Last generated:")
-    expect(outputs.tokensCss).toContain(`--${p}-color-blue-600`)
+    );
+    expect(outputs.themeCss).toContain("Last generated:");
+    expect(outputs.tokensCss).toContain(`--${p}-color-blue-600`);
     expect(outputs.tokensCss).toContain(
       `--${p}-radius-control: var(--${p}-radius-md)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-space-surface-md: var(--${p}-space-6)`,
-    )
-    expect(outputs.tokensCss).toContain(`--${p}-line-height-normal: 1.5`)
-    expect(outputs.tokensCss).not.toContain(`--${p}-line-height-6`)
+    );
+    expect(outputs.tokensCss).toContain(`--${p}-line-height-normal: 1.5`);
+    expect(outputs.tokensCss).not.toContain(`--${p}-line-height-6`);
     expect(outputs.tokensCss).toContain(
       `--${p}-button-radius: var(--${p}-radius-control)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-badge-radius: var(--${p}-radius-control)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-badge-primary-background: var(--${p}-action-primary-base)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-alert-radius: var(--${p}-radius-surface)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-alert-danger-foreground: var(--${p}-color-feedback-danger-foreground)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-card-background: var(--${p}-color-background-surface)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-card-radius: var(--${p}-radius-surface)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-checkbox-size-md: var(--${p}-size-selection-control-md)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-switch-thumb-translate-md: var(--${p}-size-thumb-md)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-tabs-tab-active-background: var(--${p}-color-background-base)`,
-    )
+    );
     expect(outputs.tokensCss).toContain(
       `--${p}-tooltip-background: var(--${p}-color-text-primary)`,
-    )
+    );
 
-    expect(outputs.themeCss).toContain(`--${p}-color-background-base`)
-    expect(outputs.themeCss).toContain(".dark")
-    expect(outputs.themeCss).toContain("@theme inline")
-    expect(outputs.themeCss).toContain(`--${p}-action-primary-base`)
-    expect(outputs.themeCss).toContain(`--${p}-border-focus`)
-    expect(outputs.themeCss).toContain("--color-twix-background-base")
-    expect(outputs.themeCss).toContain("--radius-twix-control")
-    expect(outputs.themeCss).toContain("--spacing-twix-surface-md")
-    expect(outputs.themeCss).toContain("--duration-twix-control")
-    expect(outputs.themeCss).toContain("--ease-twix-control")
-    expect(outputs.themeCss).not.toContain("--color-twix-color-")
-  })
+    expect(outputs.themeCss).toContain(`--${p}-color-background-base`);
+    expect(outputs.themeCss).toContain(".dark");
+    expect(outputs.themeCss).toContain("@theme inline");
+    expect(outputs.themeCss).toContain(`--${p}-action-primary-base`);
+    expect(outputs.themeCss).toContain(`--${p}-border-focus`);
+    expect(outputs.themeCss).toContain("--color-twix-background-base");
+    expect(outputs.themeCss).toContain("--radius-twix-control");
+    expect(outputs.themeCss).toContain("--spacing-twix-surface-md");
+    expect(outputs.themeCss).toContain("--duration-twix-control");
+    expect(outputs.themeCss).toContain("--ease-twix-control");
+    expect(outputs.themeCss).not.toContain("--color-twix-color-");
+  });
 
   test("generates DTCG-compatible token json from token source", () => {
-    const outputs = createStyleOutputs()
+    const outputs = createStyleOutputs();
     const json = JSON.parse(outputs.tokensJson) as {
-      $schema?: unknown
+      $schema?: unknown;
       $extensions?: {
         "org.lexsys"?: {
-          generatedBy?: unknown
-          presetId?: unknown
-          presetName?: unknown
-          tokenSetOrder?: unknown
-        }
-      }
+          generatedBy?: unknown;
+          presetId?: unknown;
+          presetName?: unknown;
+          tokenSetOrder?: unknown;
+        };
+      };
       primitives?: {
         color?: {
-          $description?: unknown
-          $type?: unknown
+          $description?: unknown;
+          $type?: unknown;
           blue?: {
-            $description?: unknown
-            $type?: unknown
+            $description?: unknown;
+            $type?: unknown;
             "600"?: {
-              $value?: unknown
-              $type?: unknown
-            }
-          }
-        }
+              $value?: unknown;
+              $type?: unknown;
+            };
+          };
+        };
         "font-size"?: {
-          $type?: unknown
+          $type?: unknown;
           base?: {
-            $value?: unknown
-            $type?: unknown
-          }
-        }
+            $value?: unknown;
+            $type?: unknown;
+          };
+        };
         "letter-spacing"?: {
-          $type?: unknown
+          $type?: unknown;
           normal?: {
-            $value?: unknown
-            $type?: unknown
-          }
-        }
+            $value?: unknown;
+            $type?: unknown;
+          };
+        };
         "line-height"?: {
-          $type?: unknown
+          $type?: unknown;
           normal?: {
-            $value?: unknown
-            $type?: unknown
-          }
-        }
+            $value?: unknown;
+            $type?: unknown;
+          };
+        };
         size?: {
-          $type?: unknown
+          $type?: unknown;
           "10"?: {
-            $value?: unknown
-            $type?: unknown
-          }
-        }
-      }
+            $value?: unknown;
+            $type?: unknown;
+          };
+        };
+      };
       semantics?: {
         typography?: {
           family?: {
-            $type?: unknown
+            $type?: unknown;
             sans?: {
-              $value?: unknown
-              $type?: unknown
-            }
-          }
+              $value?: unknown;
+              $type?: unknown;
+            };
+          };
           body?: {
             md?: {
               fontFamily?: {
-                $value?: unknown
-                $type?: unknown
-              }
-            }
-          }
+                $value?: unknown;
+                $type?: unknown;
+              };
+            };
+          };
           control?: {
-            $type?: unknown
+            $type?: unknown;
             md?: {
               fontSize?: {
-                $value?: unknown
-                $type?: unknown
-              }
+                $value?: unknown;
+                $type?: unknown;
+              };
               lineHeight?: {
-                $value?: unknown
-                $type?: unknown
-              }
-            }
-          }
-        }
-      }
+                $value?: unknown;
+                $type?: unknown;
+              };
+            };
+          };
+        };
+      };
       components?: {
         button?: {
-          $type?: unknown
+          $type?: unknown;
           font?: {
             family?: {
-              $value?: unknown
-              $type?: unknown
-            }
+              $value?: unknown;
+              $type?: unknown;
+            };
             size?: {
-              $value?: unknown
-              $type?: unknown
-            }
+              $value?: unknown;
+              $type?: unknown;
+            };
             weight?: {
-              $value?: unknown
-              $type?: unknown
-            }
+              $value?: unknown;
+              $type?: unknown;
+            };
             lineHeight?: {
-              $value?: unknown
-              $type?: unknown
-            }
+              $value?: unknown;
+              $type?: unknown;
+            };
             letterSpacing?: {
-              $value?: unknown
-              $type?: unknown
-            }
-          }
+              $value?: unknown;
+              $type?: unknown;
+            };
+          };
           radius?: {
-            $value?: unknown
-            $type?: unknown
-          }
-        }
-      }
-      brand?: Record<string, unknown>
-      themes?: Record<string, unknown>
-      presets?: Record<string, unknown>
-    }
+            $value?: unknown;
+            $type?: unknown;
+          };
+        };
+      };
+      brand?: Record<string, unknown>;
+      themes?: Record<string, unknown>;
+      presets?: Record<string, unknown>;
+    };
 
     expect(json.$schema).toBe(
       "https://www.designtokens.org/schemas/2025.10/format.json",
-    )
+    );
     expect(json.$extensions?.["org.lexsys"]).toMatchObject({
       generatedBy: "@dalexto/lexsys-tokens",
       presetId: "lexsys",
@@ -324,78 +324,78 @@ describe("createStyleOutputs", () => {
         "themes",
         "presets",
       ],
-    })
+    });
     expect(json.$extensions?.["org.lexsys"]).not.toHaveProperty(
       "semanticTokenPaths",
-    )
+    );
     expect(json.primitives?.color?.$description).toBe(
       "Raw color palette. Never use directly in components.",
-    )
-    expect(json.primitives?.color?.$type).toBe("color")
+    );
+    expect(json.primitives?.color?.$type).toBe("color");
     expect(json.primitives?.color?.blue?.$description).toBe(
       "Blue primitive palette for brand, primary action, and information mappings.",
-    )
-    expect(json.primitives?.color?.blue?.$type).toBe("color")
+    );
+    expect(json.primitives?.color?.blue?.$type).toBe("color");
     expect(json.primitives?.color?.blue?.["600"]).toEqual({
       $value: {
         colorSpace: "oklch",
         components: [0.455, 0.191, 259.631],
       },
-    })
+    });
     expect(json.components?.button?.radius).toEqual({
       $type: "dimension",
       $value: "{radius.control}",
-    })
+    });
     expect(json.components?.button?.font?.family).toEqual({
       $type: "fontFamily",
       $value: "{typography.control.md.fontFamily}",
-    })
-    expect(json.components?.button?.font?.size?.$type).toBe("fontSize")
+    });
+    expect(json.components?.button?.font?.size?.$type).toBe("fontSize");
     expect(json.components?.button?.font?.weight).toEqual({
       $type: "fontWeight",
       $value: "{typography.control.md.fontWeight}",
-    })
+    });
     expect(json.components?.button?.font?.lineHeight).toEqual({
       $type: "number",
       $value: "{typography.control.md.lineHeight}",
-    })
+    });
     expect(json.components?.button?.font?.letterSpacing).toEqual({
       $type: "letterSpacing",
       $value: "{typography.control.md.letterSpacing}",
-    })
-    expect(json.primitives?.["font-size"]?.$type).toBe("fontSize")
+    });
+    expect(json.primitives?.["font-size"]?.$type).toBe("fontSize");
     expect(json.primitives?.["font-size"]?.base).toEqual({
       $value: { value: 1, unit: "rem" },
-    })
-    expect(json.primitives?.["letter-spacing"]?.$type).toBe("letterSpacing")
+    });
+    expect(json.primitives?.["letter-spacing"]?.$type).toBe("letterSpacing");
     expect(json.primitives?.["letter-spacing"]?.normal).toEqual({
       $value: { value: 0, unit: "em" },
-    })
-    expect(json.primitives?.["line-height"]?.$type).toBe("number")
+    });
+    expect(json.primitives?.["line-height"]?.$type).toBe("number");
     expect(json.primitives?.["line-height"]?.normal).toEqual({
       $value: 1.5,
-    })
-    expect(json.primitives?.size?.$type).toBe("dimension")
+    });
+    expect(json.primitives?.size?.$type).toBe("dimension");
     expect(json.primitives?.size?.["10"]).toEqual({
       $value: { value: 2.5, unit: "rem" },
-    })
-    expect(json.semantics?.typography?.family?.$type).toBe("fontFamily")
+    });
+    expect(json.semantics?.typography?.family?.$type).toBe("fontFamily");
     expect(json.semantics?.typography?.family?.sans).toEqual({
       $value: "{font-family.sans}",
-    })
+    });
     expect(json.semantics?.typography?.body?.md?.fontFamily).toEqual({
       $type: "fontFamily",
       $value: "{typography.family.sans}",
-    })
-    expect(json.semantics?.typography?.control?.$type).toBe("typography")
+    });
+    expect(json.semantics?.typography?.control?.$type).toBe("typography");
     expect(json.semantics?.typography?.control?.md?.fontSize).toEqual({
       $type: "fontSize",
       $value: "{font-size.sm}",
-    })
+    });
     expect(json.semantics?.typography?.control?.md?.lineHeight).toEqual({
       $type: "number",
       $value: "{line-height.tight}",
-    })
+    });
     expect(json.brand).toEqual({
       brand: expect.objectContaining({
         color: expect.objectContaining({
@@ -407,36 +407,36 @@ describe("createStyleOutputs", () => {
           }),
         }),
       }),
-    })
-    expect(json.themes?.lexsys).toBeDefined()
-    expect(json.presets?.lexsys).toBeDefined()
-  })
+    });
+    expect(json.themes?.lexsys).toBeDefined();
+    expect(json.presets?.lexsys).toBeDefined();
+  });
 
   test("generates DTCG-compatible theme json from token source", () => {
-    const outputs = createStyleOutputs()
+    const outputs = createStyleOutputs();
     const json = JSON.parse(outputs.themesJson) as {
       $extensions?: {
         "org.lexsys"?: {
-          tokenSetOrder?: unknown
-          themes?: unknown
-        }
-      }
+          tokenSetOrder?: unknown;
+          themes?: unknown;
+        };
+      };
       light?: {
         color?: {
           background?: {
             base?: {
-              $value?: unknown
-            }
+              $value?: unknown;
+            };
             overlay?: {
-              $value?: unknown
-            }
-          }
-        }
-      }
-      dark?: Record<string, unknown>
-    }
+              $value?: unknown;
+            };
+          };
+        };
+      };
+      dark?: Record<string, unknown>;
+    };
 
-    expect(json.$extensions?.["org.lexsys"]?.tokenSetOrder).toEqual(["themes"])
+    expect(json.$extensions?.["org.lexsys"]?.tokenSetOrder).toEqual(["themes"]);
     expect(json.$extensions?.["org.lexsys"]?.themes).toEqual([
       {
         name: "light",
@@ -450,134 +450,137 @@ describe("createStyleOutputs", () => {
         selector: ".dark",
         colorScheme: "dark",
       },
-    ])
+    ]);
     expect(json.light?.color?.background?.overlay?.$value).toMatchObject({
       colorSpace: "oklch",
       alpha: 0.15,
-    })
-    expect(json.light?.color?.background?.base).toBeUndefined()
-    expect(json.light).not.toHaveProperty("selector")
-    expect(json.light).not.toHaveProperty("colorScheme")
-    expect(json.dark).not.toHaveProperty("selector")
-    expect(json.dark).not.toHaveProperty("colorScheme")
-  })
+    });
+    expect(json.light?.color?.background?.base).toBeUndefined();
+    expect(json.light).not.toHaveProperty("selector");
+    expect(json.light).not.toHaveProperty("colorScheme");
+    expect(json.dark).not.toHaveProperty("selector");
+    expect(json.dark).not.toHaveProperty("colorScheme");
+  });
 
   test("generates enterprise DTCG token files by group", () => {
-    const outputs = createStyleOutputs()
-    const fileNames = Object.keys(outputs.tokenJsonFiles).sort()
+    const outputs = createStyleOutputs();
+    const fileNames = Object.keys(outputs.tokenJsonFiles).sort();
     const primitivesContent =
-      outputs.tokenJsonFiles["tokens/dtcg/primitives/color.tokens.json"] ?? "{}"
+      outputs.tokenJsonFiles["tokens/dtcg/primitives/color.tokens.json"] ??
+      "{}";
     const primitives = JSON.parse(primitivesContent) as {
       color?: {
-        $type?: unknown
+        $type?: unknown;
         blue?: {
-          $type?: unknown
+          $type?: unknown;
           "600"?: {
-            $type?: unknown
-          }
-        }
-      }
-      semantics?: unknown
-    }
+            $type?: unknown;
+          };
+        };
+      };
+      semantics?: unknown;
+    };
     const brandContent =
-      outputs.tokenJsonFiles["tokens/dtcg/brand/brand.tokens.json"] ?? "{}"
+      outputs.tokenJsonFiles["tokens/dtcg/brand/brand.tokens.json"] ?? "{}";
     const brand = JSON.parse(brandContent) as {
       brand?: {
         color?: {
           primary?: {
             base?: {
-              $value?: unknown
-            }
-          }
-        }
-      }
-      primitives?: unknown
-      semantics?: unknown
-    }
+              $value?: unknown;
+            };
+          };
+        };
+      };
+      primitives?: unknown;
+      semantics?: unknown;
+    };
     const semantics = JSON.parse(
       outputs.tokenJsonFiles["tokens/dtcg/semantics/color.tokens.json"] ?? "{}",
     ) as {
       color?: {
         background?: {
           base?: {
-            $value?: unknown
-          }
-        }
-      }
-      primitives?: unknown
-    }
+            $value?: unknown;
+          };
+        };
+      };
+      primitives?: unknown;
+    };
     const typographySemantics = JSON.parse(
       outputs.tokenJsonFiles["tokens/dtcg/semantics/typography.tokens.json"] ??
         "{}",
     ) as {
       typography?: {
         control?: {
-          $type?: unknown
+          $type?: unknown;
           md?: {
             fontSize?: {
-              $type?: unknown
-              $value?: unknown
-            }
-          }
-        }
-      }
-    }
+              $type?: unknown;
+              $value?: unknown;
+            };
+          };
+        };
+      };
+    };
     const lightTheme = JSON.parse(
       outputs.tokenJsonFiles["tokens/dtcg/themes/light.tokens.json"] ?? "{}",
     ) as {
       color?: {
         background?: {
           base?: {
-            $value?: unknown
-          }
+            $value?: unknown;
+          };
           overlay?: {
-            $value?: unknown
-          }
-        }
-      }
-      light?: unknown
-    }
+            $value?: unknown;
+          };
+        };
+      };
+      light?: unknown;
+    };
 
-    expect(fileNames).toContain("tokens/dtcg/tokens.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/primitives/color.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/primitives/spacing.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/brand/brand.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/semantics/color.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/semantics/typography.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/components/button.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/components/dialog.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/themes/light.tokens.json")
-    expect(fileNames).toContain("tokens/dtcg/themes/dark.tokens.json")
-    expect(fileNames).not.toContain("tokens/primitives.tokens.json")
-    expect(fileNames).not.toContain("tokens/themes/lexsys.light.tokens.json")
-    expect(primitives.color?.$type).toBe("color")
-    expect(primitives.color?.blue?.$type).toBe("color")
-    expect(primitives.color?.blue?.["600"]?.$type).toBeUndefined()
+    expect(fileNames).toContain("tokens/dtcg/tokens.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/primitives/color.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/primitives/spacing.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/brand/brand.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/semantics/color.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/semantics/typography.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/components/button.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/components/dialog.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/themes/light.tokens.json");
+    expect(fileNames).toContain("tokens/dtcg/themes/dark.tokens.json");
+    expect(fileNames).not.toContain("tokens/primitives.tokens.json");
+    expect(fileNames).not.toContain("tokens/themes/lexsys.light.tokens.json");
+    expect(primitives.color?.$type).toBe("color");
+    expect(primitives.color?.blue?.$type).toBe("color");
+    expect(primitives.color?.blue?.["600"]?.$type).toBeUndefined();
     expect(primitivesContent.indexOf('"$type": "color"')).toBeLessThan(
       primitivesContent.indexOf('"50"'),
-    )
-    expect(primitives.semantics).toBeUndefined()
-    expect(brand.brand?.color?.primary?.base?.$value).toBe("{color.orange.600}")
-    expect(brand.primitives).toBeUndefined()
-    expect(brand.semantics).toBeUndefined()
-    expect(semantics.color?.background?.base?.$value).toBe("{color.white}")
-    expect(semantics.primitives).toBeUndefined()
-    expect(typographySemantics.typography?.control?.$type).toBe("typography")
+    );
+    expect(primitives.semantics).toBeUndefined();
+    expect(brand.brand?.color?.primary?.base?.$value).toBe(
+      "{color.orange.600}",
+    );
+    expect(brand.primitives).toBeUndefined();
+    expect(brand.semantics).toBeUndefined();
+    expect(semantics.color?.background?.base?.$value).toBe("{color.white}");
+    expect(semantics.primitives).toBeUndefined();
+    expect(typographySemantics.typography?.control?.$type).toBe("typography");
     expect(typographySemantics.typography?.control?.md?.fontSize).toEqual({
       $type: "fontSize",
       $value: "{font-size.sm}",
-    })
+    });
     expect(lightTheme.color?.background?.overlay?.$value).toMatchObject({
       colorSpace: "oklch",
       alpha: 0.15,
-    })
-    expect(lightTheme.color?.background?.base).toBeUndefined()
-    expect(lightTheme.light).toBeUndefined()
-  })
+    });
+    expect(lightTheme.color?.background?.base).toBeUndefined();
+    expect(lightTheme.light).toBeUndefined();
+  });
 
   test("parses generated DTCG json back into a token tree", () => {
-    const outputs = createStyleOutputs()
-    const input = createDtcgTokenInputFromJson(outputs.tokensJson)
+    const outputs = createStyleOutputs();
+    const input = createDtcgTokenInputFromJson(outputs.tokensJson);
 
     expect(input.metadata).toMatchObject({
       generatedBy: "@dalexto/lexsys-tokens",
@@ -591,133 +594,139 @@ describe("createStyleOutputs", () => {
         "themes",
         "presets",
       ],
-    })
-    expect("$schema" in input.tokenTree).toBe(false)
-    expect("$extensions" in input.tokenTree).toBe(false)
-    expect(input.tokenTree.color).toBeDefined()
-    expect(input.tokenTree.button).toBeDefined()
-    expect(input.semanticTokenTree?.color).toBeDefined()
-    expect(input.semanticTokenTree?.button).toBeUndefined()
-  })
+    });
+    expect("$schema" in input.tokenTree).toBe(false);
+    expect("$extensions" in input.tokenTree).toBe(false);
+    expect(input.tokenTree.color).toBeDefined();
+    expect(input.tokenTree.button).toBeDefined();
+    expect(input.semanticTokenTree?.color).toBeDefined();
+    expect(input.semanticTokenTree?.button).toBeUndefined();
+  });
 
   test("rejects DTCG json with an invalid token leaf value", () => {
-    const outputs = createStyleOutputs()
+    const outputs = createStyleOutputs();
     const tokensJson = JSON.parse(outputs.tokensJson) as {
       primitives: {
         color: {
           blue: Record<string, unknown> & {
             "600": {
-              $value?: unknown
-            }
-          }
-        }
-      }
-    }
+              $value?: unknown;
+            };
+          };
+        };
+      };
+    };
 
-    tokensJson.primitives.color.blue["600"].$value = true
+    tokensJson.primitives.color.blue["600"].$value = true;
 
     expect(() => {
-      createDtcgTokenInputFromJson(JSON.stringify(tokensJson))
+      createDtcgTokenInputFromJson(JSON.stringify(tokensJson));
     }).toThrow(
       'DTCG token leaf "primitives.color.blue.600" has an invalid "$value".',
-    )
-  })
+    );
+  });
 
   test("rejects DTCG json with a scalar branch child", () => {
-    const outputs = createStyleOutputs()
+    const outputs = createStyleOutputs();
     const tokensJson = JSON.parse(outputs.tokensJson) as {
       primitives: {
         color: {
-          blue: Record<string, unknown>
-        }
-      }
-    }
+          blue: Record<string, unknown>;
+        };
+      };
+    };
 
-    tokensJson.primitives.color.blue.invalid = "not-a-token-leaf"
+    tokensJson.primitives.color.blue.invalid = "not-a-token-leaf";
 
     expect(() => {
-      createDtcgTokenInputFromJson(JSON.stringify(tokensJson))
+      createDtcgTokenInputFromJson(JSON.stringify(tokensJson));
     }).toThrow(
       'DTCG token node "primitives.color.blue.invalid" must be an object.',
-    )
-  })
+    );
+  });
 
   test("generates tokens css from DTCG json input", () => {
-    const outputs = createStyleOutputs()
-    const css = createTokensCssFromDtcgJson(outputs.tokensJson)
+    const outputs = createStyleOutputs();
+    const css = createTokensCssFromDtcgJson(outputs.tokensJson);
 
-    expect(css).toContain("AUTO-GENERATED FILE.")
-    expect(css).toContain("Generated by @dalexto/lexsys-tokens.")
-    expect(css).toContain("Manual changes will be overwritten.")
-    expect(css).toContain("Last generated:")
-    expect(css).toContain(`--${p}-color-blue-600`)
-    expect(css).toContain(`--${p}-radius-control: var(--${p}-radius-md)`)
-    expect(css).toContain(`--${p}-button-radius: var(--${p}-radius-control)`)
+    expect(css).toContain("AUTO-GENERATED FILE.");
+    expect(css).toContain("Generated by @dalexto/lexsys-tokens.");
+    expect(css).toContain("Manual changes will be overwritten.");
+    expect(css).toContain("Last generated:");
+    expect(css).toContain(`--${p}-color-blue-600`);
+    expect(css).toContain(`--${p}-radius-control: var(--${p}-radius-md)`);
+    expect(css).toContain(`--${p}-button-radius: var(--${p}-radius-control)`);
     expect(css).toContain(
       `--${p}-brand-color-primary-base: var(--${p}-color-orange-600)`,
-    )
-    expect(css).toContain(`--${p}-size-overlay-list-max-height`)
-    expect(css).toContain(`--${p}-space-overlay-side-offset`)
-    expect(css).toContain(`--${p}-elevation-behind-z-index`)
-    expect(css).toContain(`--${p}-toast-viewport-max-height`)
-    expect(css).toContain(`--${p}-select-positioner-side-offset`)
-    expect(css).toContain(`--${p}-select-backdrop-opacity`)
-    expect(css).toContain(`--${p}-toast-motion-offset-y`)
-    expect(css).toContain(`--${p}-drawer-viewport-max-height`)
-    expect(css).not.toContain(`--${p}-$schema`)
-    expect(css).not.toContain(`--${p}-$extensions`)
-  })
+    );
+    expect(css).toContain(`--${p}-size-overlay-list-max-height`);
+    expect(css).toContain(`--${p}-space-overlay-side-offset`);
+    expect(css).toContain(`--${p}-elevation-behind-z-index`);
+    expect(css).toContain(`--${p}-toast-viewport-max-height`);
+    expect(css).toContain(`--${p}-select-positioner-side-offset`);
+    expect(css).toContain(`--${p}-select-backdrop-opacity`);
+    expect(css).toContain(`--${p}-toast-motion-offset-y`);
+    expect(css).toContain(`--${p}-drawer-viewport-max-height`);
+    expect(css).not.toContain(`--${p}-$schema`);
+    expect(css).not.toContain(`--${p}-$extensions`);
+  });
 
   test("generates theme css from DTCG json input", () => {
-    const generatedAt = new Date("2026-05-30T12:00:00.000Z")
-    const outputs = createStyleOutputs({ generatedAt })
+    const generatedAt = new Date("2026-05-30T12:00:00.000Z");
+    const outputs = createStyleOutputs({ generatedAt });
     const css = createThemeCssFromDtcgJson(
       outputs.tokensJson,
       outputs.themesJson,
       generatedAt,
-    )
+    );
 
-    expect(css).toBe(outputs.themeCss)
-    expect(css).toContain(".dark")
-    expect(css).toContain("color-scheme: light;")
-    expect(css).toContain("color-scheme: dark;")
-    expect(css).toContain("@theme inline")
-    expect(css).toContain("--color-twix-background-base")
-    expect(css).not.toContain("--color-twix-blue-600")
-    expect(css).not.toContain("--color-twix-button")
-    expect(css).not.toContain(`--${p}-$schema`)
-    expect(css).not.toContain(`--${p}-$extensions`)
-  })
+    expect(css).toBe(outputs.themeCss);
+    expect(css).toContain(".dark");
+    expect(css).toContain("color-scheme: light;");
+    expect(css).toContain("color-scheme: dark;");
+    expect(css).toContain("@theme inline");
+    expect(css).toContain("--color-twix-background-base");
+    expect(css).not.toContain("--color-twix-blue-600");
+    expect(css).not.toContain("--color-twix-button");
+    expect(css).not.toContain(`--${p}-$schema`);
+    expect(css).not.toContain(`--${p}-$extensions`);
+  });
 
   test("rejects theme css generation without semantic token source", () => {
-    const outputs = createStyleOutputs()
+    const outputs = createStyleOutputs();
     const tokensJson = JSON.parse(outputs.tokensJson) as {
-      semantics?: unknown
-    }
+      semantics?: unknown;
+    };
 
-    delete tokensJson.semantics
+    delete tokensJson.semantics;
 
     expect(() => {
-      createThemeCssFromDtcgJson(JSON.stringify(tokensJson), outputs.themesJson)
-    }).toThrow('DTCG token document is missing a "semantics" layer.')
-  })
+      createThemeCssFromDtcgJson(
+        JSON.stringify(tokensJson),
+        outputs.themesJson,
+      );
+    }).toThrow('DTCG token document is missing a "semantics" layer.');
+  });
 
   test("rejects theme css generation without theme metadata", () => {
-    const outputs = createStyleOutputs()
+    const outputs = createStyleOutputs();
     const themesJson = JSON.parse(outputs.themesJson) as {
       $extensions: {
         "org.lexsys": {
-          themes?: unknown
-        }
-      }
-    }
+          themes?: unknown;
+        };
+      };
+    };
 
-    delete themesJson.$extensions["org.lexsys"].themes
+    delete themesJson.$extensions["org.lexsys"].themes;
 
     expect(() => {
-      createThemeCssFromDtcgJson(outputs.tokensJson, JSON.stringify(themesJson))
-    }).toThrow('DTCG theme document extension "org.lexsys" is missing')
-  })
+      createThemeCssFromDtcgJson(
+        outputs.tokensJson,
+        JSON.stringify(themesJson),
+      );
+    }).toThrow('DTCG theme document extension "org.lexsys" is missing');
+  });
 
   test("keeps authoring tokens prefix-free", () => {
     const tokenSource = JSON.stringify({
@@ -725,46 +734,48 @@ describe("createStyleOutputs", () => {
       primitiveTokens,
       semanticTokens,
       themes,
-    })
+    });
 
-    expect(tokenSource).not.toContain("--nx")
-    expect(tokenSource).not.toContain("var(--")
-    expect(tokenSource).not.toContain("{line-height.6}")
-    expect(tokenSource).toContain("{motion.duration.fast}")
-  })
+    expect(tokenSource).not.toContain("--nx");
+    expect(tokenSource).not.toContain("var(--");
+    expect(tokenSource).not.toContain("{line-height.6}");
+    expect(tokenSource).toContain("{motion.duration.fast}");
+  });
 
   test("leaves default style outputs unchanged when stripDeadPrimitives is off", () => {
-    const generatedAt = new Date("2026-05-30T12:00:00.000Z")
-    const defaultOutputs = createStyleOutputs({ generatedAt })
+    const generatedAt = new Date("2026-05-30T12:00:00.000Z");
+    const defaultOutputs = createStyleOutputs({ generatedAt });
     const explicitOutputs = createStyleOutputs({
       generatedAt,
       stripDeadPrimitives: false,
-    })
+    });
 
-    expect(explicitOutputs.tokensCss).toBe(defaultOutputs.tokensCss)
-    expect(explicitOutputs.themeCss).toBe(defaultOutputs.themeCss)
+    expect(explicitOutputs.tokensCss).toBe(defaultOutputs.tokensCss);
+    expect(explicitOutputs.themeCss).toBe(defaultOutputs.themeCss);
     expect(explicitOutputs.tokenJsonFiles).toEqual(
       defaultOutputs.tokenJsonFiles,
-    )
-  })
+    );
+  });
 
   test("omits dead primitive CSS variables when stripDeadPrimitives is on", () => {
-    const defaultOutputs = createStyleOutputs()
-    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true })
+    const defaultOutputs = createStyleOutputs();
+    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true });
 
     expect(strippedOutputs.tokensCss.length).toBeLessThan(
       defaultOutputs.tokensCss.length,
-    )
-    expect(strippedOutputs.tokensCss).not.toContain(`--${p}-color-blue-100:`)
-    expect(defaultOutputs.tokensCss).toContain(`--${p}-color-blue-100:`)
-  })
+    );
+    expect(strippedOutputs.tokensCss).not.toContain(`--${p}-color-blue-100:`);
+    expect(defaultOutputs.tokensCss).toContain(`--${p}-color-blue-100:`);
+  });
 
   test("omits dead primitive leaves from DTCG output when stripDeadPrimitives is on", () => {
-    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true })
+    const strippedOutputs = createStyleOutputs({ stripDeadPrimitives: true });
     const colorPrimitivesJson =
-      strippedOutputs.tokenJsonFiles["tokens/dtcg/primitives/color.tokens.json"]
+      strippedOutputs.tokenJsonFiles[
+        "tokens/dtcg/primitives/color.tokens.json"
+      ];
 
-    expect(colorPrimitivesJson).toBeDefined()
-    expect(colorPrimitivesJson).not.toContain("blue-100")
-  })
-})
+    expect(colorPrimitivesJson).toBeDefined();
+    expect(colorPrimitivesJson).not.toContain("blue-100");
+  });
+});

@@ -4,10 +4,10 @@
  * Reference Input component implementation.
  */
 
-import { Input as BaseInput } from "@base-ui/react/input"
-import type { InputProps } from "./Input.types"
-import { inputVariants } from "./Input.variants"
-import { mergeClassName } from "@/lib/utils"
+import { Input as BaseInput } from "@base-ui/react/input";
+import type { InputProps } from "./Input.types";
+import { inputVariants } from "./Input.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Input = ({
   ref,
@@ -20,7 +20,7 @@ const Input = ({
   const baseInputProps: Omit<
     InputProps,
     "className" | "isInvalid" | "size" | "variant"
-  > = isInvalid ? { ...props, "aria-invalid": true } : props
+  > = isInvalid ? { ...props, "aria-invalid": true } : props;
 
   return (
     <BaseInput
@@ -28,9 +28,9 @@ const Input = ({
       className={mergeClassName(inputVariants({ variant, size }), className)}
       {...baseInputProps}
     />
-  )
-}
+  );
+};
 
-Input.displayName = "Input"
+Input.displayName = "Input";
 
-export { Input }
+export { Input };

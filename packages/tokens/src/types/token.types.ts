@@ -36,7 +36,7 @@
  *   distinguish references from normal strings at authoring time.
  * - Reference validity must be checked by resolver/validator logic.
  */
-export type TokenReference = `{${string}}`
+export type TokenReference = `{${string}}`;
 
 /* -------------------------------------------------------------------------------------------------
  * Token type names
@@ -68,7 +68,7 @@ export type StandardScalarTokenType =
   /** External resource references such as icons, images, or font files. */
   | "asset"
   /** Metadata, preset labels, and other scalar string token values. */
-  | "string"
+  | "string";
 
 /**
  * Lexsys authoring aliases for typography-related scalar values.
@@ -83,12 +83,12 @@ export type LexsysScalarTokenType =
   /** Vertical spacing between lines, usually unitless in Lexsys. */
   | "lineHeight"
   /** Horizontal spacing between characters such as 0em or -0.01em. */
-  | "letterSpacing"
+  | "letterSpacing";
 
 /**
  * Scalar token type names supported by Lexsys.
  */
-export type ScalarTokenType = StandardScalarTokenType | LexsysScalarTokenType
+export type ScalarTokenType = StandardScalarTokenType | LexsysScalarTokenType;
 
 /**
  * Composite token type names reserved for structured object values.
@@ -108,12 +108,12 @@ export type CompositeTokenType =
   /** Composite blur/effect style. */
   | "blur"
   /** Composite gradient style containing type, stops, and direction. */
-  | "gradient"
+  | "gradient";
 
 /**
  * Design token type names supported by the Lexsys token model.
  */
-export type TokenType = ScalarTokenType | CompositeTokenType
+export type TokenType = ScalarTokenType | CompositeTokenType;
 
 /* -------------------------------------------------------------------------------------------------
  * Token values
@@ -125,7 +125,7 @@ export type TokenType = ScalarTokenType | CompositeTokenType
  * Lexsys intentionally excludes boolean and null token values from the next
  * token authoring model.
  */
-export type TokenScalarValue = string | number
+export type TokenScalarValue = string | number;
 
 /**
  * Platform-neutral dimension, duration, or unit-based token value.
@@ -134,8 +134,8 @@ export type TokenScalarValue = string | number
  * "150ms", or "0.2s".
  */
 export interface TokenUnitValue {
-  value: number
-  unit: string
+  value: number;
+  unit: string;
 }
 
 /**
@@ -146,16 +146,16 @@ export interface TokenUnitValue {
  * `components`.
  */
 export interface TokenColorValue {
-  colorSpace: "oklch" | "srgb" | "display-p3"
-  components: readonly number[]
-  alpha?: number
-  hex?: string
+  colorSpace: "oklch" | "srgb" | "display-p3";
+  components: readonly number[];
+  alpha?: number;
+  hex?: string;
 }
 
 /**
  * Structured token values supported by the Lexsys token model.
  */
-export type TokenStructuredValue = TokenUnitValue | TokenColorValue
+export type TokenStructuredValue = TokenUnitValue | TokenColorValue;
 
 /**
  * Token values supported by the Lexsys DTCG-shaped authoring model.
@@ -163,7 +163,7 @@ export type TokenStructuredValue = TokenUnitValue | TokenColorValue
  * Composite DTCG values such as shadow, border, transition, and typography can
  * be added when their generators and validators are implemented.
  */
-export type TokenValue = TokenScalarValue | TokenStructuredValue
+export type TokenValue = TokenScalarValue | TokenStructuredValue;
 
 /* -------------------------------------------------------------------------------------------------
  * Token metadata
@@ -179,15 +179,15 @@ export type TokenValue = TokenScalarValue | TokenStructuredValue
  * - `string` marks it as deprecated and explains why or what to use instead
  */
 export interface TokenMetadata {
-  $description?: string
-  $deprecated?: boolean | string
-  $type?: TokenType
+  $description?: string;
+  $deprecated?: boolean | string;
+  $type?: TokenType;
 }
 
 /**
  * Metadata value allowed on DTCG `$`-prefixed branch keys.
  */
-export type TokenMetadataValue = TokenMetadata[keyof TokenMetadata]
+export type TokenMetadataValue = TokenMetadata[keyof TokenMetadata];
 
 /* -------------------------------------------------------------------------------------------------
  * Token tree
@@ -201,7 +201,7 @@ export type TokenMetadataValue = TokenMetadata[keyof TokenMetadata]
 export interface TokenLeaf<
   TValue extends TokenValue = TokenValue,
 > extends TokenMetadata {
-  $value: TValue
+  $value: TValue;
 }
 
 /**
@@ -218,15 +218,15 @@ export interface TokenLeaf<
  * Runtime validators must reject invalid non-metadata scalar branches.
  */
 export interface TokenBranch extends TokenMetadata {
-  [key: string]: TokenLeaf | TokenBranch | TokenMetadataValue
+  [key: string]: TokenLeaf | TokenBranch | TokenMetadataValue;
 }
 
 /**
  * Token tree root used by resolver and generator inputs.
  */
-export type TokenTree = TokenBranch
+export type TokenTree = TokenBranch;
 
 /**
  * Any node in the DTCG-shaped token tree.
  */
-export type TokenNode = TokenLeaf | TokenBranch
+export type TokenNode = TokenLeaf | TokenBranch;

@@ -4,18 +4,18 @@
  * Reference OtpField component implementation.
  */
 
-import { OTPFieldPreview as BaseOtpField } from "@base-ui/react/otp-field"
+import { OTPFieldPreview as BaseOtpField } from "@base-ui/react/otp-field";
 import type {
   OtpFieldInputProps,
   OtpFieldProps,
   OtpFieldSeparatorProps,
-} from "./OtpField.types"
+} from "./OtpField.types";
 import {
   otpFieldInputVariants,
   otpFieldSeparatorVariants,
   otpFieldVariants,
-} from "./OtpField.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./OtpField.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const OtpField = ({ ref, className, ...props }: OtpFieldProps) => {
   return (
@@ -24,10 +24,10 @@ const OtpField = ({ ref, className, ...props }: OtpFieldProps) => {
       className={mergeClassName(otpFieldVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-OtpField.displayName = "OtpField"
+OtpField.displayName = "OtpField";
 
 const OtpFieldInput = ({
   ref,
@@ -41,10 +41,10 @@ const OtpFieldInput = ({
       className={mergeClassName(otpFieldInputVariants({ size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-OtpFieldInput.displayName = "OtpFieldInput"
+OtpFieldInput.displayName = "OtpFieldInput";
 
 const OtpFieldSeparator = ({
   ref,
@@ -57,9 +57,9 @@ const OtpFieldSeparator = ({
       className={mergeClassName(otpFieldSeparatorVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-OtpFieldSeparator.displayName = "OtpFieldSeparator"
+OtpFieldSeparator.displayName = "OtpFieldSeparator";
 
-export { OtpField, OtpFieldInput, OtpFieldSeparator }
+export { OtpField, OtpFieldInput, OtpFieldSeparator };

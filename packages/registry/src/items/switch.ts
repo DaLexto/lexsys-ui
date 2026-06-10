@@ -4,7 +4,7 @@
  * Registry metadata for the Switch component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const switchRegistryItem: RegistryItem = {
   name: "switch",
@@ -38,4 +38,4 @@ export const switchRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Switch",
-}
+};

@@ -4,7 +4,7 @@
  * Reference NumberField component implementation.
  */
 
-import { NumberField as BaseNumberField } from "@base-ui/react/number-field"
+import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
 import type {
   NumberFieldDecrementProps,
   NumberFieldGroupProps,
@@ -13,7 +13,7 @@ import type {
   NumberFieldProps,
   NumberFieldScrubAreaCursorProps,
   NumberFieldScrubAreaProps,
-} from "./NumberField.types"
+} from "./NumberField.types";
 import {
   numberFieldButtonVariants,
   numberFieldGroupVariants,
@@ -21,8 +21,8 @@ import {
   numberFieldScrubAreaCursorVariants,
   numberFieldScrubAreaVariants,
   numberFieldVariants,
-} from "./NumberField.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./NumberField.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const NumberField = ({ ref, className, ...props }: NumberFieldProps) => {
   return (
@@ -31,10 +31,10 @@ const NumberField = ({ ref, className, ...props }: NumberFieldProps) => {
       className={mergeClassName(numberFieldVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NumberField.displayName = "NumberField"
+NumberField.displayName = "NumberField";
 
 const NumberFieldGroup = ({
   ref,
@@ -48,10 +48,10 @@ const NumberFieldGroup = ({
       className={mergeClassName(numberFieldGroupVariants({ size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NumberFieldGroup.displayName = "NumberFieldGroup"
+NumberFieldGroup.displayName = "NumberFieldGroup";
 
 const NumberFieldInput = ({
   ref,
@@ -63,7 +63,7 @@ const NumberFieldInput = ({
   const baseInputProps: Omit<
     NumberFieldInputProps,
     "className" | "isInvalid" | "size"
-  > = isInvalid ? { ...props, "aria-invalid": true } : props
+  > = isInvalid ? { ...props, "aria-invalid": true } : props;
 
   return (
     <BaseNumberField.Input
@@ -71,10 +71,10 @@ const NumberFieldInput = ({
       className={mergeClassName(numberFieldInputVariants({ size }), className)}
       {...baseInputProps}
     />
-  )
-}
+  );
+};
 
-NumberFieldInput.displayName = "NumberFieldInput"
+NumberFieldInput.displayName = "NumberFieldInput";
 
 const NumberFieldIncrement = ({
   ref,
@@ -94,10 +94,10 @@ const NumberFieldIncrement = ({
     >
       {children ?? "+"}
     </BaseNumberField.Increment>
-  )
-}
+  );
+};
 
-NumberFieldIncrement.displayName = "NumberFieldIncrement"
+NumberFieldIncrement.displayName = "NumberFieldIncrement";
 
 const NumberFieldDecrement = ({
   ref,
@@ -117,10 +117,10 @@ const NumberFieldDecrement = ({
     >
       {children ?? "-"}
     </BaseNumberField.Decrement>
-  )
-}
+  );
+};
 
-NumberFieldDecrement.displayName = "NumberFieldDecrement"
+NumberFieldDecrement.displayName = "NumberFieldDecrement";
 
 const NumberFieldScrubArea = ({
   ref,
@@ -133,10 +133,10 @@ const NumberFieldScrubArea = ({
       className={mergeClassName(numberFieldScrubAreaVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NumberFieldScrubArea.displayName = "NumberFieldScrubArea"
+NumberFieldScrubArea.displayName = "NumberFieldScrubArea";
 
 const NumberFieldScrubAreaCursor = ({
   ref,
@@ -152,10 +152,10 @@ const NumberFieldScrubAreaCursor = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-NumberFieldScrubAreaCursor.displayName = "NumberFieldScrubAreaCursor"
+NumberFieldScrubAreaCursor.displayName = "NumberFieldScrubAreaCursor";
 
 export {
   NumberField,
@@ -165,4 +165,4 @@ export {
   NumberFieldDecrement,
   NumberFieldScrubArea,
   NumberFieldScrubAreaCursor,
-}
+};

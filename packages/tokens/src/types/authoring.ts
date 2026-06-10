@@ -10,9 +10,9 @@ import type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,
   SemanticTokenGroup,
-} from "./group.types"
-import type { ThemeConfig, ThemeDefinition } from "./theme.types"
-import type { TokenTree } from "./token.types"
+} from "./group.types";
+import type { ThemeConfig, ThemeDefinition } from "./theme.types";
+import type { TokenTree } from "./token.types";
 
 export const primitiveTokens = (
   name: string,
@@ -21,8 +21,8 @@ export const primitiveTokens = (
   return {
     meta: { name },
     tokens,
-  }
-}
+  };
+};
 
 export const brandTokens = (
   name: string,
@@ -31,8 +31,8 @@ export const brandTokens = (
   return {
     meta: { name },
     tokens,
-  }
-}
+  };
+};
 
 export const semanticTokens = (
   name: string,
@@ -41,8 +41,8 @@ export const semanticTokens = (
   return {
     meta: { name },
     tokens,
-  }
-}
+  };
+};
 
 export const componentTokens = (
   component: string,
@@ -51,8 +51,8 @@ export const componentTokens = (
   return {
     meta: { component },
     tokens,
-  }
-}
+  };
+};
 
 export const themeTokens = (
   config: ThemeConfig,
@@ -61,5 +61,5 @@ export const themeTokens = (
   return {
     ...config,
     tokens,
-  }
-}
+  };
+};

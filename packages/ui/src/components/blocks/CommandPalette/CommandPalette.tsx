@@ -12,18 +12,18 @@ import {
   DialogPortal,
   DialogTitle,
   DialogViewport,
-} from "../../primitives/Dialog/Dialog"
+} from "../../primitives/Dialog/Dialog";
 import {
   Combobox,
   ComboboxInput,
   ComboboxInputGroup,
-} from "../../primitives/Combobox/Combobox"
-import { Separator } from "../../primitives/Separator/Separator"
+} from "../../primitives/Combobox/Combobox";
+import { Separator } from "../../primitives/Separator/Separator";
 import {
   ScrollArea,
   ScrollAreaContent,
   ScrollAreaViewport,
-} from "../../primitives/ScrollArea/ScrollArea"
+} from "../../primitives/ScrollArea/ScrollArea";
 import type {
   CommandPaletteContentProps,
   CommandPaletteDescriptionProps,
@@ -35,7 +35,7 @@ import type {
   CommandPaletteListProps,
   CommandPaletteProps,
   CommandPaletteTitleProps,
-} from "./CommandPalette.types"
+} from "./CommandPalette.types";
 import {
   commandPaletteEmptyClasses,
   commandPaletteGroupLabelClasses,
@@ -44,14 +44,14 @@ import {
   commandPaletteItemDescriptionClasses,
   commandPaletteListClasses,
   commandPaletteRootClasses,
-} from "./CommandPalette.variants"
-import { cn } from "../../../utils/cn"
+} from "./CommandPalette.variants";
+import { cn } from "../../../utils/cn";
 
 const CommandPalette = ({ children, ...props }: CommandPaletteProps) => {
-  return <Dialog {...props}>{children}</Dialog>
-}
+  return <Dialog {...props}>{children}</Dialog>;
+};
 
-CommandPalette.displayName = "CommandPalette"
+CommandPalette.displayName = "CommandPalette";
 
 const CommandPaletteContent = ({
   ref,
@@ -72,10 +72,10 @@ const CommandPaletteContent = ({
         </DialogPopup>
       </DialogViewport>
     </DialogPortal>
-  )
-}
+  );
+};
 
-CommandPaletteContent.displayName = "CommandPaletteContent"
+CommandPaletteContent.displayName = "CommandPaletteContent";
 
 const CommandPaletteTitle = ({
   ref,
@@ -87,10 +87,10 @@ const CommandPaletteTitle = ({
     <DialogTitle ref={ref} className={className} {...props}>
       {children}
     </DialogTitle>
-  )
-}
+  );
+};
 
-CommandPaletteTitle.displayName = "CommandPaletteTitle"
+CommandPaletteTitle.displayName = "CommandPaletteTitle";
 
 const CommandPaletteDescription = ({
   ref,
@@ -106,10 +106,10 @@ const CommandPaletteDescription = ({
     >
       {children}
     </DialogDescription>
-  )
-}
+  );
+};
 
-CommandPaletteDescription.displayName = "CommandPaletteDescription"
+CommandPaletteDescription.displayName = "CommandPaletteDescription";
 
 const CommandPaletteInput = ({
   ref,
@@ -127,16 +127,16 @@ const CommandPaletteInput = ({
         />
       </ComboboxInputGroup>
     </Combobox>
-  )
-}
+  );
+};
 
-CommandPaletteInput.displayName = "CommandPaletteInput"
+CommandPaletteInput.displayName = "CommandPaletteInput";
 
 const CommandPaletteSeparator = () => {
-  return <Separator />
-}
+  return <Separator />;
+};
 
-CommandPaletteSeparator.displayName = "CommandPaletteSeparator"
+CommandPaletteSeparator.displayName = "CommandPaletteSeparator";
 
 const CommandPaletteList = ({
   ref,
@@ -152,10 +152,10 @@ const CommandPaletteList = ({
         </ScrollAreaContent>
       </ScrollAreaViewport>
     </ScrollArea>
-  )
-}
+  );
+};
 
-CommandPaletteList.displayName = "CommandPaletteList"
+CommandPaletteList.displayName = "CommandPaletteList";
 
 const CommandPaletteGroup = ({
   ref,
@@ -167,10 +167,10 @@ const CommandPaletteGroup = ({
     <section ref={ref} className={className} {...props}>
       {children}
     </section>
-  )
-}
+  );
+};
 
-CommandPaletteGroup.displayName = "CommandPaletteGroup"
+CommandPaletteGroup.displayName = "CommandPaletteGroup";
 
 const CommandPaletteGroupLabel = ({
   ref,
@@ -186,10 +186,10 @@ const CommandPaletteGroupLabel = ({
     >
       {children}
     </h3>
-  )
-}
+  );
+};
 
-CommandPaletteGroupLabel.displayName = "CommandPaletteGroupLabel"
+CommandPaletteGroupLabel.displayName = "CommandPaletteGroupLabel";
 
 const CommandPaletteItem = ({
   ref,
@@ -213,10 +213,10 @@ const CommandPaletteItem = ({
         </span>
       ) : null}
     </button>
-  )
-}
+  );
+};
 
-CommandPaletteItem.displayName = "CommandPaletteItem"
+CommandPaletteItem.displayName = "CommandPaletteItem";
 
 const CommandPaletteEmpty = ({
   ref,
@@ -232,10 +232,10 @@ const CommandPaletteEmpty = ({
     >
       {children}
     </p>
-  )
-}
+  );
+};
 
-CommandPaletteEmpty.displayName = "CommandPaletteEmpty"
+CommandPaletteEmpty.displayName = "CommandPaletteEmpty";
 
 export {
   CommandPalette,
@@ -249,4 +249,4 @@ export {
   CommandPaletteGroupLabel,
   CommandPaletteItem,
   CommandPaletteEmpty,
-}
+};

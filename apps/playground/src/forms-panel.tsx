@@ -34,11 +34,11 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
-} from "@dalexto/lexsys-ui"
+} from "@dalexto/lexsys-ui";
 
 interface FormsPanelProps {
-  submittedFormValues: string
-  onSubmittedFormValuesChange: (value: string) => void
+  submittedFormValues: string;
+  onSubmittedFormValuesChange: (value: string) => void;
 }
 
 export const FormsPanel = ({
@@ -58,7 +58,7 @@ export const FormsPanel = ({
         className="field-board"
         validationMode="onChange"
         onFormSubmit={(formValues) => {
-          onSubmittedFormValuesChange(JSON.stringify(formValues, null, 2))
+          onSubmittedFormValuesChange(JSON.stringify(formValues, null, 2));
         }}
       >
         <Field
@@ -66,7 +66,7 @@ export const FormsPanel = ({
           validate={(value) => {
             return typeof value === "string" && value.trim().length >= 3
               ? null
-              : "Use at least 3 characters."
+              : "Use at least 3 characters.";
           }}
         >
           <FieldLabel>Workspace name</FieldLabel>
@@ -87,7 +87,7 @@ export const FormsPanel = ({
           validate={(value) => {
             return typeof value === "string" && value.trim().length >= 10
               ? null
-              : "Use at least 10 characters."
+              : "Use at least 10 characters.";
           }}
         >
           <FieldLabel>Project notes</FieldLabel>
@@ -224,5 +224,5 @@ export const FormsPanel = ({
         </div>
       </Form>
     </section>
-  )
-}
+  );
+};

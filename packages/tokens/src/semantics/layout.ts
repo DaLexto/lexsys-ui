@@ -5,7 +5,7 @@
  * @description Reusable viewport breakpoint and aspect ratio roles for responsive layout.
  */
 
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const layoutSemantics = semanticTokens("layout", {
   viewport: {
@@ -51,4 +51,4 @@ export const layoutSemantics = semanticTokens("layout", {
     video: { $value: "{aspect-ratio.16-9}" },
     ultrawide: { $value: "{aspect-ratio.21-9}" },
   },
-})
+});

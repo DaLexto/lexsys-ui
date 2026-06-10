@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-} from "../../../src/components/primitives/Breadcrumb/Breadcrumb.js"
+} from "../../../src/components/primitives/Breadcrumb/Breadcrumb.js";
 
 describe("Breadcrumb render", () => {
   it("renders breadcrumb navigation with current page", () => {
@@ -21,10 +21,13 @@ describe("Breadcrumb render", () => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>,
-    )
+    );
 
-    expect(screen.getByRole("navigation")).toHaveClass("custom-breadcrumb")
-    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument()
-    expect(screen.getByText("Settings")).toHaveAttribute("aria-current", "page")
-  })
-})
+    expect(screen.getByRole("navigation")).toHaveClass("custom-breadcrumb");
+    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+    expect(screen.getByText("Settings")).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+});

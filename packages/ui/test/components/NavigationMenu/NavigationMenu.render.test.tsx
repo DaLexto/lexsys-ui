@@ -1,11 +1,11 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "../../../src/components/primitives/NavigationMenu/NavigationMenu.js"
+} from "../../../src/components/primitives/NavigationMenu/NavigationMenu.js";
 
 describe("NavigationMenu render", () => {
   it("renders navigation link with custom className on root", () => {
@@ -17,9 +17,11 @@ describe("NavigationMenu render", () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>,
-    )
+    );
 
-    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument()
-    expect(screen.getByRole("navigation")).toHaveClass("custom-navigation-menu")
-  })
-})
+    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+    expect(screen.getByRole("navigation")).toHaveClass(
+      "custom-navigation-menu",
+    );
+  });
+});

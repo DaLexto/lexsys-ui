@@ -4,17 +4,17 @@
  * Reference RadioGroup component implementation.
  */
 
-import { Radio } from "@base-ui/react/radio"
-import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group"
-import type { RadioGroupItemProps, RadioGroupProps } from "./RadioGroup.types"
+import { Radio } from "@base-ui/react/radio";
+import { RadioGroup as BaseRadioGroup } from "@base-ui/react/radio-group";
+import type { RadioGroupItemProps, RadioGroupProps } from "./RadioGroup.types";
 import {
   radioGroupItemVariants,
   radioGroupIndicatorVariants,
   radioGroupLabelVariants,
   radioGroupVariants,
-} from "./RadioGroup.variants"
-import { cn } from "../../../utils/cn"
-import { mergeClassName } from "../../../utils/merge-class-name"
+} from "./RadioGroup.variants";
+import { cn } from "../../../utils/cn";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const RadioGroup = ({
   ref,
@@ -28,10 +28,10 @@ const RadioGroup = ({
       className={mergeClassName(radioGroupVariants({ orientation }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-RadioGroup.displayName = "RadioGroup"
+RadioGroup.displayName = "RadioGroup";
 
 const RadioGroupItem = ({
   ref,
@@ -58,9 +58,9 @@ const RadioGroupItem = ({
       </Radio.Root>
       {children === undefined ? null : <span>{children}</span>}
     </label>
-  )
-}
+  );
+};
 
-RadioGroupItem.displayName = "RadioGroupItem"
+RadioGroupItem.displayName = "RadioGroupItem";
 
-export { RadioGroup, RadioGroupItem }
+export { RadioGroup, RadioGroupItem };

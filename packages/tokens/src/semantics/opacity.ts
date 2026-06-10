@@ -5,7 +5,7 @@
  * @description Cross-cutting opacity roles for disabled, busy, and overlay states.
  */
 
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const opacitySemantics = semanticTokens("opacity", {
   disabled: {
@@ -18,4 +18,4 @@ export const opacitySemantics = semanticTokens("opacity", {
     $description: "Opacity for busy/loading interactive controls.",
     $value: "{opacity.80}",
   },
-})
+});

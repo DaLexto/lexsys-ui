@@ -4,13 +4,13 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
-export const tooltipTriggerVariants = cva("inline-flex")
+export const tooltipTriggerVariants = cva("inline-flex");
 
 export const tooltipPositionerVariants = cva(
   "z-(--lex-tooltip-positioner-z-index)",
-)
+);
 
 export const tooltipPopupVariants = cva(
   [
@@ -19,6 +19,6 @@ export const tooltipPopupVariants = cva(
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
     "transition-opacity duration-(--lex-tooltip-transition-duration) ease-(--lex-tooltip-transition-easing)",
   ].join(" "),
-)
+);
 
-export const tooltipArrowVariants = cva("fill-(--lex-tooltip-background)")
+export const tooltipArrowVariants = cva("fill-(--lex-tooltip-background)");

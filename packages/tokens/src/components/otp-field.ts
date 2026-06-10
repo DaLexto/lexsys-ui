@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const otpFieldComponentTokens = componentTokens("otp-field", {
   gap: { $value: "{spacing.control.gap.sm}" },
@@ -48,4 +48,4 @@ export const otpFieldComponentTokens = componentTokens("otp-field", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

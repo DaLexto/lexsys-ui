@@ -5,9 +5,9 @@
  * @description Explicit semantic foreground/background pair registry for contrast checks.
  */
 
-import type { SemanticContrastPair } from "./contrast.types"
+import type { SemanticContrastPair } from "./contrast.types";
 
-export const WCAG_AA_NORMAL_TEXT_RATIO = 4.5
+export const WCAG_AA_NORMAL_TEXT_RATIO = 4.5;
 
 export const SEMANTIC_CONTRAST_PAIRS: SemanticContrastPair[] = [
   {
@@ -108,4 +108,4 @@ export const SEMANTIC_CONTRAST_PAIRS: SemanticContrastPair[] = [
     foregroundPath: "color.text.primary",
     backgroundPath: "color.background.subtle",
   },
-]
+];

@@ -1,22 +1,22 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   AuthForm,
   AuthFormContent,
   AuthFormFooter,
   AuthFormHeader,
   AuthFormSubmit,
-} from "../../../src/components/blocks/AuthForm/AuthForm.js"
+} from "../../../src/components/blocks/AuthForm/AuthForm.js";
 import {
   FormField,
   FormFieldControl,
   FormFieldItem,
   FormFieldLabel,
-} from "../../../src/components/blocks/FormField/FormField.js"
+} from "../../../src/components/blocks/FormField/FormField.js";
 import {
   CardDescription,
   CardTitle,
-} from "../../../src/components/primitives/Card/Card.js"
+} from "../../../src/components/primitives/Card/Card.js";
 
 describe("AuthForm render", () => {
   it("renders compound auth shell with fields and submit", () => {
@@ -47,10 +47,10 @@ describe("AuthForm render", () => {
           <AuthFormSubmit>Sign in</AuthFormSubmit>
         </AuthFormFooter>
       </AuthForm>,
-    )
+    );
 
-    expect(screen.getByLabelText("Email")).toBeInTheDocument()
-    expect(screen.getByLabelText("Password")).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Sign in" })).toBeInTheDocument()
-  })
-})
+    expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    expect(screen.getByLabelText("Password")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Sign in" })).toBeInTheDocument();
+  });
+});

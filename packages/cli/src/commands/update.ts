@@ -1,73 +1,73 @@
-import { loadConfig } from "../config/config.js"
+import { loadConfig } from "../config/config.js";
 import {
   collectUtilities,
   findItem,
   resolveRegistryStyles,
   resolveRegistryUtilities,
-} from "../registry/resolver.js"
-import { checkItemUpdate } from "../install/update-engine.js"
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
-import { promptMultiselect } from "../utils/prompt.js"
-import { getRegistryProviderResult } from "../registry/provider.js"
-import { installStyles, updateUtilities } from "../install/installer.js"
+} from "../registry/resolver.js";
+import { checkItemUpdate } from "../install/update-engine.js";
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js";
+import { promptMultiselect } from "../utils/prompt.js";
+import { getRegistryProviderResult } from "../registry/provider.js";
+import { installStyles, updateUtilities } from "../install/installer.js";
 import {
   hasInstallConflicts,
   printResourceSummary,
-} from "../install/results.js"
-import type { LexsysConfig } from "../config/config.js"
-import { findInstalledKey, isInstalled } from "../config/installed.js"
+} from "../install/results.js";
+import type { LexsysConfig } from "../config/config.js";
+import { findInstalledKey, isInstalled } from "../config/installed.js";
 
-const styleUpdateNames = ["theme"]
+const styleUpdateNames = ["theme"];
 
 const resolveInstalledKey = async (
   name: string,
   installed: string[],
 ): Promise<string | undefined> => {
-  const direct = findInstalledKey(installed, name)
+  const direct = findInstalledKey(installed, name);
 
   if (direct) {
-    return direct
+    return direct;
   }
 
-  const item = await findItem(name)
+  const item = await findItem(name);
 
   if (!item) {
-    return undefined
+    return undefined;
   }
 
-  return findInstalledKey(installed, item.name)
-}
+  return findInstalledKey(installed, item.name);
+};
 
 const runStylesUpdate = async (
   config: LexsysConfig,
   dryRun: boolean,
 ): Promise<void> => {
-  const styles = resolveRegistryStyles(styleUpdateNames)
+  const styles = resolveRegistryStyles(styleUpdateNames);
 
   if (dryRun) {
-    console.log("Dry run: no style files will be changed.\n")
-    console.log("Styles:")
+    console.log("Dry run: no style files will be changed.\n");
+    console.log("Styles:");
     for (const style of styles) {
-      console.log(`- ${style.name} v${style.version}`)
+      console.log(`- ${style.name} v${style.version}`);
       for (const file of style.files) {
-        console.log(`  ~ ${config.paths.styles}/${file.target}`)
+        console.log(`  ~ ${config.paths.styles}/${file.target}`);
       }
     }
-    console.log(`\nTailwind CSS entrypoint: ${config.tailwind.css}`)
-    return
+    console.log(`\nTailwind CSS entrypoint: ${config.tailwind.css}`);
+    return;
   }
 
-  const result = await installStyles(styles, config)
+  const result = await installStyles(styles, config);
 
-  console.log("Style update summary:")
-  printResourceSummary("styles", result)
+  console.log("Style update summary:");
+  printResourceSummary("styles", result);
 
   if (hasInstallConflicts(result)) {
     console.log(
       "Style conflicts were left untouched. Review them before relying on the generated theme output.",
-    )
+    );
   }
-}
+};
 
 const runUtilitiesUpdate = async (
   config: LexsysConfig,
@@ -77,38 +77,38 @@ const runUtilitiesUpdate = async (
 ): Promise<void> => {
   const installedItems = (
     await Promise.all(installed.map(async (name) => findItem(name)))
-  ).filter((item): item is NonNullable<typeof item> => Boolean(item))
+  ).filter((item): item is NonNullable<typeof item> => Boolean(item));
 
-  const utilityNames = collectUtilities(installedItems)
+  const utilityNames = collectUtilities(installedItems);
 
   if (!utilityNames.length) {
-    console.log("No shared utilities are tracked for installed components.")
-    return
+    console.log("No shared utilities are tracked for installed components.");
+    return;
   }
 
-  const utilities = resolveRegistryUtilities(utilityNames)
+  const utilities = resolveRegistryUtilities(utilityNames);
 
   if (dryRun) {
-    console.log("Dry run: no utility files will be changed.\n")
-    console.log("Utilities:")
+    console.log("Dry run: no utility files will be changed.\n");
+    console.log("Utilities:");
     for (const utility of utilities) {
-      console.log(`- ${utility.name}`)
-      console.log(`  ~ ${config.paths.utilities}/${utility.target}`)
+      console.log(`- ${utility.name}`);
+      console.log(`  ~ ${config.paths.utilities}/${utility.target}`);
     }
-    return
+    return;
   }
 
-  const result = await updateUtilities(utilities, config, force)
+  const result = await updateUtilities(utilities, config, force);
 
-  console.log("Utility update summary:")
-  printResourceSummary("utilities", result)
+  console.log("Utility update summary:");
+  printResourceSummary("utilities", result);
 
   if (hasInstallConflicts(result)) {
     console.log(
       "Utility conflicts were left untouched. Re-run with --force to overwrite after creating backups.",
-    )
+    );
   }
-}
+};
 
 const runComponentUpdates = async (
   installed: string[],
@@ -118,30 +118,30 @@ const runComponentUpdates = async (
   sync: boolean,
 ): Promise<void> => {
   if (!installed.length) {
-    console.log("No Lexsys components are currently tracked.")
-    return
+    console.log("No Lexsys components are currently tracked.");
+    return;
   }
 
-  console.log("Checking installed Lexsys components:\n")
+  console.log("Checking installed Lexsys components:\n");
 
   for (const name of targetNames) {
     if (!isInstalled(installed, name)) {
-      continue
+      continue;
     }
 
-    await checkItemUpdate(name, dryRun, force, sync)
+    await checkItemUpdate(name, dryRun, force, sync);
   }
-}
+};
 
 export const runUpdate = async (args: string[]): Promise<void> => {
-  const dryRun = hasFlag(args, "--dry-run", "-d")
-  const force = hasFlag(args, "--force", "-f")
-  const yes = hasFlag(args, "--yes", "-y")
-  const noFallback = hasFlag(args, "--no-fallback")
-  const sync = hasFlag(args, "--sync")
-  const stylesFlag = hasFlag(args, "--styles", "-S")
-  const utilitiesFlag = hasFlag(args, "--utilities", "-u")
-  const updateAll = hasFlag(args, "--all", "-a")
+  const dryRun = hasFlag(args, "--dry-run", "-d");
+  const force = hasFlag(args, "--force", "-f");
+  const yes = hasFlag(args, "--yes", "-y");
+  const noFallback = hasFlag(args, "--no-fallback");
+  const sync = hasFlag(args, "--sync");
+  const stylesFlag = hasFlag(args, "--styles", "-S");
+  const utilitiesFlag = hasFlag(args, "--utilities", "-u");
+  const updateAll = hasFlag(args, "--all", "-a");
 
   const targetArgs = removeFlags(removeFlagsWithValues(args, ["--cwd", "-C"]), [
     "--dry-run",
@@ -158,84 +158,85 @@ export const runUpdate = async (args: string[]): Promise<void> => {
     "-u",
     "--all",
     "-a",
-  ])
+  ]);
 
-  const config = await loadConfig()
-  const installed = [...(config.installed ?? [])]
+  const config = await loadConfig();
+  const installed = [...(config.installed ?? [])];
 
   try {
     await getRegistryProviderResult({
       fallback: !noFallback,
-    })
+    });
   } catch (error) {
-    console.log("Failed to resolve registry.")
-    console.log(error instanceof Error ? error.message : String(error))
-    process.exitCode = 1
-    return
+    console.log("Failed to resolve registry.");
+    console.log(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+    return;
   }
 
   if (!updateAll && !stylesFlag && !utilitiesFlag && targetArgs.length === 0) {
     if (installed.length === 0) {
       console.log(
         "No components installed. Run `lexsys add <component>` first.",
-      )
-      return
+      );
+      return;
     }
 
     if (yes) {
-      targetArgs.push(...installed)
+      targetArgs.push(...installed);
     } else {
       const selected = await promptMultiselect(
         "Select components to update",
         installed.map((name) => ({ title: name, value: name })),
         { min: 1 },
-      )
+      );
 
-      if (!selected.length) return
+      if (!selected.length) return;
 
-      targetArgs.push(...selected)
+      targetArgs.push(...selected);
     }
   }
 
-  const shouldUpdateComponents = updateAll || targetArgs.length > 0
-  const resourcesOnly = (stylesFlag || utilitiesFlag) && !shouldUpdateComponents
+  const shouldUpdateComponents = updateAll || targetArgs.length > 0;
+  const resourcesOnly =
+    (stylesFlag || utilitiesFlag) && !shouldUpdateComponents;
 
   if (resourcesOnly) {
     if (stylesFlag) {
-      await runStylesUpdate(config, dryRun)
+      await runStylesUpdate(config, dryRun);
     }
 
     if (utilitiesFlag) {
-      await runUtilitiesUpdate(config, installed, dryRun, force)
+      await runUtilitiesUpdate(config, installed, dryRun, force);
     }
 
-    return
+    return;
   }
 
   if (stylesFlag) {
-    await runStylesUpdate(config, dryRun)
+    await runStylesUpdate(config, dryRun);
   }
 
   if (utilitiesFlag) {
-    await runUtilitiesUpdate(config, installed, dryRun, force)
+    await runUtilitiesUpdate(config, installed, dryRun, force);
   }
 
   if (!shouldUpdateComponents) {
-    return
+    return;
   }
 
   if (updateAll) {
-    await runComponentUpdates(installed, installed, dryRun, force, sync)
+    await runComponentUpdates(installed, installed, dryRun, force, sync);
   } else {
     for (const name of targetArgs) {
-      const installedKey = await resolveInstalledKey(name, installed)
+      const installedKey = await resolveInstalledKey(name, installed);
 
       if (!installedKey) {
-        console.log(`Component "${name}" is not tracked as installed.`)
-        continue
+        console.log(`Component "${name}" is not tracked as installed.`);
+        continue;
       }
 
-      await runComponentUpdates(installed, [installedKey], dryRun, force, sync)
+      await runComponentUpdates(installed, [installedKey], dryRun, force, sync);
     }
   }
-}
+};

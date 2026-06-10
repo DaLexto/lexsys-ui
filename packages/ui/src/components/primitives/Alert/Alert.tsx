@@ -8,13 +8,13 @@ import type {
   AlertDescriptionProps,
   AlertProps,
   AlertTitleProps,
-} from "./Alert.types"
+} from "./Alert.types";
 import {
   alertDescriptionClassName,
   alertTitleClassName,
   alertVariants,
-} from "./Alert.variants"
-import { cn } from "../../../utils/cn"
+} from "./Alert.variants";
+import { cn } from "../../../utils/cn";
 
 const Alert = ({
   ref,
@@ -30,18 +30,18 @@ const Alert = ({
       className={cn(alertVariants({ variant }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Alert.displayName = "Alert"
+Alert.displayName = "Alert";
 
 const AlertTitle = ({ ref, className, ...props }: AlertTitleProps) => {
   return (
     <h3 ref={ref} className={cn(alertTitleClassName, className)} {...props} />
-  )
-}
+  );
+};
 
-AlertTitle.displayName = "AlertTitle"
+AlertTitle.displayName = "AlertTitle";
 
 const AlertDescription = ({
   ref,
@@ -54,9 +54,9 @@ const AlertDescription = ({
       className={cn(alertDescriptionClassName, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AlertDescription.displayName = "AlertDescription"
+AlertDescription.displayName = "AlertDescription";
 
-export { Alert, AlertTitle, AlertDescription }
+export { Alert, AlertTitle, AlertDescription };

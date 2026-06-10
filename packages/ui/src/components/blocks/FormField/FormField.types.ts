@@ -11,16 +11,16 @@ import type {
   FieldItemProps,
   FieldLabelProps,
   FieldProps,
-} from "../../primitives/Field/Field.types"
+} from "../../primitives/Field/Field.types";
 
-export type FormFieldProps = FieldProps
+export type FormFieldProps = FieldProps;
 
-export type FormFieldItemProps = FieldItemProps
+export type FormFieldItemProps = FieldItemProps;
 
-export type FormFieldLabelProps = FieldLabelProps
+export type FormFieldLabelProps = FieldLabelProps;
 
-export type FormFieldControlProps = FieldControlProps
+export type FormFieldControlProps = FieldControlProps;
 
-export type FormFieldDescriptionProps = FieldDescriptionProps
+export type FormFieldDescriptionProps = FieldDescriptionProps;
 
-export type FormFieldErrorProps = FieldErrorProps
+export type FormFieldErrorProps = FieldErrorProps;

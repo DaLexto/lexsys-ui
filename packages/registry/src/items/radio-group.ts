@@ -4,7 +4,7 @@
  * Registry metadata for the RadioGroup component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const radioGroupRegistryItem: RegistryItem = {
   name: "radio-group",
@@ -38,4 +38,4 @@ export const radioGroupRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/RadioGroup",
-}
+};

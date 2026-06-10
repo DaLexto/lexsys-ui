@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const meterComponentTokens = componentTokens("meter", {
   gap: { $value: "{spacing.control.gap.sm}" },
@@ -39,4 +39,4 @@ export const meterComponentTokens = componentTokens("meter", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-})
+});

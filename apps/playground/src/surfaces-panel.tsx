@@ -13,7 +13,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@dalexto/lexsys-ui"
+} from "@dalexto/lexsys-ui";
 
 export const SurfacesPanel = () => {
   return (
@@ -139,5 +139,5 @@ export const SurfacesPanel = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};

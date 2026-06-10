@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   NumberField,
   NumberFieldDecrement,
   NumberFieldGroup,
   NumberFieldIncrement,
   NumberFieldInput,
-} from "../../../src/components/primitives/NumberField/NumberField.js"
+} from "../../../src/components/primitives/NumberField/NumberField.js";
 
 describe("NumberField render", () => {
   it("renders number input with custom className", () => {
@@ -18,15 +18,15 @@ describe("NumberField render", () => {
           <NumberFieldIncrement aria-label="Increase" />
         </NumberFieldGroup>
       </NumberField>,
-    )
+    );
 
     expect(
       screen.getByRole("textbox", { name: "Quantity" }),
-    ).toBeInTheDocument()
+    ).toBeInTheDocument();
     expect(
       screen
         .getByRole("textbox", { name: "Quantity" })
         .closest(".custom-number-field"),
-    ).not.toBeNull()
-  })
-})
+    ).not.toBeNull();
+  });
+});

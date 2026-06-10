@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const navigationMenuComponentTokens = componentTokens(
   "navigation-menu",
@@ -47,4 +47,4 @@ export const navigationMenuComponentTokens = componentTokens(
       easing: { $value: "{motion.easing.control}" },
     },
   },
-)
+);

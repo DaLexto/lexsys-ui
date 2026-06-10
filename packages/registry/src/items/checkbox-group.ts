@@ -4,7 +4,7 @@
  * Registry metadata for the CheckboxGroup component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const checkboxGroupRegistryItem: RegistryItem = {
   name: "checkbox-group",
@@ -38,4 +38,4 @@ export const checkboxGroupRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/CheckboxGroup",
-}
+};

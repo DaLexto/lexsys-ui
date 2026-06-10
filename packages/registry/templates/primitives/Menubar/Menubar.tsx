@@ -4,10 +4,10 @@
  * Reference Menubar component implementation.
  */
 
-import { Menubar as BaseMenubar } from "@base-ui/react/menubar"
-import type { MenubarProps } from "./Menubar.types"
-import { menubarVariants } from "./Menubar.variants"
-import { mergeClassName } from "@/lib/utils"
+import { Menubar as BaseMenubar } from "@base-ui/react/menubar";
+import type { MenubarProps } from "./Menubar.types";
+import { menubarVariants } from "./Menubar.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Menubar = ({ ref, className, orientation, ...props }: MenubarProps) => {
   return (
@@ -17,9 +17,9 @@ const Menubar = ({ ref, className, orientation, ...props }: MenubarProps) => {
       className={mergeClassName(menubarVariants({ orientation }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Menubar.displayName = "Menubar"
+Menubar.displayName = "Menubar";
 
-export { Menubar }
+export { Menubar };

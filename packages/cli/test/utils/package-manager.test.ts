@@ -1,44 +1,44 @@
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises"
-import { join } from "node:path"
-import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
-import { setCwd } from "../../src/utils/context.js"
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { setCwd } from "../../src/utils/context.js";
 
-const execFileSyncMock = vi.hoisted(() => vi.fn())
+const execFileSyncMock = vi.hoisted(() => vi.fn());
 
 vi.mock("node:child_process", () => ({
   execFileSync: execFileSyncMock,
-}))
+}));
 
 const { getPackageManagerInvocation, installDependencies } =
-  await import("../../src/utils/package-manager.js")
+  await import("../../src/utils/package-manager.js");
 
 const packageManagerCommand = (packageManager: "npm" | "pnpm" | "yarn") => {
-  return getPackageManagerInvocation(packageManager, []).command
-}
+  return getPackageManagerInvocation(packageManager, []).command;
+};
 
 const packageManagerArgs = (
   packageManager: "npm" | "pnpm" | "yarn",
   args: string[],
 ) => {
-  return getPackageManagerInvocation(packageManager, args).args
-}
+  return getPackageManagerInvocation(packageManager, args).args;
+};
 
 describe("installDependencies", () => {
-  let tempDir: string
+  let tempDir: string;
 
   beforeEach(async () => {
-    execFileSyncMock.mockReset()
-    const testRoot = join(process.cwd(), ".tmp")
-    await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-pm-"))
-    setCwd(tempDir)
-  })
+    execFileSyncMock.mockReset();
+    const testRoot = join(process.cwd(), ".tmp");
+    await mkdir(testRoot, { recursive: true });
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-pm-"));
+    setCwd(tempDir);
+  });
 
   afterEach(async () => {
     if (tempDir) {
-      await rm(tempDir, { force: true, recursive: true })
+      await rm(tempDir, { force: true, recursive: true });
     }
-  })
+  });
 
   test("reads package.json from the configured cwd and installs only missing dependencies there", async () => {
     await writeFile(
@@ -54,9 +54,9 @@ describe("installDependencies", () => {
         2,
       ),
       "utf-8",
-    )
+    );
 
-    await installDependencies(["clsx", "tailwind-merge"])
+    await installDependencies(["clsx", "tailwind-merge"]);
 
     expect(execFileSyncMock).toHaveBeenCalledWith(
       packageManagerCommand("pnpm"),
@@ -65,8 +65,8 @@ describe("installDependencies", () => {
         cwd: tempDir,
         stdio: "inherit",
       },
-    )
-  })
+    );
+  });
 
   test("installs missing dev dependencies with the detected package manager", async () => {
     await writeFile(
@@ -82,11 +82,11 @@ describe("installDependencies", () => {
         2,
       ),
       "utf-8",
-    )
+    );
 
     await installDependencies(["tailwindcss", "@tailwindcss/vite"], {
       dev: true,
-    })
+    });
 
     expect(execFileSyncMock).toHaveBeenCalledWith(
       packageManagerCommand("npm"),
@@ -95,17 +95,17 @@ describe("installDependencies", () => {
         cwd: tempDir,
         stdio: "inherit",
       },
-    )
-  })
+    );
+  });
 
   test("installs pinned dependency versions when the base package is missing", async () => {
     await writeFile(
       join(tempDir, "package.json"),
       JSON.stringify({ packageManager: "pnpm@10.33.0" }, null, 2),
       "utf-8",
-    )
+    );
 
-    await installDependencies(["next@15.3.3"])
+    await installDependencies(["next@15.3.3"]);
 
     expect(execFileSyncMock).toHaveBeenCalledWith(
       packageManagerCommand("pnpm"),
@@ -114,19 +114,19 @@ describe("installDependencies", () => {
         cwd: tempDir,
         stdio: "inherit",
       },
-    )
-  })
+    );
+  });
 
   test("rejects unsafe dependency names before invoking the package manager", async () => {
     await writeFile(
       join(tempDir, "package.json"),
       JSON.stringify({ packageManager: "npm@11.0.0" }, null, 2),
       "utf-8",
-    )
+    );
 
     await expect(installDependencies(["clsx && bad"])).rejects.toThrow(
       "Invalid dependency name",
-    )
-    expect(execFileSyncMock).not.toHaveBeenCalled()
-  })
-})
+    );
+    expect(execFileSyncMock).not.toHaveBeenCalled();
+  });
+});

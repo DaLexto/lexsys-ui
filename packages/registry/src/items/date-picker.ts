@@ -4,7 +4,7 @@
  * Registry metadata for the DatePicker component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const datePickerRegistryItem: RegistryItem = {
   name: "date-picker",
@@ -38,4 +38,4 @@ export const datePickerRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/DatePicker",
-}
+};

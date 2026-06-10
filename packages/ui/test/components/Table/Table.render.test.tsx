@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Table,
   TableBody,
@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../../src/components/primitives/Table/Table.js"
+} from "../../../src/components/primitives/Table/Table.js";
 
 describe("Table render", () => {
   it("renders caption, header, body, and footer", () => {
@@ -34,11 +34,11 @@ describe("Table render", () => {
           </TableRow>
         </TableFooter>
       </Table>,
-    )
+    );
 
-    expect(screen.getByText("Team members")).toBeInTheDocument()
-    expect(screen.getByText("Alex")).toBeInTheDocument()
-    expect(screen.getByText("2 users")).toBeInTheDocument()
-    expect(screen.getByRole("table").className).toContain("custom-table")
-  })
-})
+    expect(screen.getByText("Team members")).toBeInTheDocument();
+    expect(screen.getByText("Alex")).toBeInTheDocument();
+    expect(screen.getByText("2 users")).toBeInTheDocument();
+    expect(screen.getByRole("table").className).toContain("custom-table");
+  });
+});

@@ -1,8 +1,8 @@
-import { mkdir } from "node:fs/promises"
-import { basename, join } from "node:path"
-import { writePackageJsonFile, writeScaffoldFile } from "./scaffold-helpers.js"
+import { mkdir } from "node:fs/promises";
+import { basename, join } from "node:path";
+import { writePackageJsonFile, writeScaffoldFile } from "./scaffold-helpers.js";
 
-export const NEXT_VERSION = "15.3.3"
+export const NEXT_VERSION = "15.3.3";
 
 const gitIgnore = `node_modules
 .next
@@ -12,7 +12,7 @@ dist
 .env
 .env.*
 !.env.example
-`
+`;
 
 const prettierIgnore = `node_modules
 .next
@@ -22,20 +22,20 @@ coverage
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
-`
+`;
 
 const prettierConfig = `{
   "semi": false,
   "trailingComma": "all"
 }
-`
+`;
 
 const nextConfig = `import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {}
 
 export default nextConfig
-`
+`;
 
 const postcssConfig = `const config = {
   plugins: {
@@ -44,7 +44,7 @@ const postcssConfig = `const config = {
 }
 
 export default config
-`
+`;
 
 const tsConfig = `{
   "compilerOptions": {
@@ -69,17 +69,17 @@ const tsConfig = `{
   "include": ["next-env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
-`
+`;
 
 const nextEnvDts = `/// <reference types="next" />
 /// <reference types="next/image-types/global" />
-`
+`;
 
 const globalDts = `declare module "*.css" {
   const content: Record<string, string>
   export default content
 }
-`
+`;
 
 const layoutTsx = `import type { Metadata } from "next"
 import "./globals.css"
@@ -99,7 +99,7 @@ export default function RootLayout({
     </html>
   )
 }
-`
+`;
 
 const pageTsx = `export default function Home() {
   return (
@@ -108,7 +108,7 @@ const pageTsx = `export default function Home() {
     </main>
   )
 }
-`
+`;
 
 const globalsCss = `@import "tailwindcss";
 
@@ -134,30 +134,30 @@ main {
   display: grid;
   place-items: center;
 }
-`
+`;
 
 const sanitizePackageName = (name: string): string => {
   const normalized = name
     .toLowerCase()
     .replace(/[^a-z0-9._-]+/gu, "-")
-    .replace(/^-+|-+$/gu, "")
+    .replace(/^-+|-+$/gu, "");
 
-  return normalized || "lexsys-next-app"
-}
+  return normalized || "lexsys-next-app";
+};
 
 const getPackageManagerFromUserAgent = (): string | undefined => {
-  const userAgent = process.env.npm_config_user_agent
-  const match = userAgent?.match(/^(npm|pnpm|yarn)\/([^\s]+)/u)
+  const userAgent = process.env.npm_config_user_agent;
+  const match = userAgent?.match(/^(npm|pnpm|yarn)\/([^\s]+)/u);
 
   if (!match) {
-    return undefined
+    return undefined;
   }
 
-  return `${match[1]}@${match[2]}`
-}
+  return `${match[1]}@${match[2]}`;
+};
 
 const getPackageJson = (targetDirectory: string): string => {
-  const packageManager = getPackageManagerFromUserAgent()
+  const packageManager = getPackageManagerFromUserAgent();
   const packageJson: Record<string, unknown> = {
     name: sanitizePackageName(basename(targetDirectory)),
     private: true,
@@ -170,27 +170,27 @@ const getPackageJson = (targetDirectory: string): string => {
       format: "prettier --write .",
       "format:check": "prettier --check .",
     },
-  }
+  };
 
   if (packageManager) {
-    packageJson.packageManager = packageManager
+    packageJson.packageManager = packageManager;
   }
 
-  return JSON.stringify(packageJson, null, 2) + "\n"
-}
+  return JSON.stringify(packageJson, null, 2) + "\n";
+};
 
 const getRecordValue = (value: unknown): Record<string, unknown> => {
   return typeof value === "object" && value !== null
     ? (value as Record<string, unknown>)
-    : {}
-}
+    : {};
+};
 
 const mergePackageJson = (
   targetDirectory: string,
   existingPackageJson: Record<string, unknown>,
 ): string => {
-  const packageManager = getPackageManagerFromUserAgent()
-  const existingScripts = getRecordValue(existingPackageJson.scripts)
+  const packageManager = getPackageManagerFromUserAgent();
+  const existingScripts = getRecordValue(existingPackageJson.scripts);
   const mergedPackageJson: Record<string, unknown> = {
     ...existingPackageJson,
     name:
@@ -214,64 +214,67 @@ const mergePackageJson = (
       "format:check": "prettier --check .",
       ...existingScripts,
     },
-  }
+  };
 
   if (packageManager && typeof mergedPackageJson.packageManager !== "string") {
-    mergedPackageJson.packageManager = packageManager
+    mergedPackageJson.packageManager = packageManager;
   }
 
-  return JSON.stringify(mergedPackageJson, null, 2) + "\n"
-}
+  return JSON.stringify(mergedPackageJson, null, 2) + "\n";
+};
 
 export const scaffoldNextProject = async (
   targetDirectory: string,
 ): Promise<void> => {
-  await mkdir(targetDirectory, { recursive: true })
+  await mkdir(targetDirectory, { recursive: true });
 
-  await writePackageJsonFile(targetDirectory, getPackageJson, mergePackageJson)
+  await writePackageJsonFile(targetDirectory, getPackageJson, mergePackageJson);
   await writeScaffoldFile(join(targetDirectory, ".gitignore"), gitIgnore, {
     allowExisting: true,
-  })
+  });
   await writeScaffoldFile(
     join(targetDirectory, ".prettierignore"),
     prettierIgnore,
     {
       allowExisting: true,
     },
-  )
+  );
   await writeScaffoldFile(
     join(targetDirectory, ".prettierrc"),
     prettierConfig,
     {
       allowExisting: true,
     },
-  )
+  );
   await writeScaffoldFile(join(targetDirectory, "next.config.ts"), nextConfig, {
     allowExisting: true,
-  })
+  });
   await writeScaffoldFile(
     join(targetDirectory, "postcss.config.mjs"),
     postcssConfig,
     {
       allowExisting: true,
     },
-  )
+  );
   await writeScaffoldFile(join(targetDirectory, "tsconfig.json"), tsConfig, {
     allowExisting: true,
-  })
+  });
   await writeScaffoldFile(join(targetDirectory, "next-env.d.ts"), nextEnvDts, {
     allowExisting: true,
-  })
+  });
   await writeScaffoldFile(join(targetDirectory, "global.d.ts"), globalDts, {
     allowExisting: true,
-  })
-  await writeScaffoldFile(join(targetDirectory, "app", "layout.tsx"), layoutTsx)
-  await writeScaffoldFile(join(targetDirectory, "app", "page.tsx"), pageTsx)
+  });
+  await writeScaffoldFile(
+    join(targetDirectory, "app", "layout.tsx"),
+    layoutTsx,
+  );
+  await writeScaffoldFile(join(targetDirectory, "app", "page.tsx"), pageTsx);
   await writeScaffoldFile(
     join(targetDirectory, "app", "globals.css"),
     globalsCss,
     {
       allowExisting: true,
     },
-  )
-}
+  );
+};

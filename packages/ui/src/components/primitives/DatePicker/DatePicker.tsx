@@ -4,16 +4,16 @@
  * Reference DatePicker component implementation.
  */
 
-import { useState } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Input } from "../Input/Input"
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Input } from "../Input/Input";
 import {
   Popover,
   PopoverPortal,
   PopoverPositioner,
   PopoverPopup,
   PopoverTrigger,
-} from "../Popover/Popover"
+} from "../Popover/Popover";
 import type {
   DatePickerCalendarProps,
   DatePickerContentProps,
@@ -21,7 +21,7 @@ import type {
   DatePickerInputProps,
   DatePickerProps,
   DatePickerTriggerProps,
-} from "./DatePicker.types"
+} from "./DatePicker.types";
 import {
   datePickerCalendarVariants,
   datePickerContentVariants,
@@ -33,72 +33,72 @@ import {
   datePickerNavButtonVariants,
   datePickerWeekdayVariants,
   datePickerWeekdaysVariants,
-} from "./DatePicker.variants"
-import { cn } from "../../../utils/cn"
+} from "./DatePicker.variants";
+import { cn } from "../../../utils/cn";
 
-const WEEKDAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"] as const
+const WEEKDAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"] as const;
 
 const isSameDay = (left: Date, right: Date): boolean => {
   return (
     left.getFullYear() === right.getFullYear() &&
     left.getMonth() === right.getMonth() &&
     left.getDate() === right.getDate()
-  )
-}
+  );
+};
 
 const buildCalendarDays = (
   month: Date,
 ): Array<{ date: Date; inMonth: boolean }> => {
-  const year = month.getFullYear()
-  const monthIndex = month.getMonth()
-  const firstDay = new Date(year, monthIndex, 1)
-  const lastDay = new Date(year, monthIndex + 1, 0)
-  const startOffset = firstDay.getDay()
-  const days: Array<{ date: Date; inMonth: boolean }> = []
+  const year = month.getFullYear();
+  const monthIndex = month.getMonth();
+  const firstDay = new Date(year, monthIndex, 1);
+  const lastDay = new Date(year, monthIndex + 1, 0);
+  const startOffset = firstDay.getDay();
+  const days: Array<{ date: Date; inMonth: boolean }> = [];
 
   for (let offset = startOffset - 1; offset >= 0; offset -= 1) {
     days.push({
       date: new Date(year, monthIndex, -offset),
       inMonth: false,
-    })
+    });
   }
 
   for (let day = 1; day <= lastDay.getDate(); day += 1) {
     days.push({
       date: new Date(year, monthIndex, day),
       inMonth: true,
-    })
+    });
   }
 
   while (days.length % 7 !== 0) {
-    const trailingDay = days.length - startOffset - lastDay.getDate() + 1
+    const trailingDay = days.length - startOffset - lastDay.getDate() + 1;
     days.push({
       date: new Date(year, monthIndex + 1, trailingDay),
       inMonth: false,
-    })
+    });
   }
 
-  return days
-}
+  return days;
+};
 
 const formatMonthLabel = (month: Date): string => {
-  return month.toLocaleString("default", { month: "long", year: "numeric" })
-}
+  return month.toLocaleString("default", { month: "long", year: "numeric" });
+};
 
 const DatePicker = <Payload = unknown,>(props: DatePickerProps<Payload>) => {
-  return <Popover {...props} />
-}
+  return <Popover {...props} />;
+};
 
-DatePicker.displayName = "DatePicker"
+DatePicker.displayName = "DatePicker";
 
 const DatePickerTrigger = <Payload = unknown,>({
   ref,
   ...props
 }: DatePickerTriggerProps<Payload>) => {
-  return <PopoverTrigger ref={ref} {...props} />
-}
+  return <PopoverTrigger ref={ref} {...props} />;
+};
 
-DatePickerTrigger.displayName = "DatePickerTrigger"
+DatePickerTrigger.displayName = "DatePickerTrigger";
 
 const DatePickerInput = ({
   ref,
@@ -114,10 +114,10 @@ const DatePickerInput = ({
       className={cn(embedded && datePickerInputEmbeddedClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-DatePickerInput.displayName = "DatePickerInput"
+DatePickerInput.displayName = "DatePickerInput";
 
 const DatePickerContent = ({
   ref,
@@ -137,10 +137,10 @@ const DatePickerContent = ({
         </PopoverPopup>
       </PopoverPositioner>
     </PopoverPortal>
-  )
-}
+  );
+};
 
-DatePickerContent.displayName = "DatePickerContent"
+DatePickerContent.displayName = "DatePickerContent";
 
 const DatePickerDay = ({
   ref,
@@ -164,10 +164,10 @@ const DatePickerDay = ({
     >
       {date.getDate()}
     </button>
-  )
-}
+  );
+};
 
-DatePickerDay.displayName = "DatePickerDay"
+DatePickerDay.displayName = "DatePickerDay";
 
 const DatePickerCalendar = ({
   ref,
@@ -181,17 +181,17 @@ const DatePickerCalendar = ({
 }: DatePickerCalendarProps) => {
   const [internalMonth, setInternalMonth] = useState(
     () => defaultMonth ?? value ?? new Date(),
-  )
-  const viewedMonth = month ?? internalMonth
-  const today = new Date()
-  const days = buildCalendarDays(viewedMonth)
+  );
+  const viewedMonth = month ?? internalMonth;
+  const today = new Date();
+  const days = buildCalendarDays(viewedMonth);
 
   const setMonth = (nextMonth: Date) => {
     if (month === undefined) {
-      setInternalMonth(nextMonth)
+      setInternalMonth(nextMonth);
     }
-    onMonthChange?.(nextMonth)
-  }
+    onMonthChange?.(nextMonth);
+  };
 
   return (
     <div
@@ -258,10 +258,10 @@ const DatePickerCalendar = ({
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-DatePickerCalendar.displayName = "DatePickerCalendar"
+DatePickerCalendar.displayName = "DatePickerCalendar";
 
 export {
   DatePicker,
@@ -270,4 +270,4 @@ export {
   DatePickerContent,
   DatePickerCalendar,
   DatePickerDay,
-}
+};

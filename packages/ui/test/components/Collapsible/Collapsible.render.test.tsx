@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Collapsible,
   CollapsiblePanel,
   CollapsibleTrigger,
-} from "../../../src/components/primitives/Collapsible/Collapsible.js"
+} from "../../../src/components/primitives/Collapsible/Collapsible.js";
 
 describe("Collapsible render", () => {
   it("renders trigger and panel when defaultOpen", () => {
@@ -13,11 +13,11 @@ describe("Collapsible render", () => {
         <CollapsibleTrigger>Toggle section</CollapsibleTrigger>
         <CollapsiblePanel>Expanded panel body</CollapsiblePanel>
       </Collapsible>,
-    )
+    );
 
     expect(
       screen.getByRole("button", { name: "Toggle section" }),
-    ).toBeInTheDocument()
-    expect(screen.getByText("Expanded panel body")).toBeVisible()
-  })
-})
+    ).toBeInTheDocument();
+    expect(screen.getByText("Expanded panel body")).toBeVisible();
+  });
+});

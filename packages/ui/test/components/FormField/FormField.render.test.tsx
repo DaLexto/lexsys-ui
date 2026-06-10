@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   FormField,
   FormFieldControl,
@@ -7,7 +7,7 @@ import {
   FormFieldError,
   FormFieldItem,
   FormFieldLabel,
-} from "../../../src/components/blocks/FormField/FormField.js"
+} from "../../../src/components/blocks/FormField/FormField.js";
 
 describe("FormField render", () => {
   it("composes Field compound parts with label and placeholder", () => {
@@ -22,13 +22,13 @@ describe("FormField render", () => {
           />
         </FormFieldItem>
       </FormField>,
-    )
+    );
 
-    expect(screen.getByText("Email")).toBeInTheDocument()
+    expect(screen.getByText("Email")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("you@example.com")).toHaveClass(
       "custom-input",
-    )
-  })
+    );
+  });
 
   it("renders description and marks control invalid when error is set", () => {
     render(
@@ -40,12 +40,12 @@ describe("FormField render", () => {
         <FormFieldDescription>Minimum 8 characters</FormFieldDescription>
         <FormFieldError>Password is required</FormFieldError>
       </FormField>,
-    )
+    );
 
-    expect(screen.getByText("Minimum 8 characters")).toBeInTheDocument()
+    expect(screen.getByText("Minimum 8 characters")).toBeInTheDocument();
     expect(screen.getByLabelText("Password")).toHaveAttribute(
       "aria-invalid",
       "true",
-    )
-  })
-})
+    );
+  });
+});

@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   DatePicker,
   DatePickerCalendar,
   DatePickerContent,
   DatePickerInput,
   DatePickerTrigger,
-} from "../../../src/components/primitives/DatePicker/DatePicker.js"
+} from "../../../src/components/primitives/DatePicker/DatePicker.js";
 
 describe("DatePicker render", () => {
   it("renders trigger input and calendar grid", () => {
@@ -23,10 +23,10 @@ describe("DatePicker render", () => {
           <DatePickerCalendar />
         </DatePickerContent>
       </DatePicker>,
-    )
+    );
 
-    expect(screen.getByLabelText("Select date")).toBeInTheDocument()
-    expect(screen.getByLabelText("Previous month")).toBeInTheDocument()
-    expect(screen.getByLabelText("Next month")).toBeInTheDocument()
-  })
-})
+    expect(screen.getByLabelText("Select date")).toBeInTheDocument();
+    expect(screen.getByLabelText("Previous month")).toBeInTheDocument();
+    expect(screen.getByLabelText("Next month")).toBeInTheDocument();
+  });
+});

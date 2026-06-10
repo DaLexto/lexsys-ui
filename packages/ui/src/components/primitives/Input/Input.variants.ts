@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses, invalidStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses, invalidStateClasses } from "../../../utils/cn";
 
 export const inputVariants = cva(
   [
@@ -38,4 +38,4 @@ export const inputVariants = cva(
       size: "md",
     },
   },
-)
+);

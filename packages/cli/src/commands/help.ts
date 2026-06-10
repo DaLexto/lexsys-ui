@@ -177,16 +177,16 @@ Examples
   lexsys cfg --path
   lexsys cfg --set-registry-url https://example.com/registry.json
 `,
-}
+};
 
 export const runHelpFor = (command: string): void => {
-  const help = COMMAND_HELP[command]
+  const help = COMMAND_HELP[command];
   if (help) {
-    console.log(help)
+    console.log(help);
   } else {
-    runHelp()
+    runHelp();
   }
-}
+};
 
 export const runHelp = (): void => {
   console.log(`
@@ -224,5 +224,5 @@ Global Options
   --version, -v             Show CLI version
 
 Run \`lexsys <command> --help\` for command-specific options.
-`)
-}
+`);
+};

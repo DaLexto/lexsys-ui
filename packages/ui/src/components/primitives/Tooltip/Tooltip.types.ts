@@ -1,22 +1,22 @@
-import type { Ref } from "react"
+import type { Ref } from "react";
 /**
  * Tooltip.types.ts
  *
  * Public and internal types for Tooltip component.
  */
 
-import type { Tooltip as BaseTooltip } from "@base-ui/react/tooltip"
+import type { Tooltip as BaseTooltip } from "@base-ui/react/tooltip";
 
-export type TooltipProps = BaseTooltip.Root.Props
+export type TooltipProps = BaseTooltip.Root.Props;
 
 export type TooltipTriggerProps = BaseTooltip.Trigger.Props & {
-  ref?: Ref<HTMLButtonElement>
-}
+  ref?: Ref<HTMLButtonElement>;
+};
 
-export type TooltipPortalProps = BaseTooltip.Portal.Props
+export type TooltipPortalProps = BaseTooltip.Portal.Props;
 
-export type TooltipPositionerProps = BaseTooltip.Positioner.Props
+export type TooltipPositionerProps = BaseTooltip.Positioner.Props;
 
-export type TooltipPopupProps = BaseTooltip.Popup.Props
+export type TooltipPopupProps = BaseTooltip.Popup.Props;
 
-export type TooltipArrowProps = BaseTooltip.Arrow.Props
+export type TooltipArrowProps = BaseTooltip.Arrow.Props;

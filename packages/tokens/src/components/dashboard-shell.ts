@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const dashboardShellComponentTokens = componentTokens(
   "dashboard-shell",
@@ -24,4 +24,4 @@ export const dashboardShellComponentTokens = componentTokens(
       background: { $value: "{color.background.base}" },
     },
   },
-)
+);

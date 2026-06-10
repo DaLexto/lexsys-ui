@@ -4,8 +4,8 @@
  * Public types for the PageHeader block.
  */
 
-import type { HTMLAttributes, ReactNode, Ref } from "react"
-import type { ButtonProps } from "../../primitives/Button/Button.types"
+import type { HTMLAttributes, ReactNode, Ref } from "react";
+import type { ButtonProps } from "../../primitives/Button/Button.types";
 import type {
   BreadcrumbItemProps,
   BreadcrumbLinkProps,
@@ -13,54 +13,54 @@ import type {
   BreadcrumbPageProps,
   BreadcrumbProps,
   BreadcrumbSeparatorProps,
-} from "../../primitives/Breadcrumb/Breadcrumb.types"
+} from "../../primitives/Breadcrumb/Breadcrumb.types";
 
 export interface PageHeaderProps extends HTMLAttributes<HTMLElement> {
-  ref?: Ref<HTMLElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
 export interface PageHeaderTopProps extends HTMLAttributes<HTMLDivElement> {
-  ref?: Ref<HTMLDivElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
-export type PageHeaderBreadcrumbProps = BreadcrumbProps
+export type PageHeaderBreadcrumbProps = BreadcrumbProps;
 
-export type PageHeaderBreadcrumbListProps = BreadcrumbListProps
+export type PageHeaderBreadcrumbListProps = BreadcrumbListProps;
 
-export type PageHeaderBreadcrumbItemProps = BreadcrumbItemProps
+export type PageHeaderBreadcrumbItemProps = BreadcrumbItemProps;
 
-export type PageHeaderBreadcrumbLinkProps = BreadcrumbLinkProps
+export type PageHeaderBreadcrumbLinkProps = BreadcrumbLinkProps;
 
-export type PageHeaderBreadcrumbPageProps = BreadcrumbPageProps
+export type PageHeaderBreadcrumbPageProps = BreadcrumbPageProps;
 
-export type PageHeaderBreadcrumbSeparatorProps = BreadcrumbSeparatorProps
+export type PageHeaderBreadcrumbSeparatorProps = BreadcrumbSeparatorProps;
 
 export interface PageHeaderHeadingProps extends HTMLAttributes<HTMLDivElement> {
-  ref?: Ref<HTMLDivElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
 export interface PageHeaderTitleProps extends HTMLAttributes<HTMLHeadingElement> {
-  ref?: Ref<HTMLHeadingElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLHeadingElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
 export interface PageHeaderDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {
-  ref?: Ref<HTMLParagraphElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLParagraphElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
 export interface PageHeaderActionsProps extends HTMLAttributes<HTMLDivElement> {
-  ref?: Ref<HTMLDivElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
-export type PageHeaderActionProps = ButtonProps
+export type PageHeaderActionProps = ButtonProps;

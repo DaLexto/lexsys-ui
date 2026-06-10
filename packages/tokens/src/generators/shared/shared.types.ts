@@ -14,7 +14,7 @@
  * - Format-specific generators may ignore fields they do not need.
  */
 
-import type { TokenType, TokenValue } from "../../types"
+import type { TokenType, TokenValue } from "../../types";
 
 /**
  * Raw flattened token entry before format-specific serialization.
@@ -23,8 +23,8 @@ import type { TokenType, TokenValue } from "../../types"
  * JSON/DTCG output may also use description and type.
  */
 export interface FlattenedTokenEntry {
-  path: string[]
-  value: TokenValue
-  description?: string
-  type?: TokenType
+  path: string[];
+  value: TokenValue;
+  description?: string;
+  type?: TokenType;
 }

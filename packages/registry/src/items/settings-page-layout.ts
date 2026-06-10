@@ -4,7 +4,7 @@
  * Registry metadata for the SettingsPageLayout block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const settingsPageLayoutRegistryItem: RegistryItem = {
   name: "settings-page-layout",
@@ -22,4 +22,4 @@ export const settingsPageLayoutRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/SettingsPageLayout",
-}
+};

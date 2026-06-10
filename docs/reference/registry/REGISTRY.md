@@ -120,7 +120,7 @@ export const sidebarRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Sidebar",
-}
+};
 ```
 
 Example template metadata (from `packages/registry/src/items/dashboard-shell.ts`):
@@ -142,7 +142,7 @@ export const dashboardShellRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/DashboardShell",
-}
+};
 ```
 
 Block/primitive/template reference source lives under

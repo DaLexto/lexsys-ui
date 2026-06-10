@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const badgeComponentTokens = componentTokens("badge", {
   radius: { $value: "{radius.control}" },
@@ -48,4 +48,4 @@ export const badgeComponentTokens = componentTokens("badge", {
     foreground: { $value: "{color.text.inverse}" },
     borderColor: { $value: "{action.danger.base}" },
   },
-})
+});

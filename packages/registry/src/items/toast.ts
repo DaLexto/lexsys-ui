@@ -4,7 +4,7 @@
  * Registry metadata for the Toast component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const toastRegistryItem: RegistryItem = {
   name: "toast",
@@ -39,4 +39,4 @@ export const toastRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Toast",
-}
+};

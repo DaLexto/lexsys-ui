@@ -4,7 +4,7 @@
  * Registry metadata for the DashboardShell block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const dashboardShellRegistryItem: RegistryItem = {
   name: "dashboard-shell",
@@ -22,4 +22,4 @@ export const dashboardShellRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/DashboardShell",
-}
+};

@@ -1,11 +1,11 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
-} from "../../../src/components/primitives/Pagination/Pagination.js"
+} from "../../../src/components/primitives/Pagination/Pagination.js";
 
 describe("Pagination render", () => {
   it("renders pagination navigation with custom className", () => {
@@ -19,12 +19,12 @@ describe("Pagination render", () => {
           </PaginationItem>
         </PaginationContent>
       </Pagination>,
-    )
+    );
 
-    expect(screen.getByRole("navigation")).toHaveClass("custom-pagination")
+    expect(screen.getByRole("navigation")).toHaveClass("custom-pagination");
     expect(screen.getByRole("link", { name: "1" })).toHaveAttribute(
       "aria-current",
       "page",
-    )
-  })
-})
+    );
+  });
+});

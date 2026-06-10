@@ -4,7 +4,7 @@
  * Registry metadata for the Slider component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const sliderRegistryItem: RegistryItem = {
   name: "slider",
@@ -33,4 +33,4 @@ export const sliderRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Slider",
-}
+};

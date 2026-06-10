@@ -236,8 +236,8 @@ MUST end in `.js`, even when the source file is `.ts`.
 **Fix:** Check the failing import. Add the `.js` extension:
 
 ```ts
-import { fileExists } from "./fs.js" // correct
-import { fileExists } from "./fs" // incorrect for NodeNext
+import { fileExists } from "./fs.js"; // correct
+import { fileExists } from "./fs"; // incorrect for NodeNext
 ```
 
 ---

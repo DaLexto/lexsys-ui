@@ -4,22 +4,22 @@
  * Reference Progress component implementation.
  */
 
-import { Progress as BaseProgress } from "@base-ui/react/progress"
+import { Progress as BaseProgress } from "@base-ui/react/progress";
 import type {
   ProgressIndicatorProps,
   ProgressLabelProps,
   ProgressProps,
   ProgressTrackProps,
   ProgressValueProps,
-} from "./Progress.types"
+} from "./Progress.types";
 import {
   progressIndicatorVariants,
   progressLabelVariants,
   progressTrackVariants,
   progressValueVariants,
   progressVariants,
-} from "./Progress.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+} from "./Progress.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const Progress = ({ ref, className, children, ...props }: ProgressProps) => {
   return (
@@ -30,10 +30,10 @@ const Progress = ({ ref, className, children, ...props }: ProgressProps) => {
     >
       {children}
     </BaseProgress.Root>
-  )
-}
+  );
+};
 
-Progress.displayName = "Progress"
+Progress.displayName = "Progress";
 
 const ProgressLabel = ({ className, ...props }: ProgressLabelProps) => {
   return (
@@ -41,10 +41,10 @@ const ProgressLabel = ({ className, ...props }: ProgressLabelProps) => {
       className={mergeClassName(progressLabelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ProgressLabel.displayName = "ProgressLabel"
+ProgressLabel.displayName = "ProgressLabel";
 
 const ProgressTrack = ({
   size = "md",
@@ -59,10 +59,10 @@ const ProgressTrack = ({
     >
       {children}
     </BaseProgress.Track>
-  )
-}
+  );
+};
 
-ProgressTrack.displayName = "ProgressTrack"
+ProgressTrack.displayName = "ProgressTrack";
 
 const ProgressIndicator = ({ className, ...props }: ProgressIndicatorProps) => {
   return (
@@ -70,10 +70,10 @@ const ProgressIndicator = ({ className, ...props }: ProgressIndicatorProps) => {
       className={mergeClassName(progressIndicatorVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ProgressIndicator.displayName = "ProgressIndicator"
+ProgressIndicator.displayName = "ProgressIndicator";
 
 const ProgressValue = ({ className, ...props }: ProgressValueProps) => {
   return (
@@ -81,10 +81,10 @@ const ProgressValue = ({ className, ...props }: ProgressValueProps) => {
       className={mergeClassName(progressValueVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ProgressValue.displayName = "ProgressValue"
+ProgressValue.displayName = "ProgressValue";
 
 export {
   Progress,
@@ -92,4 +92,4 @@ export {
   ProgressTrack,
   ProgressIndicator,
   ProgressValue,
-}
+};

@@ -5,14 +5,17 @@
  * @description Compose CSS box-shadow values from shadow composite slot variables.
  */
 
-import { toTokenName } from "../../shared"
+import { toTokenName } from "../../shared";
 
-import type { CssVarsGeneratorOptions } from "./css.types"
-import { createDefaultCssVarsGeneratorOptions, toCssVarName } from "./css.utils"
+import type { CssVarsGeneratorOptions } from "./css.types";
+import {
+  createDefaultCssVarsGeneratorOptions,
+  toCssVarName,
+} from "./css.utils";
 
-export const SHADOW_BOX_SHADOW_LEAF_KEY = "boxShadow"
+export const SHADOW_BOX_SHADOW_LEAF_KEY = "boxShadow";
 
-const SHADOW_BRANCH_SEGMENT = "shadow"
+const SHADOW_BRANCH_SEGMENT = "shadow";
 
 const SHADOW_BOX_SHADOW_SLOT_ORDER = [
   "inset",
@@ -21,42 +24,42 @@ const SHADOW_BOX_SHADOW_SLOT_ORDER = [
   "blur",
   "spread",
   "color",
-] as const
+] as const;
 
 export const isShadowCompositeBoxShadowPath = (
   path: readonly string[],
 ): boolean => {
   if (path.length < 3) {
-    return false
+    return false;
   }
 
   if (path[path.length - 1] !== SHADOW_BOX_SHADOW_LEAF_KEY) {
-    return false
+    return false;
   }
 
   // primitives/shadow.{scale}.boxShadow
   if (path[0] === SHADOW_BRANCH_SEGMENT && path.length === 3) {
-    return true
+    return true;
   }
 
   // semantics/elevation.shadow.{role}.boxShadow
   if (path.length < 4) {
-    return false
+    return false;
   }
 
-  return path[path.length - 3] === SHADOW_BRANCH_SEGMENT
-}
+  return path[path.length - 3] === SHADOW_BRANCH_SEGMENT;
+};
 
 export const composeShadowBoxShadowCSSValue = (
   rolePath: readonly string[],
   options: CssVarsGeneratorOptions,
 ): string => {
-  const resolvedOptions = createDefaultCssVarsGeneratorOptions(options)
+  const resolvedOptions = createDefaultCssVarsGeneratorOptions(options);
 
   return SHADOW_BOX_SHADOW_SLOT_ORDER.map((slotKey) => {
-    const slotPath = [...rolePath, slotKey]
-    const tokenName = toTokenName(slotPath, resolvedOptions.groupNameOverrides)
+    const slotPath = [...rolePath, slotKey];
+    const tokenName = toTokenName(slotPath, resolvedOptions.groupNameOverrides);
 
-    return `var(${toCssVarName(tokenName, resolvedOptions)})`
-  }).join(" ")
-}
+    return `var(${toCssVarName(tokenName, resolvedOptions)})`;
+  }).join(" ");
+};

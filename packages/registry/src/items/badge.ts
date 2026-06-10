@@ -4,7 +4,7 @@
  * Registry metadata for the Badge component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const badgeRegistryItem: RegistryItem = {
   name: "badge",
@@ -33,4 +33,4 @@ export const badgeRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Badge",
-}
+};

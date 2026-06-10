@@ -5,23 +5,23 @@
  * @description Central contrast thresholds and CI/build enforcement tiers.
  */
 
-import { WCAG_AA_NORMAL_TEXT_RATIO } from "./contrast.pairs"
+import { WCAG_AA_NORMAL_TEXT_RATIO } from "./contrast.pairs";
 import type {
   ContrastIssue,
   ContrastIssueCode,
   ContrastValidationReport,
   SemanticContrastPair,
-} from "./contrast.types"
+} from "./contrast.types";
 
-export type ContrastPolicyTier = "report" | "ci" | "build"
+export type ContrastPolicyTier = "report" | "ci" | "build";
 
-export const WCAG_AA_LARGE_TEXT_RATIO = 3
+export const WCAG_AA_LARGE_TEXT_RATIO = 3;
 
 export interface ContrastPolicy {
-  tier: ContrastPolicyTier
-  defaultMinimumRatio: number
-  largeTextMinimumRatio: number
-  allowedIssueCodes: ContrastIssueCode[]
+  tier: ContrastPolicyTier;
+  defaultMinimumRatio: number;
+  largeTextMinimumRatio: number;
+  allowedIssueCodes: ContrastIssueCode[];
 }
 
 export const DEFAULT_CONTRAST_POLICY: ContrastPolicy = {
@@ -33,19 +33,19 @@ export const DEFAULT_CONTRAST_POLICY: ContrastPolicy = {
     "UNPARSEABLE_COLOR",
     "INSUFFICIENT_CONTRAST",
   ],
-}
+};
 
-const CONTRAST_POLICY_ENV = "LEXSYS_CONTRAST_POLICY"
+const CONTRAST_POLICY_ENV = "LEXSYS_CONTRAST_POLICY";
 
 export const resolveContrastPolicyTier = (): ContrastPolicyTier => {
-  const raw = process.env[CONTRAST_POLICY_ENV]?.trim().toLowerCase()
+  const raw = process.env[CONTRAST_POLICY_ENV]?.trim().toLowerCase();
 
   if (raw === "report" || raw === "ci" || raw === "build") {
-    return raw
+    return raw;
   }
 
-  return DEFAULT_CONTRAST_POLICY.tier
-}
+  return DEFAULT_CONTRAST_POLICY.tier;
+};
 
 export const resolveContrastPolicy = (
   overrides?: Partial<ContrastPolicy>,
@@ -54,60 +54,60 @@ export const resolveContrastPolicy = (
     ...DEFAULT_CONTRAST_POLICY,
     tier: resolveContrastPolicyTier(),
     ...overrides,
-  }
-}
+  };
+};
 
 export const resolvePairMinimumRatio = (
   pair: SemanticContrastPair,
   policy: ContrastPolicy = DEFAULT_CONTRAST_POLICY,
 ): number => {
   if (pair.minimumRatio !== undefined) {
-    return pair.minimumRatio
+    return pair.minimumRatio;
   }
 
   if (pair.textSize === "large") {
-    return policy.largeTextMinimumRatio
+    return policy.largeTextMinimumRatio;
   }
 
-  return policy.defaultMinimumRatio
-}
+  return policy.defaultMinimumRatio;
+};
 
 export const evaluateContrastPolicy = (
   report: ContrastValidationReport,
   policy: ContrastPolicy = DEFAULT_CONTRAST_POLICY,
 ): { passes: boolean; failures: ContrastIssue[] } => {
   const failures = report.issues.filter((issue) => {
-    return policy.allowedIssueCodes.includes(issue.code)
-  })
+    return policy.allowedIssueCodes.includes(issue.code);
+  });
 
   return {
     passes: failures.length === 0,
     failures,
-  }
-}
+  };
+};
 
 export const shouldFailOnContrastPolicy = (policy: ContrastPolicy): boolean => {
-  return policy.tier === "ci" || policy.tier === "build"
-}
+  return policy.tier === "ci" || policy.tier === "build";
+};
 
 export const shouldEnforceContrastInStyleValidation = (): boolean => {
-  return resolveContrastPolicyTier() !== "report"
-}
+  return resolveContrastPolicyTier() !== "report";
+};
 
 export const resolveBuildContrastPolicy = (): ContrastPolicy => {
-  return resolveContrastPolicy({ tier: "build" })
-}
+  return resolveContrastPolicy({ tier: "build" });
+};
 
 export const formatContrastPolicyFailures = (
   failures: ContrastIssue[],
 ): string => {
   if (failures.length === 0) {
-    return ""
+    return "";
   }
 
   const lines = failures.map((issue) => {
-    return `- [${issue.code}] ${issue.theme}/${issue.pairId}: ${issue.message}`
-  })
+    return `- [${issue.code}] ${issue.theme}/${issue.pairId}: ${issue.message}`;
+  });
 
-  return `Contrast policy validation failed:\n${lines.join("\n")}`
-}
+  return `Contrast policy validation failed:\n${lines.join("\n")}`;
+};

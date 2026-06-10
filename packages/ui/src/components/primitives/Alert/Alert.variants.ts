@@ -4,16 +4,16 @@
  * Defines Alert visual slots using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 const neutralVariant =
-  "border-(--lex-alert-neutral-border-color) bg-(--lex-alert-neutral-background) text-(--lex-alert-neutral-foreground)"
+  "border-(--lex-alert-neutral-border-color) bg-(--lex-alert-neutral-background) text-(--lex-alert-neutral-foreground)";
 
 const primaryVariant =
-  "border-(--lex-alert-primary-border-color) bg-(--lex-alert-primary-background) text-(--lex-alert-primary-foreground)"
+  "border-(--lex-alert-primary-border-color) bg-(--lex-alert-primary-background) text-(--lex-alert-primary-foreground)";
 
 const dangerVariant =
-  "border-(--lex-alert-danger-border-color) bg-(--lex-alert-danger-background) text-(--lex-alert-danger-foreground)"
+  "border-(--lex-alert-danger-border-color) bg-(--lex-alert-danger-background) text-(--lex-alert-danger-foreground)";
 
 export const alertVariants = cva(
   [
@@ -32,10 +32,10 @@ export const alertVariants = cva(
       variant: "neutral",
     },
   },
-)
+);
 
 export const alertTitleClassName =
-  "text-(length:--lex-alert-title-font-size) font-(--lex-alert-title-font-weight) leading-(--lex-alert-title-font-line-height)"
+  "text-(length:--lex-alert-title-font-size) font-(--lex-alert-title-font-weight) leading-(--lex-alert-title-font-line-height)";
 
 export const alertDescriptionClassName =
-  "text-(length:--lex-alert-description-font-size) leading-(--lex-alert-description-font-line-height) text-(--lex-alert-description-foreground)"
+  "text-(length:--lex-alert-description-font-size) leading-(--lex-alert-description-font-line-height) text-(--lex-alert-description-foreground)";

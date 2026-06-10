@@ -8,30 +8,30 @@
 import {
   collectLeafPaths,
   createThemedTokenTree,
-} from "../../shared/tree.utils"
+} from "../../shared/tree.utils";
 import type {
   ThemedTokenTreeOverlay,
   ThemedTokenTreeSource,
-} from "../../shared/tree.utils"
-import { resolveReferenceChain } from "../reference/reference-chain"
+} from "../../shared/tree.utils";
+import { resolveReferenceChain } from "../reference/reference-chain";
 import type {
   ResolverError,
   ResolverWarning,
-} from "../reference/reference.types"
+} from "../reference/reference.types";
 import {
   createResolverError,
   DEFAULT_RESOLVER_OPTIONS,
   getNodeByPath,
   isReferenceString,
   isTokenLeaf,
-} from "../shared/shared.resolver.utils"
+} from "../shared/shared.resolver.utils";
 import type {
   ResolvedLeafValue,
   ResolveLeafResult,
   ResolveLeafValuesResult,
   ResolveValuesOptions,
-} from "./values.types"
-import type { TokenLeaf, TokenTree, TokenValue } from "../../../types"
+} from "./values.types";
+import type { TokenLeaf, TokenTree, TokenValue } from "../../../types";
 
 const mergeValuesOptions = (
   options: ResolveValuesOptions = {},
@@ -40,8 +40,8 @@ const mergeValuesOptions = (
     strict: options.strict ?? DEFAULT_RESOLVER_OPTIONS.strict ?? true,
     maxDepth: options.maxDepth ?? DEFAULT_RESOLVER_OPTIONS.maxDepth ?? 50,
     validateTypeCompatibility: options.validateTypeCompatibility ?? false,
-  }
-}
+  };
+};
 
 const toResolvedLeafValue = (
   path: string,
@@ -57,17 +57,17 @@ const toResolvedLeafValue = (
     ...(leaf.$description !== undefined
       ? { $description: leaf.$description }
       : {}),
-  }
-}
+  };
+};
 
 export const resolveLeafValue = (
   tree: TokenTree,
   path: string,
   options: ResolveValuesOptions = {},
 ): ResolveLeafResult => {
-  const errors: ResolverError[] = []
-  const warnings: ResolverWarning[] = []
-  const node = getNodeByPath(tree, path)
+  const errors: ResolverError[] = [];
+  const warnings: ResolverWarning[] = [];
+  const node = getNodeByPath(tree, path);
 
   if (node === undefined) {
     errors.push(
@@ -79,13 +79,13 @@ export const resolveLeafValue = (
         [],
         path,
       ),
-    )
+    );
 
     return {
       resolved: null,
       errors,
       warnings,
-    }
+    };
   }
 
   if (!isTokenLeaf(node)) {
@@ -97,36 +97,36 @@ export const resolveLeafValue = (
         path,
         [],
       ),
-    )
+    );
 
     return {
       resolved: null,
       errors,
       warnings,
-    }
+    };
   }
 
-  const leaf = node
-  const sourceValue = leaf.$value
+  const leaf = node;
+  const sourceValue = leaf.$value;
 
   if (!isReferenceString(sourceValue)) {
     return {
       resolved: toResolvedLeafValue(path, leaf, sourceValue, []),
       errors,
       warnings,
-    }
+    };
   }
 
-  const resolvedOptions = mergeValuesOptions(options)
+  const resolvedOptions = mergeValuesOptions(options);
   const chainResult = resolveReferenceChain(
     tree,
     sourceValue,
     resolvedOptions,
     path,
-  )
+  );
 
-  errors.push(...chainResult.errors)
-  warnings.push(...chainResult.warnings)
+  errors.push(...chainResult.errors);
+  warnings.push(...chainResult.warnings);
 
   return {
     resolved: toResolvedLeafValue(
@@ -137,36 +137,36 @@ export const resolveLeafValue = (
     ),
     errors,
     warnings,
-  }
-}
+  };
+};
 
 export const resolveLeafValues = (
   tree: TokenTree,
   paths?: Iterable<string>,
   options: ResolveValuesOptions = {},
 ): ResolveLeafValuesResult => {
-  const targetPaths = paths ?? collectLeafPaths(tree)
-  const values: ResolvedLeafValue[] = []
-  const errors: ResolverError[] = []
-  const warnings: ResolverWarning[] = []
+  const targetPaths = paths ?? collectLeafPaths(tree);
+  const values: ResolvedLeafValue[] = [];
+  const errors: ResolverError[] = [];
+  const warnings: ResolverWarning[] = [];
 
   for (const path of targetPaths) {
-    const result = resolveLeafValue(tree, path, options)
+    const result = resolveLeafValue(tree, path, options);
 
     if (result.resolved !== null) {
-      values.push(result.resolved)
+      values.push(result.resolved);
     }
 
-    errors.push(...result.errors)
-    warnings.push(...result.warnings)
+    errors.push(...result.errors);
+    warnings.push(...result.warnings);
   }
 
   return {
     values,
     errors,
     warnings,
-  }
-}
+  };
+};
 
 export const resolveLeafValueForTheme = (
   input: ThemedTokenTreeSource,
@@ -174,7 +174,7 @@ export const resolveLeafValueForTheme = (
   path: string,
   options: ResolveValuesOptions = {},
 ): ResolveLeafResult => {
-  const tree = createThemedTokenTree(input, theme)
+  const tree = createThemedTokenTree(input, theme);
 
-  return resolveLeafValue(tree, path, options)
-}
+  return resolveLeafValue(tree, path, options);
+};

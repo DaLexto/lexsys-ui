@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Empty,
   EmptyContent,
@@ -7,7 +7,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "../../../src/components/blocks/Empty/Empty.js"
+} from "../../../src/components/blocks/Empty/Empty.js";
 
 describe("Empty render", () => {
   it("renders title and description", () => {
@@ -18,11 +18,11 @@ describe("Empty render", () => {
           <EmptyDescription>Try adjusting your search.</EmptyDescription>
         </EmptyHeader>
       </Empty>,
-    )
+    );
 
-    expect(screen.getByText("No results")).toBeInTheDocument()
-    expect(screen.getByText("Try adjusting your search.")).toBeInTheDocument()
-  })
+    expect(screen.getByText("No results")).toBeInTheDocument();
+    expect(screen.getByText("Try adjusting your search.")).toBeInTheDocument();
+  });
 
   it("renders EmptyMedia slot inside EmptyHeader", () => {
     render(
@@ -34,11 +34,11 @@ describe("Empty render", () => {
           <EmptyTitle>No items</EmptyTitle>
         </EmptyHeader>
       </Empty>,
-    )
+    );
 
-    expect(screen.getByTestId("media")).toBeInTheDocument()
-    expect(screen.getByText("No items")).toBeInTheDocument()
-  })
+    expect(screen.getByTestId("media")).toBeInTheDocument();
+    expect(screen.getByText("No items")).toBeInTheDocument();
+  });
 
   it("renders EmptyContent with actions", () => {
     render(
@@ -50,15 +50,15 @@ describe("Empty render", () => {
           <button type="button">Create key</button>
         </EmptyContent>
       </Empty>,
-    )
+    );
 
     expect(
       screen.getByRole("button", { name: "Create key" }),
-    ).toBeInTheDocument()
-  })
+    ).toBeInTheDocument();
+  });
 
   it("merges custom className on root", () => {
-    const { container } = render(<Empty className="custom-empty" />)
-    expect(container.firstChild).toHaveClass("custom-empty")
-  })
-})
+    const { container } = render(<Empty className="custom-empty" />);
+    expect(container.firstChild).toHaveClass("custom-empty");
+  });
+});
