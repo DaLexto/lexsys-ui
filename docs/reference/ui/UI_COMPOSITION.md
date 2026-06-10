@@ -698,7 +698,6 @@ Base UI `Button` and `DrawerClose` default to `nativeButton={true}` — they exp
 
 ```tsx
 import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink"
-
 ;<ButtonLink href="/profile" variant="outline">
   Profile
 </ButtonLink>
@@ -709,7 +708,6 @@ Default host is a plain `<a>`. For Next.js App Router prefetch, override `render
 ```tsx
 import Link from "next/link"
 import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink"
-
 ;<ButtonLink href="/profile" render={<Link href="/profile" />}>
   Profile
 </ButtonLink>
@@ -720,7 +718,6 @@ import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink"
 ```tsx
 import Link from "next/link"
 import { Button } from "@/components/ui/Button/Button"
-
 ;<Button nativeButton={false} render={<Link href="/profile" />}>
   Profile
 </Button>
