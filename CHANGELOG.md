@@ -17,13 +17,24 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+---
+
+## [0.1.4] - 2026-06-10
+
+ButtonLink and Sidebar mobile nav fix on dist-tag **`latest`**. Registry templates for **Sidebar** and new **ButtonLink** primitive — run `lexsys update sidebar` and `lexsys add button button-link` in consumer projects.
+
 ### Added
 
-- **ButtonLink** primitive — link-styled button with `nativeButton={false}` preset; `lexsys add button-link` (requires `button`)
+- **ButtonLink** primitive — link-styled button with `nativeButton={false}` preset; `lexsys add button button-link`
 
 ### Fixed
 
 - **Sidebar** — mobile drawer nav links (`SidebarItemLink`, `SidebarSubItemLink`) set `nativeButton={false}` on `DrawerClose` when the host is an anchor — removes Base UI dev warning for `<a>` inside drawer close controls
+
+### Notes
+
+- No CLI command or config shape changes — patch release on the `0.1.x` line
+- Monorepo reference only: `@dalexto/lexsys-ui` and `@dalexto/lexsys-tokens` are not published; changes ship via registry templates
 
 ---
 
@@ -245,7 +256,8 @@ First early-preview npm release on dist-tag **`next`** (`npx @dalexto/lexsys-cli
 - npm also resolves **`latest`** to **`0.0.1`** on first publish; prefer **`@next`**
   for early-preview installs until **`0.1.0`**
 
-[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.3...HEAD
+[Unreleased]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.4...HEAD
+[0.1.4]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.3...lexsys@0.1.4
 [0.1.3]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.2...lexsys@0.1.3
 [0.1.2]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.1...lexsys@0.1.2
 [0.1.1]: https://github.com/DaLexto/lexsys-ui/compare/lexsys@0.1.0...lexsys@0.1.1

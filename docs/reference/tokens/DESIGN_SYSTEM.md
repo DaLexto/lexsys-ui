@@ -161,7 +161,7 @@ Component tokens reference semantic tokens and describe per-component slot
 decisions.
 
 **46 dedicated component token modules** under `packages/tokens/src/components/`
-(excluding `index.ts`) — **45 primitives** plus `empty` block slots. Full
+(excluding `index.ts`) — **46 primitives** plus `empty` block slots. Full
 inventory and layer rules: [TOKENS.md](./TOKENS.md).
 
 ```typescript

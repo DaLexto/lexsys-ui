@@ -124,8 +124,8 @@ Test files in `packages/ui/test/`:
 | File                                             | What it tests                                                                                  |
 | ------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
 | `public-api.test.ts`                             | Public API surface — all component and type exports are accessible from `@dalexto/lexsys-ui`   |
-| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**45 primitives**)    |
-| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**57/57** installable items) |
+| `test/components/<Name>/<Name>.variants.test.ts` | CVA variant output — all variants and sizes produce valid class strings (**46 primitives**)    |
+| `test/components/<Name>/<Name>.render.test.tsx`  | Render smoke tests — DOM output, className merge, key a11y roles (**58/58** installable items) |
 
 Blocks and templates live under `packages/ui/src/components/blocks/` and
 `templates/` — see [UI catalog § Inventory](../reference/ui/UI_CATALOG.md#inventory).
@@ -148,7 +148,7 @@ Test files in `packages/registry/test/`:
 | `validate-registry.test.ts`    | Registry manifest validation — required fields, template files, layer composition rules, block/template dependency constraints |
 | `registry-styles-sync.test.ts` | Registry style sync helpers — in-sync templates, stale content, missing template files                                         |
 
-Bundled registry: **57 installable UI items** (45 primitives + 10 blocks + 2 templates). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`. Inventory: [UI catalog](../reference/ui/UI_CATALOG.md).
+Bundled registry: **58 installable UI items** (46 primitives + 10 blocks + 2 templates). Composition rules are enforced by `validateRegistryComposition` as part of `registry:check`. Inventory: [UI catalog](../reference/ui/UI_CATALOG.md).
 
 Run:
 
@@ -245,7 +245,7 @@ Use the **Testing** sidebar or gutter icons to run/debug individual tests while 
 
 ## UI render tests
 
-All **57 installable UI items** (45 primitives + 10 blocks + 2 templates) have render smoke tests using `@testing-library/react` with Vitest
+All **58 installable UI items** (46 primitives + 10 blocks + 2 templates) have render smoke tests using `@testing-library/react` with Vitest
 `jsdom` (`packages/ui/vitest.config.ts`).
 
 - Assert DOM output, `className` merge, and key accessibility roles — not pixel snapshots.

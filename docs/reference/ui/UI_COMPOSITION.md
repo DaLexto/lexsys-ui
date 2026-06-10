@@ -769,7 +769,7 @@ No `installedBy` / provenance graph. Uninstall uses registry graph + remaining
 
 ## Current state
 
-Installable inventory (52 items — compound vs leaf, named exports, registry
+Installable inventory (**58** items — compound vs leaf, named exports, registry
 version): **[UI catalog](../ui/UI_CATALOG.md)**.
 
 Pilot blocks and templates remain installable; stability and sandbox QA gaps are
