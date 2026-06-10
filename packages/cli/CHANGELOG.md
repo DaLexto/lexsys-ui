@@ -1,5 +1,14 @@
 # Changelog — @dalexto/lexsys-cli
 
+## 0.1.4
+
+### Patch Changes
+
+- [#117](https://github.com/DaLexto/lexsys-ui/pull/117) [`1fc6633`](https://github.com/DaLexto/lexsys-ui/commit/1fc6633d5bc5bf2aa254fe8ab8cce4aa59b26916) Thanks [@itsalexdev](https://github.com/itsalexdev)! - ButtonLink primitive (`lexsys add button button-link`) for link-styled buttons without hand-wiring `nativeButton={false}`. Sidebar mobile drawer fix: `nativeButton={false}` on `DrawerClose` when nav links use anchor hosts — removes Base UI dev warning. Consumers should run `lexsys update sidebar` and `lexsys add button button-link` as needed.
+
+- Updated dependencies [[`1fc6633`](https://github.com/DaLexto/lexsys-ui/commit/1fc6633d5bc5bf2aa254fe8ab8cce4aa59b26916)]:
+  - @dalexto/lexsys-registry@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes
