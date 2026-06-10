@@ -9,12 +9,12 @@ export {
   createContrastValidationReport,
   formatContrastValidationReport,
   validateContrastPolicyStrict,
-} from "./contrast.validator"
+} from "./contrast.validator";
 
 export {
   SEMANTIC_CONTRAST_PAIRS,
   WCAG_AA_NORMAL_TEXT_RATIO,
-} from "./contrast.pairs"
+} from "./contrast.pairs";
 
 export {
   DEFAULT_CONTRAST_POLICY,
@@ -27,9 +27,9 @@ export {
   shouldEnforceContrastInStyleValidation,
   shouldFailOnContrastPolicy,
   WCAG_AA_LARGE_TEXT_RATIO,
-} from "./contrast.policy"
+} from "./contrast.policy";
 
-export type { ContrastPolicy, ContrastPolicyTier } from "./contrast.policy"
+export type { ContrastPolicy, ContrastPolicyTier } from "./contrast.policy";
 
 export type {
   ContrastIssue,
@@ -39,4 +39,4 @@ export type {
   ContrastValidationReport,
   ContrastValidationThemeInput,
   SemanticContrastPair,
-} from "./contrast.types"
+} from "./contrast.types";

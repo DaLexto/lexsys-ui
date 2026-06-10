@@ -1,4 +1,4 @@
-import { themeTokens } from "../../types/authoring"
+import { themeTokens } from "../../types/authoring";
 
 export const lexsysDarkTheme = themeTokens(
   {
@@ -74,4 +74,4 @@ export const lexsysDarkTheme = themeTokens(
       },
     },
   },
-)
+);

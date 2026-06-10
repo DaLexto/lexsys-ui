@@ -4,8 +4,8 @@
  * Reference Autocomplete component implementation.
  */
 
-import { ChevronDown, X } from "lucide-react"
-import { Autocomplete as BaseAutocomplete } from "@base-ui/react/autocomplete"
+import { ChevronDown, X } from "lucide-react";
+import { Autocomplete as BaseAutocomplete } from "@base-ui/react/autocomplete";
 import type {
   AutocompleteArrowProps,
   AutocompleteBackdropProps,
@@ -28,7 +28,7 @@ import type {
   AutocompleteStatusProps,
   AutocompleteTriggerProps,
   AutocompleteValueProps,
-} from "./Autocomplete.types"
+} from "./Autocomplete.types";
 import {
   autocompleteArrowVariants,
   autocompleteBackdropVariants,
@@ -47,15 +47,15 @@ import {
   autocompleteSeparatorVariants,
   autocompleteStatusVariants,
   autocompleteTriggerVariants,
-} from "./Autocomplete.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
-import { overlayPositionerSideOffset } from "../../../utils/cn"
+} from "./Autocomplete.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
+import { overlayPositionerSideOffset } from "../../../utils/cn";
 
 const Autocomplete = (props: AutocompleteProps) => {
-  return <BaseAutocomplete.Root {...props} />
-}
+  return <BaseAutocomplete.Root {...props} />;
+};
 
-Autocomplete.displayName = "Autocomplete"
+Autocomplete.displayName = "Autocomplete";
 
 const AutocompleteTrigger = ({
   ref,
@@ -72,10 +72,10 @@ const AutocompleteTrigger = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteTrigger.displayName = "AutocompleteTrigger"
+AutocompleteTrigger.displayName = "AutocompleteTrigger";
 
 const AutocompleteInputGroup = ({
   ref,
@@ -92,10 +92,10 @@ const AutocompleteInputGroup = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteInputGroup.displayName = "AutocompleteInputGroup"
+AutocompleteInputGroup.displayName = "AutocompleteInputGroup";
 
 const AutocompleteInput = ({
   ref,
@@ -109,16 +109,16 @@ const AutocompleteInput = ({
       className={mergeClassName(autocompleteInputVariants({ size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteInput.displayName = "AutocompleteInput"
+AutocompleteInput.displayName = "AutocompleteInput";
 
 const AutocompleteValue = (props: AutocompleteValueProps) => {
-  return <BaseAutocomplete.Value {...props} />
-}
+  return <BaseAutocomplete.Value {...props} />;
+};
 
-AutocompleteValue.displayName = "AutocompleteValue"
+AutocompleteValue.displayName = "AutocompleteValue";
 
 const AutocompleteIcon = ({
   ref,
@@ -134,10 +134,10 @@ const AutocompleteIcon = ({
     >
       {children ?? <ChevronDown aria-hidden="true" size={16} />}
     </BaseAutocomplete.Icon>
-  )
-}
+  );
+};
 
-AutocompleteIcon.displayName = "AutocompleteIcon"
+AutocompleteIcon.displayName = "AutocompleteIcon";
 
 const AutocompleteClear = ({
   ref,
@@ -153,16 +153,16 @@ const AutocompleteClear = ({
     >
       {children ?? <X aria-hidden="true" size={14} />}
     </BaseAutocomplete.Clear>
-  )
-}
+  );
+};
 
-AutocompleteClear.displayName = "AutocompleteClear"
+AutocompleteClear.displayName = "AutocompleteClear";
 
 const AutocompletePortal = (props: AutocompletePortalProps) => {
-  return <BaseAutocomplete.Portal {...props} />
-}
+  return <BaseAutocomplete.Portal {...props} />;
+};
 
-AutocompletePortal.displayName = "AutocompletePortal"
+AutocompletePortal.displayName = "AutocompletePortal";
 
 const AutocompleteBackdrop = ({
   ref,
@@ -175,10 +175,10 @@ const AutocompleteBackdrop = ({
       className={mergeClassName(autocompleteBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteBackdrop.displayName = "AutocompleteBackdrop"
+AutocompleteBackdrop.displayName = "AutocompleteBackdrop";
 
 const AutocompletePositioner = ({
   ref,
@@ -193,10 +193,10 @@ const AutocompletePositioner = ({
       className={mergeClassName(autocompletePositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompletePositioner.displayName = "AutocompletePositioner"
+AutocompletePositioner.displayName = "AutocompletePositioner";
 
 const AutocompletePopup = ({
   ref,
@@ -209,10 +209,10 @@ const AutocompletePopup = ({
       className={mergeClassName(autocompletePopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompletePopup.displayName = "AutocompletePopup"
+AutocompletePopup.displayName = "AutocompletePopup";
 
 const AutocompleteList = ({
   ref,
@@ -225,10 +225,10 @@ const AutocompleteList = ({
       className={mergeClassName(autocompleteListVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteList.displayName = "AutocompleteList"
+AutocompleteList.displayName = "AutocompleteList";
 
 const AutocompleteItem = ({
   ref,
@@ -241,10 +241,10 @@ const AutocompleteItem = ({
       className={mergeClassName(autocompleteItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteItem.displayName = "AutocompleteItem"
+AutocompleteItem.displayName = "AutocompleteItem";
 
 const AutocompleteArrow = ({
   ref,
@@ -257,10 +257,10 @@ const AutocompleteArrow = ({
       className={mergeClassName(autocompleteArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteArrow.displayName = "AutocompleteArrow"
+AutocompleteArrow.displayName = "AutocompleteArrow";
 
 const AutocompleteGroup = ({
   ref,
@@ -273,10 +273,10 @@ const AutocompleteGroup = ({
       className={mergeClassName(autocompleteGroupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteGroup.displayName = "AutocompleteGroup"
+AutocompleteGroup.displayName = "AutocompleteGroup";
 
 const AutocompleteGroupLabel = ({
   ref,
@@ -289,10 +289,10 @@ const AutocompleteGroupLabel = ({
       className={mergeClassName(autocompleteGroupLabelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteGroupLabel.displayName = "AutocompleteGroupLabel"
+AutocompleteGroupLabel.displayName = "AutocompleteGroupLabel";
 
 const AutocompleteEmpty = ({
   ref,
@@ -305,10 +305,10 @@ const AutocompleteEmpty = ({
       className={mergeClassName(autocompleteEmptyVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteEmpty.displayName = "AutocompleteEmpty"
+AutocompleteEmpty.displayName = "AutocompleteEmpty";
 
 const AutocompleteStatus = ({
   ref,
@@ -321,10 +321,10 @@ const AutocompleteStatus = ({
       className={mergeClassName(autocompleteStatusVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteStatus.displayName = "AutocompleteStatus"
+AutocompleteStatus.displayName = "AutocompleteStatus";
 
 const AutocompleteRow = ({
   ref,
@@ -337,16 +337,16 @@ const AutocompleteRow = ({
       className={mergeClassName(autocompleteRowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteRow.displayName = "AutocompleteRow"
+AutocompleteRow.displayName = "AutocompleteRow";
 
 const AutocompleteCollection = (props: AutocompleteCollectionProps) => {
-  return <BaseAutocomplete.Collection {...props} />
-}
+  return <BaseAutocomplete.Collection {...props} />;
+};
 
-AutocompleteCollection.displayName = "AutocompleteCollection"
+AutocompleteCollection.displayName = "AutocompleteCollection";
 
 const AutocompleteSeparator = ({
   ref,
@@ -359,13 +359,13 @@ const AutocompleteSeparator = ({
       className={mergeClassName(autocompleteSeparatorVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AutocompleteSeparator.displayName = "AutocompleteSeparator"
+AutocompleteSeparator.displayName = "AutocompleteSeparator";
 
-const useAutocompleteFilter = BaseAutocomplete.useFilter
-const useAutocompleteFilteredItems = BaseAutocomplete.useFilteredItems
+const useAutocompleteFilter = BaseAutocomplete.useFilter;
+const useAutocompleteFilteredItems = BaseAutocomplete.useFilteredItems;
 
 export {
   Autocomplete,
@@ -391,4 +391,4 @@ export {
   AutocompleteSeparator,
   useAutocompleteFilter,
   useAutocompleteFilteredItems,
-}
+};

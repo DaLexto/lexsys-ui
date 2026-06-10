@@ -5,7 +5,7 @@
  * @description Public entry point for DTCG-compatible JSON token generation.
  */
 
-export { generateJsonTokens } from "./dtcg.generator"
+export { generateJsonTokens } from "./dtcg.generator";
 
 export {
   applyTypesToGroups,
@@ -15,7 +15,7 @@ export {
   resolveDtcgTokenType,
   setDtcgTokenTreeValue,
   toDtcgTokenLeaf,
-} from "./dtcg.utils"
+} from "./dtcg.utils";
 
 export type {
   DtcgDocumentExtensions,
@@ -28,4 +28,4 @@ export type {
   DtcgTokenTypeResolver,
   DtcgGenerateResult,
   DtcgGeneratorOptions,
-} from "./dtcg.types"
+} from "./dtcg.types";

@@ -4,7 +4,7 @@
  * Registry metadata for the Toolbar component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const toolbarRegistryItem: RegistryItem = {
   name: "toolbar",
@@ -38,4 +38,4 @@ export const toolbarRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Toolbar",
-}
+};

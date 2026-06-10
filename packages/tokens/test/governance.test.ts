@@ -1,17 +1,17 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vitest";
 
-import { createStyleTokenInput } from "../src/generators/inputs/input.source"
-import { createStyleOutputs } from "../src/generators/generator.create"
+import { createStyleTokenInput } from "../src/generators/inputs/input.source";
+import { createStyleOutputs } from "../src/generators/generator.create";
 import {
   createTokenGovernanceReport,
   formatTokenGovernanceReport,
-} from "../src/engine/governance"
-import type { TokenGovernanceInput } from "../src/engine/governance"
+} from "../src/engine/governance";
+import type { TokenGovernanceInput } from "../src/engine/governance";
 
 const createFixtureInput = (
   overrides: Partial<TokenGovernanceInput> = {},
 ): TokenGovernanceInput => {
-  const base = createStyleTokenInput()
+  const base = createStyleTokenInput();
 
   return {
     primitiveTokens: base.primitiveTokens,
@@ -21,20 +21,20 @@ const createFixtureInput = (
     foundationTokens: base.foundationTokens,
     themeTokens: base.themeTokens,
     ...overrides,
-  }
-}
+  };
+};
 
 describe("createTokenGovernanceReport", () => {
   it("builds a report for the current Lexsys token graph without changing outputs", () => {
-    const input = createStyleTokenInput()
-    const report = createTokenGovernanceReport(input)
+    const input = createStyleTokenInput();
+    const report = createTokenGovernanceReport(input);
 
-    expect(report.metadata.length).toBeGreaterThan(0)
-    expect(report.deprecations).toEqual([])
+    expect(report.metadata.length).toBeGreaterThan(0);
+    expect(report.deprecations).toEqual([]);
     expect(formatTokenGovernanceReport(report)).toContain(
       "Token Governance Report",
-    )
-  })
+    );
+  });
 
   it("lists metadata entries with descriptions or deprecation flags", () => {
     const report = createTokenGovernanceReport(
@@ -62,7 +62,7 @@ describe("createTokenGovernanceReport", () => {
         },
         themeTokens: [],
       }),
-    )
+    );
 
     expect(report.metadata).toEqual(
       expect.arrayContaining([
@@ -72,8 +72,8 @@ describe("createTokenGovernanceReport", () => {
           deprecated: "Use spacing.control tokens instead.",
         }),
       ]),
-    )
-  })
+    );
+  });
 
   it("reports dependents of deprecated tokens", () => {
     const report = createTokenGovernanceReport(
@@ -112,7 +112,7 @@ describe("createTokenGovernanceReport", () => {
         },
         themeTokens: [],
       }),
-    )
+    );
 
     expect(report.deprecations).toEqual([
       expect.objectContaining({
@@ -129,8 +129,8 @@ describe("createTokenGovernanceReport", () => {
           }),
         ]),
       }),
-    ])
-  })
+    ]);
+  });
 
   it("lists transitive dependents on metadata entries with description only", () => {
     const report = createTokenGovernanceReport(
@@ -165,7 +165,7 @@ describe("createTokenGovernanceReport", () => {
         componentTokens: {},
         themeTokens: [],
       }),
-    )
+    );
 
     expect(report.metadata).toEqual(
       expect.arrayContaining([
@@ -179,8 +179,8 @@ describe("createTokenGovernanceReport", () => {
           ]),
         }),
       ]),
-    )
-  })
+    );
+  });
 
   it("formats transitive dependent counts in the governance report", () => {
     const report = createTokenGovernanceReport(
@@ -219,12 +219,12 @@ describe("createTokenGovernanceReport", () => {
         },
         themeTokens: [],
       }),
-    )
+    );
 
     expect(formatTokenGovernanceReport(report)).toContain(
       "2 transitive dependent(s)",
-    )
-  })
+    );
+  });
 
   it("detects dead primitive tokens not referenced by upper layers", () => {
     const report = createTokenGovernanceReport(
@@ -252,19 +252,19 @@ describe("createTokenGovernanceReport", () => {
         componentTokens: {},
         themeTokens: [],
       }),
-    )
+    );
 
-    expect(report.deadTokens).toEqual([{ path: "spacing.unused" }])
-  })
+    expect(report.deadTokens).toEqual([{ path: "spacing.unused" }]);
+  });
 
   it("does not change generated style outputs", () => {
-    const generatedAt = new Date("2026-05-30T12:00:00.000Z")
-    const before = createStyleOutputs({ generatedAt })
-    createTokenGovernanceReport(createStyleTokenInput())
-    const after = createStyleOutputs({ generatedAt })
+    const generatedAt = new Date("2026-05-30T12:00:00.000Z");
+    const before = createStyleOutputs({ generatedAt });
+    createTokenGovernanceReport(createStyleTokenInput());
+    const after = createStyleOutputs({ generatedAt });
 
-    expect(after.tokensCss).toBe(before.tokensCss)
-    expect(after.themeCss).toBe(before.themeCss)
-    expect(after.tokenJsonFiles).toEqual(before.tokenJsonFiles)
-  })
-})
+    expect(after.tokensCss).toBe(before.tokensCss);
+    expect(after.themeCss).toBe(before.themeCss);
+    expect(after.tokenJsonFiles).toEqual(before.tokenJsonFiles);
+  });
+});

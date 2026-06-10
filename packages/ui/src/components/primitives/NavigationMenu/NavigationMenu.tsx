@@ -4,8 +4,8 @@
  * Reference NavigationMenu component implementation.
  */
 
-import { ChevronDown } from "lucide-react"
-import { NavigationMenu as BaseNavigationMenu } from "@base-ui/react/navigation-menu"
+import { ChevronDown } from "lucide-react";
+import { NavigationMenu as BaseNavigationMenu } from "@base-ui/react/navigation-menu";
 import type {
   NavigationMenuArrowProps,
   NavigationMenuBackdropProps,
@@ -20,7 +20,7 @@ import type {
   NavigationMenuProps,
   NavigationMenuTriggerProps,
   NavigationMenuViewportProps,
-} from "./NavigationMenu.types"
+} from "./NavigationMenu.types";
 import {
   navigationMenuArrowVariants,
   navigationMenuBackdropVariants,
@@ -34,9 +34,9 @@ import {
   navigationMenuRootVariants,
   navigationMenuTriggerVariants,
   navigationMenuViewportVariants,
-} from "./NavigationMenu.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
-import { overlayPositionerSideOffset } from "../../../utils/cn"
+} from "./NavigationMenu.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
+import { overlayPositionerSideOffset } from "../../../utils/cn";
 
 const NavigationMenu = <Value = unknown,>({
   className,
@@ -47,10 +47,10 @@ const NavigationMenu = <Value = unknown,>({
       className={mergeClassName(navigationMenuRootVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenu.displayName = "NavigationMenu"
+NavigationMenu.displayName = "NavigationMenu";
 
 const NavigationMenuList = ({
   ref,
@@ -63,10 +63,10 @@ const NavigationMenuList = ({
       className={mergeClassName(navigationMenuListVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuList.displayName = "NavigationMenuList"
+NavigationMenuList.displayName = "NavigationMenuList";
 
 const NavigationMenuItem = ({
   ref,
@@ -79,10 +79,10 @@ const NavigationMenuItem = ({
       className={mergeClassName(navigationMenuItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuItem.displayName = "NavigationMenuItem"
+NavigationMenuItem.displayName = "NavigationMenuItem";
 
 const NavigationMenuContent = ({
   ref,
@@ -95,10 +95,10 @@ const NavigationMenuContent = ({
       className={mergeClassName(navigationMenuContentVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuContent.displayName = "NavigationMenuContent"
+NavigationMenuContent.displayName = "NavigationMenuContent";
 
 const NavigationMenuTrigger = ({
   ref,
@@ -111,16 +111,16 @@ const NavigationMenuTrigger = ({
       className={mergeClassName(navigationMenuTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuTrigger.displayName = "NavigationMenuTrigger"
+NavigationMenuTrigger.displayName = "NavigationMenuTrigger";
 
 const NavigationMenuPortal = (props: NavigationMenuPortalProps) => {
-  return <BaseNavigationMenu.Portal {...props} />
-}
+  return <BaseNavigationMenu.Portal {...props} />;
+};
 
-NavigationMenuPortal.displayName = "NavigationMenuPortal"
+NavigationMenuPortal.displayName = "NavigationMenuPortal";
 
 const NavigationMenuPositioner = ({
   ref,
@@ -135,10 +135,10 @@ const NavigationMenuPositioner = ({
       className={mergeClassName(navigationMenuPositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuPositioner.displayName = "NavigationMenuPositioner"
+NavigationMenuPositioner.displayName = "NavigationMenuPositioner";
 
 const NavigationMenuViewport = ({
   ref,
@@ -151,10 +151,10 @@ const NavigationMenuViewport = ({
       className={mergeClassName(navigationMenuViewportVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuViewport.displayName = "NavigationMenuViewport"
+NavigationMenuViewport.displayName = "NavigationMenuViewport";
 
 const NavigationMenuBackdrop = ({
   ref,
@@ -167,10 +167,10 @@ const NavigationMenuBackdrop = ({
       className={mergeClassName(navigationMenuBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuBackdrop.displayName = "NavigationMenuBackdrop"
+NavigationMenuBackdrop.displayName = "NavigationMenuBackdrop";
 
 const NavigationMenuPopup = ({
   ref,
@@ -183,10 +183,10 @@ const NavigationMenuPopup = ({
       className={mergeClassName(navigationMenuPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuPopup.displayName = "NavigationMenuPopup"
+NavigationMenuPopup.displayName = "NavigationMenuPopup";
 
 const NavigationMenuArrow = ({
   ref,
@@ -199,10 +199,10 @@ const NavigationMenuArrow = ({
       className={mergeClassName(navigationMenuArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuArrow.displayName = "NavigationMenuArrow"
+NavigationMenuArrow.displayName = "NavigationMenuArrow";
 
 const NavigationMenuLink = ({
   ref,
@@ -215,10 +215,10 @@ const NavigationMenuLink = ({
       className={mergeClassName(navigationMenuLinkVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-NavigationMenuLink.displayName = "NavigationMenuLink"
+NavigationMenuLink.displayName = "NavigationMenuLink";
 
 const NavigationMenuIcon = ({
   ref,
@@ -234,10 +234,10 @@ const NavigationMenuIcon = ({
     >
       {children ?? <ChevronDown aria-hidden="true" size={14} />}
     </BaseNavigationMenu.Icon>
-  )
-}
+  );
+};
 
-NavigationMenuIcon.displayName = "NavigationMenuIcon"
+NavigationMenuIcon.displayName = "NavigationMenuIcon";
 
 export {
   NavigationMenu,
@@ -253,4 +253,4 @@ export {
   NavigationMenuArrow,
   NavigationMenuLink,
   NavigationMenuIcon,
-}
+};

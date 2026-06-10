@@ -52,7 +52,7 @@ Templates are resolved via the `./templates/*` export path, not the `.` entry:
 
 ```ts
 import.meta
-  .resolve("@dalexto/lexsys-registry/templates/primitives/Button/Button.tsx")
+  .resolve("@dalexto/lexsys-registry/templates/primitives/Button/Button.tsx");
 ```
 
 ---

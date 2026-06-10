@@ -1,4 +1,4 @@
-import type { RegistryStyle } from "../registry.types.js"
+import type { RegistryStyle } from "../registry.types.js";
 
 export const themeRegistryStyle: RegistryStyle = {
   name: "theme",
@@ -13,4 +13,4 @@ export const themeRegistryStyle: RegistryStyle = {
       target: "theme.css",
     },
   ],
-}
+};

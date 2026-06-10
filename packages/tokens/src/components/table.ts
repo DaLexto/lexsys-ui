@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const tableComponentTokens = componentTokens("table", {
   background: { $value: "{color.background.surface}" },
@@ -40,4 +40,4 @@ export const tableComponentTokens = componentTokens("table", {
     background: { $value: "{color.background.subtle}" },
     foreground: { $value: "{color.text.secondary}" },
   },
-})
+});

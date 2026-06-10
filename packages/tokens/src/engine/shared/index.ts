@@ -11,7 +11,7 @@ export {
   isTokenMetadataKey,
   shouldSkipTokenTreeKey,
   TOKEN_METADATA_KEYS,
-} from "./metadata-keys"
+} from "./metadata-keys";
 
 export {
   collectLeafPaths,
@@ -19,11 +19,11 @@ export {
   createThemedTokenTree,
   mergeTokenTrees,
   walkTokenTree,
-} from "./tree.utils"
+} from "./tree.utils";
 
 export type {
   ThemedTokenTreeOverlay,
   ThemedTokenTreeSource,
   TokenReferenceUsage,
   WalkTokenTreeOptions,
-} from "./tree.utils"
+} from "./tree.utils";

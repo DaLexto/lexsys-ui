@@ -4,7 +4,7 @@
  * Registry metadata for the Progress component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const progressRegistryItem: RegistryItem = {
   name: "progress",
@@ -38,4 +38,4 @@ export const progressRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Progress",
-}
+};

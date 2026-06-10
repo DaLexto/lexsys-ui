@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { busyStateClasses, disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { busyStateClasses, disabledStateClasses } from "../../../utils/cn";
 
 export const buttonVariants = cva(
   [
@@ -66,4 +66,4 @@ export const buttonVariants = cva(
       size: "md",
     },
   },
-)
+);

@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const separatorVariants = cva("shrink-0 bg-(--lex-separator-color)", {
   variants: {
@@ -16,4 +16,4 @@ export const separatorVariants = cva("shrink-0 bg-(--lex-separator-color)", {
   defaultVariants: {
     orientation: "horizontal",
   },
-})
+});

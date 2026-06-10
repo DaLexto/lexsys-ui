@@ -4,7 +4,7 @@
  * Registry metadata for the Input component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const inputRegistryItem: RegistryItem = {
   name: "input",
@@ -38,4 +38,4 @@ export const inputRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Input",
-}
+};

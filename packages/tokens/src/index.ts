@@ -7,22 +7,22 @@ export {
   createStyleOutputs,
   createThemeCssFromDtcgJson,
   createTokensCssFromDtcgJson,
-} from "./generators/generator.create"
+} from "./generators/generator.create";
 export {
   createGeneratedStyleFileHeader,
   generatedStyleFileHeader,
-} from "./generators/generator.config"
-export { primitiveTokens } from "./primitives"
-export { semanticTokens } from "./semantics"
-export { componentTokens } from "./components"
-export { lexsysPreset, defaultPresetId, presets } from "./presets"
-export { themes } from "./themes"
+} from "./generators/generator.config";
+export { primitiveTokens } from "./primitives";
+export { semanticTokens } from "./semantics";
+export { componentTokens } from "./components";
+export { lexsysPreset, defaultPresetId, presets } from "./presets";
+export { themes } from "./themes";
 export {
   createTokenGovernanceReport,
   formatTokenGovernanceReport,
   createSemanticAuditReport,
   formatSemanticAuditReport,
-} from "./engine/governance"
+} from "./engine/governance";
 export type {
   TokenGovernanceReport,
   TokenGovernanceInput,
@@ -32,7 +32,7 @@ export type {
   SemanticAuditIssue,
   SemanticAuditIssueKind,
   SemanticAuditReport,
-} from "./engine/governance"
+} from "./engine/governance";
 export type {
   ComponentTokenGroup,
   PrimitiveTokenGroup,
@@ -52,4 +52,4 @@ export type {
   TokenType,
   TokenTree,
   TokenGroupBase,
-} from "./types"
+} from "./types";

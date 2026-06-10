@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const comboboxComponentTokens = componentTokens("combobox", {
   background: { $value: "{color.background.base}" },
@@ -84,4 +84,4 @@ export const comboboxComponentTokens = componentTokens("combobox", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

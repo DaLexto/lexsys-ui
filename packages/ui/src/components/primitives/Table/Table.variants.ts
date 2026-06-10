@@ -4,7 +4,7 @@
  * Defines Table visual slots using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const tableVariants = cva(
   [
@@ -25,27 +25,27 @@ export const tableVariants = cva(
       variant: "default",
     },
   },
-)
+);
 
-export const tableWrapperClassName = "relative w-full overflow-x-auto"
+export const tableWrapperClassName = "relative w-full overflow-x-auto";
 
 export const tableCaptionClassName =
-  "mt-(--lex-table-cell-padding-y) text-(length:--lex-table-caption-font-size) leading-(--lex-table-caption-font-line-height) text-(--lex-table-caption-foreground)"
+  "mt-(--lex-table-cell-padding-y) text-(length:--lex-table-caption-font-size) leading-(--lex-table-caption-font-line-height) text-(--lex-table-caption-foreground)";
 
 export const tableHeaderClassName =
-  "[&_tr]:border-b [&_tr]:border-(--lex-table-border-color)"
+  "[&_tr]:border-b [&_tr]:border-(--lex-table-border-color)";
 
 export const tableBodyClassName =
-  "[&_tr:last-child]:border-0 [&_tr]:border-b [&_tr]:border-(--lex-table-border-color)"
+  "[&_tr:last-child]:border-0 [&_tr]:border-b [&_tr]:border-(--lex-table-border-color)";
 
 export const tableFooterClassName =
-  "border-t border-(--lex-table-border-color) bg-(--lex-table-footer-background) font-medium [&_tr]:last:border-b-0"
+  "border-t border-(--lex-table-border-color) bg-(--lex-table-footer-background) font-medium [&_tr]:last:border-b-0";
 
 export const tableRowClassName =
-  "border-b border-(--lex-table-border-color) transition-colors hover:bg-(--lex-table-head-background)/50 data-[state=selected]:bg-(--lex-table-head-background)"
+  "border-b border-(--lex-table-border-color) transition-colors hover:bg-(--lex-table-head-background)/50 data-[state=selected]:bg-(--lex-table-head-background)";
 
 export const tableHeadClassName =
-  "h-10 px-(--lex-table-cell-padding-x) py-(--lex-table-cell-padding-y) text-left align-middle font-(--lex-table-head-font-weight) text-(length:--lex-table-head-font-size) leading-(--lex-table-head-font-line-height) text-(--lex-table-head-foreground) [&:has([role=checkbox])]:pr-0"
+  "h-10 px-(--lex-table-cell-padding-x) py-(--lex-table-cell-padding-y) text-left align-middle font-(--lex-table-head-font-weight) text-(length:--lex-table-head-font-size) leading-(--lex-table-head-font-line-height) text-(--lex-table-head-foreground) [&:has([role=checkbox])]:pr-0";
 
 export const tableCellClassName =
-  "px-(--lex-table-cell-padding-x) py-(--lex-table-cell-padding-y) align-middle leading-(--lex-table-cell-font-line-height) [&:has([role=checkbox])]:pr-0"
+  "px-(--lex-table-cell-padding-x) py-(--lex-table-cell-padding-y) align-middle leading-(--lex-table-cell-font-line-height) [&:has([role=checkbox])]:pr-0";

@@ -4,8 +4,8 @@
  * Reference Popover component implementation.
  */
 
-import { X } from "lucide-react"
-import { Popover as BasePopover } from "@base-ui/react/popover"
+import { X } from "lucide-react";
+import { Popover as BasePopover } from "@base-ui/react/popover";
 import type {
   PopoverArrowProps,
   PopoverBackdropProps,
@@ -18,7 +18,7 @@ import type {
   PopoverTitleProps,
   PopoverTriggerProps,
   PopoverViewportProps,
-} from "./Popover.types"
+} from "./Popover.types";
 import {
   popoverArrowVariants,
   popoverBackdropVariants,
@@ -29,15 +29,15 @@ import {
   popoverTitleVariants,
   popoverTriggerVariants,
   popoverViewportVariants,
-} from "./Popover.variants"
-import { mergeClassName } from "@/lib/utils"
-import { overlayPositionerSideOffset } from "@/lib/utils"
+} from "./Popover.variants";
+import { mergeClassName } from "@/lib/utils";
+import { overlayPositionerSideOffset } from "@/lib/utils";
 
 const Popover = <Payload = unknown,>(props: PopoverProps<Payload>) => {
-  return <BasePopover.Root {...props} />
-}
+  return <BasePopover.Root {...props} />;
+};
 
-Popover.displayName = "Popover"
+Popover.displayName = "Popover";
 
 const PopoverTrigger = ({ ref, className, ...props }: PopoverTriggerProps) => {
   return (
@@ -46,16 +46,16 @@ const PopoverTrigger = ({ ref, className, ...props }: PopoverTriggerProps) => {
       className={mergeClassName(popoverTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PopoverTrigger.displayName = "PopoverTrigger"
+PopoverTrigger.displayName = "PopoverTrigger";
 
 const PopoverPortal = ({ ref, ...props }: PopoverPortalProps) => {
-  return <BasePopover.Portal ref={ref} {...props} />
-}
+  return <BasePopover.Portal ref={ref} {...props} />;
+};
 
-PopoverPortal.displayName = "PopoverPortal"
+PopoverPortal.displayName = "PopoverPortal";
 
 const PopoverBackdrop = ({
   ref,
@@ -68,10 +68,10 @@ const PopoverBackdrop = ({
       className={mergeClassName(popoverBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PopoverBackdrop.displayName = "PopoverBackdrop"
+PopoverBackdrop.displayName = "PopoverBackdrop";
 
 const PopoverPositioner = ({
   ref,
@@ -86,10 +86,10 @@ const PopoverPositioner = ({
       className={mergeClassName(popoverPositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PopoverPositioner.displayName = "PopoverPositioner"
+PopoverPositioner.displayName = "PopoverPositioner";
 
 const PopoverPopup = ({ ref, className, ...props }: PopoverPopupProps) => {
   return (
@@ -98,10 +98,10 @@ const PopoverPopup = ({ ref, className, ...props }: PopoverPopupProps) => {
       className={mergeClassName(popoverPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PopoverPopup.displayName = "PopoverPopup"
+PopoverPopup.displayName = "PopoverPopup";
 
 const PopoverArrow = ({ ref, className, ...props }: PopoverArrowProps) => {
   return (
@@ -110,10 +110,10 @@ const PopoverArrow = ({ ref, className, ...props }: PopoverArrowProps) => {
       className={mergeClassName(popoverArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PopoverArrow.displayName = "PopoverArrow"
+PopoverArrow.displayName = "PopoverArrow";
 
 const PopoverTitle = ({ ref, className, ...props }: PopoverTitleProps) => {
   return (
@@ -122,10 +122,10 @@ const PopoverTitle = ({ ref, className, ...props }: PopoverTitleProps) => {
       className={mergeClassName(popoverTitleVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PopoverTitle.displayName = "PopoverTitle"
+PopoverTitle.displayName = "PopoverTitle";
 
 const PopoverDescription = ({
   ref,
@@ -138,10 +138,10 @@ const PopoverDescription = ({
       className={mergeClassName(popoverDescriptionVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PopoverDescription.displayName = "PopoverDescription"
+PopoverDescription.displayName = "PopoverDescription";
 
 const PopoverClose = ({
   ref,
@@ -157,10 +157,10 @@ const PopoverClose = ({
     >
       {children ?? <X aria-hidden="true" size={16} />}
     </BasePopover.Close>
-  )
-}
+  );
+};
 
-PopoverClose.displayName = "PopoverClose"
+PopoverClose.displayName = "PopoverClose";
 
 const PopoverViewport = ({
   ref,
@@ -173,10 +173,10 @@ const PopoverViewport = ({
       className={mergeClassName(popoverViewportVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PopoverViewport.displayName = "PopoverViewport"
+PopoverViewport.displayName = "PopoverViewport";
 
 export {
   Popover,
@@ -190,4 +190,4 @@ export {
   PopoverDescription,
   PopoverClose,
   PopoverViewport,
-}
+};

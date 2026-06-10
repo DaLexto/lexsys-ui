@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const checkboxGroupVariants = cva(
   [
@@ -22,4 +22,4 @@ export const checkboxGroupVariants = cva(
       orientation: "vertical",
     },
   },
-)
+);

@@ -10,9 +10,9 @@ export {
   resolveTokenTree,
   resolveTokenTreeStrict,
   resolveTokenTreeSafe,
-} from "./reference/reference.resolver"
+} from "./reference/reference.resolver";
 
-export { resolveReferenceChain } from "./reference/reference-chain"
+export { resolveReferenceChain } from "./reference/reference-chain";
 
 export type {
   ResolveReferenceResult,
@@ -22,7 +22,7 @@ export type {
   ResolverErrorCode,
   ResolverOptions,
   ResolverWarning,
-} from "./reference/reference.types"
+} from "./reference/reference.types";
 
 export {
   collectLeafPaths,
@@ -34,7 +34,7 @@ export {
   findTransitiveDependents,
   referenceDependsOnTarget,
   stripDeadPrimitivesFromTree,
-} from "./graph/graph.resolver"
+} from "./graph/graph.resolver";
 
 export type {
   TokenGraphDependent,
@@ -43,7 +43,7 @@ export type {
   TokenGraphReachabilityInput,
   TokenGraphReference,
   TokenGraphThemeInput,
-} from "./graph/graph.types"
+} from "./graph/graph.types";
 
 // Values pipeline (Phase 9)
 export {
@@ -52,7 +52,7 @@ export {
   resolveLeafValueForTheme,
   isResolvedColorValue,
   toContrastReadyColor,
-} from "./values"
+} from "./values";
 
 export type {
   ResolvedLeafValue,
@@ -60,4 +60,4 @@ export type {
   ResolveLeafValuesResult,
   ResolveValuesOptions,
   ContrastReadyColor,
-} from "./values"
+} from "./values";

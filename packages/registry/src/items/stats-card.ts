@@ -4,7 +4,7 @@
  * Registry metadata for the StatsCard block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const statsCardRegistryItem: RegistryItem = {
   name: "stats-card",
@@ -22,4 +22,4 @@ export const statsCardRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/StatsCard",
-}
+};

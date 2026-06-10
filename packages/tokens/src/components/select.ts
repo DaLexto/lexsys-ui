@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const selectComponentTokens = componentTokens("select", {
   background: { $value: "{color.background.base}" },
@@ -142,4 +142,4 @@ export const selectComponentTokens = componentTokens("select", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

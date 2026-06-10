@@ -4,10 +4,10 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "@/lib/utils"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "@/lib/utils";
 
-export const datePickerContentVariants = cva("p-0")
+export const datePickerContentVariants = cva("p-0");
 
 export const datePickerInputEmbeddedClasses = (): string => {
   return [
@@ -15,20 +15,20 @@ export const datePickerInputEmbeddedClasses = (): string => {
     "border-0 bg-(--lex-date-picker-trigger-input-embedded-background) shadow-none",
     "px-(--lex-date-picker-trigger-input-embedded-padding-x)",
     "focus-visible:border-0 focus-visible:ring-0",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const datePickerCalendarVariants = cva(
   "flex w-(--lex-date-picker-calendar-width) flex-col gap-(--lex-date-picker-calendar-gap) rounded-(--lex-date-picker-calendar-radius) border border-(--lex-date-picker-calendar-border-color) bg-(--lex-date-picker-calendar-background) p-(--lex-date-picker-calendar-padding) text-(--lex-date-picker-calendar-foreground)",
-)
+);
 
 export const datePickerHeaderVariants = cva(
   "flex items-center justify-between gap-(--lex-date-picker-calendar-gap)",
-)
+);
 
 export const datePickerMonthLabelVariants = cva(
   "font-(--lex-date-picker-header-font-weight) text-(length:--lex-date-picker-header-font-size) leading-(--lex-date-picker-header-font-line-height) text-(--lex-date-picker-header-foreground)",
-)
+);
 
 export const datePickerNavButtonVariants = cva(
   [
@@ -38,19 +38,19 @@ export const datePickerNavButtonVariants = cva(
     "focus-visible:ring-(length:--lex-date-picker-focus-ring-width) focus-visible:ring-(--lex-date-picker-focus-ring-color) focus-visible:ring-offset-(length:--lex-date-picker-focus-ring-offset) focus-visible:ring-offset-(--lex-date-picker-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const datePickerWeekdaysVariants = cva(
   "grid grid-cols-7 gap-(--lex-date-picker-calendar-grid-gap)",
-)
+);
 
 export const datePickerWeekdayVariants = cva(
   "text-center text-(length:--lex-date-picker-weekday-font-size) font-(--lex-date-picker-weekday-font-weight) leading-(--lex-date-picker-weekday-font-line-height) text-(--lex-date-picker-weekday-foreground)",
-)
+);
 
 export const datePickerGridVariants = cva(
   "grid grid-cols-7 gap-(--lex-date-picker-calendar-grid-gap)",
-)
+);
 
 export const datePickerDayVariants = cva(
   [
@@ -82,4 +82,4 @@ export const datePickerDayVariants = cva(
       isToday: false,
     },
   },
-)
+);

@@ -4,10 +4,10 @@
  * Reference ButtonLink — button styling on an anchor or framework link host.
  */
 
-import { Button as BaseButton } from "@base-ui/react/button"
-import type { ButtonLinkProps } from "./ButtonLink.types"
-import { buttonVariants } from "../Button/Button.variants"
-import { mergeClassName } from "@/lib/utils"
+import { Button as BaseButton } from "@base-ui/react/button";
+import type { ButtonLinkProps } from "./ButtonLink.types";
+import { buttonVariants } from "../Button/Button.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const ButtonLink = ({
   ref,
@@ -22,7 +22,7 @@ const ButtonLink = ({
   render,
   ...props
 }: ButtonLinkProps) => {
-  const isDisabled = isLoading || disabled
+  const isDisabled = isLoading || disabled;
 
   return (
     <BaseButton
@@ -46,9 +46,9 @@ const ButtonLink = ({
         children
       )}
     </BaseButton>
-  )
-}
+  );
+};
 
-ButtonLink.displayName = "ButtonLink"
+ButtonLink.displayName = "ButtonLink";
 
-export { ButtonLink }
+export { ButtonLink };

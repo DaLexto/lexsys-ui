@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "../../../utils/cn";
 
 export const toolbarRootVariants = cva(
   "flex items-center gap-(--lex-toolbar-root-gap) rounded-(--lex-toolbar-radius) border border-(--lex-toolbar-root-border-color) bg-(--lex-toolbar-root-background) p-(--lex-toolbar-root-padding)",
@@ -20,7 +20,7 @@ export const toolbarRootVariants = cva(
       orientation: "horizontal",
     },
   },
-)
+);
 
 export const toolbarGroupVariants = cva(
   "flex items-center gap-(--lex-toolbar-group-gap)",
@@ -35,7 +35,7 @@ export const toolbarGroupVariants = cva(
       orientation: "horizontal",
     },
   },
-)
+);
 
 export const toolbarButtonVariants = cva(
   [
@@ -45,7 +45,7 @@ export const toolbarButtonVariants = cva(
     "outline-none hover:bg-(--lex-toolbar-button-hover-background) focus-visible:ring-(length:--lex-toolbar-button-focus-ring-width) focus-visible:ring-(--lex-toolbar-button-focus-ring-color) focus-visible:ring-offset-(length:--lex-toolbar-button-focus-ring-offset) focus-visible:ring-offset-(--lex-toolbar-button-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const toolbarLinkVariants = cva(
   [
@@ -55,7 +55,7 @@ export const toolbarLinkVariants = cva(
     "outline-none hover:bg-(--lex-toolbar-link-hover-background) focus-visible:ring-(length:--lex-toolbar-link-focus-ring-width) focus-visible:ring-(--lex-toolbar-link-focus-ring-color) focus-visible:ring-offset-(length:--lex-toolbar-link-focus-ring-offset) focus-visible:ring-offset-(--lex-toolbar-link-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const toolbarInputVariants = cva(
   [
@@ -66,7 +66,7 @@ export const toolbarInputVariants = cva(
     "outline-none focus-visible:border-(--lex-toolbar-input-focus-border-color) focus-visible:ring-(length:--lex-toolbar-input-focus-ring-width) focus-visible:ring-(--lex-toolbar-input-focus-ring-color) focus-visible:ring-offset-(length:--lex-toolbar-input-focus-ring-offset) focus-visible:ring-offset-(--lex-toolbar-input-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const toolbarSeparatorVariants = cva(
   "shrink-0 bg-(--lex-separator-color)",
@@ -83,4 +83,4 @@ export const toolbarSeparatorVariants = cva(
       orientation: "vertical",
     },
   },
-)
+);

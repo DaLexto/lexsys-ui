@@ -4,7 +4,7 @@
  * Registry metadata for the Empty block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const emptyRegistryItem: RegistryItem = {
   name: "empty",
@@ -22,4 +22,4 @@ export const emptyRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Empty",
-}
+};

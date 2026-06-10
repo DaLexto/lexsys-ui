@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const accordionComponentTokens = componentTokens("accordion", {
   background: { $value: "{color.background.surface}" },
@@ -44,4 +44,4 @@ export const accordionComponentTokens = componentTokens("accordion", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

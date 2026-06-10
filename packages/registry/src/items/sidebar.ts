@@ -4,7 +4,7 @@
  * Registry metadata for the Sidebar block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const sidebarRegistryItem: RegistryItem = {
   name: "sidebar",
@@ -31,4 +31,4 @@ export const sidebarRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Sidebar",
-}
+};

@@ -4,7 +4,7 @@
  * Registry metadata for the Select component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const selectRegistryItem: RegistryItem = {
   name: "select",
@@ -39,4 +39,4 @@ export const selectRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Select",
-}
+};

@@ -15,20 +15,20 @@
  * - It does not resolve references to final primitive values.
  */
 
-import type { TokenTree } from "../../../types"
-import { flattenTokenTree as flattenSharedTokenTree } from "../../shared"
+import type { TokenTree } from "../../../types";
+import { flattenTokenTree as flattenSharedTokenTree } from "../../shared";
 
 import type {
   CssVariableEntry,
   CssVarsGenerateResult,
   CssVarsGeneratorOptions,
-} from "./css.types"
+} from "./css.types";
 
 import {
   createDefaultCssVarsGeneratorOptions,
   toCssVariableEntry,
   toCssVarName,
-} from "./css.utils"
+} from "./css.utils";
 
 /* -------------------------------------------------------------------------------------------------
  * CSS serialization
@@ -38,8 +38,8 @@ export const toCustomProperty = (
   entry: CssVariableEntry,
   options: Required<CssVarsGeneratorOptions>,
 ): string => {
-  return `  ${toCssVarName(entry.name, options)}: ${entry.value};`
-}
+  return `  ${toCssVarName(entry.name, options)}: ${entry.value};`;
+};
 
 export const createCssBlock = (
   selector: string,
@@ -52,8 +52,8 @@ export const createCssBlock = (
     ...leadingLines.map((line) => `  ${line}`),
     ...entries.map((entry) => toCustomProperty(entry, options)),
     "}",
-  ].join("\n")
-}
+  ].join("\n");
+};
 
 /* -------------------------------------------------------------------------------------------------
  * Entry generation
@@ -64,12 +64,12 @@ export const createCssVariableEntries = (
   options: CssVarsGeneratorOptions,
   path: string[] = [],
 ): CssVariableEntry[] => {
-  const resolvedOptions = createDefaultCssVarsGeneratorOptions(options)
+  const resolvedOptions = createDefaultCssVarsGeneratorOptions(options);
 
   return flattenSharedTokenTree(tree, resolvedOptions.metadataKeys, path).map(
     (entry) => toCssVariableEntry(entry, resolvedOptions),
-  )
-}
+  );
+};
 
 /* -------------------------------------------------------------------------------------------------
  * Full CSS generation
@@ -81,15 +81,15 @@ export const generateCssVariables = (
   selector = ":root",
   path: string[] = [],
 ): CssVarsGenerateResult => {
-  const resolvedOptions = createDefaultCssVarsGeneratorOptions(options)
+  const resolvedOptions = createDefaultCssVarsGeneratorOptions(options);
   const entries = flattenSharedTokenTree(
     tree,
     resolvedOptions.metadataKeys,
     path,
-  ).map((entry) => toCssVariableEntry(entry, resolvedOptions))
+  ).map((entry) => toCssVariableEntry(entry, resolvedOptions));
 
   return {
     entries,
     css: createCssBlock(selector, entries, resolvedOptions),
-  }
-}
+  };
+};

@@ -5,34 +5,34 @@
  * @description Shared token tree merge and traversal helpers.
  */
 
-import type { TokenLeaf, TokenTree } from "../../types"
+import type { TokenLeaf, TokenTree } from "../../types";
 import {
   isReferenceString,
   isTokenLeaf,
   isTokenTree,
   parseReference,
   toPathString,
-} from "../resolver/shared/shared.resolver.utils"
-import { shouldSkipTokenTreeKey } from "./metadata-keys"
+} from "../resolver/shared/shared.resolver.utils";
+import { shouldSkipTokenTreeKey } from "./metadata-keys";
 
 export interface WalkTokenTreeOptions {
-  onNode?: (node: TokenTree | TokenLeaf, path: string[]) => void
-  includeAuthoringKeys?: boolean
+  onNode?: (node: TokenTree | TokenLeaf, path: string[]) => void;
+  includeAuthoringKeys?: boolean;
 }
 
 export interface TokenReferenceUsage {
-  reference: string
-  sourcePath: string
-  targetPath: string
+  reference: string;
+  sourcePath: string;
+  targetPath: string;
 }
 
 export interface ThemedTokenTreeSource {
-  foundationTokens: TokenTree
-  componentTokens: TokenTree
+  foundationTokens: TokenTree;
+  componentTokens: TokenTree;
 }
 
 export interface ThemedTokenTreeOverlay {
-  tokens: TokenTree
+  tokens: TokenTree;
 }
 
 export const walkTokenTree = (
@@ -40,14 +40,14 @@ export const walkTokenTree = (
   options: WalkTokenTreeOptions,
   path: string[] = [],
 ): void => {
-  options.onNode?.(tree, path)
+  options.onNode?.(tree, path);
 
   if (isTokenLeaf(tree)) {
-    return
+    return;
   }
 
   if (!isTokenTree(tree)) {
-    return
+    return;
   }
 
   for (const [key, value] of Object.entries(tree)) {
@@ -56,14 +56,14 @@ export const walkTokenTree = (
         includeAuthoringKeys: options.includeAuthoringKeys,
       })
     ) {
-      continue
+      continue;
     }
 
     if (isTokenLeaf(value) || isTokenTree(value)) {
-      walkTokenTree(value as TokenTree, options, [...path, key])
+      walkTokenTree(value as TokenTree, options, [...path, key]);
     }
   }
-}
+};
 
 export const collectLeafPaths = (
   tree: TokenTree,
@@ -75,15 +75,15 @@ export const collectLeafPaths = (
     {
       onNode: (node, nodePath) => {
         if (isTokenLeaf(node)) {
-          paths.add(toPathString(nodePath))
+          paths.add(toPathString(nodePath));
         }
       },
     },
     path,
-  )
+  );
 
-  return paths
-}
+  return paths;
+};
 
 export const collectReferenceUsages = (
   tree: TokenTree,
@@ -95,40 +95,40 @@ export const collectReferenceUsages = (
     {
       onNode: (node, nodePath) => {
         if (!isTokenLeaf(node) || !isReferenceString(node.$value)) {
-          return
+          return;
         }
 
         usages.push({
           reference: node.$value,
           sourcePath: toPathString(nodePath),
           targetPath: parseReference(node.$value),
-        })
+        });
       },
     },
     path,
-  )
+  );
 
-  return usages
-}
+  return usages;
+};
 
 export const mergeTokenTrees = (...trees: TokenTree[]): TokenTree => {
-  const merged: TokenTree = {}
+  const merged: TokenTree = {};
 
   for (const tree of trees) {
     for (const [key, value] of Object.entries(tree)) {
-      const existingValue = merged[key]
+      const existingValue = merged[key];
 
       if (isTokenTree(existingValue) && isTokenTree(value)) {
-        merged[key] = mergeTokenTrees(existingValue, value)
-        continue
+        merged[key] = mergeTokenTrees(existingValue, value);
+        continue;
       }
 
-      merged[key] = value
+      merged[key] = value;
     }
   }
 
-  return merged
-}
+  return merged;
+};
 
 export const createThemedTokenTree = (
   input: ThemedTokenTreeSource,
@@ -138,5 +138,5 @@ export const createThemedTokenTree = (
     input.foundationTokens,
     theme.tokens,
     input.componentTokens,
-  )
-}
+  );
+};

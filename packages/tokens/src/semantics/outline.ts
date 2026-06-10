@@ -5,7 +5,7 @@
  * @description Reusable outline width and offset roles for focus and state rings.
  */
 
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const outlineSemantics = semanticTokens("outline", {
   width: {
@@ -26,4 +26,4 @@ export const outlineSemantics = semanticTokens("outline", {
     focus: { $value: "{outline.offset.sm}" },
     zero: { $value: "{outline.offset.none}" },
   },
-})
+});

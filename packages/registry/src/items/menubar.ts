@@ -4,7 +4,7 @@
  * Registry metadata for the Menubar component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const menubarRegistryItem: RegistryItem = {
   name: "menubar",
@@ -38,4 +38,4 @@ export const menubarRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Menubar",
-}
+};

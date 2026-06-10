@@ -4,7 +4,7 @@
  * Registry metadata for the OtpField component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const otpFieldRegistryItem: RegistryItem = {
   name: "otp-field",
@@ -38,4 +38,4 @@ export const otpFieldRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/OtpField",
-}
+};

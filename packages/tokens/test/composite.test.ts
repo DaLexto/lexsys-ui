@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vitest";
 
 import {
   collectCompositeAtomicPaths,
@@ -6,8 +6,8 @@ import {
   isCompositeBranch,
   normalizeCompositeBranches,
   resolveCompositeSlotType,
-} from "../src/engine/composite"
-import type { TokenTree } from "../src/types"
+} from "../src/engine/composite";
+import type { TokenTree } from "../src/types";
 
 const typographyControlFixture: TokenTree = {
   control: {
@@ -19,18 +19,18 @@ const typographyControlFixture: TokenTree = {
       letterSpacing: { $value: "{letter-spacing.normal}" },
     },
   },
-}
+};
 
 describe("composite resolver", () => {
   it("detects typography role groups by slot pattern", () => {
-    expect(isCompositeBranch(typographyControlFixture.control)).toBe(true)
+    expect(isCompositeBranch(typographyControlFixture.control)).toBe(true);
     expect(
       getCompositeBranchInfo(typographyControlFixture.control ?? {}),
     ).toEqual({
       compositeType: "typography",
       path: [],
-    })
-  })
+    });
+  });
 
   it("does not treat typography family groups as composite role groups", () => {
     const familyBranch: TokenTree = {
@@ -38,22 +38,22 @@ describe("composite resolver", () => {
         $type: "fontFamily",
         sans: { $value: "{font-family.sans}" },
       },
-    }
+    };
 
-    expect(isCompositeBranch(familyBranch.family)).toBe(false)
-  })
+    expect(isCompositeBranch(familyBranch.family)).toBe(false);
+  });
 
   it("normalizes missing typography $type on role groups", () => {
-    const normalized = normalizeCompositeBranches(typographyControlFixture)
+    const normalized = normalizeCompositeBranches(typographyControlFixture);
 
-    expect(normalized.control?.$type).toBe("typography")
+    expect(normalized.control?.$type).toBe("typography");
     expect(normalized.control?.md?.fontSize).toEqual({
       $value: "{font-size.sm}",
-    })
-  })
+    });
+  });
 
   it("collects dotted paths for composite slot leaves", () => {
-    const paths = collectCompositeAtomicPaths(typographyControlFixture)
+    const paths = collectCompositeAtomicPaths(typographyControlFixture);
 
     expect(paths).toEqual([
       {
@@ -76,16 +76,16 @@ describe("composite resolver", () => {
         compositeType: "typography",
         path: "control.md.letterSpacing",
       },
-    ])
-  })
+    ]);
+  });
 
   it("resolves composite slot types from schema", () => {
-    expect(resolveCompositeSlotType("typography", "fontSize")).toBe("fontSize")
-    expect(resolveCompositeSlotType("typography", "lineHeight")).toBe("number")
-    expect(resolveCompositeSlotType("shadow", "blur")).toBe("dimension")
-    expect(resolveCompositeSlotType("border", "style")).toBe("strokeStyle")
-    expect(resolveCompositeSlotType("typography", "unknown")).toBeUndefined()
-  })
+    expect(resolveCompositeSlotType("typography", "fontSize")).toBe("fontSize");
+    expect(resolveCompositeSlotType("typography", "lineHeight")).toBe("number");
+    expect(resolveCompositeSlotType("shadow", "blur")).toBe("dimension");
+    expect(resolveCompositeSlotType("border", "style")).toBe("strokeStyle");
+    expect(resolveCompositeSlotType("typography", "unknown")).toBeUndefined();
+  });
 
   it("detects shadow role groups by slot pattern", () => {
     const shadowFixture: TokenTree = {
@@ -106,15 +106,15 @@ describe("composite resolver", () => {
           boxShadow: { $value: "0 8px 16px 0 oklch(0 0 0 / 0.12)" },
         },
       },
-    }
+    };
 
-    expect(isCompositeBranch(shadowFixture.shadow)).toBe(true)
+    expect(isCompositeBranch(shadowFixture.shadow)).toBe(true);
     expect(getCompositeBranchInfo(shadowFixture.shadow ?? {})).toEqual({
       compositeType: "shadow",
       path: [],
-    })
+    });
 
-    const paths = collectCompositeAtomicPaths(shadowFixture)
+    const paths = collectCompositeAtomicPaths(shadowFixture);
     expect(paths.map((entry) => entry.path)).toEqual([
       "shadow.floating.inset",
       "shadow.floating.color",
@@ -122,8 +122,8 @@ describe("composite resolver", () => {
       "shadow.floating.offsetY",
       "shadow.floating.blur",
       "shadow.floating.spread",
-    ])
-  })
+    ]);
+  });
 
   it("detects border composite role groups", () => {
     const borderFixture: TokenTree = {
@@ -132,12 +132,12 @@ describe("composite resolver", () => {
         width: { $value: "{border.thin}" },
         style: { $value: "solid" },
       },
-    }
+    };
 
-    expect(isCompositeBranch(borderFixture.control)).toBe(true)
+    expect(isCompositeBranch(borderFixture.control)).toBe(true);
     expect(getCompositeBranchInfo(borderFixture.control ?? {})).toEqual({
       compositeType: "border",
       path: [],
-    })
-  })
-})
+    });
+  });
+});

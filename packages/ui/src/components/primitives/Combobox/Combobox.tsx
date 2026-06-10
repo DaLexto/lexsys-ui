@@ -4,8 +4,8 @@
  * Reference Combobox component implementation.
  */
 
-import { Check, ChevronDown, X } from "lucide-react"
-import { Combobox as BaseCombobox } from "@base-ui/react/combobox"
+import { Check, ChevronDown, X } from "lucide-react";
+import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 import type {
   ComboboxArrowProps,
   ComboboxBackdropProps,
@@ -33,7 +33,7 @@ import type {
   ComboboxStatusProps,
   ComboboxTriggerProps,
   ComboboxValueProps,
-} from "./Combobox.types"
+} from "./Combobox.types";
 import {
   comboboxArrowVariants,
   comboboxBackdropVariants,
@@ -57,17 +57,17 @@ import {
   comboboxSeparatorVariants,
   comboboxStatusVariants,
   comboboxTriggerVariants,
-} from "./Combobox.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
-import { overlayPositionerSideOffset } from "../../../utils/cn"
+} from "./Combobox.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
+import { overlayPositionerSideOffset } from "../../../utils/cn";
 
 const Combobox = <Value = string, Multiple extends boolean | undefined = false>(
   props: ComboboxProps<Value, Multiple>,
 ) => {
-  return <BaseCombobox.Root {...props} />
-}
+  return <BaseCombobox.Root {...props} />;
+};
 
-Combobox.displayName = "Combobox"
+Combobox.displayName = "Combobox";
 
 const ComboboxLabel = ({ ref, className, ...props }: ComboboxLabelProps) => {
   return (
@@ -76,10 +76,10 @@ const ComboboxLabel = ({ ref, className, ...props }: ComboboxLabelProps) => {
       className={mergeClassName(comboboxLabelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxLabel.displayName = "ComboboxLabel"
+ComboboxLabel.displayName = "ComboboxLabel";
 
 const ComboboxTrigger = ({
   ref,
@@ -93,10 +93,10 @@ const ComboboxTrigger = ({
       className={mergeClassName(comboboxTriggerVariants({ size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxTrigger.displayName = "ComboboxTrigger"
+ComboboxTrigger.displayName = "ComboboxTrigger";
 
 const ComboboxInputGroup = ({
   ref,
@@ -113,10 +113,10 @@ const ComboboxInputGroup = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxInputGroup.displayName = "ComboboxInputGroup"
+ComboboxInputGroup.displayName = "ComboboxInputGroup";
 
 const ComboboxInput = ({
   ref,
@@ -130,16 +130,16 @@ const ComboboxInput = ({
       className={mergeClassName(comboboxInputVariants({ size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxInput.displayName = "ComboboxInput"
+ComboboxInput.displayName = "ComboboxInput";
 
 const ComboboxValue = (props: ComboboxValueProps) => {
-  return <BaseCombobox.Value {...props} />
-}
+  return <BaseCombobox.Value {...props} />;
+};
 
-ComboboxValue.displayName = "ComboboxValue"
+ComboboxValue.displayName = "ComboboxValue";
 
 const ComboboxIcon = ({
   ref,
@@ -155,10 +155,10 @@ const ComboboxIcon = ({
     >
       {children ?? <ChevronDown aria-hidden="true" size={16} />}
     </BaseCombobox.Icon>
-  )
-}
+  );
+};
 
-ComboboxIcon.displayName = "ComboboxIcon"
+ComboboxIcon.displayName = "ComboboxIcon";
 
 const ComboboxClear = ({
   ref,
@@ -174,16 +174,16 @@ const ComboboxClear = ({
     >
       {children ?? <X aria-hidden="true" size={14} />}
     </BaseCombobox.Clear>
-  )
-}
+  );
+};
 
-ComboboxClear.displayName = "ComboboxClear"
+ComboboxClear.displayName = "ComboboxClear";
 
 const ComboboxPortal = (props: ComboboxPortalProps) => {
-  return <BaseCombobox.Portal {...props} />
-}
+  return <BaseCombobox.Portal {...props} />;
+};
 
-ComboboxPortal.displayName = "ComboboxPortal"
+ComboboxPortal.displayName = "ComboboxPortal";
 
 const ComboboxBackdrop = ({
   ref,
@@ -196,10 +196,10 @@ const ComboboxBackdrop = ({
       className={mergeClassName(comboboxBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxBackdrop.displayName = "ComboboxBackdrop"
+ComboboxBackdrop.displayName = "ComboboxBackdrop";
 
 const ComboboxPositioner = ({
   ref,
@@ -214,10 +214,10 @@ const ComboboxPositioner = ({
       className={mergeClassName(comboboxPositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxPositioner.displayName = "ComboboxPositioner"
+ComboboxPositioner.displayName = "ComboboxPositioner";
 
 const ComboboxPopup = ({ ref, className, ...props }: ComboboxPopupProps) => {
   return (
@@ -226,10 +226,10 @@ const ComboboxPopup = ({ ref, className, ...props }: ComboboxPopupProps) => {
       className={mergeClassName(comboboxPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxPopup.displayName = "ComboboxPopup"
+ComboboxPopup.displayName = "ComboboxPopup";
 
 const ComboboxList = ({ ref, className, ...props }: ComboboxListProps) => {
   return (
@@ -238,10 +238,10 @@ const ComboboxList = ({ ref, className, ...props }: ComboboxListProps) => {
       className={mergeClassName(comboboxListVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxList.displayName = "ComboboxList"
+ComboboxList.displayName = "ComboboxList";
 
 const ComboboxItem = ({ ref, className, ...props }: ComboboxItemProps) => {
   return (
@@ -250,10 +250,10 @@ const ComboboxItem = ({ ref, className, ...props }: ComboboxItemProps) => {
       className={mergeClassName(comboboxItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxItem.displayName = "ComboboxItem"
+ComboboxItem.displayName = "ComboboxItem";
 
 const ComboboxItemIndicator = ({
   ref,
@@ -269,10 +269,10 @@ const ComboboxItemIndicator = ({
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseCombobox.ItemIndicator>
-  )
-}
+  );
+};
 
-ComboboxItemIndicator.displayName = "ComboboxItemIndicator"
+ComboboxItemIndicator.displayName = "ComboboxItemIndicator";
 
 const ComboboxArrow = ({ ref, className, ...props }: ComboboxArrowProps) => {
   return (
@@ -281,10 +281,10 @@ const ComboboxArrow = ({ ref, className, ...props }: ComboboxArrowProps) => {
       className={mergeClassName(comboboxArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxArrow.displayName = "ComboboxArrow"
+ComboboxArrow.displayName = "ComboboxArrow";
 
 const ComboboxGroup = ({ ref, className, ...props }: ComboboxGroupProps) => {
   return (
@@ -293,10 +293,10 @@ const ComboboxGroup = ({ ref, className, ...props }: ComboboxGroupProps) => {
       className={mergeClassName(comboboxGroupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxGroup.displayName = "ComboboxGroup"
+ComboboxGroup.displayName = "ComboboxGroup";
 
 const ComboboxGroupLabel = ({
   ref,
@@ -309,10 +309,10 @@ const ComboboxGroupLabel = ({
       className={mergeClassName(comboboxGroupLabelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxGroupLabel.displayName = "ComboboxGroupLabel"
+ComboboxGroupLabel.displayName = "ComboboxGroupLabel";
 
 const ComboboxEmpty = ({ ref, className, ...props }: ComboboxEmptyProps) => {
   return (
@@ -321,10 +321,10 @@ const ComboboxEmpty = ({ ref, className, ...props }: ComboboxEmptyProps) => {
       className={mergeClassName(comboboxEmptyVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxEmpty.displayName = "ComboboxEmpty"
+ComboboxEmpty.displayName = "ComboboxEmpty";
 
 const ComboboxStatus = ({ ref, className, ...props }: ComboboxStatusProps) => {
   return (
@@ -333,10 +333,10 @@ const ComboboxStatus = ({ ref, className, ...props }: ComboboxStatusProps) => {
       className={mergeClassName(comboboxStatusVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxStatus.displayName = "ComboboxStatus"
+ComboboxStatus.displayName = "ComboboxStatus";
 
 const ComboboxChips = ({ ref, className, ...props }: ComboboxChipsProps) => {
   return (
@@ -345,10 +345,10 @@ const ComboboxChips = ({ ref, className, ...props }: ComboboxChipsProps) => {
       className={mergeClassName(comboboxChipsVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxChips.displayName = "ComboboxChips"
+ComboboxChips.displayName = "ComboboxChips";
 
 const ComboboxChip = ({ ref, className, ...props }: ComboboxChipProps) => {
   return (
@@ -357,10 +357,10 @@ const ComboboxChip = ({ ref, className, ...props }: ComboboxChipProps) => {
       className={mergeClassName(comboboxChipVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxChip.displayName = "ComboboxChip"
+ComboboxChip.displayName = "ComboboxChip";
 
 const ComboboxChipRemove = ({
   ref,
@@ -376,10 +376,10 @@ const ComboboxChipRemove = ({
     >
       {children ?? <X aria-hidden="true" size={12} />}
     </BaseCombobox.ChipRemove>
-  )
-}
+  );
+};
 
-ComboboxChipRemove.displayName = "ComboboxChipRemove"
+ComboboxChipRemove.displayName = "ComboboxChipRemove";
 
 const ComboboxRow = ({ ref, className, ...props }: ComboboxRowProps) => {
   return (
@@ -388,16 +388,16 @@ const ComboboxRow = ({ ref, className, ...props }: ComboboxRowProps) => {
       className={mergeClassName(comboboxRowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxRow.displayName = "ComboboxRow"
+ComboboxRow.displayName = "ComboboxRow";
 
 const ComboboxCollection = (props: ComboboxCollectionProps) => {
-  return <BaseCombobox.Collection {...props} />
-}
+  return <BaseCombobox.Collection {...props} />;
+};
 
-ComboboxCollection.displayName = "ComboboxCollection"
+ComboboxCollection.displayName = "ComboboxCollection";
 
 const ComboboxSeparator = ({
   ref,
@@ -410,13 +410,13 @@ const ComboboxSeparator = ({
       className={mergeClassName(comboboxSeparatorVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ComboboxSeparator.displayName = "ComboboxSeparator"
+ComboboxSeparator.displayName = "ComboboxSeparator";
 
-const useComboboxFilter = BaseCombobox.useFilter
-const useComboboxFilteredItems = BaseCombobox.useFilteredItems
+const useComboboxFilter = BaseCombobox.useFilter;
+const useComboboxFilteredItems = BaseCombobox.useFilteredItems;
 
 export {
   Combobox,
@@ -447,4 +447,4 @@ export {
   ComboboxSeparator,
   useComboboxFilter,
   useComboboxFilteredItems,
-}
+};

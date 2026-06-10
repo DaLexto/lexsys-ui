@@ -1,53 +1,53 @@
-import { getInstallLayer } from "./install-layer.js"
+import { getInstallLayer } from "./install-layer.js";
 import {
   extractRegistryCompositionImports,
   toRegistryItemName,
-} from "./registry-composition-imports.js"
-import type { RegistryItem } from "./registry.types.js"
+} from "./registry-composition-imports.js";
+import type { RegistryItem } from "./registry.types.js";
 
-export { extractRegistryCompositionImports, toRegistryItemName }
+export { extractRegistryCompositionImports, toRegistryItemName };
 
 export const validateRegistryTemplateImports = (
   items: RegistryItem[],
   readTemplate: (templatePath: string) => string,
 ): string[] => {
-  const errors: string[] = []
-  const itemsByName = new Map(items.map((item) => [item.name, item]))
+  const errors: string[] = [];
+  const itemsByName = new Map(items.map((item) => [item.name, item]));
 
   for (const item of items) {
-    const layer = getInstallLayer(item)
+    const layer = getInstallLayer(item);
 
     if (layer !== "block" && layer !== "template") {
-      continue
+      continue;
     }
 
-    const declared = new Set(item.registryDependencies)
+    const declared = new Set(item.registryDependencies);
 
     for (const file of item.files) {
       if (!file.endsWith(".tsx")) {
-        continue
+        continue;
       }
 
-      const source = readTemplate(file)
+      const source = readTemplate(file);
 
       for (const importedName of extractRegistryCompositionImports(source)) {
         if (!declared.has(importedName)) {
           errors.push(
             `Registry "${item.name}" template "${file}" imports "${importedName}" but registryDependencies omits it`,
-          )
+          );
         }
 
-        const dependency = itemsByName.get(importedName)
-        const dependencyLayer = dependency ? getInstallLayer(dependency) : null
+        const dependency = itemsByName.get(importedName);
+        const dependencyLayer = dependency ? getInstallLayer(dependency) : null;
 
         if (layer === "block" && dependencyLayer === "template") {
           errors.push(
             `Registry block "${item.name}" template "${file}" imports template "${importedName}" directly`,
-          )
+          );
         }
       }
     }
   }
 
-  return errors
-}
+  return errors;
+};

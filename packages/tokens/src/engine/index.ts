@@ -25,7 +25,7 @@ export {
   resolveLeafValueForTheme,
   isResolvedColorValue,
   toContrastReadyColor,
-} from "./resolver"
+} from "./resolver";
 
 export type {
   ResolveReferenceResult,
@@ -41,7 +41,7 @@ export type {
   TokenGraphReachabilityInput,
   TokenGraphReference,
   TokenGraphThemeInput,
-} from "./resolver"
+} from "./resolver";
 
 // Shared tree utilities
 export {
@@ -49,14 +49,14 @@ export {
   createThemedTokenTree,
   mergeTokenTrees,
   walkTokenTree,
-} from "./shared"
+} from "./shared";
 
 export type {
   ThemedTokenTreeOverlay,
   ThemedTokenTreeSource,
   TokenReferenceUsage,
   WalkTokenTreeOptions,
-} from "./shared"
+} from "./shared";
 
 // Composite
 export {
@@ -69,14 +69,14 @@ export {
   COMPOSITE_TYPE_REGISTRY,
   TYPOGRAPHY_COMPOSITE_DEFINITION,
   TYPOGRAPHY_COMPOSITE_SLOTS,
-} from "./composite"
+} from "./composite";
 
 export type {
   CompositeAtomicPath,
   CompositeBranchInfo,
   CompositeSlotSchema,
   CompositeTypeDefinition,
-} from "./composite"
+} from "./composite";
 
 export type {
   ResolvedLeafValue,
@@ -84,13 +84,13 @@ export type {
   ResolveLeafValuesResult,
   ResolveValuesOptions,
   ContrastReadyColor,
-} from "./resolver/values"
+} from "./resolver/values";
 
 // Validator
 export {
   validateTokenLayerContracts,
   validateTokenLayerContractsStrict,
-} from "./validator"
+} from "./validator";
 
 export type {
   LayerValidationInput,
@@ -105,14 +105,14 @@ export type {
   ContrastValidationReport,
   ContrastValidationThemeInput,
   SemanticContrastPair,
-} from "./validator"
+} from "./validator";
 
 export {
   createContrastValidationReport,
   formatContrastValidationReport,
   SEMANTIC_CONTRAST_PAIRS,
   WCAG_AA_NORMAL_TEXT_RATIO,
-} from "./validator"
+} from "./validator";
 
 // Governance
 export {
@@ -120,7 +120,7 @@ export {
   formatTokenGovernanceReport,
   createSemanticAuditReport,
   formatSemanticAuditReport,
-} from "./governance"
+} from "./governance";
 
 export type {
   DeadTokenEntry,
@@ -134,4 +134,4 @@ export type {
   SemanticAuditIssue,
   SemanticAuditIssueKind,
   SemanticAuditReport,
-} from "./governance"
+} from "./governance";

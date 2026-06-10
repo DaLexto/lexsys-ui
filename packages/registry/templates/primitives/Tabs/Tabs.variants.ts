@@ -4,14 +4,14 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "@/lib/utils"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "@/lib/utils";
 
-export const tabsRootVariants = cva("grid gap-(--lex-tabs-gap)")
+export const tabsRootVariants = cva("grid gap-(--lex-tabs-gap)");
 
 export const tabsListVariants = cva(
   "inline-flex w-fit items-center rounded-(--lex-tabs-list-radius) bg-(--lex-tabs-list-background) p-(--lex-tabs-list-padding)",
-)
+);
 
 export const tabsTabVariants = cva(
   [
@@ -22,8 +22,8 @@ export const tabsTabVariants = cva(
     "focus-visible:ring-(length:--lex-tabs-focus-ring-width) focus-visible:ring-(--lex-tabs-focus-ring-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const tabsPanelVariants = cva(
   "text-(length:--lex-tabs-panel-font-size) leading-(--lex-tabs-panel-font-line-height) text-(--lex-tabs-panel-foreground) outline-none focus-visible:ring-(length:--lex-tabs-focus-ring-width) focus-visible:ring-(--lex-tabs-focus-ring-color)",
-)
+);

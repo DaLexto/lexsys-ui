@@ -4,7 +4,7 @@
  * Registry metadata for the ToggleGroup component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const toggleGroupRegistryItem: RegistryItem = {
   name: "toggle-group",
@@ -38,4 +38,4 @@ export const toggleGroupRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/ToggleGroup",
-}
+};

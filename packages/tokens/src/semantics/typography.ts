@@ -1,4 +1,4 @@
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const typographySemantics = semanticTokens("typography", {
   family: {
@@ -213,4 +213,4 @@ export const typographySemantics = semanticTokens("typography", {
       letterSpacing: { $value: "{letter-spacing.normal}" },
     },
   },
-})
+});

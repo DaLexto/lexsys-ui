@@ -23,8 +23,8 @@
  * @created 2026-04-18 09:48
  */
 
-import type { TokenColorValue } from "../types"
-import { primitiveTokens } from "../types/authoring"
+import type { TokenColorValue } from "../types";
+import { primitiveTokens } from "../types/authoring";
 
 const oklch = (
   lightness: number,
@@ -38,8 +38,8 @@ const oklch = (
     components: [lightness, chroma, hue],
     ...(alpha === undefined ? {} : { alpha }),
     ...(hex === undefined ? {} : { hex }),
-  }
-}
+  };
+};
 
 export const colorPrimitives = primitiveTokens("color", {
   $type: "color",
@@ -174,4 +174,4 @@ export const colorPrimitives = primitiveTokens("color", {
     900: { $value: oklch(0.136, 0.019, 270.815) },
     950: { $value: oklch(0.108, 0.013, 269.716) },
   },
-})
+});

@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const checkboxComponentTokens = componentTokens("checkbox", {
   background: { $value: "{color.background.base}" },
@@ -44,4 +44,4 @@ export const checkboxComponentTokens = componentTokens("checkbox", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

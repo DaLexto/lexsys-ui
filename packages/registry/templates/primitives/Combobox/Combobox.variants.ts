@@ -4,12 +4,12 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "@/lib/utils"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "@/lib/utils";
 
 export const comboboxLabelVariants = cva(
   "text-(length:--lex-select-label-font-size) font-(--lex-select-label-font-weight) leading-(--lex-select-label-font-line-height) text-(--lex-select-label-foreground)",
-)
+);
 
 export const comboboxTriggerVariants = cva(
   [
@@ -33,7 +33,7 @@ export const comboboxTriggerVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const comboboxInputGroupVariants = cva(
   [
@@ -57,7 +57,7 @@ export const comboboxInputGroupVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const comboboxInputVariants = cva(
   [
@@ -79,15 +79,15 @@ export const comboboxInputVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const comboboxValueVariants = cva(
   "min-w-0 flex-1 truncate text-left data-[placeholder]:text-(--lex-select-placeholder-color)",
-)
+);
 
 export const comboboxIconVariants = cva(
   "inline-flex size-(--lex-select-icon-size) shrink-0 items-center justify-center text-(--lex-select-icon-foreground) transition-transform duration-(--lex-select-transition-duration) ease-(--lex-select-transition-easing) data-[open]:rotate-180",
-)
+);
 
 export const comboboxClearVariants = cva(
   [
@@ -96,15 +96,15 @@ export const comboboxClearVariants = cva(
     "hover:bg-(--lex-select-item-highlight-background) hover:text-(--lex-select-item-highlight-foreground)",
     "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
 export const comboboxBackdropVariants = cva(
   "fixed inset-0 z-(--lex-select-backdrop-z-index) bg-(--lex-select-backdrop-background) opacity-(--lex-select-backdrop-opacity) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-)
+);
 
 export const comboboxPositionerVariants = cva(
   "z-(--lex-select-positioner-z-index)",
-)
+);
 
 export const comboboxPopupVariants = cva(
   [
@@ -113,11 +113,11 @@ export const comboboxPopupVariants = cva(
     "data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "origin-[var(--transform-origin)] transition-[opacity,transform] duration-(--lex-select-transition-duration) ease-(--lex-select-transition-easing)",
   ].join(" "),
-)
+);
 
 export const comboboxListVariants = cva(
   "grid max-h-(--lex-select-popup-max-height) gap-(--lex-select-list-gap) overflow-y-auto p-(--lex-select-list-padding)",
-)
+);
 
 export const comboboxItemVariants = cva(
   [
@@ -127,33 +127,33 @@ export const comboboxItemVariants = cva(
     "data-[selected]:bg-(--lex-select-item-selected-background) data-[selected]:text-(--lex-select-item-selected-foreground)",
     "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
 export const comboboxItemIndicatorVariants = cva(
   "inline-flex size-(--lex-select-item-indicator-size) shrink-0 items-center justify-center text-current",
-)
+);
 
 export const comboboxArrowVariants = cva(
   "size-(--lex-select-arrow-size) rotate-45 border border-(--lex-select-popup-border-color) bg-(--lex-select-popup-background)",
-)
+);
 
-export const comboboxGroupVariants = cva("grid gap-(--lex-select-group-gap)")
+export const comboboxGroupVariants = cva("grid gap-(--lex-select-group-gap)");
 
 export const comboboxGroupLabelVariants = cva(
   "px-(--lex-select-item-padding-x) py-(--lex-select-group-label-padding-y) text-(length:--lex-select-group-label-font-size) font-(--lex-select-group-label-font-weight) leading-(--lex-select-group-label-font-line-height) text-(--lex-select-group-label-foreground)",
-)
+);
 
 export const comboboxEmptyVariants = cva(
   "px-(--lex-select-item-padding-x) py-(--lex-select-item-padding-y) text-(length:--lex-select-item-font-size) text-(--lex-select-placeholder-color)",
-)
+);
 
 export const comboboxStatusVariants = cva(
   "px-(--lex-select-item-padding-x) py-(--lex-select-item-padding-y) text-(length:--lex-select-item-font-size) text-(--lex-select-placeholder-color)",
-)
+);
 
 export const comboboxChipsVariants = cva(
   "flex min-w-0 flex-1 flex-wrap items-center gap-(--lex-select-item-gap)",
-)
+);
 
 export const comboboxChipVariants = cva(
   [
@@ -162,19 +162,19 @@ export const comboboxChipVariants = cva(
     "text-(length:--lex-select-item-font-size) font-(--lex-select-item-font-weight) text-(--lex-select-item-selected-foreground)",
     "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
 export const comboboxChipRemoveVariants = cva(
   [
     "inline-flex size-(--lex-select-item-indicator-size) shrink-0 items-center justify-center rounded-(--lex-select-item-radius) text-current",
     "hover:bg-(--lex-select-item-highlight-background) hover:text-(--lex-select-item-highlight-foreground)",
   ].join(" "),
-)
+);
 
-export const comboboxRowVariants = cva("flex min-w-0 items-center")
+export const comboboxRowVariants = cva("flex min-w-0 items-center");
 
-export const comboboxCollectionVariants = cva("contents")
+export const comboboxCollectionVariants = cva("contents");
 
 export const comboboxSeparatorVariants = cva(
   "mx-(--lex-select-item-padding-x) my-(--lex-select-group-label-padding-y) h-(--lex-separator-thickness) bg-(--lex-separator-color)",
-)
+);

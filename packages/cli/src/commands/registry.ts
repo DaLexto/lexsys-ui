@@ -2,20 +2,20 @@ import {
   registryItems,
   registryManifest,
   validateRegistry,
-} from "@dalexto/lexsys-registry"
+} from "@dalexto/lexsys-registry";
 import {
   getRegistryProviderResult,
   type RegistryProviderResult,
-} from "../registry/provider.js"
-import { fetchRemoteRegistry } from "../registry/remote.js"
-import { getRegistrySource } from "../registry/source.js"
+} from "../registry/provider.js";
+import { fetchRemoteRegistry } from "../registry/remote.js";
+import { getRegistrySource } from "../registry/source.js";
 
 interface RunRegistryOptions {
-  summary?: boolean
-  source?: boolean
-  local?: boolean
-  remote?: boolean
-  noFallback?: boolean
+  summary?: boolean;
+  source?: boolean;
+  local?: boolean;
+  remote?: boolean;
+  noFallback?: boolean;
 }
 
 const localRegistryResult: RegistryProviderResult = {
@@ -23,22 +23,22 @@ const localRegistryResult: RegistryProviderResult = {
   source: "local",
   fallbackUsed: false,
   manifestVersion: registryManifest.version,
-}
+};
 
 const printRegistrySummary = (result: RegistryProviderResult): void => {
-  console.log("Lexsys registry summary\n")
-  console.log(`Registry source: ${result.source}`)
-  console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`)
-  console.log(`Items: ${result.items.length}`)
+  console.log("Lexsys registry summary\n");
+  console.log(`Registry source: ${result.source}`);
+  console.log(`Fallback used: ${result.fallbackUsed ? "yes" : "no"}`);
+  console.log(`Items: ${result.items.length}`);
 
   for (const item of result.items) {
-    const remoteFileCount = item.remoteFiles?.length ?? 0
+    const remoteFileCount = item.remoteFiles?.length ?? 0;
 
     console.log(
       `- ${item.canonicalName} (${item.type}/${item.category}, remote files: ${remoteFileCount})`,
-    )
+    );
   }
-}
+};
 
 const printRegistryJson = (result: RegistryProviderResult): void => {
   console.log(
@@ -52,13 +52,13 @@ const printRegistryJson = (result: RegistryProviderResult): void => {
       null,
       2,
     ),
-  )
-}
+  );
+};
 
 const getRemoteRegistryResult = async (
   source: string,
 ): Promise<RegistryProviderResult> => {
-  const remote = await fetchRemoteRegistry(source)
+  const remote = await fetchRemoteRegistry(source);
   validateRegistry(
     remote.items,
     remote.styles !== undefined
@@ -66,82 +66,82 @@ const getRemoteRegistryResult = async (
           styles: remote.styles,
         }
       : {},
-  )
+  );
 
   return {
     items: remote.items,
     source,
     fallbackUsed: false,
     manifestVersion: remote.version,
-  }
-}
+  };
+};
 
 export const runRegistry = async (
   options: RunRegistryOptions = {},
 ): Promise<void> => {
-  const fallback = !options.noFallback
+  const fallback = !options.noFallback;
 
   try {
     if (options.local) {
       if (options.source) {
-        console.log(localRegistryResult.source)
-        return
+        console.log(localRegistryResult.source);
+        return;
       }
 
       if (options.summary) {
-        printRegistrySummary(localRegistryResult)
-        return
+        printRegistrySummary(localRegistryResult);
+        return;
       }
 
-      console.log(JSON.stringify(registryManifest, null, 2))
-      return
+      console.log(JSON.stringify(registryManifest, null, 2));
+      return;
     }
 
     if (options.remote) {
-      const source = await getRegistrySource()
+      const source = await getRegistrySource();
 
       if (source === "local") {
-        console.log("No remote registry URL configured.")
-        return
+        console.log("No remote registry URL configured.");
+        return;
       }
 
-      const result = await getRemoteRegistryResult(source)
+      const result = await getRemoteRegistryResult(source);
 
       if (options.source) {
-        console.log(result.source)
-        return
+        console.log(result.source);
+        return;
       }
 
       if (options.summary) {
-        printRegistrySummary(result)
-        return
+        printRegistrySummary(result);
+        return;
       }
 
-      printRegistryJson(result)
-      return
+      printRegistryJson(result);
+      return;
     }
 
-    const result = await getRegistryProviderResult({ fallback })
+    const result = await getRegistryProviderResult({ fallback });
 
     if (options.source) {
       if (result.fallbackUsed) {
-        console.log(`${result.source} (fallback: local)`)
-        return
+        console.log(`${result.source} (fallback: local)`);
+        return;
       }
 
-      console.log(result.source)
-      return
+      console.log(result.source);
+      return;
     }
 
     if (options.summary) {
-      printRegistrySummary(result)
-      return
+      printRegistrySummary(result);
+      return;
     }
 
-    printRegistryJson(result)
+    printRegistryJson(result);
   } catch (error) {
-    console.log("Failed to resolve registry.")
-    console.log(error instanceof Error ? error.message : String(error))
-    process.exitCode = 1
+    console.log("Failed to resolve registry.");
+    console.log(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
   }
-}
+};

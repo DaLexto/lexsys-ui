@@ -36,4 +36,4 @@
  * without also running `pnpm tokens:re-prefix --to <prefix>`.
  */
 
-export const testCssVarPrefix = "lex"
+export const testCssVarPrefix = "lex";

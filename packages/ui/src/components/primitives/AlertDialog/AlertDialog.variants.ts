@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "../../../utils/cn";
 
 export const alertDialogTriggerVariants = cva(
   [
@@ -16,7 +16,7 @@ export const alertDialogTriggerVariants = cva(
     "outline-none hover:bg-(--lex-alert-dialog-trigger-hover-background) focus-visible:ring-(length:--lex-alert-dialog-focus-ring-width) focus-visible:ring-(--lex-alert-dialog-focus-ring-color) focus-visible:ring-offset-(length:--lex-alert-dialog-focus-ring-offset) focus-visible:ring-offset-(--lex-alert-dialog-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const alertDialogBackdropVariants = cva(
   [
@@ -24,11 +24,11 @@ export const alertDialogBackdropVariants = cva(
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
     "transition-opacity duration-(--lex-alert-dialog-transition-duration) ease-(--lex-alert-dialog-transition-easing)",
   ].join(" "),
-)
+);
 
 export const alertDialogViewportVariants = cva(
   "fixed inset-0 z-(--lex-alert-dialog-viewport-z-index) grid place-items-center overflow-y-auto p-(--lex-alert-dialog-viewport-padding)",
-)
+);
 
 export const alertDialogPopupVariants = cva(
   [
@@ -37,15 +37,15 @@ export const alertDialogPopupVariants = cva(
     "outline-none data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "transition-[opacity,transform] duration-(--lex-alert-dialog-transition-duration) ease-(--lex-alert-dialog-transition-easing)",
   ].join(" "),
-)
+);
 
 export const alertDialogTitleVariants = cva(
   "pr-(--lex-alert-dialog-title-padding-end) text-(length:--lex-alert-dialog-title-font-size) font-(--lex-alert-dialog-title-font-weight) leading-(--lex-alert-dialog-title-font-line-height) text-(--lex-alert-dialog-title-foreground)",
-)
+);
 
 export const alertDialogDescriptionVariants = cva(
   "text-(length:--lex-alert-dialog-description-font-size) font-(--lex-alert-dialog-description-font-weight) leading-(--lex-alert-dialog-description-font-line-height) text-(--lex-alert-dialog-description-foreground)",
-)
+);
 
 export const alertDialogCloseVariants = cva(
   [
@@ -54,4 +54,4 @@ export const alertDialogCloseVariants = cva(
     "hover:bg-(--lex-alert-dialog-close-hover-background) focus-visible:ring-(length:--lex-alert-dialog-focus-ring-width) focus-visible:ring-(--lex-alert-dialog-focus-ring-color) focus-visible:ring-offset-(length:--lex-alert-dialog-focus-ring-offset) focus-visible:ring-offset-(--lex-alert-dialog-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);

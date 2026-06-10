@@ -1,16 +1,16 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vitest";
 
-import { createStyleTokenInput } from "../src/generators/inputs/input.source"
+import { createStyleTokenInput } from "../src/generators/inputs/input.source";
 import {
   createSemanticAuditReport,
   evaluateSemanticAuditPolicy,
   resolveGovernancePolicy,
   shouldFailOnGovernancePolicy,
-} from "../src/engine/governance"
+} from "../src/engine/governance";
 
 describe("createSemanticAuditReport", () => {
   it("reports a clean audit after semantic organization fixes", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
     const report = createSemanticAuditReport({
       primitiveTokens: input.primitiveTokens,
       brandTokens: input.brandTokens,
@@ -18,24 +18,24 @@ describe("createSemanticAuditReport", () => {
       componentTokens: input.componentTokens,
       foundationTokens: input.foundationTokens,
       themeTokens: input.themeTokens,
-    })
+    });
 
-    expect(report.semanticPathCount).toBeGreaterThan(0)
-    expect(report.referencedSemanticPathCount).toBeGreaterThan(0)
+    expect(report.semanticPathCount).toBeGreaterThan(0);
+    expect(report.referencedSemanticPathCount).toBeGreaterThan(0);
     expect(
       report.issues.filter((issue) => {
-        return issue.kind !== "unused-semantic"
+        return issue.kind !== "unused-semantic";
       }),
-    ).toEqual([])
+    ).toEqual([]);
     expect(
       report.issues.some((issue) => {
-        return issue.path === "color.feedback.info.background"
+        return issue.path === "color.feedback.info.background";
       }),
-    ).toBe(false)
-  })
+    ).toBe(false);
+  });
 
   it("detects unused semantic paths", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
 
     const report = createSemanticAuditReport({
       primitiveTokens: input.primitiveTokens,
@@ -60,7 +60,7 @@ describe("createSemanticAuditReport", () => {
         },
       },
       themeTokens: input.themeTokens,
-    })
+    });
 
     expect(report.issues).toEqual(
       expect.arrayContaining([
@@ -69,11 +69,11 @@ describe("createSemanticAuditReport", () => {
           path: "color.orphan.unused",
         }),
       ]),
-    )
-  })
+    );
+  });
 
   it("detects component-intent semantic branches", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
 
     const report = createSemanticAuditReport({
       primitiveTokens: input.primitiveTokens,
@@ -90,7 +90,7 @@ describe("createSemanticAuditReport", () => {
       componentTokens: input.componentTokens,
       foundationTokens: input.foundationTokens,
       themeTokens: input.themeTokens,
-    })
+    });
 
     expect(report.issues).toEqual(
       expect.arrayContaining([
@@ -99,11 +99,11 @@ describe("createSemanticAuditReport", () => {
           path: "size.dialog",
         }),
       ]),
-    )
-  })
+    );
+  });
 
   it("detects theme overrides nested under color instead of top-level groups", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
 
     const report = createSemanticAuditReport({
       primitiveTokens: input.primitiveTokens,
@@ -123,7 +123,7 @@ describe("createSemanticAuditReport", () => {
           },
         },
       ],
-    })
+    });
 
     expect(report.issues).toEqual(
       expect.arrayContaining([
@@ -133,11 +133,11 @@ describe("createSemanticAuditReport", () => {
           themeName: "light",
         }),
       ]),
-    )
-  })
+    );
+  });
 
   it("treats component-intent and theme-path-mismatch as policy errors", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
 
     const report = createSemanticAuditReport({
       primitiveTokens: input.primitiveTokens,
@@ -165,11 +165,11 @@ describe("createSemanticAuditReport", () => {
           },
         },
       ],
-    })
+    });
 
-    const evaluation = evaluateSemanticAuditPolicy(report)
+    const evaluation = evaluateSemanticAuditPolicy(report);
 
-    expect(evaluation.passes).toBe(false)
+    expect(evaluation.passes).toBe(false);
     expect(evaluation.failures).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -181,10 +181,10 @@ describe("createSemanticAuditReport", () => {
           severity: "error",
         }),
       ]),
-    )
-    expect(shouldFailOnGovernancePolicy(resolveGovernancePolicy())).toBe(true)
+    );
+    expect(shouldFailOnGovernancePolicy(resolveGovernancePolicy())).toBe(true);
     expect(
       shouldFailOnGovernancePolicy(resolveGovernancePolicy({ tier: "report" })),
-    ).toBe(false)
-  })
-})
+    ).toBe(false);
+  });
+});

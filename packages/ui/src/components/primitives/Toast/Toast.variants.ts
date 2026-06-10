@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "../../../utils/cn";
 
 export const toastViewportVariants = cva(
   [
@@ -25,14 +25,14 @@ export const toastViewportVariants = cva(
       placement: "bottom-right",
     },
   },
-)
+);
 
 const toastTypeSurfaceClasses = [
   "border-(--lex-toast-border-color) bg-(--lex-toast-background) text-(--lex-toast-foreground)",
   "data-[type=success]:border-(--lex-toast-success-border-color) data-[type=success]:bg-(--lex-toast-success-background) data-[type=success]:text-(--lex-toast-success-foreground)",
   "data-[type=info]:border-(--lex-toast-info-border-color) data-[type=info]:bg-(--lex-toast-info-background) data-[type=info]:text-(--lex-toast-info-foreground)",
   "data-[type=destructive]:border-(--lex-toast-danger-border-color) data-[type=destructive]:bg-(--lex-toast-danger-background) data-[type=destructive]:text-(--lex-toast-danger-foreground)",
-].join(" ")
+].join(" ");
 
 export const toastVariants = cva(
   [
@@ -42,33 +42,33 @@ export const toastVariants = cva(
     "data-[starting-style]:translate-y-(--lex-toast-motion-offset-y) data-[starting-style]:opacity-0 data-[ending-style]:translate-y-(--lex-toast-motion-offset-y) data-[ending-style]:opacity-0 data-[swiping]:transition-none",
     "translate-x-[var(--toast-swipe-movement-x,0px)] translate-y-[var(--toast-swipe-movement-y,0px)]",
   ].join(" "),
-)
+);
 
 export const toastContentVariants = cva(
   "grid gap-(--lex-toast-content-gap) data-[behind]:opacity-(--lex-toast-content-behind-opacity)",
-)
+);
 
 export const toastPositionerVariants = cva(
   "z-(--lex-toast-viewport-z-index) max-w-[min(var(--available-width,calc(100vw-(var(--lex-toast-viewport-inset)*2))),var(--lex-toast-viewport-width))]",
-)
+);
 
 export const toastArrowVariants = cva(
   [
     "size-(--lex-toast-arrow-size) rotate-45 border",
     toastTypeSurfaceClasses,
   ].join(" "),
-)
+);
 
 export const toastTitleVariants = cva(
   "text-(length:--lex-toast-title-font-size) font-(--lex-toast-title-font-weight) leading-(--lex-toast-title-font-line-height)",
-)
+);
 
 export const toastDescriptionVariants = cva(
   [
     "text-(length:--lex-toast-description-font-size) font-(--lex-toast-description-font-weight) leading-(--lex-toast-description-font-line-height)",
     "text-(--lex-toast-description-foreground) data-[type=success]:text-(--lex-toast-success-foreground) data-[type=info]:text-(--lex-toast-info-foreground) data-[type=destructive]:text-(--lex-toast-danger-foreground)",
   ].join(" "),
-)
+);
 
 export const toastActionVariants = cva(
   [
@@ -77,7 +77,7 @@ export const toastActionVariants = cva(
     "outline-none transition-colors duration-(--lex-toast-transition-duration) ease-(--lex-toast-transition-easing) hover:bg-(--lex-toast-action-hover-background) focus-visible:ring-(length:--lex-toast-focus-ring-width) focus-visible:ring-(--lex-toast-focus-ring-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const toastCloseVariants = cva(
   [
@@ -85,4 +85,4 @@ export const toastCloseVariants = cva(
     "text-(--lex-toast-close-foreground) outline-none transition-colors duration-(--lex-toast-transition-duration) ease-(--lex-toast-transition-easing) hover:bg-(--lex-toast-close-hover-background) focus-visible:ring-(length:--lex-toast-focus-ring-width) focus-visible:ring-(--lex-toast-focus-ring-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);

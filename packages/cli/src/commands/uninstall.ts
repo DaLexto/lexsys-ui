@@ -1,17 +1,17 @@
-import type { RegistryItem } from "@dalexto/lexsys-registry"
+import type { RegistryItem } from "@dalexto/lexsys-registry";
 import {
   findInstalledKey,
   isInstalled,
   removeInstalled,
-} from "../config/installed.js"
-import { loadConfig, saveConfig } from "../config/config.js"
+} from "../config/installed.js";
+import { loadConfig, saveConfig } from "../config/config.js";
 import {
   uninstallItemFiles,
   uninstallStyles,
   uninstallUtilities,
-} from "../install/installer.js"
-import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js"
-import { promptMultiselect } from "../utils/prompt.js"
+} from "../install/installer.js";
+import { hasFlag, removeFlags, removeFlagsWithValues } from "../utils/flags.js";
+import { promptMultiselect } from "../utils/prompt.js";
 import {
   collectDependencies,
   collectStyles,
@@ -20,56 +20,56 @@ import {
   resolveRegistryItems,
   resolveRegistryStyles,
   resolveRegistryUtilities,
-} from "../registry/resolver.js"
-import { findOrphanInstalledItems } from "../registry/closure.js"
-import { getRegistryItems } from "../registry/provider.js"
+} from "../registry/resolver.js";
+import { findOrphanInstalledItems } from "../registry/closure.js";
+import { getRegistryItems } from "../registry/provider.js";
 import type {
   ResolvedRegistryStyle,
   ResolvedRegistryUtility,
-} from "../registry/types.js"
+} from "../registry/types.js";
 import {
   hasUninstallConflicts,
   mergeUninstallResults,
   printUninstallSummary,
-} from "../install/results.js"
+} from "../install/results.js";
 
 const resolveInstalledItems = async (
   installed: string[],
 ): Promise<RegistryItem[]> => {
   if (!installed.length) {
-    return []
+    return [];
   }
 
-  return resolveRegistryItems(installed)
-}
+  return resolveRegistryItems(installed);
+};
 
 const collectOrphanedSharedResources = (
   removedItems: RegistryItem[],
   remainingItems: RegistryItem[],
 ): {
-  utilities: string[]
-  styles: string[]
+  utilities: string[];
+  styles: string[];
 } => {
-  const removedUtilities = collectUtilities(removedItems)
-  const removedStyles = collectStyles(removedItems)
-  const remainingUtilities = new Set(collectUtilities(remainingItems))
-  const remainingStyles = new Set(collectStyles(remainingItems))
+  const removedUtilities = collectUtilities(removedItems);
+  const removedStyles = collectStyles(removedItems);
+  const remainingUtilities = new Set(collectUtilities(remainingItems));
+  const remainingStyles = new Set(collectStyles(remainingItems));
 
   return {
     utilities: removedUtilities.filter((utility) => {
-      return !remainingUtilities.has(utility)
+      return !remainingUtilities.has(utility);
     }),
     styles: removedStyles.filter((style) => {
-      return !remainingStyles.has(style)
+      return !remainingStyles.has(style);
     }),
-  }
-}
+  };
+};
 
 export const runUninstall = async (args: string[]): Promise<void> => {
-  const dryRun = hasFlag(args, "--dry-run", "-d")
-  const withDeps = hasFlag(args, "--with-deps", "-w")
-  const yes = hasFlag(args, "--yes", "-y")
-  const noFallback = hasFlag(args, "--no-fallback")
+  const dryRun = hasFlag(args, "--dry-run", "-d");
+  const withDeps = hasFlag(args, "--with-deps", "-w");
+  const yes = hasFlag(args, "--yes", "-y");
+  const noFallback = hasFlag(args, "--no-fallback");
   const targetArgs = removeFlagsWithValues(
     removeFlags(args, [
       "--dry-run",
@@ -81,66 +81,66 @@ export const runUninstall = async (args: string[]): Promise<void> => {
       "--no-fallback",
     ]),
     ["--cwd", "-C"],
-  )
+  );
 
-  const config = await loadConfig()
-  const installed = [...(config.installed ?? [])]
+  const config = await loadConfig();
+  const installed = [...(config.installed ?? [])];
 
   if (!targetArgs.length) {
     if (!installed.length) {
-      console.log("No components installed.")
-      return
+      console.log("No components installed.");
+      return;
     }
 
     if (yes) {
-      targetArgs.push(...installed)
+      targetArgs.push(...installed);
     } else {
       const selected = await promptMultiselect(
         "Select components to uninstall",
         installed.map((name) => ({ title: name, value: name })),
         { min: 1 },
-      )
+      );
 
-      if (!selected.length) return
+      if (!selected.length) return;
 
-      targetArgs.push(...selected)
+      targetArgs.push(...selected);
     }
   }
-  const resolvedTargets: RegistryItem[] = []
-  const notTracked: string[] = []
+  const resolvedTargets: RegistryItem[] = [];
+  const notTracked: string[] = [];
 
   for (const name of targetArgs) {
-    const item = await findItem(name, { fallback: !noFallback })
+    const item = await findItem(name, { fallback: !noFallback });
 
     if (!item) {
-      console.log(`Component "${name}" not found in registry.`)
-      continue
+      console.log(`Component "${name}" not found in registry.`);
+      continue;
     }
 
     if (!isInstalled(installed, item.name)) {
-      notTracked.push(name)
-      console.log(`Component "${name}" is not tracked as installed.`)
-      continue
+      notTracked.push(name);
+      console.log(`Component "${name}" is not tracked as installed.`);
+      continue;
     }
 
-    resolvedTargets.push(item)
+    resolvedTargets.push(item);
   }
 
   if (!resolvedTargets.length) {
     if (!notTracked.length) {
-      console.log("No installed components matched the request.")
+      console.log("No installed components matched the request.");
     }
 
-    return
+    return;
   }
 
   const remainingInstalled = installed.filter((entry) => {
     return !resolvedTargets.some((item) => {
-      return findInstalledKey([entry], item.name) !== undefined
-    })
-  })
+      return findInstalledKey([entry], item.name) !== undefined;
+    });
+  });
 
-  const allItems = await getRegistryItems({ fallback: !noFallback })
+  const allItems = await getRegistryItems({ fallback: !noFallback });
   const orphanItems = withDeps
     ? findOrphanInstalledItems(
         resolvedTargets.map((item) => item.name),
@@ -151,140 +151,140 @@ export const runUninstall = async (args: string[]): Promise<void> => {
         resolvedTargets.map((item) => item.name),
         remainingInstalled,
         allItems,
-      )
+      );
 
-  const orphanHints = withDeps ? [] : orphanItems
+  const orphanHints = withDeps ? [] : orphanItems;
 
   const allRemovalTargets = [
     ...resolvedTargets,
     ...(withDeps ? orphanItems : []),
   ].filter((item, index, array) => {
-    return array.findIndex((entry) => entry.name === item.name) === index
-  })
+    return array.findIndex((entry) => entry.name === item.name) === index;
+  });
 
   if (dryRun) {
-    console.log("Dry run: no files will be removed.\n")
+    console.log("Dry run: no files will be removed.\n");
 
-    console.log("Components:")
+    console.log("Components:");
     for (const item of resolvedTargets) {
-      console.log(`- ${item.canonicalName}`)
+      console.log(`- ${item.canonicalName}`);
     }
 
     if (withDeps && orphanItems.length) {
-      console.log("\nOrphan registry items (--with-deps):")
+      console.log("\nOrphan registry items (--with-deps):");
       for (const item of orphanItems) {
-        console.log(`- ${item.canonicalName}`)
+        console.log(`- ${item.canonicalName}`);
       }
     }
 
     if (!withDeps && orphanHints.length) {
       console.log(
         "\nPossible orphan registry items (use --with-deps to remove):",
-      )
+      );
       for (const item of orphanHints) {
-        console.log(`- ${item.canonicalName}`)
+        console.log(`- ${item.canonicalName}`);
       }
     }
 
     const postOrphanRemaining = remainingInstalled.filter((entry) => {
       if (!withDeps) {
-        return true
+        return true;
       }
 
-      return !orphanItems.some((item) => isInstalled([entry], item.name))
-    })
+      return !orphanItems.some((item) => isInstalled([entry], item.name));
+    });
 
     const dryRunOrphans = collectOrphanedSharedResources(
       allRemovalTargets,
       await resolveInstalledItems(postOrphanRemaining),
-    )
+    );
 
     console.log(
       "\nDependencies (npm packages are never removed automatically):",
-    )
+    );
     for (const dependency of collectDependencies(resolvedTargets)) {
-      console.log(`- ${dependency}`)
+      console.log(`- ${dependency}`);
     }
 
-    console.log("\nShared resources eligible for removal:")
+    console.log("\nShared resources eligible for removal:");
     for (const utility of dryRunOrphans.utilities) {
-      console.log(`- utility: ${utility}`)
+      console.log(`- utility: ${utility}`);
     }
     for (const style of dryRunOrphans.styles) {
-      console.log(`- style: ${style}`)
+      console.log(`- style: ${style}`);
     }
 
-    return
+    return;
   }
 
-  const itemResults = []
-  const successfullyUninstalled: RegistryItem[] = []
+  const itemResults = [];
+  const successfullyUninstalled: RegistryItem[] = [];
 
   for (const item of allRemovalTargets) {
-    const itemResult = await uninstallItemFiles(item, config)
-    itemResults.push(itemResult)
+    const itemResult = await uninstallItemFiles(item, config);
+    itemResults.push(itemResult);
 
     if (hasUninstallConflicts(itemResult)) {
       console.log(
         `${item.canonicalName} remains tracked because modified files were left in place.`,
-      )
+      );
     } else {
-      successfullyUninstalled.push(item)
+      successfullyUninstalled.push(item);
     }
 
-    console.log("")
+    console.log("");
   }
 
-  let updatedInstalled = [...installed]
+  let updatedInstalled = [...installed];
 
   for (const item of successfullyUninstalled) {
-    updatedInstalled = removeInstalled(updatedInstalled, item.name)
+    updatedInstalled = removeInstalled(updatedInstalled, item.name);
   }
 
-  const remainingItems = await resolveInstalledItems(updatedInstalled)
+  const remainingItems = await resolveInstalledItems(updatedInstalled);
   const orphanedResources = collectOrphanedSharedResources(
     successfullyUninstalled,
     remainingItems,
-  )
+  );
 
-  let resolvedUtilities: ResolvedRegistryUtility[] = []
-  let resolvedStyles: ResolvedRegistryStyle[] = []
+  let resolvedUtilities: ResolvedRegistryUtility[] = [];
+  let resolvedStyles: ResolvedRegistryStyle[] = [];
 
   if (orphanedResources.utilities.length || orphanedResources.styles.length) {
     try {
-      resolvedUtilities = resolveRegistryUtilities(orphanedResources.utilities)
-      resolvedStyles = resolveRegistryStyles(orphanedResources.styles)
+      resolvedUtilities = resolveRegistryUtilities(orphanedResources.utilities);
+      resolvedStyles = resolveRegistryStyles(orphanedResources.styles);
     } catch (error) {
-      console.log("Failed to resolve registry shared resources.")
-      console.log(error instanceof Error ? error.message : String(error))
-      process.exitCode = 1
-      return
+      console.log("Failed to resolve registry shared resources.");
+      console.log(error instanceof Error ? error.message : String(error));
+      process.exitCode = 1;
+      return;
     }
   }
 
-  const utilitiesResult = await uninstallUtilities(resolvedUtilities, config)
-  const stylesResult = await uninstallStyles(resolvedStyles, config)
+  const utilitiesResult = await uninstallUtilities(resolvedUtilities, config);
+  const stylesResult = await uninstallStyles(resolvedStyles, config);
 
   await saveConfig({
     ...config,
     installed: updatedInstalled,
-  })
+  });
 
-  const itemSummary = mergeUninstallResults(itemResults)
-  const sharedSummary = mergeUninstallResults([utilitiesResult, stylesResult])
+  const itemSummary = mergeUninstallResults(itemResults);
+  const sharedSummary = mergeUninstallResults([utilitiesResult, stylesResult]);
 
-  console.log("Uninstall summary:")
-  printUninstallSummary("components", itemSummary)
-  printUninstallSummary("shared resources", sharedSummary)
+  console.log("Uninstall summary:");
+  printUninstallSummary("components", itemSummary);
+  printUninstallSummary("shared resources", sharedSummary);
   console.log(
     `- untracked components: ${successfullyUninstalled.length}/${allRemovalTargets.length}`,
-  )
+  );
 
   if (
     hasUninstallConflicts(mergeUninstallResults([itemSummary, sharedSummary]))
   ) {
     console.log(
       "Some files were left in place because they differ from registry templates.",
-    )
+    );
   }
-}
+};

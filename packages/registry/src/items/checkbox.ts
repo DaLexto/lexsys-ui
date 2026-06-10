@@ -4,7 +4,7 @@
  * Registry metadata for the Checkbox component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const checkboxRegistryItem: RegistryItem = {
   name: "checkbox",
@@ -38,4 +38,4 @@ export const checkboxRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Checkbox",
-}
+};

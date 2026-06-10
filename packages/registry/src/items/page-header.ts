@@ -4,7 +4,7 @@
  * Registry metadata for the PageHeader block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const pageHeaderRegistryItem: RegistryItem = {
   name: "page-header",
@@ -22,4 +22,4 @@ export const pageHeaderRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/PageHeader",
-}
+};

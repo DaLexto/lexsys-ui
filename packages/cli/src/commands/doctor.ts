@@ -1,24 +1,24 @@
-import { join } from "node:path"
-import { getInstallLayer } from "@dalexto/lexsys-registry"
-import { getCwd } from "../utils/context.js"
-import { loadConfig } from "../config/config.js"
-import { fileExists } from "../utils/fs.js"
-import { resolveItemInstallTarget } from "../install/target.js"
-import { getRegistryProviderResult } from "../registry/provider.js"
-import { findItem } from "../registry/resolver.js"
-import { printRegistryResolveFailureChecklist } from "../utils/registry-errors.js"
+import { join } from "node:path";
+import { getInstallLayer } from "@dalexto/lexsys-registry";
+import { getCwd } from "../utils/context.js";
+import { loadConfig } from "../config/config.js";
+import { fileExists } from "../utils/fs.js";
+import { resolveItemInstallTarget } from "../install/target.js";
+import { getRegistryProviderResult } from "../registry/provider.js";
+import { findItem } from "../registry/resolver.js";
+import { printRegistryResolveFailureChecklist } from "../utils/registry-errors.js";
 
 interface RunDoctorOptions {
-  noFallback?: boolean
+  noFallback?: boolean;
 }
 
 export const runDoctor = async (
   options: RunDoctorOptions = {},
 ): Promise<void> => {
-  console.log("Lexsys doctor\n")
+  console.log("Lexsys doctor\n");
 
-  const config = await loadConfig()
-  let registryFailed = false
+  const config = await loadConfig();
+  let registryFailed = false;
 
   const checks = [
     {
@@ -41,54 +41,54 @@ export const runDoctor = async (
       label: config.tailwind.css,
       path: join(getCwd(), config.tailwind.css),
     },
-  ]
+  ];
 
   for (const check of checks) {
-    const exists = await fileExists(check.path)
-    console.log(`${exists ? "✓" : "×"} ${check.label}`)
+    const exists = await fileExists(check.path);
+    console.log(`${exists ? "✓" : "×"} ${check.label}`);
   }
 
   try {
     const registryResult = await getRegistryProviderResult({
       fallback: !options.noFallback,
-    })
+    });
 
-    console.log("\nRegistry:")
-    console.log(`✓ source: ${registryResult.source}`)
-    console.log(`✓ fallback: ${registryResult.fallbackUsed ? "yes" : "no"}`)
-    console.log(`✓ items: ${registryResult.items.length}`)
+    console.log("\nRegistry:");
+    console.log(`✓ source: ${registryResult.source}`);
+    console.log(`✓ fallback: ${registryResult.fallbackUsed ? "yes" : "no"}`);
+    console.log(`✓ items: ${registryResult.items.length}`);
   } catch (error) {
-    registryFailed = true
+    registryFailed = true;
     printRegistryResolveFailureChecklist(error, {
       sectionHeading: "\nRegistry:",
-    })
+    });
   }
 
   if (registryFailed && options.noFallback) {
-    return
+    return;
   }
 
-  const installed = config.installed ?? []
+  const installed = config.installed ?? [];
 
   if (installed.length) {
-    console.log("\nTracked components:")
+    console.log("\nTracked components:");
 
     for (const name of installed) {
-      const item = await findItem(name)
+      const item = await findItem(name);
 
       if (!item) {
-        console.log(`× ${name} (missing from registry)`)
-        continue
+        console.log(`× ${name} (missing from registry)`);
+        continue;
       }
 
       const componentPath = join(
         getCwd(),
         resolveItemInstallTarget(config, item),
-      )
-      const exists = await fileExists(componentPath)
-      const layer = getInstallLayer(item) ?? "unknown"
+      );
+      const exists = await fileExists(componentPath);
+      const layer = getInstallLayer(item) ?? "unknown";
 
-      console.log(`${exists ? "✓" : "×"} ${item.canonicalName} (${layer})`)
+      console.log(`${exists ? "✓" : "×"} ${item.canonicalName} (${layer})`);
     }
   }
-}
+};

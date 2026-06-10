@@ -4,7 +4,7 @@
  * Registry metadata for the DataTable block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const dataTableRegistryItem: RegistryItem = {
   name: "data-table",
@@ -22,4 +22,4 @@ export const dataTableRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/DataTable",
-}
+};

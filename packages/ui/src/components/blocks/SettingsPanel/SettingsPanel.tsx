@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../primitives/Card/Card"
+} from "../../primitives/Card/Card";
 import type {
   SettingsPanelContentProps,
   SettingsPanelDescriptionProps,
@@ -19,9 +19,9 @@ import type {
   SettingsPanelHeaderProps,
   SettingsPanelProps,
   SettingsPanelTitleProps,
-} from "./SettingsPanel.types"
-import { settingsPanelClasses } from "./SettingsPanel.variants"
-import { cn } from "../../../utils/cn"
+} from "./SettingsPanel.types";
+import { settingsPanelClasses } from "./SettingsPanel.variants";
+import { cn } from "../../../utils/cn";
 
 const SettingsPanel = ({
   ref,
@@ -39,60 +39,60 @@ const SettingsPanel = ({
     >
       {children}
     </Card>
-  )
-}
+  );
+};
 
-SettingsPanel.displayName = "SettingsPanel"
+SettingsPanel.displayName = "SettingsPanel";
 
 const SettingsPanelHeader = ({
   ref,
   className,
   ...props
 }: SettingsPanelHeaderProps) => {
-  return <CardHeader ref={ref} className={className} {...props} />
-}
+  return <CardHeader ref={ref} className={className} {...props} />;
+};
 
-SettingsPanelHeader.displayName = "SettingsPanelHeader"
+SettingsPanelHeader.displayName = "SettingsPanelHeader";
 
 const SettingsPanelTitle = ({
   ref,
   className,
   ...props
 }: SettingsPanelTitleProps) => {
-  return <CardTitle ref={ref} className={className} {...props} />
-}
+  return <CardTitle ref={ref} className={className} {...props} />;
+};
 
-SettingsPanelTitle.displayName = "SettingsPanelTitle"
+SettingsPanelTitle.displayName = "SettingsPanelTitle";
 
 const SettingsPanelDescription = ({
   ref,
   className,
   ...props
 }: SettingsPanelDescriptionProps) => {
-  return <CardDescription ref={ref} className={className} {...props} />
-}
+  return <CardDescription ref={ref} className={className} {...props} />;
+};
 
-SettingsPanelDescription.displayName = "SettingsPanelDescription"
+SettingsPanelDescription.displayName = "SettingsPanelDescription";
 
 const SettingsPanelContent = ({
   ref,
   className,
   ...props
 }: SettingsPanelContentProps) => {
-  return <CardContent ref={ref} className={className} {...props} />
-}
+  return <CardContent ref={ref} className={className} {...props} />;
+};
 
-SettingsPanelContent.displayName = "SettingsPanelContent"
+SettingsPanelContent.displayName = "SettingsPanelContent";
 
 const SettingsPanelFooter = ({
   ref,
   className,
   ...props
 }: SettingsPanelFooterProps) => {
-  return <CardFooter ref={ref} className={className} {...props} />
-}
+  return <CardFooter ref={ref} className={className} {...props} />;
+};
 
-SettingsPanelFooter.displayName = "SettingsPanelFooter"
+SettingsPanelFooter.displayName = "SettingsPanelFooter";
 
 export {
   SettingsPanel,
@@ -101,4 +101,4 @@ export {
   SettingsPanelDescription,
   SettingsPanelContent,
   SettingsPanelFooter,
-}
+};

@@ -5,7 +5,7 @@
  * @description Defines reusable stacking and shadow roles for overlays and floating surfaces.
  */
 
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const elevationSemantics = semanticTokens("elevation", {
   behind: {
@@ -50,4 +50,4 @@ export const elevationSemantics = semanticTokens("elevation", {
       boxShadow: { $value: "{shadow.5.boxShadow}" },
     },
   },
-})
+});

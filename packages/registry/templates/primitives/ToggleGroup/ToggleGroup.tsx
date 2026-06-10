@@ -4,10 +4,10 @@
  * Reference ToggleGroup component implementation.
  */
 
-import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group"
-import type { ToggleGroupProps } from "./ToggleGroup.types"
-import { toggleGroupVariants } from "./ToggleGroup.variants"
-import { mergeClassName } from "@/lib/utils"
+import { ToggleGroup as BaseToggleGroup } from "@base-ui/react/toggle-group";
+import type { ToggleGroupProps } from "./ToggleGroup.types";
+import { toggleGroupVariants } from "./ToggleGroup.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const ToggleGroup = ({
   ref,
@@ -26,9 +26,9 @@ const ToggleGroup = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToggleGroup.displayName = "ToggleGroup"
+ToggleGroup.displayName = "ToggleGroup";
 
-export { ToggleGroup }
+export { ToggleGroup };

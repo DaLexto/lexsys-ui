@@ -1,14 +1,14 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
-import { join } from "node:path"
-import { afterEach, beforeEach, describe, expect, test } from "vitest"
-import type { LexsysConfig } from "../../src/config/config.js"
-import { setCwd } from "../../src/utils/context.js"
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { afterEach, beforeEach, describe, expect, test } from "vitest";
+import type { LexsysConfig } from "../../src/config/config.js";
+import { setCwd } from "../../src/utils/context.js";
 import {
   ensureTailwindCssImport,
   ensureTypeScriptSrcAlias,
   ensureViteSrcAlias,
   ensureViteTailwindPlugin,
-} from "../../src/scaffold/tailwind.js"
+} from "../../src/scaffold/tailwind.js";
 
 const config: LexsysConfig = {
   style: "default",
@@ -30,49 +30,49 @@ const config: LexsysConfig = {
   },
   installed: [] as string[],
   registryUrl: null,
-}
+};
 
 describe("tailwind setup", () => {
-  let tempDir: string
+  let tempDir: string;
 
   beforeEach(async () => {
-    const testRoot = join(process.cwd(), ".tmp")
-    await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-tailwind-"))
-    setCwd(tempDir)
-  })
+    const testRoot = join(process.cwd(), ".tmp");
+    await mkdir(testRoot, { recursive: true });
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-tailwind-"));
+    setCwd(tempDir);
+  });
 
   afterEach(async () => {
     if (tempDir) {
-      await rm(tempDir, { force: true, recursive: true })
+      await rm(tempDir, { force: true, recursive: true });
     }
-  })
+  });
 
   test("adds Tailwind import to the configured CSS entrypoint once", async () => {
-    const cssPath = join(tempDir, "src/style.css")
+    const cssPath = join(tempDir, "src/style.css");
 
-    await mkdir(join(tempDir, "src"), { recursive: true })
-    await writeFile(cssPath, ":root {}\n", "utf-8")
+    await mkdir(join(tempDir, "src"), { recursive: true });
+    await writeFile(cssPath, ":root {}\n", "utf-8");
 
-    await ensureTailwindCssImport(config)
-    await ensureTailwindCssImport(config)
+    await ensureTailwindCssImport(config);
+    await ensureTailwindCssImport(config);
 
     await expect(readFile(cssPath, "utf-8")).resolves.toBe(
       '@import "tailwindcss";\n:root {}\n',
-    )
-  })
+    );
+  });
 
   test("adds the Tailwind Vite plugin to an existing Vite config once", async () => {
-    const viteConfigPath = join(tempDir, "vite.config.ts")
+    const viteConfigPath = join(tempDir, "vite.config.ts");
 
     await writeFile(
       viteConfigPath,
       'import { defineConfig } from "vite"\nimport react from "@vitejs/plugin-react"\n\nexport default defineConfig({\n  plugins: [react()],\n})\n',
       "utf-8",
-    )
+    );
 
-    await ensureViteTailwindPlugin()
-    await ensureViteTailwindPlugin()
+    await ensureViteTailwindPlugin();
+    await ensureViteTailwindPlugin();
 
     await expect(readFile(viteConfigPath, "utf-8")).resolves.toBe(
       'import { defineConfig } from "vite"\n' +
@@ -82,20 +82,20 @@ describe("tailwind setup", () => {
         "export default defineConfig({\n" +
         "  plugins: [tailwindcss(), react()],\n" +
         "})\n",
-    )
-  })
+    );
+  });
 
   test("adds the Vite src alias to an existing Vite config once", async () => {
-    const viteConfigPath = join(tempDir, "vite.config.ts")
+    const viteConfigPath = join(tempDir, "vite.config.ts");
 
     await writeFile(
       viteConfigPath,
       'import { defineConfig } from "vite"\nimport react from "@vitejs/plugin-react"\n\nexport default defineConfig({\n  plugins: [react()],\n})\n',
       "utf-8",
-    )
+    );
 
-    await ensureViteSrcAlias()
-    await ensureViteSrcAlias()
+    await ensureViteSrcAlias();
+    await ensureViteSrcAlias();
 
     await expect(readFile(viteConfigPath, "utf-8")).resolves.toBe(
       'import { fileURLToPath, URL } from "node:url"\n' +
@@ -110,24 +110,24 @@ describe("tailwind setup", () => {
         "  },\n" +
         "  plugins: [react()],\n" +
         "})\n",
-    )
-  })
+    );
+  });
 
   test("adds the TypeScript src alias without baseUrl", async () => {
-    const tsConfigPath = join(tempDir, "tsconfig.app.json")
+    const tsConfigPath = join(tempDir, "tsconfig.app.json");
 
     await writeFile(
       tsConfigPath,
       '{\n  "compilerOptions": {\n    "strict": true\n  },\n  "include": ["src"]\n}\n',
       "utf-8",
-    )
+    );
 
-    await ensureTypeScriptSrcAlias()
-    await ensureTypeScriptSrcAlias()
+    await ensureTypeScriptSrcAlias();
+    await ensureTypeScriptSrcAlias();
 
-    const content = await readFile(tsConfigPath, "utf-8")
+    const content = await readFile(tsConfigPath, "utf-8");
 
-    expect(content).toContain('"@/*": ["./src/*"]')
-    expect(content).not.toContain("baseUrl")
-  })
-})
+    expect(content).toContain('"@/*": ["./src/*"]');
+    expect(content).not.toContain("baseUrl");
+  });
+});

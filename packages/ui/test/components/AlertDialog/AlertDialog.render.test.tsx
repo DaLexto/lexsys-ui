@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   AlertDialog,
   AlertDialogBackdrop,
@@ -8,7 +8,7 @@ import {
   AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogViewport,
-} from "../../../src/components/primitives/AlertDialog/AlertDialog.js"
+} from "../../../src/components/primitives/AlertDialog/AlertDialog.js";
 
 describe("AlertDialog render", () => {
   it("renders alert dialog title when defaultOpen", () => {
@@ -26,14 +26,14 @@ describe("AlertDialog render", () => {
           </AlertDialogViewport>
         </AlertDialogPortal>
       </AlertDialog>,
-    )
+    );
 
     expect(
       screen.getByRole("alertdialog", { name: "Delete item?" }),
-    ).toBeInTheDocument()
+    ).toBeInTheDocument();
     expect(
       screen.getByText("This action cannot be undone."),
-    ).toBeInTheDocument()
-    expect(screen.getByRole("alertdialog")).toHaveClass("custom-alert-dialog")
-  })
-})
+    ).toBeInTheDocument();
+    expect(screen.getByRole("alertdialog")).toHaveClass("custom-alert-dialog");
+  });
+});

@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const datePickerComponentTokens = componentTokens("date-picker", {
   calendar: {
@@ -80,4 +80,4 @@ export const datePickerComponentTokens = componentTokens("date-picker", {
       },
     },
   },
-})
+});

@@ -4,8 +4,8 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "../../../utils/cn"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "../../../utils/cn";
 
 export const drawerTriggerVariants = cva(
   [
@@ -16,15 +16,15 @@ export const drawerTriggerVariants = cva(
     "outline-none hover:bg-(--lex-drawer-trigger-hover-background) focus-visible:ring-(length:--lex-drawer-focus-ring-width) focus-visible:ring-(--lex-drawer-focus-ring-color) focus-visible:ring-offset-(length:--lex-drawer-focus-ring-offset) focus-visible:ring-offset-(--lex-drawer-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const drawerIndentBackgroundVariants = cva(
   "fixed inset-0 z-(--lex-drawer-indent-z-index) bg-(--lex-drawer-indent-background) opacity-0 transition-opacity duration-(--lex-drawer-transition-duration) ease-(--lex-drawer-transition-easing) data-[active]:opacity-100",
-)
+);
 
 export const drawerIndentVariants = cva(
   "min-h-(--lex-drawer-viewport-max-height) origin-top overflow-hidden transition-[border-radius,transform] duration-(--lex-drawer-transition-duration) ease-(--lex-drawer-transition-easing) data-[active]:scale-(--lex-drawer-indent-scale) data-[active]:rounded-(--lex-drawer-indent-radius)",
-)
+);
 
 export const drawerBackdropVariants = cva(
   [
@@ -32,7 +32,7 @@ export const drawerBackdropVariants = cva(
     "transition-opacity duration-(--lex-drawer-transition-duration) ease-(--lex-drawer-transition-easing)",
     "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
   ].join(" "),
-)
+);
 
 export const drawerViewportVariants = cva(
   "fixed inset-0 z-(--lex-drawer-viewport-z-index) flex overflow-hidden p-(--lex-drawer-viewport-padding)",
@@ -49,7 +49,7 @@ export const drawerViewportVariants = cva(
       side: "bottom",
     },
   },
-)
+);
 
 export const drawerPopupVariants = cva(
   [
@@ -122,15 +122,15 @@ export const drawerPopupVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const drawerContentVariants = cva(
   "grid flex-1 content-start gap-(--lex-drawer-content-gap) overflow-auto p-(--lex-drawer-content-padding)",
-)
+);
 
 export const drawerHandleVariants = cva(
   "mx-auto mt-(--lex-drawer-handle-margin-top) h-(--lex-drawer-handle-height) w-(--lex-drawer-handle-width) shrink-0 rounded-(--lex-drawer-handle-radius) bg-(--lex-drawer-handle-background)",
-)
+);
 
 export const drawerSwipeAreaVariants = cva(
   "fixed z-(--lex-drawer-handle-z-index) data-[disabled]:pointer-events-none data-[disabled]:opacity-0",
@@ -147,15 +147,15 @@ export const drawerSwipeAreaVariants = cva(
       side: "bottom",
     },
   },
-)
+);
 
 export const drawerTitleVariants = cva(
   "pr-(--lex-drawer-title-padding-end) text-(length:--lex-drawer-title-font-size) font-(--lex-drawer-title-font-weight) leading-(--lex-drawer-title-font-line-height) text-(--lex-drawer-title-foreground)",
-)
+);
 
 export const drawerDescriptionVariants = cva(
   "text-(length:--lex-drawer-description-font-size) font-(--lex-drawer-description-font-weight) leading-(--lex-drawer-description-font-line-height) text-(--lex-drawer-description-foreground)",
-)
+);
 
 export const drawerCloseVariants = cva(
   [
@@ -164,7 +164,7 @@ export const drawerCloseVariants = cva(
     "hover:bg-(--lex-drawer-close-hover-background) focus-visible:ring-(length:--lex-drawer-focus-ring-width) focus-visible:ring-(--lex-drawer-focus-ring-color) focus-visible:ring-offset-(length:--lex-drawer-focus-ring-offset) focus-visible:ring-offset-(--lex-drawer-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);
 
 export const drawerCloseInlineVariants = cva(
   [
@@ -172,4 +172,4 @@ export const drawerCloseInlineVariants = cva(
     "focus-visible:ring-(length:--lex-drawer-focus-ring-width) focus-visible:ring-(--lex-drawer-focus-ring-color) focus-visible:ring-offset-(length:--lex-drawer-focus-ring-offset) focus-visible:ring-offset-(--lex-drawer-focus-ring-offset-color)",
     disabledStateClasses,
   ].join(" "),
-)
+);

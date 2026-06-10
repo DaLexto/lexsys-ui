@@ -1,4 +1,4 @@
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const radiusSemantics = semanticTokens("radius", {
   $type: "dimension",
@@ -6,4 +6,4 @@ export const radiusSemantics = semanticTokens("radius", {
   selection: { $value: "{radius.sm}" },
   surface: { $value: "{radius.lg}" },
   pill: { $value: "{radius.full}" },
-})
+});

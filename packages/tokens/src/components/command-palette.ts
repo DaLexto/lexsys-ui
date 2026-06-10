@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const commandPaletteComponentTokens = componentTokens(
   "command-palette",
@@ -38,4 +38,4 @@ export const commandPaletteComponentTokens = componentTokens(
       },
     },
   },
-)
+);

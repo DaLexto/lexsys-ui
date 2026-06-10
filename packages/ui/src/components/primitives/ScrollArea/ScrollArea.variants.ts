@@ -4,15 +4,15 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
-export const scrollAreaRootVariants = cva("relative overflow-hidden")
+export const scrollAreaRootVariants = cva("relative overflow-hidden");
 
 export const scrollAreaViewportVariants = cva(
   "size-full rounded-[inherit] outline-none",
-)
+);
 
-export const scrollAreaContentVariants = cva("")
+export const scrollAreaContentVariants = cva("");
 
 export const scrollAreaScrollbarVariants = cva(
   "flex touch-none select-none transition-colors",
@@ -29,10 +29,10 @@ export const scrollAreaScrollbarVariants = cva(
       orientation: "vertical",
     },
   },
-)
+);
 
 export const scrollAreaThumbVariants = cva(
   "relative flex-1 rounded-(--lex-scroll-area-thumb-radius) bg-(--lex-scroll-area-thumb-background)",
-)
+);
 
-export const scrollAreaCornerVariants = cva("bg-transparent")
+export const scrollAreaCornerVariants = cva("bg-transparent");

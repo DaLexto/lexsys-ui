@@ -5,7 +5,7 @@
  * @description Defines semantic border color roles.
  */
 
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const borderSemantics = semanticTokens("border", {
   $type: "color",
@@ -21,4 +21,4 @@ export const borderSemantics = semanticTokens("border", {
     width: { $value: "{border.thin}" },
     style: { $value: "solid" },
   },
-})
+});

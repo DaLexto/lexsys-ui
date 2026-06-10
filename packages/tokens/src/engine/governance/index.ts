@@ -8,12 +8,12 @@
 export {
   createTokenGovernanceReport,
   formatTokenGovernanceReport,
-} from "./report/report.governance"
+} from "./report/report.governance";
 
 export {
   createSemanticAuditReport,
   formatSemanticAuditReport,
-} from "./audit/audit.governance"
+} from "./audit/audit.governance";
 
 export {
   DEFAULT_GOVERNANCE_POLICY,
@@ -22,12 +22,12 @@ export {
   resolveGovernancePolicy,
   resolveGovernancePolicyTier,
   shouldFailOnGovernancePolicy,
-} from "./governance.policy"
+} from "./governance.policy";
 
 export type {
   GovernancePolicy,
   GovernancePolicyTier,
-} from "./governance.policy"
+} from "./governance.policy";
 
 export type {
   DeadTokenEntry,
@@ -38,11 +38,11 @@ export type {
   TokenGovernanceReport,
   TokenGovernanceThemeInput,
   TokenMetadataEntry,
-} from "./shared/shared.governance.types"
+} from "./shared/shared.governance.types";
 
 export type {
   SemanticAuditIssue,
   SemanticAuditIssueKind,
   SemanticAuditIssueSeverity,
   SemanticAuditReport,
-} from "./audit/audit.types"
+} from "./audit/audit.types";

@@ -4,22 +4,22 @@
  * Reference Accordion component implementation.
  */
 
-import { Accordion as BaseAccordion } from "@base-ui/react/accordion"
+import { Accordion as BaseAccordion } from "@base-ui/react/accordion";
 import type {
   AccordionHeaderProps,
   AccordionItemProps,
   AccordionPanelProps,
   AccordionProps,
   AccordionTriggerProps,
-} from "./Accordion.types"
+} from "./Accordion.types";
 import {
   accordionHeaderVariants,
   accordionItemVariants,
   accordionPanelVariants,
   accordionTriggerVariants,
   accordionVariants,
-} from "./Accordion.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+} from "./Accordion.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const Accordion = ({ ref, className, ...props }: AccordionProps) => {
   return (
@@ -28,10 +28,10 @@ const Accordion = ({ ref, className, ...props }: AccordionProps) => {
       className={mergeClassName(accordionVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Accordion.displayName = "Accordion"
+Accordion.displayName = "Accordion";
 
 const AccordionItem = ({ ref, className, ...props }: AccordionItemProps) => {
   return (
@@ -40,10 +40,10 @@ const AccordionItem = ({ ref, className, ...props }: AccordionItemProps) => {
       className={mergeClassName(accordionItemVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AccordionItem.displayName = "AccordionItem"
+AccordionItem.displayName = "AccordionItem";
 
 const AccordionHeader = ({
   ref,
@@ -56,10 +56,10 @@ const AccordionHeader = ({
       className={mergeClassName(accordionHeaderVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AccordionHeader.displayName = "AccordionHeader"
+AccordionHeader.displayName = "AccordionHeader";
 
 const AccordionTrigger = ({
   ref,
@@ -76,10 +76,10 @@ const AccordionTrigger = ({
       <span>{children}</span>
       <span aria-hidden="true">+</span>
     </BaseAccordion.Trigger>
-  )
-}
+  );
+};
 
-AccordionTrigger.displayName = "AccordionTrigger"
+AccordionTrigger.displayName = "AccordionTrigger";
 
 const AccordionPanel = ({ ref, className, ...props }: AccordionPanelProps) => {
   return (
@@ -88,10 +88,10 @@ const AccordionPanel = ({ ref, className, ...props }: AccordionPanelProps) => {
       className={mergeClassName(accordionPanelVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AccordionPanel.displayName = "AccordionPanel"
+AccordionPanel.displayName = "AccordionPanel";
 
 export {
   Accordion,
@@ -99,4 +99,4 @@ export {
   AccordionHeader,
   AccordionTrigger,
   AccordionPanel,
-}
+};

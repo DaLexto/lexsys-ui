@@ -4,19 +4,19 @@
  * Reference Switch component implementation.
  */
 
-import { createContext, useContext } from "react"
-import { Switch as BaseSwitch } from "@base-ui/react/switch"
-import type { SwitchProps, SwitchSize, SwitchThumbProps } from "./Switch.types"
-import { switchThumbVariants, switchVariants } from "./Switch.variants"
-import { mergeClassName } from "@/lib/utils"
+import { createContext, useContext } from "react";
+import { Switch as BaseSwitch } from "@base-ui/react/switch";
+import type { SwitchProps, SwitchSize, SwitchThumbProps } from "./Switch.types";
+import { switchThumbVariants, switchVariants } from "./Switch.variants";
+import { mergeClassName } from "@/lib/utils";
 
 interface SwitchContextValue {
-  size: SwitchSize
+  size: SwitchSize;
 }
 
-const SwitchContext = createContext<SwitchContextValue>({ size: "md" })
+const SwitchContext = createContext<SwitchContextValue>({ size: "md" });
 
-const useSwitchContext = () => useContext(SwitchContext)
+const useSwitchContext = () => useContext(SwitchContext);
 
 const Switch = ({
   ref,
@@ -35,14 +35,14 @@ const Switch = ({
         {children}
       </BaseSwitch.Root>
     </SwitchContext.Provider>
-  )
-}
+  );
+};
 
-Switch.displayName = "Switch"
+Switch.displayName = "Switch";
 
 const SwitchThumb = ({ ref, size, className, ...props }: SwitchThumbProps) => {
-  const context = useSwitchContext()
-  const resolvedSize = size ?? context.size
+  const context = useSwitchContext();
+  const resolvedSize = size ?? context.size;
 
   return (
     <BaseSwitch.Thumb
@@ -53,9 +53,9 @@ const SwitchThumb = ({ ref, size, className, ...props }: SwitchThumbProps) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-SwitchThumb.displayName = "SwitchThumb"
+SwitchThumb.displayName = "SwitchThumb";
 
-export { Switch, SwitchThumb }
+export { Switch, SwitchThumb };

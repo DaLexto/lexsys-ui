@@ -1,35 +1,35 @@
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
-import { join } from "node:path"
-import { afterEach, beforeEach, describe, expect, test, vi } from "vitest"
-import { setCwd } from "../../src/utils/context.js"
-import { runAdd } from "../../src/commands/add.js"
-import { testCssVarPrefix as p } from "../config/prefix.js"
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { setCwd } from "../../src/utils/context.js";
+import { runAdd } from "../../src/commands/add.js";
+import { testCssVarPrefix as p } from "../config/prefix.js";
 
 const writeJson = async (path: string, value: unknown): Promise<void> => {
-  await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8")
-}
+  await writeFile(path, JSON.stringify(value, null, 2) + "\n", "utf-8");
+};
 
 const consoleOutput = (): string => {
-  return vi.mocked(console.log).mock.calls.flat().join("\n")
-}
+  return vi.mocked(console.log).mock.calls.flat().join("\n");
+};
 
 describe("runAdd", () => {
-  let tempDir: string
+  let tempDir: string;
 
   beforeEach(async () => {
-    const testRoot = join(process.cwd(), ".tmp")
-    await mkdir(testRoot, { recursive: true })
-    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-add-"))
-    setCwd(tempDir)
-    vi.spyOn(console, "log").mockImplementation(() => undefined)
-  })
+    const testRoot = join(process.cwd(), ".tmp");
+    await mkdir(testRoot, { recursive: true });
+    tempDir = await mkdtemp(join(testRoot, "lexsys-cli-add-"));
+    setCwd(tempDir);
+    vi.spyOn(console, "log").mockImplementation(() => undefined);
+  });
 
   afterEach(async () => {
-    vi.restoreAllMocks()
+    vi.restoreAllMocks();
     if (tempDir) {
-      await rm(tempDir, { force: true, recursive: true })
+      await rm(tempDir, { force: true, recursive: true });
     }
-  })
+  });
 
   test("does not track an item as installed when component files conflict", async () => {
     await writeJson(join(tempDir, "package.json"), {
@@ -40,22 +40,22 @@ describe("runAdd", () => {
         "tailwind-merge": "^3.5.0",
       },
       packageManager: "pnpm@10.33.0",
-    })
+    });
 
-    const buttonDir = join(tempDir, "src/components/ui/Button")
-    await mkdir(buttonDir, { recursive: true })
-    await writeFile(join(buttonDir, "Button.tsx"), "user modified", "utf-8")
+    const buttonDir = join(tempDir, "src/components/ui/Button");
+    await mkdir(buttonDir, { recursive: true });
+    await writeFile(join(buttonDir, "Button.tsx"), "user modified", "utf-8");
 
-    await runAdd(["button"])
+    await runAdd(["button"]);
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: string[] }
+    ) as { installed?: string[] };
 
-    expect(config.installed).toEqual([])
-    expect(consoleOutput()).toContain("- tracked components: 0/1")
-    expect(consoleOutput()).toContain("- components: 2 created, 1 conflicted")
-  })
+    expect(config.installed).toEqual([]);
+    expect(consoleOutput()).toContain("- tracked components: 0/1");
+    expect(consoleOutput()).toContain("- components: 2 created, 1 conflicted");
+  });
 
   test("installs styles required by registry metadata", async () => {
     await writeJson(join(tempDir, "package.json"), {
@@ -66,34 +66,34 @@ describe("runAdd", () => {
         "tailwind-merge": "^3.5.0",
       },
       packageManager: "pnpm@10.33.0",
-    })
-    await mkdir(join(tempDir, "src"), { recursive: true })
-    await writeFile(join(tempDir, "src/style.css"), ":root {}\n", "utf-8")
+    });
+    await mkdir(join(tempDir, "src"), { recursive: true });
+    await writeFile(join(tempDir, "src/style.css"), ":root {}\n", "utf-8");
 
-    await runAdd(["button"])
+    await runAdd(["button"]);
 
     await expect(
       readFile(join(tempDir, "styles/tokens.css"), "utf-8"),
-    ).resolves.toContain(`--${p}-button-radius`)
+    ).resolves.toContain(`--${p}-button-radius`);
     await expect(
       readFile(join(tempDir, "styles/theme.css"), "utf-8"),
-    ).resolves.toContain("@theme inline")
+    ).resolves.toContain("@theme inline");
     await expect(
       readFile(join(tempDir, "src/style.css"), "utf-8"),
     ).resolves.toBe(
       '@import "../styles/tokens.css";\n' +
         '@import "../styles/theme.css";\n' +
         ":root {}\n",
-    )
+    );
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: string[]; tailwind?: { css?: string } }
+    ) as { installed?: string[]; tailwind?: { css?: string } };
 
-    expect(config.installed).toEqual(["button"])
-    expect(consoleOutput()).toContain("- tracked components: 1/1")
-    expect(config.tailwind?.css).toBe("src/style.css")
-  })
+    expect(config.installed).toEqual(["button"]);
+    expect(consoleOutput()).toContain("- tracked components: 1/1");
+    expect(config.tailwind?.css).toBe("src/style.css");
+  });
 
   test("tracks an item as installed when only shared utilities conflict", async () => {
     await writeJson(join(tempDir, "package.json"), {
@@ -104,33 +104,33 @@ describe("runAdd", () => {
         "tailwind-merge": "^3.5.0",
       },
       packageManager: "pnpm@10.33.0",
-    })
-    await mkdir(join(tempDir, "src/lib"), { recursive: true })
-    await writeFile(join(tempDir, "src/lib/utils.ts"), "user cn", "utf-8")
+    });
+    await mkdir(join(tempDir, "src/lib"), { recursive: true });
+    await writeFile(join(tempDir, "src/lib/utils.ts"), "user cn", "utf-8");
 
-    await runAdd(["button"])
+    await runAdd(["button"]);
 
     const config = JSON.parse(
       await readFile(join(tempDir, "lexsys.config.json"), "utf-8"),
-    ) as { installed?: string[] }
+    ) as { installed?: string[] };
 
-    expect(config.installed).toEqual(["button"])
-    expect(consoleOutput()).toContain("- tracked components: 1/1")
-    expect(consoleOutput()).toContain("- shared resources:")
+    expect(config.installed).toEqual(["button"]);
+    expect(consoleOutput()).toContain("- tracked components: 1/1");
+    expect(consoleOutput()).toContain("- shared resources:");
     expect(consoleOutput()).toContain(
       "Shared resource conflicts were left untouched.",
-    )
+    );
     await expect(
       readFile(join(tempDir, "src/lib/utils.ts"), "utf-8"),
-    ).resolves.toBe("user cn")
-  })
+    ).resolves.toBe("user cn");
+  });
 
   test("exits with code 1 when --yes is passed without component names", async () => {
-    await runAdd(["--yes"])
+    await runAdd(["--yes"]);
 
-    expect(consoleOutput()).toContain("No components specified.")
-    expect(consoleOutput()).toContain("lexsys update --yes")
-    expect(process.exitCode).toBe(1)
-    process.exitCode = 0
-  })
-})
+    expect(consoleOutput()).toContain("No components specified.");
+    expect(consoleOutput()).toContain("lexsys update --yes");
+    expect(process.exitCode).toBe(1);
+    process.exitCode = 0;
+  });
+});

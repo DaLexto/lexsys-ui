@@ -4,7 +4,7 @@
  * Registry metadata for the Menu component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const menuRegistryItem: RegistryItem = {
   name: "menu",
@@ -39,4 +39,4 @@ export const menuRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Menu",
-}
+};

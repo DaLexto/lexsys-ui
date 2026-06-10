@@ -1,12 +1,12 @@
-import prompts from "prompts"
+import prompts from "prompts";
 
 interface MultiselectChoice {
-  title: string
-  value: string
+  title: string;
+  value: string;
 }
 
 interface MultiselectOptions {
-  min?: number
+  min?: number;
 }
 
 export const promptMultiselect = async (
@@ -20,17 +20,17 @@ export const promptMultiselect = async (
     message,
     choices,
     ...(options.min !== undefined ? { min: options.min } : {}),
-  })
+  });
 
   if (typeof response !== "object" || response === null) {
-    return []
+    return [];
   }
 
-  const selected = (response as { selected?: unknown }).selected
+  const selected = (response as { selected?: unknown }).selected;
 
   if (!Array.isArray(selected)) {
-    return []
+    return [];
   }
 
-  return selected.filter((item): item is string => typeof item === "string")
-}
+  return selected.filter((item): item is string => typeof item === "string");
+};

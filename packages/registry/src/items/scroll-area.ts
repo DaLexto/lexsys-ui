@@ -4,7 +4,7 @@
  * Registry metadata for the ScrollArea component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const scrollAreaRegistryItem: RegistryItem = {
   name: "scroll-area",
@@ -38,4 +38,4 @@ export const scrollAreaRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/ScrollArea",
-}
+};

@@ -14,14 +14,14 @@ export {
   createCssVariableEntries,
   generateCssVariables,
   toCustomProperty,
-} from "./css"
-export { DTCG_LEXSYS_EXTENSION_KEY, generateJsonTokens } from "./dtcg"
+} from "./css";
+export { DTCG_LEXSYS_EXTENSION_KEY, generateJsonTokens } from "./dtcg";
 
 export type {
   CssVariableEntry,
   CssVarsGenerateResult,
   CssVarsGeneratorOptions,
-} from "./css"
+} from "./css";
 export type {
   DtcgGenerateResult,
   DtcgGeneratorOptions,
@@ -29,4 +29,4 @@ export type {
   DtcgTokenTree,
   DtcgTokenType,
   DtcgTokenTypeResolver,
-} from "./dtcg"
+} from "./dtcg";

@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const dialogComponentTokens = componentTokens("dialog", {
   backdrop: {
@@ -78,4 +78,4 @@ export const dialogComponentTokens = componentTokens("dialog", {
     duration: { $value: "{motion.duration.overlayEnter}" },
     easing: { $value: "{motion.easing.easeIn}" },
   },
-})
+});

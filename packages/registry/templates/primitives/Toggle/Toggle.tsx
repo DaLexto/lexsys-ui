@@ -4,10 +4,10 @@
  * Reference Toggle component implementation.
  */
 
-import { Toggle as BaseToggle } from "@base-ui/react/toggle"
-import type { ToggleProps } from "./Toggle.types"
-import { toggleVariants } from "./Toggle.variants"
-import { mergeClassName } from "@/lib/utils"
+import { Toggle as BaseToggle } from "@base-ui/react/toggle";
+import type { ToggleProps } from "./Toggle.types";
+import { toggleVariants } from "./Toggle.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Toggle = ({ ref, size, className, ...props }: ToggleProps) => {
   return (
@@ -16,9 +16,9 @@ const Toggle = ({ ref, size, className, ...props }: ToggleProps) => {
       className={mergeClassName(toggleVariants({ size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Toggle.displayName = "Toggle"
+Toggle.displayName = "Toggle";
 
-export { Toggle }
+export { Toggle };

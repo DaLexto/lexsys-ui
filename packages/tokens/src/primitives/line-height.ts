@@ -20,7 +20,7 @@
  * - Line height values are intentionally unitless and use the DTCG `number` type
  */
 
-import { primitiveTokens } from "../types/authoring"
+import { primitiveTokens } from "../types/authoring";
 
 export const lineHeightPrimitives = primitiveTokens("line-height", {
   $type: "number",
@@ -33,4 +33,4 @@ export const lineHeightPrimitives = primitiveTokens("line-height", {
   normal: { $value: 1.5 },
   relaxed: { $value: 1.625 },
   loose: { $value: 2 },
-})
+});

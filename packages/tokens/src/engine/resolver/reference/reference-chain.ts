@@ -8,7 +8,7 @@
 import type {
   ResolveReferenceChainResult,
   ResolverOptions,
-} from "./reference.types"
+} from "./reference.types";
 import {
   createResolverError,
   createResolverWarning,
@@ -18,8 +18,8 @@ import {
   isReferenceString,
   isTokenLeaf,
   parseReference,
-} from "../shared/shared.resolver.utils"
-import type { TokenTree } from "../../../types"
+} from "../shared/shared.resolver.utils";
+import type { TokenTree } from "../../../types";
 
 const mergeOptions = (
   options: ResolverOptions = {},
@@ -27,8 +27,8 @@ const mergeOptions = (
   return {
     strict: options.strict ?? DEFAULT_RESOLVER_OPTIONS.strict ?? true,
     maxDepth: options.maxDepth ?? DEFAULT_RESOLVER_OPTIONS.maxDepth ?? 50,
-  }
-}
+  };
+};
 
 export const resolveReferenceChain = (
   root: TokenTree,
@@ -37,10 +37,10 @@ export const resolveReferenceChain = (
   sourcePath = "",
   chain: string[] = [],
 ): ResolveReferenceChainResult => {
-  const originalReference = reference
-  const resolvedOptions = mergeOptions(options)
-  const warnings: ResolveReferenceChainResult["warnings"] = []
-  const errors: ResolveReferenceChainResult["errors"] = []
+  const originalReference = reference;
+  const resolvedOptions = mergeOptions(options);
+  const warnings: ResolveReferenceChainResult["warnings"] = [];
+  const errors: ResolveReferenceChainResult["errors"] = [];
 
   if (!isReferenceString(reference)) {
     errors.push(
@@ -51,17 +51,17 @@ export const resolveReferenceChain = (
         originalReference,
         chain,
       ),
-    )
+    );
 
     return {
       value: originalReference,
       errors,
       warnings,
       referenceChain: chain,
-    }
+    };
   }
 
-  const targetPath = parseReference(reference)
+  const targetPath = parseReference(reference);
 
   if (chain.includes(targetPath)) {
     errors.push(
@@ -73,14 +73,14 @@ export const resolveReferenceChain = (
         [...chain, targetPath],
         targetPath,
       ),
-    )
+    );
 
     return {
       value: reference,
       errors,
       warnings,
       referenceChain: [...chain, targetPath],
-    }
+    };
   }
 
   if (chain.length >= resolvedOptions.maxDepth) {
@@ -93,17 +93,17 @@ export const resolveReferenceChain = (
         chain,
         targetPath,
       ),
-    )
+    );
 
     return {
       value: reference,
       errors,
       warnings,
       referenceChain: chain,
-    }
+    };
   }
 
-  const targetNode = getNodeByPath(root, targetPath)
+  const targetNode = getNodeByPath(root, targetPath);
 
   if (targetNode === undefined) {
     if (resolvedOptions.strict) {
@@ -116,9 +116,9 @@ export const resolveReferenceChain = (
           chain,
           targetPath,
         ),
-      )
+      );
     } else {
-      warnings.push(createResolverWarning(sourcePath, reference))
+      warnings.push(createResolverWarning(sourcePath, reference));
     }
 
     return {
@@ -126,12 +126,12 @@ export const resolveReferenceChain = (
       errors,
       warnings,
       referenceChain: chain,
-    }
+    };
   }
 
   const targetLeaf = isTokenLeaf(targetNode)
     ? targetNode
-    : getDefaultLeafFromBranch(targetNode)
+    : getDefaultLeafFromBranch(targetNode);
 
   if (targetLeaf === undefined) {
     errors.push(
@@ -143,17 +143,17 @@ export const resolveReferenceChain = (
         chain,
         targetPath,
       ),
-    )
+    );
 
     return {
       value: reference,
       errors,
       warnings,
       referenceChain: chain,
-    }
+    };
   }
 
-  const targetValue = targetLeaf.$value
+  const targetValue = targetLeaf.$value;
 
   if (!isReferenceString(targetValue)) {
     return {
@@ -161,7 +161,7 @@ export const resolveReferenceChain = (
       errors,
       warnings,
       referenceChain: [...chain, targetPath],
-    }
+    };
   }
 
   const nestedResult = resolveReferenceChain(
@@ -170,12 +170,12 @@ export const resolveReferenceChain = (
     resolvedOptions,
     targetPath,
     [...chain, targetPath],
-  )
+  );
 
   return {
     value: nestedResult.value,
     errors: [...errors, ...nestedResult.errors],
     warnings: [...warnings, ...nestedResult.warnings],
     referenceChain: nestedResult.referenceChain,
-  }
-}
+  };
+};

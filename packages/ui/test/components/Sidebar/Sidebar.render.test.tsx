@@ -4,8 +4,8 @@ import {
   render,
   screen,
   within,
-} from "@testing-library/react"
-import { afterEach, describe, expect, it } from "vitest"
+} from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
 import {
   Sidebar,
   SidebarCollapseTrigger,
@@ -34,12 +34,12 @@ import {
   SidebarSubList,
   SidebarProvider,
   SidebarTrigger,
-} from "../../../src/components/blocks/Sidebar/Sidebar.js"
+} from "../../../src/components/blocks/Sidebar/Sidebar.js";
 
 describe("Sidebar render", () => {
   afterEach(() => {
-    cleanup()
-  })
+    cleanup();
+  });
 
   it("composes compound navigation with consumer-placed trigger", () => {
     render(
@@ -65,17 +65,17 @@ describe("Sidebar render", () => {
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
     expect(
       screen.getByRole("navigation", { name: "Application navigation" }),
-    ).toBeInTheDocument()
-    expect(screen.getByRole("link", { name: "Overview" })).toBeInTheDocument()
-    expect(screen.getByRole("link", { name: "Settings" })).toBeInTheDocument()
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Overview" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Settings" })).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Open navigation" }),
-    ).toBeInTheDocument()
-  })
+    ).toBeInTheDocument();
+  });
 
   it("merges custom className on root", () => {
     const { container } = render(
@@ -89,10 +89,10 @@ describe("Sidebar render", () => {
           </SidebarList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
-    expect(container.querySelector("aside")).toHaveClass("custom-sidebar")
-  })
+    expect(container.querySelector("aside")).toHaveClass("custom-sidebar");
+  });
 
   it("applies collapsed shell state from SidebarProvider", () => {
     const { container } = render(
@@ -111,16 +111,16 @@ describe("Sidebar render", () => {
           </SidebarContent>
         </Sidebar>
       </SidebarProvider>,
-    )
+    );
 
-    const aside = container.querySelector("aside")
+    const aside = container.querySelector("aside");
 
-    expect(aside).toHaveAttribute("data-collapsed", "true")
-    expect(aside).toHaveClass("lex-sidebar--collapsed")
+    expect(aside).toHaveAttribute("data-collapsed", "true");
+    expect(aside).toHaveClass("lex-sidebar--collapsed");
     expect(
       screen.getByRole("button", { name: "Expand sidebar" }),
-    ).toBeInTheDocument()
-  })
+    ).toBeInTheDocument();
+  });
 
   it("renders SidebarItemBadge count when expanded", () => {
     render(
@@ -134,14 +134,14 @@ describe("Sidebar render", () => {
           </SidebarList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
-    const [badgeLabel] = screen.getAllByText("24")
+    const [badgeLabel] = screen.getAllByText("24");
 
-    expect(badgeLabel).toBeInTheDocument()
-    expect(badgeLabel).not.toHaveClass("sr-only")
-    expect(badgeLabel.closest(".lex-sidebar__item-badge")).toBeInTheDocument()
-  })
+    expect(badgeLabel).toBeInTheDocument();
+    expect(badgeLabel).not.toHaveClass("sr-only");
+    expect(badgeLabel.closest(".lex-sidebar__item-badge")).toBeInTheDocument();
+  });
 
   it("morphs SidebarItemBadge into dot shell when icon-collapsed", () => {
     const { container } = render(
@@ -157,16 +157,16 @@ describe("Sidebar render", () => {
           </SidebarContent>
         </Sidebar>
       </SidebarProvider>,
-    )
+    );
 
-    const [badge] = container.querySelectorAll(".lex-sidebar__item-badge")
-    const [badgeLabel] = screen.getAllByText("24")
+    const [badge] = container.querySelectorAll(".lex-sidebar__item-badge");
+    const [badgeLabel] = screen.getAllByText("24");
 
-    expect(badge).toHaveClass("md:group-data-[collapsed=true]/sidebar:h-2")
+    expect(badge).toHaveClass("md:group-data-[collapsed=true]/sidebar:h-2");
     expect(badgeLabel).toHaveClass(
       "md:group-data-[collapsed=true]/sidebar:sr-only",
-    )
-  })
+    );
+  });
 
   it("renders forced dot mode via dot prop", () => {
     render(
@@ -182,13 +182,13 @@ describe("Sidebar render", () => {
           </SidebarList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
-    const dotBadges = screen.getAllByRole("status", { name: "24" })
+    const dotBadges = screen.getAllByRole("status", { name: "24" });
 
-    expect(dotBadges.length).toBeGreaterThanOrEqual(1)
-    expect(dotBadges[0]).toHaveClass("lex-sidebar__item-badge")
-  })
+    expect(dotBadges.length).toBeGreaterThanOrEqual(1);
+    expect(dotBadges[0]).toHaveClass("lex-sidebar__item-badge");
+  });
 
   it("renders item chrome exports on nav rows", () => {
     const { container } = render(
@@ -220,20 +220,22 @@ describe("Sidebar render", () => {
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
-    const [icon] = container.querySelectorAll(".lex-sidebar__item-icon")
-    const [shortcut] = container.querySelectorAll(".lex-sidebar__item-shortcut")
-    const [action] = container.querySelectorAll(".lex-sidebar__item-action")
+    const [icon] = container.querySelectorAll(".lex-sidebar__item-icon");
+    const [shortcut] = container.querySelectorAll(
+      ".lex-sidebar__item-shortcut",
+    );
+    const [action] = container.querySelectorAll(".lex-sidebar__item-action");
     const [groupAction] = container.querySelectorAll(
       ".lex-sidebar__group-action",
-    )
+    );
 
-    expect(icon).toBeInTheDocument()
-    expect(shortcut).toHaveTextContent("⌘I")
-    expect(action).toHaveAttribute("aria-label", "Inbox actions")
-    expect(groupAction).toHaveAttribute("aria-label", "Add workspace")
-  })
+    expect(icon).toBeInTheDocument();
+    expect(shortcut).toHaveTextContent("⌘I");
+    expect(action).toHaveAttribute("aria-label", "Inbox actions");
+    expect(groupAction).toHaveAttribute("aria-label", "Add workspace");
+  });
 
   it("hides shortcut and group action classes when icon-collapsed", () => {
     const { container } = render(
@@ -259,20 +261,22 @@ describe("Sidebar render", () => {
           </SidebarContent>
         </Sidebar>
       </SidebarProvider>,
-    )
+    );
 
-    const [shortcut] = container.querySelectorAll(".lex-sidebar__item-shortcut")
+    const [shortcut] = container.querySelectorAll(
+      ".lex-sidebar__item-shortcut",
+    );
     const [groupAction] = container.querySelectorAll(
       ".lex-sidebar__group-action",
-    )
+    );
 
     expect(shortcut).toHaveClass(
       "md:group-data-[collapsed=true]/sidebar:hidden",
-    )
+    );
     expect(groupAction).toHaveClass(
       "md:group-data-[collapsed=true]/sidebar:hidden",
-    )
-  })
+    );
+  });
 
   it("renders nested SidebarSubList with indented links", () => {
     const { container } = render(
@@ -297,19 +301,19 @@ describe("Sidebar render", () => {
           </SidebarList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
-    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list")
-    const [profileLink] = screen.getAllByRole("link", { name: "Profile" })
+    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list");
+    const [profileLink] = screen.getAllByRole("link", { name: "Profile" });
 
-    expect(subList).toBeInTheDocument()
-    expect(subList).toHaveClass("border-s")
-    expect(subList.className).toContain("ms-[calc")
-    expect(profileLink).toHaveClass("lex-sidebar__item--active")
+    expect(subList).toBeInTheDocument();
+    expect(subList).toHaveClass("border-s");
+    expect(subList.className).toContain("ms-[calc");
+    expect(profileLink).toHaveClass("lex-sidebar__item--active");
     expect(profileLink.className).toContain(
       "var(--lex-sidebar-item-sub-indent)",
-    )
-  })
+    );
+  });
 
   it("hides SidebarSubList when icon-collapsed", () => {
     const { container } = render(
@@ -331,12 +335,14 @@ describe("Sidebar render", () => {
           </SidebarContent>
         </Sidebar>
       </SidebarProvider>,
-    )
+    );
 
-    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list")
+    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list");
 
-    expect(subList).toHaveClass("md:group-data-[collapsed=true]/sidebar:hidden")
-  })
+    expect(subList).toHaveClass(
+      "md:group-data-[collapsed=true]/sidebar:hidden",
+    );
+  });
 
   it("sets aria-current on active SidebarItemLink and SidebarSubItemLink", () => {
     render(
@@ -361,16 +367,16 @@ describe("Sidebar render", () => {
           </SidebarList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
-    const [overviewLink] = screen.getAllByRole("link", { name: "Overview" })
-    const [settingsLink] = screen.getAllByRole("link", { name: "Settings" })
-    const [profileLink] = screen.getAllByRole("link", { name: "Profile" })
+    const [overviewLink] = screen.getAllByRole("link", { name: "Overview" });
+    const [settingsLink] = screen.getAllByRole("link", { name: "Settings" });
+    const [profileLink] = screen.getAllByRole("link", { name: "Profile" });
 
-    expect(overviewLink).toHaveAttribute("aria-current", "page")
-    expect(settingsLink).not.toHaveAttribute("aria-current")
-    expect(profileLink).toHaveAttribute("aria-current", "page")
-  })
+    expect(overviewLink).toHaveAttribute("aria-current", "page");
+    expect(settingsLink).not.toHaveAttribute("aria-current");
+    expect(profileLink).toHaveAttribute("aria-current", "page");
+  });
 
   it("moves focus between nav items with arrow keys", () => {
     render(
@@ -389,26 +395,26 @@ describe("Sidebar render", () => {
           </SidebarList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
     const [nav] = screen.getAllByRole("navigation", {
       name: "Application navigation",
-    })
-    const navQueries = within(nav)
-    const overviewLink = navQueries.getByRole("link", { name: "Overview" })
-    const settingsLink = navQueries.getByRole("link", { name: "Settings" })
-    const signOutButton = navQueries.getByRole("button", { name: "Sign out" })
+    });
+    const navQueries = within(nav);
+    const overviewLink = navQueries.getByRole("link", { name: "Overview" });
+    const settingsLink = navQueries.getByRole("link", { name: "Settings" });
+    const signOutButton = navQueries.getByRole("button", { name: "Sign out" });
 
-    overviewLink.focus()
-    fireEvent.keyDown(nav, { key: "ArrowDown" })
-    expect(settingsLink).toHaveFocus()
+    overviewLink.focus();
+    fireEvent.keyDown(nav, { key: "ArrowDown" });
+    expect(settingsLink).toHaveFocus();
 
-    fireEvent.keyDown(nav, { key: "End" })
-    expect(signOutButton).toHaveFocus()
+    fireEvent.keyDown(nav, { key: "End" });
+    expect(signOutButton).toHaveFocus();
 
-    fireEvent.keyDown(nav, { key: "Home" })
-    expect(overviewLink).toHaveFocus()
-  })
+    fireEvent.keyDown(nav, { key: "Home" });
+    expect(overviewLink).toHaveFocus();
+  });
 
   it("marks disabled SidebarItemLink with aria-disabled and skips arrow focus", () => {
     render(
@@ -427,23 +433,23 @@ describe("Sidebar render", () => {
           </SidebarList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
     const [nav] = screen.getAllByRole("navigation", {
       name: "Application navigation",
-    })
-    const navQueries = within(nav)
-    const overviewLink = navQueries.getByRole("link", { name: "Overview" })
-    const settingsLink = navQueries.getByRole("link", { name: "Settings" })
-    const signOutButton = navQueries.getByRole("button", { name: "Sign out" })
+    });
+    const navQueries = within(nav);
+    const overviewLink = navQueries.getByRole("link", { name: "Overview" });
+    const settingsLink = navQueries.getByRole("link", { name: "Settings" });
+    const signOutButton = navQueries.getByRole("button", { name: "Sign out" });
 
-    expect(settingsLink).toHaveAttribute("aria-disabled", "true")
-    expect(settingsLink).toHaveAttribute("tabindex", "-1")
+    expect(settingsLink).toHaveAttribute("aria-disabled", "true");
+    expect(settingsLink).toHaveAttribute("tabindex", "-1");
 
-    overviewLink.focus()
-    fireEvent.keyDown(nav, { key: "ArrowDown" })
-    expect(signOutButton).toHaveFocus()
-  })
+    overviewLink.focus();
+    fireEvent.keyDown(nav, { key: "ArrowDown" });
+    expect(signOutButton).toHaveFocus();
+  });
 
   it("renders SidebarItemSkeleton with icon and label pulse blocks", () => {
     render(
@@ -458,18 +464,18 @@ describe("Sidebar render", () => {
           </SidebarContent>
         </Sidebar>
       </SidebarProvider>,
-    )
+    );
 
-    const [skeleton] = screen.getAllByTestId("nav-skeleton")
+    const [skeleton] = screen.getAllByTestId("nav-skeleton");
 
-    expect(skeleton).toHaveClass("lex-sidebar__item-skeleton")
+    expect(skeleton).toHaveClass("lex-sidebar__item-skeleton");
     expect(
       skeleton.querySelector(".lex-sidebar__item-skeleton-icon"),
-    ).toBeTruthy()
+    ).toBeTruthy();
     expect(
       skeleton.querySelector(".lex-sidebar__item-skeleton-label"),
-    ).toHaveClass("md:group-data-[collapsed=true]/sidebar:hidden")
-  })
+    ).toHaveClass("md:group-data-[collapsed=true]/sidebar:hidden");
+  });
 
   it("applies right-side shell and active accent on inline end", () => {
     const { container } = render(
@@ -486,20 +492,20 @@ describe("Sidebar render", () => {
           </SidebarContent>
         </Sidebar>
       </SidebarProvider>,
-    )
+    );
 
-    const aside = container.querySelector("aside")
+    const aside = container.querySelector("aside");
 
-    expect(aside).toHaveAttribute("data-side", "right")
-    expect(aside).toHaveClass("lex-sidebar--right")
+    expect(aside).toHaveAttribute("data-side", "right");
+    expect(aside).toHaveClass("lex-sidebar--right");
 
-    const [billingLink] = screen.getAllByRole("link", { name: "Billing" })
+    const [billingLink] = screen.getAllByRole("link", { name: "Billing" });
 
-    expect(billingLink.className).toContain("before:start-0")
+    expect(billingLink.className).toContain("before:start-0");
     expect(billingLink.className).toContain(
       "group-data-[side=right]/sidebar:before:end-0",
-    )
-  })
+    );
+  });
 
   it("uses logical sub-list chrome under rtl", () => {
     const { container } = render(
@@ -514,14 +520,14 @@ describe("Sidebar render", () => {
           </SidebarContent>
         </Sidebar>
       </div>,
-    )
+    );
 
-    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list")
+    const [subList] = container.querySelectorAll(".lex-sidebar__sub-list");
 
-    expect(subList).toHaveClass("border-s")
-    expect(subList.className).toContain("ms-[calc")
-    expect(subList.className).toContain("ps-(--lex-sidebar-item-sub-indent)")
-  })
+    expect(subList).toHaveClass("border-s");
+    expect(subList.className).toContain("ms-[calc");
+    expect(subList.className).toContain("ps-(--lex-sidebar-item-sub-indent)");
+  });
 
   it("renders SidebarInput as compact search field", () => {
     render(
@@ -535,15 +541,15 @@ describe("Sidebar render", () => {
           </SidebarList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
     const [filterInput] = screen.getAllByRole("searchbox", {
       name: "Filter navigation",
-    })
+    });
 
-    expect(filterInput).toHaveClass("lex-sidebar__input")
-    expect(filterInput).toHaveAttribute("placeholder", "Filter…")
-  })
+    expect(filterInput).toHaveClass("lex-sidebar__input");
+    expect(filterInput).toHaveAttribute("placeholder", "Filter…");
+  });
 
   it("hides SidebarInput when icon-collapsed", () => {
     render(
@@ -557,14 +563,14 @@ describe("Sidebar render", () => {
           </SidebarContent>
         </Sidebar>
       </SidebarProvider>,
-    )
+    );
 
-    const [filterInput] = screen.getAllByTestId("sidebar-filter")
+    const [filterInput] = screen.getAllByTestId("sidebar-filter");
 
     expect(filterInput).toHaveClass(
       "md:group-data-[collapsed=true]/sidebar:hidden",
-    )
-  })
+    );
+  });
 
   it("renders SidebarSeparator with inset horizontal divider", () => {
     const { container } = render(
@@ -573,15 +579,15 @@ describe("Sidebar render", () => {
           <SidebarSeparator data-testid="nav-separator" />
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
     const [separator] = container.querySelectorAll(
       "[data-testid='nav-separator']",
-    )
+    );
 
-    expect(separator).toHaveClass("lex-sidebar__separator")
-    expect(separator.className).toContain("w-auto")
-  })
+    expect(separator).toHaveClass("lex-sidebar__separator");
+    expect(separator.className).toContain("w-auto");
+  });
 
   it("folds SidebarGroup sections with SidebarGroupCollapsible", () => {
     render(
@@ -612,23 +618,23 @@ describe("Sidebar render", () => {
           </SidebarGroupCollapsible>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
     const [nav] = screen.getAllByRole("navigation", {
       name: "Application navigation",
-    })
-    const navQueries = within(nav)
-    const trigger = navQueries.getByRole("button", { name: "Developer" })
-    const apiKeysLink = navQueries.queryByRole("link", { name: "API keys" })
+    });
+    const navQueries = within(nav);
+    const trigger = navQueries.getByRole("button", { name: "Developer" });
+    const apiKeysLink = navQueries.queryByRole("link", { name: "API keys" });
 
-    expect(trigger).toHaveClass("lex-sidebar__group-collapsible-trigger")
-    expect(apiKeysLink).not.toBeInTheDocument()
+    expect(trigger).toHaveClass("lex-sidebar__group-collapsible-trigger");
+    expect(apiKeysLink).not.toBeInTheDocument();
 
-    fireEvent.click(trigger)
+    fireEvent.click(trigger);
     expect(
       navQueries.getByRole("link", { name: "API keys" }),
-    ).toBeInTheDocument()
-  })
+    ).toBeInTheDocument();
+  });
 
   it("renders indented SidebarItemSkeleton for nested rows", () => {
     render(
@@ -641,12 +647,12 @@ describe("Sidebar render", () => {
           </SidebarSubList>
         </SidebarContent>
       </Sidebar>,
-    )
+    );
 
-    const [indentedSkeleton] = screen.getAllByTestId("sub-skeleton")
+    const [indentedSkeleton] = screen.getAllByTestId("sub-skeleton");
 
     expect(indentedSkeleton.className).toContain(
       "--lex-sidebar-item-sub-indent",
-    )
-  })
-})
+    );
+  });
+});

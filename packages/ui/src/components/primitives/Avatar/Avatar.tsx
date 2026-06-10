@@ -4,18 +4,18 @@
  * Reference Avatar component implementation.
  */
 
-import { Avatar as BaseAvatar } from "@base-ui/react/avatar"
+import { Avatar as BaseAvatar } from "@base-ui/react/avatar";
 import type {
   AvatarFallbackProps,
   AvatarImageProps,
   AvatarProps,
-} from "./Avatar.types"
+} from "./Avatar.types";
 import {
   avatarFallbackVariants,
   avatarImageVariants,
   avatarVariants,
-} from "./Avatar.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+} from "./Avatar.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const Avatar = ({ ref, size, shape, className, ...props }: AvatarProps) => {
   return (
@@ -24,10 +24,10 @@ const Avatar = ({ ref, size, shape, className, ...props }: AvatarProps) => {
       className={mergeClassName(avatarVariants({ size, shape }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Avatar.displayName = "Avatar"
+Avatar.displayName = "Avatar";
 
 const AvatarImage = ({ ref, className, ...props }: AvatarImageProps) => {
   return (
@@ -36,10 +36,10 @@ const AvatarImage = ({ ref, className, ...props }: AvatarImageProps) => {
       className={mergeClassName(avatarImageVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AvatarImage.displayName = "AvatarImage"
+AvatarImage.displayName = "AvatarImage";
 
 const AvatarFallback = ({ ref, className, ...props }: AvatarFallbackProps) => {
   return (
@@ -48,9 +48,9 @@ const AvatarFallback = ({ ref, className, ...props }: AvatarFallbackProps) => {
       className={mergeClassName(avatarFallbackVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AvatarFallback.displayName = "AvatarFallback"
+AvatarFallback.displayName = "AvatarFallback";
 
-export { Avatar, AvatarImage, AvatarFallback }
+export { Avatar, AvatarImage, AvatarFallback };

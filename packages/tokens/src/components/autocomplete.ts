@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const autocompleteComponentTokens = componentTokens("autocomplete", {
   background: { $value: "{color.background.base}" },
@@ -76,4 +76,4 @@ export const autocompleteComponentTokens = componentTokens("autocomplete", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

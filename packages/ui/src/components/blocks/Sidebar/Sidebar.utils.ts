@@ -1,17 +1,17 @@
-import type { SidebarNavActiveOptions } from "./Sidebar.types.js"
+import type { SidebarNavActiveOptions } from "./Sidebar.types";
 
 const stripSidebarNavPath = (value: string): string => {
-  const withoutQuery = value.split(/[?#]/u)[0] ?? value
+  const withoutQuery = value.split(/[?#]/u)[0] ?? value;
   const withLeadingSlash = withoutQuery.startsWith("/")
     ? withoutQuery
-    : `/${withoutQuery}`
+    : `/${withoutQuery}`;
 
   if (withLeadingSlash.length > 1 && withLeadingSlash.endsWith("/")) {
-    return withLeadingSlash.slice(0, -1)
+    return withLeadingSlash.slice(0, -1);
   }
 
-  return withLeadingSlash
-}
+  return withLeadingSlash;
+};
 
 /**
  * Router-agnostic matcher for Sidebar `active` props.
@@ -22,13 +22,13 @@ export const isSidebarNavActive = (
   href: string,
   options: SidebarNavActiveOptions = {},
 ): boolean => {
-  const path = stripSidebarNavPath(pathname)
-  const target = stripSidebarNavPath(href)
-  const end = options.end ?? true
+  const path = stripSidebarNavPath(pathname);
+  const target = stripSidebarNavPath(href);
+  const end = options.end ?? true;
 
   if (end) {
-    return path === target
+    return path === target;
   }
 
-  return path === target || path.startsWith(`${target}/`)
-}
+  return path === target || path.startsWith(`${target}/`);
+};

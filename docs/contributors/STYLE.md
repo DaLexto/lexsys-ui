@@ -42,8 +42,8 @@ For examples and practical patterns, see [STYLEGUIDE.md](STYLEGUIDE.md).
 - Let errors propagate unless there is explicit recovery logic.
 - Use the `node:` protocol for Node.js built-ins in `packages/cli` and `packages/registry`:
   ```ts
-  import { readFile } from "node:fs/promises"
-  import { join } from "node:path"
+  import { readFile } from "node:fs/promises";
+  import { join } from "node:path";
   ```
 - Module resolution differs by package:
   - `packages/ui`, `packages/tokens` — `Bundler`: no extension required on relative imports.
@@ -79,8 +79,8 @@ For examples and practical patterns, see [STYLEGUIDE.md](STYLEGUIDE.md).
 - Use `cn()` (clsx + tailwind-merge) for all class composition. Do not concatenate strings manually.
 - Variant classes MUST reference `--lex-*` CSS custom properties, not hardcoded Tailwind palette values:
   ```ts
-  "bg-(--lex-button-primary-background)" // correct — Tailwind v4 canonical CSS var syntax
-  "bg-orange-500" // incorrect
+  "bg-(--lex-button-primary-background)"; // correct — Tailwind v4 canonical CSS var syntax
+  "bg-orange-500"; // incorrect
   ```
 - Do not duplicate shared styling helpers across components.
 - Do not handwrite `--lex-*` variables in component files — they are generated output.

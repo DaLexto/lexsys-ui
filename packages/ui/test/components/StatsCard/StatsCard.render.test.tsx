@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   StatsCard,
   StatsCardContent,
@@ -9,7 +9,7 @@ import {
   StatsCardTitle,
   StatsCardTrend,
   StatsCardValue,
-} from "../../../src/components/blocks/StatsCard/StatsCard.js"
+} from "../../../src/components/blocks/StatsCard/StatsCard.js";
 
 describe("StatsCard render", () => {
   it("renders metric value, trend, and footer", () => {
@@ -27,16 +27,16 @@ describe("StatsCard render", () => {
           <button type="button">View report</button>
         </StatsCardFooter>
       </StatsCard>,
-    )
+    );
 
-    expect(screen.getByText("Active users")).toBeInTheDocument()
-    expect(screen.getByText("1,284")).toBeInTheDocument()
-    expect(screen.getByText("+12% from last month")).toBeInTheDocument()
+    expect(screen.getByText("Active users")).toBeInTheDocument();
+    expect(screen.getByText("1,284")).toBeInTheDocument();
+    expect(screen.getByText("+12% from last month")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "View report" }),
-    ).toBeInTheDocument()
+    ).toBeInTheDocument();
 
-    const card = screen.getByText("1,284").closest(".custom-stats-card")
-    expect(card).not.toBeNull()
-  })
-})
+    const card = screen.getByText("1,284").closest(".custom-stats-card");
+    expect(card).not.toBeNull();
+  });
+});

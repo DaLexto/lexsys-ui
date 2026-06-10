@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const popoverComponentTokens = componentTokens("popover", {
   backdrop: {
@@ -82,4 +82,4 @@ export const popoverComponentTokens = componentTokens("popover", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

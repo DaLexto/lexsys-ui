@@ -4,10 +4,10 @@
  * Reference Button component implementation.
  */
 
-import { Button as BaseButton } from "@base-ui/react/button"
-import type { ButtonProps } from "./Button.types"
-import { buttonVariants } from "./Button.variants"
-import { mergeClassName } from "@/lib/utils"
+import { Button as BaseButton } from "@base-ui/react/button";
+import type { ButtonProps } from "./Button.types";
+import { buttonVariants } from "./Button.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Button = ({
   ref,
@@ -21,7 +21,7 @@ const Button = ({
   type,
   ...props
 }: ButtonProps) => {
-  const isDisabled = isLoading || disabled
+  const isDisabled = isLoading || disabled;
 
   return (
     <BaseButton
@@ -45,9 +45,9 @@ const Button = ({
         children
       )}
     </BaseButton>
-  )
-}
+  );
+};
 
-Button.displayName = "Button"
+Button.displayName = "Button";
 
-export { Button }
+export { Button };

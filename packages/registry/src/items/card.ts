@@ -4,7 +4,7 @@
  * Registry metadata for the Card component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const cardRegistryItem: RegistryItem = {
   name: "card",
@@ -33,4 +33,4 @@ export const cardRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Card",
-}
+};

@@ -4,7 +4,7 @@
  * Reference Toolbar component implementation.
  */
 
-import { Toolbar as BaseToolbar } from "@base-ui/react/toolbar"
+import { Toolbar as BaseToolbar } from "@base-ui/react/toolbar";
 import type {
   ToolbarButtonProps,
   ToolbarGroupProps,
@@ -12,7 +12,7 @@ import type {
   ToolbarLinkProps,
   ToolbarProps,
   ToolbarSeparatorProps,
-} from "./Toolbar.types"
+} from "./Toolbar.types";
 import {
   toolbarButtonVariants,
   toolbarGroupVariants,
@@ -20,8 +20,8 @@ import {
   toolbarLinkVariants,
   toolbarRootVariants,
   toolbarSeparatorVariants,
-} from "./Toolbar.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./Toolbar.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Toolbar = ({ ref, className, orientation, ...props }: ToolbarProps) => {
   return (
@@ -34,10 +34,10 @@ const Toolbar = ({ ref, className, orientation, ...props }: ToolbarProps) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-Toolbar.displayName = "Toolbar"
+Toolbar.displayName = "Toolbar";
 
 const ToolbarGroup = ({ ref, className, ...props }: ToolbarGroupProps) => {
   return (
@@ -46,10 +46,10 @@ const ToolbarGroup = ({ ref, className, ...props }: ToolbarGroupProps) => {
       className={mergeClassName(toolbarGroupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToolbarGroup.displayName = "ToolbarGroup"
+ToolbarGroup.displayName = "ToolbarGroup";
 
 const ToolbarButton = ({ ref, className, ...props }: ToolbarButtonProps) => {
   return (
@@ -58,10 +58,10 @@ const ToolbarButton = ({ ref, className, ...props }: ToolbarButtonProps) => {
       className={mergeClassName(toolbarButtonVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToolbarButton.displayName = "ToolbarButton"
+ToolbarButton.displayName = "ToolbarButton";
 
 const ToolbarLink = ({ ref, className, ...props }: ToolbarLinkProps) => {
   return (
@@ -70,10 +70,10 @@ const ToolbarLink = ({ ref, className, ...props }: ToolbarLinkProps) => {
       className={mergeClassName(toolbarLinkVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToolbarLink.displayName = "ToolbarLink"
+ToolbarLink.displayName = "ToolbarLink";
 
 const ToolbarInput = ({ ref, className, ...props }: ToolbarInputProps) => {
   return (
@@ -82,10 +82,10 @@ const ToolbarInput = ({ ref, className, ...props }: ToolbarInputProps) => {
       className={mergeClassName(toolbarInputVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToolbarInput.displayName = "ToolbarInput"
+ToolbarInput.displayName = "ToolbarInput";
 
 const ToolbarSeparator = ({
   ref,
@@ -103,10 +103,10 @@ const ToolbarSeparator = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-ToolbarSeparator.displayName = "ToolbarSeparator"
+ToolbarSeparator.displayName = "ToolbarSeparator";
 
 export {
   Toolbar,
@@ -115,4 +115,4 @@ export {
   ToolbarLink,
   ToolbarInput,
   ToolbarSeparator,
-}
+};

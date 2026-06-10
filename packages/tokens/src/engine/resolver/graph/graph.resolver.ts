@@ -5,12 +5,12 @@
  * @description Token graph traversal, reachability, and dependency analysis.
  */
 
-import type { TokenBranch, TokenLeaf, TokenTree } from "../../../types"
+import type { TokenBranch, TokenLeaf, TokenTree } from "../../../types";
 import {
   collectLeafPaths,
   collectReferenceUsages,
   walkTokenTree,
-} from "../../shared/tree.utils"
+} from "../../shared/tree.utils";
 import {
   getNodeByPath,
   isReferenceString,
@@ -19,28 +19,28 @@ import {
   isTokenTree,
   parseReference,
   toPathString,
-} from "../shared/shared.resolver.utils"
+} from "../shared/shared.resolver.utils";
 import type {
   TokenGraphDependent,
   TokenGraphLayer,
   TokenGraphMetadata,
   TokenGraphReachabilityInput,
   TokenGraphReference,
-} from "./graph.types"
+} from "./graph.types";
 
-export { collectLeafPaths } from "../../shared/tree.utils"
+export { collectLeafPaths } from "../../shared/tree.utils";
 
 const readDeprecated = (
   node: TokenLeaf | TokenBranch,
 ): boolean | string | undefined => {
-  return node.$deprecated
-}
+  return node.$deprecated;
+};
 
 const readDescription = (node: TokenLeaf | TokenBranch): string | undefined => {
-  const description = node.$description
+  const description = node.$description;
 
-  return typeof description === "string" ? description : undefined
-}
+  return typeof description === "string" ? description : undefined;
+};
 
 export const collectTokenGraphReferences = (
   tree: TokenTree,
@@ -56,11 +56,11 @@ export const collectTokenGraphReferences = (
       reference: usage.reference,
       targetPath: usage.targetPath,
       themeName,
-    })
+    });
   }
 
-  return references
-}
+  return references;
+};
 
 export const collectTokenGraphMetadata = (
   tree: TokenTree,
@@ -73,12 +73,12 @@ export const collectTokenGraphMetadata = (
     tree,
     {
       onNode: (node, nodePath) => {
-        const currentPath = toPathString(nodePath)
-        const description = readDescription(node)
-        const deprecated = readDeprecated(node)
+        const currentPath = toPathString(nodePath);
+        const description = readDescription(node);
+        const deprecated = readDeprecated(node);
 
         if (description === undefined && deprecated === undefined) {
-          return
+          return;
         }
 
         metadata.push({
@@ -87,14 +87,14 @@ export const collectTokenGraphMetadata = (
           description,
           deprecated,
           themeName,
-        })
+        });
       },
     },
     path,
-  )
+  );
 
-  return metadata
-}
+  return metadata;
+};
 
 export const expandReferencedPaths = (
   root: TokenTree,
@@ -102,20 +102,20 @@ export const expandReferencedPaths = (
   visited: Set<string> = new Set(),
 ): Set<string> => {
   if (visited.has(targetPath)) {
-    return new Set()
+    return new Set();
   }
 
-  visited.add(targetPath)
+  visited.add(targetPath);
 
-  const paths = new Set<string>([targetPath])
-  const node = getNodeByPath(root, targetPath)
+  const paths = new Set<string>([targetPath]);
+  const node = getNodeByPath(root, targetPath);
 
   if (
     node === undefined ||
     !isTokenLeaf(node) ||
     !isReferenceString(node.$value)
   ) {
-    return paths
+    return paths;
   }
 
   for (const nestedPath of expandReferencedPaths(
@@ -123,11 +123,11 @@ export const expandReferencedPaths = (
     parseReference(node.$value),
     visited,
   )) {
-    paths.add(nestedPath)
+    paths.add(nestedPath);
   }
 
-  return paths
-}
+  return paths;
+};
 
 export const collectUpperLayerReferences = (
   input: TokenGraphReachabilityInput,
@@ -136,16 +136,16 @@ export const collectUpperLayerReferences = (
     ...collectTokenGraphReferences(input.semanticTokens, "semantic"),
     ...collectTokenGraphReferences(input.brandTokens, "brand"),
     ...collectTokenGraphReferences(input.componentTokens, "component"),
-  ]
+  ];
 
   for (const theme of input.themeTokens) {
     references.push(
       ...collectTokenGraphReferences(theme.tokens, "theme", theme.name),
-    )
+    );
   }
 
-  return references
-}
+  return references;
+};
 
 const pathMatchesTarget = (
   candidatePath: string,
@@ -153,8 +153,8 @@ const pathMatchesTarget = (
 ): boolean => {
   return (
     candidatePath === targetPath || candidatePath.startsWith(`${targetPath}.`)
-  )
-}
+  );
+};
 
 export const referenceDependsOnTarget = (
   foundationTokens: TokenTree,
@@ -166,19 +166,19 @@ export const referenceDependsOnTarget = (
     referenceTargetPath,
   )) {
     if (pathMatchesTarget(expandedPath, targetPath)) {
-      return true
+      return true;
     }
   }
 
-  return false
-}
+  return false;
+};
 
 export const findTransitiveDependents = (
   input: TokenGraphReachabilityInput,
   targetPath: string,
   references: TokenGraphReference[] = collectUpperLayerReferences(input),
 ): TokenGraphDependent[] => {
-  const dependents: TokenGraphDependent[] = []
+  const dependents: TokenGraphDependent[] = [];
 
   for (const reference of references) {
     if (
@@ -188,26 +188,26 @@ export const findTransitiveDependents = (
         targetPath,
       )
     ) {
-      continue
+      continue;
     }
 
     dependents.push({
       layer: reference.layer,
       sourcePath: reference.sourcePath,
       themeName: reference.themeName,
-    })
+    });
   }
 
   return dependents.sort((left, right) => {
-    return left.sourcePath.localeCompare(right.sourcePath)
-  })
-}
+    return left.sourcePath.localeCompare(right.sourcePath);
+  });
+};
 
 export const collectUsedPrimitivePaths = (
   input: TokenGraphReachabilityInput,
 ): Set<string> => {
-  const primitivePaths = collectLeafPaths(input.primitiveTokens)
-  const usedPrimitivePaths = new Set<string>()
+  const primitivePaths = collectLeafPaths(input.primitiveTokens);
+  const usedPrimitivePaths = new Set<string>();
 
   for (const reference of collectUpperLayerReferences(input)) {
     for (const expandedPath of expandReferencedPaths(
@@ -215,13 +215,13 @@ export const collectUsedPrimitivePaths = (
       reference.targetPath,
     )) {
       if (primitivePaths.has(expandedPath)) {
-        usedPrimitivePaths.add(expandedPath)
+        usedPrimitivePaths.add(expandedPath);
       }
     }
   }
 
-  return usedPrimitivePaths
-}
+  return usedPrimitivePaths;
+};
 
 export const stripDeadPrimitivesFromTree = (
   tree: TokenTree,
@@ -229,34 +229,34 @@ export const stripDeadPrimitivesFromTree = (
   path: string[] = [],
 ): TokenTree => {
   if (isTokenLeaf(tree)) {
-    return usedPaths.has(toPathString(path)) ? tree : {}
+    return usedPaths.has(toPathString(path)) ? tree : {};
   }
 
   if (!isTokenTree(tree)) {
-    return {}
+    return {};
   }
 
-  const result: TokenTree = {}
+  const result: TokenTree = {};
 
   for (const [key, value] of Object.entries(tree)) {
     if (isTokenMetadataKey(key)) {
-      result[key] = value
-      continue
+      result[key] = value;
+      continue;
     }
 
     if (!isTokenLeaf(value) && !isTokenTree(value)) {
-      continue
+      continue;
     }
 
     const child = stripDeadPrimitivesFromTree(value as TokenTree, usedPaths, [
       ...path,
       key,
-    ])
+    ]);
 
     if (isTokenLeaf(child) || Object.keys(child).length > 0) {
-      result[key] = child
+      result[key] = child;
     }
   }
 
-  return result
-}
+  return result;
+};

@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const scrollAreaComponentTokens = componentTokens("scroll-area", {
   scrollbar: {
@@ -11,4 +11,4 @@ export const scrollAreaComponentTokens = componentTokens("scroll-area", {
     background: { $value: "{border.strong}" },
     radius: { $value: "{radius.pill}" },
   },
-})
+});

@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Select,
   SelectItem,
@@ -10,7 +10,7 @@ import {
   SelectPositioner,
   SelectTrigger,
   SelectValue,
-} from "../../../src/components/primitives/Select/Select.js"
+} from "../../../src/components/primitives/Select/Select.js";
 
 describe("Select render", () => {
   it("renders trigger with accessible name", () => {
@@ -31,8 +31,8 @@ describe("Select render", () => {
           </SelectPositioner>
         </SelectPortal>
       </Select>,
-    )
+    );
 
-    expect(screen.getByRole("combobox", { name: "Fruit" })).toBeInTheDocument()
-  })
-})
+    expect(screen.getByRole("combobox", { name: "Fruit" })).toBeInTheDocument();
+  });
+});

@@ -1,19 +1,19 @@
 /// <reference types="node" />
-import { readFileSync, readdirSync, type Dirent } from "node:fs"
-import { join, relative } from "node:path"
-import { describe, expect, test } from "vitest"
+import { readFileSync, readdirSync, type Dirent } from "node:fs";
+import { join, relative } from "node:path";
+import { describe, expect, test } from "vitest";
 import {
   registryItems,
   registryStyles,
   registryUtilities,
-} from "../src/index.js"
+} from "../src/index.js";
 import type {
   RegistryItem,
   RegistryStyle,
   RegistryUtility,
-} from "../src/registry.types.js"
-import { getRegistryDependenciesFromTemplateContents } from "../src/registry-composition-imports.js"
-import { validateRegistry } from "../src/validate-registry.js"
+} from "../src/registry.types.js";
+import { getRegistryDependenciesFromTemplateContents } from "../src/registry-composition-imports.js";
+import { validateRegistry } from "../src/validate-registry.js";
 
 /**
  * Pomoćna funkcija koja skenira templates folder.
@@ -22,37 +22,37 @@ import { validateRegistry } from "../src/validate-registry.js"
 const collectTemplateFiles = (root: string, current = root): string[] => {
   return readdirSync(current, { withFileTypes: true }).flatMap(
     (entry: Dirent) => {
-      const path = join(current, entry.name)
+      const path = join(current, entry.name);
 
       if (entry.isDirectory()) {
-        return collectTemplateFiles(root, path)
+        return collectTemplateFiles(root, path);
       }
 
-      return relative(root, path).replaceAll("\\", "/")
+      return relative(root, path).replaceAll("\\", "/");
     },
-  )
-}
+  );
+};
 
-const templateRoot = join(process.cwd(), "templates")
-const uiSourceRoot = join(process.cwd(), "../ui/src/components")
-const componentSourceImport = 'import { cn } from "../../../utils/cn"'
-const componentTemplateImport = 'import { cn } from "@/lib/utils"'
+const templateRoot = join(process.cwd(), "templates");
+const uiSourceRoot = join(process.cwd(), "../ui/src/components");
+const componentSourceImport = 'import { cn } from "../../../utils/cn"';
+const componentTemplateImport = 'import { cn } from "@/lib/utils"';
 const mergeClassNameSourceImport =
-  'import { mergeClassName } from "../../../utils/merge-class-name"'
+  'import { mergeClassName } from "../../../utils/merge-class-name"';
 const mergeClassNameTemplateImport =
-  'import { mergeClassName } from "@/lib/utils"'
+  'import { mergeClassName } from "@/lib/utils"';
 
 const readTemplateFile = (templatePath: string): string => {
-  return readFileSync(join(templateRoot, templatePath), "utf-8")
-}
+  return readFileSync(join(templateRoot, templatePath), "utf-8");
+};
 
 const toRegistryTemplate = (source: string): string => {
   return source
     .replaceAll(componentSourceImport, componentTemplateImport)
     .replaceAll(mergeClassNameSourceImport, mergeClassNameTemplateImport)
     .replaceAll('from "../../../utils/cn"', 'from "@/lib/utils"')
-    .replaceAll('from "../../../utils/variant-states"', 'from "@/lib/utils"')
-}
+    .replaceAll('from "../../../utils/variant-states"', 'from "@/lib/utils"');
+};
 
 // Mock podaci za testiranje
 const item: RegistryItem = {
@@ -72,7 +72,7 @@ const item: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Button",
-}
+};
 
 const style: RegistryStyle = {
   name: "theme",
@@ -83,13 +83,13 @@ const style: RegistryStyle = {
       target: "tokens.css",
     },
   ],
-}
+};
 
 const utility: RegistryUtility = {
   name: "cn",
   path: "shared/utils/cn.ts",
   target: "utils.ts",
-}
+};
 
 describe("validateRegistry", () => {
   test("accepts registry items that reference known styles and utilities", () => {
@@ -98,8 +98,8 @@ describe("validateRegistry", () => {
         styles: [style],
         utilities: [utility],
       }),
-    ).not.toThrow()
-  })
+    ).not.toThrow();
+  });
 
   test("accepts the bundled registry when every referenced template exists", () => {
     expect(() =>
@@ -109,16 +109,16 @@ describe("validateRegistry", () => {
         templateFiles: collectTemplateFiles(templateRoot),
         readTemplateFile: readTemplateFile,
       }),
-    ).not.toThrow()
-  })
+    ).not.toThrow();
+  });
 
   test("declares complete install metadata for every bundled component", () => {
     const componentItems = registryItems.filter((registryItem) => {
-      return registryItem.type === "component"
-    })
+      return registryItem.type === "component";
+    });
 
     for (const item of componentItems) {
-      const templateContent = item.files.map(readTemplateFile).join("\n")
+      const templateContent = item.files.map(readTemplateFile).join("\n");
 
       expect(item).toEqual(
         expect.objectContaining({
@@ -127,46 +127,46 @@ describe("validateRegistry", () => {
           type: "component",
           utilities: ["cn"],
         }),
-      )
+      );
 
       for (const dependency of item.dependencies) {
         if (dependency === "clsx" || dependency === "tailwind-merge") {
-          expect(templateContent).toContain("@/lib/utils")
-          continue
+          expect(templateContent).toContain("@/lib/utils");
+          continue;
         }
 
-        expect(templateContent).toContain(dependency)
+        expect(templateContent).toContain(dependency);
       }
-      expect(item?.files).toHaveLength(3)
-      expect(item?.remoteFiles).toHaveLength(3)
-      expect(item?.target).toBe(`src/components/ui/${item.canonicalName}`)
+      expect(item?.files).toHaveLength(3);
+      expect(item?.remoteFiles).toHaveLength(3);
+      expect(item?.target).toBe(`src/components/ui/${item.canonicalName}`);
       expect(item?.remoteFiles?.map((file) => file.path).sort()).toEqual(
         item.files.toSorted(),
-      )
+      );
 
       if (templateContent.includes('"@base-ui/react"')) {
-        expect(item.dependencies).toContain("@base-ui/react")
+        expect(item.dependencies).toContain("@base-ui/react");
       }
 
       if (templateContent.includes('"lucide-react"')) {
-        expect(item.dependencies).toContain("lucide-react")
+        expect(item.dependencies).toContain("lucide-react");
       }
     }
-  })
+  });
 
   test("keeps component templates in sync with ui source files", () => {
     const componentItems = registryItems.filter((registryItem) => {
-      return registryItem.type === "component"
-    })
+      return registryItem.type === "component";
+    });
 
     for (const item of componentItems) {
       for (const file of item.files) {
-        const source = readFileSync(join(uiSourceRoot, file), "utf-8")
+        const source = readFileSync(join(uiSourceRoot, file), "utf-8");
 
-        expect(readTemplateFile(file)).toBe(toRegistryTemplate(source))
+        expect(readTemplateFile(file)).toBe(toRegistryTemplate(source));
       }
     }
-  })
+  });
 
   test("rejects duplicate lookup keys across names and aliases", () => {
     expect(() =>
@@ -181,24 +181,24 @@ describe("validateRegistry", () => {
           target: "src/components/ui/Input",
         },
       ]),
-    ).toThrow(/is used by both "button" and "input"/)
-  })
+    ).toThrow(/is used by both "button" and "input"/);
+  });
 
   test("rejects missing style references", () => {
     expect(() =>
       validateRegistry([item], {
         styles: [],
       }),
-    ).toThrow(/references missing style: theme/)
-  })
+    ).toThrow(/references missing style: theme/);
+  });
 
   test("rejects missing utility references", () => {
     expect(() =>
       validateRegistry([item], {
         utilities: [],
       }),
-    ).toThrow(/references missing utility: cn/)
-  })
+    ).toThrow(/references missing utility: cn/);
+  });
 
   test("rejects unsafe npm dependency names", () => {
     expect(() =>
@@ -208,8 +208,8 @@ describe("validateRegistry", () => {
           dependencies: ["clsx && bad-script"],
         },
       ]),
-    ).toThrow(/has invalid npm dependency: clsx && bad-script/)
-  })
+    ).toThrow(/has invalid npm dependency: clsx && bad-script/);
+  });
 
   test("rejects aliases that duplicate the item name", () => {
     expect(() =>
@@ -219,8 +219,8 @@ describe("validateRegistry", () => {
           aliases: ["button"],
         },
       ]),
-    ).toThrow(/has alias that duplicates its name/)
-  })
+    ).toThrow(/has alias that duplicates its name/);
+  });
 
   test("rejects remote files that are not declared in item files", () => {
     expect(() =>
@@ -234,8 +234,8 @@ describe("validateRegistry", () => {
           ],
         },
       ]),
-    ).toThrow(/is not declared in the "files" array/)
-  })
+    ).toThrow(/is not declared in the "files" array/);
+  });
 
   test("rejects remote file URLs that are not HTTPS", () => {
     expect(() =>
@@ -250,8 +250,8 @@ describe("validateRegistry", () => {
           ],
         },
       ]),
-    ).toThrow(/remote URL must use HTTPS/)
-  })
+    ).toThrow(/remote URL must use HTTPS/);
+  });
 
   test("rejects style targets that are not safe paths", () => {
     expect(() =>
@@ -268,8 +268,8 @@ describe("validateRegistry", () => {
           },
         ],
       }),
-    ).toThrow(/has invalid target:/)
-  })
+    ).toThrow(/has invalid target:/);
+  });
 
   test("rejects style files that do not exist in the templateFiles list", () => {
     expect(() =>
@@ -277,8 +277,8 @@ describe("validateRegistry", () => {
         styles: [style],
         templateFiles: [...item.files],
       }),
-    ).toThrow(/references missing template file: styles\/tokens.css/)
-  })
+    ).toThrow(/references missing template file: styles\/tokens.css/);
+  });
 
   test("rejects utilities that do not exist in the templateFiles list", () => {
     expect(() =>
@@ -286,8 +286,8 @@ describe("validateRegistry", () => {
         utilities: [utility],
         templateFiles: [...item.files],
       }),
-    ).toThrow(/references missing template file: shared\/utils\/cn.ts/)
-  })
+    ).toThrow(/references missing template file: shared\/utils\/cn.ts/);
+  });
 
   test("accepts valid block metadata with compositional registryDependencies", () => {
     const field: RegistryItem = {
@@ -298,7 +298,7 @@ describe("validateRegistry", () => {
       files: ["primitives/Field/Field.tsx"],
       remoteFiles: [{ path: "primitives/Field/Field.tsx" }],
       target: "src/components/ui/Field",
-    }
+    };
 
     const input: RegistryItem = {
       ...item,
@@ -308,7 +308,7 @@ describe("validateRegistry", () => {
       files: ["primitives/Input/Input.tsx"],
       remoteFiles: [{ path: "primitives/Input/Input.tsx" }],
       target: "src/components/ui/Input",
-    }
+    };
 
     const drawer: RegistryItem = {
       ...item,
@@ -318,7 +318,7 @@ describe("validateRegistry", () => {
       files: ["primitives/Drawer/Drawer.tsx"],
       remoteFiles: [{ path: "primitives/Drawer/Drawer.tsx" }],
       target: "src/components/ui/Drawer",
-    }
+    };
 
     const menu: RegistryItem = {
       ...item,
@@ -328,7 +328,7 @@ describe("validateRegistry", () => {
       files: ["primitives/Menu/Menu.tsx"],
       remoteFiles: [{ path: "primitives/Menu/Menu.tsx" }],
       target: "src/components/ui/Menu",
-    }
+    };
 
     const formField: RegistryItem = {
       name: "form-field",
@@ -342,7 +342,7 @@ describe("validateRegistry", () => {
       utilities: ["cn"],
       styles: ["theme"],
       target: "src/components/ui/FormField",
-    }
+    };
 
     const sidebar: RegistryItem = {
       name: "sidebar",
@@ -356,15 +356,15 @@ describe("validateRegistry", () => {
       utilities: ["cn"],
       styles: ["theme"],
       target: "src/components/ui/Sidebar",
-    }
+    };
 
     expect(() =>
       validateRegistry([item, field, input, drawer, menu, formField, sidebar], {
         styles: [style],
         utilities: [utility],
       }),
-    ).not.toThrow()
-  })
+    ).not.toThrow();
+  });
 
   test("rejects primitives with registryDependencies", () => {
     expect(() =>
@@ -374,8 +374,8 @@ describe("validateRegistry", () => {
           registryDependencies: ["input"],
         },
       ]),
-    ).toThrow(/MUST NOT declare registryDependencies/)
-  })
+    ).toThrow(/MUST NOT declare registryDependencies/);
+  });
 
   test("rejects block layer violations in registryDependencies", () => {
     const dashboardShell: RegistryItem = {
@@ -390,7 +390,7 @@ describe("validateRegistry", () => {
       utilities: ["cn"],
       styles: ["theme"],
       target: "src/components/ui/DashboardShell",
-    }
+    };
 
     const sidebarBlock: RegistryItem = {
       name: "sidebar",
@@ -404,12 +404,12 @@ describe("validateRegistry", () => {
       utilities: ["cn"],
       styles: ["theme"],
       target: "src/components/ui/Sidebar",
-    }
+    };
 
     expect(() => validateRegistry([dashboardShell, sidebarBlock])).toThrow(
       /MUST NOT depend on template/,
-    )
-  })
+    );
+  });
 
   test("rejects blocks that depend on templates", () => {
     const sidebarBlock: RegistryItem = {
@@ -424,7 +424,7 @@ describe("validateRegistry", () => {
       utilities: ["cn"],
       styles: ["theme"],
       target: "src/components/ui/Sidebar",
-    }
+    };
 
     const dashboardShell: RegistryItem = {
       name: "dashboard-shell",
@@ -438,12 +438,12 @@ describe("validateRegistry", () => {
       utilities: ["cn"],
       styles: ["theme"],
       target: "src/components/ui/DashboardShell",
-    }
+    };
 
     expect(() =>
       validateRegistry([item, sidebarBlock, dashboardShell]),
-    ).toThrow(/MUST NOT depend on template/)
-  })
+    ).toThrow(/MUST NOT depend on template/);
+  });
 
   test("rejects circular registryDependencies", () => {
     const blockA: RegistryItem = {
@@ -458,7 +458,7 @@ describe("validateRegistry", () => {
       utilities: ["cn"],
       styles: ["theme"],
       target: "src/components/ui/BlockA",
-    }
+    };
 
     const blockB: RegistryItem = {
       name: "block-b",
@@ -472,26 +472,28 @@ describe("validateRegistry", () => {
       utilities: ["cn"],
       styles: ["theme"],
       target: "src/components/ui/BlockB",
-    }
+    };
 
-    expect(() => validateRegistry([blockA, blockB])).toThrow(/dependency cycle/)
-  })
+    expect(() => validateRegistry([blockA, blockB])).toThrow(
+      /dependency cycle/,
+    );
+  });
 
   test("sidebar block registryDependencies match template composition imports", () => {
     const sidebar = registryItems.find((registryItem) => {
-      return registryItem.name === "sidebar"
-    })
+      return registryItem.name === "sidebar";
+    });
 
-    expect(sidebar).toBeDefined()
+    expect(sidebar).toBeDefined();
 
     const templateContents = sidebar!.files
       .filter((file) => file.endsWith(".tsx"))
-      .map(readTemplateFile)
+      .map(readTemplateFile);
 
     const inferred =
-      getRegistryDependenciesFromTemplateContents(templateContents)
+      getRegistryDependenciesFromTemplateContents(templateContents);
 
-    expect([...sidebar!.registryDependencies].sort()).toEqual(inferred)
+    expect([...sidebar!.registryDependencies].sort()).toEqual(inferred);
     expect(inferred).toEqual([
       "badge",
       "button",
@@ -500,8 +502,8 @@ describe("validateRegistry", () => {
       "input",
       "scroll-area",
       "separator",
-    ])
-  })
+    ]);
+  });
 
   test("rejects block templates that import undeclared registry items", () => {
     const field: RegistryItem = {
@@ -512,7 +514,7 @@ describe("validateRegistry", () => {
       files: ["primitives/Field/Field.tsx"],
       remoteFiles: [{ path: "primitives/Field/Field.tsx" }],
       target: "src/components/ui/Field",
-    }
+    };
 
     const formField: RegistryItem = {
       ...item,
@@ -525,30 +527,30 @@ describe("validateRegistry", () => {
       remoteFiles: [{ path: "blocks/FormField/FormField.tsx" }],
       registryDependencies: [],
       target: "src/components/ui/FormField",
-    }
+    };
 
     expect(() =>
       validateRegistry([field, formField], {
         readTemplateFile: readTemplateFile,
       }),
-    ).toThrow(/registryDependencies omits it/)
-  })
+    ).toThrow(/registryDependencies omits it/);
+  });
 
   test("collects and displays multiple errors at once", () => {
     const invalidItem = {
       ...item,
       name: "",
       dependencies: ["invalid && package"],
-    }
+    };
 
     try {
-      validateRegistry([invalidItem])
+      validateRegistry([invalidItem]);
       // Forsiramo pad testa ako validator ne baci error
-      expect.fail("Validator should have thrown errors but did not")
+      expect.fail("Validator should have thrown errors but did not");
     } catch (e: unknown) {
-      const message = e instanceof Error ? e.message : String(e)
-      expect(message).toContain('Registry item "" failed basic validation')
-      expect(message).toContain("invalid npm dependency")
+      const message = e instanceof Error ? e.message : String(e);
+      expect(message).toContain('Registry item "" failed basic validation');
+      expect(message).toContain("invalid npm dependency");
     }
-  })
-})
+  });
+});

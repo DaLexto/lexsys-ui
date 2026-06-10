@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const fieldsetComponentTokens = componentTokens("fieldset", {
   background: { $value: "{color.background.surface}" },
@@ -20,4 +20,4 @@ export const fieldsetComponentTokens = componentTokens("fieldset", {
       letterSpacing: { $value: "{typography.label.md.letterSpacing}" },
     },
   },
-})
+});

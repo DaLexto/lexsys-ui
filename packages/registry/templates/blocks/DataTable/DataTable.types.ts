@@ -4,7 +4,7 @@
  * Public types for the DataTable block.
  */
 
-import type { HTMLAttributes, ReactNode, Ref } from "react"
+import type { HTMLAttributes, ReactNode, Ref } from "react";
 import type {
   PaginationContentProps,
   PaginationEllipsisProps,
@@ -13,7 +13,7 @@ import type {
   PaginationNextProps,
   PaginationPreviousProps,
   PaginationProps,
-} from "@/components/primitives/Pagination/Pagination.types"
+} from "@/components/primitives/Pagination/Pagination.types";
 import type {
   TableBodyProps,
   TableCaptionProps,
@@ -23,52 +23,52 @@ import type {
   TableHeaderProps,
   TableProps,
   TableRowProps,
-} from "@/components/primitives/Table/Table.types"
+} from "@/components/primitives/Table/Table.types";
 
 export interface DataTableProps extends HTMLAttributes<HTMLDivElement> {
-  ref?: Ref<HTMLDivElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
-export type DataTableTableProps = TableProps
+export type DataTableTableProps = TableProps;
 
-export type DataTableHeaderProps = TableHeaderProps
+export type DataTableHeaderProps = TableHeaderProps;
 
-export type DataTableBodyProps = TableBodyProps
+export type DataTableBodyProps = TableBodyProps;
 
-export type DataTableFooterProps = TableFooterProps
+export type DataTableFooterProps = TableFooterProps;
 
-export type DataTableRowProps = TableRowProps
+export type DataTableRowProps = TableRowProps;
 
-export type DataTableHeadProps = TableHeadProps
+export type DataTableHeadProps = TableHeadProps;
 
-export type DataTableCellProps = TableCellProps
+export type DataTableCellProps = TableCellProps;
 
-export type DataTableCaptionProps = TableCaptionProps
+export type DataTableCaptionProps = TableCaptionProps;
 
 export interface DataTableToolbarProps extends HTMLAttributes<HTMLDivElement> {
-  ref?: Ref<HTMLDivElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
 export interface DataTablePaginationBarProps extends HTMLAttributes<HTMLDivElement> {
-  ref?: Ref<HTMLDivElement>
-  className?: string
-  children?: ReactNode
+  ref?: Ref<HTMLDivElement>;
+  className?: string;
+  children?: ReactNode;
 }
 
-export type DataTablePaginationProps = PaginationProps
+export type DataTablePaginationProps = PaginationProps;
 
-export type DataTablePaginationContentProps = PaginationContentProps
+export type DataTablePaginationContentProps = PaginationContentProps;
 
-export type DataTablePaginationItemProps = PaginationItemProps
+export type DataTablePaginationItemProps = PaginationItemProps;
 
-export type DataTablePaginationLinkProps = PaginationLinkProps
+export type DataTablePaginationLinkProps = PaginationLinkProps;
 
-export type DataTablePaginationPreviousProps = PaginationPreviousProps
+export type DataTablePaginationPreviousProps = PaginationPreviousProps;
 
-export type DataTablePaginationNextProps = PaginationNextProps
+export type DataTablePaginationNextProps = PaginationNextProps;
 
-export type DataTablePaginationEllipsisProps = PaginationEllipsisProps
+export type DataTablePaginationEllipsisProps = PaginationEllipsisProps;

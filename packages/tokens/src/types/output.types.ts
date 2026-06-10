@@ -6,9 +6,9 @@
  */
 
 export interface TokenBuildArtifacts {
-  tokensCss: string
-  themeCss: string
-  tokensJson: string
-  tokenJsonFiles: Record<string, string>
-  themesJson: string
+  tokensCss: string;
+  themeCss: string;
+  tokensJson: string;
+  tokenJsonFiles: Record<string, string>;
+  themesJson: string;
 }

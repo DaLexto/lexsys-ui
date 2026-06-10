@@ -4,7 +4,7 @@
  * Registry metadata for the Tooltip component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const tooltipRegistryItem: RegistryItem = {
   name: "tooltip",
@@ -38,4 +38,4 @@ export const tooltipRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Tooltip",
-}
+};

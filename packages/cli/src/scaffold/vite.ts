@@ -1,6 +1,6 @@
-import { mkdir } from "node:fs/promises"
-import { basename, join } from "node:path"
-import { writePackageJsonFile, writeScaffoldFile } from "./scaffold-helpers.js"
+import { mkdir } from "node:fs/promises";
+import { basename, join } from "node:path";
+import { writePackageJsonFile, writeScaffoldFile } from "./scaffold-helpers.js";
 
 const viteConfig = `import { fileURLToPath, URL } from "node:url"
 import { defineConfig } from "vite"
@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
 })
-`
+`;
 
 const tsConfig = `{
   "files": [],
@@ -23,7 +23,7 @@ const tsConfig = `{
     { "path": "./tsconfig.node.json" }
   ]
 }
-`
+`;
 
 const tsConfigApp = `{
   "compilerOptions": {
@@ -51,7 +51,7 @@ const tsConfigApp = `{
   },
   "include": ["src"]
 }
-`
+`;
 
 const tsConfigNode = `{
   "compilerOptions": {
@@ -73,7 +73,7 @@ const tsConfigNode = `{
   },
   "include": ["vite.config.ts"]
 }
-`
+`;
 
 const gitIgnore = `node_modules
 dist
@@ -82,7 +82,7 @@ dist-ssr
 .env
 .env.*
 !.env.example
-`
+`;
 
 const prettierIgnore = `node_modules
 dist
@@ -91,13 +91,13 @@ coverage
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
-`
+`;
 
 const prettierConfig = `{
   "semi": false,
   "trailingComma": "all"
 }
-`
+`;
 
 const indexHtml = `<!doctype html>
 <html lang="en">
@@ -111,7 +111,7 @@ const indexHtml = `<!doctype html>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-`
+`;
 
 const mainTsx = `import React from "react"
 import ReactDOM from "react-dom/client"
@@ -123,7 +123,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <App />
   </React.StrictMode>,
 )
-`
+`;
 
 const appTsx = `export const App = () => {
   return (
@@ -132,7 +132,7 @@ const appTsx = `export const App = () => {
     </main>
   )
 }
-`
+`;
 
 const styleCss = `@import "tailwindcss";
 
@@ -158,30 +158,30 @@ main {
   display: grid;
   place-items: center;
 }
-`
+`;
 
 const sanitizePackageName = (name: string): string => {
   const normalized = name
     .toLowerCase()
     .replace(/[^a-z0-9._-]+/gu, "-")
-    .replace(/^-+|-+$/gu, "")
+    .replace(/^-+|-+$/gu, "");
 
-  return normalized || "lexsys-vite-app"
-}
+  return normalized || "lexsys-vite-app";
+};
 
 const getPackageManagerFromUserAgent = (): string | undefined => {
-  const userAgent = process.env.npm_config_user_agent
-  const match = userAgent?.match(/^(npm|pnpm|yarn)\/([^\s]+)/u)
+  const userAgent = process.env.npm_config_user_agent;
+  const match = userAgent?.match(/^(npm|pnpm|yarn)\/([^\s]+)/u);
 
   if (!match) {
-    return undefined
+    return undefined;
   }
 
-  return `${match[1]}@${match[2]}`
-}
+  return `${match[1]}@${match[2]}`;
+};
 
 const getPackageJson = (targetDirectory: string): string => {
-  const packageManager = getPackageManagerFromUserAgent()
+  const packageManager = getPackageManagerFromUserAgent();
   const packageJson: Record<string, unknown> = {
     name: sanitizePackageName(basename(targetDirectory)),
     private: true,
@@ -195,27 +195,27 @@ const getPackageJson = (targetDirectory: string): string => {
       "format:check": "prettier --check .",
       preview: "vite preview",
     },
-  }
+  };
 
   if (packageManager) {
-    packageJson.packageManager = packageManager
+    packageJson.packageManager = packageManager;
   }
 
-  return JSON.stringify(packageJson, null, 2) + "\n"
-}
+  return JSON.stringify(packageJson, null, 2) + "\n";
+};
 
 const getRecordValue = (value: unknown): Record<string, unknown> => {
   return typeof value === "object" && value !== null
     ? (value as Record<string, unknown>)
-    : {}
-}
+    : {};
+};
 
 const mergePackageJson = (
   targetDirectory: string,
   existingPackageJson: Record<string, unknown>,
 ): string => {
-  const packageManager = getPackageManagerFromUserAgent()
-  const existingScripts = getRecordValue(existingPackageJson.scripts)
+  const packageManager = getPackageManagerFromUserAgent();
+  const existingScripts = getRecordValue(existingPackageJson.scripts);
   const mergedPackageJson: Record<string, unknown> = {
     ...existingPackageJson,
     name:
@@ -243,54 +243,54 @@ const mergePackageJson = (
       preview: "vite preview",
       ...existingScripts,
     },
-  }
+  };
 
   if (packageManager && typeof mergedPackageJson.packageManager !== "string") {
-    mergedPackageJson.packageManager = packageManager
+    mergedPackageJson.packageManager = packageManager;
   }
 
-  return JSON.stringify(mergedPackageJson, null, 2) + "\n"
-}
+  return JSON.stringify(mergedPackageJson, null, 2) + "\n";
+};
 
 export const scaffoldViteProject = async (
   targetDirectory: string,
 ): Promise<void> => {
-  await mkdir(targetDirectory, { recursive: true })
+  await mkdir(targetDirectory, { recursive: true });
 
-  await writePackageJsonFile(targetDirectory, getPackageJson, mergePackageJson)
+  await writePackageJsonFile(targetDirectory, getPackageJson, mergePackageJson);
   await writeScaffoldFile(join(targetDirectory, ".gitignore"), gitIgnore, {
     allowExisting: true,
-  })
+  });
   await writeScaffoldFile(
     join(targetDirectory, ".prettierignore"),
     prettierIgnore,
     {
       allowExisting: true,
     },
-  )
+  );
   await writeScaffoldFile(
     join(targetDirectory, ".prettierrc"),
     prettierConfig,
     {
       allowExisting: true,
     },
-  )
-  await writeScaffoldFile(join(targetDirectory, "index.html"), indexHtml)
-  await writeScaffoldFile(join(targetDirectory, "tsconfig.json"), tsConfig)
+  );
+  await writeScaffoldFile(join(targetDirectory, "index.html"), indexHtml);
+  await writeScaffoldFile(join(targetDirectory, "tsconfig.json"), tsConfig);
   await writeScaffoldFile(
     join(targetDirectory, "tsconfig.app.json"),
     tsConfigApp,
-  )
+  );
   await writeScaffoldFile(
     join(targetDirectory, "tsconfig.node.json"),
     tsConfigNode,
-  )
+  );
   await writeScaffoldFile(join(targetDirectory, "vite.config.ts"), viteConfig, {
     allowExisting: true,
-  })
-  await writeScaffoldFile(join(targetDirectory, "src", "main.tsx"), mainTsx)
-  await writeScaffoldFile(join(targetDirectory, "src", "App.tsx"), appTsx)
+  });
+  await writeScaffoldFile(join(targetDirectory, "src", "main.tsx"), mainTsx);
+  await writeScaffoldFile(join(targetDirectory, "src", "App.tsx"), appTsx);
   await writeScaffoldFile(join(targetDirectory, "src", "style.css"), styleCss, {
     allowExisting: true,
-  })
-}
+  });
+};

@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const emptyComponentTokens = componentTokens("empty", {
   padding: { $value: "{spacing.surface.md}" },
@@ -26,4 +26,4 @@ export const emptyComponentTokens = componentTokens("empty", {
       lineHeight: { $value: "{typography.body.sm.lineHeight}" },
     },
   },
-})
+});

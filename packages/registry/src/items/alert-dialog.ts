@@ -4,7 +4,7 @@
  * Registry metadata for the AlertDialog component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const alertDialogRegistryItem: RegistryItem = {
   name: "alert-dialog",
@@ -39,4 +39,4 @@ export const alertDialogRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/AlertDialog",
-}
+};

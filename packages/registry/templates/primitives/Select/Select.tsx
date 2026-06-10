@@ -4,8 +4,8 @@
  * Reference Select component implementation.
  */
 
-import { Check, ChevronDown, ChevronUp } from "lucide-react"
-import { Select as BaseSelect } from "@base-ui/react/select"
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Select as BaseSelect } from "@base-ui/react/select";
 import type {
   SelectArrowProps,
   SelectBackdropProps,
@@ -25,7 +25,7 @@ import type {
   SelectScrollUpArrowProps,
   SelectTriggerProps,
   SelectValueProps,
-} from "./Select.types"
+} from "./Select.types";
 import {
   selectArrowClasses,
   selectBackdropClasses,
@@ -42,17 +42,17 @@ import {
   selectTriggerVariants,
   selectValueClasses,
   selectLabelClasses,
-} from "./Select.variants"
-import { mergeClassName } from "@/lib/utils"
-import { overlayPositionerSideOffset } from "@/lib/utils"
+} from "./Select.variants";
+import { mergeClassName } from "@/lib/utils";
+import { overlayPositionerSideOffset } from "@/lib/utils";
 
 const Select = <Value = string, Multiple extends boolean | undefined = false>(
   props: SelectProps<Value, Multiple>,
 ) => {
-  return <BaseSelect.Root {...props} />
-}
+  return <BaseSelect.Root {...props} />;
+};
 
-Select.displayName = "Select"
+Select.displayName = "Select";
 
 const SelectLabel = ({ ref, className, ...props }: SelectLabelProps) => {
   return (
@@ -61,10 +61,10 @@ const SelectLabel = ({ ref, className, ...props }: SelectLabelProps) => {
       className={mergeClassName(selectLabelClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectLabel.displayName = "SelectLabel"
+SelectLabel.displayName = "SelectLabel";
 
 const SelectTrigger = ({
   ref,
@@ -78,10 +78,10 @@ const SelectTrigger = ({
       className={mergeClassName(selectTriggerVariants({ size }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectTrigger.displayName = "SelectTrigger"
+SelectTrigger.displayName = "SelectTrigger";
 
 const SelectValue = ({ ref, className, ...props }: SelectValueProps) => {
   return (
@@ -90,10 +90,10 @@ const SelectValue = ({ ref, className, ...props }: SelectValueProps) => {
       className={mergeClassName(selectValueClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectValue.displayName = "SelectValue"
+SelectValue.displayName = "SelectValue";
 
 const SelectIcon = ({
   ref,
@@ -109,16 +109,16 @@ const SelectIcon = ({
     >
       {children ?? <ChevronDown aria-hidden="true" size={16} />}
     </BaseSelect.Icon>
-  )
-}
+  );
+};
 
-SelectIcon.displayName = "SelectIcon"
+SelectIcon.displayName = "SelectIcon";
 
 const SelectPortal = (props: SelectPortalProps) => {
-  return <BaseSelect.Portal {...props} />
-}
+  return <BaseSelect.Portal {...props} />;
+};
 
-SelectPortal.displayName = "SelectPortal"
+SelectPortal.displayName = "SelectPortal";
 
 const SelectBackdrop = ({ ref, className, ...props }: SelectBackdropProps) => {
   return (
@@ -127,10 +127,10 @@ const SelectBackdrop = ({ ref, className, ...props }: SelectBackdropProps) => {
       className={mergeClassName(selectBackdropClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectBackdrop.displayName = "SelectBackdrop"
+SelectBackdrop.displayName = "SelectBackdrop";
 
 const SelectPositioner = ({
   ref,
@@ -147,10 +147,10 @@ const SelectPositioner = ({
       className={mergeClassName(selectPositionerClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectPositioner.displayName = "SelectPositioner"
+SelectPositioner.displayName = "SelectPositioner";
 
 const SelectPopup = ({ ref, className, ...props }: SelectPopupProps) => {
   return (
@@ -159,10 +159,10 @@ const SelectPopup = ({ ref, className, ...props }: SelectPopupProps) => {
       className={mergeClassName(selectPopupClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectPopup.displayName = "SelectPopup"
+SelectPopup.displayName = "SelectPopup";
 
 const SelectList = ({ ref, className, ...props }: SelectListProps) => {
   return (
@@ -171,10 +171,10 @@ const SelectList = ({ ref, className, ...props }: SelectListProps) => {
       className={mergeClassName(selectListClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectList.displayName = "SelectList"
+SelectList.displayName = "SelectList";
 
 const SelectItem = ({ ref, className, ...props }: SelectItemProps) => {
   return (
@@ -183,10 +183,10 @@ const SelectItem = ({ ref, className, ...props }: SelectItemProps) => {
       className={mergeClassName(selectItemClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectItem.displayName = "SelectItem"
+SelectItem.displayName = "SelectItem";
 
 const SelectItemIndicator = ({
   ref,
@@ -202,10 +202,10 @@ const SelectItemIndicator = ({
     >
       {children ?? <Check aria-hidden="true" size={14} />}
     </BaseSelect.ItemIndicator>
-  )
-}
+  );
+};
 
-SelectItemIndicator.displayName = "SelectItemIndicator"
+SelectItemIndicator.displayName = "SelectItemIndicator";
 
 const SelectItemText = ({ ref, className, ...props }: SelectItemTextProps) => {
   return (
@@ -214,10 +214,10 @@ const SelectItemText = ({ ref, className, ...props }: SelectItemTextProps) => {
       className={mergeClassName(selectItemTextClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectItemText.displayName = "SelectItemText"
+SelectItemText.displayName = "SelectItemText";
 
 const SelectArrow = ({ ref, className, ...props }: SelectArrowProps) => {
   return (
@@ -226,10 +226,10 @@ const SelectArrow = ({ ref, className, ...props }: SelectArrowProps) => {
       className={mergeClassName(selectArrowClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectArrow.displayName = "SelectArrow"
+SelectArrow.displayName = "SelectArrow";
 
 const SelectScrollUpArrow = ({
   ref,
@@ -245,10 +245,10 @@ const SelectScrollUpArrow = ({
     >
       {children ?? <ChevronUp aria-hidden="true" size={16} />}
     </BaseSelect.ScrollUpArrow>
-  )
-}
+  );
+};
 
-SelectScrollUpArrow.displayName = "SelectScrollUpArrow"
+SelectScrollUpArrow.displayName = "SelectScrollUpArrow";
 
 const SelectScrollDownArrow = ({
   ref,
@@ -264,10 +264,10 @@ const SelectScrollDownArrow = ({
     >
       {children ?? <ChevronDown aria-hidden="true" size={16} />}
     </BaseSelect.ScrollDownArrow>
-  )
-}
+  );
+};
 
-SelectScrollDownArrow.displayName = "SelectScrollDownArrow"
+SelectScrollDownArrow.displayName = "SelectScrollDownArrow";
 
 const SelectGroup = ({ ref, className, ...props }: SelectGroupProps) => {
   return (
@@ -276,10 +276,10 @@ const SelectGroup = ({ ref, className, ...props }: SelectGroupProps) => {
       className={mergeClassName(selectGroupClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectGroup.displayName = "SelectGroup"
+SelectGroup.displayName = "SelectGroup";
 
 const SelectGroupLabel = ({
   ref,
@@ -292,10 +292,10 @@ const SelectGroupLabel = ({
       className={mergeClassName(selectGroupLabelClasses, className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-SelectGroupLabel.displayName = "SelectGroupLabel"
+SelectGroupLabel.displayName = "SelectGroupLabel";
 
 export {
   Select,
@@ -316,4 +316,4 @@ export {
   SelectScrollDownArrow,
   SelectGroup,
   SelectGroupLabel,
-}
+};

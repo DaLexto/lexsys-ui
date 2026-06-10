@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   CommandPalette,
   CommandPaletteContent,
@@ -10,7 +10,7 @@ import {
   CommandPaletteList,
   CommandPaletteSeparator,
   CommandPaletteTitle,
-} from "../../../src/components/blocks/CommandPalette/CommandPalette.js"
+} from "../../../src/components/blocks/CommandPalette/CommandPalette.js";
 
 describe("CommandPalette render", () => {
   it("renders compound command palette dialog", () => {
@@ -31,11 +31,11 @@ describe("CommandPalette render", () => {
           </CommandPaletteList>
         </CommandPaletteContent>
       </CommandPalette>,
-    )
+    );
 
-    expect(screen.getByRole("dialog")).toBeInTheDocument()
-    expect(screen.getByText("Go to dashboard")).toBeInTheDocument()
-    expect(screen.getByText("Open settings")).toBeInTheDocument()
-    expect(screen.getByLabelText("Search commands")).toBeInTheDocument()
-  })
-})
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(screen.getByText("Go to dashboard")).toBeInTheDocument();
+    expect(screen.getByText("Open settings")).toBeInTheDocument();
+    expect(screen.getByLabelText("Search commands")).toBeInTheDocument();
+  });
+});

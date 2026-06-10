@@ -22,7 +22,7 @@ export type {
   TokenValue,
   ScalarTokenType,
   CompositeTokenType,
-} from "./token.types"
+} from "./token.types";
 
 /* Source groups */
 export type {
@@ -33,17 +33,17 @@ export type {
   SemanticTokenGroup,
   BrandTokenGroup,
   TokenGroupBase,
-} from "./group.types"
+} from "./group.types";
 
-export type { TokenSourceGroup } from "./source-group.utils"
+export type { TokenSourceGroup } from "./source-group.utils";
 
 export {
   getTokenTreeFromSourceGroup,
   getNamedGroupNamespace,
   getComponentGroupNamespace,
-} from "./source-group.utils"
+} from "./source-group.utils";
 
-export type { ThemeConfig } from "./theme.types"
+export type { ThemeConfig } from "./theme.types";
 
 /* Theme and preset */
 export type {
@@ -53,7 +53,7 @@ export type {
   ThemeDefinition,
   ThemeModeId,
   ThemeTokenMap,
-} from "./theme.types"
+} from "./theme.types";
 
 /* Output */
-export type { TokenBuildArtifacts } from "./output.types"
+export type { TokenBuildArtifacts } from "./output.types";

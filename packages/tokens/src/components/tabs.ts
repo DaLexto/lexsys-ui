@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const tabsComponentTokens = componentTokens("tabs", {
   gap: { $value: "{spacing.control.gap.lg}" },
@@ -40,4 +40,4 @@ export const tabsComponentTokens = componentTokens("tabs", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

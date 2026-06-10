@@ -4,7 +4,7 @@
  * Reference PageHeader block — compound page title surface with breadcrumb and actions.
  */
 
-import { Button } from "@/components/primitives/Button/Button"
+import { Button } from "@/components/primitives/Button/Button";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,7 +12,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/primitives/Breadcrumb/Breadcrumb"
+} from "@/components/primitives/Breadcrumb/Breadcrumb";
 import type {
   PageHeaderActionProps,
   PageHeaderActionsProps,
@@ -27,7 +27,7 @@ import type {
   PageHeaderProps,
   PageHeaderTitleProps,
   PageHeaderTopProps,
-} from "./PageHeader.types"
+} from "./PageHeader.types";
 import {
   pageHeaderActionsClasses,
   pageHeaderBreadcrumbClasses,
@@ -36,8 +36,8 @@ import {
   pageHeaderHeadingClasses,
   pageHeaderTitleClasses,
   pageHeaderTopClasses,
-} from "./PageHeader.variants"
-import { cn } from "@/lib/utils"
+} from "./PageHeader.variants";
+import { cn } from "@/lib/utils";
 
 const PageHeader = ({ ref, className, ...props }: PageHeaderProps) => {
   return (
@@ -46,10 +46,10 @@ const PageHeader = ({ ref, className, ...props }: PageHeaderProps) => {
       className={cn(pageHeaderClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PageHeader.displayName = "PageHeader"
+PageHeader.displayName = "PageHeader";
 
 const PageHeaderTop = ({ ref, className, ...props }: PageHeaderTopProps) => {
   return (
@@ -58,10 +58,10 @@ const PageHeaderTop = ({ ref, className, ...props }: PageHeaderTopProps) => {
       className={cn(pageHeaderTopClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PageHeaderTop.displayName = "PageHeaderTop"
+PageHeaderTop.displayName = "PageHeaderTop";
 
 const PageHeaderBreadcrumb = ({
   ref,
@@ -74,55 +74,55 @@ const PageHeaderBreadcrumb = ({
       className={cn(pageHeaderBreadcrumbClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PageHeaderBreadcrumb.displayName = "PageHeaderBreadcrumb"
+PageHeaderBreadcrumb.displayName = "PageHeaderBreadcrumb";
 
 const PageHeaderBreadcrumbList = ({
   className,
   ...props
 }: PageHeaderBreadcrumbListProps) => {
-  return <BreadcrumbList className={className} {...props} />
-}
+  return <BreadcrumbList className={className} {...props} />;
+};
 
-PageHeaderBreadcrumbList.displayName = "PageHeaderBreadcrumbList"
+PageHeaderBreadcrumbList.displayName = "PageHeaderBreadcrumbList";
 
 const PageHeaderBreadcrumbItem = ({
   className,
   ...props
 }: PageHeaderBreadcrumbItemProps) => {
-  return <BreadcrumbItem className={className} {...props} />
-}
+  return <BreadcrumbItem className={className} {...props} />;
+};
 
-PageHeaderBreadcrumbItem.displayName = "PageHeaderBreadcrumbItem"
+PageHeaderBreadcrumbItem.displayName = "PageHeaderBreadcrumbItem";
 
 const PageHeaderBreadcrumbLink = ({
   className,
   ...props
 }: PageHeaderBreadcrumbLinkProps) => {
-  return <BreadcrumbLink className={className} {...props} />
-}
+  return <BreadcrumbLink className={className} {...props} />;
+};
 
-PageHeaderBreadcrumbLink.displayName = "PageHeaderBreadcrumbLink"
+PageHeaderBreadcrumbLink.displayName = "PageHeaderBreadcrumbLink";
 
 const PageHeaderBreadcrumbPage = ({
   className,
   ...props
 }: PageHeaderBreadcrumbPageProps) => {
-  return <BreadcrumbPage className={className} {...props} />
-}
+  return <BreadcrumbPage className={className} {...props} />;
+};
 
-PageHeaderBreadcrumbPage.displayName = "PageHeaderBreadcrumbPage"
+PageHeaderBreadcrumbPage.displayName = "PageHeaderBreadcrumbPage";
 
 const PageHeaderBreadcrumbSeparator = ({
   className,
   ...props
 }: PageHeaderBreadcrumbSeparatorProps) => {
-  return <BreadcrumbSeparator className={className} {...props} />
-}
+  return <BreadcrumbSeparator className={className} {...props} />;
+};
 
-PageHeaderBreadcrumbSeparator.displayName = "PageHeaderBreadcrumbSeparator"
+PageHeaderBreadcrumbSeparator.displayName = "PageHeaderBreadcrumbSeparator";
 
 const PageHeaderHeading = ({
   ref,
@@ -135,10 +135,10 @@ const PageHeaderHeading = ({
       className={cn(pageHeaderHeadingClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PageHeaderHeading.displayName = "PageHeaderHeading"
+PageHeaderHeading.displayName = "PageHeaderHeading";
 
 const PageHeaderTitle = ({
   ref,
@@ -151,10 +151,10 @@ const PageHeaderTitle = ({
       className={cn(pageHeaderTitleClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PageHeaderTitle.displayName = "PageHeaderTitle"
+PageHeaderTitle.displayName = "PageHeaderTitle";
 
 const PageHeaderDescription = ({
   ref,
@@ -167,10 +167,10 @@ const PageHeaderDescription = ({
       className={cn(pageHeaderDescriptionClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PageHeaderDescription.displayName = "PageHeaderDescription"
+PageHeaderDescription.displayName = "PageHeaderDescription";
 
 const PageHeaderActions = ({
   ref,
@@ -183,20 +183,20 @@ const PageHeaderActions = ({
       className={cn(pageHeaderActionsClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-PageHeaderActions.displayName = "PageHeaderActions"
+PageHeaderActions.displayName = "PageHeaderActions";
 
 const PageHeaderAction = ({
   ref,
   className,
   ...props
 }: PageHeaderActionProps) => {
-  return <Button ref={ref} className={className} {...props} />
-}
+  return <Button ref={ref} className={className} {...props} />;
+};
 
-PageHeaderAction.displayName = "PageHeaderAction"
+PageHeaderAction.displayName = "PageHeaderAction";
 
 export {
   PageHeader,
@@ -212,4 +212,4 @@ export {
   PageHeaderDescription,
   PageHeaderActions,
   PageHeaderAction,
-}
+};

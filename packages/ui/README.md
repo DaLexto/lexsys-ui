@@ -109,8 +109,8 @@ components/
 All component symbols and their prop types are re-exported from `src/index.ts`:
 
 ```ts
-import { Button } from "@dalexto/lexsys-ui"
-import type { ButtonProps } from "@dalexto/lexsys-ui"
+import { Button } from "@dalexto/lexsys-ui";
+import type { ButtonProps } from "@dalexto/lexsys-ui";
 ```
 
 Do not import directly from `@dalexto/lexsys-ui/src/` or `@dalexto/lexsys-ui/dist/`.

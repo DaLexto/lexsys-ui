@@ -4,10 +4,10 @@
  * Reference Textarea component implementation.
  */
 
-import { Field as BaseField } from "@base-ui/react/field"
-import type { TextareaProps } from "./Textarea.types"
-import { textareaVariants } from "./Textarea.variants"
-import { mergeClassName } from "@/lib/utils"
+import { Field as BaseField } from "@base-ui/react/field";
+import type { TextareaProps } from "./Textarea.types";
+import { textareaVariants } from "./Textarea.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const Textarea = ({
   ref,
@@ -22,7 +22,7 @@ const Textarea = ({
   const baseTextareaProps: Omit<
     TextareaProps,
     "className" | "isInvalid" | "resize" | "rows" | "size" | "variant"
-  > = isInvalid ? { ...props, "aria-invalid": true } : props
+  > = isInvalid ? { ...props, "aria-invalid": true } : props;
 
   return (
     <BaseField.Control
@@ -34,9 +34,9 @@ const Textarea = ({
       render={<textarea rows={rows} />}
       {...baseTextareaProps}
     />
-  )
-}
+  );
+};
 
-Textarea.displayName = "Textarea"
+Textarea.displayName = "Textarea";
 
-export { Textarea }
+export { Textarea };

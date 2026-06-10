@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   ScrollArea,
   ScrollAreaContent,
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaViewport,
-} from "../../../src/components/primitives/ScrollArea/ScrollArea.js"
+} from "../../../src/components/primitives/ScrollArea/ScrollArea.js";
 
 describe("ScrollArea render", () => {
   it("renders scrollable content and merges root className", () => {
@@ -21,9 +21,9 @@ describe("ScrollArea render", () => {
           <ScrollAreaThumb />
         </ScrollAreaScrollbar>
       </ScrollArea>,
-    )
+    );
 
-    expect(screen.getByText("Scrollable panel copy")).toBeInTheDocument()
-    expect(container.firstElementChild).toHaveClass("custom-scroll-area")
-  })
-})
+    expect(screen.getByText("Scrollable panel copy")).toBeInTheDocument();
+    expect(container.firstElementChild).toHaveClass("custom-scroll-area");
+  });
+});

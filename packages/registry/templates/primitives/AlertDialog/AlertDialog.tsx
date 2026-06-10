@@ -4,8 +4,8 @@
  * Reference AlertDialog component implementation.
  */
 
-import { X } from "lucide-react"
-import { AlertDialog as BaseAlertDialog } from "@base-ui/react/alert-dialog"
+import { X } from "lucide-react";
+import { AlertDialog as BaseAlertDialog } from "@base-ui/react/alert-dialog";
 import type {
   AlertDialogBackdropProps,
   AlertDialogCloseProps,
@@ -16,7 +16,7 @@ import type {
   AlertDialogTitleProps,
   AlertDialogTriggerProps,
   AlertDialogViewportProps,
-} from "./AlertDialog.types"
+} from "./AlertDialog.types";
 import {
   alertDialogBackdropVariants,
   alertDialogCloseVariants,
@@ -25,14 +25,14 @@ import {
   alertDialogTitleVariants,
   alertDialogTriggerVariants,
   alertDialogViewportVariants,
-} from "./AlertDialog.variants"
-import { mergeClassName } from "@/lib/utils"
+} from "./AlertDialog.variants";
+import { mergeClassName } from "@/lib/utils";
 
 const AlertDialog = <Payload = unknown,>(props: AlertDialogProps<Payload>) => {
-  return <BaseAlertDialog.Root {...props} />
-}
+  return <BaseAlertDialog.Root {...props} />;
+};
 
-AlertDialog.displayName = "AlertDialog"
+AlertDialog.displayName = "AlertDialog";
 
 const AlertDialogTrigger = ({
   ref,
@@ -45,16 +45,16 @@ const AlertDialogTrigger = ({
       className={mergeClassName(alertDialogTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AlertDialogTrigger.displayName = "AlertDialogTrigger"
+AlertDialogTrigger.displayName = "AlertDialogTrigger";
 
 const AlertDialogPortal = (props: AlertDialogPortalProps) => {
-  return <BaseAlertDialog.Portal {...props} />
-}
+  return <BaseAlertDialog.Portal {...props} />;
+};
 
-AlertDialogPortal.displayName = "AlertDialogPortal"
+AlertDialogPortal.displayName = "AlertDialogPortal";
 
 const AlertDialogBackdrop = ({
   ref,
@@ -67,10 +67,10 @@ const AlertDialogBackdrop = ({
       className={mergeClassName(alertDialogBackdropVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AlertDialogBackdrop.displayName = "AlertDialogBackdrop"
+AlertDialogBackdrop.displayName = "AlertDialogBackdrop";
 
 const AlertDialogViewport = ({
   ref,
@@ -83,10 +83,10 @@ const AlertDialogViewport = ({
       className={mergeClassName(alertDialogViewportVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AlertDialogViewport.displayName = "AlertDialogViewport"
+AlertDialogViewport.displayName = "AlertDialogViewport";
 
 const AlertDialogPopup = ({
   ref,
@@ -99,10 +99,10 @@ const AlertDialogPopup = ({
       className={mergeClassName(alertDialogPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AlertDialogPopup.displayName = "AlertDialogPopup"
+AlertDialogPopup.displayName = "AlertDialogPopup";
 
 const AlertDialogTitle = ({
   ref,
@@ -115,10 +115,10 @@ const AlertDialogTitle = ({
       className={mergeClassName(alertDialogTitleVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AlertDialogTitle.displayName = "AlertDialogTitle"
+AlertDialogTitle.displayName = "AlertDialogTitle";
 
 const AlertDialogDescription = ({
   ref,
@@ -131,10 +131,10 @@ const AlertDialogDescription = ({
       className={mergeClassName(alertDialogDescriptionVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AlertDialogDescription.displayName = "AlertDialogDescription"
+AlertDialogDescription.displayName = "AlertDialogDescription";
 
 const AlertDialogClose = ({
   ref,
@@ -150,10 +150,10 @@ const AlertDialogClose = ({
     >
       {children ?? <X aria-hidden="true" size={16} />}
     </BaseAlertDialog.Close>
-  )
-}
+  );
+};
 
-AlertDialogClose.displayName = "AlertDialogClose"
+AlertDialogClose.displayName = "AlertDialogClose";
 
 export {
   AlertDialog,
@@ -165,4 +165,4 @@ export {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogClose,
-}
+};

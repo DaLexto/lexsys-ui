@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const progressComponentTokens = componentTokens("progress", {
   gap: { $value: "{spacing.control.gap.sm}" },
@@ -27,4 +27,4 @@ export const progressComponentTokens = componentTokens("progress", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.surface}" },
   },
-})
+});

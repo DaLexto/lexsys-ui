@@ -1,9 +1,9 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Switch,
   SwitchThumb,
-} from "../../../src/components/primitives/Switch/Switch.js"
+} from "../../../src/components/primitives/Switch/Switch.js";
 
 describe("Switch render", () => {
   it("renders switch compound with custom className", () => {
@@ -15,10 +15,10 @@ describe("Switch render", () => {
       >
         <SwitchThumb />
       </Switch>,
-    )
+    );
 
     expect(
       screen.getByRole("switch", { name: "Enable notifications" }),
-    ).toHaveClass("custom-switch")
-  })
-})
+    ).toHaveClass("custom-switch");
+  });
+});

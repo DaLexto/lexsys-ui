@@ -4,7 +4,7 @@
  * Registry metadata for the Drawer component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const drawerRegistryItem: RegistryItem = {
   name: "drawer",
@@ -39,4 +39,4 @@ export const drawerRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Drawer",
-}
+};

@@ -209,7 +209,7 @@ lexsysPreset = {
   brand: "lexsys",
   themeModes: ["light", "dark"],
   defaultTheme: "light",
-}
+};
 ```
 
 `default` is the only public CLI style alias today and it resolves to this
@@ -247,13 +247,13 @@ References use `{dotted.path}` strings:
 
 ```typescript
 {
-  $value: "{brand.color.primary.base}"
+  $value: "{brand.color.primary.base}";
 } // brand token
 {
-  $value: "{action.primary.base}"
+  $value: "{action.primary.base}";
 } // semantic token
 {
-  $value: "{color.neutral.900}"
+  $value: "{color.neutral.900}";
 } // primitive token
 ```
 
@@ -463,7 +463,7 @@ consumed as CSS variables:
 
 ```typescript
 // packages/ui/src/components/Button/Button.variants.ts
-primary: "bg-(--lex-button-primary-background) text-(--lex-button-primary-foreground)"
+primary: "bg-(--lex-button-primary-background) text-(--lex-button-primary-foreground)";
 ```
 
 Variable names for component tokens follow `--lex-<component>-<property>`, where

@@ -20,7 +20,7 @@
  * - Size tokens use the DTCG `dimension` type
  */
 
-import { primitiveTokens } from "../types/authoring"
+import { primitiveTokens } from "../types/authoring";
 
 export const sizePrimitives = primitiveTokens("size", {
   $type: "dimension",
@@ -50,4 +50,4 @@ export const sizePrimitives = primitiveTokens("size", {
   96: { $value: { value: 24, unit: "rem" } },
   128: { $value: { value: 32, unit: "rem" } },
   160: { $value: { value: 40, unit: "rem" } },
-})
+});

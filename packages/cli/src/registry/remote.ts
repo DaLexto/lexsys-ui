@@ -1,23 +1,25 @@
-import type { RegistryItem, RegistryStyle } from "@dalexto/lexsys-registry"
-import { hashContent } from "../utils/hash.js"
+import type { RegistryItem, RegistryStyle } from "@dalexto/lexsys-registry";
+import { hashContent } from "../utils/hash.js";
 
 export interface RemoteRegistryManifest {
-  version: string
-  items: RegistryItem[]
-  styles?: RegistryStyle[]
-  checksum?: string
+  version: string;
+  items: RegistryItem[];
+  styles?: RegistryStyle[];
+  checksum?: string;
 }
 
 const isStringArray = (value: unknown): value is string[] => {
-  return Array.isArray(value) && value.every((item) => typeof item === "string")
-}
+  return (
+    Array.isArray(value) && value.every((item) => typeof item === "string")
+  );
+};
 
 const isRegistryStyle = (value: unknown): value is RegistryStyle => {
   if (typeof value !== "object" || value === null) {
-    return false
+    return false;
   }
 
-  const style = value as Partial<RegistryStyle>
+  const style = value as Partial<RegistryStyle>;
 
   return (
     typeof style.name === "string" &&
@@ -29,17 +31,17 @@ const isRegistryStyle = (value: unknown): value is RegistryStyle => {
         file !== null &&
         typeof file.path === "string" &&
         typeof file.target === "string"
-      )
+      );
     })
-  )
-}
+  );
+};
 
 const isRegistryItem = (value: unknown): value is RegistryItem => {
   if (typeof value !== "object" || value === null) {
-    return false
+    return false;
   }
 
-  const item = value as Partial<RegistryItem>
+  const item = value as Partial<RegistryItem>;
 
   return (
     typeof item.name === "string" &&
@@ -53,40 +55,40 @@ const isRegistryItem = (value: unknown): value is RegistryItem => {
     isStringArray(item.utilities) &&
     isStringArray(item.styles) &&
     typeof item.target === "string"
-  )
-}
+  );
+};
 
 const findInvalidRegistryItemIndex = (items: unknown[]): number => {
   return items.findIndex((item) => {
-    return !isRegistryItem(item)
-  })
-}
+    return !isRegistryItem(item);
+  });
+};
 
 const parseRegistryItems = (items: unknown[]): RegistryItem[] => {
-  const invalidIndex = findInvalidRegistryItemIndex(items)
+  const invalidIndex = findInvalidRegistryItemIndex(items);
 
   if (invalidIndex !== -1) {
     throw new Error(
       `Remote registry contains invalid registry item at index ${invalidIndex}.`,
-    )
+    );
   }
 
-  return items as RegistryItem[]
-}
+  return items as RegistryItem[];
+};
 
 const parseRegistryStyles = (styles: unknown[]): RegistryStyle[] => {
   const invalidIndex = styles.findIndex((style) => {
-    return !isRegistryStyle(style)
-  })
+    return !isRegistryStyle(style);
+  });
 
   if (invalidIndex !== -1) {
     throw new Error(
       `Remote registry contains invalid style entry at index ${invalidIndex}.`,
-    )
+    );
   }
 
-  return styles as RegistryStyle[]
-}
+  return styles as RegistryStyle[];
+};
 
 /**
  * Computes a SHA-256 checksum for a remote manifest (excluding the checksum field).
@@ -94,8 +96,8 @@ const parseRegistryStyles = (styles: unknown[]): RegistryStyle[] => {
 export const computeRemoteRegistryChecksum = (
   manifest: Omit<RemoteRegistryManifest, "checksum">,
 ): string => {
-  return hashContent(JSON.stringify(manifest))
-}
+  return hashContent(JSON.stringify(manifest));
+};
 
 /**
  * Verifies an optional manifest checksum when publishers include one.
@@ -104,18 +106,18 @@ export const verifyRemoteRegistryChecksum = (
   manifest: RemoteRegistryManifest,
 ): void => {
   if (!manifest.checksum) {
-    return
+    return;
   }
 
-  const { checksum, ...rest } = manifest
-  const computed = computeRemoteRegistryChecksum(rest)
+  const { checksum, ...rest } = manifest;
+  const computed = computeRemoteRegistryChecksum(rest);
 
   if (computed !== checksum) {
     throw new Error(
       `Remote registry checksum mismatch. Expected ${checksum}, computed ${computed}.`,
-    )
+    );
   }
-}
+};
 
 /**
  * Parses a remote registry JSON payload into a manifest object.
@@ -129,30 +131,30 @@ export const parseRemoteRegistry = (value: unknown): RemoteRegistryManifest => {
     return {
       version: "unknown",
       items: parseRegistryItems(value),
-    }
+    };
   }
 
   if (typeof value !== "object" || value === null) {
-    throw new Error("Remote registry must be a JSON array or manifest object.")
+    throw new Error("Remote registry must be a JSON array or manifest object.");
   }
 
-  const manifest = value as Partial<RemoteRegistryManifest>
+  const manifest = value as Partial<RemoteRegistryManifest>;
 
   if (typeof manifest.version !== "string" || !Array.isArray(manifest.items)) {
-    throw new Error("Remote registry manifest must contain version and items.")
+    throw new Error("Remote registry manifest must contain version and items.");
   }
 
   const parsed: RemoteRegistryManifest = {
     version: manifest.version,
     items: parseRegistryItems(manifest.items),
-  }
+  };
 
   if (manifest.styles !== undefined) {
     if (!Array.isArray(manifest.styles)) {
-      throw new Error("Remote registry manifest styles must be an array.")
+      throw new Error("Remote registry manifest styles must be an array.");
     }
 
-    parsed.styles = parseRegistryStyles(manifest.styles)
+    parsed.styles = parseRegistryStyles(manifest.styles);
   }
 
   if (manifest.checksum !== undefined) {
@@ -162,16 +164,16 @@ export const parseRemoteRegistry = (value: unknown): RemoteRegistryManifest => {
     ) {
       throw new Error(
         "Remote registry manifest checksum must be a non-empty string.",
-      )
+      );
     }
 
-    parsed.checksum = manifest.checksum
+    parsed.checksum = manifest.checksum;
   }
 
-  verifyRemoteRegistryChecksum(parsed)
+  verifyRemoteRegistryChecksum(parsed);
 
-  return parsed
-}
+  return parsed;
+};
 
 /**
  * Returns true when the registry URL host or prefix matches an allowlist entry.
@@ -181,39 +183,39 @@ export const isRegistryUrlAllowed = (
   allowlist: string[] | undefined,
 ): boolean => {
   if (!allowlist?.length) {
-    return true
+    return true;
   }
 
-  let parsed: URL
+  let parsed: URL;
 
   try {
-    parsed = new URL(url)
+    parsed = new URL(url);
   } catch {
-    return false
+    return false;
   }
 
-  const host = parsed.hostname
-  const origin = parsed.origin
+  const host = parsed.hostname;
+  const origin = parsed.origin;
 
   return allowlist.some((entry) => {
     if (entry === host || entry === origin || entry === url) {
-      return true
+      return true;
     }
 
-    return url.startsWith(entry)
-  })
-}
+    return url.startsWith(entry);
+  });
+};
 
 export const fetchRemoteRegistry = async (
   url: string,
 ): Promise<RemoteRegistryManifest> => {
-  const response = await fetch(url)
+  const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Remote registry responded with HTTP ${response.status}`)
+    throw new Error(`Remote registry responded with HTTP ${response.status}`);
   }
 
-  const data: unknown = await response.json()
+  const data: unknown = await response.json();
 
-  return parseRemoteRegistry(data)
-}
+  return parseRemoteRegistry(data);
+};

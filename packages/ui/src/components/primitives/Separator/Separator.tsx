@@ -4,10 +4,10 @@
  * Reference Separator component implementation.
  */
 
-import { Separator as BaseSeparator } from "@base-ui/react/separator"
-import type { SeparatorProps } from "./Separator.types"
-import { separatorVariants } from "./Separator.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+import { Separator as BaseSeparator } from "@base-ui/react/separator";
+import type { SeparatorProps } from "./Separator.types";
+import { separatorVariants } from "./Separator.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const Separator = ({
   ref,
@@ -22,9 +22,9 @@ const Separator = ({
       className={mergeClassName(separatorVariants({ orientation }), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-Separator.displayName = "Separator"
+Separator.displayName = "Separator";
 
-export { Separator }
+export { Separator };

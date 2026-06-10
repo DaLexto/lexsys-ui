@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   SettingsPageLayout,
   SettingsPageLayoutBody,
@@ -10,11 +10,11 @@ import {
   SettingsPageLayoutPanelContent,
   SettingsPageLayoutPanelHeader,
   SettingsPageLayoutPanelTitle,
-} from "../../../src/components/templates/SettingsPageLayout/SettingsPageLayout.js"
+} from "../../../src/components/templates/SettingsPageLayout/SettingsPageLayout.js";
 import {
   PageHeaderHeading,
   PageHeaderTitle,
-} from "../../../src/components/blocks/PageHeader/PageHeader.js"
+} from "../../../src/components/blocks/PageHeader/PageHeader.js";
 
 describe("SettingsPageLayout render", () => {
   it("renders header, nav, and settings panel content", () => {
@@ -43,17 +43,17 @@ describe("SettingsPageLayout render", () => {
           </SettingsPageLayoutMain>
         </SettingsPageLayoutBody>
       </SettingsPageLayout>,
-    )
+    );
 
     expect(
       screen.getByRole("heading", { name: "Settings" }),
-    ).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Profile" })).toBeInTheDocument()
-    expect(screen.getByText("Profile form fields")).toBeInTheDocument()
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Profile" })).toBeInTheDocument();
+    expect(screen.getByText("Profile form fields")).toBeInTheDocument();
 
     const layout = screen
       .getByText("Profile form fields")
-      .closest(".custom-settings-layout")
-    expect(layout).not.toBeNull()
-  })
-})
+      .closest(".custom-settings-layout");
+    expect(layout).not.toBeNull();
+  });
+});

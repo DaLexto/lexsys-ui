@@ -4,12 +4,12 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
-import { disabledStateClasses } from "@/lib/utils"
+import { cva } from "class-variance-authority";
+import { disabledStateClasses } from "@/lib/utils";
 
 export const numberFieldVariants = cva(
   "grid gap-(--lex-number-field-gap) text-(--lex-number-field-foreground) data-[disabled]:opacity-(--lex-opacity-disabled)",
-)
+);
 
 export const numberFieldGroupVariants = cva(
   [
@@ -30,7 +30,7 @@ export const numberFieldGroupVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const numberFieldInputVariants = cva(
   [
@@ -53,7 +53,7 @@ export const numberFieldInputVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const numberFieldButtonVariants = cva(
   [
@@ -81,12 +81,12 @@ export const numberFieldButtonVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const numberFieldScrubAreaVariants = cva(
   "w-fit cursor-ew-resize text-(length:--lex-number-field-scrub-font-size) font-(--lex-number-field-scrub-font-weight) text-(--lex-number-field-scrub-foreground)",
-)
+);
 
 export const numberFieldScrubAreaCursorVariants = cva(
   "size-(--lex-number-field-scrub-cursor-size) rounded-(--lex-number-field-scrub-cursor-radius) bg-(--lex-number-field-scrub-cursor-background)",
-)
+);

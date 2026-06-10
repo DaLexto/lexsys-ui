@@ -1,4 +1,4 @@
-import { Button, Toggle, ToggleGroup } from "@dalexto/lexsys-ui"
+import { Button, Toggle, ToggleGroup } from "@dalexto/lexsys-ui";
 
 const buttonVariants = [
   "primary",
@@ -6,9 +6,9 @@ const buttonVariants = [
   "ghost",
   "outline",
   "danger",
-] as const
+] as const;
 
-const buttonSizes = ["xs", "sm", "md", "lg", "xl"] as const
+const buttonSizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
 export const ActionsPanel = () => {
   return (
@@ -110,5 +110,5 @@ export const ActionsPanel = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};

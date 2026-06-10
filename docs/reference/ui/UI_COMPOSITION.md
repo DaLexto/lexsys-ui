@@ -626,7 +626,7 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarItem,
-} from "@/components/ui/Sidebar/Sidebar"
+} from "@/components/ui/Sidebar/Sidebar";
 ```
 
 | Base UI part          | Lexsys export        |
@@ -697,30 +697,30 @@ Base UI `Button` and `DrawerClose` default to `nativeButton={true}` — they exp
 **Preferred — `ButtonLink`** (`lexsys add button button-link` — `button-link` reuses `Button` variant tokens):
 
 ```tsx
-import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink"
-;<ButtonLink href="/profile" variant="outline">
+import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink";
+<ButtonLink href="/profile" variant="outline">
   Profile
-</ButtonLink>
+</ButtonLink>;
 ```
 
 Default host is a plain `<a>`. For Next.js App Router prefetch, override `render`:
 
 ```tsx
-import Link from "next/link"
-import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink"
-;<ButtonLink href="/profile" render={<Link href="/profile" />}>
+import Link from "next/link";
+import { ButtonLink } from "@/components/ui/ButtonLink/ButtonLink";
+<ButtonLink href="/profile" render={<Link href="/profile" />}>
   Profile
-</ButtonLink>
+</ButtonLink>;
 ```
 
 **Manual `Button` + `Link`** (same contract, more typing):
 
 ```tsx
-import Link from "next/link"
-import { Button } from "@/components/ui/Button/Button"
-;<Button nativeButton={false} render={<Link href="/profile" />}>
+import Link from "next/link";
+import { Button } from "@/components/ui/Button/Button";
+<Button nativeButton={false} render={<Link href="/profile" />}>
   Profile
-</Button>
+</Button>;
 ```
 
 **`DrawerClose` + anchor** — always pair `appearance="inline"` with

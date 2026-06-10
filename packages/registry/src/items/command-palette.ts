@@ -4,7 +4,7 @@
  * Registry metadata for the CommandPalette block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const commandPaletteRegistryItem: RegistryItem = {
   name: "command-palette",
@@ -22,4 +22,4 @@ export const commandPaletteRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/CommandPalette",
-}
+};

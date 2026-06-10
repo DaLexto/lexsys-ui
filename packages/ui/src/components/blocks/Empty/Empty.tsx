@@ -5,7 +5,7 @@
  * Used for zero-data surfaces: no results, no items, unauthenticated views.
  */
 
-import { cn } from "../../../utils/cn"
+import { cn } from "../../../utils/cn";
 import type {
   EmptyContentProps,
   EmptyDescriptionProps,
@@ -13,7 +13,7 @@ import type {
   EmptyMediaProps,
   EmptyProps,
   EmptyTitleProps,
-} from "./Empty.types"
+} from "./Empty.types";
 import {
   emptyClasses,
   emptyContentClasses,
@@ -21,37 +21,37 @@ import {
   emptyHeaderClasses,
   emptyMediaClasses,
   emptyTitleClasses,
-} from "./Empty.variants"
+} from "./Empty.variants";
 
 const Empty = ({ ref, className, ...props }: EmptyProps) => {
-  return <div ref={ref} className={cn(emptyClasses(), className)} {...props} />
-}
+  return <div ref={ref} className={cn(emptyClasses(), className)} {...props} />;
+};
 
-Empty.displayName = "Empty"
+Empty.displayName = "Empty";
 
 const EmptyHeader = ({ ref, className, ...props }: EmptyHeaderProps) => {
   return (
     <div ref={ref} className={cn(emptyHeaderClasses(), className)} {...props} />
-  )
-}
+  );
+};
 
-EmptyHeader.displayName = "EmptyHeader"
+EmptyHeader.displayName = "EmptyHeader";
 
 const EmptyMedia = ({ ref, className, ...props }: EmptyMediaProps) => {
   return (
     <div ref={ref} className={cn(emptyMediaClasses(), className)} {...props} />
-  )
-}
+  );
+};
 
-EmptyMedia.displayName = "EmptyMedia"
+EmptyMedia.displayName = "EmptyMedia";
 
 const EmptyTitle = ({ ref, className, ...props }: EmptyTitleProps) => {
   return (
     <h3 ref={ref} className={cn(emptyTitleClasses(), className)} {...props} />
-  )
-}
+  );
+};
 
-EmptyTitle.displayName = "EmptyTitle"
+EmptyTitle.displayName = "EmptyTitle";
 
 const EmptyDescription = ({
   ref,
@@ -64,10 +64,10 @@ const EmptyDescription = ({
       className={cn(emptyDescriptionClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-EmptyDescription.displayName = "EmptyDescription"
+EmptyDescription.displayName = "EmptyDescription";
 
 const EmptyContent = ({ ref, className, ...props }: EmptyContentProps) => {
   return (
@@ -76,10 +76,10 @@ const EmptyContent = ({ ref, className, ...props }: EmptyContentProps) => {
       className={cn(emptyContentClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-EmptyContent.displayName = "EmptyContent"
+EmptyContent.displayName = "EmptyContent";
 
 export {
   Empty,
@@ -88,4 +88,4 @@ export {
   EmptyTitle,
   EmptyDescription,
   EmptyContent,
-}
+};

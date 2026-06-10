@@ -1,15 +1,15 @@
-import { afterEach, describe, expect, it, vi } from "vitest"
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
   createStyleTokenInput,
   validateStyleTokenInput,
-} from "../src/generators/inputs/input.source"
+} from "../src/generators/inputs/input.source";
 import {
   contrastRatio,
   compositeLinearRgb,
   parseColorStringToLinearRgb,
   relativeLuminance,
-} from "../src/engine/validator/contrast/contrast.math"
+} from "../src/engine/validator/contrast/contrast.math";
 import {
   createContrastValidationReport,
   DEFAULT_CONTRAST_POLICY,
@@ -22,55 +22,55 @@ import {
   validateContrastPolicyStrict,
   WCAG_AA_LARGE_TEXT_RATIO,
   WCAG_AA_NORMAL_TEXT_RATIO,
-} from "../src/engine/validator/contrast"
-import type { ContrastValidationInput } from "../src/engine/validator/contrast"
+} from "../src/engine/validator/contrast";
+import type { ContrastValidationInput } from "../src/engine/validator/contrast";
 
 describe("contrast.math", () => {
   it("calculates a 21:1 ratio for black on white", () => {
-    const white = parseColorStringToLinearRgb("oklch(1 0 0)")
-    const black = parseColorStringToLinearRgb("oklch(0 0 0)")
+    const white = parseColorStringToLinearRgb("oklch(1 0 0)");
+    const black = parseColorStringToLinearRgb("oklch(0 0 0)");
 
-    expect(white).not.toBeNull()
-    expect(black).not.toBeNull()
+    expect(white).not.toBeNull();
+    expect(black).not.toBeNull();
     expect(
       contrastRatio(
         black as NonNullable<typeof black>,
         white as NonNullable<typeof white>,
       ),
-    ).toBeCloseTo(21, 0)
-  })
+    ).toBeCloseTo(21, 0);
+  });
 
   it("reports low contrast for similar mid-tone colors", () => {
-    const foreground = parseColorStringToLinearRgb("oklch(0.55 0 0)")
-    const background = parseColorStringToLinearRgb("oklch(0.5 0 0)")
+    const foreground = parseColorStringToLinearRgb("oklch(0.55 0 0)");
+    const background = parseColorStringToLinearRgb("oklch(0.5 0 0)");
 
-    expect(foreground).not.toBeNull()
-    expect(background).not.toBeNull()
+    expect(foreground).not.toBeNull();
+    expect(background).not.toBeNull();
     expect(
       contrastRatio(
         foreground as NonNullable<typeof foreground>,
         background as NonNullable<typeof background>,
       ),
-    ).toBeLessThan(WCAG_AA_NORMAL_TEXT_RATIO)
+    ).toBeLessThan(WCAG_AA_NORMAL_TEXT_RATIO);
     expect(
       relativeLuminance(background as NonNullable<typeof background>),
-    ).toBeGreaterThan(0)
-  })
+    ).toBeGreaterThan(0);
+  });
 
   it("parses rgb() and hsl() strings for contrast math", () => {
-    const white = parseColorStringToLinearRgb("rgb(255, 255, 255)")
-    const black = parseColorStringToLinearRgb("hsl(0, 0%, 0%)")
+    const white = parseColorStringToLinearRgb("rgb(255, 255, 255)");
+    const black = parseColorStringToLinearRgb("hsl(0, 0%, 0%)");
 
-    expect(white).not.toBeNull()
-    expect(black).not.toBeNull()
+    expect(white).not.toBeNull();
+    expect(black).not.toBeNull();
     expect(
       contrastRatio(
         black as NonNullable<typeof black>,
         white as NonNullable<typeof white>,
       ),
-    ).toBeCloseTo(21, 0)
-  })
-})
+    ).toBeCloseTo(21, 0);
+  });
+});
 
 describe("createContrastValidationReport", () => {
   it("passes a high-contrast fixture pair for light and dark themes", () => {
@@ -117,16 +117,16 @@ describe("createContrastValidationReport", () => {
           backgroundPath: "color.background.base",
         },
       ],
-    }
+    };
 
-    const report = createContrastValidationReport(input)
+    const report = createContrastValidationReport(input);
 
-    expect(report.issues).toHaveLength(0)
-    expect(report.pairs.every((result) => result.passes)).toBe(true)
+    expect(report.issues).toHaveLength(0);
+    expect(report.pairs.every((result) => result.passes)).toBe(true);
     expect(formatContrastValidationReport(report)).toContain(
       "All registered semantic contrast pairs pass WCAG AA thresholds.",
-    )
-  })
+    );
+  });
 
   it("reports insufficient contrast for a failing fixture pair", () => {
     const input: ContrastValidationInput = {
@@ -159,30 +159,30 @@ describe("createContrastValidationReport", () => {
           backgroundPath: "color.background.base",
         },
       ],
-    }
+    };
 
-    const report = createContrastValidationReport(input)
+    const report = createContrastValidationReport(input);
 
     expect(
       report.issues.some((issue) => issue.code === "INSUFFICIENT_CONTRAST"),
-    ).toBe(true)
+    ).toBe(true);
     expect(formatContrastValidationReport(report)).toContain(
       "INSUFFICIENT_CONTRAST",
-    )
-  })
+    );
+  });
 
   it("passes all registered semantic contrast pairs for the Lexsys token graph", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
     const report = createContrastValidationReport({
       foundationTokens: input.foundationTokens,
       componentTokens: input.componentTokens,
       themeTokens: input.themeTokens,
-    })
+    });
 
-    expect(report.issues).toEqual([])
-    expect(report.pairs.every((result) => result.passes)).toBe(true)
-  })
-})
+    expect(report.issues).toEqual([]);
+    expect(report.pairs.every((result) => result.passes)).toBe(true);
+  });
+});
 
 describe("contrast.policy", () => {
   it("uses large-text threshold when textSize is large", () => {
@@ -193,8 +193,8 @@ describe("contrast.policy", () => {
         backgroundPath: "b",
         textSize: "large",
       }),
-    ).toBe(WCAG_AA_LARGE_TEXT_RATIO)
-  })
+    ).toBe(WCAG_AA_LARGE_TEXT_RATIO);
+  });
 
   it("fails policy evaluation when report has contrast issues", () => {
     const evaluation = evaluateContrastPolicy({
@@ -210,21 +210,21 @@ describe("contrast.policy", () => {
           minimumRatio: WCAG_AA_NORMAL_TEXT_RATIO,
         },
       ],
-    })
+    });
 
-    expect(evaluation.passes).toBe(false)
-    expect(evaluation.failures).toHaveLength(1)
-  })
+    expect(evaluation.passes).toBe(false);
+    expect(evaluation.failures).toHaveLength(1);
+  });
 
   it("passes policy evaluation for a clean report", () => {
     const evaluation = evaluateContrastPolicy({
       pairs: [],
       issues: [],
-    })
+    });
 
-    expect(evaluation.passes).toBe(true)
-    expect(DEFAULT_CONTRAST_POLICY.tier).toBe("ci")
-  })
+    expect(evaluation.passes).toBe(true);
+    expect(DEFAULT_CONTRAST_POLICY.tier).toBe("ci");
+  });
 
   it("reports RESOLVE_FAILED when a contrast pair path is missing", () => {
     const input: ContrastValidationInput = {
@@ -253,14 +253,14 @@ describe("contrast.policy", () => {
           backgroundPath: "color.background.base",
         },
       ],
-    }
+    };
 
-    const report = createContrastValidationReport(input)
+    const report = createContrastValidationReport(input);
 
     expect(report.issues.some((issue) => issue.code === "RESOLVE_FAILED")).toBe(
       true,
-    )
-  })
+    );
+  });
 
   it("reports UNPARSEABLE_COLOR when resolved values are not contrast-ready colors", () => {
     const input: ContrastValidationInput = {
@@ -292,33 +292,33 @@ describe("contrast.policy", () => {
           backgroundPath: "color.background.base",
         },
       ],
-    }
+    };
 
-    const report = createContrastValidationReport(input)
+    const report = createContrastValidationReport(input);
 
     expect(
       report.issues.some((issue) => issue.code === "UNPARSEABLE_COLOR"),
-    ).toBe(true)
-  })
+    ).toBe(true);
+  });
 
   it("parses LEXSYS_CONTRAST_POLICY for report, ci, and build tiers", () => {
-    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "report")
-    expect(resolveContrastPolicyTier()).toBe("report")
-    expect(shouldEnforceContrastInStyleValidation()).toBe(false)
+    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "report");
+    expect(resolveContrastPolicyTier()).toBe("report");
+    expect(shouldEnforceContrastInStyleValidation()).toBe(false);
 
-    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "ci")
-    expect(resolveContrastPolicyTier()).toBe("ci")
-    expect(shouldEnforceContrastInStyleValidation()).toBe(true)
+    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "ci");
+    expect(resolveContrastPolicyTier()).toBe("ci");
+    expect(shouldEnforceContrastInStyleValidation()).toBe(true);
 
-    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "build")
-    expect(resolveContrastPolicyTier()).toBe("build")
-    expect(shouldEnforceContrastInStyleValidation()).toBe(true)
-  })
+    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "build");
+    expect(resolveContrastPolicyTier()).toBe("build");
+    expect(shouldEnforceContrastInStyleValidation()).toBe(true);
+  });
 
   it("falls back to the default ci tier for invalid policy env values", () => {
-    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "invalid-tier")
-    expect(resolveContrastPolicyTier()).toBe("ci")
-  })
+    vi.stubEnv("LEXSYS_CONTRAST_POLICY", "invalid-tier");
+    expect(resolveContrastPolicyTier()).toBe("ci");
+  });
 
   it("uses shouldFailOnContrastPolicy only for ci and build tiers", () => {
     expect(
@@ -326,19 +326,19 @@ describe("contrast.policy", () => {
         ...DEFAULT_CONTRAST_POLICY,
         tier: "report",
       }),
-    ).toBe(false)
+    ).toBe(false);
     expect(
       shouldFailOnContrastPolicy({ ...DEFAULT_CONTRAST_POLICY, tier: "ci" }),
-    ).toBe(true)
+    ).toBe(true);
     expect(
       shouldFailOnContrastPolicy({ ...DEFAULT_CONTRAST_POLICY, tier: "build" }),
-    ).toBe(true)
-  })
-})
+    ).toBe(true);
+  });
+});
 
 afterEach(() => {
-  vi.unstubAllEnvs()
-})
+  vi.unstubAllEnvs();
+});
 
 describe("overlay background compositing", () => {
   it("composites semi-transparent overlay over base before contrast math", () => {
@@ -379,46 +379,46 @@ describe("overlay background compositing", () => {
           backgroundPath: "color.background.overlay",
         },
       ],
-    }
+    };
 
-    const report = createContrastValidationReport(input)
+    const report = createContrastValidationReport(input);
 
-    expect(report.issues).toHaveLength(0)
-    expect(report.pairs[0]?.passes).toBe(true)
-  })
+    expect(report.issues).toHaveLength(0);
+    expect(report.pairs[0]?.passes).toBe(true);
+  });
 
   it("matches composited overlay luminance against manual alpha blend", () => {
-    const overlay = parseColorStringToLinearRgb("oklch(0 0 0 / 0.15)")
-    const base = parseColorStringToLinearRgb("oklch(1 0 0)")
-    const foreground = parseColorStringToLinearRgb("oklch(0 0 0)")
+    const overlay = parseColorStringToLinearRgb("oklch(0 0 0 / 0.15)");
+    const base = parseColorStringToLinearRgb("oklch(1 0 0)");
+    const foreground = parseColorStringToLinearRgb("oklch(0 0 0)");
 
-    expect(overlay).not.toBeNull()
-    expect(base).not.toBeNull()
-    expect(foreground).not.toBeNull()
+    expect(overlay).not.toBeNull();
+    expect(base).not.toBeNull();
+    expect(foreground).not.toBeNull();
 
     const composited = compositeLinearRgb(
       overlay as NonNullable<typeof overlay>,
       base as NonNullable<typeof base>,
-    )
+    );
 
     expect(
       contrastRatio(foreground as NonNullable<typeof foreground>, composited),
-    ).toBeGreaterThan(WCAG_AA_NORMAL_TEXT_RATIO)
-  })
-})
+    ).toBeGreaterThan(WCAG_AA_NORMAL_TEXT_RATIO);
+  });
+});
 
 describe("validateContrastPolicyStrict", () => {
   it("passes for the Lexsys token graph", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
 
     expect(() => {
       validateContrastPolicyStrict({
         foundationTokens: input.foundationTokens,
         componentTokens: input.componentTokens,
         themeTokens: input.themeTokens,
-      })
-    }).not.toThrow()
-  })
+      });
+    }).not.toThrow();
+  });
 
   it("throws when contrast policy failures exist", () => {
     expect(() => {
@@ -452,15 +452,15 @@ describe("validateContrastPolicyStrict", () => {
             backgroundPath: "color.background.base",
           },
         ],
-      })
-    }).toThrow(/Contrast policy validation failed/)
-  })
-})
+      });
+    }).toThrow(/Contrast policy validation failed/);
+  });
+});
 
 describe("validateStyleTokenInput", () => {
   it("enforces contrast policy during style token validation", () => {
     expect(() => {
-      validateStyleTokenInput(createStyleTokenInput())
-    }).not.toThrow()
-  })
-})
+      validateStyleTokenInput(createStyleTokenInput());
+    }).not.toThrow();
+  });
+});

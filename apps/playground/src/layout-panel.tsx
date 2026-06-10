@@ -5,7 +5,7 @@ import {
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaViewport,
-} from "@dalexto/lexsys-ui"
+} from "@dalexto/lexsys-ui";
 
 const scrollAreaLines = [
   "Primitives hold raw values only.",
@@ -18,14 +18,14 @@ const scrollAreaLines = [
   "Installed components become user-owned code.",
   "ScrollArea uses Base UI scroll primitives.",
   "Thumb and track colors come from scroll-area tokens.",
-] as const
+] as const;
 
 const scrollAreaColumns = [
   "Layer",
   "Package",
   "Responsibility",
   "Output",
-] as const
+] as const;
 
 const scrollAreaRows = [
   ["Primitives", "tokens", "Raw scales", "TS + CSS vars"],
@@ -34,7 +34,7 @@ const scrollAreaRows = [
   ["Registry", "registry", "Install metadata", "CLI copies"],
   ["CLI", "cli", "Project installer", "User-owned files"],
   ["Playground", "apps", "Visual verification", "Local preview"],
-] as const
+] as const;
 
 const viewportTokens = [
   { label: "Mobile (sm)", token: "--lex-layout-viewport-sm" },
@@ -42,7 +42,7 @@ const viewportTokens = [
   { label: "Desktop (lg)", token: "--lex-layout-viewport-lg" },
   { label: "Wide (xl)", token: "--lex-layout-viewport-xl" },
   { label: "Ultrawide (2xl)", token: "--lex-layout-viewport-2xl" },
-] as const
+] as const;
 
 const aspectRatioTokens = [
   { label: "Square", token: "--lex-layout-aspect-ratio-square" },
@@ -51,7 +51,7 @@ const aspectRatioTokens = [
   { label: "Portrait", token: "--lex-layout-aspect-ratio-portrait" },
   { label: "Video", token: "--lex-layout-aspect-ratio-video" },
   { label: "Ultrawide", token: "--lex-layout-aspect-ratio-ultrawide" },
-] as const
+] as const;
 
 export const LayoutPanel = () => {
   return (
@@ -143,5 +143,5 @@ export const LayoutPanel = () => {
         </article>
       </div>
     </section>
-  )
-}
+  );
+};

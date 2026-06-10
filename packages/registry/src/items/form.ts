@@ -4,7 +4,7 @@
  * Registry metadata for the Form component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const formRegistryItem: RegistryItem = {
   name: "form",
@@ -38,4 +38,4 @@ export const formRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Form",
-}
+};

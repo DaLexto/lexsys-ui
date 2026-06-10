@@ -4,7 +4,7 @@
  * Registry metadata for the FilterToolbar block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const filterToolbarRegistryItem: RegistryItem = {
   name: "filter-toolbar",
@@ -22,4 +22,4 @@ export const filterToolbarRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/FilterToolbar",
-}
+};

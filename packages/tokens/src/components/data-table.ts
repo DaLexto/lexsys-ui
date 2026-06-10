@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const dataTableComponentTokens = componentTokens("data-table", {
   root: {
@@ -7,4 +7,4 @@ export const dataTableComponentTokens = componentTokens("data-table", {
   footer: {
     gap: { $value: "{spacing.surface.gap.md}" },
   },
-})
+});

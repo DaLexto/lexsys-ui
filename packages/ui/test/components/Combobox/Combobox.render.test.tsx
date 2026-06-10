@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Combobox,
   ComboboxInput,
@@ -10,7 +10,7 @@ import {
   ComboboxPortal,
   ComboboxPositioner,
   ComboboxTrigger,
-} from "../../../src/components/primitives/Combobox/Combobox.js"
+} from "../../../src/components/primitives/Combobox/Combobox.js";
 
 describe("Combobox render", () => {
   it("renders combobox input and list item when defaultOpen", () => {
@@ -30,9 +30,11 @@ describe("Combobox render", () => {
           </ComboboxPositioner>
         </ComboboxPortal>
       </Combobox>,
-    )
+    );
 
-    expect(screen.getByRole("combobox", { name: "City" })).toBeInTheDocument()
-    expect(screen.getByRole("option", { name: "New York" })).toBeInTheDocument()
-  })
-})
+    expect(screen.getByRole("combobox", { name: "City" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "New York" }),
+    ).toBeInTheDocument();
+  });
+});

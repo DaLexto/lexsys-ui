@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const menuTriggerVariants = cva(
   [
@@ -16,13 +16,13 @@ export const menuTriggerVariants = cva(
     "data-[focused]:border-(--lex-menu-focus-border-color) data-[focused]:ring-(length:--lex-menu-focus-ring-width) data-[focused]:ring-(--lex-menu-focus-ring-color) data-[focused]:ring-offset-(length:--lex-menu-focus-ring-offset) data-[focused]:ring-offset-(--lex-menu-focus-ring-offset-color)",
     "data-[disabled]:cursor-not-allowed data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
 export const menuBackdropVariants = cva(
   "fixed inset-0 z-(--lex-menu-backdrop-z-index) bg-(--lex-menu-backdrop-background) opacity-(--lex-menu-backdrop-opacity) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-)
+);
 
-export const menuPositionerVariants = cva("z-(--lex-menu-positioner-z-index)")
+export const menuPositionerVariants = cva("z-(--lex-menu-positioner-z-index)");
 
 export const menuPopupVariants = cva(
   [
@@ -31,11 +31,11 @@ export const menuPopupVariants = cva(
     "data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0",
     "origin-[var(--transform-origin)] transition-[opacity,transform] duration-(--lex-menu-transition-duration) ease-(--lex-menu-transition-easing)",
   ].join(" "),
-)
+);
 
 export const menuViewportVariants = cva(
   "grid max-h-(--lex-menu-viewport-max-height) gap-(--lex-menu-list-gap) overflow-y-auto p-(--lex-menu-list-padding)",
-)
+);
 
 export const menuItemVariants = cva(
   [
@@ -46,28 +46,28 @@ export const menuItemVariants = cva(
     "data-[checked]:bg-(--lex-menu-item-checked-background) data-[checked]:text-(--lex-menu-item-checked-foreground)",
     "data-[disabled]:pointer-events-none data-[disabled]:opacity-(--lex-opacity-disabled)",
   ].join(" "),
-)
+);
 
-export const menuItemTextVariants = cva("min-w-0 flex-1 truncate")
+export const menuItemTextVariants = cva("min-w-0 flex-1 truncate");
 
 export const menuItemIndicatorVariants = cva(
   "inline-flex size-(--lex-menu-item-indicator-size) shrink-0 items-center justify-center text-current",
-)
+);
 
 export const menuSubmenuTriggerIconVariants = cva(
   "ml-auto inline-flex size-(--lex-menu-submenu-icon-size) shrink-0 items-center justify-center text-current",
-)
+);
 
 export const menuArrowVariants = cva(
   "size-(--lex-menu-arrow-size) rotate-45 border border-(--lex-menu-popup-border-color) bg-(--lex-menu-popup-background)",
-)
+);
 
-export const menuGroupVariants = cva("grid gap-(--lex-menu-group-gap)")
+export const menuGroupVariants = cva("grid gap-(--lex-menu-group-gap)");
 
 export const menuGroupLabelVariants = cva(
   "px-(--lex-menu-item-padding-x) py-(--lex-menu-group-label-padding-y) text-(length:--lex-menu-group-label-font-size) font-(--lex-menu-group-label-font-weight) leading-(--lex-menu-group-label-font-line-height) text-(--lex-menu-group-label-foreground)",
-)
+);
 
 export const menuSeparatorVariants = cva(
   "my-(--lex-menu-separator-margin-y) h-px bg-(--lex-menu-separator-background)",
-)
+);

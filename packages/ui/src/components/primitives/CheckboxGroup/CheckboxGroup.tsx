@@ -4,10 +4,10 @@
  * Reference CheckboxGroup component implementation.
  */
 
-import { CheckboxGroup as BaseCheckboxGroup } from "@base-ui/react/checkbox-group"
-import type { CheckboxGroupProps } from "./CheckboxGroup.types"
-import { checkboxGroupVariants } from "./CheckboxGroup.variants"
-import { mergeClassName } from "../../../utils/merge-class-name"
+import { CheckboxGroup as BaseCheckboxGroup } from "@base-ui/react/checkbox-group";
+import type { CheckboxGroupProps } from "./CheckboxGroup.types";
+import { checkboxGroupVariants } from "./CheckboxGroup.variants";
+import { mergeClassName } from "../../../utils/merge-class-name";
 
 const CheckboxGroup = ({
   ref,
@@ -24,9 +24,9 @@ const CheckboxGroup = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-CheckboxGroup.displayName = "CheckboxGroup"
+CheckboxGroup.displayName = "CheckboxGroup";
 
-export { CheckboxGroup }
+export { CheckboxGroup };

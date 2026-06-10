@@ -4,7 +4,7 @@
  * Registry metadata for the Combobox component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const comboboxRegistryItem: RegistryItem = {
   name: "combobox",
@@ -39,4 +39,4 @@ export const comboboxRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Combobox",
-}
+};

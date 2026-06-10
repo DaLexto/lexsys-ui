@@ -4,7 +4,7 @@
  * Registry metadata for the ButtonLink component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const buttonLinkRegistryItem: RegistryItem = {
   name: "button-link",
@@ -33,4 +33,4 @@ export const buttonLinkRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/ButtonLink",
-}
+};

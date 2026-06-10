@@ -36,7 +36,7 @@ import {
   TooltipPortal,
   TooltipPositioner,
   TooltipTrigger,
-} from "@dalexto/lexsys-ui"
+} from "@dalexto/lexsys-ui";
 
 export const InteractionsPanel = () => {
   return (
@@ -188,5 +188,5 @@ export const InteractionsPanel = () => {
         </article>
       </div>
     </section>
-  )
-}
+  );
+};

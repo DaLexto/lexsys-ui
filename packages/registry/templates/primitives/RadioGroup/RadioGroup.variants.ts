@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const radioGroupVariants = cva("grid gap-(--lex-radio-group-gap)", {
   variants: {
@@ -16,7 +16,7 @@ export const radioGroupVariants = cva("grid gap-(--lex-radio-group-gap)", {
   defaultVariants: {
     orientation: "vertical",
   },
-})
+});
 
 export const radioGroupItemVariants = cva(
   [
@@ -39,11 +39,11 @@ export const radioGroupItemVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const radioGroupLabelVariants = cva(
   "inline-flex items-center gap-(--lex-radio-group-label-gap) text-(length:--lex-radio-group-label-font-size) font-(--lex-radio-group-label-font-weight) leading-(--lex-radio-group-label-font-line-height) text-(--lex-radio-group-label-foreground)",
-)
+);
 
 export const radioGroupIndicatorVariants = cva("rounded-full bg-current", {
   variants: {
@@ -56,4 +56,4 @@ export const radioGroupIndicatorVariants = cva("rounded-full bg-current", {
   defaultVariants: {
     size: "md",
   },
-})
+});

@@ -1,41 +1,41 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vitest";
 
 import {
   createStyleTokenInput,
   type StyleTokenInput,
-} from "../src/generators/inputs/input.source"
+} from "../src/generators/inputs/input.source";
 import {
   validateTokenLayerContracts,
   validateTokenLayerContractsStrict,
-} from "../src/engine/validator"
-import type { TokenTree } from "../src/types"
+} from "../src/engine/validator";
+import type { TokenTree } from "../src/types";
 
 const createFixtureInput = (
   overrides: Partial<{
-    primitiveTokens: TokenTree
-    brandTokens: TokenTree
-    semanticTokens: TokenTree
-    componentTokens: TokenTree
-    themeTokens: StyleTokenInput["themeTokens"]
+    primitiveTokens: TokenTree;
+    brandTokens: TokenTree;
+    semanticTokens: TokenTree;
+    componentTokens: TokenTree;
+    themeTokens: StyleTokenInput["themeTokens"];
   }> = {},
 ): StyleTokenInput => {
-  const base = createStyleTokenInput()
+  const base = createStyleTokenInput();
 
   return {
     ...base,
     foundationTokens: base.foundationTokens,
     tokenTree: base.tokenTree,
     ...overrides,
-  }
-}
+  };
+};
 
 describe("validateTokenLayerContracts", () => {
   it("passes for the current Lexsys token source graph", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
 
-    expect(validateTokenLayerContracts(input).violations).toEqual([])
-    expect(() => validateTokenLayerContractsStrict(input)).not.toThrow()
-  })
+    expect(validateTokenLayerContracts(input).violations).toEqual([]);
+    expect(() => validateTokenLayerContractsStrict(input)).not.toThrow();
+  });
 
   it("flags component-to-primitive references for size and spacing scale tokens", () => {
     const input = createFixtureInput({
@@ -55,9 +55,9 @@ describe("validateTokenLayerContracts", () => {
           },
         },
       },
-    })
+    });
 
-    const { violations } = validateTokenLayerContracts(input)
+    const { violations } = validateTokenLayerContracts(input);
 
     expect(violations).toEqual([
       expect.objectContaining({
@@ -70,8 +70,8 @@ describe("validateTokenLayerContracts", () => {
         sourcePath: "dialog.popup.padding",
         targetPath: "spacing.4",
       }),
-    ])
-  })
+    ]);
+  });
 
   it("flags component-to-primitive violations", () => {
     const input = createFixtureInput({
@@ -80,9 +80,9 @@ describe("validateTokenLayerContracts", () => {
           background: { $value: "{color.neutral.900}" },
         },
       },
-    })
+    });
 
-    const { violations } = validateTokenLayerContracts(input)
+    const { violations } = validateTokenLayerContracts(input);
 
     expect(violations).toEqual([
       expect.objectContaining({
@@ -90,8 +90,8 @@ describe("validateTokenLayerContracts", () => {
         sourcePath: "button.background",
         targetPath: "color.neutral.900",
       }),
-    ])
-  })
+    ]);
+  });
 
   it("flags component-to-brand violations", () => {
     const input = createFixtureInput({
@@ -100,9 +100,9 @@ describe("validateTokenLayerContracts", () => {
           background: { $value: "{brand.color.primary.base}" },
         },
       },
-    })
+    });
 
-    const { violations } = validateTokenLayerContracts(input)
+    const { violations } = validateTokenLayerContracts(input);
 
     expect(violations).toEqual([
       expect.objectContaining({
@@ -110,8 +110,8 @@ describe("validateTokenLayerContracts", () => {
         sourcePath: "button.background",
         targetPath: "brand.color.primary.base",
       }),
-    ])
-  })
+    ]);
+  });
 
   it("flags component-to-theme violations for theme-only paths", () => {
     const input = createFixtureInput({
@@ -135,9 +135,9 @@ describe("validateTokenLayerContracts", () => {
           },
         },
       ],
-    })
+    });
 
-    const { violations } = validateTokenLayerContracts(input)
+    const { violations } = validateTokenLayerContracts(input);
 
     expect(violations).toEqual([
       expect.objectContaining({
@@ -145,8 +145,8 @@ describe("validateTokenLayerContracts", () => {
         sourcePath: "button.background",
         targetPath: "color.background.experimental",
       }),
-    ])
-  })
+    ]);
+  });
 
   it("flags semantic-to-component violations", () => {
     const input = createFixtureInput({
@@ -167,9 +167,9 @@ describe("validateTokenLayerContracts", () => {
         },
       },
       themeTokens: [],
-    })
+    });
 
-    const { violations } = validateTokenLayerContracts(input)
+    const { violations } = validateTokenLayerContracts(input);
 
     expect(violations).toEqual([
       expect.objectContaining({
@@ -177,8 +177,8 @@ describe("validateTokenLayerContracts", () => {
         sourcePath: "color.text.primary",
         targetPath: "button.primary.background",
       }),
-    ])
-  })
+    ]);
+  });
 
   it("flags theme-to-component violations", () => {
     const input = createFixtureInput({
@@ -207,9 +207,9 @@ describe("validateTokenLayerContracts", () => {
           },
         },
       ],
-    })
+    });
 
-    const { violations } = validateTokenLayerContracts(input)
+    const { violations } = validateTokenLayerContracts(input);
 
     expect(violations).toEqual([
       expect.objectContaining({
@@ -217,8 +217,8 @@ describe("validateTokenLayerContracts", () => {
         sourcePath: "color.background.base",
         targetPath: "button.primary.background",
       }),
-    ])
-  })
+    ]);
+  });
 
   it("flags brand component-specific intent", () => {
     const input = createFixtureInput({
@@ -239,17 +239,17 @@ describe("validateTokenLayerContracts", () => {
         },
       },
       themeTokens: [],
-    })
+    });
 
-    const { violations } = validateTokenLayerContracts(input)
+    const { violations } = validateTokenLayerContracts(input);
 
     expect(violations).toEqual([
       expect.objectContaining({
         code: "BRAND_COMPONENT_INTENT",
         sourcePath: "brand.button",
       }),
-    ])
-  })
+    ]);
+  });
 
   it("throws a formatted error from strict validation", () => {
     const input = createFixtureInput({
@@ -258,10 +258,10 @@ describe("validateTokenLayerContracts", () => {
           background: { $value: "{color.neutral.900}" },
         },
       },
-    })
+    });
 
     expect(() => validateTokenLayerContractsStrict(input)).toThrow(
       /Token layer validation failed:[\s\S]*\[COMPONENT_TO_PRIMITIVE\]/,
-    )
-  })
-})
+    );
+  });
+});

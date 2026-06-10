@@ -4,7 +4,7 @@
  * Registry metadata for the Fieldset component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const fieldsetRegistryItem: RegistryItem = {
   name: "fieldset",
@@ -38,4 +38,4 @@ export const fieldsetRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Fieldset",
-}
+};

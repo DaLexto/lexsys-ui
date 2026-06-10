@@ -4,7 +4,7 @@
  * Registry metadata for the ContextMenu component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const contextMenuRegistryItem: RegistryItem = {
   name: "context-menu",
@@ -39,4 +39,4 @@ export const contextMenuRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/ContextMenu",
-}
+};

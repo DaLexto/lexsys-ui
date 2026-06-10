@@ -5,58 +5,58 @@
  * @description Type contracts for token governance reports.
  */
 
-import type { TokenTree } from "../../../types"
+import type { TokenTree } from "../../../types";
 
 export type TokenGovernanceLayer =
   | "primitive"
   | "brand"
   | "semantic"
   | "component"
-  | "theme"
+  | "theme";
 
 export interface TokenGovernanceThemeInput {
-  name: string
-  tokens: TokenTree
+  name: string;
+  tokens: TokenTree;
 }
 
 export interface TokenGovernanceInput {
-  primitiveTokens: TokenTree
-  brandTokens: TokenTree
-  semanticTokens: TokenTree
-  componentTokens: TokenTree
-  foundationTokens: TokenTree
-  themeTokens: TokenGovernanceThemeInput[]
+  primitiveTokens: TokenTree;
+  brandTokens: TokenTree;
+  semanticTokens: TokenTree;
+  componentTokens: TokenTree;
+  foundationTokens: TokenTree;
+  themeTokens: TokenGovernanceThemeInput[];
 }
 
 export interface TokenMetadataEntry {
-  path: string
-  layer: TokenGovernanceLayer
-  themeName?: string
-  description?: string
-  deprecated?: boolean | string
-  dependents?: DeprecationDependency[]
+  path: string;
+  layer: TokenGovernanceLayer;
+  themeName?: string;
+  description?: string;
+  deprecated?: boolean | string;
+  dependents?: DeprecationDependency[];
 }
 
 export interface DeprecationDependency {
-  layer: TokenGovernanceLayer
-  sourcePath: string
-  themeName?: string
+  layer: TokenGovernanceLayer;
+  sourcePath: string;
+  themeName?: string;
 }
 
 export interface DeprecationReportEntry {
-  path: string
-  layer: TokenGovernanceLayer
-  themeName?: string
-  deprecated: boolean | string
-  dependents: DeprecationDependency[]
+  path: string;
+  layer: TokenGovernanceLayer;
+  themeName?: string;
+  deprecated: boolean | string;
+  dependents: DeprecationDependency[];
 }
 
 export interface DeadTokenEntry {
-  path: string
+  path: string;
 }
 
 export interface TokenGovernanceReport {
-  metadata: TokenMetadataEntry[]
-  deprecations: DeprecationReportEntry[]
-  deadTokens: DeadTokenEntry[]
+  metadata: TokenMetadataEntry[];
+  deprecations: DeprecationReportEntry[];
+  deadTokens: DeadTokenEntry[];
 }

@@ -4,7 +4,7 @@
  * Registry metadata for the Breadcrumb component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const breadcrumbRegistryItem: RegistryItem = {
   name: "breadcrumb",
@@ -38,4 +38,4 @@ export const breadcrumbRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Breadcrumb",
-}
+};

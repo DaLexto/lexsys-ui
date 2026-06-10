@@ -1,22 +1,22 @@
-import { describe, expect, expectTypeOf, test } from "vitest"
-import { buttonComponentTokens } from "../src/components/button"
-import { createStyleTokenInput, getTokenTree } from "../src/generators/inputs"
-import { colorPrimitives } from "../src/primitives/color"
+import { describe, expect, expectTypeOf, test } from "vitest";
+import { buttonComponentTokens } from "../src/components/button";
+import { createStyleTokenInput, getTokenTree } from "../src/generators/inputs";
+import { colorPrimitives } from "../src/primitives/color";
 import {
   componentTokens as createComponentTokens,
   primitiveTokens as createPrimitiveTokens,
   themeTokens,
-} from "../src/types/authoring"
-import type { PresetDefinition } from "../src/types"
+} from "../src/types/authoring";
+import type { PresetDefinition } from "../src/types";
 
 describe("token authoring factories", () => {
   test("create explicit metadata and token payload boundaries", () => {
     const primitiveGroup = createPrimitiveTokens("space", {
       sm: { $value: "0.5rem" },
-    })
+    });
     const componentGroup = createComponentTokens("example", {
       radius: { $value: "{radius.control}" },
-    })
+    });
     const theme = themeTokens(
       {
         name: "light",
@@ -31,20 +31,20 @@ describe("token authoring factories", () => {
           },
         },
       },
-    )
+    );
 
     expect(primitiveGroup).toEqual({
       meta: { name: "space" },
       tokens: {
         sm: { $value: "0.5rem" },
       },
-    })
+    });
     expect(componentGroup).toEqual({
       meta: { component: "example" },
       tokens: {
         radius: { $value: "{radius.control}" },
       },
-    })
+    });
     expect(theme).toMatchObject({
       name: "light",
       brand: "lexsys",
@@ -57,28 +57,28 @@ describe("token authoring factories", () => {
           },
         },
       },
-    })
-  })
+    });
+  });
 
   test("reads factory group token payloads", () => {
-    expect(getTokenTree(colorPrimitives)).toBe(colorPrimitives.tokens)
+    expect(getTokenTree(colorPrimitives)).toBe(colorPrimitives.tokens);
     expect(getTokenTree(buttonComponentTokens)).toBe(
       buttonComponentTokens.tokens,
-    )
-  })
+    );
+  });
 
   test("keeps current generator input behavior for migrated pilot groups", () => {
-    const input = createStyleTokenInput()
+    const input = createStyleTokenInput();
 
-    expect(input.primitiveTokens.color).toBe(colorPrimitives.tokens)
-    expect(input.componentTokens.button).toBe(buttonComponentTokens.tokens)
+    expect(input.primitiveTokens.color).toBe(colorPrimitives.tokens);
+    expect(input.componentTokens.button).toBe(buttonComponentTokens.tokens);
     expect(
       input.themeTokens.find((theme) => theme.name === "light")?.tokens,
-    ).toBeDefined()
+    ).toBeDefined();
     expect(
       input.themeTokens.find((theme) => theme.name === "dark")?.tokens,
-    ).toBeDefined()
-  })
+    ).toBeDefined();
+  });
 
   test("constrains preset defaultTheme to declared themeModes", () => {
     const validPreset = {
@@ -87,9 +87,9 @@ describe("token authoring factories", () => {
       description: "Valid preset fixture.",
       themeModes: ["light", "dark"] as const,
       defaultTheme: "light",
-    } satisfies PresetDefinition<readonly ["light", "dark"]>
+    } satisfies PresetDefinition<readonly ["light", "dark"]>;
 
-    expectTypeOf(validPreset.defaultTheme).toEqualTypeOf<"light">()
+    expectTypeOf(validPreset.defaultTheme).toEqualTypeOf<"light">();
 
     const invalidPreset = {
       id: "invalid",
@@ -98,8 +98,8 @@ describe("token authoring factories", () => {
       themeModes: ["light"] as const,
       // @ts-expect-error defaultTheme must be one of themeModes.
       defaultTheme: "dark",
-    } satisfies PresetDefinition<readonly ["light"]>
+    } satisfies PresetDefinition<readonly ["light"]>;
 
-    expect(invalidPreset.id).toBe("invalid")
-  })
-})
+    expect(invalidPreset.id).toBe("invalid");
+  });
+});

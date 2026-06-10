@@ -4,27 +4,27 @@
  * Reference AuthForm block — compound Card form shell for auth screens.
  */
 
-import type { FormEvent } from "react"
+import type { FormEvent } from "react";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/primitives/Card/Card"
-import { Button } from "@/components/primitives/Button/Button"
+} from "@/components/primitives/Card/Card";
+import { Button } from "@/components/primitives/Button/Button";
 import type {
   AuthFormContentProps,
   AuthFormFooterProps,
   AuthFormHeaderProps,
   AuthFormProps,
   AuthFormSubmitProps,
-} from "./AuthForm.types"
+} from "./AuthForm.types";
 import {
   authFormClasses,
   authFormContentClasses,
   authFormFooterClasses,
-} from "./AuthForm.variants"
-import { cn } from "@/lib/utils"
+} from "./AuthForm.variants";
+import { cn } from "@/lib/utils";
 
 const AuthForm = ({
   ref,
@@ -34,9 +34,9 @@ const AuthForm = ({
   ...cardProps
 }: AuthFormProps) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    onSubmit?.(event)
-  }
+    event.preventDefault();
+    onSubmit?.(event);
+  };
 
   return (
     <Card className={cn(authFormClasses(), className)} {...cardProps}>
@@ -44,16 +44,16 @@ const AuthForm = ({
         {children}
       </form>
     </Card>
-  )
-}
+  );
+};
 
-AuthForm.displayName = "AuthForm"
+AuthForm.displayName = "AuthForm";
 
 const AuthFormHeader = ({ ref, className, ...props }: AuthFormHeaderProps) => {
-  return <CardHeader ref={ref} className={className} {...props} />
-}
+  return <CardHeader ref={ref} className={className} {...props} />;
+};
 
-AuthFormHeader.displayName = "AuthFormHeader"
+AuthFormHeader.displayName = "AuthFormHeader";
 
 const AuthFormContent = ({
   ref,
@@ -66,10 +66,10 @@ const AuthFormContent = ({
       className={cn(authFormContentClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AuthFormContent.displayName = "AuthFormContent"
+AuthFormContent.displayName = "AuthFormContent";
 
 const AuthFormFooter = ({ ref, className, ...props }: AuthFormFooterProps) => {
   return (
@@ -78,10 +78,10 @@ const AuthFormFooter = ({ ref, className, ...props }: AuthFormFooterProps) => {
       className={cn(authFormFooterClasses(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-AuthFormFooter.displayName = "AuthFormFooter"
+AuthFormFooter.displayName = "AuthFormFooter";
 
 const AuthFormSubmit = ({
   isLoading = false,
@@ -99,10 +99,10 @@ const AuthFormSubmit = ({
     >
       {children}
     </Button>
-  )
-}
+  );
+};
 
-AuthFormSubmit.displayName = "AuthFormSubmit"
+AuthFormSubmit.displayName = "AuthFormSubmit";
 
 export {
   AuthForm,
@@ -110,4 +110,4 @@ export {
   AuthFormContent,
   AuthFormFooter,
   AuthFormSubmit,
-}
+};

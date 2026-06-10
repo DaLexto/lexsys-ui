@@ -5,5 +5,5 @@
  */
 
 export const formFieldClasses = (): string => {
-  return "lex-form-field flex flex-col gap-(--lex-form-field-root-gap)"
-}
+  return "lex-form-field flex flex-col gap-(--lex-form-field-root-gap)";
+};

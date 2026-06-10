@@ -1,4 +1,4 @@
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const sizeSemantics = semanticTokens("size", {
   control: {
@@ -101,4 +101,4 @@ export const sizeSemantics = semanticTokens("size", {
       maxHeight: { $value: "{size.64}" },
     },
   },
-})
+});

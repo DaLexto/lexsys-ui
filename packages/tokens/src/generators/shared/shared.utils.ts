@@ -21,17 +21,17 @@ import type {
   TokenTree,
   TokenValue,
   TokenType,
-} from "../../types"
+} from "../../types";
 
-import type { FlattenedTokenEntry } from "./shared.types"
-import { AUTHORING_GROUP_METADATA_KEYS } from "../../engine/shared/metadata-keys"
+import type { FlattenedTokenEntry } from "./shared.types";
+import { AUTHORING_GROUP_METADATA_KEYS } from "../../engine/shared/metadata-keys";
 
 /**
  * Default metadata keys ignored when traversing token groups.
  */
-export const DEFAULT_GENERATOR_METADATA_KEYS = AUTHORING_GROUP_METADATA_KEYS
+export const DEFAULT_GENERATOR_METADATA_KEYS = AUTHORING_GROUP_METADATA_KEYS;
 
-const ROOT_TOKEN_KEYS = new Set(["DEFAULT", "$root"])
+const ROOT_TOKEN_KEYS = new Set(["DEFAULT", "$root"]);
 
 /**
  * Converts a token path segment into kebab-case.
@@ -40,8 +40,8 @@ export const toKebabSegment = (segment: string): string => {
   return segment
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
     .replace(/[\s_]+/g, "-")
-    .toLowerCase()
-}
+    .toLowerCase();
+};
 
 /**
  * Applies output name overrides to a normalized token name.
@@ -56,22 +56,22 @@ export const normalizeTokenName = (
 ): string => {
   const sortedOverrides = Object.entries(groupNameOverrides).sort(
     ([left], [right]) => right.length - left.length,
-  )
+  );
 
   for (const [sourceName, outputName] of sortedOverrides) {
     if (name === sourceName) {
-      return outputName
+      return outputName;
     }
 
-    const sourceNamePrefix = `${sourceName}-`
+    const sourceNamePrefix = `${sourceName}-`;
 
     if (name.startsWith(sourceNamePrefix)) {
-      return `${outputName}-${name.slice(sourceNamePrefix.length)}`
+      return `${outputName}-${name.slice(sourceNamePrefix.length)}`;
     }
   }
 
-  return name
-}
+  return name;
+};
 
 /**
  * Converts a token path into a normalized output token name.
@@ -83,15 +83,15 @@ export const toTokenName = (
   return normalizeTokenName(
     path.map(toKebabSegment).join("-"),
     groupNameOverrides,
-  )
-}
+  );
+};
 
 /**
  * Returns true when the value is a non-array object.
  */
 const isRecord = (value: unknown): value is Record<string, unknown> => {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+};
 
 /**
  * Returns true when the value can be stored as a token scalar.
@@ -99,16 +99,16 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
 export const isTokenScalarValue = (
   value: unknown,
 ): value is TokenScalarValue => {
-  return typeof value === "string" || typeof value === "number"
-}
+  return typeof value === "string" || typeof value === "number";
+};
 
 const isTokenUnitValue = (value: unknown): boolean => {
   return (
     isRecord(value) &&
     typeof value.value === "number" &&
     typeof value.unit === "string"
-  )
-}
+  );
+};
 
 const isTokenColorValue = (value: unknown): boolean => {
   return (
@@ -118,8 +118,8 @@ const isTokenColorValue = (value: unknown): boolean => {
     value.components.every((component) => typeof component === "number") &&
     (value.alpha === undefined || typeof value.alpha === "number") &&
     (value.hex === undefined || typeof value.hex === "string")
-  )
-}
+  );
+};
 
 /**
  * Returns true when the value can be stored as a DTCG token value.
@@ -129,22 +129,22 @@ export const isTokenValue = (value: unknown): value is TokenValue => {
     isTokenScalarValue(value) ||
     isTokenUnitValue(value) ||
     isTokenColorValue(value)
-  )
-}
+  );
+};
 
 /**
  * Returns true when the value is a DTCG-style token leaf.
  */
 export const isTokenLeaf = (value: unknown): value is TokenLeaf => {
-  return isRecord(value) && "$value" in value && isTokenValue(value.$value)
-}
+  return isRecord(value) && "$value" in value && isTokenValue(value.$value);
+};
 
 /**
  * Returns true when the value is a token branch.
  */
 export const isTokenBranch = (value: unknown): value is TokenTree => {
-  return isRecord(value) && !isTokenLeaf(value)
-}
+  return isRecord(value) && !isTokenLeaf(value);
+};
 
 /**
  * Flattens a Lexsys token tree into output-generator entries.
@@ -160,10 +160,10 @@ export const flattenTokenTree = (
 ): FlattenedTokenEntry[] => {
   return Object.entries(tree).flatMap(([key, value]) => {
     if (metadataKeys.has(key)) {
-      return []
+      return [];
     }
 
-    const nextPath = ROOT_TOKEN_KEYS.has(key) ? path : [...path, key]
+    const nextPath = ROOT_TOKEN_KEYS.has(key) ? path : [...path, key];
 
     if (isTokenLeaf(value)) {
       return [
@@ -173,7 +173,7 @@ export const flattenTokenTree = (
           description: value.$description,
           type: value.$type ?? inheritedType,
         },
-      ]
+      ];
     }
 
     if (isTokenBranch(value)) {
@@ -182,9 +182,9 @@ export const flattenTokenTree = (
         metadataKeys,
         nextPath,
         value.$type ?? inheritedType,
-      )
+      );
     }
 
-    return []
-  })
-}
+    return [];
+  });
+};

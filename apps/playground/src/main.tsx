@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react"
-import ReactDOM from "react-dom/client"
-import { Button } from "@dalexto/lexsys-ui"
-import { BrandPanel } from "./brand-panel"
-import { SizesPanel } from "./sizes-panel"
-import { ActionsPanel } from "./actions-panel"
-import { OverlaysPanel } from "./overlays-panel"
-import { SurfacesPanel } from "./surfaces-panel"
-import { InteractionsPanel } from "./interactions-panel"
-import { LayoutPanel } from "./layout-panel"
-import "./styles.css"
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom/client";
+import { Button } from "@dalexto/lexsys-ui";
+import { BrandPanel } from "./brand-panel";
+import { SizesPanel } from "./sizes-panel";
+import { ActionsPanel } from "./actions-panel";
+import { OverlaysPanel } from "./overlays-panel";
+import { SurfacesPanel } from "./surfaces-panel";
+import { InteractionsPanel } from "./interactions-panel";
+import { LayoutPanel } from "./layout-panel";
+import "./styles.css";
 
 const App = () => {
-  const [themeMode, setThemeMode] = useState<"light" | "dark">("light")
+  const [themeMode, setThemeMode] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", themeMode === "dark")
-  }, [themeMode])
+    document.documentElement.classList.toggle("dark", themeMode === "dark");
+  }, [themeMode]);
 
   const panels = [
     { id: "brand", label: "Brand", render: () => <BrandPanel /> },
@@ -29,7 +29,7 @@ const App = () => {
       render: () => <InteractionsPanel />,
     },
     { id: "blocks", label: "Blocks", render: () => <LayoutPanel /> },
-  ]
+  ];
 
   return (
     <main className="playground-shell">
@@ -91,11 +91,11 @@ const App = () => {
         ))}
       </div>
     </main>
-  )
-}
+  );
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-)
+);

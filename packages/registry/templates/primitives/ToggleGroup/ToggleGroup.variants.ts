@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const toggleGroupVariants = cva(
   [
@@ -29,4 +29,4 @@ export const toggleGroupVariants = cva(
       size: "md",
     },
   },
-)
+);

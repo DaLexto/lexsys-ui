@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const menubarComponentTokens = componentTokens("menubar", {
   radius: { $value: "{radius.surface}" },
@@ -40,4 +40,4 @@ export const menubarComponentTokens = componentTokens("menubar", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Menu,
   MenuItem,
@@ -7,7 +7,7 @@ import {
   MenuPortal,
   MenuPositioner,
   MenuTrigger,
-} from "../../../src/components/primitives/Menu/Menu.js"
+} from "../../../src/components/primitives/Menu/Menu.js";
 
 describe("Menu render", () => {
   it("renders menu item when defaultOpen", () => {
@@ -22,15 +22,15 @@ describe("Menu render", () => {
           </MenuPositioner>
         </MenuPortal>
       </Menu>,
-    )
+    );
 
     expect(
       screen.getByRole("menuitem", { name: "Edit profile" }),
-    ).toBeInTheDocument()
+    ).toBeInTheDocument();
     expect(
       screen
         .getByRole("menuitem", { name: "Edit profile" })
         .closest(".custom-menu"),
-    ).not.toBeNull()
-  })
-})
+    ).not.toBeNull();
+  });
+});

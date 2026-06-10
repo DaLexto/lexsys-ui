@@ -19,7 +19,7 @@
  * - boxShadow shorthand leaves preserve full CSS (including multi-layer strings) for export
  */
 
-import { primitiveTokens } from "../types/authoring"
+import { primitiveTokens } from "../types/authoring";
 
 const shadowColor = (alpha: number) => ({
   $value: {
@@ -28,14 +28,14 @@ const shadowColor = (alpha: number) => ({
     alpha,
     hex: "#000000",
   },
-})
+});
 
 const shadowScaleStep = (options: {
-  description: string
-  offsetY: string
-  blur: string
-  alpha: number
-  boxShadow: string
+  description: string;
+  offsetY: string;
+  blur: string;
+  alpha: number;
+  boxShadow: string;
 }) => ({
   $description: options.description,
   color: shadowColor(options.alpha),
@@ -49,7 +49,7 @@ const shadowScaleStep = (options: {
     $description:
       "Full CSS shadow string; slot vars compose the primary layer for boxShadow output.",
   },
-})
+});
 
 export const shadowPrimitives = primitiveTokens("shadow", {
   $type: "shadow",
@@ -133,4 +133,4 @@ export const shadowPrimitives = primitiveTokens("shadow", {
         "Full CSS shadow string; slot vars compose the inset layer for boxShadow output.",
     },
   },
-})
+});

@@ -4,7 +4,7 @@
  * Defines visual variants using class composition.
  */
 
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const switchVariants = cva(
   [
@@ -26,7 +26,7 @@ export const switchVariants = cva(
       size: "md",
     },
   },
-)
+);
 
 export const switchThumbVariants = cva(
   [
@@ -45,4 +45,4 @@ export const switchThumbVariants = cva(
       size: "md",
     },
   },
-)
+);

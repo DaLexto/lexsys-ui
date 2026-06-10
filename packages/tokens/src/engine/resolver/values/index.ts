@@ -10,14 +10,14 @@ export type {
   ResolveLeafResult,
   ResolveLeafValuesResult,
   ResolveValuesOptions,
-} from "./values.types"
+} from "./values.types";
 
-export type { ContrastReadyColor } from "./values.normalize"
+export type { ContrastReadyColor } from "./values.normalize";
 
 export {
   resolveLeafValue,
   resolveLeafValues,
   resolveLeafValueForTheme,
-} from "./values.resolver"
+} from "./values.resolver";
 
-export { isResolvedColorValue, toContrastReadyColor } from "./values.normalize"
+export { isResolvedColorValue, toContrastReadyColor } from "./values.normalize";

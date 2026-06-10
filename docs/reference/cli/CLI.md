@@ -490,25 +490,25 @@ load — missing fields fall back to defaults without error.
 
 ```ts
 interface LexsysConfig {
-  style: "default"
+  style: "default";
   paths: {
-    components: string
-    utilities: string
-    styles: string
-  }
+    components: string;
+    utilities: string;
+    styles: string;
+  };
   aliases: {
-    components: string
-    ui: string
-    utils: string
-    lib: string
-    hooks: string
-  }
+    components: string;
+    ui: string;
+    utils: string;
+    lib: string;
+    hooks: string;
+  };
   tailwind: {
-    version: "v4"
-    css: string
-  }
-  installed?: string[]
-  registryUrl?: string | null
+    version: "v4";
+    css: string;
+  };
+  installed?: string[];
+  registryUrl?: string | null;
 }
 ```
 

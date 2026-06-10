@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const sliderComponentTokens = componentTokens("slider", {
   gap: { $value: "{spacing.control.gap.md}" },
@@ -31,4 +31,4 @@ export const sliderComponentTokens = componentTokens("slider", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

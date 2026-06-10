@@ -1,14 +1,14 @@
-import { mkdir, readdir, readFile, writeFile } from "node:fs/promises"
-import { dirname, relative, resolve } from "node:path"
-import { fileURLToPath } from "node:url"
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import {
   listComponentNames,
   syncRegistryItems,
-} from "./registry-item-generator.mjs"
+} from "./registry-item-generator.mjs";
 
-const registryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..")
-const repoRoot = resolve(registryRoot, "../..")
+const registryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const repoRoot = resolve(registryRoot, "../..");
 
 const layerConfigs = [
   {
@@ -27,48 +27,48 @@ const layerConfigs = [
     defaultCategory: "layout",
     targetPrefix: "src/components/ui",
   },
-]
+];
 
-const componentSourceImport = 'import { cn } from "../../../utils/cn"'
-const componentTemplateImport = 'import { cn } from "@/lib/utils"'
+const componentSourceImport = 'import { cn } from "../../../utils/cn"';
+const componentTemplateImport = 'import { cn } from "@/lib/utils"';
 
 const mergeClassNameSourceImport =
-  'import { mergeClassName } from "../../../utils/merge-class-name"'
+  'import { mergeClassName } from "../../../utils/merge-class-name"';
 const mergeClassNameTemplateImport =
-  'import { mergeClassName } from "@/lib/utils"'
+  'import { mergeClassName } from "@/lib/utils"';
 
-const syncableExtensions = new Set([".ts", ".tsx"])
-const checkOnly = process.argv.includes("--check")
+const syncableExtensions = new Set([".ts", ".tsx"]);
+const checkOnly = process.argv.includes("--check");
 
 const getExtension = (path) => {
-  const lastDot = path.lastIndexOf(".")
+  const lastDot = path.lastIndexOf(".");
 
   if (lastDot === -1) {
-    return ""
+    return "";
   }
 
-  return path.slice(lastDot)
-}
+  return path.slice(lastDot);
+};
 
 const collectFiles = async (directory) => {
   try {
-    const entries = await readdir(directory, { withFileTypes: true })
-    const files = []
+    const entries = await readdir(directory, { withFileTypes: true });
+    const files = [];
 
     for (const entry of entries) {
-      const path = resolve(directory, entry.name)
+      const path = resolve(directory, entry.name);
 
       if (entry.isDirectory()) {
-        files.push(...(await collectFiles(path)))
-        continue
+        files.push(...(await collectFiles(path)));
+        continue;
       }
 
       if (entry.isFile() && syncableExtensions.has(getExtension(entry.name))) {
-        files.push(path)
+        files.push(path);
       }
     }
 
-    return files
+    return files;
   } catch (error) {
     if (
       typeof error === "object" &&
@@ -76,12 +76,12 @@ const collectFiles = async (directory) => {
       "code" in error &&
       error.code === "ENOENT"
     ) {
-      return []
+      return [];
     }
 
-    throw error
+    throw error;
   }
-}
+};
 
 const toRegistryTemplate = (source) => {
   return source
@@ -112,12 +112,12 @@ const toRegistryTemplate = (source) => {
     .replaceAll(
       /from "\.\.\/templates\/([^"]+)"/gu,
       'from "@/components/templates/$1"',
-    )
-}
+    );
+};
 
 const readExistingTemplate = async (path) => {
   try {
-    return await readFile(path, "utf-8")
+    return await readFile(path, "utf-8");
   } catch (error) {
     if (
       typeof error === "object" &&
@@ -125,12 +125,12 @@ const readExistingTemplate = async (path) => {
       "code" in error &&
       error.code === "ENOENT"
     ) {
-      return undefined
+      return undefined;
     }
 
-    throw error
+    throw error;
   }
-}
+};
 
 const syncLayerTemplates = async ({
   layerName,
@@ -138,38 +138,38 @@ const syncLayerTemplates = async ({
   targetRoot,
   templatePrefix,
 }) => {
-  const sourceFiles = await collectFiles(sourceRoot)
-  const outOfSyncFiles = []
-  let changedTemplateCount = 0
-  let unchangedTemplateCount = 0
+  const sourceFiles = await collectFiles(sourceRoot);
+  const outOfSyncFiles = [];
+  let changedTemplateCount = 0;
+  let unchangedTemplateCount = 0;
 
   for (const sourcePath of sourceFiles) {
-    const relativePath = relative(sourceRoot, sourcePath)
-    const targetPath = resolve(targetRoot, relativePath)
-    const source = await readFile(sourcePath, "utf-8")
-    const template = toRegistryTemplate(source)
-    const checkPath = `${templatePrefix}/${relativePath.replaceAll("\\", "/")}`
+    const relativePath = relative(sourceRoot, sourcePath);
+    const targetPath = resolve(targetRoot, relativePath);
+    const source = await readFile(sourcePath, "utf-8");
+    const template = toRegistryTemplate(source);
+    const checkPath = `${templatePrefix}/${relativePath.replaceAll("\\", "/")}`;
 
     if (checkOnly) {
-      const existingTemplate = await readExistingTemplate(targetPath)
+      const existingTemplate = await readExistingTemplate(targetPath);
 
       if (existingTemplate !== template) {
-        outOfSyncFiles.push(checkPath)
+        outOfSyncFiles.push(checkPath);
       }
 
-      continue
+      continue;
     }
 
-    const existingTemplate = await readExistingTemplate(targetPath)
+    const existingTemplate = await readExistingTemplate(targetPath);
 
     if (existingTemplate === template) {
-      unchangedTemplateCount += 1
-      continue
+      unchangedTemplateCount += 1;
+      continue;
     }
 
-    await mkdir(dirname(targetPath), { recursive: true })
-    await writeFile(targetPath, template, "utf-8")
-    changedTemplateCount += 1
+    await mkdir(dirname(targetPath), { recursive: true });
+    await writeFile(targetPath, template, "utf-8");
+    changedTemplateCount += 1;
   }
 
   return {
@@ -178,47 +178,47 @@ const syncLayerTemplates = async ({
     outOfSyncFiles,
     sourceFileCount: sourceFiles.length,
     unchangedTemplateCount,
-  }
-}
+  };
+};
 
 const reportRegistryItemSyncErrors = (label, registryItemResult) => {
-  let hasErrors = false
+  let hasErrors = false;
 
   if (registryItemResult.missingItemFiles.length > 0) {
-    console.error(`${label} missing registry item files:`)
+    console.error(`${label} missing registry item files:`);
     for (const file of registryItemResult.missingItemFiles) {
-      console.error(`- missing item: ${file}`)
+      console.error(`- missing item: ${file}`);
     }
-    hasErrors = true
+    hasErrors = true;
   }
 
   if (registryItemResult.outOfSyncItemFiles.length > 0) {
-    console.error(`${label} registry item metadata out of sync:`)
+    console.error(`${label} registry item metadata out of sync:`);
     for (const file of registryItemResult.outOfSyncItemFiles) {
-      console.error(`- out of sync item: ${file}`)
+      console.error(`- out of sync item: ${file}`);
     }
-    hasErrors = true
+    hasErrors = true;
   }
 
   if (registryItemResult.missingIndexEntries.length > 0) {
-    console.error(`${label} registry index out of sync:`)
+    console.error(`${label} registry index out of sync:`);
     for (const entry of registryItemResult.missingIndexEntries) {
-      console.error(`- missing index entry: ${entry}`)
+      console.error(`- missing index entry: ${entry}`);
     }
-    hasErrors = true
+    hasErrors = true;
   }
 
-  return hasErrors
-}
+  return hasErrors;
+};
 
 const syncBlockTemplates = async () => {
-  const results = []
-  const registryItemResults = []
+  const results = [];
+  const registryItemResults = [];
 
   for (const config of layerConfigs) {
-    results.push(await syncLayerTemplates(config))
+    results.push(await syncLayerTemplates(config));
 
-    const sourceComponentNames = await listComponentNames(config.sourceRoot)
+    const sourceComponentNames = await listComponentNames(config.sourceRoot);
 
     registryItemResults.push({
       label: config.layerName,
@@ -234,52 +234,52 @@ const syncBlockTemplates = async () => {
         templateRoot: config.targetRoot,
         uiSourceRoot: config.sourceRoot,
       }),
-    })
+    });
   }
 
   if (checkOnly) {
-    const outOfSyncFiles = results.flatMap((result) => result.outOfSyncFiles)
-    let hasErrors = outOfSyncFiles.length > 0
+    const outOfSyncFiles = results.flatMap((result) => result.outOfSyncFiles);
+    let hasErrors = outOfSyncFiles.length > 0;
 
     if (outOfSyncFiles.length > 0) {
-      console.error("Block/template layers are out of sync:")
+      console.error("Block/template layers are out of sync:");
 
       for (const file of outOfSyncFiles) {
-        console.error(`- ${file}`)
+        console.error(`- ${file}`);
       }
     }
 
     for (const { label, result } of registryItemResults) {
       if (reportRegistryItemSyncErrors(label, result)) {
-        hasErrors = true
+        hasErrors = true;
       }
     }
 
     if (hasErrors) {
-      process.exitCode = 1
-      return
+      process.exitCode = 1;
+      return;
     }
 
     const totalFiles = results.reduce(
       (sum, result) => sum + result.sourceFileCount,
       0,
-    )
+    );
 
-    console.log(`Checked ${totalFiles} block/template source files.`)
-    return
+    console.log(`Checked ${totalFiles} block/template source files.`);
+    return;
   }
 
   for (const result of results) {
     console.log(
       `Synced ${result.layerName}: ${result.changedTemplateCount} changed; ${result.unchangedTemplateCount} up to date.`,
-    )
+    );
   }
 
   for (const { label, result } of registryItemResults) {
     console.log(
       `Registry items (${label}): ${result.createdItemCount} created; ${result.updatedItemCount} updated.`,
-    )
+    );
   }
-}
+};
 
-await syncBlockTemplates()
+await syncBlockTemplates();

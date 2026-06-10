@@ -1,4 +1,4 @@
-import { defineProject } from "vitest/config"
+import { defineProject } from "vitest/config";
 
 export default defineProject({
   root: import.meta.dirname,
@@ -9,4 +9,4 @@ export default defineProject({
     exclude: ["dist/**"],
     pool: "threads",
   },
-})
+});

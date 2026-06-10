@@ -8,17 +8,17 @@ export const dataTableClasses = (): string => {
   return [
     "lex-data-table",
     "flex w-full flex-col gap-(--lex-data-table-root-gap)",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const dataTableFooterClasses = (): string => {
   return [
     "lex-data-table__footer",
     "flex flex-col gap-(--lex-data-table-footer-gap)",
     "sm:flex-row sm:items-center sm:justify-between",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const dataTablePaginationClasses = (): string => {
-  return "lex-data-table__pagination"
-}
+  return "lex-data-table__pagination";
+};

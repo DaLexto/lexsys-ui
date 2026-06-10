@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const toolbarComponentTokens = componentTokens("toolbar", {
   radius: { $value: "{radius.control}" },
@@ -89,4 +89,4 @@ export const toolbarComponentTokens = componentTokens("toolbar", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

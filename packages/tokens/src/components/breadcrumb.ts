@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const breadcrumbComponentTokens = componentTokens("breadcrumb", {
   list: {
@@ -39,4 +39,4 @@ export const breadcrumbComponentTokens = componentTokens("breadcrumb", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

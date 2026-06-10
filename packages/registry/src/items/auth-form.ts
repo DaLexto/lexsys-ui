@@ -4,7 +4,7 @@
  * Registry metadata for the AuthForm block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const authFormRegistryItem: RegistryItem = {
   name: "auth-form",
@@ -22,4 +22,4 @@ export const authFormRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/AuthForm",
-}
+};

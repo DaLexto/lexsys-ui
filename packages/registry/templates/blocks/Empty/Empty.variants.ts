@@ -9,24 +9,24 @@ export const emptyClasses = (): string => {
     "lex-empty",
     "flex w-full flex-col items-center justify-center text-center",
     "gap-(--lex-empty-gap) p-(--lex-empty-padding)",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const emptyHeaderClasses = (): string => {
   return [
     "lex-empty__header",
     "flex flex-col items-center",
     "gap-(--lex-empty-header-gap)",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const emptyMediaClasses = (): string => {
   return [
     "lex-empty__media",
     "flex items-center justify-center",
     "size-(--lex-empty-media-size) text-(--lex-empty-media-foreground)",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const emptyTitleClasses = (): string => {
   return [
@@ -34,8 +34,8 @@ export const emptyTitleClasses = (): string => {
     "text-(length:--lex-empty-title-font-size) font-(--lex-empty-title-font-weight)",
     "leading-(--lex-empty-title-font-line-height) text-(--lex-empty-title-foreground)",
     "m-0",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const emptyDescriptionClasses = (): string => {
   return [
@@ -43,9 +43,9 @@ export const emptyDescriptionClasses = (): string => {
     "text-(length:--lex-empty-description-font-size)",
     "leading-(--lex-empty-description-font-line-height) text-(--lex-empty-description-foreground)",
     "m-0",
-  ].join(" ")
-}
+  ].join(" ");
+};
 
 export const emptyContentClasses = (): string => {
-  return "lex-empty__content flex items-center justify-center gap-(--lex-empty-gap)"
-}
+  return "lex-empty__content flex items-center justify-center gap-(--lex-empty-gap)";
+};

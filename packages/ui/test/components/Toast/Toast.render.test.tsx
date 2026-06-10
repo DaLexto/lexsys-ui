@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   ToastPortal,
   ToastProvider,
   ToastViewport,
-} from "../../../src/components/primitives/Toast/Toast.js"
+} from "../../../src/components/primitives/Toast/Toast.js";
 
 describe("Toast render", () => {
   it("renders provider and viewport in the document", () => {
@@ -14,10 +14,10 @@ describe("Toast render", () => {
           <ToastViewport placement="bottom-right" aria-label="Notifications" />
         </ToastPortal>
       </ToastProvider>,
-    )
+    );
 
     expect(
       screen.getByRole("region", { name: "Notifications" }),
-    ).toBeInTheDocument()
-  })
-})
+    ).toBeInTheDocument();
+  });
+});

@@ -4,7 +4,7 @@
  * Registry metadata for the Field component.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const fieldRegistryItem: RegistryItem = {
   name: "field",
@@ -38,4 +38,4 @@ export const fieldRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/Field",
-}
+};

@@ -4,7 +4,7 @@
  * Reference Tooltip component implementation.
  */
 
-import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip"
+import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip";
 import type {
   TooltipArrowProps,
   TooltipPopupProps,
@@ -12,21 +12,21 @@ import type {
   TooltipPortalProps,
   TooltipProps,
   TooltipTriggerProps,
-} from "./Tooltip.types"
+} from "./Tooltip.types";
 import {
   tooltipArrowVariants,
   tooltipPopupVariants,
   tooltipPositionerVariants,
   tooltipTriggerVariants,
-} from "./Tooltip.variants"
-import { mergeClassName } from "@/lib/utils"
-import { overlayPositionerSideOffset } from "@/lib/utils"
+} from "./Tooltip.variants";
+import { mergeClassName } from "@/lib/utils";
+import { overlayPositionerSideOffset } from "@/lib/utils";
 
 const Tooltip = (props: TooltipProps) => {
-  return <BaseTooltip.Root {...props} />
-}
+  return <BaseTooltip.Root {...props} />;
+};
 
-Tooltip.displayName = "Tooltip"
+Tooltip.displayName = "Tooltip";
 
 const TooltipTrigger = ({ ref, className, ...props }: TooltipTriggerProps) => {
   return (
@@ -35,16 +35,16 @@ const TooltipTrigger = ({ ref, className, ...props }: TooltipTriggerProps) => {
       className={mergeClassName(tooltipTriggerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TooltipTrigger.displayName = "TooltipTrigger"
+TooltipTrigger.displayName = "TooltipTrigger";
 
 const TooltipPortal = (props: TooltipPortalProps) => {
-  return <BaseTooltip.Portal {...props} />
-}
+  return <BaseTooltip.Portal {...props} />;
+};
 
-TooltipPortal.displayName = "TooltipPortal"
+TooltipPortal.displayName = "TooltipPortal";
 
 const TooltipPositioner = ({
   ref,
@@ -59,10 +59,10 @@ const TooltipPositioner = ({
       className={mergeClassName(tooltipPositionerVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TooltipPositioner.displayName = "TooltipPositioner"
+TooltipPositioner.displayName = "TooltipPositioner";
 
 const TooltipPopup = ({ ref, className, ...props }: TooltipPopupProps) => {
   return (
@@ -71,10 +71,10 @@ const TooltipPopup = ({ ref, className, ...props }: TooltipPopupProps) => {
       className={mergeClassName(tooltipPopupVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TooltipPopup.displayName = "TooltipPopup"
+TooltipPopup.displayName = "TooltipPopup";
 
 const TooltipArrow = ({ ref, className, ...props }: TooltipArrowProps) => {
   return (
@@ -83,10 +83,10 @@ const TooltipArrow = ({ ref, className, ...props }: TooltipArrowProps) => {
       className={mergeClassName(tooltipArrowVariants(), className)}
       {...props}
     />
-  )
-}
+  );
+};
 
-TooltipArrow.displayName = "TooltipArrow"
+TooltipArrow.displayName = "TooltipArrow";
 
 export {
   Tooltip,
@@ -95,4 +95,4 @@ export {
   TooltipPositioner,
   TooltipPopup,
   TooltipArrow,
-}
+};

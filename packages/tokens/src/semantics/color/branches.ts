@@ -6,7 +6,7 @@ export const colorBackgroundBranch = {
     subtle: { $value: "{color.neutral.50}" },
     overlay: { $value: "{color.neutral.800}" },
   },
-} as const
+} as const;
 
 export const colorTextBranch = {
   text: {
@@ -18,7 +18,7 @@ export const colorTextBranch = {
     link: { $value: "{brand.color.accent.base}" },
     accent: { $value: "{brand.color.accent.base}" },
   },
-} as const
+} as const;
 
 export const colorFeedbackBranch = {
   feedback: {
@@ -43,4 +43,4 @@ export const colorFeedbackBranch = {
       foreground: { $value: "{color.red.700}" },
     },
   },
-} as const
+} as const;

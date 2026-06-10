@@ -1,20 +1,20 @@
-import { mkdtemp, readFile, writeFile } from "node:fs/promises"
-import { join } from "node:path"
-import { tmpdir } from "node:os"
-import { afterEach, describe, expect, test } from "vitest"
-import { getCwd, setCwd } from "../../src/utils/context.js"
-import { loadConfig } from "../../src/config/config.js"
+import { mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
+import { afterEach, describe, expect, test } from "vitest";
+import { getCwd, setCwd } from "../../src/utils/context.js";
+import { loadConfig } from "../../src/config/config.js";
 
-const originalCwd = getCwd()
+const originalCwd = getCwd();
 
 afterEach(() => {
-  setCwd(originalCwd)
-})
+  setCwd(originalCwd);
+});
 
 describe("loadConfig", () => {
   test("persists legacy installed map as string array", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "lexsys-config-"))
-    setCwd(directory)
+    const directory = await mkdtemp(join(tmpdir(), "lexsys-config-"));
+    setCwd(directory);
 
     await writeFile(
       join(directory, "lexsys.config.json"),
@@ -46,16 +46,16 @@ describe("loadConfig", () => {
         2,
       ) + "\n",
       "utf-8",
-    )
+    );
 
-    const config = await loadConfig()
+    const config = await loadConfig();
 
-    expect(config.installed).toEqual(["button", "card"])
+    expect(config.installed).toEqual(["button", "card"]);
 
     const saved = JSON.parse(
       await readFile(join(directory, "lexsys.config.json"), "utf-8"),
-    ) as { installed: string[] }
+    ) as { installed: string[] };
 
-    expect(saved.installed).toEqual(["button", "card"])
-  })
-})
+    expect(saved.installed).toEqual(["button", "card"]);
+  });
+});

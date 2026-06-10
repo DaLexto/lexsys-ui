@@ -21,7 +21,7 @@
  * - Values are unitless numbers from 0 to 1
  */
 
-import { primitiveTokens } from "../types/authoring"
+import { primitiveTokens } from "../types/authoring";
 
 export const opacityPrimitives = primitiveTokens("opacity", {
   $type: "number",
@@ -40,4 +40,4 @@ export const opacityPrimitives = primitiveTokens("opacity", {
   80: { $value: 0.8 },
   90: { $value: 0.9 },
   100: { $value: 1 },
-})
+});

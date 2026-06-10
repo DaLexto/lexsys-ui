@@ -1,8 +1,8 @@
-import type { TokenBuildArtifacts, TokenTree } from "../types"
+import type { TokenBuildArtifacts, TokenTree } from "../types";
 import {
   collectUsedPrimitivePaths,
   stripDeadPrimitivesFromTree,
-} from "../engine/resolver"
+} from "../engine/resolver";
 import {
   createDtcgThemeTokenInputFromJson,
   createDtcgTokenInputFromJson,
@@ -12,61 +12,61 @@ import {
   type StyleTokenInput,
   type StyleTokenInputOptions,
   type ThemeTokenInput,
-} from "./inputs"
+} from "./inputs";
 import {
   createCssBlock,
   createCssVariableEntries,
   type CssVarsGeneratorOptions,
   generateJsonTokens,
-} from "./outputs"
-import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared"
+} from "./outputs";
+import { DEFAULT_GENERATOR_METADATA_KEYS } from "./shared";
 import {
   createGeneratedStyleFileHeader,
   defaultStyleOutputConfig,
-} from "./generator.config"
+} from "./generator.config";
 
-const styleOutputConfig = defaultStyleOutputConfig
-const cssPrefix = styleOutputConfig.cssVarPrefix
-const twPrefix = styleOutputConfig.tailwindPrefix
+const styleOutputConfig = defaultStyleOutputConfig;
+const cssPrefix = styleOutputConfig.cssVarPrefix;
+const twPrefix = styleOutputConfig.tailwindPrefix;
 
 const cssVarsGeneratorOptions: Required<CssVarsGeneratorOptions> = {
   cssVarPrefix: cssPrefix,
   groupNameOverrides: styleOutputConfig.groupNameOverrides,
   metadataKeys: DEFAULT_GENERATOR_METADATA_KEYS,
-}
+};
 
 const toCssVarReference = (tokenName: string): string => {
-  return `var(--${cssPrefix}-${tokenName})`
-}
+  return `var(--${cssPrefix}-${tokenName})`;
+};
 
 const createTailwindThemeVariableName = (tokenName: string): string => {
-  const [sourcePrefix, ...tailwindNameParts] = tokenName.split("-")
+  const [sourcePrefix, ...tailwindNameParts] = tokenName.split("-");
 
   if (sourcePrefix === undefined || tailwindNameParts.length === 0) {
-    return `--${twPrefix}-${tokenName}`
+    return `--${twPrefix}-${tokenName}`;
   }
 
   const tailwindNamespace =
-    styleOutputConfig.tailwindThemeNamespaces[sourcePrefix]
+    styleOutputConfig.tailwindThemeNamespaces[sourcePrefix];
 
   if (tailwindNamespace === undefined) {
-    return `--${twPrefix}-${tokenName}`
+    return `--${twPrefix}-${tokenName}`;
   }
 
-  return `--${tailwindNamespace}-${twPrefix}-${tailwindNameParts.join("-")}`
-}
+  return `--${tailwindNamespace}-${twPrefix}-${tailwindNameParts.join("-")}`;
+};
 
 const getTailwindBaseTheme = (input: StyleTokenInput): ThemeTokenInput => {
   const lightTheme = input.themeTokens.find((theme) => {
-    return theme.name === "light"
-  })
+    return theme.name === "light";
+  });
 
   if (lightTheme === undefined) {
-    throw new Error("Tailwind @theme generation requires a light theme.")
+    throw new Error("Tailwind @theme generation requires a light theme.");
   }
 
-  return lightTheme
-}
+  return lightTheme;
+};
 
 const createTokensCss = (
   input: StyleTokenInput,
@@ -78,27 +78,27 @@ const createTokensCss = (
       cssVarsGeneratorOptions,
     ),
     ...createCssVariableEntries(input.componentTokens, cssVarsGeneratorOptions),
-  ]
+  ];
 
   return `${styleHeader}\n\n${createCssBlock(
     ":root",
     entries,
     cssVarsGeneratorOptions,
-  )}\n`
-}
+  )}\n`;
+};
 
 const createTokensCssFromTokenTree = (
   tokenTree: StyleTokenInput["tokenTree"],
   styleHeader: string,
 ) => {
-  const entries = createCssVariableEntries(tokenTree, cssVarsGeneratorOptions)
+  const entries = createCssVariableEntries(tokenTree, cssVarsGeneratorOptions);
 
   return `${styleHeader}\n\n${createCssBlock(
     ":root",
     entries,
     cssVarsGeneratorOptions,
-  )}\n`
-}
+  )}\n`;
+};
 
 const createTokenDocument = (
   tokenTree: TokenTree,
@@ -113,8 +113,8 @@ const createTokenDocument = (
       presetName: input.preset.name,
       tokenSetOrder,
     },
-  }).content
-}
+  }).content;
+};
 
 const createPresetDocumentTree = (input: StyleTokenInput): TokenTree => {
   return {
@@ -126,12 +126,12 @@ const createPresetDocumentTree = (input: StyleTokenInput): TokenTree => {
         : { brand: { $value: input.preset.brand, $type: "string" } }),
       themeModes: Object.fromEntries(
         input.preset.themeModes.map((themeMode) => {
-          return [themeMode, { $value: themeMode, $type: "string" }]
+          return [themeMode, { $value: themeMode, $type: "string" }];
         }),
       ),
     },
-  }
-}
+  };
+};
 
 const createMergedTokenDocumentTree = (input: StyleTokenInput): TokenTree => {
   return {
@@ -142,13 +142,13 @@ const createMergedTokenDocumentTree = (input: StyleTokenInput): TokenTree => {
     themes: {
       [input.preset.brand ?? input.preset.id]: Object.fromEntries(
         input.themeTokens.map((theme) => {
-          return [theme.name, theme.tokens]
+          return [theme.name, theme.tokens];
         }),
       ),
     },
     presets: createPresetDocumentTree(input),
-  }
-}
+  };
+};
 
 const createTokensJson = (input: StyleTokenInput): string => {
   return createTokenDocument(createMergedTokenDocumentTree(input), input, [
@@ -158,12 +158,12 @@ const createTokensJson = (input: StyleTokenInput): string => {
     "components",
     "themes",
     "presets",
-  ])
-}
+  ]);
+};
 
 const isSerializableTokenNode = (value: unknown): boolean => {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
-}
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+};
 
 const createTokenDocumentsFromGroups = (
   basePath: string,
@@ -174,16 +174,16 @@ const createTokenDocumentsFromGroups = (
   return Object.fromEntries(
     Object.entries(tokenTree)
       .filter(([key, value]) => {
-        return !key.startsWith("$") && isSerializableTokenNode(value)
+        return !key.startsWith("$") && isSerializableTokenNode(value);
       })
       .map(([key, value]) => {
         return [
           `${basePath}/${key}.tokens.json`,
           createTokenDocument({ [key]: value }, input, tokenSetOrder),
-        ]
+        ];
       }),
-  )
-}
+  );
+};
 
 const createThemeTokenDocument = (
   input: StyleTokenInput,
@@ -205,8 +205,8 @@ const createThemeTokenDocument = (
         },
       ],
     },
-  }).content
-}
+  }).content;
+};
 
 const createTokenJsonFiles = (
   input: StyleTokenInput,
@@ -237,23 +237,23 @@ const createTokenJsonFiles = (
       input,
       ["components"],
     ),
-  }
+  };
 
   input.themeTokens.forEach((theme) => {
     files[`tokens/dtcg/themes/${theme.name}.tokens.json`] =
-      createThemeTokenDocument(input, theme)
-  })
+      createThemeTokenDocument(input, theme);
+  });
 
-  return files
-}
+  return files;
+};
 
 const createThemeDocumentTree = (input: StyleTokenInput): TokenTree => {
   return Object.fromEntries(
     input.themeTokens.map((theme) => {
-      return [theme.name, theme.tokens]
+      return [theme.name, theme.tokens];
     }),
-  )
-}
+  );
+};
 
 const createThemesJson = (input: StyleTokenInput): string => {
   return generateJsonTokens(createThemeDocumentTree(input), {
@@ -269,87 +269,87 @@ const createThemesJson = (input: StyleTokenInput): string => {
           ...(theme.brand === undefined ? {} : { brand: theme.brand }),
           selector: theme.selector,
           colorScheme: theme.colorScheme,
-        }
+        };
       }),
     },
-  }).content
-}
+  }).content;
+};
 
 const createThemeBlock = (theme: ThemeTokenInput): string => {
   const entries = createCssVariableEntries(
     theme.tokens,
     cssVarsGeneratorOptions,
-  )
+  );
 
   return createCssBlock(theme.selector, entries, cssVarsGeneratorOptions, [
     `color-scheme: ${theme.colorScheme};`,
-  ])
-}
+  ]);
+};
 
 const createTailwindThemeBlock = (input: StyleTokenInput): string => {
-  const lightTheme = getTailwindBaseTheme(input)
+  const lightTheme = getTailwindBaseTheme(input);
   const tailwindThemeTokenTree = mergeTokenTrees(
     input.semanticTokens,
     lightTheme.tokens,
-  )
+  );
   const semanticEntries = createCssVariableEntries(
     tailwindThemeTokenTree,
     cssVarsGeneratorOptions,
-  )
+  );
 
   const themeLines = semanticEntries.map((entry) => {
-    return `  ${createTailwindThemeVariableName(entry.name)}: ${toCssVarReference(entry.name)};`
-  })
+    return `  ${createTailwindThemeVariableName(entry.name)}: ${toCssVarReference(entry.name)};`;
+  });
 
-  return ["@theme inline {", ...themeLines, "}"].join("\n")
-}
+  return ["@theme inline {", ...themeLines, "}"].join("\n");
+};
 
 const createThemeCss = (
   input: StyleTokenInput,
   styleHeader: string,
 ): string => {
   const themeBlocks = input.themeTokens.map((theme) => {
-    return createThemeBlock(theme)
-  })
+    return createThemeBlock(theme);
+  });
 
   return `${styleHeader}\n\n${[
     ...themeBlocks,
     createTailwindThemeBlock(input),
-  ].join("\n\n")}\n`
-}
+  ].join("\n\n")}\n`;
+};
 
 const applyStripDeadPrimitives = (input: StyleTokenInput): StyleTokenInput => {
-  const usedPaths = collectUsedPrimitivePaths(input)
+  const usedPaths = collectUsedPrimitivePaths(input);
   const filteredPrimitives = stripDeadPrimitivesFromTree(
     input.primitiveTokens,
     usedPaths,
-  )
+  );
   const foundationTokens = mergeTokenTrees(
     filteredPrimitives,
     input.brandTokens,
     input.semanticTokens,
-  )
+  );
 
   return {
     ...input,
     primitiveTokens: filteredPrimitives,
     foundationTokens,
     tokenTree: mergeTokenTrees(foundationTokens, input.componentTokens),
-  }
-}
+  };
+};
 
 export const createStyleOutputs = (
   options: StyleTokenInputOptions = {},
 ): TokenBuildArtifacts => {
-  const input = createStyleTokenInput(options)
+  const input = createStyleTokenInput(options);
 
-  validateStyleTokenInput(input)
+  validateStyleTokenInput(input);
 
   const outputInput = options.stripDeadPrimitives
     ? applyStripDeadPrimitives(input)
-    : input
+    : input;
 
-  const styleHeader = createGeneratedStyleFileHeader(options.generatedAt)
+  const styleHeader = createGeneratedStyleFileHeader(options.generatedAt);
 
   return {
     tokensCss: createTokensCss(outputInput, styleHeader),
@@ -357,59 +357,59 @@ export const createStyleOutputs = (
     tokensJson: createTokensJson(outputInput),
     tokenJsonFiles: createTokenJsonFiles(outputInput),
     themesJson: createThemesJson(outputInput),
-  }
-}
+  };
+};
 
 export const createTokensCssFromDtcgJson = (
   content: string,
   generatedAt?: Date,
 ): string => {
-  const input = createDtcgTokenInputFromJson(content)
+  const input = createDtcgTokenInputFromJson(content);
 
   return createTokensCssFromTokenTree(
     input.tokenTree,
     createGeneratedStyleFileHeader(generatedAt),
-  )
-}
+  );
+};
 
 export const createThemeCssFromDtcgJson = (
   tokensContent: string,
   themesContent: string,
   generatedAt?: Date,
 ): string => {
-  const tokenInput = createDtcgTokenInputFromJson(tokensContent)
-  const themeInput = createDtcgThemeTokenInputFromJson(themesContent)
+  const tokenInput = createDtcgTokenInputFromJson(tokensContent);
+  const themeInput = createDtcgThemeTokenInputFromJson(themesContent);
   const themeBlocks = themeInput.themes.map((theme) => {
-    return createThemeBlock(theme)
-  })
+    return createThemeBlock(theme);
+  });
   const lightTheme = themeInput.themes.find((theme) => {
-    return theme.name === "light"
-  })
+    return theme.name === "light";
+  });
 
   if (lightTheme === undefined) {
-    throw new Error("Tailwind @theme generation requires a light theme.")
+    throw new Error("Tailwind @theme generation requires a light theme.");
   }
 
-  const semanticTokenTree = tokenInput.semanticTokenTree
+  const semanticTokenTree = tokenInput.semanticTokenTree;
 
   if (semanticTokenTree === undefined) {
-    throw new Error('DTCG token document is missing a "semantics" layer.')
+    throw new Error('DTCG token document is missing a "semantics" layer.');
   }
 
   const tailwindThemeTokenTree = mergeTokenTrees(
     semanticTokenTree,
     lightTheme.tokens,
-  )
+  );
   const semanticEntries = createCssVariableEntries(
     tailwindThemeTokenTree,
     cssVarsGeneratorOptions,
-  )
+  );
   const themeLines = semanticEntries.map((entry) => {
-    return `  ${createTailwindThemeVariableName(entry.name)}: ${toCssVarReference(entry.name)};`
-  })
+    return `  ${createTailwindThemeVariableName(entry.name)}: ${toCssVarReference(entry.name)};`;
+  });
 
   return `${createGeneratedStyleFileHeader(generatedAt)}\n\n${[
     ...themeBlocks,
     ["@theme inline {", ...themeLines, "}"].join("\n"),
-  ].join("\n\n")}\n`
-}
+  ].join("\n\n")}\n`;
+};

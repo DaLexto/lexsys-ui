@@ -1,4 +1,4 @@
-import { Button, Input } from "@dalexto/lexsys-ui"
+import { Button, Input } from "@dalexto/lexsys-ui";
 
 const fontSizes = [
   { key: "xs", value: "0.75rem" },
@@ -11,7 +11,7 @@ const fontSizes = [
   { key: "4xl", value: "2.25rem" },
   { key: "5xl", value: "3rem" },
   { key: "6xl", value: "3.75rem" },
-] as const
+] as const;
 
 const radii = [
   { key: "none", label: "none — 0" },
@@ -21,14 +21,14 @@ const radii = [
   { key: "xl", label: "xl — 0.75rem" },
   { key: "2xl", label: "2xl — 1rem" },
   { key: "full", label: "full" },
-] as const
+] as const;
 
 const semanticRadii = [
   { key: "control", label: "control (→ md)" },
   { key: "selection", label: "selection (→ sm)" },
   { key: "surface", label: "surface (→ lg)" },
   { key: "pill", label: "pill (→ full)" },
-] as const
+] as const;
 
 const spacings = [
   { key: "1", value: "0.25rem" },
@@ -40,15 +40,15 @@ const spacings = [
   { key: "10", value: "2.5rem" },
   { key: "12", value: "3rem" },
   { key: "16", value: "4rem" },
-] as const
+] as const;
 
-const buttonSizes = ["xs", "sm", "md", "lg", "xl"] as const
-const inputSizes = ["sm", "md", "lg"] as const
+const buttonSizes = ["xs", "sm", "md", "lg", "xl"] as const;
+const inputSizes = ["sm", "md", "lg"] as const;
 
 const shadows = [
   { key: "floating", label: "floating" },
   { key: "raised", label: "raised" },
-] as const
+] as const;
 
 export const SizesPanel = () => {
   return (
@@ -196,5 +196,5 @@ export const SizesPanel = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { semanticTokens } from "../types/authoring"
+import { semanticTokens } from "../types/authoring";
 
 export const spacingSemantics = semanticTokens("spacing", {
   control: {
@@ -36,4 +36,4 @@ export const spacingSemantics = semanticTokens("spacing", {
   overlay: {
     sideOffset: { $value: "{spacing.2}" },
   },
-})
+});

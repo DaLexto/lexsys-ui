@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const paginationComponentTokens = componentTokens("pagination", {
   gap: { $value: "{spacing.control.gap.sm}" },
@@ -49,4 +49,4 @@ export const paginationComponentTokens = componentTokens("pagination", {
     duration: { $value: "{motion.duration.control}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

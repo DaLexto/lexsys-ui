@@ -70,8 +70,8 @@ Rules:
 - All three files MUST be present even for simple components.
 - Components MUST export from a single export block at the bottom of `.tsx`:
   ```ts
-  Component.displayName = "Component"
-  export { Component }
+  Component.displayName = "Component";
+  export { Component };
   ```
 
 ---
@@ -86,12 +86,12 @@ Public prop types for ref-capable components MUST include a precise
 
 ```tsx
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  ref?: React.Ref<HTMLSpanElement>
+  ref?: React.Ref<HTMLSpanElement>;
 }
 
 const Badge = ({ ref, ...props }: BadgeProps) => {
-  return <span ref={ref} {...props} />
-}
+  return <span ref={ref} {...props} />;
+};
 ```
 
 ---
@@ -185,9 +185,9 @@ All variant classes MUST reference `--lex-*` CSS custom properties via Tailwind
 v4 canonical CSS variable syntax, not hardcoded colors or spacing:
 
 ```ts
-"bg-(--lex-button-primary-background)" // correct
-"ring-(length:--lex-button-focus-ring-width)" // correct — token-backed focus ring
-"bg-orange-500" // incorrect
+"bg-(--lex-button-primary-background)"; // correct
+"ring-(length:--lex-button-focus-ring-width)"; // correct — token-backed focus ring
+"bg-orange-500"; // incorrect
 ```
 
 Do not use the legacy `[var(--lex-*)]` form or CSS variable alias utilities
@@ -217,10 +217,10 @@ cover reference primitives, blocks, and templates — full inventory in
 `@dalexto/lexsys-ui` imports.
 
 ```ts
-export * from "./components/primitives/Button/Button"
-export * from "./components/blocks/Sidebar/Sidebar"
-export * from "./components/templates/DashboardShell/DashboardShell"
-export type * from "./components/primitives/Button/Button.types"
+export * from "./components/primitives/Button/Button";
+export * from "./components/blocks/Sidebar/Sidebar";
+export * from "./components/templates/DashboardShell/DashboardShell";
+export type * from "./components/primitives/Button/Button.types";
 ```
 
 Rules:

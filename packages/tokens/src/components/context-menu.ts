@@ -1,4 +1,4 @@
-import { componentTokens } from "../types/authoring"
+import { componentTokens } from "../types/authoring";
 
 export const contextMenuComponentTokens = componentTokens("context-menu", {
   radius: { $value: "{radius.surface}" },
@@ -55,4 +55,4 @@ export const contextMenuComponentTokens = componentTokens("context-menu", {
     duration: { $value: "{motion.duration.surface}" },
     easing: { $value: "{motion.easing.control}" },
   },
-})
+});

@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, it } from "vitest"
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import {
   Card,
   CardAction,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../../src/components/primitives/Card/Card.js"
+} from "../../../src/components/primitives/Card/Card.js";
 
 describe("Card render", () => {
   it("renders card title and content with custom className", () => {
@@ -20,14 +20,14 @@ describe("Card render", () => {
         </CardHeader>
         <CardContent>Card body content</CardContent>
       </Card>,
-    )
+    );
 
-    expect(screen.getByText("Project summary")).toBeInTheDocument()
-    expect(screen.getByText("Card body content")).toBeInTheDocument()
+    expect(screen.getByText("Project summary")).toBeInTheDocument();
+    expect(screen.getByText("Card body content")).toBeInTheDocument();
     expect(
       screen.getByText("Project summary").closest(".custom-card"),
-    ).not.toBeNull()
-  })
+    ).not.toBeNull();
+  });
 
   it("renders CardAction inside CardHeader", () => {
     render(
@@ -40,11 +40,11 @@ describe("Card render", () => {
           </CardAction>
         </CardHeader>
       </Card>,
-    )
+    );
 
-    expect(screen.getByText("Settings")).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Edit" })).toBeInTheDocument()
-  })
+    expect(screen.getByText("Settings")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Edit" })).toBeInTheDocument();
+  });
 
   it("renders CardFooter with content", () => {
     render(
@@ -54,8 +54,8 @@ describe("Card render", () => {
           <button type="button">Save</button>
         </CardFooter>
       </Card>,
-    )
+    );
 
-    expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument()
-  })
-})
+    expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
+  });
+});

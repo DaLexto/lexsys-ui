@@ -4,7 +4,7 @@
  * Registry metadata for the SettingsPanel block.
  */
 
-import type { RegistryItem } from "../registry.types.js"
+import type { RegistryItem } from "../registry.types.js";
 
 export const settingsPanelRegistryItem: RegistryItem = {
   name: "settings-panel",
@@ -22,4 +22,4 @@ export const settingsPanelRegistryItem: RegistryItem = {
   utilities: ["cn"],
   styles: ["theme"],
   target: "src/components/ui/SettingsPanel",
-}
+};

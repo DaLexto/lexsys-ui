@@ -1,33 +1,36 @@
-import { CliError } from "../utils/cli-error.js"
-import type { RegistryItem } from "@dalexto/lexsys-registry"
+import { CliError } from "../utils/cli-error.js";
+import type { RegistryItem } from "@dalexto/lexsys-registry";
 import {
   registryUtilities as registryUtilityDefinitions,
   registryStyles as registryStyleDefinitions,
   validateRegistryItem,
-} from "@dalexto/lexsys-registry"
-import { getRegistryItems } from "./provider.js"
-import type { ResolvedRegistryStyle, ResolvedRegistryUtility } from "./types.js"
-import { findClosestValue } from "../utils/suggestions.js"
+} from "@dalexto/lexsys-registry";
+import { getRegistryItems } from "./provider.js";
+import type {
+  ResolvedRegistryStyle,
+  ResolvedRegistryUtility,
+} from "./types.js";
+import { findClosestValue } from "../utils/suggestions.js";
 
 const registryStyles =
-  registryStyleDefinitions as unknown as readonly ResolvedRegistryStyle[]
+  registryStyleDefinitions as unknown as readonly ResolvedRegistryStyle[];
 const registryUtilities =
-  registryUtilityDefinitions as unknown as readonly ResolvedRegistryUtility[]
+  registryUtilityDefinitions as unknown as readonly ResolvedRegistryUtility[];
 
 interface RegistryResolverOptions {
-  fallback?: boolean
+  fallback?: boolean;
 }
 
 const normalizeName = (name: string): string => {
-  return name.toLowerCase()
-}
+  return name.toLowerCase();
+};
 
 export const findItem = async (
   name: string,
   options: RegistryResolverOptions = {},
 ): Promise<RegistryItem | undefined> => {
-  const items = await getRegistryItems(options)
-  const normalizedName = normalizeName(name)
+  const items = await getRegistryItems(options);
+  const normalizedName = normalizeName(name);
 
   const item = items.find(
     (registryItem) =>
@@ -36,114 +39,114 @@ export const findItem = async (
       registryItem.aliases.some(
         (alias) => normalizeName(alias) === normalizedName,
       ),
-  )
+  );
 
   if (item) {
-    validateRegistryItem(item)
+    validateRegistryItem(item);
   }
 
-  return item
-}
+  return item;
+};
 
 export const resolveRegistryItems = async (
   names: string[],
   options: RegistryResolverOptions = {},
 ): Promise<RegistryItem[]> => {
-  const items = await getRegistryItems(options)
-  const resolved = new Map<string, RegistryItem>()
+  const items = await getRegistryItems(options);
+  const resolved = new Map<string, RegistryItem>();
 
   const findLocalItem = (name: string): RegistryItem | undefined => {
-    const normalizedName = normalizeName(name)
+    const normalizedName = normalizeName(name);
 
     return items.find(
       (item) =>
         normalizeName(item.name) === normalizedName ||
         normalizeName(item.canonicalName) === normalizedName ||
         item.aliases.some((alias) => normalizeName(alias) === normalizedName),
-    )
-  }
+    );
+  };
 
   const visit = (name: string): void => {
-    const item = findLocalItem(name)
+    const item = findLocalItem(name);
 
     if (!item) {
       const availableNames = items.flatMap((registryItem) => [
         registryItem.name,
         registryItem.canonicalName,
         ...registryItem.aliases,
-      ])
+      ]);
 
-      const suggestion = findClosestValue(name, availableNames)
+      const suggestion = findClosestValue(name, availableNames);
 
       throw new CliError(
         suggestion
           ? `Component "${name}" not found. Did you mean "${suggestion}"?`
           : `Component "${name}" not found.`,
-      )
+      );
     }
 
-    validateRegistryItem(item)
+    validateRegistryItem(item);
 
-    const key = normalizeName(item.canonicalName)
+    const key = normalizeName(item.canonicalName);
 
     if (resolved.has(key)) {
-      return
+      return;
     }
 
-    resolved.set(key, item)
+    resolved.set(key, item);
 
     for (const dependency of item.registryDependencies) {
-      visit(dependency)
+      visit(dependency);
     }
-  }
+  };
 
   for (const name of names) {
-    visit(name)
+    visit(name);
   }
 
-  return Array.from(resolved.values())
-}
+  return Array.from(resolved.values());
+};
 
 export const collectDependencies = (items: RegistryItem[]): string[] => {
-  return Array.from(new Set(items.flatMap((item) => item.dependencies)))
-}
+  return Array.from(new Set(items.flatMap((item) => item.dependencies)));
+};
 
 export const collectUtilities = (items: RegistryItem[]): string[] => {
-  return Array.from(new Set(items.flatMap((item) => item.utilities)))
-}
+  return Array.from(new Set(items.flatMap((item) => item.utilities)));
+};
 
 export const collectStyles = (items: RegistryItem[]): string[] => {
-  return Array.from(new Set(items.flatMap((item) => item.styles)))
-}
+  return Array.from(new Set(items.flatMap((item) => item.styles)));
+};
 
 export const resolveRegistryStyles = (
   names: string[],
 ): ResolvedRegistryStyle[] => {
   return names.map((name) => {
     const style = registryStyles.find((registryStyle) => {
-      return normalizeName(registryStyle.name) === normalizeName(name)
-    })
+      return normalizeName(registryStyle.name) === normalizeName(name);
+    });
 
     if (!style) {
-      throw new CliError(`Style "${name}" not found in registry.`)
+      throw new CliError(`Style "${name}" not found in registry.`);
     }
 
-    return style
-  })
-}
+    return style;
+  });
+};
 
 export const resolveRegistryUtilities = (
   names: string[],
 ): ResolvedRegistryUtility[] => {
   return names.map((name) => {
     const utility = registryUtilities.find((registryUtility) => {
-      return normalizeName(registryUtility.name) === normalizeName(name)
-    })
+      return normalizeName(registryUtility.name) === normalizeName(name);
+    });
 
     if (!utility) {
-      throw new CliError(`Utility "${name}" not found in registry.`)
+      throw new CliError(`Utility "${name}" not found in registry.`);
     }
 
-    return utility
-  })
-}
+    return utility;
+  });
+};
