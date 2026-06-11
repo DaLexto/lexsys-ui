@@ -396,8 +396,8 @@ const ensureRegistryIndex = async ({ checkOnly, indexPath, items }) => {
   const missingEntries = [];
 
   for (const item of items) {
-    const exportLine = `export { ${item.itemVariableName} } from "./${item.itemName}.js"\n`;
-    const importLine = `import { ${item.itemVariableName} } from "./${item.itemName}.js"\n`;
+    const exportLine = `export { ${item.itemVariableName} } from "./${item.itemName}.js";\n`;
+    const importLine = `import { ${item.itemVariableName} } from "./${item.itemName}.js";\n`;
     const registryEntry = `  ${item.itemVariableName},`;
 
     if (!source.includes(exportLine.trim())) {

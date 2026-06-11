@@ -103,7 +103,6 @@ export { formFieldRegistryItem } from "./form-field.js";
 export { settingsPanelRegistryItem } from "./settings-panel.js";
 export { sidebarRegistryItem } from "./sidebar.js";
 export { scrollAreaRegistryItem } from "./scroll-area.js";
-
 export { autocompleteRegistryItem } from "./autocomplete.js";
 export { checkboxGroupRegistryItem } from "./checkbox-group.js";
 export { comboboxRegistryItem } from "./combobox.js";
@@ -117,6 +116,7 @@ export { filterToolbarRegistryItem } from "./filter-toolbar.js";
 export { dataTableRegistryItem } from "./data-table.js";
 export { settingsPageLayoutRegistryItem } from "./settings-page-layout.js";
 export { tableRegistryItem } from "./table.js";
+
 export const registryItems: RegistryItem[] = [
   accordionRegistryItem,
   alertDialogRegistryItem,

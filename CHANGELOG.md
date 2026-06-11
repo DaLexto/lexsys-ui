@@ -17,9 +17,14 @@ and later stable cuts target **`latest`**. See [docs/operations/DEPLOY.md](../op
 
 ## [Unreleased]
 
+### Added
+
+- **Badge** — sizes `xs` / `sm` (default) / `md` / `lg` / `xl`; appearances `solid` / `subtle` / `outline` / `ghost` for all five variants (`neutral`, `primary`, `success`, `warning`, `danger`); `lexsys update badge` in consumer projects
+
 ### Fixed
 
 - **Sidebar (Next.js)** — extensionless relative imports in Sidebar registry templates (`./Sidebar.utils` not `./Sidebar.utils.js`); CLI install rewriter strips stray `.js` suffixes on block/template installs
+- **Registry sync** — `registry-item-generator.mjs` now emits semicolons in generated import/export lines so `pnpm registry:sync` no longer inserts duplicates into `index.ts` after `pnpm format`
 
 ### Changed
 
