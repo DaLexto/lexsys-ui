@@ -14,9 +14,9 @@ export type BadgeVariant =
   | "warning"
   | "danger";
 
-export type BadgeAppearance = "solid" | "outline";
+export type BadgeAppearance = "solid" | "subtle" | "outline" | "ghost";
 
-export type BadgeSize = "sm" | "md";
+export type BadgeSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface BadgeProps extends Omit<
   HTMLAttributes<HTMLSpanElement>,
